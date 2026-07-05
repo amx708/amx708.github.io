@@ -148,7 +148,7 @@ function loadArt(idx) {
   let h = '<div class="article-header"><div class="article-title">'+escHtml(a.title)+'</div><div class="article-meta"><span>📅 '+a.date+'</span><span>'+a.catIcon+' '+a.catName+'</span>';
   if(a.recommended) h += '<span class="badge">⭐ 强烈推荐</span>';
   h += '</div></div>';
-  h += '<div class="tts-bar"><button class="tts-btn play" onclick="ttsToggle()" id="ttsPlay">🔊 朗读全文</button><button class="tts-btn stop" onclick="ttsStop()" id="ttsStopBtn" disabled>⏹ 停止</button><span class="tts-speed">语言 <select id="ttsLang" onchange="ttsLangChange()"><option value="zh-CN" selected>普通话</option><option value="zh-HK">粤语</option></select></span><span class="tts-speed">语速 <select id="ttsSpeed" onchange="ttsSpeedChange()"><option value="0.8">慢速</option><option value="1" selected>正常</option><option value="1.3">快速</option><option value="1.6">很快</option></select></span><span class="tts-progress" id="ttsProgress" style="display:none"><div class="tts-progress-bar"><div class="tts-progress-fill" id="ttsProgressFill"></div></div><span id="ttsStatus"></span></span></div>';
+  h += '<div class="tts-bar"><button class="tts-btn play" onclick="ttsToggle()" id="ttsPlay">🔊 朗读全文</button><button class="tts-btn stop" onclick="ttsStop()" id="ttsStopBtn" disabled>⏹ 停止</button><span class="tts-speed">语言 <select id="ttsLang" onchange="ttsLangChange()"><option value="zh-CN" selected>普通话</option><option value="zh-HK">粤语</option></select></span><span class="tts-speed">语速 <select id="ttsSpeed" onchange="ttsSpeedChange()"><option value="0.8">慢速</option><option value="1" selected>正常</option><option value="1.3">快速</option><option value="1.6">很快</option></select></span><span class="tts-progress" id="ttsProgress" style="display:none"><div class="tts-progress-bar"><div class="tts-progress-fill" id="ttsProgressFill"></div></div><span id="ttsStatus"></span></span><span class="tts-voice-hint" id="ttsVoiceHint" style="font-size:11px;color:#9ca3af;margin-left:4px"></span></div>';
   // Split content into paragraphs for highlighting
   const paras = a.content.split(/\n+/).filter(p => p.trim());
   h += '<div class="article-body" id="articleBody">';
@@ -197,6 +197,40 @@ let ttsVoices = [];
 function loadVoices() {
   if ('speechSynthesis' in window) {
     ttsVoices = window.speechSynthesis.getVoices() || [];
+    updateVoiceHint();
+  }
+}
+function updateVoiceHint() {
+  const hint = document.getElementById('ttsVoiceHint');
+  if (!hint || ttsVoices.length === 0) return;
+  const lang = getTtsLang();
+  const zhVoices = ttsVoices.filter(v => v.lang && (v.lang.startsWith('zh') || v.lang.startsWith('cmn')));
+  if (lang === 'zh-HK') {
+    const hk = ttsVoices.find(v => v.lang === 'zh-HK' || (v.lang && v.lang.includes('HK')));
+    if (hk) {
+      hint.textContent = '✓ 粤语语音: ' + hk.name;
+      hint.style.color = '#10b981';
+    } else {
+      hint.textContent = '✗ 无粤语语音，将用普通话';
+      hint.style.color = '#ef4444';
+    }
+  } else {
+    const cn = ttsVoices.find(v => v.lang === 'zh-CN') ||
+               ttsVoices.find(v => v.lang && v.lang.startsWith('zh')) ||
+               ttsVoices.find(v => v.lang && v.lang.startsWith('cmn'));
+    if (cn) {
+      hint.textContent = '✓ ' + cn.name;
+      hint.style.color = '#10b981';
+    } else {
+      hint.textContent = '⚠ 未检测到中文语音，朗读可能不正常';
+      hint.style.color = '#f59e0b';
+    }
+  }
+  // Also update the Cantonese option label
+  const cantonOpt = document.querySelector('#ttsLang option[value="zh-HK"]');
+  if (cantonOpt) {
+    const hasHK = ttsVoices.some(v => v.lang === 'zh-HK' || (v.lang && v.lang.includes('HK')));
+    cantonOpt.textContent = hasHK ? '粤语' : '粤语 (未安装)';
   }
 }
 if ('speechSynthesis' in window) {
@@ -220,10 +254,13 @@ function ttsLangChange() {
     const has = ttsVoices.some(v => v.lang === 'zh-HK' || (v.lang && v.lang.includes('HK')));
     if (!has) {
       const s = document.getElementById('ttsStatus');
-      if (s) s.textContent = '⚠️ 系统未安装粤语语音包，将用普通话朗读';
+      if (s) s.textContent = '⚠️ 系统未安装粤语语音包，自动切换为普通话';
+      const sel = document.getElementById('ttsLang');
+      if (sel) sel.value = 'zh-CN';
       setTimeout(() => { if (ttsPlaying) document.getElementById('ttsStatus').textContent = '朗读中 ' + (ttsParaIdx + 1) + '/' + ttsParas.length; }, 3000);
     }
   }
+  updateVoiceHint();
 }
 function ttsToggle() {
   if (!('speechSynthesis' in window)) { alert('当前浏览器不支持语音朗读功能'); return; }
