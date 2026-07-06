@@ -351,8 +351,11 @@ function speakPara() {
   document.getElementById('ttsProgressFill').style.width = pct + '%';
   document.getElementById('ttsStatus').textContent = '朗读中 ' + (ttsParaIdx + 1) + '/' + ttsParas.length;
   // Speak this paragraph
-  const text = para.textContent.replace(/\s+/g,' ').trim();
+  let text = para.textContent.replace(/\s+/g,' ').trim();
   if (!text) { ttsParaIdx++; speakPara(); return; }
+  // 清理标点符号，避免被朗读出来（把标点替换成停顿）
+  text = text.replace(/，/g, '， ').replace(/。/g, '。 ').replace(/！/g, '！ ').replace(/？/g, '？ ')
+             .replace(/、/g, '、 ').replace(/；/g, '； ').replace(/：/g, '： ');
   // Split long paragraphs into chunks (browser limit ~32KB, but also helps with pauses)
   const sentences = text.match(/[^。！？!?\n]+[。！？!?\n]*/g) || [text];
   let buf = '';
