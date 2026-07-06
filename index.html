@@ -90,6 +90,10 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
 .reading-para { background:#fef3c7; border-left:3px solid #f59e0b; padding:4px 12px; margin:4px 0; border-radius:0 6px 6px 0; transition:background .3s; }
 .reading-para.done { background:transparent; border-left-color:transparent; opacity:.7; }
 .article-body p { margin:8px 0; padding:4px 8px; border-radius:4px; transition:all .3s; }
+.article-body p:hover { background:#f3f4f6; cursor:pointer; }
+.article-body p.done { opacity:0.6; }
+.auto-tts-btn { background:transparent; border:1.5px solid #7c3aed; color:#7c3aed; padding:5px 12px; border-radius:8px; font-size:12px; cursor:pointer; font-weight:600; transition:all .15s; }
+.auto-tts-btn.on { background:#7c3aed; color:#fff; }
 </style>
 </head>
 <body>
@@ -150,11 +154,11 @@ function loadArt(idx) {
   let h = '<div class="article-header"><div class="article-title">'+escHtml(a.title)+'</div><div class="article-meta"><span>📅 '+a.date+'</span><span>'+a.catIcon+' '+a.catName+'</span>';
   if(a.recommended) h += '<span class="badge">⭐ 强烈推荐</span>';
   h += '</div></div>';
-  h += '<div class="tts-bar"><button class="tts-btn play" onclick="ttsToggle()" id="ttsPlay">🔊 朗读全文</button><button class="tts-btn stop" onclick="ttsStop()" id="ttsStopBtn" disabled>⏹ 停止</button><span class="tts-speed">语言 <select id="ttsLang" onchange="ttsLangChange()"><option value="zh-CN" selected>普通话</option><option value="zh-HK">粤语</option></select></span><span class="tts-speed">语速 <select id="ttsSpeed" onchange="ttsSpeedChange()"><option value="0.8">慢速</option><option value="1" selected>正常</option><option value="1.3">快速</option><option value="1.6">很快</option></select></span><span class="tts-progress" id="ttsProgress" style="display:none"><div class="tts-progress-bar"><div class="tts-progress-fill" id="ttsProgressFill"></div></div><span id="ttsStatus"></span></span><span class="tts-voice-hint" id="ttsVoiceHint" style="font-size:11px;color:#9ca3af;margin-left:4px"></span></div>';
+  h += '<div class="tts-bar"><button class="tts-btn play" onclick="ttsToggle()" id="ttsPlay">🔊 朗读全文</button><button class="tts-btn stop" onclick="ttsStop()" id="ttsStopBtn" disabled>⏹ 停止</button><button class="auto-tts-btn" id="autoTtsBtn" onclick="toggleAutoTts()">▶ 自动朗读:关</button><span class="tts-speed">语言 <select id="ttsLang" onchange="ttsLangChange()"><option value="zh-CN" selected>普通话</option><option value="zh-HK">粤语</option></select></span><span class="tts-speed">语速 <select id="ttsSpeed" onchange="ttsSpeedChange()"><option value="0.8">慢速</option><option value="1" selected>正常</option><option value="1.3">快速</option><option value="1.6">很快</option></select></span><span class="tts-progress" id="ttsProgress" style="display:none"><div class="tts-progress-bar"><div class="tts-progress-fill" id="ttsProgressFill"></div></div><span id="ttsStatus"></span></span><span class="tts-voice-hint" id="ttsVoiceHint" style="font-size:11px;color:#9ca3af;margin-left:4px"></span></div>';
   // Split content into paragraphs for highlighting
   const paras = a.content.split(/\n+/).filter(p => p.trim());
   h += '<div class="article-body" id="articleBody">';
-  paras.forEach((p, i) => { h += '<p id="para-'+i+'">'+escHtml(p)+'</p>'; });
+  paras.forEach((p, i) => { h += '<p id="para-'+i+'" onclick="ttsSeekToParagraph('+i+')" title="点击从此段开始朗读" style="cursor:pointer">'+escHtml(p)+'</p>'; });
   h += '</div>';
   h += '<div class="nav-buttons">';
   if(idx>0) { const p=flat[idx-1]; h += '<div class="nav-btn prev" onclick="loadArt('+(idx-1)+')"><div class="label">← 上一篇</div><div class="title">'+escHtml(p.title)+'</div></div>'; } else { h += '<div></div>'; }
@@ -163,6 +167,27 @@ function loadArt(idx) {
   c.innerHTML = h;
   window.scrollTo({top:0,behavior:'smooth'});
   document.getElementById('topBtn').style.display = 'block';
+  // 进度条点击跳转
+  const progBar = document.getElementById('ttsProgressFill');
+  if (progBar) {
+    const barContainer = progBar.parentElement;
+    if (barContainer && !barContainer._clickBound) {
+      barContainer.style.cursor = 'pointer';
+      barContainer.title = '点击跳转到指定位置';
+      barContainer.addEventListener('click', function(e) {
+        if (!ttsPlaying || ttsParas.length === 0) return;
+        const rect = barContainer.getBoundingClientRect();
+        const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        const targetIdx = Math.min(Math.floor(pct * ttsParas.length), ttsParas.length - 1);
+        ttsSeekToParagraph(targetIdx);
+      });
+      barContainer._clickBound = true;
+    }
+  }
+  // 如果开启了自动朗读，加载文章后自动开始朗读
+  if (window._autoTts && !ttsPlaying) {
+    setTimeout(() => ttsToggle(), 500);
+  }
 }
 function escHtml(t) { const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
 function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('backdrop').classList.toggle('show'); }
@@ -303,7 +328,7 @@ function ttsToggle() {
   if (ttsPaused) { ttsResume(); return; }
   ttsStart();
 }
-function ttsStart() {
+function ttsStart(startParaIdx) {
   window.speechSynthesis.cancel();
   const body = document.getElementById('articleBody');
   if (!body) return;
@@ -321,7 +346,8 @@ function ttsStart() {
   }
   // Clear previous highlights
   ttsParas.forEach(p => p.classList.remove('reading-para','done'));
-  ttsParaIdx = 0;
+  // Support starting from a specific paragraph (for click-to-read feature)
+  ttsParaIdx = (startParaIdx !== undefined && startParaIdx >= 0 && startParaIdx < ttsParas.length) ? startParaIdx : 0;
   ttsPlaying = true;
   ttsPaused = false;
   updateTtsUI('playing');
@@ -460,6 +486,31 @@ function ttsResume() {
   else { window.speechSynthesis.resume(); }
   ttsPaused = false;
   updateTtsUI('playing');
+}
+function ttsSeekToParagraph(paraIdx) {
+  // Click on a paragraph → seek to that paragraph and start reading
+  const body = document.getElementById('articleBody');
+  if (!body) return;
+  const paras = Array.from(body.querySelectorAll('p'));
+  if (paraIdx < 0 || paraIdx >= paras.length) return;
+  if (ttsPlaying && !ttsMP3Mode) {
+    // Already reading with speechSynthesis → cancel current and jump to that paragraph
+    window.speechSynthesis.cancel();
+    ttsParas.forEach(p => p.classList.remove('reading-para','done'));
+    ttsParaIdx = paraIdx;
+    speakPara();
+  } else {
+    // Not reading yet → start from this paragraph
+    ttsStart(paraIdx);
+  }
+}
+function toggleAutoTts() {
+  window._autoTts = !window._autoTts;
+  const btn = document.getElementById('autoTtsBtn');
+  if (btn) {
+    btn.textContent = window._autoTts ? '▶ 自动朗读:开' : '▶ 自动朗读:关';
+    btn.className = 'auto-tts-btn' + (window._autoTts ? ' on' : '');
+  }
 }
 function ttsStop() {
   if (ttsMP3Mode && ttsAudio) { ttsAudio.pause(); ttsAudio.currentTime = 0; }
