@@ -154,7 +154,7 @@ function loadArt(idx) {
   let h = '<div class="article-header"><div class="article-title">'+escHtml(a.title)+'</div><div class="article-meta"><span>📅 '+a.date+'</span><span>'+a.catIcon+' '+a.catName+'</span>';
   if(a.recommended) h += '<span class="badge">⭐ 强烈推荐</span>';
   h += '</div></div>';
-  h += '<div class="tts-bar"><button class="tts-btn play" onclick="ttsToggle()" id="ttsPlay">🔊 朗读全文</button><button class="tts-btn stop" onclick="ttsStop()" id="ttsStopBtn" disabled>⏹ 停止</button><button class="auto-tts-btn" id="autoTtsBtn" onclick="toggleAutoTts()">▶ 自动朗读:关</button><span class="tts-speed">语言 <select id="ttsLang" onchange="ttsLangChange()"><option value="zh-CN" selected>普通话</option><option value="zh-HK">粤语</option></select></span><span class="tts-speed">语速 <select id="ttsSpeed" onchange="ttsSpeedChange()"><option value="0.8">慢速</option><option value="1" selected>正常</option><option value="1.3">快速</option><option value="1.6">很快</option></select></span><span class="tts-progress" id="ttsProgress" style="display:none"><div class="tts-progress-bar"><div class="tts-progress-fill" id="ttsProgressFill"></div></div><span id="ttsStatus"></span></span><span class="tts-voice-hint" id="ttsVoiceHint" style="font-size:11px;color:#9ca3af;margin-left:4px"></span></div>';
+  h += '<div class="tts-bar"><button class="tts-btn play" onclick="ttsToggle()" id="ttsPlay">🔊 朗读全文</button><button class="tts-btn stop" onclick="ttsStop()" id="ttsStopBtn" disabled>⏹ 停止</button><button class="auto-tts-btn" id="autoTtsBtn" onclick="toggleAutoTts()">▶ 自动朗读:关</button><span class="tts-speed">语言 <select id="ttsLang" onchange="ttsLangChange()"><option value="zh-CN" selected>普通话</option><option value="zh-HK">粤语</option></select></span><span class="tts-speed">语速 <select id="ttsSpeed" onchange="ttsSpeedChange()"><option value="0.8">慢速</option><option value="1" selected>正常</option><option value="1.3">快速</option><option value="1.6">很快</option></select></span><span class="tts-progress" id="ttsProgress" style="display:flex"><div class="tts-progress-bar" id="ttsProgressBar"><div class="tts-progress-fill" id="ttsProgressFill"></div></div><span id="ttsStatus">未开始朗读</span></span><span class="tts-voice-hint" id="ttsVoiceHint" style="font-size:11px;color:#9ca3af;margin-left:4px"></span></div>';
   // Split content into paragraphs for highlighting
   const paras = a.content.split(/\n+/).filter(p => p.trim());
   h += '<div class="article-body" id="articleBody">';
@@ -168,20 +168,23 @@ function loadArt(idx) {
   window.scrollTo({top:0,behavior:'smooth'});
   document.getElementById('topBtn').style.display = 'block';
   // 进度条点击跳转
-  const progBar = document.getElementById('ttsProgressFill');
+  const progBar = document.getElementById('ttsProgressBar');
   if (progBar) {
-    const barContainer = progBar.parentElement;
-    if (barContainer && !barContainer._clickBound) {
-      barContainer.style.cursor = 'pointer';
-      barContainer.title = '点击跳转到指定位置';
-      barContainer.addEventListener('click', function(e) {
+    if (!progBar._clickBound) {
+      progBar.style.cursor = 'pointer';
+      progBar.title = '点击跳转到指定段落';
+      progBar.addEventListener('click', function(e) {
         if (!ttsPlaying || ttsParas.length === 0) return;
-        const rect = barContainer.getBoundingClientRect();
+        const rect = progBar.getBoundingClientRect();
         const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
         const targetIdx = Math.min(Math.floor(pct * ttsParas.length), ttsParas.length - 1);
-        ttsSeekToParagraph(targetIdx);
+        // 先停止再重头上
+        window.speechSynthesis.cancel();
+        ttsParas.forEach(p => p.classList.remove('reading-para','done'));
+        ttsParaIdx = targetIdx;
+        speakPara();
       });
-      barContainer._clickBound = true;
+      progBar._clickBound = true;
     }
   }
   // 如果开启了自动朗读，加载文章后自动开始朗读
@@ -358,7 +361,6 @@ function speakPara() {
   if (ttsParaIdx >= ttsParas.length) {
     ttsStop();
     document.getElementById('ttsStatus').textContent = '✅ 朗读完毕';
-    setTimeout(() => { if(!ttsPlaying) document.getElementById('ttsProgress').style.display='none'; }, 3000);
     return;
   }
   // Mark previous as done
@@ -462,7 +464,6 @@ function updateMP3Progress() {
 function onMP3Ended() {
   ttsStop();
   document.getElementById('ttsStatus').textContent = '✅ 粤语朗读完毕';
-  setTimeout(() => { if(!ttsPlaying) document.getElementById('ttsProgress').style.display='none'; }, 3000);
 }
 function onMP3Error() {
   console.log('MP3 load error, falling back to speechSynthesis');
@@ -522,6 +523,10 @@ function ttsStop() {
   if (ttsParas.length) ttsParas.forEach(p => p.classList.remove('reading-para','done'));
   ttsParas = [];
   ttsParaIdx = 0;
+  // 重置进度条
+  document.getElementById('ttsProgressFill').style.width = '0%';
+  const st = document.getElementById('ttsStatus');
+  if (st) st.textContent = '未开始朗读';
   updateTtsUI('stopped');
 }
 function ttsSpeedChange() {
@@ -541,10 +546,9 @@ function updateTtsUI(state) {
   const btn = document.getElementById('ttsPlay');
   const stopBtn = document.getElementById('ttsStopBtn');
   const status = document.getElementById('ttsStatus');
-  const prog = document.getElementById('ttsProgress');
   if (state === 'playing') { btn.innerHTML = '⏸ 暂停'; btn.className = 'tts-btn pause'; stopBtn.disabled = false; }
   else if (state === 'paused') { btn.innerHTML = '▶ 继续'; btn.className = 'tts-btn play'; }
-  else { btn.innerHTML = '🔊 朗读全文'; btn.className = 'tts-btn play'; stopBtn.disabled = true; if (status) status.textContent = ''; if (prog) prog.style.display = 'none'; }
+  else { btn.innerHTML = '🔊 朗读全文'; btn.className = 'tts-btn play'; stopBtn.disabled = true; if (status) status.textContent = '未开始朗读'; }
 }
 </script>
 </body>
