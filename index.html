@@ -133,6 +133,8 @@ function toggleCat(ci) {
 function loadArt(idx) {
   if(idx<0||idx>=flat.length) return;
   if(window.speechSynthesis) window.speechSynthesis.cancel();
+  if(ttsAudio) { ttsAudio.pause(); ttsAudio.currentTime = 0; }
+  ttsMP3Mode = false;
   curIdx = idx;
   const a = flat[idx];
   document.querySelectorAll('.cat-list li').forEach(li => li.classList.remove('active'));
@@ -186,11 +188,13 @@ window.addEventListener('scroll', () => {
 renderSidebar();
 document.getElementById('cl0').classList.remove('hidden');
 
-// ===== TTS 朗读功能（分段高亮+自动滚动+多语言） =====
+// ===== TTS 朗读功能（分段高亮+自动滚动+多语言+粤语音频） =====
 let ttsPlaying = false;
 let ttsPaused = false;
 let ttsParas = [];
 let ttsParaIdx = 0;
+let ttsMP3Mode = false;
+let ttsAudio = null;
 let ttsVoices = [];
 
 // Load available voices
@@ -206,13 +210,18 @@ function updateVoiceHint() {
   const lang = getTtsLang();
   const zhVoices = ttsVoices.filter(v => v.lang && (v.lang.startsWith('zh') || v.lang.startsWith('cmn')));
   if (lang === 'zh-HK') {
-    const hk = ttsVoices.find(v => v.lang === 'zh-HK' || (v.lang && v.lang.includes('HK')));
-    if (hk) {
-      hint.textContent = '✓ 粤语语音: ' + hk.name;
+    if (window.location.protocol !== 'file:') {
+      hint.textContent = '🎵 在线粤语音频';
       hint.style.color = '#10b981';
     } else {
-      hint.textContent = '✗ 无粤语语音，将用普通话';
-      hint.style.color = '#ef4444';
+      const hk = ttsVoices.find(v => v.lang === 'zh-HK' || (v.lang && v.lang.includes('HK')));
+      if (hk) {
+        hint.textContent = '✓ 粤语语音: ' + hk.name;
+        hint.style.color = '#10b981';
+      } else {
+        hint.textContent = '✗ 无粤语语音，将用普通话';
+        hint.style.color = '#ef4444';
+      }
     }
   } else {
     const cn = ttsVoices.find(v => v.lang === 'zh-CN') ||
@@ -229,8 +238,12 @@ function updateVoiceHint() {
   // Also update the Cantonese option label
   const cantonOpt = document.querySelector('#ttsLang option[value="zh-HK"]');
   if (cantonOpt) {
-    const hasHK = ttsVoices.some(v => v.lang === 'zh-HK' || (v.lang && v.lang.includes('HK')));
-    cantonOpt.textContent = hasHK ? '粤语' : '粤语 (未安装)';
+    if (window.location.protocol !== 'file:') {
+      cantonOpt.textContent = '粤语 🎵';
+    } else {
+      const hasHK = ttsVoices.some(v => v.lang === 'zh-HK' || (v.lang && v.lang.includes('HK')));
+      cantonOpt.textContent = hasHK ? '粤语' : '粤语 (未安装)';
+    }
   }
 }
 if ('speechSynthesis' in window) {
@@ -251,18 +264,40 @@ function setTtsVoice(utterance) {
 function ttsLangChange() {
   const lang = getTtsLang();
   if (lang === 'zh-HK') {
-    const has = ttsVoices.some(v => v.lang === 'zh-HK' || (v.lang && v.lang.includes('HK')));
-    if (!has) {
-      const s = document.getElementById('ttsStatus');
-      if (s) s.textContent = '⚠️ 系统未安装粤语语音包，自动切换为普通话';
-      const sel = document.getElementById('ttsLang');
-      if (sel) sel.value = 'zh-CN';
-      setTimeout(() => { if (ttsPlaying) document.getElementById('ttsStatus').textContent = '朗读中 ' + (ttsParaIdx + 1) + '/' + ttsParas.length; }, 3000);
+    if (window.location.protocol === 'file:') {
+      // Desktop: check if system has Cantonese voice
+      const has = ttsVoices.some(v => v.lang === 'zh-HK' || (v.lang && v.lang.includes('HK')));
+      if (!has) {
+        const s = document.getElementById('ttsStatus');
+        if (s) s.textContent = '⚠️ 电脑未安装粤语语音包，自动切换为普通话';
+        const sel = document.getElementById('ttsLang');
+        if (sel) sel.value = 'zh-CN';
+        setTimeout(() => { if (ttsPlaying) document.getElementById('ttsStatus').textContent = '朗读中 ' + (ttsParaIdx + 1) + '/' + ttsParas.length; }, 3000);
+      }
+    } else {
+      // Online: use pre-generated MP3
+      const hint = document.getElementById('ttsVoiceHint');
+      if (hint) { hint.textContent = '🎵 在线粤语音频'; hint.style.color = '#10b981'; }
+      const opt = document.querySelector('#ttsLang option[value="zh-HK"]');
+      if (opt) opt.textContent = '粤语 🎵';
     }
+  } else {
+    updateVoiceHint();
   }
-  updateVoiceHint();
+  ttsStop();
 }
 function ttsToggle() {
+  const lang = getTtsLang();
+  // Cantonese + online → MP3 mode
+  if (lang === 'zh-HK' && window.location.protocol !== 'file:') {
+    if (ttsMP3Mode) {
+      if (ttsPlaying && !ttsPaused) { ttsPause(); return; }
+      if (ttsPaused) { ttsResume(); return; }
+    }
+    ttsStartMP3();
+    return;
+  }
+  // Otherwise: speechSynthesis
   if (!('speechSynthesis' in window)) { alert('当前浏览器不支持语音朗读功能'); return; }
   if (ttsPlaying && !ttsPaused) { ttsPause(); return; }
   if (ttsPaused) { ttsResume(); return; }
@@ -344,20 +379,91 @@ function speakPara() {
   }
   speakChunk();
 }
+// ===== MP3 粤语音频播放 =====
+function ttsStartMP3() {
+  ttsStop();
+  ttsMP3Mode = true;
+  if (!ttsAudio) {
+    ttsAudio = new Audio();
+    ttsAudio.addEventListener('timeupdate', updateMP3Progress);
+    ttsAudio.addEventListener('ended', onMP3Ended);
+    ttsAudio.addEventListener('error', onMP3Error);
+  }
+  const idx = curIdx;
+  let baseURL = window.location.href.replace(/\/[^\/]*$/, '/');
+  ttsAudio.src = baseURL + 'audio/' + idx + '.mp3';
+  ttsAudio.playbackRate = parseFloat(document.getElementById('ttsSpeed').value) || 1;
+  ttsPlaying = true;
+  ttsPaused = false;
+  updateTtsUI('playing');
+  document.getElementById('ttsProgress').style.display = 'flex';
+  document.getElementById('ttsStatus').textContent = '🎵 加载粤语音频...';
+  ttsAudio.play().catch(e => {
+    console.log('MP3 playback failed, falling back', e);
+    ttsMP3Mode = false;
+    if ('speechSynthesis' in window) ttsStart();
+    else alert('粤语音频加载失败，浏览器也不支持语音朗读');
+  });
+}
+function updateMP3Progress() {
+  if (!ttsAudio || !ttsMP3Mode) return;
+  const dur = ttsAudio.duration || 1;
+  const pct = Math.round((ttsAudio.currentTime / dur) * 100) || 0;
+  document.getElementById('ttsProgressFill').style.width = pct + '%';
+  const cm = Math.floor(ttsAudio.currentTime / 60);
+  const cs = Math.floor(ttsAudio.currentTime % 60);
+  const tm = Math.floor(dur / 60);
+  const ts = Math.floor(dur % 60);
+  document.getElementById('ttsStatus').textContent = '🎵 粤语 ' + cm + ':' + (cs<10?'0':'') + cs + '/' + tm + ':' + (ts<10?'0':'') + ts;
+  // Estimate current paragraph
+  const body = document.getElementById('articleBody');
+  if (body) {
+    const paras = body.querySelectorAll('p');
+    if (paras.length > 0) {
+      const estIdx = Math.min(Math.floor(pct / 100 * paras.length), paras.length - 1);
+      paras.forEach((p, i) => {
+        p.classList.remove('reading-para','done');
+        if (i < estIdx) p.classList.add('done');
+        else if (i === estIdx) p.classList.add('reading-para');
+      });
+      if (paras[estIdx] && pct > 0) paras[estIdx].scrollIntoView({ behavior:'smooth', block:'center' });
+    }
+  }
+}
+function onMP3Ended() {
+  ttsStop();
+  document.getElementById('ttsStatus').textContent = '✅ 粤语朗读完毕';
+  setTimeout(() => { if(!ttsPlaying) document.getElementById('ttsProgress').style.display='none'; }, 3000);
+}
+function onMP3Error() {
+  console.log('MP3 load error, falling back to speechSynthesis');
+  ttsMP3Mode = false;
+  if ('speechSynthesis' in window) {
+    document.getElementById('ttsStatus').textContent = '⚠️ 粤语音频加载失败，改用系统语音';
+    setTimeout(() => ttsStart(), 500);
+  } else {
+    alert('粤语音频加载失败');
+    ttsStop();
+  }
+}
 function ttsPause() {
-  window.speechSynthesis.pause();
+  if (ttsMP3Mode && ttsAudio) { ttsAudio.pause(); }
+  else { window.speechSynthesis.pause(); }
   ttsPaused = true;
   updateTtsUI('paused');
 }
 function ttsResume() {
-  window.speechSynthesis.resume();
+  if (ttsMP3Mode && ttsAudio) { ttsAudio.play(); }
+  else { window.speechSynthesis.resume(); }
   ttsPaused = false;
   updateTtsUI('playing');
 }
 function ttsStop() {
-  window.speechSynthesis.cancel();
+  if (ttsMP3Mode && ttsAudio) { ttsAudio.pause(); ttsAudio.currentTime = 0; }
+  else { window.speechSynthesis.cancel(); }
   ttsPlaying = false;
   ttsPaused = false;
+  ttsMP3Mode = false;
   // Clear highlights
   if (ttsParas.length) ttsParas.forEach(p => p.classList.remove('reading-para','done'));
   ttsParas = [];
@@ -365,6 +471,12 @@ function ttsStop() {
   updateTtsUI('stopped');
 }
 function ttsSpeedChange() {
+  if (ttsMP3Mode && ttsAudio) {
+    ttsAudio.playbackRate = parseFloat(document.getElementById('ttsSpeed').value) || 1;
+    const s = document.getElementById('ttsStatus');
+    if (s) { s.textContent = '语速已调整'; setTimeout(() => updateMP3Progress(), 1000); }
+    return;
+  }
   const s = document.getElementById('ttsStatus');
   if (s) {
     s.textContent = '语速已调整，下段生效';
