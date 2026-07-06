@@ -83,6 +83,21 @@ body {
   min-width: 180px;
   justify-content: flex-end;
 }
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.nav-link:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.6);
+}
 
 .tts-btn {
   padding: 8px 16px;
@@ -400,8 +415,8 @@ body {
 <div id="tts-toolbar">
   <div class="toolbar-inner">
     <div class="toolbar-left">
-      <span class="toolbar-logo">📊 股东信中文合集</span>
-      <span class="toolbar-subtitle">翻译来源：buffett-letters.com (RanRan版)</span>
+      <span class="toolbar-logo">📖 信息收录</span>
+      <span class="toolbar-subtitle">巴菲特致股东信（1957-1972）</span>
     </div>
     <div class="toolbar-center">
       <button id="btn-read-mandarin" class="tts-btn" onclick="startReading('zh-CN')" title="普通话朗读">
@@ -421,6 +436,7 @@ body {
       </button>
     </div>
     <div class="toolbar-right">
+      <a href="./index.html" class="nav-link">📖 跨境电商参考</a>
       <div class="speed-control">
         <label>语速</label>
         <input type="range" id="speed-slider" min="0.5" max="2" step="0.1" value="1" oninput="updateSpeed(this.value)">
