@@ -103,7 +103,8 @@ tbody tr:last-child td{border-bottom:none}
     <div class="stat-card"><div class="stat-number">355</div><div class="stat-label">投资记录</div></div>
     <div class="stat-card"><div class="stat-number">60</div><div class="stat-label">年跨度</div></div>
     <div class="stat-card"><div class="stat-number">57</div><div class="stat-label">行业覆盖</div></div>
-    <div class="stat-card"><div class="stat-number">50</div><div class="stat-label">当前持有</div></div>
+    <div class="stat-card"><div class="stat-number">50</div>
+              <div class="stat-label">当前持有</div></div>
   </div>
 
   <div class="table-wrap">
@@ -114,6 +115,8 @@ tbody tr:last-child td{border-bottom:none}
           <button class="sort-btn" data-sort="firstBuyYear" onclick="toggleSort('firstBuyYear',this)">首次买入 ↑</button>
           <button class="sort-btn" data-sort="lastSellYear" onclick="toggleSort('lastSellYear',this)">最后卖出 ↑</button>
           <button class="sort-btn" data-sort="holdYears" onclick="toggleSort('holdYears',this)">持有年数 ↑</button>
+          <button class="sort-btn" data-sort="maxShares" onclick="toggleSort('maxShares',this)">最高持股 ↑</button>
+          <button class="sort-btn" data-sort="lastShares" onclick="toggleSort('lastShares',this)">期末持股 ↑</button>
           <button class="sort-btn" data-sort="status" onclick="toggleSort('status',this)">状态 ↑</button>
         </div>
         <span class="count">共 355 条记录</span>
@@ -129,11 +132,13 @@ tbody tr:last-child td{border-bottom:none}
             <th onclick="toggleSort('firstBuyYear',null)" data-col="firstBuyYear">首次买入 <span class="sort-icon">↕</span></th>
             <th onclick="toggleSort('lastSellYear',null)" data-col="lastSellYear">最后卖出 <span class="sort-icon">↕</span></th>
             <th onclick="toggleSort('holdYears',null)" data-col="holdYears">持有年数 <span class="sort-icon">↕</span></th>
+            <th onclick="toggleSort('maxShares',null)" data-col="maxShares">最高持股 <span class="sort-icon">↕</span></th>
+            <th onclick="toggleSort('lastShares',null)" data-col="lastShares">期末持股 <span class="sort-icon">↕</span></th>
             <th onclick="toggleSort('status',null)" data-col="status">状态 <span class="sort-icon">↕</span></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+<tr>
             <td>
               <div class="company-name">Investors Diversified Services B</div>
               <div class="company-cn">投资者多元服务公司 B 股</div>
@@ -143,6 +148,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1967</span></td>
             <td><span class="year">1968</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="2100"><span class="shares">2,100股</span></td>
+            <td data-sort="2100"><span class="shares">2,100股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -155,6 +162,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1966</span></td>
             <td><span class="year">1968</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="2200"><span class="shares">2,200股</span></td>
+            <td data-sort="2200"><span class="shares">2,200股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -167,6 +176,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1966</span></td>
             <td><span class="year">1968</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="13400"><span class="shares">1.34万股</span></td>
+            <td data-sort="13400"><span class="shares">1.34万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -179,6 +190,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1967</span></td>
             <td><span class="year">1968</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="500"><span class="shares">500股</span></td>
+            <td data-sort="500"><span class="shares">500股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -191,6 +204,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1967</span></td>
             <td><span class="year">1968</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="11175"><span class="shares">1.12万股</span></td>
+            <td data-sort="11175"><span class="shares">1.12万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -203,6 +218,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1967</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="380600"><span class="shares">38.06万股</span></td>
+            <td data-sort="246800"><span class="shares">24.68万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -215,6 +232,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1968</span></td>
             <td><span class="year">1968</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="800"><span class="shares">800股</span></td>
+            <td data-sort="800"><span class="shares">800股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -227,6 +246,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1968</span></td>
             <td><span class="year">1968</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="1600"><span class="shares">1,600股</span></td>
+            <td data-sort="1600"><span class="shares">1,600股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -239,6 +260,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="1000"><span class="shares">1,000股</span></td>
+            <td data-sort="1000"><span class="shares">1,000股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -251,6 +274,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="59400"><span class="shares">5.94万股</span></td>
+            <td data-sort="59400"><span class="shares">5.94万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -263,6 +288,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1973</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="13285"><span class="shares">1.33万股</span></td>
+            <td data-sort="12785"><span class="shares">1.28万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -275,6 +302,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1972</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="853754"><span class="shares">85.38万股</span></td>
+            <td data-sort="853754"><span class="shares">85.38万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -287,6 +316,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="7568"><span class="shares">7,568股</span></td>
+            <td data-sort="3468"><span class="shares">3,468股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -299,6 +330,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="21010"><span class="shares">2.10万股</span></td>
+            <td data-sort="21010"><span class="shares">2.10万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -311,6 +344,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1972</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="1323"><span class="shares">1,323股</span></td>
+            <td data-sort="1323"><span class="shares">1,323股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -323,6 +358,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="23900"><span class="shares">2.39万股</span></td>
+            <td data-sort="23900"><span class="shares">2.39万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -335,6 +372,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="554"><span class="shares">554股</span></td>
+            <td data-sort="279"><span class="shares">279股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -347,6 +386,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1966</span></td>
             <td><span class="year">1968</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="40676"><span class="shares">4.07万股</span></td>
+            <td data-sort="40676"><span class="shares">4.07万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -359,6 +400,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1972</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="6300"><span class="shares">6,300股</span></td>
+            <td data-sort="6300"><span class="shares">6,300股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -371,6 +414,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="5000"><span class="shares">5,000股</span></td>
+            <td data-sort="5000"><span class="shares">5,000股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -383,6 +428,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1972</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="75400"><span class="shares">7.54万股</span></td>
+            <td data-sort="75400"><span class="shares">7.54万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -395,6 +442,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1972</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="2"><span class="shares">2股</span></td>
+            <td data-sort="2"><span class="shares">2股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -407,6 +456,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="53603"><span class="shares">5.36万股</span></td>
+            <td data-sort="53103"><span class="shares">5.31万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -419,6 +470,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1972</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="5180"><span class="shares">5,180股</span></td>
+            <td data-sort="5180"><span class="shares">5,180股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -431,6 +484,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="70774"><span class="shares">7.08万股</span></td>
+            <td data-sort="70774"><span class="shares">7.08万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -443,6 +498,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="11600"><span class="shares">1.16万股</span></td>
+            <td data-sort="11600"><span class="shares">1.16万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -455,6 +512,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="9769"><span class="shares">9,769股</span></td>
+            <td data-sort="7458"><span class="shares">7,458股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -467,6 +526,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="129734"><span class="shares">12.97万股</span></td>
+            <td data-sort="129734"><span class="shares">12.97万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -479,6 +540,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1972</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="1000"><span class="shares">1,000股</span></td>
+            <td data-sort="1000"><span class="shares">1,000股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -491,6 +554,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="850"><span class="shares">850股</span></td>
+            <td data-sort="850"><span class="shares">850股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -503,6 +568,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="3910"><span class="shares">3,910股</span></td>
+            <td data-sort="3910"><span class="shares">3,910股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -515,6 +582,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="32600"><span class="shares">3.26万股</span></td>
+            <td data-sort="10000"><span class="shares">1万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -527,6 +596,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="9250"><span class="shares">9,250股</span></td>
+            <td data-sort="9250"><span class="shares">9,250股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -539,6 +610,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1972</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="22574"><span class="shares">2.26万股</span></td>
+            <td data-sort="22574"><span class="shares">2.26万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -551,6 +624,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="377062"><span class="shares">37.71万股</span></td>
+            <td data-sort="377062"><span class="shares">37.71万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -563,6 +638,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="4350"><span class="shares">4,350股</span></td>
+            <td data-sort="4350"><span class="shares">4,350股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -575,6 +652,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="6667"><span class="shares">6,667股</span></td>
+            <td data-sort="6667"><span class="shares">6,667股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -587,6 +666,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="1541"><span class="shares">1,541股</span></td>
+            <td data-sort="1541"><span class="shares">1,541股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -599,6 +680,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="34700"><span class="shares">3.47万股</span></td>
+            <td data-sort="34700"><span class="shares">3.47万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -611,6 +694,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="5007"><span class="shares">5,007股</span></td>
+            <td data-sort="5007"><span class="shares">5,007股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -623,6 +708,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="53500"><span class="shares">5.35万股</span></td>
+            <td data-sort="53500"><span class="shares">5.35万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -635,6 +722,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="9440"><span class="shares">9,440股</span></td>
+            <td data-sort="9440"><span class="shares">9,440股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -647,6 +736,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="38300"><span class="shares">3.83万股</span></td>
+            <td data-sort="38300"><span class="shares">3.83万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -659,6 +750,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="4000"><span class="shares">4,000股</span></td>
+            <td data-sort="4000"><span class="shares">4,000股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -671,6 +764,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1973</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="39500"><span class="shares">3.95万股</span></td>
+            <td data-sort="39500"><span class="shares">3.95万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -683,6 +778,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1973</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="7800"><span class="shares">7,800股</span></td>
+            <td data-sort="7800"><span class="shares">7,800股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -695,6 +792,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="103600"><span class="shares">10.36万股</span></td>
+            <td data-sort="103600"><span class="shares">10.36万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -707,6 +806,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1973</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="35300"><span class="shares">3.53万股</span></td>
+            <td data-sort="35300"><span class="shares">3.53万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -719,6 +820,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="124200"><span class="shares">12.42万股</span></td>
+            <td data-sort="124200"><span class="shares">12.42万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -731,6 +834,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="9100"><span class="shares">9,100股</span></td>
+            <td data-sort="9100"><span class="shares">9,100股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -743,6 +848,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1973</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="4500"><span class="shares">4,500股</span></td>
+            <td data-sort="4500"><span class="shares">4,500股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -755,6 +862,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1973</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="3400"><span class="shares">3,400股</span></td>
+            <td data-sort="3400"><span class="shares">3,400股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -767,6 +876,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="66500"><span class="shares">6.65万股</span></td>
+            <td data-sort="66500"><span class="shares">6.65万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -779,6 +890,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="100000"><span class="shares">10万股</span></td>
+            <td data-sort="100000"><span class="shares">10万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -791,6 +904,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1974</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="13599"><span class="shares">1.36万股</span></td>
+            <td data-sort="13599"><span class="shares">1.36万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -803,6 +918,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1974</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="15000"><span class="shares">1.50万股</span></td>
+            <td data-sort="15000"><span class="shares">1.50万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -815,6 +932,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1974</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="2100"><span class="shares">2,100股</span></td>
+            <td data-sort="2100"><span class="shares">2,100股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -827,6 +946,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1974</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="42175"><span class="shares">4.22万股</span></td>
+            <td data-sort="42175"><span class="shares">4.22万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -839,6 +960,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1972</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="51300"><span class="shares">5.13万股</span></td>
+            <td data-sort="51300"><span class="shares">5.13万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -851,6 +974,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="1300"><span class="shares">1,300股</span></td>
+            <td data-sort="312"><span class="shares">312股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -863,6 +988,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="1760"><span class="shares">1,760股</span></td>
+            <td data-sort="1760"><span class="shares">1,760股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -875,6 +1002,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="1100"><span class="shares">1,100股</span></td>
+            <td data-sort="600"><span class="shares">600股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -887,6 +1016,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1973</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="64867"><span class="shares">6.49万股</span></td>
+            <td data-sort="64867"><span class="shares">6.49万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -899,6 +1030,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="3200"><span class="shares">3,200股</span></td>
+            <td data-sort="3200"><span class="shares">3,200股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -911,6 +1044,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="88700"><span class="shares">8.87万股</span></td>
+            <td data-sort="88700"><span class="shares">8.87万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -923,6 +1058,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="3189"><span class="shares">3,189股</span></td>
+            <td data-sort="3189"><span class="shares">3,189股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -935,6 +1072,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1976</span></td>
             <td><span class="year">1978</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="1986953"><span class="shares">198.70万股</span></td>
+            <td data-sort="1986953"><span class="shares">198.70万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -947,6 +1086,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1976</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="141987"><span class="shares">14.20万股</span></td>
+            <td data-sort="141987"><span class="shares">14.20万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -959,6 +1100,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1984</span></td>
             <td><span class="year">12</span></td>
+            <td data-sort="818872"><span class="shares">81.89万股</span></td>
+            <td data-sort="818872"><span class="shares">81.89万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -971,6 +1114,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1976</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="188900"><span class="shares">18.89万股</span></td>
+            <td data-sort="188900"><span class="shares">18.89万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -983,6 +1128,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1976</span></td>
             <td><span class="year">1995</span></td>
             <td><span class="year">20</span></td>
+            <td data-sort="34250000"><span class="shares">3,425万股</span></td>
+            <td data-sort="34250000"><span class="shares">3,425万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -995,6 +1142,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1976</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="99700"><span class="shares">9.97万股</span></td>
+            <td data-sort="83400"><span class="shares">8.34万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1007,6 +1156,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1983</span></td>
             <td><span class="year">11</span></td>
+            <td data-sort="391400"><span class="shares">39.14万股</span></td>
+            <td data-sort="250400"><span class="shares">25.04万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1019,6 +1170,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1976</span></td>
             <td><span class="year">1977</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="1305800"><span class="shares">130.58万股</span></td>
+            <td data-sort="1305800"><span class="shares">130.58万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1031,6 +1184,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1977</span></td>
             <td><span class="year">1977</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="220000"><span class="shares">22万股</span></td>
+            <td data-sort="220000"><span class="shares">22万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1043,6 +1198,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1978</span></td>
             <td><span class="year">1985</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="900800"><span class="shares">90.08万股</span></td>
+            <td data-sort="900800"><span class="shares">90.08万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1055,6 +1212,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1986</span></td>
             <td><span class="year">1995</span></td>
             <td><span class="year">10</span></td>
+            <td data-sort="20000000"><span class="shares">2,000万股</span></td>
+            <td data-sort="20000000"><span class="shares">2,000万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1067,6 +1226,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1966</span></td>
             <td><span class="year">2000</span></td>
             <td><span class="year">35</span></td>
+            <td data-sort="51202242"><span class="shares">5120.22万股</span></td>
+            <td data-sort="318342"><span class="shares">31.83万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1079,6 +1240,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1977</span></td>
             <td><span class="year">1980</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="1211834"><span class="shares">121.18万股</span></td>
+            <td data-sort="1211834"><span class="shares">121.18万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1091,6 +1254,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1977</span></td>
             <td><span class="year">1978</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="453800"><span class="shares">45.38万股</span></td>
+            <td data-sort="453800"><span class="shares">45.38万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1103,6 +1268,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1978</span></td>
             <td><span class="year">1981</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="1250525"><span class="shares">125.05万股</span></td>
+            <td data-sort="785225"><span class="shares">78.52万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1115,6 +1282,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">2013</span></td>
             <td><span class="year">41</span></td>
+            <td data-sort="1868600"><span class="shares">186.86万股</span></td>
+            <td data-sort="1727765"><span class="shares">172.78万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1127,6 +1296,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1979</span></td>
             <td><span class="year">1980</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="771900"><span class="shares">77.19万股</span></td>
+            <td data-sort="667124"><span class="shares">66.71万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1139,6 +1310,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1974</span></td>
             <td><span class="year">1986</span></td>
             <td><span class="year">13</span></td>
+            <td data-sort="2379200"><span class="shares">237.92万股</span></td>
+            <td data-sort="2379200"><span class="shares">237.92万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1151,6 +1324,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1979</span></td>
             <td><span class="year">1984</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="4451544"><span class="shares">445.15万股</span></td>
+            <td data-sort="4047191"><span class="shares">404.72万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1163,6 +1338,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1979</span></td>
             <td><span class="year">2014</span></td>
             <td><span class="year">36</span></td>
+            <td data-sort="4646220"><span class="shares">464.62万股</span></td>
+            <td data-sort="4646220"><span class="shares">464.62万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1175,6 +1352,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1973</span></td>
             <td><span class="year">1985</span></td>
             <td><span class="year">13</span></td>
+            <td data-sort="1036461"><span class="shares">103.65万股</span></td>
+            <td data-sort="1036461"><span class="shares">103.65万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1187,6 +1366,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1980</span></td>
             <td><span class="year">1981</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="703634"><span class="shares">70.36万股</span></td>
+            <td data-sort="703634"><span class="shares">70.36万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1199,6 +1380,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1979</span></td>
             <td><span class="year">1979</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="112545"><span class="shares">11.25万股</span></td>
+            <td data-sort="112545"><span class="shares">11.25万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1211,6 +1394,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1980</span></td>
             <td><span class="year">1981</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="370088"><span class="shares">37.01万股</span></td>
+            <td data-sort="370088"><span class="shares">37.01万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1223,6 +1408,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1981</span></td>
             <td><span class="year">10</span></td>
+            <td data-sort="475217"><span class="shares">47.52万股</span></td>
+            <td data-sort="475217"><span class="shares">47.52万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1235,6 +1422,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1980</span></td>
             <td><span class="year">1980</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="247039"><span class="shares">24.70万股</span></td>
+            <td data-sort="247039"><span class="shares">24.70万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1247,6 +1436,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1980</span></td>
             <td><span class="year">1980</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="151104"><span class="shares">15.11万股</span></td>
+            <td data-sort="151104"><span class="shares">15.11万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1259,6 +1450,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1980</span></td>
             <td><span class="year">1980</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="881500"><span class="shares">88.15万股</span></td>
+            <td data-sort="881500"><span class="shares">88.15万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1271,6 +1464,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1981</span></td>
             <td><span class="year">1981</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="420441"><span class="shares">42.04万股</span></td>
+            <td data-sort="420441"><span class="shares">42.04万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1283,6 +1478,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1980</span></td>
             <td><span class="year">1983</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="5618661"><span class="shares">561.87万股</span></td>
+            <td data-sort="5618661"><span class="shares">561.87万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1295,6 +1492,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1982</span></td>
             <td><span class="year">1982</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="908800"><span class="shares">90.88万股</span></td>
+            <td data-sort="908800"><span class="shares">90.88万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1307,6 +1506,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1984</span></td>
             <td><span class="year">1984</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="3895710"><span class="shares">389.57万股</span></td>
+            <td data-sort="3895710"><span class="shares">389.57万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1319,6 +1520,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1984</span></td>
             <td><span class="year">1984</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="555949"><span class="shares">55.59万股</span></td>
+            <td data-sort="555949"><span class="shares">55.59万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1331,6 +1534,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1982</span></td>
             <td><span class="year">1985</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="2553488"><span class="shares">255.35万股</span></td>
+            <td data-sort="847788"><span class="shares">84.78万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1343,6 +1548,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1985</span></td>
             <td><span class="year">1985</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="2350922"><span class="shares">235.09万股</span></td>
+            <td data-sort="2350922"><span class="shares">235.09万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1355,6 +1562,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1986</span></td>
             <td><span class="year">1986</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="489300"><span class="shares">48.93万股</span></td>
+            <td data-sort="489300"><span class="shares">48.93万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1367,6 +1576,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1988</span></td>
             <td><span class="year">2000</span></td>
             <td><span class="year">13</span></td>
+            <td data-sort="64246000"><span class="shares">6424.60万股</span></td>
+            <td data-sort="2116550"><span class="shares">211.66万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1379,6 +1590,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1988</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">39</span></td>
+            <td data-sort="400000000"><span class="shares">4亿股</span></td>
+            <td data-sort="400000000"><span class="shares">4亿股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -1391,6 +1604,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1990</span></td>
             <td><span class="year">2021</span></td>
             <td><span class="year">32</span></td>
+            <td data-sort="479704270"><span class="shares">4.80亿股</span></td>
+            <td data-sort="675054"><span class="shares">67.51万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1403,6 +1618,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1991</span></td>
             <td><span class="year">1993</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="38335000"><span class="shares">3833.50万股</span></td>
+            <td data-sort="38335000"><span class="shares">3833.50万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1415,6 +1632,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1991</span></td>
             <td><span class="year">2005</span></td>
             <td><span class="year">15</span></td>
+            <td data-sort="100980000"><span class="shares">1.01亿股</span></td>
+            <td data-sort="100980000"><span class="shares">1.01亿股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1427,6 +1646,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1992</span></td>
             <td><span class="year">2012</span></td>
             <td><span class="year">21</span></td>
+            <td data-sort="4973777"><span class="shares">497.38万股</span></td>
+            <td data-sort="3877122"><span class="shares">387.71万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1439,6 +1660,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1994</span></td>
             <td><span class="year">1994</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="19453300"><span class="shares">1945.33万股</span></td>
+            <td data-sort="19453300"><span class="shares">1945.33万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1451,6 +1674,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1996</span></td>
             <td><span class="year">1996</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="30156600"><span class="shares">3015.66万股</span></td>
+            <td data-sort="30156600"><span class="shares">3015.66万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1463,6 +1688,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1999</span></td>
             <td><span class="year">2000</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="710000"><span class="shares">71万股</span></td>
+            <td data-sort="710000"><span class="shares">71万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1475,6 +1702,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1999</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">28</span></td>
+            <td data-sort="6614112"><span class="shares">661.41万股</span></td>
+            <td data-sort="3907075"><span class="shares">390.71万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -1487,6 +1716,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2007</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="18761400"><span class="shares">1876.14万股</span></td>
+            <td data-sort="1246800"><span class="shares">124.68万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1499,6 +1730,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2000</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="3500"><span class="shares">3,500股</span></td>
+            <td data-sort="3500"><span class="shares">3,500股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1511,6 +1744,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1967</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">60</span></td>
+            <td data-sort="151610700"><span class="shares">1.52亿股</span></td>
+            <td data-sort="151610700"><span class="shares">1.52亿股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -1523,6 +1758,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2000</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="1907100"><span class="shares">190.71万股</span></td>
+            <td data-sort="1907100"><span class="shares">190.71万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1535,6 +1772,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2005</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="3217100"><span class="shares">321.71万股</span></td>
+            <td data-sort="784500"><span class="shares">78.45万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1547,6 +1786,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2006</span></td>
             <td><span class="year">7</span></td>
+            <td data-sort="20000000"><span class="shares">2,000万股</span></td>
+            <td data-sort="10000000"><span class="shares">1,000万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1559,6 +1800,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2000</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="795200"><span class="shares">79.52万股</span></td>
+            <td data-sort="795200"><span class="shares">79.52万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1571,6 +1814,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2001</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="4921300"><span class="shares">492.13万股</span></td>
+            <td data-sort="4921300"><span class="shares">492.13万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1583,6 +1828,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2001</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="4600559"><span class="shares">460.06万股</span></td>
+            <td data-sort="2743879"><span class="shares">274.39万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1595,6 +1842,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2000</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="105000"><span class="shares">10.50万股</span></td>
+            <td data-sort="105000"><span class="shares">10.50万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1607,6 +1856,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2003</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="12000000"><span class="shares">1,200万股</span></td>
+            <td data-sort="136000"><span class="shares">13.60万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1619,6 +1870,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2007</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="11234500"><span class="shares">1123.45万股</span></td>
+            <td data-sort="10000000"><span class="shares">1,000万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1631,6 +1884,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1981</span></td>
             <td><span class="year">2003</span></td>
             <td><span class="year">23</span></td>
+            <td data-sort="7340700"><span class="shares">734.07万股</span></td>
+            <td data-sort="2228900"><span class="shares">222.89万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1643,6 +1898,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1994</span></td>
             <td><span class="year">2013</span></td>
             <td><span class="year">20</span></td>
+            <td data-sort="6854500"><span class="shares">685.45万股</span></td>
+            <td data-sort="1740231"><span class="shares">174.02万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1655,6 +1912,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2000</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="4786900"><span class="shares">478.69万股</span></td>
+            <td data-sort="4786900"><span class="shares">478.69万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1667,6 +1926,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2003</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="7000000"><span class="shares">700万股</span></td>
+            <td data-sort="547700"><span class="shares">54.77万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1679,6 +1940,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2002</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="15750000"><span class="shares">1,575万股</span></td>
+            <td data-sort="894200"><span class="shares">89.42万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1691,6 +1954,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2001</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="54100"><span class="shares">5.41万股</span></td>
+            <td data-sort="54100"><span class="shares">5.41万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1703,6 +1968,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2002</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="4894500"><span class="shares">489.45万股</span></td>
+            <td data-sort="334200"><span class="shares">33.42万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1715,6 +1982,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2020</span></td>
             <td><span class="year">21</span></td>
+            <td data-sort="6715060"><span class="shares">671.51万股</span></td>
+            <td data-sort="2919613"><span class="shares">291.96万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1727,6 +1996,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">27</span></td>
+            <td data-sort="48000000"><span class="shares">4,800万股</span></td>
+            <td data-sort="24669778"><span class="shares">2466.98万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -1739,6 +2010,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2001</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="860000"><span class="shares">86万股</span></td>
+            <td data-sort="860000"><span class="shares">86万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1751,6 +2024,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2006</span></td>
             <td><span class="year">7</span></td>
+            <td data-sort="4304900"><span class="shares">430.49万股</span></td>
+            <td data-sort="677700"><span class="shares">67.77万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1763,6 +2038,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2010</span></td>
             <td><span class="year">11</span></td>
+            <td data-sort="8000000"><span class="shares">800万股</span></td>
+            <td data-sort="3642929"><span class="shares">364.29万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1775,6 +2052,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2000</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="2194200"><span class="shares">219.42万股</span></td>
+            <td data-sort="2194200"><span class="shares">219.42万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1787,6 +2066,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2005</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="22000000"><span class="shares">2,200万股</span></td>
+            <td data-sort="7101500"><span class="shares">710.15万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1799,6 +2080,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2001</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="179400"><span class="shares">17.94万股</span></td>
+            <td data-sort="105800"><span class="shares">10.58万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1811,6 +2094,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2009</span></td>
             <td><span class="year">10</span></td>
+            <td data-sort="6641400"><span class="shares">664.14万股</span></td>
+            <td data-sort="2398206"><span class="shares">239.82万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1823,6 +2108,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2019</span></td>
             <td><span class="year">20</span></td>
+            <td data-sort="6353727"><span class="shares">635.37万股</span></td>
+            <td data-sort="6353727"><span class="shares">635.37万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1835,6 +2122,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2019</span></td>
             <td><span class="year">20</span></td>
+            <td data-sort="39002016"><span class="shares">3900.20万股</span></td>
+            <td data-sort="39002016"><span class="shares">3900.20万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1847,6 +2136,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2011</span></td>
             <td><span class="year">12</span></td>
+            <td data-sort="5703087"><span class="shares">570.31万股</span></td>
+            <td data-sort="5703087"><span class="shares">570.31万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1859,6 +2150,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2001</span></td>
             <td><span class="year">2003</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="4500000"><span class="shares">450万股</span></td>
+            <td data-sort="2000000"><span class="shares">200万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1871,6 +2164,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2004</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="816655"><span class="shares">81.67万股</span></td>
+            <td data-sort="53955"><span class="shares">5.40万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1883,6 +2178,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2001</span></td>
             <td><span class="year">2006</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="1867500"><span class="shares">186.75万股</span></td>
+            <td data-sort="1818800"><span class="shares">181.88万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1895,6 +2192,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2001</span></td>
             <td><span class="year">2001</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="5000000"><span class="shares">500万股</span></td>
+            <td data-sort="5000000"><span class="shares">500万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1907,6 +2206,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2000</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="18464635"><span class="shares">1846.46万股</span></td>
+            <td data-sort="18464635"><span class="shares">1846.46万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1919,6 +2220,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2001</span></td>
             <td><span class="year">2001</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="2250000"><span class="shares">225万股</span></td>
+            <td data-sort="2250000"><span class="shares">225万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1931,6 +2234,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2001</span></td>
             <td><span class="year">2001</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="637500"><span class="shares">63.75万股</span></td>
+            <td data-sort="637500"><span class="shares">63.75万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1943,6 +2248,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2001</span></td>
             <td><span class="year">2001</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="2144205"><span class="shares">214.42万股</span></td>
+            <td data-sort="2144205"><span class="shares">214.42万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1955,6 +2262,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2001</span></td>
             <td><span class="year">2007</span></td>
             <td><span class="year">7</span></td>
+            <td data-sort="11062700"><span class="shares">1106.27万股</span></td>
+            <td data-sort="10962400"><span class="shares">1096.24万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1967,6 +2276,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2002</span></td>
             <td><span class="year">2003</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="5735000"><span class="shares">573.50万股</span></td>
+            <td data-sort="1415700"><span class="shares">141.57万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1979,6 +2290,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2002</span></td>
             <td><span class="year">2002</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="500000"><span class="shares">50万股</span></td>
+            <td data-sort="500000"><span class="shares">50万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -1991,6 +2304,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2001</span></td>
             <td><span class="year">2010</span></td>
             <td><span class="year">10</span></td>
+            <td data-sort="9047850"><span class="shares">904.78万股</span></td>
+            <td data-sort="8000000"><span class="shares">800万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2003,6 +2318,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2003</span></td>
             <td><span class="year">2006</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="2338961000"><span class="shares">23.39亿股</span></td>
+            <td data-sort="2338961000"><span class="shares">23.39亿股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2015,6 +2332,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2002</span></td>
             <td><span class="year">2002</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="542800"><span class="shares">54.28万股</span></td>
+            <td data-sort="542800"><span class="shares">54.28万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2027,6 +2346,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2002</span></td>
             <td><span class="year">2007</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="718800"><span class="shares">71.88万股</span></td>
+            <td data-sort="659000"><span class="shares">65.90万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2039,6 +2360,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2002</span></td>
             <td><span class="year">2020</span></td>
             <td><span class="year">19</span></td>
+            <td data-sort="9197984"><span class="shares">919.80万股</span></td>
+            <td data-sort="1919827"><span class="shares">191.98万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2051,6 +2374,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2002</span></td>
             <td><span class="year">2011</span></td>
             <td><span class="year">10</span></td>
+            <td data-sort="1538377"><span class="shares">153.84万股</span></td>
+            <td data-sort="1538377"><span class="shares">153.84万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2063,6 +2388,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2003</span></td>
             <td><span class="year">2003</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="4813900"><span class="shares">481.39万股</span></td>
+            <td data-sort="1418800"><span class="shares">141.88万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2075,6 +2402,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2003</span></td>
             <td><span class="year">2003</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="19877465"><span class="shares">1987.75万股</span></td>
+            <td data-sort="1644900"><span class="shares">164.49万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2087,6 +2416,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2003</span></td>
             <td><span class="year">2003</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="1590696"><span class="shares">159.07万股</span></td>
+            <td data-sort="1590696"><span class="shares">159.07万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2099,6 +2430,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2003</span></td>
             <td><span class="year">2003</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="200000"><span class="shares">20万股</span></td>
+            <td data-sort="200000"><span class="shares">20万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2111,6 +2444,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2003</span></td>
             <td><span class="year">2004</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="17900700"><span class="shares">1790.07万股</span></td>
+            <td data-sort="13500200"><span class="shares">1350.02万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2123,6 +2458,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2003</span></td>
             <td><span class="year">2003</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="10000000"><span class="shares">1,000万股</span></td>
+            <td data-sort="10000000"><span class="shares">1,000万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2135,6 +2472,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2004</span></td>
             <td><span class="year">2007</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="1724200"><span class="shares">172.42万股</span></td>
+            <td data-sort="1724200"><span class="shares">172.42万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2147,6 +2486,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2003</span></td>
             <td><span class="year">2007</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="5611600"><span class="shares">561.16万股</span></td>
+            <td data-sort="3998000"><span class="shares">399.80万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2159,6 +2500,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2004</span></td>
             <td><span class="year">2007</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="8000000"><span class="shares">800万股</span></td>
+            <td data-sort="1483400"><span class="shares">148.34万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2171,6 +2514,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2004</span></td>
             <td><span class="year">2010</span></td>
             <td><span class="year">7</span></td>
+            <td data-sort="12000000"><span class="shares">1,200万股</span></td>
+            <td data-sort="186897"><span class="shares">18.69万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2183,6 +2528,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2004</span></td>
             <td><span class="year">2005</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="375500"><span class="shares">37.55万股</span></td>
+            <td data-sort="375500"><span class="shares">37.55万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2195,6 +2542,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2004</span></td>
             <td><span class="year">2008</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="46539300"><span class="shares">4653.93万股</span></td>
+            <td data-sort="13845000"><span class="shares">1384.50万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2207,6 +2556,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2005</span></td>
             <td><span class="year">2010</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="5000000"><span class="shares">500万股</span></td>
+            <td data-sort="2757898"><span class="shares">275.79万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2219,6 +2570,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2005</span></td>
             <td><span class="year">2006</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="3000000"><span class="shares">300万股</span></td>
+            <td data-sort="2521100"><span class="shares">252.11万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2231,6 +2584,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2005</span></td>
             <td><span class="year">2010</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="7000000"><span class="shares">700万股</span></td>
+            <td data-sort="6500000"><span class="shares">650万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2243,6 +2598,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2005</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">19</span></td>
+            <td data-sort="105847000"><span class="shares">1.06亿股</span></td>
+            <td data-sort="315400"><span class="shares">31.54万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2255,6 +2612,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2005</span></td>
             <td><span class="year">2007</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="10000000"><span class="shares">1,000万股</span></td>
+            <td data-sort="6310200"><span class="shares">631.02万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2267,6 +2626,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2005</span></td>
             <td><span class="year">2007</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="30322137"><span class="shares">3032.21万股</span></td>
+            <td data-sort="661742"><span class="shares">66.17万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2279,6 +2640,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2005</span></td>
             <td><span class="year">2018</span></td>
             <td><span class="year">14</span></td>
+            <td data-sort="60385293"><span class="shares">6038.53万股</span></td>
+            <td data-sort="1393513"><span class="shares">139.35万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2291,6 +2654,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2005</span></td>
             <td><span class="year">2014</span></td>
             <td><span class="year">10</span></td>
+            <td data-sort="83955800"><span class="shares">8395.58万股</span></td>
+            <td data-sort="471994"><span class="shares">47.20万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2303,6 +2668,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2006</span></td>
             <td><span class="year">2017</span></td>
             <td><span class="year">12</span></td>
+            <td data-sort="10585502"><span class="shares">1058.55万股</span></td>
+            <td data-sort="10585502"><span class="shares">1058.55万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2315,6 +2682,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2006</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">18</span></td>
+            <td data-sort="61754448"><span class="shares">6175.44万股</span></td>
+            <td data-sort="327100"><span class="shares">32.71万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2327,6 +2696,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2006</span></td>
             <td><span class="year">2013</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="415510889"><span class="shares">4.16亿股</span></td>
+            <td data-sort="301046076"><span class="shares">3.01亿股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2339,6 +2710,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2006</span></td>
             <td><span class="year">2012</span></td>
             <td><span class="year">7</span></td>
+            <td data-sort="3947555"><span class="shares">394.76万股</span></td>
+            <td data-sort="3947555"><span class="shares">394.76万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2351,6 +2724,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2006</span></td>
             <td><span class="year">2006</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="1818800"><span class="shares">181.88万股</span></td>
+            <td data-sort="1818800"><span class="shares">181.88万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2363,6 +2738,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2006</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">18</span></td>
+            <td data-sort="1429200"><span class="shares">142.92万股</span></td>
+            <td data-sort="59400"><span class="shares">5.94万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2375,6 +2752,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2006</span></td>
             <td><span class="year">2006</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="5500000"><span class="shares">550万股</span></td>
+            <td data-sort="745700"><span class="shares">74.57万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2387,6 +2766,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2006</span></td>
             <td><span class="year">2009</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="76777029"><span class="shares">7677.70万股</span></td>
+            <td data-sort="76777029"><span class="shares">7677.70万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2399,6 +2780,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2006</span></td>
             <td><span class="year">2009</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="6362800"><span class="shares">636.28万股</span></td>
+            <td data-sort="1933000"><span class="shares">193.30万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2411,6 +2794,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2006</span></td>
             <td><span class="year">2018</span></td>
             <td><span class="year">13</span></td>
+            <td data-sort="4063675"><span class="shares">406.37万股</span></td>
+            <td data-sort="3701012"><span class="shares">370.10万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2423,6 +2808,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2006</span></td>
             <td><span class="year">2009</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="10513100"><span class="shares">1051.31万股</span></td>
+            <td data-sort="9558000"><span class="shares">955.80万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2435,6 +2822,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2006</span></td>
             <td><span class="year">2007</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="10000000"><span class="shares">1,000万股</span></td>
+            <td data-sort="3200000"><span class="shares">320万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2447,6 +2836,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2006</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">20</span></td>
+            <td data-sort="6400000"><span class="shares">640万股</span></td>
+            <td data-sort="5039564"><span class="shares">503.96万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -2459,6 +2850,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2006</span></td>
             <td><span class="year">2011</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="7782600"><span class="shares">778.26万股</span></td>
+            <td data-sort="636600"><span class="shares">63.66万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2471,6 +2864,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2007</span></td>
             <td><span class="year">2009</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="4800000"><span class="shares">480万股</span></td>
+            <td data-sort="1343820"><span class="shares">134.38万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2483,6 +2878,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2007</span></td>
             <td><span class="year">2007</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="6344804"><span class="shares">634.48万股</span></td>
+            <td data-sort="6344804"><span class="shares">634.48万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2495,6 +2892,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2007</span></td>
             <td><span class="year">2012</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="138272500"><span class="shares">1.38亿股</span></td>
+            <td data-sort="30464350"><span class="shares">3046.43万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2507,6 +2906,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2007</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">20</span></td>
+            <td data-sort="1032852006"><span class="shares">10.33亿股</span></td>
+            <td data-sort="513624165"><span class="shares">5.14亿股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -2519,6 +2920,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2015</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">12</span></td>
+            <td data-sort="325634818"><span class="shares">3.26亿股</span></td>
+            <td data-sort="325634818"><span class="shares">3.26亿股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -2531,6 +2934,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2007</span></td>
             <td><span class="year">2007</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="2700000"><span class="shares">270万股</span></td>
+            <td data-sort="2700000"><span class="shares">270万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2543,6 +2948,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2007</span></td>
             <td><span class="year">2010</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="21300000"><span class="shares">2,130万股</span></td>
+            <td data-sort="7725900"><span class="shares">772.59万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2555,6 +2962,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2007</span></td>
             <td><span class="year">2008</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="10962400"><span class="shares">1096.24万股</span></td>
+            <td data-sort="10901900"><span class="shares">1090.19万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2567,6 +2976,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2007</span></td>
             <td><span class="year">2013</span></td>
             <td><span class="year">7</span></td>
+            <td data-sort="1510500"><span class="shares">151.05万股</span></td>
+            <td data-sort="345819"><span class="shares">34.58万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2579,6 +2990,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2008</span></td>
             <td><span class="year">2008</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="11262000"><span class="shares">1126.20万股</span></td>
+            <td data-sort="11262000"><span class="shares">1126.20万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2591,6 +3004,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2008</span></td>
             <td><span class="year">2010</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="7200000"><span class="shares">720万股</span></td>
+            <td data-sort="6000000"><span class="shares">600万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2603,6 +3018,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2008</span></td>
             <td><span class="year">2022</span></td>
             <td><span class="year">15</span></td>
+            <td data-sort="225000000"><span class="shares">2.25亿股</span></td>
+            <td data-sort="164093000"><span class="shares">1.64亿股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2615,6 +3032,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2008</span></td>
             <td><span class="year">2009</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="3200000"><span class="shares">320万股</span></td>
+            <td data-sort="2000000"><span class="shares">200万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2627,6 +3046,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2008</span></td>
             <td><span class="year">2009</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="19897322"><span class="shares">1989.73万股</span></td>
+            <td data-sort="14828207"><span class="shares">1482.82万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2639,6 +3060,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2009</span></td>
             <td><span class="year">2010</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="1889889"><span class="shares">188.99万股</span></td>
+            <td data-sort="1889889"><span class="shares">188.99万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2651,6 +3074,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2008</span></td>
             <td><span class="year">2010</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="9150000"><span class="shares">915万股</span></td>
+            <td data-sort="6142300"><span class="shares">614.23万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2663,6 +3088,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2009</span></td>
             <td><span class="year">2010</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="3400000"><span class="shares">340万股</span></td>
+            <td data-sort="3400000"><span class="shares">340万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2675,6 +3102,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2009</span></td>
             <td><span class="year">2014</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="41129643"><span class="shares">4112.96万股</span></td>
+            <td data-sort="41129643"><span class="shares">4112.96万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2687,6 +3116,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2009</span></td>
             <td><span class="year">2010</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="10827700"><span class="shares">1082.77万股</span></td>
+            <td data-sort="10827700"><span class="shares">1082.77万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2699,6 +3130,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2009</span></td>
             <td><span class="year">2019</span></td>
             <td><span class="year">11</span></td>
+            <td data-sort="5958391"><span class="shares">595.84万股</span></td>
+            <td data-sort="312379"><span class="shares">31.24万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2711,6 +3144,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2010</span></td>
             <td><span class="year">2010</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="4400000"><span class="shares">440万股</span></td>
+            <td data-sort="3910800"><span class="shares">391.08万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2723,6 +3158,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2010</span></td>
             <td><span class="year">2014</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="20060390"><span class="shares">2006.04万股</span></td>
+            <td data-sort="20060390"><span class="shares">2006.04万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2735,6 +3172,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2011</span></td>
             <td><span class="year">2017</span></td>
             <td><span class="year">7</span></td>
+            <td data-sort="81232303"><span class="shares">8123.23万股</span></td>
+            <td data-sort="2048045"><span class="shares">204.80万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2747,6 +3186,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2010</span></td>
             <td><span class="year">2022</span></td>
             <td><span class="year">13</span></td>
+            <td data-sort="80937250"><span class="shares">8093.73万股</span></td>
+            <td data-sort="25069867"><span class="shares">2506.99万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2759,6 +3200,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2011</span></td>
             <td><span class="year">2012</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="4497247"><span class="shares">449.72万股</span></td>
+            <td data-sort="3320885"><span class="shares">332.09万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2771,6 +3214,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2011</span></td>
             <td><span class="year">2018</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="3445029"><span class="shares">344.50万股</span></td>
+            <td data-sort="284778"><span class="shares">28.48万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2783,6 +3228,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2011</span></td>
             <td><span class="year">2012</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="7106500"><span class="shares">710.65万股</span></td>
+            <td data-sort="5301916"><span class="shares">530.19万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2795,6 +3242,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2011</span></td>
             <td><span class="year">2012</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="28420700"><span class="shares">2842.07万股</span></td>
+            <td data-sort="28420700"><span class="shares">2842.07万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2807,6 +3256,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2011</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">15</span></td>
+            <td data-sort="5399756"><span class="shares">539.98万股</span></td>
+            <td data-sort="3986648"><span class="shares">398.66万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -2819,6 +3270,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2011</span></td>
             <td><span class="year">2012</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="11495000"><span class="shares">1149.50万股</span></td>
+            <td data-sort="7745000"><span class="shares">774.50万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2831,6 +3284,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2011</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">16</span></td>
+            <td data-sort="38565570"><span class="shares">3856.56万股</span></td>
+            <td data-sort="30100585"><span class="shares">3010.06万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -2843,6 +3298,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2011</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">15</span></td>
+            <td data-sort="10562460"><span class="shares">1056.25万股</span></td>
+            <td data-sort="8297460"><span class="shares">829.75万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -2855,6 +3312,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2011</span></td>
             <td><span class="year">2012</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="5622340"><span class="shares">562.23万股</span></td>
+            <td data-sort="5622340"><span class="shares">562.23万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2867,6 +3326,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2012</span></td>
             <td><span class="year">2016</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="3225822"><span class="shares">322.58万股</span></td>
+            <td data-sort="88863"><span class="shares">8.89万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2879,6 +3340,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2012</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">12</span></td>
+            <td data-sort="80000000"><span class="shares">8,000万股</span></td>
+            <td data-sort="22000000"><span class="shares">2,200万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2891,6 +3354,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2012</span></td>
             <td><span class="year">2015</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="8880000"><span class="shares">888万股</span></td>
+            <td data-sort="1978895"><span class="shares">197.89万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2903,6 +3368,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2012</span></td>
             <td><span class="year">2015</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="8634190"><span class="shares">863.42万股</span></td>
+            <td data-sort="5646721"><span class="shares">564.67万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2915,6 +3382,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2012</span></td>
             <td><span class="year">2016</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="23280994"><span class="shares">2328.10万股</span></td>
+            <td data-sort="21085061"><span class="shares">2108.51万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2927,6 +3396,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2012</span></td>
             <td><span class="year">2019</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="80689892"><span class="shares">8068.99万股</span></td>
+            <td data-sort="227436"><span class="shares">22.74万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2939,6 +3410,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2012</span></td>
             <td><span class="year">2015</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="4200792"><span class="shares">420.08万股</span></td>
+            <td data-sort="4200792"><span class="shares">420.08万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2951,6 +3424,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2012</span></td>
             <td><span class="year">2012</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="5956600"><span class="shares">595.66万股</span></td>
+            <td data-sort="5956600"><span class="shares">595.66万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2963,6 +3438,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2012</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">12</span></td>
+            <td data-sort="12840450"><span class="shares">1284.05万股</span></td>
+            <td data-sort="578000"><span class="shares">57.80万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2975,6 +3452,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2012</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">15</span></td>
+            <td data-sort="13289880"><span class="shares">1328.99万股</span></td>
+            <td data-sort="8989880"><span class="shares">898.99万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -2987,6 +3466,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2013</span></td>
             <td><span class="year">2015</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="10701110"><span class="shares">1070.11万股</span></td>
+            <td data-sort="1983190"><span class="shares">198.32万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -2999,6 +3480,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2013</span></td>
             <td><span class="year">2014</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="5622340"><span class="shares">562.23万股</span></td>
+            <td data-sort="1919541"><span class="shares">191.95万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3011,6 +3494,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2013</span></td>
             <td><span class="year">2013</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="547312"><span class="shares">54.73万股</span></td>
+            <td data-sort="547312"><span class="shares">54.73万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3023,6 +3508,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2013</span></td>
             <td><span class="year">2020</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="30000000"><span class="shares">3,000万股</span></td>
+            <td data-sort="13849207"><span class="shares">1384.92万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3035,6 +3522,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2013</span></td>
             <td><span class="year">2017</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="1727765"><span class="shares">172.78万股</span></td>
+            <td data-sort="107575"><span class="shares">10.76万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3047,6 +3536,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2013</span></td>
             <td><span class="year">2020</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="18353635"><span class="shares">1835.36万股</span></td>
+            <td data-sort="1920180"><span class="shares">192.02万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3059,6 +3550,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2014</span></td>
             <td><span class="year">2022</span></td>
             <td><span class="year">9</span></td>
+            <td data-sort="158824575"><span class="shares">1.59亿股</span></td>
+            <td data-sort="1380111"><span class="shares">138.01万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3071,6 +3564,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2013</span></td>
             <td><span class="year">2021</span></td>
             <td><span class="year">9</span></td>
+            <td data-sort="20180897"><span class="shares">2018.09万股</span></td>
+            <td data-sort="3359831"><span class="shares">335.98万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3083,6 +3578,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2014</span></td>
             <td><span class="year">2016</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="10326803"><span class="shares">1032.68万股</span></td>
+            <td data-sort="10326803"><span class="shares">1032.68万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3095,6 +3592,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2014</span></td>
             <td><span class="year">2016</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="1825569"><span class="shares">182.56万股</span></td>
+            <td data-sort="1825569"><span class="shares">182.56万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3107,6 +3606,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2014</span></td>
             <td><span class="year">2014</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="449489"><span class="shares">44.95万股</span></td>
+            <td data-sort="449489"><span class="shares">44.95万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3119,6 +3620,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2014</span></td>
             <td><span class="year">2016</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="8951869"><span class="shares">895.19万股</span></td>
+            <td data-sort="8951869"><span class="shares">895.19万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3131,6 +3634,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2014</span></td>
             <td><span class="year">2020</span></td>
             <td><span class="year">7</span></td>
+            <td data-sort="8438225"><span class="shares">843.82万股</span></td>
+            <td data-sort="8438225"><span class="shares">843.82万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3143,6 +3648,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2015</span></td>
             <td><span class="year">2015</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="59320756"><span class="shares">5932.08万股</span></td>
+            <td data-sort="46577138"><span class="shares">4657.71万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3155,6 +3662,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2015</span></td>
             <td><span class="year">2016</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="26533525"><span class="shares">2653.35万股</span></td>
+            <td data-sort="20000000"><span class="shares">2,000万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3167,6 +3676,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2015</span></td>
             <td><span class="year">2021</span></td>
             <td><span class="year">7</span></td>
+            <td data-sort="24264000"><span class="shares">2426.40万股</span></td>
+            <td data-sort="13887037"><span class="shares">1388.70万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3179,6 +3690,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2016</span></td>
             <td><span class="year">2020</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="49278854"><span class="shares">4927.89万股</span></td>
+            <td data-sort="41909000"><span class="shares">4190.90万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3191,6 +3704,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2016</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">11</span></td>
+            <td data-sort="944295554"><span class="shares">9.44亿股</span></td>
+            <td data-sort="227917808"><span class="shares">2.28亿股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3203,6 +3718,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2016</span></td>
             <td><span class="year">2020</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="28951353"><span class="shares">2895.14万股</span></td>
+            <td data-sort="22157608"><span class="shares">2215.76万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3215,6 +3732,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2016</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">11</span></td>
+            <td data-sort="71886963"><span class="shares">7188.70万股</span></td>
+            <td data-sort="39809456"><span class="shares">3980.95万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3227,6 +3746,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2016</span></td>
             <td><span class="year">2018</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="18970134"><span class="shares">1897.01万股</span></td>
+            <td data-sort="18970134"><span class="shares">1897.01万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3239,6 +3760,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2016</span></td>
             <td><span class="year">2020</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="56547399"><span class="shares">5654.74万股</span></td>
+            <td data-sort="53642713"><span class="shares">5364.27万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3251,6 +3774,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2016</span></td>
             <td><span class="year">2024</span></td>
             <td><span class="year">9</span></td>
+            <td data-sort="172325353"><span class="shares">1.72亿股</span></td>
+            <td data-sort="132878213"><span class="shares">1.33亿股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3263,6 +3788,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2017</span></td>
             <td><span class="year">2022</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="24415168"><span class="shares">2441.52万股</span></td>
+            <td data-sort="6928413"><span class="shares">692.84万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3275,6 +3802,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2017</span></td>
             <td><span class="year">2020</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="20803000"><span class="shares">2080.30万股</span></td>
+            <td data-sort="20128000"><span class="shares">2012.80万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3287,6 +3816,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2017</span></td>
             <td><span class="year">2021</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="43249295"><span class="shares">4324.93万股</span></td>
+            <td data-sort="42789295"><span class="shares">4278.93万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3299,6 +3830,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2018</span></td>
             <td><span class="year">2020</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="59514932"><span class="shares">5951.49万股</span></td>
+            <td data-sort="967267"><span class="shares">96.73万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3311,6 +3844,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2018</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="2714854"><span class="shares">271.49万股</span></td>
+            <td data-sort="2396665"><span class="shares">239.67万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3323,6 +3858,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2018</span></td>
             <td><span class="year">2019</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="5171890"><span class="shares">517.19万股</span></td>
+            <td data-sort="5171890"><span class="shares">517.19万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3335,6 +3872,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2018</span></td>
             <td><span class="year">2018</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="41404791"><span class="shares">4140.48万股</span></td>
+            <td data-sort="41404791"><span class="shares">4140.48万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3347,6 +3886,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2018</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="14166748"><span class="shares">1416.67万股</span></td>
+            <td data-sort="10695448"><span class="shares">1069.54万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3359,6 +3900,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2019</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">7</span></td>
+            <td data-sort="10666000"><span class="shares">1066.60万股</span></td>
+            <td data-sort="2276000"><span class="shares">227.60万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3371,6 +3914,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2019</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="264941431"><span class="shares">2.65亿股</span></td>
+            <td data-sort="264941431"><span class="shares">2.65亿股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3383,6 +3928,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2019</span></td>
             <td><span class="year">2022</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="2360000"><span class="shares">236万股</span></td>
+            <td data-sort="2360000"><span class="shares">236万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3395,6 +3942,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2019</span></td>
             <td><span class="year">2021</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="648447"><span class="shares">64.84万股</span></td>
+            <td data-sort="643022"><span class="shares">64.30万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3407,6 +3956,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2019</span></td>
             <td><span class="year">2024</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="39400"><span class="shares">3.94万股</span></td>
+            <td data-sort="39400"><span class="shares">3.94万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3419,6 +3970,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2019</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="61787910"><span class="shares">6178.79万股</span></td>
+            <td data-sort="50000000"><span class="shares">5,000万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3431,6 +3984,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2020</span></td>
             <td><span class="year">2021</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="89241000"><span class="shares">8924.10万股</span></td>
+            <td data-sort="89241000"><span class="shares">8924.10万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3443,6 +3998,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2020</span></td>
             <td><span class="year">2020</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="20918701"><span class="shares">2091.87万股</span></td>
+            <td data-sort="12000000"><span class="shares">1,200万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3455,6 +4012,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2019</span></td>
             <td><span class="year">2024</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="43000"><span class="shares">4.30万股</span></td>
+            <td data-sort="43000"><span class="shares">4.30万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3467,6 +4026,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2020</span></td>
             <td><span class="year">2021</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="25533082"><span class="shares">2553.31万股</span></td>
+            <td data-sort="3033561"><span class="shares">303.36万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3479,6 +4040,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2020</span></td>
             <td><span class="year">2021</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="33336016"><span class="shares">3333.60万股</span></td>
+            <td data-sort="5202674"><span class="shares">520.27万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3491,6 +4054,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2020</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="5287526"><span class="shares">528.75万股</span></td>
+            <td data-sort="404911"><span class="shares">40.49万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3503,6 +4068,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2020</span></td>
             <td><span class="year">2021</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="28697435"><span class="shares">2869.74万股</span></td>
+            <td data-sort="9157192"><span class="shares">915.72万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3515,6 +4082,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2020</span></td>
             <td><span class="year">2020</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="3711780"><span class="shares">371.18万股</span></td>
+            <td data-sort="3711780"><span class="shares">371.18万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3527,6 +4096,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2020</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">7</span></td>
+            <td data-sort="165359318"><span class="shares">1.65亿股</span></td>
+            <td data-sort="84375856"><span class="shares">8437.59万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3539,6 +4110,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2020</span></td>
             <td><span class="year">2024</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="6125376"><span class="shares">612.54万股</span></td>
+            <td data-sort="6125376"><span class="shares">612.54万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3551,6 +4124,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2021</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="4396000"><span class="shares">439.60万股</span></td>
+            <td data-sort="3602995"><span class="shares">360.30万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3563,6 +4138,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2020</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">6</span></td>
+            <td data-sort="5242000"><span class="shares">524.20万股</span></td>
+            <td data-sort="3883145"><span class="shares">388.31万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3575,6 +4152,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2021</span></td>
             <td><span class="year">2021</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="81714800"><span class="shares">8171.48万股</span></td>
+            <td data-sort="81714800"><span class="shares">8171.48万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3587,6 +4166,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2021</span></td>
             <td><span class="year">2021</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="93776200"><span class="shares">9377.62万股</span></td>
+            <td data-sort="93776200"><span class="shares">9377.62万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3599,6 +4180,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2021</span></td>
             <td><span class="year">2021</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="1550481"><span class="shares">155.05万股</span></td>
+            <td data-sort="1550481"><span class="shares">155.05万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3611,6 +4194,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2021</span></td>
             <td><span class="year">2022</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="13145902"><span class="shares">1314.59万股</span></td>
+            <td data-sort="1496372"><span class="shares">149.64万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3623,6 +4208,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2021</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="68401150"><span class="shares">6840.11万股</span></td>
+            <td data-sort="14658121"><span class="shares">1465.81万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3635,6 +4222,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2021</span></td>
             <td><span class="year">2024</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="4780000"><span class="shares">478万股</span></td>
+            <td data-sort="3977870"><span class="shares">397.79万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3647,6 +4236,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2021</span></td>
             <td><span class="year">2024</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="107118784"><span class="shares">1.07亿股</span></td>
+            <td data-sort="40180168"><span class="shares">4018.02万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3659,6 +4250,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2022</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="30000000"><span class="shares">3,000万股</span></td>
+            <td data-sort="29000000"><span class="shares">2,900万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3671,6 +4264,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2022</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="120952818"><span class="shares">1.21亿股</span></td>
+            <td data-sort="22852715"><span class="shares">2285.27万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3683,6 +4278,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2022</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="9710183"><span class="shares">971.02万股</span></td>
+            <td data-sort="5358535"><span class="shares">535.85万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3695,6 +4292,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2022</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="3198344"><span class="shares">319.83万股</span></td>
+            <td data-sort="2289864"><span class="shares">228.99万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3707,6 +4306,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2022</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="471661"><span class="shares">47.17万股</span></td>
+            <td data-sort="158715"><span class="shares">15.87万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3719,6 +4320,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2022</span></td>
             <td><span class="year">2024</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="93730975"><span class="shares">9373.10万股</span></td>
+            <td data-sort="7531765"><span class="shares">753.18万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3731,6 +4334,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2022</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="433558"><span class="shares">43.36万股</span></td>
+            <td data-sort="433558"><span class="shares">43.36万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3743,6 +4348,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2022</span></td>
             <td><span class="year">2022</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="60060880"><span class="shares">6006.09万股</span></td>
+            <td data-sort="8292724"><span class="shares">829.27万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3755,6 +4362,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2022</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="7044909"><span class="shares">704.49万股</span></td>
+            <td data-sort="5664793"><span class="shares">566.48万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3767,6 +4376,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2023</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="12471030"><span class="shares">1247.10万股</span></td>
+            <td data-sort="7150000"><span class="shares">715万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3779,6 +4390,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2023</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="51026"><span class="shares">5.10万股</span></td>
+            <td data-sort="51026"><span class="shares">5.10万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3791,6 +4404,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2023</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="5969714"><span class="shares">596.97万股</span></td>
+            <td data-sort="1485350"><span class="shares">148.53万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3803,6 +4418,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2023</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="227750"><span class="shares">22.77万股</span></td>
+            <td data-sort="227750"><span class="shares">22.77万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3815,6 +4432,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2023</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="237703"><span class="shares">23.77万股</span></td>
+            <td data-sort="237703"><span class="shares">23.77万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3827,6 +4446,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2023</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="223645"><span class="shares">22.36万股</span></td>
+            <td data-sort="115428"><span class="shares">11.54万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3839,6 +4460,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2023</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="11112"><span class="shares">1.11万股</span></td>
+            <td data-sort="11112"><span class="shares">1.11万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3851,6 +4474,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2024</span></td>
             <td><span class="year">2024</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="690106"><span class="shares">69.01万股</span></td>
+            <td data-sort="24203"><span class="shares">2.42万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3863,6 +4488,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2023</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="34249183"><span class="shares">3424.92万股</span></td>
+            <td data-sort="34249183"><span class="shares">3424.92万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3875,6 +4502,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2024</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="1294612"><span class="shares">129.46万股</span></td>
+            <td data-sort="1294612"><span class="shares">129.46万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3887,6 +4516,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2024</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="3350000"><span class="shares">335万股</span></td>
+            <td data-sort="3350000"><span class="shares">335万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3899,6 +4530,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2024</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="3458885"><span class="shares">345.89万股</span></td>
+            <td data-sort="3068885"><span class="shares">306.89万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3911,6 +4544,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2025</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="1202410"><span class="shares">120.24万股</span></td>
+            <td data-sort="1202410"><span class="shares">120.24万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3923,6 +4558,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2024</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="13400000"><span class="shares">1,340万股</span></td>
+            <td data-sort="632890"><span class="shares">63.29万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3935,6 +4572,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2025</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="780133"><span class="shares">78.01万股</span></td>
+            <td data-sort="780133"><span class="shares">78.01万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -3947,6 +4586,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1974</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="47500"><span class="shares">4.75万股</span></td>
+            <td data-sort="47500"><span class="shares">4.75万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3959,6 +4600,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1974</span></td>
             <td><span class="year">1974</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="18300"><span class="shares">1.83万股</span></td>
+            <td data-sort="18300"><span class="shares">1.83万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3971,6 +4614,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1997</span></td>
             <td><span class="year">1997</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="23733198"><span class="shares">2373.32万股</span></td>
+            <td data-sort="23733198"><span class="shares">2373.32万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3983,6 +4628,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">1972</span></td>
             <td><span class="year">1973</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="500"><span class="shares">500股</span></td>
+            <td data-sort="500"><span class="shares">500股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -3995,6 +4642,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2003</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="704500"><span class="shares">70.45万股</span></td>
+            <td data-sort="704500"><span class="shares">70.45万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4007,6 +4656,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2000</span></td>
             <td><span class="year">2020</span></td>
             <td><span class="year">21</span></td>
+            <td data-sort="24115000"><span class="shares">2411.50万股</span></td>
+            <td data-sort="4333363"><span class="shares">433.34万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4019,6 +4670,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2001</span></td>
             <td><span class="year">2022</span></td>
             <td><span class="year">22</span></td>
+            <td data-sort="132459618"><span class="shares">1.32亿股</span></td>
+            <td data-sort="6670835"><span class="shares">667.08万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4031,6 +4684,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2012</span></td>
             <td><span class="year">2012</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="636000"><span class="shares">63.60万股</span></td>
+            <td data-sort="20400"><span class="shares">2.04万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4043,6 +4698,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2007</span></td>
             <td><span class="year">2017</span></td>
             <td><span class="year">11</span></td>
+            <td data-sort="4076325"><span class="shares">407.63万股</span></td>
+            <td data-sort="63195"><span class="shares">6.32万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4055,6 +4712,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2012</span></td>
             <td><span class="year">2015</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="37275400"><span class="shares">3727.54万股</span></td>
+            <td data-sort="31353468"><span class="shares">3135.35万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4067,6 +4726,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2012</span></td>
             <td><span class="year">2015</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="1668714"><span class="shares">166.87万股</span></td>
+            <td data-sort="192666"><span class="shares">19.27万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4079,6 +4740,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2013</span></td>
             <td><span class="year">2016</span></td>
             <td><span class="year">4</span></td>
+            <td data-sort="10000000"><span class="shares">1,000万股</span></td>
+            <td data-sort="10000000"><span class="shares">1,000万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4091,6 +4754,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2014</span></td>
             <td><span class="year">2021</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="7346968"><span class="shares">734.70万股</span></td>
+            <td data-sort="1876522"><span class="shares">187.65万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4103,6 +4768,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2014</span></td>
             <td><span class="year">2016</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="4646220"><span class="shares">464.62万股</span></td>
+            <td data-sort="3471309"><span class="shares">347.13万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4115,6 +4782,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2015</span></td>
             <td><span class="year">2017</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="2714854"><span class="shares">271.49万股</span></td>
+            <td data-sort="2714854"><span class="shares">271.49万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4127,6 +4796,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2014</span></td>
             <td><span class="year">2016</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="20000000"><span class="shares">2,000万股</span></td>
+            <td data-sort="20000000"><span class="shares">2,000万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4139,6 +4810,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2015</span></td>
             <td><span class="year">2017</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="1284020"><span class="shares">128.40万股</span></td>
+            <td data-sort="1284020"><span class="shares">128.40万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4151,6 +4824,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2016</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="20207680"><span class="shares">2020.77万股</span></td>
+            <td data-sort="20207680"><span class="shares">2020.77万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4163,6 +4838,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2016</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">10</span></td>
+            <td data-sort="7722451"><span class="shares">772.25万股</span></td>
+            <td data-sort="3018555"><span class="shares">301.86万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -4175,6 +4852,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2016</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="43208291"><span class="shares">4320.83万股</span></td>
+            <td data-sort="43208291"><span class="shares">4320.83万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4187,6 +4866,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2016</span></td>
             <td><span class="year">2016</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="2499998"><span class="shares">250.00万股</span></td>
+            <td data-sort="1296013"><span class="shares">129.60万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4199,6 +4880,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2018</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">8</span></td>
+            <td data-sort="1430197"><span class="shares">143.02万股</span></td>
+            <td data-sort="1284020"><span class="shares">128.40万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -4211,6 +4894,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2016</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">10</span></td>
+            <td data-sort="9443491"><span class="shares">944.35万股</span></td>
+            <td data-sort="1060882"><span class="shares">106.09万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -4223,6 +4908,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2022</span></td>
             <td><span class="year">2024</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="55244797"><span class="shares">5524.48万股</span></td>
+            <td data-sort="14639502"><span class="shares">1463.95万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4235,6 +4922,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2019</span></td>
             <td><span class="year">2023</span></td>
             <td><span class="year">5</span></td>
+            <td data-sort="6353727"><span class="shares">635.37万股</span></td>
+            <td data-sort="831014"><span class="shares">83.10万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4247,6 +4936,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2023</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="11132590"><span class="shares">1113.26万股</span></td>
+            <td data-sort="10917661"><span class="shares">1091.77万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -4259,6 +4950,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2023</span></td>
             <td><span class="year">2024</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="70002897"><span class="shares">7000.29万股</span></td>
+            <td data-sort="70002897"><span class="shares">7000.29万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4271,6 +4964,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2023</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="5051918"><span class="shares">505.19万股</span></td>
+            <td data-sort="4986588"><span class="shares">498.66万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -4283,6 +4978,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2023</span></td>
             <td><span class="year">2024</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="35182219"><span class="shares">3518.22万股</span></td>
+            <td data-sort="35182219"><span class="shares">3518.22万股</span></td>
             <td><span class="tag tag-sold">已清仓</span></td>
           </tr>
 <tr>
@@ -4295,6 +4992,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2024</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">3</span></td>
+            <td data-sort="124807117"><span class="shares">1.25亿股</span></td>
+            <td data-sort="124807117"><span class="shares">1.25亿股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -4307,6 +5006,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2025</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="54249798"><span class="shares">5424.98万股</span></td>
+            <td data-sort="54249798"><span class="shares">5424.98万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -4319,6 +5020,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2025</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="10099642"><span class="shares">1009.96万股</span></td>
+            <td data-sort="10099642"><span class="shares">1009.96万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -4331,6 +5034,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2025</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="4986588"><span class="shares">498.66万股</span></td>
+            <td data-sort="4986588"><span class="shares">498.66万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -4343,6 +5048,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2025</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="10917661"><span class="shares">1091.77万股</span></td>
+            <td data-sort="10587143"><span class="shares">1058.71万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -4355,6 +5062,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2025</span></td>
             <td><span class="year">2025</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="3018555"><span class="shares">301.86万股</span></td>
+            <td data-sort="3018555"><span class="shares">301.86万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -4367,6 +5076,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2025</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">2</span></td>
+            <td data-sort="15146535"><span class="shares">1514.65万股</span></td>
+            <td data-sort="15146535"><span class="shares">1514.65万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -4379,6 +5090,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2026</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="3585215"><span class="shares">358.52万股</span></td>
+            <td data-sort="3585215"><span class="shares">358.52万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
 <tr>
@@ -4391,6 +5104,8 @@ tbody tr:last-child td{border-bottom:none}
             <td><span class="year">2026</span></td>
             <td><span class="year">2026</span></td>
             <td><span class="year">1</span></td>
+            <td data-sort="3038355"><span class="shares">303.84万股</span></td>
+            <td data-sort="3038355"><span class="shares">303.84万股</span></td>
             <td><span class="tag tag-current">持有中</span></td>
           </tr>
         </tbody>
@@ -4413,16 +5128,22 @@ tbody tr:last-child td{border-bottom:none}
   let currentSort = {col:'firstBuyYear',dir:'asc'};
   
   function getCellValue(row, colName){
-    const idx = {firstBuyYear:3,lastSellYear:4,holdYears:5,status:6}[colName];
+    const idx = {firstBuyYear:3,lastSellYear:4,holdYears:5,maxShares:6,lastShares:7,status:8}[colName];
+    if(colName==='maxShares' || colName==='lastShares'){
+      // Use data-sort attribute for share count sorting (raw number)
+      const cell = row.children[idx];
+      if(!cell) return 0;
+      const v = parseInt(cell.getAttribute('data-sort'));
+      return isNaN(v)?0:v;
+    }
+    if(idx === undefined) return 0;
     const cell = row.children[idx];
     if(!cell) return 0;
     const text = cell.textContent.trim();
     if(colName==='status'){
-      // "持有中" > "已卖出"，"持有中"排前面
       return text.includes('持有中')?0:1;
     }
     if(colName==='holdYears'){
-      // "55年" → 55, "55+年" → 55
       const match = text.match(/(\d+)/);
       return match ? parseInt(match[1]) : 0;
     }
