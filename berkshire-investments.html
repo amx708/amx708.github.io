@@ -113,6 +113,8 @@ tbody tr:last-child td{border-bottom:none}
         <div class="sort-controls">
           <button class="sort-btn" data-sort="firstBuyYear" onclick="toggleSort('firstBuyYear',this)">首次买入 ↑</button>
           <button class="sort-btn" data-sort="lastSellYear" onclick="toggleSort('lastSellYear',this)">最后卖出 ↑</button>
+          <button class="sort-btn" data-sort="holdYears" onclick="toggleSort('holdYears',this)">持有年数 ↑</button>
+          <button class="sort-btn" data-sort="status" onclick="toggleSort('status',this)">状态 ↑</button>
         </div>
         <span class="count">共 355 条记录</span>
       </div>
@@ -126,8 +128,8 @@ tbody tr:last-child td{border-bottom:none}
             <th>行业</th>
             <th onclick="toggleSort('firstBuyYear',null)" data-col="firstBuyYear">首次买入 <span class="sort-icon">↕</span></th>
             <th onclick="toggleSort('lastSellYear',null)" data-col="lastSellYear">最后卖出 <span class="sort-icon">↕</span></th>
-            <th>持有年数</th>
-            <th>状态</th>
+            <th onclick="toggleSort('holdYears',null)" data-col="holdYears">持有年数 <span class="sort-icon">↕</span></th>
+            <th onclick="toggleSort('status',null)" data-col="status">状态 <span class="sort-icon">↕</span></th>
           </tr>
         </thead>
         <tbody>
@@ -4411,11 +4413,21 @@ tbody tr:last-child td{border-bottom:none}
   let currentSort = {col:'firstBuyYear',dir:'asc'};
   
   function getCellValue(row, colName){
-    const idx = {firstBuyYear:3,lastSellYear:4}[colName];
+    const idx = {firstBuyYear:3,lastSellYear:4,holdYears:5,status:6}[colName];
     const cell = row.children[idx];
     if(!cell) return 0;
-    const text = cell.textContent.trim().replace(/[^0-9.-]/g,'');
-    const val = parseFloat(text);
+    const text = cell.textContent.trim();
+    if(colName==='status'){
+      // "持有中" > "已卖出"，"持有中"排前面
+      return text.includes('持有中')?0:1;
+    }
+    if(colName==='holdYears'){
+      // "55年" → 55, "55+年" → 55
+      const match = text.match(/(\d+)/);
+      return match ? parseInt(match[1]) : 0;
+    }
+    const num = text.replace(/[^0-9.-]/g,'');
+    const val = parseFloat(num);
     return isNaN(val)?0:val;
   }
   
