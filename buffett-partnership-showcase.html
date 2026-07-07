@@ -396,6 +396,9 @@ body {
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   animation: tts-toast-in 0.3s ease;
   pointer-events: none;
+  white-space: pre-line;
+  text-align: center;
+  max-width: 90vw;
 }
 @keyframes tts-toast-in {
   from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
@@ -3384,17 +3387,51 @@ let pointMode = false;
 let pointStartChar = 0; // 定点朗读的起始字符位置
 
 // ==================== 初始化 ====================
+let voicesReady = false;
+let pendingRead = null; // 等待 voice 就绪后执行的朗读请求
+
 function initTTS() {
-  synth.onvoiceschanged = () => {};
-  synth.getVoices();
+  // 关键：iOS Safari 需要等 onvoiceschanged 之后 voices 才可用
+  function loadVoices() {
+    let voices = synth.getVoices();
+    if (voices.length > 0) {
+      voicesReady = true;
+      // 处理等待中的朗读请求
+      if (pendingRead) {
+        let p = pendingRead;
+        pendingRead = null;
+        startReading(p.lang, p.startChar, p.targetSection);
+      }
+    }
+  }
+
+  loadVoices();
+  synth.onvoiceschanged = loadVoices;
+
+  // 页面从后台恢复时，iOS 可能丢失 voice 列表，重新加载
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && voices.length === 0) {
+      loadVoices();
+    }
+  });
 }
 
 function getBestVoice(lang) {
   let voices = synth.getVoices();
+  if (voices.length === 0) return null;
+
+  // 优先使用本地引擎（质量好、离线可用）
   let exact = voices.filter(v => v.lang === lang && v.localService);
   if (exact.length > 0) return exact[0];
   let prefix = voices.filter(v => v.lang.startsWith(lang) && v.localService);
   if (prefix.length > 0) return prefix[0];
+
+  // 手机可能没装本地中文语音，退而求其次用网络语音
+  let exactNet = voices.filter(v => v.lang === lang);
+  if (exactNet.length > 0) return exactNet[0];
+  let prefixNet = voices.filter(v => v.lang.startsWith(lang));
+  if (prefixNet.length > 0) return prefixNet[0];
+
   return null;
 }
 
@@ -3518,7 +3555,34 @@ function startReading(lang, startFromChar, targetSection) {
     return;
   }
 
+  // iOS Safari：voice 列表可能还没加载完，先缓存请求
+  if (!voicesReady || synth.getVoices().length === 0) {
+    pendingRead = { lang, startChar: startFromChar, targetSection };
+    document.getElementById('btn-stop').disabled = true;
+    document.getElementById('btn-pause').disabled = true;
+    document.querySelectorAll('.tts-btn').forEach(b => b.classList.remove('active'));
+    showToast('⏳ 正在加载语音引擎，请稍后再点...');
+    return;
+  }
+
+  // 检查是否有可用语音
+  let voice = getBestVoice(lang);
+  if (!voice) {
+    document.getElementById('btn-stop').disabled = true;
+    document.getElementById('btn-pause').disabled = true;
+    document.querySelectorAll('.tts-btn').forEach(b => b.classList.remove('active'));
+    let hint = isIOS()
+      ? '请在系统"设置 → 辅助功能 → 朗读内容 → 语音"中下载中文语音包'
+      : '请安装"Google文字转语音"并下载中文离线语音包';
+    showToast('⚠️ 未检测到中文语音引擎\n' + hint);
+    return;
+  }
+
   readCurrentLetter(startFromChar, targetSection);
+}
+
+function isIOS() {
+  return /iPhone|iPad|iPod/.test(navigator.userAgent);
 }
 
 function readCurrentLetter(startFromChar, targetSection) {
@@ -3868,7 +3932,9 @@ function showToast(msg) {
   toast.className = 'tts-toast';
   toast.textContent = msg;
   document.body.appendChild(toast);
-  setTimeout(() => { if (toast.parentElement) toast.remove(); }, 3000);
+  // 长消息给更多时间阅读
+  let duration = msg.length > 30 ? 5000 : 3000;
+  setTimeout(() => { if (toast.parentElement) toast.remove(); }, duration);
 }
 
 // ==================== 语速 / 进度 ====================
