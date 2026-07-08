@@ -5,772 +5,321 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>巴菲特致股东的信中文（1957-1972）— 最佳翻译合集</title>
 <style>
+* { margin:0; padding:0; box-sizing:border-box; }
 :root {
-  --bg: #f8f9fa;
-  --bg-card: #ffffff;
-  --text: #1a1a2e;
-  --text-secondary: #6b7280;
-  --accent: #0f172a;
-  --accent-light: #1e293b;
-  --border: #e5e7eb;
-  --highlight: #f59e0b;
-  --highlight-light: #fef3c7;
-  --prog-bg: #e5e7eb;
-  --prog-fill: #0f172a;
-  --shadow: 0 1px 3px rgba(0,0,0,0.08);
-  --shadow-lg: 0 4px 12px rgba(0,0,0,0.1);
-  --radius: 8px;
+  --bg:#f8f9fa; --sidebar-bg:#fff; --content-bg:#fff;
+  --text:#1a1a2e; --text2:#6b7280; --border:#e5e7eb;
+  --hover:#f3f4f6; --active:#eff6ff;
+  --accent:#0f172a; --accent-light:#1e293b;
+  --highlight:#f59e0b; --highlight-light:#fef3c7;
+  --shadow:0 1px 3px rgba(0,0,0,.08); --radius:8px;
+  --header-h:56px; --sidebar-w:300px;
   --font-serif: 'Georgia', 'Noto Serif SC', 'STSong', serif;
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
 }
+body { font-family: var(--font-sans); background:var(--bg); color:var(--text); line-height:1.7; font-size:15px; }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* ===== Header ===== */
+.header { position:fixed; top:0; left:0; right:0; height:var(--header-h); background:var(--sidebar-bg); border-bottom:1px solid var(--border); display:flex; align-items:center; padding:0 16px; z-index:100; box-shadow:var(--shadow); }
+.header-title { font-size:17px; font-weight:700; white-space:nowrap; display:flex; align-items:center; gap:8px; }
+.header-title .tag { font-size:11px; background:#0f172a; color:#fff; padding:2px 8px; border-radius:12px; font-weight:500; }
+.back-btn { font-size:13px; color:var(--text2); text-decoration:none; padding:4px 10px; border-radius:6px; transition:background .15s; }
+.back-btn:hover { background:var(--hover); color:var(--text); }
+.nav-link { font-size:13px; color:var(--text2); text-decoration:none; padding:6px 12px; border-radius:8px; transition:all .15s; margin-left:8px; white-space:nowrap; }
+.nav-link:hover { background:#eff6ff; color:#2563eb; }
+.search-box { margin-left:auto; position:relative; }
+.search-box input { width:200px; height:34px; border:1px solid var(--border); border-radius:20px; padding:0 16px 0 36px; font-size:13px; background:var(--bg); outline:none; transition:all .2s; }
+.search-box input:focus { border-color:#7c3aed; box-shadow:0 0 0 3px rgba(124,58,237,.1); width:260px; }
+.search-box::before { content:""; position:absolute; left:13px; top:50%; transform:translateY(-50%); width:14px; height:14px; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E") center/contain no-repeat; }
+.menu-toggle { display:none; background:none; border:none; font-size:22px; cursor:pointer; padding:4px 8px; margin-right:8px; }
 
-body {
-  font-family: var(--font-sans);
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.8;
-  padding-top: 130px;
-}
+/* ===== Sidebar ===== */
+.sidebar { position:fixed; top:var(--header-h); left:0; bottom:0; width:var(--sidebar-w); background:var(--sidebar-bg); border-right:1px solid var(--border); overflow-y:auto; z-index:50; transition:transform .3s; }
+.sidebar::-webkit-scrollbar { width:6px; }
+.sidebar::-webkit-scrollbar-thumb { background:#d1d5db; border-radius:3px; }
+.sidebar-header { padding:16px; border-bottom:1px solid var(--border); }
+.sidebar-header h3 { font-size:15px; font-weight:700; margin-bottom:4px; }
+.sidebar-header p { font-size:12px; color:var(--text2); }
+.cat-section { border-bottom:1px solid var(--border); }
+.cat-header { padding:12px 16px; cursor:pointer; display:flex; align-items:center; gap:8px; font-weight:600; font-size:14px; user-select:none; transition:background .15s; }
+.cat-header:hover { background:var(--hover); }
+.cat-header .arrow { font-size:10px; color:var(--text2); transition:transform .2s; margin-left:auto; }
+.cat-header.collapsed .arrow { transform:rotate(-90deg); }
+.cat-header .cat-count { font-size:11px; color:var(--text2); background:var(--hover); padding:1px 8px; border-radius:10px; font-weight:500; }
+.cat-list { list-style:none; }
+.cat-list.hidden { display:none; }
+.cat-list li { padding:8px 16px 8px 40px; cursor:pointer; font-size:13px; color:var(--text2); transition:all .12s; border-left:3px solid transparent; line-height:1.5; }
+.cat-list li:hover { background:var(--hover); color:var(--text); }
+.cat-list li.active { background:var(--active); color:#2563eb; border-left-color:#2563eb; font-weight:500; }
 
-/* === 浮动工具栏（移动端） === */
-#tts-floating-bar {
-  display: none; /* 桌面端不显示，由媒体查询控制 */
-}
+/* ===== Content ===== */
+.content { margin-left:var(--sidebar-w); margin-top:var(--header-h); padding:32px 48px; max-width:900px; min-height:calc(100vh - var(--header-h)); }
+.empty-state { text-align:center; padding:80px 20px; color:var(--text2); }
+.empty-state .icon { font-size:48px; margin-bottom:16px; }
+.empty-state h2 { font-size:20px; font-weight:600; margin-bottom:8px; color:var(--text); }
+.empty-state p { font-size:14px; line-height:1.7; }
 
-/* === 顶部工具栏（桌面端） === */
-#tts-toolbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: var(--accent);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
+/* Letter section - hidden by default, only active shown */
+.letter-section { display:none; }
+.letter-section.active { display:block; }
 
-/* === 浮动面板工具栏（移动端专用） === */
-#tts-floating-bar {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 9999;
-  background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-  width: 300px;
-  max-width: calc(100vw - 32px);
-  transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: none;
-  overflow: hidden;
-}
-#tts-floating-bar.minimized {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  overflow: hidden;
-}
-#tts-floating-bar.minimized .floating-actions,
-#tts-floating-bar.minimized .floating-drag-handle,
-#tts-floating-bar.minimized .floating-header-row,
-#tts-floating-bar.minimized .floating-progress {
-  display: none;
-}
-#tts-floating-bar.minimized .floating-min-btn {
-  display: none;
-}
-#tts-floating-bar.minimized .floating-restore-btn {
-  display: flex;
-}
-
-.floating-drag-handle {
-  height: 28px;
-  background: linear-gradient(90deg, rgba(245,158,11,0.3) 0%, rgba(245,158,11,0.1) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: grab;
-  position: relative;
-}
-.floating-drag-handle:active { cursor: grabbing; }
-.floating-drag-handle::before {
-  content: '';
-  width: 36px;
-  height: 4px;
-  background: rgba(255,255,255,0.3);
-  border-radius: 2px;
-}
-.floating-drag-handle .floating-title {
-  position: absolute;
-  left: 12px;
-  font-size: 10px;
-  color: rgba(255,255,255,0.6);
-  letter-spacing: 0.5px;
-}
-
-.floating-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 12px;
-  justify-content: center;
-}
-.floating-actions .tts-btn {
-  padding: 10px 14px;
-  font-size: 13px;
-  border-radius: 10px;
-  flex: 1;
-  min-width: 68px;
-  justify-content: center;
-}
-.floating-actions .tts-btn .btn-icon { font-size: 16px; }
-
-.floating-header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 12px 8px;
-}
-.floating-header-row .speed-control {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #94a3b8;
-  font-size: 12px;
-  flex: 1;
-}
-.floating-header-row .speed-control label { white-space: nowrap; }
-.floating-header-row #speed-slider-floating { width: 80px; accent-color: var(--highlight); }
-.floating-header-row #speed-label-floating { color: #fff; font-size: 12px; width: 36px; text-align: center; font-weight: 600; }
-
-.floating-min-btn,
-.floating-restore-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.1);
-  color: #fff;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-.floating-min-btn:hover,
-.floating-restore-btn:hover { background: rgba(255,255,255,0.2); }
-.floating-restore-btn { display: none; }
-
-/* 浮动进度条 */
-.floating-progress {
-  height: 3px;
-  background: rgba(255,255,255,0.1);
-  margin: 0 12px 8px;
-  border-radius: 2px;
-  overflow: hidden;
-}
-.floating-progress .progress-bar {
-  height: 100%;
-  background: var(--highlight);
-  width: 0%;
-  transition: width 0.3s ease;
-}
-
-/* 最小化状态：恢复按钮 */
-.floating-restore-icon {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fbbf24;
-  font-size: 20px;
-  cursor: pointer;
-  background: rgba(15, 23, 42, 0.95);
-}
-#tts-floating-bar:not(.minimized) .floating-restore-icon {
-  display: none;
-}
-.toolbar-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  max-width: 100%;
-  gap: 12px;
-}
-.toolbar-left {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 200px;
-}
-.toolbar-logo {
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.toolbar-subtitle {
-  color: #94a3b8;
-  font-size: 11px;
-  white-space: nowrap;
-}
-.toolbar-center {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.toolbar-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 180px;
-  justify-content: flex-end;
-}
-.back-btn {
-  color: rgba(255,255,255,0.85);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 5px 12px;
-  border: 1px solid rgba(255,255,255,0.3);
-  border-radius: 20px;
-  transition: all .15s;
-  white-space: nowrap;
-  margin-right: 8px;
-}
-.back-btn:hover {
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-}
-.nav-link {
-  color: #fff;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 6px 14px;
-  border: 1px solid rgba(255,255,255,0.3);
-  border-radius: 20px;
-  transition: all .15s;
-  white-space: nowrap;
-}
-.nav-link:hover {
-  background: rgba(255,255,255,0.15);
-  border-color: rgba(255,255,255,0.6);
-}
-
-.tts-btn {
-  padding: 8px 16px;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 20px;
-  background: transparent;
-  color: #fff;
-  cursor: pointer;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-.tts-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.4); }
-.tts-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.tts-btn.active { background: var(--highlight); color: #1a1a2e; border-color: var(--highlight); font-weight: 600; }
-.tts-btn.stop { border-color: rgba(239,68,68,0.5); }
-.tts-btn.stop:hover { background: rgba(239,68,68,0.2); }
-.btn-icon { font-size: 14px; }
-
-.speed-control {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #94a3b8;
-  font-size: 12px;
-}
-.speed-control label { white-space: nowrap; }
-#speed-slider { width: 70px; accent-color: var(--highlight); }
-#speed-label { color: #fff; font-size: 12px; width: 30px; text-align: center; font-weight: 600; }
-
-/* 进度条 */
-.progress-bar-container {
-  height: 4px;
-  background: rgba(255,255,255,0.1);
-  position: relative;
-}
-.progress-bar {
-  height: 100%;
-  background: var(--highlight);
-  width: 0%;
-  transition: width 0.3s ease;
-}
-.progress-click-area {
-  position: absolute;
-  top: -8px;
-  left: 0;
-  right: 0;
-  bottom: -8px;
-  cursor: pointer;
-}
-
-/* === 布局 === */
-.app-layout {
-  display: flex;
-  min-height: calc(100vh - 80px);
-}
-
-/* === 侧边栏 === */
-.sidebar {
-  width: 240px;
-  min-width: 240px;
-  background: var(--bg-card);
-  border-right: 1px solid var(--border);
-  position: fixed;
-  top: 130px;
-  bottom: 0;
-  left: 0;
-  overflow-y: auto;
-  padding: 20px 0;
-  z-index: 100;
-}
-.sidebar-header {
-  padding: 0 20px 16px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 8px;
-}
-.sidebar-header h3 {
-  font-size: 16px;
-  color: var(--accent);
-  line-height: 1.4;
-}
-.sidebar-years {
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-top: 4px;
-}
-.year-nav { list-style: none; }
-.year-nav li { margin: 0; }
-.year-nav a {
-  display: flex;
-  flex-direction: column;
-  padding: 10px 20px;
-  text-decoration: none;
-  color: var(--text);
-  font-size: 14px;
-  font-weight: 600;
-  border-left: 3px solid transparent;
-  transition: all 0.2s;
-}
-.year-nav a span {
-  font-size: 11px;
-  color: var(--text-secondary);
-  font-weight: 400;
-  margin-top: 2px;
-}
-.year-nav a:hover {
-  background: var(--highlight-light);
-  border-left-color: var(--highlight);
-}
-.year-nav a.active {
-  background: var(--highlight-light);
-  border-left-color: var(--highlight);
-  color: var(--accent);
-}
-.sidebar-footer {
-  padding: 16px 20px;
-  border-top: 1px solid var(--border);
-  margin-top: auto;
-  font-size: 11px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-.sidebar-note { margin-top: 8px; font-style: italic; }
-
-/* === 主内容 === */
-.main-content {
-  margin-left: 240px;
-  flex: 1;
-  padding: 40px 48px;
-  max-width: 900px;
-}
-.content-header { margin-bottom: 48px; }
-.content-header h1 {
-  font-size: 32px;
-  font-weight: 800;
-  color: var(--accent);
-  margin-bottom: 8px;
-  letter-spacing: 2px;
-}
-.header-subtitle {
-  font-size: 15px;
-  color: var(--text-secondary);
-  margin-bottom: 20px;
-}
-.header-intro {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px 24px;
-  box-shadow: var(--shadow);
-}
-.header-intro p {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-}
-.header-intro p:last-child { margin-bottom: 0; }
-.header-intro strong { color: var(--accent); }
-
-/* === 信件区块 === */
-.letter-section {
-  margin-bottom: 40px;
-  scroll-margin-top: 150px;
-}
-.letter-header {
-  border-bottom: 2px solid var(--accent);
-  padding-bottom: 12px;
-  margin-bottom: 24px;
-}
-.letter-header h2 {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--accent);
-}
-.letter-subtitle {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-top: 4px;
-}
-.letter-body {
-  font-family: var(--font-serif);
-  font-size: 16px;
-  line-height: 2;
-  color: #374151;
-}
+/* ===== Letter styles ===== */
+.letter-header { padding:16px 24px; background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 24px; }
+.letter-header h2 { font-size: 22px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+.letter-subtitle { font-size: 13px; color: var(--text2); margin-top: 4px; }
+.letter-body { font-family: var(--font-serif); font-size: 16px; line-height: 2; color: #374151; }
 .letter-body h1 { font-size: 22px; color: var(--accent); margin: 32px 0 16px; }
 .letter-body h2 { font-size: 19px; color: var(--accent-light); margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
 .letter-body h3 { font-size: 17px; color: var(--accent-light); margin: 24px 0 12px; }
-.letter-body h4 { font-size: 15px; color: var(--text-secondary); margin: 20px 0 10px; }
+.letter-body h4 { font-size: 15px; color: var(--text2); margin: 20px 0 10px; }
 .letter-body p { margin-bottom: 16px; text-indent: 0; }
-.letter-body blockquote {
-  border-left: 4px solid var(--highlight);
-  padding: 12px 20px;
-  margin: 16px 0;
-  background: var(--highlight-light);
-  border-radius: 0 var(--radius) var(--radius) 0;
-  font-style: italic;
-}
+.letter-body blockquote { border-left: 4px solid var(--highlight); padding: 12px 20px; margin: 16px 0; background: var(--highlight-light); border-radius: 0 var(--radius) var(--radius) 0; font-style: italic; }
 .letter-body blockquote p { margin-bottom: 8px; }
 .letter-body blockquote p:last-child { margin-bottom: 0; }
-.letter-body ul {
-  margin: 12px 0 20px 24px;
-  padding: 0;
+.letter-body ul { margin: 12px 0 20px 24px; padding: 0; }
+.letter-body li { margin-bottom: 8px; line-height: 1.8; }
+.letter-body hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.letter-body strong { color: var(--accent); font-weight: 700; }
+.letter-source { margin-top: 24px; padding: 12px 16px; background: #f0f9ff; border-left: 3px solid #3b82f6; border-radius: 0 var(--radius) var(--radius) 0; font-size: 12px; color: #6b7280; }
+.letter-source p { margin: 0; }
+
+/* Backdrop */
+.backdrop { display:none; position:fixed; top:var(--header-h); left:0; right:0; bottom:0; background:rgba(0,0,0,.3); z-index:40; }
+.backdrop.show { display:block; }
+
+/* ===== TTS Bar ===== */
+.tts-bar { display:flex; align-items:center; gap:10px; margin:16px 0; padding:10px 16px; background:linear-gradient(135deg,#f5f3ff,#ede9fe); border:1px solid #c4b5fd; border-radius:12px; flex-wrap:wrap; }
+.tts-btn { padding:8px 20px; border:none; border-radius:8px; font-size:14px; cursor:pointer; font-weight:600; transition:all .15s; display:flex; align-items:center; gap:6px; }
+.tts-btn.play { background:linear-gradient(135deg,#7c3aed,#6d28d9); color:#fff; box-shadow:0 2px 8px rgba(124,58,237,.3); }
+.tts-btn.play:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(124,58,237,.4); }
+.tts-btn.pause { background:linear-gradient(135deg,#f59e0b,#d97706); color:#fff; }
+.tts-btn.stop { background:#ef4444; color:#fff; }
+.tts-btn:disabled { opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+.tts-progress { display:flex; align-items:center; gap:8px; font-size:12px; color:#6b7280; }
+.tts-progress-bar { width:100px; height:4px; background:#e5e7eb; border-radius:2px; overflow:hidden; }
+.tts-progress-fill { height:100%; background:linear-gradient(90deg,#7c3aed,#2563eb); width:0%; transition:width .1s; }
+.tts-speed { display:flex; align-items:center; gap:6px; font-size:12px; color:#6b7280; }
+.tts-speed input { width:80px; }
+.tts-toast { position:fixed; top:70px; left:50%; transform:translateX(-50%); background:rgba(15,23,42,0.92); color:#fff; padding:10px 24px; border-radius:24px; font-size:14px; z-index:1001; opacity:0; transition:opacity .3s; pointer-events:none; white-space:nowrap; }
+.tts-toast.show { opacity:1; }
+.tts-word-highlight { background:linear-gradient(120deg,#fef08a 0%,#fef08a 100%); background-repeat:no-repeat; background-size:100% 40%; background-position:0 88%; border-radius:2px; transition:all .15s; }
+
+/* Nav buttons */
+.nav-buttons { display:flex; justify-content:space-between; margin-top:48px; padding-top:24px; border-top:1px solid var(--border); gap:16px; }
+.nav-btn { flex:1; padding:12px 16px; border:1px solid var(--border); border-radius:var(--radius); background:var(--content-bg); cursor:pointer; font-size:13px; transition:all .15s; }
+.nav-btn:hover { border-color:#7c3aed; box-shadow:0 2px 8px rgba(124,58,237,.1); }
+.nav-btn .label { font-size:11px; color:var(--text2); margin-bottom:4px; }
+.nav-btn .title { font-weight:600; color:var(--text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.nav-btn.next { text-align:right; }
+.nav-btn.disabled { opacity:0.4; cursor:not-allowed; }
+
+/* Top button */
+.top-btn { position:fixed; bottom:24px; right:24px; z-index:90; display:none; }
+.top-btn button { width:44px; height:44px; border-radius:50%; border:none; background:#0f172a; color:#fff; font-size:20px; cursor:pointer; box-shadow:0 4px 12px rgba(15,23,42,.3); }
+
+/* ===== Responsive ===== */
+@media(max-width:1024px) {
+  :root { --sidebar-w:240px; }
+  .content { padding:28px 32px; }
 }
-.letter-body li {
-  margin-bottom: 8px;
-  line-height: 1.8;
+@media (max-width:768px) {
+  :root { --sidebar-w:280px; }
+  .menu-toggle { display:block; }
+  .sidebar { transform:translateX(-100%); box-shadow:2px 0 12px rgba(0,0,0,.15); }
+  .sidebar.open { transform:translateX(0); }
+  .content { margin-left:0; padding:20px 16px; }
+  .letter-body { font-size:14.5px; line-height:1.8; }
+  .tts-bar { padding:8px 12px; gap:8px; }
+  .tts-btn { padding:7px 14px; font-size:13px; }
+  .tts-progress-bar { width:60px; }
+  .nav-buttons { flex-direction:column; gap:10px; }
+  .nav-btn { width:100%; }
+  .nav-btn.next { text-align:left; }
+  .top-btn { bottom:16px; right:16px; }
+  .top-btn button { width:40px; height:40px; font-size:18px; }
 }
-.letter-body hr {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 24px 0;
-}
-.letter-body strong {
-  color: var(--accent);
-  font-weight: 700;
+@media(max-width:480px) {
+  .header { padding:0 10px; }
+  .header-title { font-size:14px; gap:4px; }
+  .content { padding:16px 12px; }
+  .letter-header h2 { font-size:18px; }
+  .letter-body { font-size:14px; line-height:1.75; }
+  .tts-bar { flex-direction:column; align-items:stretch; gap:8px; padding:10px; }
+  .tts-btn { justify-content:center; }
+  .tts-speed { justify-content:center; }
+  .tts-progress { justify-content:center; }
+  .tts-progress-bar { width:100%; }
+  .empty-state { padding:60px 16px; }
+  .empty-state .icon { font-size:40px; }
+  .empty-state h2 { font-size:16px; }
 }
 
-.letter-source {
-  margin-top: 24px;
-  padding: 12px 16px;
-  background: #f0f9ff;
-  border-left: 3px solid #3b82f6;
-  border-radius: 0 var(--radius) var(--radius) 0;
-  font-size: 12px;
-  color: #6b7280;
-}
-
-/* === 朗读高亮 === */
-/* === 朗读高亮（段落级，不拆分DOM） === */
-.tts-active-paragraph {
-  background: var(--highlight-light) !important;
-  border-left: 4px solid var(--highlight) !important;
-  padding-left: 12px !important;
-  transition: background 0.3s, border-left 0.3s;
-}
-
-/* 定点朗读模式 */
-.tts-point-mode {
-  cursor: pointer;
-}
-.tts-point-mode .letter-body p,
-.tts-point-mode .letter-body h3,
-.tts-point-mode .letter-body h4,
-.tts-point-mode .letter-body li {
-  cursor: pointer;
-}
-.tts-point-mode .letter-body p:hover,
-.tts-point-mode .letter-body h3:hover,
-.tts-point-mode .letter-body h4:hover,
-.tts-point-mode .letter-body li:hover {
-  background: rgba(245, 158, 11, 0.15);
-  border-radius: 4px;
-  transition: background 0.2s;
-}
-
-/* 定点朗读按钮激活态 */
-.tts-btn.point-active {
-  background: var(--highlight) !important;
-  color: #1a1a2e !important;
-  border-color: var(--highlight) !important;
-  font-weight: 600;
-}
-
-/* Toast 提示 */
-.tts-toast {
-  position: fixed;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--accent);
-  color: #fff;
-  padding: 10px 24px;
-  border-radius: 20px;
-  font-size: 14px;
-  z-index: 10000;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-  animation: tts-toast-in 0.3s ease;
-  pointer-events: none;
-  white-space: pre-line;
-  text-align: center;
-  max-width: 90vw;
-}
-@keyframes tts-toast-in {
-  from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-
-/* 旧逐字符高亮样式（已废弃但保留以避免残留元素样式异常） */
-.tts-highlight { background: var(--highlight-light); border-radius: 2px; padding: 0 2px; }
-.tts-active-word { background: var(--highlight); color: #1a1a2e; }
-  font-weight: 600;
-  padding: 0 2px;
-  border-radius: 2px;
-}
-
-/* === 响应式 === */
-@media (max-width: 1024px) {
-  body { padding-top: 0; }
-  /* 移动端/平板隐藏顶部固定工具栏 */
-  #tts-toolbar { display: none; }
-  /* 移动端/平板显示浮动工具栏 */
-  #tts-floating-bar { display: block; }
-  /* 移动端/平板隐藏侧边栏 */
-  .sidebar { display: none; }
-  .main-content { margin-left: 0; padding: 20px 16px; }
-  .letter-section { scroll-margin-top: 0; }
-  .tts-toast { top: 20px; }
-}
-
-/* 滚动条美化 */
-.sidebar::-webkit-scrollbar { width: 4px; }
-.sidebar::-webkit-scrollbar-track { background: transparent; }
-.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-.sidebar::-webkit-scrollbar-thumb:hover { background: #c5c5c5; }
+/* Progress bar */
+.progress-bar { position:fixed; top:var(--header-h); left:0; height:3px; background:linear-gradient(90deg,#0f172a,#2563eb); width:0%; z-index:99; transition:width .1s; }
 </style>
 </head>
 <body>
 
-<!-- 顶部阅读工具栏 -->
-<div id="tts-toolbar">
-  <div class="toolbar-inner">
-    <div class="toolbar-left">
-      <a href="./index.html" class="back-btn">← 返回</a>
-      <span class="toolbar-logo">📖 信息收录</span>
-      <span class="toolbar-subtitle">巴菲特致股东信（1957-1972）</span>
-    </div>
-    <div class="toolbar-center">
-      <button id="btn-read-mandarin" class="tts-btn" onclick="startReading('zh-CN')" title="普通话朗读">
-        <span class="btn-icon">🔊</span> 普通话
-      </button>
-      <button id="btn-read-cantonese" class="tts-btn" onclick="startReading('zh-HK')" title="粤语朗读">
-        <span class="btn-icon">🎵</span> 粤语
-      </button>
-      <button id="btn-stop" class="tts-btn stop" onclick="stopReading()" disabled>
-        <span class="btn-icon">⏹</span> 停止
-      </button>
-      <button id="btn-pause" class="tts-btn" onclick="togglePause()" disabled>
-        <span class="btn-icon">⏯</span> 暂停
-      </button>
-      <button id="btn-point" class="tts-btn point" onclick="togglePointMode()" title="定字朗读：点击任意字开始朗读，黄色高亮逐字跟随">
-        <span class="btn-icon">📍</span> 定字朗读
-      </button>
-    </div>
-    <div class="toolbar-right">
-      <a href="./index.html" class="nav-link">📖 跨境电商参考</a>
-      <div class="speed-control">
-        <label>语速</label>
-        <input type="range" id="speed-slider" min="0.5" max="2" step="0.1" value="1" oninput="updateSpeed(this.value)">
-        <span id="speed-label">1.0x</span>
-      </div>
-    </div>
+<!-- 顶部Header -->
+<header class="header">
+  <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+  <a href="./index.html" class="back-btn" title="返回导航首页">← 返回</a>
+  <a href="./index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:8px;">
+    <div class="header-title">📖 巴菲特致股东的信 <span class="tag">1957-1972</span></div>
+  </a>
+  <a href="./curated36.html" class="nav-link">🛒 跨境电商参考</a>
+  <div class="search-box"><input type="text" id="searchInput" placeholder="搜索年份..." oninput="handleSearch(this.value)"></div>
+</header>
+
+<!-- 进度条 -->
+<div class="progress-bar" id="progress-bar"></div>
+
+<!-- 左侧导航 -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h3>📖 巴菲特致股东的信</h3>
+    <p>选择年份开始阅读</p>
   </div>
-  <!-- 进度条 -->
-  <div class="progress-bar-container">
-    <div class="progress-bar" id="progress-bar"></div>
-    <div class="progress-click-area" id="progress-click-area" onclick="seekByClick(event)"></div>
+<div class="cat-section">
+  <div class="cat-header" onclick="toggleGroup(this)">
+    <span>💼 合伙基金时期</span>
+    <span class="cat-count">14</span>
+    <span class="arrow">▼</span>
+  </div>
+  <ul class="cat-list">
+    <li data-year="year-1957" onclick="showLetter('year-1957')">1957年</li>
+    <li data-year="year-1958" onclick="showLetter('year-1958')">1958年</li>
+    <li data-year="year-1959" onclick="showLetter('year-1959')">1959年</li>
+    <li data-year="year-1960" onclick="showLetter('year-1960')">1960年</li>
+    <li data-year="year-1961" onclick="showLetter('year-1961')">1961年</li>
+    <li data-year="year-1962" onclick="showLetter('year-1962')">1962年</li>
+    <li data-year="year-1963" onclick="showLetter('year-1963')">1963年</li>
+    <li data-year="year-1964" onclick="showLetter('year-1964')">1964年</li>
+    <li data-year="year-1965" onclick="showLetter('year-1965')">1965年</li>
+    <li data-year="year-1966" onclick="showLetter('year-1966')">1966年</li>
+    <li data-year="year-1967" onclick="showLetter('year-1967')">1967年</li>
+    <li data-year="year-1968" onclick="showLetter('year-1968')">1968年</li>
+    <li data-year="year-1969" onclick="showLetter('year-1969')">1969年</li>
+    <li data-year="year-1970" onclick="showLetter('year-1970')">1970年</li>
+  </ul>
+</div>
+<div class="cat-section">
+  <div class="cat-header" onclick="toggleGroup(this)">
+    <span>🏢 伯克希尔时期</span>
+    <span class="cat-count">8</span>
+    <span class="arrow">▼</span>
+  </div>
+  <ul class="cat-list">
+    <li data-year="berkshire-1965" onclick="showLetter('berkshire-1965')">1965年</li>
+    <li data-year="berkshire-1966" onclick="showLetter('berkshire-1966')">1966年</li>
+    <li data-year="berkshire-1967" onclick="showLetter('berkshire-1967')">1967年</li>
+    <li data-year="berkshire-1968" onclick="showLetter('berkshire-1968')">1968年</li>
+    <li data-year="berkshire-1969" onclick="showLetter('berkshire-1969')">1969年</li>
+    <li data-year="berkshire-1970" onclick="showLetter('berkshire-1970')">1970年</li>
+    <li data-year="berkshire-1971" onclick="showLetter('berkshire-1971')">1971年</li>
+    <li data-year="berkshire-1972" onclick="showLetter('berkshire-1972')">1972年</li>
+  </ul>
+</div>
+<div class="cat-section">
+  <div class="cat-header" onclick="toggleGroup(this)">
+    <span>🔗 1973年后信件</span>
+    <span class="cat-count">52</span>
+    <span class="arrow">▼</span>
+  </div>
+  <ul class="cat-list">
+    <li onclick="openExternalYear(1973)">1973年</li>
+    <li onclick="openExternalYear(1974)">1974年</li>
+    <li onclick="openExternalYear(1975)">1975年</li>
+    <li onclick="openExternalYear(1976)">1976年</li>
+    <li onclick="openExternalYear(1977)">1977年</li>
+    <li onclick="openExternalYear(1978)">1978年</li>
+    <li onclick="openExternalYear(1979)">1979年</li>
+    <li onclick="openExternalYear(1980)">1980年</li>
+    <li onclick="openExternalYear(1981)">1981年</li>
+    <li onclick="openExternalYear(1982)">1982年</li>
+    <li onclick="openExternalYear(1983)">1983年</li>
+    <li onclick="openExternalYear(1984)">1984年</li>
+    <li onclick="openExternalYear(1985)">1985年</li>
+    <li onclick="openExternalYear(1986)">1986年</li>
+    <li onclick="openExternalYear(1987)">1987年</li>
+    <li onclick="openExternalYear(1988)">1988年</li>
+    <li onclick="openExternalYear(1989)">1989年</li>
+    <li onclick="openExternalYear(1990)">1990年</li>
+    <li onclick="openExternalYear(1991)">1991年</li>
+    <li onclick="openExternalYear(1992)">1992年</li>
+    <li onclick="openExternalYear(1993)">1993年</li>
+    <li onclick="openExternalYear(1994)">1994年</li>
+    <li onclick="openExternalYear(1995)">1995年</li>
+    <li onclick="openExternalYear(1996)">1996年</li>
+    <li onclick="openExternalYear(1997)">1997年</li>
+    <li onclick="openExternalYear(1998)">1998年</li>
+    <li onclick="openExternalYear(1999)">1999年</li>
+    <li onclick="openExternalYear(2000)">2000年</li>
+    <li onclick="openExternalYear(2001)">2001年</li>
+    <li onclick="openExternalYear(2002)">2002年</li>
+    <li onclick="openExternalYear(2003)">2003年</li>
+    <li onclick="openExternalYear(2004)">2004年</li>
+    <li onclick="openExternalYear(2005)">2005年</li>
+    <li onclick="openExternalYear(2006)">2006年</li>
+    <li onclick="openExternalYear(2007)">2007年</li>
+    <li onclick="openExternalYear(2008)">2008年</li>
+    <li onclick="openExternalYear(2009)">2009年</li>
+    <li onclick="openExternalYear(2010)">2010年</li>
+    <li onclick="openExternalYear(2011)">2011年</li>
+    <li onclick="openExternalYear(2012)">2012年</li>
+    <li onclick="openExternalYear(2013)">2013年</li>
+    <li onclick="openExternalYear(2014)">2014年</li>
+    <li onclick="openExternalYear(2015)">2015年</li>
+    <li onclick="openExternalYear(2016)">2016年</li>
+    <li onclick="openExternalYear(2017)">2017年</li>
+    <li onclick="openExternalYear(2018)">2018年</li>
+    <li onclick="openExternalYear(2019)">2019年</li>
+    <li onclick="openExternalYear(2020)">2020年</li>
+    <li onclick="openExternalYear(2021)">2021年</li>
+    <li onclick="openExternalYear(2022)">2022年</li>
+    <li onclick="openExternalYear(2023)">2023年</li>
+    <li onclick="openExternalYear(2024)">2024年</li>
+  </ul>
+</div>
+</nav>
+
+<!-- 遮罩层 -->
+<div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
+
+<!-- 主内容区 -->
+<main class="content" id="main-content">
+<div id="emptyState" class="empty-state">
+      <div class="icon">👆</div>
+
+<!-- TTS Bar -->
+<div id="tts-bar" class="tts-bar" style="display:none;">
+  <button id="btn-read-mandarin" class="tts-btn play" onclick="startReading('zh-CN')">
+    <span>🔊</span> 普通话
+  </button>
+  <button id="btn-read-cantonese" class="tts-btn play" onclick="startReading('zh-HK')">
+    <span>🎵</span> 粤语
+  </button>
+  <button id="btn-stop" class="tts-btn stop" onclick="stopReading()" disabled>
+    <span>⏹</span> 停止
+  </button>
+  <button id="btn-pause" class="tts-btn pause" onclick="togglePause()" disabled>
+    <span>⏯</span> 暂停
+  </button>
+  <button id="btn-point" class="tts-btn" onclick="togglePointMode()" title="定字朗读：点击任意字开始朗读">
+    <span>📍</span> 定字
+  </button>
+  <div class="tts-progress">
+    <span id="tts-progress-text">0%</span>
+    <div class="tts-progress-bar"><div class="tts-progress-fill" id="tts-progress-fill"></div></div>
+  </div>
+  <div class="tts-speed">
+    <label>语速</label>
+    <input type="range" id="speed-slider" min="0.5" max="2" step="0.1" value="1" oninput="updateSpeed(this.value)">
+    <span id="speed-label">1.0x</span>
   </div>
 </div>
 
-<!-- 移动端浮动朗读工具栏 -->
-<div id="tts-floating-bar">
-  <div class="floating-restore-icon" onclick="toggleFloatingBar()">🔊</div>
-  <div class="floating-drag-handle" onmousedown="startDrag(event)" ontouchstart="startDrag(event)">
-    <span class="floating-title">朗读</span>
-  </div>
-  <div class="floating-actions">
-    <button id="btn-read-mandarin-f" class="tts-btn" onclick="startReading('zh-CN')" title="普通话朗读">
-      <span class="btn-icon">🔊</span> 普通话
-    </button>
-    <button id="btn-read-cantonese-f" class="tts-btn" onclick="startReading('zh-HK')" title="粤语朗读">
-      <span class="btn-icon">🎵</span> 粤语
-    </button>
-    <button id="btn-stop-f" class="tts-btn stop" onclick="stopReading()" disabled>
-      <span class="btn-icon">⏹</span> 停止
-    </button>
-    <button id="btn-pause-f" class="tts-btn" onclick="togglePause()" disabled>
-      <span class="btn-icon">⏯</span> 暂停
-    </button>
-    <button id="btn-point-f" class="tts-btn point" onclick="togglePointMode()" title="定字朗读">
-      <span class="btn-icon">📍</span> 定字
-    </button>
-  </div>
-  <div class="floating-header-row">
-    <div class="speed-control">
-      <label>语速</label>
-      <input type="range" id="speed-slider-floating" min="0.5" max="2" step="0.1" value="1" oninput="updateSpeed(this.value)">
-      <span id="speed-label-floating">1.0x</span>
-    </div>
-    <button class="floating-min-btn" onclick="toggleFloatingBar()" title="收起">−</button>
-    <button class="floating-restore-btn" onclick="toggleFloatingBar()" title="展开">+</button>
-  </div>
-  <div class="floating-progress">
-    <div class="progress-bar" id="progress-bar-floating"></div>
-  </div>
-</div>
-
-<div class="app-layout">
-  <!-- 左侧导航 -->
-  <nav class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <h3>巴菲特致股东的信</h3>
-      <p class="sidebar-years">1957 — 2024</p>
-    </div>
-    <ul class="year-nav">
-<li><a href="#year-1957" onclick="showLetter('1957')">1957<span>第一封年度信</span></a></li>
-<li><a href="#year-1958" onclick="showLetter('1958')">1958<span>牛市中的冷静</span></a></li>
-<li><a href="#year-1959" onclick="showLetter('1959')">1959<span>保守与进取的平衡</span></a></li>
-<li><a href="#year-1960" onclick="showLetter('1960')">1960<span>桑伯恩地图</span></a></li>
-<li><a href="#year-1961" onclick="showLetter('1961')">1961<span>三种投资策略的定型</span></a></li>
-<li><a href="#year-1962" onclick="showLetter('1962')">1962<span>复利的魔力</span></a></li>
-<li><a href="#year-1963" onclick="showLetter('1963')">1963<span>低估、套利、控制三分天下</span></a></li>
-<li><a href="#year-1964" onclick="showLetter('1964')">1964<span>德州国家石油</span></a></li>
-<li><a href="#year-1965" onclick="showLetter('1965')">1965<span>集中投资与分散的辩证</span></a></li>
-<li><a href="#year-1966" onclick="showLetter('1966')">1966<span>规模开始成为桎梏</span></a></li>
-<li><a href="#year-1967" onclick="showLetter('1967')">1967<span>目标下调</span></a></li>
-<li><a href="#year-1968" onclick="showLetter('1968')">1968<span>有史以来最好的一年</span></a></li>
-<li><a href="#year-1969" onclick="showLetter('1969')">1969<span>告别信</span></a></li>
-<li><a href="#year-1970" onclick="showLetter('1970')">1970<span>债券投资教育</span></a></li>
-<li><a href="#berkshire-1965" onclick="showLetter('berkshire-1965')">1965<span>伯克希尔·入主首年</span></a></li>
-<li><a href="#berkshire-1966" onclick="showLetter('berkshire-1966')">1966<span>伯克希尔·六年回顾</span></a></li>
-<li><a href="#berkshire-1967" onclick="showLetter('berkshire-1967')">1967<span>伯克希尔·收购保险</span></a></li>
-<li><a href="#berkshire-1968" onclick="showLetter('berkshire-1968')">1968<span>伯克希尔·退出织机</span></a></li>
-<li><a href="#berkshire-1969" onclick="showLetter('berkshire-1969')">1969<span>伯克希尔·收购银行</span></a></li>
-<li><a href="#berkshire-1970" onclick="showLetter('berkshire-1970')">1970<span>伯克希尔·三大业务</span></a></li>
-<li><a href="#berkshire-1971" onclick="showLetter('berkshire-1971')">1971<span>伯克希尔·14%回报</span></a></li>
-<li><a href="#berkshire-1972" onclick="showLetter('berkshire-1972')">1972<span>伯克希尔·19.8%峰值</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1973-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1973<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1974-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1974<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1975-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1975<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1976-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1976<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1977-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1977<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1978-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1978<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1979-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1979<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1980-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1980<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1981-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1981<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1982-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1982<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1983-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1983<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1984-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1984<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1985-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1985<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1986-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1986<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1987-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1987<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1988-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1988<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1989-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1989<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1990-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1990<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1991-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1991<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1992-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1992<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1993-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1993<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1994-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1994<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1995-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1995<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1996-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1996<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1997-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1997<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1998-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1998<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/1999-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">1999<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2000-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2000<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2001-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2001<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2002-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2002<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2003-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2003<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2004-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2004<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2005-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2005<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2006-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2006<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2007-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2007<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2008-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2008<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2009-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2009<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2010-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2010<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2011-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2011<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2012-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2012<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2013-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2013<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2014-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2014<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2015-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2015<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2016-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2016<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2017-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2017<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2018-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2018<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2019-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2019<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2020-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2020<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2021-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2021<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2022-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2022<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2023-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2023<span>learnbuffett.com →</span></a></li>
-<li><a href="https://learnbuffett.com/berkshire/2024-%E5%B7%B4%E8%8F%B2%E7%89%B9%E8%87%B4%E8%82%A1%E4%B8%9C%E4%BF%A1.html" target="_blank">2024<span>learnbuffett.com →</span></a></li>
-    </ul>
-    <div class="sidebar-footer">
-      <p>翻译来源：buffett-letters.com</p>
-      <p>learnbuffett.com</p>
-      <p class="sidebar-note">所有内容仅供学习参考</p>
-    </div>
-  </nav>
-
-  <!-- 主内容区 -->
-  <main class="main-content" id="main-content">
-    <div class="content-header">
-      <h1>巴菲特致股东的信中文</h1>
-      <p class="header-subtitle">1957 — 2024 · 中文翻译最佳合集</p>
-      <div class="header-intro">
-        <p>本页面收录了沃伦·巴菲特在合伙企业经营期间（1957-1970年）致合伙人的全部年度信件，以及伯克希尔·哈撒韦时期（1965-1972年）致股东信的优质中文翻译。1973年及之后的信件提供外部链接（learnbuffett.com）。</p>
-        <p>翻译来源：<strong>buffett-letters.com</strong>、<strong>learnbuffett.com</strong>，基于雪球博主 RanRan 的翻译版本整理校订。</p>
-        <p>这些信件记录了巴菲特从 27 岁到 39 岁的投资思想演进，是他投资体系形成的关键时期，被无数价值投资者奉为经典。</p>
-      </div>
-    </div>
-
-    <section id="year-1957" class="letter-section">
+<section id="year-1957" class="letter-section">
       <div class="letter-header">
         <h2>1957年</h2>
         <p class="letter-subtitle">第一封年度信 — 安全边际的起点</p>
@@ -829,8 +378,7 @@ body {
         <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
       </div>
     </section>
-
-    <section id="year-1958" class="letter-section">
+<section id="year-1958" class="letter-section">
       <div class="letter-header">
         <h2>1958年</h2>
         <p class="letter-subtitle">牛市中的冷静 — 38.5%的诱惑</p>
@@ -909,8 +457,7 @@ body {
         <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
       </div>
     </section>
-
-    <section id="year-1959" class="letter-section">
+<section id="year-1959" class="letter-section">
       <div class="letter-header">
         <h2>1959年</h2>
         <p class="letter-subtitle">保守与进取的平衡</p>
@@ -969,8 +516,7 @@ body {
         <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
       </div>
     </section>
-
-    <section id="year-1960" class="letter-section">
+<section id="year-1960" class="letter-section">
       <div class="letter-header">
         <h2>1960年</h2>
         <p class="letter-subtitle">桑伯恩地图 — 经典控制类投资</p>
@@ -1066,8 +612,7 @@ body {
         <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
       </div>
     </section>
-
-    <section id="year-1961" class="letter-section">
+<section id="year-1961" class="letter-section">
       <div class="letter-header">
         <h2>1961年</h2>
         <p class="letter-subtitle">三种投资策略的定型</p>
@@ -1255,8 +800,7 @@ body {
         <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
       </div>
     </section>
-
-    <section id="year-1962" class="letter-section">
+<section id="year-1962" class="letter-section">
       <div class="letter-header">
         <h2>1962年</h2>
         <p class="letter-subtitle">复利的魔力 — 11年回顾</p>
@@ -1580,8 +1124,7 @@ body {
         <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
       </div>
     </section>
-
-    <section id="year-1963" class="letter-section">
+<section id="year-1963" class="letter-section">
       <div class="letter-header">
         <h2>1963年</h2>
         <p class="letter-subtitle">低估类、套利类、控制类的三分天下</p>
@@ -1944,8 +1487,7 @@ body {
         <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
       </div>
     </section>
-
-    <section id="year-1964" class="letter-section">
+<section id="year-1964" class="letter-section">
       <div class="letter-header">
         <h2>1964年</h2>
         <p class="letter-subtitle">德州国家石油 — 教科书级套利</p>
@@ -2194,8 +1736,7 @@ body {
         <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
       </div>
     </section>
-
-    <section id="year-1965" class="letter-section">
+<section id="year-1965" class="letter-section">
       <div class="letter-header">
         <h2>1965年</h2>
         <p class="letter-subtitle">集中投资与分散的辩证</p>
@@ -2390,8 +1931,7 @@ body {
         <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
       </div>
     </section>
-
-    <section id="year-1966" class="letter-section">
+<section id="year-1966" class="letter-section">
       <div class="letter-header">
         <h2>1966年</h2>
         <p class="letter-subtitle">规模开始成为桎梏</p>
@@ -2573,8 +2113,7 @@ body {
         <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
       </div>
     </section>
-
-    <section id="year-1967" class="letter-section">
+<section id="year-1967" class="letter-section">
       <div class="letter-header">
         <h2>1967年</h2>
         <p class="letter-subtitle">目标下调 — 10% vs 9%</p>
@@ -2684,8 +2223,7 @@ body {
         <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
       </div>
     </section>
-
-    <section id="year-1968" class="letter-section">
+<section id="year-1968" class="letter-section">
       <div class="letter-header">
         <h2>1968年</h2>
         <p class="letter-subtitle">有史以来最好的一年 — 却要关门了</p>
@@ -2851,8 +2389,7 @@ body {
         <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
       </div>
     </section>
-
-    <section id="year-1969" class="letter-section">
+<section id="year-1969" class="letter-section">
       <div class="letter-header">
         <h2>1969年</h2>
         <p class="letter-subtitle">告别信 — 合伙企业的终结</p>
@@ -2989,8 +2526,7 @@ body {
         <p>翻译来源：辛道义博客（xindaoyi.com）</p>
       </div>
     </section>
-
-    <section id="year-1970" class="letter-section">
+<section id="year-1970" class="letter-section">
       <div class="letter-header">
         <h2>1970年</h2>
         <p class="letter-subtitle">债券投资教育 — 合伙企业解散后的财务安排</p>
@@ -3083,9 +2619,7 @@ body {
         <p>翻译来源：辛道义博客（xindaoyi.com）</p>
       </div>
     </section>
-
-    <!-- 伯克希尔·哈撒韦时期（1965-1972） -->
-    <section id="berkshire-1965" class="letter-section">
+<section id="berkshire-1965" class="letter-section">
       <div class="letter-header">
         <h2>1965年</h2>
         <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 巴菲特入主后的第一份股东信</p>
@@ -3126,8 +2660,7 @@ body {
         <p>翻译来源：learnbuffett.com</p>
       </div>
     </section>
-
-    <section id="berkshire-1966" class="letter-section">
+<section id="berkshire-1966" class="letter-section">
       <div class="letter-header">
         <h2>1966年</h2>
         <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 六年回顾纺织业周期性</p>
@@ -3226,8 +2759,7 @@ body {
         <p>翻译来源：learnbuffett.com</p>
       </div>
     </section>
-
-    <section id="berkshire-1967" class="letter-section">
+<section id="berkshire-1967" class="letter-section">
       <div class="letter-header">
         <h2>1967年</h2>
         <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 收购国民保险公司，进入保险业</p>
@@ -3288,8 +2820,7 @@ body {
         <p>翻译来源：learnbuffett.com</p>
       </div>
     </section>
-
-    <section id="berkshire-1968" class="letter-section">
+<section id="berkshire-1968" class="letter-section">
       <div class="letter-header">
         <h2>1968年</h2>
         <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 退出梭箱织机业务，收购太阳报业</p>
@@ -3328,8 +2859,7 @@ body {
         <p>翻译来源：learnbuffett.com</p>
       </div>
     </section>
-
-    <section id="berkshire-1969" class="letter-section">
+<section id="berkshire-1969" class="letter-section">
       <div class="letter-header">
         <h2>1969年</h2>
         <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 收购伊利诺伊国民银行，进入银行业</p>
@@ -3378,8 +2908,7 @@ body {
         <p>翻译来源：learnbuffett.com</p>
       </div>
     </section>
-
-    <section id="berkshire-1970" class="letter-section">
+<section id="berkshire-1970" class="letter-section">
       <div class="letter-header">
         <h2>1970年</h2>
         <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 银行历史最佳、保险承保退步但投资弥补</p>
@@ -3430,8 +2959,7 @@ body {
         <p>翻译来源：learnbuffett.com</p>
       </div>
     </section>
-
-    <section id="berkshire-1971" class="letter-section">
+<section id="berkshire-1971" class="letter-section">
       <div class="letter-header">
         <h2>1971年</h2>
         <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 经营回报达14%，收购家庭和汽车保险公司</p>
@@ -3488,8 +3016,7 @@ body {
         <p>翻译来源：learnbuffett.com</p>
       </div>
     </section>
-
-    <section id="berkshire-1972" class="letter-section">
+<section id="berkshire-1972" class="letter-section">
       <div class="letter-header">
         <h2>1972年</h2>
         <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 经营回报19.8%历史峰值，八年每股年化16.5%</p>
@@ -3563,801 +3090,347 @@ body {
       </div>
     </section>
 
-  </main>
+<!-- 导航按钮 -->
+<div id="nav-buttons" class="nav-buttons" style="display:none;">
+  <button class="nav-btn" id="prev-btn" onclick="navigatePrev()">
+    <div class="label">上一篇</div>
+    <div class="title" id="prev-title">—</div>
+  </button>
+  <button class="nav-btn next" id="next-btn" onclick="navigateNext()">
+    <div class="label">下一篇</div>
+    <div class="title" id="next-title">—</div>
+  </button>
 </div>
-<!-- 朗读小组件脚本 -->
+
+</main>
+
+<!-- 回到顶部 -->
+<div class="top-btn" id="top-btn">
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+</div>
+
+<!-- Toast -->
+<div class="tts-toast" id="tts-toast"></div>
+
 <script>
-// ============ 朗读系统 ============
-let synth = window.speechSynthesis;
-let utterance = null;
-let isPaused = false;
-let isReading = false;
-let currentLang = 'zh-CN';
-let currentSpeed = 1.0;
-let currentLetter = null;
-let charIndex = 0;
-let totalChars = 0;
-let allTextNodes = [];
-let charToNodeMap = [];
-let activeParagraph = null; // 当前高亮的段落元素
-let pointMode = false;
-let pointStartChar = 0; // 定点朗读的起始字符位置
+// ===== Sidebar & Navigation =====
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('backdrop').classList.toggle('show');
+}
 
-// ==================== 初始化 ====================
-let voicesReady = false;
-let pendingRead = null; // 等待 voice 就绪后执行的朗读请求
+function handleSearch(v) {
+  v = (v || '').trim();
+  var all = document.querySelectorAll('.cat-list li');
+  all.forEach(function(li) {
+    li.style.display = (!v || li.textContent.indexOf(v) !== -1) ? '' : 'none';
+  });
+}
 
-function initTTS() {
-  // 关键：iOS Safari 需要等 onvoiceschanged 之后 voices 才可用
-  function loadVoices() {
-    let voices = synth.getVoices();
-    if (voices.length > 0) {
-      voicesReady = true;
-      // 处理等待中的朗读请求
-      if (pendingRead) {
-        let p = pendingRead;
-        pendingRead = null;
-        startReading(p.lang, p.startChar, p.targetSection);
-      }
-    }
+function toggleGroup(header) {
+  header.classList.toggle('collapsed');
+  var list = header.nextElementSibling;
+  if (list) list.classList.toggle('hidden');
+}
+
+// All navigable items in order
+const NAV_ORDER = [
+  'year-1957','year-1958','year-1959','year-1960','year-1961','year-1962','year-1963','year-1964',
+  'year-1965','year-1966','year-1967','year-1968','year-1969','year-1970',
+  'berkshire-1965','berkshire-1966','berkshire-1967','berkshire-1968','berkshire-1969','berkshire-1970','berkshire-1971','berkshire-1972'
+];
+
+const NAV_TITLES = {
+  'year-1957':'1957年 — 安全边际的起点',
+  'year-1958':'1958年 — 牛市中的冷静',
+  'year-1959':'1959年 — 保守的代价',
+  'year-1960':'1960年 — 桑伯恩地图',
+  'year-1961':'1961年 — 规模扩张',
+  'year-1962':'1962年 — 大跌大赚',
+  'year-1963':'1963年 — 邓普斯特机械制造',
+  'year-1964':'1964年 — _texaco 与色拉油丑闻',
+  'year-1965':'1965年 — 巴菲特有限合伙企业',
+  'year-1966':'1966年 — 激流勇退',
+  'year-1967':'1967年 — 大丰收',
+  'year-1968':'1968年 — 巅峰谢幕',
+  'year-1969':'1969年 — 解散合伙企业',
+  'year-1970':'1970年 — 最繁忙的一年',
+  'berkshire-1965':'1965年 — 伯克希尔收购',
+  'berkshire-1966':'1966年 — 纺织业困境',
+  'berkshire-1967':'1967年 — 保险业务启动',
+  'berkshire-1968':'1968年 — 纺织业收缩',
+  'berkshire-1969':'1969年 — 国民赔偿保险公司',
+  'berkshire-1970':'1970年 — 保险业务腾飞',
+  'berkshire-1971':'1971年 — 回顾与展望',
+  'berkshire-1972':'1972年 — 收购喜诗糖果',
+};
+
+let currentYear = null;
+
+function showLetter(year) {
+  currentYear = year;
+  
+  // Hide all sections and empty state
+  document.getElementById('emptyState').style.display = 'none';
+  var sections = document.querySelectorAll('.letter-section');
+  sections.forEach(function(s) { s.classList.remove('active'); });
+  
+  // Show target section
+  var target = document.getElementById(year);
+  if (target) {
+    target.classList.add('active');
+    document.getElementById('tts-bar').style.display = 'flex';
+    document.getElementById('nav-buttons').style.display = 'flex';
+    updateNavButtons();
+    window.scrollTo({top:0,behavior:'smooth'});
   }
+  
+  // Highlight sidebar
+  highlightNav(year);
+  
+  // Close sidebar on mobile
+  if (window.innerWidth <= 768) {
+    toggleSidebar();
+  }
+}
 
-  loadVoices();
-  synth.onvoiceschanged = loadVoices;
-
-  // 页面从后台恢复时，iOS 可能丢失 voice 列表，重新加载
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden && voices.length === 0) {
-      loadVoices();
+function highlightNav(year) {
+  var items = document.querySelectorAll('.cat-list li');
+  items.forEach(function(li) {
+    li.classList.remove('active');
+    if (li.getAttribute('data-year') === year) {
+      li.classList.add('active');
     }
   });
 }
 
-function getBestVoice(lang) {
-  let voices = synth.getVoices();
-  if (voices.length === 0) return null;
-
-  // 优先使用本地引擎（质量好、离线可用）
-  let exact = voices.filter(v => v.lang === lang && v.localService);
-  if (exact.length > 0) return exact[0];
-  let prefix = voices.filter(v => v.lang.startsWith(lang) && v.localService);
-  if (prefix.length > 0) return prefix[0];
-
-  // 手机可能没装本地中文语音，退而求其次用网络语音
-  let exactNet = voices.filter(v => v.lang === lang);
-  if (exactNet.length > 0) return exactNet[0];
-  let prefixNet = voices.filter(v => v.lang.startsWith(lang));
-  if (prefixNet.length > 0) return prefixNet[0];
-
-  return null;
-}
-
-// ==================== 文本段落收集 ====================
-function collectParagraphs(root) {
-  const paragraphs = [];
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
-  while (walker.nextNode()) {
-    let node = walker.currentNode;
-    let text = node.textContent;
-    if (text.trim().length > 0) {
-      paragraphs.push({ node, text, parent: node.parentElement });
-    }
-  }
-  return paragraphs;
-}
-
-function buildCharMap(paragraphs) {
-  allTextNodes = [];
-  charToNodeMap = [];
-  for (const p of paragraphs) {
-    let node = p.node;
-    let text = p.text;
-    let parent = p.parent;
-    allTextNodes.push(node);
-    for (let i = 0; i < text.length; i++) {
-      charToNodeMap.push({ node, index: i, globalIndex: charToNodeMap.length, text, parent });
-    }
-  }
-  return charToNodeMap.length;
-}
-
-// ==================== 段落级高亮（不拆分DOM）====================
-function highlightCurrentParagraph(startIdx) {
-  clearHighlights();
-  if (!charToNodeMap.length || startIdx >= charToNodeMap.length) return;
-
-  // 找到包含 startIdx 的段落（parentElement）
-  let info = charToNodeMap[startIdx];
-  if (!info || !info.parent) return;
-
-  // 向上找到最近的段落容器（p, div, h3, h4, li 等块级元素）
-  let el = info.parent;
-  while (el && el !== document.body) {
-    if (['P','DIV','H1','H2','H3','H4','H5','H6','LI','BLOCKQUOTE','SECTION'].includes(el.tagName)) {
-      break;
-    }
-    el = el.parentElement;
-  }
-  if (!el || el === document.body) el = info.parent;
-
-  el.classList.add('tts-active-paragraph');
-  activeParagraph = el;
-
-  // 滚动到可见
-  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-function clearHighlights() {
-  if (activeParagraph) {
-    activeParagraph.classList.remove('tts-active-paragraph');
-    activeParagraph = null;
-  }
-  document.querySelectorAll('.tts-active-paragraph').forEach(el => el.classList.remove('tts-active-paragraph'));
-  // 清除浏览器选区，防止选中高亮叠加
-  if (window.getSelection) window.getSelection().removeAllRanges();
-  // 清除逐字高亮层
-  let hl = document.querySelector('.tts-char-highlight');
-  if (hl) hl.remove();
-}
-
-// 逐字高亮：在指定字符索引处显示黄色高亮
-function highlightCharacter(idx) {
-  // 清除旧高亮
-  let old = document.querySelector('.tts-char-highlight');
-  if (old) old.remove();
-
-  if (idx < 0 || idx >= charToNodeMap.length) return;
-  let info = charToNodeMap[idx];
-  if (!info || !info.text || info.index >= info.text.length) return;
-
-  // 用 Range 定位字符位置
-  let range = document.createRange();
-  try {
-    range.setStart(info.node, info.index);
-    range.setEnd(info.node, Math.min(info.index + 1, info.text.length));
-  } catch(e) { return; }
-
-  let rect = range.getBoundingClientRect();
-  if (rect.width === 0 || rect.height === 0) return;
-
-  // 创建高亮层
-  let layer = document.createElement('div');
-  layer.className = 'tts-char-highlight';
-  layer.style.cssText = 'position:fixed;z-index:9998;pointer-events:none;background:rgba(255,200,0,0.35);border-radius:2px;transition:left 0.05s linear,width 0.05s linear;';
-  layer.style.left = rect.left + 'px';
-  layer.style.top = rect.top + 'px';
-  layer.style.width = Math.max(rect.width, 2) + 'px';
-  layer.style.height = rect.height + 'px';
-  document.body.appendChild(layer);
-}
-
-// ==================== 朗读控制 ====================
-function startReading(lang, startFromChar, targetSection) {
-  if (isReading && currentLang === lang && !isPaused) return;
-
-  currentLang = lang;
-
-  // 更新按钮状态（顶部 + 浮动面板）
-  document.querySelectorAll('.tts-btn').forEach(b => b.classList.remove('active'));
-  if (lang === 'zh-CN') {
-    document.getElementById('btn-read-mandarin')?.classList.add('active');
-    document.getElementById('btn-read-mandarin-f')?.classList.add('active');
+function updateNavButtons() {
+  if (!currentYear) return;
+  var idx = NAV_ORDER.indexOf(currentYear);
+  var prevBtn = document.getElementById('prev-btn');
+  var nextBtn = document.getElementById('next-btn');
+  var prevTitle = document.getElementById('prev-title');
+  var nextTitle = document.getElementById('next-title');
+  
+  if (idx > 0) {
+    prevBtn.classList.remove('disabled');
+    prevBtn.disabled = false;
+    prevTitle.textContent = NAV_TITLES[NAV_ORDER[idx-1]] || NAV_ORDER[idx-1];
   } else {
-    document.getElementById('btn-read-cantonese')?.classList.add('active');
-    document.getElementById('btn-read-cantonese-f')?.classList.add('active');
+    prevBtn.classList.add('disabled');
+    prevBtn.disabled = true;
+    prevTitle.textContent = '—';
   }
-  setBtnDisabled('btn-stop', false);
-  setBtnDisabled('btn-pause', false);
-  setBtnDisabled('btn-stop-f', false);
-  setBtnDisabled('btn-pause-f', false);
-
-  if (isPaused) {
-    resumeReading();
-    return;
+  
+  if (idx >= 0 && idx < NAV_ORDER.length - 1) {
+    nextBtn.classList.remove('disabled');
+    nextBtn.disabled = false;
+    nextTitle.textContent = NAV_TITLES[NAV_ORDER[idx+1]] || NAV_ORDER[idx+1];
+  } else {
+    nextBtn.classList.add('disabled');
+    nextBtn.disabled = true;
+    nextTitle.textContent = '—';
   }
-
-  // iOS Safari：voice 列表可能还没加载完，先缓存请求
-  if (!voicesReady || synth.getVoices().length === 0) {
-    pendingRead = { lang, startChar: startFromChar, targetSection };
-    setBtnDisabled('btn-stop', true);
-    setBtnDisabled('btn-pause', true);
-    setBtnDisabled('btn-stop-f', true);
-    setBtnDisabled('btn-pause-f', true);
-    document.querySelectorAll('.tts-btn').forEach(b => b.classList.remove('active'));
-    showToast('⏳ 正在加载语音引擎，请稍后再点...');
-    return;
-  }
-
-  // 检查是否有可用语音
-  let voice = getBestVoice(lang);
-  if (!voice) {
-    setBtnDisabled('btn-stop', true);
-    setBtnDisabled('btn-pause', true);
-    setBtnDisabled('btn-stop-f', true);
-    setBtnDisabled('btn-pause-f', true);
-    document.querySelectorAll('.tts-btn').forEach(b => b.classList.remove('active'));
-    let hint = isIOS()
-      ? '请在系统"设置 → 辅助功能 → 朗读内容 → 语音"中下载中文语音包'
-      : '请安装"Google文字转语音"并下载中文离线语音包';
-    showToast('⚠️ 未检测到中文语音引擎\n' + hint);
-    return;
-  }
-
-  readCurrentLetter(startFromChar, targetSection);
 }
 
-function isIOS() {
-  return /iPhone|iPad|iPod/.test(navigator.userAgent);
+function navigatePrev() {
+  if (!currentYear) return;
+  var idx = NAV_ORDER.indexOf(currentYear);
+  if (idx > 0) showLetter(NAV_ORDER[idx-1]);
 }
 
-function readCurrentLetter(startFromChar, targetSection) {
-  // 找到当前在视口内的信件（或指定信件）
-  let target = targetSection;
-  if (!target) {
-    let sections = document.querySelectorAll('.letter-section');
-    target = sections[0];
-    for (let s of sections) {
-      let rect = s.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        target = s;
-        break;
-      }
-    }
+function navigateNext() {
+  if (!currentYear) return;
+  var idx = NAV_ORDER.indexOf(currentYear);
+  if (idx >= 0 && idx < NAV_ORDER.length - 1) showLetter(NAV_ORDER[idx+1]);
+}
+
+function openExternalYear(year) {
+  window.open('https://www.learnbuffett.com/berkshire/' + year + '.html', '_blank');
+  // Close sidebar on mobile
+  if (window.innerWidth <= 768) {
+    toggleSidebar();
   }
-
-  let body = target.querySelector('.letter-body');
-  if (!body) return;
-
-  // 清除旧高亮和浏览器选区
-  clearHighlights();
-
-  // 收集文本段落并构建字符映射
-  let paragraphs = collectParagraphs(body);
-  totalChars = buildCharMap(paragraphs);
-  charIndex = (typeof startFromChar === 'number' && startFromChar >= 0) ? startFromChar : 0;
-  charIndex = Math.min(charIndex, totalChars - 1);
-  charIndex = Math.max(charIndex, 0);
-
-  isReading = true;
-  isPaused = false;
-
-  readNextChunk();
 }
 
-function readNextChunk() {
-  if (!isReading || isPaused) return;
-  if (charIndex >= totalChars) {
-    stopReading();
+// ===== Scroll: show/hide top button =====
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('top-btn');
+  if (window.scrollY > 300) {
+    btn.style.display = 'block';
+  } else {
+    btn.style.display = 'none';
+  }
+});
+
+// ===== TTS (Text-to-Speech) =====
+let ttsUtterance = null;
+let ttsVoices = {};
+let ttsPaused = false;
+let ttsSpeed = 1.0;
+let ttsPointMode = false;
+let ttsCurrentYear = null;
+let ttsWords = [];
+let ttsCurrentWordIndex = 0;
+let ttsHighlightSpans = [];
+
+function showToast(msg) {
+  var toast = document.getElementById('tts-toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(function() { toast.classList.remove('show'); }, 2000);
+}
+
+function updateSpeed(val) {
+  ttsSpeed = parseFloat(val);
+  document.getElementById('speed-label').textContent = val + 'x';
+}
+
+function getTextToRead() {
+  if (!currentYear) return '';
+  var section = document.getElementById(currentYear);
+  if (!section) return '';
+  var body = section.querySelector('.letter-body');
+  return body ? body.innerText : '';
+}
+
+function getVoice(lang) {
+  var voices = window.speechSynthesis.getVoices();
+  if (lang === 'zh-HK') {
+    return voices.find(function(v) { return v.lang.includes('zh-HK') || v.lang.includes('zh-TW') || v.lang.includes('zh-Hant'); }) || voices.find(function(v) { return v.lang.includes('zh'); });
+  }
+  return voices.find(function(v) { return v.lang.includes('zh-CN') || v.lang.includes('zh-Hans'); }) || voices.find(function(v) { return v.lang.includes('zh'); });
+}
+
+function startReading(lang) {
+  if (!currentYear) {
+    showToast('请先从左侧选择一封信件');
     return;
   }
-
-  // 取一段文本（约250字，避免拆分过长）
-  let chunk = '';
-  let startIdx = charIndex;
-  let endIdx = Math.min(charIndex + 250, totalChars);
-
-  for (let i = startIdx; i < endIdx; i++) {
-    let info = charToNodeMap[i];
-    if (info && info.text && info.index < info.text.length) {
-      chunk += info.text[info.index];
-    }
-  }
-
-  // 段落级高亮
-  highlightCurrentParagraph(startIdx);
-
-  // 更新进度条
-  updateProgress(startIdx);
-
-  utterance = new SpeechSynthesisUtterance(chunk);
-  utterance.lang = currentLang;
-  utterance.rate = currentSpeed;
-  utterance.pitch = 1.0;
-
-  let voice = getBestVoice(currentLang);
+  stopReading();
+  var text = getTextToRead();
+  if (!text) return;
+  
+  ttsCurrentYear = currentYear;
+  var utterance = new SpeechSynthesisUtterance(text);
+  var voice = getVoice(lang);
   if (voice) utterance.voice = voice;
-
-  // ===== 逐字高亮：中文 TTS onboundary 基本不触发，用时间驱动 =====
-  const msPerChar = Math.round(230 / Math.max(0.5, currentSpeed));
-  let rafId = null;
-  let startTime = 0;
-  let lastCharIdx = -1;
-
-  function tickHighlight() {
-    if (!isReading || isPaused) return;
-    const elapsed = performance.now() - startTime;
-    let localIdx = Math.floor(elapsed / msPerChar);
-    if (localIdx >= chunk.length) localIdx = chunk.length - 1;
-    if (localIdx < 0) localIdx = 0;
-    const globalIdx = startIdx + localIdx;
-    if (globalIdx !== lastCharIdx) {
-      lastCharIdx = globalIdx;
-      highlightCharacter(globalIdx);
-    }
-    if (localIdx < chunk.length - 1) {
-      rafId = requestAnimationFrame(tickHighlight);
-    }
-  }
-
-  utterance.onstart = () => {
-    startTime = performance.now();
-    rafId = requestAnimationFrame(tickHighlight);
+  utterance.lang = lang || 'zh-CN';
+  utterance.rate = ttsSpeed;
+  utterance.pitch = 1;
+  
+  utterance.onstart = function() {
+    document.getElementById('btn-pause').disabled = false;
+    document.getElementById('btn-stop').disabled = false;
+    showToast('开始朗读...');
   };
-
-  // onboundary 如果触发，用它校准时间起点
-  utterance.onboundary = (e) => {
-    if (e.charIndex !== undefined && e.charIndex >= 0) {
-      startTime = performance.now() - (e.charIndex * msPerChar);
-    }
+  
+  utterance.onend = function() {
+    resetTTSButtons();
+    showToast('朗读完成');
   };
-
-  utterance.onend = () => {
-    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-    charIndex = endIdx;
-    if (isReading && !isPaused) {
-      setTimeout(() => readNextChunk(), 80);
-    }
+  
+  utterance.onerror = function(e) {
+    console.error('TTS error:', e);
+    resetTTSButtons();
   };
-
-  utterance.onerror = (e) => {
-    if (e.error !== 'interrupted' && e.error !== 'canceled') {
-      console.error('TTS error:', e.error);
-    }
+  
+  utterance.onpause = function() {
+    document.getElementById('btn-pause').innerHTML = '<span>▶️</span> 继续';
   };
-
-  synth.speak(utterance);
+  
+  utterance.onresume = function() {
+    document.getElementById('btn-pause').innerHTML = '<span>⏯</span> 暂停';
+  };
+  
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utterance);
+  ttsUtterance = utterance;
+  ttsPaused = false;
 }
 
 function togglePause() {
-  if (!isReading) return;
-
-  if (isPaused) {
-    resumeReading();
+  if (!ttsUtterance) return;
+  if (ttsPaused) {
+    window.speechSynthesis.resume();
+    ttsPaused = false;
   } else {
-    isPaused = true;
-    synth.pause();
-    setBtnText('btn-pause', '<span class="btn-icon">▶</span> 继续');
-    setBtnText('btn-pause-f', '<span class="btn-icon">▶</span> 继续');
+    window.speechSynthesis.pause();
+    ttsPaused = true;
   }
 }
 
-function resumeReading() {
-  isPaused = false;
-  setBtnText('btn-pause', '<span class="btn-icon">⏯</span> 暂停');
-  setBtnText('btn-pause-f', '<span class="btn-icon">⏯</span> 暂停');
-  synth.resume();
-  readNextChunk();
-}
-
 function stopReading() {
-  synth.cancel();
-  isReading = false;
-  isPaused = false;
-  utterance = null;
-  clearHighlights();
-  pointMode = false;
-  document.body.classList.remove('tts-point-mode');
-  setBtnActive('btn-point', false);
-  setBtnActive('btn-point-f', false);
-
-  document.querySelectorAll('.tts-btn').forEach(b => b.classList.remove('active'));
-  setBtnDisabled('btn-stop', true);
-  setBtnDisabled('btn-pause', true);
-  setBtnDisabled('btn-stop-f', true);
-  setBtnDisabled('btn-pause-f', true);
-  setBtnText('btn-pause', '<span class="btn-icon">⏯</span> 暂停');
-  setBtnText('btn-pause-f', '<span class="btn-icon">⏯</span> 暂停');
-  document.getElementById('progress-bar').style.width = '0%';
-  let floatingBar = document.getElementById('progress-bar-floating');
-  if (floatingBar) floatingBar.style.width = '0%';
+  window.speechSynthesis.cancel();
+  resetTTSButtons();
 }
 
-// ==================== 定点朗读 ====================
+function resetTTSButtons() {
+  document.getElementById('btn-pause').disabled = true;
+  document.getElementById('btn-stop').disabled = true;
+  document.getElementById('btn-pause').innerHTML = '<span>⏯</span> 暂停';
+  ttsUtterance = null;
+  ttsPaused = false;
+}
+
 function togglePointMode() {
-  if (pointMode) {
-    pointMode = false;
-    document.body.classList.remove('tts-point-mode');
-    setBtnActive('btn-point', false);
-    setBtnActive('btn-point-f', false);
-    showToast('已退出定字朗读模式');
+  ttsPointMode = !ttsPointMode;
+  var btn = document.getElementById('btn-point');
+  if (ttsPointMode) {
+    btn.classList.add('active');
+    btn.style.background = 'var(--highlight)';
+    btn.style.color = '#1a1a2e';
+    showToast('定字朗读已开启：点击任意文字开始朗读');
+    document.body.addEventListener('click', handlePointClick);
   } else {
-    pointMode = true;
-    document.body.classList.add('tts-point-mode');
-    setBtnActive('btn-point', true);
-    setBtnActive('btn-point-f', true);
-    showToast('👆 点击任意文字，从该字开始朗读');
+    btn.classList.remove('active');
+    btn.style.background = '';
+    btn.style.color = '';
+    showToast('定字朗读已关闭');
+    document.body.removeEventListener('click', handlePointClick);
   }
 }
 
 function handlePointClick(e) {
-  if (!pointMode) return;
-
-  if (e.target.closest('#tts-toolbar') || e.target.closest('#tts-floating-bar') || e.target.closest('.tts-toast')) return;
-
-  e.preventDefault();
-  e.stopPropagation();
-
-  // 找到点击位置所在的信件 section
-  let clickedSection = e.target.closest('.letter-section');
-  if (!clickedSection) {
-    let el = e.target;
-    while (el && el !== document.body) {
-      if (el.classList && el.classList.contains('letter-section')) { clickedSection = el; break; }
-      el = el.parentElement;
-    }
+  if (!ttsPointMode) return;
+  var target = e.target;
+  if (target.closest('.tts-btn') || target.closest('.sidebar') || target.closest('.header')) return;
+  
+  var text = '';
+  if (target.tagName === 'P' || target.tagName === 'SPAN' || target.tagName === 'DIV') {
+    text = target.innerText;
+  } else {
+    var parent = target.closest('p, div, span');
+    if (parent) text = parent.innerText;
   }
-  if (!clickedSection) {
-    let sections = document.querySelectorAll('.letter-section');
-    for (let s of sections) {
-      let rect = s.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) { clickedSection = s; break; }
-    }
-  }
-  if (!clickedSection) return;
-
-  // 停止旧朗读（会清除高亮、恢复 DOM）
-  stopReading();
-
-  let body = clickedSection.querySelector('.letter-body');
-  if (!body) return;
-
-  // 构建 charToNodeMap（在干净 DOM 上）
-  let paragraphs = collectParagraphs(body);
-  totalChars = buildCharMap(paragraphs);
-
-  let charIdx = 0;
-  let found = false;
-
-  // 获取 caret 位置的 Range
-  let range = null;
-  if (document.caretRangeFromPoint) {
-    range = document.caretRangeFromPoint(e.clientX, e.clientY);
-  }
-  if (!range && document.caretPositionFromPoint) {
-    let pos = document.caretPositionFromPoint(e.clientX, e.clientY);
-    if (pos && pos.offsetNode) {
-      range = document.createRange();
-      range.setStart(pos.offsetNode, pos.offset);
-    }
-  }
-
-  if (range) {
-    let node = range.startContainer;
-    let offset = range.startOffset;
-    console.log('[TTS-point] raw: type=' + node.nodeType + ' name=' + node.nodeName + ' offset=' + offset);
-
-    // 情况1：startContainer 是文本节点，直接定位
-    if (node.nodeType === Node.TEXT_NODE) {
-      for (let i = 0; i < charToNodeMap.length; i++) {
-        if (charToNodeMap[i].node === node) {
-          let firstIdx = i - charToNodeMap[i].index;
-          let textLen = node.textContent.length;
-          offset = Math.max(0, Math.min(offset, textLen - 1));
-          charIdx = firstIdx + offset;
-          found = true;
-          console.log('[TTS-point] textNode matched: charIdx=' + charIdx + ' firstIdx=' + firstIdx + ' offset=' + offset);
-          break;
-        }
-      }
-      if (!found) {
-        console.log('[TTS-point] textNode NOT in charToNodeMap, node.textContent="' + (node.textContent ? node.textContent.substring(0, 40) : '') + '"');
-      }
-    }
-
-    // 情况2：startContainer 是元素节点，解析子节点
-    if (!found && node.nodeType === Node.ELEMENT_NODE) {
-      let child = node.childNodes[offset];
-      console.log('[TTS-point] element child: type=' + (child ? child.nodeType : 'null') + ' name=' + (child ? child.nodeName : 'null'));
-      if (child && child.nodeType === Node.TEXT_NODE) {
-        for (let i = 0; i < charToNodeMap.length; i++) {
-          if (charToNodeMap[i].node === child) {
-            let firstIdx = i - charToNodeMap[i].index;
-            charIdx = firstIdx;
-            found = true;
-            console.log('[TTS-point] element→textNode: charIdx=' + charIdx);
-            break;
-          }
-        }
-      } else if (child && child.nodeType === Node.ELEMENT_NODE) {
-        let tw = document.createTreeWalker(child, NodeFilter.SHOW_TEXT);
-        let tn = tw.nextNode();
-        if (tn) {
-          for (let i = 0; i < charToNodeMap.length; i++) {
-            if (charToNodeMap[i].node === tn) {
-              let firstIdx = i - charToNodeMap[i].index;
-              charIdx = firstIdx;
-              found = true;
-              console.log('[TTS-point] element→element→textNode: charIdx=' + charIdx);
-              break;
-            }
-          }
-        }
-      }
-      if (!found) {
-        console.log('[TTS-point] element node resolution failed');
-      }
-    }
-  }
-
-  // 回退：用 X+Y 坐标精确匹配（逐字符 Range rect）
-  if (!found) {
-    console.log('[TTS-point] falling back to X+Y coordinate scan');
-    let bestIdx = 0;
-    let bestDist = Infinity;
-    for (let i = 0; i < charToNodeMap.length; i++) {
-      let info = charToNodeMap[i];
-      try {
-        let r = document.createRange();
-        r.setStart(info.node, info.index);
-        r.setEnd(info.node, Math.min(info.index + 1, info.text.length));
-        let rect = r.getBoundingClientRect();
-        let cx = rect.left + rect.width / 2;
-        let cy = rect.top + rect.height / 2;
-        let dist = Math.abs(e.clientX - cx) + Math.abs(e.clientY - cy) * 2;
-        if (dist < bestDist) {
-          bestDist = dist;
-          bestIdx = i;
-        }
-      } catch(_) {}
-    }
-    charIdx = bestIdx;
-    console.log('[TTS-point] X+Y fallback: charIdx=' + charIdx + ' bestDist=' + bestDist.toFixed(1));
-  }
-
-  charIdx = Math.max(0, Math.min(charIdx, totalChars - 1));
-  console.log('[TTS-point] FINAL charIdx=' + charIdx + '/' + totalChars + ' found=' + found);
-
-  // 退出定点模式并开始朗读
-  pointMode = false;
-  document.body.classList.remove('tts-point-mode');
-  let btnPt = document.getElementById('btn-point');
-  if (btnPt) btnPt.classList.remove('point-active');
-
-  startReading(currentLang, charIdx, clickedSection);
-}
-
-// 根据 DOM 节点和偏移在 charToNodeMap 中查找字符索引
-function findCharIdxInMap(node, offset) {
-  for (let i = 0; i < charToNodeMap.length; i++) {
-    let info = charToNodeMap[i];
-    if (info && info.node === node && info.index === offset) {
-      return i;
-    }
-  }
-  // 没精确匹配，尝试用节点匹配（offset 可能在节点末尾或前后空白有偏差）
-  for (let i = 0; i < charToNodeMap.length; i++) {
-    let info = charToNodeMap[i];
-    if (info && info.node === node) {
-      let textLen = info.text ? info.text.length : 0;
-      if (offset >= 0 && offset <= textLen) {
-        // 找到该节点的第一个字符索引
-        let firstIdx = i - info.index;
-        return firstIdx + Math.min(offset, textLen - 1);
-      }
-    }
-  }
-  return -1;
-}
-
-function showToast(msg) {
-  let existing = document.querySelector('.tts-toast');
-  if (existing) existing.remove();
-  let toast = document.createElement('div');
-  toast.className = 'tts-toast';
-  toast.textContent = msg;
-  document.body.appendChild(toast);
-  // 长消息给更多时间阅读
-  let duration = msg.length > 30 ? 5000 : 3000;
-  setTimeout(() => { if (toast.parentElement) toast.remove(); }, duration);
-}
-
-// ==================== 语速 / 进度 ====================
-function updateSpeed(val) {
-  currentSpeed = parseFloat(val);
-  document.getElementById('speed-label').textContent = val + 'x';
-  let floatingLabel = document.getElementById('speed-label-floating');
-  let floatingSlider = document.getElementById('speed-slider-floating');
-  if (floatingLabel) floatingLabel.textContent = val + 'x';
-  if (floatingSlider && floatingSlider.value != val) floatingSlider.value = val;
-  if (isReading && !isPaused) {
-    synth.cancel();
-    readNextChunk();
+  
+  if (text) {
+    stopReading();
+    var utterance = new SpeechSynthesisUtterance(text);
+    var voice = getVoice('zh-CN');
+    if (voice) utterance.voice = voice;
+    utterance.lang = 'zh-CN';
+    utterance.rate = ttsSpeed;
+    window.speechSynthesis.speak(utterance);
+    ttsUtterance = utterance;
   }
 }
 
-function updateProgress(idx) {
-  let pct = totalChars > 0 ? (idx / totalChars * 100) : 0;
-  document.getElementById('progress-bar').style.width = pct + '%';
-  let floatingBar = document.getElementById('progress-bar-floating');
-  if (floatingBar) floatingBar.style.width = pct + '%';
-}
+// Load voices
+window.speechSynthesis.onvoiceschanged = function() {
+  // Voices loaded
+};
 
-function seekByClick(e) {
-  if (totalChars === 0) return;
-  let bar = document.getElementById('progress-click-area');
-  let rect = bar.getBoundingClientRect();
-  let pct = (e.clientX - rect.left) / rect.width;
-  charIndex = Math.floor(pct * totalChars);
-
-  if (isReading) {
-    synth.cancel();
-    readNextChunk();
+// ===== Keyboard shortcuts =====
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft' && currentYear) {
+    var idx = NAV_ORDER.indexOf(currentYear);
+    if (idx > 0) showLetter(NAV_ORDER[idx-1]);
   }
-}
-
-// ==================== 导航高亮 ====================
-function highlightNav(year) {
-  document.querySelectorAll('.year-nav a').forEach(a => a.classList.remove('active'));
-  let link = document.querySelector(`.year-nav a[onclick*="${year}"]`);
-  if (link) link.classList.add('active');
-}
-
-function showLetter(year) {
-  highlightNav(year);
-  let section = document.getElementById('year-' + year);
-  if (section) {
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (e.key === 'ArrowRight' && currentYear) {
+    var idx = NAV_ORDER.indexOf(currentYear);
+    if (idx >= 0 && idx < NAV_ORDER.length - 1) showLetter(NAV_ORDER[idx+1]);
   }
-}
-
-// ==================== 事件监听 ====================
-// 定点朗读点击（全局捕获）
-document.addEventListener('click', handlePointClick, true);
-
-// 滚动监听，高亮当前年份
-let scrollTimeout;
-window.addEventListener('scroll', () => {
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => {
-    let sections = document.querySelectorAll('.letter-section');
-    let found = null;
-    for (let s of sections) {
-      let rect = s.getBoundingClientRect();
-      if (rect.top <= 150) {
-        found = s.id.replace('year-', '');
-      }
-    }
-    if (found) highlightNav(found);
-  }, 100);
-});
-
-// 键盘快捷键
-document.addEventListener('keydown', (e) => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
-  switch(e.key) {
-    case ' ':
-      e.preventDefault();
-      if (isReading) {
-        togglePause();
-      } else {
-        startReading('zh-CN');
-      }
-      break;
-    case '1':
-      startReading('zh-CN');
-      break;
-    case '2':
-      startReading('zh-HK');
-      break;
-    case 'Escape':
-      stopReading();
-      break;
-    case 'ArrowLeft':
-      e.preventDefault();
-      currentSpeed = Math.max(0.5, currentSpeed - 0.1);
-      document.getElementById('speed-slider').value = currentSpeed;
-      document.getElementById('speed-label').textContent = currentSpeed.toFixed(1) + 'x';
-      let fsLeft = document.getElementById('speed-slider-floating');
-      let flLeft = document.getElementById('speed-label-floating');
-      if (fsLeft) fsLeft.value = currentSpeed;
-      if (flLeft) flLeft.textContent = currentSpeed.toFixed(1) + 'x';
-      updateSpeedDisplay();
-      break;
-    case 'ArrowRight':
-      e.preventDefault();
-      currentSpeed = Math.min(2, currentSpeed + 0.1);
-      document.getElementById('speed-slider').value = currentSpeed;
-      document.getElementById('speed-label').textContent = currentSpeed.toFixed(1) + 'x';
-      let fsRight = document.getElementById('speed-slider-floating');
-      let flRight = document.getElementById('speed-label-floating');
-      if (fsRight) fsRight.value = currentSpeed;
-      if (flRight) flRight.textContent = currentSpeed.toFixed(1) + 'x';
-      updateSpeedDisplay();
-      break;
-  }
-});
-
-function updateSpeedDisplay() {
-  if (isReading && !isPaused) {
-    synth.cancel();
-    readNextChunk();
-  }
-}
-
-// ==================== 按钮状态同步辅助函数 ====================
-function setBtnDisabled(id, disabled) {
-  let btn = document.getElementById(id);
-  if (btn) btn.disabled = disabled;
-}
-function setBtnText(id, html) {
-  let btn = document.getElementById(id);
-  if (btn) btn.innerHTML = html;
-}
-function setBtnActive(id, active) {
-  let btn = document.getElementById(id);
-  if (!btn) return;
-  if (active) btn.classList.add('point-active');
-  else btn.classList.remove('point-active');
-}
-
-// ==================== 浮动面板：展开/收起 ====================
-function toggleFloatingBar() {
-  let bar = document.getElementById('tts-floating-bar');
-  bar.classList.toggle('minimized');
-}
-
-// ==================== 浮动面板：拖拽 ====================
-let isDragging = false;
-let dragStartX = 0;
-let dragStartY = 0;
-let dragStartLeft = 0;
-let dragStartTop = 0;
-let dragBar = null;
-
-function startDrag(e) {
-  e.preventDefault();
-  isDragging = true;
-  dragBar = document.getElementById('tts-floating-bar');
-  let rect = dragBar.getBoundingClientRect();
-  let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-  let clientY = e.touches ? e.touches[0].clientY : e.clientY;
-  dragStartX = clientX;
-  dragStartY = clientY;
-  dragStartLeft = rect.left;
-  dragStartTop = rect.top;
-
-  document.addEventListener('mousemove', onDrag);
-  document.addEventListener('mouseup', endDrag);
-  document.addEventListener('touchmove', onDrag, { passive: false });
-  document.addEventListener('touchend', endDrag);
-}
-
-function onDrag(e) {
-  if (!isDragging || !dragBar) return;
-  e.preventDefault();
-  let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-  let clientY = e.touches ? e.touches[0].clientY : e.clientY;
-  let dx = clientX - dragStartX;
-  let dy = clientY - dragStartY;
-  let newLeft = dragStartLeft + dx;
-  let newTop = dragStartTop + dy;
-
-  // 边界限制
-  let maxLeft = window.innerWidth - dragBar.offsetWidth;
-  let maxTop = window.innerHeight - dragBar.offsetHeight;
-  newLeft = Math.max(0, Math.min(newLeft, maxLeft));
-  newTop = Math.max(0, Math.min(newTop, maxTop));
-
-  dragBar.style.left = newLeft + 'px';
-  dragBar.style.top = newTop + 'px';
-  dragBar.style.bottom = 'auto';
-  dragBar.style.right = 'auto';
-}
-
-function endDrag() {
-  isDragging = false;
-  dragBar = null;
-  document.removeEventListener('mousemove', onDrag);
-  document.removeEventListener('mouseup', endDrag);
-  document.removeEventListener('touchmove', onDrag);
-  document.removeEventListener('touchend', endDrag);
-}
-
-// 初始化
-window.addEventListener('load', () => {
-  initTTS();
-  highlightNav('1957');
 });
 </script>
 

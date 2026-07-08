@@ -32,10 +32,35 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
 .tag-green { background:#d1fae5; color:#059669; }
 .tag-amber { background:#fef3c7; color:#d97706; }
 .footer { text-align:center; padding:24px; font-size:12px; color:#9ca3af; }
+/* ===== 平板适配 (768px-1024px) ===== */
+@media(max-width:900px) {
+  .header-inner { padding:50px 20px 44px; }
+  .header h1 { font-size:28px; }
+  .main { max-width:700px; padding:0 24px; }
+  .card-grid { grid-template-columns:repeat(2,1fr); gap:20px; }
+  .card { padding:26px 22px; }
+}
+/* ===== 手机适配 (≤600px) ===== */
 @media(max-width:600px) {
-  .header-inner { padding:40px 16px 40px; }
-  .header h1 { font-size:26px; }
-  .card-grid { grid-template-columns:1fr; }
+  .header-inner { padding:36px 16px 36px; }
+  .header h1 { font-size:24px; letter-spacing:1px; }
+  .header p { font-size:13px; }
+  .main { margin:-24px auto 32px; padding:0 16px; }
+  .card-grid { grid-template-columns:1fr; gap:16px; }
+  .card { padding:24px 20px; }
+  .card-icon { font-size:36px; margin-bottom:12px; }
+  .card-title { font-size:18px; }
+  .card-desc { font-size:13px; }
+  .card-meta { gap:8px; margin-top:14px; }
+  .card-tag { font-size:11px; padding:3px 8px; }
+  .footer { padding:20px 16px; font-size:11px; }
+}
+/* ===== 小屏手机适配 (≤380px) ===== */
+@media(max-width:380px) {
+  .header h1 { font-size:21px; }
+  .header-inner { padding:28px 12px 28px; }
+  .card { padding:20px 16px; }
+  .card-tag { font-size:10px; padding:2px 6px; }
 }
 </style>
 </head>

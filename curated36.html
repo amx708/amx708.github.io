@@ -58,6 +58,12 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
 .search-results .result-item:hover { background:var(--hover); }
 .search-results .result-item .title { font-weight:500; color:var(--text); }
 .search-results .result-item .cat { font-size:11px; color:var(--text2); }
+/* ===== 平板横屏 (≤1024px) ===== */
+@media(max-width:1024px) {
+  :root { --sidebar-w:240px; }
+  .content { padding:28px 32px; }
+}
+/* ===== 平板竖屏 / 手机 (≤768px) ===== */
 @media (max-width:768px) {
   :root { --sidebar-w:280px; }
   .menu-toggle { display:block; }
@@ -68,6 +74,37 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
   .content { margin-left:0; padding:20px 16px; }
   .article-title { font-size:20px; }
   .header-title .count { display:none; }
+  .article-body { font-size:14.5px; line-height:1.8; }
+  .tts-bar { padding:8px 12px; gap:8px; }
+  .tts-btn { padding:7px 14px; font-size:13px; }
+  .tts-progress-bar { width:60px; }
+  .nav-buttons { flex-direction:column; gap:10px; }
+  .nav-btn { width:100%; }
+  .nav-btn.next { text-align:left; }
+  .top-btn { bottom:16px; right:16px; }
+  .top-btn button { width:40px; height:40px; font-size:18px; }
+}
+/* ===== 小屏手机 (≤480px) ===== */
+@media(max-width:480px) {
+  .header { padding:0 10px; }
+  .header-title { font-size:14px; gap:4px; }
+  .header-title .tag { font-size:10px; padding:1px 6px; }
+  .search-box { display:none; }
+  .search-box.mobile-show { display:block; }
+  .search-box.mobile-show input { width:100%; }
+  .content { padding:16px 12px; }
+  .article-title { font-size:18px; }
+  .article-body { font-size:14px; line-height:1.75; }
+  .article-body p { padding:3px 6px; }
+  .article-meta { flex-wrap:wrap; gap:8px; font-size:12px; }
+  .tts-bar { flex-direction:column; align-items:stretch; gap:8px; padding:10px; }
+  .tts-btn { justify-content:center; }
+  .tts-speed { justify-content:center; }
+  .tts-progress { justify-content:center; }
+  .tts-progress-bar { width:100%; }
+  .empty-state { padding:60px 16px; }
+  .empty-state .icon { font-size:40px; }
+  .empty-state h2 { font-size:16px; }
 }
 .backdrop { display:none; position:fixed; top:var(--header-h); left:0; right:0; bottom:0; background:rgba(0,0,0,.3); z-index:40; }
 .backdrop.show { display:block; }
