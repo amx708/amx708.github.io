@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>股东大会 — 伯克希尔·哈撒韦 | 漫漫扬</title>
+<title>历年股东大会 — 伯克希尔·哈撒韦</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -26,87 +26,127 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 
 .main{max-width:1100px;margin:0 auto;padding:32px 24px 80px}
 
-.year-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px}
-.year-pill{display:flex;align-items:center;justify-content:center;padding:10px 14px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;color:#334155;font-size:14px;font-weight:500;text-decoration:none;transition:all .2s ease;box-shadow:0 1px 2px rgba(0,0,0,.04)}
-.year-pill:hover{background:#eff6ff;border-color:#bfdbfe;color:#2563eb;transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
-.year-pill.accent{background:linear-gradient(135deg,#fef3c7,#fffbeb);border-color:#fde68a;color:#92400e}
-.year-pill.accent:hover{background:linear-gradient(135deg,#fde68a,#fef3c7)}
+/* Intro box */
+.intro-box{background:linear-gradient(135deg,#eff6ff,#f0f9ff);border:1px solid #bfdbfe;border-radius:14px;padding:24px 28px;margin-bottom:28px}
+.intro-box h2{font-size:17px;font-weight:700;color:#1e40af;margin-bottom:10px}
+.intro-box p{color:#334155;font-size:14px;line-height:1.75;margin-bottom:0}
+.stat-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px}
+.stat-item{text-align:center;padding:10px 16px;background:#fff;border-radius:10px;min-width:85px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.stat-num{font-size:22px;font-weight:900;color:#1e40af}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px}
 
-.content-card{background:#fff;border-radius:14px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:32px 28px}
-.content-card h2{font-size:18px;font-weight:700;color:#0f172a;margin-bottom:16px}
-.content-card p{color:#475569;font-size:14.5px;line-height:1.8}
-.content-card .meta{margin-top:20px;padding-top:20px;border-top:1px solid #f1f5f0;font-size:13px;color:#94a3b8}
+/* Year quick nav */
+.year-grid{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:28px;padding:14px 16px;background:#fff;border-radius:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.year-pill{display:inline-flex;align-items:center;justify-content:center;min-width:48px;padding:5px 9px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;color:#475569;font-size:12.5px;font-weight:600;text-decoration:none;transition:all .15s ease}
+.year-pill:hover{background:#eff6ff;border-color:#93c5fd;color:#1d4ed8;transform:translateY(-1px)}
+.year-pill.has-detail{background:#eff6ff;border-color:#bfdbfe;color:#1e40af}
+.year-pill.starred{background:#fefce8;border-color:#fde68a;color:#92400e;font-weight:700}
+.year-pill.crisis{background:#fef2f2;border-color:#fecaca;color:#dc2626;font-weight:700}
+.year-pill.munger{background:#fffbeb;border-color:#fde68a;color:#92400e;font-weight:700}
+.year-pill.final{background:#f0fdf4;border-color:#bbf7d0;color:#166534;font-weight:700}
+.year-pill.current{animation:pulse-gold 2s infinite}
 
-.empty-state{text-align:center;padding:60px 20px}
-.empty-state .icon{font-size:48px;margin-bottom:16px;display:block}
-.empty-state h3{font-size:18px;color:#334155;margin-bottom:8px}
-.empty-state p{font-size:14px;color:#94a3b8}
+@keyframes pulse-gold{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.15)}50%{box-shadow:0 0 0 6px rgba(245,158,11,0)}}
 
-.back-link{margin-top:40px;text-align:center}
+/* Section header with inline sort */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin:28px 0 14px;flex-wrap:wrap;gap:8px}
+.section-title{font-size:17px;font-weight:800;color:#0f172a;display:flex;align-items:center;gap:8px}
+.section-title span{font-size:13px;color:#94a3b8;font-weight:400}
+.section-title .star-icon{color:#f59e0b;font-size:18px}
+
+/* Inline sort toggle in section header */
+.inline-sort{display:flex;gap:4px;background:#f1f5f9;padding:3px;border-radius:8px}
+.inline-sort button{padding:4px 12px;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;background:transparent;color:#64748b}
+.inline-sort button:hover{color:#334155}
+.inline-sort button.active{background:#fff;color:#1e40af;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+/* Meeting card */
+.meeting-card{background:#fff;border-radius:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:20px 24px;margin-bottom:10px;transition:all .2s;display:flex;align-items:flex-start;gap:16px;cursor:default}
+.meeting-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
+.meeting-card.starred{border-left:4px solid #f59e0b;background:linear-gradient(to right,#fffbeb,#fff)}
+.meeting-card.crisis{border-left:4px solid #ef4444;background:linear-gradient(to right,#fef2f2,#fff)}
+.meeting-card.munger{border-left:4px solid #f59e0b;background:linear-gradient(to right,#fffbeb,#fff)}
+.meeting-card.final{border-left:4px solid #22c55e;background:linear-gradient(to right,#f0fdf4,#fff)}
+
+.mc-year-col{text-align:center;min-width:56px;flex-shrink:0}
+.mc-year-num{font-size:22px;font-weight:900;color:#0f172a;line-height:1}
+.mc-edition-sm{font-size:10.5px;color:#94a3b8;margin-top:2px}
+.mc-star{color:#f59e0b;font-size:14px;line-height:1;margin-top:2px}
+
+.mc-body{flex:1;min-width:0}
+.mc-head-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px}
+.mc-title{font-size:14.5px;font-weight:700;color:#1e293b;line-height:1.35}
+.mc-themes{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px}
+.mc-tag{display:inline-block;background:#eff6ff;color:#1e40af;border-radius:8px;padding:1px 8px;font-size:11px;font-weight:500}
+.mc-highlight{color:#64748b;font-size:12.5px;line-height:1.55;border-top:1px solid #f1f5f0;padding-top:5px;margin-top:2px}
+.mc-actions{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.btn-view{display:inline-flex;align-items:center;gap:4px;padding:5px 13px;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:11.5px;font-weight:600;text-decoration:none;cursor:pointer;transition:all .15s}
+.btn-view:hover{background:#1d4ed8;transform:translateY(-1px);box-shadow:0 2px 6px rgba(37,99,235,.25)}
+.btn-ext{display:inline-flex;align-items:center;gap:3px;padding:5px 11px;background:#fff;color:#64748b;border:1px solid #cbd5e1;border-radius:7px;font-size:11px;text-decoration:none;font-weight:500;transition:all .15s}
+.btn-ext:hover{background:#f8fafc;color:#334155;border-color:#94a3b8}
+.pending-tag{font-size:10.5px;color:#cbd5e1;margin-left:4px}
+
+.back-link{margin-top:36px;text-align:center}
 .back-link a{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;color:#334155;font-size:14px;font-weight:500;text-decoration:none;transition:all .2s ease;box-shadow:0 1px 2px rgba(0,0,0,.04)}
 .back-link a:hover{background:#f8fafc;border-color:#cbd5e1;color:#2563eb;box-shadow:0 4px 12px rgba(0,0,0,.06)}
 
-.footer{text-align:center;padding:32px 24px;color:#94a3b8;font-size:12px;border-top:1px solid #e2e8f0}
+.footer{text-align:center;padding:28px 24px;color:#94a3b8;font-size:11.5px;border-top:1px solid #e2e8f0}
 .footer a{color:#64748b;text-decoration:none;transition:color .15s}
 .footer a:hover{color:#2563eb}
 
 @media(max-width:768px){
-  .hero{padding:36px 16px 52px}
-  .hero h1{font-size:22px}
-  .hero p{font-size:13px}
-  .year-grid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px}
-  .year-pill{padding:8px 10px;font-size:13px}
-  .main{padding:24px 16px 56px}
-  .breadcrumb{padding:14px 12px 0;font-size:12px}
-  .content-card{padding:24px 18px}
-  .content-card h2{font-size:16px}
-  .content-card p{font-size:13.5px;line-height:1.75}
-  .content-card .meta{font-size:12px;padding:16px}
-  .back-link a{padding:8px 18px;font-size:13px}
-  .footer{padding:24px 16px;font-size:11px}
+  .hero{padding:36px 16px 52px}.hero h1{font-size:22px}.hero p{font-size:13px}
+  .year-grid{gap:3px}.year-pill{min-width:42px;padding:4px 6px;font-size:11px}
+  .main{padding:24px 16px 56px}.breadcrumb{padding:14px 12px 0;font-size:12px}
+  .meeting-card{padding:14px 16px;flex-direction:column;gap:8px}
+  .mc-year-col{display:flex;align-items:center;gap:6px;min-width:auto}
+  .mc-year-num{font-size:18px}
+  .section-header{flex-direction:column;align-items:flex-start}
+  .stat-item{min-width:65px;padding:8px 10px}
 }
 @media(max-width:480px){
-  .hero{padding:28px 12px 44px}
-  .hero h1{font-size:19px}
-  .hero-badge{font-size:10px;padding:3px 10px}
-  .year-grid{grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:6px}
-  .year-pill{padding:7px 6px;font-size:12px}
-  .main{padding:20px 10px 48px}
-  .content-card{padding:20px 14px}
-  .content-card h2{font-size:15px}
-  .content-card p{font-size:13px}
-  .empty-state .icon{font-size:40px}
-  .empty-state h3{font-size:16px}
+  .hero{padding:28px 12px 44px}.hero h1{font-size:19px}.hero-badge{font-size:10px;padding:3px 10px}
+  .year-pill{min-width:38px;padding:3px 5px;font-size:10.5px}
+  .mc-title{font-size:13.5px}.mc-tag{font-size:10px}
 }
 </style>
 </head>
 <body>
 
 <nav class="breadcrumb">
-  <a href="index.html">首页</a>
-  <span>/</span>
-  <a href="berkshire-standalone.html">投资数据中心</a>
-  <span>/</span>
+  <a href="index.html">首页</a><span>/</span>
+  <a href="berkshire-standalone.html">投资数据中心</a><span>/</span>
   <span class="current">股东大会</span>
 </nav>
 
 <header class="hero">
   <div class="hero-content">
-    <div class="hero-badge">Annual Meetings</div>
-    <h1>伯克希尔·哈撒韦<br><span>股东大会</span></h1>
-    <p>伯克希尔历年股东大会问答实录</p>
+    <div class="hero-badge">Annual Meetings 1994–2025</div>
+    <h1>伯克希尔·哈撒韦<br><span>历年股东大会</span></h1>
+    <p>巴菲特与芒格年度股东大会问答实录 · 投资智慧的年度盛宴</p>
   </div>
 </header>
 
 <main class="main">
 
-  <div class="content-card">
-    <div class="empty-state">
-      <span class="icon">🚧</span>
-      <h3>内容正在建设中</h3>
-      <p>股东大会问答实录正在整理中，敬请期待。</p>
+  <!-- Intro -->
+  <div class="intro-box">
+    <h2>📋 历年股东大会概览</h2>
+    <p>伯克希尔·哈撒韦自1965年巴菲特接手以来，每年5月第一个周六在奥马哈举行股东大会。从1994年起有完整问答文字实录。这里是投资界最盛大的年度思想盛宴——巴菲特和芒格用朴素语言拆解投资逻辑、商业判断与人生智慧。</p>
+    <div class="stat-row">
+      <div class="stat-item"><div class="stat-num">61</div><div class="stat-label">总届数 (1965–2025)</div></div>
+      <div class="stat-item"><div class="stat-num">32</div><div class="stat-label">有完整实录</div></div>
+      <div class="stat-item"><div class="stat-num" id="detailCount">17</div><div class="stat-label">已收录中文全文</div></div>
+      <div class="stat-item"><div class="stat-num">13</div><div class="stat-label">★ 星标重要届</div></div>
+      <div class="stat-item"><div class="stat-num">19700</div><div class="stat-label">2025现场人数</div></div>
     </div>
   </div>
+
+  <!-- Year grid (simple nav, no sort bar here) -->
+  <div class="year-grid" id="yearGrid"></div>
+
+  <!-- All years list with section-level sorting -->
+  <div id="meetingList"></div>
 
   <div class="back-link">
     <a href="berkshire-standalone.html">← 返回投资数据中心</a>
@@ -114,8 +154,170 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 </main>
 
 <footer class="footer">
-  <p>数据来源：伯克希尔·哈撒韦官方年报 & 公开财经数据 | <a href="https://amx708.github.io/">漫漫扬</a></p>
+  <p>数据来源：伯克希尔·哈撒韦官方年报 &amp; 公开财经数据 | BRK Archive (berkshire.memorex.ai) | 知乎 / 雪球 / 澎湃新闻 / B站 / 凤凰网 / 新浪财经等中文社区整理</p>
 </footer>
+
+<script>
+var YEARS = [
+  {y:1994,e:30,v:"奥马哈",t:["能力圈与长期持有原则成型","喜诗糖果定价权案例","保险浮存金模式"],h:"早期问答风格确立，奠定「奥马哈春晚」基调。"},
+  {y:1995,e:31,v:"奥马哈",t:["可口可乐重仓逻辑","GEICO直保模式","衍生品风险初现警示"],h:"对消费垄断型企业的偏好清晰化，强调品牌护城河。"},
+  {y:1996,e:32,v:"奥马哈",t:["发布《股东手册》","保险浮存金成本与价值","集中vs分散"],h:"首次系统阐述「所有者收益」与资本配置纪律。"},
+  {y:1997,e:33,v:"奥马哈",t:["亚洲金融危机前兆","集中持仓纪律","宏观预测无效性"],h:"重申「我们不预测宏观，只关注企业本身」。"},
+  {y:1998,e:34,v:"奥马哈",t:["通用再保险(Gen Re)收购","拒绝科技股泡沫","复杂衍生品厌恶"],h:"芒格强调「反过来想，总是反过来想」的逆向思维。"},
+  {y:1999,e:35,v:"奥马哈",t:["互联网泡沫巅峰被质疑过时","坚守能力圈不投科技股","长期主义辩护"],h:"在科技狂热中孤独坚守价值纪律，后成经典反向教材。"},
+  {y:2000,e:36,v:"奥马哈",t:["互联网泡沫破裂","对价值与成长不作区分","卖出纪律"],h:"任何企业都是价值命题，成长只是估值的一部分。",star:true},
+  {y:2001,e:37,v:"奥马哈",t:["9·11后保险冲击","恐惧与贪婪","现金储备重要性"],h:"强调「别人恐惧时贪婪」在极端事件中的应用。"},
+  {y:2002,e:38,v:"奥马哈",t:["安然会计丑闻","诚信与财报透明","审计独立性"],h:"强烈抨击财务造假，强调管理层诚信是投资前提。",has:true},
+  {y:2003,e:39,v:"奥马哈",t:["伊拉克战争与地缘风险","美元与贸易赤字","能源投资"],h:"对美元贬值长期趋势表达忧虑，增持实物资产。",has:true},
+  {y:2004,e:40,v:"奥马哈",t:["避开自己会死的地方","复杂衍生品厌恶","失败案例反思"],h:"芒格名言：「如果我知道会死在哪里，我就永远不去那里。」"},
+  {y:2005,e:41,v:"奥马哈",t:["卡特里娜飓风与巨灾险","气候风险定价","再保险价值"],h:"极端灾害检验保险模型，强调巨灾准备金纪律。"},
+  {y:2006,e:42,v:"奥马哈",t:["宣布逐步捐出财富予盖茨基金会","遗产与传承观","集中持股税收效率"],h:"宣布将85%伯克希尔股票分批捐赠给盖茨基金会等五家机构，震撼全球慈善界。",star:true,has:true},
+  {y:2007,e:43,v:"奥马哈",t:["次贷危机苗头","评级机构失灵","信贷衍生品风险"],h:"提前预警金融衍生品与次贷的系统性隐患。"},
+  {y:2008,e:44,v:"奥马哈",t:["全球金融危机爆发","别人恐惧时我贪婪","雷曼倒下与保尔森救市"],h:"危机中果断出手：投资高盛、GE优先股，利润超100亿。",star:true},
+  {y:2009,e:45,v:"奥马哈",t:["危机余波与高盛交易","看空美元","抄底时机判断"],h:"「价格是你付出的，价值是你得到的」在暴跌中被反复引用。",has:true},
+  {y:2010,e:46,v:"奥马哈",t:["金融监管Dodd-Frank","银行股观点","美国竞争力"],h:"对过度监管与「大而不能倒」表达复杂态度。"},
+  {y:2011,e:47,v:"奥马哈",t:["美国主权评级下调","黄金无用论初提","长期低利率"],h:"芒格：「黄金不创造价值，只是从别人兜里转移钱。」"},
+  {y:2012,e:48,v:"奥马哈",t:["财政悬崖","长期零利率伤害储户","自动化与就业"],h:"批评超低利率对稳健投资者的惩罚。"},
+  {y:2013,e:49,v:"奥马哈",t:["芒格「我的生命是一连串误判」","赞扬Costco模式","投资失误反思"],h:"坦诚讨论犯过的错，强调「承认无知」是智慧起点。",star:true,has:true},
+  {y:2014,e:50,v:"奥马哈",t:["比特币初称老鼠药平方","3G资本并购风格","耐心的资本"],h:"首次系统批评加密货币，称其「没有内在价值」。第50届半百里程碑。",star:true,has:true},
+  {y:2015,e:51,v:"奥马哈",t:["批评对冲基金2/20收费","主动vs被动","指数基金优势"],h:"与Protégé十年百万赌局临近尾声，证明被动胜出。",star:true,has:true},
+  {y:2016,e:52,v:"奥马哈",t:["美国经济长期乐观","自动化冲击就业","铁路与能源"],h:"强调美国奇迹仍在延续，但警惕技术替代劳动力。"},
+  {y:2017,e:53,v:"奥马哈",t:["特朗普税改","企业税率下调利好","贸易与全球化"],h:"税改显著增厚账面价值，讨论资本回流。"},
+  {y:2018,e:54,v:"奥马哈",t:["加密货币「老鼠药平方」升级","贸易战担忧初现","苹果建仓逻辑"],h:"芒格对加密更激烈；巴菲特开始大举买入苹果。",has:true},
+  {y:2019,e:55,v:"奥马哈",t:["苹果成第一大持仓","股票回购正面观","卡夫亨氏减值"],h:"对回购从质疑转为认可，视其为高效资本配置。11岁中国女孩提问成经典。",has:true},
+  {y:2020,e:56,v:"线上直播（疫情）",t:["疫情首场虚拟会议","清空航空股认错","不确定性下的现金"],h:"罕见两度认错砍仓航空股，「现金如同氧气」，芒格首次缺席。",star:true,has:true},
+  {y:2021,e:57,v:"线上直播（洛杉矶）",t:["芒格我憎恨比特币成功","SPAC狂热=羞耻行为","通胀初现"],h:"SPAC是羞耻、憎恨比特币成功、苹果卖错承认。芒格最犀利一届。",star:true,has:true},
+  {y:2022,e:58,v:"CHI Health Center（回归现场）",t:["高通胀与加息","现金创纪录","西方石油加码"],h:"回归线下三年首次，「现金如同氧气」在高位保持耐心。",star:true,has:true},
+  {y:2023,e:59,v:"CHI Health Center",t:["芒格最后出席(99岁)","AI初谈超出理解","硅谷银行危机"],h:"芒格于2023年11月28日辞世，此为其谢幕之作。",star:true,munger:true,has:true},
+  {y:2024,e:60,v:"CHI Health Center",t:["芒格去世后首场","日本五大商社增持","现金约3440亿"],h:"延续芒格遗志，重点阐述日本商社的长期看好与低成本杠杆。",star:true,has:true},
+  {y:2025,e:61,v:"CHI Health Center",t:["巴菲特宣布年底退休","缅怀芒格","贸易不应武器化","现金约3470亿"],h:"第60周年大会，巴菲特意外宣布交棒，阿贝尔接任CEO，现场19700人创纪录。",star:true,final:true,has:true}
+];
+
+// Sort state
+var currentSort = 'desc';
+
+function setSort(dir){
+  currentSort = dir;
+  // Update both sort toggles
+  var btns = document.querySelectorAll('.inline-sort');
+  btns.forEach(function(grp){
+    var dBtn = grp.children[0];
+    var aBtn = grp.children[1];
+    if(dBtn && aBtn){
+      dBtn.classList.toggle('active', dir==='desc');
+      aBtn.classList.toggle('active', dir==='asc');
+    }
+  });
+  buildList();
+}
+
+function setGridSort(dir){
+  currentSort = dir;
+  setSort(dir);
+  buildGrid();
+}
+
+// Build year grid (always desc by default, no sort needed here)
+function buildGrid(){
+  var grid = document.getElementById('yearGrid');
+  var arr = currentSort === 'desc' ? YEARS.slice().reverse() : YEARS;
+  var html = '';
+  for(var i = 0; i < arr.length; i++){
+    var m = arr[i];
+    var cls = 'year-pill';
+    if(m.star) cls += ' starred';
+    if(m.has) cls += ' has-detail';
+    if(m.munger) cls += ' munger';
+    if(m.final) cls += ' final current';
+    var anchor = m.has ? (' href="meetings_content/' + m.y + '.html"') : '#nogo';
+    var starIcon = m.star ? '\u2605' : '';
+    html += '<a' + anchor + ' class="' + cls + '">' + m.y + starIcon + '</a>';
+  }
+  grid.innerHTML = html;
+}
+
+// Build meeting list with section-level sort
+function buildList(){
+  var list = document.getElementById('meetingList');
+  var arr = currentSort === 'desc' ? YEARS.slice().reverse() : YEARS;
+  var starredHtml = '';
+  var normalHtml = '';
+
+  for(var i = 0; i < arr.length; i++){
+    var m = arr[i];
+    var cls = 'meeting-card';
+    if(m.star) cls += ' starred';
+    if(m.y===2008) cls = ' meeting-card crisis';
+    if(m.munger) cls = ' meeting-card munger';
+    if(m.final) cls = ' meeting-card final';
+
+    var tags = '';
+    for(var t = 0; t < m.t.length; t++){
+      tags += '<span class="mc-tag">' + m.t[t] + '</span>';
+    }
+
+    var starHtml = m.star ? '<div class="mc-star">\u2605</div>' : '';
+
+    var actions = '';
+    if(m.has){
+      actions = '<div class="mc-actions"><a href="meetings_content/' + m.y + '.html" class="btn-view">\u67e5\u770b\u5b8c\u6574\u5b9e\u5f55</a></div>';
+    } else {
+      actions = '<div class="mc-actions"><a href="https://berkshire.memorex.ai/meetings/' + m.y + '" target="_blank" rel="noopener" class="btn-ext">BRK Archive</a><span class="pending-tag">\u4e2d\u6587\u6536\u5f55\u4e2d</span></div>';
+    }
+
+    var card =
+      '<div class="' + cls + '">'
+      + '<div class="mc-year-col">'
+      +   '<div class="mc-year-num">' + m.y + '</div>'
+      +   '<div class="mc-edition-sm">\u7b2c' + m.e + '\u5c4a</div>'
+      +   starHtml
+      + '</div>'
+      + '<div class="mc-body">'
+      +   '<div class="mc-head-row"><div class="mc-title">' + (m.star?'\u2B50 ':'') + m.h.substring(0,60)+(m.h.length>60?'…':'') + '</div></div>'
+      +   '<div class="mc-themes">' + tags + '</div>'
+      +   '<div class="mc-highlight">\uD83D\uDCCD '+m.v+' \u00B7 '+m.h+'</div>'
+      +   actions
+      + '</div>'
+      + '</div>';
+
+    if(m.star && currentSort==='desc'){
+      starredHtml += card;
+    } else {
+      normalHtml += card;
+    }
+  }
+
+  // Build HTML with section headers that include inline sort
+  var sortLabel = currentSort==='desc' ? '\u65f6\u95f4\u5012\u5e8f' : '\u65f6\u95f4\u6b63\u5e8f';
+  var html = '';
+  if(starredHtml && currentSort==='desc'){
+    html += '<div class="section-header">';
+    html += '<div class="section-title"><span class="star-icon">\u2605</span> \u661f\u6807\u91cd\u8981\u5e74\u4efd<span>\u5efa\u8bae\u4f18\u5148\u9605\u8bfb</span></div>';
+    html += '<div class="inline-sort">';
+    html += '<button onclick="setSort(\'desc\')" class="'+(currentSort==='desc'?'active':'')+'">\u2193 \u5012\u5e8f</button>';
+    html += '<button onclick="setSort(\'asc\')" class="'+(currentSort==='asc'?'active':'')+'">\u2191 \u6b63\u5e8f</button>';
+    html += '</div></div>';
+    html += starredHtml;
+    html += '<div class="section-header">';
+    html += '<div class="section-title">\uD83D\uDCCB \u5168\u90e8\u5e74\u4efd<span>\u6309'+sortLabel+'</span></div>';
+    html += '</div>';
+  } else {
+    // In asc mode or when no stars separated, just show all with sort
+    html += '<div class="section-header">';
+    html += '<div class="section-title">'+(currentSort==='asc'?('\uD83D\uDCCB \u5168\u90e8\u5e74\u4efd'):('\u2605 \u661f\u6807+\u5168\u90e8\u5e74\u4efd'))+'<span>\u6309'+sortLabel+'</span></div>';
+    html += '<div class="inline-sort">';
+    html += '<button onclick="setSort(\'desc\')" class="'+(currentSort==='desc'?'active':'')+'">\u2193 \u5012\u5e8f</button>';
+    html += '<button onclick="setSort(\'asc\')" class="'+(currentSort==='asc'?'active':'')+'">\u2191 \u6b63\u5e8f</button>';
+    html += '</div></div>';
+  }
+  html += normalHtml;
+  list.innerHTML = html;
+}
+
+// Init
+buildGrid();
+buildList();
+</script>
 
 </body>
 </html>
