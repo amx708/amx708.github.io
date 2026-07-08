@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>历年收购数据 — 伯克希尔·哈撒韦 | 漫漫扬</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei','Helvetica Neue',sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.6;min-height:100vh}
+
+.breadcrumb{max-width:1100px;margin:0 auto;padding:20px 24px 0;font-size:13px;color:#64748b}
+.breadcrumb a{color:#64748b;text-decoration:none;transition:color .15s}
+.breadcrumb a:hover{color:#2563eb}
+.breadcrumb span{color:#94a3b8;margin:0 6px}
+.breadcrumb .current{color:#334155;font-weight:500}
+
+.hero{position:relative;background:linear-gradient(135deg,#0f172a 0%,#1e293b 40%,#1e3a5f 100%);padding:48px 24px 64px;text-align:center;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 20%, rgba(245,158,11,.08) 0%, transparent 50%),radial-gradient(ellipse at 70% 80%, rgba(37,99,235,.06) 0%, transparent 50%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:100px;background:linear-gradient(to top, #f1f5f9 0%, transparent 100%);pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.hero-badge{display:inline-block;padding:4px 14px;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);border-radius:20px;color:#fbbf24;font-size:12px;font-weight:500;letter-spacing:.5px;margin-bottom:20px}
+.hero h1{font-size:clamp(26px,4vw,40px);font-weight:800;color:#fff;line-height:1.25;letter-spacing:-.5px;margin-bottom:12px}
+.hero h1 span{color:#f59e0b}
+.hero p{font-size:15px;color:#94a3b8;max-width:560px;margin:0 auto;line-height:1.7}
+
+.main{max-width:1100px;margin:0 auto;padding:32px 24px 80px}
+
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.stat-card{background:#fff;border-radius:12px;padding:20px 16px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);border:1px solid #e2e8f0;transition:transform .2s ease,box-shadow .2s ease}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.stat-number{font-size:28px;font-weight:800;background:linear-gradient(135deg,#f59e0b,#d97706);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.stat-label{font-size:13px;color:#64748b;margin-top:6px;font-weight:500}
+
+.table-wrap{background:#fff;border-radius:14px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden}
+.table-header{padding:20px 24px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.table-header h2{font-size:18px;font-weight:700;color:#0f172a}
+.table-header .count{font-size:13px;color:#64748b;background:#f1f5f9;padding:4px 12px;border-radius:20px}
+.sort-controls{display:flex;gap:4px}
+.sort-btn{padding:6px 12px;border:1px solid #e2e8f0;background:#fff;border-radius:6px;font-size:12px;font-weight:500;color:#475569;cursor:pointer;transition:all .15s}
+.sort-btn:hover{background:#f8fafc;border-color:#cbd5e1}
+.sort-btn.active{background:#eff6ff;border-color:#93c5fd;color:#2563eb}
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:#f8fafc;padding:14px 16px;text-align:left;font-weight:600;color:#475569;border-bottom:1px solid #e2e8f0;white-space:nowrap;font-size:12px;text-transform:uppercase;letter-spacing:.3px;cursor:pointer;user-select:none}
+thead th:hover{background:#f1f5f9}
+thead th .sort-icon{font-size:10px;margin-left:4px;color:#94a3b8;opacity:.5}
+thead th.sorted .sort-icon{opacity:1;color:#2563eb}
+tbody td{padding:14px 16px;border-bottom:1px solid #f1f5f0;color:#334155;vertical-align:top}
+tbody tr:hover{background:#f8fafc}
+tbody tr:last-child td{border-bottom:none}
+
+.company-name{font-weight:600;color:#0f172a;font-size:13.5px}
+.company-cn{font-size:12px;color:#64748b;margin-top:2px}
+
+.tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:500}
+.tag-industry{background:#eff6ff;color:#2563eb}
+.tag-industry small{color:#64748b;font-weight:400;font-size:10px}
+.tag-decade{background:#f0fdfa;color:#0d9488}
+
+.details{font-size:12.5px;color:#475569;line-height:1.6}
+.reason{font-size:12px;color:#64748b;line-height:1.5;margin-top:6px;padding-top:6px;border-top:1px dashed #e2e8f0}
+
+.back-link{margin-top:40px;text-align:center}
+.back-link a{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;color:#334155;font-size:14px;font-weight:500;text-decoration:none;transition:all .2s ease;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.back-link a:hover{background:#f8fafc;border-color:#cbd5e1;color:#2563eb;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+
+.footer{text-align:center;padding:32px 24px;color:#94a3b8;font-size:12px;border-top:1px solid #e2e8f0}
+.footer a{color:#64748b;text-decoration:none;transition:color .15s}
+.footer a:hover{color:#2563eb}
+
+@media(max-width:900px){.stats-bar{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){
+  .hero{padding:36px 16px 52px}
+  .hero h1{font-size:22px}
+  .hero p{font-size:13px}
+  .stats-bar{grid-template-columns:1fr 1fr;gap:10px}
+  .stat-card{padding:16px 12px}
+  .stat-number{font-size:24px}
+  .stat-label{font-size:12px}
+  .main{padding:24px 12px 56px}
+  .breadcrumb{padding:14px 12px 0;font-size:12px}
+  .table-wrap{border-radius:10px}
+  .table-header{padding:14px 12px;flex-direction:column;align-items:flex-start;gap:8px}
+  .table-header h2{font-size:16px}
+  .table-header .count{font-size:11px}
+  .sort-controls{flex-wrap:wrap}
+  .sort-btn{padding:5px 10px;font-size:11px}
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{font-size:12px;min-width:500px}
+  thead th{padding:10px 10px;font-size:10.5px}
+  tbody td{padding:10px 10px;font-size:12px}
+  .company-name{font-size:12.5px}
+  .company-cn{font-size:11px}
+  .tag{font-size:10px;padding:2px 8px}
+  .details{font-size:11.5px}
+  .reason{font-size:11px}
+  .back-link a{padding:8px 18px;font-size:13px}
+  .footer{padding:24px 16px;font-size:11px}
+}
+@media(max-width:480px){
+  .hero{padding:28px 12px 44px}
+  .hero h1{font-size:19px}
+  .hero-badge{font-size:10px;padding:3px 10px}
+  .stats-bar{grid-template-columns:1fr 1fr;gap:8px}
+  .stat-card{padding:12px 8px}
+  .stat-number{font-size:20px}
+  .main{padding:20px 8px 48px}
+  .table-header{padding:12px 8px}
+  .table-header h2{font-size:14px}
+  thead th{padding:8px 6px;font-size:10px}
+  tbody td{padding:8px 6px;font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<nav class="breadcrumb">
+  <a href="index.html">首页</a>
+  <span>/</span>
+  <a href="berkshire-standalone.html">投资数据中心</a>
+  <span>/</span>
+  <span class="current">历年收购数据</span>
+</nav>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Acquisitions</div>
+    <h1>伯克希尔·哈撒韦<br><span>历年收购数据</span></h1>
+    <p>从1967年国民保险到2020年代，巴菲特并购帝国的每一步</p>
+  </div>
+</header>
+
+<main class="main">
+  <div class="stats-bar">
+    <div class="stat-card"><div class="stat-number">69</div><div class="stat-label">收购记录</div></div>
+    <div class="stat-card"><div class="stat-number">7</div><div class="stat-label">年代跨度</div></div>
+    <div class="stat-card"><div class="stat-number">25</div><div class="stat-label">行业覆盖</div></div>
+    <div class="stat-card"><div class="stat-number">70</div><div class="stat-label">并购年数</div></div>
+  </div>
+
+  <div class="table-wrap">
+    <div class="table-header">
+      <h2>收购明细</h2>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div class="sort-controls">
+          <button class="sort-btn" data-sort="decade" onclick="toggleSort('decade',this)">收购年代 ↑</button>
+        </div>
+        <span class="count">共 69 条记录</span>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>公司名称</th>
+            <th>行业</th>
+            <th onclick="toggleSort('decade',null)" data-col="decade">收购年代 <span class="sort-icon">↕</span></th>
+            <th>收购详情</th>
+          </tr>
+        </thead>
+          <tr>
+            <td>
+              <div class="company-name">Sun Newspapers</div>
+              <div class="company-cn">太阳报业</div>
+            </td>
+            <td><span class="tag tag-industry">Media<br><small>传媒</small></span></td>
+            <td><span class="tag tag-decade">1960 年代</span></td>
+            <td>
+              <div class="details">1968年底全部收购</div>
+              <div class="reason">早期收购，扩展伯克希尔在奥马哈地区的媒体版图。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">National Indemnity Company (NIC)</div>
+              <div class="company-cn">国民保险公司</div>
+            </td>
+            <td><span class="tag tag-industry">Insurance<br><small>保险</small></span></td>
+            <td><span class="tag tag-decade">1960 年代</span></td>
+            <td>
+              <div class="details">1967年3月1日以860万美元收购</div>
+              <div class="reason">巴菲特收购的第一家保险公司，开启保险浮存金投资模式。NIC以保守承保和巨额浮存金著称，为伯克希尔后续投资提供低成本资金。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Illinois National Bank and Trust Company</div>
+              <div class="company-cn">伊利诺伊国民银行和信托公司</div>
+            </td>
+            <td><span class="tag tag-industry">Bank,Financials<br><small>银行,金融</small></span></td>
+            <td><span class="tag tag-decade">1960 年代</span></td>
+            <td>
+              <div class="details">1969年以1550万美元收购97.7%股份（通过Rockford Bancorp 罗克福德信托持有）<br>1980年以换股的方式将罗克福德信托的41086股股票换为伯克希尔同等数量的股份</div>
+              <div class="reason">通过收购银行扩展金融服务版图，后于1980年并入伯克希尔体系。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Hochschild Kohn</div>
+              <div class="company-cn">科恩百货</div>
+            </td>
+            <td><span class="tag tag-industry">Retail<br><small>零售</small></span></td>
+            <td><span class="tag tag-decade">1960 年代</span></td>
+            <td>
+              <div class="details">1966 年以 1200 万美元收购</div>
+              <div class="reason">早期零售收购尝试，巴菲特称之为"错误"，最终于1970年代出售。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Associated Retail Stores</div>
+              <div class="company-cn">联合零售</div>
+            </td>
+            <td><span class="tag tag-industry">Retail<br><small>零售</small></span></td>
+            <td><span class="tag tag-decade">1960 年代</span></td>
+            <td>
+              <div class="details">1967 年收购</div>
+              <div class="reason">配合多元化零售战略的小型收购。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Diversified Retailing Company</div>
+              <div class="company-cn">多元零售</div>
+            </td>
+            <td><span class="tag tag-industry">Retail<br><small>零售</small></span></td>
+            <td><span class="tag tag-decade">1970 年代</span></td>
+            <td>
+              <div class="details">1978 年收购</div>
+              <div class="reason">整合零售业务的控股平台，后并入伯克希尔体系。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Blue Chip Stamps</div>
+              <div class="company-cn">蓝筹印花</div>
+            </td>
+            <td><span class="tag tag-industry">Blue Chip Stamps<br><small>蓝筹印花</small></span></td>
+            <td><span class="tag tag-decade">1970 年代</span></td>
+            <td>
+              <div class="details">持股变化：<br>1970年开始买入<br>1973年底：19%<br>1974年底：25.5%<br>1976年底：33%<br>1977年底：约36.5%<br>1978年底：58%(与多元零售合并后)<br>1979年底：60%<br>1983年：通过换股合并</div>
+              <div class="reason">通过逐步增持获得蓝筹印花控制权，其持有的浮存金为后续收购（如喜诗糖果）提供了资金。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Home&Automobile Insurance</div>
+              <div class="company-cn">家庭汽车保险公司</div>
+            </td>
+            <td><span class="tag tag-industry">Insurance<br><small>保险</small></span></td>
+            <td><span class="tag tag-decade">1970 年代</span></td>
+            <td>
+              <div class="details">1971年收购</div>
+              <div class="reason">扩展保险子公司布局，补充国家赔偿公司的保险业务。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">See's Candy</div>
+              <div class="company-cn">喜诗糖果</div>
+            </td>
+            <td><span class="tag tag-industry">Candy<br><small>糖果食品</small></span></td>
+            <td><span class="tag tag-decade">1970 年代</span></td>
+            <td>
+              <div class="details">1972年1月3日，以2500万美元收购，(喜诗报价4000万，账面有1000万现金)</div>
+              <div class="reason">标志伯克希尔从"烟蒂股"投资转向"优质企业"收购的转折点。巴菲特称喜诗教会了他"为出色企业支付合理价格"，直接启发了后来的可口可乐投资。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Wesco Financial Corporation</div>
+              <div class="company-cn">西科金融/维斯科/韦斯科</div>
+            </td>
+            <td><span class="tag tag-industry">Financials<br><small>金融</small></span></td>
+            <td><span class="tag tag-decade">1970 年代</span></td>
+            <td>
+              <div class="details">持股变化：<br>1973年底：54%<br>1974年底：64%<br>1977年底：80%<br>后长期持有其80.1%股份，直到2011年6月，伯克希尔收购了其剩余的约20%股份</div>
+              <div class="reason">由芒格主导的金融控股公司，长期持有直至2011年完成全资收购。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Buffalo Evening News</div>
+              <div class="company-cn">布法罗晚报</div>
+            </td>
+            <td><span class="tag tag-industry">Media<br><small>传媒</small></span></td>
+            <td><span class="tag tag-decade">1970 年代</span></td>
+            <td>
+              <div class="details">1977年以3550万美元收购(以蓝筹印花为主体收购的)</div>
+              <div class="reason">以蓝筹印花为主体收购，进军报纸媒体行业，但后期因行业衰退计提减值。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Central Fire and Casualty</div>
+              <div class="company-cn">中央火险意外险公司</div>
+            </td>
+            <td><span class="tag tag-industry">Insurance<br><small>保险</small></span></td>
+            <td><span class="tag tag-decade">1970 年代</span></td>
+            <td>
+              <div class="details">1976年收购</div>
+              <div class="reason">扩展保险承保能力，增加浮存金规模。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Cypress Insurance</div>
+              <div class="company-cn">赛普路斯工伤赔偿保险公司</div>
+            </td>
+            <td><span class="tag tag-industry">Insurance<br><small>保险</small></span></td>
+            <td><span class="tag tag-decade">1970 年代</span></td>
+            <td>
+              <div class="details">1977年收购</div>
+              <div class="reason">补充工伤赔偿保险业务线。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Nebraska Furniture Mart (NFM)</div>
+              <div class="company-cn">内布拉斯加家具商场</div>
+            </td>
+            <td><span class="tag tag-industry">Retail<br><small>零售</small></span></td>
+            <td><span class="tag tag-decade">1980 年代</span></td>
+            <td>
+              <div class="details">1983.1.1收购 NFM 90%的股份，剩余的10%留给B夫人的家族</div>
+              <div class="reason">巴菲特经典收购案例。基于对B夫人（Rose Blumkin）的极度信任，巴菲特仅用握手协议就完成收购——未做审计、未盘点存货。NFM以低价格、高周转、极致效率著称，成为家具零售行业的标杆。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Fechheimer Brothers Company</div>
+              <div class="company-cn">费区海默兄弟公司</div>
+            </td>
+            <td><span class="tag tag-industry">Textiles<br><small>纺织</small></span></td>
+            <td><span class="tag tag-decade">1980 年代</span></td>
+            <td>
+              <div class="details">1986.1.1以4600万美元收购其84%股权(估值5500万美元)，剩余股份留给海德曼家族</div>
+              <div class="reason">收购制服制造公司，巴菲特看重其稳定的行业需求和优秀管理层。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Borsheim's Fine Jewelry</div>
+              <div class="company-cn">波仙珠宝</div>
+            </td>
+            <td><span class="tag tag-industry">Retail<br><small>零售</small></span></td>
+            <td><span class="tag tag-decade">1980 年代</span></td>
+            <td>
+              <div class="details">1989年初收购其80%股份</div>
+              <div class="reason">由NFM的B夫人推荐，巴菲特称"如果B夫人卖珠宝，我也买"，延续了对极致经营者的信任逻辑。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">H.H. Brown Shoe Company</div>
+              <div class="company-cn">布朗鞋业</div>
+            </td>
+            <td><span class="tag tag-industry">Footwear Manufacturing,Apparel<br><small>鞋类制造,服装</small></span></td>
+            <td><span class="tag tag-decade">1990 年代</span></td>
+            <td>
+              <div class="details">1991年7月1日收购</div>
+              <div class="reason">进入鞋类制造领域，看重其稳定现金流和品牌。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Scott Fetzer Company</div>
+              <div class="company-cn">斯科特·费泽</div>
+            </td>
+            <td><span class="tag tag-industry">Manufacturing<br><small>制造</small></span></td>
+            <td><span class="tag tag-decade">1980 年代</span></td>
+            <td>
+              <div class="details">1986年初以约4亿美元收购</div>
+              <div class="reason">以约4亿美元收购多元化制造集团，旗下拥有Kirby吸尘器、Campbell Hausfeld等知名品牌。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Central States Indemnity (CSI)</div>
+              <div class="company-cn">中央州保险公司</div>
+            </td>
+            <td><span class="tag tag-industry">Insurance<br><small>保险</small></span></td>
+            <td><span class="tag tag-decade">1990 年代</span></td>
+            <td>
+              <div class="details">1992/10/20以0.82亿元收购82%股权</div>
+              <div class="reason">扩展保险业务，收购后并入了其他子公司。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Dexter</div>
+              <div class="company-cn">德克斯特鞋业</div>
+            </td>
+            <td><span class="tag tag-industry">Footwear Manufacturing<br><small>鞋类制造</small></span></td>
+            <td><span class="tag tag-decade">1990 年代</span></td>
+            <td>
+              <div class="details">1993年以发行25203股伯克希尔新股收购</div>
+              <div class="reason">巴菲特"著名错误"之一。以伯克希尔新股收购鞋业公司，但随后行业竞争加剧，最终资产归零。巴菲特在股东信中承认"为一家注定失败的企业支付过高价格"，并指出用股票而非现金收购是"特别昂贵"的错误。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Helzberg Diamonds</div>
+              <div class="company-cn">赫尔茨伯格钻石连锁店</div>
+            </td>
+            <td><span class="tag tag-industry">Retail<br><small>零售</small></span></td>
+            <td><span class="tag tag-decade">1990 年代</span></td>
+            <td>
+              <div class="details">1995年以换股方式收购</div>
+              <div class="reason">扩展珠宝零售业务，与Borsheim's形成协同。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">FlightSafety International (FSI)</div>
+              <div class="company-cn">飞安国际公司</div>
+            </td>
+            <td><span class="tag tag-industry">—</span></td>
+            <td><span class="tag tag-decade">1990 年代</span></td>
+            <td>
+              <div class="details">1996年以约15亿美元收购（其中51%现金、41%换伯克希尔A股、8%换伯克希尔B股）</div>
+              <div class="reason">全球领先的飞行模拟培训公司。巴菲特看中其"不可替代"的行业地位和高进入壁垒，为航空业提供必需的安全培训服务。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">RC Willey Home Furnishings</div>
+              <div class="company-cn">RC 威利家具店</div>
+            </td>
+            <td><span class="tag tag-industry">Retail<br><small>零售</small></span></td>
+            <td><span class="tag tag-decade">1990 年代</span></td>
+            <td>
+              <div class="details">1995年以价值约1.5亿美元的股票收购</div>
+              <div class="reason">由NFM的Bill Child推荐，复制NFM的低价高效模式进入西部家具市场。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Star Furniture</div>
+              <div class="company-cn">明星家具</div>
+            </td>
+            <td><span class="tag tag-industry">Retail<br><small>零售</small></span></td>
+            <td><span class="tag tag-decade">1990 年代</span></td>
+            <td>
+              <div class="details">1997年7月收购</div>
+              <div class="reason">继续扩展家具零售版图，由现有管理层的推荐促成。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Government Employees Insurance Company (GEICO)</div>
+              <div class="company-cn">盖可保险</div>
+            </td>
+            <td><span class="tag tag-industry">Insurance<br><small>保险</small></span></td>
+            <td><span class="tag tag-decade">1990 年代</span></td>
+            <td>
+              <div class="details">持股变化：<br>1976年底：约6%，<br>1980年底：约33.3%<br>后续由于GEICO持续的回购，导致持有股份占比涨至近50%，<br>1996年完成100%收购</div>
+              <div class="reason">伯克希尔最重要的保险子公司。巴菲特从1976年开始投资，看中其"低成本直销+精准定价"的护城河。1996年完成全资收购后，GEICO成为美国第二大汽车保险商，为伯克希尔贡献巨额浮存金。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Dairy Queen (DQ)</div>
+              <div class="company-cn">冰雪皇后</div>
+            </td>
+            <td><span class="tag tag-industry">Food<br><small>食品饮料</small></span></td>
+            <td><span class="tag tag-decade">1990 年代</span></td>
+            <td>
+              <div class="details">1998年初以5.85亿美元（45%现金，55%股票收购）</div>
+              <div class="reason">收购全球知名的冰淇淋连锁品牌。巴菲特看重其"轻资产+加盟模式"——加盟商承担大部分资本支出，总部仅需少量资产即可产生高额回报。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">General Reinsurance Corporation (Gen Re)</div>
+              <div class="company-cn">通用再保险公司</div>
+            </td>
+            <td><span class="tag tag-industry">Insurance<br><small>保险</small></span></td>
+            <td><span class="tag tag-decade">1990 年代</span></td>
+            <td>
+              <div class="details">1998年收购</div>
+              <div class="reason">全球领先的再保险公司，收购后显著扩大伯克希尔的保险浮存金规模。虽然初期因承保亏损引发质疑，但长期来看为伯克希尔提供了大量可投资资金。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">NetJets</div>
+              <div class="company-cn">利捷航空</div>
+            </td>
+            <td><span class="tag tag-industry">Services<br><small>服务</small></span></td>
+            <td><span class="tag tag-decade">1990 年代</span></td>
+            <td>
+              <div class="details">1998年以7.25亿美元收购（其中现金和股票各占一半）</div>
+              <div class="reason">私人飞机分时租赁的先驱。巴菲特称其"改变了航空业"，为企业和个人提供灵活的飞行解决方案。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Jordan's Furniture</div>
+              <div class="company-cn">乔丹家具</div>
+            </td>
+            <td><span class="tag tag-industry">Retail<br><small>零售</small></span></td>
+            <td><span class="tag tag-decade">1990 年代</span></td>
+            <td>
+              <div class="details">1999年以约2.5亿美元现金收购</div>
+              <div class="reason">由NFM模式复制到波士顿地区，由Barry和Eliot Tatelman兄弟经营，以卓越的客户体验著称。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Ben Bridge Jeweler</div>
+              <div class="company-cn">本布里奇珠宝</div>
+            </td>
+            <td><span class="tag tag-industry">Retail<br><small>零售</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2000年5月收购（其中一半现金一半股票）</div>
+              <div class="reason">继续扩展珠宝零售业务，收购后加入Berkshire的珠宝板块。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Benjamin Moore</div>
+              <div class="company-cn">本杰明摩尔涂料公司</div>
+            </td>
+            <td><span class="tag tag-industry">Chemicals,Construction Materials<br><small>化工,建筑材料</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2000年底以约10亿美元现金收购</div>
+              <div class="reason">美国高端涂料品牌，拥有超过130年历史。巴菲特看重其强大的品牌认知度和在涂料行业的领导地位。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Berkshire Hathaway Energy (BHE)</div>
+              <div class="company-cn">伯克希尔哈撒韦能源公司</div>
+            </td>
+            <td><span class="tag tag-industry">Energy,Utilities<br><small>能源,公用事业</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">1999年提出收购，2000年完成，占76%股权</div>
+              <div class="reason">通过收购中美能源控股（后更名为BHE），进入公用事业和能源领域。巴菲特认为能源行业"永远不会过时"，且能提供稳定的长期回报。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Berkadia</div>
+              <div class="company-cn">伯克-阿迪亚商业抵押贷款公司</div>
+            </td>
+            <td><span class="tag tag-industry">—</span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details"></div>
+              <div class="reason">与Leucadia National合资的商业抵押贷款公司，伯克希尔占50%股份。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Johns Manville Corporation (JM)</div>
+              <div class="company-cn">约翰曼维尔公司</div>
+            </td>
+            <td><span class="tag tag-industry">Construction Materials<br><small>建筑材料</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2000年底以22亿美元现金收购，<br>2001年正式成为伯克希尔全资子公司</div>
+              <div class="reason">全球领先的建筑保温材料和屋顶系统供应商。巴菲特看重其在建筑行业的稳固地位和品牌优势。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Justin Industries</div>
+              <div class="company-cn">贾斯汀工业</div>
+            </td>
+            <td><span class="tag tag-industry">Industrial<br><small>工业制造</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2000年8月以5.7亿美元现金收购</div>
+              <div class="reason">收购旗下Justin Boots（牛仔靴）和Acme Brick（砖块）等品牌，扩展消费品和建材业务。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Shaw Industries Group</div>
+              <div class="company-cn">萧氏工业集团</div>
+            </td>
+            <td><span class="tag tag-industry">Industrial<br><small>工业制造</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2000年以约 23 亿美元现金收购了其87.3% 的股份（实际完成时间为2001年1月8日），<br>2002 年以 4505 股 A 类/7063 股 B 类股票总价约 3.55 亿美元收购了管理层手中持有的剩余股份</div>
+              <div class="reason">全球最大的地毯制造商。巴菲特认为地毯是"不会消失的行业"，且Shaw在行业中具有规模优势。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">United States Liability Insurance Group (USLI)</div>
+              <div class="company-cn">美国责任保险集团</div>
+            </td>
+            <td><span class="tag tag-industry">Insurance<br><small>保险</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2000年8月收购（一半现金一半股票）</div>
+              <div class="reason">专业责任保险公司，补充保险业务板块。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Larson-Juhl</div>
+              <div class="company-cn">乐森卓尔</div>
+            </td>
+            <td><span class="tag tag-industry">Manufacturing<br><small>制造</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2001 年 12 月 17 日，以 2.23425 亿现金收购</div>
+              <div class="reason">相框和定制画框制造商，"即使画作卖不动，画框依然有需求"——巴菲特对其稳定需求的经典评价。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">XTRA Lease</div>
+              <div class="company-cn">XTRA 租赁公司</div>
+            </td>
+            <td><span class="tag tag-industry">—</span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2001年9月份以 13 亿美元(5.78 亿现金和 7.1 亿债券融资)收购</div>
+              <div class="reason">拖车租赁公司，为运输行业提供必需的设备租赁服务。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">MiTek Industries</div>
+              <div class="company-cn">MiTek 工业</div>
+            </td>
+            <td><span class="tag tag-industry">Industrial<br><small>工业制造</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2001年以约4亿美元（1.98 亿美元现金+2 亿美元借款）收购 90% 股份，<br>剩余 10% 由 MiTek 团队成员购买</div>
+              <div class="reason">建筑行业连接件和软件供应商，伯克希尔收购其90%股份，保留管理团队激励。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">CTB</div>
+              <div class="company-cn">CTB 公司</div>
+            </td>
+            <td><span class="tag tag-industry">—</span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2002 年以 1.8 亿美元现金收购</div>
+              <div class="reason">农业设备制造商，服务于全球农业市场。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Garanimals</div>
+              <div class="company-cn">加兰童装</div>
+            </td>
+            <td><span class="tag tag-industry">Apparel<br><small>服装</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2002年7月以2.7亿美元现金收购</div>
+              <div class="reason">童装品牌，扩展服装业务板块。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Fruit of the Loom</div>
+              <div class="company-cn">鲜果布衣</div>
+            </td>
+            <td><span class="tag tag-industry">Apparel<br><small>服装</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2002 年以 8.35 亿美元现金收购</div>
+              <div class="reason">美国标志性内衣品牌。2002年破产重整后以8.35亿美元收购，巴菲特看重其强大的品牌认知度和在基础服装领域的领导地位。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Pampered Chef</div>
+              <div class="company-cn">娇贵大厨</div>
+            </td>
+            <td><span class="tag tag-industry">—</span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2002年9月收购</div>
+              <div class="reason">厨房用品直销公司，由创始人直接推荐给巴菲特。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Clayton Homes</div>
+              <div class="company-cn">克莱顿之家</div>
+            </td>
+            <td><span class="tag tag-industry">Homebuilder,Manufacturing<br><small>房屋建造,制造</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2003年以17亿美元现金收购</div>
+              <div class="reason">美国领先的预制房屋制造商。巴菲特在2003年收购前曾深入研究，认为"住房是人类的基本需求"，且Clayton的低成本制造模式具有长期竞争力。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">McLane Company</div>
+              <div class="company-cn">麦克莱恩</div>
+            </td>
+            <td><span class="tag tag-industry">—</span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2003年以14.5亿美元现金收购</div>
+              <div class="reason">全球最大的供应链分销商之一，为便利店、药店和餐饮业提供配送服务。巴菲特认为其分销网络"难以复制"，是沃尔玛等大型零售商的重要合作伙伴。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Applied Underwriters (AUW)</div>
+              <div class="company-cn">AUW工伤保险公司</div>
+            </td>
+            <td><span class="tag tag-industry">Insurance<br><small>保险</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2005年12月收购81%股权</div>
+              <div class="reason">工伤赔偿保险公司，后被伯克希尔出售。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Forest River</div>
+              <div class="company-cn">森林河</div>
+            </td>
+            <td><span class="tag tag-industry">Manufacturing<br><small>制造</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2005年8月收购</div>
+              <div class="reason">房车和拖车制造商，伯克希尔保留其创始人的经营自主权。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Medical Protective Company</div>
+              <div class="company-cn">医疗防护公司</div>
+            </td>
+            <td><span class="tag tag-industry">—</span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2005 年以8.25 亿美元现金收购</div>
+              <div class="reason">医疗责任保险公司，服务于医生和医疗机构。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Business Wire</div>
+              <div class="company-cn">美国商业资讯公司</div>
+            </td>
+            <td><span class="tag tag-industry">Services,Media<br><small>服务,传媒</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2006年3月收购</div>
+              <div class="reason">全球领先的新闻发布和投资者关系服务提供商。巴菲特认为其在金融信息传播领域具有不可替代的地位。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">IMC Group</div>
+              <div class="company-cn">IMC 集团</div>
+            </td>
+            <td><span class="tag tag-industry">Manufacturing,Industrial<br><small>制造,工业</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2006年以40亿美元现金收购80%股权，<br>2013年以约20亿美元收购剩余的20%股权</div>
+              <div class="reason">以色列金属切削工具制造商（ISCAR是其核心品牌）。巴菲特首次大型海外收购，看重其在精密制造领域的全球领先地位。2013年完成全资收购。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">TTI</div>
+              <div class="company-cn">TTI 公司</div>
+            </td>
+            <td><span class="tag tag-industry">Manufacturing<br><small>制造</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2006年收购</div>
+              <div class="reason">电子元器件分销商，服务于航空航天和国防行业。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">BoatUS</div>
+              <div class="company-cn">美国船主协会</div>
+            </td>
+            <td><span class="tag tag-industry">Insurance<br><small>保险</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2007 年， ESOP 将 BoatUS 出售给伯克希尔子公司国民保险，<br>2015 年， BoatUS 被转移到旗下 GEICO 保险公司。</div>
+              <div class="reason">船主保险和路边援助服务，后被整合至GEICO。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Richline Group</div>
+              <div class="company-cn">Richline 集团</div>
+            </td>
+            <td><span class="tag tag-industry">Manufacturing,Retail<br><small>制造,零售</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2007年收购</div>
+              <div class="reason">珠宝制造集团，为Berkshire的珠宝零售板块提供制造能力。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Marmon Group</div>
+              <div class="company-cn">玛蒙集团</div>
+            </td>
+            <td><span class="tag tag-industry">—</span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2008 年，伯克希尔以 45 亿美元收购了 Marmon 集团的 60%股权，随后以 3 亿美元收购另 3.6%股份(经营收益 9.77亿， PE7.7， 估值 75.5 亿)，并计划分阶段在未来 6 年内收购其余少数股权，<br>2011 年，以 15 亿美元增持 16.6%的股份(经营收益 8.55 亿， PE10.6,估值 90.4 亿)， 持股比例增加至 80.2%，<br>2012 年以 14 亿美元增持 9.8%股份(经营收益 11.63 亿， PE12.3， 估值 142.9 亿) ， 持股比例增加至 90%，<br>2013 年 15 亿收购剩余 9.7%， 近乎 100%控股(经营收益 12.01 亿，PE 12.9，估值 154.6 亿)</div>
+              <div class="reason">由Pritzker家族创建的多元化工业集团。伯克希尔分阶段收购（2008-2013），最终几乎全资控股。旗下拥有超过150家工业制造企业，覆盖铁路、管道、食品设备等多个领域。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">BNSF Railway</div>
+              <div class="company-cn">BNSF 铁路公司</div>
+            </td>
+            <td><span class="tag tag-industry">Railroad,Infrastructure<br><small>铁路,基础设施</small></span></td>
+            <td><span class="tag tag-decade">2000 年代</span></td>
+            <td>
+              <div class="details">2009 年 11 月 3 日，伯克希尔出价 260 亿美元，收购其尚未拥有的 BNSF 剩余 77.4% 的股份，收购估值为 340 亿美元。该交易包括伯克希尔之前的投资以及承担 BNSF 100 亿美元的债务，使总价值达到 440 亿美元。该交易于 2010 年 2 月 12 日完成，是伯克希尔截至当时最大的一笔收购</div>
+              <div class="reason">北美最大的铁路网络之一。巴菲特称其为"美国经济的重要动脉"，认为铁路是"不可替代的基础设施"——公路无法运输大量煤炭、谷物和工业品。这是伯克希尔截至当时最大的收购，也是巴菲特最看重的"永远不会被取代"的资产之一。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">The Omaha World-Herald</div>
+              <div class="company-cn">奥马哈世界先驱报</div>
+            </td>
+            <td><span class="tag tag-industry">Media<br><small>传媒</small></span></td>
+            <td><span class="tag tag-decade">2010 年代</span></td>
+            <td>
+              <div class="details">2011年底以2亿美元收购</div>
+              <div class="reason">巴菲特家乡奥马哈的报纸。2011年收购时，巴菲特仍看好高质量地方报纸的长期价值，但此后行业整体衰退。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Oriental Trading Company</div>
+              <div class="company-cn">东方贸易公司</div>
+            </td>
+            <td><span class="tag tag-industry">Retail<br><small>零售</small></span></td>
+            <td><span class="tag tag-decade">2010 年代</span></td>
+            <td>
+              <div class="details">2012年收购</div>
+              <div class="reason">派对用品和玩具目录零售商，通过其直销模式补充零售板块。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Lubrizol Corporation</div>
+              <div class="company-cn">路博润</div>
+            </td>
+            <td><span class="tag tag-industry">Chemicals<br><small>化工</small></span></td>
+            <td><span class="tag tag-decade">2010 年代</span></td>
+            <td>
+              <div class="details">2011年以97亿美元现金收购</div>
+              <div class="reason">全球领先的润滑油添加剂和特种化学品公司。巴菲特在2011年收购信中称赞CEO James Hambrick"打造了出色的企业"，税前利润从2004年的1.47亿美元增长到10.85亿美元。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Berkshire Hathaway Specialty Insurance (BHSI)</div>
+              <div class="company-cn">伯克希尔专业保险公司</div>
+            </td>
+            <td><span class="tag tag-industry">Insurance<br><small>保险</small></span></td>
+            <td><span class="tag tag-decade">2010 年代</span></td>
+            <td>
+              <div class="details"></div>
+              <div class="reason"> Berkshire自建的专业保险平台，不通过收购而通过内部组建，填补高端保险市场空白。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">GUARD Insurance Companies</div>
+              <div class="company-cn">警卫保险公司</div>
+            </td>
+            <td><span class="tag tag-industry">Insurance<br><small>保险</small></span></td>
+            <td><span class="tag tag-decade">2010 年代</span></td>
+            <td>
+              <div class="details">2013 年收购</div>
+              <div class="reason">区域性保险公司，补充财产意外险业务。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Charter Brokerage</div>
+              <div class="company-cn">特许经纪公司</div>
+            </td>
+            <td><span class="tag tag-industry">—</span></td>
+            <td><span class="tag tag-decade">2010 年代</span></td>
+            <td>
+              <div class="details">2014 年底收购</div>
+              <div class="reason">海关和贸易经纪服务公司，服务于全球贸易和供应链。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Louis Motor</div>
+              <div class="company-cn">路易斯摩托</div>
+            </td>
+            <td><span class="tag tag-industry">—</span></td>
+            <td><span class="tag tag-decade">2010 年代</span></td>
+            <td>
+              <div class="details">2015年上半年收购</div>
+              <div class="reason">摩托车经销商，小型收购补充零售网络。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Van Tuyl Group</div>
+              <div class="company-cn">Van Tuyl 集团</div>
+            </td>
+            <td><span class="tag tag-industry">—</span></td>
+            <td><span class="tag tag-decade">2010 年代</span></td>
+            <td>
+              <div class="details">2015 年收购</div>
+              <div class="reason">美国最大的汽车经销商集团之一。收购后更名为Berkshire Hathaway Automotive，正式进入汽车零售领域。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">WPLG</div>
+              <div class="company-cn">WPLG 电视台</div>
+            </td>
+            <td><span class="tag tag-industry">Media<br><small>传媒</small></span></td>
+            <td><span class="tag tag-decade">2010 年代</span></td>
+            <td>
+              <div class="details">2014 年收购</div>
+              <div class="reason">迈阿密地方电视台，媒体资产收购。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Duracell</div>
+              <div class="company-cn">金霸王</div>
+            </td>
+            <td><span class="tag tag-industry">—</span></td>
+            <td><span class="tag tag-decade">2010 年代</span></td>
+            <td>
+              <div class="details">2016 年完成收购</div>
+              <div class="reason">从宝洁手中收购全球知名的电池品牌。交易以伯克希尔持有的宝洁股票置换，无需支付现金。巴菲特认为Duracell是"家喻户晓的品牌"，在消费品领域具有持久价值。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Precision Castparts Corp. (PCC)</div>
+              <div class="company-cn">精密铸件公司</div>
+            </td>
+            <td><span class="tag tag-industry">Manufacturing<br><small>制造</small></span></td>
+            <td><span class="tag tag-decade">2010 年代</span></td>
+            <td>
+              <div class="details">2016 年以 372 亿美元收购，成为伯克希尔有史以来最大的一笔收购</div>
+              <div class="reason">全球航空航天和能源行业精密金属零部件龙头。2016年以372亿美元收购，是伯克希尔史上最大收购。巴菲特最初认为PCC是"完美收购"——波音、空客等核心供应商，"难以替代"。但新冠疫情导致航空业崩溃，2020年计提约110亿美元减值。巴菲特在2021年股东信中承认"付出太多"，称之为重大错误。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Alleghany Corporation</div>
+              <div class="company-cn">阿勒格尼保险公司</div>
+            </td>
+            <td><span class="tag tag-industry">Insurance<br><small>保险</small></span></td>
+            <td><span class="tag tag-decade">2020 年代</span></td>
+            <td>
+              <div class="details">2022 年以 116 亿美元现金收购</div>
+              <div class="reason">2022年以116亿美元收购的财产意外险公司。巴菲特称其"与伯克希尔极为相似"，由Joe Brandon担任CEO。收购的主要目的是增加保险浮存金规模，使伯克希尔总浮存金从1470亿美元增至1640亿美元。</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="company-name">Pilot Flying J</div>
+              <div class="company-cn">领航飞行 J 公司</div>
+            </td>
+            <td><span class="tag tag-industry">—</span></td>
+            <td><span class="tag tag-decade">2010 年代</span></td>
+            <td>
+              <div class="details">2017 年 10 月 3 日，伯克希尔宣布收购其 38.6% 的股份，并计划到 2023 年将持股比例增至 80%</div>
+              <div class="reason">北美最大的卡车停靠站运营商。伯克希尔分阶段收购，最终获得控股权。巴菲特看重其在高速公路物流网络中的核心地位——"卡车司机必须停靠加油和休息"。</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="back-link">
+    <a href="berkshire-standalone.html">&larr; 返回投资数据中心</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>数据来源：伯克希尔·哈撒韦官方年报 & 公开财经数据 | <a href="https://amx708.github.io/">漫漫扬</a></p>
+</footer>
+
+<script>
+(function(){
+  const tbody = document.querySelector('tbody');
+  let currentSort = {col:'decade',dir:'asc'};
+  
+  function getDecade(row){
+    const cell = row.children[2];
+    if(!cell) return 0;
+    const text = cell.textContent.trim();
+    const match = text.match(/(\d{4})/);
+    return match ? parseInt(match[1]) : 0;
+  }
+  
+  function sortRows(col, dir){
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    rows.sort((a,b)=>{
+      const av = getDecade(a);
+      const bv = getDecade(b);
+      if(av===bv) return 0;
+      return dir==='asc'? (av>bv?1:-1) : (av>bv?-1:1);
+    });
+    rows.forEach(r=>tbody.appendChild(r));
+  }
+  
+  function updateUI(col, dir){
+    document.querySelectorAll('thead th[data-col]').forEach(th=>{
+      const icon = th.querySelector('.sort-icon');
+      if(th.dataset.col===col){
+        th.classList.add('sorted');
+        if(icon) icon.textContent = dir==='asc'?'↑':'↓';
+      }else{
+        th.classList.remove('sorted');
+        if(icon) icon.textContent='↕';
+      }
+    });
+    document.querySelectorAll('.sort-btn').forEach(btn=>{
+      const isActive = btn.dataset.sort===col;
+      btn.classList.toggle('active',isActive);
+      const label = btn.textContent.replace(/[↑↓]/,'').trim();
+      if(isActive) btn.textContent = label+' '+(dir==='asc'?'↑':'↓');
+      else btn.textContent = label+' ↑';
+    });
+  }
+  
+  window.toggleSort = function(col, btn){
+    let dir = 'asc';
+    if(currentSort.col===col) dir = currentSort.dir==='asc'?'desc':'asc';
+    currentSort = {col,dir};
+    sortRows(col,dir);
+    updateUI(col,dir);
+  };
+  
+  sortRows('decade','asc');
+  updateUI('decade','asc');
+  document.querySelector('.sort-btn[data-sort="decade"]').classList.add('active');
+})();
+</script>
+
+</body>
+</html>

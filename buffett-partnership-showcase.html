@@ -1,0 +1,3681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>巴菲特致股东的信中文（1957-1972）— 最佳翻译合集</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg:#f8f9fa; --sidebar-bg:#fff; --content-bg:#fff;
+  --text:#1a1a2e; --text2:#6b7280; --border:#e5e7eb;
+  --hover:#f3f4f6; --active:#eff6ff;
+  --accent:#0f172a; --accent-light:#1e293b;
+  --highlight:#f59e0b; --highlight-light:#fef3c7;
+  --shadow:0 1px 3px rgba(0,0,0,.08); --radius:8px;
+  --header-h:56px; --sidebar-w:300px;
+  --font-serif: 'Georgia', 'Noto Serif SC', 'STSong', serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+body { font-family: var(--font-sans); background:var(--bg); color:var(--text); line-height:1.7; font-size:15px; }
+
+/* ===== Header ===== */
+.header { position:fixed; top:0; left:0; right:0; height:var(--header-h); background:var(--sidebar-bg); border-bottom:1px solid var(--border); display:flex; align-items:center; padding:0 16px; z-index:100; box-shadow:var(--shadow); }
+.header-title { font-size:17px; font-weight:700; white-space:nowrap; display:flex; align-items:center; gap:8px; }
+.header-title .tag { font-size:11px; background:#0f172a; color:#fff; padding:2px 8px; border-radius:12px; font-weight:500; }
+.back-btn { font-size:13px; color:var(--text2); text-decoration:none; padding:4px 10px; border-radius:6px; transition:background .15s; }
+.back-btn:hover { background:var(--hover); color:var(--text); }
+.nav-link { font-size:13px; color:var(--text2); text-decoration:none; padding:6px 12px; border-radius:8px; transition:all .15s; margin-left:8px; white-space:nowrap; }
+.nav-link:hover { background:#eff6ff; color:#2563eb; }
+.search-box { margin-left:auto; position:relative; }
+.search-box input { width:200px; height:34px; border:1px solid var(--border); border-radius:20px; padding:0 16px 0 36px; font-size:13px; background:var(--bg); outline:none; transition:all .2s; }
+.search-box input:focus { border-color:#7c3aed; box-shadow:0 0 0 3px rgba(124,58,237,.1); width:260px; }
+.search-box::before { content:""; position:absolute; left:13px; top:50%; transform:translateY(-50%); width:14px; height:14px; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E") center/contain no-repeat; }
+.menu-toggle { display:none; background:none; border:none; font-size:22px; cursor:pointer; padding:4px 8px; margin-right:8px; }
+
+/* ===== Sidebar ===== */
+.sidebar { position:fixed; top:var(--header-h); left:0; bottom:0; width:var(--sidebar-w); background:var(--sidebar-bg); border-right:1px solid var(--border); overflow-y:auto; z-index:50; transition:transform .3s; }
+.sidebar::-webkit-scrollbar { width:6px; }
+.sidebar::-webkit-scrollbar-thumb { background:#d1d5db; border-radius:3px; }
+.sidebar-header { padding:16px; border-bottom:1px solid var(--border); }
+.sidebar-header h3 { font-size:15px; font-weight:700; margin-bottom:4px; }
+.sidebar-header p { font-size:12px; color:var(--text2); }
+.cat-section { border-bottom:1px solid var(--border); }
+.cat-header { padding:12px 16px; cursor:pointer; display:flex; align-items:center; gap:8px; font-weight:600; font-size:14px; user-select:none; transition:background .15s; }
+.cat-header:hover { background:var(--hover); }
+.cat-header .arrow { font-size:10px; color:var(--text2); transition:transform .2s; margin-left:auto; }
+.cat-header.collapsed .arrow { transform:rotate(-90deg); }
+.cat-header .cat-count { font-size:11px; color:var(--text2); background:var(--hover); padding:1px 8px; border-radius:10px; font-weight:500; }
+.cat-list { list-style:none; }
+.cat-list.hidden { display:none; }
+.cat-list li { padding:8px 16px 8px 40px; cursor:pointer; font-size:13px; color:var(--text2); transition:all .12s; border-left:3px solid transparent; line-height:1.5; }
+.cat-list li:hover { background:var(--hover); color:var(--text); }
+.cat-list li.active { background:var(--active); color:#2563eb; border-left-color:#2563eb; font-weight:500; }
+.cat-list li .year-name {
+  display:block;
+  font-size:14px;
+  font-weight:500;
+  color:var(--text);
+}
+.cat-list li .year-desc {
+  display:block;
+  font-size:11.5px;
+  color:#9ca3af;
+  margin-top:1px;
+  line-height:1.35;
+}
+.cat-list li.active .year-name {
+  color:#2563eb;
+}
+
+
+/* ===== Content ===== */
+.content { margin-left:var(--sidebar-w); margin-top:var(--header-h); padding:32px 48px; max-width:900px; min-height:calc(100vh - var(--header-h)); }
+.empty-state { text-align:center; padding:80px 20px; color:var(--text2); }
+.empty-state .icon { font-size:48px; margin-bottom:16px; }
+.empty-state h2 { font-size:20px; font-weight:600; margin-bottom:8px; color:var(--text); }
+.empty-state p { font-size:14px; line-height:1.7; }
+
+/* Letter section - hidden by default, only active shown */
+.letter-section { display:none; }
+.letter-section.active { display:block; }
+
+/* ===== Letter styles ===== */
+.letter-header { padding:16px 24px; background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 24px; }
+.letter-header h2 { font-size: 22px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+.letter-subtitle { font-size: 13px; color: var(--text2); margin-top: 4px; }
+.letter-body { font-family: var(--font-serif); font-size: 16px; line-height: 2; color: #374151; }
+.letter-body h1 { font-size: 22px; color: var(--accent); margin: 32px 0 16px; }
+.letter-body h2 { font-size: 19px; color: var(--accent-light); margin: 28px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.letter-body h3 { font-size: 17px; color: var(--accent-light); margin: 24px 0 12px; }
+.letter-body h4 { font-size: 15px; color: var(--text2); margin: 20px 0 10px; }
+.letter-body p { margin-bottom: 16px; text-indent: 0; }
+.letter-body blockquote { border-left: 4px solid var(--highlight); padding: 12px 20px; margin: 16px 0; background: var(--highlight-light); border-radius: 0 var(--radius) var(--radius) 0; font-style: italic; }
+.letter-body blockquote p { margin-bottom: 8px; }
+.letter-body blockquote p:last-child { margin-bottom: 0; }
+.letter-body ul { margin: 12px 0 20px 24px; padding: 0; }
+.letter-body li { margin-bottom: 8px; line-height: 1.8; }
+.letter-body hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.letter-body strong { color: var(--accent); font-weight: 700; }
+.letter-source { margin-top: 24px; padding: 12px 16px; background: #f0f9ff; border-left: 3px solid #3b82f6; border-radius: 0 var(--radius) var(--radius) 0; font-size: 12px; color: #6b7280; }
+.letter-source p { margin: 0; }
+
+/* Backdrop */
+.backdrop { display:none; position:fixed; top:var(--header-h); left:0; right:0; bottom:0; background:rgba(0,0,0,.3); z-index:40; }
+.backdrop.show { display:block; }
+
+/* ===== TTS Bar ===== */
+.tts-bar { display:flex; align-items:center; gap:10px; margin:16px 0; padding:10px 16px; background:linear-gradient(135deg,#f5f3ff,#ede9fe); border:1px solid #c4b5fd; border-radius:12px; flex-wrap:wrap; }
+.tts-btn { padding:8px 20px; border:none; border-radius:8px; font-size:14px; cursor:pointer; font-weight:600; transition:all .15s; display:flex; align-items:center; gap:6px; }
+.tts-btn.play { background:linear-gradient(135deg,#7c3aed,#6d28d9); color:#fff; box-shadow:0 2px 8px rgba(124,58,237,.3); }
+.tts-btn.play:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(124,58,237,.4); }
+.tts-btn.pause { background:linear-gradient(135deg,#f59e0b,#d97706); color:#fff; }
+.tts-btn.stop { background:#ef4444; color:#fff; }
+.tts-btn:disabled { opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+.tts-progress { display:flex; align-items:center; gap:8px; font-size:12px; color:#6b7280; }
+.tts-progress-bar { width:100px; height:4px; background:#e5e7eb; border-radius:2px; overflow:hidden; }
+.tts-progress-fill { height:100%; background:linear-gradient(90deg,#7c3aed,#2563eb); width:0%; transition:width .1s; }
+.tts-speed { display:flex; align-items:center; gap:6px; font-size:12px; color:#6b7280; }
+.tts-speed input { width:80px; }
+.tts-toast { position:fixed; top:70px; left:50%; transform:translateX(-50%); background:rgba(15,23,42,0.92); color:#fff; padding:10px 24px; border-radius:24px; font-size:14px; z-index:1001; opacity:0; transition:opacity .3s; pointer-events:none; white-space:nowrap; }
+.tts-toast.show { opacity:1; }
+.tts-word-highlight { background:linear-gradient(120deg,#fef08a 0%,#fef08a 100%); background-repeat:no-repeat; background-size:100% 40%; background-position:0 88%; border-radius:2px; transition:all .15s; }
+
+/* Nav buttons */
+.nav-buttons { display:flex; justify-content:space-between; margin-top:48px; padding-top:24px; border-top:1px solid var(--border); gap:16px; }
+.nav-btn { flex:1; padding:12px 16px; border:1px solid var(--border); border-radius:var(--radius); background:var(--content-bg); cursor:pointer; font-size:13px; transition:all .15s; }
+.nav-btn:hover { border-color:#7c3aed; box-shadow:0 2px 8px rgba(124,58,237,.1); }
+.nav-btn .label { font-size:11px; color:var(--text2); margin-bottom:4px; }
+.nav-btn .title { font-weight:600; color:var(--text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.nav-btn.next { text-align:right; }
+.nav-btn.disabled { opacity:0.4; cursor:not-allowed; }
+
+/* Top button */
+.top-btn { position:fixed; bottom:24px; right:24px; z-index:90; display:none; }
+.top-btn button { width:44px; height:44px; border-radius:50%; border:none; background:#0f172a; color:#fff; font-size:20px; cursor:pointer; box-shadow:0 4px 12px rgba(15,23,42,.3); }
+
+/* ===== Responsive ===== */
+@media(max-width:1024px) {
+  :root { --sidebar-w:240px; }
+  .content { padding:28px 32px; }
+}
+@media (max-width:768px) {
+  :root { --sidebar-w:280px; }
+  .menu-toggle { display:block; }
+  .sidebar { transform:translateX(-100%); box-shadow:2px 0 12px rgba(0,0,0,.15); }
+  .sidebar.open { transform:translateX(0); }
+  .content { margin-left:0; padding:20px 16px; }
+  .letter-body { font-size:14.5px; line-height:1.8; }
+  .tts-bar { padding:8px 12px; gap:8px; }
+  .tts-btn { padding:7px 14px; font-size:13px; }
+  .tts-progress-bar { width:60px; }
+  .nav-buttons { flex-direction:column; gap:10px; }
+  .nav-btn { width:100%; }
+  .nav-btn.next { text-align:left; }
+  .top-btn { bottom:16px; right:16px; }
+  .top-btn button { width:40px; height:40px; font-size:18px; }
+}
+@media(max-width:480px) {
+  .header { padding:0 10px; }
+  .header-title { font-size:14px; gap:4px; }
+  .content { padding:16px 12px; }
+  .letter-header h2 { font-size:18px; }
+  .letter-body { font-size:14px; line-height:1.75; }
+  .tts-bar { flex-direction:column; align-items:stretch; gap:8px; padding:10px; }
+  .tts-btn { justify-content:center; }
+  .tts-speed { justify-content:center; }
+  .tts-progress { justify-content:center; }
+  .tts-progress-bar { width:100%; }
+  .empty-state { padding:60px 16px; }
+  .empty-state .icon { font-size:40px; }
+  .empty-state h2 { font-size:16px; }
+}
+
+/* Progress bar */
+.progress-bar { position:fixed; top:var(--header-h); left:0; height:3px; background:linear-gradient(90deg,#0f172a,#2563eb); width:0%; z-index:99; transition:width .1s; }
+</style>
+</head>
+<body>
+
+<!-- 顶部Header -->
+<header class="header">
+  <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+  <a href="./index.html" class="back-btn" title="返回导航首页">← 返回</a>
+  <a href="./index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:8px;">
+    <div class="header-title">📖 巴菲特致股东的信 <span class="tag">1957-1972</span></div>
+  </a>
+  <a href="./curated36.html" class="nav-link">🛒 跨境电商参考</a>
+  <div class="search-box"><input type="text" id="searchInput" placeholder="搜索年份..." oninput="handleSearch(this.value)"></div>
+</header>
+
+<!-- 进度条 -->
+<div class="progress-bar" id="progress-bar"></div>
+
+<!-- 左侧导航 -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h3>📖 巴菲特致股东的信</h3>
+    <p>选择年份开始阅读</p>
+  </div>
+<div class="cat-section">
+  <div class="cat-header" onclick="toggleGroup(this)">
+    <span>💼 合伙基金时期</span>
+    <span class="cat-count">14</span>
+    <span class="arrow">▼</span>
+  </div>
+  <ul class="cat-list">
+    <li data-year="year-1957" onclick="showLetter('year-1957')">
+      <span class="year-name">1957年</span>
+      <span class="year-desc">第一封年度信</span>
+    </li>
+    <li data-year="year-1958" onclick="showLetter('year-1958')">
+      <span class="year-name">1958年</span>
+      <span class="year-desc">牛市中的冷静</span>
+    </li>
+    <li data-year="year-1959" onclick="showLetter('year-1959')">
+      <span class="year-name">1959年</span>
+      <span class="year-desc">保守与进取的平衡</span>
+    </li>
+    <li data-year="year-1960" onclick="showLetter('year-1960')">
+      <span class="year-name">1960年</span>
+      <span class="year-desc">桑伯恩地图</span>
+    </li>
+    <li data-year="year-1961" onclick="showLetter('year-1961')">
+      <span class="year-name">1961年</span>
+      <span class="year-desc">三种投资策略的定型</span>
+    </li>
+    <li data-year="year-1962" onclick="showLetter('year-1962')">
+      <span class="year-name">1962年</span>
+      <span class="year-desc">复利的魔力</span>
+    </li>
+    <li data-year="year-1963" onclick="showLetter('year-1963')">
+      <span class="year-name">1963年</span>
+      <span class="year-desc">低估、套利、控制三分天下</span>
+    </li>
+    <li data-year="year-1964" onclick="showLetter('year-1964')">
+      <span class="year-name">1964年</span>
+      <span class="year-desc">德州国家石油</span>
+    </li>
+    <li data-year="year-1965" onclick="showLetter('year-1965')">
+      <span class="year-name">1965年</span>
+      <span class="year-desc">集中投资与分散的辩证</span>
+    </li>
+    <li data-year="year-1966" onclick="showLetter('year-1966')">
+      <span class="year-name">1966年</span>
+      <span class="year-desc">规模开始成为桎梏</span>
+    </li>
+    <li data-year="year-1967" onclick="showLetter('year-1967')">
+      <span class="year-name">1967年</span>
+      <span class="year-desc">控制类投资的崛起</span>
+    </li>
+    <li data-year="year-1968" onclick="showLetter('year-1968')">
+      <span class="year-name">1968年</span>
+      <span class="year-desc">牛市巅峰的谨慎</span>
+    </li>
+    <li data-year="year-1969" onclick="showLetter('year-1969')">
+      <span class="year-name">1969年</span>
+      <span class="year-desc">清算的前奏</span>
+    </li>
+    <li data-year="year-1970" onclick="showLetter('year-1970')">
+      <span class="year-name">1970年</span>
+      <span class="year-desc">最后致合伙人信</span>
+    </li>
+  </ul>
+</div>
+<div class="cat-section">
+  <div class="cat-header" onclick="toggleGroup(this)">
+    <span>🏢 伯克希尔时期</span>
+    <span class="cat-count">8</span>
+    <span class="arrow">▼</span>
+  </div>
+  <ul class="cat-list">
+    <li data-year="berkshire-1965" onclick="showLetter('berkshire-1965')">
+      <span class="year-name">1965年</span>
+      <span class="year-desc">收购伯克希尔·哈撒韦</span>
+    </li>
+    <li data-year="berkshire-1966" onclick="showLetter('berkshire-1966')">
+      <span class="year-name">1966年</span>
+      <span class="year-desc">纺织业务困境</span>
+    </li>
+    <li data-year="berkshire-1967" onclick="showLetter('berkshire-1967')">
+      <span class="year-name">1967年</span>
+      <span class="year-desc">国民赔偿保险入场</span>
+    </li>
+    <li data-year="berkshire-1968" onclick="showLetter('berkshire-1968')">
+      <span class="year-name">1968年</span>
+      <span class="year-desc">保险浮存金起步</span>
+    </li>
+    <li data-year="berkshire-1969" onclick="showLetter('berkshire-1969')">
+      <span class="year-name">1969年</span>
+      <span class="year-desc">多元化布局初现</span>
+    </li>
+    <li data-year="berkshire-1970" onclick="showLetter('berkshire-1970')">
+      <span class="year-name">1970年</span>
+      <span class="year-desc">蓝筹印花投资</span>
+    </li>
+    <li data-year="berkshire-1971" onclick="showLetter('berkshire-1971')">
+      <span class="year-name">1971年</span>
+      <span class="year-desc">银行业务拓展</span>
+    </li>
+    <li data-year="berkshire-1972" onclick="showLetter('berkshire-1972')">
+      <span class="year-name">1972年</span>
+      <span class="year-desc">喜诗糖果前夜</span>
+    </li>
+  </ul>
+</div>
+<div class="cat-section">
+  <div class="cat-header" onclick="toggleGroup(this)">
+    <span>🔗 1973年后信件</span>
+    <span class="cat-count">52</span>
+    <span class="arrow">▼</span>
+  </div>
+  <ul class="cat-list">
+    <li onclick="openExternalYear(1973)">
+      <span class="year-name">1973年</span>
+      <span class="year-desc">回归纺织主业</span>
+    </li>
+    <li onclick="openExternalYear(1974)">
+      <span class="year-name">1974年</span>
+      <span class="year-desc">逆势买入华盛顿邮报</span>
+    </li>
+    <li onclick="openExternalYear(1975)">
+      <span class="year-name">1975年</span>
+      <span class="year-desc">GEICO 投资布局</span>
+    </li>
+    <li onclick="openExternalYear(1976)">
+      <span class="year-name">1976年</span>
+      <span class="year-desc">收购 GEICO 半数股权</span>
+    </li>
+    <li onclick="openExternalYear(1977)">
+      <span class="year-name">1977年</span>
+      <span class="year-desc">《福布斯》专访成名</span>
+    </li>
+    <li onclick="openExternalYear(1978)">
+      <span class="year-name">1978年</span>
+      <span class="year-desc">银行股大举建仓</span>
+    </li>
+    <li onclick="openExternalYear(1979)">
+      <span class="year-name">1979年</span>
+      <span class="year-desc">浮存金概念首次阐述</span>
+    </li>
+    <li onclick="openExternalYear(1980)">
+      <span class="year-name">1980年</span>
+      <span class="year-desc">重仓可口可乐前夜</span>
+    </li>
+    <li onclick="openExternalYear(1981)">
+      <span class="year-name">1981年</span>
+      <span class="year-desc">金属储蓄箱隐喻</span>
+    </li>
+    <li onclick="openExternalYear(1982)">
+      <span class="year-name">1982年</span>
+      <span class="year-desc">保险业护城河理论</span>
+    </li>
+    <li onclick="openExternalYear(1983)">
+      <span class="year-name">1983年</span>
+      <span class="year-desc">收购内布拉斯加家具店</span>
+    </li>
+    <li onclick="openExternalYear(1984)">
+      <span class="year-name">1984年</span>
+      <span class="year-desc">经济商誉 vs 会计商誉</span>
+    </li>
+    <li onclick="openExternalYear(1985)">
+      <span class="year-name">1985年</span>
+      <span class="year-desc">收购大都会广播</span>
+    </li>
+    <li onclick="openExternalYear(1986)">
+      <span class="year-name">1986年</span>
+      <span class="year-desc">斯科特·费泽尔收购战</span>
+    </li>
+    <li onclick="openExternalYear(1987)">
+      <span class="year-name">1987年</span>
+      <span class="year-desc">黑色星期一后的反思</span>
+    </li>
+    <li onclick="openExternalYear(1988)">
+      <span class="year-name">1988年</span>
+      <span class="year-desc">开始买入可口可乐</span>
+    </li>
+    <li onclick="openExternalYear(1989)">
+      <span class="year-name">1989年</span>
+      <span class="year-desc">可口可乐持仓翻倍</span>
+    </li>
+    <li onclick="openExternalYear(1990)">
+      <span class="year-name">1990年</span>
+      <span class="year-desc">银行业危机中的机会</span>
+    </li>
+    <li onclick="openExternalYear(1991)">
+      <span class="year-name">1991年</span>
+      <span class="year-desc">吉列与所罗门兄弟</span>
+    </li>
+    <li onclick="openExternalYear(1992)">
+      <span class="year-name">1992年</span>
+      <span class="year-desc">查理·芒格致股东信</span>
+    </li>
+    <li onclick="openExternalYear(1993)">
+      <span class="year-name">1993年</span>
+      <span class="year-desc">价值投资的永恒性</span>
+    </li>
+    <li onclick="openExternalYear(1994)">
+      <span class="year-name">1994年</span>
+      <span class="year-desc">换股收购迪士尼</span>
+    </li>
+    <li onclick="openExternalYear(1995)">
+      <span class="year-name">1995年</span>
+      <span class="year-desc">资本配置的四大方向</span>
+    </li>
+    <li onclick="openExternalYear(1996)">
+      <span class="year-name">1996年</span>
+      <span class="year-desc">B 股发行与散户入场</span>
+    </li>
+    <li onclick="openExternalYear(1997)">
+      <span class="year-name">1997年</span>
+      <span class="year-desc">白银投资与期权教训</span>
+    </li>
+    <li onclick="openExternalYear(1998)">
+      <span class="year-name">1998年</span>
+      <span class="year-desc">收购通用再保险</span>
+    </li>
+    <li onclick="openExternalYear(1999)">
+      <span class="year-name">1999年</span>
+      <span class="year-desc">互联网泡沫预警</span>
+    </li>
+    <li onclick="openExternalYear(2000)">
+      <span class="year-name">2000年</span>
+      <span class="year-desc">科技泡沫破裂验证</span>
+    </li>
+    <li onclick="openExternalYear(2001)">
+      <span class="year-name">2001年</span>
+      <span class="year-desc">9·11 与保险业冲击</span>
+    </li>
+    <li onclick="openExternalYear(2002)">
+      <span class="year-name">2002年</span>
+      <span class="year-desc">衍生品风险警示</span>
+    </li>
+    <li onclick="openExternalYear(2003)">
+      <span class="year-name">2003年</span>
+      <span class="year-desc">外汇市场首度出手</span>
+    </li>
+    <li onclick="openExternalYear(2004)">
+      <span class="year-name">2004年</span>
+      <span class="year-desc">中石油初始投资</span>
+    </li>
+    <li onclick="openExternalYear(2005)">
+      <span class="year-name">2005年</span>
+      <span class="year-desc">克拉默斯·卡斯特收购</span>
+    </li>
+    <li onclick="openExternalYear(2006)">
+      <span class="year-name">2006年</span>
+      <span class="year-desc">实业投资组合成型</span>
+    </li>
+    <li onclick="openExternalYear(2007)">
+      <span class="year-name">2007年</span>
+      <span class="year-desc">金融危机前夕的谨慎</span>
+    </li>
+    <li onclick="openExternalYear(2008)">
+      <span class="year-name">2008年</span>
+      <span class="year-desc">危机中抄底高盛</span>
+    </li>
+    <li onclick="openExternalYear(2009)">
+      <span class="year-name">2009年</span>
+      <span class="year-desc">伯灵顿北方铁路收购</span>
+    </li>
+    <li onclick="openExternalYear(2010)">
+      <span class="year-name">2010年</span>
+      <span class="year-desc">巴菲特 pledge 捐赠计划</span>
+    </li>
+    <li onclick="openExternalYear(2011)">
+      <span class="year-name">2011年</span>
+      <span class="year-desc">IBM 重仓布局</span>
+    </li>
+    <li onclick="openExternalYear(2012)">
+      <span class="year-name">2012年</span>
+      <span class="year-desc">亨氏收购预演</span>
+    </li>
+    <li onclick="openExternalYear(2013)">
+      <span class="year-name">2013年</span>
+      <span class="year-desc">卡夫亨氏合资</span>
+    </li>
+    <li onclick="openExternalYear(2014)">
+      <span class="year-name">2014年</span>
+      <span class="year-desc">能源巨头整合</span>
+    </li>
+    <li onclick="openExternalYear(2015)">
+      <span class="year-name">2015年</span>
+      <span class="year-desc">精密机件与宝洁换股</span>
+    </li>
+    <li onclick="openExternalYear(2016)">
+      <span class="year-name">2016年</span>
+      <span class="year-desc">航空股投资破戒</span>
+    </li>
+    <li onclick="openExternalYear(2017)">
+      <span class="year-name">2017年</span>
+      <span class="year-desc">苹果重仓之路开启</span>
+    </li>
+    <li onclick="openExternalYear(2018)">
+      <span class="year-name">2018年</span>
+      <span class="year-desc">回购政策正式确立</span>
+    </li>
+    <li onclick="openExternalYear(2019)">
+      <span class="year-name">2019年</span>
+      <span class="year-desc">苹果成第一大持仓</span>
+    </li>
+    <li onclick="openExternalYear(2020)">
+      <span class="year-name">2020年</span>
+      <span class="year-desc">疫情抄底与航空割肉</span>
+    </li>
+    <li onclick="openExternalYear(2021)">
+      <span class="year-name">2021年</span>
+      <span class="year-desc">雪佛龙与西方石油</span>
+    </li>
+    <li onclick="openExternalYear(2022)">
+      <span class="year-name">2022年</span>
+      <span class="year-desc">台积电快进快出</span>
+    </li>
+    <li onclick="openExternalYear(2023)">
+      <span class="year-name">2023年</span>
+      <span class="year-desc">日本五大商社加码</span>
+    </li>
+    <li onclick="openExternalYear(2024)">
+      <span class="year-name">2024年</span>
+      <span class="year-desc">现金储备创历史新高</span>
+    </li>
+  </ul>
+</div>
+</nav>
+
+<!-- 遮罩层 -->
+<div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
+
+<!-- 主内容区 -->
+<main class="content" id="main-content">
+<div id="emptyState" class="empty-state">
+  <div class="icon">👆</div>
+  <h2>从左侧选择一封信件开始阅读</h2>
+  <p style="margin-top:8px">共 3 大分类 · 74 个可阅读年份</p>
+  <p style="margin-top:16px;font-size:13px;color:#9ca3af">💼 合伙基金时期 · 🏢 伯克希尔时期 · 🔗 1973年后外部链接</p>
+</div>
+
+<!-- TTS Bar -->
+<div id="tts-bar" class="tts-bar" style="display:none;">
+  <button id="btn-read-mandarin" class="tts-btn play" onclick="startReading('zh-CN')">
+    <span>🔊</span> 普通话
+  </button>
+  <button id="btn-read-cantonese" class="tts-btn play" onclick="startReading('zh-HK')">
+    <span>🎵</span> 粤语
+  </button>
+  <button id="btn-stop" class="tts-btn stop" onclick="stopReading()" disabled>
+    <span>⏹</span> 停止
+  </button>
+  <button id="btn-pause" class="tts-btn pause" onclick="togglePause()" disabled>
+    <span>⏯</span> 暂停
+  </button>
+  <button id="btn-point" class="tts-btn" onclick="togglePointMode()" title="定字朗读：点击任意字开始朗读">
+    <span>📍</span> 定字
+  </button>
+  <div class="tts-progress">
+    <span id="tts-progress-text">0%</span>
+    <div class="tts-progress-bar"><div class="tts-progress-fill" id="tts-progress-fill"></div></div>
+  </div>
+  <div class="tts-speed">
+    <label>语速</label>
+    <input type="range" id="speed-slider" min="0.5" max="2" step="0.1" value="1" oninput="updateSpeed(this.value)">
+    <span id="speed-label">1.0x</span>
+  </div>
+</div>
+
+<section id="year-1957" class="letter-section">
+      <div class="letter-header">
+        <h2>1957年</h2>
+        <p class="letter-subtitle">第一封年度信 — 安全边际的起点</p>
+      </div>
+      <div class="letter-body">
+        <h1>巴菲特合伙人信 — 1957年</h1>
+
+<p>1957年信</p>
+
+<p>沃伦·E·巴菲特</p>
+<p>内布拉斯加州奥马哈，安德伍德大道5202号</p>
+
+<p><strong>致有限合伙人的第二封年度信</strong></p>
+
+<h2>1957年股市总体概况</h2>
+
+<p>在去年致合伙人的信中，我曾这样写道：</p>
+
+<p>&gt;</p>
+
+<p>我认为目前市场整体的价格水平高于其内在价值。这一判断主要针对蓝筹股。如果这个判断是正确的，那么所有股票——无论是被低估的还是其他类型的——都存在大幅下跌的可能性。无论如何，我认为五年后回头看，人们几乎不可能觉得当前的市场价格是便宜的。不过，即便出现全面的熊市，我们的套利类投资的市场价值也不会受到太大影响。</p>
+
+<p>如果市场整体回落到被低估的水平，我们的资金可能会全部投入到低估类投资中，届时甚至可能会借入一些资金来操作。相反，如果市场继续大幅上涨，我们的策略将是在低估类投资产生利润后逐步减仓，同时增加套利类投资的比重。</p>
+
+<p>以上这些并不是说市场分析在我的投资决策中占据首要位置。我始终将主要精力放在寻找被严重低估的证券上。</p>
+
+<p>过去一年，股价出现了温和的下跌。我特别强调”温和”这个词，因为如果你只是随意翻翻报纸，或者跟那些只有近几年炒股经验的人聊聊天，你可能会以为股市跌得很惨。实际上，在我看来，股价的下跌幅度远小于当前经济环境下企业盈利能力的下降幅度。这意味着公众对蓝筹股和整体经济前景仍然非常乐观。我不试图预测商业走势或股票市场；以上这些只是想消除一种误解，即股市已经经历了剧烈下跌，或者说整体市场已经处于低位。从长期投资价值来看，我仍然认为整体市场价格偏高。</p>
+
+<h2>1957年的投资活动</h2>
+
+<p>市场的下跌在被低估的证券中创造了更多机会，因此总体而言，与去年相比，我们的投资组合中低估类投资相对于套利类投资的比重更大了。也许有必要解释一下”套利类投资”这个术语。套利类投资是指其盈利依赖于特定的公司行为，而非像低估类投资那样依赖股价的整体上涨。套利类投资的机会来源于：出售、合并、清算、要约收购等。在每一种情况下，风险在于某些因素可能打乱计划、导致预定行动被放弃，而不在于经济形势恶化或股市普遍下跌。1956年末，我们的低估类投资与套利类投资的比例大约是70比30。现在大约是85比15。</p>
+
+<p>在过去一年中，我们在两个投资项目上建立了较大的仓位，其规模已达到我们可能参与公司决策的程度。其中一个项目占各合伙企业投资组合的10%到20%，另一个大约占5%。这两个项目可能都需要大约三到五年的时间来运作，但目前来看，它们有望以极低的风险获得较高的年均回报率。虽然不属于套利类投资，但它们对股市整体走势的依赖非常小。当然，如果大盘大幅上涨，我预计我们投资组合中这部分的表现会落后于整体市场。</p>
+
+<h2>1957年的业绩</h2>
+
+<p>1957年，我们在1956年成立的三个合伙企业的表现大幅优于整体市场。年初，道琼斯工业指数为499点，年末为435点，下跌了64点。如果持有指数基金，可以获得22点的股息收入，使得总亏损降至42点，即全年亏损8.47%。这一亏损幅度与大多数投资基金的表现大致相当，而且据我所知，没有任何投资于股票的基金在这一年实现了正收益。</p>
+
+<p>我们1956年成立的三个合伙企业在这一年均实现了盈利，以1956年末的净资产计算，收益率分别约为6.2%、7.8%和25%。自然，第三个合伙企业远超前两个的表现会让人产生疑问，尤其是前两个合伙企业的合伙人。这种业绩差异恰恰说明了短期内运气的重要性，特别是资金到位时机的影响。第三个合伙企业在1956年成立得最晚，当时市场处于较低水平，有几只证券特别具有吸引力。由于资金到位，我们在这些证券上建立了较大的仓位。而更早成立的两个合伙企业当时已经基本完成了投资配置，只能在这些证券上建立相对较小的仓位。</p>
+
+<p>从本质上说，所有合伙企业投资于相同的证券，比例也大致相同。但是，尤其是在初始阶段，资金到位的时间和市场水平各不相同，因此业绩差异比未来几年可能出现的要大。长远来看，如果业绩能够每年超越指数10%，我就会非常满意。因此，就这三个合伙企业而言，1957年是成功的一年，而且很可能是高于平均水平的一年。</p>
+
+<p>1957年年中又成立了两个合伙企业，它们在剩余时间内的表现与指数大致相当——自这两个合伙企业成立以来，指数下跌了约12%。目前它们的投资组合已开始接近1956年成立的合伙企业，未来整个集团的业绩应该会更加趋同。</p>
+
+<h2>业绩解读</h2>
+
+<p>在一定程度上，我们在1957年优于平均水平的表现得益于这一年对大多数股票来说都不太好。相对而言，我们在熊市中的表现可能会好于牛市，因此在解读上述业绩时应考虑到这一点——1957年恰好是我们理应表现相对较好的年份。在大盘大幅上涨的年份，如果能够跟上指数的涨幅，我就会很满意。</p>
+
+<p>我可以肯定地说，1957年末我们投资组合的价值优于1956年末。这既得益于整体价格水平的下降，也得益于我们有了更多时间来买入那些被严重低估的证券——这类证券的买入需要耐心。此前我提到过我们最大的持仓占各合伙企业资产的10%到20%。我计划最终将这一持仓提高到占所有合伙企业资产的20%，但这件事急不得。显然，在整个建仓过程中，我们最希望看到的是股价不动或下跌，而不是上涨。因此，在任何时候，我们投资组合中都可能有相当一部分处于”蛰伏期”。这一策略虽然需要耐心，但应当能够最大化长期收益。</p>
+
+<p>我已尽力涵盖了我认为各位可能感兴趣的要点，并在不涉及具体投资标的的前提下，尽可能多地分享了我们的投资理念。如果各位对我们运营的任何方面有疑问，欢迎随时联系我。</p>
+
+<p>&lt;h2 id=&quot;</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
+      </div>
+    </section>
+<section id="year-1958" class="letter-section">
+      <div class="letter-header">
+        <h2>1958年</h2>
+        <p class="letter-subtitle">牛市中的冷静 — 38.5%的诱惑</p>
+      </div>
+      <div class="letter-body">
+        <h1>巴菲特合伙人信 — 1958年</h1>
+
+<p>1958年信</p>
+<p>沃伦·E·巴菲特</p>
+<p>内布拉斯加州奥马哈，安德伍德大道5202号</p>
+
+<h2>1958年的股票市场总况</h2>
+
+<p>一位管理中型投资信托的朋友最近写道：“美国人善变的性情在1958年催生了一场重大转变，用’亢奋’来形容这一年的股市，至少是恰如其分的。”</p>
+
+<p>我认为这段话很好地概括了1958年股票市场上——无论是业余投资者还是专业投资者层面——心理状态的转变。过去一年里，人们几乎抓住任何理由来为”投资”股市正名。毫无疑问，如今股市中善变的投机者比过去很多年都要多，而他们停留的时间取决于他们认为自己还能轻松快速获利多久。虽然我们无法判断他们还会持续涌入多久、进而继续推动价格上涨，但我相信可以这样说：他们停留得越久，最终的反向调整就会越剧烈。</p>
+
+<p>我不试图预测大盘走势——我的精力专注于寻找被低估的证券。然而，我确实相信，公众对股票投资必然获利的广泛信念，终将带来麻烦。如果这种情况发生，即便是被低估的证券，其价格（但在我看来并非内在价值）也可能受到重大影响。</p>
+
+<h2>1958年的业绩</h2>
+
+<p>在去年的信中，我曾写道：</p>
+
+<p>&gt;</p>
+
+<p>“相对而言，我们的表现在熊市中可能优于牛市，因此上述结果所做的推断应考虑到，那一年本就是我们相对表现应当较好的年份。在大盘大幅上涨的年份，如果能跟上市场平均水平的涨幅，我就会非常满意了。”</p>
+
+<p>后一句话恰好描述了我们在1958年所处的情形，而我的预测也得到了验证。道琼斯工业指数从435点涨至583点，加回约20点的股息后，道琼斯单位的整体收益率为38.5%。全年运营的五个合伙企业取得的平均业绩略优于这38.5%。按两个年末的市值计算，各合伙企业的收益率从36.7%到46.2%不等。考虑到相当大一部分资产一直投资于那些在快速上涨的市场中受益甚少的证券，我认为这些结果是相当不错的。我将继续预判：在下跌或横盘的市场中，我们的业绩将优于平均水平；但在上涨的市场中，能跟上大盘就已经是我们所能做到的最好程度了。</p>
+
+<h2>典型案例</h2>
+
+<p>为了让你们更好地理解我们的操作方法，我认为有必要回顾1958年的一项具体投资活动。去年我提到过我们最大的持仓，它占各合伙企业资产的10%到20%。我当时指出，这只股票下跌或保持相对稳定对我们是有利的，这样我们可以积累更大的仓位；也正因如此，这样的证券可能会在牛市中拖累我们的相对表现。</p>
+
+<p>这只股票就是新泽西州联合城的联邦信托公司（Commonwealth Trust Co.）。在我们开始买入时，按保守估算，该股的内在价值为每股125美元。然而出于合理的原因，尽管每股收益约为10美元，它却完全不派发现金股息，这在很大程度上导致了其股价被压低在约50美元的水平。所以，这是一家管理非常出色、盈利能力强劲的银行，却以远低于内在价值的大幅折扣出售。管理层对我们这些新股东态度友好，最终遭受损失的风险看起来微乎其微。</p>
+
+<p>联邦信托公司25.5%的股份由一家更大的银行持有（联邦信托公司的资产约5,000万美元——大约是奥马哈第一国民银行规模的一半），该银行多年来一直希望合并。合并因个人原因被阻止，但有证据表明这种状况不会无限期持续下去。因此，我们拥有这样一个组合：</p>
+
+<ul>
+<li>非常强的防御性特征；</li>
+</ul>
+
+<ul>
+<li>良好扎实的价值以令人满意的速度积累；</li>
+</ul>
+
+<ul>
+<li>有证据表明，这些价值最终将被释放——尽管可能需要一年也可能需要十年。如果是后者，价值届时大概已经增长到一个大得多的数字，比如每股250美元。</li>
+</ul>
+
+<p>在大约一年的时间里，我们成功以平均约每股51美元的价格买入了该银行约12%的股份。很明显，股价保持低迷对我们绝对有利。随着我们持股规模的增长，这个股票组合的价值也在增加，尤其是在我们成为第二大股东、拥有足够的投票权从而在任何合并提案中必须被征询意见之后。</p>
+
+<p>联邦信托公司只有大约300名股东，平均每月大约只有两笔交易，所以你们可以理解，为什么我说股票市场的整体活跃度对我们某些持仓的价格变动几乎没有影响。</p>
+
+<p>遗憾的是，我们在买入过程中遇到了一些竞争，股价被推高到约65美元，在这个价位上我们既不买也不卖。在一只不活跃的股票中，非常小的买入订单就能造成这种幅度的价格变动，这也解释了为什么我们的投资组合持仓不能有任何”泄露”的重要性。</p>
+
+<p>年末时，我们成功找到了一个特殊投资机会——可以以有吸引力的价格成为最大股东——于是我们以每股80美元的价格卖出了联邦信托公司的全部股份，尽管当时的市场报价大约低了20%。</p>
+
+<p>显然，我们本可以继续持有50美元的股票，耐心地零星买入，我对这样的计划也会相当满意——尽管我们去年相对于市场的表现看起来就不那么好了。联邦信托公司这类投资在哪一年实现盈利，在很大程度上取决于运气。因此，任何单一年份的表现作为估算长期业绩的依据都有很大局限性。然而，我相信，投资于这类被低估且具有良好保护的证券，是长期获取证券投资利润最可靠的途径。</p>
+
+<p>我想提一下，以80美元买入这只股票的买家在未来几年应该也能获得不错的回报。然而，在内在价值为135美元时以80美元买入的相对低估程度，与内在价值为125美元时以50美元买入是截然不同的。在我看来，我们的资金可以更好地投入到替代它的那个机会中。</p>
+
+<p>这个新的投资机会规模比联邦信托公司稍大，约占各合伙企业资产的25%。虽然其被低估的程度并不比我们持有的许多其他证券更大（甚至不如某些），但我们是最大股东，这在很多时候对于决定纠正低估所需的时间长度具有重大优势。在这个特定的持仓中，我们几乎可以确信，在持有期间的表现将优于道琼斯工业指数。</p>
+
+<h2>当前形势</h2>
+
+<p>市场水平越高，被低估的证券就越少，我发现要找到足够数量有吸引力的投资标的已经有些困难了。我更希望增加套利类投资在我们资产中的比例，但以合适的条件找到此类机会非常困难。</p>
+
+<p>因此，在可能的范围内，我正试图通过在几只被低估的证券中建立大额仓位来创造我自己的套利类投资。这样的策略应当能实现我此前的预判——在熊市中取得高于平均水平的业绩。我希望以此作为评判我的标准。如果你们有任何问题，请随时提出。</p>
+
+<p>沃伦·E·巴菲特</p>
+<p>1959年2月11日</p>
+
+<p>&lt;h2 id=&quot;</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
+      </div>
+    </section>
+<section id="year-1959" class="letter-section">
+      <div class="letter-header">
+        <h2>1959年</h2>
+        <p class="letter-subtitle">保守与进取的平衡</p>
+      </div>
+      <div class="letter-body">
+        <h1>巴菲特合伙人信 — 1959年</h1>
+
+<p>1959年信</p>
+<p>沃伦·E·巴菲特</p>
+<p>内布拉斯加州奥马哈，安德伍德大道5202号</p>
+
+<h2>1959年的股票市场总况</h2>
+
+<p>道琼斯工业指数无疑是衡量股市表现最广泛使用的指标，但它在1959年呈现的画面多少有些失真。该指数从583点上涨至679点，全年涨幅为16.4%。如果加上持有该指数成分股所能获得的股息，1959年的整体收益率约为19.9%。</p>
+
+<p>尽管这些数据显示市场表现强劲，但纽约证券交易所全年下跌的股票数量实际上多于上涨的股票，比例为710对628。道琼斯铁路指数和公用事业指数也双双录得下跌。</p>
+
+<p>大多数投资信托的业绩相比工业指数都不尽如人意。全美最大的封闭式投资公司三洲公司（Tri-Continental Corp.，总资产4亿美元）全年整体收益率约为5.7%。其总裁弗雷德·布朗近期在分析师协会的一次演讲中这样评价1959年的市场：</p>
+
+<p>&gt;</p>
+
+<p>“尽管我们对投资组合本身感到满意，但三洲公司所持股票在1959年的市场表现令我们失望。在像1959年这样投资者情绪和热情起主导作用的市场中，那些受过价值训练、致力于长期投资的基金经理们处境艰难。也许是我们还没有调整好自己的太空靴。不过，我们认为像三洲公司这样的投资机构用股东的资金所承担的风险应有一个限度，我们相信目前的投资组合已经为来年做好了准备。”</p>
+
+<p>全美最大的共同基金马萨诸塞投资者信托（Massachusetts Investors Trust，资产规模15亿美元）全年整体收益率约为9%。</p>
+
+<p>你们中的大多数人都知道，多年来我一直对股票市场的总体估值水平深感忧虑。迄今为止，这种谨慎态度并无必要。但以过去的标准来衡量，当前”蓝筹股”的价格水平包含了相当大的投机成分，以及相应的亏损风险。也许新的估值标准正在形成，并将永久取代旧标准。但我不这样认为。我很可能是错的；然而，我宁可承受过度保守所带来的代价，也不愿面对因采纳某种”新时代”哲学而犯错的后果——在那种哲学中，树木真的可以长到天上去——那样的错误可能带来永久性的资本损失。</p>
+
+<h2>1959年的业绩</h2>
+
+<p>在以前的信中，我曾着重提出过一个业绩衡量标准：在市场下跌或横盘的时期取得相对较好的成绩（与主要市场指数和领先投资信托相比），而在市场快速上涨的时期，业绩则可能相对平淡。</p>
+
+<p>我们很幸运地在1959年取得了相当不错的成绩。全年运营的六个合伙企业实现的整体净收益率在22.3%至30.0%之间，平均约为25.9%。这些合伙企业的投资组合目前约有80%是相同的，但由于证券和现金到位的时间不同、向合伙人支付款项的差异等原因，仍存在一些差别。在过去几年中，没有任何一个合伙企业在业绩排名上年年位居榜首或垫底，而且随着投资组合趋于一致，差异正在缩小。</p>
+
+<p>整体净收益是根据年初和年末的市值计算的，并对期间向合伙人支付的款项或合伙人追加的出资进行了调整。它并非基于年内实际实现的利润，而是旨在衡量当年清算价值的变化。该数据是在支付合伙人利息（如合伙协议中有此约定）和普通合伙人利润分成之前，但在扣除运营费用之后得出的。</p>
+
+<p>主要的运营费用是内布拉斯加州无形资产税，该税额约为几乎所有证券市值的0.4%。去年是该税首次被有效征收，这当然使我们的业绩相应减少了0.4%。</p>
+
+<h2>当前的投资组合</h2>
+
+<p>去年，我提到过一项约占各合伙企业资产25%的新投资。目前这项投资约占资产的35%。这一比例异常之高，但有充分的理由。实际上，这家公司本身在一定程度上就是一个投资信托，持有三四十种其他高质量证券。我们的投资是以大幅低于其证券市值和运营业务保守估值之和的价格买入并持有的，享有可观的资产价值折扣。</p>
+
+<p>我们是该公司遥遥领先的第一大股东，另外两位大股东也认同我们的想法。这项投资在最终处置之前，其表现大概率会优于大盘，我希望今年就能完成处置。</p>
+
+<p>投资组合中剩余的65%投资于我认为被低估的证券和套利类投资。在可能的范围内，我继续努力将资金投入那些至少在一定程度上能隔离大盘走势影响的投资标的。</p>
+
+<p>这一策略应当能在熊市中取得优异成绩，在牛市中取得平均水平的成绩。第一个预判也许今年就将接受检验，因为截至写信时，道琼斯工业指数已经回吐了1959年涨幅的一半以上。</p>
+
+<p>如果各位有任何疑问，或我在某些方面表述不够清楚，非常欢迎来信交流。</p>
+
+<p>沃伦·E·巴菲特</p>
+<p>1960年2月20日</p>
+
+<p>&lt;h2 id=&quot;</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
+      </div>
+    </section>
+<section id="year-1960" class="letter-section">
+      <div class="letter-header">
+        <h2>1960年</h2>
+        <p class="letter-subtitle">桑伯恩地图 — 经典控制类投资</p>
+      </div>
+      <div class="letter-body">
+        <h1>巴菲特合伙人信——1960年</h1>
+
+<p>沃伦·E·巴菲特</p>
+<p>内布拉斯加州奥马哈市安德伍德大道5202号</p>
+
+<h2>1960年的整体股票市场</h2>
+
+<p>一年前，我曾评论过1959年道琼斯工业指数呈现出的某种失真画面——该指数从583点涨到679点，涨幅为16.4%。尽管几乎所有投资公司在那一年都录得了收益，但能够达到或超过工业指数表现的不到10%。道琼斯公用事业指数出现了小幅下跌，铁路指数则录得了较大幅度的下滑。</p>
+
+<p>1960年的情况恰好相反。工业指数从679点下跌至616点，跌幅为9.3%。即便加回持有该指数本应获得的股息，总体仍然亏损6.3%。另一方面，公用事业指数表现出色，虽然尚未拿到全部数据，但我估计大约90%的投资公司跑赢了工业指数。多数投资公司的年终总体收益似乎在正负5%的区间内。在纽约证券交易所，653只普通股全年录得亏损，404只录得收益。</p>
+
+<h2>1960年的业绩</h2>
+
+<p>我管理合伙基金的一贯目标是取得长期优于工业指数的业绩记录。我相信该指数在若干年内的表现将大体与领先的投资公司相当。除非我们确实取得了优于指数的表现，否则这些合伙企业就没有存在的理由。</p>
+
+<p>然而，我曾指出，即便我们取得了优异记录，也不应期望表现为相对于指数的持续稳定领先。更可能的情况是，如果确实取得了这种优势，那将体现为在平稳或下跌的市场中表现优于指数，而在上涨的市场中与指数持平，甚至可能不如指数。</p>
+
+<p>我认为，我们下跌15%而指数下跌30%的年份，要远远好于我们和指数都上涨20%的年份。在一段时期内，好年景和坏年景总会出现；对它们出现的顺序感到兴奋或沮丧毫无意义。重要的是要打败标准杆——在三杆洞打出四杆并不如在五杆洞打出五杆，而且我们不可能不遇到三杆洞和五杆洞。</p>
+
+<p>之所以开出上面这剂”哲学药方”，是因为今年有不少新合伙人加入，我想确保他们理解我的目标、衡量目标达成的标准，以及我的一些已知局限。</p>
+
+<p>有了这样的背景，1960年对我们而言是好于平均水平的一年就不足为奇了。与工业指数总体亏损6.3%相比，全年运营的七家合伙企业录得了22.8%的收益。以下是合伙企业运营四个完整年度的业绩，扣除费用后、但未扣除有限合伙人利息或普通合伙人分成：</p>
+
+<p>年份全年运营的合伙企业数量合伙企业收益道琼斯指数收益1957310.4%-8.4%1958540.9%38.5%1959625.9%19.9%1960722.8%-6.3%</p>
+
+<p>需要再次强调的是，这些是合伙企业的净收益；有限合伙人的净收益则取决于他们所选择的合伙协议。</p>
+
+<p>总体盈亏是以逐市计价的方式计算的。在扣除任何追加或撤回的资金后，这种方法得出的结果基于年初清算合伙企业可以实现的价值与年末清算可以实现的价值之差，这当然不同于我们的税务结果——后者以成本计价，只有在证券实际卖出时才确认盈亏。</p>
+
+<p>以复利计算，累计结果如下：</p>
+
+<p>年份合伙企业累计收益道琼斯指数累计收益195710.4%-8.4%195855.6%26.9%195995.9%52.2%1960140.6%42.6%</p>
+
+<p>虽然四年的时间实在太短，不足以得出结论，但现有证据似乎印证了这样一个判断：在温和下跌或持平的市场中，我们的业绩应相对更好。在此前提成立的范围内，这说明我们的投资组合虽然远不那么常规，但可能比持有”蓝筹股”更为保守。在后者大幅上涨的行情中，我们可能很难追上它们的表现。</p>
+
+<h2>合伙企业的多元化</h2>
+
+<p>前面的表格显示这个大家庭在不断壮大。没有哪一家合伙企业的记录始终优于或劣于我们的整体平均水平，但尽管我努力”让所有合伙企业投资于相同的证券且比例大致相同”，每年仍存在一些差异。这种差异当然可以通过将现有合伙企业合并为一家大型合伙企业来消除。这样的举措还能减少大量琐碎工作和适量的费用。</p>
+
+<p>坦率地说，我希望在未来几年能朝这个方向做些事情。问题在于各位合伙人对合伙安排有不同的偏好。没有合伙人一致同意，我们不会采取任何行动。</p>
+
+<h2>预付款项</h2>
+
+<p>几位合伙人询问了在年中向合伙企业追加资金的事宜。虽然曾有过例外，但在有限合伙人包含多个家庭的混合型合伙企业中，在年中修改合伙协议实在太困难了。因此，在混合型合伙企业中，只能在年末追加权益。</p>
+
+<p>我们确实接受年内的预付款项，用于购买合伙权益，并从收到款项之日起至年末按6%的利率支付利息。届时，在合伙人同意修改协议的前提下，预付款项加利息将计入合伙资本，此后参与盈亏分配。</p>
+
+<h2>桑伯恩地图</h2>
+
+<p>去年我曾提到一项投资，它占我们净资产的比重非常高且异常（35%），同时评论说我对这项投资有望在1960年完结抱有一些期望。这个期望实现了。一项如此重大的投资的来龙去脉可能对你们有所启发。</p>
+
+<p>桑伯恩地图公司从事美国所有城市极其详细的地图的出版和持续修订。例如，绘制奥马哈的卷册大概有五十磅重，提供每栋建筑的细节信息。地图通过粘贴覆盖的方式修订，显示新建筑、用途变更、新消防设施、建筑材料变化等。修订大约每年进行一次，每二十到三十年出版一份新地图——当进一步粘贴覆盖变得不切实际时。为奥马哈客户维护地图修订的费用大约是每年100美元。</p>
+
+<p>这些详细信息——街道下方水管的直径、消防栓的位置、屋顶的材质等——主要对火灾保险公司有用。它们设在总部的核保部门可以在全国范围内评估代理人的业务。理论是一图胜千言，这种评估可以判定风险定价是否合理、区域内火灾蔓延风险程度、再保险操作的建议等。桑伯恩的业务主要与大约三十家保险公司合作，尽管地图也售予保险业外的客户，如公用事业公司、抵押贷款公司和税务机关。</p>
+
+<p>七十五年来，该公司基本在垄断状态下经营，年年盈利，几乎完全不受经济衰退影响，也不需要任何销售努力。在早期，保险业担心桑伯恩的利润过于丰厚，于是安排了一些保险界要人进入桑伯恩的董事会，充当监督角色。</p>
+
+<p>20世纪50年代初，一种被称为”卡片法”的竞争性核保方式开始侵蚀桑伯恩的业务，地图业务的税后利润从1930年代末平均每年超过50万美元下降到1958年和1959年的不足10万美元。考虑到这一时期经济的上升趋势，这几乎意味着原本可观且稳定的盈利能力被完全消灭了。</p>
+
+<p>然而，在1930年代初，桑伯恩就开始积累投资组合。该业务没有资本需求，因此任何留存收益都可以用于这个项目。经过一段时间，大约投资了250万美元，大致一半在债券、一半在股票。因此，特别是在最近十年，投资组合蓬勃发展，而地图经营业务却日渐萎缩。</p>
+
+<p>让我举例说明这两个因素的极端背离。1938年，当道琼斯工业指数在100-120点区间时，桑伯恩的股价为每股110美元。1958年，当指数在550点附近时，桑伯恩的股价为每股45美元。然而在同一时期，桑伯恩投资组合的价值从每股约20美元增长到每股约65美元。这实际上意味着，1938年购买桑伯恩股票的人对地图业务的估值是每股正90美元（110美元减去与地图业务无关的投资价值20美元），而那还是经济和股市都低迷的年份。在1958年活力远超当年的环境下，同样的地图业务被估值为负20美元——买家不愿意为投资组合支付超过七折的价格，而地图业务则被白送。</p>
+
+<p>这种情况是如何产生的？1958年的桑伯恩与1938年一样，拥有对保险业具有重大价值的丰富信息。要复制他们多年来收集的详细信息需要花费数千万美元。尽管有”卡片法”的竞争，仍有超过5亿美元的火灾保费是由”地图测绘”公司承保的。然而，桑伯恩的产品——信息——的销售和包装方式多年来一直未变，这种惰性最终反映在了盈利上。</p>
+
+<p>投资组合表现优异这一事实，恰恰使得大多数董事忽视了振兴地图业务的必要性。桑伯恩年销售额约200万美元，拥有约700万美元的有价证券。投资组合的收入可观，公司没有任何财务之忧，保险公司对地图价格也很满意，股东仍在领取股息。然而，股息在八年内被削减了五次，我却找不到任何关于削减薪酬或董事及委员会费用的建议记录。</p>
+
+<p>在我进入董事会之前，十四位董事中有九位是保险业要人，他们合计持有105,000股流通股中的46股。尽管他们在非常大型的公司中身居高位——这意味着他们完全有经济能力做出哪怕是适度的投入——这个群体中最大的持股量仅为10股。在若干案例中，这些人管理的保险公司持有少量股票，但相对于其投资组合而言只是象征性投资。在过去十年中，保险公司在涉及桑伯恩股票的任何交易中都只是卖方。</p>
+
+<p>第十位董事是公司律师，持有10股。第十一位是一位银行家，持有10股，他认识到了公司的问题，积极指出这些问题，后来还增持了。接下来两位董事是桑伯恩的高管，合计持有约300股。这些高管很有能力，也意识到了公司的问题，但被董事会压制。我们这出戏的最后一位角色是桑伯恩一位已故总裁的儿子。其遗孀持有约15,000股。</p>
+
+<p>1958年末，这位儿子对公司的经营趋势不满，要求获得公司的最高职位，被拒绝后提交了辞呈，辞呈被接受。此后不久，我们向他的母亲出价购买她的股份，报价被接受。当时还有另外两大持股方，一方持有约10,000股（分散在一家经纪公司的客户中），另一方持有约8,000股。这些人对现状相当不满，希望将投资组合与地图业务分离，我们的想法也是如此。</p>
+
+<p>随后，我们的持股（包括关联方）通过公开市场买入增加到约24,000股，三方合计持股增加到46,000股。我们希望将两项业务分离，实现投资组合的公允价值，并致力于恢复地图业务的盈利能力。利用桑伯恩丰富的原始资料，结合电子手段将这些数据转化为对客户最有用的形式，似乎存在使地图业务利润倍增的真实机会。</p>
+
+<p>董事会内部对任何形式的变革都有相当大的阻力，特别是当变革由外部人士发起时，尽管管理层完全赞同我们的计划，而且博思艾伦咨询公司（管理咨询专家）也曾推荐过类似方案。为了避免委托书争夺战（这很可能不会真的发生，而且我们必定会赢）以及避免时间延误——桑伯恩的大量资金被套在我在当前价格下并不看好的蓝筹股中——我们制定了一个方案，以公允价值让所有想退出的股东退出。美国证券交易委员会裁定该方案公平合理。约72%的桑伯恩股份，涉及1,600名股东中的50%，按公允价值换成了投资组合中的证券。地图业务保留了超过125万美元的政府和市政债券作为储备基金，并消除了超过100万美元的潜在企业资本利得税。留下来的股东获得了略有提高的资产价值、大幅增加的每股收益和提高的股息率。</p>
+
+<p>上面这段小故事必然是对这项投资操作的高度精简描述。然而，它确实说明了我们的投资组合操作需要保密的必要性，以及用一年这样短的时间来衡量我们业绩的徒劳性。这类控制类投资可能非常罕见。我们的主业是买入被低估的证券，在低估被修正时卖出，同时投资于利润取决于公司行为而非市场行为的特殊情况。随着合伙基金的持续增长，“控制类投资”可能会有更多的机会。</p>
+
+<p>审计师应该会在一周左右邮寄你们的财务报表和税务信息。如果你们对他们的报告或这封信有任何问题，务必告诉我。</p>
+
+<p>沃伦·E·巴菲特</p>
+<p>1961年1月30日</p>
+
+<p>&lt;h2 id=&quot;</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
+      </div>
+    </section>
+<section id="year-1961" class="letter-section">
+      <div class="letter-header">
+        <h2>1961年</h2>
+        <p class="letter-subtitle">三种投资策略的定型</p>
+      </div>
+      <div class="letter-body">
+        <h1>巴菲特合伙人信——1961年（年度信）</h1>
+
+<p>巴菲特合伙有限公司</p>
+<p>奥马哈31号，内布拉斯加州</p>
+<p>基威特大厦810号</p>
+<p>1962年1月24日</p>
+
+<h2>我们1961年的业绩</h2>
+
+<p>我一直对合伙人说，我的预期和希望（有时很难分清哪个是哪个）是：在下跌或持平的市场中，我们的相对表现会比较好，但在上涨的市场中我们可能看起来就没那么好了。在强劲上涨的市场中，我预计要跟上大盘会有真正的困难。</p>
+
+<p>虽然1961年对大盘来说确实是好年景，而且对我们而言无论从绝对还是相对角度来看都是非常好的一年，但上述预期保持不变。</p>
+
+<p>1961年，以道琼斯工业指数（以下简称”道指”）衡量的大盘总体收益为22.2%，包含持有道指成分股获得的股息。全年运营的所有合伙企业，在扣除所有运营费用后、但在向有限合伙人分配或向普通合伙人提取之前，平均收益为45.9%。各合伙企业的详细收益见附录，其中也包括年内新成立的合伙企业的业绩。</p>
+
+<p>我们现已完成五个完整年度的合伙运营，以下分别以逐年和累计复利的方式展示五年的业绩。这些数据按前文所述的口径——扣除费用后、但在合伙人间分配收益或向合伙人付款之前：</p>
+
+<p>年份全年运营的合伙企业数量合伙企业收益道琼斯工业指数收益*1957310.4%-8.4%1958540.9%38.5%1959625.9%19.9%1960722.8%-6.3%1961745.9%22.2%</p>
+
+<p>*包含持有道指成分股获得的股息。</p>
+
+<p>以复利计算，累计结果如下：</p>
+
+<p>年份合伙企业累计收益道琼斯工业指数累计收益195710.4%-8.4%1957-5855.6%26.9%1957-5995.9%52.2%1957-60140.6%42.6%1957-61251.0%74.3%</p>
+
+<p>以上数据并不衡量有限合伙人的收益——当然后者才是你们最关心的数字。由于过去存在不同的合伙安排，我采用合伙企业的总体净收益（基于年初和年末的市值）作为衡量整体表现的最公平指标。</p>
+
+<p>按照我们目前巴菲特合伙有限公司协议中的收益分配方式进行模拟调整，结果如下：</p>
+
+<p>年份有限合伙人收益道指收益19579.3%-8.4%195832.2%38.5%195920.9%19.9%196018.6%-6.3%196135.9%22.2%</p>
+
+<p><strong>累计复利：</strong></p>
+
+<p>年份有限合伙人累计收益道指累计收益19579.3%-8.4%1957-5844.5%26.9%1957-5974.7%52.2%1957-60107.2%42.6%1957-61181.6%74.3%</p>
+
+<h2>关于”标准杆”</h2>
+
+<p>在我选择合伙人以及此后与合伙人的关系中，最重要的一点是确保我们使用同样的衡量标准。如果我的表现不佳，我预计合伙人会撤资，而且我自己也应该为自有资金寻找新的投资渠道。如果表现优秀，我的日子自然过得滋润——我相信我完全能适应这种状态。</p>
+
+<p>因此，关键在于确保我们对什么是好、什么是差有一致的认识。我相信应该在行动之前就确立衡量标准；事后来看，几乎任何结果都可以被包装得相对某个参照物来说很不错。</p>
+
+<p>我一直使用道琼斯工业指数作为我们的”标准杆”。我认为三年是检验业绩的最短期限，而最佳的检验应包含至少三年的时间段，且期末道指水平与期初水平相差不大。</p>
+
+<p>虽然道指并非完美的业绩衡量标准（什么都不是完美的），但它有广为人知的优势、漫长的连续性，并且合理准确地反映了投资者在市场上的一般经历。我不反对使用其他衡量大盘表现的方法，如其他股市指数、领先的多元化共同基金、银行共同信托基金等。</p>
+
+<p>你们可能觉得我设定的标准杆太低了，因为超越一个由30只领先普通股组成的非管理指数看起来相当容易。实际上，这个指数通常是一个相当强劲的竞争对手。亚瑟·韦森伯格关于投资公司的经典著作列出了1946-1960年这15年间所有领先共同基金的业绩。目前有超过200亿美元投资于共同基金，因此这些基金的经验集体代表了数百万投资者的经验。我个人的看法是（虽然数据无法获得），大多数领先的投资顾问机构和银行信托部门的投资组合取得了与这些共同基金类似的业绩。</p>
+
+<p>韦森伯格在其”图表与统计”部分列出了70只自1946年以来有连续记录的基金。我出于各种原因排除了其中32只——它们是平衡型基金（因此未完全参与大盘上涨）、行业专业基金等。被排除的32只中有31只表现不如道指，所以排除它们绝非为了偏向以下结论。</p>
+
+<p>在剩余38只运作方式我认为适合与道指比较的共同基金中，32只不如道指，6只优于道指。截至1960年底，表现优异的6只基金资产约为10亿美元，表现较差的32只资产约为65亿美元。优于道指的6只基金中没有一只每年超过道指超过几个百分点。</p>
+
+<p>以下是我们运营期间（不含1961年，因为我没有确切数据，不过粗略数据显示与1957-60年的趋势一致）两家最大的开放式共同基金和两家最大的封闭式投资公司的逐年业绩：</p>
+
+<p>年份马萨诸塞投资者信托投资者股票基金雷曼公司三洲公司道指有限合伙人1957-12.0%-12.4%-11.4%-2.4%-8.4%9.3%195844.1%47.6%40.8%33.2%38.5%32.2%19598.2%10.3%8.1%8.4%19.9%20.9%1960-0.9%-0.1%2.6%2.8%-6.3%18.6%</p>
+
+<p>（数据来源：穆迪银行与金融手册，1961年）</p>
+
+<p><strong>累计复利：</strong></p>
+
+<p>年份马萨诸塞投资者信托投资者股票基金雷曼公司三洲公司道指有限合伙人1957-12.0%-12.4%-11.4%-2.4%-8.4%9.3%1957-5826.8%29.3%24.7%30.0%26.9%44.5%1957-5937.2%42.6%34.8%40.9%52.2%74.7%1957-6036.0%42.5%38.3%44.8%42.6%107.2%</p>
+
+<p>马萨诸塞投资者信托的净资产约18亿美元；投资者股票基金约10亿美元；三洲公司约5亿美元；雷曼公司约3.5亿美元——合计超过35亿美元。</p>
+
+<p>列出以上数据和信息并非要抨击投资公司。如果让我管理如此庞大的资金，并受到对持仓公司参与程度的限制，我的业绩不会更好，甚至未必能一样好。我展示这些数据是为了表明，道指作为投资竞争对手绝非弱者，全国绝大多数投资资金都很难超越甚至追平它的表现。</p>
+
+<p>我们的投资组合与道指截然不同。我们的运作方式与共同基金有本质区别。</p>
+
+<p>然而，大多数合伙人如果不投资于合伙企业，其资金大概率会投资于表现与道指相当的渠道，因此我认为以道指作为业绩检验标准是公平的。</p>
+
+<h2>我们的运作方式</h2>
+
+<p>我们的投资渠道分为三大类。各类别具有不同的行为特征，我们的资金在各类别间的分配将对我们在任何给定年份相对于道指的业绩产生重要影响。各类别间的实际比例在一定程度上是有计划的，但在很大程度上是随机的，取决于机会的可得性。</p>
+
+<h3>低估类投资</h3>
+
+<p>第一类是被普遍低估的证券（以下称”低估类”），我们对公司政策没有发言权，也无法确定低估何时会被修正。多年来，这一直是我们最大的投资类别，在这里赚的钱也比其他两类都多。我们通常在五六只低估类证券上持有相当大的仓位（占总资产的5%到10%），并在另外十到十五只上持有较小仓位。</p>
+
+<p>有时它们很快就兑现了；很多时候需要数年。在买入时往往难以找到价格应该上涨的具体理由。然而，正因为缺乏吸引力或没有可能引发即时市场利好的待定事件，它们可以以非常便宜的价格买到。付出的价格可以获得大量的价值。这种价值的大幅超额构成了每笔交易中的充裕安全边际。个别交易中的安全边际加上投资的分散性，共同构成了极具吸引力的安全性和升值潜力组合。多年来，我们买入的时机要比卖出的时机好得多。我们投资低估类证券时并不期望赚到最后一分钱，通常在我们的买入价和我们认为对私人买家而言的公允价值之间的某个中间水平上就很满意地卖出了。</p>
+
+<p>低估类证券的市场表现往往与道指高度同步。仅仅因为某样东西便宜并不意味着它不会下跌。在市场急剧下跌时，这一部分投资组合的跌幅可能与道指一样大。但从数年的时间跨度来看，我相信低估类投资将跑赢道指，而在像1961年这样大幅上涨的年份，这一部分投资组合贡献了最好的业绩。当然，在下跌的市场中它也最为脆弱。</p>
+
+<h3>套利类投资</h3>
+
+<p>第二类是”套利类”。这类证券的财务结果取决于公司行为而非证券买卖双方创造的供需因素。换言之，它们是有时间表的证券，我们可以在合理的误差范围内预测何时会得到多少回报，以及什么因素可能搅局。公司事件如合并、清算、重组、分拆等会产生套利类投资。近年来的一个重要来源是石油生产商被大型综合石油公司收购。</p>
+
+<p>这一类别每年会产生相当稳定的收益，在很大程度上与道指的走向无关。显然，如果我们全年将大量投资组合配置在套利类投资上，在道指下跌的年份我们会看起来非常好，而在强劲上涨的年份则会显得相当糟糕。多年来，套利类投资一直是我们的第二大类别。在任何时点，我们可能有十到十五个套利项目同时进行，有些刚刚开始，有些已处于后期。我相信应该使用借款来对冲部分套利投资组合，因为这一类别在最终结果和中间市场表现方面都有很高的安全性。不含借款收益的回报率通常在10%到20%之间。我对借款的自我设限是合伙企业净资产的25%。很多时候我们没有借款，而当我们借款时，也仅仅是作为套利投资的对冲。</p>
+
+<h3>控制类投资</h3>
+
+<p>最后一类是”控制类”，即我们控制公司或者持有很大的仓位并试图影响公司政策。此类投资的衡量确实应该以数年为期。在某一年中，它们可能毫无产出，因为在我们收购股票期间，股价在市场上保持平稳通常对我们有利。这类投资与道指的走向也没什么关联。当然，有时我们买入某只低估类证券时就想到了它可能发展成控制类的情形。如果价格在足够长的时间内保持低位，这种情况很可能就会发生。如果在我们持有大量股份之前价格就上涨了，我们就在更高的价位卖出，完成一次成功的低估类投资操作。我们目前正在买入的股票可能在数年后发展为控制类投资。</p>
+
+<h2>登普斯特风车制造公司</h2>
+
+<p>我们目前参与了对内布拉斯加州比阿特丽斯市登普斯特风车制造公司的控股。我们最早的股票购买是五年前作为低估类证券买入的。后来有一批股票可供购买，大约四年前我进入了董事会。1961年8月，我们取得了多数控制权，这说明我们的很多操作并不完全属于”一夜之间”的类型。</p>
+
+<p>目前我们持有登普斯特70%的股份，另有10%由几位关联方持有。只剩下大约150名其他股东，股票市场几乎不存在流动性，而且无论如何，对于控股权而言市场价格毫无意义。我们自身在这样的市场中的操作可能会剧烈影响报价。</p>
+
+<p>因此，我有必要估算我们年末控股权益的价值。这一点尤为重要，因为实际上新合伙人是按此价格买入的，老合伙人也是按同一价格出售部分权益的。估值不应该是我们希望它值多少，或者它对一个急切的买家可能值多少，而应该是我估计在当前条件下、在合理短的时间内出售我们的权益能获得的价格。我们的努力将致力于提高这一价值，而且我们认为有不错的前景做到这一点。</p>
+
+<p>登普斯特是一家农业机械和供水系统制造商，1961年销售额约900万美元。近年来的经营利润相对于投入资本来说仅为名义水平。这反映了糟糕的管理状况以及相当艰难的行业环境。目前，合并净资产（账面价值）约为450万美元，即每股约75美元；合并营运资本约为每股50美元；年末我们将我们的权益估值为每股35美元。虽然我不敢在这种事情上自诩有先见之明，但我觉得这一估值对新老合伙人都是公平的。当然，如果能恢复哪怕是适度的盈利能力，更高的估值就是合理的；即使做不到，登普斯特最终也应该以更高的价格兑现。我们的控股权益的平均收购价约为每股28美元，按35美元的估值计算，这一持仓目前占合伙企业净资产的21%。</p>
+
+<p>当然，这部分投资组合不会仅仅因为通用汽车、美国钢铁等股票涨价就更值钱。在一个疯狂的牛市中，控制类投资看起来会像是一种非常艰难的赚钱方式，远不如直接买入大盘指数。然而，相比当前市场水平所呈现的机会，我更多地意识到其中的危险。控制类投资加上套利类投资，提供了一种将我们部分投资组合与这些危险隔绝的手段。</p>
+
+<h2>保守主义的问题</h2>
+
+<p>以上对我们各类投资操作的描述可能为判断我们投资组合的保守程度提供了一些线索。多年前很多人认为购买中期或长期市政或政府债券是最保守的行为。这一策略在很多情况下造成了可观的市值损失，而且几乎可以肯定未能维持或增加实际购买力。</p>
+
+<p>或许是过于强烈地意识到通胀，很多人现在觉得购买蓝筹股——几乎不考虑市盈率、股息率等——就是保守行为。虽然没有像债券案例那样的后见之明，但我觉得这种做法充满危险。在我看来，猜测贪婪而善变的大众会给收益赋予多高的倍数，这完全不是保守。</p>
+
+<p>你不会因为大量的人暂时同意你的观点就是正确的。你也不会因为重要人物同意你的观点就是正确的。在很多场合，上述两个因素的同时出现就足以让一种做法通过”保守”的检验了。</p>
+
+<p>你要想在众多交易中正确，需要的是假设正确、事实正确、推理正确。<strong>真正的保守只有通过知识和理性才能实现。</strong></p>
+
+<p>我要补充的是，我们的投资组合不按常规来做，这本身既不能证明我们比标准投资方法更保守，也不能证明更不保守。只有通过审视方法或审视结果才能确定。</p>
+
+<p>我觉得检验我们投资方式保守程度的最客观方法，是评估我们在下跌市场中的表现。最好是在道指大幅下跌的情况下。我们在1957年和1960年相对温和的下跌中的表现，证实了我的假设——我们以极为保守的方式进行投资。我欢迎任何合伙人提出检验保守性的客观标准，看看我们的表现如何。我们从未遭受过超过总净资产0.5%的已实现亏损，已实现盈利与已实现亏损的总美元比率约为100比1。当然，这反映了总体上我们一直在牛市中运作。然而，即使在这样的市场中也有很多亏损交易的机会（你们中一些人可能已经对此有所体会），所以我认为上述事实具有一定的意义。</p>
+
+<h2>规模的问题</h2>
+
+<p>除了我死后会怎样的问题（以一种形而上学的角度来说，这是我非常感兴趣的话题），被问得最多的大概是：“合伙基金的快速增长会对业绩产生什么影响？”</p>
+
+<p>更大的资金规模会产生两个方向的拉力。从”被动”投资的角度——即我们不试图通过投资规模来影响公司政策——更大的资金规模会损害业绩。对于投资于市场非常宽泛的证券的共同基金或信托部门来说，大额资金的影响应该只是非常轻微地拖累业绩。买入10,000股通用汽车只比买入1,000股或100股略微贵一些（从数学期望的角度来看）。</p>
+
+<p>然而，对于我们交易的某些证券（但绝非全部），买入10,000股比买入100股要困难得多，有时甚至不可能。因此，对于我们投资组合的一部分来说，更大的资金确实是不利的。对于更大的一部分投资组合来说，我认为资金增加只是略有不利。这一类别包括我们大部分的套利类投资和一些低估类投资。</p>
+
+<p>然而，就控制类投资而言，增加的资金是明确的优势。没有足够的实力，就不可能完成”桑伯恩地图”那样的操作。我坚定地认为，随着资金规模的增加，这一领域的机会也在增加。这是因为随着门槛的提高，竞争急剧下降，加上公司规模越大，其股票所有权越分散，两者之间存在重要的正相关关系。</p>
+
+<p>哪个更重要——被动投资盈利前景的减弱，还是控制类投资前景的增强？我无法给出确切的答案，因为这在很大程度上取决于我们所处的市场类型。我目前的看法是，没有理由认为它们不会相互抵消；如果我的看法发生变化，会告诉你们。我可以非常肯定地说，如果我们用1956年和1957年那少得多的资金来运作，1960年和1961年的业绩不会更好。</p>
+
+<h2>一个预测</h2>
+
+<p>长期读者（我也许在自我抬举了）会觉得我开始谈论预测就是跑偏了。这一直是我回避的事情，在通常意义上我现在仍然如此。</p>
+
+<p>我当然不会预测未来一两年的整体经济或股市走向，因为我丝毫没有头绪。</p>
+
+<p>但我认为你们可以相当确定的是，在未来十年中，会有几年大盘涨幅在20%或25%，几年跌幅也在同样的量级，而多数年份则处于中间水平。我不知道它们会以什么顺序出现，我也不认为这对长期投资者有多大意义。</p>
+
+<p>从较长时期来看，我认为道指大概率会通过股息和市值增长的组合，实现每年约5%到7%的复合回报。尽管近年的经验如此，任何期望大盘的表现大幅优于此水平的人恐怕都会失望。</p>
+
+<p>我们的任务是每年积累相对于道指的优势，而不必过于担心某一年的绝对结果是正还是负。我认为我们下跌15%而道指下跌25%的年份，要远远好于合伙企业和道指都上涨20%的年份。我在与合伙人的交谈中强调过这一点，看到他们以不同程度的热情点头。对我来说，你们是否完全理解并认同我这方面的推理至关重要——不仅是在理智层面，还要深入到你们的内心深处。</p>
+
+<p>基于我前面阐述的运作方式，我们相对于道指表现最好的年份很可能出现在下跌或持平的市场中。因此，我们追求的优势可能会以剧烈波动的幅度出现。必然会有道指超过我们的年份，但如果在较长时期内我们能每年平均比道指好十个百分点，我就会认为业绩是令人满意的。</p>
+
+<p>具体来说，如果市场在某一年下跌35%或40%（我觉得未来十年中有某一年出现这种情况的概率很高——没人知道是哪一年），我们应该只下跌15%到20%。如果市场在一年中基本持平，我们希望上涨约十个百分点。如果市场上涨20%或更多，我们要努力跟上。这样的长期表现意味着，如果道指实现每年5%到7%的复合回报，我希望我们的业绩能达到每年15%到17%。</p>
+
+<p>以上预期听起来可能有些大胆，从1965年或1970年的角度回顾时，它们可能看起来非常大胆。也许我完全错了。然而，我觉得合伙人完全有权知道我在这方面的想法，尽管这项事业的本质决定了这种预期出错的概率很高。在任何一年中，偏差可能相当大。1961年就是如此，但幸运的是偏差在好的一面。不会每次都这样！</p>
+
+<h2>杂项</h2>
+
+<p>我们现已入驻基威特大厦810号的办公室，拥有一位一流的秘书贝丝·亨利，以及一位在我这类证券方面有丰富经验的助手比尔·斯科特。我的父亲与我们共用办公场所（他也分担费用），从事证券经纪业务。我们没有任何经纪业务通过他进行，所以不存在”利益关联”的情况。</p>
+
+<p>总体上，我预计我们的管理费用（不含借款利息和内布拉斯加州无形资产税）将低于净资产的0.5%。这笔开支物有所值，欢迎各位随时来看看这些钱是怎么花的。</p>
+
+<p>拥有超过90位合伙人和大约40多只证券，你们可以理解，从一些琐碎事务中解脱出来对我来说是多大的宽慰。</p>
+
+<p>我们目前的合伙人分布从加利福尼亚到佛蒙特，1962年初的净资产为7,178,500.00美元。苏茜和我在合伙企业中拥有1,025,000.00美元的权益，我的其他亲属合计拥有782,600.00美元的权益。去年新合伙人的最低投资额为25,000美元，但我正在考虑今年提高这一门槛。</p>
+
+<p>毕马威会计师事务所在加速审计方面做了出色的工作，比以往更早地提供了税务数据。他们向我保证可以保持这样的效率。</p>
+
+<p>如果你们对这封信的任何方面、你们的审计报告、合伙权益状况等有任何疑问，请告诉我。</p>
+
+<p>此致敬意，</p>
+<p>沃伦·E·巴菲特</p>
+
+<p><strong>附录</strong></p>
+
+<p><strong>1961年全年运营的合伙企业</strong></p>
+
+<p>合伙企业1月1日市值资本1961年总收益*收益率巴菲特联合$486,874.27$225,387.8046.3%巴菲特基金$351,839.29$159,696.9345.4%Dacee$235,480.31$116,504.4749.5%Emdee$140,005.24$67,387.2848.1%Glenoff$78,482.70$39,693.8050.5%Mo-Buff$325,844.71$149,163.7145.8%Underwood$582,256.82$251,951.2643.3%<strong>合计</strong><strong>$2,200,783.34</strong><strong>$1,009,785.25</strong><strong>45.9%</strong></p>
+
+<p><strong>1961年新成立的合伙企业</strong></p>
+
+<p>合伙企业缴入资本1961年总收益收益率Ann投资$100,100（1月30日）$35,367.9335.3%巴菲特-TD250,100（200,100于3月8日，$50,000于5月31日）$70,294.0828.1%巴菲特-Holland$125,100（5月17日）$16,703.7613.3%</p>
+
+<p>*收益为年末市值净资产加上年内向有限合伙人的付款。</p>
+
+<p>&lt;h2 id=&quot;</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
+      </div>
+    </section>
+<section id="year-1962" class="letter-section">
+      <div class="letter-header">
+        <h2>1962年</h2>
+        <p class="letter-subtitle">复利的魔力 — 11年回顾</p>
+      </div>
+      <div class="letter-body">
+        <h1>巴菲特合伙人信 — 1962年</h1>
+
+<p>巴菲特合伙有限公司</p>
+<p>基威特大厦810号</p>
+<p>内布拉斯加州奥马哈31</p>
+<p>1963年1月18日</p>
+
+<h2>基本原则</h2>
+
+<p>一些合伙人坦白说（这是恰当的用词），他们有时觉得很难通读我的整篇年度信函。既然我似乎每年都越来越啰嗦，我决定在前几页强调某些公理。每个人都应该完全清楚这些要点。对你们大多数人来说，这些内容可能显得过于重复，但我宁愿十个合伙人中有九个略感无聊，也不愿十分之一的人存在任何根本性的误解。</p>
+
+<p>-</p>
+
+<p>合伙人的回报率绝对不受任何保证。每月提取0.5%的合伙人就是在做提款——仅此而已。如果我们在多年期间的年收益超过6%，提款将由收益覆盖，本金会增长。如果我们的收益达不到6%，每月付款将部分或全部属于返还资本。</p>
+
+<p>-</p>
+
+<p>我们未能达到至少+6%业绩的任何年份之后，接受每月付款的合伙人将发现那些付款被降低了。</p>
+
+<p>-</p>
+
+<p>无论何时我们谈到年度盈亏，我们谈的是市值；也就是说，以年末按市值计算的资产状况与年初同一基础下的状况相比。这在某一给定年度中可能与税务意义上的已实现收益几乎没有关系。</p>
+
+<p>-</p>
+
+<p>我们做得好还是做得差，不应以某一年我们是正还是负来衡量。相反，应当以证券市场的总体表现来衡量，具体参照道琼斯工业指数、领先的投资公司等。如果我们的记录优于这些标尺，无论我们是正是负，我们都认为这是好的一年。如果我们做得更差，我们就该被扔西红柿了。</p>
+
+<p>-</p>
+
+<p>虽然我更倾向于五年的检验期，但我认为三年是评判业绩的绝对最低期限。我们必然会有合伙企业业绩不如道琼斯指数的年份，也许差距还相当大。如果任何三年或更长的时期产生了糟糕的结果，我们都应该开始寻找其他投资去处。上述说法的一个例外是三年恰好覆盖了牛市中的投机狂潮。</p>
+
+<p>-</p>
+
+<p>我不从事预测股市或经济波动的业务。如果你认为我能做到这一点，或认为这对投资计划至关重要，你就不应该参与这个合伙企业。</p>
+
+<p>-</p>
+
+<p>我不能向合伙人承诺结果。但我能够且确实承诺的是：</p>
+<p>a. 我们的投资将基于价值而非热门程度来选择；</p>
+<p>b. 我们将通过在每项投资中获取宽裕的安全边际以及投资的多元化，将永久性资本损失（非短期报价波动损失）的风险降至绝对最低；</p>
+<p>c. 我的妻子、孩子和我本人几乎全部净资产都将投资于合伙企业中。</p>
+
+<h2>我们1962年的业绩</h2>
+
+<p>我一直告诉合伙人，我们预计在道琼斯指数下跌的年份会相对出色，而任何幅度的上涨年份可能让我们脸红。1962年验证了这一点。</p>
+
+<p>由于最后几个月的强劲反弹，以道琼斯指数衡量的大盘跌幅实际上没有许多人想象的那么可怕。从年初的731点，6月份跌至535点，但收于652点。1960年底道琼斯指数为616点，所以你可以看到，尽管过去几年有大量波动，整体投资大众与1959年或1960年的位置相差不远。如果去年持有道琼斯指数（我想有些在1961年追逐高飞股的人会希望自己这样做了），市值会缩水79.04点或10.8%。不过，约$23.30的股息会被收到，使道琼斯指数全年的整体结果为-7.6%。我们自己的整体记录为+13.9%。下面我们展示巴菲特合伙有限公司及前身合伙企业所有完整年度的道琼斯指数、合伙企业在分配给普通合伙人之前的业绩，以及有限合伙人的逐年业绩：</p>
+
+<p>年份道琼斯整体结果合伙企业业绩 (1)有限合伙人收益 (2)1957-8.4%10.4%9.3%195838.5%40.9%32.2%195920.0%25.9%20.9%1960-6.2%22.8%18.6%196122.4%45.9%35.9%1962-7.6%13.9%11.9%</p>
+
+<p>(1) 1957-61年为所有前身有限合伙企业全年运营的合并结果，扣除所有费用后，但在向合伙人分配或分配给普通合伙人之前。</p>
+<p>(2) 1957-61年根据前一列的合伙企业业绩计算，按照现行合伙协议中普通合伙人的分配条款进行调整。</p>
+
+<p>下表显示同三个类别的累计或复合结果，以及年均复合增长率：</p>
+
+<p>年份道琼斯整体结果合伙企业业绩有限合伙人收益1957-8.4%10.4%9.3%1957-5826.9%55.6%44.5%1957-5952.3%95.9%74.7%1957-6042.9%140.6%107.2%1957-6174.9%251.0%181.6%1957-6261.6%299.8%215.1%年均复合增长率8.3%26.0%21.1%</p>
+
+<p>我的（非科学的）看法是，在任何较长的年限中，以投入资金每年超过道琼斯指数十个百分点是可以实现的绝对上限，因此在心理上对上述某些数字进行修正可能是明智的。</p>
+
+<p>合伙人有时表示过对规模效应影响业绩的担忧。这个话题在去年的年度信函中有所讨论。得出的结论是，有些情况下更大的资金规模有利，有些情况下则不利，但总体而言，我不觉得会拖累业绩。我承诺如果我的结论发生变化，将通知合伙人。1957年初，合并有限合伙企业资产总计303,726，到1962年初增长至7,178,500。至少到目前为止，我们相对于道琼斯指数的优势没有随资金增长而显示出缩小的趋势。</p>
+
+<h2>投资公司</h2>
+
+<p>连同道琼斯指数的结果，我们一直定期加入两家最大的奉行普通股投资策略的开放式投资公司（共同基金）和两家最大的多元化封闭式投资公司的业绩统计。这四家公司——马萨诸塞投资者信托、投资者股票基金、三大洲公司和雷曼公司——管理着超过30亿的资产，可能代表了大部分200亿投资公司行业的典型表现。我的看法是，它们的业绩与大多数银行信托部门和投资咨询机构的业绩大致平行，后者合计管理着更加庞大的资金。</p>
+
+<p>这份列表的目的（如下所示）是为了说明道琼斯指数作为投资业绩的衡量标准并非容易超越。仅仅这四家公司的顾问人才每年就收取约$700万的费用，而这还只是整个行业的极小部分。然而，这些高薪人才的公众平均表现显示的结果略逊于道琼斯指数。这绝非有意批评。在它们的制度框架内，管理着数十亿美元的资金，我认为这样的平均结果几乎是唯一可能的结果。它们的价值不在于卓越的业绩。</p>
+
+<p>我们的投资组合和运作方式都与上述公司有本质区别。然而，大多数合伙人如果不投资我们的合伙企业，可能会将资金投入与投资公司业绩相当的媒介，因此我认为它们提供了一个有意义的业绩对照。</p>
+
+<p><strong>年度结果</strong></p>
+
+<p>年份马萨诸塞投资者信托 (1)投资者股票基金 (1)雷曼公司 (2)三大洲公司 (2)道琼斯有限合伙人1957-11.4%-12.4%-11.4%-2.4%-8.4%9.3%195842.7%47.5%40.8%33.2%38.5%32.2%19599.0%10.3%8.1%8.4%20.0%20.9%1960-1.0%-0.6%2.5%2.8%-6.2%18.6%196125.6%24.9%23.6%22.5%22.4%35.9%1962-9.8%-13.4%-13.0%-10.0%-7.6%11.9%</p>
+
+<p>(1) 根据资产价值的变化加上年内向持有人分配的任何收益计算。</p>
+<p>(2) 来自1962年穆迪银行与金融手册（1957-61年）。1962年为估计值。</p>
+
+<p><strong>累计结果</strong></p>
+
+<p>年份马萨诸塞投资者信托投资者股票基金雷曼公司三大洲公司道琼斯有限合伙人1957-11.4%-12.4%-11.4%-2.4%-8.4%9.3%1957-5826.4%29.2%24.7%30.0%26.9%44.5%1957-5937.8%42.5%34.8%40.9%52.3%74.7%1957-6036.4%41.6%38.2%44.8%42.9%107.2%1957-6171.3%76.9%70.8%77.4%74.9%181.6%1957-6254.5%53.2%48.6%59.7%61.6%215.1%年均复合增长率7.5%7.4%6.8%8.1%8.3%21.1%</p>
+
+<h2>复利的乐趣</h2>
+
+<p>我从不可靠的来源得知，伊莎贝拉女王当初资助哥伦布航行的费用约为30,000。这至少被认为是一次相当成功的风险投资。撇开发现新大陆带来的精神收益不谈，必须指出的是，即使先占权利胜出，这整笔交易也不算另一个IBM。粗略计算，30,000按每年4%的复利到1962年大约会变成2,000,000,000,000（对于那些不是政府统计学家的人来说，这是2万亿）。曼哈顿印第安人的历史辩护者或许能在类似的计算中找到慰藉。这些奇妙的几何级数说明了长寿或以合理利率进行复利投资的价值。对于前者，我没有什么特别有用的建议。</p>
+
+<p>下表显示了$100,000按5%、10%和15%复利10年、20年和30年的价值。较小的利率差异在多年后积累成非常可观的金额，这一点总是令人惊讶。这就是为什么，即使我们的目标更高，我们也认为比道琼斯指数多出几个百分点的优势是非常有价值的成就。在十年二十年后，它可能意味着大量的财富。</p>
+
+<p>5%10%15%10年$162,889$259,374$404,55320年$265,328$672,748$1,636,64030年$432,191$1,744,930$6,621,140</p>
+
+<h2>我们的运作方法</h2>
+
+<p>我们的投资渠道分为三大类别。这些类别具有不同的行为特征，资金在它们之间的分配将对我们在任何给定年份相对于道琼斯指数的业绩产生重要影响。各类别之间的实际百分比分配在一定程度上是有计划的，但在很大程度上是偶然的，取决于可获得的投资机会。</p>
+
+<p>第一类包括通常被低估的证券（以下简称”低估类投资”），我们对公司政策没有发言权，也没有关于低估何时会被纠正的时间表。多年来，这一直是我们最大的投资类别，在这里赚的钱比其他两个类别都多。我们通常在五六只低估类投资中各持有较大的仓位（占我们总资产的5%至10%），在另外十到十五只中持有较小的仓位。</p>
+
+<p>有时这些投资见效很快；很多时候则需要数年。在购买时很难找到任何令人信服的理由说明它们为什么应该涨价。然而，正因为缺乏吸引力或任何可能立即产生有利市场行为的待定事件，它们能以非常便宜的价格买到。以所支付的价格可以获得大量的价值。这种实质性的价值超额为每笔交易创造了舒适的安全边际。将这种个别的安全边际与投资的多元化相结合，就形成了极具吸引力的安全性和升值潜力组合。我们买入这些低估类投资时并不想赚到最后一分钱，通常在买入价和我们认为对私人所有者的公允价值之间的某个中间水平卖出就很满意了。</p>
+
+<p>很多时候低估类投资代表一种”搭便车”的形式，我们认为占主导地位的股东集团有计划将亏损或未充分利用的资产转化为更好的用途。我们自己在桑伯恩地图和登普斯特风车制造中做过这件事，但在其他条件相同的情况下，我们更愿意让别人来做这项工作。显然，在这种情况下不仅价值必须充足，而且我们还必须小心我们搭的是谁的便车。</p>
+
+<p>低估类投资在市场表现上往往与道琼斯指数高度同步。仅仅因为某只股票便宜并不意味着它不会下跌。在市场急剧下跌时，这部分投资在百分比上可能与道琼斯指数下跌幅度相当。经过多年，我相信低估类投资将跑赢道琼斯指数，在像1961年那样的强劲上涨年份中尤其如此。这是我们投资组合中表现最好的部分。当然，它也是在下跌市场中最脆弱的部分，1962年我们不仅没有从低估类投资中赚到钱，我甚至怀疑它是否比道琼斯指数表现更好。</p>
+
+<p>我们的第二类是”套利类投资”。这些是其财务结果取决于公司行为而非买卖双方供需因素的证券。换言之，它们是有时间表的证券，我们可以在合理的误差范围内预测何时能获得多少回报，以及什么可能打乱计划。导致套利类投资机会的公司事件包括并购、清算、重组、分拆等。近年来一个重要的来源是石油生产商向大型综合石油公司出售。</p>
+
+<p>这一类别将逐年产生相当稳定的收益，在很大程度上不受道琼斯指数走势的影响。显然，如果我们在一年中将大部分投资组合配置在套利类投资上，如果那一年道琼斯指数下跌，我们看起来会非常出色，如果是强劲上涨年则会相当糟糕。</p>
+
+<p>幸运的是，1962年我们有相当大一部分投资组合在套利类投资中。正如我之前所说，这并非因为我对市场走向有任何看法，而是因为我在这一类别中能找到比低估类投资更多我想要的东西。同样的套利类投资集中度在下半年市场上涨时拖累了我们的表现。</p>
+
+<p>多年来，套利类投资一直是我们的第二大类别。在任何给定时间，我们可能持有五到十个这样的仓位；有些刚刚开始，有些处于后期发展阶段。我相信应该使用借入资金来抵消我们部分套利投资组合，因为这一类别在最终结果和中间市场表现方面都有很高的安全度。例如，你在收到我们的审计报告时会注意到，我们在这一年向银行和经纪人支付了75,000的利息。由于我们的借贷利率约为51,500,000。由于1962年是市场下跌的年份，你可能会认为这种借贷会损害业绩。然而，我们所有的贷款都是用于套利类投资，这一类别在该年度实现了可观的利润。不使用借入资金的结果通常在每年10%到20%的范围内。我对自己设定的借款标准上限是合伙企业净资产的25%，尽管特殊情况可能导致在有限时期内调整这一标准。</p>
+
+<p>你会注意到我们年末资产负债表上（你将收到的审计报告的一部分）有约$340,000的证券卖空。其中大部分是与年末进入的一笔套利交易有关。在这个案例中，我们在一段时间内几乎没有竞争对手，能够在资金使用几个月的时间内创造10%或更高的毛利润（非年化）。卖空消除了一般市场风险。</p>
+
+<p>最后一类是”控制类投资”，我们要么控制公司，要么持有非常大的仓位并试图影响公司的政策。此类操作的结果需要以数年为基础来衡量。在某一年，它们可能不产生任何结果，因为在我们收购股票的过程中，股价在市场上停滞不动通常对我们有利。这些投资同样与道琼斯指数的走势关系不大。有时，我们买入一只低估类投资时就已经想到它可能发展为控制类投资。如果价格在足够长的时间内保持足够低，这很可能会发生。通常情况下，在我们获得公司相当大比例的股份之前，价格就上涨了，我们在较高水平卖出，完成一次成功的低估类投资操作。</p>
+
+<h2>登普斯特风车制造公司</h2>
+
+<p>1962年业绩方面的最大亮点是我们目前的控制类投资——拥有73%股权的登普斯特风车制造公司。登普斯特主要从事农业器械（大多是零售价在$1,000或以下的产品）、供水系统、水井用品和代理销售的管道产品。</p>
+
+<p>过去十年的运营以销售停滞、存货周转率低和相对于投入资本几乎没有利润为特征。</p>
+
+<p>我们于1961年8月以每股约28的平均价格取得控制权，在早些年以低至16的价格买入过一些股票，但绝大部分是在8月以$30.25的报价买入的。当获得一家公司的控制权后，显然最重要的是资产的价值，而非一张纸（股票凭证）的市场报价。</p>
+
+<p>去年，我通过对各项资产施加我认为适当的折扣来评估我们的登普斯特持仓。这些估值基于它们作为非盈利资产的状态，不是基于潜力，而是基于我认为在那个日期快速出售能产生的价格。我们的工作是以合理的速率将这些价值进行复利增长。去年的合并资产负债表和公允价值计算如下所示。</p>
+
+<p><strong>（千元省略）</strong></p>
+
+<p>资产账面数字估值比率调整后估值负债现金$166100%$166应付票据$1,230应收账款（净）$1,04085%$884其他负债$1,088存货$4,20360%$2,522预付费用等$8225%$21流动资产合计$5,491$3,593负债合计$2,318人寿保险现金价值等$45100%$45账面净资产$4,601固定资产净值$1,383估计净拍卖价值$800调整至可快速变现价值的净资产$2,120资产合计$6,919$4,438流通股60,146股，调整后每股价值$35.25</p>
+
+<p>登普斯特的财政年度截止于11月30日，由于审计报告尚未完整，我对某些数字进行了估算并四舍五入为去年的每股$35。</p>
+
+<p>最初，我们与原有管理层合作，力求更有效地利用资本、提高运营利润率、减少间接费用等。这些努力完全没有成果。在原地打转约六个月后，显然尽管在口头上对我们的目标表示赞同，但无论是由于能力不足还是不愿意，什么都没有实现。改变势在必行。</p>
+
+<p>一位好友，他向来不习惯夸张的表述，极力推荐Harry Bottle来解决我们这类问题。1962年4月17日，我在洛杉矶见到了Harry，提出了一个根据目标达成情况进行奖励的方案，4月23日他就坐在了比阿特丽斯公司总裁的椅子上。</p>
+
+<p>Harry无疑是年度最佳人物。我们为Harry设定的每一个目标都已实现，所有的意外都是好的方面。他一个接一个地完成了被认为不可能的事情，而且总是先攻克最棘手的问题。我们的盈亏平衡点几乎削减了一半，滞销或死库存已被出售或核销，营销流程已被改革，不盈利的设施已被出售。</p>
+
+<p>这个计划的部分成果体现在下面的资产负债表中，由于它仍然代表的是非盈利资产，所以按照与去年相同的基础估值。</p>
+
+<p><strong>（千元省略）</strong></p>
+
+<p>资产账面数字估值比率调整后估值负债现金$60100%$60应付票据$0有价证券$75812/31/62市值$834其他负债$346应收账款（净）$79685%$676负债合计$346存货$1,63460%$981人寿保险现金价值$41100%$41净资产：可收回所得税$170100%$170账面净资产$4,077预付费用等$1425%$4调整至可快速变现价值的净资产$3,125加：Harry Bottle期权潜在行权收益$60流动资产合计$3,473$2,766流通股60,146股杂项投资$5100%$5加：期权项下潜在流通股2,000股总股份62,146股固定资产净值$945估计净拍卖价值$700调整后每股价值$51.26资产合计$4,423$3,471</p>
+
+<p>三个事实特别突出：(1) 虽然清理和减值使净资产有所降低（存货核销了$550,000；固定资产整体上实现了高于账面价值的价格），但我们将资产转化为现金的速度远高于去年估值时所隐含的水平。(2) 在一定程度上，我们已将资产从制造业务（一直是糟糕的业务）转化为我们认为是好业务的投资——证券。(3) 通过以折价买入资产，我们不需要变魔术就能获得极好的百分比回报。这是我们投资哲学的基石：“永远不要指望做一笔好的卖出。让买入价格足够有吸引力，即使以平庸的价格卖出也能获得好结果。更好的卖出将是锦上添花。”</p>
+
+<p>1963年1月2日，登普斯特获得了一笔1,250,000的无担保定期贷款。这些资金，加上已经&quot;释放出来&quot;的资金，将使我们在登普斯特拥有约每股35的证券投资组合，这大大超过了我们购买整家公司的价格。因此，我们目前的估值将涉及制造业务中每股约16的净值和相当于巴菲特合伙有限公司类似的每股35的证券投资。</p>
+
+<p>当然，我们致力于以有吸引力的速率将这$16的制造业资产进行复利增长，并且我们认为在如何实现这一目标方面有一些好的想法。如果目前的业务能够盈利，这将很容易实现，但即使不能，我们也有一些有前景的想法。</p>
+
+<p>应当指出，去年登普斯特100%是一个资产转化的问题，因此完全不受股市影响，而极大地受到我们资产处置成功与否的影响。1963年，制造业资产仍然重要，但从估值角度来看，它的表现将更像低估类投资，因为我们将有很大一部分资金投资于与巴菲特合伙有限公司基本相同的低估类投资中。出于税务原因，我们可能不会在登普斯特中进行套利类投资。因此，如果道琼斯指数大幅下跌，将对登普斯特的估值产生重大影响。同样，与去年大部分时间不同，登普斯特今年将从上涨的道琼斯指数中受益。</p>
+
+<p>对巴菲特合伙有限公司而言，还有一个真正重要的要点。我们现在与一位运营人才建立了关系，这可能在未来的控制类投资中大有裨益。Harry在接手前六天从未想过管理一家农机公司。他机动灵活、勤奋工作，一旦政策确定就坚决执行。他喜欢做得好就得到好报酬，我也喜欢与一个不会琢磨如何把高管洗手间的设施镀金的人打交道。</p>
+
+<p>Harry和我相处很好，他与巴菲特合伙有限公司的关系将为我们所有人带来利润。</p>
+
+<h2>保守主义的问题</h2>
+
+<p>因为我认为在1962年的事件之后，这部分内容可能更有意义，我想重复去年信中的这一段：</p>
+
+<p>“以上对我们各运作领域的描述可能为判断我们的投资组合有多保守提供了一些线索。几年前许多人认为购买中长期市政债券或政府债券是最保守的行为。这一政策在许多情况下已经造成了相当大的市值折损，并且肯定未能维持或增加实际购买力。</p>
+
+<p>“也许是意识到了通胀——也许是过于在意通胀——许多人现在觉得他们购买蓝筹股票是保守行为，几乎不管市盈率、股息率等如何。虽然不像债券的例子那样有后见之明的好处，但我觉得这种做法充满了危险。在我看来，投机一个贪婪而善变的公众会给收益赋予多高的倍数，这一点也不保守。</p>
+
+<p>你不会因为大量的人暂时同意你就是对的。你不会因为重要的人同意你就是对的。在许多圈子里，上述两个因素的同时出现就足以使一种行为通过保守主义的检验。</p>
+
+<p>“在大量的交易中，如果你的假设正确、事实正确、推理正确，你就会是对的。真正的保守只能通过知识和理性来实现。”</p>
+
+<p>我可以补充的是，我们的投资组合不走寻常路这一事实，决不能证明我们比标准投资方法更保守或更不保守。这只能通过检验方法或检验结果来判断。</p>
+
+<p>我认为最客观地检验我们投资方式保守程度的方法，是通过评估在下跌市场中的表现。最好是涉及道琼斯指数大幅下跌的情况。我们在1957年和1960年相对温和的下跌中的表现证实了我的假设，即我们以极为保守的方式进行投资。我欢迎任何合伙人建议客观的保守性测试来看看我们的表现如何。我们从未遭受过超过净资产总额0.5%的已实现损失，而我们已实现收益总额与已实现损失总额的比率约为100比1。当然，这反映了一个事实，即总体而言我们一直在上涨的市场中运作。然而，即使在这样的市场中也有许多亏损交易的机会（你们自己可能也发现了其中一些），所以我认为以上事实有一定的意义。</p>
+
+<p>1962年，我们确实在一项投资中实现了1.0%的损失，我们已实现收益与损失的比率仅略高于3比1。然而，与更传统的（通常被称为保守的，但这不是同义词）普通股投资方法相比，我们的方法似乎涉及的风险要小得多。我们相对于道琼斯指数的全部优势都是在市场下跌时取得的；在上涨过程中我们略有失去这一优势。</p>
+
+<h2>一如既往的预测</h2>
+
+<p>我当然不会预测明后两年的整体经济或股市走向，因为我对此毫无头绪。</p>
+
+<p>我认为你可以相当确定，在未来十年中，会有若干年大盘上涨20%或25%，也有若干年下跌同等幅度，而大多数年份则介于两者之间。我不知道它们会以怎样的顺序出现，我也不认为这对长期投资者有多大重要性。如果你拿第3页的第一个表格把年份打乱重排，复合结果将保持不变。如果未来四年分别是+40%、-30%、+10%和-6%，它们出现的顺序对我们的目的来说完全不重要，只要我们四年后都还在。在任何较长的时期内，我认为道琼斯指数可能会通过股息和市值增长的组合，产生大约每年5%的复利回报。尽管过去十年的经验如此，任何期望从大盘获得远超此水平回报的人，恐怕都将面临失望。</p>
+
+<p>我们的工作是逐年积累相对于道琼斯指数的优势，而不必过多担心某一年的绝对结果是正还是负。我会认为我们下跌15%而道琼斯指数下跌25%的一年，远优于合伙企业和道琼斯指数双双上涨20%的一年。</p>
+
+<p>由于我们运作方式的原因，我们相对于道琼斯指数表现最好的年份可能出现在下跌或停滞的市场中。因此，我们所追求的优势可能会以差异很大的幅度出现。必然会有我们被道琼斯指数超越的年份，但如果在一个较长的时期内，我们能够平均每年领先十个百分点，我会认为结果是令人满意的。</p>
+
+<p>具体而言，如果某一年市场下跌35%或40%（我觉得在未来十年中的某一年，这有很高的概率会发生——没人知道是哪一年），我们应该只下跌15%或20%。如果一年中市场大致不变，我们希望能上涨大约十个百分点。如果市场上涨20%或更多，我们将很难跟上这个涨幅。在1962年12月31日的水平上我们能否匹配20%或25%的上涨确实令人怀疑。这样的业绩如果持续多年，意味着如果道琼斯指数产生每年5%的整体复合收益，我希望我们的结果可能是每年15%。</p>
+
+<p>上述预期可能听起来有些鲁莽，从1965年或1970年的角度来看，它们很可能显得非常如此。在任何给定年份，与上述描述的行为相比，偏差会很大，即使长期预期是正确的。当然，你必须认识到在这样的希望中存在相当大的个人偏见的可能性。</p>
+
+<h2>杂项</h2>
+
+<p>今年标志着从卧室旁边的办公室搬到了一个更为正规的（相当正规的）办公空间。令人惊讶的是，回归朝九晚五的生活并不令人不快。事实上，我很享受不用再在信封背面记录一切了。</p>
+
+<p>我们以9,405,400.00的净资产开始今年。在1962年初，苏茜和我有三笔规模不小的&quot;非上市证券&quot;投资，其中两笔已经卖出。第三笔将无限期持有。从两笔出售的收益中，我们增加了在合伙企业的权益，现在我们的权益为1,377,400.00。此外，我的三个孩子、母亲、父亲、两个姐妹、两个姐夫、岳父、三个阿姨、四个表亲和五个侄子侄女直接或间接持有合计$893,600.00的权益。</p>
+
+<p>Bill Scott完美地融入了我们的运作，他与妻子共同持有$167,400.00的权益；这是他们净资产中非常大的一部分。所以我们都在吃自己做的菜。</p>
+
+<p>你会从审计师的证明中注意到，他们在年内进行了一次突击检查，这将成为他们程序的持续部分。Peat, Marwick, Mitchell &amp; Co.再次出色地完成了审计工作，满足了我们相当苛刻的时间要求。</p>
+
+<p>苏茜负责布置办公室，这意味着我们没有采用我的”橘子箱”式室内装饰方案。我们备有充足的百事可乐，欢迎合伙人随时来访。</p>
+
+<p>Beth Feehan继续展示着为什么她是CPS（注册专业秘书）群体中的首席女祭司。</p>
+
+<p>合伙人们在退回协议和承诺函方面合作得非常好，我对此深表感谢。这让事情变得容易多了。随信附上你的合伙协议附表”A”。你很快就会收到审计和税务数据，如果你对其中任何内容有疑问，请务必联系我。</p>
+
+<p>此致敬意，</p>
+<p>沃伦·巴菲特</p>
+
+<h2>相关概念</h2>
+
+<ul>
+<li>内在价值</li>
+</ul>
+
+<ul>
+<li>安全边际</li>
+</ul>
+
+<ul>
+<li>低估类投资</li>
+</ul>
+
+<ul>
+<li>套利类投资</li>
+</ul>
+
+<ul>
+<li>控制类投资</li>
+</ul>
+
+<ul>
+<li>复利</li>
+</ul>
+
+<ul>
+<li>账面价值</li>
+</ul>
+
+<ul>
+<li>净资产</li>
+</ul>
+
+<h2>相关公司</h2>
+
+<ul>
+<li>道琼斯工业指数</li>
+</ul>
+
+<ul>
+<li>登普斯特风车制造</li>
+</ul>
+
+<ul>
+<li>桑伯恩地图</li>
+</ul>
+
+<ul>
+<li>马萨诸塞投资者信托</li>
+</ul>
+
+<ul>
+<li>投资者股票基金</li>
+</ul>
+
+<ul>
+<li>雷曼公司</li>
+</ul>
+
+<ul>
+<li>三大洲公司</li>
+</ul>
+
+<h2>相关人物</h2>
+
+<ul>
+<li>沃伦·巴菲特</li>
+</ul>
+
+<ul>
+<li>Harry Bottle</li>
+</ul>
+
+<ul>
+<li>Bill Scott</li>
+</ul>
+
+<h3>关系图谱</h3>
+
+<h3>目录</h3>
+
+<ul>
+<li>巴菲特合伙人信 — 1962年</li>
+<li>基本原则</li>
+<li>我们1962年的业绩</li>
+<li>投资公司</li>
+<li>复利的乐趣</li>
+<li>我们的运作方法</li>
+<li>登普斯特风车制造公司</li>
+<li>保守主义的问题</li>
+<li>一如既往的预测</li>
+<li>杂项</li>
+<li>相关概念</li>
+<li>相关公司</li>
+<li>相关人物</li>
+</ul>
+<p>-</p>
+
+<h3>反向链接</h3>
+<ul>
+<li>巴菲特致股东信总览</li>
+</ul>
+<p>-</p>
+<ul>
+<li>Created with Quartz v4.5.2 © 2026</li>
+<li>信件源：Warren-Buffett-Letters-1956-2025</li>
+<li>整理人：公众号**“太白钓雪”**（学习和分享价值投资），侵权或勘误请扫码私信</li>
+</ul>
+<p>-</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
+      </div>
+    </section>
+<section id="year-1963" class="letter-section">
+      <div class="letter-header">
+        <h2>1963年</h2>
+        <p class="letter-subtitle">低估类、套利类、控制类的三分天下</p>
+      </div>
+      <div class="letter-body">
+        <h1>巴菲特合伙人信 — 1963年</h1>
+
+<p>巴菲特合伙有限公司</p>
+<p>基威特大厦810号</p>
+<p>内布拉斯加州奥马哈31</p>
+<p>1964年1月18日</p>
+
+<h2>我们1963年的业绩</h2>
+
+<p>1963年是好年份。说它好，不是因为我们在期初净资产基础上取得了$3,637,167或38.7%的整体收益——虽然对于我们团队中的实用主义者来说这一体验令人愉悦。它之所以好，是因为我们的业绩大幅超过了我们的根本标尺——道琼斯工业指数（以下简称”道琼斯”）。如果我们下跌了20%而道琼斯下跌了30%，这封信仍然会以”1963年是好年份”开头。无论在某一特定年份我们是正还是负，只要我们能在较长时期内保持对道琼斯的令人满意的领先优势，我们的长期结果就会令人满意——无论从财务上还是从理念上。</p>
+
+<p>为使记录更新至今，以下概括了道琼斯指数的逐年表现、合伙企业在分配给普通合伙人之前的业绩，以及巴菲特合伙有限公司及前身合伙企业所有完整年度的有限合伙人业绩：</p>
+
+<p>年份道琼斯整体结果 (1)合伙企业业绩 (2)有限合伙人收益 (3)1957-8.4%10.4%9.3%195838.5%40.9%32.2%195920.0%25.9%20.9%1960-6.2%22.8%18.6%196122.4%45.9%35.9%1962-7.6%13.9%11.9%196320.7%38.7%30.5%</p>
+
+<p>(1) 基于道琼斯指数的年度变化加上在该年持有道琼斯指数可获得的股息。</p>
+<p>(2) 1957-61年为所有前身有限合伙企业全年运营的合并结果，扣除所有费用后，但在向合伙人分配或分配给普通合伙人之前。</p>
+<p>(3) 1957-61年根据前一列的合伙企业业绩计算，按照现行合伙协议中普通合伙人的分配条款进行调整。</p>
+
+<p>有限合伙人中的一位妙人建议我增加第四列来展示普通合伙人的结果——只需说他也领先于道琼斯指数。</p>
+
+<p>下表基于上表显示了累计或复合结果：</p>
+
+<p>年份道琼斯整体结果合伙企业业绩有限合伙人收益1957-8.4%10.4%9.3%1957-5826.9%55.6%44.5%1957-5952.3%95.9%74.7%1957-6042.9%140.6%107.2%1957-6174.9%251.0%181.6%1957-6261.6%299.8%215.1%1957-6395.1%454.5%311.2%年均复合增长率10.0%27.7%22.3%</p>
+
+<p>看来我们已经度过了七个丰年。向约瑟致歉，我们将尝试忽略圣经的剧本。（我对诺亚关于分散投资的理念也从未过于推崇。）</p>
+
+<p>更严肃地说，我想强调的是，以我的判断，我们上面显示的对道琼斯17.7个百分点的领先幅度在任何较长时期内是不可持续的。十个百分点的优势将是非常令人满意的成就，甚至更温和的领先幅度也能产生令人印象深刻的收益，我们稍后会触及这一点。这一观点（它必然是猜测——无论是否知情的猜测）的推论是，我们必须预期在很长的时期内对道琼斯的领先幅度会更窄，而且至少偶尔会有我们的记录不如道琼斯（也许大幅不如）的年份。</p>
+
+<p>上述布道的大部分内容已反映在11月发给每个人的”基本原则”中，但重复一遍也无妨。</p>
+
+<h2>投资公司</h2>
+
+<p>我们定期将我们的业绩与两家最大的奉行通常95%-100%投资于普通股策略的开放式投资公司（共同基金），以及两家最大的多元化封闭式投资公司进行比较。这四家公司——马萨诸塞投资者信托、投资者股票基金、三大洲公司和雷曼公司——管理着约40亿的资产，可能代表了大部分250亿投资公司行业的典型表现。我的看法是，它们的业绩大致与绝大多数其他投资咨询机构的业绩相似，后者合计管理着更加庞大的资金。</p>
+
+<p>这份列表的目的（如下所示）是为了说明道琼斯指数作为投资业绩的标尺并非容易超越的对手。仅仅这四家公司的顾问人才每年就收取超过$700万的费用，而这还只是整个行业的极小部分。这些高薪人才的公众平均表现显示他们取得了略逊于道琼斯指数的结果。</p>
+
+<p>我们的投资组合和运作方式都与列表中的投资公司有本质区别。然而，大多数合伙人如果不投资合伙企业，可能会将资金投入与投资公司业绩相当的媒介，因此我认为它们提供了一个有意义的业绩标准。</p>
+
+<p><strong>年度结果</strong></p>
+
+<p>年份马萨诸塞投资者信托 (1)投资者股票基金 (1)雷曼公司 (2)三大洲公司 (2)道琼斯有限合伙人1957-11.4%-12.4%-11.4%-2.4%-8.4%9.3%195842.7%47.5%40.8%33.2%38.5%32.2%19599.0%10.3%8.1%8.4%20.0%20.9%1960-1.0%-0.6%2.5%2.8%-6.2%18.6%196125.6%24.9%23.6%22.5%22.4%35.9%1962-9.8%-13.4%-14.4%-10.0%-7.6%11.9%196320.0%16.5%23.8%19.5%20.7%30.5%</p>
+
+<p>(1) 根据资产价值的变化加上年内向持有人分配的任何收益计算。</p>
+<p>(2) 来自1963年穆迪银行与金融手册（1957-62年）；1963年为估计值。</p>
+
+<p><strong>累计结果</strong></p>
+
+<p>年份马萨诸塞投资者信托投资者股票基金雷曼公司三大洲公司道琼斯有限合伙人1957-11.4%-12.4%-11.4%-2.4%-8.4%9.3%1957-5826.4%29.2%24.7%30.0%26.9%44.5%1957-5937.8%42.5%34.8%40.9%52.3%74.7%1957-6036.4%41.6%38.2%44.8%42.9%107.2%1957-6171.3%76.9%70.8%77.4%74.9%181.6%1957-6254.5%53.2%46.2%59.7%61.6%215.1%1957-6385.4%78.5%81.0%90.8%95.1%311.2%年均复合增长率9.2%8.6%8.8%9.7%10.0%22.3%</p>
+
+<p>道琼斯指数当然是一个不受管理的指数，读者可能会觉得奇怪，华尔街的大祭司们竟然徒劳地努力想要超越甚至赶上它。然而，事实确实如此。此外，这种失败不能通过假设投资公司等比道琼斯指数管理得更保守来合理化。正如上表所示，更广泛的研究也证实了这一点，由这些机构管理的普通股投资组合的表现，平均而言，与道琼斯指数同步下跌。以这样的下跌市场表现测试来看，我们自己的运作方法已被证明比投资公司或投资顾问群体的普通股组合保守得多。虽然过去是这样，但对未来显然不能做出保证。</p>
+
+<p>上述内容可能像相当猛烈的药方，但它是作为事实陈述而非批评提出的。在其制度框架内管理着数十亿美元的资金，所取得的结果是唯一可以达到的。在这一框架内做出不合常规的行为极其困难。因此，此类投资媒介的集体业绩必然与美国企业界的整体表现挂钩。它们的价值，除了个别案例外，不在于卓越的业绩或更强的抗跌能力。相反，我认为它们的价值在于操作的便利性、免于决策的自由、以及自动的分散化，而且也许最重要的是，它们提供了一道屏障，使投资者免受那些似乎吸引了众多准投资者的明显劣质技术的诱惑。</p>
+
+<h2>复利的乐趣</h2>
+
+<p>现在到了令人心跳加速的部分。去年，为了阐明复利的要点，我拿伊莎贝拉女王和她的财务顾问开了个玩笑。你们记得他们被诱导进了一个如此明显的低复利项目——发现一个新半球。</p>
+
+<p>由于复利这整个话题听起来如此俗气，我将通过转向艺术世界来为这场讨论增添一些格调。法国的弗朗索瓦一世在1540年以4,000埃居购买了达·芬奇的《蒙娜丽莎》。万一你们中有些人没有跟踪埃居的汇率波动，4,000埃居约等于$20,000。</p>
+
+<p>如果弗朗索瓦脚踏实地，他（和他的受托人）能够找到一项6%的税后投资，这笔遗产现在将价值超过1,000,000,000,000,000.00。那是1千万亿，或者说是现在国债的3,000多倍，全部来自6%。我相信这将终结我们家里关于任何购买画作是否算投资的讨论。</p>
+
+<p>然而，正如我去年指出的，这里还有其他值得汲取的教训。一个是长寿的智慧。另一个令人印象深刻的因素是复利增长率的相对较小变化所产生的巨大差异。以下是$100,000按不同利率复利的收益：</p>
+
+<p>4%8%12%16%10年$48,024$115,892$210,584$341,14320年$119,111$366,094$864,627$1,846,06030年$224,337$906,260$2,895,970$8,484,940</p>
+
+<p>显然，仅仅几个百分点的变化对一个复利（投资）计划的成功有着巨大的影响。同样明显的是，这一影响随着时间的延长而急剧扩大。如果在有意义的时间内，巴菲特合伙企业能够相对于主要投资媒介取得哪怕是少量百分点的优势，它的使命就完成了。</p>
+
+<p>你们中一些人可能会因为我没有在上表中包含第3页提到的22.3%的增长率而感到沮丧。这一增长率当然是税前的，所得税由你们直接支付——而非合伙企业。即使排除这一因素，这样的计算也只能证明以极高增长率进行复利的想法是多么荒谬——即使初始金额不大。我的看法是，道琼斯指数在任何重要的时间跨度内不太可能以过去七年的速率进行复利增长，而且如前所述，我认为我们对道琼斯的领先幅度无法维持在迄今为止的水平。这些假设的结果是，巴菲特合伙有限公司未来的平均复利增长率将大大低于迄今取得的增长率。将一个-30%的年份（这迟早会发生）注入我们迄今为止的实际结果表格中，加上道琼斯对应的-40%，会使道琼斯和巴菲特合伙有限公司的数字都更接近长期可能性。正如上面的复利表格所示，即使降低了的增长率仍然能提供非常令人满意的长期投资结果。</p>
+
+<h2>我们的运作方法</h2>
+
+<p>每到这里我总是患上文学精神分裂症。一方面，我知道我们的读者中有许多合伙人对我们业务的细节感兴趣。我们也有不少人觉得这一切如同天书，无疑希望我别写了赶紧回去干活。</p>
+
+<p>为了两方面都照顾到，我在这里只简要概述我们的三个投资类别，有兴趣深入研究的人可以参考附录中的详细案例。</p>
+
+<p>我们的三个投资类别在预期的长期盈利能力上没有差异。我们希望它们各自在十到十五年的时间里，产生相当于我们目标的超过道琼斯十个百分点的回报。然而，在某一给定年份，它们会有截然不同的表现特征，这主要取决于那一年股市整体的表现类型。简要描述如下：</p>
+
+<p><strong>“低估类投资”</strong> — 一类通常被低估的股票，主要通过量化标准来判定，但同时也相当关注定性因素。通常很少或没有迹象表明市场会立即改善。这些股票缺乏吸引力或市场关注。它们的主要资格是便宜的价格；即整体企业估值大幅低于仔细分析所显示的对私人所有者的价值。让我再次强调，虽然量化因素是首要和必要的，但定性因素也很重要。我们喜欢好的管理层——我们喜欢体面的行业——我们喜欢在之前沉睡的管理层或股东群体中有一定程度的”发酵”。但我们要求价值。低估类投资的行为与道琼斯指数高度同步，在道琼斯大幅下跌的年份会出现大幅亏损。相反，在强劲上涨的市场中，它应该是明星表演者。多年来我们期望它能取得对道琼斯的令人满意的领先优势。</p>
+
+<p><strong>“套利类投资”</strong> — 这些是有时间表的证券。它们源于公司行为——出售、并购、重组、分拆等。在这一类别中我们不是在谈论关于此类发展的传闻或”内幕消息”，而是公开宣布的此类活动。我们等到能在报纸上读到为止。风险主要不在于大盘的走势（尽管有时也有一定关联），而在于某些事情打乱了计划，使预期的发展未能实现。这些”扫兴者”可能包括反垄断或其他不利的政府行为、股东否决、税务裁定不利等。许多套利交易的毛利润看起来相当小。一位朋友将此称为在别人赚了前九十五分之后去赚最后那五分钱。然而，可预测性加上较短的持有期产生了相当不错的年化回报率。这一类别比低估类投资逐年产生更稳定的绝对利润。在市场下跌的年份，它为我们积累了很大的优势；在牛市中，它则拖累表现。从长期来看，我期望它能取得与低估类投资类似的对道琼斯的领先幅度。</p>
+
+<p><strong>“控制类投资”</strong> — 这些情况很罕见，但当出现时往往规模很大。除非我们一开始就购入大量股票，否则控制类投资是从低估类投资中发展而来的。它们源于一只便宜的证券在价格上长期无所表现，以至于我们能够购入公司相当大比例的股票。到那时，我们可能有能力对公司的活动承担某种程度的或完全的控制；我们在那一刻是变为主动还是保持相对被动，取决于我们对公司未来和管理层能力的评估。我们近几个月来一直最积极买入的低估类投资拥有出色的管理层，其所遵循的政策在我们看来非常合理。如果我们继续购买使我们在未来某个时点处于控制地位，我们可能会在该业务的运营中保持非常被动的态度。</p>
+
+<p>我们不想为了活跃而活跃。在其他条件相同的情况下，我更愿意让别人来做这些工作。然而，当需要积极角色来优化资本运用时，你可以确信我们不会袖手旁观。</p>
+
+<p>无论是主动还是被动，在控制类投资中都应该有内在的利润。这种操作的必要条件是有吸引力的购买价格。一旦取得控制权，我们投资的价值就由企业的价值决定，而非市场时常出现的非理性表现。</p>
+
+<p>我们愿意且有财力承担控制地位，使得我们在许多低估类投资的买入中具有双向弹性。如果市场对该证券改变看法向好，价格会上涨。如果不改变，我们将继续收购股票，直到我们可以依靠企业本身而非市场来证明我们的判断是正确的。</p>
+
+<p>控制类投资的成果需要至少以数年为基础来衡量。适当的买入需要时间。如有需要，加强管理层、重新调整资本运用方向、也许促成一次满意的出售或合并等，都是使这一类别需要以年而非月来衡量的因素。因此，在控制类投资中，我们寻求宽裕的利润空间——如果看起来利润空间不大，我们就放弃。</p>
+
+<p>控制类投资在买入阶段的走势基本与道琼斯指数同步。在后期阶段，它们的行为更类似于套利类投资。</p>
+
+<p>正如我过去提到的，我们的投资组合在三个类别中的分配很大程度上取决于偶然的可获得性。因此，在道琼斯下跌的年份，我们主要是在低估类投资还是套利类投资中，很大程度上是运气问题，但它将对我们相对于道琼斯的业绩产生重大影响。这是某一单独年份的业绩没有太大重要性、好坏都不应被过于当真的众多原因之一。</p>
+
+<p>如果随着我们资产的增长有什么趋势的话，我预期会向控制类投资倾斜，这迄今为止是我们最小的类别。这一预期可能是错的——很大程度上当然取决于市场未来的表现，而你们的猜测和我的一样好（我不做猜测）。在写这封信的时候，我们的大部分资本在低估类投资中，套利类投资排第二，控制类投资排第三。</p>
+
+<h2>杂项</h2>
+
+<p>我们以17,454,900的净资产开始今年。我们资产的快速增长总是引发这是否会导致未来业绩下降的问题。到目前为止，合伙企业的规模与其对道琼斯的领先幅度之间的相关性更多是正向的而非负向的。然而不应对此过于当真。更大的资金规模在某些时候是优势，在其他时候是劣势。我的看法是，如果我们的资产是100万或$500万，我们目前的投资组合也不会更好。我们的点子库存似乎总是领先我们的银行账户10%。如果这一情况发生变化，你一定会收到我的通知。</p>
+
+<p>苏茜和我在合伙企业中的投资为2,392,900。这是我第一次不得不除了每月付款外还额外提取资金，但要么如此，要么让国税局失望。苏茜和我还保留着早些年留下的几笔名义规模的非上市证券（持有人少于300人），合计价值大约是我们合伙企业权益的11,247,190的权益。</p>
+
+<p>Bill Scott也全身心投入，他和妻子共同持有$237,400的权益，这是他们净资产中的绝大部分。Bill做了出色的工作，在我们即将进入1964年的几个更有趣的投资项目中，他承担了大部分的联络工作。我也尽可能多地把行政工作推给了他，所以如果你需要办什么事或有任何问题，如果我不在的话，不要犹豫找Bill。</p>
+
+<p>Beth和Donna在不断增加的工作量中保持着出色的状态。在12月和1月期间，我相信她们恨不得去别的地方工作，但她们总是设法将堆积如山的工作处理得井井有条。</p>
+
+<p>Peat, Marwick, Mitchell一如既往地出色完成了紧张的审计时间表。我们已指示他们今后每年对我们的证券、现金等进行两次突击检查（而非过去的一次）。这些检查费用相对不高，我认为在任何金融机构中都很有意义。</p>
+
+<p>在下周内你将收到：</p>
+
+<p>(1) 一封税务函，提供你1963年联邦所得税申报所需的所有巴菲特合伙有限公司信息。这封信是唯一对税务有意义的文件。</p>
+
+<p>(2) Peat, Marwick, Mitchell &amp; Co.出具的1963年审计报告，列示了巴菲特合伙有限公司的经营和财务状况，以及你个人的资本账户。</p>
+
+<p>(3) 一封由我签署的信函，列示你在1964年1月1日的巴菲特合伙有限公司权益状况。这与审计中得出的数字一致。</p>
+
+<p>(4) 合伙协议的附表”A”，列出所有合伙人。</p>
+
+<p>如有任何需要澄清的地方请告诉我。随着我们的成长，遗漏信件、跳过名字、数字颠倒等的可能性增大，所以如果发现我们可能有错，请直说。我们的下一封信将在7月15日左右发出，总结上半年的情况。</p>
+
+<p>此致敬意，</p>
+<p>沃伦·巴菲特</p>
+
+<h2>附录</h2>
+
+<h3>德克萨斯国民石油公司</h3>
+
+<p>这一案例是一笔常规的套利类投资，源自近年来套利类投资的头号来源——石油和天然气生产公司的出售。</p>
+
+<p>德克萨斯国民石油（TNP）是一家规模较小的生产商，我多年来对它有模糊的了解。</p>
+
+<p>1962年初，我听到了它将出售给联合石油（加州）的传闻。我从不基于这类信息采取行动，但在这个案例中传闻是正确的，如果我们在传闻阶段而非公布阶段介入，本来可以赚更多的钱。不过，那是别人的事，不是我的。</p>
+
+<p>1962年4月初，交易的大致条款被公布。TNP有三类流通证券：</p>
+
+<p>(1) 6.5%可赎回债券，赎回价为104.25，在出售完成前支付利息，届时将被赎回。未偿还金额为650万，我们在交易完成前购买了面值264,000的债券。</p>
+
+<p>(2) 约370万股普通股，其中高管和董事持有约40%。代理声明估计清算所得将产生每股$7.42。我们在公布和交割之间的约六个月内购买了64,035股。</p>
+
+<p>(3) 650,000份以每股3.50行权的认股权证。使用代理声明对普通股7.42的套利估值，得出认股权证的套利价值为$3.92。我们能够在六个月内买入83,200份认股权证，约占整个发行量的13%。</p>
+
+<p>股东否决的风险为零。交易由控股股东谈判，价格合理。任何此类交易都要经过产权调查、法律意见等程序，但这些风险也可以评估为几乎为零。不存在反垄断问题。这种没有法律或反垄断问题的情况并非总是如此。</p>
+
+<p>唯一的问题是获取必要的税务裁定。联合石油使用的是标准的ABC生产支付融资方式。南加州大学是生产支付的持有人，由于其慈善机构的身份造成了一些延迟。</p>
+
+<p>这给国税局带来了一个新问题，但我们了解到南加州大学愿意放弃这一身份，在从银行借入所有资金后仍能获得令人满意的利润。虽然解决这个问题造成了延迟，但并未威胁到交易本身。</p>
+
+<p>当我们4月23日和24日与公司交谈时，他们估计将在8月或9月完成交割。代理材料于5月9日邮寄，声明出售”将于1962年夏季完成，此后几个月内大部分所得将以清算方式分配给股东。“如前所述，估计为每股$7.42。</p>
+
+<p>Bill Scott参加了5月29日在休斯顿举行的股东大会，会上表示他们仍然预计在9月1日完成交割。</p>
+
+<p>以下是我们在随后几个月与公司官员电话交谈的一些摘录：</p>
+
+<p>6月18日，秘书表示”联合石油已被告知一项有利的国税局裁定已经起草，但必须由国税局的其他人员审查通过。仍然希望7月份能获得裁定。”</p>
+
+<p>7月24日，总裁表示他预计国税局的裁定”下周初”会出来。</p>
+
+<p>8月13日，财务主管告知我们TNP、联合石油和南加州大学的人员都在华盛顿试图敲定裁定。</p>
+
+<p>9月18日，财务主管告知我们”没有消息，尽管国税局说裁定可能在下周准备好。”</p>
+
+<p>对支付的估计仍为每股$7.42。</p>
+
+<p>裁定在9月下旬收到，出售于10月31日完成。我们的债券在11月13日被赎回。此后不久我们将认股权证转换为普通股，并在1962年12月14日收到每股3.50的付款，1963年2月4日收到3.90，1963年4月24日收到15美分。我们可能在一两年后还会收到约4美分。在147,235股（行权后）的基础上，即使每股4美分也是有意义的。</p>
+
+<p>这说明了通常的模式：(1) 交易比最初预计的要长；(2) 支付通常平均略优于估计。在TNP的案例中，多花了几个月，我们也多收了几个百分点。</p>
+
+<p>TNP的财务结果如下：</p>
+
+<p>(1) 在债券上，我们投入了260,773，平均持有期略短于五个月。我们获得了6.514,446的资本收益。这相当于年化约20%的整体回报率。</p>
+
+<p>(2) 在股票和认股权证上，我们已实现资本收益89,304，目前持有估值为2,946的残值权益。从4月份146,000的投资开始，我们的持仓在10月份增至731,000。根据资金使用的时间计算，回报率约为年化22%。</p>
+
+<p>在两种情况下，回报都是基于全额股本投资计算的。我绝对认为在套利类投资组合中使用一些借入资金是合理的，但在低估类投资中使用借入资金则是非常危险的做法。</p>
+
+<p>我们介绍TNP并非将其视为什么惊天动地的胜利。我们有过比它好得多的套利交易，也有过更差的。它是我们日常基本操作的典型。我们尝试获取所有可能的事实，持续关注事态发展，并根据我们的经验评估一切。我们当然不会参与所有出现的交易——它们的吸引力差异很大。当一笔套利交易失败时，由此导致的市值缩水是相当大的。因此，你不能承受太多错误，尽管我们完全意识到偶尔会有失误。</p>
+
+<h3>登普斯特风车制造公司</h3>
+
+<p>这一案例始于1956年的一笔低估类投资。当时股价为18，[[账面价值]]约每股72，其中每股$50为流动资产（现金、应收账款和存货）减去所有负债。登普斯特风车制造过去曾赚过好钱，但目前只是勉强持平。</p>
+
+<p>定性方面是负面的（相当艰难的行业和不令人印象深刻的管理层），但数字方面极具吸引力。经验表明，你可以买入100个这样的案例，其中可能有70或80个在一到三年内获得合理利润。在购买时很难说为什么某一个特定案例会表现好，但作为一个群体的预期是有利的，无论推动力是来自行业状况改善、收购要约、投资者心理变化等。</p>
+
+<p>我们在五年内继续小量买入该股票。在此期间的大部分时间里，我是一名董事，对现有管理层下的盈利前景越来越缺乏信心。然而，我也对资产和运营变得更加熟悉，我对量化因素的评估仍然非常有利。</p>
+
+<p>到1961年中期，我们拥有登普斯特约30%的股份（我们曾发起过几次要约收购但效果不佳），但在1961年8月和9月以每股30.25进行了几次大额购买，加上随后以相同价格的要约收购，使我们的持仓超过7016-$25的区间内。</p>
+
+<p>在取得控制权后，我们提升执行副总裁为总裁，看看他在不受以前政策束缚的情况下能做什么。结果令人不满意，1962年4月23日我们聘请了Harry Bottle担任总裁。</p>
+
+<p>Harry是这个职位的完美人选。我之前已经讲述过他的成就，随附的比较资产负债表比任何文字都更能说明资本的重新运用。</p>
+
+<p><strong>1961年11月30日 vs 1963年7月31日（未经审计）</strong></p>
+
+<p>11/30/617/31/63（未经审计）现金$166,000$89,000美国政府证券（按成本）—$289,000其他有价证券（按市值，市值超过成本）—$2,049,000现金和证券合计$166,000$2,436,000应收账款（净）$1,040,000$864,000存货$4,203,000$890,000预付费用等$82,000$12,000流动资产$5,491,000$4,202,000其他资产$45,000$62,000固定资产净值$1,383,000$862,000资产合计$6,919,000$5,126,000应付票据$1,230,000—其他负债$1,088,000$274,000负债合计$2,318,000$274,000净资产（60,146股 11/30/61；62,146股 7/31/63）$4,601,000$4,852,000负债和净资产合计$6,919,000$5,126,000</p>
+
+<p>Harry的成就：</p>
+
+<p>(1) 将存货从超过400万（其中大部分是滞销品）降至不到100万，极大地减少了持有成本和过时风险；</p>
+
+<p>(2) 相应地释放了资本用于购买有价证券，从中获利超过$400,000；</p>
+
+<p>(3) 将管理和销售费用从每月150,000降至75,000；</p>
+
+<p>(4) 将工厂间接费用负担从每个直接人工小时6降至4.50；</p>
+
+<p>(5) 关闭了五个亏损的分支机构（保留了三个表现良好的），以更高产的经销商取而代之；</p>
+
+<p>(6) 清理了内布拉斯加州哥伦布一个辅助工厂运营中的难题；</p>
+
+<p>(7) 取消了占用大量资金（可以在证券中更盈利地使用）但不产生利润的代理销售产品线；</p>
+
+<p>(8) 调整了维修零件的价格，产生了估计额外$200,000的利润，而几乎没有损失销量；以及最重要的；</p>
+
+<p>(9) 通过这些和许多其他步骤，恢复了与所用资本相称的盈利能力。</p>
+
+<p>1963年，我们面临的沉重公司税（Harry让我惊讶于他消耗我们税收亏损结转的速度）加上公司内部过剩的流动资金，迫使我们要么以某种方式取消公司制，要么出售业务。</p>
+
+<p>我们着手在1963年底之前完成其中之一。取消公司制有很多问题，但实际上会使合伙人的收益翻倍，同时也消除了登普斯特证券的公司资本利得税。</p>
+
+<p>几乎在最后一刻，在之前几笔交易在相当后期的阶段失败后，完成了一笔资产出售。虽然这笔交易有很多细节，但净效果是大致以账面价值实现。这加上我们在有价证券投资组合中的收益，使我们实现了约每股80。登普斯特（现更名为[[第一比阿特丽斯公司]]——我们将名称卖给了新公司）现在几乎只剩下现金和有价证券。在巴菲特合伙有限公司年终审计中，我们对第一比阿特丽斯的持仓按资产价值（证券按市值）减去200,000的各种或有准备金进行估值。</p>
+
+<p>我想提一下，我们认为买家会把登普斯特经营得很好。他们给我们的印象是有能力的人，他们有扩大业务和提高盈利能力的合理计划。我们本来很乐意在非公司制基础上继续运营登普斯特，但我们同样乐意以合理的价格出售。我们的业务是做出色的买入——而不是做出色的卖出。</p>
+
+<p>Harry的做事方式和我一样——他喜欢大的胡萝卜。他目前是巴菲特合伙有限公司的有限合伙人，下次我们需要瘦身操作时，他就是我们的人选。</p>
+
+<p>登普斯特的故事指出了几个教训：</p>
+
+<p>(1) 我们的业务需要耐心。它与那些高飞的热门股票组合没有什么共同之处，在后者受到追捧的时期，我们可能显得相当呆板。</p>
+
+<p>当我们在买入时，证券在价格上毫无动静数月甚至数年，这对我们来说是有利的。这也说明了需要在足够长的时间内衡量我们的结果。我们建议至少三年。</p>
+
+<p>(2) 我们不能谈论我们当前的投资操作。这种大嘴巴的做法绝不会改善我们的结果，在某些情况下可能严重损害我们。因此，如果任何人——包括合伙人——问我们是否对某只证券感兴趣，我们必须援引”第五修正案”。</p>
+
+<h2>相关概念</h2>
+
+<ul>
+<li>内在价值</li>
+</ul>
+
+<ul>
+<li>安全边际</li>
+</ul>
+
+<ul>
+<li>低估类投资</li>
+</ul>
+
+<ul>
+<li>套利类投资</li>
+</ul>
+
+<ul>
+<li>控制类投资</li>
+</ul>
+
+<ul>
+<li>复利</li>
+</ul>
+
+<ul>
+<li>账面价值</li>
+</ul>
+
+<ul>
+<li>净资产</li>
+</ul>
+
+<h2>相关公司</h2>
+
+<ul>
+<li>道琼斯工业指数</li>
+</ul>
+
+<ul>
+<li>登普斯特风车制造</li>
+</ul>
+
+<ul>
+<li>马萨诸塞投资者信托</li>
+</ul>
+
+<ul>
+<li>投资者股票基金</li>
+</ul>
+
+<ul>
+<li>雷曼公司</li>
+</ul>
+
+<ul>
+<li>三大洲公司</li>
+</ul>
+
+<ul>
+<li>德克萨斯国民石油</li>
+</ul>
+
+<ul>
+<li>联合石油（加州）</li>
+</ul>
+
+<ul>
+<li>第一比阿特丽斯公司</li>
+</ul>
+
+<h2>相关人物</h2>
+
+<ul>
+<li>沃伦·巴菲特</li>
+</ul>
+
+<ul>
+<li>Harry Bottle</li>
+</ul>
+
+<ul>
+<li>Bill Scott</li>
+</ul>
+
+<h3>关系图谱</h3>
+
+<h3>目录</h3>
+
+<ul>
+<li>巴菲特合伙人信 — 1963年</li>
+<li>我们1963年的业绩</li>
+<li>投资公司</li>
+<li>复利的乐趣</li>
+<li>我们的运作方法</li>
+<li>杂项</li>
+<li>附录</li>
+<li>德克萨斯国民石油公司</li>
+<li>登普斯特风车制造公司</li>
+<li>相关概念</li>
+<li>相关公司</li>
+<li>相关人物</li>
+</ul>
+<p>-</p>
+
+<h3>反向链接</h3>
+<ul>
+<li>巴菲特致股东信总览</li>
+</ul>
+<p>-</p>
+<ul>
+<li>Created with Quartz v4.5.2 © 2026</li>
+<li>信件源：Warren-Buffett-Letters-1956-2025</li>
+<li>整理人：公众号**“太白钓雪”**（学习和分享价值投资），侵权或勘误请扫码私信</li>
+</ul>
+<p>-</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
+      </div>
+    </section>
+<section id="year-1964" class="letter-section">
+      <div class="letter-header">
+        <h2>1964年</h2>
+        <p class="letter-subtitle">德州国家石油 — 教科书级套利</p>
+      </div>
+      <div class="letter-body">
+        <h1>巴菲特合伙人信——1964年（年度信）</h1>
+
+<p>巴菲特合伙有限公司</p>
+<p>奥马哈31号，内布拉斯加州</p>
+<p>基威特大厦810号</p>
+<p>1965年1月18日</p>
+
+<h2>我们1964年的业绩</h2>
+
+<p>虽然我们在1964年总共赚了$4,846,312.37，但以我们的基本标尺——道琼斯工业指数（以下简称”道指”）来衡量，这并不是我们表现较好的年份之一。巴菲特合伙有限公司的总体收益为+27.8%，而道指的总体收益为+18.7%。有限合伙人的总体收益为+22.3%。无论是合伙企业层面9.1个百分点的优势，还是有限合伙人3.6个百分点的优势，都是自1959年以来最低的，而1959年道指的涨幅与今年大致相当。</p>
+
+<p>不过，我并不沮丧。这是大盘的强劲年份，在这样的年份里我们要超越道指总是更加困难。我们一定会遇到被道指痛打的年份，从某种意义上说，我倒是庆幸1964年不是那个年份。由于快速上涨的市场给我们带来的问题，如果1965年道指重复1964年的表现，那对我们来说即使要追平它的业绩都非常困难，更不用说大幅超越了。</p>
+
+<p>为了更新记录，以下汇总了道指、合伙企业在向普通合伙人分配之前的业绩，以及有限合伙人的收益：</p>
+
+<p>年份道指总体收益 (1)合伙企业收益 (2)有限合伙人收益 (3)1957-8.4%10.4%9.3%195838.5%40.9%32.2%195920.0%25.9%20.9%1960-6.2%22.8%18.6%196122.4%45.9%35.9%1962-7.6%13.9%11.9%196320.6%38.7%30.5%196418.7%27.8%22.3%</p>
+
+<p>(1) 基于道指年度市值变化加上当年持有道指成分股可获得的股息。表格包含合伙企业所有完整运营年度。</p>
+
+<p>(2) 1957-61年为所有前身有限合伙企业全年运营的合并结果，已扣除所有费用，但未扣除向合伙人的分配或向普通合伙人的提成。</p>
+
+<p>(3) 1957-61年基于上一列合伙企业收益计算，已按现行合伙协议扣除向普通合伙人的提成，但未扣除有限合伙人的月度提款。</p>
+
+<p>以累计或复合计算，结果如下：</p>
+
+<p>年份道指总体收益合伙企业收益有限合伙人收益1957-8.4%10.4%9.3%1957–5826.9%55.6%44.5%1957–5952.3%95.9%74.7%1957–6042.9%140.9%107.2%1957–6174.9%251.0%181.6%1957–6261.6%299.8%215.1%1957–6394.9%454.5%311.2%1957–64131.3%608.7%402.9%<strong>年化复合收益率</strong><strong>11.1%</strong><strong>27.7%</strong><strong>22.3%</strong></p>
+
+<h2>投资公司</h2>
+
+<p>我们通常将我们的业绩与两家最大的开放式投资公司（共同基金）和两家最大的多元化封闭式投资公司进行比较，前者的投资政策通常是将95%-100%的资金投入普通股。这四家公司——马萨诸塞投资者信托、投资者股票基金、三洲公司和雷曼公司——管理着约45亿美元，约有55万名股东，大概可以代表300亿美元投资公司行业的典型水平。我认为它们的业绩大致代表了绝大多数其他投资顾问机构的表现，后者管理的资金总量要大得多。</p>
+
+<p>编制以下表格的目的是说明，道指作为投资业绩的衡量标准绝非等闲之辈。仅仅管理以下所示四家公司的顾问人才每年就收取超过800万美元的费用，而这只占整个专业投资管理行业的极小部分。这些高薪且广受尊敬的人才的公开”打击率”显示，其表现略低于道指这个无人管理的指数。</p>
+
+<p><strong>年度业绩</strong></p>
+
+<p>年份马萨诸塞投资者信托 (1)投资者股票基金 (1)雷曼公司 (2)三洲公司 (2)道指有限合伙人1957-11.4%-12.4%-11.4%-2.4%-8.4%9.3%195842.7%47.5%40.8%33.2%38.5%32.2%19599.0%10.3%8.1%8.4%20.0%20.9%1960-1.0%-0.6%2.5%2.8%-6.2%18.6%196125.6%24.9%23.6%22.5%22.4%35.9%1962-9.8%-13.4%-14.4%-10.0%-7.6%11.9%196320.0%16.5%23.7%18.3%20.6%30.5%196415.9%14.3%13.6%12.6%18.7%22.3%</p>
+
+<p>(1) 根据资产净值变化加上当年向持有人记录的任何分配计算。</p>
+
+<p>(2) 1957-63年数据来自1964年穆迪银行与金融手册。1964年为估计数据。</p>
+
+<p><strong>累计收益</strong></p>
+
+<p>年份马萨诸塞投资者信托 (1)投资者股票基金 (1)雷曼公司 (2)三洲公司 (2)道指有限合伙人1957-11.4%-12.4%-11.4%-2.4%-8.4%9.3%1957–5826.4%29.2%24.7%30.0%26.9%44.5%1957–5937.8%42.5%34.8%40.9%52.3%74.7%1957–6036.4%41.6%38.2%44.8%42.9%107.2%1957–6171.3%76.9%70.8%77.4%74.9%181.6%1957–6254.5%53.2%46.2%59.7%61.6%215.1%1957–6385.4%78.5%80.8%88.9%94.9%311.2%1957–64114.9%104.0%105.4%112.7%131.3%402.9%<strong>年化复合收益率</strong><strong>10.0%</strong><strong>9.3%</strong><strong>9.4%</strong><strong>9.9%</strong><strong>11.1%</strong><strong>22.3%</strong></p>
+
+<p>这些表格的反复出现让合伙人们不禁要问：“为什么拥有(1)聪明能干的员工，(2)几乎无限的资源，(3)最广泛的商业人脉，以及(4)合计数百年投资经验的高智商管理层，却会出现这种情况？“（最后一项让我想起一个求职者自称有二十年经验——被前雇主更正为”一年经验——重复了二十次”。）</p>
+
+<p>这个问题极其重要，你会以为它应该成为投资经理和大型投资者大量研究的课题。毕竟，300亿美元上每一个百分点就是每年3亿美元。奇怪的是，华尔街的文献中几乎没有涉及这个问题的内容，在证券分析师协会的会议、研讨会等场合也几乎看不到对它的讨论。我认为，任何投资管理机构的首要工作应该是在对美国各大企业的管理能力和业绩下结论之前，先分析自身的方法和成果。</p>
+
+<p>在绝大多数情况下，业绩未能超越甚至未能追平一个无人管理的指数，绝非反映出智力不足或缺乏诚信。我认为这更多是以下因素的产物：(1) 群体决策——我也许有偏见的看法是，由任何规模的团队来做决策，同时让所有人真正参与决策过程，几乎不可能产生杰出的投资管理；(2) 渴望与其他大型、声誉良好的机构保持一致的策略乃至（在一定程度上）一致的投资组合；(3) 一种制度性框架——在这种框架中”平均”就是”安全”的，而独立行动的个人回报与此类行动所附带的一般风险完全不成比例；(4) 对某些不合理的分散化做法的墨守成规；以及最后也是最重要的，(5) 惰性。</p>
+
+<p>也许以上评论不够公允。也许我们的统计比较本身也不够公允。我们的投资组合和运作方式与表格中的投资公司有很大不同。然而，我相信我们的合伙人和那些投资公司的股东都认为，各自的管理层追求的目标是相同的——在持续投资股票的前提下，以最小的永久性损失风险获取最高的长期平均资本回报。既然我们有共同的目标，而大多数合伙人如果不投资巴菲特合伙有限公司，可能会将资金投入收益水平与这些投资公司相当的渠道，我认为它们的业绩记录在评判我们自身成果时是有意义的。</p>
+
+<p>毫无疑问，投资公司、投资顾问、信托部门等确实为投资者提供了重要的服务。这种服务包括实现充分的分散化、保持长期视野、简化投资决策和操作流程，以及最重要的——避免那些似乎总能引诱某些人上当的明显拙劣的投资技巧。除了极少数之外，绝大多数机构并未明确承诺提供卓越的投资业绩，尽管公众从它们对专业管理的广告宣传中得出这样的推论或许也不算过分。</p>
+
+<p>我向合伙人承诺一件事——正如我现在认为上述业绩比较有意义一样，未来也将如此，无论结果如何。相应地，我请求你们，如果你们不认为这一标准是合适的，现在就提出异议，并建议其他可以前瞻性（而非回顾性）应用的标准。</p>
+
+<p>还有一点补充——我在表格中没有列出世界上使用最广泛的投资顾问——“自我管理”。人们关注自己的体重、高尔夫成绩和燃油账单，却似乎回避对投资管理能力的量化评估，尽管这涉及世界上最重要的客户——他们自己。虽然评估马萨诸塞投资者信托或雷曼公司的管理成就可能只是学术兴趣，但客观评估真正管理你的钱的那个人的成就——即使那个人就是你自己——却具有巨大的实际意义。</p>
+
+<h2>保守主义问题</h2>
+
+<p>在看投资公司的业绩表时，可能有人会问：“是的，但那些公司难道不比合伙企业更保守吗？“如果你向投资公司的管理层提出这个问题，他们会完全真诚地说自己更保守。如果你问遇到的前一百位证券分析师，我相信绝大多数人也会支持投资公司。但我不这样认为。我把超过90%的净资产都放在了巴菲特合伙有限公司里，我的大多数家人也是如此——不过这当然只能证明我观点的真诚，而非其正确性。</p>
+
+<p>毫无疑问，投资公司的资金投资方式比我们更”传统”。对许多人来说，传统等同于保守。在我看来，这是一种错误的思维。传统和非传统的做法本身都不等于保守。</p>
+
+<p>真正保守的行动源于明智的假设、正确的事实和合理的推理。这些品质可能引向传统的做法，但也有很多时候它们导向了非正统的做法。在世界的某个角落，他们大概还在定期召开地平说协会的会议。</p>
+
+<p>我们不因为重要人物、发声响亮的人或大量的人赞同我们而感到安慰。如果他们不赞同，我们也不会因此沮丧。民意调查不能替代思考。真正让我们满面笑容、安心坐下的时刻，是当我们遇到一个我们能理解的情况，事实可以确认且清楚，行动方案显而易见。在那种情况下——无论传统还是非传统——无论别人同意还是不同意——我们觉得我们是在以保守的方式前进。</p>
+
+<p>上面的说法可能看起来非常主观。确实如此。你应该更倾向于用客观的方法来看待这个问题。我也是。我建议一种合理的方式来评估过去策略的保守性：研究在下跌市场中的表现。我们的表格中只有三年下跌市场，遗憾的是（仅就这个测试而言）它们都是温和的下跌。在这三年中，我们的投资成果都明显优于任何一个更传统的投资组合。</p>
+
+<p>具体来说，如果这三年连续出现，累计结果将是：</p>
+
+<p>组合累计收益三洲公司-9.7%道指-20.6%马萨诸塞投资者信托-20.9%雷曼公司-22.3%投资者股票基金-24.6%有限合伙人+45.0%</p>
+
+<p>我们不认为这个比较是最重要的，但我们确实认为它有一定的参考价值。我们当然认为它比”我们持有（不管什么价格）AT&amp;T、通用电气、IBM和通用汽车，所以我们是保守的”这种说法更有意义。无论如何，对任何投资计划或管理（包括自我管理）的保守性评估都应该基于理性的客观标准，而我建议在下跌市场中的表现至少是一个有意义的测试。</p>
+
+<h2>复利的乐趣</h2>
+
+<p>我们早期年度信的读者对仅仅叙述当代投资经验表示不满，反而渴望唯有跨越几个世纪的投资策略深度研究才能提供的知识刺激。因此，有了这个部分。</p>
+
+<p>我们前两次进入金融专业知识的神话世界的探险，揭示了伊莎贝拉女王（资助哥伦布航行）和弗朗索瓦一世（最初购买蒙娜丽莎）所谓精明的投资几乎等于财务上的疯狂。这些人的辩护者们拿出了一系列感性的琐碎论据。尽管如此，我们的复利表格从未被攻破。</p>
+
+<p>然而，有一种批评确实让我有些在意。有人指责这个专栏变得太消极了，只评论历史上的财务庸才。我们被要求在这几页上记录一个财务眼光的故事，为后世树立辉煌的标杆。</p>
+
+<p>有一个故事脱颖而出。当然，这就是曼哈顿印第安人在1626年把他们的岛屿卖给那个臭名昭著的败家子彼得·米纽伊特的精明交易传奇。据我了解，他们净得了24美元。作为回报，米纽伊特得到了22.3平方英里，大约合621,688,320平方英尺。虽然根据可比销售数据很难做出精确估值，但每平方英尺20美元的估价似乎合理，由此算出该岛屿目前的土地价值为12,433,766,400（125亿美元）。对外行人来说，这也许听起来是笔不错的交易。然而，印第安人只需要达到6.542,105,772,800（420亿美元），如果他们能再多挤出半个百分点达到7%，现值就变成了2,050亿美元。</p>
+
+<p>好了，这个话题就到这里。</p>
+
+<p>你们中有些人可能以更短的时间跨度来看待自己的投资策略。为了你们的方便，我们附上了通常的表格，显示以不同利率将$100,000进行复利投资的收益：</p>
+
+<p>4%8%12%16%10年$48,024$115,892$210,584$341,14320年$119,111$366,094$864,627$1,846,06030年$224,337$906,260$2,895,970$8,484,940</p>
+
+<p>这个表格说明了以下几点的财务优势：</p>
+
+<p>(1) 长寿（用金融高手的渊博词汇来说，这被称为”玛土撒拉技术”）</p>
+
+<p>(2) 高复合收益率</p>
+
+<p>(3) 两者的结合（本作者特别推荐）</p>
+
+<p>值得注意的是，年收益率的相对较小增长带来了巨大的收益。这解释了我们的态度——虽然我们希望取得大幅超越平均投资成果的优势，但我们认为超出平均水平的每一个百分点的投资回报都有实际意义。</p>
+
+<h2>我们的目标</h2>
+
+<p>你们会注意到，上面的表格中没有合伙企业八年运营期间27.7%的平均收益率或有限合伙人22.3%的平均收益率这样的列。出于几个原因，这些数字对长期而言是不切实际的：（别担心我会为了证实这个预言而”有所保留”。）</p>
+
+<p>(1) 以这样的速率复利增长的任何大额资金都会以惊人的速度达到国家债务的规模。</p>
+
+<p>(2) 在我们八年的历史中，证券市场的普遍重估产生了整个普通股领域的平均年度整体收益率，我认为这在未来几十年是无法达到的。在20或30年的时间跨度内，我预计道指的年均整体收益大概在6%-7%之间，而不是我们短暂历史中的11.1%。仅此一项就会使我们的年复合收益率降低约4个百分点。只需要1965年道指下跌20.5%，就能把九年的平均值拉低到7%。持有股票投资的人一定要预料到这种年份（或更糟的情况）不时会出现。如果你的股权持仓（如巴菲特合伙有限公司）的市值下跌20%或30%会让你在情绪上或财务上感到痛苦，你就应该避免投资普通股类型的资产。用诗人——哈里·杜鲁门的话说——“如果你受不了厨房的热度，就别进厨房。“当然，在进入”厨房”之前考虑好这个问题是更可取的。</p>
+
+<p>(3) 我们不认为在长期基础上能保持合伙企业领先道指16.6个百分点的优势，或有限合伙人享有的11.2个百分点的优势。我们已经连续八年跑赢了道指，虽然利润分配安排使有限合伙人在其中一年的收益低于道指。我们肯定会有（注意用了复数）合伙企业收益落后于道指的年份，尽管普通合伙人会为此非常苦恼（我希望有限合伙人不会太苦恼）。到那时，我们的平均领先幅度会大幅下降。我也要说，我相信我们在未来还会有一些优势相当可观的年份。然而，迄今为止我们的一个有利因素是：我们的平均值中还没有包含过一个真正平庸（或更差）的年份，这显然不可能永远持续下去。</p>
+
+<p>那么我们可以期待取得什么样的成绩呢？当然，我说的任何话在很大程度上都是猜测，而我的投资哲学是建立在这样一个理论之上的：预言所揭示的更多是先知的弱点，而非未来的面貌。</p>
+
+<p>尽管如此，你们作为合伙人，有权知道我的预期，不管这些预期多么不确定。我希望我们的长期经验将沿着以下方向展开：</p>
+
+<p>(1) 道指（当然包括股息）的整体年均收益率大约在7%左右，在实现这一平均值的过程中表现出惯常的大幅波动——比如，极端情况下从-40%到+50%，大多数年份在-10%到+20%之间；</p>
+
+<p>(2) 巴菲特合伙有限公司在向普通合伙人提成之前，每年平均领先道指十个百分点——领先幅度同样会有大幅波动，从差年落后道指约10个百分点到好年领先25个百分点不等；</p>
+
+<p>(3) 以上两个假设的乘积给出巴菲特合伙有限公司约17%的平均收益，有限合伙人约14%。这个数字每年变化会很大，最终的波幅当然取决于(1)和(2)中假设的极端情况的相互作用。</p>
+
+<p>我想强调，以上都是推测，可能深受自身利益、自尊等因素的影响。任何有金融历史常识的人都知道，这种猜测会面临巨大的误差。也许不把它写在这封信里会更好，但这是合伙人经常而且合理提出的问题。长期可预期回报是我们所有巴菲特合伙有限公司成员的首要考量，我应该把我的看法记录在案是合理的，尽管日后可能会让我显得很愚蠢。我相当清教徒式的观点是：任何投资经理，无论是作为经纪人、投资顾问、信托部门还是投资公司运营，都应该愿意毫不含糊地说明他打算实现什么目标，以及他打算如何衡量自己完成任务的程度。</p>
+
+<h2>我们的运作方式</h2>
+
+<p>在过去的年度信中，我一直使用三个类别来描述我们的投资运作。我现在觉得分为四个类别更为恰当。一方面，新增的”相对低估类投资”部分反映了我对我们”低估类投资”组中一直存在的一些本质差异的进一步思考。另一方面，它反映了曾经是一个很小的子类别如今已成为我们总投资组合中更重要部分的事实。这种日益增长的重要性伴随着迄今为止出色的成绩，证明了在这一领域投入大量时间和精力来寻找更多机会是值得的。最后，它还反映了一种新的、有些独特的投资技术的开发和实施，旨在改善这一类别中的预期收益和操作一致性。因此，我们目前的四个类别是：</p>
+
+<p><strong>1. “低估类投资——私人所有者基础”</strong> ——这是一类通过定量标准判断为总体低估的股票，同时也非常关注定性因素。通常几乎没有迹象表明市场价格会立即改善。这些股票缺乏魅力或市场追捧。它们的主要资格是便宜的价格；也就是说，企业的整体估值大幅低于仔细分析表明的对私人所有者的价值。再次强调，虽然定量分析放在首位且不可或缺，但定性因素也很重要。我们喜欢好的管理层——我们喜欢不错的行业——我们喜欢在一个以前沉寂的管理层或股东群体中看到一定程度的”发酵”。但是，我们要求的是价值。</p>
+
+<p>在这一类别中，我们经常拥有理想的”一箭双雕”局面：要么通过外部因素实现市场价格的上涨，要么以低廉价格获得一家企业的控制权。虽然前者发生在绝大多数情况下，但后者代表了大多数投资操作所不具备的一份保险。我们继续扩大了在1964年年中报告中描述的三家公司中的持仓——我们是这三家公司最大的股东。三家公司的基本价值都在以非常令人满意的速度增长，在其中两家我们完全被动，在第三家仅以非常小的规模参与。我们不太可能在这三家公司中的任何一家真正积极地参与决策，但如果需要，我们随时准备好了。</p>
+
+<p><strong>2. “相对低估类投资”</strong> ——这一类别由相对于同等质量证券价格偏低的证券组成。我们要求与当前估值标准存在较大差异，但（通常由于公司规模较大）我们并不认为对私人所有者的价值是一个有意义的概念。在这一类别中，当然重要的是要拿苹果和苹果比——而不是拿苹果和橘子比——我们在这方面下了很大功夫。在绝大多数情况下，我们对行业或公司了解得不够多，无法做出合理的判断——在这种情况下我们就放弃。</p>
+
+<p>如前所述，这个新类别一直在增长，并且产生了非常令人满意的结果。我们最近开始实施一种技术，它有望大幅降低整体估值标准变动带来的风险；例如，我们在12倍市盈率买入某个股票，而可比或更差的公司以20倍市盈率交易，但随后发生了重大重估，后者只以10倍市盈率交易了。</p>
+
+<p>这种风险一直让我们非常担忧，因为与”低估类投资——私人所有者基础”或”套利类投资”类型相比，我们可能陷入无助的境地。随着这种风险的降低，我们认为这个类别前景光明。</p>
+
+<p><strong>3. “套利类投资”</strong> ——这些是有时间表的证券。它们源于企业活动——出售、合并、重组、拆分等。在这个类别中，我们讨论的不是关于此类发展的传言或”内幕信息”，而是已公开宣布的此类活动。我们等到可以在报纸上读到的时候才行动。风险主要不在于大盘的整体走势（虽然有时也会有一定关联），而在于某些意外打乱计划，使预期的发展未能实现。这类扫兴的因素可能包括反垄断或其他负面的政府行动、股东反对、税务裁定的延迟等。许多套利交易的毛利看起来相当小。这有点像在找还有剩余时间的停车计时器。然而，可预测性加上较短的持有期，在扣除偶尔的重大损失后，产生了相当不错的平均年化回报率。这一类别每年产生的绝对利润比低估类投资更为稳定。在市场下跌的年份，它通常能为我们积累很大的优势；在牛市中，它可能会拖累业绩。从长期来看，我预期套利类投资将取得与低估类投资相当的超越道指的优势。</p>
+
+<p><strong>4. “控制类投资”</strong> ——这类情况很少出现，但出现时通常规模很大。除非我们一开始就购买了一大块股票，否则控制类投资是从低估类投资——私人所有者类别中发展而来的。当一只便宜的股票长期价格不动，以至于我们能买到公司的相当大比例的股票时，就会出现这种情况。到那时，我们可能已经处于可以对公司活动承担一定程度甚至完全控制权的位置。在这个节点上，我们是积极参与还是保持相对被动，取决于我们对公司未来和管理层能力的评估。</p>
+
+<p>我们不想仅仅为了活跃而活跃。在其他条件相同的情况下，我更愿意让别人来做这些工作。然而，当需要积极参与来优化资本配置时，你可以确信我们不会袖手旁观。</p>
+
+<p>无论积极还是被动，在控制类投资中应该都有内在利润。这种操作的根本前提是有吸引力的买入价格。一旦取得控制权，我们投资的价值就由企业的价值决定，而不是由市场有时的非理性来决定。</p>
+
+<p>前面在低估类投资——私人所有者基础下提到的我们作为最大股东的三种情况中的任何一种，由于它们具有的双向弹性，都可能转变为控制类投资。那对我们来说很好，但如果它们在市场上涨到更接近内在价值的价格，使我们能够卖出，从而完成一次成功的低估类——私人所有者操作，我们同样满意。</p>
+
+<p>控制类投资的投资成果必须至少以几年为单位来衡量。恰当的买入需要时间。如有必要，加强管理层、重新引导资本的使用、也许促成一次令人满意的出售或合并等，都是使这种业务需要以年而非月来衡量的因素。正因如此，在控制类投资中，我们寻找的是很大的利润空间——如果看起来差不多就够了，我们就放弃。</p>
+
+<p>控制类投资在买入阶段的走势很大程度上与道指同步。在后期阶段，其走势更接近套利类投资。</p>
+
+<p>你们可能有兴趣知道，我们之前的控制类投资——登普斯特风车制造的买家们似乎经营得很好。这符合我们的预期，也让我们感到欣慰。一种依赖于最终买家做傻事的投资操作（在华尔街这叫”更大的傻瓜理论”）是非常靠不住的。以真正便宜的价格买入，只需要一次普通的处置就能带来令人满意的结果，这要好得多。</p>
+
+<p>正如我过去提到的，我们在各类别之间的投资组合分布在很大程度上取决于机会的偶然出现。因此，在任何给定的年份，低估类投资、套利类投资或控制类投资之间的比例在很大程度上是偶然的，而这个善变的因素对我们相对于道指的表现有很大的影响。这是单年业绩意义不大的众多原因之一——无论好坏，都不应该太当真。</p>
+
+<p>为了说明各类别之间的分布有多重要，让我举过去三年的例子。使用与衡量巴菲特合伙有限公司整体业绩完全不同的计算方法（按类别的月均市值投资额计算，排除借款和办公运营费用等——这为组间比较提供了最准确的基础，但不反映巴菲特合伙有限公司的整体结果），低估类投资（两个子类别合并）、套利类投资和道指的表现如下：</p>
+
+<p>年份低估类投资套利类投资道指1962-1.0%14.6%-8.6%196320.5%30.6%18.4%196427.8%10.3%16.7%</p>
+
+<p>显然，套利类投资（连同控制类投资）在1962年拯救了大局，如果那一年我们在这一类别中的配置较少，最终结果会差得多，尽管考虑到当年的市场状况，结果仍然相当不错。那年我们投资组合中套利类投资的比例完全可能更小；是机会的可得性决定了这个比例，而不是我对市场走向的任何判断。因此，重要的是要认识到，1962年我们在各类别的配置上纯粹是运气好。</p>
+
+<p>1963年，我们有一个非常出色的套利交易极大地影响了结果，低估类投资也表现不错，造就了一个辉煌的年份。如果套利类投资的表现是正常的（比如更像1962年），与道指相比我们看起来会差得多。在这里，不是我们的类别配置帮了大忙，而是我们有出色的投资机会。</p>
+
+<p>最后，在1964年，套利类投资大幅拖累了业绩。在道指大涨的年份（如1964年），这本来就是正常的，但由于平庸的经历，它们的拖累比预期的还要大。回过头来看，如果全部资金都在低估类投资中会很好，但我们不玩事后诸葛亮的游戏。</p>
+
+<p>我希望上面的表格能让你们深刻理解：任何一年的结果都受到许多变量的影响——其中有些我们几乎无法控制或预见。我们认为所有类别都是好生意，我们非常高兴有多个类别可以依靠，而不是只有一个。这使得我们在每个类别中更有选择性，也降低了因某个类别中机会消失而完全停摆的风险。</p>
+
+<h2>税务</h2>
+
+<p>今年我们的合伙人在税务负担方面发出了一片哀嚎。当然，如果税单是空白的，我们可能也会收到一些抱怨。</p>
+
+<p>更多的投资罪孽可能是由本来相当聪明的人出于”税务考虑”犯下的，比出于任何其他原因犯下的都多。我的一位朋友——一位著名的西海岸哲学家认为，生活中的大多数错误都是因为忘记了自己真正想要做什么。当税收这种情绪极度敏感的因素进入画面时（我还有另一位朋友——一位著名的东海岸哲学家说他不在乎没有代表权——他在乎的是征税），情况更是如此。</p>
+
+<p>让我们回到西海岸。在投资世界里，人们真正想要做的是什么？不是缴最少的税，尽管那可能是实现目标时需要考虑的一个因素。但不应混淆手段和目的——目的是获得最大的税后复合收益率。很明显，如果两种行动方案承诺相同的税前复合收益率，一个需要缴税而另一个不需要，那后者当然更优。然而，我们发现这种情况很少出现。</p>
+
+<p>从3000只股票中选出的20只股票，在完全不同的价格水平下（无论是所选股票还是替代选项），在现在和一年后同时成为最优投资组合，这种概率极低。如果我们的目标是产生最大的税后复合收益率，我们就必须持有以当前价格可以获得的最具吸引力的证券。而在3000个相当快速变化的变量下，这必然意味着变化（希望是”产生税收”的变化）。</p>
+
+<p>显然，一只股票去年或上个月的表现本身不是现在持有或不持有它的理由。显然，一只下跌的股票”无法回本”这一事实毫无意义。显然，因为去年持有了一只赢家而产生的内心温暖感觉，在决定它是否属于今年的最优投资组合时毫无意义。</p>
+
+<p>如果涉及收益，更换投资组合就意味着缴税。除了极少数不寻常的情况外（我承认确实存在一些），如果预期业绩的差异是显著的，税额的多少就不太重要了。我一直无法理解为什么税收对许多人来说是如此沉重的打击，因为长期资本利得税率低于大多数其他行业的税率（税收政策似乎认为挖沟比倒腾股票证书在社会上更不受欢迎）。</p>
+
+<p>听众中有很大比例是务实主义者，所以我最好从理想主义的高马上下来。只有三种方法可以最终避免缴税：(1) 持有资产到死——这对我来说有点太”最终”了，即使是狂热分子对这种”治疗”也得持复杂的心情；(2) 把资产捐出去——这样你当然不用缴税了，但你当然也不用付食品杂货、房租等费用了；(3) 把收益亏回去——如果这种省税方法让你心动，我不得不佩服你——你真的有坚持信念的勇气。</p>
+
+<p>所以，巴菲特合伙有限公司的政策将继续是尽力最大化投资收益，而不是最小化税收。我们将尽最大努力为国库创造最多的收入——以规则允许的最低税率。</p>
+
+<p>关于税收与投资管理之间关系的一个有趣的侧面在过去几年中出现了。这是通过创建所谓的”交换基金”而产生的。交换基金是一种投资公司，通过将投资公司的股份与潜在投资者持有的市场证券进行交换而创建。主要的销售论点是递延（“递延”这个词由一个热情的推销员念出来时，有时在语音上非常接近”消除”）资本利得税，同时将单一证券换成多元化投资组合。只有在交换基金的股份被赎回时才最终缴税。对于幸运者来说，当前面提到的那些令人愉快的替代方案中的任何一个实现时，税收将被完全避免。</p>
+
+<p>交换者行为背后隐含的逻辑相当有趣。他显然并不真的想持有他正在持有的东西，否则他不会急于把它换出去（并支付相当可观的佣金——通常高达$100,000），换成其他被税务麻痹的投资者持有的类似的烫手山芋。公平地说，我应该指出，在所有要约人提交了他们的证券进行交换并有机会审查拟议的投资组合之后，他们有机会退出，但据我了解退出的比例相对很小。</p>
+
+<p>自从1960年这个想法被发明以来，已经成立了十二个这样的基金（据我所知），还有几个目前正在筹备中。这个想法并非没有吸引力，因为销售总额超过了6亿美元。所有这些基金都保留了投资经理，通常支付资产价值的0.5%作为管理费。这位投资经理面临一个有趣的问题：他被付费来聪明地管理基金（在五只最大的基金中，这笔费用目前从每年250,000到700,000不等），但由于从证券贡献者那里继承的低税基，他的几乎每一步操作都会产生资本利得税负。而且，他当然知道，如果他产生了这些税负，他是在为那些可能对税收相当敏感的人这么做——否则他们就不会持有交换基金的股份了。</p>
+
+<p>我在这里说得有些过火了，我相信确实有一些情况下交换基金可能是解决个人税收和投资问题的最佳答案。尽管如此，我认为它们提供了一个非常有趣的试管，可以用来衡量一些最受尊敬的投资顾问在试图管理资金而不缴纳（重大）税收时的能力。</p>
+
+<p>三个最大的交换基金都在1961年成立，目前合计资产约3亿美元。其中之一多元化基金按财政年度报告，这使得提取日历年度比较的相关数据相当困难。另外两个——联邦街基金和威斯敏斯特基金（分别是该类别中最大的和第三大的）——由管理着至少20亿美元机构资金的投资顾问运营。</p>
+
+<p>以下是它们在所有完整运营年度中的表现：</p>
+
+<p>年份联邦街基金威斯敏斯特基金道指1962-19.0%-22.5%-7.6%196317.0%18.7%20.6%196413.8%12.3%18.7%<strong>年化复合收益率</strong><strong>2.6%</strong><strong>1.1%</strong><strong>9.8%</strong></p>
+
+<p>这纯粹是管理业绩记录。没有计入进入时的佣金，基金代表股东支付的任何税款已加回到业绩中。</p>
+
+<p>还有人想要（为了省税而牺牲业绩）吗？</p>
+
+<h2>杂项</h2>
+
+<p>在12月21日的《汽车新闻》上报道说，福特汽车公司计划在1965年斥资7亿美元在全球范围内增加6,742,000平方英尺的设施。巴菲特合伙有限公司紧随其后，计划在1965年春天增加227又1/4平方英尺的设施。</p>
+
+<p>我们的净资产从1956年5月5日第一个前身有限合伙企业（巴菲特联合有限公司）成立时的105,100（你不需要猜那100美元是谁放进来的），增长到1965年1月1日的26,074,000，这使得内部程序偶尔需要重组。因此，大约在从682平方英尺大胆扩张到909又1/4平方英尺的同时，一位非常能干的人将加入我们的组织，负责行政（和其他某些）职能。这一变动特别有助于让比尔·斯科特腾出更多时间用于证券分析——那是他的强项。我将在年中信中对此做更多的报告。</p>
+
+<p>比尔（继续做着出色的工作）和他的妻子在合伙企业中的投资为298,749，占他们净资产的很大比例。我们的新同事（在他现任雇主找到替代人选之前暂时保密姓名）和他的妻子、孩子已经在合伙企业中进行了重要的投资。苏茜和我目前在巴菲特合伙有限公司拥有3,406,700的权益，这几乎代表了我们的全部净资产，除了我们继续持有的中大陆标签卡公司（一家奥马哈当地公司，我在1960年买入时它不到10个股东）的股份。此外，我的亲属——包括三个孩子、母亲、两个姐妹、两个姐夫/妹夫、岳父、四个姑姑/阿姨、四个堂/表兄弟姐妹和六个侄子/侄女——直接或间接在巴菲特合伙有限公司拥有$1,942,592的权益。所以我们全部继续吃自己做的饭。</p>
+
+<p>我们继续是终极的季节性生意——一年只营业一天。这确实在保持文件顺畅流转方面造成了困难，但贝丝和唐娜继续出色地应对这些和其他问题。</p>
+
+<p>毕马威会计师事务所在其一贯的重要角色中——弄清楚什么属于谁——表现出色。我们继续给他们提出不可能的截止日期——而他们继续出色地完成任务。你们会注意到在今年的审计报告中，他们实施了新的程序，现在除了常规的年终审计外，每年还会在事先不通知的情况下突击检查我们两次。</p>
+
+<p>最后——也是最真诚地——让我感谢各位合伙人，你们在及时、准确地把资料发给我们方面给予了极大的配合，从而最大限度地让我们能把时间花在应该花的地方——在收银机旁。我非常幸运，能够把绝大部分时间花在思考我们的资金应该投向哪里，而不是被那些似乎淹没了许多企业的琐碎事务所拖累。我们的组织架构使这种效率成为可能，更重要的是，我们有一群让它成为现实的合伙人。为此，我深表感激，而且我们所有人都因此更加富有。</p>
+
+<p>我们过去的政策是允许现有合伙人的近亲属不设最低资本限制加入。今年出现了大量的子女、孙辈等，这使得这项政策受到了质疑；因此，我决定对现有合伙人直系亲属的权益实施$25,000的最低限额。</p>
+
+<p>在未来两周内你们将收到：</p>
+
+<p>(1) 一封税务信，为你提供2004年联邦所得税申报所需的全部巴菲特合伙有限公司信息。此信是唯一用于税务目的的文件。</p>
+
+<p>(2) 毕马威会计师事务所1964年的审计报告，列明巴菲特合伙有限公司的运营和财务状况以及你个人的资本账户。</p>
+
+<p>(3) 一封由我签署的信，说明你在1965年1月1日的巴菲特合伙有限公司权益状况。这与审计报告中的数字一致。</p>
+
+<p>(4) 合伙协议的附表”A”，列出所有合伙人。</p>
+
+<p>如果有任何需要澄清的地方，请联系比尔或我。尽管我们的团队很优秀，但我们的成长意味着更有可能出现信件遗漏、指令被忽略、名字被跳过、数字抄反等情况，所以如果你有任何疑问认为我们可能出了错，请尽管开口。我的下一封信将在大约7月15日发出，总结今年上半年的情况。</p>
+
+<p>此致敬礼</p>
+
+<p>沃伦·E·巴菲特</p>
+
+<p>&lt;h2 id=&quot;</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
+      </div>
+    </section>
+<section id="year-1965" class="letter-section">
+      <div class="letter-header">
+        <h2>1965年</h2>
+        <p class="letter-subtitle">集中投资与分散的辩证</p>
+      </div>
+      <div class="letter-body">
+        <h1>巴菲特合伙人信——1965年（年度信）</h1>
+
+<p>巴菲特合伙有限公司</p>
+<p>奥马哈31号，内布拉斯加州</p>
+<p>基威特大厦810号</p>
+<p>1966年1月20日</p>
+
+<h2>我们1965年的业绩</h2>
+
+<p>我们的扶贫战争在1965年取得了胜利。</p>
+
+<p>具体来说，到年底我们少穷了$12,304,060。</p>
+
+<p>去年在年度信中题为”我们的目标”的部分（请特别注意这不是”我们的承诺”），我说我们试图实现的是”……巴菲特合伙有限公司在向普通合伙人分配之前，每年平均领先道指十个百分点——领先幅度同样会有大幅波动，从差年落后道指约10个百分点到好年领先25个百分点不等。”</p>
+
+<p>我作为预言者的不可靠性很快就得到了验证——第一年就落在了我设定的参数之外。我们取得了巴菲特合伙有限公司历史上最大的领先道指的幅度，总体收益为47.2%，而道琼斯工业指数的总体收益（包括持有道指成分股可获得的股息）为14.2%。当然，没有哪个作者愿意因为这样的错误而当众出丑。这种错误不太可能重演。</p>
+
+<p>以下汇总了道指的逐年表现、合伙企业在向普通合伙人分配（超出6%部分的四分之一）之前的业绩，以及有限合伙人的收益：</p>
+
+<p>年份道指总体收益 (1)合伙企业收益 (2)有限合伙人收益 (3)1957-8.4%10.4%9.3%195838.5%40.9%32.2%195920.0%25.9%20.9%1960-6.2%22.8%18.6%196122.4%45.9%35.9%1962-7.6%13.9%11.9%196320.6%38.7%30.5%196418.7%27.8%22.3%196514.2%47.2%36.9%</p>
+
+<p>(1) 基于道指年度市值变化加上当年持有道指成分股可获得的股息。表格包含合伙企业所有完整运营年度。</p>
+
+<p>(2) 1957-61年为所有前身有限合伙企业全年运营的合并结果，已扣除所有费用，但未扣除向合伙人的分配或向普通合伙人的提成。</p>
+
+<p>(3) 1957-61年基于上一列合伙企业收益计算，已按现行合伙协议扣除向普通合伙人的提成，但未扣除有限合伙人的月度提款。</p>
+
+<p>以累计或复合计算，结果如下：</p>
+
+<p>年份道指总体收益合伙企业收益有限合伙人收益1957-8.4%10.4%9.3%1957–5826.9%55.6%44.5%1957–5952.3%95.9%74.7%1957–6042.9%140.6%107.2%1957–6174.9%251.0%181.6%1957–6261.6%299.8%215.1%1957–6395.1%454.5%311.2%1957–64131.3%608.7%402.9%1957–65164.1%943.2%588.5%<strong>年化复合收益率</strong><strong>11.4%</strong><strong>29.8%</strong><strong>23.9%</strong></p>
+
+<p>去年的表现之后，自然会出现这样的问题：“我们怎么来个续集？“这门生意的一个缺点是它几乎不具有惯性。如果通用汽车在1965年占国内新车注册量的54%，那么由于车主忠诚度、经销商能力、产能、消费者印象等原因，它在1966年很可能接近这个数字。巴菲特合伙有限公司不是这样。每年我们从零开始，所有持仓在起跑枪响时都以市价计值。1966年的合伙人，无论新旧，只在极其有限的程度上受益于1964年和1965年的努力。过去方法和想法的成功不会延续到未来的方法和想法上。</p>
+
+<p>我继续期望，从更长远的基础上，能够达到去年信中”我们的目标”部分所描述的那种成就（仍可索取副本）。然而，那些认为1965年的业绩可以经常实现的人，可能同时也在参加哈雷彗星观测俱乐部的每周聚会。我们一定会有亏损的年份，也一定会有落后于道指的年份——这毫无疑问。但我继续相信，未来我们能够取得平均优于道指的表现。如果我对此的预期发生变化，你们会立即收到通知。</p>
+
+<h2>投资公司</h2>
+
+<p>我们通常将我们的业绩与两家最大的开放式投资公司（共同基金）和两家最大的多元化封闭式投资公司进行比较，前者的投资政策通常是将95%-100%的资金投入普通股。这四家公司——马萨诸塞投资者信托、投资者股票基金、三洲公司和雷曼公司——管理着超过50亿美元，约有60万名股东，大概可以代表350亿美元投资公司行业的典型水平。我认为它们的业绩大致代表了绝大多数其他投资顾问机构的表现，后者管理的资金总量要大得多。</p>
+
+<p>编制以下表格的目的是说明，道指作为投资业绩的衡量标准绝非等闲之辈。仅仅管理以下所示四家公司的顾问人才每年就收取约1,000万美元的费用，而这只占整个专业投资管理行业的极小部分。这些高薪且广受尊敬的人才的公开”打击率”显示，其表现略低于道指这个无人管理的指数。</p>
+
+<p><strong>年度业绩</strong></p>
+
+<p>年份马萨诸塞投资者信托 (1)投资者股票基金 (1)雷曼公司 (2)三洲公司 (2)道指有限合伙人1957-11.4%-12.4%-11.4%-2.4%-8.4%9.3%195842.7%47.5%40.8%33.2%38.5%32.2%19599.0%10.3%8.1%8.4%20.0%20.9%1960-1.0%-0.6%2.5%2.8%-6.2%18.6%196125.6%24.9%23.6%22.5%22.4%35.9%1962-9.8%-13.4%-14.4%-10.0%-7.6%11.9%196320.0%16.5%23.7%18.3%20.6%30.5%196415.9%14.3%13.6%12.6%18.7%22.3%196510.2%9.8%19.0%10.7%14.2%36.9%</p>
+
+<p>(1) 根据资产净值变化加上当年向持有人记录的任何分配计算。</p>
+
+<p>(2) 1957-64年数据来自1965年穆迪银行与金融手册。1965年为估计数据。</p>
+
+<p><strong>累计收益</strong></p>
+
+<p>年份马萨诸塞投资者信托 (1)投资者股票基金 (1)雷曼公司 (2)三洲公司 (2)道指有限合伙人1957-11.4%-12.4%-11.4%-2.4%-8.4%9.3%1957–5826.4%29.2%24.7%30.0%26.9%44.5%1957–5937.8%42.5%34.8%40.9%52.3%74.7%1957–6036.4%41.6%38.2%44.8%42.9%107.2%1957–6171.3%76.9%70.8%77.4%74.9%181.6%1957–6254.5%53.2%46.2%59.7%61.6%215.1%1957–6385.4%78.5%80.8%88.9%94.9%311.2%1957–64114.9%104.0%105.4%112.7%131.3%402.9%1957–65136.8%124.0%145.3%138.4%164.1%588.5%<strong>年化复合收益率</strong><strong>10.1%</strong><strong>9.4%</strong><strong>10.5%</strong><strong>10.1%</strong><strong>11.4%</strong><strong>23.9%</strong></p>
+
+<p>一些最大的投资顾问机构（在某些情况下管理着数十亿美元的资金）也管理着投资公司，部分是为了方便较小的客户，部分是作为公开展示的窗口。这些基金的业绩大致与我们报告的四只基金相当。</p>
+
+<p>我坚定地相信衡量。上面提到的投资经理在他们的活动中经常运用衡量。他们不断研究市场份额的变化、利润率、资本回报率等。他们整个决策过程都是围绕衡量展开的——衡量管理层、行业、比较收益率等。我相信他们也会跟踪新业务的开拓成果以及顾问业务的盈利能力。那么，还有什么比反过来衡量投资想法和决策更为根本的呢？我当然不认为我用来衡量自己业绩的标准（并希望我的合伙人也使用）适用于所有的资金管理者。但我确实认为，任何从事资金管理的人都应该有一个衡量标准，而且他和被管理资金的所有者都应该清楚地理解为什么这是合适的标准、应该使用什么时间跨度等。</p>
+
+<p>弗兰克·布洛克在1965年11-12月号的《金融分析师杂志》上说得很好。谈到投资业绩的衡量，他说：”……然而，事实是文献中对这个课题存在一个巨大的空白。如果投资管理机构始终追求最佳业绩，那么仔细衡量投资成果就不是什么独特的事情。客户没有要求正式的业绩报告这一事实并不重要。仅仅是自尊心就足以要求我们每个人客观地判断自己建议的质量。如果不精确了解结果，这几乎是做不到的。一旦掌握了这些信息，就应该能够将分析延伸到某个点，在那里弱点和优势的模式开始显现。我们批评一个企业管理层未能使用最好的工具来了解一个复杂工业组织的进展。我们很难为自己未能提供同等的工具来展示我们管理他人资金的效率而开脱。……因此，我们不得不遗憾地报告，业绩衡量系统并未自动纳入大多数投资管理机构的数据处理程序。令人遗憾的事实是，有些人似乎宁愿不知道自己做得好还是差。”</p>
+
+<p>坦率地说，我坚持使用标尺有几个自私的理由。自然，我喜欢超越标准杆的感觉——用凯西·斯坦格尔的话说：“给我看一个好的输家，我就会给你看一个输家。“更重要的是，我确保自己不会因为错误的原因（有亏损的年份）而受到指责，而只会因为正确的原因（表现不如道指）而受到指责。知道合伙人会以正确的标准来评判我，有助于我做得更好。最后，预先设定好相关标尺确保了如果我们的业绩变得平庸（或更差），我们所有人都会退出这门生意。这意味着过去的成功不会蒙蔽对当前成果的判断。这应该能减少对糟糕业绩的巧妙合理化。（最近我在桥牌桌上一直受到糟糕灯光的困扰。）虽然这种自虐式的衡量方式听起来可能不是什么优势，但根据我对商业实体的观察，我可以向你保证，这种评估在许多投资和工业组织中本来可以取得很大的成效。</p>
+
+<p>因此，如果你在投资领域评估他人（或你自己！），想清楚一些标准——运用它们——解读它们。如果你不认为我们的标准（至少三年对比道指的测试）是适用的，你就不应该加入这个合伙企业。如果你确实认为它适用，你应该能够在内脏层面和大脑层面都以平常心对待亏损的年份——只要我们的整体成绩超越了道指。</p>
+
+<h2>复利的悲伤</h2>
+
+<p>通常在信的这个位置，我会停下来谦虚地试图纠正过去四五百年的历史错误。虽然每年只用几段文字来完成这项工作似乎很困难，但我觉得我已经在重塑世界对哥伦布、伊莎贝拉、弗朗索瓦一世、彼得·米纽伊特和曼哈顿印第安人的看法方面做出了我的贡献。这项努力的副产品是展示了复利的巨大威力。为了确保读者的注意力，我把这些文章命名为”复利的乐趣”。眼尖的人可能注意到今年的标题略有变化。</p>
+
+<p>可观的复合收益率——加上大量新资金的注入——使我们今年的期初资本达到了$43,645,000。我过去曾多次提出资本增加是否会损害我们投资业绩的问题。每次我都给出了否定的回答，并向你们承诺如果我的看法改变会立即报告。</p>
+
+<p>我不认为资本增加迄今为止已经损害了我们的运营。事实上，我相信在过去几年里，以合伙企业拥有的资本规模运作，我们比以更小的资金规模运作做得更好一些。这是因为我们幸运地遇到了几个规模恰好适合我们的投资机会——大到足以产生显著影响，小到足以操作。</p>
+
+<p>我现在觉得我们离资本规模可能变得不利的临界点更近了。我不想把这个说法描述得太精确，因为涉及的变量很多。在某些市场和商业环境下可能是最优规模的资金量，在其他环境下可能大大多于或少于最优规模。过去有少数几次在很短的时期内我觉得规模小一些会更有利，但更多时候情况恰恰相反。</p>
+
+<p>尽管如此，在目前看来，我认为规模再大幅增加更可能损害未来的业绩而非帮助它。这对于我个人的收益可能不成立，但对于你们的收益来说可能是对的。</p>
+
+<p>因此，除非情况有所改变（在某些条件下增加资本会改善业绩），或者新合伙人能为合伙企业带来资本以外的某种资产，我打算不再接纳新合伙人加入巴菲特合伙有限公司。</p>
+
+<p>要使这一政策生效，唯一的办法是全面执行。我已经通知苏茜，如果我们再有孩子，就得由她去找别的合伙企业了。</p>
+
+<p>因为我预计现有合伙人的提款（用于缴税等原因）很可能接近追加投资的金额，而且我预计业绩曲线随资本增加只会非常轻微地下降，所以我目前看不到限制现有合伙人追加资本的理由。</p>
+
+<p>有医学背景的人可能会把这整节解读为一种有效的抗甲状腺药物已经被开发出来的确凿证据。</p>
+
+<h2>我们业务的趋势</h2>
+
+<p>去年我讨论了我们各类投资的特征。考虑到对残忍和不寻常惩罚的处罚规定，我就不再重复各类别的特征了，只是请你们参考去年的信。不过，应该说几句话来更新一下各业务板块的情况，或许也能让你们更好地了解它们的优势和劣势。</p>
+
+<p>“套利类投资”业务变得非常零星。我们全年在套利类投资部分平均只动用了约600万美元的资金，而且只涉及很少的几个项目。虽然我们赚了约$1,410,000，以平均动用资本计算约为23.5%（这是以全部自有资金为基础计算的——在大多数套利类投资情况下借款是合适的，我们也确实利用了借款，这使我们的回报率高于这一百分比），但其中一半以上来自一个项目。我认为在目前的市场条件下，不太可能持续在大量资金上获得真正有吸引力的回报率。尽管如此，我们将继续努力保持警觉，留意偶尔出现的重要机会，可能也会继续利用一些我们看好概率的较小机会。</p>
+
+<p>“低估类投资——私人所有者基础”这一类别在1965年对我们非常友好。随着道指上涨，这个领域的机会变得更加稀缺，但当机会出现时，它们往往意义重大。我在去年年初提到我们是这一类别中三家公司的最大股东。我们在1964年底最大的这类投资在1965年根据一个收购要约被处置了，为巴菲特合伙有限公司实现了3,188,000的收益。在1964年底，我们在这项投资上有451,000的未实现增值。因此，归属于1965年的经济收益实际上只有$2,737,000，尽管全部税务影响都落在了这一年。我提到这些数字是为了说明，我们在任何一年的应税已实现收益与经济收益之间没有必然关系。</p>
+
+<p>低估类投资——私人所有者基础类别背后的基本理念在上述案例中得到了很好的展示。一个私人所有者完全愿意（在我们看来也相当明智地）为企业的控制权支付一个价格，而零散的股票买家不愿为企业很小的份额支付同样的价格。这种状况在证券市场中多年来一直很常见，虽然这一类别中的投资仅凭大盘的一般表现就能获得满意的结果，但也偶尔会因为像上面那样的企业行动而获得戏剧性的利润。</p>
+
+<p>“控制类投资”部分从我们的”低估类投资——私人所有者基础”类别中接收了一个新成员。自1962年11月以来，我们一直在购买伯克希尔·哈撒韦的股份，基本逻辑与上面提到的那只证券相同。不过，在伯克希尔的案例中，我们最终购买了足够多的股份，自己取得了控制权，而不是更常见的在市场上出售股票或卖给另一个单独买家。</p>
+
+<p>我们从1962年开始以每股7.60的价格买入伯克希尔的股票。这一价格部分反映了前管理层在关闭因纺织行业环境变化而过时的工厂时（前管理层对此反应相当迟缓）所遭受的巨额亏损。在战后时期，公司的状况一路下滑，1948年曾达到顶峰，当时税前利润约为2,950万，员工约11,000人。那时有11家工厂在运营。</p>
+
+<p>在我们于1965年春天取得控制权时，伯克希尔已经缩减到两家工厂和大约2,300名员工。令人惊喜的是，我们发现剩余部门有着优秀的管理人员，我们没有从外部引进一个人来运营。相对于我们7.60的初始买入价（然而平均成本为每股14.86，反映了1965年初的大量购买），公司在1965年12月31日仅净营运资本（在对工厂和设备不赋予任何价值的情况下）就达到了每股约$19。</p>
+
+<p>伯克希尔是一家令人愉快的公司。毫无疑问，纺织行业的状况是决定这家企业盈利能力的主导因素，但我们非常幸运有肯·蔡斯以一流的方式管理着这家企业，我们还有几位业内最优秀的销售人员分别领导着各自部门的销售工作。</p>
+
+<p>虽然在一个过热的市场中，伯克希尔不太可能像施乐、仙童相机或国家视频那样利润丰厚，但它是一种让人很安心的持有对象。正如我的西海岸哲学家所说：“饮食中既有燕麦片也有奶油泡芙，这是明智的。”</p>
+
+<p>由于我们的控股权益，我们在审计中将伯克希尔的投资作为一家企业来估值，而非一只可交易的证券。如果伯克希尔的市场价格上涨5美元，对巴菲特合伙有限公司没有好处——我们的持股不会出售。同样，如果价格下跌5美元，对我们也没有实质影响。我们持股的价值直接由企业的价值决定。我估值我们的持股并没有获得什么神启。（也许上面提到的三只热门股的持有者确实收到了关于其持股估值的此类消息——我觉得以目前的价格我至少需要那样可靠的东西才能安心睡觉。）我尝试根据我对资产、盈利能力、行业状况、竞争地位等的了解进行保守的估值。我们不会以这样的估值出售我们的持仓，但我们同样也不会以年底的估值出售投资组合中的其他项目——否则，我们早就卖了。</p>
+
+<p>我们的最后一个类别是”相对低估类投资”。随着其他类别中的机会减少，这一类别的相对重要性一直在增长。</p>
+
+<p>坦率地说，在这个领域操作比在其他三个类别中更加虚无缥缈一些，而我并不是一个虚无缥缈的人。因此，我觉得这里的成就不如其他类别那么扎实，对未来的预测也可能不那么可靠。尽管如此，我们1965年在”相对低估类投资”组的成果相当不错，部分得益于去年信中提到的那种技术的实施——它能够降低风险并有可能增加收益。它在任何年份都应该能降低风险，而在1965年它确实增加了收益。需要指出的是，这一类别的成果在很大程度上受到了仅仅两项投资的积极影响。</p>
+
+<p>坦诚也要求我指出，1965年我们在这一组中经历了巴菲特合伙有限公司历史上最糟糕的单笔投资。</p>
+
+<p>总体而言，1965年我们的好运气多于应得的。我们的好想法数量不多，但质量很好（除了上面提到的那个重要例外），而且情况的发展加速了几个项目的时间表。进入1966年时我手头并没有大量的好想法，不过我相信我至少有几个可能不错的大规模想法。很大程度上取决于市场条件是否有利于建立更大的仓位。</p>
+
+<p>总而言之，你们应该认识到，1965年从管道中流出的比流入的多。</p>
+
+<h2>分散化</h2>
+
+<p>去年在评论绝大多数投资经理未能取得超越纯粹随机结果的业绩时，我将其主要归因于以下因素的共同作用：“(1) 群体决策——我也许有偏见的看法是，由任何规模的团队来做决策，同时让所有人真正参与决策过程，几乎不可能产生杰出的投资管理；(2) 渴望与其他大型、声誉良好的机构保持一致的策略和（在一定程度上）一致的投资组合；(3) 一种制度性框架——在这种框架中’平均’就是’安全’的，而独立行动的个人回报与此类行动所附带的一般风险完全不成比例；(4) 对某些不合理的分散化做法的墨守成规；以及最后也是最重要的，(5) 惰性。”</p>
+
+<p>今年在11月发出的材料中，我特别提请你们注意新增的一条基本规则：“7. 我们的分散化程度远低于大多数投资操作。在极高概率确认我们的事实和推理正确、且极低概率出现任何因素会大幅改变投资基础价值的条件下，我们可能将高达40%的净资产投入单一证券。”</p>
+
+<p>我们显然在执行一种与几乎所有公开投资操作截然不同的分散化策略。坦率地说，没有什么比拥有50个不同的投资机会更让我高兴的了——每一个的数学期望（这个术语反映所有可能的相对表现范围，包括负值，并按每种可能性的概率加权——请不要打哈欠）都能实现每年超越道指15个百分点的表现。如果这50个个别的期望值互不相关（一个的结果与另一个无关），我可以把2%的资金投入每一个，然后非常有把握地坐等整体结果非常接近这样的15个百分点优势。</p>
+
+<p>但现实不是这样的。</p>
+
+<p>我们必须费尽心力才能找到极少数有吸引力的投资机会。按照定义，这样的机会是指我的预期业绩（如上定义）每年至少超越道指十个百分点的投资。在我们确实找到的少数机会中，预期值差异很大。问题永远是：“我应该在排名第一的投资（按预期相对业绩排名）上投入多少，在排名第八的投资上投入多少？“这在很大程度上取决于第一名和第八名之间数学期望的差距有多大。还取决于第一名出现非常糟糕的相对表现的概率。两只证券可能有相同的数学期望，但其中一只可能有0.05的概率比道指差15个百分点或更多，而另一只可能只有0.01的概率出现这种表现。第一种情况中更宽的预期范围降低了重仓持有的吸引力。</p>
+
+<p>以上可能让整个操作听起来非常精确。其实不然。然而，我们的业务就是确认事实，然后将经验和推理应用于这些事实以形成预期。无论我们的尝试多么不精确、多么受情绪影响，这就是这门生意的本质。多年的证券决策结果将展示你在做这种计算方面做得如何——无论你是否有意识地意识到自己在做这种计算。我相信当投资者意识到自己的思维过程走的是什么路径时，他就拥有了明显的优势。</p>
+
+<p>有一件事我可以向你们保证。如果基金的良好业绩哪怕只是一个次要目标，任何持有一百只股票的投资组合（无论管理者管理的是一千美元还是十亿美元）都不是在合理运作。加入第一百只股票对降低投资组合业绩潜在波动的作用微乎其微，根本无法补偿其加入对整体投资组合预期的负面影响。</p>
+
+<p>任何在据称研究了投资价值之后持有如此多证券的人（我不管这些证券的名头有多响亮），所遵循的是我所说的”诺亚方舟投资法”——每种来两个。这样的投资者应该去驾驶方舟。虽然诺亚可能是遵循了某些经过时间检验的生物学原则，但投资者们在数学原则方面偏离了轨道。（我的数学只学到了平面几何，但除了一个例外，我已经仔细地把数学家们从我们的合伙企业中筛选出去了。）</p>
+
+<p>当然，别人不合逻辑地持有一百只证券并不能证明我们的做法是正确的。虽然他们在过度分散化方面可能是错误的，但我们必须从我们目标的角度积极地推理出一个恰当的分散化策略。</p>
+
+<p>最优投资组合取决于可选择项的各种预期以及可容忍的业绩波动程度。选择的数量越多，实际与预期结果之间的年度平均波动就越小。同时，假设不同的选择有不同的业绩预期，预期结果也会越低。</p>
+
+<p>我愿意在逐年结果的平稳性方面做出很大牺牲（记住当我谈论”结果”时，我谈的是相对于道指的表现），以换取更好的长期整体业绩。简单来说，这意味着我愿意把资金高度集中在我认为最好的投资机会上，同时充分认识到这可能会偶尔造成一个非常糟糕的年份——可能比我更加分散化时更糟糕一些。虽然这意味着我们的结果会更加波动，但我认为这也意味着我们的长期领先优势应该更大。</p>
+
+<p>你们已经看到了一些例子。我们相对道指的领先幅度从1958年的2.4个百分点到1965年的33.0个百分点不等。如果你将此与第三页列出的各基金的偏差进行比较，你会发现我们的波动幅度大得多。我本可以以减少波幅的方式运作，但那也会在一定程度上降低我们的整体业绩——虽然它仍会大幅超过投资公司。回顾过去，并继续思考这个问题，我觉得如果有什么的话，我过去应该比实际更加集中。因此，有了这条新的基本规则和这篇冗长的解释。</p>
+
+<p>再次声明，这是一种有些非传统的推理（这并不意味着它是对的或错的——它确实意味着你必须自己思考），你很可能有不同的看法——如果是这样的话，这个合伙企业不适合你。我们显然只会在极少数情况下达到40%的上限——这种稀少性当然也正是为什么当我们看到这样的机会时必须高度集中的原因。在合伙企业九年的历史中，我们大概只有五六次超过25%。任何这样的情况都必须承诺相对于当时可用的其他机会，有显著优越的相对于道指的表现。它们还必须具有如此优越的定性和/或定量因素，使得严重永久性损失的可能性极小（短期报价基础上什么都可能发生——这部分解释了逐年结果更大波动的风险）。在选择我在任何单一投资上的上限时，我试图把单一投资（或存在相互关联的一组投资）使我们的总投资组合比道指差十个百分点以上的概率降到极小。</p>
+
+<p>我们目前有两种超过25%的持仓——一种是控制类投资，另一种是我们永远不会积极参与的大公司。值得指出的是，我们1965年的业绩绝大部分是五项投资的产物。这些投资在1965年的收益（在某些情况下，同一持仓在之前的年份也有收益）从约800,000到约350万不等。如果你看我们五项最小的低估类投资在1965年的整体表现，结果是乏善可陈的（我选了一个非常客气的形容词）。</p>
+
+<p>有趣的是，投资管理文献中几乎没有关于最优分散化的推演计算的内容。</p>
+
+<p>所有教科书都建议”充分”分散化，但那些量化”充分”的教科书几乎从不解释他们是如何得出结论的。因此，对于过度分散化的总结，我们引用那位杰出的学术权威比利·罗斯的话：“你有一个七十个姑娘的后宫；你不可能真正了解其中任何一个。“</p>
+
+<h2>杂项</h2>
+
+<p>去年我们大胆地宣布了一项扩张计划，增加了227又1/4平方英尺。老合伙人摇头叹息。我觉得我们1965年$12,304,060的运营收益表明我们并没有过度扩张。幸好我们没有签百分比租约。在运营层面，事情从未如此顺畅，我认为我们目前的配置无疑让我能把比投资管理行业中几乎任何人都更高比例的时间用于思考投资过程。这当然是非常优秀的团队和配合默契的合伙人共同造就的结果。</p>
+
+<p>约翰·哈丁全面负责了所有行政运营，取得了出色的成果。比尔·斯科特继续深入研究投资的详细信息，大幅提升了我们的净利润数字。贝丝·费翰、唐娜·沃尔特和伊丽莎白·汉农（11月加入我们）都准确高效地完成了大量工作（秘书注——阿门！）。</p>
+
+<p>以上这些人、他们的配偶（每人一位）和孩子们在合伙企业中的投资合计超过600,000。苏茜和我的投资为6,849,936，这应该能防止我在下午溜去看电影。这几乎代表了我们的全部净资产，除了我们继续持有的中大陆标签卡公司——这是一家奥马哈当地公司，我在1960年买入时它不到10个股东。</p>
+
+<p>此外，我的亲属——包括三个孩子、母亲、两个姐妹、两个姐夫/妹夫、岳父、三个姑姑/阿姨、两个叔叔/舅舅、五个堂/表兄弟姐妹和六个侄子/侄女——直接或间接在巴菲特合伙有限公司拥有$2,708,233的权益。所以别动什么改合伙企业名字的念头。</p>
+
+<p>毕马威会计师事务所一如既往地出色完成了加速审计和税务信息的工作。这需要巨大的努力和能力，他们两样都不缺。今年他们动用了计算机来处理我们的问题，我自然有点担心会有别人被算出来当了普通合伙人。不过，一切都运行得相当顺利。</p>
+
+<p>在未来两周内你们将收到：</p>
+
+<p>-</p>
+
+<p>一封税务信，为你提供1965年联邦所得税申报所需的全部巴菲特合伙有限公司信息。此信是唯一用于税务目的的文件。</p>
+
+<p>-</p>
+
+<p>毕马威会计师事务所1965年的审计报告，列明巴菲特合伙有限公司的运营和财务状况以及你个人的资本账户。</p>
+
+<p>-</p>
+
+<p>一封由我签署的信，说明你在1966年1月1日的巴菲特合伙有限公司权益状况。这与审计报告中的数字一致。</p>
+
+<p>如果本信或年内发生的任何事情需要澄清，请告诉我。很难预料你们可能有的所有问题，如果有任何令人困惑的地方，我想知道。例如，去年一位合伙人就个人资本账户的对账呈现方式提出了一个极好的建议。</p>
+
+<p>我的下一封信将在大约7月15日发出，总结今年上半年的情况。</p>
+
+<p>此致敬礼</p>
+
+<p>沃伦·E·巴菲特</p>
+
+<p>&lt;h2 id=&quot;</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
+      </div>
+    </section>
+<section id="year-1966" class="letter-section">
+      <div class="letter-header">
+        <h2>1966年</h2>
+        <p class="letter-subtitle">规模开始成为桎梏</p>
+      </div>
+      <div class="letter-body">
+        <h1>1966年合伙人信（第三封）</h1>
+
+<p>巴菲特合伙公司</p>
+<p>基威特大厦610号</p>
+<p>内布拉斯加州奥马哈 68131</p>
+<p>电话 042-4110</p>
+
+<p>1967年1月25日</p>
+
+<h2>第一个十年</h2>
+
+<p>合伙公司于1966年迎来了十周年。庆祝方式恰如其分——我们创下了相对于道指的业绩优势的历史纪录（无论过去还是未来）。我们的优势为36个百分点，来源于合伙公司的正20.4%和道指的负15.6%。</p>
+
+<p>这次令人愉悦但不可重复的经历部分归因于道指的平淡表现。1966年几乎所有的投资经理都跑赢了道指。道指以三十只成分股的美元价格加权。几只最高价的成分股因此承担了不相称的权重（杜邦、通用汽车），在1966年表现尤为糟糕。这一点加上市场对传统蓝筹股的普遍厌恶，导致道指的表现相对于一般投资经验较差，尤其在最后一个季度。</p>
+
+<p>以下是道指逐年表现、合伙公司在分配给普通合伙人（超出6%部分的四分之一）之前的业绩，以及有限合伙人收益的汇总：</p>
+
+<p>年份道指整体收益 (1)合伙公司收益 (2)有限合伙人收益 (3)1957-8.4%10.4%9.3%195838.5%40.9%32.2%195920.0%25.9%20.9%1960-6.2%22.8%18.6%196122.4%45.9%35.9%1962-7.6%13.9%11.9%196320.6%38.7%30.5%196418.7%27.8%22.3%196514.2%47.2%36.9%1966-15.6%20.4%16.8%<strong>累计收益</strong><strong>141.1%</strong><strong>1028.7%</strong><strong>641.5%</strong><strong>年化复利增长率</strong><strong>9.7%</strong><strong>29.0%</strong><strong>23.5%</strong></p>
+
+<p>&gt;</p>
+
+<p>(1) 基于道指年度变动加上持有道指成分股可获得的股息。该表涵盖合伙公司运营的所有完整年度。</p>
+<p>(2) 1957-61年为所有前身有限合伙公司全年运营的合并结果，扣除所有费用但未扣除对合伙人的分配或对普通合伙人的提成。</p>
+<p>(3) 1957-61年根据前一列合伙公司业绩，按照现行合伙协议对普通合伙人提成后计算，但未扣除有限合伙人的每月提款。</p>
+
+<p><strong>累计及复利基础上的收益：</strong></p>
+
+<p>期间道指整体收益合伙公司收益有限合伙人收益1957-8.4%10.4%9.3%1957–5826.9%55.6%44.5%1957–5952.3%95.9%74.7%1957–6042.9%140.6%107.2%1957–6174.9%251.0%181.6%1957–6261.6%299.8%215.1%1957–6395.1%454.5%311.2%1957–64131.3%608.7%402.9%1957–65164.1%943.2%588.5%1957–66122.9%1156.0%704.2%<strong>年化复利增长率</strong><strong>11.4%</strong><strong>29.8%</strong><strong>23.9%</strong></p>
+
+<h2>投资公司</h2>
+
+<p>以下是两家最大的开放式投资公司（共同基金）——它们通常将95-100%的资金投资于普通股——以及两家最大的多元化封闭式投资公司业绩的常规比较表。</p>
+
+<p>年份麻省投资信托 (1)投资者股票基金 (1)雷曼公司 (2)三洲公司 (2)道指有限合伙人1957-11.4%-12.4%-11.4%-2.4%-8.4%9.3%195842.7%47.5%40.8%33.2%38.5%32.2%19599.0%10.3%8.1%8.4%20.0%20.9%1960-1.0%-0.6%2.5%2.8%-6.2%18.6%196125.6%24.9%23.6%22.5%22.4%35.9%1962-9.8%-13.4%-14.4%-10.0%-7.6%11.9%196320.0%16.5%23.7%18.3%20.6%30.5%196415.9%14.3%13.6%12.6%18.7%22.3%196510.2%9.8%19.0%10.7%14.2%36.9%1966-7.7%-10.0%-2.6%-6.9%-15.6%16.8%<strong>累计收益</strong><strong>118.1%</strong><strong>106.3%</strong><strong>142.8%</strong><strong>126.9%</strong><strong>141.1%</strong><strong>641.5%</strong><strong>年化复利增长率</strong><strong>8.6%</strong><strong>7.9%</strong><strong>9.8%</strong><strong>9.0%</strong><strong>9.7%</strong><strong>23.5%</strong></p>
+
+<p>&gt;</p>
+
+<p>(1) 根据资产净值变动加上年内对持有人的分配计算。</p>
+<p>(2) 1957-1965年数据来自1966年穆迪银行与金融手册。1966年为估计值。</p>
+
+<p>这些投资公司的业绩数据在此定期披露，是为了说明道指作为投资标准绝非弱者。需要再次强调的是，这些公司并非基于与巴菲特合伙公司的可比性而被选出。两者之间存在重要差异，包括：(1) 投资公司受到内部和外部施加的投资限制，这些限制不适用于我们；(2) 投资公司的分散化程度远超我们，因此在单一年份内相对于道指出现非常糟糕业绩的可能性也更小；(3) 它们的管理层在追求超常业绩方面的激励要少得多，而在遵循惯例方面的激励则更大。</p>
+
+<p>然而，上述记录确实揭示了备受推崇、薪酬优厚的全职专业投资经理在操作普通股时能够取得怎样的成绩。这些经理是美国投资者（超过60万人）在投资管理领域众多选择中自由选出的佼佼者。他们的业绩可能代表了绝大多数专业投资经理的典型表现。</p>
+
+<p>不过，这些并非投资领域取得的最佳记录。少数共同基金和一些私人投资机构编制了远优于道指的记录，在某些情况下甚至大大优于巴菲特合伙公司。他们的投资技巧通常与我们大相径庭，也超出了我的能力范围。然而，它们通常由非常聪明、积极进取的人管理，在这次关于专业投资管理业绩的整体讨论中，提及这些优异业绩的存在是合理的。</p>
+
+<h2>我们业务的趋势</h2>
+
+<p>一个敏锐的头脑如果努力解读第一页的数字，可能会得出许多错误的结论。</p>
+
+<p>头十年的业绩绝对没有任何可能在接下来的十年中被复制，甚至被近似地接近。这样的成绩或许能由某个饥渴的二十五岁年轻人实现——他运用105,100美元的初始合伙资本，在十年内经历了一个常常有利于成功实施其投资哲学的商业和市场环境。</p>
+
+<p>但它们不会由一个吃得更好的三十六岁中年人实现——他运营着我们目前54,065,345美元的合伙资本，如今能找到的真正好主意大概只有从前的五分之一到十分之一来实施他的投资哲学。</p>
+
+<p>巴菲特联合有限公司（巴菲特合伙有限公司的前身）于1956年5月5日在密苏里河西岸成立，由一支由四位家庭成员、三位亲密朋友和105,100美元组成的坚强小队创办。（我试图从1957年1月我那一页半的第一封年度信函中找到一些关于我们未来或当前状况的精辟见解插在这里作为引用。然而，显然有人篡改了我的存档副本，删去了我一定做出过的那些深刻评论。）</p>
+
+<p>在那时以及此后几年，有大量证券以远低于我们用来选择一般市场投资的”私人业主价值”标准的价格出售。我们还遇到了大量套利类投资机会，其中的胜算非常有利于我们。问题始终是选哪个，而不是有没有。因此，我们能够持有十五到二十五只证券，并对所有持仓所蕴含的概率充满信心。</p>
+
+<p>近年来，这种情况发生了巨大变化。我们现在极少发现满足以下条件的证券：我能理解、有足够的规模可供投资、且投资业绩的预期能达到我们每年跑赢道指十个百分点的标准。在过去三年中，我们每年只找到两三个具有这种超额业绩预期的新想法。幸运的是，在某些情况下，我们最大限度地利用了它们。然而，在早期，较少的努力就能产生数十个可比的机会。客观地评判自身生产力下降的原因是困难的。三个看似明显的因素是：(1) 一定程度上改变了的市场环境；(2) 我们增大的规模；(3) 大大增加的竞争。</p>
+
+<p>显然，一个只有涓涓细流般好主意的企业，其前景不如一个有稳定好主意流入的企业。迄今为止，涓涓细流提供的财务滋养与洪流一样多。这是因为一个人的消化能力有限（百万美元的主意对千元银行账户毫无益处——我在早年就深切体会到了这一点），也因为有限的想法数量促使人更集中地利用现有的想法。后一个因素近年来在我们这里确实在起作用。然而，涓涓细流完全枯竭的可能性远大于洪流。</p>
+
+<p>这些情况不会导致我试图在自己理解范围之外做出投资决策（我不赞同”打不过他们就加入他们”的哲学——我个人更倾向于”加入不了就打败他们”）。我们不会进入那些对投资决策至关重要的技术远超我理解范围的行业。我对半导体或集成电路的了解，大约和我对chrzaszcz的交配习惯的了解一样多。（那是一种波兰五月金龟子，同学们——如果你们发不出它的音，试着把它和thrzaszcz押韵。）</p>
+
+<p>此外，我们不会采用当前频繁流行的做法——投资于那些试图预判市场走势而忽视企业估值的证券。这种所谓的”时尚”投资近年来频繁产生了非常可观和快速的利润（就在我1月份写这封信时也是如此）。这种投资技巧的合理性我既不能肯定也不能否定。它并不完全满足我的智识（也许是我的偏见），而且绝对不适合我的性情。我不会基于这种方法投资自己的钱，因此我当然也不会用你们的钱这样做。</p>
+
+<p>最后，即使盈利前景光明，如果主要的人为问题有很大可能出现，我们也不会寻求参与这类投资活动。</p>
+
+<p>我向你们作为合伙人承诺的是：我将努力维持这涓涓细流般的好主意，并尽可能地充分利用它——但如果它完全枯竭了，你们将被诚实且及时地告知，以便我们都能采取替代行动。</p>
+
+<h2>1966年业绩分析</h2>
+
+<p>我们投资运营的全部四大类别在1966年都表现良好。具体来说，我们的总体收益为8,906,701美元，来源如下：</p>
+
+<p>类别平均投资额总体收益控制类投资$17,259,342$1,566,302低估类投资——私人业主$1,359,340$1,004,362低估类投资——相对低估$21,847,045$5,124,254套利类投资$7,666,314$1,714,181其他，包括美国国债$1,332,609$(18,422)<strong>总收入</strong><strong>$9,390,677</strong>减：一般费用<strong>$483,976</strong><strong>总体收益</strong><strong>$8,906,701</strong></p>
+
+<p>在进入主要讨论之前，有几点需要说明：</p>
+
+<p>-</p>
+
+<p>上述各类别的解释在1965年1月18日的信中已经做过。如果你需要复习一下而你最爱的书摊又没有平装版，我们很乐意给你一份。</p>
+
+<p>-</p>
+
+<p>分类并非铁板钉钉。不会追溯性地更改，但最初的分类决定有时是任意的。</p>
+
+<p>-</p>
+
+<p>按类别平均投资基础计算的百分比回报率，相对于按期初投资基础计算的合伙公司百分比回报率会有所低估。在上述数字中，我们在1月1日以100美元购买的证券，如果以均匀速度升值到12月31日的150美元，其平均投资额为125美元，产生40%的回报率，而按照惯常方法则为50%。换言之，上述数字使用月度市场价值的平均值来计算平均投资额。</p>
+
+<p>-</p>
+
+<p>所有结果基于100%自有、无杠杆的基础。利息和其他一般费用从总业绩中扣除，不按类别分摊。与特定投资操作直接相关的费用（如做空股票支付的股息）按类别扣除。当证券被直接借入并卖空时，净投资额（多头减空头）为适用类别的平均投资额。</p>
+
+<p>-</p>
+
+<p>上表用途有限。各类别的业绩由一两项投资主导。它们不代表大量稳定数据（如所有美国男性的死亡率之类）的汇总，不能据此得出结论和做出预测。相反，它们代表的是不频繁、非同质的现象，对各种行动方案提供非常初步的建议，我们也正是这样使用它们的。</p>
+
+<p>-</p>
+
+<p>最后，这些计算不像我们数钱那样精心，可能存在文书或数学错误，因为它们不完全自校验。</p>
+
+<h3>控制类投资</h3>
+
+<p>1966年控制类投资的收益主要来自三个方面：(1) 1966年我们在控股公司中应占的留存经营利润；(2) 以低于我们控股权益估值的价格在公开市场增购股票；(3) 控股公司所持有限售证券的未实现增值。1966年所有正向项目的总额为2,600,838美元。</p>
+
+<p>然而，由于我1966年11月1日信中提到的因素、特定行业状况和其他相关估值项目，在确定截至1966年12月31日适用于控股权益的公允估值时，这一收益被削减了1,034,780美元。因此，控制类别的年度总体收益降至1,566,058美元。</p>
+
+<p>我们无疑是幸运的，1966年我们有相对较高比例的净资产投资于企业而非股票。同样的资金如果投在一般市场上，在这一年中可能会产生亏损，甚至可能是相当大的亏损。这并非刻意安排，如果股市在年内大幅上涨，这一类别就会成为整体业绩的重要拖累。1967年同样的情况将继续存在。</p>
+
+<h3>低估类投资——私人业主</h3>
+
+<p>我们在这一类别中的表现属于”每月一次，每天21美元”那种类型。1965年年中，我们开始购买一只非常有吸引力的广泛持有的证券，其售价远低于其私人业主价值。我们的希望是在两三年的时间里，在当时有利的价格下投入1,000万美元或更多。该公司经营的各项业务是可以理解的，我们能够通过竞争对手、分销商、客户、供应商、前雇员等深入了解其竞争优势和劣势。该股票特殊的市场状况让我们有望在耐心等待下大量购入而不扰动价格。</p>
+
+<p>1965年年底，我们投入了1,956,980美元，所持股票的市值为2,358,412美元，因此有401,432美元计入了1965年的业绩。当然，我们更希望看到市价低于成本，因为我们的兴趣在于继续买入而非卖出。这会压低巴菲特合伙有限公司1965年的业绩，或许也会减少有限合伙人感受到的欣快感（从心理上说，对所有合伙人来说净效果是平手，因为普通合伙人会高兴）但会提升长期业绩。股价已经小幅上升到我们成本之上的事实已经减缓了我们的购买计划，从而降低了最终利润。</p>
+
+<p>1966年出现了一个更为戏剧性的短期业绩与长期结果最大化之间的冲突。另一方——一个我此前完全不认识的人——发出了要约收购，断绝了未来以有利价格继续买入的机会。我做出了决定，对我们来说最明智的做法（也许未必正确）是处置我们的持股，因此我们在2月实现了总利润1,269,181美元，其中867,749美元归属于1966年。</p>
+
+<p>虽然在1966年随后发展出的市场环境中，任何收益都显得特别可观，但你可以确信我并不喜欢把大山变成小丘。当然，这个小丘反映在了1966年的业绩中。然而，从长远来看，如果1966年的业绩差了五个百分点，而我们能继续在今年市场环境中可能出现的低迷价格下大量购入该股票，我们的处境会好得多。</p>
+
+<p>在好主意多如牛毛的年代，这种过早的结局不会令人不快。当然，一个商业运营中的某些失败也能产生适度利润，这还是值得肯定的。然而，你可以看到开发替代想法有多困难——检视一下我们在私人业主类别中的平均投资额就知道了——尽管股价更低，本应更有利于发现此类机会，但我们在一年的剩余时间里一无所获。</p>
+
+<h3>低估类投资——相对低估</h3>
+
+<p>我们在这一类别中的相对表现是我们有史以来最好的——归功于一项持仓，它在1965年底和1966年底都是我们最大的投资。这项投资在我们持有的每一年（1964、1965、1966年）都大幅跑赢了大盘。虽然任何单一年份的表现都可能相当不稳定，但我们认为在三到四年的时期内取得优异表现的概率非常有利。正是这项特定证券的吸引力和相对确定性促使我在1965年11月引入了基本原则第7条，允许单一持仓最高占我们净资产的40%。我们持续投入大量精力评估该公司的各个方面，并不断验证我们认为该证券优于其他投资选择的假设。在不断变化的价格下进行这种持续的评估和比较，对我们的投资运营来说是绝对必要的。</p>
+
+<p>如果能报告说我们在低估类投资——相对低估类别中的业绩代表了十个行业的十五只证券，且几乎全部跑赢市场，那会令人愉悦得多（也预示着更有利的未来）。但我们确实没有那么多好主意。如上所述，新想法不断与现有想法比较，如果效果是降低可预期业绩，我们就不会进行调换。这一政策导致近年来交易活动有限，因为我们对最大持仓的相对优势感到如此强烈。这种状况意味着已实现收益在总业绩中所占的比例远小于早年好主意涌流不断的时候。</p>
+
+<p>我们在这一类别中的集中投资程度注定会在短期业绩上产生大幅波动——其中一些肯定令人不快。已经有一些这样的波动发生在比我向合伙人汇报所用的时间跨度更短的期间内。这也是我认为频繁报告对于像我们这样以长期为导向的业务来说是愚蠢且可能具有误导性的原因之一。</p>
+
+<p>就我个人而言，在去年关于分散投资的信中所表达的限度内，我愿意承受短期大幅波动的痛苦（忘掉快乐吧），来换取长期业绩的最大化。然而，我不愿意为了追求更好的长期业绩而承担永久性重大资本损失的风险。要说清楚——在我们集中持仓的政策下，合伙人应做好充分准备，迎接可能出现的大幅业绩不佳时期（在急剧上涨的市场中可能性更大），以抵消我们在1965年和1966年经历过的偶尔的超额表现，作为我们为期望中的良好长期业绩所付出的代价。</p>
+
+<p>这些关于长期的论述让一位合伙人评论说：“如果一个人的头被按在水下，即使五分钟也是很长的时间。“当然，这正是我们在运营中极少使用借款的原因。1966年的平均银行借款远低于平均净资产的10%。</p>
+
+<p>关于低估类投资——相对低估类别还有最后一点要说。在这一部分，我们也有过一次经历，帮助了1966年的业绩但损害了我们的长期前景。1966年在这一类别中我们只有一个真正重要的新想法。我们从晚春开始购买，但到外部条件推动股价上涨到不再具有相对吸引力时，我们只买到了大约160万美元（可以稳定购买但只能以适度的速度）。虽然我们在1966年平均持有六个半月期间获得了728,141美元的总体收益，但如果股票在我们积累到真正可观的仓位之前长期不涨，那会好得多。</p>
+
+<h3>套利类投资</h3>
+
+<p>在去年的信中我预测套利类投资的重要性将下降。虽然它们不如过去某些年份重要，但1966年的经历令我感到惊喜，期间我们平均投入了7,666,314美元在这一类别中。此外，我们倾向于将借款归入套利部分，因此我们投入的净权益资本实际上低于这个数字，我们的回报率也略好于第六页所示的22.4%。这里我们同样遇到了很大的波动。截至6月30日，我们在这一类别中的总利润为16,112美元，平均投资额为7,870,151美元——实际上是下半年的出色表现抵消了上半年的糟糕表现。</p>
+
+<p>过去有些年份，我们净资产的30-40%投在了套利类投资中，但这种情况在未来极不可能出现。尽管如此，在投入的适度资本上，它们可能继续产生一些不错的回报。</p>
+
+<h3>其他事项</h3>
+
+<p>在运营层面，Bill、John、Elizabeth和Donna都做出了出色的贡献，我们继续在额定能力以上良好运转。在巴菲特合伙公司，我们从未需要将投资精力转移来弥补组织方面的不足，这一直是多年来业绩表现的一个重要因素。</p>
+
+<p>毕马威会计师事务所在其电脑的辅助下（这是第二年了），一如既往地完成了迅速、高效而全面的工作。</p>
+
+<p>我们所有人继续保持着对合伙公司的切身利益。截至1967年1月1日，员工和我本人、我们的配偶和子女，在合伙公司中的投资总额超过1,000万美元。就我的家庭而言，我们在巴菲特合伙有限公司中的投资占我们净资产的90%以上。</p>
+
+<p>在接下来的两周内，你将收到：</p>
+
+<ul>
+<li>一封税务信函，为你提供申报1966年联邦所得税所需的全部BPL信息。这封信是唯一在税务上有效的文件。</li>
+</ul>
+
+<ul>
+<li>毕马威会计师事务所出具的1966年审计报告，列明BPL的运营和财务状况，以及你个人的资本账户。</li>
+</ul>
+
+<ul>
+<li>一封由我签署的信函，列明你截至1967年1月1日的BPL权益状况。这与审计中得出的数字完全一致。</li>
+</ul>
+
+<p>如果这封信中有任何不清楚的地方，或者年内发生了任何需要澄清的事情，请告诉我。我的下一封信将在大约7月15日发出，总结今年上半年的情况。</p>
+
+<p>此致敬意，</p>
+
+<p>沃伦·巴菲特</p>
+
+<p>&lt;h2 id=&quot;</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
+      </div>
+    </section>
+<section id="year-1967" class="letter-section">
+      <div class="letter-header">
+        <h2>1967年</h2>
+        <p class="letter-subtitle">目标下调 — 10% vs 9%</p>
+      </div>
+      <div class="letter-body">
+        <h1>巴菲特合伙人信 — 1967年</h1>
+
+<p>巴菲特合伙基金有限公司</p>
+<p>基威特大厦610号</p>
+<p>内布拉斯加州奥马哈 68131</p>
+<p>电话 042-4110</p>
+
+<p>1968年1月24日</p>
+
+<h2>我们1967年的业绩</h2>
+
+<p>以大多数标准衡量，1967年对我们来说是好年景。我们的整体业绩为正35.9%，而道琼斯工业指数为正19.0%，从而超越了我们此前设定的业绩超过道指十个百分点的目标。我们的整体收益为19,384,250美元，即使在通胀加速的情况下，这也能买很多百事可乐。而且，由于出售了一些长期持有的大额有价证券头寸，我们实现了27,376,667美元的应税收入——这与1967年的业绩无关，但应该让你们所有人在4月15日那天感受到积极参与”伟大社会”的满足感。</p>
+
+<p>上述小小的兴奋感，在仔细观察1967年股市真实状况后有所减弱。可能比历史上几乎任何一年都有更大比例的证券市场参与者大幅跑赢了道指。1967年，对许多人来说，天上掉金子，拿着大号低音号出去演奏就能赚钱。我目前没有最终统计数据，但我猜测至少95%追求普通股投资的投资公司取得了优于道指的业绩——在许多情况下是大幅超越。这是一个利润与年龄成反比的年份——而从投资哲学上来说，我已经在老年病房了。</p>
+
+<p>以下是道指、合伙基金（分配给普通合伙人之前，即超过6%部分的四分之一）以及有限合伙人的逐年业绩汇总：</p>
+
+<p>年份道指整体回报 (1)合伙基金业绩 (2)有限合伙人业绩 (3)1957-8.4%10.4%9.3%195838.5%40.9%32.2%195920.0%25.9%20.9%1960-6.2%22.8%18.6%196122.4%45.9%35.9%1962-7.6%13.9%11.9%196320.6%38.7%30.5%196418.7%27.8%22.3%196514.2%47.2%36.9%1966-15.6%20.4%16.8%196719.0%35.9%28.4%</p>
+
+<p>&gt;</p>
+
+<p>(1) 基于道指年度价值变化加上当年持有道指成分股应获得的股息。该表包含合伙基金活动的所有完整年份。</p>
+<p>(2) 1957-61年为所有前身有限合伙企业全年运营的合并业绩，扣除所有费用后、分配给合伙人或分配给普通合伙人之前。</p>
+<p>(3) 1957-61年基于前一列的合伙基金业绩计算，按照现行合伙协议扣除普通合伙人分成后，但在有限合伙人每月提款之前。</p>
+
+<p>按累计或复利基础计算，业绩如下：</p>
+
+<p>年份道指累计回报合伙基金累计业绩有限合伙人累计业绩1957-8.4%10.4%9.3%1957–5826.9%55.6%44.5%1957–5952.3%95.9%74.7%1957–6042.9%140.6%107.2%1957–6174.9%251.0%181.6%1957–6261.6%299.8%215.1%1957–6395.1%454.5%311.2%1957–64131.3%608.7%402.9%1957–65164.1%943.2%588.5%1957–66122.9%1156.0%704.2%1957–67165.3%1606.9%932.6%年化复合回报率9.3%29.4%23.6%</p>
+
+<h2>投资公司比较</h2>
+
+<p>以下是惯例表格，展示了两家最大的共同基金（它们自BPL成立以来一直位居规模榜首——不过今年德莱弗斯基金超过了它们）——这两家基金通常将95-100%的资金投资于普通股，以及两家最大的多元化封闭式投资公司的业绩：</p>
+
+<p>年份马萨诸塞投资信托 (1)投资者股票基金 (1)雷曼 (2)三洲公司 (2)道指有限合伙人1957-11.4%-12.4%-11.4%-2.4%-8.4%9.3%195842.7%47.5%40.8%33.2%38.5%32.2%19599.0%10.3%8.1%8.4%20.0%20.9%1960-1.0%-0.6%2.5%2.8%-6.2%18.6%196125.6%24.9%23.6%22.5%22.4%35.9%1962-9.8%-13.4%-14.4%-10.0%-7.6%11.9%196320.0%16.5%23.7%18.3%20.6%30.5%196415.9%14.3%13.6%12.6%18.7%22.3%196510.2%9.8%19.0%10.7%14.2%36.9%1966-7.7%-10.0%-2.6%-6.9%-15.6%16.8%196720.0%22.8%28.0%25.4%19.0%28.4%累计回报162.3%147.6%206.2%181.5%165.3%932.6%年化复合回报率9.2%8.6%10.7%9.9%9.3%23.6%</p>
+
+<p>&gt;</p>
+
+<p>(1) 根据资产净值变化加上年内分配给持有人的任何分红计算。</p>
+<p>(2) 1957-1966年数据来自1967年穆迪银行与金融手册。1967年为估计值。</p>
+
+<p>去年我说过：</p>
+
+<p>&gt;</p>
+
+<p>“一些共同基金和私人投资机构的业绩远远超过道指，在某些情况下也大幅超过巴菲特合伙基金。他们的投资技巧通常与我们大相径庭，也不在我的能力范围之内。”</p>
+
+<p>1967年这种情况更加突出。许多投资机构的业绩大幅优于BPL，收益率高达100%以上。由于这些惊人的业绩，资金、人才和精力正汇聚在一起，竭力追求巨大而快速的股市利润。在我看来，这像是大幅加剧的投机及其伴随的风险——但许多倡导者坚持不同看法。</p>
+
+<p>我的导师本杰明·格雷厄姆过去常说：“投机既不违法，也不违反道德，也不会让人（在财务上）发胖。“在过去一年里，通过稳定地享用投机糖果确实有可能变得在财务上脑满肠肥。我们继续吃燕麦粥，但如果消化不良普遍发作，期望我们毫无不适是不现实的。</p>
+
+<h2>1967年业绩分析</h2>
+
+<p>前面给出的整体数据掩盖了1967年各投资组合类别之间巨大的盈利差异。</p>
+
+<p>我们在”套利类投资”部分创下了历史最差业绩。在1965年的信中，这一类别的定义如下：</p>
+
+<p>&gt;</p>
+
+<p>”……有时间表的证券。它们源于企业活动——出售、合并、重组、分拆等。在这个类别中，我们谈论的不是关于此类事件的传言或内幕消息，而是公开宣布的此类活动。我们等到能在报纸上读到时才行动。风险主要不在于整体市场走势（虽然有时在一定程度上相关），而在于某些意外事件打翻了苹果车，使预期的企业活动未能实现。”</p>
+
+<p>1967年，到处都是被打翻的苹果车——我们的苹果车。因此，在平均投资17,246,879美元的情况下，我们的整体收益仅为153,273美元。对于那些计算尺无法显示如此侮辱性数字的人来说，这意味着0.89%的回报率。虽然我没有完整数据，但我怀疑过去任何一年我们都不曾低于10%。与其他类别一样，我们倾向于每年仅集中投资于少数几个套利情况。这种方法使年度业绩波动大于全面分散的方式。我相信从长期来看，我们的方法将产生同等（或更高）的盈利能力，但1967年无法证明这一点。</p>
+
+<p>我们在控制类公司的投资同样拖累了1967年的相对业绩，但这在强势市场中是意料之中的。在平均投资20,192,776美元的情况下，我们的整体收益为2,894,571美元。我对这类业绩感到满意，尽管如果1968年市场继续走强，该类别将继续表现不及大盘。通过我们的两家控制类公司（多元零售公司和伯克希尔·哈撒韦），我们在1967年收购了两家新企业：联合棉布商店和国民赔偿公司（连同其关联公司国民火灾与海事保险公司）。这些收购令人无比欣慰。一切都名副其实甚至更好。主要的管理层本·罗斯纳和杰克·林沃尔特继续做着出色的工作（那是他们唯一会做的），在每一方面都远远超出了他们的承诺。</p>
+
+<p>控制类公司活动带来的满足感，是我在10月9日信中讨论调低投资目标的一个次要原因。当我与自己喜欢的人合作，从事令人兴奋的业务（哪种业务不是呢？），并且在所用资本上取得不错的整体回报（比如10-12%），急于从一个项目奔向另一个项目去多赚几个百分点似乎是愚蠢的。以合理回报率与高素质的人维持已知的愉快个人关系，然后为了可能更高的回报去承受潜在的烦恼、恼怒甚至更糟的事情，在我看来也不明智。因此，我们将继续把一部分资本（但不超过40%，因为合伙协议的性质可能产生流动性需求）投资于控制类经营业务，其预期回报率低于激进的股市操作所固有的回报。</p>
+
+<p>在套利类投资和控制类投资合计37,439,655美元的投资仅产生3,047,844美元整体收益的情况下，班上更机敏的同学已经推断出，我们在”低估类投资——相对低估”类别中取得了辉煌的一年。在净平均投资19,487,996美元的基础上，我们的整体收益为14,096,593美元，即72%。去年我提到过一项投资，它在1964、1965和1966年均大幅跑赢大盘，由于其规模（我们有史以来在单一投资中的最大占比——达到了40%的上限），对我们的整体业绩产生了重大影响，对该类别的影响更是如此。这一出色表现在1967年持续，总收益的很大一部分再次由这一单一证券贡献。我们对这一证券的持仓已大幅削减，目前该类别中没有任何投资在规模或潜力上能与这项投资曾经的水平相提并论。</p>
+
+<p>“低估类投资——私人所有者”部分去年也产生了不错的业绩（在平均投资5,141,710美元的基础上，收益为1,297,215美元），目前我们在这一领域有一些略有意思的机会。</p>
+
+<h2>杂项</h2>
+
+<p>我们以净资产68,108,088美元开始新的一年。约有160万美元资本的合伙人在年底撤出，主要因为10月9日信中宣布的目标下调。这对他们来说是合理的，因为他们大多有能力和动力超越我们的目标，而我也不必勉强去追求在目前条件下可能无法实现的业绩。</p>
+
+<p>一些撤资的合伙人（以及许多未撤资的）在收到10月9日的信后问我：“你到底是什么意思？“这类问题对任何作者来说都有些伤人，但我向他们保证，我所言即所意。也有人问这是否是逐步结束合伙基金的第一步。答案是”绝对不是”。只要合伙人愿意把他们的资本和我的放在一起，而且业务运营令人愉快（没有比现在更好的了），我就打算继续与那些从网球鞋时代就支持我的人共事。</p>
+
+<p>格拉迪斯·凯泽已加入我们，她的工作同样出色，一如我们长期从唐娜、比尔和约翰那里获得的高水平服务。办公室团队及其配偶和子女在1968年1月1日有超过1,500万美元投资于BPL，所以我们在工作时间不需要咖啡因提神。</p>
+
+<p>几天之内，你将收到：</p>
+
+<ul>
+<li>一封税务信，提供你1967年联邦所得税申报所需的全部BPL信息。这封信是唯一对税务有效的文件。</li>
+</ul>
+
+<ul>
+<li>毕马威会计师事务所的1967年审计报告（他们再次出色地完成了工作），列示BPL的运营和财务状况，以及你个人的资本账户。</li>
+</ul>
+
+<ul>
+<li>一封由我签署的信函，列示你在1968年1月1日的BPL权益状况。这与审计中计算的数据一致。</li>
+</ul>
+
+<p>如果这封信中有任何不清楚的地方，或年内发生需要澄清的事项，请告诉我。我的下一封信将在大约7月15日发出，汇总今年上半年的情况。</p>
+
+<p>此致敬意，</p>
+
+<p>沃伦·E·巴菲特</p>
+
+<p>&lt;h2 id=&quot;</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
+      </div>
+    </section>
+<section id="year-1968" class="letter-section">
+      <div class="letter-header">
+        <h2>1968年</h2>
+        <p class="letter-subtitle">有史以来最好的一年 — 却要关门了</p>
+      </div>
+      <div class="letter-body">
+        <h1>巴菲特合伙人信 — 1968年</h1>
+
+<p>巴菲特合伙基金有限公司</p>
+<p>基威特大厦610号</p>
+<p>内布拉斯加州奥马哈 68131</p>
+<p>电话 042-4110</p>
+
+<p>1969年1月22日</p>
+
+<h2>我们1968年的业绩</h2>
+
+<p>每个人都会犯错。</p>
+
+<p>1968年初，我觉得BPL的业绩前景看起来比我们历史上任何时候都差。然而，在相当程度上得益于一个简单而正确的想法恰逢其时（投资想法就像女人一样，往往更令人兴奋而不太守时），我们录得了40,032,691美元的整体收益。</p>
+
+<p>当然，你们都拥有足够的智识纯洁性来无视美元结果，而要求看相对于道琼斯工业指数的业绩。我们创下了新纪录：正58.8%，而道指包含全年持有期间应获得的股息在内整体为正7.7%。这个结果应被视为一种异常，就像在桥牌中摸到十三张黑桃一样。你叫满贯，打出来显得轻描淡写，把钱揣进口袋，然后回去继续打小牌局。我们也会有打宕的时候。</p>
+
+<p>以下是道指、合伙基金（分配给普通合伙人之前，即超过6%部分的四分之一）以及有限合伙人的逐年业绩汇总：</p>
+
+<p>年份道指整体回报 (1)合伙基金业绩 (2)有限合伙人业绩 (3)1957-8.4%10.4%9.3%195838.5%40.9%32.2%195920.0%25.9%20.9%1960-6.2%22.8%18.6%196122.4%45.9%35.9%1962-7.6%13.9%11.9%196320.6%38.7%30.5%196418.7%27.8%22.3%196514.2%47.2%36.9%1966-15.6%20.4%16.8%196719.0%35.9%28.4%19687.7%58.8%45.6%</p>
+
+<p>&gt;</p>
+
+<p>(1) 基于道指年度价值变化加上当年持有道指成分股应获得的股息。该表包含合伙基金活动的所有完整年份。</p>
+<p>(2) 1957-61年为所有前身有限合伙企业全年运营的合并业绩，扣除所有费用后、分配给合伙人或分配给普通合伙人之前。</p>
+<p>(3) 1957-61年基于前一列的合伙基金业绩计算，按照现行合伙协议扣除普通合伙人分成后，但在有限合伙人每月提款之前。</p>
+
+<p>按累计或复利基础计算，业绩如下：</p>
+
+<p>年份道指累计回报合伙基金累计业绩有限合伙人累计业绩1957-8.4%10.4%9.3%1957–5826.9%55.6%44.5%1957–5952.3%95.9%74.7%1957–6042.9%140.6%107.2%1957–6174.9%251.0%181.6%1957–6261.6%299.8%215.1%1957–6395.1%454.5%311.2%1957–64131.3%608.7%402.9%1957–65164.1%943.2%588.5%1957–66122.9%1156.0%704.2%1957–67165.3%1606.9%932.6%1957–68185.7%2610.6%1403.5%年化复合回报率9.1%31.6%25.3%</p>
+
+<h2>投资公司比较</h2>
+
+<p>以下是惯例表格，展示了两家最大的共同基金（它们从1957年到1966年一直位居规模榜首——目前仍排名第二和第三）——这两家基金通常将95-100%的资金投资于普通股，以及两家最大的多元化封闭式投资公司的业绩：</p>
+
+<p>年份马萨诸塞投资信托 (1)投资者股票基金 (1)雷曼 (2)三洲公司 (2)道指有限合伙人1957-11.4%-12.4%-11.4%-2.4%-8.4%9.3%195842.7%47.5%40.8%33.2%38.5%32.2%19599.0%10.3%8.1%8.4%20.0%20.9%1960-1.0%-0.6%2.5%2.8%-6.2%18.6%196125.6%24.9%23.6%22.5%22.4%35.9%1962-9.8%-13.4%-14.4%-10.0%-7.6%11.9%196320.0%16.5%23.7%18.3%20.6%30.5%196415.9%14.3%13.6%12.6%18.7%22.3%196510.2%9.8%19.0%10.7%14.2%36.9%1966-7.7%-10.0%-2.6%-6.9%-15.6%16.8%196720.0%22.8%28.0%25.4%19.0%28.4%196810.3%8.1%6.7%6.8%7.7%45.6%累计回报189.3%167.7%225.6%200.2%185.7%1403.5%年化复合回报率9.3%8.6%10.3%9.6%9.1%25.3%</p>
+
+<p>&gt;</p>
+
+<p>(1) 根据资产净值变化加上年内分配给持有人的任何分红计算。</p>
+<p>(2) 1957-1967年数据来自1968年穆迪银行与金融手册。1968年为估计值。</p>
+
+<p>有趣的是，经过十二年，这四只基金（目前总规模远超50亿美元，占投资公司行业的10%以上）在整个期间内平均每年仅比道指高出不到一个百分点。</p>
+
+<p>一些所谓的”进取型”基金最近被重新命名为”止步型”基金。例如，杰拉尔德·蔡的曼哈顿基金——可能是全世界最知名的激进投资工具——1968年的业绩为负6.9%。许多较小的投资机构在1968年继续大幅跑赢大盘，但远不如1966和1967年那样众多。</p>
+
+<p>投资管理行业——我过去在这个部分经常严厉批评其过度怠惰——如今在许多方面已经摆向了急性亢奋的另一个极端。一位投资经理，代表一家（拥有你会认识的老牌名字的）管理着总规模远超10亿美元共同基金的机构，在1968年推出新咨询服务时说道：</p>
+
+<p>&gt;</p>
+
+<p>“国内和国际经济的复杂性使得资金管理成为一项全职工作。一个好的资金经理不能以每周甚至每天为单位来研究证券。证券必须以分钟为单位进行研究。”</p>
+
+<p>天哪！</p>
+
+<p>这种言论让我在出去喝杯百事可乐时都感到内疚。当大量且不断增加的、高度积极进取的人带着巨额资金在有限数量的合适证券上如此操作时，结果变得高度不可预测。从某些方面看这很迷人，从其他方面看则令人震惊。</p>
+
+<h2>1968年业绩分析</h2>
+
+<p>1968年，我们投资运营的全部四个主要类别都表现良好。我们40,032,691美元的整体收益分布如下：</p>
+
+<p>类别平均投资额整体收益控制类投资$24,996,998$5,886,109低估类投资——私人所有者$16,363,100$21,994,736低估类投资——相对低估$8,766,878$4,271,825套利类投资$18,980,602$7,317,128杂项（主要为美国国库券）$12,744,973$839,496总收入$40,309,294减：一般费用（含利息）$276,603<strong>整体收益</strong><strong>$40,032,691</strong></p>
+
+<p>如两年前的信中所述，以下几点说明再次适用（非博士候选人可直接跳至下一部分）：</p>
+
+<ul>
+<li>上述各类别的解释见1965年1月18日的信。如果你的记忆需要刷新而你最喜欢的书报摊又没有平装版出售，我们很乐意提供一份副本。</li>
+</ul>
+
+<ul>
+<li>分类并非铁板一块。不会追溯修改任何内容，但初始分类有时带有一定的任意性。后续分类有时也很困难；例如一个失败的套利交易，但我出于与原始决策无关或仅部分相关的原因继续持有（比如固执）。</li>
+</ul>
+
+<ul>
+<li>按各类别平均投资基数计算的百分比回报，相对于以期初投资基数计算的合伙基金百分比回报会被显著低估。在上述数据中，我们在1月1日以100元买入的一只证券如果以均匀速度增值到12月31日的200元，其平均投资额为150元，产生66⅔%的回报，而按惯常方法则为100%。换句话说，上述数据使用市场价值的月度平均值来计算平均投资额。</li>
+</ul>
+
+<ul>
+<li>所有结果均基于100%持有、无杠杆的基础。利息和其他一般费用从总业绩中扣除，而非按类别分摊。与特定投资操作直接相关的费用（如卖空股票支付的股息）按类别扣除。当证券被直接借入并卖空时，净投资额（多头减空头）作为适用类别的平均投资额显示。</li>
+</ul>
+
+<ul>
+<li>上述表格的用途有限。各类别的适用结果由一两项投资主导。它们并不代表大量稳定的数据集（如全美男性死亡率之类），无法从中得出结论和做出预测。相反，它们代表的是不频繁的、非同质的现象，只能得出关于各种行动方案的非常初步的建议，我们也是如此使用的。</li>
+</ul>
+
+<ul>
+<li>最后，这些计算并非以我们数钱时那般充满爱意的谨慎态度进行的，由于并非完全自动校验，可能存在笔误或计算错误。</li>
+</ul>
+
+<h2>控制类投资</h2>
+
+<p>总体而言，控制类公司在1968年表现不错。多元零售公司（持有80%）和伯克希尔·哈撒韦（持有70%）的合并税后利润超过500万美元。</p>
+
+<p>特别出色的业绩来自联合棉布商店——多元零售公司的子公司，由本·罗斯纳经营——以及国民赔偿公司——伯克希尔·哈撒韦的子公司，由杰克·林沃尔特经营。这两家公司的资本回报率均达到约20%。在《财富》500强（全国最大的制造企业，从通用汽车开始）中，1967年仅有37家公司达到了这一数字，而我们的人超越了IBM、通用电气、通用汽车、宝洁、杜邦、控制数据公司、惠普等知名度稍高（但不会被更加欣赏）的公司。</p>
+
+<p>我仍然时常收到合伙人这样的评论：“嘿，伯克希尔涨了四个点——太好了！“或者”我们怎么了，伯克希尔上周跌了三个点？“在评估我们的控股权益时，市场价格与我们无关。1967年底我们将伯克希尔估值为25美元（当时市场价格约为20美元），1968年底估值为31美元（当时市场价格约为37美元）。即使市场价格分别是15美元和50美元，我们也会做同样的事情。（“价格是你付出的，价值是你得到的”。）我们的控制类投资的盈亏将取决于我们业务的经营表现——我们不会试图通过在证券市场上玩各种游戏来获利。</p>
+
+<h2>低估类投资——私人所有者</h2>
+
+<p>多年来，按平均回报率衡量，这一直是我们最好的类别，并且保持着遥遥领先的最高盈利交易比例。这种方法是我学习投资时被教授的方式，以前它占我们所有投资想法的很大比例。在BPL十二年的历史中，我们在这一类别的总利润可能是总亏损的五十倍或更多。1968年，这一领域的一个简单行业想法（以多种方式实施）让收银机响个不停。我们甚至为这一领域的一些工作收取了可观的费用（包含在审计报告的其他收入中）。</p>
+
+<p>我们目前在这一类别的总投资（这是我对持续获得不错回报最有信心的领域）不到200万美元，而且我手头完全没有可以补充的项目。1968年像约翰斯敦洪水般涌来的机会，到了1969年看起来更像是阿尔图纳的一个漏水龙头。</p>
+
+<h2>低估类投资——相对低估</h2>
+
+<p>这一类别在1966年和1967年合计贡献了约三分之二的整体收益。我去年提到过，这两年的出色表现主要来自一个想法。我还说过：“我们在该类别中没有任何投资在规模或潜力上能与这项投资曾经的水平相提并论。“我很高兴地宣布，这一说法完全正确。但我不太高兴地宣布，今年必须重复这句话。</p>
+
+<h2>套利类投资</h2>
+
+<p>这一类别在1967年是灾难性的，但在1968年表现良好。我们每年仅集中于少数几个标的（一些大型套利机构每年可能参与五十个或更多的套利交易），这使得年度结果的波动性大于全面分散的方式。我认为按我们的策略，平均盈利能力将同样出色，而1968年比1967年更能让我对这一结论感到安心。</p>
+
+<p>应再次声明，我们在套利类投资领域（以及其他类别）的业绩，相比以期初数据为基础并使用借入资金（这通常是套利业务的合理组成部分）的更常见计算方法，是被一定程度低估的。</p>
+
+<p>我再怎么强调都不过分——投资想法的质量和数量目前处于历史最低水平，这是我1967年10月9日信中提到的各种因素的产物，此后这些因素基本上进一步加剧了。有时我觉得我们办公室应该挂一块匾，就像德州仪器在达拉斯总部的那块：“我们不相信奇迹，我们依靠奇迹。“一个老迈、超重、腿脚和目力都已不济的球员，有可能把一个快速球用球棒正面击出代打本垒打，但你不会因此改变你的阵容。</p>
+
+<p>我们的未来面临许多重要的不利因素，虽然它们加在一起不至于导致徒劳无功，但肯定也不会带来超过相当温和的平均盈利水平。</p>
+
+<h2>往事追忆</h2>
+
+<p>正如我的一位老朋友所说：“怀旧已不如从前了。“不过，让我们试试吧。</p>
+
+<p>巴菲特联合有限公司——最初的前身合伙企业——于1956年5月5日成立，有七名有限合伙人（四名家人，三名密友），出资105,000美元，而普通合伙人则言行一致地投入了100美元。1956年又成立了两个单一家庭的有限合伙企业，因此在1957年1月1日，合并净资产为303,726美元。1957年，我们获得了31,615.97美元的收益，从而得出第一页所示的10.4%。1968年，我估计纽约证券交易所大约开放了1,200个小时，使我们每小时收益约33,000美元（是不是让你希望他们还保持每天五个半小时、每周五天的工作制？），这大致相当于1957年全年的收益。</p>
+
+<p>1962年1月1日，我们合并了前身有限合伙企业，搬出了卧室，聘用了第一批全职员工。当时的净资产为7,178,500美元。从那时到我们目前104,429,431美元的净资产，我们在工资名单上只增加了一个人。自1963年（资产9,405,400美元）以来，租金从3,947美元涨到5,823美元（本·罗斯纳如果知道我签了按百分比计算的租约绝不会原谅我的），差旅费从3,206美元到3,603美元，会费和订阅费从900美元到994美元。如果帕金森定律中有一条在起作用的话，至少情况还没有完全失控。</p>
+
+<p>在回顾我们的金融资产时，我们的结论不必像吉卜赛·罗斯·李在五十五岁生日审视自己的体态资产时所做的那样，她说：“我拥有二十年前所有的东西——只是全都下垂了。“</p>
+
+<h2>杂项</h2>
+
+<p>虽然投资环境困难重重，但办公环境却是一流的。有唐娜、格拉迪斯、比尔和约翰，我们拥有一个运转迅速、高效且令人愉快的团队。他们是最棒的。</p>
+
+<p>办公室团队及其配偶（每人一位——我至今没想明白这个复数该怎么处理）和子女在1969年1月1日有超过2,700万美元投资于BPL。各种大小和形状的姑姑、叔叔、父母、姻亲、兄弟、姐妹和表亲使BPL的成员名单读起来就像”我们这群人”——就我而言，确实如此。</p>
+
+<p>几天之内，你将收到：</p>
+
+<ul>
+<li>一封税务信，提供你1968年联邦所得税申报所需的全部BPL信息。这封信是唯一对税务有效的文件。</li>
+</ul>
+
+<ul>
+<li>毕马威会计师事务所的1968年审计报告（他们再次出色地完成了工作），列示BPL的运营和财务状况，以及你个人的资本账户。</li>
+</ul>
+
+<ul>
+<li>一封由我签署的信函，列示你在1969年1月1日的BPL权益状况。这与审计中计算的数据一致。</li>
+</ul>
+
+<p>如果这封信中有任何不清楚的地方，或年内发生需要澄清的事项，请告诉我。我的下一封信将在大约7月10日发出，汇总今年上半年的情况。</p>
+
+<p>此致敬意，</p>
+
+<p>沃伦·E·巴菲特</p>
+
+<p>WEB/glk</p>
+
+<p>&lt;h2 id=&quot;</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：buffett-letters.com（RanRan翻译版）</p>
+      </div>
+    </section>
+<section id="year-1969" class="letter-section">
+      <div class="letter-header">
+        <h2>1969年</h2>
+        <p class="letter-subtitle">告别信 — 合伙企业的终结</p>
+      </div>
+      <div class="letter-body">
+        <h1>巴菲特合伙人信——1969年5月29日</h1>
+
+<p>致合伙人：</p>
+
+<p>大概在18个月以前，我曾经给你们致信，认为投资环境和我个人情况的变化将导致我对我们未来业绩预期做出调整。</p>
+
+<p>我当时所讨论的投资环境，已经变得更加的恶劣且令人沮丧。也许我仅仅是缺乏从精神层面进行调整的能力。(正如一位评论家对超过40岁的证券分析师所评价的那样："他们知道太多如今已不再适用的东西。")</p>
+
+<p>虽然如此，就我看来：(1)在过去的二十年中，对于数量(定量)分析方法所能把握的机会之水已经逐渐干涸，到今天可以说是已经完全枯竭了;(2)我们的资金基数已经达到一个亿，也就是说不超过三百万的投资量对于我们净资产的影响几乎可以忽略不计，实际上我们的投资标的的市值已经不能低于一亿美元;(3)大量地对于投资的专注已经导致市场的交易行为变得极度追求短期的利润，市场的投机性大大增加。</p>
+
+<p>在1967年10月的信中我亦提到个人境遇的变化是我调整我们未来收益预期的最重要的原因。我表达了自己不想再在合伙公司上注入我100%的精力的愿望。然而在过去的18个月中我完全没有做到这一点。我曾经写到："希望随着预期的降低，我的对此投入的个人努力也可以随之降低。"然而实际上完全不是这样，我发现只要我一天还在管理合伙企业，我就完全无法让自己投入到其它与之无关的东西上去。我不想让自己成为一个永远管理着资金，追逐着投资收益的疯狂的兔子，而唯一让我放缓脚步的办法，就是将其停止。</p>
+
+<p>所以，在年底之前，我希望所有的有限合伙人都能正式地得知我的退休愿望。</p>
+
+<p>沃伦·巴菲特</p>
+<p>1969年5月29日</p>
+
+<h3>1969年10月9日补充信</h3>
+
+<p>致合伙人：</p>
+
+<p>以下是接下来我认为对于我的退休将要涉及的事情：</p>
+
+<p>(1)向你们介绍一下Bill Ruane(注：比尔·鲁安，红杉基金创始人)，一位非常优秀的资金管理人。</p>
+
+<p>(2)十一月底，按要求我将提前三十天正式通知各位我的退休意愿。</p>
+
+<p>(3)关于我们解散的方案的选择，你们将收到目前合伙公司控股企业的资料，请详细研究这些资料并考虑接下来的选择。</p>
+
+<p>(4)在大约1月5日- (a)约占超过我们净资产56%的现金将会分配给各位;(b)按照你们的持股比例，DRC和BERKSHIRE的股份也将分配给各位，如果各位选择直接变现股份的话，那么将会为你带来占各位1969年底净资产30-35%的现金。</p>
+
+<p>我们可能会进一步出售我们的资产，这样在年底的现金分配比例将会超过56%。</p>
+
+<p>(5)我们将花一点时间进行合伙公司的清算。</p>
+
+<p>对于一个人类在未来不确定环境中的判断显然并不容易，不过有时我们只能在不确定的情况下做出选择。我认为BILL是一个可以在未来预期其有优异表现的资金管理人，而且在可以预见的将来他仍然将继续从事该项事业。</p>
+
+<p>如果各位有意将钱交给BILL打理，我将会记录下各位的名字，同时他也会与各位联系。</p>
+
+<p>BILL拥有非常好的投资业绩，在1956-1961年，以及1964-1968年，他的投资组合的年均回报率达到了惊人的40%。不过在1962年他的资产亦曾遭受50%的损失。然而他的投资组合中并没有控股公司和WORKOUTS，并且在普通股上的投资他的投资标的有不少跟我的是重合的。</p>
+
+<p>目前BILL管理的资金量约为两千万到三千万，资金预计还会增加。对于各位的不利因素是，资金基数的扩大会造成投资业绩的相对下滑。另外由于BILL最近开了一家公司(NEW YORK STOCK EXCHANGE FIRM)，公司的日常事物亦可能分散他的精力。最后，优异的管理人往往也只能取得略胜于市场平均水平的业绩。</p>
+
+<p>最后的忠告是，跟随BILL的投资可能将会整体市场的未来表现密切相关，这一点请各位注意。</p>
+
+<p>在我整个的投资生涯中，我第一次感到对于一般的投资者而言，对于被动地投资债券和投资有专业人士管理的股票，几乎没有太大的差别。如果我的这种感觉是正确的，那么其中就有着重要的暗示。让我在此进行简要的叙述：</p>
+
+<p>(1)收入税的问题。我所说的情况是，联邦政府收入税达到40%之多，除此之外还包括其它的州政府的收入税。</p>
+
+<p>(2)我所讲的是指未来十年的情况。</p>
+
+<p>(3)目前纯粹被动地投资债券的收益可以达到每年6.5%。</p>
+
+<p>(4)综合的公司股票的预期收益为每年9%，包括3%的红利收入和6%的价值增长。考虑到税收，实际收益与债券无异。</p>
+
+<p>(5)对于好像Bill管理的表现优异的基金而言，可能会取得高于市场3%左右的年均复合收益，因此如果你们足够幸运的话，也许将会因此取得约9.5%的年收益率。</p>
+
+<p>(6)所以最后得出的惊人的结论就是在今天的奇特环境下，债券的收益跟股票的未来收益几乎持平，而也只是略逊于表现优异管理上佳的股票基金。</p>
+
+<p>对于未来的估计显然未必正确，然而这其实是我目前的想法。</p>
+
+<p>最后还是要靠你们自己来选择是持有股票还是债券，如果你们想就此跟我谈一下的话，鄙人亦乐意效劳。</p>
+
+<p>沃伦·巴菲特</p>
+<p>1969年10月9日</p>
+
+<h3>1969年12月5日补充信</h3>
+
+<p>致合伙人：</p>
+
+<p>此信将提供给你们一些关于我们的两个控股公司(以及它们的四个主要的营运构成)的公开信息。我亦将同时对其营运情况给出我自己的评价。</p>
+
+<p>到年底，合伙公司将拥有80万到100万Diversified Retailing Company 的已发行股票。第一曼哈顿公司和Wheeler, Munger & Company 将各自拥有10万股。DRC之前拥有100%的Hochschild, Kohn & Company of Baltimore，而目前拥有100%的联合零售百货(之前的名称是联合棉花店)。在12月1日，DRC卖掉了其HK的所有权益给Supermarkets General Corp，作价$5,045,205现金以及SGC的价值2百万的，于70年1月2日偿付的无息票据和价值$4,540,000的，于71年1月2日偿付的无息票据。这些票据的现值大概为6百万，所以总共的卖出价约为11百万。</p>
+
+<p>联合零售公司的净资产值大概是7.5百万。它是一个非常好的，同时具有强劲财务状况的公司。其营运边际利润良好，近年来还实现了历史上最好的销售和利润的增长。去年其销售额约为37.5百万而净利润约为1百万。今年将会出现销售和利润的新纪录，据我估计大概会有1.1百万的税后利润。</p>
+
+<p>DRC有6.6百万的已发行债券，这些债券有一个特殊的附加条款，即如果我本人或任何一个我控制的公司不是DRC的最大持股人的或，那么债券持有人便有权将债券兑现。</p>
+
+<p>DRC的净资产值约为每股$11.5-12，这是一个运营优异的生意，其产生的利润足以让我用来投资其它的营运生意。</p>
+
+<p>Berkshire Hathway, Inc。有着983,582股的已发行股份，合伙公司拥有其中的691,441股。</p>
+
+<p>BH主要有三方面的业务，纺织业务，保险业务(由国民赔付公司和国民火灾及海事保险公司执行，以下统称保险公司)，以及伊利诺亚国民银行和伊利诺亚罗科福德信托公司。BH亦拥有太阳报，布莱克印刷公司和70%的Gateway Underwriter， 不过这些业务对BH的总体贡献有限。</p>
+
+<p>纺织业务目前大概每股值$16。虽然我认为相对纺织业的整体情况而言公司是有进步的，但是该业务仍算不上是令人满意的生意。其资本回报率尚不足以覆盖该业务所需的新增资产，而且其未来的表现估计也不会比现在及过去要好。相较而言，当我们在四年半前买下该企业时，它正处于最好的时期。来自其它业务的资金则被成功地重新分配，开始时是被暂时地分配到了可交易的证券上，现在则被永久性地用到了保险和银行业务上去。我喜欢从事纺织业务的员工，他们努力地在困难地情况下改善该业务，只要纺织业务的情况能够维持在接近目前的水平，我们就将继续将此业务做下去。</p>
+
+<p>BH拥有100%权益的保险业务和拥有97.7%的银行业务则有着令人愉悦的画面。这些都是我们一流的生意，给我们提供了非常好的资本回报，同时其营运数据不论是从绝对还是相对的分析角度都是不错的。银行业务对于BH来说大概值每股$17，保险业务则为$15。我预计它们目前的盈利能力大概是每股$4(1968年大概是$3.4)，预期其总值$32的净资产也有望在未来继续增长。总体而言，BH每股的有形净资产约为$43，账面价值约为$45。</p>
+
+<p>在DRC和BH之间，我们有四个主要的业务，而其中的三个就我看来无论根据任何常有的评判标准而言都是一流的业务。这三个优异的业务都是由超过60岁的人经营着。这些人都工作勤奋，富有且表现非常杰出。他们的年龄固然是一个弱点，但这也就是他们唯一的不足之处了。我能高兴地持有相当大的资产在这些业务上的原因之一，就是因为这些业务被他们掌管着。</p>
+
+<p>DRC和BH没有分配股息，而且在未来也很可能不会分配或者只分配有限的股息。这是有多种原因的。这两个母公司都有借贷，而我们想为我们的银行及保险业务的客户提供一个良好水平的保护，而且其中的一些公司有着良好的利用增量资金的方式-我们亦有希望发现新的，可以使我们的投资更加多元化且可进一步放大我们的盈利能力的生意。</p>
+
+<p>就我的个人观点而言，我认为DRC和BH的内含价值将会随着年份增长。当然无人知道未来的情况，但如果未来它们取得的年均增长率低于10%的话，我将会感到失望。随着市场的价值会围绕内含价值出现很大的波动，就是长期而言公司的内含价值终将在某个时刻被市场价值正确地反映出来。因此我认为它们会有良好的长期表现，我亦愿意将我个人净资产的相当一部分投资在它们上面。当你直接拥有这些证券时，你应当对无视其短期内的价格表现，就如同你通过BH间接持有它们一样。我把它们视为实业，而非股票，如果长期而言实业的业绩良好，那么股票也会有着同样的表现。</p>
+
+<p>我认为我仍将在相当长的时间内维持对DRC和BH投资，但我不会对此做出道德上的绝对承诺。我们目前准备在明年1月5日进行合伙企业的现金分配，分配量将至少不低于1969年1月1日合伙企业所拥有的资金减去1969年所分配的资金后的总量的64%。由于我们还有一项悬而未决的对于我们的Blue Chip Stamps holdings公开发售，如果其能在这个月底前完成，则我们分配的资金比例将达到至少70%。</p>
+
+<p>沃伦·巴菲特</p>
+<p>1969年12月5日</p>
+
+<h3>1969年12月26日补充信</h3>
+
+<p>致合伙人：</p>
+
+<p>就上一次的信各位提出了不少问题，现分别回答如下：</p>
+
+<p>(1)既然我们在BH的纺织业务上没有好的回报，为何还要继续营运下去呢?</p>
+
+<p>主要是因为我在之前的信中提到的观点。我不想解散一个雇佣了1100人的生意，尤其在管理层已经在努力改善公司相对整体行业的表现，而且也取得了合理结果的时候，同时该业务目前尚不需要额外的资本投入。但是如果未来我们面临需要投入大量资本，或者该业务遭受相当程度的损失时，我将做出不同的决定。</p>
+
+<p>(2)我们在太阳报等的投资量有多大?我们有进一步进入报纸、广播和电视领域的意图吗?</p>
+
+<p>我们在太阳报、布莱克印刷和Gateway Underwriters的投资大概略多于$1的每股BH股票，每股收益大概略少于10美分。我们对于进入上述领域未有具体的计划。</p>
+
+<p>(3)Gateway Underwriters是干什么的?</p>
+
+<p>Gateway Underwriters主要是作为国民偿付公司在密苏里州的一般代理人存在的。</p>
+
+<p>(4)对于管理着三块优秀业务的人而言，是否有相应的接班人?</p>
+
+<p>相应的二把手是非常难去评估的，唯一能够证明某人是否具备营运某个企业的方法就是让他去实际营运这个企业。虽然如此，我们的一些业务也确实并不是单靠一个人来营运的，所以从长远看来，我们确实会有相应的人选。</p>
+
+<p>(注：共有13问，之后的问题主要涉及清算问题等等，不在此翻译。)</p>
+
+<p>沃伦·巴菲特</p>
+<p>1969年12月26日</p>
+
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：辛道义博客（xindaoyi.com）</p>
+      </div>
+    </section>
+<section id="year-1970" class="letter-section">
+      <div class="letter-header">
+        <h2>1970年</h2>
+        <p class="letter-subtitle">债券投资教育 — 合伙企业解散后的财务安排</p>
+      </div>
+      <div class="letter-body">
+        <h1>巴菲特合伙人信——1970年2月25日</h1>
+
+<p><strong>注：</strong>1970年这封信是在《金钱的主人》的附录1找到的，正是在这一年，道琼斯指数大幅下跌。1969年，当巴菲特苦心经营他的投资组合时，华尔街进入了疯狂的投机时代，什么股票都疯涨一气。经过冷静思考，1969年5月，巴菲特做了一件非同寻常的事，决定结束投资合伙关系，并用一年的大部分时间进行清盘工作。他不希望因参加自己不理解的游戏而使自己很优秀的业绩受到损害。后来的事实，证明了他的决定是英明的。到1970年年初，美国股市开始踉踉跄跄。到1970年5月，股票交易所的每一种股票都比1969年年初下降50%。</p>
+
+<p>《金钱的主人》——附录1：巴菲特的债券投资 ——文 约翰·特雷恩</p>
+
+<p>巴菲特合伙人公司</p>
+<p>沃伦·巴菲特，普通合伙人</p>
+<p>威廉·斯科特</p>
+<p>约翰·哈丁</p>
+
+<p>致合伙人：</p>
+
+<p>在这封信中，我们试图给大家提供一个关于免税债券的基本概念，着重强调了我们准备在下个月替大家购买的那些债券的类型和期限。我已尽可能地将这封信压缩得更简短一些。其中有一些可能显得冗长了点儿，也有一些尽可能显得过于简单了，在这里，对文中的不足表示歉意。我的一个感觉是我正在试图将一本100页书的内容压缩在10页纸上——以便使大家在读的时候觉得更有趣一些。</p>
+
+<h3>免税债券的原理</h3>
+
+<p>对于希望得到帮助的那些人，我们将安排其直接从遍布全国的市政债券销售商处购买债券，并保证销售商直接向其销售，交割单将保存起来作为纳税的基本文件。由于销售商会把你所购买的债券连同汇票一同交付给银行，由银行从你的账户上付款给他们，因而你无须付支票给债券销售商。若从二级市场购买债券(已经发行并已售出的债券)，清算日期通常在交割日之后的一个星期，而对于新发行的债券，清算日期可能要推迟到一个月以后。清算日期要清楚地标于交割书上，在清算日到来时，你在银行里必须准备好资金以支付债券款，否则如果你持有国库券的话，他们可能通知银行在几天内卖掉国库券，因此你必须保证资金上不出问题。即使销售商拖延支付债券给银行，只要清算日一到，利息就会自动算到你的头上。债券以可流通(所谓的无记名形式，这种形式使其很像通货)附息票形式支付，通常以5000美元为单位，可转换成记名债券(这种转换视期限长短，有时要收取可观的费用，有时则免费)，由于你是过户账册上登记的所有者，因此要是没有你的签字，记名债券就不能流通。债券的交易几乎全部以无记名形式为基础，记名债券如果不转换成无记名形式是不能出售的。因此，除非你想拥有大量的实物形态的债券，我建议你还是以不记名形式持有债券。这相当于你把债券保存在一个很安全的地方，每六个月去剪一次息票，这种息票剪下后能像支票一样存入你的银行账户。如果你有25万美元的债券，可能就意味着你拥有50张纸卡(5000美元为一单位)，一年6次或8次往返银行之间去存储息票。</p>
+
+<p>你也可以花很少的费用在银行开一个保管账户，银行将为你保管债券，代收并保存各种记录。例如，某银行为你的25万美元的债券提供保管服务，每年收取200美元的服务费。要是你对这样的保管账户感兴趣，你可以就服务和费用问题向你所信任的商业银行官员咨询。否则的话，你最好还是拥有一个保险箱。</p>
+
+<p>当然，由免税债券息票得到的利息是免征联邦收入税的，也就是说，假设你的联邦收入税率在30%这一档次，购买利率为6%的免税债券和购买利率为8.5%的非免税债券，其收益是相同的。因此，对于我们大多数人来说，包括一些年轻人和一些退休人员，免税债券比非免税债券更具吸引力。对没有或者只有很少的工资或红利收入，但却拥有实物资本的人来说，非免税债券(纳税收入大约达到25%或30%的税率档次)加上免税债券的组合投资形式可能会带来更高的税后收入。</p>
+
+<p>关于州政府所得税，情况要复杂得多。在内布拉斯加州，政度所得税是根据联邦所得税的百分比来计算的，因而免税债券的利息是不征收州政府所得税的。按我的理解，纽约和加利福尼亚州的法律都规定，本州内的免税债券不征收州政府所得税，但从其他州购买的免税债券则要征收所得税。而且我认为，纽约市豁免了纽约州发行的免税债券的政府所得税，但对其他州或城市的债券却要征收所得税。因此，我听取了你们的地方税务顾问的意见，但仅简单地谈及上面总的看法，以使你对潜在的问题有所警觉。在内布拉斯加州，计算税后利润时无须再考虑地方税问题。在州之外则涉及到地方税，州或政府所得税的实际成本随着你的联邦所得税的扣减而降低。当然，这会由于个人情况的差异而有所不同。此外，有些州对无形资产征收多种税收，这些税种有可能适用于所有的免税债券，或者仅适用于别的州的免税债券。在内布拉斯加州没有这些税种，但我不清楚其他州的情况。</p>
+
+<p>若债券以折价方式购得，以后卖出或到期兑付时，收益和成本因资本损益处理方式的不同而不同(这种状况很少有例外，但他们很少指出对我们推荐的证券是否会有影响)。使税后净收益减少的因素包括将来资本收益税的总税率和个人所处的特定的税收等级。稍后我们将讨论这种资本收益税在计算折价债券对附息票债券的相对吸引力时的影响。</p>
+
+<p>最后，有一点特别重要，虽然法律不很明确，但如果你拥有普通的银行负债或其他债务，或者打算取得这些负债，你就不可能期望拥有免税债券。法律不允许减少贷款利息，而贷款人却继续购买或持有免税债券，这项法令的解释在年后将更加宽泛。举例来说，我的理解是如果你拥有房产抵押负债(除非负债是为了取得市政债券)，即使你同时拥有免税债券，通过联邦税收的返还来降低抵押利率是没问题的。然而，我认为你要是有普通银行贷款，这时你如果试图降低贷款利率，同时又拥有免税债券，你就会遇到麻烦。因此，在购买免税债券时，我将先付清银行贷款。但是在这里我仅仅提及一下以便你注意这一潜在问题，问题的细节留给你和你的税务顾问考虑。</p>
+
+<h3>市场流动性</h3>
+
+<p>免税债券与普通股票或公司债务有实质性的不同：其发行量很大，但持有人的数量很少，这无疑抑制了这一封闭、活跃的债券市场的发展。纽约市或费城想筹集资金时，也许要出售几十种不同的证券，即每次发行的债券有多种不同期限。1980年到期的利率为6%的纽约市债券与1981年到期的6%的市政债券是不同的品种，两者不能互换，出售者必须寻找特定的买者才能卖出持有的债券。当考虑到纽约市每年可发行好几次债券时，就会很容易地看出为什么仅在纽约一个城市就可以有近1000种公开发行并销售的债券。内布拉斯加的格兰德岛可有75种债券，每期的平均发行量可达10万美元，平均持有人达6～8人。这样，随时为所有各期债券建立报价市场是绝对不可能的，债券在买卖者报价之间的差额可能非常大。你不会在清晨出发去购买你选中的格兰德岛债券，它不可能在任何地方以任意价位出售。如果你真的发现某销售商把这种债券与任何其他相同性质的债券相比较，也并不奇怪。另一方面，像在俄亥俄州特恩派克，伊利诺斯州特恩派克等地方有一次发行数量可达2亿美元甚至更多的债券，持有相同的债券的投资者成千上万。很显然，这种债券有很高的流动性。</p>
+
+<p>以重要性为顺序来排列，可流通性通常是以下三条的一个功能表现：(1)此次发行的规模;(2)发行者的规模(俄亥俄州的一次10万美元的发行比俄亥俄州的波邓克同样规模的债券流动性要大得多);(3)发行者的素质。平均每周有超过两亿的新债券用来出售，每种债券的分配机制使其或者适合大规模销售，或者适合小规模销售。我的看法是，初次销售结束后，由于流动性的不同，通常会使债券在发行时产生不适当的收益差异。我们通常进入的债券市场，出价和要价之间的价格差异可达到15%，无须费尽心机地在这样怪异的市场上去购买债券(尽管提供这种债券的销售商的利润差额比流动性很强的债券还要大得多)，我们不会为投资者购买这种债券，我们希望购买的债券通常是有2%～5%的差价的(随着投资者在同一时点愿为购买这种债券付出的净额和卖出这种债券得到的净额的不同而波动)，如果你进行这种债券的交易，价格差额会逐渐消失，但我不认为对于长线投资者来说这是一个障碍。真正的要点是远离那些流动性很差的债券，这些债券通常是那些地方债券销售商靠大量的金钱刺激来进行推销的。</p>
+
+<h3>购买特定领域的债券</h3>
+
+<p>我们大概集中在如下领域购买债券：</p>
+
+<p>(1)有巨额税收的公共行业如收费公路、电力设施、供水系统等，这些领域债券的高流动性需经定量分析进行确定，有时这些债券还具有有利的偿债基金或其他因素，但在市场上却往往低估了它的价值。</p>
+
+<p>(2)当一个公共组织拥有租借给私人公司的财产的所有权时，工业开发局的债券将上涨。例如，俄亥俄州的洛兰拥有美国钢铁公司一个8000万美元的项目所有权，开发局发行债券来支付项目资金，并把项目完全租赁给美国钢铁公司以偿还债务，债券背后并非是市政府或州政府的信用，而是承租的公司的费用。虽然由于税法的变化而使以这种发行的债券数目在减少(每个项目500万甚至更少)，但许多顶级公司的背后承担了数十亿美元的偿债义务。一段时期以来对这种债券有一种不正确的认识，使它们在出售时的收益远远高于那些固有信用支撑的同类债券，这种认识偏差已有减少趋势，从而使该类债券的溢价收益减少很多，单位仍然认为这是一个相当有吸引力的领域，我们保险公司拥有大量的这种债券。</p>
+
+<p>(3)公共住房部门为投资者提供了一种等级很高的免税债券，实际上，这些债券有美国政府担保，所以信用都达到AAA级标准。在那些由于地方税收使得必须溢价购买本州发行的债券的地方，我无法从前两项中满足你们的要求，我倾向于让你们购买公共住房部门发行的债券，而不去选择我不理解其信用关系的那些债券，如果你要求我直接购买你的家乡所在州的债券，你最好是大批量地购买住房部门的债券。由于它们都是最高信用级别的，无须在它们当中进行多样化组合。</p>
+
+<p>(4) 直接或间接性质的州政府债券</p>
+
+<p>你们可能注意到我不买大城市发行的债券，我不知道如何分析纽约、芝加哥、费城等地发行的债券(一个朋友有一天提到当马菲亚想以一个很诱人的利率销售一种债券时，黑手党感到非常不安，因为纽瓦克给债券起了一个很坏的名字)。你们对纽约市债券的分析将与我一样的好。我对债券的研究与我对股票的研究一样：如果我不理解某件事情，我倾向于干脆忘掉它，放弃我不懂的一个机会，即使有人有足够的觉察力分析它，并能从中收到很好的回报，也不会影响我这么做。我们打算为大多数投资者购买大约5～10次债务，我们不打算买25000美元以下的债券，而尽可能买比较合适的大批量的债券。小批量的债券在转售时通常不太有利，有时这一因素甚至至关重要。当你从销售商那里购买10000美元的债券时，他通常不会向你说明这些，但当你想向他出售10000美元的债券时，他就会向你解释。从二级市场购买小批量的债券可能是个例外——但只有在对方由于提供小规模的债券而使我们在价格上得到优惠时才这样。</p>
+
+<h3>可赎回债券</h3>
+
+<p>我们不规模那些带有可赎回条款的债券，看到有人购买期限为40年，但发行者却有权力以一个微小的溢价在5年或10年后回购的债券，我感到很可笑。赎回条款意味着如果对发行者有利(对你不利)时，你可以持有债券40年，但如果初期条款变得对你有利(对发行者不利)，你只能持有5年时间。这种条款真是令人无法容忍，它的存在一方面是由于投资者没有弄明白条款中所隐含的东西，另一方面是因为债券销售商不打算为顾客着想。有意思的是这种带有可赎回条款的债券竟然与无此条款的债券以同样的利率出售。</p>
+
+<p>必须指出的是，大多数内布拉斯加州债券带有极高的不公平回购条款，尽管带有很严重的不利条款，但其利率并不比其他债券高。避免这一问题的一种做法是购买完全不可赎回的债券，另一种方法是折价购买可赎回债券，以使赎回价格远高于你的成本，而使得回购条款对于你变得无关紧要。如果你以60美元购买债券，而赎回是要103美元，则回购条款(一种你不曾拥有过的权利)变得并不很重要。但投资者如果购买一种洛杉矶水利电力部门的100美元债券，这种债券在1999年到期时偿还100美元，或者可用104美元在1974年赎回，采用任何方式取决于哪种对发行有利而对你不利，而同时市场上可以购买到相当收益、相同信用的不可赎回债券，那么购买这种可赎回债券是非常愚蠢的做法。然而，就是这种债券1969年10月份还在发行，并且相同的债券每天还将继续发行。我这里仅仅大概地描述了这一问题，许多投资者并没有意识到这种仍在不断发行的债券中的掷骰子游戏对自己的不利之处，而销售商又不向他们说明。</p>
+
+<h3>债券的到期和计算</h3>
+
+<p>许多人在购买债券时，是根据他们打算持有这种债券的时间和他们的生活安排来选择债券的期限的，当然这是一种不错的办法，但并不必要这么做，债券期限的选择应该主要依据以下几点：(1)收益率曲线的形状;(2)你对将来收益水平的期望值;(3)你能承受的行情波动程度或希望从中获得的可能收益。当然，第(2)条是最重要的一条，但要解释清楚都很困难。</p>
+
+<p>我们先讨论一下收益率曲线。当其他方面的条件相同时，期限的不同将导致债券利率的不同。例如，一种最高等级的债券，如果其期限是6个月或9个月，它的利率可能是4.75%，两年期的利率为5%，5年期的为5.25%，10年期的为5.50%，20年期的为6.25%。当长期利率高于短期利率时，利率曲线称为正斜率曲线。在美国政府债券市场，近来的利率变成了负斜率曲线，也就是说，长期政府债券的收益率比短期的低。有时，利率曲线是水平的，有时某一期限之内是正斜率，例如10年期，然后又变成水平方向的，你需要明白的是这种曲线实质是变化不定的。在目前，收益率曲线的斜率比原来变得更陡峭了，这并不意味着长期债券更值钱，它只意味着与分段持有相比，要延长期限只有付更多的利率。如果收益率连续几年保持不变，投资者将更愿意持有长期债券而非短期债券。不管投资者打算持有多长时间，决定债券期限选择的第二个因素是未来的期望收益率。谁若在这方面做过多预测，很快便会发现是很愚蠢的，一年前我认为现在的利率很吸引人，但这几乎立即被证明是错误的;现在我认为目前的利率没有吸引力，这或许又是很愚蠢的想法。然而，你必须做出抉择，如果你现在购买短期债券，很可能就是一次错误决定，几年后的再投资利率可能非常低。</p>
+
+<p>最后一个困扰投资者的因素是行情波动。这包含了债券的定量计算问题，这一问题对你来说理解上有点困难。然而，重要的是需要掌握一个基本原则。我们假定一种水平利率曲线的不可赎回债券，再假定目前的利率是5%，投资者买了两种债券，一种两年到期，另一种20年到期，现在假定一年后新债券的利率降到了3%，此时你想出售债券。不考虑上传差价和佣金等，以1019.60美元卖出两年前的1000美元债券(现在已过去一年)，1288.10美元的价格卖出两年期的债券(原来期限为20年)，以这些价格计算，推销溢价后，购买者正好取得了3%的收益，是花1288.10美元购买19年期的5%的债券还是花1000美元购买新发行的3%的债券(我们已经假定一年后的利率为3%)，对你来说是无关紧要的。另一方面，假定一年后利率上升为7%，我们还是忽略佣金、折扣中的资本利得税等，现在购买者只需花981美元买还剩下一年到期的债券，791美元购买还剩下19年到期的债券，既然他能够买到7%利率的新债券，他当然只愿意折扣购买你的债券，以使从5%债券折价中所得经济收益与1000美元7%新债券的收益相等。</p>
+
+<p>原理很简单，利率的波动范围越大、期限越长，在到期前的一段时间内，债券价格的波动幅度越大。需要指出的是，在第一个利率降为3%的例子中，如果长期债券5年后可赎回，则其赎回价格只有1070美元。虽然利率上升为7%时其赎回价格也下降相同的幅度，这仅仅说明了回购条款所包含的固有的不公平性。</p>
+
+<p>在过去的20年里，免税债券的利率几乎在不断的提高，长期债券的购买者不断遭受损失，这并不是说现在购买长期债券就是坏事，它只意味着在相当长的时期内上一节的例子仅在一个方面成为现实。人们更多地意识到由于利率上升而使债券价格下跌的风险，并没有体会到利率下降而使价格上升。如果将来利率水平升降的概率各为50%，收益率曲线为正斜率的话，则购买不可赎回的长期债券比短期债券的机会要好的多，这反映了我现在的观点。因此，我主张购买10～25年期限的债券。如果你决定购买一种20年期的债券并一直持有，你将享有固定的利率，但如果你提早出售，你的收益率将按上面的方法计算，有可能更好，也有可能变坏。</p>
+
+<p>债券的价格也随着几年后债券质量的变化而变化，但免税债券中，相当于利率结构的变化产生的影响来说，这一因素显得越来越微不足道。</p>
+
+<h3>折价发行附息票债券</h3>
+
+<p>你可能已注意到在上面的讨论中，如果想要购买一种回报率为7%的19年期的债券，你有机会在两种债券之间选择：一种是购买新发行的19年期的7%附息票债券，另一种是花791.60美元购买5%的19年期债券，到期支付1000美元本金给你。两种债券按半年复利计算收益都是7%。数学计算上，这两种是一样的，然而免税债券的情况比较复杂，实际上70美元的息票是完全免税的，而以折价方式购买的债券每年给你50美元的免税收入，10年到期时，你得到的208.40美元的资本收益，在目前的税法下，如果从折扣中获得的利润是在19年后你惟一的可能收入，在那个时候资本利得达到很大数目，使税收超过70美元(税法规定资本利得税率为35%，在1972年及以后，对那些巨额的资本变现，税率甚至更高)，你将因此失去一些收益。除此以外，你还要支付一些州所得税。</p>
+
+<p>显然，在此种情况下，你不会用791.60美元购买5%的附息债券，你不会认为它与价格为1000美元的7%债券是一样的，任何人都不会这么做。因此，具有相同期限的同质债券，当它们的息票利率低，在折价销售时，必须使其总收益比现期高利率息票的债券高。</p>
+
+<p>有意思的是，对于大多数纳税人来说，这种高的总收益是足够补偿付出的税收的。这缘于以下几个原因：首先，无人能知道债券到期时的税法情况，假定税率比现在更高是自然的和可能的;其次，即使19年期债券相同，人们也宁愿眼下得到更多的现值回报，5%债券的所有者，在到期时获得208.40美元的额外收益，仅相当于6.3%的现值收益;最后影响折价债券的价格的最重要因素(这一因素还将持续影响其价格)是1969年的税收变革法案改变了银行的税收处理后，银行不再以折价债券购买者身份出现在市场上。银行是最大的免税债券的买者和所有者，任何把它们排出在某一市场之外的做法都将极大地影响这一市场的供求状况。这可能给免税折价债券市场上的个人投资者提供了优势，特别是那些在兑付或出售债券时其收入水平不会进入高税收档次的人们。</p>
+
+<p>如果我能获得比较高的税后收益(对未来的税率要有比较敏感的预测)，我打算为你们购买折价发行的债券。由于上面提到的所发行的债券的多样性，你可能认为决定购买哪种债券并不重要。有时候免税债券市场更像房地产而不是股票市场，有成千上万条可变因素，有的没有卖者，有的有比较勉强的卖者，有的是愿望很强的卖者，最好的购买是建立在所提供债券质量和是否适合你的需要、卖者的意愿等基础上。比照的标准通常是平均每周必须售出几亿美元新债券的地方。然而，特点的二级市场机会(已售完债券)可能比新债券更有吸引力。当我们准备喊价时，我们仅仅能够指出其吸引力是如何之大。</p>
+
+<p>沃伦·巴菲特</p>
+<p>1970年2月25日</p>
+
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：辛道义博客（xindaoyi.com）</p>
+      </div>
+    </section>
+<section id="berkshire-1965" class="letter-section">
+      <div class="letter-header">
+        <h2>1965年</h2>
+        <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 巴菲特入主后的第一份股东信</p>
+      </div>
+      <div class="letter-body">
+<h1>1965 巴菲特致股东信</h1>
+<p>1965 巴菲特致股东信：巴菲特入主伯克希尔的第一份股东信：关闭菲利普国王 A、E 分厂，回购十二万股，斯坦顿父子离任、肯·蔡斯接任总裁。</p>
+
+<p>1965年11月9日</p>
+
+<p>致伯克希尔·哈撒韦公司 (Berkshire Hathaway Inc.) 全体股东：</p>
+
+<p>截至1965年10月2日的本财年，公司实现净利润2,279,206美元，而上一财年净利润仅为125,586美元。由于永久关闭马萨诸塞州福尔里弗市 (Fall River, Massachusetts) 的菲利普国王工厂 (King Philip) A分厂和E分厂所产生的非经常性资产处置损失，并未计入本财年净利润——该损失已全额冲抵此前为此专项提存的准备金。</p>
+
+<p>由于享有亏损结转抵扣，公司就上述两个年度均无需缴纳联邦所得税。然而，为避免日后亏损结转不再可用时对未来收益产生误导性解读，公司在计算1965年和1964年净利润时，已按两个年度各自实际经营成果所应缴联邦所得税的相当金额计入了费用。</p>
+
+<p>公司目前继续运营位于罗德岛州沃伦市 (Warren, Rhode Island) 的菲利普国王D分厂，以及马萨诸塞州新贝德福德市 (New Bedford, Massachusetts) 的哈撒韦合成纤维部门、梭箱织机部门和家居纺织品部门。</p>
+
+<p>1965年，公司原材料、在制品及布料库存共减少了1,411,967美元，250万美元的银行贷款已全数还清。此外，本年度公司回购了自身股份120,231股，财年末在外流通股数合计为1,017,547股。</p>
+
+<p>刚刚结束的本财年，公司大幅削减了管理费用。年内共投入约811,812美元采购新机器，持续推进降本增效、提升产品质量的工作，该计划将在新财年继续推进。</p>
+
+<p>菲利普国王E分厂的大部分机器已售出，剩余机器预计将在新财年内完成处置，届时公司对亏损工厂的清算工作将画上句号。E分厂出售后，原为菲利普国王D分厂存放的原棉和坯布，需改存至哈撒韦C分厂（即原兰肖工厂 Langshaw Mill）。相关安排目前正有序推进，计划在新财年内完成。</p>
+
+<p>在服务公司逾五十年后，西伯里·斯坦顿先生 (Seabury Stanton) 辞去董事及总裁职务，由肯尼思·V·蔡斯先生 (Kenneth V. Chace) 当选接任。与此同时，约翰·K·斯坦顿先生 (John K. Stanton) 亦辞去董事职务，不再兼任财务主管与公司秘书，由哈罗德·V·班克斯先生 (Harold V. Banks) 当选接替上述职务。</p>
+
+<p>目前公司各部门均积累了大量未履行的订单，我们预期来年的经营将继续保持盈利。</p>
+
+<p>在此，我们向公司全体员工致以诚挚的谢意——正是他们的忠诚协作与辛勤付出，使本年度取得了这样的成绩。</p>
+
+<p>马尔科姆·G·蔡斯二世 (Malcolm G. Chace, Jr.)<br>董事长</p>
+
+<p>肯尼思·V·蔡斯 (Kenneth V. Chace)<br>总裁</p>
+
+<p><em>（沃伦·巴菲特执笔）</em></p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：learnbuffett.com</p>
+      </div>
+    </section>
+<section id="berkshire-1966" class="letter-section">
+      <div class="letter-header">
+        <h2>1966年</h2>
+        <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 六年回顾纺织业周期性</p>
+      </div>
+      <div class="letter-body">
+<h1>1966 巴菲特致股东信</h1>
+<p>1966 巴菲特致股东信：纺织行业第四季度急转直下，主动停产防止积压库存；六年回顾纺织业周期性、回购缩股、股息政策与资本配置的权衡。</p>
+
+<p>致伯克希尔·哈撒韦公司全体股东：</p>
+
+<p>为便于各位参考，我们在信的首页以对比形式重点列示了1966财年与前五个财年的财务数据。</p>
+
+<p>本信将就以下几个方面作详细说明：</p>
+<ol>
+<li>1966年运营状况</li>
+<li>1961至1966年运营回顾</li>
+<li>财务状况的维护</li>
+<li>股息政策</li>
+</ol>
+
+<h2>一、1966年运营状况</h2>
+
+<h3>销售情况</h3>
+
+<p>本年度营业总额为4,940万美元，与去年基本持平，但产品结构出现了较大变化。合成部门的销售额有所下滑，不过家居纺织品部门业绩相应增长，弥补了这一缺口。梭箱织机部门销售略有改善，却又被菲利普国王工厂D分厂的销售下滑所抵消。</p>
+
+<p>1966年下半年，市场整体低迷。染纱进口大量涌入，加上流行趋势发生转变，导致我们梭箱织机部门销量受损、价格承压。醋酸面料产能过剩，加之尼龙面料进口冲击，使合成部门面临更多织机厂商的竞争。进口增加与国内产能扩张双重夹击，压低了普通涤棉混纺产品的价格。我们预计，这一态势将驱使行内织机转向棉织品，从而对我们菲利普国王工厂D分厂生产的精梳棉面料销售产生不利影响。</p>
+
+<p>鉴于1966财年第四季度出现的种种不利因素，我们决定主动关停产线以避免库存积压——1966年10月9日当周，位于新贝德福德市 (New Bedford) 的梭箱织机部门与合成部门均暂停生产。截至本信撰写之时，纺织市场仍未回暖，若要防止库存继续堆积，可能还需进一步削减产能。</p>
+
+<h3>新产品开发</h3>
+
+<p>过去几年，家居纺织品部门持续增长，很大程度上有赖于新产品的开发以及对老产品的创新应用。去年，我们加大了研发投入，力求推出价格与销量更为稳健的纺织品。</p>
+
+<h3>劳工关系</h3>
+
+<p>1966年初，我们与美国劳工联合会—产业工会联合会 (AFL-CIO) 旗下的美国纺织工人工会签订了一份为期三年的新合同，有效期至1969年4月15日。合同涵盖工资与福利条款，不设中途重新谈判条款。</p>
+
+<h3>厂房与设备</h3>
+
+<p>本年度我们投入约97万美元用于购置和安装新设备，目标是降低成本、提升产品质量并增强生产灵活性。</p>
+
+<p>1966财年，我们已完成对剩余闲置资产的处置。</p>
+
+<h3>所得税</h3>
+
+<p>截至1966财年末，税收亏损结转额度已基本用尽，仅余极小部分。因此，公司未来产生盈利时，将须照常缴纳企业所得税。</p>
+
+<h2>二、运营回顾（1960年10月1日至1966年10月1日）</h2>
+
+<p>对于纺织这样高度周期性的行业，伯克希尔·哈撒韦过去十年的故事，不过是盈利期与亏损期交替上演的老剧本。过去这一年在这段历史中格外重要——1966年不仅实现了盈利，更见证了公司财务实力恢复到1960年底的水平。各位或许还记得：1959年和1960年的盈利尚未完全弥补1957年和1958年的巨额亏损，公司旋即又遭受了长达三年的亏损冲击。</p>
+
+<p>这几年间，公司财务状况不仅受到上述亏损的侵蚀，还要同时承受1960年代初大规模资本支出计划带来的重压。</p>
+
+<p>下表概括了伯克希尔·哈撒韦过去六年账面价值的变动情况：</p>
+
+<table>
+<tr><td>1960年10月1日账面价值</td><td>37,981,820美元</td></tr>
+<tr><td>加：1961至1966年净收益（已扣除固定资产处置损失620万美元）</td><td>40,476美元</td></tr>
+<tr><td>减：1961至1966年已派股息</td><td>1,366,273美元</td></tr>
+<tr><td>股息超出净收益部分</td><td>1,325,797美元</td></tr>
+<tr><td>小计</td><td>36,656,023美元</td></tr>
+<tr><td>减：1961至1966年累计回购607,972股股票</td><td>7,161,103美元</td></tr>
+<tr><td><strong>1966年10月1日账面价值</strong></td><td><strong>29,494,920美元</strong></td></tr>
+</table>
+
+<p>从表中可以看出，这六年里股息支付额超过了净收益，但账面价值下降22%的主要原因，是公司依照回购计划持续买回自家股票——流通股已缩减至1,017,547股，较1960年10月1日减少了37%。考虑到公司因关闭亏损工厂而主动缩减经营规模，这一流通股数量的减少实属合理。</p>
+
+<p>股票回购计划对现有股东的好处，可以从每股账面价值的变化中得到印证：1966年10月1日，公司流通普通股每股账面价值为28.99美元，而六年前这一数字仅为23.37美元。</p>
+
+<p>截至1960年10月1日的那一财年，公司销售总额为6,260万美元；1966年则为4,940万美元，降幅约21%，与总账面价值22%的降幅基本吻合。公司目前的账面价值周转率已大致恢复到六年前的水平，这再次印证了公司实力的回归。</p>
+
+<h2>三、财务状况的维护</h2>
+
+<p>保持健康的财务状况，始终是伯克希尔·哈撒韦的核心目标之一。正是这一原则，使公司得以在高度周期性的行业中存活至今。截至1966年10月1日，公司营运资金达23,158,187美元，充分体现了当前财务状况的稳健。这一数字与1960年10月1日的营运资金规模相当；但由于期间股票回购导致流通股减少，每股营运资金已从六年前的14.41美元上升至22.76美元。</p>
+
+<p>维持强健财务状况，还有几层考虑，不仅仅是应对业务的周期性波动。正如此前向各位汇报的，公司一直在积极寻找合适的收购标的，范围涵盖纺织业内外。尽管迄今尚无成功案例，我们对此类收购的兴趣不减。目前货币市场的状况几乎无法为收购融资，因此保持充足的流动资产至关重要——一旦期待中的收购机会出现，我们才有能力出手。此外，战争风险、税率变动以及商业活动可能进一步萎缩等不确定因素，也都强调了持续保持健康财务状况的必要性。</p>
+
+<p>另一个可能需要大额投入的领域，是我们增长迅猛的家居纺织品部门。过去三年，该部门销售额几近翻番。若未来几年继续保持这一势头，我们可能需要在增量库存和应收账款上追加高达700万美元的投资。</p>
+
+<p>最后，技术变革的威胁在纺织业如影随形。我们在厂房与设备上的账面投资为2,440万美元（扣除累计折旧后为630万美元），而纺织机械行业始终在努力让现有设备更快淘汰。生产流程任何环节的重大变革，都可能需要按未来重置价格进行大规模资本支出。我们会继续审慎权衡每一项资本支出计划的潜在收益与风险。但一旦认定资本支出符合公司最佳利益，就必须具备相应的财务实力去付诸实施。尤其需要警惕的情形是：重要的降本设备问世，偏偏又赶上纺织行业盈利低迷，届时外部融资极为困难甚至毫无可能——充足的营运资金在这种时候就显得格外关键。</p>
+
+<p>正是出于上述考量，公司年末在营运资本中保留了540万美元的有价证券，包括短期市政债券、商业票据和普通股。由于难以判断公司何时可能需要大笔现金，也存在相当长一段时间内根本不需要的可能性，我们的董事们认为，对于这部分资本，应当与投入工厂、库存、应收账款等其他资产一样积极追求合理回报。因此，董事会目前的意向是，将这些资金中的大部分暂时投资于普通股。这样做，不仅有望获得比非权益类有价证券更高的收益，还能使我们有机会参与纺织业务以外的利润，哪怕只是阶段性的、间接的参与。</p>
+
+<h2>四、股息政策</h2>
+
+<p>公司财务状况的逐步恢复，为实施股息政策提供了条件——向股东分配当期税后利润中合理比例的股息。当然，任何股息政策都必须以维护现有财务实力为前提，不能顾此失彼。</p>
+
+<p>为落实这一政策，董事会已于1966年11月14日宣布派发每股10美分的股息，股权登记日为1966年12月2日，派发日期为1967年1月3日。</p>
+
+<p>马尔科姆·G·蔡斯二世 (Malcolm G. Chace, Jr.)<br>董事长</p>
+
+<p>肯尼思·V·蔡斯 (Kenneth V. Chace)<br>总裁</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：learnbuffett.com</p>
+      </div>
+    </section>
+<section id="berkshire-1967" class="letter-section">
+      <div class="letter-header">
+        <h2>1967年</h2>
+        <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 收购国民保险公司，进入保险业</p>
+      </div>
+      <div class="letter-body">
+<h1>1967 巴菲特致股东信</h1>
+<p>1967 巴菲特致股东信：里程碑年：以现金收购国民保险公司、正式进入保险业；关闭菲利普国王 D 分厂；首次提出多元化盈利来源战略。</p>
+
+<p>致伯克希尔·哈撒韦公司全体股东：</p>
+
+<p>公司已将会计年度改为日历年度，取代原来以每年9月30日为财年结束日的惯例。此次变更自1967年12月30日起生效。本报告涵盖截至1967年12月30日的十五个月。</p>
+
+<h2>纺织业务</h2>
+
+<h3>截至1967年9月30日的财年经营情况</h3>
+
+<h4>销售</h4>
+
+<p>总体销售额呈下滑态势，从1966财年的4,940万美元降至1967财年的3,900万美元。销售额下降的原因有二：其一，各业务部门的码数需求普遍萎缩；其二，除家用纺织品部门外，所有产品线价格均大幅下跌。家用纺织品部门的营业额与利润虽然也有所下降，但在我们所处的纺织市场低迷环境中，这一板块表现出了最强的抗压能力。伯克希尔·哈撒韦不生产重型帆布之类的粗制品——而那恰恰是1967年表现最为强劲的纺织细分市场。</p>
+
+<p>本财年中，为避免库存积压，我们削减了约15%的产能。库存水平维持得令人满意，但减产使我们流失了若干类别的熟练技工，而这些人力恰恰是未来充分利用工厂产能所必需的。因此，在重新满负荷运转之前，我们将不可避免地承担较高的培训成本。</p>
+
+<p>到本财年结束时，整体纺织市场出现了一些回暖迹象，唯独我们位于罗得岛州沃伦市 (Warren, Rhode Island) 菲利普国王工厂D分厂 (King Philip D Division) 所生产的精梳棉面料除外——这类面料全年需求低迷、价格持续走软。一项市场调查显示，消费者对纯棉精梳面料的需求正在逐步被涤棉混纺面料所取代。</p>
+
+<p>从积极的方面看，我们将家用纺织品的产品线拓展至更多种类的面料，并扩充了该领域的销售队伍。此外，我们还新设了服装面料部门，将梭箱织机生产的色织成品销往女装市场。这两项举措都是我们整体策略的组成部分——我们的目标是在与主流面料生产商的正面竞争之外，开辟属于自己的产品线。未来我们将继续推进这一方向。</p>
+
+<h4>生产制造</h4>
+
+<p>由于产量下降、单笔订单变小、织机换型更频繁，制造成本较过去几年明显偏高。恢复满负荷生产应能在很大程度上改善这一状况。虽然产品开发与面料多元化本身会带来更高的制造成本，但这部分成本应当能被面料较高的售价所覆盖，最终实现更高的利润。</p>
+
+<h4>劳工关系</h4>
+
+<p>劳资关系继续保持令人满意的状态。我们现行的劳动合同将延续至1969年4月，合同规定1968年4月将实施一次整体工资上调。目前的劳动力市场形势与大多数行业一样不容乐观——能够满足所需培训与技能要求的求职者越来越少。</p>
+
+<h3>1967年第四季度情况（截至1967年12月30日的三个月）</h3>
+
+<p>本季度，除菲利普国王工厂D分厂外，各业务部门的需求均出现明显回升。公司运营已接近正常水平，部分设备闲置仅因无法及时招募和培训到足够的人手。新成立的服装面料部门开局良好，家用纺织品部门则恢复了历史上一贯强劲的增长势头。根据当前市场状况，我们预计1968年纺织业务的经营利润将有显著改善。此前积累的运营亏损已全部用完，未来产生的任何净利润都将按正常税率缴纳联邦所得税。</p>
+
+<p>唯一令人不满的业务是精梳棉面料。经过第二次市场调查后，我们决定关闭位于罗得岛州沃伦市、专门生产这类面料的菲利普国王工厂D分厂。这座工厂在生产精梳面料方面效率不低，但不幸的是市场对这类产品的需求已近乎消失。该工厂的设备对其他产品的适用性极为有限，改造转型在经济上并不合算。新棉花价格的大幅上涨更是加速了我们的关厂决定——成本上涨根本无法转嫁到成品价格上。D分厂停产带来的所有损失将在1968年的财务数据中体现。目前我们只能估算这笔损失的大致规模，但我们预计税前损失不会超过100万美元。</p>
+
+<h2>保险子公司</h2>
+
+<p>自1967年3月完成收购以来，保险子公司的业绩表现令我们非常满意。国民保险公司 (National Indemnity Company) 和国民火灾与海事保险公司 (National Fire and Marine Insurance Company) 这两家公司继续由杰克·林沃特先生 (Jack Ringwalt) 掌舵——他自公司创立之初便一直负责管理这两家企业。</p>
+
+<p>1967年，保费总额仅小幅增长，但由于终止了部分再保险安排，净保费收入实现了可观的提升。承保业务的利润率表现良好，投资收益也大幅增加，这既得益于更高的资产规模基础，也反映了固定收益市场全年普遍较高的收益率水平。保险子公司的全部收益均予以留存，以进一步增强资本实力。</p>
+
+<p>我们对保险公司的投资，是我们努力实现盈利来源多元化的第一个重要步骤。这一努力的成效在1967年得到了印证：保险子公司创造的收益，大幅超过了资本投入规模更大的纺织业务所贡献的收益。我们预计，未来某些年份这两个业务板块的盈利能力排序可能会出现逆转，毕竟保险业和纺织业各有其自身的周期节律。但无论如何，拥有这两个互不相关的收益来源，比起过去仅依赖单一行业的局面，无疑是一项额外的优势所在。</p>
+
+<h2>未来计划</h2>
+
+<p>管理层将持续关注扩大业务规模的机会，无论是在纺织业、保险业，还是与现有业务毫无关联的其他领域。我们深知，绝不能重蹈1956至1966年间的覆辙——那十年里，平均动用资本超过3,000万美元，而整体收益却不到零。我们目前持有的流动资产以可随时变现的普通股为主，既可用于收购新业务，也可用于在现有业务中把握更大的盈利机会。此外，若有吸引力的机会摆在眼前，我们绝不会对借款犹豫不决。我们的目标是，实现与公司所动用资本相称的、稳定而可观的盈利能力。</p>
+
+<p>Malcolm G. Chace, Jr.（马尔科姆·G·蔡斯二世）<br>董事长</p>
+
+<p>Kenneth V. Chace（肯尼思·V·蔡斯）<br>总裁</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：learnbuffett.com</p>
+      </div>
+    </section>
+<section id="berkshire-1968" class="letter-section">
+      <div class="letter-header">
+        <h2>1968年</h2>
+        <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 退出梭箱织机业务，收购太阳报业</p>
+      </div>
+      <div class="letter-body">
+<h1>1968 巴菲特致股东信</h1>
+<p>1968 巴菲特致股东信：决定退出梭箱织机坯布业务；保险业全行业承保亏损中国民保险逆势盈利；收购太阳报业进入出版业。</p>
+
+<p>致伯克希尔·哈撒韦公司全体股东：</p>
+
+<p>1968年，纺织业务和保险业务的盈利状况均有所改善。就股东权益而言，整体经营收益率仍不尽如人意，但我们正竭尽全力将其提升至应有水平。</p>
+
+<h2>纺织业务</h2>
+
+<p>家居纺织品业务和男装衬里业务表现良好，营业额增长约14%。多年来，这两个业务板块一直是我们盈利最为稳健的领域——1968年的进步，离不开理查德·博文 (Richard Bowen) 在家居纺织品业务和拉尔夫·里格比 (Ralph Rigby) 在男装衬里业务的辛勤耕耘。1969年，家居纺织品业务将引进全新的150英寸苏拉织机，为丰富我们的产品样式打开空间。我们还持有追加购机的期权，一旦盈利预期得以实现，即可相应扩产。</p>
+
+<p>我们的梭箱织机部门多年来始终面临严峻的经营困境。这一领域的历史轨迹几乎一成不变：偶尔迎来一段价格强劲的好时光，随后便是大量进口商品涌入、恶性价格战和大幅压缩产能。经过对梭箱织机坯布产品未来市场的审慎评估，以及对维系这一业务所需投入的综合考量，我们决定在1969年逐步退出该坯布业务。过渡期结束后，固定资产出售将带来一定亏损，但我们预计纺织业务的整体经营状况会随之改观。</p>
+
+<h2>保险业务</h2>
+
+<p>国民保险公司 (National Indemnity Company) 和国民火灾与海事保险公司 (National Fire & Marine Insurance Company) 在杰克·林沃特 (Jack Ringwalt) 的领导下，继续保持出色的经营业绩。1968年保费收入仅小幅增长，但更值得关注的是：在整个财产保险行业普遍出现承保亏损的背景下，我们依然实现了良好的承保利润。投资收益在1968年大幅增加，既得益于资产规模的扩大，也受益于固定收益证券收益率的提升。此外，我们在普通股上的投资再度兑现了部分资本利得。</p>
+
+<p>保险公司将继续寻求新的扩张机会，无论是在直接险业务还是再保险领域均如此。但有一点必须始终坚守：承保要有利可图，绝不为了追求规模而牺牲利润率。由于我们坚持将保险子公司的全部收益留存于内部，公司的资本金得到大幅充实，承保能力也随之增强，使我们能够保留更大比例的自主承保份额。</p>
+
+<h2>有价证券投资与收购</h2>
+
+<p>1968年，我们出售了投资组合中的部分有价证券，税后获利约150万美元。至1968年底，投资组合中剩余持仓的未实现资本利得达640万美元。这些普通股有价证券作为临时性投资持有，随时可以为收购或扩大经营业务调配资金——这与我们构建更强劲、更多元化盈利能力的整体规划一脉相承。</p>
+
+<p>年底之后，我们购入了太阳报业公司 (Sun Newspapers, Inc.) 和布莱克印务公司 (Blacker Printing Company, Inc.) 的全部股权，由此正式踏入出版业。此次收购仅动用了我们可用收购资金的一小部分。太阳报业在内布拉斯加州奥马哈地区发行五份周报，付费订阅规模约5万份；配套的印刷业务则由布莱克印务公司承接。这笔买卖规模虽小，但未来增长潜力不容小觑。业务将继续由斯坦福·利普西 (Stanford Lipsey) 负责经营。</p>
+
+<p>肯尼思·V·蔡斯 (Kenneth V. Chace)<br>总裁</p>
+
+<p>（沃伦·巴菲特执笔）</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：learnbuffett.com</p>
+      </div>
+    </section>
+<section id="berkshire-1969" class="letter-section">
+      <div class="letter-header">
+        <h2>1969年</h2>
+        <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 收购伊利诺伊国民银行，进入银行业</p>
+      </div>
+      <div class="letter-body">
+<h1>1969 巴菲特致股东信</h1>
+<p>1969 巴菲特致股东信：以 1550 万美元收购伊利诺伊国民银行进入银行业；尤金·阿贝格的银行经营哲学；五年资本重配战略阶段性成功。</p>
+
+<p>致伯克希尔·哈撒韦公司全体股东：</p>
+
+<p>四年前，你们的管理层立下目标：要发展出比把资本一直押在纺织业更强大、更稳定的盈利能力。为此，我们先把资金暂时投入有价证券，同时耐心寻找符合我们投资和管理标准的实体企业。</p>
+
+<p>事实证明，这一策略相当成功——尤其是跟那些在回报明显不足的情况下仍继续大举扩张纺织业的公司相比，高下立判。我们先后完成了两项重大收购，这两家企业的良好运营，让伯克希尔去年的平均股本回报率超过10%，而我们投入纺织业务的那部分资本回报率还不到5%。过去两年，我们已将全部有价证券悉数变现，税后获利超过500万美元。这笔资金在1969年至关重要——那一年借钱做收购普遍难如登天，这些收益为我们顺利完成年内的重大收购提供了坚实后盾。</p>
+
+<p>我们预计不会再购置有价证券，但寻找理想收购标的的工作仍在持续。当然，任何收购都要以能筹到合适的融资为前提。</p>
+
+<h2>纺织业务</h2>
+
+<p>1969年的销售额比1968年下滑约12%。尽管关停梭箱织机部门造成了相当大的运营亏损，净利润还是略有提升。投入资本的回报率略有改善，但即便费尽心力，结果仍不令人满意。</p>
+
+<p>我们目前正身处一场比多年来所经历的都更为严峻的纺织业衰退。在大量终端应用领域，纺织品需求整体疲软。需求不足迫使我们压缩产量，以免库存堆积。1970年第一季度，我们的男装衬里部门和家居面料部门都不得不安排两周停工，但库存依然偏高。需求下滑的幅度，看来比纺织品周期性市场的正常低谷还要深。要走出这轮周期，大概得靠联邦政府在其可掌控的经济因素上采取行动。</p>
+
+<p>我们已将纺织业务集中到那些历史表现和市场预期都相对可期的领域。工厂运营已有改善，一旦行业环境好转，应能大幅降低成本。不过，眼下的形势是：1970年这块业务的利润会更低。</p>
+
+<h2>保险业務</h2>
+
+<p>1969年，杰克·林沃特 (Jack Ringwalt) 和他那支出色的管理团队，几乎在每个部门都创下了新纪录。火灾及意外险行业这一年再度出现重大承保亏损，而我们的保险子公司却实现了相当可观的调整后承保利润。自1941年公司创立以来，林沃特先生始终坚守"承保必须盈利"这一原则——业内人人挂在嘴边，真正做到的却寥寥无几。</p>
+
+<p>我们新成立的担保部门规模虽小，年内进展顺利。我们正在洛杉矶设立分公司，进军加州工伤赔偿保险市场。新成立的再保险部门开局强劲，不过这类业务的特点决定了，至少要几年之后才能对经营成果做出靠谱的判断。我们还有一个颇有意思的新计划，准备拓展"家乡州"保险业务。</p>
+
+<p>菲尔·利舍 (Phil Liesche) 在保险承保和营销部门深耕逾20年，是出色业绩背后的重要功臣，今年年初已正式当选为执行副总裁。</p>
+
+<p>我们的保险业务预计将持续增长。</p>
+
+<h2>银行业務</h2>
+
+<p>1969年对伯克希尔来说，最重要的事件是以1550万美元收购了伊利诺伊州洛克福德市伊利诺伊国民银行及信托公司 (The Illinois National Bank and Trust Co.) 97.7%的股份。这家银行由尤金·阿贝格 (Eugene Abegg) 一手创办，从未引入外部资本，从1931年区区25万美元的净资产和40万美元的存款起步，到1969年已壮大为净资产1700万美元、存款1亿美元的机构。阿贝格先生留任董事长，并在1969年创下约200万美元的经营收益纪录（证券损失前）。无论以存款还是总资产为基数，这一利润率在全国不以信托业务为主的大型商业银行中都名列前茅。要在1970年再进一步并不容易，原因有二：第一，我们这家银行已经是高效运营的企业；第二，伊利诺伊州的单一银行法（禁止开设分行，一行只设一处）使得城市大型银行的存款很难有大幅增长。</p>
+
+<p>持有近一年后，我们对伊利诺伊国民银行这笔投资，以及与阿贝格先生的合作，都感到十分满意。</p>
+
+<p>肯尼思·V·蔡斯 (Kenneth V. Chace)<br>总裁</p>
+
+<p>沃伦·E·巴菲特 (Warren E. Buffett)<br>执笔</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：learnbuffett.com</p>
+      </div>
+    </section>
+<section id="berkshire-1970" class="letter-section">
+      <div class="letter-header">
+        <h2>1970年</h2>
+        <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 银行历史最佳、保险承保退步但投资弥补</p>
+      </div>
+      <div class="letter-body">
+<h1>1970 巴菲特致股东信</h1>
+<p>1970 巴菲特致股东信：三大业务三种表现：银行历史最佳、保险承保退步但投资弥补、纺织全年下滑；首推内布拉斯加居民意外险开启本州模式。</p>
+
+<p><strong>伯克希尔·哈撒韦公司 (Berkshire Hathaway Inc.)</strong></p>
+
+<p>1971 年 3 月 15 日</p>
+
+<p>致伯克希尔·哈撒韦公司全体股东：</p>
+
+<p>过去一年，我们各营运单位的盈利结果差异之大，令人瞩目。伊利诺伊州国民银行信托公司（Illinois National Bank & Trust）创下历史最高收益，以经营收益占平均资产的百分比衡量，在全美银行中继续名列前茅。我们的保险业務承保成绩有所退步，但投资收益的增加令整体回报依然相当可观。纺织业务则在全年中持续走下坡路——考虑到行业整体环境，最终能维持损益平衡，已属情有可原。</p>
+
+<p>综合上述各因素，股东平均资本回报率约为 10%。这个数字大约只与美国工业企业的平均水平持平，但比起五年前我们把全部资源押注在纺织业上时所能取得的回报，仍要高出许多。</p>
+
+<h2>纺织业务</h2>
+
+<p>年内，男装衬里及家居布料的销售均大幅下滑。为此，我们不得不一再调整生产计划，以防库存积压。减产措施让公司付出了沉重代价，也给员工的生活带来了不小的冲击。</p>
+
+<p>价格持续低迷，需求并未回暖。虽经一番努力，库存较一年前有所下降，但相对于当前的销售水平而言，仍属偏高。我们仍在积极推动制造和营销层面的必要变革，力求实现盈利经营，并为员工提供更稳定的工作。</p>
+
+<p>在肯尼思·蔡斯（Ken Chace）的带领下，这项业务的管理层和工人所展现出的努力、态度与进取精神，丝毫不亚于我们那些盈利丰厚的业务。然而过去这一年，他们始终在逆流中挣扎——写这封信的时候，这种局面依然没有改变。</p>
+
+<h2>保险业务</h2>
+
+<p>我们的保险业务在这一年实现了出色的增长，尽管承保表现有所不及。随着传统汽车保险市场受到越来越多的限制，我们的传统业务量急剧攀升。这与我们一贯的历史规律相符——作为一家非常规的承保商，每当标准市场出现产能紧张或承保亏损时，我们便会以"浪涌"的方式获得业务量的增长。尽管年内传统业务的综合赔付及费用比率（combined ratio）上升至约 100%，但我们以杰克·林沃特（Jack Ringwalt）和菲尔·利舍（Phil Liesche）为首的管理层，既有能力、也有决心让它重回承保盈利。</p>
+
+<p>由乔治·扬（George Young）主管的新设再保险部门，在本年度取得了重大进展。要全面评估该部门的承保成绩还需几年时间，但初步迹象令人振奋。我们正在再保险的多个领域建立可观的业务量，同时扩充团队，为将来承接更大规模的业务做好准备。</p>
+
+<p>去年年报中提到的担保业务，在 1970 年出现了相当大的承保亏损。承包商保证金业务令人失望，我们已将承保范围收缩至杂项保证金领域。这意味着业务量会大幅减少，但我们希望届时能带来承保利润。</p>
+
+<p>我们的"本州"业务——内布拉斯加意外险公司（Cornhusker Casualty Company）——势头良好。该公司于 1970 年初成立，是国民保险公司（National Indemnity）的全资子公司，仅通过内布拉斯加州的代理商承接标准业务。大公司的实力与小公司的亲和力相结合，对一流代理商而言正是强大的营销利器。约翰·林沃特（John Ringwalt）将这一构想变成了现实，功不可没。我们目前计划进一步推广"本州"模式，预计今年晚些时候再开设一家此类公司。</p>
+
+<h2>银行业務</h2>
+
+<p>1969 年本已是银行业务的丰收年，而尤金·阿贝格（Eugene Abegg）在 1970 年面临的难题，就是要在存款规模毫无变化的情况下超越这个高基数——他做到了。在维持高于平均水平的流动性之余，不含证券增值收益的净经营收益，与平均存款额之比超过了 2%。这一成绩充分说明，这是一家经营得格外出色的银行。</p>
+
+<p>鲍勃·克莱恩（Bob Kline）于 1971 年 1 月出任伊利诺伊州国民银行行长，阿贝格先生则继续担任董事长兼首席执行官。伊利诺伊州实行单一银行制度（unit banking，即不允许银行设立多家分支机构），存款增长着实不易。在加入银行的这一年里，克莱恩在拓展新存款方面展现出了充分的努力与主动。与全国趋势一致，此类存款增长将主要来自消费储蓄领域，随之而来的是较高的资金成本。加之当前全国贷款利率普遍走低，如何在使用高成本存款的同时维持盈利，对管理层而言将是一大考验。</p>
+
+<p>1970 年底，美国通过了新的银行控股公司立法，这对伯克希尔·哈撒韦产生了直接影响——因为我们持有伊利诺伊州国民银行的控股权益。根据该法规，我们大约有十年时间来处置该银行的股份（这可能涉及将银行股份分拆派发给股东），具体的行动方案还需一段时间才能确定。与此同时，伯克希尔集团旗下所有实体的若干活动——包括并购——均须受该法案及联邦储备委员会相关法规的约束。</p>
+
+<p>沃伦·E·巴菲特 (Warren E. Buffett)<br>董事长</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：learnbuffett.com</p>
+      </div>
+    </section>
+<section id="berkshire-1971" class="letter-section">
+      <div class="letter-header">
+        <h2>1971年</h2>
+        <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 经营回报达14%，收购家庭和汽车保险公司</p>
+      </div>
+      <div class="letter-body">
+<h1>1971 巴菲特致股东信</h1>
+<p>1971 巴菲特致股东信：经营回报达 14%；收购芝加哥家庭和汽车保险公司；首次警告承保盈利吸引非理性竞争，宁愿保费收缩也不放松承保纪律。</p>
+
+<p>致伯克希尔·哈撒韦公司全体股东：</p>
+
+<p>很高兴向各位报告，1971年的经营收益（扣除资本利得）超过了年初股东权益的14%。这一成绩远高于美国工业平均水平——而且是在纺织业务盈利不佳的情况下取得的，充分证明了我们五年前启动的资本重新配置所带来的成效。管理层将继续致力于提高总资本（长期债务加上股东权益）以及股本回报率。然而，我们也应该认识到，仅仅维持目前这个相对较高的回报率，恐怕比从1960年代大部分时间普遍存在的极低回报率中艰难爬升还要难。</p>
+
+<h2>纺织业务</h2>
+
+<p>和大多数纺织企业一样，我们整个1971年都在毛利率不足的困境中挣扎。管理层奋力压低成本，持续寻找价格敏感度较低的面料品类，换来的利润却只是杯水车薪。不过话说回来，若没有这些努力，我们恐怕早已陷入全面亏损。年内就业状况较为稳定，因为我们改善存货管理的计划取得了还算不错的成效。</p>
+
+<p>正如去年所说，肯·蔡斯 (Ken Chace) 和他的管理团队一直在逆行业大潮而游。恶劣的环境非但没有让他们退缩，反而激发了他们更大的斗志。眼下行业出现了温和回暖的迹象，我们大力加强的销售队伍正在把握这一机会。随着业务量和产品结构的改善，我们预计1972年纺织业务的盈利能力会有所提升——尽管幅度不会很大。</p>
+
+<h2>保险业务</h2>
+
+<p>多重因素同时发生——交通事故频率下降、大额保单实际费率大幅提高、全年未发生重大灾难——造就了财产意外险行业异常出色的一年。我们从中受益匪浅，当然，这背后也有一些不容忽视的隐忧。</p>
+
+<p>我们的传统业务——至今仍是规模最大的板块——是专业保单和非标准投保人业务。每当标准保险市场因承保亏损而趋于收紧时，生产商便主动找上门来，我们的业务量就会大幅增长。几年前正是这种状况，这在很大程度上解释了1970年和1971年直接业务保费的井喷式增长。如今整个行业的承保业务已经相当有利可图，越来越多的公司开始争抢不久前还被它们拒之门外的投保人，部分地区的费率也开始下调。我们始终坚守承保盈利这一首要目标，这很可能意味着1972年国民保险公司 (National Indemnity Company) 的直接业务量将出现明显萎缩。杰克·林沃特 (Jack Ringwalt) 和菲尔·利舍 (Phil Liesche) 继续以业内无人能及的方式掌舵这项业务。</p>
+
+<p>再保险业务的情形与此如出一辙。这项业务在短短两年内发展成相当规模，全靠乔治·杨 (George Young) 的卓越努力。我们是1969年底进入再保险领域的，彼时费率大幅上涨，承保能力也十分紧张。1971年再保险行业利润丰厚，而如今费率削减已现苗头，资本雄厚的强势新竞争对手也纷纷涌现。较低的费率往往伴随着更大的风险敞口。在这样的背景下，我们预计1972年的业务量将有所收缩。我们在保险业务上从不设定业务量目标——再保险尤其如此——因为只要不顾盈利，任何量都可以做到。每当巨灾发生、承保状况恶化之时，我们希望届时能有充足的资源，以承接以合理定价涌来的大量业务。</p>
+
+<p>1970年，我们通过成立内布拉斯加州居民意外险公司 (Cornhusker Casualty Company) 迈出了"本土化"保险业务的第一步。迄今为止，这一尝试无论在市场开拓还是承保表现上都进展顺利。有鉴于此，我们进一步推进这一布局——1971年在明尼苏达州成立了莱克兰火灾事故保险公司 (Lakeland Fire & Casualty Company)，1972年又在得克萨斯州成立了德州联合保险公司 (Texas United Insurance)。每家公司都将全力深耕各自所在的州，为当地代理商和投保人提供大公司的专业能力，以及小公司才有的便捷和贴心。约翰·林沃特 (John Ringwalt) 自创立之初便全面主持这项业务。他以勤奋的工作、丰富的想象力和出色的才智，将一个想法变成了一门组织完善的生意。"本土化"旗下各公司目前规模尚小，1971年合计保费收入略超过150万美元。预计1972年这一数字将翻倍以上，届时我们也将建立更可靠的基准来评估承保表现。</p>
+
+<p>1971年的一大亮点是收购了位于芝加哥的家庭和汽车保险公司 (Home & Automobile Insurance Company)。这家公司由维克多·拉布 (Victor Raab) 一手创立，从最初的小额投资起步，发展成库克县一家大型汽车保险公司，1971年保费收入约达750万美元。维克和杰克·林沃特、吉恩·阿贝格 (Gene Abegg) 是同一类人——既有盈利经营的天赋，又对自己的事业充满热情。这三个人都是白手起家，将公司一点一点做大，在以现金方式出售所持股权之后，依然保有当初分毫未减的主人翁精神和自豪感。</p>
+
+<p>维克在创立家庭和汽车保险公司后将原始股本翻了许多倍，但他的才能和想法始终受制于有限的资本规模。我们为公司注入了资本金，使其得以建立分支机构，将高度专注的现场营销和理赔模式拓展至其他人口稠密地区。</p>
+
+<p>总体而言，家庭和汽车保险公司新增的业务量，加上"本土化"公司1972年的业务，能否弥补国民保险公司直接业务和再保险业务可能出现的下滑，尚无定论。但是，我们在1970年和1971年大幅增长的保费收入，在高利率时期为投资业务带来了可观的可用资金，这将在未来数年持续带来收益。因此，尽管保费收入的前景不尽乐观，1972年保险业务的投资收益和整体盈利展望还是相当不错的。</p>
+
+<h2>银行业務</h2>
+
+<p>我们的银行子公司伊利诺伊国民银行及信托公司 (The Illinois National Bank & Trust Company)，以收益占存款的比例衡量，继续引领行业。1971年，伊利诺伊国民银行平均存款的税后回报率远超2%——这还是在以下前提下实现的：（1）几乎不使用借款，仅偶尔为准备金平衡目的进行短期融资；（2）保持远高于行业平均水平的流动性头寸；（3）贷款损失率远低于行业平均；（4）定期存款占比超过50%，所有消费者储蓄账户全年均按法规允许的最高利率计息。这一切都是吉恩·阿贝格 (Gene Abegg) 和鲍勃·克莱恩 (Bob Kline) 出色管理的成果。</p>
+
+<p>1971年，整个银行业的贷款和投资利率大幅下滑。近几年，伊利诺伊国民银行的存款结构从活期资金向更昂贵的定期资金转移的幅度，已远超行业平均水平。例如，存款利息支出已从1969年的不到170万美元，增至1971年的逾270万美元。尽管如此，该行依然保持着不寻常的高盈利水平。年内营销力度明显加大，成效卓著。</p>
+
+<p>如今利率比1971年还低，银行业在1972年实现收益增长将面临重重困难。伊利诺伊国民银行的存款增长主要来自定期资金，而这在目前只能产生微乎其微的增量收益。要让伊利诺伊国民银行在1972年维持1971年的盈利水平，需要极为严格的成本管控。</p>
+
+<h2>融资</h2>
+
+<p>1971年初，由于各保险子公司业务量快速增长，我们重新安排了伯克希尔·哈撒韦的银行贷款，为这些子公司补充资本金。事实证明，这一融资安排极为及时——当年晚些时候收购家庭和汽车保险公司的机会出现时，我们恰好有备无患。</p>
+
+<p>我们的保险和银行子公司肩负着对公众的信托责任。我们坚守一个根本信念：必须以极为稳健的财务状况来运营，才能无可置疑地履行我们的责任。因此，我们将继续规划好财务安排，确保子公司和母公司层面均保持最强大的财务实力。</p>
+
+<p>沃伦·E·巴菲特 (Warren E. Buffett)<br>董事会主席</p>
+
+<p>1972年3月13日</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：learnbuffett.com</p>
+      </div>
+    </section>
+<section id="berkshire-1972" class="letter-section">
+      <div class="letter-header">
+        <h2>1972年</h2>
+        <p class="letter-subtitle">伯克希尔·哈撒韦时期 — 经营回报19.8%历史峰值，八年每股年化16.5%</p>
+      </div>
+      <div class="letter-body">
+<h1>1972 巴菲特致股东信</h1>
+<p>1972 巴菲特致股东信：经营回报创下 19.8% 历史峰值；保险承保利润异常高企同时埋下竞争隐忧；八年来累计每股账面价值年化复合 16.5%。</p>
+
+<p>致伯克希尔·哈撒韦公司全体股东：</p>
+
+<p>1972年伯克希尔·哈撒韦 (Berkshire Hathaway) 的经营收益令人振奋，达到年初股东权益的19.8%，成绩相当亮眼。我们所有主要业务都取得了显著进步，其中进步最为突出的是保险承保利润。由于多重有利因素罕见地同时出现——汽车事故频率下降、事故严重程度趋缓，以及全年未发生重大灾难——承保利润率远超以往平均水平，也远超我们对未来的预期。</p>
+
+<p>虽然我们预计1973年经营收益会略有回落，但可以肯定的是，近年来的多元化布局已为公司奠定了明显更高的正常盈利基础。现任管理层于1965年5月接手公司。八年后，1972年的经营收益达到11,116,256美元，比我们若将资本全部投入纺织业务所能产生的回报高出许多倍。1964财年末，伯克希尔的股东权益合计22,138,753美元。自那以后，我们没有向外部引入任何新增股权资本，无论是现金增发还是通过并购。恰恰相反，我们还回购了一部分股票，使流通股数减少了14%。每股账面价值从1964财年末的19.46美元增长至1972年末的69.72美元，年复合增长率约为16.5%。</p>
+
+<p>近年来我们完成的三项主要收购，无论从财务还是人的角度来看，结果都堪称出色。三笔交易里，创始人均为主要卖家，以现金形式套现了可观的资金——而且三位同样的人，杰克·林沃特 (Jack Ringwalt)、吉恩·阿贝格 (Gene Abegg) 和维克·罗伯 (Vic Raab)，都继续以饱满的精力和创造力经营着各自的业务，在此前已经相当优秀的记录上继续精益求精。</p>
+
+<p>我们将继续寻找与现有业务合乎逻辑的延伸方向，同时也积极物色新的业务机会，确保资本得到有效运用。</p>
+
+<h2>纺织业务</h2>
+
+<p>正如去年年报所预告的，纺织行业在1972年有所回暖。过去几年里，肯·蔡斯 (Ken Chace) 和拉尔夫·里格比 (Ralph Rigby) 建立起了一支出色的销售团队，在服务质量和可靠性方面口碑越来越好。生产能力也经过重组，更好地配合了我们的销售优势。</p>
+
+<p>借助行业复苏的东风，我们在1972年开始收获这些努力的成果。库存管理得当，既把关线损失压到最低，也降低了资本占用需求；产品结构也得到了大幅优化。行业整体盈利水平始终是决定我们纺织业务收益的首要因素，但我们相信，我们在行业内的相对竞争地位已有明显提升。1973年的前景值得期待。</p>
+
+<h2>保险承保业务</h2>
+
+<p>1972年，国民保险公司 (National Indemnity Company) 在我们传统保险业務的核心领域创下了出色的承保利润，但这里面有一个值得深思的悖论。这份利润大幅拉高了1972年的整体公司盈利，然而正是产生这种利润的市场环境，吸引了大量新竞争者以我们认为难以为继的费率水平蜂拥入市。从长远来看，如果今年的利润没有这样大幅飙升，我们未来五年的前景反而可能更好。</p>
+
+<p>去年年报中我们已经预告了竞争加剧的趋势，1972年保费量确实如预期般有所下滑。我们认为，行业承保利润率将在1973年或1974年大幅收窄，但这最终可能会形成一种新格局，让我们过去的那种历史性增长得以重现。遗憾的是，承保业绩恶化与竞争趋缓之间存在一段时滞。在这段时间里，我们预计传统业务的保费量仍将继续萎缩。以杰克·林沃特 (Jack Ringwalt) 和菲尔·利舍 (Phil Liesche) 为首的经验丰富的管理团队，将坚守承保盈利的底线——虽然利润水平无法重现1972年的高峰——我们的定价依据是长期预期而非短期憧憬。这一做法在过去曾导致保单量时有起伏，但长期而言已经产生了极为出色的业绩。</p>
+
+<p>再保险业务也和去年年报的预判一样，在1972年遭遇了许多同样的竞争压力。大量新机构涌入这个历来规模不大的市场，费率往往被大幅压低，我们认为这是不理性的，在巨灾领域尤为如此。好在过去这一年巨灾发生极少，我们的承保业绩表现不错。</p>
+
+<p>乔治·杨 (George Young) 仅用几年时间便建立起一项规模可观、盈利稳健的再保险业务。从长远看，我们计划在再保险领域成为举足轻重的重要力量。但在费率持续恶化的背景下，贸然扩大规模并不明智。在我们看来，目前的承保风险敞口比以往任何时候都大。一旦这些潜在损失成为现实，市场将重新定价，到那时才是我们大举扩张的好时机。</p>
+
+<p>"本土化"业务方面，我们历史最悠久、规模最大的内布拉斯加州居民意外险公司 (Cornhusker Casualty Company) 仅在内布拉斯加州开展业务，取得了良好的承保业绩。这项业务进入第二个完整年度，其市场竞争力已经得到验证——承保量已相当于在该州深耕数十年的"老牌"巨头的三分之一左右。</p>
+
+<p>我们在明尼苏达州和得克萨斯州的两家规模较小的公司，在极小的保费量上却产生了令人不满意的损失赔付比率。这些本土化公司的管理层清楚地知道：承保盈利是衡量成功的唯一标尺，只有在承保业务真正做对了的前提下，才能谈得上大规模扩张。新公司的费用比率偏高，这在发展初期是可以理解的。</p>
+
+<p>约翰·林沃特 (John Ringwalt) 在启动这项业务方面做得非常出色，并计划在1973年将业务至少扩展到另外一个州。眼下还有许多工作要做，但本土化保险业务的长期潜力相当可观。</p>
+
+<p>去年报告中提到，我们收购了位于芝加哥的家庭和汽车保险公司 (Home and Automobile Insurance Company)。当时我们就对这笔收购感觉良好，现在感觉更好。由维克·罗伯 (Vic Raab) 领导，该公司在1972年继续保持了出色的业绩记录。1973年，我们计划进入佛罗里达州戴德县 (Dade County) 和加州洛杉矶 (Los Angeles) 市场，提供那套在库克县 (Cook County) 已成功实践的专业城市汽车险业务。维克拥有掌管更大规模公司的管理能力。我们预期，家庭和汽车保险公司将在未来几年实现大幅扩张。</p>
+
+<h2>保险投资业务</h2>
+
+<p>我们非常幸运，在1969年至1971年间，保费收入大幅增长与历史高位附近的利率水平恰好同时出现。大量可投资资金在此时涌入，恰好得以投向收益极为可观的资产。大部分资金被配置在免税债券上，因此我们的投资收益虽然从1969年的2,025,201美元增长至1972年的6,755,242美元，实际税率却相当低。</p>
+
+<p>我们的债券投资组合拥有异常出色的赎回保护，未来多年将持续受益于当前组合的高平均收益率。然而，目前保费增长乏力，将使未来数年内投资收益的增速明显放缓。</p>
+
+<h2>银行业務</h2>
+
+<p>我们的银行子公司——伊利诺伊州银行及信托公司 (The Illinois Bank and Trust Co.) 罗克福德 (Rockford) 分行，在盈利水平上继续保持行业领先地位。1972年，税后收益占平均存款的2.2%，结合以下几个制约因素来看，这一数字更显难能可贵：(1) 定期存款组合中有50%的比重集中于消费者储蓄工具，全部按照法定最高利率支付；(2) 始终保持强劲的流动性头寸，不依赖货币市场借款；(3) 贷款政策极为审慎，过去两年的净坏账冲销率仅相当于普通商业银行平均水平的5%左右。这份成绩，是对吉恩·阿贝格 (Gene Abegg) 和鲍勃·克莱因 (Bob Kline) 领导力的最好褒奖——在他们掌舵的这家银行，股东和储户都能吃得好、睡得好。</p>
+
+<p>1972年，我们向储户支付的利息是1969年的两倍。我们积极争取消费者定期存款，但没有刻意追逐大额"货币市场"存单——尽管过去几年这类存单往往是成本更低的定期资金来源。</p>
+
+<p>过去一年，客户贷款规模扩大了约38%。这一增幅比附上的资产负债表所呈现的数字要显著得多——因为1971年贷款总额中包含了1090万美元的短期商业票据，而1972年末则没有任何此类票据。</p>
+
+<p>1972年，我们"罗克福德领先银行"的地位进一步巩固。然而，目前的利率结构、美联储新的资金清算程序导致可投资资金减少，以及本已可观的非联邦税可能进一步增加，都使得伊利诺伊州银行在1973年提升盈利变得相当困难。</p>
+
+<h2>融资</h2>
+
+<p>1973年3月15日，伯克希尔向20家机构投资人借款2000万美元，年利率8%。该笔借款于1993年3月1日到期，本金自1979年3月1日起开始分期偿还。借款所得中，900万美元用于偿还银行贷款，余款将注入保险子公司。我们预期，未来将周期性地出现大幅扩展保险业务的好机会，我们要确保届时有充足的财务资源，将这些机会的价值最大化。</p>
+
+<p>我们的银行和保险子公司对客户承担着重要的信托责任。在这些业务中，我们维持着远高于行业标准的资本实力，同时仍能在这部分资本上实现良好的盈利水平。我们将继续坚守前者的目标，并竭尽全力保持后者的成绩。</p>
+
+<p>沃伦·E·巴菲特 (Warren E. Buffett)<br>董事长</p>
+
+<p>1973年3月16日</p>
+      </div>
+      <div class="letter-source">
+        <p>翻译来源：learnbuffett.com</p>
+      </div>
+    </section>
+
+<!-- 导航按钮 -->
+<div id="nav-buttons" class="nav-buttons" style="display:none;">
+  <button class="nav-btn" id="prev-btn" onclick="navigatePrev()">
+    <div class="label">上一篇</div>
+    <div class="title" id="prev-title">—</div>
+  </button>
+  <button class="nav-btn next" id="next-btn" onclick="navigateNext()">
+    <div class="label">下一篇</div>
+    <div class="title" id="next-title">—</div>
+  </button>
+</div>
+
+</main>
+
+<!-- 回到顶部 -->
+<div class="top-btn" id="top-btn">
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+</div>
+
+<!-- Toast -->
+<div class="tts-toast" id="tts-toast"></div>
+
+<script>
+// ===== Sidebar & Navigation =====
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('backdrop').classList.toggle('show');
+}
+
+function handleSearch(v) {
+  v = (v || '').trim();
+  var all = document.querySelectorAll('.cat-list li');
+  all.forEach(function(li) {
+    li.style.display = (!v || li.textContent.indexOf(v) !== -1) ? '' : 'none';
+  });
+}
+
+function toggleGroup(header) {
+  header.classList.toggle('collapsed');
+  var list = header.nextElementSibling;
+  if (list) list.classList.toggle('hidden');
+}
+
+// All navigable items in order
+const NAV_ORDER = [
+  'year-1957','year-1958','year-1959','year-1960','year-1961','year-1962','year-1963','year-1964',
+  'year-1965','year-1966','year-1967','year-1968','year-1969','year-1970',
+  'berkshire-1965','berkshire-1966','berkshire-1967','berkshire-1968','berkshire-1969','berkshire-1970','berkshire-1971','berkshire-1972'
+];
+
+const NAV_TITLES = {
+  'year-1957':'1957年 — 安全边际的起点',
+  'year-1958':'1958年 — 牛市中的冷静',
+  'year-1959':'1959年 — 保守的代价',
+  'year-1960':'1960年 — 桑伯恩地图',
+  'year-1961':'1961年 — 规模扩张',
+  'year-1962':'1962年 — 大跌大赚',
+  'year-1963':'1963年 — 邓普斯特机械制造',
+  'year-1964':'1964年 — _texaco 与色拉油丑闻',
+  'year-1965':'1965年 — 巴菲特有限合伙企业',
+  'year-1966':'1966年 — 激流勇退',
+  'year-1967':'1967年 — 大丰收',
+  'year-1968':'1968年 — 巅峰谢幕',
+  'year-1969':'1969年 — 解散合伙企业',
+  'year-1970':'1970年 — 最繁忙的一年',
+  'berkshire-1965':'1965年 — 伯克希尔收购',
+  'berkshire-1966':'1966年 — 纺织业困境',
+  'berkshire-1967':'1967年 — 保险业务启动',
+  'berkshire-1968':'1968年 — 纺织业收缩',
+  'berkshire-1969':'1969年 — 国民赔偿保险公司',
+  'berkshire-1970':'1970年 — 保险业务腾飞',
+  'berkshire-1971':'1971年 — 回顾与展望',
+  'berkshire-1972':'1972年 — 收购喜诗糖果',
+};
+
+let currentYear = null;
+
+function showLetter(year) {
+  currentYear = year;
+  
+  // Hide all sections and empty state
+  document.getElementById('emptyState').style.display = 'none';
+  var sections = document.querySelectorAll('.letter-section');
+  sections.forEach(function(s) { s.classList.remove('active'); });
+  
+  // Show target section
+  var target = document.getElementById(year);
+  if (target) {
+    target.classList.add('active');
+    document.getElementById('tts-bar').style.display = 'flex';
+    document.getElementById('nav-buttons').style.display = 'flex';
+    updateNavButtons();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  
+  // Highlight sidebar
+  highlightNav(year);
+  
+  // Close sidebar on mobile
+  if (window.innerWidth <= 768) {
+    toggleSidebar();
+  }
+}
+
+function highlightNav(year) {
+  var items = document.querySelectorAll('.cat-list li');
+  items.forEach(function(li) {
+    li.classList.remove('active');
+    if (li.getAttribute('data-year') === year) {
+      li.classList.add('active');
+    }
+  });
+}
+
+function updateNavButtons() {
+  if (!currentYear) return;
+  var idx = NAV_ORDER.indexOf(currentYear);
+  var prevBtn = document.getElementById('prev-btn');
+  var nextBtn = document.getElementById('next-btn');
+  var prevTitle = document.getElementById('prev-title');
+  var nextTitle = document.getElementById('next-title');
+  
+  if (idx > 0) {
+    prevBtn.classList.remove('disabled');
+    prevBtn.disabled = false;
+    prevTitle.textContent = NAV_TITLES[NAV_ORDER[idx-1]] || NAV_ORDER[idx-1];
+  } else {
+    prevBtn.classList.add('disabled');
+    prevBtn.disabled = true;
+    prevTitle.textContent = '—';
+  }
+  
+  if (idx >= 0 && idx < NAV_ORDER.length - 1) {
+    nextBtn.classList.remove('disabled');
+    nextBtn.disabled = false;
+    nextTitle.textContent = NAV_TITLES[NAV_ORDER[idx+1]] || NAV_ORDER[idx+1];
+  } else {
+    nextBtn.classList.add('disabled');
+    nextBtn.disabled = true;
+    nextTitle.textContent = '—';
+  }
+}
+
+function navigatePrev() {
+  if (!currentYear) return;
+  var idx = NAV_ORDER.indexOf(currentYear);
+  if (idx > 0) showLetter(NAV_ORDER[idx-1]);
+}
+
+function navigateNext() {
+  if (!currentYear) return;
+  var idx = NAV_ORDER.indexOf(currentYear);
+  if (idx >= 0 && idx < NAV_ORDER.length - 1) showLetter(NAV_ORDER[idx+1]);
+}
+
+function openExternalYear(year) {
+  window.open('https://www.learnbuffett.com/berkshire/' + year + '.html', '_blank');
+  // Close sidebar on mobile
+  if (window.innerWidth <= 768) {
+    toggleSidebar();
+  }
+}
+
+// ===== Scroll: show/hide top button =====
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('top-btn');
+  if (window.scrollY > 300) {
+    btn.style.display = 'block';
+  } else {
+    btn.style.display = 'none';
+  }
+});
+
+// ===== TTS (Text-to-Speech) =====
+let ttsUtterance = null;
+let ttsVoices = {};
+let ttsPaused = false;
+let ttsSpeed = 1.0;
+let ttsPointMode = false;
+let ttsCurrentYear = null;
+let ttsWords = [];
+let ttsCurrentWordIndex = 0;
+let ttsHighlightSpans = [];
+
+function showToast(msg) {
+  var toast = document.getElementById('tts-toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(function() { toast.classList.remove('show'); }, 2000);
+}
+
+function updateSpeed(val) {
+  ttsSpeed = parseFloat(val);
+  document.getElementById('speed-label').textContent = val + 'x';
+}
+
+function getTextToRead() {
+  if (!currentYear) return '';
+  var section = document.getElementById(currentYear);
+  if (!section) return '';
+  var body = section.querySelector('.letter-body');
+  return body ? body.innerText : '';
+}
+
+function getVoice(lang) {
+  var voices = window.speechSynthesis.getVoices();
+  if (lang === 'zh-HK') {
+    return voices.find(function(v) { return v.lang.includes('zh-HK') || v.lang.includes('zh-TW') || v.lang.includes('zh-Hant'); }) || voices.find(function(v) { return v.lang.includes('zh'); });
+  }
+  return voices.find(function(v) { return v.lang.includes('zh-CN') || v.lang.includes('zh-Hans'); }) || voices.find(function(v) { return v.lang.includes('zh'); });
+}
+
+function startReading(lang) {
+  if (!currentYear) {
+    showToast('请先从左侧选择一封信件');
+    return;
+  }
+  stopReading();
+  var text = getTextToRead();
+  if (!text) return;
+  
+  ttsCurrentYear = currentYear;
+  var utterance = new SpeechSynthesisUtterance(text);
+  var voice = getVoice(lang);
+  if (voice) utterance.voice = voice;
+  utterance.lang = lang || 'zh-CN';
+  utterance.rate = ttsSpeed;
+  utterance.pitch = 1;
+  
+  utterance.onstart = function() {
+    document.getElementById('btn-pause').disabled = false;
+    document.getElementById('btn-stop').disabled = false;
+    showToast('开始朗读...');
+  };
+  
+  utterance.onend = function() {
+    resetTTSButtons();
+    showToast('朗读完成');
+  };
+  
+  utterance.onerror = function(e) {
+    console.error('TTS error:', e);
+    resetTTSButtons();
+  };
+  
+  utterance.onpause = function() {
+    document.getElementById('btn-pause').innerHTML = '<span>▶️</span> 继续';
+  };
+  
+  utterance.onresume = function() {
+    document.getElementById('btn-pause').innerHTML = '<span>⏯</span> 暂停';
+  };
+  
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utterance);
+  ttsUtterance = utterance;
+  ttsPaused = false;
+}
+
+function togglePause() {
+  if (!ttsUtterance) return;
+  if (ttsPaused) {
+    window.speechSynthesis.resume();
+    ttsPaused = false;
+  } else {
+    window.speechSynthesis.pause();
+    ttsPaused = true;
+  }
+}
+
+function stopReading() {
+  window.speechSynthesis.cancel();
+  resetTTSButtons();
+}
+
+function resetTTSButtons() {
+  document.getElementById('btn-pause').disabled = true;
+  document.getElementById('btn-stop').disabled = true;
+  document.getElementById('btn-pause').innerHTML = '<span>⏯</span> 暂停';
+  ttsUtterance = null;
+  ttsPaused = false;
+}
+
+function togglePointMode() {
+  ttsPointMode = !ttsPointMode;
+  var btn = document.getElementById('btn-point');
+  if (ttsPointMode) {
+    btn.classList.add('active');
+    btn.style.background = 'var(--highlight)';
+    btn.style.color = '#1a1a2e';
+    showToast('定字朗读已开启：点击任意文字开始朗读');
+    document.body.addEventListener('click', handlePointClick);
+  } else {
+    btn.classList.remove('active');
+    btn.style.background = '';
+    btn.style.color = '';
+    showToast('定字朗读已关闭');
+    document.body.removeEventListener('click', handlePointClick);
+  }
+}
+
+function handlePointClick(e) {
+  if (!ttsPointMode) return;
+  var target = e.target;
+  if (target.closest('.tts-btn') || target.closest('.sidebar') || target.closest('.header')) return;
+  
+  var text = '';
+  if (target.tagName === 'P' || target.tagName === 'SPAN' || target.tagName === 'DIV') {
+    text = target.innerText;
+  } else {
+    var parent = target.closest('p, div, span');
+    if (parent) text = parent.innerText;
+  }
+  
+  if (text) {
+    stopReading();
+    var utterance = new SpeechSynthesisUtterance(text);
+    var voice = getVoice('zh-CN');
+    if (voice) utterance.voice = voice;
+    utterance.lang = 'zh-CN';
+    utterance.rate = ttsSpeed;
+    window.speechSynthesis.speak(utterance);
+    ttsUtterance = utterance;
+  }
+}
+
+// Load voices
+window.speechSynthesis.onvoiceschanged = function() {
+  // Voices loaded
+};
+
+// ===== Keyboard shortcuts =====
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft' && currentYear) {
+    var idx = NAV_ORDER.indexOf(currentYear);
+    if (idx > 0) showLetter(NAV_ORDER[idx-1]);
+  }
+  if (e.key === 'ArrowRight' && currentYear) {
+    var idx = NAV_ORDER.indexOf(currentYear);
+    if (idx >= 0 && idx < NAV_ORDER.length - 1) showLetter(NAV_ORDER[idx+1]);
+  }
+});
+</script>
+
+</body>
+</html>
