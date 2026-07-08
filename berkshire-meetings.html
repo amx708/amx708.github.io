@@ -35,19 +35,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 .stat-num{font-size:22px;font-weight:900;color:#1e40af}
 .stat-label{font-size:11px;color:#64748b;margin-top:2px}
 
-/* Year quick nav */
-.year-grid{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:28px;padding:14px 16px;background:#fff;border-radius:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.year-pill{display:inline-flex;align-items:center;justify-content:center;min-width:48px;padding:5px 9px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;color:#475569;font-size:12.5px;font-weight:600;text-decoration:none;transition:all .15s ease}
-.year-pill:hover{background:#eff6ff;border-color:#93c5fd;color:#1d4ed8;transform:translateY(-1px)}
-.year-pill.has-detail{background:#eff6ff;border-color:#bfdbfe;color:#1e40af}
-.year-pill.starred{background:#fefce8;border-color:#fde68a;color:#92400e;font-weight:700}
-.year-pill.crisis{background:#fef2f2;border-color:#fecaca;color:#dc2626;font-weight:700}
-.year-pill.munger{background:#fffbeb;border-color:#fde68a;color:#92400e;font-weight:700}
-.year-pill.final{background:#f0fdf4;border-color:#bbf7d0;color:#166534;font-weight:700}
-.year-pill.current{animation:pulse-gold 2s infinite}
-
-@keyframes pulse-gold{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.15)}50%{box-shadow:0 0 0 6px rgba(245,158,11,0)}}
-
 /* Section header with inline sort */
 .section-header{display:flex;align-items:center;justify-content:space-between;margin:28px 0 14px;flex-wrap:wrap;gap:8px}
 .section-title{font-size:17px;font-weight:800;color:#0f172a;display:flex;align-items:center;gap:8px}
@@ -96,7 +83,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 
 @media(max-width:768px){
   .hero{padding:36px 16px 52px}.hero h1{font-size:22px}.hero p{font-size:13px}
-  .year-grid{gap:3px}.year-pill{min-width:42px;padding:4px 6px;font-size:11px}
   .main{padding:24px 16px 56px}.breadcrumb{padding:14px 12px 0;font-size:12px}
   .meeting-card{padding:14px 16px;flex-direction:column;gap:8px}
   .mc-year-col{display:flex;align-items:center;gap:6px;min-width:auto}
@@ -106,7 +92,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 }
 @media(max-width:480px){
   .hero{padding:28px 12px 44px}.hero h1{font-size:19px}.hero-badge{font-size:10px;padding:3px 10px}
-  .year-pill{min-width:38px;padding:3px 5px;font-size:10.5px}
   .mc-title{font-size:13.5px}.mc-tag{font-size:10px}
 }
 </style>
@@ -141,9 +126,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
       <div class="stat-item"><div class="stat-num">19700</div><div class="stat-label">2025现场人数</div></div>
     </div>
   </div>
-
-  <!-- Year grid (simple nav, no sort bar here) -->
-  <div class="year-grid" id="yearGrid"></div>
 
   <!-- All years list with section-level sorting -->
   <div id="meetingList"></div>
@@ -209,31 +191,6 @@ function setSort(dir){
     }
   });
   buildList();
-}
-
-function setGridSort(dir){
-  currentSort = dir;
-  setSort(dir);
-  buildGrid();
-}
-
-// Build year grid (always desc by default, no sort needed here)
-function buildGrid(){
-  var grid = document.getElementById('yearGrid');
-  var arr = currentSort === 'desc' ? YEARS.slice().reverse() : YEARS;
-  var html = '';
-  for(var i = 0; i < arr.length; i++){
-    var m = arr[i];
-    var cls = 'year-pill';
-    if(m.star) cls += ' starred';
-    if(m.has) cls += ' has-detail';
-    if(m.munger) cls += ' munger';
-    if(m.final) cls += ' final current';
-    var anchor = m.has ? (' href="meetings_content/' + m.y + '.html"') : '#nogo';
-    var starIcon = m.star ? '\u2605' : '';
-    html += '<a' + anchor + ' class="' + cls + '">' + m.y + starIcon + '</a>';
-  }
-  grid.innerHTML = html;
 }
 
 // Build meeting list with section-level sort
@@ -315,7 +272,6 @@ function buildList(){
 }
 
 // Init
-buildGrid();
 buildList();
 </script>
 
