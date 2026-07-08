@@ -39,7 +39,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 .section-header{display:flex;align-items:center;justify-content:space-between;margin:28px 0 14px;flex-wrap:wrap;gap:8px}
 .section-title{font-size:17px;font-weight:800;color:#0f172a;display:flex;align-items:center;gap:8px}
 .section-title span{font-size:13px;color:#94a3b8;font-weight:400}
-.section-title .feat-icon{color:#6366f1;font-size:18px}
 
 /* Inline sort toggle in section header */
 .inline-sort{display:flex;gap:4px;background:#f1f5f9;padding:3px;border-radius:8px}
@@ -50,7 +49,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 /* Meeting card */
 .meeting-card{background:#fff;border-radius:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:20px 24px;margin-bottom:10px;transition:all .2s;display:flex;align-items:flex-start;gap:16px;cursor:default}
 .meeting-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
-.meeting-card.featured{border-left:4px solid #6366f1;background:linear-gradient(to right,#eef2ff,#fff)}
 .meeting-card.crisis{border-left:4px solid #ef4444;background:linear-gradient(to right,#fef2f2,#fff)}
 .meeting-card.munger{border-left:4px solid #f59e0b;background:linear-gradient(to right,#fffbeb,#fff)}
 .meeting-card.final{border-left:4px solid #22c55e;background:linear-gradient(to right,#f0fdf4,#fff)}
@@ -58,9 +56,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 .mc-year-col{text-align:center;min-width:56px;flex-shrink:0}
 .mc-year-num{font-size:22px;font-weight:900;color:#0f172a;line-height:1}
 .mc-edition-sm{font-size:10.5px;color:#94a3b8;margin-top:2px}
-.mc-featured-badge{display:inline-flex;align-items:center;gap:3px;background:#6366f1;color:#fff;border-radius:7px;padding:2px 9px;font-size:11px;font-weight:600;white-space:nowrap}
-.mc-rec{background:#eef2ff;border:1px solid #c7d2fe;border-radius:8px;padding:8px 11px;margin:6px 0 2px;color:#3730a3;font-size:12.5px;line-height:1.6}
-
 .mc-body{flex:1;min-width:0}
 .mc-head-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px}
 .mc-title{font-size:14.5px;font-weight:700;color:#1e293b;line-height:1.35}
@@ -125,7 +120,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
       <div class="stat-item"><div class="stat-num">62</div><div class="stat-label">总届数 (1965–2026)</div></div>
       <div class="stat-item"><div class="stat-num">33</div><div class="stat-label">有完整实录</div></div>
       <div class="stat-item"><div class="stat-num" id="detailCount">33</div><div class="stat-label">完整版实录 (一字不漏)</div></div>
-      <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">💡 特别推荐</div></div>
       <div class="stat-item"><div class="stat-num">19700</div><div class="stat-label">2025现场人数</div></div>
     </div>
   </div>
@@ -176,7 +170,7 @@ var YEARS = [
   {y:2023,e:59,v:"CHI Health Center",t:["芒格最后出席(99岁)","AI初谈超出理解","硅谷银行危机"],h:"芒格于2023年11月28日辞世，此为其谢幕之作。",munger:true,has:true},
   {y:2024,e:60,v:"CHI Health Center",t:["芒格去世后首场","日本五大商社增持","现金约3440亿"],h:"延续芒格遗志，重点阐述日本商社的长期看好与低成本杠杆。",has:true},
   {y:2025,e:61,v:"CHI Health Center",t:["巴菲特宣布年底退休","缅怀芒格","贸易不应武器化","现金约3470亿"],h:"第60周年大会，巴菲特意外宣布交棒，阿贝尔接任CEO，现场19700人创纪录。",final:true,has:true},
-  {y:2026,e:62,v:"CHI Health Center",t:["巴菲特退居观众席","阿贝尔独立主持首秀","后巴菲特时代开启","苹果十年1850亿美元","现金约3800亿"],h:"后巴菲特时代首场股东大会：95岁巴菲特坐观众席、阿贝尔独立主持，标志权力交接完成；芒格书院完整中文译制。",featured:true,rec:"后巴菲特时代首场：95岁的巴菲特首次退居观众席、阿贝尔独立主持全场问答。中文互联网目前最完整的逐字实录（芒格书院译制，一字不漏），建议从这里读起。",has:true,en:false}
+  {y:2026,e:62,v:"CHI Health Center",t:["巴菲特退居观众席","阿贝尔独立主持首秀","后巴菲特时代开启","苹果十年1850亿美元","现金约3800亿"],h:"后巴菲特时代首场股东大会：95岁巴菲特坐观众席、阿贝尔独立主持，标志权力交接完成；芒格书院完整中文译制。",has:true,en:false}
 ];
 
 // Sort state
@@ -201,13 +195,11 @@ function setSort(dir){
 function buildList(){
   var list = document.getElementById('meetingList');
   var arr = currentSort === 'desc' ? YEARS.slice().reverse() : YEARS;
-  var featuredHtml = '';
   var normalHtml = '';
 
   for(var i = 0; i < arr.length; i++){
     var m = arr[i];
     var cls = 'meeting-card';
-    if(m.featured) cls += ' featured';
     if(m.y===2008) cls = ' meeting-card crisis';
     if(m.munger) cls = ' meeting-card munger';
     if(m.final) cls = ' meeting-card final';
@@ -216,9 +208,6 @@ function buildList(){
     for(var t = 0; t < m.t.length; t++){
       tags += '<span class="mc-tag">' + m.t[t] + '</span>';
     }
-
-    var featuredBadge = m.featured ? '<span class="mc-featured-badge">\uD83D\uDCA1 特别推荐</span>' : '';
-    var recHtml = (m.featured && m.rec) ? '<div class="mc-rec">'+m.rec+'</div>' : '';
 
     var actions = '';
     if(m.has){
@@ -238,44 +227,25 @@ function buildList(){
       +   '<div class="mc-edition-sm">\u7b2c' + m.e + '\u5c4a</div>'
       + '</div>'
       + '<div class="mc-body">'
-      +   '<div class="mc-head-row"><div class="mc-title">' + m.h.substring(0,60)+(m.h.length>60?'…':'') + '</div>' + featuredBadge + '</div>'
+      +   '<div class="mc-head-row"><div class="mc-title">' + m.h.substring(0,60)+(m.h.length>60?'…':'') + '</div></div>'
       +   '<div class="mc-themes">' + tags + '</div>'
       +   '<div class="mc-highlight">\uD83D\uDCCD '+m.v+' \u00B7 '+m.h+'</div>'
-      +   recHtml
       +   actions
       + '</div>'
       + '</div>';
 
-    if(m.featured && currentSort==='desc'){
-      featuredHtml += card;
-    } else {
-      normalHtml += card;
-    }
+    normalHtml += card;
   }
 
   // Build HTML with section headers that include inline sort
   var sortLabel = currentSort==='desc' ? '\u65f6\u95f4\u5012\u5e8f' : '\u65f6\u95f4\u6b63\u5e8f';
   var html = '';
-  if(featuredHtml && currentSort==='desc'){
-    html += '<div class="section-header">';
-    html += '<div class="section-title"><span class="feat-icon">\uD83D\uDCA1</span> \u7279\u522b\u63a8\u8350<span>\u5efa\u8bae\u4ece\u8fd9\u4e00\u5c4a\u8bfb\u8d77</span></div>';
-    html += '<div class="inline-sort">';
-    html += '<button onclick="setSort(\'desc\')" class="'+(currentSort==='desc'?'active':'')+'">\u2193 \u5012\u5e8f</button>';
-    html += '<button onclick="setSort(\'asc\')" class="'+(currentSort==='asc'?'active':'')+'">\u2191 \u6b63\u5e8f</button>';
-    html += '</div></div>';
-    html += featuredHtml;
-    html += '<div class="section-header">';
-    html += '<div class="section-title">\uD83D\uDCCB \u5168\u90e8\u5e74\u4efd<span>\u6309'+sortLabel+'</span></div>';
-    html += '</div>';
-  } else {
-    // In asc mode or when no featured separated, just show all with sort
-    html += '<div class="section-header">';
-    html += '<div class="section-title">\uD83D\uDCCB \u5168\u90e8\u5e74\u4efd<span>\u6309'+sortLabel+'</span></div>';
-    html += '<div class="inline-sort">';
-    html += '<button onclick="setSort(\'desc\')" class="'+(currentSort==='desc'?'active':'')+'">\u2193 \u5012\u5e8f</button>';
-    html += '<button onclick="setSort(\'asc\')" class="'+(currentSort==='asc'?'active':'')+'">\u2191 \u6b63\u5e8f</button>';
-    html += '</div></div>';
-  }
+  html += '<div class="section-header">';
+  html += '<div class="section-title">\uD83D\uDCCB \u5168\u90e8\u5e74\u4efd<span>\u6309'+sortLabel+'</span></div>';
+  html += '<div class="inline-sort">';
+  html += '<button onclick="setSort(\'desc\')" class="'+(currentSort==='desc'?'active':'')+'">\u2193 \u5012\u5e8f</button>';
+  html += '<button onclick="setSort(\'asc\')" class="'+(currentSort==='asc'?'active':'')+'">\u2191 \u6b63\u5e8f</button>';
+  html += '</div></div>';
   html += normalHtml;
   list.innerHTML = html;
 }
