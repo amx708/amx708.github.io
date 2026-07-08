@@ -258,6 +258,35 @@ td:nth-last-child(1),th:nth-last-child(1){min-width:70px;text-align:center!impor
 .holdings-table{width:100%;border-collapse:collapse}
 .holdings-table td.rk{width:120px;padding:9px 12px;background:#f8fafc;color:#64748b;font-weight:600;border-bottom:1px solid #eef2f7;white-space:nowrap}
 .holdings-table td.rv{padding:9px 12px;color:#0f172a;border-bottom:1px solid #eef2f7;font-weight:500}
+
+/* === 持仓对比柱状图（重写）=== */
+.chart-container{margin-top:16px;padding:16px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0}
+.chart-canvas{display:flex;align-items:flex-end;height:260px;position:relative}
+.chart-y-axis{font-size:11px;color:#94a3b8;text-align:right;min-width:52px;padding-right:8px;flex-shrink:0;line-height:52px}
+.chart-bars{display:flex;align-items:flex-end;gap:24px;height:100%;flex:1;padding:0 12px;position:relative;border-bottom:2px solid #cbd5e1}
+.chart-bar-group{flex:1;display:flex;flex-direction:column;align-items:center;min-width:60px;max-width:140px}
+.chart-bar{
+  width:100%;min-height:4px;border-radius:6px 6px 0 0;
+  background:linear-gradient(180deg,#3b82f6 0%,#2563eb 50%,#1d4ed8 100%);
+  box-shadow:0 2px 8px rgba(59,130,246,0.3);
+  transition:all .25s ease;
+  position:relative;cursor:pointer
+}
+.chart-bar:hover{background:linear-gradient(180deg,#60a5fa 0%,#3b82f6 50%,#2563eb 100%);box-shadow:0 4px 16px rgba(59,130,246,0.45);transform:scaleY(1.02)}
+.chart-bar.sold-bar{background:linear-gradient(180deg,#94a3b8 0%,#64748b 50%,#475569 100%);box-shadow:0 2px 8px rgba(100,116,139,0.2)}
+.chart-bar.sold-bar:hover{background:linear-gradient(180deg,#cbd5e1 0%,#94a3b8 50%,#64748b 100%)}
+.chart-value-tooltip{
+  position:absolute;top:-32px;left:50%;transform:translateX(-50%);
+  background:#0f172a;color:#fff;font-size:12px;font-weight:600;
+  padding:4px 10px;border-radius:6px;white-space:nowrap;
+  opacity:1!important;pointer-events:none;z-index:5;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15)
+}
+.chart-bar-label{
+  font-size:12px;font-weight:500;color:#334155;text-align:center;
+  margin-top:10px;white-space:normal;line-height:1.3
+}
+.chart-bar.zero-bar{background:#e2e8f0;box-shadow:none;min-height:2px}
 </style>
 </head>
 <body>
@@ -6563,30 +6592,31 @@ function renderChart(d){
   var yAxis = document.getElementById('chartYAxis');
   var bars = document.getElementById('chartBars');
   var peak = d.peakShares || 0;
-  var curr = (d.status === '已清仓') ? 0 : (d.currentShares || 0);
-  var maxVal = Math.max(peak, curr, 1);
+  var isSold = (d.status === '\u5df2\u6e05\u4ed3');
+  var curr = isSold ? 0 : (d.currentShares || peak);
+  var maxVal = Math.max(peak, 1);
 
-  // Y 轴刻度
   function fmt(v){
-    if (v >= 100000000) return (v/100000000).toFixed(1) + '亿';
-    if (v >= 10000) return (v/10000).toFixed(0) + '万';
-    return String(v);
+    if (v >= 100000000) return (v/100000000).toFixed(1) + '\u4ebf';
+    if (v >= 10000) return (v/10000).toFixed(0) + '\u4e07';
+    return String(Math.round(v));
   }
-  var ticks = [maxVal, maxVal*0.75, maxVal*0.5, maxVal*0.25, 0];
-  yAxis.innerHTML = ticks.map(function(v){
-    return '<div style="height:' + (240/5) + 'px;line-height:' + (240/5) + 'px">' + fmt(v) + '</div>';
+  var tickVals = [maxVal, maxVal*0.75, maxVal*0.5, maxVal*0.25, 0];
+  var stepH = 220 / 5;
+  yAxis.innerHTML = tickVals.map(function(v){
+    return '<div style="height:' + stepH + 'px;line-height:' + stepH + 'px;display:flex;align-items:center;justify-content:flex-end;padding-right:4px">' + fmt(v) + '</div>';
   }).join('');
 
-  var labelPeak = d.firstYear + '~' + d.lastYear + ' 峰值';
-  var labelCurr = (d.status === '已清仓') ? '已清仓' : ('最新 ' + d.lastYear);
+  var labelPeak = d.firstYear + '~' + d.lastYear + ' <b>\u5cf0\u503c</b>';
+  var labelCurr = isSold ? '<span style="color:#ef4444;font-weight:600">\u5df2\u6e05\u4ed3</span>' : ('<b>\u6700\u65b0</b> ' + d.lastYear);
   var items = [
-    { label: labelPeak, val: peak, disp: d.peakText },
-    { label: labelCurr, val: curr, disp: (d.status === '已清仓') ? '0' : d.currentText }
+    { label: labelPeak, val: peak, disp: d.peakText, cls: '' },
+    { label: labelCurr, val: curr, disp: isSold ? '0' : d.currentText, cls: isSold ? ' sold-bar zero-bar' : '' }
   ];
   bars.innerHTML = items.map(function(it){
-    var hPct = Math.max((it.val / maxVal) * 100, 0.5);
+    var hPct = maxVal > 0 ? Math.max((it.val / maxVal) * 98, it.val > 0 ? 4 : 1) : 1;
     return '<div class="chart-bar-group">'
-      + '<div class="chart-bar" style="height:' + hPct + '%" title="' + it.label + ': ' + it.disp + '">'
+      + '<div class="chart-bar' + it.cls + '" style="height:' + hPct + '%" title="' + it.label + ': ' + it.disp + '">'
       + '<div class="chart-value-tooltip">' + it.disp + '</div>'
       + '</div>'
       + '<div class="chart-bar-label">' + it.label + '</div>'
