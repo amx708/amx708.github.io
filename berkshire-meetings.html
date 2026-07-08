@@ -69,6 +69,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 .mc-actions{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .btn-view{display:inline-flex;align-items:center;gap:4px;padding:5px 13px;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:11.5px;font-weight:600;text-decoration:none;cursor:pointer;transition:all .15s}
 .btn-view:hover{background:#1d4ed8;transform:translateY(-1px);box-shadow:0 2px 6px rgba(37,99,235,.25)}
+.btn-cn{background:#fff;color:#2563eb;border:1px solid #93c5fd}.btn-cn:hover{background:#eff6ff;border-color:#2563eb}
 .btn-ext{display:inline-flex;align-items:center;gap:3px;padding:5px 11px;background:#fff;color:#64748b;border:1px solid #cbd5e1;border-radius:7px;font-size:11px;text-decoration:none;font-weight:500;transition:all .15s}
 .btn-ext:hover{background:#f8fafc;color:#334155;border-color:#94a3b8}
 .pending-tag{font-size:10.5px;color:#cbd5e1;margin-left:4px}
@@ -109,7 +110,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
     <div class="hero-badge">Annual Meetings 1994–2025</div>
     <h1>伯克希尔·哈撒韦<br><span>历年股东大会</span></h1>
     <p>巴菲特与芒格年度股东大会问答实录 · 投资智慧的年度盛宴</p>
-    <p style="font-size:12.5px;color:#64748b;margin-top:8px">📌 本页 32 届均收录<strong>完整版原始讲话实录</strong>（非摘要）：1994–2023 为 CNBC 官方视频中文逐字翻译稿（来源：雪球@一朵喵 / 新浪财经），2024–2025 为 CNBC / steadycompounding 英文原版。多个来源已一并收录，后续再筛选整理。</p>
+    <p style="font-size:12.5px;color:#64748b;margin-top:8px">📌 32 届均收录<strong>完整版原始讲话实录（一字不漏，非摘要）</strong>：英文原版（Finanzapedia / CNBC Warren Buffett Archive 完整 transcript）覆盖 1994–2025 全部 32 届；另附中文逐字翻译稿（雪球@一朵喵 / 新浪财经，含少量流程性略译标注）作对照。点「英文完整版」看逐字原文。</p>
   </div>
 </header>
 
@@ -218,7 +219,7 @@ function buildList(){
 
     var actions = '';
     if(m.has){
-      actions = '<div class="mc-actions"><a href="meetings_content/full/' + m.y + '.html" class="btn-view">\u67e5\u770b\u5b8c\u6574\u5b9e\u5f55</a></div>';
+      actions = '<div class="mc-actions"><a href="meetings_content/full_en/' + m.y + '.html" class="btn-view">英文完整版（一字不漏）</a><a href="meetings_content/full/' + m.y + '.html" class="btn-view btn-cn">中文版</a></div>';
     } else {
       actions = '<div class="mc-actions"><a href="https://berkshire.memorex.ai/meetings/' + m.y + '" target="_blank" rel="noopener" class="btn-ext">BRK Archive</a><span class="pending-tag">\u4e2d\u6587\u6536\u5f55\u4e2d</span></div>';
     }
