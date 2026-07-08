@@ -287,6 +287,9 @@ td:nth-last-child(1),th:nth-last-child(1){min-width:70px;text-align:center!impor
   margin-top:10px;white-space:normal;line-height:1.3
 }
 .chart-bar.zero-bar{background:#e2e8f0;box-shadow:none;min-height:2px}
+
+.svg-chart-wrap{width:100%;padding:16px 8px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0}
+.svg-chart-wrap svg{display:block;width:100%}
 </style>
 </head>
 <body>
@@ -6422,12 +6425,7 @@ td:nth-last-child(1),th:nth-last-child(1){min-width:70px;text-align:center!impor
         </div>
       </div>
       <div class="tab-panel" id="panelChart">
-        <div class="chart-container">
-          <div style="display:flex;height:280px">
-            <div class="chart-y-axis" id="chartYAxis"></div>
-            <div class="chart-canvas"><div class="chart-bars" id="chartBars"></div></div>
-          </div>
-        </div>
+        <div class="svg-chart-wrap" id="svgChartWrap"></div>
       </div>
     </div>
 <div class="back-link">
@@ -6589,39 +6587,67 @@ function switchTab(btn, panelId){
 }
 
 function renderChart(d){
-  var yAxis = document.getElementById('chartYAxis');
-  var bars = document.getElementById('chartBars');
+  var wrap = document.getElementById('svgChartWrap');
   var peak = d.peakShares || 0;
   var isSold = (d.status === '\u5df2\u6e05\u4ed3');
   var curr = isSold ? 0 : (d.currentShares || peak);
   var maxVal = Math.max(peak, 1);
 
-  function fmt(v){
-    if (v >= 100000000) return (v/100000000).toFixed(1) + '\u4ebf';
-    if (v >= 10000) return (v/10000).toFixed(0) + '\u4e07';
-    return String(Math.round(v));
+  function fmtNum(n){
+    if (n >= 100000000) return (n/100000000).toFixed(1) + '\u4ebf';
+    if (n >= 10000) return (n/10000).toFixed(0) + '\u4e07';
+    return n.toLocaleString();
   }
-  var tickVals = [maxVal, maxVal*0.75, maxVal*0.5, maxVal*0.25, 0];
-  var stepH = 220 / 5;
-  yAxis.innerHTML = tickVals.map(function(v){
-    return '<div style="height:' + stepH + 'px;line-height:' + stepH + 'px;display:flex;align-items:center;justify-content:flex-end;padding-right:4px">' + fmt(v) + '</div>';
-  }).join('');
 
-  var labelPeak = d.firstYear + '~' + d.lastYear + ' <b>\u5cf0\u503c</b>';
-  var labelCurr = isSold ? '<span style="color:#ef4444;font-weight:600">\u5df2\u6e05\u4ed3</span>' : ('<b>\u6700\u65b0</b> ' + d.lastYear);
-  var items = [
-    { label: labelPeak, val: peak, disp: d.peakText, cls: '' },
-    { label: labelCurr, val: curr, disp: isSold ? '0' : d.currentText, cls: isSold ? ' sold-bar zero-bar' : '' }
-  ];
-  bars.innerHTML = items.map(function(it){
-    var hPct = maxVal > 0 ? Math.max((it.val / maxVal) * 98, it.val > 0 ? 4 : 1) : 1;
-    return '<div class="chart-bar-group">'
-      + '<div class="chart-bar' + it.cls + '" style="height:' + hPct + '%" title="' + it.label + ': ' + it.disp + '">'
-      + '<div class="chart-value-tooltip">' + it.disp + '</div>'
-      + '</div>'
-      + '<div class="chart-bar-label">' + it.label + '</div>'
-      + '</div>';
-  }).join('');
+  // Colors
+  var colorPeak = '#2563eb';
+  var colorCurr = isSold ? '#94a3b8' : '#10b981';
+  var bgBar = '#e2e8f0';
+
+  var w = Math.min(wrap.clientWidth || 480, 520);
+  var barH = 44;
+  var gap = 28;
+  var labelW = 110;
+  var valW = 90;
+  var chartW = w - labelW - valW - 20;
+  var h = barH * 2 + gap + 30; // 30 for bottom spacing
+
+  var svg = '<svg width="100%" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" xmlns="http://www.w3.org/2000/svg">';
+  svg += '<style>.fsb{font-size:13px;font-weight:600;fill:#334155}.fsl{font-size:12px;fill:#64748b}.fv{font-size:14px;font-weight:700;fill:#0f172a}
+
+</style>';
+
+  // Row 1: Peak
+  var pPct = maxVal > 0 ? (peak / maxVal * chartW) : 0;
+  var y1 = 12;
+  svg += '<text x="0" y="' + (y1 + barH/2 + 5) + '" class="fsl">' + d.firstYear + '~' + d.lastYear + ' \u5cf0\u503c</text>';
+  svg += '<rect x="' + labelW + '" y="' + y1 + '" width="' + chartW + '" height="' + barH + '" rx="6" fill="' + bgBar + '"/>';
+  if (pPct > 0){
+    svg += '<rect x="' + labelW + '" y="' + y1 + '" width="' + Math.max(pPct, 4) + '" height="' + barH + '" rx="6" fill="' + colorPeak + '"/>';
+    // gradient overlay
+    svg += '<defs><linearGradient id="pg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#2563eb"/></linearGradient></defs>';
+    svg += '<rect x="' + labelW + '" y="' + y1 + '" width="' + Math.max(pPct, 4) + '" height="' + barH + '" rx="6" fill="url(#pg)" opacity="0.7"/>';
+  }
+  svg += '<text x="' + (w - valW + 4) + '" y="' + (y1 + barH/2 + 5) + '" class="fv">' + d.peakText + '</text>';
+
+  // Row 2: Current
+  var y2 = y1 + barH + gap;
+  var cLabel = isSold ? '<tspan fill="#ef4444">\u5df2\u6e05\u4ed3</tspan>' : ('\u6700\u65b0 ' + d.lastYear);
+  var cDisp = isSold ? '0' : d.currentText;
+  var cPct = maxVal > 0 ? (curr / maxVal * chartW) : 0;
+  svg += '<text x="0" y="' + (y2 + barH/2 + 5) + '" class="fsl">' + cLabel + '</text>';
+  svg += '<rect x="' + labelW + '" y="' + y2 + '" width="' + chartW + '" height="' + barH + '" rx="6" fill="' + bgBar + '"/>';
+  if (cPct > 0){
+    svg += '<rect x="' + labelW + '" y="' + y2 + '" width="' + Math.max(cPct, 4) + '" height="' + barH + '" rx="6" fill="' + colorCurr + '"/>';
+  }
+  svg += '<text x="' + (w - valW + 4) + '" y="' + (y2 + barH/2 + 5) + '" class="fv" fill="' + (isSold ? '#ef4444' : '#0f172a') + '">' + cDisp + '</text>';
+
+  // Bottom summary line
+  var ratioText = isSold ? '\u5df2\u5168\u90e8\u6e05\u4ed3' : ('\u4ecd\u6301\u6709 ' + fmtNum(curr));
+  svg += '<text x="' + labelW + '" y="' + (h - 4) + '" class="fsl" fill="#94a3b8">\u5cf0\u503c ' + d.peakText + ' \u2192 ' + ratioText;
+
+  svg += '</svg>';
+  wrap.innerHTML = svg;
 }
 
 function copyTableData(){
