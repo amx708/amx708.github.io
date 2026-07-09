@@ -351,6 +351,112 @@ body{
 .footer a{color:#64748b;text-decoration:none;border-bottom:1px dashed #cbd5e1}
 .footer a:hover{color:#334155}
 
+/* ===== Guide / Understanding card ===== */
+.guide-section{
+  max-width:1100px;
+  margin:34px auto 0;
+  padding:0 24px;
+}
+.guide-card{
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 8px 28px rgba(15,23,42,0.1);
+  padding:26px 28px 30px;
+  border:1px solid #eef2f7;
+}
+.guide-head{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  margin-bottom:6px;
+}
+.guide-head .gt{font-size:18px;font-weight:700;color:#1e293b}
+.guide-head .gs{font-size:13px;color:#94a3b8}
+.guide-sub{
+  font-size:13.5px;
+  color:#64748b;
+  margin-bottom:20px;
+  line-height:1.6;
+}
+.guide-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.guide-item{
+  background:#f8fafc;
+  border:1px solid #eef2f7;
+  border-radius:13px;
+  padding:16px 16px 18px;
+}
+.guide-item .gi{
+  font-size:22px;
+  margin-bottom:8px;
+}
+.guide-item .gh{
+  font-size:14.5px;
+  font-weight:700;
+  color:#0f172a;
+  margin-bottom:6px;
+}
+.guide-item .gd{
+  font-size:12.5px;
+  color:#64748b;
+  line-height:1.6;
+}
+.guide-item .gd b{color:#1e293b;font-weight:600}
+
+/* ===== Era tabs ===== */
+.era-tabs{
+  max-width:1100px;
+  margin:26px auto 0;
+  padding:0 24px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+}
+.era-btn{
+  padding:7px 15px;
+  border:2px solid #e2e8f0;
+  background:#fff;
+  border-radius:20px;
+  font-size:13px;
+  color:#475569;
+  cursor:pointer;
+  transition:all .15s;
+  font-family:inherit;
+  font-weight:500;
+}
+.era-btn:hover{border-color:#cbd5e1;background:#f8fafc}
+.era-btn.active{
+  background:#b45309;
+  color:#fff;
+  border-color:#b45309;
+}
+.era-btn .era-count{
+  display:inline-block;
+  margin-left:4px;
+  padding:1px 7px;
+  background:rgba(255,255,255,0.25);
+  border-radius:10px;
+  font-size:11px;
+}
+.era-btn:not(.active) .era-count{background:#f1f5f9;color:#64748b}
+
+/* ===== Year tag on card ===== */
+.company-year{
+  display:inline-block;
+  margin-top:9px;
+  margin-right:6px;
+  padding:2px 9px;
+  border-radius:10px;
+  font-size:11px;
+  font-weight:600;
+  background:#eef2f7;
+  color:#475569;
+}
+
 /* ===== Responsive ===== */
 @media (max-width:768px){
   .hero h1{font-size:23px}
@@ -359,6 +465,8 @@ body{
   .hero-stat .num{font-size:20px}
   .company-grid{grid-template-columns:1fr}
   .zoom-btn,.view-original-btn{font-size:12px;padding:6px 12px}
+  .guide-grid{grid-template-columns:1fr 1fr}
+  .guide-card{padding:20px 18px 22px}
 }
 </style>
 </head>
@@ -385,7 +493,7 @@ body{
     <h1>伯克希尔哈撒韦业务版图</h1>
     <p>完整展示伯克希尔旗下所有核心业务板块与子公司，中英文名称对照，支持搜索与查看高清原图</p>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="num">59</div><div class="lab">家子公司</div></div>
+      <div class="hero-stat"><div class="num">60</div><div class="lab">家子公司</div></div>
       <div class="hero-stat"><div class="num">7</div><div class="lab">大业务板块</div></div>
       <div class="hero-stat"><div class="num">1965–2026</div><div class="lab">巴菲特时代</div></div>
     </div>
@@ -407,6 +515,39 @@ body{
   </div>
 </section>
 
+<!-- ===== Guide: understand Berkshire in 3 minutes ===== -->
+<section class="guide-section">
+  <div class="guide-card">
+    <div class="guide-head">
+      <span class="gt">📖 3分钟读懂伯克希尔的投资</span>
+      <span class="gs">它不是一只股票，而是一个企业帝国</span>
+    </div>
+    <p class="guide-sub">伯克希尔真正的「印钞机」不在某一家公司，而在它的<b>结构</b>：先用保险公司收的保费形成<strong>零成本浮存金</strong>，再买下好企业长期持有，让利润在内部不断再投资。看懂下面四条线，就看懂了它的投资逻辑。</p>
+    <div class="guide-grid">
+      <div class="guide-item">
+        <div class="gi">🛡️</div>
+        <div class="gh">① 保险浮存金</div>
+        <div class="gd">GEICO、Gen Re 等先收保费、后赔钱，形成<b>零成本的浮存金</b>，再拿去投资——这是复利的免费杠杆。</div>
+      </div>
+      <div class="guide-item">
+        <div class="gi">🏭</div>
+        <div class="gh">② 双轮驱动</div>
+        <div class="gd">一边是<b>经营子公司</b>（下面 60 家），一边是<b>股票投资</b>（苹果、可口可乐…）。两条线都由同一笔浮存金驱动。</div>
+      </div>
+      <div class="guide-item">
+        <div class="gi">📈</div>
+        <div class="gh">③ 思想进化</div>
+        <div class="gd">从早期「<b>捡烟蒂</b>」(1960s) → 喜诗糖果转向<b>优质企业</b>(1972) → 规模变大后收购 BNSF / BHE 等<b>公用事业</b>安放大资金。</div>
+      </div>
+      <div class="guide-item">
+        <div class="gi">🤝</div>
+        <div class="gh">④ 买下留人</div>
+        <div class="gd">收购后<b>不插手经营</b>，留原经理人（B夫人、Justin 家族）；巴菲特只做<b>资本配置</b>，犯错也复盘（如 Dexter 鞋业发股的代价）。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== Search ===== -->
 <section class="search-section">
   <div class="search-box">
@@ -415,6 +556,18 @@ body{
   </div>
   <div class="search-results-count" id="search-count"></div>
 </section>
+
+<!-- ===== Era Tabs (filter by decade) ===== -->
+<div class="era-tabs" id="era-tabs">
+  <button class="era-btn active" onclick="filterEra('all')">全部 <span class="era-count" id="era-all">0</span></button>
+  <button class="era-btn" onclick="filterEra('1960')">1960s <span class="era-count" id="era-1960">0</span></button>
+  <button class="era-btn" onclick="filterEra('1970')">1970s <span class="era-count" id="era-1970">0</span></button>
+  <button class="era-btn" onclick="filterEra('1980')">1980s <span class="era-count" id="era-1980">0</span></button>
+  <button class="era-btn" onclick="filterEra('1990')">1990s <span class="era-count" id="era-1990">0</span></button>
+  <button class="era-btn" onclick="filterEra('2000')">2000s <span class="era-count" id="era-2000">0</span></button>
+  <button class="era-btn" onclick="filterEra('2010')">2010s <span class="era-count" id="era-2010">0</span></button>
+  <button class="era-btn" onclick="filterEra('2020')">2020s <span class="era-count" id="era-2020">0</span></button>
+</div>
 
 <!-- ===== Category Tabs ===== -->
 <div class="category-tabs" id="category-tabs">
@@ -441,77 +594,78 @@ body{
 // ===== Company Data =====
 const companies = [
   // Insurance
-  {cn:"政府雇员保险公司",en:"GEICO",cat:"insurance",tag:"保险",icon:"🛡️",desc:"全美第二大汽车保险公司，伯克希尔1976年投资，1996年全资收购"},
-  {cn:"通用再保险公司",en:"General Re (Gen Re)",cat:"insurance",tag:"保险",icon:"🛡️",desc:"全球最大再保险公司之一，1998年以220亿美元股票收购"},
-  {cn:"伯克希尔再保险集团",en:"Berkshire Hathaway Reinsurance Group",cat:"insurance",tag:"保险",icon:"🛡️",desc:"由阿吉特·贾因领导，巨灾再保险业务，巴菲特称贾因为「最宝贵的资产」"},
-  {cn:"伯克希尔原保险集团",en:"Berkshire Hathaway Primary Group",cat:"insurance",tag:"保险",icon:"🛡️",desc:"多家原保险公司集合，包括国民赔偿、美国责任险等"},
-  {cn:"国民赔偿公司",en:"National Indemnity Company",cat:"insurance",tag:"保险",icon:"🛡️",desc:"伯克希尔保险帝国的基石，1967年以860万美元收购"},
-  {cn:"中部各州赔偿公司",en:"Central States Indemnity",cat:"insurance",tag:"保险",icon:"🛡️",desc:"提供信用卡保险等特殊保险产品"},
-  {cn:"美国责任保险集团",en:"United States Liability Insurance Group",cat:"insurance",tag:"保险",icon:"🛡️",desc:" specialty liability insurance，专业责任保险"},
-  {cn:"医疗保护公司",en:"Medical Protective",cat:"insurance",tag:"保险",icon:"🛡️",desc:"医疗事故责任保险，服务于医生和医疗机构"},
-  {cn:"应用承保人公司",en:"Applied Underwriters",cat:"insurance",tag:"保险",icon:"🛡️",desc:"工伤保险和员工赔偿保险"},
-  {cn:"伯克希尔哈撒韦专业保险",en:"Berkshire Hathaway Specialty Insurance",cat:"insurance",tag:"保险",icon:"🛡️",desc:"2013年成立，商业财产意外险，进入企业保险市场"},
+  {cn:"政府雇员保险公司",en:"GEICO",cat:"insurance",tag:"保险",icon:"🛡️",year:1996,desc:"全美第二大汽车保险公司，伯克希尔1976年投资，1996年全资收购"},
+  {cn:"通用再保险公司",en:"General Re (Gen Re)",cat:"insurance",tag:"保险",icon:"🛡️",year:1998,desc:"全球最大再保险公司之一，1998年以220亿美元股票收购"},
+  {cn:"伯克希尔再保险集团",en:"Berkshire Hathaway Reinsurance Group",cat:"insurance",tag:"保险",icon:"🛡️",year:1967,desc:"由阿吉特·贾因领导，巨灾再保险业务，巴菲特称贾因为「最宝贵的资产」"},
+  {cn:"伯克希尔原保险集团",en:"Berkshire Hathaway Primary Group",cat:"insurance",tag:"保险",icon:"🛡️",year:1967,desc:"多家原保险公司集合，包括国民赔偿、美国责任险等"},
+  {cn:"国民赔偿公司",en:"National Indemnity Company",cat:"insurance",tag:"保险",icon:"🛡️",year:1967,desc:"伯克希尔保险帝国的基石，1967年以860万美元收购"},
+  {cn:"中部各州赔偿公司",en:"Central States Indemnity",cat:"insurance",tag:"保险",icon:"🛡️",year:1992,desc:"提供信用卡保险等特殊保险产品"},
+  {cn:"美国责任保险集团",en:"United States Liability Insurance Group",cat:"insurance",tag:"保险",icon:"🛡️",year:2000,desc:"specialty liability insurance，专业责任保险"},
+  {cn:"医疗保护公司",en:"Medical Protective",cat:"insurance",tag:"保险",icon:"🛡️",year:2005,desc:"医疗事故责任保险，服务于医生和医疗机构"},
+  {cn:"应用承保人公司",en:"Applied Underwriters",cat:"insurance",tag:"保险",icon:"🛡️",year:2006,desc:"工伤保险和员工赔偿保险"},
+  {cn:"伯克希尔哈撒韦专业保险",en:"Berkshire Hathaway Specialty Insurance",cat:"insurance",tag:"保险",icon:"🛡️",year:2013,desc:"2013年成立，商业财产意外险，进入企业保险市场"},
+  {cn:"阿勒格尼",en:"Alleghany Corporation",cat:"insurance",tag:"保险",icon:"🛡️",year:2022,desc:"2022年以116亿美元收购的保险控股公司，进一步扩充伯克希尔的浮存金池与保险版图"},
 
   // Railroad
-  {cn:"BNSF铁路公司",en:"BNSF Railway",cat:"railroad",tag:"铁路",icon:"🚂",desc:"北美最大铁路之一，2009年以440亿美元收购，巴菲特称「对美国的未来下注」"},
-  {cn:"BNSF物流",en:"BNSF Logistics",cat:"railroad",tag:"铁路",icon:"🚂",desc:"BNSF旗下供应链和物流服务部门"},
+  {cn:"BNSF铁路公司",en:"BNSF Railway",cat:"railroad",tag:"铁路",icon:"🚂",year:2010,desc:"北美最大铁路之一，2009年以440亿美元收购，巴菲特称「对美国的未来下注」"},
+  {cn:"BNSF物流",en:"BNSF Logistics",cat:"railroad",tag:"铁路",icon:"🚂",year:2010,desc:"BNSF旗下供应链和物流服务部门"},
 
   // Energy
-  {cn:"伯克希尔哈撒韦能源公司",en:"Berkshire Hathaway Energy",cat:"energy",tag:"能源",icon:"⚡",desc:"2000年收购(原MidAmerican)，电力、天然气、可再生能源综合能源巨头"},
-  {cn:"太平洋电力公司",en:"Pacific Power",cat:"energy",tag:"能源",icon:"⚡",desc:"太平洋西北部六州供电，服务约80万客户"},
-  {cn:"落基山电力公司",en:"Rocky Mountain Power",cat:"energy",tag:"能源",icon:"⚡",desc:"犹他、怀俄明、爱达荷三州供电"},
-  {cn:"内华达能源公司",en:"NV Energy",cat:"energy",tag:"能源",icon:"⚡",desc:"2013年以56亿美元收购，内华达州最大电力公司"},
-  {cn:"中美能源公司",en:"MidAmerican Energy",cat:"energy",tag:"能源",icon:"⚡",desc:"爱荷华州最大能源公司，服务约77万电力客户"},
-  {cn:"BHE可再生能源",en:"BHE Renewables",cat:"energy",tag:"能源",icon:"⚡",desc:"太阳能、风能、地热等可再生能源项目"},
-  {cn:"北方电网",en:"Northern Powergrid",cat:"energy",tag:"能源",icon:"⚡",desc:"英国北部配电网络，服务约800万人口"},
-  {cn:"美国家庭服务公司",en:"HomeServices of America",cat:"energy",tag:"能源",icon:"⚡",desc:"全美最大住宅地产经纪公司，旗下有 Berkshire Hathaway HomeServices"},
-  {cn:"伯克希尔管道公司",en:"Berkshire Hathaway Pipeline",cat:"energy",tag:"能源",icon:"⚡",desc:"天然气管道运输业务"},
+  {cn:"伯克希尔哈撒韦能源公司",en:"Berkshire Hathaway Energy",cat:"energy",tag:"能源",icon:"⚡",year:2000,desc:"2000年收购(原MidAmerican)，电力、天然气、可再生能源综合能源巨头"},
+  {cn:"太平洋电力公司",en:"Pacific Power",cat:"energy",tag:"能源",icon:"⚡",year:2006,desc:"太平洋西北部六州供电，服务约80万客户"},
+  {cn:"落基山电力公司",en:"Rocky Mountain Power",cat:"energy",tag:"能源",icon:"⚡",year:2006,desc:"犹他、怀俄明、爱达荷三州供电"},
+  {cn:"内华达能源公司",en:"NV Energy",cat:"energy",tag:"能源",icon:"⚡",year:2013,desc:"2013年以56亿美元收购，内华达州最大电力公司"},
+  {cn:"中美能源公司",en:"MidAmerican Energy",cat:"energy",tag:"能源",icon:"⚡",year:1999,desc:"爱荷华州最大能源公司，服务约77万电力客户"},
+  {cn:"BHE可再生能源",en:"BHE Renewables",cat:"energy",tag:"能源",icon:"⚡",year:2011,desc:"太阳能、风能、地热等可再生能源项目"},
+  {cn:"北方电网",en:"Northern Powergrid",cat:"energy",tag:"能源",icon:"⚡",year:2010,desc:"英国北部配电网络，服务约800万人口"},
+  {cn:"美国家庭服务公司",en:"HomeServices of America",cat:"energy",tag:"能源",icon:"⚡",year:1999,desc:"全美最大住宅地产经纪公司，旗下有 Berkshire Hathaway HomeServices"},
+  {cn:"伯克希尔管道公司",en:"Berkshire Hathaway Pipeline",cat:"energy",tag:"能源",icon:"⚡",year:2000,desc:"天然气管道运输业务"},
 
   // Manufacturing
-  {cn:"马蒙集团",en:"Marmon Holdings",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2008年收购60%(2013年全资)，多元化工业集团，110多家工厂"},
-  {cn:"精密机件公司",en:"Precision Castparts (PCC)",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2016年以372亿美元收购(史上最大)，航空发动机零部件，巴菲特后承认「出价太高」"},
-  {cn:"路博润公司",en:"Lubrizol",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2011年以90亿美元收购，特种化学品和润滑油添加剂"},
-  {cn:"克莱顿房屋公司",en:"Clayton Homes",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2003年以17亿美元收购，全美最大预制房屋制造商"},
-  {cn:"森林河公司",en:"Forest River",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2005年收购，房车(Recreational Vehicle)制造商"},
-  {cn:"迈泰克公司",en:"MiTek",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"建筑连接件和软件，屋顶桁架连接件全球领先"},
-  {cn:"本杰明·摩尔涂料",en:"Benjamin Moore",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2000年收购，高端涂料品牌，百年历史"},
-  {cn:"阿克米砖块公司",en:"Acme Brick",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2000年收购，建筑砖块制造，德克萨斯州起家"},
-  {cn:"鲜果布衣",en:"Fruit of the Loom",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2002年以8.35亿美元收购，内衣和休闲服饰品牌"},
-  {cn:"约翰斯·曼维尔",en:"Johns Manville",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2001年以18亿美元收购，建筑材料和保温产品"},
-  {cn:"萧氏工业",en:"Shaw Industries",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2001年以21亿美元收购，全美最大地毯和地板制造商"},
-  {cn:"国际金属加工公司",en:"International Metalworking Companies (IMC)",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"金属切削刀具，以色列Iskar为主体，2006年逐步收购"},
-  {cn:"贾斯汀品牌",en:"Justin Brands",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2000年收购，西部牛仔靴和工装鞋品牌"},
-  {cn:"布鲁克斯运动",en:"Brooks Sports",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"跑步鞋和运动服装，2006年全资收购"},
-  {cn:"东方贸易公司",en:"Oriental Trading Company",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2012年收购，派对用品、工艺品和小玩具直销"},
-  {cn:"金霸王",en:"Duracell",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2016年从宝洁换股获得，碱性电池全球领导品牌"},
-  {cn:"富线集团",en:"Richline Group",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"珠宝制造和分销，贵金属首饰"},
-  {cn:"WPLG电视台",en:"WPLG (ABC Affiliate)",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"迈阿密ABC附属电视台"},
+  {cn:"马蒙集团",en:"Marmon Holdings",cat:"manufacturing",tag:"制造",icon:"🏭",year:2008,desc:"2008年收购60%(2013年全资)，多元化工业集团，110多家工厂"},
+  {cn:"精密机件公司",en:"Precision Castparts (PCC)",cat:"manufacturing",tag:"制造",icon:"🏭",year:2016,desc:"2016年以372亿美元收购(史上最大)，航空发动机零部件，巴菲特后承认「出价太高」"},
+  {cn:"路博润公司",en:"Lubrizol",cat:"manufacturing",tag:"制造",icon:"🏭",year:2011,desc:"2011年以90亿美元收购，特种化学品和润滑油添加剂"},
+  {cn:"克莱顿房屋公司",en:"Clayton Homes",cat:"manufacturing",tag:"制造",icon:"🏭",year:2003,desc:"2003年以17亿美元收购，全美最大预制房屋制造商"},
+  {cn:"森林河公司",en:"Forest River",cat:"manufacturing",tag:"制造",icon:"🏭",year:2005,desc:"2005年收购，房车(Recreational Vehicle)制造商"},
+  {cn:"迈泰克公司",en:"MiTek",cat:"manufacturing",tag:"制造",icon:"🏭",year:2001,desc:"建筑连接件和软件，屋顶桁架连接件全球领先"},
+  {cn:"本杰明·摩尔涂料",en:"Benjamin Moore",cat:"manufacturing",tag:"制造",icon:"🏭",year:2000,desc:"2000年收购，高端涂料品牌，百年历史"},
+  {cn:"阿克米砖块公司",en:"Acme Brick",cat:"manufacturing",tag:"制造",icon:"🏭",year:2000,desc:"2000年收购，建筑砖块制造，德克萨斯州起家"},
+  {cn:"鲜果布衣",en:"Fruit of the Loom",cat:"manufacturing",tag:"制造",icon:"🏭",year:2002,desc:"2002年以8.35亿美元收购，内衣和休闲服饰品牌"},
+  {cn:"约翰斯·曼维尔",en:"Johns Manville",cat:"manufacturing",tag:"制造",icon:"🏭",year:2001,desc:"2001年以18亿美元收购，建筑材料和保温产品"},
+  {cn:"萧氏工业",en:"Shaw Industries",cat:"manufacturing",tag:"制造",icon:"🏭",year:2001,desc:"2001年以21亿美元收购，全美最大地毯和地板制造商"},
+  {cn:"国际金属加工公司",en:"International Metalworking Companies (IMC)",cat:"manufacturing",tag:"制造",icon:"🏭",year:2006,desc:"金属切削刀具，以色列Iskar为主体，2006年逐步收购"},
+  {cn:"贾斯汀品牌",en:"Justin Brands",cat:"manufacturing",tag:"制造",icon:"🏭",year:2000,desc:"2000年收购，西部牛仔靴和工装鞋品牌"},
+  {cn:"布鲁克斯运动",en:"Brooks Sports",cat:"manufacturing",tag:"制造",icon:"🏭",year:2006,desc:"跑步鞋和运动服装，2006年全资收购"},
+  {cn:"东方贸易公司",en:"Oriental Trading Company",cat:"manufacturing",tag:"制造",icon:"🏭",year:2012,desc:"2012年收购，派对用品、工艺品和小玩具直销"},
+  {cn:"金霸王",en:"Duracell",cat:"manufacturing",tag:"制造",icon:"🏭",year:2016,desc:"2016年从宝洁换股获得，碱性电池全球领导品牌"},
+  {cn:"富线集团",en:"Richline Group",cat:"manufacturing",tag:"制造",icon:"🏭",year:2007,desc:"珠宝制造和分销，贵金属首饰"},
+  {cn:"WPLG电视台",en:"WPLG (ABC Affiliate)",cat:"manufacturing",tag:"制造",icon:"🏭",year:2014,desc:"迈阿密ABC附属电视台"},
 
   // Distribution
-  {cn:"麦克莱恩公司",en:"McLane Company",cat:"distribution",tag:"分销",icon:"📦",desc:"2003年从沃尔玛以15亿美元收购，全美最大供应链和批发分销商之一"},
+  {cn:"麦克莱恩公司",en:"McLane Company",cat:"distribution",tag:"分销",icon:"📦",year:2003,desc:"2003年从沃尔玛以15亿美元收购，全美最大供应链和批发分销商之一"},
 
   // Service & Retail
-  {cn:"利捷航空",en:"NetJets",cat:"retail",tag:"零售",icon:"🛒",desc:"1998年收购，私人飞机分时拥有(fractional ownership)开创者"},
-  {cn:"飞安国际",en:"FlightSafety International",cat:"retail",tag:"零售",icon:"🛒",desc:"1996年以15亿美元收购，全球最大专业航空培训机构"},
-  {cn:"XTRA租赁",en:"XTRA Lease",cat:"retail",tag:"零售",icon:"🛒",desc:"2001年收购，拖车(半挂车)租赁服务"},
-  {cn:"布法罗新闻",en:"The Buffalo News",cat:"retail",tag:"零售",icon:"🛒",desc:"1977年收购，纽约州布法罗市主要报纸"},
-  {cn:"喜诗糖果",en:"See's Candies",cat:"retail",tag:"零售",icon:"🛒",desc:"1972年以2500万美元收购，巴菲特称其为「教科书般的伟大企业」"},
-  {cn:"内布拉斯加家具城",en:"Nebraska Furniture Mart",cat:"retail",tag:"零售",icon:"🛒",desc:"1983年收购多数股权，北美最大家居用品商场，创始人B夫人传奇"},
-  {cn:"R.C.威利家居",en:"R.C. Willey Home Furnishings",cat:"retail",tag:"零售",icon:"🛒",desc:"1995年收购，犹他州最大家具零售商"},
-  {cn:"星牌家具",en:"Star Furniture",cat:"retail",tag:"零售",icon:"🛒",desc:"2003年收购，德克萨斯州高端家具连锁"},
-  {cn:"乔丹家具",en:"Jordan's Furniture",cat:"retail",tag:"零售",icon:"🛒",desc:"1999年收购，马萨诸塞州知名家具零售商"},
-  {cn:"波仙珠宝",en:"Borsheims",cat:"retail",tag:"零售",icon:"🛒",desc:"1989年收购，奥马哈高端珠宝零售，伯克希尔年会必逛之地"},
-  {cn:"赫尔兹伯格钻石",en:"Helzberg Diamonds",cat:"retail",tag:"零售",icon:"🛒",desc:"1995年收购，珠宝零售连锁店"},
-  {cn:"本·布里奇珠宝",en:"Ben Bridge Jeweler",cat:"retail",tag:"零售",icon:"🛒",desc:"2000年收购，西海岸珠宝连锁"},
-  {cn:"冰雪皇后",en:"Dairy Queen (DQ)",cat:"retail",tag:"零售",icon:"🛒",desc:"1998年以5.85亿美元收购，全球冰淇淋和快餐连锁"},
-  {cn:"厨宝公司",en:"Pampered Chef",cat:"retail",tag:"零售",icon:"🛒",desc:"2002年收购，厨房用品直销，通过家庭聚会模式销售"},
+  {cn:"利捷航空",en:"NetJets",cat:"retail",tag:"零售",icon:"🛒",year:1998,desc:"1998年收购，私人飞机分时拥有(fractional ownership)开创者"},
+  {cn:"飞安国际",en:"FlightSafety International",cat:"retail",tag:"零售",icon:"🛒",year:1996,desc:"1996年以15亿美元收购，全球最大专业航空培训机构"},
+  {cn:"XTRA租赁",en:"XTRA Lease",cat:"retail",tag:"零售",icon:"🛒",year:2001,desc:"2001年收购，拖车(半挂车)租赁服务"},
+  {cn:"布法罗新闻",en:"The Buffalo News",cat:"retail",tag:"零售",icon:"🛒",year:1977,desc:"1977年收购，纽约州布法罗市主要报纸"},
+  {cn:"喜诗糖果",en:"See's Candies",cat:"retail",tag:"零售",icon:"🛒",year:1972,desc:"1972年以2500万美元收购，巴菲特称其为「教科书般的伟大企业」"},
+  {cn:"内布拉斯加家具城",en:"Nebraska Furniture Mart",cat:"retail",tag:"零售",icon:"🛒",year:1983,desc:"1983年收购多数股权，北美最大家居用品商场，创始人B夫人传奇"},
+  {cn:"R.C.威利家居",en:"R.C. Willey Home Furnishings",cat:"retail",tag:"零售",icon:"🛒",year:1995,desc:"1995年收购，犹他州最大家具零售商"},
+  {cn:"星牌家具",en:"Star Furniture",cat:"retail",tag:"零售",icon:"🛒",year:1997,desc:"2003年收购，德克萨斯州高端家具连锁"},
+  {cn:"乔丹家具",en:"Jordan's Furniture",cat:"retail",tag:"零售",icon:"🛒",year:1999,desc:"1999年收购，马萨诸塞州知名家具零售商"},
+  {cn:"波仙珠宝",en:"Borsheims",cat:"retail",tag:"零售",icon:"🛒",year:1989,desc:"1989年收购，奥马哈高端珠宝零售，伯克希尔年会必逛之地"},
+  {cn:"赫尔兹伯格钻石",en:"Helzberg Diamonds",cat:"retail",tag:"零售",icon:"🛒",year:1995,desc:"1995年收购，珠宝零售连锁店"},
+  {cn:"本·布里奇珠宝",en:"Ben Bridge Jeweler",cat:"retail",tag:"零售",icon:"🛒",year:2000,desc:"2000年收购，西海岸珠宝连锁"},
+  {cn:"冰雪皇后",en:"Dairy Queen (DQ)",cat:"retail",tag:"零售",icon:"🛒",year:1998,desc:"1998年以5.85亿美元收购，全球冰淇淋和快餐连锁"},
+  {cn:"厨宝公司",en:"Pampered Chef",cat:"retail",tag:"零售",icon:"🛒",year:2002,desc:"2002年收购，厨房用品直销，通过家庭聚会模式销售"},
 
   // Finance
-  {cn:"CORT商业服务",en:"CORT Business Services",cat:"finance",tag:"金融",icon:"💰",desc:"2000年收购，家具租赁服务，服务企业和活动"},
-  {cn:"克莱顿金融服务",en:"Clayton Financial Services",cat:"finance",tag:"金融",icon:"💰",desc:"克莱顿房屋旗下，预制房屋贷款和金融服务"},
-  {cn:"伯克希尔旅行保护",en:"Berkshire Hathaway Travel Protection",cat:"finance",tag:"金融",icon:"💰",desc:"旅行保险产品，包括行程取消、医疗保障等"},
-  {cn:"UTC租赁",en:"UTI (Universal Tube & Rollform)",cat:"finance",tag:"金融",icon:"💰",desc:"管道和辊压成型设备租赁"},
-  {cn:"马蒙金融",en:"Marmon Financial",cat:"finance",tag:"金融",icon:"💰",desc:"马蒙集团旗下金融租赁和信用服务"},
+  {cn:"CORT商业服务",en:"CORT Business Services",cat:"finance",tag:"金融",icon:"💰",year:2000,desc:"2000年收购，家具租赁服务，服务企业和活动"},
+  {cn:"克莱顿金融服务",en:"Clayton Financial Services",cat:"finance",tag:"金融",icon:"💰",year:2003,desc:"克莱顿房屋旗下，预制房屋贷款和金融服务"},
+  {cn:"伯克希尔旅行保护",en:"Berkshire Hathaway Travel Protection",cat:"finance",tag:"金融",icon:"💰",year:2014,desc:"旅行保险产品，包括行程取消、医疗保障等"},
+  {cn:"UTC租赁",en:"UTI (Universal Tube & Rollform)",cat:"finance",tag:"金融",icon:"💰",year:2001,desc:"管道和辊压成型设备租赁"},
+  {cn:"马蒙金融",en:"Marmon Financial",cat:"finance",tag:"金融",icon:"💰",year:2008,desc:"马蒙集团旗下金融租赁和信用服务"},
 ];
 
 // ===== Render Companies =====
@@ -547,6 +701,19 @@ function renderCompanies() {
     if (el) el.textContent = count;
   });
 
+  // Era (decade) counts
+  const eras = ['all','1960','1970','1980','1990','2000','2010','2020'];
+  eras.forEach(e => {
+    const el = document.getElementById('era-' + e);
+    if (!el) return;
+    if (e === 'all') {
+      el.textContent = companies.length;
+    } else {
+      const dec = parseInt(e, 10);
+      el.textContent = companies.filter(c => Math.floor(c.year / 10) * 10 === dec).length;
+    }
+  });
+
   let html = '';
   categories.forEach(cat => {
     const catCompanies = companies.filter(c => c.cat === cat);
@@ -560,10 +727,11 @@ function renderCompanies() {
     html += `</div>`;
     html += `<div class="company-grid">`;
     catCompanies.forEach((c, i) => {
-      html += `<div class="company-card" data-cn="${c.cn}" data-en="${c.en}" data-cat="${c.cat}">`;
+      html += `<div class="company-card" data-cn="${c.cn}" data-en="${c.en}" data-cat="${c.cat}" data-year="${c.year}">`;
       html += `<div class="company-name-cn">${c.cn}</div>`;
       html += `<div class="company-name-en">${c.en}</div>`;
       html += `<span class="company-tag tag-${c.cat}">${c.tag}</span>`;
+      html += `<span class="company-year">${c.year} 年收购</span>`;
       html += `<div class="company-desc">${c.desc}</div>`;
       html += `</div>`;
     });
@@ -571,6 +739,25 @@ function renderCompanies() {
   });
 
   container.innerHTML = html;
+}
+
+// ===== Filter by era (decade) =====
+let currentEra = 'all';
+function filterEra(decade, ev) {
+  document.querySelectorAll('.era-btn').forEach(b => b.classList.remove('active'));
+  if (ev && ev.currentTarget) ev.currentTarget.classList.add('active');
+  currentEra = decade;
+  document.querySelectorAll('.category-section').forEach(sec => {
+    let anyVisible = false;
+    sec.querySelectorAll('.company-card').forEach(card => {
+      const y = parseInt(card.dataset.year, 10);
+      const cardDec = Math.floor(y / 10) * 10;
+      const show = decade === 'all' || cardDec === parseInt(decade, 10);
+      card.style.display = show ? '' : 'none';
+      if (show) anyVisible = true;
+    });
+    sec.style.display = anyVisible ? '' : 'none';
+  });
 }
 
 // ===== Scroll to Category =====
@@ -595,6 +782,7 @@ function searchCompanies() {
   let matchCount = 0;
 
   cards.forEach(card => {
+    if (card.style.display === 'none') return; // 被年代过滤隐藏的卡片跳过
     card.classList.remove('search-match');
     if (!query) return;
 
