@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>伯克希尔业务版图 · 原图 | 漫漫扬</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+  background:#0b1120;
+  color:#e2e8f0;
+  overflow:hidden;
+}
+
+/* Top nav */
+.topnav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:100;
+  height:52px;
+  background:rgba(15,23,42,0.96);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.topnav-inner{
+  max-width:1400px;
+  margin:0 auto;
+  padding:0 20px;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.back-link{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:7px 14px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.14);
+  border-radius:9px;
+  color:#e2e8f0;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:500;
+  transition:all .15s;
+}
+.back-link:hover{background:rgba(245,158,11,0.18);border-color:rgba(245,158,11,0.45);color:#fbbf24}
+.topnav-title{
+  font-size:14px;
+  font-weight:600;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.topnav-meta{
+  font-size:12px;
+  color:#94a3b8;
+  font-weight:400;
+}
+
+/* Full stage */
+#stage{
+  position:fixed;
+  top:52px;left:0;right:0;bottom:0;
+  overflow:hidden;
+  background:#0b1120;
+  cursor:grab;
+  user-select:none;
+  -webkit-user-select:none;
+  touch-action:none;
+}
+#stage.grabbing{cursor:grabbing}
+#map{
+  position:absolute;
+  top:0;left:0;
+  display:block;
+  max-width:none;
+  max-height:none;
+  user-select:none;
+  -webkit-user-drag:none;
+  transform-origin:0 0;
+  will-change:transform;
+}
+
+/* Hint */
+.hint{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translateX(-50%);
+  z-index:101;
+  background:rgba(15,23,42,0.88);
+  color:#e2e8f0;
+  font-size:12.5px;
+  padding:8px 18px;
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,0.1);
+  pointer-events:none;
+  white-space:nowrap;
+  backdrop-filter:blur(6px);
+  opacity:1;
+  transition:opacity .4s;
+}
+.hint.hide{opacity:0}
+
+/* Loading */
+.loading{
+  position:fixed;
+  top:52px;left:0;right:0;bottom:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:99;
+  background:#0b1120;
+  color:#94a3b8;
+  font-size:14px;
+  pointer-events:none;
+  transition:opacity .3s;
+}
+.loading.hide{opacity:0}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="berkshire-business-map.html" class="back-link">← 返回业务版图</a>
+    <div class="topnav-title">
+      🗺️ 伯克希尔业务版图
+      <span class="topnav-meta">9708 × 9113 像素 · 长按鼠标左键拖动</span>
+    </div>
+    <a href="index.html" class="back-link">首页 →</a>
+  </div>
+</nav>
+
+<div id="stage">
+  <img id="map" src="images/berkshire-business-map.png" alt="伯克希尔哈撒韦业务版图原图">
+</div>
+
+<div class="loading" id="loading">正在加载高清原图…</div>
+<div class="hint" id="hint">🖱️ 长按鼠标左键拖动查看 · 滚轮上下移动 · 移动端单指拖动</div>
+
+<script>
+const stage = document.getElementById('stage');
+const map = document.getElementById('map');
+const loading = document.getElementById('loading');
+const hint = document.getElementById('hint');
+
+let tx = 0, ty = 0, dragging = false;
+let sx = 0, sy = 0, ox = 0, oy = 0;
+let sw = 0, sh = 0, iw = 0, ih = 0;
+
+function clamp(){
+  const minX = Math.min(0, sw - iw);
+  const maxX = 0;
+  const minY = Math.min(0, sh - ih);
+  const maxY = 0;
+  tx = Math.max(minX, Math.min(maxX, tx));
+  ty = Math.max(minY, Math.min(maxY, ty));
+}
+
+function apply(){
+  map.style.transform = `translate(${tx}px, ${ty}px)`;
+}
+
+function center(){
+  sw = stage.clientWidth;
+  sh = stage.clientHeight;
+  iw = map.naturalWidth || map.clientWidth;
+  ih = map.naturalHeight || map.clientHeight;
+  tx = (sw - iw) / 2;
+  ty = (sh - ih) / 2;
+  clamp();
+  apply();
+}
+
+function hideLoading(){
+  loading.classList.add('hide');
+}
+
+// Mouse drag
+stage.addEventListener('mousedown', (e) => {
+  e.preventDefault();
+  dragging = true;
+  sx = e.clientX;
+  sy = e.clientY;
+  ox = tx;
+  oy = ty;
+  stage.classList.add('grabbing');
+  hint.classList.add('hide');
+});
+
+window.addEventListener('mousemove', (e) => {
+  if (!dragging) return;
+  tx = ox + (e.clientX - sx);
+  ty = oy + (e.clientY - sy);
+  clamp();
+  apply();
+});
+
+window.addEventListener('mouseup', () => {
+  dragging = false;
+  stage.classList.remove('grabbing');
+});
+
+// Wheel pan (vertical)
+stage.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  ty -= e.deltaY;
+  clamp();
+  apply();
+}, {passive: false});
+
+// Touch drag
+let tSX = 0, tSY = 0, tOX = 0, tOY = 0;
+stage.addEventListener('touchstart', (e) => {
+  if (e.touches.length === 1){
+    dragging = true;
+    tSX = e.touches[0].clientX;
+    tSY = e.touches[0].clientY;
+    tOX = tx;
+    tOY = ty;
+    hint.classList.add('hide');
+  }
+}, {passive: false});
+
+stage.addEventListener('touchmove', (e) => {
+  if (dragging && e.touches.length === 1){
+    e.preventDefault();
+    tx = tOX + (e.touches[0].clientX - tSX);
+    ty = tOY + (e.touches[0].clientY - tSY);
+    clamp();
+    apply();
+  }
+}, {passive: false});
+
+stage.addEventListener('touchend', () => {
+  dragging = false;
+});
+
+// Resize / load
+window.addEventListener('resize', center);
+map.addEventListener('load', () => {
+  center();
+  hideLoading();
+});
+
+if (map.complete && map.naturalWidth){
+  center();
+  hideLoading();
+}
+</script>
+</body>
+</html>

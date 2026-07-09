@@ -144,42 +144,20 @@ body{
 
 .image-viewer-card{max-width:1100px;margin:34px auto 0}
 
-/* ===== Map stage: original image, drag to pan (no zoom) ===== */
+/* ===== Map stage: preview only (no drag) ===== */
 .map-stage{
   position:relative;
-  height:80vh;
-  max-height:900px;
+  height:420px;
   overflow:hidden;
   background:#0f172a;
-  cursor:grab;
-  user-select:none;
-  -webkit-user-select:none;
-  touch-action:none;
   line-height:0;
 }
-.map-stage.grabbing{cursor:grabbing}
 .map-stage img{
   display:block;
   width:100%;
   height:auto;
-  transform-origin:0 0;
-  will-change:transform;
   user-select:none;
   -webkit-user-drag:none;
-}
-.map-tip{
-  position:absolute;
-  left:50%;bottom:14px;
-  transform:translateX(-50%);
-  background:rgba(15,23,42,0.8);
-  color:#e2e8f0;
-  font-size:12.5px;
-  line-height:1.4;
-  padding:7px 16px;
-  border-radius:22px;
-  pointer-events:none;
-  white-space:nowrap;
-  backdrop-filter:blur(4px);
 }
 
 /* ===== Search Bar ===== */
@@ -405,7 +383,7 @@ body{
   <div class="hero-content">
     <div class="hero-badge">Berkshire Hathaway Business Map</div>
     <h1>伯克希尔哈撒韦业务版图</h1>
-    <p>完整展示伯克希尔旗下所有核心业务板块与子公司，中英文名称对照，支持搜索与缩放查看</p>
+    <p>完整展示伯克希尔旗下所有核心业务板块与子公司，中英文名称对照，支持搜索与查看高清原图</p>
     <div class="hero-stats">
       <div class="hero-stat"><div class="num">59</div><div class="lab">家子公司</div></div>
       <div class="hero-stat"><div class="num">7</div><div class="lab">大业务板块</div></div>
@@ -420,13 +398,11 @@ body{
     <div class="image-viewer-toolbar">
       <div class="viewer-title">🗺️ 伯克希尔业务版图（高清 9708×9113）</div>
       <div class="toolbar-actions">
-        <span class="zoom-btn" style="cursor:default">🖱️ 按住图片拖动查看</span>
-        <a href="images/berkshire-business-map.png" target="_blank" rel="noopener" class="view-original-btn" title="在新标签页打开原图">📄 查看原图</a>
+        <a href="berkshire-business-map-full.html" class="view-original-btn" title="查看可拖动的原始大图">🔍 查看原图</a>
       </div>
     </div>
     <div class="map-stage" id="map-stage">
       <img id="map-img" src="images/berkshire-business-map.png" alt="伯克希尔哈撒韦业务版图">
-      <div class="map-tip">🖱️ 按住拖动查看全图 · 滚轮上下移动 · 移动端单指拖动</div>
     </div>
   </div>
 </section>
@@ -637,65 +613,6 @@ function searchCompanies() {
     countEl.textContent = '';
   }
 }
-
-// ===== Map drag-pan (original image, NO zoom) =====
-const stageEl = document.getElementById('map-stage');
-const imgEl = document.getElementById('map-img');
-let tx = 0, ty = 0, dragging = false, sx = 0, sy = 0, ox = 0, oy = 0;
-
-function mapClamp(){
-  const iw = imgEl.clientWidth, ih = imgEl.clientHeight;
-  const sw = stageEl.clientWidth, sh = stageEl.clientHeight;
-  // keep image covering the stage; pan only when image overflows
-  const minX = iw <= sw ? 0 : sw - iw;
-  const maxX = iw <= sw ? 0 : 0;
-  const minY = ih <= sh ? 0 : sh - ih;
-  const maxY = ih <= sh ? 0 : 0;
-  tx = Math.max(minX, Math.min(maxX, tx));
-  ty = Math.max(minY, Math.min(maxY, ty));
-}
-function mapApply(){ imgEl.style.transform = `translate(${tx}px, ${ty}px)`; }
-function mapInit(){ tx = 0; ty = 0; mapClamp(); mapApply(); }
-
-stageEl.addEventListener('mousedown', (e) => {
-  dragging = true; sx = e.clientX; sy = e.clientY; ox = tx; oy = ty;
-  stageEl.classList.add('grabbing');
-});
-window.addEventListener('mousemove', (e) => {
-  if (!dragging) return;
-  tx = ox + (e.clientX - sx);
-  ty = oy + (e.clientY - sy);
-  mapClamp(); mapApply();
-});
-window.addEventListener('mouseup', () => {
-  dragging = false; stageEl.classList.remove('grabbing');
-});
-// Wheel = pan vertically (intentionally NOT zoom — original stays crisp)
-stageEl.addEventListener('wheel', (e) => {
-  e.preventDefault();
-  ty -= e.deltaY;
-  mapClamp(); mapApply();
-}, {passive: false});
-// Touch: one-finger pan
-let tSX = 0, tSY = 0, tOX = 0, tOY = 0;
-stageEl.addEventListener('touchstart', (e) => {
-  if (e.touches.length === 1){
-    dragging = true; tSX = e.touches[0].clientX; tSY = e.touches[0].clientY;
-    tOX = tx; tOY = ty;
-  }
-}, {passive: false});
-stageEl.addEventListener('touchmove', (e) => {
-  if (dragging && e.touches.length === 1){
-    e.preventDefault();
-    tx = tOX + (e.touches[0].clientX - tSX);
-    ty = tOY + (e.touches[0].clientY - tSY);
-    mapClamp(); mapApply();
-  }
-}, {passive: false});
-stageEl.addEventListener('touchend', () => { dragging = false; });
-window.addEventListener('resize', mapInit);
-imgEl.addEventListener('load', mapInit);
-mapInit();
 
 // Scroll spy for tabs
 window.addEventListener('scroll', () => {
