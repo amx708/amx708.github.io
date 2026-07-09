@@ -138,6 +138,23 @@ body{
   font-size:12px;
   color:#94a3b8;
 }
+.view-original-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:6px 14px;
+  background:#1e293b;
+  color:#fff;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:500;
+  text-decoration:none;
+  transition:background .15s;
+  margin-left:auto;
+}
+.view-original-btn:hover{
+  background:#334155;
+}
 
 /* ===== Search Bar ===== */
 .search-section{
@@ -335,6 +352,7 @@ body{
   .company-grid{grid-template-columns:1fr}
   .zoom-btn{width:32px;height:32px;font-size:16px}
   .image-hint{display:none}
+  .view-original-btn{font-size:12px;padding:5px 10px}
 }
 </style>
 </head>
@@ -370,6 +388,9 @@ body{
         <button class="zoom-btn" onclick="zoomImage(0.2)" title="放大">+</button>
         <button class="zoom-btn" onclick="resetZoom()" title="重置" style="font-size:14px">⟲</button>
       </div>
+      <a href="images/berkshire-business-map.jpg" target="_blank" rel="noopener" class="view-original-btn" title="在新标签页打开原图">
+        📄 查看原图
+      </a>
       <div class="image-hint">🖱️ 滚轮缩放 · 拖动查看 · 双击重置</div>
     </div>
     <div class="image-viewer-container" id="image-container">
