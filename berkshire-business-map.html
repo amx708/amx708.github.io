@@ -556,6 +556,77 @@ body{
 }
 .guide-item .gd b{color:#1e293b;font-weight:600}
 
+/* ===== Data scope note (subsidiaries vs equity holdings) ===== */
+.data-note{
+  max-width:1100px;
+  margin:26px auto 0;
+  padding:0 24px;
+}
+.data-note-card{
+  background:linear-gradient(135deg,#fffbeb,#fff);
+  border:1px solid #fde68a;
+  border-radius:16px;
+  padding:22px 24px 24px;
+  box-shadow:0 6px 20px rgba(180,83,9,0.08);
+}
+.data-note-head{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:16px;
+  font-weight:700;
+  color:#92400e;
+  margin-bottom:16px;
+}
+.data-note-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.data-note-col{
+  background:#fff;
+  border:1px solid #fde68a;
+  border-radius:12px;
+  padding:16px 18px;
+}
+.data-note-col h4{
+  margin:0 0 8px;
+  font-size:14.5px;
+  color:#1e293b;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.data-note-col p{
+  margin:0 0 8px;
+  font-size:13px;
+  line-height:1.7;
+  color:#475569;
+}
+.data-note-col .ex{
+  font-size:12.5px;
+  color:#b45309;
+  background:#fffbeb;
+  border-radius:8px;
+  padding:6px 10px;
+  line-height:1.6;
+}
+.data-note-col.owned h4{color:#15803d}
+.data-note-col.stock h4{color:#1d4ed8}
+.data-note-foot{
+  margin-top:16px;
+  font-size:13px;
+  line-height:1.7;
+  color:#64748b;
+  background:#f8fafc;
+  border-radius:10px;
+  padding:12px 16px;
+}
+.data-note-foot b{color:#1e293b}
+@media (max-width:768px){
+  .data-note-grid{grid-template-columns:1fr}
+}
+
 /* ===== Era tabs ===== */
 .era-tabs{
   max-width:1100px;
@@ -683,6 +754,28 @@ body{
         <div class="gd">收购后<b>不插手经营</b>，留原经理人（B夫人、Justin 家族）；巴菲特只做<b>资本配置</b>，犯错也复盘（如 Dexter 鞋业发股的代价）。</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ===== Data scope note: subsidiaries vs equity holdings ===== -->
+<section class="data-note">
+  <div class="data-note-card">
+    <div class="data-note-head">⚠️ 看之前先分清：本页列的是「收购的子公司」，不是「买的股票」</div>
+    <div class="data-note-grid">
+      <div class="data-note-col owned">
+        <h4>🏢 收购的子公司（本页收录）</h4>
+        <p>伯克希尔<strong>花钱把整家公司买下来</strong>，公章、团队、品牌都归它，利润直接并进伯克希尔总账本。</p>
+        <p>买下后基本不插手经营，留原老板接着干，自己只管把赚的钱拿去再投资。</p>
+        <div class="ex">例子：GEICO、喜诗糖果、BNSF铁路、波仙珠宝、BHE能源</div>
+      </div>
+      <div class="data-note-col stock">
+        <h4>📈 投资的权益公司（本页未收录）</h4>
+        <p>用保险浮存金在股市<strong>买入别人家公司的股份</strong>，伯克希尔只是股东，不管经营。</p>
+        <p>不并表，赚的是<strong>股价涨跌</strong>和<strong>每年分红</strong>，属于投资组合。</p>
+        <div class="ex">例子：苹果、可口可乐、美国运通、西方石油、雪佛龙</div>
+      </div>
+    </div>
+    <div class="data-note-foot">📌 一句话类比：<b>子公司 = 你自己开的店（利润全进你兜）</b>；<b>股票 = 你买的别人家店的股份（只赚涨跌和分红）</b>。两者都是伯克希尔的「印钞机」，但性质完全不同——本页只展示左手（子公司）。</div>
   </div>
 </section>
 
