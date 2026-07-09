@@ -121,7 +121,7 @@ body{
 }
 .image-viewer-container{
   overflow:auto;
-  max-height:600px;
+  max-height:65vh;
   position:relative;
   background:#0f172a;
   cursor:grab;
@@ -129,10 +129,17 @@ body{
 .image-viewer-container:active{cursor:grabbing}
 .image-viewer-container img{
   display:block;
-  transform-origin:center top;
-  transition:transform .2s ease;
   width:100%;
   height:auto;
+  image-rendering:auto;
+}
+.image-viewer-container.full-size{
+  max-height:none;
+  cursor:grab;
+}
+.image-viewer-container.full-size img{
+  width:auto;
+  max-width:none;
 }
 .image-hint{
   font-size:12px;
@@ -388,13 +395,13 @@ body{
         <button class="zoom-btn" onclick="zoomImage(0.2)" title="放大">+</button>
         <button class="zoom-btn" onclick="resetZoom()" title="重置" style="font-size:14px">⟲</button>
       </div>
-      <a href="images/berkshire-business-map.jpg" target="_blank" rel="noopener" class="view-original-btn" title="在新标签页打开原图">
+      <a href="images/berkshire-business-map.png" target="_blank" rel="noopener" class="view-original-btn" title="在新标签页打开原图">
         📄 查看原图
       </a>
       <div class="image-hint">🖱️ 滚轮缩放 · 拖动查看 · 双击重置</div>
     </div>
     <div class="image-viewer-container" id="image-container">
-      <img src="images/berkshire-business-map.jpg" alt="伯克希尔哈撒韦业务版图" id="map-image">
+      <img src="images/berkshire-business-map.png" alt="伯克希尔哈撒韦业务版图" id="map-image">
     </div>
   </div>
 </section>
