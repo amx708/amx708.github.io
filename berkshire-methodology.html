@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投资方法论 · 原创中文详解 | 伯克希尔投资数据中心</title>
+<style>
+  :root{
+    --navy:#0b1f3a; --navy2:#10294d; --ink:#1d2b40; --line:#e4e9f2;
+    --orange:#f5a623; --orange-d:#d98b07; --txt:#23344e; --muted:#6b7a93;
+    --card:#fff; --bg:#f4f7fc; --green:#1f9d6b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;
+    background:var(--bg);color:var(--txt);line-height:1.75;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  /* sticky glass header */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(11,31,58,.82);backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
+  .topbar-in{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px}
+  .brand{font-weight:800;font-size:17px;letter-spacing:.5px}
+  .brand .ac{color:var(--orange)}
+  .crumb{font-size:13px;color:#9fb2cf}
+  .crumb a:hover{color:var(--orange)}
+  .hero{max-width:1180px;margin:30px auto 10px;padding:0 20px}
+  .hero h1{font-size:30px;margin:0 0 8px;color:var(--navy)}
+  .hero p{margin:0;color:var(--muted);max-width:760px}
+  .badge{display:inline-block;background:var(--orange);color:#3a2700;font-size:12px;font-weight:700;
+    padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
+  .layout{max-width:1180px;margin:22px auto 60px;padding:0 20px;display:grid;grid-template-columns:240px 1fr;gap:30px}
+  /* TOC */
+  .toc{position:sticky;top:78px;align-self:start;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:14px 12px;max-height:calc(100vh - 100px);overflow:auto}
+  .toc h4{margin:4px 8px 10px;font-size:13px;color:var(--muted);letter-spacing:.4px}
+  .toc a{display:block;padding:7px 10px;border-radius:9px;font-size:13.5px;color:var(--ink);transition:.15s}
+  .toc a:hover{background:#eef3fb;color:var(--orange-d)}
+  .toc a .n{display:inline-block;width:22px;color:var(--orange);font-weight:700}
+  .toc .grp{font-size:11px;color:#9aa7bd;margin:12px 10px 4px;letter-spacing:1px}
+  /* content */
+  .sec{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-bottom:22px;
+    scroll-margin-top:84px;box-shadow:0 1px 3px rgba(16,41,77,.04)}
+  .sec h2{margin:0 0 4px;font-size:22px;color:var(--navy);display:flex;align-items:center;gap:10px}
+  .sec h2 .num{background:var(--navy);color:#fff;font-size:14px;width:30px;height:30px;border-radius:9px;
+    display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .tag{font-size:12px;color:var(--orange-d);background:#fff6e6;border:1px solid #f3e0b8;border-radius:999px;padding:2px 10px;font-weight:600}
+  .sec h3{font-size:15px;color:var(--navy2);margin:20px 0 6px}
+  .sec p{margin:6px 0;font-size:15px;color:var(--txt)}
+  .formula{background:#f7f9fd;border:1px dashed #c7d3e6;border-radius:10px;padding:12px 16px;margin:12px 0;
+    font-family:"SFMono-Regular",Consolas,monospace;font-size:15px;color:var(--navy2);text-align:center;letter-spacing:.3px}
+  .note{border-left:4px solid var(--orange);background:#fffaf0;padding:10px 14px;border-radius:0 10px 10px 0;margin:14px 0;font-size:14.5px}
+  .buff{border-left:4px solid var(--green);background:#f1fbf6;padding:10px 14px;border-radius:0 10px 10px 0;margin:14px 0;font-size:14.5px}
+  .buff b{color:var(--green)}
+  .foot{max-width:1180px;margin:0 auto 50px;padding:0 20px;color:var(--muted);font-size:13px}
+  .foot code{background:#eef3fb;padding:1px 6px;border-radius:5px;color:var(--navy2)}
+  @media(max-width:860px){
+    .layout{grid-template-columns:1fr}
+    .toc{position:static;max-height:none;margin-bottom:10px}
+    .hero h1{font-size:24px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand">伯克希尔<span class="ac">投资数据中心</span></div>
+    <div class="crumb">/ <a href="berkshire-standalone.html">枢纽</a> / 投资方法论 · 原创详解</div>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>投资方法论 · 原创中文详解 <span class="badge">本站原创</span></h1>
+  <p>12 篇围绕价值投资的核心方法论，涵盖估值模型与投资策略两大板块。内容由本站在公开金融理论基础上原创撰写，公式与思想均源自公开文献（格雷厄姆、巴菲特等），仅供学习研究，不构成投资建议。</p>
+</div>
+
+<div class="layout">
+  <nav class="toc">
+    <h4>目录</h4>
+    <div class="grp">估值模型</div>
+    <a href="#m1"><span class="n">1</span>格雷厄姆公式</a>
+    <a href="#m2"><span class="n">2</span>倍数估值法</a>
+    <a href="#m3"><span class="n">3</span>股息贴现模型</a>
+    <a href="#m4"><span class="n">4</span>股息收益率理论</a>
+    <a href="#m5"><span class="n">5</span>市盈率纵向对比</a>
+    <a href="#m6"><span class="n">6</span>账面价值收敛</a>
+    <a href="#m7"><span class="n">7</span>经济护城河评估</a>
+    <a href="#m8"><span class="n">8</span>收益增长与退出倍数</a>
+    <div class="grp">投资策略</div>
+    <a href="#m9"><span class="n">9</span>价值投资</a>
+    <a href="#m10"><span class="n">10</span>成长投资</a>
+    <a href="#m11"><span class="n">11</span>股息投资</a>
+    <a href="#m12"><span class="n">12</span>优质宽护城河投资</a>
+  </nav>
+
+  <main>
+    <!-- 1 -->
+    <section class="sec" id="m1">
+      <h2><span class="num">1</span>格雷厄姆公式 <span class="tag">估值模型</span></h2>
+      <p>本杰明·格雷厄姆在 1974 年一次公开访谈中给出一个简洁的"合理估值"经验公式，用来快速判断一只股票的内在价值中枢，后被称为<strong>格雷厄姆公式</strong>。它把盈利与增长直接挂钩，适合对防御型股票做"毛估"。</p>
+      <div class="formula">V = EPS × (8.5 + 2g)</div>
+      <p>其中 <code>EPS</code> 为每股收益，<code>g</code> 为预期长期盈利增长率（以百分比数值代入，如 8 表示 8%）。例如 EPS=4、g=7，则 V=4×(8.5+14)=90。</p>
+      <p>格雷厄姆后来又延伸出"格雷厄姆数字"（Graham Number），用于更保守的防御型估值：</p>
+      <div class="formula">GN = √(22.5 × EPS × BVPS) ＝ √(15 × 1.5 × EPS × BVPS)</div>
+      <p>即以 15 倍市盈率与 1.5 倍市净率为上限乘积开平方，要求股价显著低于该数字才具备安全边际。</p>
+      <div class="buff"><b>巴菲特怎么用：</b>早期巴菲特严格遵循老师格雷厄姆的"烟蒂股"框架，用类似公式寻找价格远低于净资产的标的；后期他更看重质量，但"买入价要明显低于保守估值"的安全边际思想始终未变。</div>
+      <div class="note">注意：公式中的 <code>g</code> 对结果极其敏感（系数为 2），高增长假设会大幅推高估值，因此务必用保守的增长率，且只作初筛、需结合定性判断。</div>
+    </section>
+
+    <!-- 2 -->
+    <section class="sec" id="m2">
+      <h2><span class="num">2</span>倍数估值法 <span class="tag">估值模型</span></h2>
+      <p>倍数估值（相对估值）是最常用的快捷方法：用一个"价格 ÷ 某基本面指标"的比率，与历史区间、同行或大盘对比，判断贵贱。常见倍数包括市盈率、市净率、市销率、EV/EBITDA 等。</p>
+      <div class="formula">PE = 股价 / 每股收益　·　PB = 股价 / 每股净资产　·　PS = 市值 / 营收　·　EV/EBITDA = 企业价值 / 息税折旧前利润</div>
+      <p><strong>市盈率(PE)</strong>最直观，但受会计利润波动影响大；<strong>市净率(PB)</strong>适合金融、重资产行业；<strong>市销率(PS)</strong>适合暂未盈利的高成长公司；<strong>EV/EBITDA</strong>剔除资本结构与折旧差异，适合跨企业横向比。</p>
+      <div class="buff"><b>巴菲特怎么用：</b>巴菲特偏好用"股东盈余"（_owner earnings_）替代会计利润来衡量真实盈利，再结合行业特性选合适倍数。他反复强调：估值倍数必须结合资本回报率——同样 15 倍 PE，ROE 30% 与 ROE 8% 的天壤之别。</div>
+      <div class="note">倍数估值本质是"比价"而非"定价"，它告诉你相对贵贱，却给不出绝对内在价值。单独使用易被行业泡沫误导，应作为交叉验证工具。</div>
+    </section>
+
+    <!-- 3 -->
+    <section class="sec" id="m3">
+      <h2><span class="num">3</span>股息贴现模型 DDM <span class="tag">估值模型</span></h2>
+      <p>股息贴现模型（Dividend Discount Model）认为：一只股票的价值等于其未来所有股息按适当折现率贴现后的现值之和。它是现金流贴现（DCF）思想在分红股上的直接应用。</p>
+      <div class="formula">P₀ = Σ Dₜ / (1 + r)ᵗ</div>
+      <p>若假设股息以固定速度 <code>g</code> 永续增长（戈登模型），则简化为：</p>
+      <div class="formula">P = D₁ / (r − g)</div>
+      <p>其中 <code>D₁</code> 为下期股息，<code>r</code> 为要求回报率，<code>g</code> 为永续增长率（须 <code>g &lt; r</code>）。例如 D₁=3、r=9%、g=4%，则 P=3/0.05=60。</p>
+      <div class="buff"><b>巴菲特怎么用：</b>巴菲特的方式更广义——他把"股息"扩展为"企业终身自由现金流"。他不要求公司现在分红，只要留存利润能以高回报再投资，价值同样在累积。DDM 的局限（依赖分红、对 g 敏感）正是他转向现金流视角的原因。</div>
+      <div class="note">DDM 对增长率 <code>g</code> 极度敏感，且只适用于分红稳定、可预测的公司；对不分红或分红政策随意的成长股几乎失效。</div>
+    </section>
+
+    <!-- 4 -->
+    <section class="sec" id="m4">
+      <h2><span class="num">4</span>股息收益率理论 <span class="tag">估值模型</span></h2>
+      <p>股息收益率（Dividend Yield）= 年度股息 / 股价。该思路把股票视作"生息资产"：当股息率显著高于无风险利率（如国债）时，股票的相对吸引力上升；过低则提示估值偏贵。</p>
+      <div class="formula">股息收益率 = 每股年度股息 / 股价 × 100%</div>
+      <p>经典"债券类比"框架会对比"股票盈余收益率（E/P）"与"债券收益率"：当 E/P 明显高于长期国债收益率时，股票相对便宜。这也是巴菲特常用来判断整体市场冷热的温度计。</p>
+      <div class="buff"><b>巴菲特怎么用：</b>在 2008 年金融危机后，巴菲特多次指出当优质公司股息率开始接近甚至超过国债时，是长期资金的买点。但他也提醒：高股息率可能是"价值陷阱"——公司因基本面恶化而股价暴跌，看似高息实则不可持续。</div>
+      <div class="note">股息率看的是"过去/当前"分红，必须同时审视分红的可持续性与增长性，不能孤立使用。</div>
+    </section>
+
+    <!-- 5 -->
+    <section class="sec" id="m5">
+      <h2><span class="num">5</span>市盈率纵向对比 <span class="tag">估值模型</span></h2>
+      <p>把一只股票（或整个市场）当前的市盈率，与它自身的历史市盈率区间对比，判断当前处于低估还是高估区间。这是"相对估值"最朴素也最常用的一类。</p>
+      <div class="formula">分位 = (当前 PE − 历史最低 PE) / (历史最高 PE − 历史最低 PE)</div>
+      <p>若当前 PE 处于历史 10% 分位以下，通常视为"便宜"；处于 90% 分以上则"贵"。这种方法对盈利相对稳定的成熟公司最有效。</p>
+      <div class="buff"><b>巴菲特怎么用：</b>巴菲特不会机械地"低 PE 就买"。他更看重 PE 背后的盈利质量与持续性——周期顶部的低 PE（盈利高点）往往是陷阱，周期底部的"高 PE"反而可能是机会。他买的是"未来盈利能力的折现"，而非历史的便宜。</div>
+      <div class="note">盈利大幅波动的周期股，历史 PE 分位会严重失真；此时应结合市净率或正常化盈利（多年平均）来判断。</div>
+    </section>
+
+    <!-- 6 -->
+    <section class="sec" id="m6">
+      <h2><span class="num">6</span>账面价值收敛模型 <span class="tag">估值模型</span></h2>
+      <p>该思路关注<strong>股价与每股账面价值（BVPS）的关系</strong>。格雷厄姆的"烟蒂股"策略核心是买价格远低于账面清算价值的公司；而巴菲特后期则看重账面价值的"成长性"——即留存利润能否带来高于成本的增值。</p>
+      <div class="formula">PB = 股价 / 每股账面价值　·　账面价值增长 ≈ ROE × 留存比率</div>
+      <p>若一家公司以 15% 的 ROE 长期留存利润，其账面价值会复利增长，股价长期倾向于跟上这一增长。当 PB 远低于历史常态且 ROE 稳健时，往往隐含低估。</p>
+      <div class="buff"><b>巴菲特怎么用：</b>巴菲特用"账面价值增长率"作为衡量伯克希尔自身成绩的核心指标之一（后改为关注内在价值与股价）。他强调：关键不是 PB 高低，而是公司能否以高 ROE 把留存利润转化为真实价值——否则低 PB 只是"便宜的烂资产"。</div>
+      <div class="note">对轻资产、品牌/专利驱动的公司，账面价值严重低估真实经济价值，PB 参考意义有限。</div>
+    </section>
+
+    <!-- 7 -->
+    <section class="sec" id="m7">
+      <h2><span class="num">7</span>经济护城河评估 <span class="tag">估值模型</span></h2>
+      <p>"经济护城河"（Economic Moat）由巴菲特普及，指企业抵御竞争、长期维持高资本回报的结构性优势。评估护城河，本质是判断一家公司的超额利润能撑多久。</p>
+      <p>常见护城河类型：</p>
+      <p>① <strong>无形资产</strong>：品牌（可口可乐）、专利、牌照；<br>
+         ② <strong>转换成本</strong>：换用竞品的代价高（银行、企业软件）；<br>
+         ③ <strong>网络效应</strong>：用户越多价值越大（支付、社交）；<br>
+         ④ <strong>成本优势</strong>：规模/区位/工艺带来的持续低成本；<br>
+         ⑤ <strong>规模效应</strong>：固定成本摊薄形成的天然壁垒。</p>
+      <div class="buff"><b>巴菲特怎么用：</b>"我们喜欢的生意，是那些在 25 年后仍然强大的生意。"他愿为宽阔且持久的护城河支付合理溢价，因为护城河决定了复利能否长期滚下去。没有护城河的高 ROE，往往只是昙花一现。</div>
+      <div class="note">护城河会"侵蚀"：技术变革、消费习惯转移都可能让昔日壁垒坍塌。评估时必须问——十年后它还在吗？</div>
+    </section>
+
+    <!-- 8 -->
+    <section class="sec" id="m8">
+      <h2><span class="num">8</span>收益增长与退出倍数 <span class="tag">估值模型</span></h2>
+      <p>这是私募/成长投资常用的"基本面估值"视角：一项投资的总回报 ≈ 期间盈利增长 + 退出时的估值倍数变化 + 分红。它把"赚企业成长的钱"和"赚估值变化的钱"拆开看。</p>
+      <div class="formula">总回报 ≈ (盈利增长) + (退出 PE − 买入 PE) + 股息率</div>
+      <p>例如以 12 倍 PE 买入、盈利 5 年翻番、以 15 倍 PE 退出：仅靠盈利增长已实现约 100% 收益，估值扩张再额外贡献。这种方法强调：<strong>长期收益主要来自盈利本身的增长</strong>，而非估值博弈。</p>
+      <div class="buff"><b>巴菲特怎么用：</b>巴菲特把"以合理价格买优秀企业并长期持有"等价于赌盈利的复利增长；他极少依赖"更高倍数退出"，反而常因估值过高而卖出（如部分苹果减持），把收益交还给盈利本身。他的名言："价格是你付出的，价值是你得到的。"</div>
+      <div class="note">依赖"退出倍数扩张"的估值最危险——它假设未来有人愿出更高价。安全边际应建立在盈利增长上，而非估值幻觉。</div>
+    </section>
+
+    <!-- 9 -->
+    <section class="sec" id="m9">
+      <h2><span class="num">9</span>价值投资 <span class="tag">投资策略</span></h2>
+      <p>价值投资的核心是：<strong>以显著低于内在价值的价格买入</strong>，并留出"安全边际"。它不预测短期涨跌，而是利用市场情绪的错位，用便宜的价格获得划算的资产。</p>
+      <div class="formula">安全边际 = 内在价值 − 市场价格（越大越安全）</div>
+      <p>方法论上分两派：格雷厄姆式"烟蒂股"（买远低于净资产的便宜货），与巴菲特/芒格式"以合理价格买伟大企业"（ quality at a fair price）。两者共通点是——都要求价格低于价值。</p>
+      <div class="buff"><b>巴菲特怎么用：</b>巴菲特是价值投资的集大成者，但他把"价值"从静态资产扩展到"未来现金流折现"。他名言："价格是你付出的，价值是你得到的。"真正的价值投资者，是在别人恐惧时敢下注的人。</div>
+      <div class="note">价值陷阱是最大风险：便宜可能因为生意本身在恶化。必须区分"暂时被冷落的好公司"与"永久衰退的烂资产"。</div>
+    </section>
+
+    <!-- 10 -->
+    <section class="sec" id="m10">
+      <h2><span class="num">10</span>成长投资 <span class="tag">投资策略</span></h2>
+      <p>成长投资聚焦<strong>盈利与营收高速增长</strong>的公司，愿意为未来的扩张支付更高估值。其回报主要来自企业本身的复利增长，而非估值修复。</p>
+      <p>成长投资的关键在于：增长的<strong>质量与持续性</strong>。真正稀缺的是"高成长 + 高资本回报 + 能持续"的组合；许多高成长靠烧钱维持，一旦融资收紧便崩塌。</p>
+      <div class="buff"><b>巴菲特怎么用：</b>巴菲特从不排斥成长——他买的可口可乐、喜诗糖果、苹果都是成长股，只是他要求"以价值投资的价格"买成长。他的框架是：成长是价值的组成部分，而非对立面。"Growth is part of the value equation."</div>
+      <div class="note">成长股最怕"预期落空"：高增长已反映在价格里，一旦增速放缓，估值与盈利会双杀（"戴维斯双杀"）。买入时需留足容错空间。</div>
+    </section>
+
+    <!-- 11 -->
+    <section class="sec" id="m11">
+      <h2><span class="num">11</span>股息投资 <span class="tag">投资策略</span></h2>
+      <p>股息投资策略选择<strong>稳定且可持续分红</strong>的公司，依靠现金分红获取回报，并常通过"股息再投资"实现复利。它适合追求现金流与低波动的投资者。</p>
+      <p>评估要点：分红率（派息/盈利）是否健康、股息是否逐年增长、自由现金流能否覆盖分红。连续多年提高股息（"股息贵族"）往往是商业模式稳健的信号。</p>
+      <div class="buff"><b>巴菲特怎么用：</b>伯克希尔自身长期不分红（因巴菲特认为留存利润能以更高回报再投资，对股东更有利），但他极度看重子公司产生现金的能力，并用保险浮存金与分红去投资更多生息资产。他买的公司，几乎都具备强劲、可分红的真实盈利。</div>
+      <div class="note">高股息率可能是"价值陷阱"：公司因基本面恶化股价大跌，股息率被动升高，但随后可能削减甚至取消分红。分红的可持续性比绝对水平更重要。</div>
+    </section>
+
+    <!-- 12 -->
+    <section class="sec" id="m12">
+      <h2><span class="num">12</span>优质宽护城河投资 <span class="tag">投资策略</span></h2>
+      <p>这是价值与成长的"合流"：在<strong>具备宽阔且持久护城河</strong>的优质企业里，以<strong>合理（而非极致便宜）</strong>的价格买入并长期持有。它牺牲了一点"价格便宜"，换来了复利不被竞争侵蚀的确定性。</p>
+      <p>筛选逻辑：高且稳定的 ROIC/ROE + 低债务 + 强自由现金流 + 清晰的护城河来源 + 理性的资本配置。这类企业往往能"以复利自我证明"。</p>
+      <div class="buff"><b>巴菲特怎么用：</b>这是巴菲特/芒格后期的主流打法。代表作：可口可乐、喜诗糖果、苹果、美国运通——都是"好生意"叠加"好价格（相对其质量而言）"。他愿为"注定赢家"支付合理溢价，因为时间会替他赚钱。</div>
+      <div class="note">"优质"需动态审视：护城河会侵蚀，管理层会犯错，估值从"合理"到"过贵"只在一念之间。即便好公司，买贵了也会长期跑输。</div>
+    </section>
+  </main>
+</div>
+
+<div class="foot">
+  <p>本页 12 篇内容由伯克希尔投资数据中心在公开金融理论基础上<strong>原创撰写</strong>，公式与思想源自本杰明·格雷厄姆《聪明的投资者》、沃伦·巴菲特历年股东信与公开演讲等公开文献，相关内容版权归原作者与出版方所有。本页仅供学习研究，<code>不构成任何投资建议</code>。</p>
+</div>
+
+</body>
+</html>

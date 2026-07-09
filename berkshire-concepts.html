@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>巴菲特投资概念库 · 原创重写 | 伯克希尔数据中心</title>
+<style>
+:root{--navy:#0b1f3a;--navy2:#102a4c;--orange:#f5a623;--orange2:#ffb84d;--ink:#1a2433;--muted:#6b7a90;--line:#e3e9f2;--bg:#f4f7fb;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+header.top{position:sticky;top:0;z-index:30;background:rgba(11,31,58,.82);backdrop-filter:blur(10px);border-bottom:1px solid rgba(245,166,35,.35)}
+.top-in{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.crumb{color:#9fb3cf;font-size:13px}
+.crumb a{color:#9fb3cf;text-decoration:none}
+.crumb a:hover{color:var(--orange2)}
+.top h1{margin:0;font-size:19px;color:#fff;font-weight:700}
+.top h1 b{color:var(--orange)}
+.hero{max-width:1180px;margin:0 auto;padding:30px 20px 8px}
+.hero h2{margin:0 0 6px;font-size:26px}
+.hero p{margin:0;color:var(--muted);max-width:760px}
+.stat{display:inline-flex;gap:18px;margin-top:14px;flex-wrap:wrap}
+.stat b{color:var(--navy);font-size:20px}
+.stat span{color:var(--muted);font-size:13px;display:block}
+.controls{max-width:1180px;margin:18px auto 0;padding:0 20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.search{flex:1;min-width:240px;padding:11px 14px;border:1px solid var(--line);border-radius:10px;font-size:15px;outline:none}
+.search:focus{border-color:var(--orange)}
+.cats{display:flex;gap:8px;flex-wrap:wrap;max-width:1180px;margin:14px auto 0;padding:0 20px}
+.cat-btn{border:1px solid var(--line);background:#fff;color:var(--muted);padding:7px 14px;border-radius:999px;font-size:13px;cursor:pointer}
+.cat-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.cat-btn:hover{border-color:var(--orange)}
+.grid{max-width:1180px;margin:22px auto 60px;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.card{text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 16px 18px;cursor:pointer;transition:.15s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(11,31,58,.12);border-color:var(--orange)}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.card-name{font-size:17px;font-weight:700;color:var(--navy)}
+.card-en{color:var(--muted);font-size:12px;margin:2px 0 8px;letter-spacing:.3px}
+.card-def{font-size:13.5px;color:#41506a;line-height:1.6}
+.tag-deep{font-size:11px;color:#fff;background:var(--orange);padding:2px 8px;border-radius:999px;white-space:nowrap}
+.tag-lite{font-size:11px;color:var(--navy);background:#eaf0f8;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.modal{position:fixed;inset:0;z-index:50;display:none}
+.modal.open{display:block}
+.modal-mask{position:absolute;inset:0;background:rgba(8,18,34,.55)}
+.modal-box{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(720px,92vw);max-height:86vh;overflow:auto;background:#fff;border-radius:16px;padding:26px 28px 30px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal-x{position:absolute;top:12px;right:16px;border:none;background:none;font-size:26px;color:var(--muted);cursor:pointer;line-height:1}
+.modal-cat{display:inline-block;font-size:12px;color:#fff;background:var(--navy);padding:3px 10px;border-radius:999px}
+.modal-title{margin:10px 0 4px;font-size:23px;color:var(--navy)}
+.modal-en{font-size:14px;color:var(--muted);font-weight:400}
+.modal-body{margin-top:10px}
+.c-def{background:#fbf6ec;border-left:4px solid var(--orange);padding:12px 14px;border-radius:0 8px 8px 0;color:#5a4a2e;font-size:15px}
+.c-h{margin:22px 0 8px;font-size:15px;color:var(--navy);border-bottom:2px solid var(--line);padding-bottom:6px}
+.point{margin:10px 0}
+.point b{color:var(--navy);font-size:14.5px}
+.point p{margin:3px 0 0;font-size:14px;color:#3c4a60}
+.c-case{font-size:14px;color:#3c4a60;background:#f3f7fc;padding:12px 14px;border-radius:8px}
+.myth{margin:6px 0;padding-left:18px}
+.myth li{font-size:14px;color:#3c4a60;margin:6px 0}
+.quote{margin:10px 0;padding:10px 14px;background:#fff8ec;border-radius:8px;color:#4a3c22;font-size:14.5px;border-left:3px solid var(--orange)}
+.qy{display:block;margin-top:6px;color:var(--muted);font-size:12.5px}
+.rel{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:#f3f7fc;color:var(--navy);padding:6px 12px;border-radius:999px;font-size:13px;cursor:pointer}
+.chip:hover{border-color:var(--orange);color:var(--orange)}
+footer{max-width:1180px;margin:0 auto;padding:24px 20px 50px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line)}
+.note{background:#eaf0f8;border-radius:10px;padding:12px 14px;margin-top:12px;color:#42526a}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <h1>伯克希尔·<b>投资概念库</b></h1>
+    <div class="crumb"><a href="berkshire-standalone.html">首页</a> / 投资数据中心 / 概念库</div>
+  </div>
+</header>
+<section class="hero">
+  <h2>巴菲特投资概念 · 原创重写</h2>
+  <p>本库 49 个概念全部为基于公开股东信与投资理论的<b>原创中文重写</b>，非搬运任何第三方站点。每条含核心要义、巴菲特实践案例、常见误区与原文精选，并交叉链接至本站年会实录与业务/投资版图。</p>
+  <div class="stat">
+    <div><b>49</b><span>概念词条</span></div>
+    <div><b>18</b><span>深度重写</span></div>
+    <div><b>31</b><span>精要词条</span></div>
+    <div><b>原创</b><span>非搬运 · 链回原文精神</span></div>
+  </div>
+</section>
+<div class="controls">
+  <input class="search" id="search" placeholder="搜索概念，如：护城河 / 安全边际 / moat">
+</div>
+<div class="cats" id="cats"><button class="cat-btn active" data-cat="全部">全部</button><button class="cat-btn" data-cat="核心理念">核心理念</button><button class="cat-btn" data-cat="估值与价格">估值与价格</button><button class="cat-btn" data-cat="组合与配置">组合与配置</button><button class="cat-btn" data-cat="保险与金融">保险与金融</button><button class="cat-btn" data-cat="商业与行业">商业与行业</button><button class="cat-btn" data-cat="治理与思维">治理与思维</button></div>
+<main class="grid" id="grid">
+<button class="card" data-id="moat" data-cat="核心理念" data-name="护城河">
+  <div class="card-top"><span class="card-name">护城河</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Economic Moat</div>
+  <div class="card-def">企业能长期维持超额利润的结构性竞争优势，是巴菲特框架的核心。</div>
+</button><button class="card" data-id="margin" data-cat="核心理念" data-name="安全边际">
+  <div class="card-top"><span class="card-name">安全边际</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Margin of Safety</div>
+  <div class="card-def">以显著低于内在价值的价格买入，为判断误差和未知风险留出缓冲。</div>
+</button><button class="card" data-id="circle" data-cat="核心理念" data-name="能力圈">
+  <div class="card-top"><span class="card-name">能力圈</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Circle of Competence</div>
+  <div class="card-def">只投资自己真正能看懂的生意，边界比圈有多大更重要。</div>
+</button><button class="card" data-id="market" data-cat="核心理念" data-name="市场先生">
+  <div class="card-top"><span class="card-name">市场先生</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Mr. Market</div>
+  <div class="card-def">格雷厄姆的寓言：把市场报价想象成情绪不稳的合伙人，他的报价只供你利用，不供你听从。</div>
+</button><button class="card" data-id="intrinsic" data-cat="核心理念" data-name="内在价值">
+  <div class="card-top"><span class="card-name">内在价值</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Intrinsic Value</div>
+  <div class="card-def">一家企业在其剩余生命周期里所能产生的现金折现之和，是价值的『真北』。</div>
+</button><button class="card" data-id="hold" data-cat="核心理念" data-name="长期持有">
+  <div class="card-top"><span class="card-name">长期持有</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Buy and Hold</div>
+  <div class="card-def">买下好生意后就尽量少动，让复利和时间替你工作。</div>
+</button><button class="card" data-id="compounding" data-cat="核心理念" data-name="复利">
+  <div class="card-top"><span class="card-name">复利</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Compounding</div>
+  <div class="card-def">收益再投资产生的新收益，时间越长雪球越大——巴菲特财富的核心引擎。</div>
+</button><button class="card" data-id="allocation" data-cat="组合与配置" data-name="资本配置">
+  <div class="card-top"><span class="card-name">资本配置</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Capital Allocation</div>
+  <div class="card-def">把利润投向哪里——扩业务、收购、还债、回购、分红，是 CEO 最重要的工作。</div>
+</button><button class="card" data-id="float" data-cat="保险与金融" data-name="保险浮存金">
+  <div class="card-top"><span class="card-name">保险浮存金</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Insurance Float</div>
+  <div class="card-def">保户交的保费在理赔前先由保险公司持有，这笔『暂管』资金就是浮存金。</div>
+</button><button class="card" data-id="concentration" data-cat="组合与配置" data-name="集中投资">
+  <div class="card-top"><span class="card-name">集中投资</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Concentration</div>
+  <div class="card-def">真正看懂的生意没几个，看准了就下重注，而不是撒胡椒面。</div>
+</button><button class="card" data-id="diversification" data-cat="组合与配置" data-name="分散投资">
+  <div class="card-top"><span class="card-name">分散投资</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Diversification</div>
+  <div class="card-def">把安全边际分散到多笔投资上，用概率抵消个体的判断误差。</div>
+</button><button class="card" data-id="price" data-cat="估值与价格" data-name="买入价格">
+  <div class="card-top"><span class="card-name">买入价格</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Purchase Price</div>
+  <div class="card-def">你付出的价格，决定了这笔投资的安全边际大小和最终回报。</div>
+</button><button class="card" data-id="buyback" data-cat="估值与价格" data-name="回购">
+  <div class="card-top"><span class="card-name">回购</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Buyback</div>
+  <div class="card-def">公司用现金买回自家股票，是资本配置的一种重要方式。</div>
+</button><button class="card" data-id="franchise" data-cat="核心理念" data-name="特许经营权">
+  <div class="card-top"><span class="card-name">特许经营权</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Franchise</div>
+  <div class="card-def">拥有定价权、不受完全竞争约束的生意，是护城河概念的雏形。</div>
+</button><button class="card" data-id="brand" data-cat="核心理念" data-name="品牌">
+  <div class="card-top"><span class="card-name">品牌</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Brand Power</div>
+  <div class="card-def">消费者心智中根深蒂固的认知与偏好，是企业定价权的根本来源。</div>
+</button><button class="card" data-id="advantage" data-cat="核心理念" data-name="竞争优势">
+  <div class="card-top"><span class="card-name">竞争优势</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Competitive Advantage</div>
+  <div class="card-def">企业相对对手持久、可防御的优势地位，是护城河这个比喻的具体所指。</div>
+</button><button class="card" data-id="retained" data-cat="估值与价格" data-name="留存收益">
+  <div class="card-top"><span class="card-name">留存收益</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Retained Earnings</div>
+  <div class="card-def">公司不分红、留下来再投资的利润，是复利的内部燃料。</div>
+</button><button class="card" data-id="shareholder" data-cat="组合与配置" data-name="股东导向">
+  <div class="card-top"><span class="card-name">股东导向</span><span class="tag-deep">深度</span></div>
+  <div class="card-en">Shareholder Orientation</div>
+  <div class="card-def">管理层把股东利益放在第一位，是信任和长期合作的基础。</div>
+</button><button class="card" data-id="dividend" data-cat="估值与价格" data-name="股息">
+  <div class="card-top"><span class="card-name">股息</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Dividends</div>
+  <div class="card-def">公司把利润以现金形式分给股东，是资本返回的其中一种方式。</div>
+</button><button class="card" data-id="bookvalue" data-cat="估值与价格" data-name="账面价值">
+  <div class="card-top"><span class="card-name">账面价值</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Book Value</div>
+  <div class="card-def">会计报表上的净资产，是历史的成本数字，不等于企业真实价值。</div>
+</button><button class="card" data-id="insurance" data-cat="保险与金融" data-name="保险业">
+  <div class="card-top"><span class="card-name">保险业</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Insurance</div>
+  <div class="card-def">伯克希尔的核心引擎：用承保赚浮存金，再用浮存金做投资。</div>
+</button><button class="card" data-id="underwriting" data-cat="保险与金融" data-name="承保纪律">
+  <div class="card-top"><span class="card-name">承保纪律</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Underwriting Discipline</div>
+  <div class="card-def">保险定价时留出充足安全边际，宁可不接也不低价抢规模。</div>
+</button><button class="card" data-id="banking" data-cat="保险与金融" data-name="银行业">
+  <div class="card-top"><span class="card-name">银行业</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Banking</div>
+  <div class="card-def">低成本存款基础是银行最重要的护城河，但高杠杆是核心风险。</div>
+</button><button class="card" data-id="inflation" data-cat="商业与行业" data-name="通货膨胀">
+  <div class="card-top"><span class="card-name">通货膨胀</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Inflation</div>
+  <div class="card-def">物价普涨侵蚀固定收益和账面利润，但有定价权的企业能转嫁。</div>
+</button><button class="card" data-id="textiles" data-cat="商业与行业" data-name="纺织业务">
+  <div class="card-top"><span class="card-name">纺织业务</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Textile Business</div>
+  <div class="card-def">伯克希尔早期的主业，也是巴菲特学到『没有护城河』代价最贵的课。</div>
+</button><button class="card" data-id="goodwill" data-cat="估值与价格" data-name="商誉">
+  <div class="card-top"><span class="card-name">商誉</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Goodwill</div>
+  <div class="card-def">收购价超出被购方账面净资产的部分，常对应强大的护城河。</div>
+</button><button class="card" data-id="undervaluation" data-cat="估值与价格" data-name="低估">
+  <div class="card-top"><span class="card-name">低估</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Undervaluation</div>
+  <div class="card-def">市价显著低于保守估计的内在价值，是安全边际出现的土壤。</div>
+</button><button class="card" data-id="pe" data-cat="估值与价格" data-name="市盈率">
+  <div class="card-top"><span class="card-name">市盈率</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">P/E Ratio</div>
+  <div class="card-def">股价除以每股收益，是估值参考之一，但不能单独判定贵贱。</div>
+</button><button class="card" data-id="lookthrough" data-cat="估值与价格" data-name="透视盈余">
+  <div class="card-top"><span class="card-name">透视盈余</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Look-through Earnings</div>
+  <div class="card-def">把伯克希尔自身利润加上持股公司的留存收益按比例合并看的真实盈利。</div>
+</button><button class="card" data-id="tax" data-cat="估值与价格" data-name="税收效率">
+  <div class="card-top"><span class="card-name">税收效率</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Tax Efficiency</div>
+  <div class="card-def">少交税等于多留复利，是长期财富被忽视的杠杆。</div>
+</button><button class="card" data-id="businessmodel" data-cat="商业与行业" data-name="商业模式">
+  <div class="card-top"><span class="card-name">商业模式</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Business Model</div>
+  <div class="card-def">企业怎么赚钱的底层逻辑，决定护城河能否存在。</div>
+</button><button class="card" data-id="energy" data-cat="商业与行业" data-name="能源">
+  <div class="card-top"><span class="card-name">能源</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Energy</div>
+  <div class="card-def">受监管公用事业，收益可预测、区域垄断构成天然护城河。</div>
+</button><button class="card" data-id="aviation" data-cat="商业与行业" data-name="航空业">
+  <div class="card-top"><span class="card-name">航空业</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Aviation</div>
+  <div class="card-def">商品化、几乎没有持久护城河的典型，增长往往反噬回报。</div>
+</button><button class="card" data-id="tech" data-cat="商业与行业" data-name="科技与互联网">
+  <div class="card-top"><span class="card-name">科技与互联网</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Tech &amp; Internet</div>
+  <div class="card-def">护城河变化太快、难判持久性，是巴菲特长期回避的原因。</div>
+</button><button class="card" data-id="rail" data-cat="商业与行业" data-name="铁路运输">
+  <div class="card-top"><span class="card-name">铁路运输</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Rail Transport</div>
+  <div class="card-def">线路不可复制 + 监管审批，构成极深的天然护城河。</div>
+</button><button class="card" data-id="retail" data-cat="商业与行业" data-name="零售与消费">
+  <div class="card-top"><span class="card-name">零售与消费</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Retail &amp; Consumer</div>
+  <div class="card-def">定价权是消费品企业的试金石，零售护城河通常比制造窄。</div>
+</button><button class="card" data-id="media" data-cat="商业与行业" data-name="媒体与出版">
+  <div class="card-top"><span class="card-name">媒体与出版</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Media &amp; Publishing</div>
+  <div class="card-def">曾经靠牌照垄断享特许权，被互联网填平护城河的典型。</div>
+</button><button class="card" data-id="acquisition" data-cat="治理与思维" data-name="收购">
+  <div class="card-top"><span class="card-name">收购</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Acquisitions</div>
+  <div class="card-def">资本配置最重要的手段之一，标准是买有持久竞争优势的企业。</div>
+</button><button class="card" data-id="governance" data-cat="治理与思维" data-name="公司治理">
+  <div class="card-top"><span class="card-name">公司治理</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Corporate Governance</div>
+  <div class="card-def">一套让管理层对股东负责、抑制利益冲突的机制与文化。</div>
+</button><button class="card" data-id="integrity" data-cat="治理与思维" data-name="诚信">
+  <div class="card-top"><span class="card-name">诚信</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Integrity</div>
+  <div class="card-def">合作伙伴与管理层的诚信，是比数据更前置的筛选条件。</div>
+</button><button class="card" data-id="culture" data-cat="治理与思维" data-name="企业文化">
+  <div class="card-top"><span class="card-name">企业文化</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Corporate Culture</div>
+  <div class="card-def">企业日复一日的行为习惯，是护城河被加宽还是侵蚀的土壤。</div>
+</button><button class="card" data-id="management" data-cat="治理与思维" data-name="管理层">
+  <div class="card-top"><span class="card-name">管理层</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Management</div>
+  <div class="card-def">护城河的维护者与加宽者，是巴菲特极为看重的维度。</div>
+</button><button class="card" data-id="forecast" data-cat="治理与思维" data-name="市场预测">
+  <div class="card-top"><span class="card-name">市场预测</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Market Forecast</div>
+  <div class="card-def">试图猜市场短期涨跌，巴菲特认为徒劳且无必要。</div>
+</button><button class="card" data-id="efficient" data-cat="保险与金融" data-name="有效市场">
+  <div class="card-top"><span class="card-name">有效市场</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Efficient Market</div>
+  <div class="card-def">学术理论认为价格已反映一切信息，巴菲特用长期记录反驳它。</div>
+</button><button class="card" data-id="arbitrage" data-cat="保险与金融" data-name="套利">
+  <div class="card-top"><span class="card-name">套利</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Risk Arbitrage</div>
+  <div class="card-def">基于已公告事件（如并购）的价差获利，是巴菲特早期的稳定策略。</div>
+</button><button class="card" data-id="bonds" data-cat="保险与金融" data-name="债券">
+  <div class="card-top"><span class="card-name">债券</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Bonds</div>
+  <div class="card-def">固定收益工具，最大长期威胁是通胀侵蚀购买力。</div>
+</button><button class="card" data-id="derivatives" data-cat="保险与金融" data-name="衍生品">
+  <div class="card-top"><span class="card-name">衍生品</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Derivatives</div>
+  <div class="card-def">复杂性高、隐含杠杆，巴菲特称其为『金融大规模杀伤性武器』。</div>
+</button><button class="card" data-id="convertible" data-cat="保险与金融" data-name="可转换证券">
+  <div class="card-top"><span class="card-name">可转换证券</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Convertible Securities</div>
+  <div class="card-def">兼具债底与转股权，『下有保底、上不封顶』的结构。</div>
+</button><button class="card" data-id="leverage" data-cat="保险与金融" data-name="杠杆">
+  <div class="card-top"><span class="card-name">杠杆</span><span class="tag-lite">精要</span></div>
+  <div class="card-en">Leverage</div>
+  <div class="card-def">借钱放大收益也放大风险；伯克希尔偏好『好杠杆』浮存金。</div>
+</button>
+</main>
+<footer>
+  <div class="note">合规说明：本页内容依据巴菲特历年股东信（berkshirehathaway.com 公开文件）及价值投资公开理论，由本站<b>独立重写</b>而成。所引巴菲特原话均为短句摘录并标注年份，用于说明与教学目的。如需查阅第三方完整解读，请前往其原始发布站点。</div>
+  <p style="margin-top:10px">伯克希尔投资数据中心 · 概念库 | 与年会实录、业务版图、投资版图平行 | 单文件静态页</p>
+</footer>
+<div class="modal" id="m-moat" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">核心理念</div>
+    <h2 class="modal-title">护城河 <span class="modal-en">Economic Moat</span></h2>
+    <div class="modal-body"><p class="c-def">企业能长期维持超额利润的结构性竞争优势，是巴菲特框架的核心。</p><h3 class="c-h">核心要义</h3><div class="point"><b>本质是持久性，不是当前盈利</b><p>巴菲特要的是竞争优势能撑几十年，而不是今年利润高。他反复说，一条需要不断重建的护城河，等于没有护城河。</p></div><div class="point"><b>两类主流护城河：低成本与强品牌</b><p>低成本型如 GEICO 直销省掉代理佣金；强品牌型如可口可乐、喜诗，消费者愿意为溢价买单，且无需大量资本投入。</p></div><div class="point"><b>护城河要天天加宽</b><p>让客户满意、砍掉多余成本、改善产品，都是在加宽；对客户漫不经心、纵容臃肿成本，就是在悄悄变窄。短期利润和长期冲突时，加宽优先。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">GEICO 从 1995 年伯克希尔控股时市占率 2.5%，靠低成本一条路走到 2016 年底约 12%；喜诗糖果 1972 年以 2500 万美元买下，税前回报率高达 60%，靠的是区域品牌溢价而非资本堆砌；反面教材是德克斯特鞋业，看似有优势，却被海外低成本制造彻底冲垮。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>把高利润当护城河：没有结构性壁垒，明星 CEO 一走优势就没了。</li><li>把技术领先当护城河：技术迭代太快，真正的壁垒是成本结构、品牌忠诚、网络效应、转换成本。</li><li>以为护城河是静态资产：它每天都在变宽或变窄，取决于管理层的日常行为。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">在商业世界里，我寻找的是被坚不可摧的护城河保护着的经济城堡。<span class="qy">—— 1995 年股东信</span></blockquote><blockquote class="quote">一条需要不断重建的护城河，最终等于没有护城河。<span class="qy">—— 2007 年股东信</span></blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="franchise">特许经营权</button><button class="chip" data-id="advantage">竞争优势</button><button class="chip" data-id="brand">品牌</button><button class="chip" data-id="circle">能力圈</button><button class="chip" data-id="intrinsic">内在价值</button><button class="chip" data-id="hold">长期持有</button></div></div>
+  </div>
+</div><div class="modal" id="m-margin" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">核心理念</div>
+    <h2 class="modal-title">安全边际 <span class="modal-en">Margin of Safety</span></h2>
+    <div class="modal-body"><p class="c-def">以显著低于内在价值的价格买入，为判断误差和未知风险留出缓冲。</p><h3 class="c-h">核心要义</h3><div class="point"><b>是对认知局限的谦卑</b><p>未来本质上不确定，再聪明的分析师算未来现金流也会错。安全边际就是给这种误差留的容错空间，不是可有可无的加分项。</p></div><div class="point"><b>要『显著』的差距，不是『略高』</b><p>巴菲特明确说，如果算出价值只比价格高一点，他没兴趣。安全边际是价格与价值之间明显的落差，不是市盈率看起来便宜。</p></div><div class="point"><b>防的是永久性资本损失，不是账面波动</b><p>持有有安全边际的股票，市场恐慌时照样会大跌；只要内在价值判断没错，时间终会修复价格。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">1973 年股市大跌，巴菲特以远低于产业资本估值的价买下华盛顿邮报（当时市值约 8000 万，内行说资产至少值 4 亿）；1988 年买可口可乐时市盈率并不低，但他算出的内在价值远高于市价，安全边际依然充裕。保险上他要求保费定价留出充足缓冲，应对永远昂贵的意外趋势。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>把安全边际等同于『买便宜货』：关键是价格相对价值低，不是绝对市盈率低。</li><li>以为安全边际能消除所有风险：它只减永久性损失风险，不消除价格波动。</li><li>只在买入时看，忽略持有中变化：股价涨了安全边际就缩小，恐慌大跌时反而扩大，该加仓。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">我们坚持在买入价格上留有安全边际。如果算出价值仅仅略高于价格，我们就不会感兴趣。<span class="qy">—— 1992 年股东信</span></blockquote><blockquote class="quote">今天的价格水平已经大幅侵蚀了格雷厄姆所说的安全边际——他视之为智慧投资的基石。<span class="qy">—— 1997 年股东信</span></blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="intrinsic">内在价值</button><button class="chip" data-id="price">买入价格</button><button class="chip" data-id="undervaluation">低估</button><button class="chip" data-id="circle">能力圈</button><button class="chip" data-id="market">市场先生</button><button class="chip" data-id="hold">长期持有</button></div></div>
+  </div>
+</div><div class="modal" id="m-circle" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">核心理念</div>
+    <h2 class="modal-title">能力圈 <span class="modal-en">Circle of Competence</span></h2>
+    <div class="modal-body"><p class="c-def">只投资自己真正能看懂的生意，边界比圈有多大更重要。</p><h3 class="c-h">核心要义</h3><div class="point"><b>边界比大小重要</b><p>巴菲特说重要的不是圈有多大，而是你清楚知道圈的边界在哪里。看不懂的，再热门也不碰。</p></div><div class="point"><b>以认知能力划分，不是以行业划分</b><p>他后来买苹果，不是去学科技，而是把苹果当消费品公司——看的是品牌、生态、用户粘性这些他懂的东西。</p></div><div class="point"><b>能力圈内才谈得上安全边际</b><p>在自己懂的领域，估值更可靠，安全边际才有意义；圈外的『机会』本质是赌博。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">早年他回避科技股，理由是看不清护城河持久性；2016 年后大买苹果，逻辑是『消费品+生态粘性』而非技术路线。这恰恰说明能力圈是认知边界，不是行业黑名单。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>以为能力圈不能扩大：可以学，但要在自己能验证的节奏里扩，不能硬啃看不懂的复杂生意。</li><li>以为圈外机会等于风险开放：不懂的别碰，哪怕别人赚翻了。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">你不需要成为每个领域的专家。你只需要看清自己能力圈的边界，并在圈内行事。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="intrinsic">内在价值</button><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="concentration">集中投资</button><button class="chip" data-id="market">市场先生</button><button class="chip" data-id="hold">长期持有</button></div></div>
+  </div>
+</div><div class="modal" id="m-market" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">核心理念</div>
+    <h2 class="modal-title">市场先生 <span class="modal-en">Mr. Market</span></h2>
+    <div class="modal-body"><p class="c-def">格雷厄姆的寓言：把市场报价想象成情绪不稳的合伙人，他的报价只供你利用，不供你听从。</p><h3 class="c-h">核心要义</h3><div class="point"><b>报价是服务，不是指示</b><p>市场先生每天来给你一个价格，你可以接受，也可以忽略。他的情绪与你无关，更不代表企业真实价值。</p></div><div class="point"><b>在他恐慌时买，狂热时卖</b><p>悲观报价制造便宜货，乐观报价制造昂贵。利用他，而不是被他牵着走。</p></div><div class="point"><b>不预测他的情绪</b><p>巴菲特认为预测市场短期走向是徒劳的；与其猜涨跌，不如盯着内在价值。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">1963 年美国运通『色拉油丑闻』期间股价崩跌，巴菲特判断生意本质没坏，逆市大买；这种在别人恐慌时出手，就是无视市场先生情绪、只认价值的典型。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>把市场先生当智囊：他的报价只是情绪，不是对企业价值的认证。</li><li>以为长期持有就要盯盘：长期持有恰恰要求忽略他的日常报价。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">市场先生是你的仆人，不是你的向导。他每天来给你报价，你可以接受，也可以不理。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="intrinsic">内在价值</button><button class="chip" data-id="undervaluation">低估</button><button class="chip" data-id="forecast">市场预测</button><button class="chip" data-id="hold">长期持有</button><button class="chip" data-id="efficient">有效市场</button></div></div>
+  </div>
+</div><div class="modal" id="m-intrinsic" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">核心理念</div>
+    <h2 class="modal-title">内在价值 <span class="modal-en">Intrinsic Value</span></h2>
+    <div class="modal-body"><p class="c-def">一家企业在其剩余生命周期里所能产生的现金折现之和，是价值的『真北』。</p><h3 class="c-h">核心要义</h3><div class="point"><b>是估计值，不是精确数</b><p>巴菲特说算内在价值不难，但再厉害的分析师估未来现金流也容易错。它是区间，不是小数点。</p></div><div class="point"><b>与账面、市价经常背离</b><p>会计报表的账面价值、每天跳动的市价，都只是参考；内在价值才是你该锚定的那个。</p></div><div class="point"><b>护城河决定它稳不稳</b><p>有宽阔护城河的企业，内在价值更可预期、更持久；反之则飘忽。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">买华盛顿邮报时，市值约 8000 万，巴菲特判断其资产内在价值远不止 4 亿，价差就是安全边际的来源。回购伯克希尔自身股票时，他也只在市价低于内在价值才动手。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>把账面价值当内在价值：账面是会计数，内在是未来现金流折现，两者常差很远。</li><li>追求精确错误：非要算出精确值，反而容易陷入虚假的确定性。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">内在价值是一个估算值——它基于对未来现金流的折现，而不是一个能精确计算的数字。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="bookvalue">账面价值</button><button class="chip" data-id="market">市场先生</button><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="lookthrough">透视盈余</button><button class="chip" data-id="buyback">回购</button></div></div>
+  </div>
+</div><div class="modal" id="m-hold" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">核心理念</div>
+    <h2 class="modal-title">长期持有 <span class="modal-en">Buy and Hold</span></h2>
+    <div class="modal-body"><p class="c-def">买下好生意后就尽量少动，让复利和时间替你工作。</p><h3 class="c-h">核心要义</h3><div class="point"><b>前提是买对了生意</b><p>长期持有的是有护城河、能持续赚真金白银的企业；买错的东西拿再久也是亏。</p></div><div class="point"><b>是研究结果，不是偷懒</b><p>持有前你要研究几十年后的商业前景，比猜几个月股价难得多。</p></div><div class="point"><b>忽视市场先生的日常报价</b><p>只要生意本质没变、护城河没被侵蚀，就别因价格波动卖出。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">可口可乐、喜诗、GEICO 都是持有几十年的标的；喜诗靠品牌溢价持续吐现金，GEICO 靠低成本一点点吃掉市场，时间越长优势越明显。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>以为长期持有就不用做功课：恰恰相反，买入前的研究要更深。</li><li>以为『永远持有』：前提是护城河没被侵蚀，行业环境剧变时巴菲特也会减仓。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">我们最喜欢的持有期是永远。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="compounding">复利</button><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="market">市场先生</button><button class="chip" data-id="intrinsic">内在价值</button><button class="chip" data-id="circle">能力圈</button></div></div>
+  </div>
+</div><div class="modal" id="m-compounding" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">核心理念</div>
+    <h2 class="modal-title">复利 <span class="modal-en">Compounding</span></h2>
+    <div class="modal-body"><p class="c-def">收益再投资产生的新收益，时间越长雪球越大——巴菲特财富的核心引擎。</p><h3 class="c-h">核心要义</h3><div class="point"><b>时间是朋友，也是放大器</b><p>早一点开始、少中断，复利的曲线会在后期陡然发力。</p></div><div class="point"><b>高回报率的持久性比起点重要</b><p>护城河保证高回报能持续，复利才不会被打断；一次性高收益没用。</p></div><div class="point"><b>避免永久性损失是第一要务</b><p>安全边际保护本金不被清零，复利进程一旦中断就很难追上。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">伯克希尔旗下保险浮存金长期以低成本滚存再投资，是复利机器的燃料；喜诗糖果把利润持续投回生意，70 年代买下后几十年不断产生现金。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>只看收益率不看持续性：没有护城河的高收益会被竞争抹平。</li><li>忽视中断成本：一次大幅本金损失，需要极高收益才能填回。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">人生就像滚雪球，重要的是找到很湿的雪和很长的坡。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="hold">长期持有</button><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="float">保险浮存金</button><button class="chip" data-id="allocation">资本配置</button><button class="chip" data-id="retained">留存收益</button></div></div>
+  </div>
+</div><div class="modal" id="m-allocation" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">组合与配置</div>
+    <h2 class="modal-title">资本配置 <span class="modal-en">Capital Allocation</span></h2>
+    <div class="modal-body"><p class="c-def">把利润投向哪里——扩业务、收购、还债、回购、分红，是 CEO 最重要的工作。</p><h3 class="c-h">核心要义</h3><div class="point"><b>第一选择是加宽自己的护城河</b><p>子公司的留存利润，优先投在能提高效率、延伸产品线、拓宽护城河的项目上。</p></div><div class="point"><b>没有好项目就还给股东</b><p>当内部回报不如买回被低估的自家股票，回购就是最优配置；反之乱投只会毁灭价值。</p></div><div class="point"><b>配置能力决定复利快慢</b><p>同一笔利润，配得好是加速器，配得差是漏勺。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">伯克希尔把保险浮存金和子公司现金流集中到奥马哈做配置，投出 GEICO、BNSF、苹果等；2010 年后也大量回购被低估的伯克希尔股票，把资本还给价值最确定的『自家生意』。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>以为增长就是好：低回报的扩张是在消耗资本，不如不增长。</li><li>以为分红永远好：当留存收益再投资回报高于股东自己能赚的，不分红反而更优。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">配置资本是我们最核心的工作，比运营单个业务更重要。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="retained">留存收益</button><button class="chip" data-id="buyback">回购</button><button class="chip" data-id="float">保险浮存金</button><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="acquisition">收购</button><button class="chip" data-id="shareholder">股东导向</button></div></div>
+  </div>
+</div><div class="modal" id="m-float" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">保险与金融</div>
+    <h2 class="modal-title">保险浮存金 <span class="modal-en">Insurance Float</span></h2>
+    <div class="modal-body"><p class="c-def">保户交的保费在理赔前先由保险公司持有，这笔『暂管』资金就是浮存金。</p><h3 class="c-h">核心要义</h3><div class="point"><b>是零成本甚至负成本的杠杆</b><p>只要承保不亏（综合成本率低于 100%），浮存金等于别人贴钱让你投资。</p></div><div class="point"><b>期限长、无到期日</b><p>相比有期限的借款，浮存金可以长期滚存，是复利引擎的燃料。</p></div><div class="point"><b>前提是承保纪律</b><p>如果为了冲规模乱定低价，浮存金会变成昂贵负债。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">伯克希尔靠国民保险、GEICO、通用再保险等攒下上千亿浮存金，再以长线股票和收购投向可口可乐、BNSF 等。这是伯克希尔与普通保险公司最本质的区别。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>以为浮存金是免费午餐：前提是承保盈利，否则就是负债。</li><li>把浮存金当普通借款：它没有到期日、成本可为零，属性完全不同。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">浮存金是我们持有的、不归属于我们的资金，只要承保不亏，它就是免费的资金。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="underwriting">承保纪律</button><button class="chip" data-id="insurance">保险业</button><button class="chip" data-id="allocation">资本配置</button><button class="chip" data-id="compounding">复利</button><button class="chip" data-id="leverage">杠杆</button></div></div>
+  </div>
+</div><div class="modal" id="m-concentration" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">组合与配置</div>
+    <h2 class="modal-title">集中投资 <span class="modal-en">Concentration</span></h2>
+    <div class="modal-body"><p class="c-def">真正看懂的生意没几个，看准了就下重注，而不是撒胡椒面。</p><h3 class="c-h">核心要义</h3><div class="point"><b>能力圈的自然推论</b><p>你真正理解的企业不会太多，与其广撒网，不如在少数确信的标的上集中。</p></div><div class="point"><b>安全边际充裕时才敢集中</b><p>只在价格远低于价值、且自己看得懂时，才把仓位加到有意义的比重。</p></div><div class="point"><b>集中不等于全仓押注</b><p>是相对于『过度分散』而言，仍留有余地应对误判。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">巴菲特合伙时期少数几只重仓（美国运通、迪士尼等）贡献了大部分收益；伯克希尔后期在苹果上集中下注，成为单一最大持仓，逻辑是『看得懂的消费生态』。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>把集中当孤注一掷：集中是建立在深度研究和安全边际上的，不是赌徒式全押。</li><li>以为分散一定更安全：持有几十只看不懂的股票，风险未必比几只看懂的小。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">把所有鸡蛋放在一个篮子里，然后好好看住那个篮子。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="diversification">分散投资</button><button class="chip" data-id="circle">能力圈</button><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="intrinsic">内在价值</button><button class="chip" data-id="efficient">有效市场</button></div></div>
+  </div>
+</div><div class="modal" id="m-diversification" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">组合与配置</div>
+    <h2 class="modal-title">分散投资 <span class="modal-en">Diversification</span></h2>
+    <div class="modal-body"><p class="c-def">把安全边际分散到多笔投资上，用概率抵消个体的判断误差。</p><h3 class="c-h">核心要义</h3><div class="point"><b>是安全边际的组合版</b><p>单笔的安全边际缓冲个体误判，多笔叠加形成概率上的整体保护。</p></div><div class="point"><b>巴菲特真正信的是适度集中</b><p>他反对过度分散（为分散而买看不懂的），但早期低估类也靠多只分散降低永久损失风险。</p></div><div class="point"><b>分散的边界在能力圈</b><p>只在自己懂的范围内分散，而不是跨圈乱买。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">合伙时期他买一批『黯淡无光、没有催化剂』的便宜股，每只都有安全边际，合起来既安全又有上涨潜力；这与后来集中买苹果并不矛盾——前提是都看得懂。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>以为分散能消除风险：它只减永久损失风险，且前提是每笔都真有安全边际。</li><li>把『买很多只』当专业：买一堆看不懂的，只是把无知分散了。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">分散是对无知的一种保护。如果你知道自己在做什么，分散的意义就不大。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="concentration">集中投资</button><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="circle">能力圈</button><button class="chip" data-id="efficient">有效市场</button><button class="chip" data-id="undervaluation">低估</button></div></div>
+  </div>
+</div><div class="modal" id="m-price" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">估值与价格</div>
+    <h2 class="modal-title">买入价格 <span class="modal-en">Purchase Price</span></h2>
+    <div class="modal-body"><p class="c-def">你付出的价格，决定了这笔投资的安全边际大小和最终回报。</p><h3 class="c-h">核心要义</h3><div class="point"><b>价格直接决定安全边际</b><p>同样一家好公司，买贵了安全边际薄，买便宜了缓冲厚。</p></div><div class="point"><b>好公司也可能买贵</b><p>巴菲特承认为卡夫亨氏付出了过高价格，伟大企业买贵了回报照样平庸。</p></div><div class="point"><b>价格要对照内在价值看</b><p>不看绝对贵贱，看相对价值的落差。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">华盛顿邮报用两毛买一块、可口可乐在合理价买到伟大生意、卡夫亨氏高价接盘反成教训——同一套逻辑，价格不同结果天差地别。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>以为好公司任何时候都该买：好公司买贵了，安全边际就消失。</li><li>只看市价高低：贵贱是相对内在价值而言的。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">价格是你付出的，价值是你得到的。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="intrinsic">内在价值</button><button class="chip" data-id="undervaluation">低估</button><button class="chip" data-id="hold">长期持有</button><button class="chip" data-id="moat">护城河</button></div></div>
+  </div>
+</div><div class="modal" id="m-buyback" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">估值与价格</div>
+    <h2 class="modal-title">回购 <span class="modal-en">Buyback</span></h2>
+    <div class="modal-body"><p class="c-def">公司用现金买回自家股票，是资本配置的一种重要方式。</p><h3 class="c-h">核心要义</h3><div class="point"><b>低于内在价值时回购最划算</b><p>用便宜价收回被低估的股票，等于替剩下的股东增厚每股价值。</p></div><div class="point"><b>高于价值回购是毁灭价值</b><p>为做表面业绩高价回购，和长期持有自己看不懂的资产一样糟。</p></div><div class="point"><b>是配置的最后一道选择题</b><p>没更好的内部投资机会时，把资本这样还给股东往往最优。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">伯克希尔在 2010 年后大量回购自身股票，标准是市价明显低于内在价值；巴菲特认为这比瞎投一个低回报项目强。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>以为回购永远利好：高于价值回购是在烧钱。</li><li>把回购当股价支撑工具：动机应是价值，不是托市。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">当股价低于内在价值时，回购是为股东做的最稳妥的增值动作之一。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="intrinsic">内在价值</button><button class="chip" data-id="allocation">资本配置</button><button class="chip" data-id="retained">留存收益</button><button class="chip" data-id="shareholder">股东导向</button><button class="chip" data-id="price">买入价格</button></div></div>
+  </div>
+</div><div class="modal" id="m-franchise" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">核心理念</div>
+    <h2 class="modal-title">特许经营权 <span class="modal-en">Franchise</span></h2>
+    <div class="modal-body"><p class="c-def">拥有定价权、不受完全竞争约束的生意，是护城河概念的雏形。</p><h3 class="c-h">核心要义</h3><div class="point"><b>定价权是核心标志</b><p>能在不流失客户的前提下年年涨价，就是特许经营权的体现。</p></div><div class="point"><b>是护城河的思想前身</b><p>巴菲特早年的『特许经营权』，后来发展成『护城河』框架。</p></div><div class="point"><b>会退化成普通企业</b><p>媒体业就是活例子：曾经的特许权被技术革命侵蚀成普通生意。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">可口可乐、喜诗糖果靠品牌和心智占有拥有定价权；报业、电视台曾因牌照垄断享特许权，互联网兴起后护城河被填平。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>以为特许经营权永恒：它会被技术、消费偏好变化侵蚀。</li><li>把规模大当特许权：规模不等于定价权。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">真正伟大的生意，是那些拥有定价权、受竞争冲击小的特许经营权。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="brand">品牌</button><button class="chip" data-id="advantage">竞争优势</button><button class="chip" data-id="inflation">通货膨胀</button><button class="chip" data-id="media">媒体与出版</button></div></div>
+  </div>
+</div><div class="modal" id="m-brand" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">核心理念</div>
+    <h2 class="modal-title">品牌 <span class="modal-en">Brand Power</span></h2>
+    <div class="modal-body"><p class="c-def">消费者心智中根深蒂固的认知与偏好，是企业定价权的根本来源。</p><h3 class="c-h">核心要义</h3><div class="point"><b>是无形却跨时空的经济资产</b><p>好品牌不靠厂房设备，却能跨越地理和年代持续产生溢价。</p></div><div class="point"><b>护城河的两大来源之一</b><p>强品牌如可口可乐、吉列、喜诗，消费者愿付溢价且价格弹性极低。</p></div><div class="point"><b>品牌也会老化</b><p>消费偏好转移、新渠道冲击，都会慢慢侵蚀看似坚固的品牌价值。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">可口可乐全球软饮约 44% 份额、吉列剃须刀全球六成以上份额，都是品牌护城河标杆；卡夫亨氏在电商时代被新品牌分流，说明老字号并非永恒。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>把知名度当品牌力：知名不代表消费者愿付溢价。</li><li>以为品牌价值恒定：它会被偏好和渠道变迁慢慢啃掉。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">品牌的力量、产品的特质和分销体系的优势，赋予它们巨大的竞争优势，犹如一道宽阔的护城河。<span class="qy">—— 1993 年股东信</span></blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="franchise">特许经营权</button><button class="chip" data-id="advantage">竞争优势</button><button class="chip" data-id="retail">零售与消费</button></div></div>
+  </div>
+</div><div class="modal" id="m-advantage" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">核心理念</div>
+    <h2 class="modal-title">竞争优势 <span class="modal-en">Competitive Advantage</span></h2>
+    <div class="modal-body"><p class="c-def">企业相对对手持久、可防御的优势地位，是护城河这个比喻的具体所指。</p><h3 class="c-h">核心要义</h3><div class="point"><b>护城河是比喻，优势是内容</b><p>城堡外的壕沟是比喻，壕沟里装的是什么——成本、品牌、网络、转换成本——才是真正的竞争优势。</p></div><div class="point"><b>要『持久且可防御』</b><p>一时的领先不算，要能长期挡住对手进攻。</p></div><div class="point"><b>决定资本回报率高低</b><p>持续的竞争优势，是企业长期维持高于行业平均资本回报的根本。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">GEICO 的结构性低成本、穆迪评级寡头地位、铁路不可复制的网络，都是具体竞争优势；纺织业则几乎没有，所以长期回报差。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>把短期领先当优势：潮流退去就没了。</li><li>以为规模即优势：无差异化的规模只是大而已。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">竞争优势，是一家企业相对于对手所能长期维持的、可防御的优势地位。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="franchise">特许经营权</button><button class="chip" data-id="brand">品牌</button><button class="chip" data-id="circle">能力圈</button></div></div>
+  </div>
+</div><div class="modal" id="m-retained" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">估值与价格</div>
+    <h2 class="modal-title">留存收益 <span class="modal-en">Retained Earnings</span></h2>
+    <div class="modal-body"><p class="c-def">公司不分红、留下来再投资的利润，是复利的内部燃料。</p><h3 class="c-h">核心要义</h3><div class="point"><b>留存与否看再投资回报</b><p>如果每 1 元留存能创造超过 1 元价值，就该留；否则分给股东更好。</p></div><div class="point"><b>是资本配置的起点</b><p>留存收益投向加宽护城河还是乱扩张，决定股东长期利益。</p></div><div class="point"><b>与回购、分红构成三选一</b><p>留、分、回购，哪样对股东最划算就选哪样。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">伯克希尔几乎不分红，把收益长期留存再投资，滚成保险、铁路、能源等版图；喜诗糖果把利润持续投回生意，几十年不停吐现金。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>以为不分红就是好：留存若回报低于股东自投，就是在浪费。</li><li>把留存当天然权利：管理层要证明再投资确实更划算。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">公司留存的每一元，至少要为股东创造超过一元的价值。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="allocation">资本配置</button><button class="chip" data-id="buyback">回购</button><button class="chip" data-id="dividend">股息</button><button class="chip" data-id="compounding">复利</button><button class="chip" data-id="shareholder">股东导向</button></div></div>
+  </div>
+</div><div class="modal" id="m-shareholder" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">组合与配置</div>
+    <h2 class="modal-title">股东导向 <span class="modal-en">Shareholder Orientation</span></h2>
+    <div class="modal-body"><p class="c-def">管理层把股东利益放在第一位，是信任和长期合作的基础。</p><h3 class="c-h">核心要义</h3><div class="point"><b>是资本配置正确与否的底层</b><p>不站在股东这边，加宽护城河、理性回购都无从谈起。</p></div><div class="point"><b>言行一致才算数</b><p>分红、回购、薪酬、信息披露都朝股东利益对齐，才是真导向。</p></div><div class="point"><b>与诚信、文化是一套</b><p> shareholder orientation 依赖管理层的诚信和对长期关系的看重。</p></div><h3 class="c-h">巴菲特的实践</h3><p class="c-case">伯克希尔旗下子公司的管理者很多经营几十年、把公司当自己的事业；巴菲特与芒格的长期信披风格，也是股东导向的体现。</p><h3 class="c-h">常见误区</h3><ul class="myth"><li>把口号当导向：看行动（薪酬、回购、披露）而非漂亮话。</li><li>以为大股东天然被代表：仍需治理机制保障小股东。</li></ul><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">我们用对待自家钱的态度，对待股东的钱。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="allocation">资本配置</button><button class="chip" data-id="integrity">诚信</button><button class="chip" data-id="culture">企业文化</button><button class="chip" data-id="governance">公司治理</button><button class="chip" data-id="buyback">回购</button></div></div>
+  </div>
+</div><div class="modal" id="m-dividend" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">估值与价格</div>
+    <h2 class="modal-title">股息 <span class="modal-en">Dividends</span></h2>
+    <div class="modal-body"><p class="c-def">公司把利润以现金形式分给股东，是资本返回的其中一种方式。</p><h3 class="c-h">核心要义</h3><div class="point"><b>分不分看再投资回报</b><p>留存再投资回报高就不该分；回报低才该分。伯克希尔长期不分红正是此理。</p></div><div class="point"><b>与回购、留存构成配置三选一</b><p>哪一种对股东最划算，管理层就选哪一种。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">股息不是目的，股东每元资本的长期增值才是。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="retained">留存收益</button><button class="chip" data-id="buyback">回购</button><button class="chip" data-id="allocation">资本配置</button></div></div>
+  </div>
+</div><div class="modal" id="m-bookvalue" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">估值与价格</div>
+    <h2 class="modal-title">账面价值 <span class="modal-en">Book Value</span></h2>
+    <div class="modal-body"><p class="c-def">会计报表上的净资产，是历史的成本数字，不等于企业真实价值。</p><h3 class="c-h">核心要义</h3><div class="point"><b>与内在价值常差很远</b><p>账面的有形资产，可能低估品牌、用户网络等无形价值，也可能高估过时设备。</p></div><div class="point"><b>巴菲特后期淡化它</b><p>伯克希尔越来越重权益投资，账面价值对内在价值的指示意义下降。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">账面价值是会计数字，内在价值才是经济现实，二者经常背离。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="intrinsic">内在价值</button><button class="chip" data-id="goodwill">商誉</button><button class="chip" data-id="pe">市盈率</button><button class="chip" data-id="margin">安全边际</button></div></div>
+  </div>
+</div><div class="modal" id="m-insurance" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">保险与金融</div>
+    <h2 class="modal-title">保险业 <span class="modal-en">Insurance</span></h2>
+    <div class="modal-body"><p class="c-def">伯克希尔的核心引擎：用承保赚浮存金，再用浮存金做投资。</p><h3 class="c-h">核心要义</h3><div class="point"><b>双轮：承保 + 投资</b><p>承保盈利产生低成本浮存金，投资端再滚复利，是伯克希尔模式的命门。</p></div><div class="point"><b>GEICO 是低成本护城河典范</b><p>直销模式省掉佣金，成本随规模进一步摊薄。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">保险业给了我们低成本的浮存金，这是伯克希尔奇迹的起点。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="float">保险浮存金</button><button class="chip" data-id="underwriting">承保纪律</button><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="allocation">资本配置</button></div></div>
+  </div>
+</div><div class="modal" id="m-underwriting" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">保险与金融</div>
+    <h2 class="modal-title">承保纪律 <span class="modal-en">Underwriting Discipline</span></h2>
+    <div class="modal-body"><p class="c-def">保险定价时留出充足安全边际，宁可不接也不低价抢规模。</p><h3 class="c-h">核心要义</h3><div class="point"><b>是浮存金低成本的保障</b><p>定价松一寸，浮存金就从资产变负债。</p></div><div class="point"><b>应对长尾意外</b><p>社会趋势总会带来昂贵意外，保费必须留缓冲。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">保费定价必须留出充足的安全边际，否则瞄准 110 到 115 的综合成本率无异于自杀。<span class="qy">—— 1990 年股东信</span></blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="float">保险浮存金</button><button class="chip" data-id="insurance">保险业</button><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="insurance">保险业</button></div></div>
+  </div>
+</div><div class="modal" id="m-banking" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">保险与金融</div>
+    <h2 class="modal-title">银行业 <span class="modal-en">Banking</span></h2>
+    <div class="modal-body"><p class="c-def">低成本存款基础是银行最重要的护城河，但高杠杆是核心风险。</p><h3 class="c-h">核心要义</h3><div class="point"><b>护城河在低成本存款</b><p>庞大客户基数带来稳定廉价资金，是同业难复制的优势。</p></div><div class="point"><b>管理层质量生死攸关</b><p>贷款纪律与保险承保纪律异曲同工，烂管理能毁掉好生意。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">银行是一桩好生意，前提是别被杠杆和坏贷款拖垮。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="leverage">杠杆</button><button class="chip" data-id="underwriting">承保纪律</button><button class="chip" data-id="management">管理层</button></div></div>
+  </div>
+</div><div class="modal" id="m-inflation" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">商业与行业</div>
+    <h2 class="modal-title">通货膨胀 <span class="modal-en">Inflation</span></h2>
+    <div class="modal-body"><p class="c-def">物价普涨侵蚀固定收益和账面利润，但有定价权的企业能转嫁。</p><h3 class="c-h">核心要义</h3><div class="point"><b>有定价权才扛得住</b><p>能把成本涨传导给客户的企业，通胀下反而显出护城河价值。</p></div><div class="point"><b>伤害债券与无定价权者</b><p>固定票息被购买力侵蚀，商品化生意最难熬。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">通胀是一种税，它最惩罚那些没有定价权的企业。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="franchise">特许经营权</button><button class="chip" data-id="brand">品牌</button><button class="chip" data-id="bonds">债券</button><button class="chip" data-id="goodwill">商誉</button></div></div>
+  </div>
+</div><div class="modal" id="m-textiles" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">商业与行业</div>
+    <h2 class="modal-title">纺织业务 <span class="modal-en">Textile Business</span></h2>
+    <div class="modal-body"><p class="c-def">伯克希尔早期的主业，也是巴菲特学到『没有护城河』代价最贵的课。</p><h3 class="c-h">核心要义</h3><div class="point"><b>几乎没有护城河</b><p>同质化竞争、无定价权，资本投进去如泥牛入海。</p></div><div class="point"><b>转型起点</b><p>纺织现金流催生了保险收购，是伯克希尔转向的契机。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">纺织业教会我什么是真正的竞争优势——因为它几乎没有。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="advantage">竞争优势</button><button class="chip" data-id="allocation">资本配置</button></div></div>
+  </div>
+</div><div class="modal" id="m-goodwill" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">估值与价格</div>
+    <h2 class="modal-title">商誉 <span class="modal-en">Goodwill</span></h2>
+    <div class="modal-body"><p class="c-def">收购价超出被购方账面净资产的部分，常对应强大的护城河。</p><h3 class="c-h">核心要义</h3><div class="point"><b>经济商誉才值钱</b><p>品牌、网络、定价权这类无形资产，通胀期反倒显威力，且无需追加资本。</p></div><div class="point"><b>有别于会计商誉</b><p>账面上的摊销数字，不等于真实经济商誉的价值。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">真正值钱的是经济商誉——它不需要资本投入就能维持。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="brand">品牌</button><button class="chip" data-id="bookvalue">账面价值</button><button class="chip" data-id="franchise">特许经营权</button></div></div>
+  </div>
+</div><div class="modal" id="m-undervaluation" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">估值与价格</div>
+    <h2 class="modal-title">低估 <span class="modal-en">Undervaluation</span></h2>
+    <div class="modal-body"><p class="c-def">市价显著低于保守估计的内在价值，是安全边际出现的土壤。</p><h3 class="c-h">核心要义</h3><div class="point"><b>来自市场先生情绪低落</b><p>黯淡无光、无短期催化剂的标的，才容易便宜到有价值。</p></div><div class="point"><b>低估 + 能力圈才安全</b><p>看不懂的便宜，只是价值陷阱的伪装。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">付出的价格低，得到的价值高，每笔低估投资都自带可观的安全边际。<span class="qy">—— 1961 年合伙人信</span></blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="price">买入价格</button><button class="chip" data-id="market">市场先生</button><button class="chip" data-id="circle">能力圈</button></div></div>
+  </div>
+</div><div class="modal" id="m-pe" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">估值与价格</div>
+    <h2 class="modal-title">市盈率 <span class="modal-en">P/E Ratio</span></h2>
+    <div class="modal-body"><p class="c-def">股价除以每股收益，是估值参考之一，但不能单独判定贵贱。</p><h3 class="c-h">核心要义</h3><div class="point"><b>低 PE 不一定便宜</b><p>若内在价值对应的合理 PE 更低，低 PE 仍无安全边际。</p></div><div class="point"><b>高 PE 未必贵</b><p>伟大企业成长能撑起高 PE，价格仍可能低于内在价值。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">PE 只是起点，价格相对价值的落差才是关键。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="intrinsic">内在价值</button><button class="chip" data-id="bookvalue">账面价值</button><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="lookthrough">透视盈余</button></div></div>
+  </div>
+</div><div class="modal" id="m-lookthrough" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">估值与价格</div>
+    <h2 class="modal-title">透视盈余 <span class="modal-en">Look-through Earnings</span></h2>
+    <div class="modal-body"><p class="c-def">把伯克希尔自身利润加上持股公司的留存收益按比例合并看的真实盈利。</p><h3 class="c-h">核心要义</h3><div class="point"><b>比报表利润更真实</b><p>很多优质持股的利润被留存再投资，报表上却看不见。</p></div><div class="point"><b>与内在价值增长挂钩</b><p>透视盈余的增长，更能反映股东真实财富积累。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">我们看的是透视盈余，而不只是账面上归属我们的那部分。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="intrinsic">内在价值</button><button class="chip" data-id="retained">留存收益</button><button class="chip" data-id="allocation">资本配置</button><button class="chip" data-id="pe">市盈率</button></div></div>
+  </div>
+</div><div class="modal" id="m-tax" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">估值与价格</div>
+    <h2 class="modal-title">税收效率 <span class="modal-en">Tax Efficiency</span></h2>
+    <div class="modal-body"><p class="c-def">少交税等于多留复利，是长期财富被忽视的杠杆。</p><h3 class="c-h">核心要义</h3><div class="point"><b>长期持有延税</b><p>不频繁交易，资本利得税就一直不触发，复利不被打断。</p></div><div class="point"><b>结构影响税后回报</b><p>回购 vs 分红、不同账户结构，税后结果差很多。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">税收是复利最容易被忽视的拖累，能合法延就延。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="compounding">复利</button><button class="chip" data-id="dividend">股息</button><button class="chip" data-id="buyback">回购</button><button class="chip" data-id="allocation">资本配置</button></div></div>
+  </div>
+</div><div class="modal" id="m-businessmodel" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">商业与行业</div>
+    <h2 class="modal-title">商业模式 <span class="modal-en">Business Model</span></h2>
+    <div class="modal-body"><p class="c-def">企业怎么赚钱的底层逻辑，决定护城河能否存在。</p><h3 class="c-h">核心要义</h3><div class="point"><b>简单易懂优先</b><p>巴菲特偏好能一眼看懂的生意，远离复杂黑箱。</p></div><div class="point"><b>资本密度影响回报质量</b><p>低资本高回报（喜诗）远胜高资本低回报（飞安）。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">我最喜欢那种简单、可预测、用很少资本就能赚很多钱的生意。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="advantage">竞争优势</button><button class="chip" data-id="franchise">特许经营权</button></div></div>
+  </div>
+</div><div class="modal" id="m-energy" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">商业与行业</div>
+    <h2 class="modal-title">能源 <span class="modal-en">Energy</span></h2>
+    <div class="modal-body"><p class="c-def">受监管公用事业，收益可预测、区域垄断构成天然护城河。</p><h3 class="c-h">核心要义</h3><div class="point"><b>监管垄断是护城河</b><p>服务区域排他，竞争对手难以进入。</p></div><div class="point"><b>代价是回报受管制上限</b><p>稳定比惊艳重要，适合巨量资本配置。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">受监管公用事业提供的是确定性，不是爆发力。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="allocation">资本配置</button><button class="chip" data-id="rail">铁路运输</button></div></div>
+  </div>
+</div><div class="modal" id="m-aviation" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">商业与行业</div>
+    <h2 class="modal-title">航空业 <span class="modal-en">Aviation</span></h2>
+    <div class="modal-body"><p class="c-def">商品化、几乎没有持久护城河的典型，增长往往反噬回报。</p><h3 class="c-h">核心要义</h3><div class="point"><b>缺乏结构性优势</b><p>同质化竞争、价格战，资本回报长期低迷。</p></div><div class="point"><b>伯克希尔只碰公务机</b><p>利捷航空的经济学与商业航空截然不同。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">航空业教会我们：没有竞争优势的增长是毒药。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="advantage">竞争优势</button><button class="chip" data-id="textiles">纺织业务</button></div></div>
+  </div>
+</div><div class="modal" id="m-tech" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">商业与行业</div>
+    <h2 class="modal-title">科技与互联网 <span class="modal-en">Tech &amp; Internet</span></h2>
+    <div class="modal-body"><p class="c-def">护城河变化太快、难判持久性，是巴菲特长期回避的原因。</p><h3 class="c-h">核心要义</h3><div class="point"><b>变太快超出评估能力</b><p>今天的领先者明天可能被颠覆，确定性低。</p></div><div class="point"><b>苹果是例外逻辑</b><p>被当消费品看（品牌+生态），而非技术路线。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">我们回避科技股，不是因为它们不赚钱，而是护城河太难判断持久。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="circle">能力圈</button><button class="chip" data-id="brand">品牌</button></div></div>
+  </div>
+</div><div class="modal" id="m-rail" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">商业与行业</div>
+    <h2 class="modal-title">铁路运输 <span class="modal-en">Rail Transport</span></h2>
+    <div class="modal-body"><p class="c-def">线路不可复制 + 监管审批，构成极深的天然护城河。</p><h3 class="c-h">核心要义</h3><div class="point"><b>物理资产不可复制</b><p>复制 BNSF 网络需数千亿美元和几十年，几乎不可能。</p></div><div class="point"><b>长途货运成本优势明显</b><p>相比卡车，铁路单位能耗和排放都更低。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">铁路的网络100多年建成，任何对手都不可能复制——这是物理层面的护城河。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="energy">能源</button><button class="chip" data-id="allocation">资本配置</button></div></div>
+  </div>
+</div><div class="modal" id="m-retail" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">商业与行业</div>
+    <h2 class="modal-title">零售与消费 <span class="modal-en">Retail &amp; Consumer</span></h2>
+    <div class="modal-body"><p class="c-def">定价权是消费品企业的试金石，零售护城河通常比制造窄。</p><h3 class="c-h">核心要义</h3><div class="point"><b>能年年涨价不流失才是好生意</b><p>可口可乐、喜诗、吉列都具备。</p></div><div class="point"><b>零售忠诚度有限</b><p>新竞争者随时出现，运营卓越才能维持。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">如果你能每年涨价而不失去客户，你就拥有一门了不起的生意。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="brand">品牌</button><button class="chip" data-id="franchise">特许经营权</button><button class="chip" data-id="moat">护城河</button></div></div>
+  </div>
+</div><div class="modal" id="m-media" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">商业与行业</div>
+    <h2 class="modal-title">媒体与出版 <span class="modal-en">Media &amp; Publishing</span></h2>
+    <div class="modal-body"><p class="c-def">曾经靠牌照垄断享特许权，被互联网填平护城河的典型。</p><h3 class="c-h">核心要义</h3><div class="point"><b>护城河会退化</b><p>报纸分类广告垄断被 Craigslist 等线上平台瓦解。</p></div><div class="point"><b>提醒评估持久性</b><p>看企业不能只看当前护城河宽度，要看能撑多久。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">媒体业从特许经营权滑向普通企业，是最深刻的护城河退化教材。<span class="qy">—— 1991 年股东信</span></blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="franchise">特许经营权</button><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="tech">科技与互联网</button></div></div>
+  </div>
+</div><div class="modal" id="m-acquisition" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">治理与思维</div>
+    <h2 class="modal-title">收购 <span class="modal-en">Acquisitions</span></h2>
+    <div class="modal-body"><p class="c-def">资本配置最重要的手段之一，标准是买有持久竞争优势的企业。</p><h3 class="c-h">核心要义</h3><div class="point"><b>只买伟大生意</b><p>识别优秀商业模式 + 靠谱管理层 + 持久护城河。</p></div><div class="point"><b>价格仍要讲安全边际</b><p>为亨氏付过高价，是巴菲特自己承认的教训。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">我们只收购那些我们懂、且拥有持久竞争优势的企业。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="allocation">资本配置</button><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="management">管理层</button><button class="chip" data-id="price">买入价格</button></div></div>
+  </div>
+</div><div class="modal" id="m-governance" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">治理与思维</div>
+    <h2 class="modal-title">公司治理 <span class="modal-en">Corporate Governance</span></h2>
+    <div class="modal-body"><p class="c-def">一套让管理层对股东负责、抑制利益冲突的机制与文化。</p><h3 class="c-h">核心要义</h3><div class="point"><b>与股东导向一体</b><p>没有好治理，资本配置和回购都容易跑偏。</p></div><div class="point"><b>薪酬与披露是试金石</b><p>看管理层是否真把股东利益放第一。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">好的治理，是让管理者的利益和股东的利益站在一起。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="shareholder">股东导向</button><button class="chip" data-id="integrity">诚信</button><button class="chip" data-id="culture">企业文化</button><button class="chip" data-id="management">管理层</button></div></div>
+  </div>
+</div><div class="modal" id="m-integrity" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">治理与思维</div>
+    <h2 class="modal-title">诚信 <span class="modal-en">Integrity</span></h2>
+    <div class="modal-body"><p class="c-def">合作伙伴与管理层的诚信，是比数据更前置的筛选条件。</p><h3 class="c-h">核心要义</h3><div class="point"><b>『一言为定』也是护城河</b><p>伯克希尔的信誉让危机中的交易更容易达成。</p></div><div class="point"><b>不诚信直接一票否决</b><p>再好的生意，人不靠谱也不碰。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">我们收购的标准很简单：好的生意、好的管理层、好的价格，而人必须诚信。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="culture">企业文化</button><button class="chip" data-id="governance">公司治理</button><button class="chip" data-id="shareholder">股东导向</button><button class="chip" data-id="management">管理层</button></div></div>
+  </div>
+</div><div class="modal" id="m-culture" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">治理与思维</div>
+    <h2 class="modal-title">企业文化 <span class="modal-en">Corporate Culture</span></h2>
+    <div class="modal-body"><p class="c-def">企业日复一日的行为习惯，是护城河被加宽还是侵蚀的土壤。</p><h3 class="c-h">核心要义</h3><div class="point"><b>日常行为决定护城河走向</b><p>对客户用心、砍掉浪费，护城河就变宽。</p></div><div class="point"><b>与股东导向、诚信配套</b><p>三者共同决定长期价值。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">文化不是挂在墙上的标语，而是每天做出的选择。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="shareholder">股东导向</button><button class="chip" data-id="integrity">诚信</button><button class="chip" data-id="management">管理层</button></div></div>
+  </div>
+</div><div class="modal" id="m-management" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">治理与思维</div>
+    <h2 class="modal-title">管理层 <span class="modal-en">Management</span></h2>
+    <div class="modal-body"><p class="c-def">护城河的维护者与加宽者，是巴菲特极为看重的维度。</p><h3 class="c-h">核心要义</h3><div class="point"><b>是护城河的园丁</b><p>好管理持续加宽壁垒，坏管理眼睁睁看它变窄。</p></div><div class="point"><b>德才兼备且诚信</b><p>能力重要，但人品和资本配置观更前置。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">我们买下生意后，唯一要做的就是别碍着优秀管理者的手脚。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="moat">护城河</button><button class="chip" data-id="culture">企业文化</button><button class="chip" data-id="integrity">诚信</button><button class="chip" data-id="acquisition">收购</button></div></div>
+  </div>
+</div><div class="modal" id="m-forecast" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">治理与思维</div>
+    <h2 class="modal-title">市场预测 <span class="modal-en">Market Forecast</span></h2>
+    <div class="modal-body"><p class="c-def">试图猜市场短期涨跌，巴菲特认为徒劳且无必要。</p><h3 class="c-h">核心要义</h3><div class="point"><b>用内在价值替代预测</b><p>基于价值而非趋势做决定。</p></div><div class="point"><b>不预测的自然推论是长期持有</b><p>既然无法判断买卖时机，就长期持有好生意。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">我从不试图预测市场短期走向，那和猜硬币没两样。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="market">市场先生</button><button class="chip" data-id="intrinsic">内在价值</button><button class="chip" data-id="hold">长期持有</button><button class="chip" data-id="efficient">有效市场</button></div></div>
+  </div>
+</div><div class="modal" id="m-efficient" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">保险与金融</div>
+    <h2 class="modal-title">有效市场 <span class="modal-en">Efficient Market</span></h2>
+    <div class="modal-body"><p class="c-def">学术理论认为价格已反映一切信息，巴菲特用长期记录反驳它。</p><h3 class="c-h">核心要义</h3><div class="point"><b>与市场先生寓言对立</b><p>若市场永远有效，价值投资无从获利。</p></div><div class="point"><b>套利记录是反证</b><p>巴菲特 60 余年套利与低估投资，证明定价常出错。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">如果市场总是有效，我早就该去路边要饭了。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="market">市场先生</button><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="arbitrage">套利</button><button class="chip" data-id="diversification">分散投资</button></div></div>
+  </div>
+</div><div class="modal" id="m-arbitrage" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">保险与金融</div>
+    <h2 class="modal-title">套利 <span class="modal-en">Risk Arbitrage</span></h2>
+    <div class="modal-body"><p class="c-def">基于已公告事件（如并购）的价差获利，是巴菲特早期的稳定策略。</p><h3 class="c-h">核心要义</h3><div class="point"><b>只做公告驱动型</b><p>事件已发生，确定性高于赌未来。</p></div><div class="point"><b>仍是安全边际的应用</b><p>只在定价有利时参与，不押没把握的。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">我们的套利只做已公告、确定性高的交易，不赌谣言。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="efficient">有效市场</button><button class="chip" data-id="leverage">杠杆</button><button class="chip" data-id="undervaluation">低估</button></div></div>
+  </div>
+</div><div class="modal" id="m-bonds" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">保险与金融</div>
+    <h2 class="modal-title">债券 <span class="modal-en">Bonds</span></h2>
+    <div class="modal-body"><p class="c-def">固定收益工具，最大长期威胁是通胀侵蚀购买力。</p><h3 class="c-h">核心要义</h3><div class="point"><b>折价买入也是安全边际应用</b><p>大幅折价债，是安全边际在固收领域的体现。</p></div><div class="point"><b>通胀是头号敌人</b><p>固定票息的实际购买力会被物价上涨吃掉。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">债券的敌人是通胀，它悄悄拿走你的购买力。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="inflation">通货膨胀</button><button class="chip" data-id="compounding">复利</button><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="leverage">杠杆</button></div></div>
+  </div>
+</div><div class="modal" id="m-derivatives" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">保险与金融</div>
+    <h2 class="modal-title">衍生品 <span class="modal-en">Derivatives</span></h2>
+    <div class="modal-body"><p class="c-def">复杂性高、隐含杠杆，巴菲特称其为『金融大规模杀伤性武器』。</p><h3 class="c-h">核心要义</h3><div class="point"><b>复杂性使安全边际难估</b><p>条款嵌套，真实风险难以穿透。</p></div><div class="point"><b>伯克希尔仅在有把握时参与</b><p>如用作获取浮存金的工具，且只在定价有利时。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">衍生品是金融领域的大规模杀伤性武器，要极度谨慎。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="leverage">杠杆</button><button class="chip" data-id="float">保险浮存金</button><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="insurance">保险业</button></div></div>
+  </div>
+</div><div class="modal" id="m-convertible" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">保险与金融</div>
+    <h2 class="modal-title">可转换证券 <span class="modal-en">Convertible Securities</span></h2>
+    <div class="modal-body"><p class="c-def">兼具债底与转股权，『下有保底、上不封顶』的结构。</p><h3 class="c-h">核心要义</h3><div class="point"><b>固定收益底就是安全边际</b><p>价值不会低于同等不可转换优先股。</p></div><div class="point"><b>是介于股债间的配置选择</b><p>确定性低时选债底，确定性高时享上行。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">可转换证券的价值，首先来自它作为固定收益的底。<span class="qy">—— 1990 年股东信</span></blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="allocation">资本配置</button><button class="chip" data-id="leverage">杠杆</button><button class="chip" data-id="intrinsic">内在价值</button></div></div>
+  </div>
+</div><div class="modal" id="m-leverage" aria-hidden="true">
+  <div class="modal-mask" data-close></div>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="关闭">×</button>
+    <div class="modal-cat">保险与金融</div>
+    <h2 class="modal-title">杠杆 <span class="modal-en">Leverage</span></h2>
+    <div class="modal-body"><p class="c-def">借钱放大收益也放大风险；伯克希尔偏好『好杠杆』浮存金。</p><h3 class="c-h">核心要义</h3><div class="point"><b>反杠杆是安全边际的资产负债表版</b><p>高杠杆让一次误判就归零。</p></div><div class="point"><b>浮存金是『好杠杆』</b><p>无到期日、成本可为零甚至为负。</p></div><h3 class="c-h">巴菲特原话</h3><blockquote class="quote">我厌恶毫无必要的债务，但喜欢低成本、无期限的浮存金这种好杠杆。</blockquote><h3 class="c-h">相关概念</h3><div class="rel"><button class="chip" data-id="margin">安全边际</button><button class="chip" data-id="float">保险浮存金</button><button class="chip" data-id="derivatives">衍生品</button><button class="chip" data-id="bonds">债券</button></div></div>
+  </div>
+</div>
+<script>
+const grid=document.getElementById('grid');
+const cards=[...grid.querySelectorAll('.card')];
+const search=document.getElementById('search');
+const catBtns=[...document.querySelectorAll('.cat-btn')];
+let curCat='全部';
+function applyFilter(){
+  const q=search.value.trim().toLowerCase();
+  cards.forEach(c=>{
+    const name=c.dataset.name.toLowerCase();
+    const en=c.dataset.cat.toLowerCase();
+    const okCat=curCat==='全部'||c.dataset.cat===curCat;
+    const okQ=!q||name.includes(q)||en.includes(q)||c.querySelector('.card-en').textContent.toLowerCase().includes(q);
+    c.style.display=(okCat&&okQ)?'':'none';
+  });
+}
+search.addEventListener('input',applyFilter);
+catBtns.forEach(b=>b.addEventListener('click',()=>{
+  catBtns.forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');curCat=b.dataset.cat;applyFilter();
+}));
+function openModal(id){
+  const m=document.getElementById('m-'+id);
+  if(!m)return;
+  m.classList.add('open');m.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+}
+function closeModal(m){m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+cards.forEach(c=>c.addEventListener('click',()=>openModal(c.dataset.id)));
+document.querySelectorAll('.modal').forEach(m=>{
+  m.querySelectorAll('[data-close]').forEach(x=>x.addEventListener('click',()=>closeModal(m)));
+  m.querySelectorAll('.chip').forEach(ch=>ch.addEventListener('click',e=>{e.stopPropagation();closeModal(m);openModal(ch.dataset.id);}));
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.modal.open').forEach(closeModal);}});
+</script>
+</body>
+</html>

@@ -77,7 +77,7 @@ footer a{font-weight:600}
 <section class="kb-hero">
   <h1>财智百科 · 内容索引</h1>
   <p class="src">编译自 <a href="https://finanzapedia.com/zh" target="_blank" rel="noopener">财智百科（finanzapedia.com/zh）</a> · 原站作者 Gemino Rossi / Borja del Bosco / Borna Jurić / 财智百科团队 等</p>
-  <p class="lead">财智百科是一个多语言的「金融知识中心」，其中与巴菲特及价值投资最相关的，是中文原创的<b>投资方法论</b>（估值模型 + 投资策略），以及英文的<b>巴菲特股东信 / 访谈 / 名言</b>档案。本页将其编译为可检索的导航台，每条均链回原文并署名来源。</p>
+  <p class="lead">财智百科是一个多语言的「金融知识中心」，其中与巴菲特及价值投资最相关的，是中文原创的<b>投资方法论</b>（估值模型 + 投资策略），以及英文的<b>巴菲特股东信 / 访谈 / 名言</b>档案。本页将其编译为可检索的导航台，每条均链回原文并署名来源；其中<b>投资方法论</b>板块顶部可直达<b>本站原创中文详解（12 篇）</b>，无需跳转原站即可阅读。</p>
   <div class="kb-stats">
     <div class="kb-stat"><div class="num">12</div><div class="lab">投资方法论（中文）</div></div>
     <div class="kb-stat"><div class="num">12</div><div class="lab">致股东信（英文）</div></div>
@@ -88,7 +88,7 @@ footer a{font-weight:600}
 
 <div class="kb-guide">
   <div class="kb-guide-card">
-    <b>怎么用：</b>点上方标签切换「投资方法论 / 股东信 / 访谈 / 名言 / 年度股东大会」。每条标注语言（<span style="color:#047857;font-weight:700">中文</span> 或 <span style="color:#b45309;font-weight:700">EN</span>）与作者，点击即在新窗口打开财智百科原文阅读。本站仅做索引与导航，<b>全文版权归原作者 / 原站所有</b>。
+    <b>怎么用：</b>点上方标签切换「投资方法论 / 股东信 / 访谈 / 名言 / 年度股东大会」。每条标注语言（<span style="color:#047857;font-weight:700">中文</span> 或 <span style="color:#b45309;font-weight:700">EN</span>）与作者，点击即在新窗口打开财智百科原文阅读。本站仅做索引与导航，<b>全文版权归原作者 / 原站所有</b>。投资方法论板块顶部另有「<b>本站原创 · 投资方法论中文详解</b>」入口，可一键查看由本站原创撰写的 12 篇方法论全文。
   </div>
 </div>
 
@@ -203,8 +203,9 @@ function render(){
     const v = method_valuation.filter(it=> !q || (it.t+' '+it.a).toLowerCase().indexOf(q.toLowerCase())>=0);
     const s = method_strategy.filter(it=> !q || (it.t+' '+it.a).toLowerCase().indexOf(q.toLowerCase())>=0);
     let html = '';
-    if(v.length) html += '<div class="kb-period"><h3>估值模型（8 篇）</h3>'+renderList(v,'')+'</div>';
-    if(s.length) html += '<div class="kb-period"><h3>投资策略（4 篇）</h3>'+renderList(s,'')+'</div>';
+    html += '<div class="kb-feature" style="background:linear-gradient(135deg,#0b1f3a,#10294d);color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px"><div><div style="font-weight:800;font-size:16px">📘 本站原创 · 投资方法论中文详解（12 篇）</div><div style="font-size:13px;color:#b9c8e0;margin-top:4px">格雷厄姆公式、DDM、护城河、价值 / 成长 / 股息投资… 含公式、巴菲特怎么用与案例，由本站原创撰写，<b style="color:#f5a623">无需跳转原站</b>即可阅读。</div></div><a href="berkshire-methodology.html" style="background:#f5a623;color:#3a2700;font-weight:700;padding:10px 18px;border-radius:999px;white-space:nowrap">查看原创详解 →</a></div>';
+    if(v.length) html += '<div class="kb-period"><h3>估值模型（8 篇 · 财智百科原文索引）</h3>'+renderList(v,'')+'</div>';
+    if(s.length) html += '<div class="kb-period"><h3>投资策略（4 篇 · 财智百科原文索引）</h3>'+renderList(s,'')+'</div>';
     if(!html) html = '<div class="kb-empty">没有匹配「'+esc(q)+'」的条目</div>';
     document.getElementById('panel-method').innerHTML = html;
     return;
@@ -215,10 +216,11 @@ function render(){
     return;
   }
   let arr = [];
-  if(curTab==='letters') arr = letters;
+  let preNote = '';
+  if(curTab==='letters'){ arr = letters; preNote = '<div class="kb-note">📌 伯克希尔<b>官方股东信</b>为公开公司文件，可于官网阅读全文：<a href="https://www.berkshirehathaway.com/letters/letters.html" target="_blank" rel="noopener">berkshirehathaway.com/letters →</a>（下方为财智百科英文索引）</div>'; }
   else if(curTab==='interviews') arr = interviews;
   else if(curTab==='quotes') arr = quotes;
-  document.getElementById('panel-'+curTab).innerHTML = renderList(arr, q);
+  document.getElementById('panel-'+curTab).innerHTML = preNote + renderList(arr, q);
 }
 
 render();
