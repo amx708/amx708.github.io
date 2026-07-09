@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>伯克希尔哈撒韦业务版图 | 漫漫扬</title>
+<style>
+/* ===== Reset & Base ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+  background:#f1f5f9;
+  color:#1e293b;
+  line-height:1.6;
+  min-height:100vh;
+}
+
+/* ===== Breadcrumb ===== */
+.breadcrumb{max-width:1100px;margin:0 auto;padding:12px 24px 8px;font-size:13px;color:rgba(255,255,255,0.6);position:relative;z-index:2}
+.breadcrumb a{color:rgba(255,255,255,0.7);text-decoration:none;transition:color .15s}
+.breadcrumb a:hover{color:#fbbf24}
+.breadcrumb span{color:rgba(255,255,255,0.35);margin:0 6px}
+.breadcrumb .current{color:rgba(255,255,255,0.9);font-weight:500}
+
+/* ===== Hero ===== */
+.hero{
+  position:relative;
+  background:linear-gradient(135deg,#0f172a 0%,#1e293b 40%,#1e3a5f 100%);
+  padding:40px 24px 70px;
+  text-align:center;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:radial-gradient(ellipse at 30% 20%, rgba(245,158,11,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(37,99,235,0.06) 0%, transparent 50%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:100px;
+  background:linear-gradient(to top, #f1f5f9 0%, transparent 100%);
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:2;max-width:800px;margin:0 auto}
+.hero-badge{
+  display:inline-block;
+  padding:4px 16px;
+  background:rgba(245,158,11,0.15);
+  border:1px solid rgba(245,158,11,0.3);
+  border-radius:20px;
+  color:#fbbf24;
+  font-size:13px;font-weight:500;
+  letter-spacing:0.5px;
+  margin-bottom:16px;
+}
+.hero h1{
+  font-size:28px;
+  color:#fff;
+  margin-bottom:10px;
+  letter-spacing:1px;
+}
+.hero p{
+  font-size:15px;
+  color:rgba(255,255,255,0.55);
+  max-width:600px;
+  margin:0 auto;
+}
+
+/* ===== Image Viewer ===== */
+.image-viewer-section{
+  max-width:1100px;
+  margin:-30px auto 0;
+  padding:0 24px;
+  position:relative;
+  z-index:10;
+}
+.image-viewer-card{
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 4px 24px rgba(0,0,0,0.08);
+  overflow:hidden;
+}
+.image-viewer-toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 20px;
+  border-bottom:1px solid #e2e8f0;
+  background:#f8fafc;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.zoom-controls{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.zoom-btn{
+  width:36px;height:36px;
+  border:1px solid #e2e8f0;
+  background:#fff;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:18px;
+  color:#475569;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.zoom-btn:hover{background:#f1f5f9;border-color:#cbd5e1}
+.zoom-btn:active{transform:scale(0.95)}
+.zoom-level{
+  font-size:13px;color:#64748b;
+  min-width:50px;text-align:center;
+}
+.image-viewer-container{
+  overflow:auto;
+  max-height:600px;
+  position:relative;
+  background:#0f172a;
+  cursor:grab;
+}
+.image-viewer-container:active{cursor:grabbing}
+.image-viewer-container img{
+  display:block;
+  transform-origin:center top;
+  transition:transform .2s ease;
+  width:100%;
+  height:auto;
+}
+.image-hint{
+  font-size:12px;
+  color:#94a3b8;
+}
+
+/* ===== Search Bar ===== */
+.search-section{
+  max-width:1100px;
+  margin:30px auto 0;
+  padding:0 24px;
+}
+.search-box{
+  position:relative;
+  max-width:500px;
+  margin:0 auto;
+}
+.search-box input{
+  width:100%;
+  padding:12px 44px 12px 20px;
+  border:2px solid #e2e8f0;
+  border-radius:12px;
+  font-size:15px;
+  outline:none;
+  transition:border-color .15s;
+  font-family:inherit;
+}
+.search-box input:focus{border-color:#3b82f6}
+.search-box input::placeholder{color:#94a3b8}
+.search-icon{
+  position:absolute;
+  right:16px;top:50%;
+  transform:translateY(-50%);
+  font-size:18px;
+  color:#94a3b8;
+  pointer-events:none;
+}
+.search-results-count{
+  text-align:center;
+  margin-top:8px;
+  font-size:13px;
+  color:#64748b;
+}
+
+/* ===== Category Tabs ===== */
+.category-tabs{
+  max-width:1100px;
+  margin:24px auto 0;
+  padding:0 24px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+}
+.tab-btn{
+  padding:8px 18px;
+  border:2px solid #e2e8f0;
+  background:#fff;
+  border-radius:20px;
+  font-size:13px;
+  color:#475569;
+  cursor:pointer;
+  transition:all .15s;
+  font-family:inherit;
+  font-weight:500;
+}
+.tab-btn:hover{border-color:#cbd5e1;background:#f8fafc}
+.tab-btn.active{
+  background:#1e293b;
+  color:#fff;
+  border-color:#1e293b;
+}
+.tab-btn .tab-count{
+  display:inline-block;
+  margin-left:4px;
+  padding:1px 7px;
+  background:rgba(255,255,255,0.2);
+  border-radius:10px;
+  font-size:11px;
+}
+.tab-btn:not(.active) .tab-count{
+  background:#f1f5f9;
+  color:#64748b;
+}
+
+/* ===== Company Cards ===== */
+.companies-section{
+  max-width:1100px;
+  margin:20px auto 40px;
+  padding:0 24px;
+}
+.category-section{
+  margin-bottom:40px;
+  scroll-margin-top:20px;
+}
+.category-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:16px;
+  padding-bottom:10px;
+  border-bottom:2px solid #e2e8f0;
+}
+.category-icon{
+  font-size:24px;
+}
+.category-title{
+  font-size:20px;
+  font-weight:700;
+  color:#1e293b;
+}
+.category-en{
+  font-size:13px;
+  color:#94a3b8;
+  font-weight:400;
+  margin-left:8px;
+}
+.category-count{
+  margin-left:auto;
+  font-size:13px;
+  color:#64748b;
+  padding:2px 12px;
+  background:#f1f5f9;
+  border-radius:12px;
+}
+
+.company-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:12px;
+}
+.company-card{
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:12px;
+  padding:16px;
+  transition:all .2s;
+  cursor:pointer;
+}
+.company-card:hover{
+  border-color:#3b82f6;
+  box-shadow:0 4px 12px rgba(59,130,246,0.1);
+  transform:translateY(-2px);
+}
+.company-card.highlighted{
+  border-color:#f59e0b;
+  box-shadow:0 4px 16px rgba(245,158,11,0.15);
+  background:#fffbeb;
+}
+.company-card.search-match{
+  border-color:#3b82f6;
+  box-shadow:0 2px 8px rgba(59,130,246,0.15);
+}
+.company-name-cn{
+  font-size:16px;
+  font-weight:600;
+  color:#1e293b;
+  margin-bottom:2px;
+}
+.company-name-en{
+  font-size:13px;
+  color:#64748b;
+  font-weight:400;
+}
+.company-tag{
+  display:inline-block;
+  margin-top:8px;
+  padding:2px 10px;
+  border-radius:10px;
+  font-size:11px;
+  font-weight:500;
+}
+.tag-insurance{background:#dbeafe;color:#1e40af}
+.tag-railroad{background:#fef3c7;color:#92400e}
+.tag-energy{background:#d1fae5;color:#065f46}
+.tag-manufacturing{background:#fce7f3;color:#9d174d}
+.tag-distribution{background:#e0e7ff;color:#3730a3}
+.tag-retail{background:#f3e8ff;color:#6b21a8}
+.tag-finance{background:#fed7aa;color:#9a3412}
+.company-desc{
+  margin-top:8px;
+  font-size:12px;
+  color:#64748b;
+  line-height:1.5;
+}
+
+/* ===== Footer ===== */
+.footer{
+  text-align:center;
+  padding:30px 24px;
+  font-size:13px;
+  color:#94a3b8;
+}
+
+/* ===== Responsive ===== */
+@media (max-width:768px){
+  .hero h1{font-size:22px}
+  .hero p{font-size:13px}
+  .image-viewer-container{max-height:400px}
+  .company-grid{grid-template-columns:1fr}
+  .zoom-btn{width:32px;height:32px;font-size:16px}
+  .image-hint{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Hero ===== -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Berkshire Hathaway Business Map</div>
+    <h1>伯克希尔哈撒韦业务版图</h1>
+    <p>完整展示伯克希尔旗下所有核心业务板块与子公司，中英文名称对照，支持搜索与缩放查看</p>
+  </div>
+</header>
+
+<!-- ===== Breadcrumb ===== -->
+<nav class="breadcrumb" style="background:#0f172a;max-width:100%;padding-top:8px">
+  <div style="max-width:1100px;margin:0 auto">
+    <a href="index.html">首页</a>
+    <span>/</span>
+    <a href="berkshire-standalone.html">投资数据中心</a>
+    <span>/</span>
+    <span class="current">业务版图</span>
+  </div>
+</nav>
+
+<!-- ===== Image Viewer ===== -->
+<section class="image-viewer-section">
+  <div class="image-viewer-card">
+    <div class="image-viewer-toolbar">
+      <div class="zoom-controls">
+        <button class="zoom-btn" onclick="zoomImage(-0.2)" title="缩小">−</button>
+        <span class="zoom-level" id="zoom-level">100%</span>
+        <button class="zoom-btn" onclick="zoomImage(0.2)" title="放大">+</button>
+        <button class="zoom-btn" onclick="resetZoom()" title="重置" style="font-size:14px">⟲</button>
+      </div>
+      <div class="image-hint">🖱️ 滚轮缩放 · 拖动查看 · 双击重置</div>
+    </div>
+    <div class="image-viewer-container" id="image-container">
+      <img src="images/berkshire-business-map.jpg" alt="伯克希尔哈撒韦业务版图" id="map-image">
+    </div>
+  </div>
+</section>
+
+<!-- ===== Search ===== -->
+<section class="search-section">
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="搜索公司中英文名称..." oninput="searchCompanies()">
+    <span class="search-icon">🔍</span>
+  </div>
+  <div class="search-results-count" id="search-count"></div>
+</section>
+
+<!-- ===== Category Tabs ===== -->
+<div class="category-tabs" id="category-tabs">
+  <button class="tab-btn active" onclick="scrollToCategory('all')">全部 <span class="tab-count" id="count-all">0</span></button>
+  <button class="tab-btn" onclick="scrollToCategory('insurance')">🛡️ 保险 <span class="tab-count" id="count-insurance">0</span></button>
+  <button class="tab-btn" onclick="scrollToCategory('railroad')">🚂 铁路 <span class="tab-count" id="count-railroad">0</span></button>
+  <button class="tab-btn" onclick="scrollToCategory('energy')">⚡ 能源 <span class="tab-count" id="count-energy">0</span></button>
+  <button class="tab-btn" onclick="scrollToCategory('manufacturing')">🏭 制造 <span class="tab-count" id="count-manufacturing">0</span></button>
+  <button class="tab-btn" onclick="scrollToCategory('distribution')">📦 分销 <span class="tab-count" id="count-distribution">0</span></button>
+  <button class="tab-btn" onclick="scrollToCategory('retail')">🛒 服务与零售 <span class="tab-count" id="count-retail">0</span></button>
+  <button class="tab-btn" onclick="scrollToCategory('finance')">💰 金融 <span class="tab-count" id="count-finance">0</span></button>
+</div>
+
+<!-- ===== Companies ===== -->
+<section class="companies-section" id="companies-container">
+</section>
+
+<div class="footer">
+  <p>数据来源：伯克希尔哈撒韦年报 & 公开业务版图 | 仅供学习参考</p>
+</div>
+
+<script>
+// ===== Company Data =====
+const companies = [
+  // Insurance
+  {cn:"政府雇员保险公司",en:"GEICO",cat:"insurance",tag:"保险",icon:"🛡️",desc:"全美第二大汽车保险公司，伯克希尔1976年投资，1996年全资收购"},
+  {cn:"通用再保险公司",en:"General Re (Gen Re)",cat:"insurance",tag:"保险",icon:"🛡️",desc:"全球最大再保险公司之一，1998年以220亿美元股票收购"},
+  {cn:"伯克希尔再保险集团",en:"Berkshire Hathaway Reinsurance Group",cat:"insurance",tag:"保险",icon:"🛡️",desc:"由阿吉特·贾因领导，巨灾再保险业务，巴菲特称贾因为「最宝贵的资产」"},
+  {cn:"伯克希尔原保险集团",en:"Berkshire Hathaway Primary Group",cat:"insurance",tag:"保险",icon:"🛡️",desc:"多家原保险公司集合，包括国民赔偿、美国责任险等"},
+  {cn:"国民赔偿公司",en:"National Indemnity Company",cat:"insurance",tag:"保险",icon:"🛡️",desc:"伯克希尔保险帝国的基石，1967年以860万美元收购"},
+  {cn:"中部各州赔偿公司",en:"Central States Indemnity",cat:"insurance",tag:"保险",icon:"🛡️",desc:"提供信用卡保险等特殊保险产品"},
+  {cn:"美国责任保险集团",en:"United States Liability Insurance Group",cat:"insurance",tag:"保险",icon:"🛡️",desc:" specialty liability insurance，专业责任保险"},
+  {cn:"医疗保护公司",en:"Medical Protective",cat:"insurance",tag:"保险",icon:"🛡️",desc:"医疗事故责任保险，服务于医生和医疗机构"},
+  {cn:"应用承保人公司",en:"Applied Underwriters",cat:"insurance",tag:"保险",icon:"🛡️",desc:"工伤保险和员工赔偿保险"},
+  {cn:"伯克希尔哈撒韦专业保险",en:"Berkshire Hathaway Specialty Insurance",cat:"insurance",tag:"保险",icon:"🛡️",desc:"2013年成立，商业财产意外险，进入企业保险市场"},
+
+  // Railroad
+  {cn:"BNSF铁路公司",en:"BNSF Railway",cat:"railroad",tag:"铁路",icon:"🚂",desc:"北美最大铁路之一，2009年以440亿美元收购，巴菲特称「对美国的未来下注」"},
+  {cn:"BNSF物流",en:"BNSF Logistics",cat:"railroad",tag:"铁路",icon:"🚂",desc:"BNSF旗下供应链和物流服务部门"},
+
+  // Energy
+  {cn:"伯克希尔哈撒韦能源公司",en:"Berkshire Hathaway Energy",cat:"energy",tag:"能源",icon:"⚡",desc:"2000年收购(原MidAmerican)，电力、天然气、可再生能源综合能源巨头"},
+  {cn:"太平洋电力公司",en:"Pacific Power",cat:"energy",tag:"能源",icon:"⚡",desc:"太平洋西北部六州供电，服务约80万客户"},
+  {cn:"落基山电力公司",en:"Rocky Mountain Power",cat:"energy",tag:"能源",icon:"⚡",desc:"犹他、怀俄明、爱达荷三州供电"},
+  {cn:"内华达能源公司",en:"NV Energy",cat:"energy",tag:"能源",icon:"⚡",desc:"2013年以56亿美元收购，内华达州最大电力公司"},
+  {cn:"中美能源公司",en:"MidAmerican Energy",cat:"energy",tag:"能源",icon:"⚡",desc:"爱荷华州最大能源公司，服务约77万电力客户"},
+  {cn:"BHE可再生能源",en:"BHE Renewables",cat:"energy",tag:"能源",icon:"⚡",desc:"太阳能、风能、地热等可再生能源项目"},
+  {cn:"北方电网",en:"Northern Powergrid",cat:"energy",tag:"能源",icon:"⚡",desc:"英国北部配电网络，服务约800万人口"},
+  {cn:"美国家庭服务公司",en:"HomeServices of America",cat:"energy",tag:"能源",icon:"⚡",desc:"全美最大住宅地产经纪公司，旗下有 Berkshire Hathaway HomeServices"},
+  {cn:"伯克希尔管道公司",en:"Berkshire Hathaway Pipeline",cat:"energy",tag:"能源",icon:"⚡",desc:"天然气管道运输业务"},
+
+  // Manufacturing
+  {cn:"马蒙集团",en:"Marmon Holdings",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2008年收购60%(2013年全资)，多元化工业集团，110多家工厂"},
+  {cn:"精密机件公司",en:"Precision Castparts (PCC)",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2016年以372亿美元收购(史上最大)，航空发动机零部件，巴菲特后承认「出价太高」"},
+  {cn:"路博润公司",en:"Lubrizol",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2011年以90亿美元收购，特种化学品和润滑油添加剂"},
+  {cn:"克莱顿房屋公司",en:"Clayton Homes",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2003年以17亿美元收购，全美最大预制房屋制造商"},
+  {cn:"森林河公司",en:"Forest River",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2005年收购，房车(Recreational Vehicle)制造商"},
+  {cn:"迈泰克公司",en:"MiTek",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"建筑连接件和软件，屋顶桁架连接件全球领先"},
+  {cn:"本杰明·摩尔涂料",en:"Benjamin Moore",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2000年收购，高端涂料品牌，百年历史"},
+  {cn:"阿克米砖块公司",en:"Acme Brick",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2000年收购，建筑砖块制造，德克萨斯州起家"},
+  {cn:"鲜果布衣",en:"Fruit of the Loom",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2002年以8.35亿美元收购，内衣和休闲服饰品牌"},
+  {cn:"约翰斯·曼维尔",en:"Johns Manville",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2001年以18亿美元收购，建筑材料和保温产品"},
+  {cn:"萧氏工业",en:"Shaw Industries",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2001年以21亿美元收购，全美最大地毯和地板制造商"},
+  {cn:"国际金属加工公司",en:"International Metalworking Companies (IMC)",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"金属切削刀具，以色列Iskar为主体，2006年逐步收购"},
+  {cn:"贾斯汀品牌",en:"Justin Brands",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2000年收购，西部牛仔靴和工装鞋品牌"},
+  {cn:"布鲁克斯运动",en:"Brooks Sports",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"跑步鞋和运动服装，2006年全资收购"},
+  {cn:"东方贸易公司",en:"Oriental Trading Company",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2012年收购，派对用品、工艺品和小玩具直销"},
+  {cn:"金霸王",en:"Duracell",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"2016年从宝洁换股获得，碱性电池全球领导品牌"},
+  {cn:"富线集团",en:"Richline Group",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"珠宝制造和分销，贵金属首饰"},
+  {cn:"WPLG电视台",en:"WPLG (ABC Affiliate)",cat:"manufacturing",tag:"制造",icon:"🏭",desc:"迈阿密ABC附属电视台"},
+
+  // Distribution
+  {cn:"麦克莱恩公司",en:"McLane Company",cat:"distribution",tag:"分销",icon:"📦",desc:"2003年从沃尔玛以15亿美元收购，全美最大供应链和批发分销商之一"},
+
+  // Service & Retail
+  {cn:"利捷航空",en:"NetJets",cat:"retail",tag:"零售",icon:"🛒",desc:"1998年收购，私人飞机分时拥有(fractional ownership)开创者"},
+  {cn:"飞安国际",en:"FlightSafety International",cat:"retail",tag:"零售",icon:"🛒",desc:"1996年以15亿美元收购，全球最大专业航空培训机构"},
+  {cn:"XTRA租赁",en:"XTRA Lease",cat:"retail",tag:"零售",icon:"🛒",desc:"2001年收购，拖车(半挂车)租赁服务"},
+  {cn:"布法罗新闻",en:"The Buffalo News",cat:"retail",tag:"零售",icon:"🛒",desc:"1977年收购，纽约州布法罗市主要报纸"},
+  {cn:"喜诗糖果",en:"See's Candies",cat:"retail",tag:"零售",icon:"🛒",desc:"1972年以2500万美元收购，巴菲特称其为「教科书般的伟大企业」"},
+  {cn:"内布拉斯加家具城",en:"Nebraska Furniture Mart",cat:"retail",tag:"零售",icon:"🛒",desc:"1983年收购多数股权，北美最大家居用品商场，创始人B夫人传奇"},
+  {cn:"R.C.威利家居",en:"R.C. Willey Home Furnishings",cat:"retail",tag:"零售",icon:"🛒",desc:"1995年收购，犹他州最大家具零售商"},
+  {cn:"星牌家具",en:"Star Furniture",cat:"retail",tag:"零售",icon:"🛒",desc:"2003年收购，德克萨斯州高端家具连锁"},
+  {cn:"乔丹家具",en:"Jordan's Furniture",cat:"retail",tag:"零售",icon:"🛒",desc:"1999年收购，马萨诸塞州知名家具零售商"},
+  {cn:"波仙珠宝",en:"Borsheims",cat:"retail",tag:"零售",icon:"🛒",desc:"1989年收购，奥马哈高端珠宝零售，伯克希尔年会必逛之地"},
+  {cn:"赫尔兹伯格钻石",en:"Helzberg Diamonds",cat:"retail",tag:"零售",icon:"🛒",desc:"1995年收购，珠宝零售连锁店"},
+  {cn:"本·布里奇珠宝",en:"Ben Bridge Jeweler",cat:"retail",tag:"零售",icon:"🛒",desc:"2000年收购，西海岸珠宝连锁"},
+  {cn:"冰雪皇后",en:"Dairy Queen (DQ)",cat:"retail",tag:"零售",icon:"🛒",desc:"1998年以5.85亿美元收购，全球冰淇淋和快餐连锁"},
+  {cn:"厨宝公司",en:"Pampered Chef",cat:"retail",tag:"零售",icon:"🛒",desc:"2002年收购，厨房用品直销，通过家庭聚会模式销售"},
+
+  // Finance
+  {cn:"CORT商业服务",en:"CORT Business Services",cat:"finance",tag:"金融",icon:"💰",desc:"2000年收购，家具租赁服务，服务企业和活动"},
+  {cn:"克莱顿金融服务",en:"Clayton Financial Services",cat:"finance",tag:"金融",icon:"💰",desc:"克莱顿房屋旗下，预制房屋贷款和金融服务"},
+  {cn:"伯克希尔旅行保护",en:"Berkshire Hathaway Travel Protection",cat:"finance",tag:"金融",icon:"💰",desc:"旅行保险产品，包括行程取消、医疗保障等"},
+  {cn:"UTC租赁",en:"UTI (Universal Tube & Rollform)",cat:"finance",tag:"金融",icon:"💰",desc:"管道和辊压成型设备租赁"},
+  {cn:"马蒙金融",en:"Marmon Financial",cat:"finance",tag:"金融",icon:"💰",desc:"马蒙集团旗下金融租赁和信用服务"},
+];
+
+// ===== Render Companies =====
+const categoryNames = {
+  insurance: {cn:"保险业务", en:"Insurance"},
+  railroad: {cn:"铁路", en:"Railroad"},
+  energy: {cn:"能源", en:"Berkshire Hathaway Energy"},
+  manufacturing: {cn:"制造业", en:"Manufacturing"},
+  distribution: {cn:"批发分销", en:"Distribution (McLane)"},
+  retail: {cn:"服务与零售", en:"Service & Retailing"},
+  finance: {cn:"金融与金融产品", en:"Finance & Financial Products"},
+};
+
+const categoryIcons = {
+  insurance: "🛡️",
+  railroad: "🚂",
+  energy: "⚡",
+  manufacturing: "🏭",
+  distribution: "📦",
+  retail: "🛒",
+  finance: "💰",
+};
+
+function renderCompanies() {
+  const container = document.getElementById('companies-container');
+  const categories = ['insurance','railroad','energy','manufacturing','distribution','retail','finance'];
+  
+  // Update counts
+  document.getElementById('count-all').textContent = companies.length;
+  categories.forEach(cat => {
+    const count = companies.filter(c => c.cat === cat).length;
+    const el = document.getElementById('count-' + cat);
+    if (el) el.textContent = count;
+  });
+
+  let html = '';
+  categories.forEach(cat => {
+    const catCompanies = companies.filter(c => c.cat === cat);
+    const info = categoryNames[cat];
+    html += `<div class="category-section" id="cat-${cat}">`;
+    html += `<div class="category-header">`;
+    html += `<span class="category-icon">${categoryIcons[cat]}</span>`;
+    html += `<span class="category-title">${info.cn}</span>`;
+    html += `<span class="category-en">${info.en}</span>`;
+    html += `<span class="category-count">${catCompanies.length} 家</span>`;
+    html += `</div>`;
+    html += `<div class="company-grid">`;
+    catCompanies.forEach((c, i) => {
+      html += `<div class="company-card" data-cn="${c.cn}" data-en="${c.en}" data-cat="${c.cat}">`;
+      html += `<div class="company-name-cn">${c.cn}</div>`;
+      html += `<div class="company-name-en">${c.en}</div>`;
+      html += `<span class="company-tag tag-${c.cat}">${c.tag}</span>`;
+      html += `<div class="company-desc">${c.desc}</div>`;
+      html += `</div>`;
+    });
+    html += `</div></div>`;
+  });
+  
+  container.innerHTML = html;
+}
+
+// ===== Scroll to Category =====
+function scrollToCategory(cat) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  
+  if (cat === 'all') {
+    window.scrollTo({top: document.querySelector('.companies-section').offsetTop - 20, behavior: 'smooth'});
+    return;
+  }
+  const el = document.getElementById('cat-' + cat);
+  if (el) {
+    el.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+}
+
+// ===== Search =====
+function searchCompanies() {
+  const query = document.getElementById('search-input').value.trim().toLowerCase();
+  const cards = document.querySelectorAll('.company-card');
+  let matchCount = 0;
+  
+  cards.forEach(card => {
+    card.classList.remove('search-match');
+    if (!query) return;
+    
+    const cn = card.dataset.cn.toLowerCase();
+    const en = card.dataset.en.toLowerCase();
+    if (cn.includes(query) || en.includes(query)) {
+      card.classList.add('search-match');
+      matchCount++;
+    }
+  });
+  
+  const countEl = document.getElementById('search-count');
+  if (query) {
+    countEl.textContent = `找到 ${matchCount} 家匹配的公司`;
+  } else {
+    countEl.textContent = '';
+  }
+}
+
+// ===== Image Zoom =====
+let zoomLevel = 1;
+
+function zoomImage(delta) {
+  zoomLevel = Math.max(0.5, Math.min(3, zoomLevel + delta));
+  updateZoom();
+}
+
+function resetZoom() {
+  zoomLevel = 1;
+  updateZoom();
+}
+
+function updateZoom() {
+  const img = document.getElementById('map-image');
+  img.style.transform = `scale(${zoomLevel})`;
+  document.getElementById('zoom-level').textContent = Math.round(zoomLevel * 100) + '%';
+}
+
+// Wheel zoom
+document.getElementById('image-container').addEventListener('wheel', function(e) {
+  if (e.ctrlKey || e.metaKey) {
+    e.preventDefault();
+    zoomImage(e.deltaY > 0 ? -0.1 : 0.1);
+  }
+});
+
+// Double click reset
+document.getElementById('image-container').addEventListener('dblclick', resetZoom);
+
+// Drag to pan
+let isDragging = false, startX, startY, scrollLeft, scrollTop;
+const container = document.getElementById('image-container');
+container.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  startX = e.pageX - container.offsetLeft;
+  startY = e.pageY - container.offsetTop;
+  scrollLeft = container.scrollLeft;
+  scrollTop = container.scrollTop;
+});
+container.addEventListener('mouseleave', () => isDragging = false);
+container.addEventListener('mouseup', () => isDragging = false);
+container.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  e.preventDefault();
+  const x = e.pageX - container.offsetLeft;
+  const y = e.pageY - container.offsetTop;
+  container.scrollLeft = scrollLeft - (x - startX);
+  container.scrollTop = scrollTop - (y - startY);
+});
+
+// Touch support
+let touchStartX, touchStartY, touchScrollLeft, touchScrollTop;
+container.addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].pageX;
+  touchStartY = e.touches[0].pageY;
+  touchScrollLeft = container.scrollLeft;
+  touchScrollTop = container.scrollTop;
+});
+container.addEventListener('touchmove', (e) => {
+  if (e.touches.length === 1) {
+    const x = e.touches[0].pageX;
+    const y = e.touches[0].pageY;
+    container.scrollLeft = touchScrollLeft - (x - touchStartX);
+    container.scrollTop = touchScrollTop - (y - touchStartY);
+  }
+}, {passive: true});
+
+// Scroll spy for tabs
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('.category-section');
+  const tabs = document.querySelectorAll('.tab-btn');
+  let current = 'all';
+  
+  sections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.top < 200 && rect.bottom > 200) {
+      current = sec.id.replace('cat-', '');
+    }
+  });
+  
+  tabs.forEach(tab => {
+    tab.classList.remove('active');
+    if (tab.textContent.includes(categoryNames[current]?.cn?.slice(0,2)) || 
+        (current === 'all' && tab.textContent.includes('全部'))) {
+      tab.classList.add('active');
+    }
+  });
+});
+
+// Init
+renderCompanies();
+</script>
+
+</body>
+</html>
