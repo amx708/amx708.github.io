@@ -115,6 +115,11 @@ body{
 }
 .zoom-btn:hover{background:#f1f5f9;border-color:#cbd5e1}
 .zoom-btn:active{transform:scale(0.95)}
+.zoom-btn.active{
+  background:#1e293b;
+  color:#fff;
+  border-color:#1e293b;
+}
 .zoom-level{
   font-size:13px;color:#64748b;
   min-width:50px;text-align:center;
@@ -612,35 +617,32 @@ function searchCompanies() {
   }
 }
 
-// ===== Image Zoom =====
-let zoomLevel = 1;
+// ===== Image Viewer =====
+let currentMode = 'fit';
 
-function zoomImage(delta) {
-  zoomLevel = Math.max(0.5, Math.min(3, zoomLevel + delta));
-  updateZoom();
-}
-
-function resetZoom() {
-  zoomLevel = 1;
-  updateZoom();
-}
-
-function updateZoom() {
+function setViewMode(mode) {
+  currentMode = mode;
+  const container = document.getElementById('image-container');
   const img = document.getElementById('map-image');
-  img.style.transform = `scale(${zoomLevel})`;
-  document.getElementById('zoom-level').textContent = Math.round(zoomLevel * 100) + '%';
-}
-
-// Wheel zoom
-document.getElementById('image-container').addEventListener('wheel', function(e) {
-  if (e.ctrlKey || e.metaKey) {
-    e.preventDefault();
-    zoomImage(e.deltaY > 0 ? -0.1 : 0.1);
+  const label = document.getElementById('zoom-level');
+  const btns = document.querySelectorAll('.zoom-btn');
+  
+  btns.forEach(b => b.classList.remove('active'));
+  
+  if (mode === 'fit') {
+    container.classList.remove('full-size');
+    img.style.width = '100%';
+    img.style.maxWidth = 'none';
+    label.textContent = '适配屏幕';
+    btns[0].classList.add('active');
+  } else if (mode === 'full') {
+    container.classList.add('full-size');
+    img.style.width = 'auto';
+    img.style.maxWidth = 'none';
+    label.textContent = '原始尺寸';
+    btns[1].classList.add('active');
   }
-});
-
-// Double click reset
-document.getElementById('image-container').addEventListener('dblclick', resetZoom);
+}
 
 // Drag to pan
 let isDragging = false, startX, startY, scrollLeft, scrollTop;
