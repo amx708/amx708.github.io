@@ -1204,11 +1204,11 @@ function squarify(items, rect){
     const rowSum=row.reduce((s,r)=>s+r.area,0);
     if(w>=h){
       const colW=rowSum/h; let cy=y;
-      row.forEach(r=>{ const rh=r.area/colW; result.push({x:x, y:cy, w:colW, h:rh, ref:r.ref}); cy+=rh; });
+      row.forEach(r=>{ const rh=r.area/colW; result.push({...r.ref, x:x, y:cy, w:colW, h:rh, ref:r.ref}); cy+=rh; });
       x+=colW; w-=colW;
     } else {
       const rowH=rowSum/w; let cx=x;
-      row.forEach(r=>{ const rw=r.area/rowH; result.push({x:cx, y:y, w:rw, h:rowH, ref:r.ref}); cx+=rw; });
+      row.forEach(r=>{ const rw=r.area/rowH; result.push({...r.ref, x:cx, y:y, w:rw, h:rowH, ref:r.ref}); cx+=rw; });
       y+=rowH; h-=rowH;
     }
     row=[]; i++;
