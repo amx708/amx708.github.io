@@ -581,6 +581,47 @@ body{
   .modal-panel{margin:0;width:100%;max-width:none;min-height:100vh;border-radius:0}
   .modal-body{max-height:none;padding-bottom:40px}
 }
+
+/* ===== View Switch (卡片 / 全景脑图) ===== */
+.view-switch-section{max-width:1100px;margin:0 auto;padding:10px 24px 4px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.view-switch{display:inline-flex;background:#e2e8f0;border-radius:10px;padding:4px;gap:4px}
+.view-btn{border:none;background:transparent;padding:9px 22px;border-radius:7px;font-size:14px;font-weight:600;color:#475569;cursor:pointer;transition:all .18s;font-family:inherit}
+.view-btn:hover{color:#1e293b}
+.view-btn.active{background:#fff;color:#1e293b;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.view-btn.active#btn-map{color:#ea580c}
+.view-btn.active#btn-cards{color:#2563eb}
+.view-hint{font-size:12.5px;color:#94a3b8;text-align:center}
+
+/* ===== Treemap (全景脑图) ===== */
+.treemap-section{max-width:1100px;margin:0 auto;padding:24px 24px 48px}
+.treemap-head{text-align:center;margin-bottom:16px}
+.treemap-head h2{font-size:22px;font-weight:700;color:#0f172a;margin-bottom:6px}
+.treemap-head p{font-size:13.5px;color:#64748b;max-width:700px;margin:0 auto;line-height:1.6}
+.treemap-legend{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:14px 0 16px}
+.treemap-legend .lg{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:#475569}
+.treemap-legend .sw{width:13px;height:13px;border-radius:3px;flex-shrink:0}
+.treemap-wrap{position:relative;width:100%;max-width:1000px;margin:0 auto;background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:10px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.treemap-wrap svg{display:block;width:100%;height:auto}
+.tm-group-bg{fill:#f8fafc;stroke:#e2e8f0;stroke-width:1}
+.tm-group-label{font-size:13px;font-weight:700;fill:#475569;pointer-events:none}
+.tm-cell{cursor:pointer;transition:opacity .15s}
+.tm-cell:hover{opacity:.82}
+.tm-cell rect{stroke:#fff;stroke-width:1.5}
+.tm-cell-name{font-size:11px;font-weight:600;fill:#fff;pointer-events:none;dominant-baseline:middle}
+.tm-cell-pct{font-size:10px;fill:rgba(255,255,255,.88);pointer-events:none;dominant-baseline:middle}
+.tm-cell-name.dark,.tm-cell-pct.dark{fill:#1e293b}
+.treemap-tooltip{position:absolute;pointer-events:none;background:rgba(15,23,42,.95);color:#fff;padding:10px 12px;border-radius:8px;font-size:12px;line-height:1.6;max-width:250px;opacity:0;transition:opacity .12s;z-index:20;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.treemap-tooltip.show{opacity:1}
+.treemap-tooltip .tt-name{font-weight:700;font-size:13px;margin-bottom:3px}
+.treemap-tooltip .tt-row{color:#cbd5e1}
+.treemap-tooltip .tt-row b{color:#fbbf24;font-weight:600}
+.treemap-foot{text-align:center;font-size:12.5px;color:#64748b;margin-top:14px;line-height:1.7}
+.treemap-foot b{color:#0f172a}
+
+@media(max-width:600px){
+  .view-btn{padding:8px 16px;font-size:13px}
+  .treemap-head h2{font-size:19px}
+}
 </style>
 </head>
 <body>
@@ -671,6 +712,18 @@ body{
   </div>
 </section>
 
+<!-- ===== View Switch (卡片 / 全景脑图) ===== -->
+<section class="view-switch-section">
+  <div class="view-switch">
+    <button class="view-btn active" id="btn-cards" onclick="switchView('cards')">🃏 卡片视图</button>
+    <button class="view-btn" id="btn-map" onclick="switchView('map')">🗺️ 全景脑图</button>
+  </div>
+  <div class="view-hint" id="view-hint">按板块 / 状态筛选 41 家持仓卡片，点击查看详情</div>
+</section>
+
+<!-- ===== Card View (wrapped) ===== -->
+<div id="cardView">
+
 <!-- ===== Search ===== -->
 <section class="search-section">
   <div class="search-box">
@@ -706,6 +759,21 @@ body{
 <!-- ===== Investment Cards ===== -->
 <section class="investments-section">
   <div class="investment-grid" id="investments-container"></div>
+</section>
+</div><!-- /#cardView -->
+
+<!-- ===== Treemap View (全景脑图) ===== -->
+<section class="treemap-section" id="treemapView" style="display:none">
+  <div class="treemap-head">
+    <h2>投资版图 · 全景脑图</h2>
+    <p>方块面积 = 持仓占组合比例（截至 Q1 2026）。颜色区分行业板块，点击任意方块查看该公司详情。</p>
+  </div>
+  <div class="treemap-legend" id="treemap-legend"></div>
+  <div class="treemap-wrap">
+    <svg id="treemap-svg" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="treemap-tooltip" id="tm-tooltip"></div>
+  </div>
+  <div class="treemap-foot" id="treemap-foot"></div>
 </section>
 
 <!-- ===== Footer ===== -->
@@ -1081,6 +1149,135 @@ function searchInvestments(skipCount) {
     countEl.textContent = '';
   }
 }
+
+// ===== Treemap (全景脑图) =====
+// ===== View Switch: 卡片 / 全景脑图 =====
+const CAT_COLORS = {
+  tech:'#3b82f6', finance:'#10b981', consumer:'#f59e0b', energy:'#f97316',
+  healthcare:'#14b8a6', retail:'#8b5cf6', media:'#ec4899', industrial:'#64748b'
+};
+const CAT_CN = {
+  tech:'科技', finance:'金融', consumer:'消费', energy:'能源',
+  healthcare:'医疗', retail:'零售', media:'传媒', industrial:'工业'
+};
+
+function switchView(v){
+  const cardBtn=document.getElementById('btn-cards');
+  const mapBtn=document.getElementById('btn-map');
+  const cardView=document.getElementById('cardView');
+  const mapView=document.getElementById('treemapView');
+  const hint=document.getElementById('view-hint');
+  if(v==='map'){
+    mapBtn.classList.add('active'); cardBtn.classList.remove('active');
+    cardView.style.display='none'; mapView.style.display='';
+    hint.textContent='方块面积 = 持仓占组合比例（Q1 2026），点击任意方块查看详情';
+    renderTreemap();
+  } else {
+    cardBtn.classList.add('active'); mapBtn.classList.remove('active');
+    mapView.style.display='none'; cardView.style.display='';
+    hint.textContent='按板块 / 状态筛选 41 家持仓卡片，点击查看详情';
+  }
+}
+
+function worstRatio(row, length){
+  const sum=row.reduce((s,r)=>s+r.area,0);
+  const max=Math.max.apply(null,row.map(r=>r.area));
+  const min=Math.min.apply(null,row.map(r=>r.area));
+  const s2=sum*sum, l2=length*length;
+  return Math.max((l2*max)/s2, s2/(l2*min));
+}
+
+function squarify(items, rect){
+  const result=[];
+  const total=items.reduce((s,i)=>s+i.value,0);
+  let areaItems=items.map(it=>({ref:it, area: it.value/total*(rect.w*rect.h)}));
+  areaItems.sort((a,b)=>b.area-a.area);
+  let x=rect.x, y=rect.y, w=rect.w, h=rect.h, row=[], i=0;
+  while(i<areaItems.length){
+    row.push(areaItems[i]);
+    const shorter=Math.min(w,h);
+    const w1=worstRatio(row, shorter);
+    if(i+1<areaItems.length){
+      const w2=worstRatio(row.concat([areaItems[i+1]]), shorter);
+      if(w2<=w1){ i++; continue; }
+    }
+    const rowSum=row.reduce((s,r)=>s+r.area,0);
+    if(w>=h){
+      const colW=rowSum/h; let cy=y;
+      row.forEach(r=>{ const rh=r.area/colW; result.push({x:x, y:cy, w:colW, h:rh, ref:r.ref}); cy+=rh; });
+      x+=colW; w-=colW;
+    } else {
+      const rowH=rowSum/w; let cx=x;
+      row.forEach(r=>{ const rw=r.area/rowH; result.push({x:cx, y:y, w:rw, h:rowH, ref:r.ref}); cx+=rw; });
+      y+=rowH; h-=rowH;
+    }
+    row=[]; i++;
+  }
+  return result;
+}
+
+function isLightColor(hex){
+  const c=hex.replace('#','');
+  const r=parseInt(c.substr(0,2),16), g=parseInt(c.substr(2,2),16), b=parseInt(c.substr(4,2),16);
+  return (0.299*r + 0.587*g + 0.114*b) > 165;
+}
+
+function renderTreemap(){
+  const svg=document.getElementById('treemap-svg');
+  if(!svg) return;
+  const W=1000, H=620;
+  const current=investments.filter(d=> d.status==='current' && parseFloat(d.weight)>0)
+    .map(d=>({ idx:investments.indexOf(d), cn:d.cn, en:d.en, ticker:d.ticker, cat:d.cat, value:parseFloat(d.weight), mv:d.mv }));
+  const groups={};
+  current.forEach(it=>{ (groups[it.cat]=groups[it.cat]||[]).push(it); });
+  const gArr=Object.keys(groups).map(cat=>({ cat:cat, items:groups[cat], value:groups[cat].reduce((s,x)=>s+x.value,0) }))
+    .sort((a,b)=>b.value-a.value);
+  const gRects=squarify(gArr, {x:0,y:0,w:W,h:H});
+  let svgParts='';
+  const legend=document.getElementById('treemap-legend');
+  legend.innerHTML=gArr.map(g=>'<span class="lg"><span class="sw" style="background:'+CAT_COLORS[g.cat]+'"></span>'+CAT_CN[g.cat]+' '+g.value.toFixed(1)+'%</span>').join('');
+  gRects.forEach(g=>{
+    const color=CAT_COLORS[g.cat]||'#94a3b8';
+    const pad=5, labelH=22;
+    svgParts+='<rect class="tm-group-bg" x="'+g.x+'" y="'+g.y+'" width="'+g.w+'" height="'+g.h+'" rx="6"></rect>';
+    svgParts+='<text class="tm-group-label" x="'+(g.x+10)+'" y="'+(g.y+16)+'">'+CAT_CN[g.cat]+' · '+g.value.toFixed(1)+'%</text>';
+    const inner={ x:g.x+pad, y:g.y+labelH, w:Math.max(1,g.w-2*pad), h:Math.max(1,g.h-labelH-pad) };
+    const ir=squarify(g.items, inner);
+    ir.forEach(r=>{
+      const dark=isLightColor(color);
+      const showText=r.w>54 && r.h>30;
+      const nameCls=dark?'tm-cell-name dark':'tm-cell-name';
+      const pctCls=dark?'tm-cell-pct dark':'tm-cell-pct';
+      svgParts+='<g class="tm-cell" data-idx="'+r.ref.idx+'">';
+      svgParts+='<rect x="'+r.x+'" y="'+r.y+'" width="'+r.w+'" height="'+r.h+'" rx="3" fill="'+color+'"></rect>';
+      if(showText){
+        svgParts+='<text class="'+nameCls+'" x="'+(r.x+7)+'" y="'+(r.y+r.h/2-6)+'">'+r.ref.cn+'</text>';
+        svgParts+='<text class="'+pctCls+'" x="'+(r.x+7)+'" y="'+(r.y+r.h/2+8)+'">'+r.ref.value.toFixed(1)+'%</text>';
+      }
+      svgParts+='</g>';
+    });
+  });
+  svg.innerHTML=svgParts;
+  const tooltip=document.getElementById('tm-tooltip');
+  const wrap=svg.parentElement;
+  svg.querySelectorAll('.tm-cell').forEach(g=>{
+    const idx=parseInt(g.getAttribute('data-idx'),10);
+    const it=current.find(c=>c.idx===idx);
+    if(!it) return;
+    g.addEventListener('mousemove',(e)=>{
+      const rect=wrap.getBoundingClientRect();
+      tooltip.style.left=(e.clientX-rect.left+12)+'px';
+      tooltip.style.top=(e.clientY-rect.top+12)+'px';
+      tooltip.innerHTML='<div class="tt-name">'+it.cn+'</div><div class="tt-row">'+it.en+' · '+it.ticker+'</div><div class="tt-row">行业：<b>'+CAT_CN[it.cat]+'</b></div><div class="tt-row">占组合：<b>'+it.value.toFixed(1)+'%</b></div><div class="tt-row">市值：约 '+it.mv+' 亿美元</div>';
+      tooltip.classList.add('show');
+    });
+    g.addEventListener('mouseleave',()=>tooltip.classList.remove('show'));
+    g.addEventListener('click',()=>showDetail(idx));
+  });
+  const top10=current.slice().sort((a,b)=>b.value-a.value).slice(0,10).reduce((s,x)=>s+x.value,0);
+  document.getElementById('treemap-foot').innerHTML='共 <b>'+current.length+'</b> 只当前持仓 · 覆盖 <b>'+gArr.length+'</b> 大行业板块 · 前十大合计占比 <b>'+top10.toFixed(1)+'%</b> · 数据截至 Q1 2026 13F 披露。历史经典案例与已转化子公司见上方「卡片视图」。';
+}
+
 
 renderInvestments();
 </script>
