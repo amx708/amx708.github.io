@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>巴菲特 & 芒格推荐书单 | 漫漫扬</title>
+<style>
+/* ===== Reset & Base ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+  background:#f1f5f9;
+  color:#1e293b;
+  line-height:1.6;
+  min-height:100vh;
+}
+
+/* ===== Breadcrumb ===== */
+.breadcrumb{max-width:1100px;margin:0 auto;padding:12px 24px 8px;font-size:13px;color:rgba(255,255,255,0.6);position:relative;z-index:2}
+.breadcrumb a{color:rgba(255,255,255,0.7);text-decoration:none;transition:color .15s}
+.breadcrumb a:hover{color:#fbbf24}
+.breadcrumb span{color:rgba(255,255,255,0.35);margin:0 6px}
+.breadcrumb .current{color:rgba(255,255,255,0.9);font-weight:500}
+
+/* ===== Hero ===== */
+.hero{
+  position:relative;
+  background:linear-gradient(135deg,#0f172a 0%,#1e293b 40%,#1e3a5f 100%);
+  padding:60px 24px 80px;
+  text-align:center;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:radial-gradient(ellipse at 30% 20%, rgba(245,158,11,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(37,99,235,0.06) 0%, transparent 50%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:120px;
+  background:linear-gradient(to top, #f1f5f9 0%, transparent 100%);
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:2;max-width:800px;margin:0 auto}
+.hero-badge{
+  display:inline-block;
+  padding:4px 16px;
+  background:rgba(245,158,11,0.15);
+  border:1px solid rgba(245,158,11,0.3);
+  border-radius:20px;
+  color:#fbbf24;
+  font-size:13px;font-weight:500;
+  letter-spacing:0.5px;
+  margin-bottom:24px;
+}
+.hero h1{
+  font-size:clamp(28px,5vw,48px);
+  font-weight:800;
+  color:#fff;
+  line-height:1.25;
+  letter-spacing:-0.5px;
+  margin-bottom:16px;
+}
+.hero h1 span{color:#f59e0b}
+.hero p{
+  font-size:clamp(15px,2vw,18px);
+  color:#94a3b8;
+  max-width:600px;
+  margin:0 auto 32px;
+  line-height:1.7;
+}
+
+/* ===== Main Section ===== */
+.main-section{max-width:1100px;margin:0 auto;padding:48px 24px 80px}
+
+/* ===== Category Tabs ===== */
+.category-tabs{
+  display:flex;gap:8px;flex-wrap:wrap;
+  justify-content:center;
+  margin-bottom:40px;
+  position:sticky;top:0;
+  background:#f1f5f9;
+  padding:12px 0;
+  z-index:100;
+}
+.tab-btn{
+  padding:8px 20px;
+  border:1px solid #e2e8f0;
+  border-radius:20px;
+  background:#fff;
+  color:#475569;
+  font-size:13px;font-weight:600;
+  cursor:pointer;
+  transition:all 0.2s ease;
+  white-space:nowrap;
+}
+.tab-btn:hover{border-color:#cbd5e1;color:#1e293b}
+.tab-btn.active{
+  background:#0f172a;
+  color:#fff;
+  border-color:#0f172a;
+}
+.tab-btn .tab-count{
+  font-size:11px;
+  opacity:0.7;
+  margin-left:4px;
+}
+
+/* ===== Section Header ===== */
+.section-header{
+  margin-bottom:24px;
+  padding-bottom:12px;
+  border-bottom:2px solid #e2e8f0;
+}
+.section-header h2{
+  font-size:22px;font-weight:700;color:#0f172a;
+  display:flex;align-items:center;gap:8px;
+}
+.section-header h2 .badge{
+  font-size:13px;font-weight:500;
+  padding:2px 10px;
+  border-radius:12px;
+  background:#eff6ff;color:#2563eb;
+}
+.section-header p{
+  font-size:13px;color:#64748b;
+  margin-top:4px;
+}
+
+/* ===== Book Grid ===== */
+.book-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:16px;
+  margin-bottom:48px;
+}
+
+/* ===== Book Card ===== */
+.book-card{
+  background:#fff;
+  border-radius:12px;
+  border:1px solid #e2e8f0;
+  padding:20px;
+  transition:all 0.2s ease;
+  display:flex;
+  gap:16px;
+  box-shadow:0 1px 2px rgba(0,0,0,0.03);
+}
+.book-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(0,0,0,0.06);
+  border-color:#cbd5e1;
+}
+
+/* Book cover placeholder */
+.book-cover{
+  width:60px;height:84px;
+  border-radius:6px;
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;
+  position:relative;
+  overflow:hidden;
+}
+.book-cover::after{
+  content:'';
+  position:absolute;
+  left:8px;top:0;bottom:0;
+  width:2px;
+  background:rgba(0,0,0,0.1);
+}
+
+/* Book info */
+.book-info{flex:1;min-width:0}
+.book-title{
+  font-size:15px;font-weight:700;
+  color:#0f172a;
+  line-height:1.35;
+  margin-bottom:4px;
+}
+.book-author{
+  font-size:12px;color:#64748b;
+  margin-bottom:8px;
+}
+.book-reason{
+  font-size:12px;color:#475569;
+  line-height:1.5;
+  background:#f8fafc;
+  padding:8px 10px;
+  border-radius:6px;
+  border-left:3px solid #e2e8f0;
+}
+.book-tags{
+  display:flex;gap:6px;flex-wrap:wrap;
+  margin-top:8px;
+}
+.book-tag{
+  font-size:10px;
+  padding:2px 8px;
+  border-radius:10px;
+  font-weight:600;
+}
+
+/* Rating stars */
+.book-rating{
+  display:flex;align-items:center;gap:2px;
+  margin-top:6px;
+}
+.book-rating .star{font-size:13px;color:#e2e8f0}
+.book-rating .star.filled{color:#f59e0b}
+.book-rating .label{
+  font-size:11px;color:#94a3b8;
+  margin-left:4px;
+}
+
+/* ===== Color themes ===== */
+.cover-gold{background:linear-gradient(135deg,#fbbf24,#d97706)}
+.cover-blue{background:linear-gradient(135deg,#60a5fa,#2563eb)}
+.cover-green{background:linear-gradient(135deg,#34d399,#059669)}
+.cover-purple{background:linear-gradient(135deg,#a78bfa,#7c3aed)}
+.cover-rose{background:linear-gradient(135deg,#fb7185,#e11d48)}
+.cover-teal{background:linear-gradient(135deg,#2dd4bf,#0d9488)}
+.cover-indigo{background:linear-gradient(135deg,#818cf8,#4f46e5)}
+.cover-orange{background:linear-gradient(135deg,#fb923c,#ea580c)}
+.cover-slate{background:linear-gradient(135deg,#94a3b8,#475569)}
+
+.tag-investment{background:#eff6ff;color:#2563eb}
+.tag-business{background:#f0fdf4;color:#059669}
+.tag-biography{background:#fef3c7;color:#b45309}
+.tag-psychology{background:#fce7f3;color:#be185d}
+.tag-science{background:#e0e7ff;color:#4f46e5}
+.tag-economics{background:#fff7ed;color:#c2410c}
+.tag-history{background:#f1f5f9;color:#475569}
+.tag-munger{background:#fef3c7;color:#b45309;border:1px solid #fde68a}
+.tag-buffett{background:#dbeafe;color:#1d4ed8;border:1px solid #93c5fd}
+
+/* ===== Quote Block ===== */
+.quote-block{
+  background:#fff;
+  border-radius:12px;
+  border:1px solid #e2e8f0;
+  padding:28px 32px;
+  margin-bottom:40px;
+  position:relative;
+  overflow:hidden;
+}
+.quote-block::before{
+  content:'"';
+  position:absolute;
+  top:-10px;left:16px;
+  font-size:80px;
+  color:#e2e8f0;
+  font-family:Georgia,serif;
+  line-height:1;
+}
+.quote-text{
+  font-size:15px;
+  color:#334155;
+  line-height:1.8;
+  position:relative;
+  z-index:1;
+  padding-left:32px;
+}
+.quote-author{
+  margin-top:12px;
+  padding-left:32px;
+  font-size:13px;
+  color:#64748b;
+  font-weight:600;
+}
+
+/* ===== Footer ===== */
+.footer{
+  text-align:center;
+  padding:32px 24px;
+  color:#94a3b8;
+  font-size:12px;
+  border-top:1px solid #e2e8f0;
+}
+.footer a{color:#64748b;text-decoration:none;transition:color 0.15s}
+.footer a:hover{color:#2563eb}
+
+/* ===== Responsive ===== */
+@media(max-width:900px){
+  .book-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+}
+@media(max-width:600px){
+  .breadcrumb{padding:12px 16px 0}
+  .book-grid{grid-template-columns:1fr}
+  .hero{padding:40px 16px 56px}
+  .hero h1{font-size:24px}
+  .category-tabs{padding:8px 0}
+  .tab-btn{padding:6px 14px;font-size:12px}
+  .main-section{padding:32px 16px 60px}
+  .book-card{padding:16px;gap:12px}
+  .book-cover{width:48px;height:68px;font-size:22px}
+  .quote-block{padding:20px 20px}
+  .quote-text{padding-left:20px;font-size:14px}
+  .quote-author{padding-left:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Hero ===== -->
+<header class="hero">
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    <a href="index.html">首页</a>
+    <span>/</span>
+    <a href="berkshire-standalone.html">投资数据中心</a>
+    <span>/</span>
+    <span class="current">推荐书单</span>
+  </nav>
+
+  <div class="hero-content">
+    <div class="hero-badge">Berkshire Reading List</div>
+    <h1>巴菲特 &amp; 芒格<br><span>推荐书单</span></h1>
+    <p>"我这辈子遇到的聪明人，没有不每天阅读的——没有，一个都没有。" —— 查理·芒格</p>
+  </div>
+</header>
+
+<!-- ===== Main ===== -->
+<main class="main-section">
+
+  <!-- Quote -->
+  <div class="quote-block">
+    <div class="quote-text">
+      "通过阅读大量书籍，我逐渐形成了自己的多元思维模型。一个人如果光靠已有的知识，在生活中走不了多远。坚持每天阅读，你就能超越大多数人。"
+    </div>
+    <div class="quote-author">—— 查理·芒格《穷查理宝典》</div>
+  </div>
+
+  <!-- Category Tabs -->
+  <div class="category-tabs">
+    <button class="tab-btn active" onclick="scrollToSection('buffett-investment')">巴菲特·投资经典 <span class="tab-count">12</span></button>
+    <button class="tab-btn" onclick="scrollToSection('buffett-business')">巴菲特·商业管理 <span class="tab-count">10</span></button>
+    <button class="tab-btn" onclick="scrollToSection('buffett-biography')">巴菲特·人物传记 <span class="tab-count">8</span></button>
+    <button class="tab-btn" onclick="scrollToSection('munger-core')">芒格·穷查理宝典附录 <span class="tab-count">17</span></button>
+    <button class="tab-btn" onclick="scrollToSection('munger-extra')">芒格·延伸阅读 <span class="tab-count">14</span></button>
+  </div>
+
+  <!-- ===== 巴菲特·投资经典 ===== -->
+  <div id="buffett-investment">
+    <div class="section-header">
+      <h2>📊 巴菲特推荐 · 投资经典 <span class="badge">12本</span></h2>
+      <p>巴菲特在股东大会、致股东信及各类访谈中多次推荐的投资类书籍</p>
+    </div>
+    <div class="book-grid">
+
+      <div class="book-card">
+        <div class="book-cover cover-gold">📈</div>
+        <div class="book-info">
+          <div class="book-title">聪明的投资者</div>
+          <div class="book-author">本杰明·格雷厄姆</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="label">神级·必读</span></div>
+          <div class="book-reason">巴菲特称此书为"有史以来最伟大的投资著作"，19岁读到后改变了人生轨迹。"市场先生"概念在此书首次提出。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-investment">投资</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-gold">📊</div>
+        <div class="book-info">
+          <div class="book-title">证券分析</div>
+          <div class="book-author">本杰明·格雷厄姆 / 戴维·多德</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="label">神级·必读</span></div>
+          <div class="book-reason">价值投资的开山之作。巴菲特曾在哥伦比亚大学师从格雷厄姆，称此书奠定了他投资方法的基础。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-investment">投资</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-blue">💡</div>
+        <div class="book-info">
+          <div class="book-title">怎样选择成长股</div>
+          <div class="book-author">菲利普·费雪</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="label">神级·必读</span></div>
+          <div class="book-reason">巴菲特说自己投资方法是"85%格雷厄姆+15%费雪"。费雪的"闲聊法"和十五个要点深刻影响了巴菲特中后期的投资逻辑。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-investment">投资</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-blue">💰</div>
+        <div class="book-info">
+          <div class="book-title">投资最重要的事</div>
+          <div class="book-author">霍华德·马克斯</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="label">五星</span></div>
+          <div class="book-reason">巴菲特说："我第一时间打开邮件，就是为了读霍华德的备忘录。这本书我读了两遍。"</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-investment">投资</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-green">📘</div>
+        <div class="book-info">
+          <div class="book-title">共同基金常识</div>
+          <div class="book-author">约翰·博格</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="label">神级·必读</span></div>
+          <div class="book-reason">指数基金之父的经典。巴菲特多次在股东信中推荐，并公开建议普通投资者买低成本指数基金。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-investment">投资</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-gold">📜</div>
+        <div class="book-info">
+          <div class="book-title">巴菲特致股东的信</div>
+          <div class="book-author">沃伦·巴菲特 / 编：劳伦斯·坎宁安</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="label">五星</span></div>
+          <div class="book-reason">巴菲特几十年股东信的精华凝练，按主题重新编排。巴菲特本人唯一授权的整理版本。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-investment">投资</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-blue">📈</div>
+        <div class="book-info">
+          <div class="book-title">股市长线法宝</div>
+          <div class="book-author">杰里米·西格尔</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="label">五星</span></div>
+          <div class="book-reason">用大量历史数据证明长期持股的优势。巴菲特推荐给所有想理解市场长期规律的人。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-investment">投资</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-green">🎯</div>
+        <div class="book-info">
+          <div class="book-title">商界局外人</div>
+          <div class="book-author">威廉·桑代克</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="label">五星</span></div>
+          <div class="book-reason">巴菲特是书中8位"神级CEO"之一。本书定义了什么是真正的资本配置高手，巴菲特称其为"一本好书"。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-investment">投资</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-slate">⛵</div>
+        <div class="book-info">
+          <div class="book-title">客户的游艇在哪里</div>
+          <div class="book-author">弗雷德·施韦德</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="label">五星</span></div>
+          <div class="book-reason">幽默风趣的华尔街经典。巴菲特多次引用此书，告诫投资者警惕金融行业的利益冲突。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-investment">投资</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-gold">🏦</div>
+        <div class="book-info">
+          <div class="book-title">国富论</div>
+          <div class="book-author">亚当·斯密</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="label">神级·必读</span></div>
+          <div class="book-reason">经济学的奠基之作。巴菲特称虽难读但必读，"看不见的手"原理是理解市场的基础。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-economics">经济学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-blue">📉</div>
+        <div class="book-info">
+          <div class="book-title">1929年大崩盘</div>
+          <div class="book-author">约翰·肯尼斯·加尔布雷思</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="label">四星</span></div>
+          <div class="book-reason">巴菲特多次推荐，用以理解市场泡沫与恐慌的历史教训。"他山之石，可以攻玉。"</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-investment">投资</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-rose">🎲</div>
+        <div class="book-info">
+          <div class="book-title">赌金者</div>
+          <div class="book-author">罗杰·洛温斯坦</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="label">四星</span></div>
+          <div class="book-reason">LTCM长期资本管理公司覆灭记。巴菲特推荐此书，警示杠杆与过度自信的风险。"赢了天才，输了蠢货。"</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-investment">投资</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== 巴菲特·商业管理 ===== -->
+  <div id="buffett-business">
+    <div class="section-header">
+      <h2>🏢 巴菲特推荐 · 商业管理 <span class="badge">10本</span></h2>
+      <p>巴菲特推荐的企业管理、战略思维与商业洞察类书籍</p>
+    </div>
+    <div class="book-grid">
+
+      <div class="book-card">
+        <div class="book-cover cover-orange">🏃</div>
+        <div class="book-info">
+          <div class="book-title">鞋狗</div>
+          <div class="book-author">菲尔·奈特（耐克创始人）</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="label">五星</span></div>
+          <div class="book-reason">耐克创始人的自传。巴菲特推荐并称赞："这是我近年来读过的最好看的商业书之一。"</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-business">商业</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-teal">⚔️</div>
+        <div class="book-info">
+          <div class="book-title">竞争战略</div>
+          <div class="book-author">迈克尔·波特</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="label">五星</span></div>
+          <div class="book-reason">战略管理经典。巴菲特著名的"护城河"概念深受波特竞争优势理论影响。读着费劲但值。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-business">商业</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-rose">🏢</div>
+        <div class="book-info">
+          <div class="book-title">只有偏执狂才能生存</div>
+          <div class="book-author">安迪·格鲁夫（英特尔CEO）</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="label">四星</span></div>
+          <div class="book-reason">巴菲特和芒格共同推荐。"战略转折点不是点，而是线。"格鲁夫的10X思维影响深远。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-business">商业</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-blue">💻</div>
+        <div class="book-info">
+          <div class="book-title">谁说大象不能跳舞</div>
+          <div class="book-author">郭士纳（IBM前CEO）</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="label">四星</span></div>
+          <div class="book-reason">IBM转型实录。巴菲特投资IBM前深入研究此书，了解企业转型的艰难与关键。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-business">商业</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-green">🛒</div>
+        <div class="book-info">
+          <div class="book-title">富甲美国</div>
+          <div class="book-author">山姆·沃尔顿（沃尔玛创始人）</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="label">四星</span></div>
+          <div class="book-reason">沃尔顿自传。巴菲特长期持有沃尔玛股票，称山姆·沃尔顿是"一辈子要强"的商业天才。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-business">商业</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-orange">⚡</div>
+        <div class="book-info">
+          <div class="book-title">杰克·韦尔奇自传</div>
+          <div class="book-author">杰克·韦尔奇（通用电气CEO）</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="label">四星</span></div>
+          <div class="book-reason">GE传奇CEO的管理心得。巴菲特与韦尔奇私交甚好，曾称其为"世纪经理人"。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-business">商业</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-indigo">🚗</div>
+        <div class="book-info">
+          <div class="book-title">我在通用汽车的岁月</div>
+          <div class="book-author">阿尔弗雷德·斯隆</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="label">四星</span></div>
+          <div class="book-reason">巴菲特称此书为"最好的商业书籍之一"。斯隆首创事业部制，比尔·盖茨也力荐此书。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-business">商业</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-rose">🎯</div>
+        <div class="book-info">
+          <div class="book-title">管理十诫</div>
+          <div class="book-author">唐纳德·基奥（可口可乐前总裁）</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="label">四星</span></div>
+          <div class="book-reason">巴菲特好友基奥的管理感悟。巴菲特亲自作序推荐，称"如果你不想犯这些错误，就好好读读这本书"。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-business">商业</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-slate">🛡️</div>
+        <div class="book-info">
+          <div class="book-title">竞争优势</div>
+          <div class="book-author">迈克尔·波特</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="label">四星</span></div>
+          <div class="book-reason">深入剖析"护城河"概念。巴菲特多次提到，理解竞争优势是评估企业长期价值的关键。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-business">商业</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-teal">🏗️</div>
+        <div class="book-info">
+          <div class="book-title">创新者的窘境</div>
+          <div class="book-author">克莱顿·克里斯坦森</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="label">四星</span></div>
+          <div class="book-reason">芒格和巴菲特都推荐过。"颠覆式创新"理论解释了为什么优秀企业会被新对手打败。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-business">商业</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== 巴菲特·人物传记 ===== -->
+  <div id="buffett-biography">
+    <div class="section-header">
+      <h2>👤 巴菲特推荐 · 人物传记 <span class="badge">8本</span></h2>
+      <p>"和已逝的伟人交朋友，你会过上更好的生活。" —— 芒格与巴菲特共同推荐的传记类书籍</p>
+    </div>
+    <div class="book-grid">
+
+      <div class="book-card">
+        <div class="book-cover cover-purple">📰</div>
+        <div class="book-info">
+          <div class="book-title">我的一生略小于美国现代史</div>
+          <div class="book-author">凯瑟琳·格雷厄姆（华盛顿邮报发行人）</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="label">五星</span></div>
+          <div class="book-reason">巴菲特红颜知己的自传。巴菲特持有华盛顿邮报数十年，称格雷厄姆为"最勇敢的女人"。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-biography">传记</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-blue">🎓</div>
+        <div class="book-info">
+          <div class="book-title">商业冒险</div>
+          <div class="book-author">约翰·布鲁克斯</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="label">五星</span></div>
+          <div class="book-reason">比尔·盖茨问巴菲特最喜欢哪本书，巴菲特送了他这本。盖茨读后称其为"有史以来最好的商业书"。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-biography">传记</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-indigo">💻</div>
+        <div class="book-info">
+          <div class="book-title">IBM帝国缔造者小沃森自传</div>
+          <div class="book-author">小托马斯·沃森</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="label">五星</span></div>
+          <div class="book-reason">巴菲特称此书"有血有肉，感人至深"。小沃森将IBM从机械时代带入计算机时代。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-biography">传记</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-orange">🌾</div>
+        <div class="book-info">
+          <div class="book-title">四十次机遇</div>
+          <div class="book-author">霍华德·巴菲特（巴菲特长子）</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="label">四星</span></div>
+          <div class="book-reason">巴菲特长子从事全球农业扶贫的故事。巴菲特推荐称"让我对大儿子刮目相看"。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-biography">传记</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-slate">💃</div>
+        <div class="book-info">
+          <div class="book-title">女性的时刻</div>
+          <div class="book-author">梅琳达·盖茨</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span><span class="label">三星</span></div>
+          <div class="book-reason">巴菲特推荐盖茨夫人关于全球女性赋能的书。"好读，让人思考。"</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-biography">传记</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-green">🌱</div>
+        <div class="book-info">
+          <div class="book-title">做你自己</div>
+          <div class="book-author">彼得·巴菲特（巴菲特次子）</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span><span class="label">三星</span></div>
+          <div class="book-reason">巴菲特次子关于人生选择的书。巴菲特推荐称"虽然不如大儿子的好看，但有价值"。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-biography">传记</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-rose">⚾</div>
+        <div class="book-info">
+          <div class="book-title">魔球</div>
+          <div class="book-author">迈克尔·刘易斯</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span><span class="label">三星</span></div>
+          <div class="book-reason">奥克兰运动家棒球队用数据分析逆袭的故事。巴菲特推荐此书，类比价值投资中"用数据找被低估的资产"。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-biography">传记</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-teal">🎪</div>
+        <div class="book-info">
+          <div class="book-title">3G资本帝国</div>
+          <div class="book-author">克里斯蒂娜·柯利娅</div>
+          <div class="book-rating"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span><span class="label">三星</span></div>
+          <div class="book-reason">百威大股东巴西三巨头的发家史。巴菲特与3G资本合作收购亨氏/卡夫，深入了解其管理模式。</div>
+          <div class="book-tags"><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-biography">传记</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== 芒格·穷查理宝典附录 ===== -->
+  <div id="munger-core">
+    <div class="section-header">
+      <h2>💡 芒格推荐 · 穷查理宝典附录 <span class="badge">17本</span></h2>
+      <p>《穷查理宝典》第535-537页附录中芒格亲自推荐的书目，涵盖自然科学、社会科学、传记等多元学科</p>
+    </div>
+    <div class="book-grid">
+
+      <div class="book-card">
+        <div class="book-cover cover-indigo">🌊</div>
+        <div class="book-info">
+          <div class="book-title">深奥的简洁</div>
+          <div class="book-author">约翰·葛瑞宾</div>
+          <div class="book-reason">芒格："想要理解万物是非常困难的，但如果你无法理解它，你可以把问题交给一位比你聪明的朋友呀。"从混沌、复杂到地球生命的起源。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-science">科学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-rose">🎯</div>
+        <div class="book-info">
+          <div class="book-title">诚信的背后（泥鸽靶）</div>
+          <div class="book-author">弗兰克·帕特诺伊</div>
+          <div class="book-reason">芒格："这本书会让你想吐。"前衍生品交易员揭露华尔街最大公司之一的衍生品黑幕。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-investment">投资</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-blue">🏴</div>
+        <div class="book-info">
+          <div class="book-title">苏格兰人如何发明现代世界</div>
+          <div class="book-author">亚瑟·赫尔曼</div>
+          <div class="book-reason">芒格推荐的启蒙运动经典。讲述西欧最穷的国家如何创造了现代世界，理解制度与创新的力量。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-history">历史</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-purple">🧠</div>
+        <div class="book-info">
+          <div class="book-title">我生活的种种模式</div>
+          <div class="book-author">赫尔伯特·A·西蒙</div>
+          <div class="book-reason">诺贝尔经济学奖得主西蒙的自传。芒格推崇西蒙的"有限理性"理论，是其多元思维模型的重要来源。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-biography">传记</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-orange">🌡️</div>
+        <div class="book-info">
+          <div class="book-title">温度，决定一切</div>
+          <div class="book-author">基诺·沙格瑞</div>
+          <div class="book-reason">从物理学角度理解温度如何塑造了宇宙、地球和生命。芒格推荐的跨学科思维读物。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-science">科学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-rose">🔫</div>
+        <div class="book-info">
+          <div class="book-title">枪炮、病菌与钢铁</div>
+          <div class="book-author">贾雷德·戴蒙德</div>
+          <div class="book-reason">芒格多次推荐。解释为什么不同大陆的文明发展速度截然不同，是理解人类社会的必读之作。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-history">历史</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-orange">🦍</div>
+        <div class="book-info">
+          <div class="book-title">第三种猩猩</div>
+          <div class="book-author">贾雷德·戴蒙德</div>
+          <div class="book-reason">戴蒙德"人类大历史三部曲"之一。人类的身世与未来，理解人类独特性与局限性。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-science">科学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-rose">🧲</div>
+        <div class="book-info">
+          <div class="book-title">影响力</div>
+          <div class="book-author">罗伯特·西奥迪尼</div>
+          <div class="book-reason">芒格："我在博览群书时看到一本叫做《影响力》的书……我立刻给每个孩子寄了一本。"误判心理学的核心读物。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-psychology">心理学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-gold">⚡</div>
+        <div class="book-info">
+          <div class="book-title">富兰克林自传</div>
+          <div class="book-author">本杰明·富兰克林</div>
+          <div class="book-reason">芒格的精神偶像。芒格说自己的道德品质"真的来自十分敬佩的本杰明·富兰克林"。穷查理宝典之名即致敬穷理查年鉴。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-biography">传记</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-green">🌍</div>
+        <div class="book-info">
+          <div class="book-title">生活在极限之内</div>
+          <div class="book-author">加勒特·哈丁</div>
+          <div class="book-reason">生态学、经济学和人口禁忌。哈丁的"公地悲剧"理论是芒格理解商业竞争的重要思维模型。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-science">科学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-purple">🧬</div>
+        <div class="book-info">
+          <div class="book-title">自私的基因</div>
+          <div class="book-author">理查德·道金斯</div>
+          <div class="book-reason">芒格："我七十几岁了，理解现代达尔文综合理论绝对是很快乐的事情。"从基因视角理解生命与行为的进化逻辑。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-science">科学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-slate">💎</div>
+        <div class="book-info">
+          <div class="book-title">洛克菲勒：一个关于财富的神话</div>
+          <div class="book-author">罗恩·切尔诺</div>
+          <div class="book-reason">美国首位亿万富翁的完整传记。芒格推崇洛克菲勒的商业智慧与慈善精神。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-biography">传记</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-blue">🌐</div>
+        <div class="book-info">
+          <div class="book-title">国富国穷</div>
+          <div class="book-author">戴维·兰德斯</div>
+          <div class="book-reason">为什么有的国家富裕有的贫穷？芒格推荐此书作为理解全球经济格局的必读之作。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-economics">经济学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-teal">📊</div>
+        <div class="book-info">
+          <div class="book-title">沃伦·巴菲特的投资组合</div>
+          <div class="book-author">罗伯特·哈格斯特朗</div>
+          <div class="book-reason">芒格和巴菲特共同推荐。清楚列出伯克希尔的集中投资方法，让每个人都能学习。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-investment">投资</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-indigo">🧩</div>
+        <div class="book-info">
+          <div class="book-title">基因组：人种自传23章</div>
+          <div class="book-author">马特·里德尔</div>
+          <div class="book-reason">23对染色体，23章故事。芒格推荐此书作为理解基因如何塑造人类行为与社会的科普读物。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-science">科学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-green">🤝</div>
+        <div class="book-info">
+          <div class="book-title">谈判力</div>
+          <div class="book-author">罗杰·菲舍尔 / 威廉·尤里</div>
+          <div class="book-reason">芒格："罗杰那本充满智慧和道德感的谈判著作已卖掉三百多万册，他可能是我们班最有成就的同学。"哈佛谈判法经典。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-psychology">心理学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-rose">⚡</div>
+        <div class="book-info">
+          <div class="book-title">只有偏执狂才能生存</div>
+          <div class="book-author">安迪·格鲁夫</div>
+          <div class="book-reason">芒格与巴菲特共同推荐。"战略转折点不是点，而是线。"格鲁夫的10X思维深刻影响了芒格的风险评估框架。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-buffett">巴菲特推荐</span><span class="book-tag tag-business">商业</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== 芒格·延伸阅读 ===== -->
+  <div id="munger-extra">
+    <div class="section-header">
+      <h2>📚 芒格推荐 · 延伸阅读 <span class="badge">14本</span></h2>
+      <p>芒格在《穷查理宝典》正文及其他演讲中提到的推荐书目，涵盖传记、自然科学、社会科学等领域</p>
+    </div>
+    <div class="book-grid">
+
+      <div class="book-card">
+        <div class="book-cover cover-gold">📕</div>
+        <div class="book-info">
+          <div class="book-title">穷查理宝典</div>
+          <div class="book-author">彼得·考夫曼（编）</div>
+          <div class="book-reason">芒格的智慧汇编，收录其演讲、名言与思维模型。芒格本人多次称此书为"一生智慧的总结"。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-psychology">心理学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-purple">🔬</div>
+        <div class="book-info">
+          <div class="book-title">物种起源</div>
+          <div class="book-author">查尔斯·达尔文</div>
+          <div class="book-reason">芒格认为进化论是其思维模型的核心来源之一。"生物学上的原因能够帮助预测商业进化过程的结果。"</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-science">科学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-indigo">👁️</div>
+        <div class="book-info">
+          <div class="book-title">盲眼钟表匠</div>
+          <div class="book-author">理查德·道金斯</div>
+          <div class="book-reason">道金斯对自然选择的精彩阐释。芒格推荐此书以理解进化论如何"不靠设计者"产生精妙结构。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-science">科学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-blue">🗣️</div>
+        <div class="book-info">
+          <div class="book-title">语言本能</div>
+          <div class="book-author">史蒂芬·平克</div>
+          <div class="book-reason">芒格从香港一所中学校长处获赠此书。平克论证语言是人类天生的本能，对理解心智有重要启发。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-psychology">心理学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-green">👥</div>
+        <div class="book-info">
+          <div class="book-title">没有两个人是相同的</div>
+          <div class="book-author">朱迪思·哈里斯</div>
+          <div class="book-reason">芒格在2000年演讲中称赞哈里斯的《教养的迷思》后推荐的第二部作品。探讨人格差异的来源。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-psychology">心理学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-orange">🧊</div>
+        <div class="book-info">
+          <div class="book-title">冰河世纪</div>
+          <div class="book-author">约翰·格里宾 / 玛丽·格里宾</div>
+          <div class="book-reason">芒格推荐的科学读物。理解气候变迁对文明的影响，从地质时间尺度看世界。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-science">科学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-slate">📖</div>
+        <div class="book-info">
+          <div class="book-title">塞缪尔·约翰逊传</div>
+          <div class="book-author">詹姆斯·博斯韦尔</div>
+          <div class="book-reason">芒格："如果你们希望保持妒忌对痛苦生活的影响，我建议你们千万别去阅读塞缪尔·约翰逊的任何传记。"</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-biography">传记</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-purple">🏛️</div>
+        <div class="book-info">
+          <div class="book-title">论老年·论友谊·论责任</div>
+          <div class="book-author">西塞罗</div>
+          <div class="book-reason">芒格："一看到西塞罗这部充满对老年的歌颂的作品时，我高兴得几乎上天了。"对晚年生活的深刻思考。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-history">历史</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-rose">⚾</div>
+        <div class="book-info">
+          <div class="book-title">击球的科学</div>
+          <div class="book-author">特德·威廉斯</div>
+          <div class="book-reason">芒格用威廉斯的击球区域理论类比投资："只有当球落在最佳格子时才挥棒。"巴菲特也引用此比喻。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-investment">投资</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-teal">🔮</div>
+        <div class="book-info">
+          <div class="book-title">财富方程式</div>
+          <div class="book-author">威廉·庞德斯通</div>
+          <div class="book-reason">芒格："庞德斯通的著作收集了许多现代资料，以十分有趣的方式证明了这个道理。"关于概率与决策的科学。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-psychology">心理学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-blue">📈</div>
+        <div class="book-info">
+          <div class="book-title">经济增长的道德意义</div>
+          <div class="book-author">本杰明·弗里德曼</div>
+          <div class="book-reason">芒格推荐："这本书讨论了经济学和道德之间的相互关系。"经济增长如何影响社会的道德水平。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-economics">经济学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-indigo">🔭</div>
+        <div class="book-info">
+          <div class="book-title">三个科学家和他们各自的上帝</div>
+          <div class="book-author">罗伯特·怀特</div>
+          <div class="book-reason">在信息时代寻找生命的意义。芒格推荐的跨学科思考读物。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-science">科学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-orange">🔍</div>
+        <div class="book-info">
+          <div class="book-title">探索智慧：从达尔文到芒格</div>
+          <div class="book-author">彼得·贝弗林</div>
+          <div class="book-reason">系统梳理芒格多元思维模型的著作。芒格本人推荐，认为贝弗林很好地总结了他的思考方法。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-psychology">心理学</span></div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover cover-green">🚪</div>
+        <div class="book-info">
+          <div class="book-title">门口的野蛮人</div>
+          <div class="book-author">布莱恩·伯勒 / 约翰·希利亚尔</div>
+          <div class="book-reason">RJR纳贝斯克杠杆收购纪实。芒格推荐此书警示收购中的利益冲突与管理层道德风险。</div>
+          <div class="book-tags"><span class="book-tag tag-munger">芒格推荐</span><span class="book-tag tag-business">商业</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <p>书单来源：《穷查理宝典》附录 &amp; 巴菲特历届股东大会/致股东信推荐 | <a href="https://amx708.github.io/">漫漫扬</a> | <a href="berkshire-standalone.html">← 返回投资数据中心</a></p>
+</footer>
+
+<script>
+// Tab navigation
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// Smooth scroll to section
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const offset = 70; // account for sticky tabs
+    const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+}
+
+// Highlight current section on scroll
+window.addEventListener('scroll', function() {
+  const sections = document.querySelectorAll('[id^="buffett-"], [id^="munger-"]');
+  const tabs = document.querySelectorAll('.tab-btn');
+  let current = '';
+  sections.forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top <= 120 && rect.bottom >= 120) {
+      current = s.id;
+    }
+  });
+  if (current) {
+    tabs.forEach(t => {
+      t.classList.toggle('active', t.getAttribute('onclick').includes(current));
+    });
+  }
+});
+</script>
+
+</body>
+</html>
