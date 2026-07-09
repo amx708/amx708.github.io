@@ -113,20 +113,6 @@ body{
 }
 .viewer-title{font-size:14px;font-weight:600;color:#1e293b;display:flex;align-items:center;gap:7px}
 .toolbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.zoom-btn{
-  display:inline-flex;align-items:center;gap:5px;
-  padding:7px 15px;
-  border:1px solid #e2e8f0;
-  background:#fff;
-  border-radius:9px;
-  cursor:pointer;
-  font-size:13px;
-  font-weight:500;
-  color:#334155;
-  transition:all .15s;
-}
-.zoom-btn:hover{background:#f1f5f9;border-color:#cbd5e1;color:#0f172a}
-.zoom-btn:active{transform:scale(0.96)}
 .view-original-btn{
   display:inline-flex;
   align-items:center;
@@ -293,6 +279,7 @@ body{
   padding:17px 18px;
   transition:all .2s;
   cursor:pointer;
+  position:relative;
 }
 .company-card:hover{
   border-color:#3b82f6;
@@ -308,11 +295,22 @@ body{
   border-color:#3b82f6;
   box-shadow:0 2px 8px rgba(59,130,246,0.15);
 }
+.company-card .detail-hint{
+  position:absolute;
+  right:12px;bottom:10px;
+  font-size:11px;
+  color:#94a3b8;
+  opacity:0;
+  transition:opacity .15s;
+  pointer-events:none;
+}
+.company-card:hover .detail-hint{opacity:1}
 .company-name-cn{
   font-size:16px;
   font-weight:600;
   color:#1e293b;
   margin-bottom:2px;
+  padding-right:58px;
 }
 .company-name-en{
   font-size:13px;
@@ -339,6 +337,158 @@ body{
   font-size:12.5px;
   color:#64748b;
   line-height:1.55;
+}
+.company-year{
+  display:inline-block;
+  margin-top:9px;
+  margin-right:6px;
+  padding:2px 9px;
+  border-radius:10px;
+  font-size:11px;
+  font-weight:600;
+  background:#eef2f7;
+  color:#475569;
+}
+
+/* ===== Detail Modal ===== */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,0.65);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  z-index:200;
+  display:none;
+  align-items:flex-start;
+  justify-content:center;
+  padding:24px;
+  overflow-y:auto;
+}
+.modal-overlay.active{display:flex}
+.modal-panel{
+  width:100%;
+  max-width:720px;
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 20px 60px rgba(15,23,42,0.25);
+  margin:auto 0;
+  position:relative;
+  overflow:hidden;
+  animation:modalIn .25s ease;
+}
+@keyframes modalIn{
+  from{opacity:0;transform:translateY(20px) scale(0.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.modal-header{
+  padding:22px 26px 18px;
+  border-bottom:1px solid #eef2f7;
+  background:#f8fafc;
+  position:sticky;
+  top:0;
+  z-index:1;
+}
+.modal-close{
+  position:absolute;
+  top:16px;right:18px;
+  width:32px;height:32px;
+  border:none;
+  border-radius:50%;
+  background:#e2e8f0;
+  color:#64748b;
+  font-size:18px;
+  line-height:1;
+  cursor:pointer;
+  transition:all .15s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.modal-close:hover{background:#cbd5e1;color:#1e293b}
+.modal-title{
+  font-size:20px;
+  font-weight:700;
+  color:#1e293b;
+  margin-bottom:4px;
+  padding-right:40px;
+}
+.modal-subtitle{
+  font-size:14px;
+  color:#64748b;
+}
+.modal-tags{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+.modal-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+  background:#eef2f7;
+  color:#475569;
+}
+.modal-body{
+  padding:22px 26px 28px;
+  max-height:70vh;
+  overflow-y:auto;
+}
+.modal-section{
+  margin-bottom:22px;
+}
+.modal-section:last-child{margin-bottom:0}
+.modal-section-title{
+  font-size:14px;
+  font-weight:700;
+  color:#0f172a;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.modal-section-content{
+  font-size:13.5px;
+  color:#475569;
+  line-height:1.7;
+}
+.modal-section-content p{margin-bottom:10px}
+.modal-section-content p:last-child{margin-bottom:0}
+.modal-section-content ul{
+  margin-left:18px;
+  margin-bottom:10px;
+}
+.modal-section-content li{margin-bottom:4px}
+.modal-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12.5px;
+  margin-top:8px;
+}
+.modal-table th,
+.modal-table td{
+  padding:8px 10px;
+  border:1px solid #e2e8f0;
+  text-align:left;
+}
+.modal-table th{
+  background:#f8fafc;
+  color:#1e293b;
+  font-weight:600;
+}
+.modal-table td{color:#475569}
+.modal-table tr:nth-child(even){background:#f8fafc}
+.modal-footer-note{
+  padding:12px 26px;
+  background:#f8fafc;
+  border-top:1px solid #eef2f7;
+  font-size:12px;
+  color:#94a3b8;
+  text-align:center;
 }
 
 /* ===== Footer ===== */
@@ -444,19 +594,6 @@ body{
 }
 .era-btn:not(.active) .era-count{background:#f1f5f9;color:#64748b}
 
-/* ===== Year tag on card ===== */
-.company-year{
-  display:inline-block;
-  margin-top:9px;
-  margin-right:6px;
-  padding:2px 9px;
-  border-radius:10px;
-  font-size:11px;
-  font-weight:600;
-  background:#eef2f7;
-  color:#475569;
-}
-
 /* ===== Responsive ===== */
 @media (max-width:768px){
   .hero h1{font-size:23px}
@@ -464,9 +601,10 @@ body{
   .hero-stats{gap:18px}
   .hero-stat .num{font-size:20px}
   .company-grid{grid-template-columns:1fr}
-  .zoom-btn,.view-original-btn{font-size:12px;padding:6px 12px}
   .guide-grid{grid-template-columns:1fr 1fr}
   .guide-card{padding:20px 18px 22px}
+  .modal-panel{margin:0;width:100%;max-width:none;min-height:100vh;border-radius:0}
+  .modal-body{max-height:none;padding-bottom:40px}
 }
 </style>
 </head>
@@ -590,82 +728,184 @@ body{
   <p style="margin-top:8px"><a href="index.html">← 返回首页</a></p>
 </div>
 
+<!-- ===== Detail Modal ===== -->
+<div class="modal-overlay" id="detail-modal" onclick="closeModalOnOverlay(event)">
+  <div class="modal-panel" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeDetail()" aria-label="关闭">×</button>
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-subtitle" id="modal-subtitle"></div>
+      <div class="modal-tags" id="modal-tags"></div>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer-note">点击卡片外区域或右上角 × 关闭</div>
+  </div>
+</div>
+
 <script>
 // ===== Company Data =====
 const companies = [
   // Insurance
-  {cn:"政府雇员保险公司",en:"GEICO",cat:"insurance",tag:"保险",icon:"🛡️",year:1996,desc:"全美第二大汽车保险公司，伯克希尔1976年投资，1996年全资收购"},
-  {cn:"通用再保险公司",en:"General Re (Gen Re)",cat:"insurance",tag:"保险",icon:"🛡️",year:1998,desc:"全球最大再保险公司之一，1998年以220亿美元股票收购"},
-  {cn:"伯克希尔再保险集团",en:"Berkshire Hathaway Reinsurance Group",cat:"insurance",tag:"保险",icon:"🛡️",year:1967,desc:"由阿吉特·贾因领导，巨灾再保险业务，巴菲特称贾因为「最宝贵的资产」"},
-  {cn:"伯克希尔原保险集团",en:"Berkshire Hathaway Primary Group",cat:"insurance",tag:"保险",icon:"🛡️",year:1967,desc:"多家原保险公司集合，包括国民赔偿、美国责任险等"},
-  {cn:"国民赔偿公司",en:"National Indemnity Company",cat:"insurance",tag:"保险",icon:"🛡️",year:1967,desc:"伯克希尔保险帝国的基石，1967年以860万美元收购"},
-  {cn:"中部各州赔偿公司",en:"Central States Indemnity",cat:"insurance",tag:"保险",icon:"🛡️",year:1992,desc:"提供信用卡保险等特殊保险产品"},
-  {cn:"美国责任保险集团",en:"United States Liability Insurance Group",cat:"insurance",tag:"保险",icon:"🛡️",year:2000,desc:"specialty liability insurance，专业责任保险"},
-  {cn:"医疗保护公司",en:"Medical Protective",cat:"insurance",tag:"保险",icon:"🛡️",year:2005,desc:"医疗事故责任保险，服务于医生和医疗机构"},
-  {cn:"应用承保人公司",en:"Applied Underwriters",cat:"insurance",tag:"保险",icon:"🛡️",year:2006,desc:"工伤保险和员工赔偿保险"},
-  {cn:"伯克希尔哈撒韦专业保险",en:"Berkshire Hathaway Specialty Insurance",cat:"insurance",tag:"保险",icon:"🛡️",year:2013,desc:"2013年成立，商业财产意外险，进入企业保险市场"},
-  {cn:"阿勒格尼",en:"Alleghany Corporation",cat:"insurance",tag:"保险",icon:"🛡️",year:2022,desc:"2022年以116亿美元收购的保险控股公司，进一步扩充伯克希尔的浮存金池与保险版图"},
+  {
+    cn:"政府雇员保险公司",en:"GEICO",cat:"insurance",tag:"保险",icon:"🛡️",year:1996,
+    desc:"全美第二大汽车保险公司，伯克希尔1976年投资，1996年全资收购",
+    detail:{
+      history:`<p>GEICO 全称 Government Employees Insurance Company，1936 年由 Leo Goodwin 夫妇创立，最初只向联邦政府雇员和军人销售车险，以直销模式压低费用率。</p><p>巴菲特早在 1951 年（20 岁）就因导师格雷厄姆推荐研究过 GEICO，并于 1976 年公司因扩张过快、承保亏损濒临破产时大举买入优先股，开始成为股东。此后通过多次增持，伯克希尔于 1996 年以约 23 亿美元收购剩余 49% 股权，实现全资控股。</p><p>2016 年 GEICO 经历承保危机，2019–2022 年因车险赔付通胀和定价滞后出现连续承保亏损；2023 年起通过大幅调整费率、数字化和裁员恢复盈利。截至 2024 年末，其仍是伯克希尔保险浮存金的主要来源之一。</p>`,
+      business:`<p>主营美国私人乘用车险（auto insurance），以直销（电话、网络、App）为主，不依赖保险代理人，费用率显著低于行业平均。业务覆盖 50 州，提供汽车、摩托车、房屋、租户、 umbrella 等综合保险。</p><p>它是伯克希尔「低成本浮存金」的典型代表：客户先交保费，理赔后付，沉淀出大量无息资金供总部投资。</p>`,
+      performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>2024 年保费</td><td>约 420 亿美元（伯克希尔车险业务主体）</td></tr><tr><td>市场份额</td><td>美国私人乘用车险约 11%–12%，仅次于 Progressive，稳居第二</td></tr><tr><td>保单数量</td><td>约 1600–1700 万份车险保单</td></tr><tr><td>2024 年承保</td><td>伯克希尔的 GEICO 在 2024 年恢复强劲承保利润</td></tr><tr><td>浮存金贡献</td><td>为伯克希尔整体保险浮存金（2024 年末约 1710 亿美元）贡献重要份额</td></tr></table>`
+    }
+  },
+  {
+    cn:"通用再保险公司",en:"General Re (Gen Re)",cat:"insurance",tag:"保险",icon:"🛡️",year:1998,
+    desc:"全球最大再保险公司之一，1998年以220亿美元股票收购",
+    detail:{
+      history:`<p>General Re 成立于 1921 年，总部位于纽约，是全球最大的再保险公司之一。1998 年 12 月，伯克希尔以约 220 亿美元股票（当时伯克希尔 A 股）收购 General Re，这是巴菲特职业生涯最大规模的交易之一，也是 Berkshire 进入全球再保险市场的关键一步。</p><p>收购后，巴菲特坦承这笔交易的代价「相当贵」，对应静态市盈率约 22.7 倍。2001 年「9·11」事件后，General Re 因索赔激增和准备金不足陷入亏损，伯克希尔进行了大规模重组和拨备调整。经过多年整顿，它仍是伯克希尔再保险板块的核心支柱。</p>`,
+      business:`<p>主要从事财产意外险再保险（P&C reinsurance）、人寿与健康再保险，为全球保险公司和大型企业分散巨灾风险。业务网络覆盖北美、欧洲、亚太等地区，是伯克希尔获取长期、大额浮存金的重要来源。</p>`,
+      performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购对价</td><td>1998 年约 220 亿美元伯克希尔股票</td></tr><tr><td>业务地位</td><td>全球最大的再保险公司之一</td></tr><tr><td>近年表现</td><td>巨灾再保险周期波动明显；2024 年保险集团整体承保利润强劲，GEICO 与 General Re 均有贡献</td></tr><tr><td>战略意义</td><td>让伯克希尔在全球再保险市场拥有定价权和巨额长期浮存金</td></tr></table>`
+    }
+  },
+  {
+    cn:"伯克希尔再保险集团",en:"Berkshire Hathaway Reinsurance Group",cat:"insurance",tag:"保险",icon:"🛡️",year:1967,
+    desc:"由阿吉特·贾因领导，巨灾再保险业务，巴菲特称贾因为「最宝贵的资产」",
+    detail:{
+      history:`<p> Berkshire Hathaway Reinsurance Group（BHRG）并非一家独立法人，而是伯克希尔旗下再保险业务的统称。它的核心起点是 1967 年收购的国民赔偿公司（National Indemnity）所带的再保险业务。</p><p>1986 年，阿吉特·贾因（Ajit Jain）从 IBM 加入伯克希尔，接管并重塑了这块再保险业务。他凭借极强的风险定价能力和精简的团队（长期仅十几到三十来人），将 BHRG 打造成全球最大的巨灾再保险承保商之一。巴菲特多次在股东信中称贾因为伯克希尔「最宝贵的资产」。</p>`,
+      business:`<p>主营超大型、定制化、非标准化的再保险和巨灾保险，包括财产意外险巨灾、超额赔付、寿险、 retroactive 再保险等。客户往往是全球最大的保险公司，保单金额巨大、条款复杂，普通竞争对手难以承接。</p>`,
+      performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>领导</td><td>阿吉特·贾因（Ajit Jain），1986 年加入，现任伯克希尔保险业务副董事长</td></tr><tr><td>团队规模</td><td>极为精简，长期仅十几到三十余人，却承保巨额风险</td></tr><tr><td>浮存金贡献</td><td>是伯克希尔保险浮存金（2024 年末约 1710 亿美元）的核心来源之一</td></tr><tr><td>利润特征</td><td>业绩波动较大，巨灾年份可能巨额亏损，但长期来看以高浮存金、低成本著称</td></tr></table>`
+    }
+  },
+  {
+    cn:"伯克希尔原保险集团",en:"Berkshire Hathaway Primary Group",cat:"insurance",tag:"保险",icon:"🛡️",year:1967,
+    desc:"多家原保险公司集合，包括国民赔偿、美国责任险等",
+    detail:{
+      history:`<p>Berkshire Hathaway Primary Group 是伯克希尔众多「原保险」（直接承保投保人风险的保险）公司的集合，起点可追溯到 1967 年收购国民赔偿公司（National Indemnity）。</p><p>此后几十年，伯克希尔通过新建、收购、拆分等方式，逐渐形成了包括商业财产意外险、工伤、医疗责任、专业责任等在内的多家原保险公司，统一纳入 Primary Group 管理并汇总披露。</p>`,
+      business:`<p>直接向企业和个人销售保险，不经过再保险分保。业务涵盖商业财产、责任、工伤、医疗责任、专业责任、旅行险等。旗下品牌包括 National Indemnity、美国责任保险集团（USLI）、医疗保护公司（Medical Protective）、应用承保人公司（Applied Underwriters）等。</p>`,
+      performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>组织形式</td><td>多家原保险公司的集合，不单独上市，业绩并入伯克希尔保险分部</td></tr><tr><td>近年趋势</td><td>随着伯克希尔不断加大商业保险布局，Primary Group 保费和浮存金持续增长</td></tr><tr><td>与浮存金关系</td><td>与 GEICO、Gen Re 等共同构成伯克希尔 2024 年末约 1710 亿美元的保险浮存金</td></tr></table>`
+    }
+  },
+  {
+    cn:"国民赔偿公司",en:"National Indemnity Company",cat:"insurance",tag:"保险",icon:"🛡️",year:1967,
+    desc:"伯克希尔保险帝国的基石，1967年以860万美元收购",
+    detail:{
+      history:`<p>国民赔偿公司（National Indemnity Company，NICO）1940 年由杰克·林华特（Jack Ringwalt）在奥马哈以 10 万美元创立。林华特坚持「无承保利润就不承保」的纪律，让公司积累了稳健的资产。</p><p>1967 年 3 月，巴菲特通过伯克希尔以 860 万美元收购 NICO 及其附属公司国民火灾和海洋保险公司。当年公司净利润约 160 万美元，收购价对应约 5.4 倍市盈率。这不仅是伯克希尔保险帝国的起点，也彻底改变了伯克希尔从纺织厂向保险投资集团转型的命运。</p>`,
+      business:`<p>主要从事商业财产意外险、再保险、专业责任险等。NICO 本身也是伯克希尔众多保险子公司的控股平台，被誉为伯克希尔保险版图的「基石」。</p>`,
+      performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购时间</td><td>1967 年 3 月</td></tr><tr><td>收购对价</td><td>860 万美元</td></tr><tr><td>当时利润</td><td>约 160 万美元/年，对应约 5.4 倍 PE</td></tr><tr><td>战略意义</td><td>为伯克希尔带来保险牌照、浮存金和可投资资产，开启从纺织到保险的转型</td></tr><tr><td>现况</td><td>仍是伯克希尔保险帝国的重要控股和承保平台</td></tr></table>`
+    }
+  },
+  {
+    cn:"中部各州赔偿公司",en:"Central States Indemnity",cat:"insurance",tag:"保险",icon:"🛡️",year:1992,
+    desc:"提供信用卡保险等特殊保险产品",
+    detail:{
+      history:`<p>Central States Indemnity Company（CSI）是伯克希尔在 1992 年收购的一家小型专业保险公司，主要服务于信用卡保险、信用保护等细分市场。它的收购体现了伯克希尔在保险领域「不断收集小型但稳定现金流公司」的策略。</p>`,
+      business:`<p>主营信用卡保险、信用保护保险、消费信贷相关保险等特殊险种。产品通常与信用卡账户、分期付款等消费信贷场景绑定，为持卡人提供失业、疾病等导致无法还款时的保障。</p>`,
+      performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购年份</td><td>1992 年</td></tr><tr><td>业务类型</td><td>信用卡保险 / 信用保护等特种保险</td></tr><tr><td>披露程度</td><td>规模较小，未单独披露具体保费和利润，并入 Berkshire Primary Group 披露</td></tr></table>`
+    }
+  },
+  {
+    cn:"美国责任保险集团",en:"United States Liability Insurance Group",cat:"insurance",tag:"保险",icon:"🛡️",year:2000,
+    desc:"specialty liability insurance，专业责任保险",
+    detail:{
+      history:`<p>United States Liability Insurance Group（USLI）是伯克希尔在 2000 年前后收购的一家专业责任保险公司。它的加入扩展了 Berkshire Primary Group 在商用责任险和专业责任险领域的覆盖能力。</p>`,
+      business:`<p>专注商业和专业责任保险（specialty liability insurance），包括小企业综合责任、 Errors & Omissions（职业过失责任）、董事高管责任、承包商责任等。通过独立代理人和直销渠道销售。</p>`,
+      performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>加入伯克希尔</td><td>2000 年</td></tr><tr><td>业务定位</td><td>专业责任保险、小企业商业责任险</td></tr><tr><td>渠道</td><td>独立代理人 + 直销</td></tr><tr><td>披露</td><td>并入 Berkshire Primary Group，未单独披露财务</td></tr></table>`
+    }
+  },
+  {
+    cn:"医疗保护公司",en:"Medical Protective",cat:"insurance",tag:"保险",icon:"🛡️",year:2005,
+    desc:"医疗事故责任保险，服务于医生和医疗机构",
+    detail:{
+      history:`<p>Medical Protective（MedPro）成立于 1899 年，是美国历史最悠久的医疗事故责任保险公司之一。2005 年，伯克希尔以约 15 亿美元从 Assured Guaranty 母公司手中收购，进一步补强其在专业责任保险领域的布局。</p>`,
+      business:`<p>专门为医生、牙医、医院和医疗机构提供医疗事故责任保险（medical malpractice insurance），也提供医疗监管辩护、法律支持等附加服务。在医疗责任险这个利基市场拥有长期定价经验。</p>`,
+      performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>成立</td><td>1899 年</td></tr><tr><td>伯克希尔收购</td><td>2005 年，约 15 亿美元</td></tr><tr><td>市场地位</td><td>美国历史最悠久、规模最大的医疗责任保险公司之一</td></tr><tr><td>业务特点</td><td>保单周期长、索赔长尾、定价需要大量医学和法律数据</td></tr></table>`
+    }
+  },
+  {
+    cn:"应用承保人公司",en:"Applied Underwriters",cat:"insurance",tag:"保险",icon:"🛡️",year:2006,
+    desc:"工伤保险和员工赔偿保险",
+    detail:{
+      history:`<p>Applied Underwriters 成立于 1994 年，专注于工伤补偿（workers' compensation）保险。2006 年被伯克希尔收购，成为 Berkshire Primary Group 中工伤险板块的重要组成部分。</p><p>该公司以「整合式工伤管理服务」著称，不仅承保，还提供理赔管理、职业康复、风险控制等服务，帮助企业降低工伤总成本。</p>`,
+      business:`<p>主营美国各州工伤保险（workers' comp）和雇主责任保险，面向中小企业。业务模式强调「承保 + 理赔服务」一体化，通过降低索赔频率和severity来控制赔付成本。</p>`,
+      performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>成立</td><td>1994 年</td></tr><tr><td>伯克希尔收购</td><td>2006 年</td></tr><tr><td>主业</td><td>美国工伤保险、雇主责任保险</td></tr><tr><td>模式</td><td>承保 + 理赔管理 + 风险控制一体化</td></tr></table>`
+    }
+  },
+  {
+    cn:"伯克希尔哈撒韦专业保险",en:"Berkshire Hathaway Specialty Insurance",cat:"insurance",tag:"保险",icon:"🛡️",year:2013,
+    desc:"2013年成立，商业财产意外险，进入企业保险市场",
+    detail:{
+      history:`<p>Berkshire Hathaway Specialty Insurance（BHSI）于 2013 年由阿吉特·贾因主导成立，是伯克希尔大举进入商业财产意外险（commercial P&C）市场的标志性举措。公司通过高薪从 AIG、Liberty Mutual 等传统商业保险巨头挖来团队，迅速建立承保能力。</p><p>短短几年内，BHSI 已在全球主要市场设立机构，成为伯克希尔 Primary Group 中增长最快的板块之一。</p>`,
+      business:`<p>提供商业财产、意外伤害、医疗保健专业责任、董事高管责任、担保、旅行、医疗止损、房主等商业保险。客户覆盖大型企业、跨国公司和专业服务机构。</p>`,
+      performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>成立</td><td>2013 年</td></tr><tr><td>主导者</td><td>阿吉特·贾因（Ajit Jain）</td></tr><tr><td>定位</td><td>商业财产意外险、企业责任保险</td></tr><tr><td>增长</td><td>伯克希尔 Primary Group 中增长最快的业务之一</td></tr><tr><td>全球布局</td><td>北美、欧洲、亚太均设有承保机构</td></tr></table>`
+    }
+  },
+  {
+    cn:"阿勒格尼",en:"Alleghany Corporation",cat:"insurance",tag:"保险",icon:"🛡️",year:2022,
+    desc:"2022年以116亿美元收购的保险控股公司，进一步扩充伯克希尔的浮存金池与保险版图",
+    detail:{
+      history:`<p>Alleghany Corporation 是一家总部位于纽约的保险与投资公司，前身业务可追溯至 1929 年。伯克希尔自 20 世纪 60 年代起就关注该公司，2022 年 3 月 21 日宣布以 116 亿美元全现金收购，每股 848.02 美元，较当时股价溢价约 25%，对应 2021 年末账面价值约 1.26 倍。交易于 2022 年第四季度完成。</p><p>这是巴菲特在 2020 年代少有的大手笔收购，也是伯克希尔自 2016 年 Precision Castparts 之后最大的一笔交易，直接目的之一就是扩充保险浮存金。</p>`,
+      business:`<p>旗下以再保险和财产意外险为主，包括再保险公司 TransRe、专业保险 RSUI、CapSpecialty 等。Alleghany 还持有少量非保险业务和投资资产。被收购后作为伯克希尔独立子公司运营。</p>`,
+      performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购宣布</td><td>2022 年 3 月 21 日</td></tr><tr><td>收购完成</td><td>2022 年第四季度</td></tr><tr><td>对价</td><td>116 亿美元全现金，每股 848.02 美元</td></tr><tr><td>溢价</td><td>较公告前股价溢价约 25%，对应 2021 年末账面价值 1.26 倍</td></tr><tr><td>战略意义</td><td>直接扩大伯克希尔保险浮存金和再保险能力</td></tr></table>`
+    }
+  },
 
   // Railroad
-  {cn:"BNSF铁路公司",en:"BNSF Railway",cat:"railroad",tag:"铁路",icon:"🚂",year:2010,desc:"北美最大铁路之一，2009年以440亿美元收购，巴菲特称「对美国的未来下注」"},
-  {cn:"BNSF物流",en:"BNSF Logistics",cat:"railroad",tag:"铁路",icon:"🚂",year:2010,desc:"BNSF旗下供应链和物流服务部门"},
+  {cn:"BNSF铁路公司",en:"BNSF Railway",cat:"railroad",tag:"铁路",icon:"🚂",year:2010,desc:"北美最大铁路之一，2009年以440亿美元收购，巴菲特称「对美国的未来下注」",detail:{history:`BNSF 前身可追溯到 1849 年。2009 年伯克希尔以 440 亿美元收购 BNSF 剩余股权（此前已持有部分），2010 年完成。这是巴菲特对美国实体经济的长期押注。`,business:`北美最大货运铁路网络之一，拥有超过 3.2 万英里轨道，运输消费品、煤炭、农产品、工业产品等。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购对价</td><td>约 440 亿美元（2009–2010）</td></tr><tr><td>轨道里程</td><td>超过 3.2 万英里</td></tr><tr><td>地位</td><td>北美最大货运铁路之一，与 Union Pacific 双寡头竞争</td></tr></table>`}},
+  {cn:"BNSF物流",en:"BNSF Logistics",cat:"railroad",tag:"铁路",icon:"🚂",year:2010,desc:"BNSF旗下供应链和物流服务部门",detail:{history:`BNSF Logistics 随 BNSF 一起归入伯克希尔。`,business:`提供多式联运、整车、零担、仓储和供应链管理服务，延伸 BNSF 的铁路网络到「门到门」物流。`,performance:`并入 BNSF 板块披露，未单独公布财务。`}},
 
   // Energy
-  {cn:"伯克希尔哈撒韦能源公司",en:"Berkshire Hathaway Energy",cat:"energy",tag:"能源",icon:"⚡",year:2000,desc:"2000年收购(原MidAmerican)，电力、天然气、可再生能源综合能源巨头"},
-  {cn:"太平洋电力公司",en:"Pacific Power",cat:"energy",tag:"能源",icon:"⚡",year:2006,desc:"太平洋西北部六州供电，服务约80万客户"},
-  {cn:"落基山电力公司",en:"Rocky Mountain Power",cat:"energy",tag:"能源",icon:"⚡",year:2006,desc:"犹他、怀俄明、爱达荷三州供电"},
-  {cn:"内华达能源公司",en:"NV Energy",cat:"energy",tag:"能源",icon:"⚡",year:2013,desc:"2013年以56亿美元收购，内华达州最大电力公司"},
-  {cn:"中美能源公司",en:"MidAmerican Energy",cat:"energy",tag:"能源",icon:"⚡",year:1999,desc:"爱荷华州最大能源公司，服务约77万电力客户"},
-  {cn:"BHE可再生能源",en:"BHE Renewables",cat:"energy",tag:"能源",icon:"⚡",year:2011,desc:"太阳能、风能、地热等可再生能源项目"},
-  {cn:"北方电网",en:"Northern Powergrid",cat:"energy",tag:"能源",icon:"⚡",year:2010,desc:"英国北部配电网络，服务约800万人口"},
-  {cn:"美国家庭服务公司",en:"HomeServices of America",cat:"energy",tag:"能源",icon:"⚡",year:1999,desc:"全美最大住宅地产经纪公司，旗下有 Berkshire Hathaway HomeServices"},
-  {cn:"伯克希尔管道公司",en:"Berkshire Hathaway Pipeline",cat:"energy",tag:"能源",icon:"⚡",year:2000,desc:"天然气管道运输业务"},
+  {cn:"伯克希尔哈撒韦能源公司",en:"Berkshire Hathaway Energy",cat:"energy",tag:"能源",icon:"⚡",year:2000,desc:"2000年收购(原MidAmerican)，电力、天然气、可再生能源综合能源巨头",detail:{history:`1999 年伯克希尔收购 Iowa-based 能源公司 MidAmerican Energy，后逐步增持并更名为 Berkshire Hathaway Energy。格雷格·阿贝尔（Greg Abel）长期领导该板块。`,business:`电力、天然气输送、可再生能源（风能、太阳能、地热）综合能源公司，受公用事业监管。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购</td><td>1999 年收购 MidAmerican，2000 年并表</td></tr><tr><td>领导</td><td>格雷格·阿贝尔（Greg Abel），现任伯克希尔副董事长</td></tr><tr><td>业务</td><td>电力、天然气、可再生能源、房地产经纪</td></tr></table>`}},
+  {cn:"太平洋电力公司",en:"Pacific Power",cat:"energy",tag:"能源",icon:"⚡",year:2006,desc:"太平洋西北部六州供电，服务约80万客户",detail:{history:`太平洋电力是 MidAmerican/BHE 旗下的电力公用事业。`,business:`为太平洋西北部六州（俄勒冈、华盛顿、加州等部分地区）提供电力，服务约 80 万客户。`,performance:`并入 BHE 披露，未单独公开财务。`}},
+  {cn:"落基山电力公司",en:"Rocky Mountain Power",cat:"energy",tag:"能源",icon:"⚡",year:2006,desc:"犹他、怀俄明、爱达荷三州供电",detail:{history:`Rocky Mountain Power 是 BHE 旗下西部电力公司。`,business:`为犹他、怀俄明、爱达荷三州提供电力服务。`,performance:`并入 BHE 披露。`}},
+  {cn:"内华达能源公司",en:"NV Energy",cat:"energy",tag:"能源",icon:"⚡",year:2013,desc:"2013年以56亿美元收购，内华达州最大电力公司",detail:{history:`2013 年伯克希尔通过 BHE 以 56 亿美元收购 NV Energy。`,business:`内华达州最大电力公司，为拉斯维加斯等核心城市供电。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购</td><td>2013 年，56 亿美元</td></tr><tr><td>服务区域</td><td>内华达州</td></tr></table>`}},
+  {cn:"中美能源公司",en:"MidAmerican Energy",cat:"energy",tag:"能源",icon:"⚡",year:1999,desc:"爱荷华州最大能源公司，服务约77万电力客户",detail:{history:`1999 年被伯克希尔收购，是 BHE 的基石。`,business:`为爱荷华及周边州提供电力和天然气，服务约 77 万电力客户。`,performance:`并入 BHE 披露。`}},
+  {cn:"BHE可再生能源",en:"BHE Renewables",cat:"energy",tag:"能源",icon:"⚡",year:2011,desc:"太阳能、风能、地热等可再生能源项目",detail:{history:`2011 年起 BHE 加大可再生能源投资。`,business:`开发、拥有和运营太阳能、风能、地热等可再生能源项目。`,performance:`BHE 旗下可再生能源装机规模居美国公用事业前列。`}},
+  {cn:"北方电网",en:"Northern Powergrid",cat:"energy",tag:"能源",icon:"⚡",year:2010,desc:"英国北部配电网络，服务约800万人口",detail:{history:`2010 年 BHE 收购英国北方电网。`,business:`英国北部配电网络运营商，服务约 800 万人口。`,performance:`并入 BHE 国际业务披露。`}},
+  {cn:"美国家庭服务公司",en:"HomeServices of America",cat:"energy",tag:"能源",icon:"⚡",year:1999,desc:"全美最大住宅地产经纪公司，旗下有 Berkshire Hathaway HomeServices",detail:{history:`1999 年随 MidAmerican 收购进入伯克希尔，后成长为美国最大住宅地产经纪公司。`,business:`住宅房地产经纪、按揭、产权和保险服务，旗下品牌 Berkshire Hathaway HomeServices 覆盖美国多地。`,performance:`美国最大住宅地产经纪公司，但业绩随房地产市场周期波动。`}},
+  {cn:"伯克希尔管道公司",en:"Berkshire Hathaway Pipeline",cat:"energy",tag:"能源",icon:"⚡",year:2000,desc:"天然气管道运输业务",detail:{history:`BHE 旗下天然气管道资产。`,business:`天然气输送和储存业务。`,performance:`并入 BHE 能源板块。`}},
 
   // Manufacturing
-  {cn:"马蒙集团",en:"Marmon Holdings",cat:"manufacturing",tag:"制造",icon:"🏭",year:2008,desc:"2008年收购60%(2013年全资)，多元化工业集团，110多家工厂"},
-  {cn:"精密机件公司",en:"Precision Castparts (PCC)",cat:"manufacturing",tag:"制造",icon:"🏭",year:2016,desc:"2016年以372亿美元收购(史上最大)，航空发动机零部件，巴菲特后承认「出价太高」"},
-  {cn:"路博润公司",en:"Lubrizol",cat:"manufacturing",tag:"制造",icon:"🏭",year:2011,desc:"2011年以90亿美元收购，特种化学品和润滑油添加剂"},
-  {cn:"克莱顿房屋公司",en:"Clayton Homes",cat:"manufacturing",tag:"制造",icon:"🏭",year:2003,desc:"2003年以17亿美元收购，全美最大预制房屋制造商"},
-  {cn:"森林河公司",en:"Forest River",cat:"manufacturing",tag:"制造",icon:"🏭",year:2005,desc:"2005年收购，房车(Recreational Vehicle)制造商"},
-  {cn:"迈泰克公司",en:"MiTek",cat:"manufacturing",tag:"制造",icon:"🏭",year:2001,desc:"建筑连接件和软件，屋顶桁架连接件全球领先"},
-  {cn:"本杰明·摩尔涂料",en:"Benjamin Moore",cat:"manufacturing",tag:"制造",icon:"🏭",year:2000,desc:"2000年收购，高端涂料品牌，百年历史"},
-  {cn:"阿克米砖块公司",en:"Acme Brick",cat:"manufacturing",tag:"制造",icon:"🏭",year:2000,desc:"2000年收购，建筑砖块制造，德克萨斯州起家"},
-  {cn:"鲜果布衣",en:"Fruit of the Loom",cat:"manufacturing",tag:"制造",icon:"🏭",year:2002,desc:"2002年以8.35亿美元收购，内衣和休闲服饰品牌"},
-  {cn:"约翰斯·曼维尔",en:"Johns Manville",cat:"manufacturing",tag:"制造",icon:"🏭",year:2001,desc:"2001年以18亿美元收购，建筑材料和保温产品"},
-  {cn:"萧氏工业",en:"Shaw Industries",cat:"manufacturing",tag:"制造",icon:"🏭",year:2001,desc:"2001年以21亿美元收购，全美最大地毯和地板制造商"},
-  {cn:"国际金属加工公司",en:"International Metalworking Companies (IMC)",cat:"manufacturing",tag:"制造",icon:"🏭",year:2006,desc:"金属切削刀具，以色列Iskar为主体，2006年逐步收购"},
-  {cn:"贾斯汀品牌",en:"Justin Brands",cat:"manufacturing",tag:"制造",icon:"🏭",year:2000,desc:"2000年收购，西部牛仔靴和工装鞋品牌"},
-  {cn:"布鲁克斯运动",en:"Brooks Sports",cat:"manufacturing",tag:"制造",icon:"🏭",year:2006,desc:"跑步鞋和运动服装，2006年全资收购"},
-  {cn:"东方贸易公司",en:"Oriental Trading Company",cat:"manufacturing",tag:"制造",icon:"🏭",year:2012,desc:"2012年收购，派对用品、工艺品和小玩具直销"},
-  {cn:"金霸王",en:"Duracell",cat:"manufacturing",tag:"制造",icon:"🏭",year:2016,desc:"2016年从宝洁换股获得，碱性电池全球领导品牌"},
-  {cn:"富线集团",en:"Richline Group",cat:"manufacturing",tag:"制造",icon:"🏭",year:2007,desc:"珠宝制造和分销，贵金属首饰"},
-  {cn:"WPLG电视台",en:"WPLG (ABC Affiliate)",cat:"manufacturing",tag:"制造",icon:"🏭",year:2014,desc:"迈阿密ABC附属电视台"},
+  {cn:"马蒙集团",en:"Marmon Holdings",cat:"manufacturing",tag:"制造",icon:"🏭",year:2008,desc:"2008年收购60%(2013年全资)，多元化工业集团，110多家工厂",detail:{history:`2008 年伯克希尔以约 45 亿美元收购 Pritzker 家族持有的 Marmon 60% 股权，2013 年收购剩余 40%。`,business:`多元化工业集团，业务涵盖铁路罐车、金属紧固件、食品设备、水务、零售等 110 多家工厂。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购</td><td>2008 年 60%，2013 年全资</td></tr><tr><td>业务</td><td>工业多元化，110 多家工厂</td></tr></table>`}},
+  {cn:"精密机件公司",en:"Precision Castparts (PCC)",cat:"manufacturing",tag:"制造",icon:"🏭",year:2016,desc:"2016年以372亿美元收购(史上最大)，航空发动机零部件，巴菲特后承认「出价太高」",detail:{history:`2016 年伯克希尔以 372 亿美元收购 PCC，是巴菲特最大收购之一。后因航空业周期和商誉减值，巴菲特承认出价过高。`,business:`航空发动机零部件、工业燃气轮机部件、管件等，客户包括波音、空客等。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购对价</td><td>372 亿美元（2016）</td></tr><tr><td>后续</td><td>2020 年因航空业下滑计提大额商誉减值</td></tr></table>`}},
+  {cn:"路博润公司",en:"Lubrizol",cat:"manufacturing",tag:"制造",icon:"🏭",year:2011,desc:"2011年以90亿美元收购，特种化学品和润滑油添加剂",detail:{history:`2011 年伯克希尔以约 90 亿美元收购 Lubrizol。`,business:`特种化学品和润滑油添加剂，服务于汽车、工业、医疗等行业。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购</td><td>2011 年，约 90 亿美元</td></tr><tr><td>业务</td><td>润滑油添加剂、特种化学品</td></tr></table>`}},
+  {cn:"克莱顿房屋公司",en:"Clayton Homes",cat:"manufacturing",tag:"制造",icon:"🏭",year:2003,desc:"2003年以17亿美元收购，全美最大预制房屋制造商",detail:{history:`2003 年以 17 亿美元收购，创始人 Kevin Clayton 继续管理。`,business:`预制房屋制造、销售和融资，旗下包括 Clayton Homes、 Vanderbilt Mortgage 等。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购</td><td>2003 年，17 亿美元</td></tr><tr><td>地位</td><td>全美最大预制房屋制造商</td></tr></table>`}},
+  {cn:"森林河公司",en:"Forest River",cat:"manufacturing",tag:"制造",icon:"🏭",year:2005,desc:"2005年收购，房车(Recreational Vehicle)制造商",detail:{history:`2005 年伯克希尔收购 Forest River。`,business:`房车、巴士、拖车、船艇等休闲交通工具制造。`,performance:`美国领先的房车制造商之一。`}},
+  {cn:"迈泰克公司",en:"MiTek",cat:"manufacturing",tag:"制造",icon:"🏭",year:2001,desc:"建筑连接件和软件，屋顶桁架连接件全球领先",detail:{history:`2001 年加入伯克希尔。`,business:`建筑连接件、屋顶桁架软件、工程服务，全球建筑五金领域领先。`,performance:`在建筑桁架连接件市场占据全球领先地位。`}},
+  {cn:"本杰明·摩尔涂料",en:"Benjamin Moore",cat:"manufacturing",tag:"制造",icon:"🏭",year:2000,desc:"2000年收购，高端涂料品牌，百年历史",detail:{history:`2000 年伯克希尔以约 10 亿美元收购 Benjamin Moore。`,business:`高端涂料、油漆和装饰材料，主要面向专业承包商和独立零售商。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购</td><td>2000 年，约 10 亿美元</td></tr><tr><td>历史</td><td>1883 年创立，百年涂料品牌</td></tr></table>`}},
+  {cn:"阿克米砖块公司",en:"Acme Brick",cat:"manufacturing",tag:"制造",icon:"🏭",year:2000,desc:"2000年收购，建筑砖块制造，德克萨斯州起家",detail:{history:`2000 年收购。`,business:`建筑砖块、石材、瓷砖等建材制造，德克萨斯州起家。`,performance:`美国最大的砖块制造商之一。`}},
+  {cn:"鲜果布衣",en:"Fruit of the Loom",cat:"manufacturing",tag:"制造",icon:"🏭",year:2002,desc:"2002年以8.35亿美元收购，内衣和休闲服饰品牌",detail:{history:`2002 年以 8.35 亿美元收购，此前公司经历破产重组。`,business:`内衣、T 恤、休闲服饰制造和品牌销售。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购</td><td>2002 年，8.35 亿美元</td></tr><tr><td>品牌</td><td>Fruit of the Loom、Russell 等</td></tr></table>`}},
+  {cn:"约翰斯·曼维尔",en:"Johns Manville",cat:"manufacturing",tag:"制造",icon:"🏭",year:2001,desc:"2001年以18亿美元收购，建筑材料和保温产品",detail:{history:`2001 年以 18 亿美元收购。`,business:`建筑保温材料、屋顶系统、工业产品，曾为石棉索赔破产。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购</td><td>2001 年，18 亿美元</td></tr><tr><td>业务</td><td>建筑保温、屋顶、工业产品</td></tr></table>`}},
+  {cn:"萧氏工业",en:"Shaw Industries",cat:"manufacturing",tag:"制造",icon:"🏭",year:2001,desc:"2001年以21亿美元收购，全美最大地毯和地板制造商",detail:{history:`2001 年以 21 亿美元收购。`,business:`地毯、硬地板、瓷砖等地面材料制造，覆盖住宅和商业市场。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购</td><td>2001 年，21 亿美元</td></tr><tr><td>地位</td><td>全美最大地毯和地板制造商</td></tr></table>`}},
+  {cn:"国际金属加工公司",en:"International Metalworking Companies (IMC)",cat:"manufacturing",tag:"制造",icon:"🏭",year:2006,desc:"金属切削刀具，以色列Iskar为主体，2006年逐步收购",detail:{history:`2006 年起伯克希尔逐步收购 IMC，以以色列 Iscar 为核心。`,business:`金属切削刀具、硬质合金工具，服务汽车、航空、机械加工行业。`,performance:`全球金属切削工具领先企业。`}},
+  {cn:"贾斯汀品牌",en:"Justin Brands",cat:"manufacturing",tag:"制造",icon:"🏭",year:2000,desc:"2000年收购，西部牛仔靴和工装鞋品牌",detail:{history:`2000 年收购，Justin 家族继续参与经营。`,business:`西部牛仔靴、工装鞋、户外鞋品牌，包括 Justin、Tony Lama、Nocona 等。`,performance:`美国西部靴和工装鞋领域知名品牌。`}},
+  {cn:"布鲁克斯运动",en:"Brooks Sports",cat:"manufacturing",tag:"制造",icon:"🏭",year:2006,desc:"跑步鞋和运动服装，2006年全资收购",detail:{history:`2006 年全资收购。`,business:`专业跑步鞋、运动服装和配件，近年全球跑步热潮中增长迅速。`,performance:`全球专业跑步鞋市场领先品牌。`}},
+  {cn:"东方贸易公司",en:"Oriental Trading Company",cat:"manufacturing",tag:"制造",icon:"🏭",year:2012,desc:"2012年收购，派对用品、工艺品和小玩具直销",detail:{history:`2012 年收购。`,business:`派对用品、工艺品、玩具、教学用品等直销和电商。`,performance:`美国派对用品直销龙头。`}},
+  {cn:"金霸王",en:"Duracell",cat:"manufacturing",tag:"制造",icon:"🏭",year:2016,desc:"2016年从宝洁换股获得，碱性电池全球领导品牌",detail:{history:`2016 年伯克希尔以持有的宝洁股票与宝洁交换，获得 Duracell 全部股权。`,business:`碱性电池、锂电池、充电电池等消费电池产品。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>获得方式</td><td>2016 年与宝洁换股</td></tr><tr><td>地位</td><td>全球碱性电池领导品牌之一</td></tr></table>`}},
+  {cn:"富线集团",en:"Richline Group",cat:"manufacturing",tag:"制造",icon:"🏭",year:2007,desc:"珠宝制造和分销，贵金属首饰",detail:{history:`2007 年收购。`,business:`贵金属珠宝制造、分销和零售，包括金、银、铂金首饰。`,performance:`并入伯克希尔制造板块披露。`}},
+  {cn:"WPLG电视台",en:"WPLG (ABC Affiliate)",cat:"manufacturing",tag:"制造",icon:"🏭",year:2014,desc:"迈阿密ABC附属电视台",detail:{history:`2014 年收购。`,business:`迈阿密 ABC 附属电视台，提供新闻和广播服务。`,performance:`规模较小，单独运营。`}},
 
   // Distribution
-  {cn:"麦克莱恩公司",en:"McLane Company",cat:"distribution",tag:"分销",icon:"📦",year:2003,desc:"2003年从沃尔玛以15亿美元收购，全美最大供应链和批发分销商之一"},
+  {cn:"麦克莱恩公司",en:"McLane Company",cat:"distribution",tag:"分销",icon:"📦",year:2003,desc:"2003年从沃尔玛以15亿美元收购，全美最大供应链和批发分销商之一",detail:{history:`2003 年伯克希尔从沃尔玛手中以 15 亿美元收购 McLane。`,business:`为便利店、药店、餐厅、零售商等提供食品、饮料、药品、日用品配送和供应链服务。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购</td><td>2003 年，15 亿美元（从沃尔玛）</td></tr><tr><td>地位</td><td>全美最大供应链和批发分销商之一</td></tr></table>`}},
 
   // Service & Retail
-  {cn:"利捷航空",en:"NetJets",cat:"retail",tag:"零售",icon:"🛒",year:1998,desc:"1998年收购，私人飞机分时拥有(fractional ownership)开创者"},
-  {cn:"飞安国际",en:"FlightSafety International",cat:"retail",tag:"零售",icon:"🛒",year:1996,desc:"1996年以15亿美元收购，全球最大专业航空培训机构"},
-  {cn:"XTRA租赁",en:"XTRA Lease",cat:"retail",tag:"零售",icon:"🛒",year:2001,desc:"2001年收购，拖车(半挂车)租赁服务"},
-  {cn:"布法罗新闻",en:"The Buffalo News",cat:"retail",tag:"零售",icon:"🛒",year:1977,desc:"1977年收购，纽约州布法罗市主要报纸"},
-  {cn:"喜诗糖果",en:"See's Candies",cat:"retail",tag:"零售",icon:"🛒",year:1972,desc:"1972年以2500万美元收购，巴菲特称其为「教科书般的伟大企业」"},
-  {cn:"内布拉斯加家具城",en:"Nebraska Furniture Mart",cat:"retail",tag:"零售",icon:"🛒",year:1983,desc:"1983年收购多数股权，北美最大家居用品商场，创始人B夫人传奇"},
-  {cn:"R.C.威利家居",en:"R.C. Willey Home Furnishings",cat:"retail",tag:"零售",icon:"🛒",year:1995,desc:"1995年收购，犹他州最大家具零售商"},
-  {cn:"星牌家具",en:"Star Furniture",cat:"retail",tag:"零售",icon:"🛒",year:1997,desc:"2003年收购，德克萨斯州高端家具连锁"},
-  {cn:"乔丹家具",en:"Jordan's Furniture",cat:"retail",tag:"零售",icon:"🛒",year:1999,desc:"1999年收购，马萨诸塞州知名家具零售商"},
-  {cn:"波仙珠宝",en:"Borsheims",cat:"retail",tag:"零售",icon:"🛒",year:1989,desc:"1989年收购，奥马哈高端珠宝零售，伯克希尔年会必逛之地"},
-  {cn:"赫尔兹伯格钻石",en:"Helzberg Diamonds",cat:"retail",tag:"零售",icon:"🛒",year:1995,desc:"1995年收购，珠宝零售连锁店"},
-  {cn:"本·布里奇珠宝",en:"Ben Bridge Jeweler",cat:"retail",tag:"零售",icon:"🛒",year:2000,desc:"2000年收购，西海岸珠宝连锁"},
-  {cn:"冰雪皇后",en:"Dairy Queen (DQ)",cat:"retail",tag:"零售",icon:"🛒",year:1998,desc:"1998年以5.85亿美元收购，全球冰淇淋和快餐连锁"},
-  {cn:"厨宝公司",en:"Pampered Chef",cat:"retail",tag:"零售",icon:"🛒",year:2002,desc:"2002年收购，厨房用品直销，通过家庭聚会模式销售"},
+  {cn:"利捷航空",en:"NetJets",cat:"retail",tag:"零售",icon:"🛒",year:1998,desc:"1998年收购，私人飞机分时拥有(fractional ownership)开创者",detail:{history:`1998 年伯克希尔收购 NetJets，创始人 Richard Santulli 继续管理。`,business:`私人飞机分时拥有（fractional ownership）和包机服务，全球最大的公务机机队运营商。`,performance:`全球最大公务机分时拥有运营商。`}},
+  {cn:"飞安国际",en:"FlightSafety International",cat:"retail",tag:"零售",icon:"🛒",year:1996,desc:"1996年以15亿美元收购，全球最大专业航空培训机构",detail:{history:`1996 年以 15 亿美元收购。`,business:`飞行员、乘务员和航空维修人员培训，使用飞行模拟器为全球航空公司提供服务。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购</td><td>1996 年，15 亿美元</td></tr><tr><td>地位</td><td>全球最大专业航空培训机构</td></tr></table>`}},
+  {cn:"XTRA租赁",en:"XTRA Lease",cat:"retail",tag:"零售",icon:"🛒",year:2001,desc:"2001年收购，拖车(半挂车)租赁服务",detail:{history:`2001 年收购。`,business:`半挂车租赁、车队管理和维护服务。`,performance:`美国领先的半挂车租赁公司之一。`}},
+  {cn:"布法罗新闻",en:"The Buffalo News",cat:"retail",tag:"零售",icon:"🛒",year:1977,desc:"1977年收购，纽约州布法罗市主要报纸",detail:{history:`1977 年收购。`,business:`纽约州布法罗市主要报纸，发行新闻和广告。`,performance:`曾是伯克希尔媒体资产的典型代表，近年受纸媒衰退影响。`}},
+  {cn:"喜诗糖果",en:"See's Candies",cat:"retail",tag:"零售",icon:"🛒",year:1972,desc:"1972年以2500万美元收购，巴菲特称其为「教科书般的伟大企业」",detail:{history:`1972 年伯克希尔以 2500 万美元收购 See's Candies，这是巴菲特从「捡烟蒂」转向「优质企业」的标志性交易。查理·芒格对此影响很大。`,business:`高端巧克力、糖果零售，以西海岸直营店为主，商业模式以品牌溢价和低资本支出著称。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购</td><td>1972 年，2500 万美元</td></tr><tr><td>累计回报</td><td>成为巴菲特口中的「梦幻企业」，累计分红远超收购价</td></tr><tr><td>地位</td><td>美国西海岸高端巧克力代表品牌</td></tr></table>`}},
+  {cn:"内布拉斯加家具城",en:"Nebraska Furniture Mart",cat:"retail",tag:"零售",icon:"🛒",year:1983,desc:"1983年收购多数股权，北美最大家居用品商场，创始人B夫人传奇",detail:{history:`1983 年伯克希尔收购 Nebraska Furniture Mart 多数股权，创始人「B 夫人」Rose Blumkin 以 90 岁仍能讲价闻名。`,business:`大型家居用品商场，销售家具、家电、电子产品等，以低价和高周转著称。`,performance:`北美最大的家居用品商场之一。`}},
+  {cn:"R.C.威利家居",en:"R.C. Willey Home Furnishings",cat:"retail",tag:"零售",icon:"🛒",year:1995,desc:"1995年收购，犹他州最大家具零售商",detail:{history:`1995 年收购。`,business:`家具和家居用品零售，犹他州市场领导者。`,performance:`犹他州最大家具零售商。`}},
+  {cn:"星牌家具",en:"Star Furniture",cat:"retail",tag:"零售",icon:"🛒",year:1997,desc:"1997年收购，德克萨斯州高端家具连锁",detail:{history:`1997 年收购（原描述年份为 2003，已按实际收购时间修正）。`,business:`德克萨斯州高端家具零售连锁。`,performance:`德克萨斯州知名家具零售商。`}},
+  {cn:"乔丹家具",en:"Jordan's Furniture",cat:"retail",tag:"零售",icon:"🛒",year:1999,desc:"1999年收购，马萨诸塞州知名家具零售商",detail:{history:`1999 年收购。`,business:`马萨诸塞州知名家具零售，以体验式营销和娱乐设施著称。`,performance:`新英格兰地区领先家具零售商。`}},
+  {cn:"波仙珠宝",en:"Borsheims",cat:"retail",tag:"零售",icon:"🛒",year:1989,desc:"1989年收购，奥马哈高端珠宝零售，伯克希尔年会必逛之地",detail:{history:`1989 年收购，是巴菲特家乡奥马哈的家族珠宝店。`,business:`高端珠宝、手表、礼品零售，伯克希尔年会期间对股东开放特别折扣。`,performance:`奥马哈最知名的高端珠宝店。`}},
+  {cn:"赫尔兹伯格钻石",en:"Helzberg Diamonds",cat:"retail",tag:"零售",icon:"🛒",year:1995,desc:"1995年收购，珠宝零售连锁店",detail:{history:`1995 年收购。`,business:`钻石珠宝零售连锁店，主要布局美国购物中心。`,performance:`美国中型珠宝零售连锁。`}},
+  {cn:"本·布里奇珠宝",en:"Ben Bridge Jeweler",cat:"retail",tag:"零售",icon:"🛒",year:2000,desc:"2000年收购，西海岸珠宝连锁",detail:{history:`2000 年收购。`,business:`美国西海岸高端珠宝连锁零售。`,performance:`美国西海岸知名珠宝连锁。`}},
+  {cn:"冰雪皇后",en:"Dairy Queen (DQ)",cat:"retail",tag:"零售",icon:"🛒",year:1998,desc:"1998年以5.85亿美元收购，全球冰淇淋和快餐连锁",detail:{history:`1998 年以 5.85 亿美元收购。`,business:`冰淇淋、奶昔、汉堡等快餐连锁，全球加盟店和直营店。`,performance:`<table class="modal-table"><tr><th>指标</th><th>公开数据</th></tr><tr><td>收购</td><td>1998 年，5.85 亿美元</td></tr><tr><td>规模</td><td>全球数千家门店</td></tr></table>`}},
+  {cn:"厨宝公司",en:"Pampered Chef",cat:"retail",tag:"零售",icon:"🛒",year:2002,desc:"2002年收购，厨房用品直销，通过家庭聚会模式销售",detail:{history:`2002 年收购。`,business:`厨房用具、刀具、炊具等通过独立顾问和家庭聚会模式直销。`,performance:`美国领先的厨房用品直销公司。`}},
 
   // Finance
-  {cn:"CORT商业服务",en:"CORT Business Services",cat:"finance",tag:"金融",icon:"💰",year:2000,desc:"2000年收购，家具租赁服务，服务企业和活动"},
-  {cn:"克莱顿金融服务",en:"Clayton Financial Services",cat:"finance",tag:"金融",icon:"💰",year:2003,desc:"克莱顿房屋旗下，预制房屋贷款和金融服务"},
-  {cn:"伯克希尔旅行保护",en:"Berkshire Hathaway Travel Protection",cat:"finance",tag:"金融",icon:"💰",year:2014,desc:"旅行保险产品，包括行程取消、医疗保障等"},
-  {cn:"UTC租赁",en:"UTI (Universal Tube & Rollform)",cat:"finance",tag:"金融",icon:"💰",year:2001,desc:"管道和辊压成型设备租赁"},
-  {cn:"马蒙金融",en:"Marmon Financial",cat:"finance",tag:"金融",icon:"💰",year:2008,desc:"马蒙集团旗下金融租赁和信用服务"},
+  {cn:"CORT商业服务",en:"CORT Business Services",cat:"finance",tag:"金融",icon:"💰",year:2000,desc:"2000年收购，家具租赁服务，服务企业和活动",detail:{history:`2000 年收购。`,business:`家具租赁、活动家具、家居租赁服务，面向企业、活动和搬迁个人。`,performance:`美国最大的家具租赁公司之一。`}},
+  {cn:"克莱顿金融服务",en:"Clayton Financial Services",cat:"finance",tag:"金融",icon:"💰",year:2003,desc:"克莱顿房屋旗下，预制房屋贷款和金融服务",detail:{history:`随 Clayton Homes 2003 年收购进入伯克希尔。`,business:`为预制房屋买家提供抵押贷款、保险等金融服务。`,performance:`并入 Clayton Homes 板块。`}},
+  {cn:"伯克希尔旅行保护",en:"Berkshire Hathaway Travel Protection",cat:"finance",tag:"金融",icon:"💰",year:2014,desc:"旅行保险产品，包括行程取消、医疗保障等",detail:{history:`2014 年前后推出。`,business:`旅行保险、行程取消、医疗急救、行李延误等旅行相关产品。`,performance:`伯克希尔 Primary Group 旗下旅行险品牌。`}},
+  {cn:"UTC租赁",en:"UTI (Universal Tube & Rollform)",cat:"finance",tag:"金融",icon:"💰",year:2001,desc:"管道和辊压成型设备租赁",detail:{history:`2001 年收购。`,business:"管道、辊压成型设备及相关工业设备租赁。",performance:`工业设备租赁细分企业。`}},
+  {cn:"马蒙金融",en:"Marmon Financial",cat:"finance",tag:"金融",icon:"💰",year:2008,desc:"马蒙集团旗下金融租赁和信用服务",detail:{history:`随 Marmon 2008 年收购进入伯克希尔。`,business:`金融租赁、信用服务和设备融资。`,performance:`并入 Marmon Holdings 板块。`}},
 ];
 
 // ===== Render Companies =====
@@ -727,7 +967,8 @@ function renderCompanies() {
     html += `</div>`;
     html += `<div class="company-grid">`;
     catCompanies.forEach((c, i) => {
-      html += `<div class="company-card" data-cn="${c.cn}" data-en="${c.en}" data-cat="${c.cat}" data-year="${c.year}">`;
+      html += `<div class="company-card" data-cn="${c.cn}" data-en="${c.en}" data-cat="${c.cat}" data-year="${c.year}" onclick="showDetail(${companies.indexOf(c)})">`;
+      html += `<span class="detail-hint">查看详情 →</span>`;
       html += `<div class="company-name-cn">${c.cn}</div>`;
       html += `<div class="company-name-en">${c.en}</div>`;
       html += `<span class="company-tag tag-${c.cat}">${c.tag}</span>`;
@@ -740,6 +981,50 @@ function renderCompanies() {
 
   container.innerHTML = html;
 }
+
+// ===== Detail Modal =====
+function showDetail(index) {
+  const c = companies[index];
+  if (!c || !c.detail) return;
+
+  document.getElementById('modal-title').textContent = c.cn;
+  document.getElementById('modal-subtitle').textContent = c.en;
+
+  const tagsHtml = `<span class="modal-tag">${categoryIcons[c.cat]} ${categoryNames[c.cat].cn}</span><span class="modal-tag">${c.year} 年收购</span>`;
+  document.getElementById('modal-tags').innerHTML = tagsHtml;
+
+  const d = c.detail;
+  let bodyHtml = '';
+  if (d.history) {
+    bodyHtml += `<div class="modal-section"><div class="modal-section-title">📜 收购历史与背景</div><div class="modal-section-content">${d.history}</div></div>`;
+  }
+  if (d.business) {
+    bodyHtml += `<div class="modal-section"><div class="modal-section-title">🏢 做什么业务</div><div class="modal-section-content">${d.business}</div></div>`;
+  }
+  if (d.performance) {
+    bodyHtml += `<div class="modal-section"><div class="modal-section-title">📊 业绩与数据</div><div class="modal-section-content">${d.performance}</div></div>`;
+  }
+  document.getElementById('modal-body').innerHTML = bodyHtml;
+
+  document.getElementById('detail-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail() {
+  document.getElementById('detail-modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function closeModalOnOverlay(ev) {
+  if (ev.target === document.getElementById('detail-modal')) {
+    closeDetail();
+  }
+}
+
+// Close on Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeDetail();
+});
 
 // ===== Filter by era (decade) =====
 let currentEra = 'all';
