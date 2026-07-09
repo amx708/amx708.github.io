@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>财智百科 · 巴菲特与投资方法论索引 | 伯克希尔投资数据中心</title>
+<style>
+:root{
+  --navy:#0f2747; --navy2:#163a66; --blue:#2563eb; --orange:#f59e0b; --orange2:#fbbf24;
+  --ink:#1e293b; --muted:#64748b; --line:#e2e8f0; --bg:#f4f7fb; --card:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.kb-header{position:sticky;top:0;z-index:50;background:rgba(15,39,71,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
+.kb-header-inner{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+.kb-brand{color:#fff;font-weight:700;font-size:15px;letter-spacing:.5px}
+.kb-crumb{color:#cbd5e1;font-size:13px}
+.kb-crumb a{color:#cbd5e1}
+.kb-crumb a:hover{color:var(--orange2)}
+.kb-hero{max-width:1080px;margin:0 auto;padding:40px 20px 24px;text-align:center}
+.kb-hero h1{font-size:34px;font-weight:900;color:var(--navy);letter-spacing:1px}
+.kb-hero .src{margin-top:8px;font-size:14px;color:var(--muted)}
+.kb-hero .src a{font-weight:600}
+.kb-hero .lead{max-width:760px;margin:16px auto 0;color:#475569;font-size:15px}
+.kb-stats{max-width:880px;margin:26px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kb-stat{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:14px;padding:18px 12px;text-align:center;box-shadow:0 6px 20px rgba(15,39,71,.18)}
+.kb-stat .num{font-size:28px;font-weight:900;color:var(--orange2)}
+.kb-stat .lab{font-size:13px;opacity:.85;margin-top:2px}
+.kb-guide{max-width:1080px;margin:8px auto 0;padding:0 20px}
+.kb-guide-card{background:#fff7e6;border:1px solid #fde68a;border-left:4px solid var(--orange);border-radius:12px;padding:16px 20px;font-size:14px;color:#7c5a17}
+.kb-guide-card b{color:#9a3412}
+.kb-main{max-width:1080px;margin:24px auto 60px;padding:0 20px}
+.kb-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.kb-tab{background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 18px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;transition:.15s}
+.kb-tab:hover{border-color:var(--blue);color:var(--blue)}
+.kb-tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.kb-search{margin-bottom:18px}
+.kb-search input{width:100%;padding:12px 16px;border:1px solid var(--line);border-radius:10px;font-size:15px;outline:none}
+.kb-search input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.kb-panel{display:none}
+.kb-panel.active{display:block}
+.kb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.kb-item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;transition:.15s}
+.kb-item:hover{border-color:var(--blue);box-shadow:0 6px 18px rgba(37,99,235,.12);transform:translateY(-2px)}
+.kb-item .nm{font-size:15px;font-weight:700;color:var(--navy);line-height:1.4}
+.kb-item .meta{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.kb-item .auth{font-size:12px;color:var(--muted)}
+.kb-item .lang{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}
+.kb-item .lang.zh{color:#047857;background:#d1fae5}
+.kb-item .lang.en{color:#b45309;background:#fef3c7}
+.kb-item .go{font-size:12px;color:var(--blue);font-weight:600;white-space:nowrap}
+.kb-item a{display:block}
+.kb-sub{margin:6px 0 14px;font-size:13px;color:var(--muted);font-weight:600}
+.kb-period{margin-bottom:22px}
+.kb-period h3{font-size:16px;color:var(--navy);margin-bottom:10px;padding-left:10px;border-left:3px solid var(--orange)}
+.kb-note{background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid var(--blue);border-radius:12px;padding:14px 18px;font-size:14px;color:#1e40af;margin-bottom:16px}
+.kb-note a{font-weight:700}
+.kb-note b{color:#1e3a8a}
+.kb-empty{text-align:center;color:var(--muted);padding:40px;font-size:14px}
+footer{max-width:1080px;margin:0 auto;padding:24px 20px 50px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+footer a{font-weight:600}
+@media(max-width:600px){
+  .kb-stats{grid-template-columns:repeat(2,1fr)}
+  .kb-hero h1{font-size:26px}
+}
+</style>
+</head>
+<body>
+<header class="kb-header">
+  <div class="kb-header-inner">
+    <div class="kb-brand">伯克希尔 · 投资数据中心</div>
+    <div class="kb-crumb"><a href="berkshire-standalone.html">投资数据中心</a> / 财智百科内容索引</div>
+  </div>
+</header>
+
+<section class="kb-hero">
+  <h1>财智百科 · 内容索引</h1>
+  <p class="src">编译自 <a href="https://finanzapedia.com/zh" target="_blank" rel="noopener">finanzapedia.com/zh（财智百科）</a> · 原站作者 Gemino Rossi / Borja del Bosco / Borna Jurić / Finanzapedia Team 等</p>
+  <p class="lead">finanzapedia 是一个多语言的「金融知识中心」，其中与巴菲特及价值投资最相关的，是中文原创的<b>投资方法论</b>（估值模型 + 投资策略），以及英文的<b>巴菲特股东信 / 访谈 / 名言</b>档案。本页将其编译为可检索的导航台，每条均链回原文并署名来源。</p>
+  <div class="kb-stats">
+    <div class="kb-stat"><div class="num">12</div><div class="lab">投资方法论（中文）</div></div>
+    <div class="kb-stat"><div class="num">12</div><div class="lab">致股东信（英文）</div></div>
+    <div class="kb-stat"><div class="num">10</div><div class="lab">巴菲特访谈（英文）</div></div>
+    <div class="kb-stat"><div class="num">13</div><div class="lab">年会 / 名言（英文）</div></div>
+  </div>
+</section>
+
+<div class="kb-guide">
+  <div class="kb-guide-card">
+    <b>怎么用：</b>点上方标签切换「投资方法论 / 股东信 / 访谈 / 名言 / 年度股东大会」。每条标注语言（<span style="color:#047857;font-weight:700">中文</span> 或 <span style="color:#b45309;font-weight:700">EN</span>）与作者，点击即在新窗口打开 finanzapedia 原文阅读。本站仅做索引与导航，<b>全文版权归原作者 / 原站所有</b>。
+  </div>
+</div>
+
+<section class="kb-main">
+  <div class="kb-tabs">
+    <div class="kb-tab active" data-tab="method" onclick="switchTab('method')">📐 投资方法论</div>
+    <div class="kb-tab" data-tab="letters" onclick="switchTab('letters')">✉️ 致股东信</div>
+    <div class="kb-tab" data-tab="interviews" onclick="switchTab('interviews')">🎙️ 访谈</div>
+    <div class="kb-tab" data-tab="quotes" onclick="switchTab('quotes')">💬 名言</div>
+    <div class="kb-tab" data-tab="meetings" onclick="switchTab('meetings')">🏟️ 年度股东大会</div>
+  </div>
+  <div class="kb-search">
+    <input id="kb-search" type="text" placeholder="搜索标题 / 作者…" oninput="render()">
+  </div>
+  <div class="kb-panel active" id="panel-method"></div>
+  <div class="kb-panel" id="panel-letters"></div>
+  <div class="kb-panel" id="panel-interviews"></div>
+  <div class="kb-panel" id="panel-quotes"></div>
+  <div class="kb-panel" id="panel-meetings"></div>
+</section>
+
+<footer>
+  数据来源：<a href="https://finanzapedia.com/zh" target="_blank" rel="noopener">finanzapedia.com（财智百科）</a>。本页为伯克希尔投资数据中心的导航索引，全文版权归原作者 / 原站所有，点击条目将跳转至原站阅读。<br>
+  本站「财智百科内容索引」收录方式同「漫漫扬（yeeyoung）」「巴菲特思想知识库（learnbuffett）」——读取外部优质数据源，编译为自有页面并署名来源。
+</footer>
+
+<script>
+// ---------- 投资方法论（中文原创） ----------
+const method_valuation = [
+  {t:"收益增长与退出倍数 (Delta of the Delta)", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/shou-yi-zeng-chang-yu-tui-chu-bei-shu", a:"Borja del Bosco", d:"2025-12-28"},
+  {t:"经济护城河评估", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/jing-ji-hu-cheng-ping-gu", a:"Borna Jurić", d:"2025-12-28"},
+  {t:"股息贴现模型（DDM）", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/gu-xi-tie-xian-mo-xing-ddm", a:"Borja del Bosco", d:"2025-12-27"},
+  {t:"账面价值收敛模型 (BV-Price Growth Parity)", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/zhang-mian-jia-zhi-shou-lian-mo-xing", a:"Borja del Bosco", d:"2025-12-27"},
+  {t:"当前市盈率 vs. 历史市盈率", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/dang-qian-shi-ying-lu-vs-li-shi-shi-ying-lu", a:"Borja del Bosco", d:"2025-12-27"},
+  {t:"股息收益率理论", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/gu-xi-shou-yi-lv-li-lun", a:"Borja del Bosco", d:"2025-12-27"},
+  {t:"倍数估值法", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/bei-shu-gu-zhi-fa", a:"Borja del Bosco", d:"2025-09-28"},
+  {t:"格雷厄姆公式", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/ge-lei-e-mu-gong-shi", a:"Borja del Bosco", d:"2025-09-27"}
+];
+const method_strategy = [
+  {t:"优质与宽阔经济护城河投资 (Quality & Wide Moat Investing)", u:"https://finanzapedia.com/zh/tou-zi/tou-zi-ce-lve/youzhi-yu-kuankuo-jingji-huchenghe-touzi", a:"Gemino Rossi", d:"2025-12-29"},
+  {t:"价值投资 (Value Investing)", u:"https://finanzapedia.com/zh/tou-zi/tou-zi-ce-lve/jiazhi-touzi", a:"Gemino Rossi", d:"2025-12-28"},
+  {t:"成长投资 (Growth Investing)", u:"https://finanzapedia.com/zh/tou-zi/tou-zi-ce-lve/chengzhang-touzi-growth-investing", a:"Gemino Rossi", d:"2025-12-28"},
+  {t:"股息投资 (Dividend Investing)", u:"https://finanzapedia.com/zh/tou-zi/tou-zi-ce-lve/guxi-touzi", a:"Gemino Rossi", d:"2025-12-28"}
+];
+
+// ---------- 致股东信（英文，规律 URL） ----------
+const LETTER_YEARS = [2024,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013];
+const letters = LETTER_YEARS.map(y=>({
+  t: y+" Letter to Berkshire Hathaway Shareholders",
+  u: "https://finanzapedia.com/en/warren-buffett/shareholder-letters/"+y+"-letter-to-berkshire-hathaway-shareholders",
+  a: "Warren Buffett", d: (y+1)+"-02", lang:"en"
+}));
+
+// ---------- 年度股东大会（英文，规律 URL；本站已有中文实录） ----------
+const MEET_YEARS = [2026,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015];
+const meetings = MEET_YEARS.map(y=>({
+  t: y+" Berkshire Hathaway Annual Meeting",
+  u: "https://finanzapedia.com/en/warren-buffett/annual-meetings/"+y+"-berkshire-hathaway-annual-meeting",
+  a: (y===2026?"Finanzapedia Team":"Warren Buffett"), d: y+"-05", lang:"en"
+}));
+
+// ---------- 访谈（英文，显式） ----------
+const interviews = [
+  {t:"Warren Buffett Full Interview with Becky Quick (2026 Annual Meeting)", u:"https://finanzapedia.com/en/warren-buffett/interviews/warren-buffett-full-interview-with-becky-quick-2026-berkshire-hathaway-annual-meeting", a:"Finanzapedia Team", d:"2026-05-02"},
+  {t:"Warren Buffett explains how to turn $114 into $400,000", u:"https://finanzapedia.com/en/warren-buffett/interviews/warren-buffett-explains-how-to-turn-114-into-400000", a:"Finanzapedia Team", d:"2026-03-17"},
+  {t:"Warren Buffett on Oracle, Cloud Computing and IBM", u:"https://finanzapedia.com/en/warren-buffett/interviews/warren-buffett-on-oracle-cloud-computing-and-ibm", a:"Warren Buffett", d:"2026-03-04"},
+  {t:"Why we Keep Investing in Oil Stocks — Buffett & Munger", u:"https://finanzapedia.com/en/warren-buffett/interviews/why-we-keep-investing-in-oil-stocks-warren-buffett-charlie-munger", a:"Finanzapedia Team", d:"2026-03-03"},
+  {t:"\"Chevron's NOT an EVIL company\" — Buffett & Munger", u:"https://finanzapedia.com/en/warren-buffett/interviews/chevrons-not-an-evil-company-w-buffett-c-munger", a:"Warren Buffett", d:"2026-03-02"},
+  {t:"\"Oil will become very precious over the next 200 years.\" — Buffett & Munger", u:"https://finanzapedia.com/en/warren-buffett/interviews/oil-will-become-very-precious-over-the-next-200-years-w-buffett-c-munger", a:"Charlie Munger", d:"2026-03-01"},
+  {t:"Warren Buffett Defines the Owner's Earnings Concept", u:"https://finanzapedia.com/en/warren-buffett/interviews/warren-buffett-defines-the-owners-earnings-concept", a:"Finanzapedia Team", d:"2026-02-24"},
+  {t:"\"I blew it.\" — Buffett on NOT investing in Google (Alphabet) early on", u:"https://finanzapedia.com/en/warren-buffett/interviews/i-blew-it-warren-buffett-on-not-investing-in-google-alphabet-early-on", a:"Warren Buffett", d:"2026-02-23"},
+  {t:"Buy Into an S&P 500 Index Fund — Warren Buffett", u:"https://finanzapedia.com/en/warren-buffett/interviews/buy-into-an-sp-500-index-fund-warren-buffett", a:"Warren Buffett", d:"2026-02-20"},
+  {t:"\"Diversification is a Protection against Ignorance\" — Buffett (1996)", u:"https://finanzapedia.com/en/warren-buffett/interviews/w-buffett-diversification-is-a-protection-against-ignorance", a:"Finanzapedia Team", d:"1996-06-02"}
+];
+
+// ---------- 名言（英文，显式） ----------
+const quotes = [
+  {t:"No one will get more than 20 great ideas in their lifetime", u:"https://finanzapedia.com/en/warren-buffett/quotes/no-one-will-get-more-than-20-great-ideas-in-their-lifetime", a:"Claudiu Stan", d:"2026-02-04"}
+];
+
+let curTab = 'method';
+
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function switchTab(t){
+  curTab = t;
+  document.querySelectorAll('.kb-tab').forEach(e=>e.classList.toggle('active', e.dataset.tab===t));
+  document.querySelectorAll('.kb-panel').forEach(e=>e.classList.remove('active'));
+  document.getElementById('panel-'+t).classList.add('active');
+  render();
+}
+
+function itemHTML(it){
+  const lang = it.lang || 'en';
+  const langTxt = (lang==='zh') ? '<span class="lang zh">中文</span>' : '<span class="lang en">EN</span>';
+  const auth = (it.a? esc(it.a)+' · ' : '') + (it.d||'');
+  return '<a class="kb-item" href="'+it.u+'" target="_blank" rel="noopener">'+
+    '<div class="nm">'+esc(it.t)+'</div>'+
+    '<div class="meta"><span class="auth">'+auth+'</span>'+langTxt+'</div>'+
+    '<div class="go">阅读原文 →</div></a>';
+}
+
+function renderList(arr, q){
+  const items = arr.filter(it=> !q || (it.t+(' '+(it.a||''))).toLowerCase().indexOf(q.toLowerCase())>=0);
+  if(!items.length) return '<div class="kb-empty">没有匹配「'+esc(q)+'」的条目</div>';
+  return '<div class="kb-grid">'+items.map(itemHTML).join('')+'</div>';
+}
+
+function render(){
+  const q = (document.getElementById('kb-search').value||'').trim();
+  if(curTab==='method'){
+    const v = method_valuation.filter(it=> !q || (it.t+' '+it.a).toLowerCase().indexOf(q.toLowerCase())>=0);
+    const s = method_strategy.filter(it=> !q || (it.t+' '+it.a).toLowerCase().indexOf(q.toLowerCase())>=0);
+    let html = '';
+    if(v.length) html += '<div class="kb-period"><h3>估值模型（8 篇）</h3>'+renderList(v,'')+'</div>';
+    if(s.length) html += '<div class="kb-period"><h3>投资策略（4 篇）</h3>'+renderList(s,'')+'</div>';
+    if(!html) html = '<div class="kb-empty">没有匹配「'+esc(q)+'」的条目</div>';
+    document.getElementById('panel-method').innerHTML = html;
+    return;
+  }
+  if(curTab==='meetings'){
+    const note = '<div class="kb-note">📌 本站已收录 <b>1994–2026 中文一字不漏股东大会实录</b>（含 2026 最新），比下方 finanzapedia 英文版更完整。可直接前往：<a href="berkshire-meetings.html">伯克希尔股东大会实录 →</a></div>';
+    document.getElementById('panel-meetings').innerHTML = note + renderList(meetings, q);
+    return;
+  }
+  let arr = [];
+  if(curTab==='letters') arr = letters;
+  else if(curTab==='interviews') arr = interviews;
+  else if(curTab==='quotes') arr = quotes;
+  document.getElementById('panel-'+curTab).innerHTML = renderList(arr, q);
+}
+
+render();
+</script>
+</body>
+</html>
