@@ -643,6 +643,31 @@ body{
 .ov-bar-track{flex:1;background:#f1f5f9;border-radius:6px;height:22px;overflow:hidden}
 .ov-bar-fill{height:100%;border-radius:6px;transition:opacity .15s}
 .ov-bar-pct{width:46px;flex-shrink:0;font-size:12px;font-weight:700;color:#475569;text-align:left}
+
+/* ===== Infographic: stat cards + timeline ===== */
+.tm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0 6px}
+.tm-stat{background:linear-gradient(135deg,#0f2942,#1e3a5f);border-radius:14px;padding:16px 18px;color:#fff;box-shadow:0 6px 18px rgba(15,41,66,.18);position:relative;overflow:hidden}
+.tm-stat::after{content:"";position:absolute;right:-18px;top:-18px;width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.07)}
+.tm-stat .s-num{font-size:26px;font-weight:800;line-height:1.1;letter-spacing:.5px}
+.tm-stat .s-lab{font-size:12px;color:#bcd0e8;margin-top:4px}
+.tm-timeline-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px 22px 22px;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-top:28px}
+.tm-timeline{display:flex;align-items:flex-start;justify-content:space-between;position:relative;margin-top:26px;padding-top:6px}
+.tm-timeline::before{content:"";position:absolute;top:9px;left:6%;right:6%;height:2px;background:linear-gradient(90deg,#2563eb,#7c3aed,#f59e0b);opacity:.5}
+.tl-item{flex:1;text-align:center;position:relative;z-index:1}
+.tl-dot{width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid #2563eb;margin:0 auto 8px;box-shadow:0 0 0 3px #e0ecfb}
+.tl-year{font-size:14px;font-weight:800;color:#0f2942}
+.tl-lab{font-size:11px;color:#64748b;margin-top:2px;line-height:1.45;max-width:120px;margin-left:auto;margin-right:auto}
+.tm-full{margin-top:30px}
+.tm-full .ov-title{font-size:16px}
+@media(max-width:820px){
+  .tm-stats{grid-template-columns:repeat(2,1fr)}
+  .tm-timeline{flex-wrap:wrap;gap:14px 0}
+  .tm-timeline::before{display:none}
+  .tl-item{flex:0 0 33.33%}
+}
+@media(max-width:600px){
+  .tm-stat .s-num{font-size:22px}
+}
 </style>
 </head>
 <body>
@@ -783,23 +808,19 @@ body{
 </section>
 </div><!-- /#cardView -->
 
-<!-- ===== Treemap View (全景脑图) ===== -->
+<!-- ===== Treemap View (全景图) ===== -->
 <section class="treemap-section" id="treemapView" style="display:none">
   <div class="treemap-head">
     <h2>投资版图 · 全景图</h2>
-    <p>方块面积 = 持仓占组合比例（截至 Q1 2026）。颜色区分行业板块，点击任意方块查看该公司详情。</p>
+    <p>一张图看懂伯克希尔「右手」——用保险浮存金买下的股权投资：板块构成、头部集中、历史脉络。数据截至 Q1 2026 13F 披露。</p>
   </div>
-  <div class="treemap-legend" id="treemap-legend"></div>
-  <div class="treemap-wrap">
-    <svg id="treemap-svg" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"></svg>
-    <div class="treemap-tooltip" id="tm-tooltip"></div>
-  </div>
-  <div class="treemap-foot" id="treemap-foot"></div>
+
+  <div class="tm-stats" id="tm-stats"></div>
 
   <div class="overview-grid">
     <div class="ov-card">
       <div class="ov-title">行业板块占比</div>
-      <div class="ov-sub">当前 19 只持仓按 8 大板块汇总 · Q1 2026</div>
+      <div class="ov-sub">当前持仓按 8 大板块汇总 · Q1 2026</div>
       <div class="ov-donut-wrap">
         <svg id="ov-donut" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg"></svg>
         <div class="ov-donut-center"><span id="ov-donut-num">8</span><small>板块</small></div>
@@ -811,6 +832,23 @@ body{
       <div class="ov-sub">占组合比例 · 点击任意行查看详情</div>
       <div id="ov-bars"></div>
     </div>
+  </div>
+
+  <div class="tm-timeline-card">
+    <div class="ov-title">伯克希尔投资脉络</div>
+    <div class="ov-sub">从第一封股东信到最新 13F，股权投资的几个关键里程碑</div>
+    <div class="tm-timeline" id="tm-timeline"></div>
+  </div>
+
+  <div class="tm-full">
+    <div class="ov-title">完整持仓分布（19 只 · 面积 = 占比）</div>
+    <div class="ov-sub">颜色区分行业板块，点击任意方块查看该公司详情</div>
+    <div class="treemap-legend" id="treemap-legend"></div>
+    <div class="treemap-wrap">
+      <svg id="treemap-svg" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="treemap-tooltip" id="tm-tooltip"></div>
+    </div>
+    <div class="treemap-foot" id="treemap-foot"></div>
   </div>
 </section>
 
@@ -1209,6 +1247,8 @@ function switchView(v){
     mapBtn.classList.add('active'); cardBtn.classList.remove('active');
     cardView.style.display='none'; mapView.style.display='';
     hint.textContent='方块面积 = 持仓占组合比例（Q1 2026），点击任意方块查看详情';
+    renderTmStats();
+    renderTimeline();
     renderTreemap();
     renderOverview();
   } else {
@@ -1359,6 +1399,37 @@ function renderOverview(){
   }
 }
 
+
+function renderTmStats(){
+  const current=investments.filter(d=> d.status==='current' && parseFloat(d.weight)>0);
+  const groups={};
+  current.forEach(d=>{ groups[d.cat]=(groups[d.cat]||0)+parseFloat(d.weight); });
+  const sectorCount=Object.keys(groups).length;
+  const top10=current.slice().sort((a,b)=>parseFloat(b.weight)-parseFloat(a.weight)).slice(0,10);
+  const top10sum=top10.reduce((s,d)=>s+parseFloat(d.weight),0);
+  const stats=[
+    {num:current.length, lab:'当前持仓（只）'},
+    {num:sectorCount, lab:'覆盖行业板块'},
+    {num:top10sum.toFixed(1)+'%', lab:'前十大占比'},
+    {num:'Q1 2026', lab:'最新 13F 披露'}
+  ];
+  const el=document.getElementById('tm-stats');
+  if(el) el.innerHTML=stats.map(s=>'<div class="tm-stat"><div class="s-num">'+s.num+'</div><div class="s-lab">'+s.lab+'</div></div>').join('');
+}
+
+const TM_TIMELINE=[
+  {y:'1967', t:'第一封致股东信'},
+  {y:'1973', t:'建仓《华盛顿邮报》'},
+  {y:'1988', t:'重仓可口可乐'},
+  {y:'1991', t:'建仓美国运通'},
+  {y:'2016', t:'建仓苹果'},
+  {y:'2020', t:'买入日本五大商社'},
+  {y:'2026', t:'Q1 13F 最新披露'}
+];
+function renderTimeline(){
+  const el=document.getElementById('tm-timeline');
+  if(el) el.innerHTML=TM_TIMELINE.map(m=>'<div class="tl-item"><div class="tl-dot"></div><div class="tl-year">'+m.y+'</div><div class="tl-lab">'+m.t+'</div></div>').join('');
+}
 
 renderInvestments();
 </script>
