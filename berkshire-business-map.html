@@ -16,18 +16,22 @@ body{
   min-height:100vh;
 }
 
-/* ===== Breadcrumb ===== */
-.breadcrumb{max-width:1100px;margin:0 auto;padding:12px 24px 8px;font-size:13px;color:rgba(255,255,255,0.6);position:relative;z-index:2}
-.breadcrumb a{color:rgba(255,255,255,0.7);text-decoration:none;transition:color .15s}
-.breadcrumb a:hover{color:#fbbf24}
-.breadcrumb span{color:rgba(255,255,255,0.35);margin:0 6px}
-.breadcrumb .current{color:rgba(255,255,255,0.9);font-weight:500}
+/* ===== Top Nav (sticky) ===== */
+.topnav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08)}
+.topnav-inner{max-width:1100px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.back-home{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.16);border-radius:10px;color:#fff;text-decoration:none;font-size:13px;font-weight:500;transition:all .15s}
+.back-home:hover{background:rgba(245,158,11,0.2);border-color:rgba(245,158,11,0.45);color:#fbbf24;transform:translateY(-1px)}
+.topnav-path{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,0.65)}
+.topnav-path a{color:rgba(255,255,255,0.75);text-decoration:none;transition:color .15s}
+.topnav-path a:hover{color:#fbbf24}
+.topnav-path span{color:rgba(255,255,255,0.3);margin:0 2px}
+.topnav-path .cur{color:rgba(255,255,255,0.95);font-weight:500}
 
 /* ===== Hero ===== */
 .hero{
   position:relative;
   background:linear-gradient(135deg,#0f172a 0%,#1e293b 40%,#1e3a5f 100%);
-  padding:40px 24px 70px;
+  padding:48px 24px 78px;
   text-align:center;
   overflow:hidden;
 }
@@ -36,8 +40,8 @@ body{
   position:absolute;
   top:-50%;left:-50%;
   width:200%;height:200%;
-  background:radial-gradient(ellipse at 30% 20%, rgba(245,158,11,0.08) 0%, transparent 50%),
-              radial-gradient(ellipse at 70% 80%, rgba(37,99,235,0.06) 0%, transparent 50%);
+  background:radial-gradient(ellipse at 30% 20%, rgba(245,158,11,0.10) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(37,99,235,0.08) 0%, transparent 50%);
   pointer-events:none;
 }
 .hero::after{
@@ -51,32 +55,42 @@ body{
 .hero-content{position:relative;z-index:2;max-width:800px;margin:0 auto}
 .hero-badge{
   display:inline-block;
-  padding:4px 16px;
+  padding:5px 18px;
   background:rgba(245,158,11,0.15);
   border:1px solid rgba(245,158,11,0.3);
   border-radius:20px;
   color:#fbbf24;
   font-size:13px;font-weight:500;
   letter-spacing:0.5px;
-  margin-bottom:16px;
+  margin-bottom:18px;
 }
 .hero h1{
-  font-size:28px;
+  font-size:30px;
   color:#fff;
-  margin-bottom:10px;
+  margin-bottom:12px;
   letter-spacing:1px;
 }
 .hero p{
   font-size:15px;
-  color:rgba(255,255,255,0.55);
+  color:rgba(255,255,255,0.6);
   max-width:600px;
   margin:0 auto;
 }
+.hero-stats{
+  display:flex;
+  justify-content:center;
+  gap:28px;
+  margin-top:26px;
+  flex-wrap:wrap;
+}
+.hero-stat{text-align:center}
+.hero-stat .num{font-size:24px;font-weight:800;color:#fbbf24}
+.hero-stat .lab{font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px}
 
 /* ===== Image Viewer ===== */
 .image-viewer-section{
   max-width:1100px;
-  margin:-30px auto 0;
+  margin:-34px auto 0;
   padding:0 24px;
   position:relative;
   z-index:10;
@@ -84,116 +98,135 @@ body{
 .image-viewer-card{
   background:#fff;
   border-radius:16px;
-  box-shadow:0 4px 24px rgba(0,0,0,0.08);
+  box-shadow:0 10px 34px rgba(15,23,42,0.12);
   overflow:hidden;
 }
 .image-viewer-toolbar{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:12px 20px;
-  border-bottom:1px solid #e2e8f0;
+  padding:13px 20px;
+  border-bottom:1px solid #eef2f7;
   background:#f8fafc;
   flex-wrap:wrap;
-  gap:8px;
+  gap:10px;
 }
-.zoom-controls{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
+.viewer-title{font-size:14px;font-weight:600;color:#1e293b;display:flex;align-items:center;gap:7px}
+.toolbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .zoom-btn{
-  width:36px;height:36px;
+  display:inline-flex;align-items:center;gap:5px;
+  padding:7px 15px;
   border:1px solid #e2e8f0;
   background:#fff;
-  border-radius:8px;
+  border-radius:9px;
   cursor:pointer;
-  font-size:18px;
-  color:#475569;
-  display:flex;align-items:center;justify-content:center;
+  font-size:13px;
+  font-weight:500;
+  color:#334155;
   transition:all .15s;
 }
-.zoom-btn:hover{background:#f1f5f9;border-color:#cbd5e1}
-.zoom-btn:active{transform:scale(0.95)}
-.zoom-btn.active{
+.zoom-btn:hover{background:#f1f5f9;border-color:#cbd5e1;color:#0f172a}
+.zoom-btn:active{transform:scale(0.96)}
+.view-original-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:7px 15px;
   background:#1e293b;
   color:#fff;
-  border-color:#1e293b;
+  border-radius:9px;
+  font-size:13px;
+  font-weight:500;
+  text-decoration:none;
+  transition:background .15s;
 }
-.zoom-level{
-  font-size:13px;color:#64748b;
-  min-width:50px;text-align:center;
-}
-.image-viewer-container{
-  overflow:auto;
-  max-height:65vh;
+.view-original-btn:hover{background:#334155}
+
+.image-preview{
   position:relative;
   background:#0f172a;
-  cursor:grab;
+  cursor:zoom-in;
+  overflow:hidden;
+  line-height:0;
 }
-.image-viewer-container:active{cursor:grabbing}
-.image-viewer-container img{
+.image-preview img{
   display:block;
   width:100%;
   height:auto;
   image-rendering:auto;
 }
-.image-viewer-container.full-size{
-  max-height:none;
-  cursor:grab;
+.preview-hint{
+  position:absolute;
+  left:50%;bottom:14px;
+  transform:translateX(-50%);
+  background:rgba(15,23,42,0.78);
+  color:#e2e8f0;
+  font-size:12.5px;
+  line-height:1.4;
+  padding:7px 16px;
+  border-radius:22px;
+  pointer-events:none;
+  white-space:nowrap;
+  backdrop-filter:blur(4px);
 }
-.image-viewer-container.full-size img{
-  width:auto;
-  max-width:none;
-}
-.image-hint{
-  font-size:12px;
-  color:#94a3b8;
-}
-.view-original-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-  padding:6px 14px;
-  background:#1e293b;
-  color:#fff;
-  border-radius:8px;
+.preview-zoom-badge{
+  position:absolute;
+  top:14px;right:14px;
+  background:rgba(15,23,42,0.78);
+  color:#fbbf24;
   font-size:13px;
-  font-weight:500;
-  text-decoration:none;
-  transition:background .15s;
-  margin-left:auto;
+  padding:6px 12px;
+  border-radius:10px;
+  pointer-events:none;
+  display:flex;align-items:center;gap:5px;
 }
-.view-original-btn:hover{
-  background:#334155;
-}
+
+/* ===== Lightbox ===== */
+.lightbox{position:fixed;inset:0;background:rgba(8,12,22,0.95);z-index:1000;display:none;flex-direction:column}
+.lightbox.open{display:flex}
+.lightbox-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(15,23,42,0.92);color:#fff;gap:12px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,0.06)}
+.lb-title{font-size:14px;font-weight:600;color:#fbbf24;display:flex;align-items:center;gap:7px}
+.lb-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.lb-btn{width:38px;height:38px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);border-radius:9px;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.lb-btn:hover{background:rgba(255,255,255,0.18)}
+.lb-btn:active{transform:scale(0.94)}
+.lb-close{background:rgba(239,68,68,0.22);border-color:rgba(239,68,68,0.4)}
+.lb-close:hover{background:rgba(239,68,68,0.42)}
+.lb-level{font-size:13px;color:#cbd5e1;min-width:56px;text-align:center}
+.lb-original{display:inline-flex;align-items:center;gap:4px;padding:8px 14px;background:#1e293b;color:#fff;border-radius:9px;font-size:13px;text-decoration:none;transition:background .15s}
+.lb-original:hover{background:#334155}
+.lightbox-stage{flex:1;overflow:hidden;position:relative;cursor:grab;display:flex;align-items:center;justify-content:center;touch-action:none}
+.lightbox-stage:active{cursor:grabbing}
+.lightbox-stage img{max-width:92vw;max-height:82vh;user-select:none;-webkit-user-drag:none;transform-origin:center center;will-change:transform;box-shadow:0 12px 50px rgba(0,0,0,0.55);border-radius:6px}
+.lb-tip{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,0.82);color:#cbd5e1;font-size:12px;padding:7px 16px;border-radius:22px;pointer-events:none;white-space:nowrap}
 
 /* ===== Search Bar ===== */
 .search-section{
   max-width:1100px;
-  margin:30px auto 0;
+  margin:34px auto 0;
   padding:0 24px;
 }
 .search-box{
   position:relative;
-  max-width:500px;
+  max-width:520px;
   margin:0 auto;
 }
 .search-box input{
   width:100%;
-  padding:12px 44px 12px 20px;
+  padding:13px 46px 13px 22px;
   border:2px solid #e2e8f0;
-  border-radius:12px;
+  border-radius:14px;
   font-size:15px;
   outline:none;
-  transition:border-color .15s;
+  transition:border-color .15s, box-shadow .15s;
   font-family:inherit;
+  background:#fff;
 }
-.search-box input:focus{border-color:#3b82f6}
+.search-box input:focus{border-color:#3b82f6;box-shadow:0 0 0 4px rgba(59,130,246,0.1)}
 .search-box input::placeholder{color:#94a3b8}
 .search-icon{
   position:absolute;
-  right:16px;top:50%;
+  right:18px;top:50%;
   transform:translateY(-50%);
   font-size:18px;
   color:#94a3b8;
@@ -201,7 +234,7 @@ body{
 }
 .search-results-count{
   text-align:center;
-  margin-top:8px;
+  margin-top:10px;
   font-size:13px;
   color:#64748b;
 }
@@ -209,7 +242,7 @@ body{
 /* ===== Category Tabs ===== */
 .category-tabs{
   max-width:1100px;
-  margin:24px auto 0;
+  margin:26px auto 0;
   padding:0 24px;
   display:flex;
   flex-wrap:wrap;
@@ -250,19 +283,19 @@ body{
 /* ===== Company Cards ===== */
 .companies-section{
   max-width:1100px;
-  margin:20px auto 40px;
+  margin:22px auto 44px;
   padding:0 24px;
 }
 .category-section{
-  margin-bottom:40px;
-  scroll-margin-top:20px;
+  margin-bottom:42px;
+  scroll-margin-top:70px;
 }
 .category-header{
   display:flex;
   align-items:center;
   gap:12px;
-  margin-bottom:16px;
-  padding-bottom:10px;
+  margin-bottom:18px;
+  padding-bottom:12px;
   border-bottom:2px solid #e2e8f0;
 }
 .category-icon{
@@ -283,7 +316,7 @@ body{
   margin-left:auto;
   font-size:13px;
   color:#64748b;
-  padding:2px 12px;
+  padding:3px 13px;
   background:#f1f5f9;
   border-radius:12px;
 }
@@ -291,20 +324,20 @@ body{
 .company-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:12px;
+  gap:14px;
 }
 .company-card{
   background:#fff;
-  border:1px solid #e2e8f0;
-  border-radius:12px;
-  padding:16px;
+  border:1px solid #e9eef5;
+  border-radius:14px;
+  padding:17px 18px;
   transition:all .2s;
   cursor:pointer;
 }
 .company-card:hover{
   border-color:#3b82f6;
-  box-shadow:0 4px 12px rgba(59,130,246,0.1);
-  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(59,130,246,0.12);
+  transform:translateY(-3px);
 }
 .company-card.highlighted{
   border-color:#f59e0b;
@@ -328,11 +361,11 @@ body{
 }
 .company-tag{
   display:inline-block;
-  margin-top:8px;
+  margin-top:9px;
   padding:2px 10px;
   border-radius:10px;
   font-size:11px;
-  font-weight:500;
+  font-weight:600;
 }
 .tag-insurance{background:#dbeafe;color:#1e40af}
 .tag-railroad{background:#fef3c7;color:#92400e}
@@ -342,33 +375,50 @@ body{
 .tag-retail{background:#f3e8ff;color:#6b21a8}
 .tag-finance{background:#fed7aa;color:#9a3412}
 .company-desc{
-  margin-top:8px;
-  font-size:12px;
+  margin-top:9px;
+  font-size:12.5px;
   color:#64748b;
-  line-height:1.5;
+  line-height:1.55;
 }
 
 /* ===== Footer ===== */
 .footer{
   text-align:center;
-  padding:30px 24px;
+  padding:30px 24px 40px;
   font-size:13px;
   color:#94a3b8;
 }
+.footer a{color:#64748b;text-decoration:none;border-bottom:1px dashed #cbd5e1}
+.footer a:hover{color:#334155}
 
 /* ===== Responsive ===== */
 @media (max-width:768px){
-  .hero h1{font-size:22px}
+  .hero h1{font-size:23px}
   .hero p{font-size:13px}
-  .image-viewer-container{max-height:400px}
+  .hero-stats{gap:18px}
+  .hero-stat .num{font-size:20px}
   .company-grid{grid-template-columns:1fr}
-  .zoom-btn{width:32px;height:32px;font-size:16px}
-  .image-hint{display:none}
-  .view-original-btn{font-size:12px;padding:5px 10px}
+  .zoom-btn,.view-original-btn{font-size:12px;padding:6px 12px}
+  .preview-hint{font-size:11px;padding:6px 12px;white-space:normal;text-align:center;max-width:90%}
+  .lb-tip{font-size:11px;white-space:normal;text-align:center;max-width:92%}
 }
 </style>
 </head>
 <body>
+
+<!-- ===== Top Nav (sticky) ===== -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="index.html" class="back-home">← 返回首页</a>
+    <div class="topnav-path">
+      <a href="index.html">首页</a>
+      <span>/</span>
+      <a href="berkshire-standalone.html">投资数据中心</a>
+      <span>/</span>
+      <span class="cur">业务版图</span>
+    </div>
+  </div>
+</nav>
 
 <!-- ===== Hero ===== -->
 <header class="hero">
@@ -376,37 +426,28 @@ body{
     <div class="hero-badge">Berkshire Hathaway Business Map</div>
     <h1>伯克希尔哈撒韦业务版图</h1>
     <p>完整展示伯克希尔旗下所有核心业务板块与子公司，中英文名称对照，支持搜索与缩放查看</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">59</div><div class="lab">家子公司</div></div>
+      <div class="hero-stat"><div class="num">7</div><div class="lab">大业务板块</div></div>
+      <div class="hero-stat"><div class="num">1965–2026</div><div class="lab">巴菲特时代</div></div>
+    </div>
   </div>
 </header>
-
-<!-- ===== Breadcrumb ===== -->
-<nav class="breadcrumb" style="background:#0f172a;max-width:100%;padding-top:8px">
-  <div style="max-width:1100px;margin:0 auto">
-    <a href="index.html">首页</a>
-    <span>/</span>
-    <a href="berkshire-standalone.html">投资数据中心</a>
-    <span>/</span>
-    <span class="current">业务版图</span>
-  </div>
-</nav>
 
 <!-- ===== Image Viewer ===== -->
 <section class="image-viewer-section">
   <div class="image-viewer-card">
     <div class="image-viewer-toolbar">
-      <div class="zoom-controls">
-        <button class="zoom-btn" onclick="zoomImage(-0.2)" title="缩小">−</button>
-        <span class="zoom-level" id="zoom-level">100%</span>
-        <button class="zoom-btn" onclick="zoomImage(0.2)" title="放大">+</button>
-        <button class="zoom-btn" onclick="resetZoom()" title="重置" style="font-size:14px">⟲</button>
+      <div class="viewer-title">🗺️ 伯克希尔业务版图（高清 9708×9113）</div>
+      <div class="toolbar-actions">
+        <button class="zoom-btn" onclick="openLightbox('images/berkshire-business-map.png','伯克希尔哈撒韦业务版图')">🔍 点击放大</button>
+        <a href="images/berkshire-business-map.png" target="_blank" rel="noopener" class="view-original-btn" title="在新标签页打开原图">📄 查看原图</a>
       </div>
-      <a href="images/berkshire-business-map.png" target="_blank" rel="noopener" class="view-original-btn" title="在新标签页打开原图">
-        📄 查看原图
-      </a>
-      <div class="image-hint">🖱️ 滚轮缩放 · 拖动查看 · 双击重置</div>
     </div>
-    <div class="image-viewer-container" id="image-container">
-      <img src="images/berkshire-business-map.png" alt="伯克希尔哈撒韦业务版图" id="map-image">
+    <div class="image-preview" onclick="openLightbox('images/berkshire-business-map.png','伯克希尔哈撒韦业务版图')">
+      <img src="images/berkshire-business-map.png" alt="伯克希尔哈撒韦业务版图" loading="lazy">
+      <div class="preview-zoom-badge">🔍 可放大</div>
+      <div class="preview-hint">点击图片放大 · 滚轮缩放 · 放大后可拖动查看</div>
     </div>
   </div>
 </section>
@@ -437,7 +478,27 @@ body{
 </section>
 
 <div class="footer">
-  <p>数据来源：伯克希尔哈撒韦年报 & 公开业务版图 | 仅供学习参考</p>
+  <p>数据来源：伯克希尔哈撒韦年报 &amp; 公开业务版图 | 仅供学习参考</p>
+  <p style="margin-top:8px"><a href="index.html">← 返回首页</a></p>
+</div>
+
+<!-- ===== Lightbox ===== -->
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <div class="lightbox-bar">
+    <div class="lb-title">🗺️ 伯克希尔业务版图</div>
+    <div class="lb-controls">
+      <button class="lb-btn" onclick="zoomBy(-0.25)" title="缩小">−</button>
+      <span class="lb-level" id="lb-level">100%</span>
+      <button class="lb-btn" onclick="zoomBy(0.25)" title="放大">+</button>
+      <button class="lb-btn" onclick="lbReset()" title="重置">⟲</button>
+      <a href="images/berkshire-business-map.png" target="_blank" rel="noopener" class="lb-original">📄 原图</a>
+      <button class="lb-btn lb-close" onclick="closeLightbox()" title="关闭">✕</button>
+    </div>
+  </div>
+  <div class="lightbox-stage" id="lightbox-stage">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+  <div class="lb-tip" id="lb-tip">滚轮缩放（以光标为中心）· 放大后按住拖动平移 · 双击重置 · Esc 关闭</div>
 </div>
 
 <script>
@@ -541,7 +602,7 @@ const categoryIcons = {
 function renderCompanies() {
   const container = document.getElementById('companies-container');
   const categories = ['insurance','railroad','energy','manufacturing','distribution','retail','finance'];
-  
+
   // Update counts
   document.getElementById('count-all').textContent = companies.length;
   categories.forEach(cat => {
@@ -572,17 +633,17 @@ function renderCompanies() {
     });
     html += `</div></div>`;
   });
-  
+
   container.innerHTML = html;
 }
 
 // ===== Scroll to Category =====
-function scrollToCategory(cat) {
+function scrollToCategory(cat, ev) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  
+  if (ev && ev.currentTarget) ev.currentTarget.classList.add('active');
+
   if (cat === 'all') {
-    window.scrollTo({top: document.querySelector('.companies-section').offsetTop - 20, behavior: 'smooth'});
+    window.scrollTo({top: document.querySelector('.companies-section').offsetTop - 70, behavior: 'smooth'});
     return;
   }
   const el = document.getElementById('cat-' + cat);
@@ -596,11 +657,11 @@ function searchCompanies() {
   const query = document.getElementById('search-input').value.trim().toLowerCase();
   const cards = document.querySelectorAll('.company-card');
   let matchCount = 0;
-  
+
   cards.forEach(card => {
     card.classList.remove('search-match');
     if (!query) return;
-    
+
     const cn = card.dataset.cn.toLowerCase();
     const en = card.dataset.en.toLowerCase();
     if (cn.includes(query) || en.includes(query)) {
@@ -608,7 +669,7 @@ function searchCompanies() {
       matchCount++;
     }
   });
-  
+
   const countEl = document.getElementById('search-count');
   if (query) {
     countEl.textContent = `找到 ${matchCount} 家匹配的公司`;
@@ -617,87 +678,126 @@ function searchCompanies() {
   }
 }
 
-// ===== Image Viewer =====
-let currentMode = 'fit';
+// ===== Lightbox (zoom + drag pan) =====
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lightbox-img');
+const lbStage = document.getElementById('lightbox-stage');
+const lbLevel = document.getElementById('lb-level');
+let scale = 1, tx = 0, ty = 0, lbOpen = false;
 
-function setViewMode(mode) {
-  currentMode = mode;
-  const container = document.getElementById('image-container');
-  const img = document.getElementById('map-image');
-  const label = document.getElementById('zoom-level');
-  const btns = document.querySelectorAll('.zoom-btn');
-  
-  btns.forEach(b => b.classList.remove('active'));
-  
-  if (mode === 'fit') {
-    container.classList.remove('full-size');
-    img.style.width = '100%';
-    img.style.maxWidth = 'none';
-    label.textContent = '适配屏幕';
-    btns[0].classList.add('active');
-  } else if (mode === 'full') {
-    container.classList.add('full-size');
-    img.style.width = 'auto';
-    img.style.maxWidth = 'none';
-    label.textContent = '原始尺寸';
-    btns[1].classList.add('active');
-  }
+function applyTransform(){
+  lbImg.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  lbLevel.textContent = Math.round(scale * 100) + '%';
+}
+function lbReset(){
+  scale = 1; tx = 0; ty = 0; applyTransform();
+}
+function zoomBy(delta){
+  let ns = Math.max(0.2, Math.min(8, scale + delta));
+  scale = ns; applyTransform();
+}
+function openLightbox(src, alt){
+  lbImg.src = src;
+  lbImg.alt = alt || '';
+  lb.classList.add('open');
+  lbOpen = true;
+  document.body.style.overflow = 'hidden';
+  lbReset();
+  lbImg.onload = () => {
+    const sw = lbStage.clientWidth, sh = lbStage.clientHeight;
+    const iw = lbImg.naturalWidth, ih = lbImg.naturalHeight;
+    if (iw && ih){
+      const fit = Math.min(sw / iw, sh / ih) * 0.95;
+      scale = Math.max(0.2, Math.min(8, fit));
+      tx = 0; ty = 0; applyTransform();
+    }
+  };
+}
+function closeLightbox(){
+  lb.classList.remove('open');
+  lbOpen = false;
+  document.body.style.overflow = '';
 }
 
-// Drag to pan
-let isDragging = false, startX, startY, scrollLeft, scrollTop;
-const container = document.getElementById('image-container');
-container.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  startX = e.pageX - container.offsetLeft;
-  startY = e.pageY - container.offsetTop;
-  scrollLeft = container.scrollLeft;
-  scrollTop = container.scrollTop;
-});
-container.addEventListener('mouseleave', () => isDragging = false);
-container.addEventListener('mouseup', () => isDragging = false);
-container.addEventListener('mousemove', (e) => {
-  if (!isDragging) return;
+// Wheel zoom (anchored at cursor)
+lbStage.addEventListener('wheel', (e) => {
+  if (!lbOpen) return;
   e.preventDefault();
-  const x = e.pageX - container.offsetLeft;
-  const y = e.pageY - container.offsetTop;
-  container.scrollLeft = scrollLeft - (x - startX);
-  container.scrollTop = scrollTop - (y - startY);
-});
+  const rect = lbStage.getBoundingClientRect();
+  const cx = e.clientX - rect.left - rect.width / 2;
+  const cy = e.clientY - rect.top - rect.height / 2;
+  const factor = e.deltaY < 0 ? 1.15 : 1 / 1.15;
+  let ns = Math.max(0.2, Math.min(8, scale * factor));
+  scale = ns;
+  tx = cx - factor * (cx - tx);
+  ty = cy - factor * (cy - ty);
+  applyTransform();
+}, {passive: false});
 
-// Touch support
-let touchStartX, touchStartY, touchScrollLeft, touchScrollTop;
-container.addEventListener('touchstart', (e) => {
-  touchStartX = e.touches[0].pageX;
-  touchStartY = e.touches[0].pageY;
-  touchScrollLeft = container.scrollLeft;
-  touchScrollTop = container.scrollTop;
+// Mouse drag pan
+let dragging = false, sx = 0, sy = 0, stx = 0, sty = 0;
+lbStage.addEventListener('mousedown', (e) => {
+  dragging = true; sx = e.clientX; sy = e.clientY; stx = tx; sty = ty;
 });
-container.addEventListener('touchmove', (e) => {
-  if (e.touches.length === 1) {
-    const x = e.touches[0].pageX;
-    const y = e.touches[0].pageY;
-    container.scrollLeft = touchScrollLeft - (x - touchStartX);
-    container.scrollTop = touchScrollTop - (y - touchStartY);
+window.addEventListener('mousemove', (e) => {
+  if (!dragging) return;
+  tx = stx + (e.clientX - sx);
+  ty = sty + (e.clientY - sy);
+  applyTransform();
+});
+window.addEventListener('mouseup', () => { dragging = false; });
+
+// Double click reset
+lbStage.addEventListener('dblclick', () => lbReset());
+
+// Esc to close
+window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lbOpen) closeLightbox(); });
+
+// Touch: pinch zoom + one-finger pan
+let pinchStartDist = 0, pinchStartScale = 1, tpSX = 0, tpSY = 0, tpSTx = 0, tpSTy = 0;
+function touchDist(t){
+  return Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+}
+lbStage.addEventListener('touchstart', (e) => {
+  if (e.touches.length === 2){
+    pinchStartDist = touchDist(e.touches);
+    pinchStartScale = scale;
+  } else if (e.touches.length === 1){
+    tpSX = e.touches[0].clientX; tpSY = e.touches[0].clientY;
+    tpSTx = tx; tpSTy = ty;
   }
-}, {passive: true});
+}, {passive: false});
+lbStage.addEventListener('touchmove', (e) => {
+  if (!lbOpen) return;
+  e.preventDefault();
+  if (e.touches.length === 2){
+    const d = touchDist(e.touches);
+    let ns = pinchStartScale * (d / (pinchStartDist || 1));
+    scale = Math.max(0.2, Math.min(8, ns));
+    applyTransform();
+  } else if (e.touches.length === 1){
+    tx = tpSTx + (e.touches[0].clientX - tpSX);
+    ty = tpSTy + (e.touches[0].clientY - tpSY);
+    applyTransform();
+  }
+}, {passive: false});
 
 // Scroll spy for tabs
 window.addEventListener('scroll', () => {
   const sections = document.querySelectorAll('.category-section');
   const tabs = document.querySelectorAll('.tab-btn');
   let current = 'all';
-  
+
   sections.forEach(sec => {
     const rect = sec.getBoundingClientRect();
-    if (rect.top < 200 && rect.bottom > 200) {
+    if (rect.top < 220 && rect.bottom > 220) {
       current = sec.id.replace('cat-', '');
     }
   });
-  
+
   tabs.forEach(tab => {
     tab.classList.remove('active');
-    if (tab.textContent.includes(categoryNames[current]?.cn?.slice(0,2)) || 
+    if (tab.textContent.includes(categoryNames[current]?.cn?.slice(0,2)) ||
         (current === 'all' && tab.textContent.includes('全部'))) {
       tab.classList.add('active');
     }
