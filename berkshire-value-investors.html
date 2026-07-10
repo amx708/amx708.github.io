@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>价值投资人物 — 李录 · 帕伯莱</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.6;min-height:100vh}
+
+/* ===== Top Home Bar ===== */
+.top-home-bar{position:absolute;top:16px;left:24px;z-index:10}
+.home-btn{
+  display:inline-flex;align-items:center;gap:6px;padding:7px 14px;
+  background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);
+  border-radius:20px;color:rgba(255,255,255,0.85);font-size:13px;font-weight:500;
+  text-decoration:none;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  transition:all 0.2s ease;
+}
+.home-btn:hover{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.28);color:#fff;transform:translateY(-1px)}
+
+/* ===== Breadcrumb ===== */
+.breadcrumb{max-width:1100px;margin:0 auto;padding:14px 24px 6px;font-size:13px;color:rgba(255,255,255,0.6);position:relative;z-index:2}
+.breadcrumb a{color:rgba(255,255,255,0.7);text-decoration:none;transition:color 0.15s}
+.breadcrumb a:hover{color:#fbbf24}
+.breadcrumb span{color:rgba(255,255,255,0.35);margin:0 6px}
+.breadcrumb .current{color:rgba(255,255,255,0.9);font-weight:500}
+
+/* ===== Hero ===== */
+.hero{
+  position:relative;background:linear-gradient(135deg,#0f172a 0%,#1e293b 40%,#1e3a5f 100%);
+  padding:60px 24px 80px;text-align:center;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(ellipse at 30% 20%, rgba(245,158,11,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(37,99,235,0.06) 0%, transparent 50%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:100px;
+  background:linear-gradient(to top, #f1f5f9 0%, transparent 100%);pointer-events:none;
+}
+.hero-content{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.hero-badge{
+  display:inline-block;padding:4px 14px;
+  background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);
+  border-radius:20px;color:#fbbf24;font-size:12px;font-weight:500;letter-spacing:0.5px;margin-bottom:20px;
+}
+.hero h1{font-size:clamp(26px,4vw,40px);font-weight:800;color:#fff;line-height:1.25;letter-spacing:-0.5px;margin-bottom:12px}
+.hero h1 span{color:#f59e0b}
+.hero p{font-size:15px;color:#94a3b8;max-width:560px;margin:0 auto;line-height:1.7}
+
+/* ===== Stats ===== */
+.stats-bar{
+  position:relative;z-index:3;max-width:960px;margin:-40px auto 0;padding:0 24px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+}
+.stat-card{
+  background:#fff;border-radius:12px;padding:24px 20px;text-align:center;
+  box-shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.04);
+  border:1px solid #e2e8f0;transition:transform 0.2s ease,box-shadow 0.2s ease;
+}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+.stat-number{font-size:28px;font-weight:800;background:linear-gradient(135deg,#f59e0b,#d97706);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.stat-label{font-size:13px;color:#64748b;margin-top:6px;font-weight:500}
+
+/* ===== Person Section ===== */
+.main-section{max-width:1120px;margin:0 auto;padding:48px 24px 80px}
+.section-header{margin-bottom:40px;text-align:center}
+.section-header h2{font-size:26px;font-weight:700;color:#0f172a;margin-bottom:8px}
+.section-header p{font-size:15px;color:#64748b}
+
+/* ===== Person Profile ===== */
+.person-block{
+  background:#fff;border-radius:16px;border:1px solid #e2e8f0;
+  box-shadow:0 4px 16px rgba(0,0,0,0.06);overflow:hidden;margin-bottom:32px;
+}
+.person-header{
+  display:flex;align-items:center;gap:24px;padding:28px 32px;
+  border-bottom:1px solid #e2e8f0;background:linear-gradient(135deg,#f8fafc,#fff);
+}
+.person-avatar{
+  width:80px;height:80px;border-radius:16px;display:flex;align-items:center;justify-content:center;
+  font-size:36px;font-weight:800;color:#fff;flex-shrink:0;
+}
+.person-avatar.li{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.person-avatar.pabrai{background:linear-gradient(135deg,#059669,#047857)}
+.person-name{font-size:24px;font-weight:800;color:#0f172a;line-height:1.2}
+.person-name-en{font-size:14px;color:#64748b;font-weight:400;margin-top:4px}
+.person-tags{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.person-tag{
+  padding:3px 10px;border-radius:6px;font-size:11px;font-weight:500;
+}
+.person-tag.tag-himalaya{background:#eff6ff;border:1px solid #bfdbfe;color:#2563eb}
+.person-tag.tag-pabrai-fund{background:#ecfdf5;border:1px solid #a7f3d0;color:#059669}
+.person-tag.tag-byd{background:#fef3c7;border:1px solid #fde68a;color:#b45309}
+.person-tag.tag-dhandho{background:#ecfdf5;border:1px solid #a7f3d0;color:#059669}
+.person-tag.tag-brk{background:#fef3c7;border:1px solid #fde68a;color:#92400e}
+.person-tag.tag-munger-friend{background:#faf5ff;border:1px solid #d8b4fe;color:#7c3aed}
+.person-tag.tag-lunch{background:#fce7f3;border:1px solid #fbcfe8;color:#db2777}
+
+.person-body{padding:28px 32px;display:grid;grid-template-columns:280px 1fr;gap:28px}
+
+/* ===== Profile Info ===== */
+.profile-info{font-size:14px;color:#475569;line-height:1.8}
+.profile-info h3{font-size:16px;font-weight:700;color:#0f172a;margin-bottom:10px}
+.profile-info .info-row{display:flex;gap:8px;margin-bottom:6px}
+.info-label{color:#94a3b8;font-weight:500;min-width:80px;font-size:13px}
+.info-value{color:#1e293b;font-weight:600;font-size:13px}
+.profile-quote{
+  margin-top:16px;padding:16px 20px;border-radius:10px;
+  background:#f8fafc;border:1px solid #e2e8f0;
+  font-size:13.5px;color:#475569;line-height:1.7;font-style:italic;
+}
+.profile-quote .quote-source{font-size:12px;color:#94a3b8;margin-top:6px;font-style:normal;font-weight:500}
+
+/* ===== Speech List ===== */
+.speech-list{display:flex;flex-direction:column;gap:14px}
+.speech-card{
+  background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;
+  padding:18px 22px;transition:all 0.2s ease;display:flex;align-items:flex-start;gap:16px;
+}
+.speech-card:hover{background:#fff;border-color:#cbd5e1;box-shadow:0 4px 12px rgba(0,0,0,0.06);transform:translateY(-2px)}
+.speech-icon{
+  width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.speech-icon.icon-pku{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe}
+.speech-icon.icon-columbia{background:linear-gradient(135deg,#fef3c7,#fde68a);border:1px solid #fde68a}
+.speech-icon.icon-omaha{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1px solid #a7f3d0}
+.speech-icon.icon-interview{background:linear-gradient(135deg,#faf5ff,#e9d5ff);border:1px solid #d8b4fe}
+.speech-icon.icon-book{background:linear-gradient(135deg,#fce7f3,#fbcfe8);border:1px solid #fbcfe8}
+.speech-content{flex:1}
+.speech-title{font-size:15px;font-weight:600;color:#0f172a;line-height:1.4}
+.speech-title a{color:#0f172a;text-decoration:none;transition:color 0.15s}
+.speech-title a:hover{color:#2563eb}
+.speech-meta{font-size:12px;color:#94a3b8;margin-top:4px;display:flex;gap:12px;align-items:center}
+.speech-meta .date{font-weight:500}
+.speech-meta .venue{color:#64748b}
+.speech-desc{font-size:13px;color:#64748b;margin-top:6px;line-height:1.6}
+.speech-link{
+  display:inline-flex;align-items:center;gap:4px;padding:4px 12px;margin-top:8px;
+  border-radius:6px;font-size:12px;font-weight:500;
+  background:#eff6ff;border:1px solid #bfdbfe;color:#2563eb;text-decoration:none;
+  transition:all 0.15s ease;
+}
+.speech-link:hover{background:#dbeafe;border-color:#93c5fd}
+
+/* ===== More Coming ===== */
+.more-section{
+  text-align:center;padding:40px 20px;margin-top:20px;
+}
+.more-badge{
+  display:inline-flex;align-items:center;gap:8px;padding:12px 24px;
+  background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;
+  font-size:14px;color:#64748b;font-weight:500;
+}
+
+/* ===== Footer ===== */
+.page-footer{
+  max-width:1100px;margin:0 auto;padding:24px;text-align:center;
+  font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0;
+}
+
+/* ===== Responsive ===== */
+@media(max-width:768px){
+  .person-header{flex-direction:column;text-align:center;padding:20px}
+  .person-avatar{width:64px;height:64px;font-size:28px}
+  .person-body{grid-template-columns:1fr;gap:20px;padding:20px}
+  .stats-bar{grid-template-columns:1fr;gap:12px}
+  .hero{padding:50px 20px 70px}
+}
+@media(max-width:480px){
+  .speech-card{flex-direction:column;gap:10px;padding:14px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Hero ===== -->
+<div class="hero">
+  <div class="top-home-bar">
+    <a href="index.html" class="home-btn"><span class="home-icon">🏠</span> 返回首页</a>
+  </div>
+  <nav class="breadcrumb">
+    <a href="index.html">首页</a><span>/</span>
+    <a href="berkshire-standalone.html">投资数据中心</a><span>/</span>
+    <span class="current">价值投资人物</span>
+  </nav>
+  <div class="hero-content">
+    <div class="hero-badge">Value Investors · 人物与演讲</div>
+    <h1>价值投资<span>人物</span></h1>
+    <p>收录价值投资领域的杰出实践者——他们的思想、演讲、讲话与访谈实录，与巴菲特·芒格的投资智慧一脉相承</p>
+  </div>
+</div>
+
+<!-- ===== Stats ===== -->
+<div class="stats-bar">
+  <div class="stat-card">
+    <div class="stat-number">2</div>
+    <div class="stat-label">收录人物</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">6</div>
+    <div class="stat-label">演讲 / 讲话</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">1</div>
+    <div class="stat-label">著作</div>
+  </div>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="main-section">
+
+  <!-- ===== 李录 ===== -->
+  <div class="person-block">
+    <div class="person-header">
+      <div class="person-avatar li">录</div>
+      <div>
+        <div class="person-name">李录</div>
+        <div class="person-name-en">Li Lu · Himalaya Capital Founder</div>
+        <div class="person-tags">
+          <span class="person-tag tag-himalaya">喜马拉雅资本</span>
+          <span class="person-tag tag-byd">比亚迪发现者</span>
+          <span class="person-tag tag-brk">芒格家族基金</span>
+        </div>
+      </div>
+    </div>
+    <div class="person-body">
+      <div class="profile-info">
+        <h3>人物简介</h3>
+        <div class="info-row"><span class="info-label">出生</span><span class="info-value">1966年，中国</span></div>
+        <div class="info-row"><span class="info-label">机构</span><span class="info-value">喜马拉雅资本管理公司</span></div>
+        <div class="info-row"><span class="info-label">角色</span><span class="info-value">创始人兼首席投资官</span></div>
+        <div class="info-row"><span class="info-label">管理规模</span><span class="info-value">数十亿美元</span></div>
+        <div class="info-row"><span class="info-label">经典投资</span><span class="info-value">比亚迪（持有22年）</span></div>
+        <div class="info-row"><span class="info-label">著作</span><span class="info-value">《文明、现代化、价值投资与中国》</span></div>
+        <div class="info-row"><span class="info-label">与巴菲特</span><span class="info-value">向芒格推荐比亚迪，芒格称"如果除巴菲特外只选一人管理资金，就是李录"</span></div>
+        <div class="profile-quote">
+          "作为价值投资人，你要明白什么是价值，什么是真正要去追求、保护和增长的财富——那就是你在经济体中的购买力占比。Take the world the way it is, not what we wish it to be."
+          <div class="quote-source">—— 2024年北大演讲《全球价值投资与时代》</div>
+        </div>
+      </div>
+      <div class="speech-list">
+        <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin-bottom:16px">演讲与讲话</h3>
+
+        <div class="speech-card">
+          <div class="speech-icon icon-pku">🎓</div>
+          <div class="speech-content">
+            <div class="speech-title"><a href="value-investors-content/li-lu-2015.html">价值投资在中国的展望</a></div>
+            <div class="speech-meta">
+              <span class="date">2015年10月</span>
+              <span class="venue">北京大学光华管理学院</span>
+            </div>
+            <div class="speech-desc">李录首次在北大价值投资课程演讲，系统阐述价值投资四大核心理念，论证其在中国市场的适用性——从格雷厄姆到巴菲特的投资体系全景梳理。</div>
+            <a href="value-investors-content/li-lu-2015.html" class="speech-link">阅读全文 →</a>
+          </div>
+        </div>
+
+        <div class="speech-card">
+          <div class="speech-icon icon-pku">🎓</div>
+          <div class="speech-content">
+            <div class="speech-title"><a href="value-investors-content/li-lu-2019.html">价值投资在实践中的知行合一</a></div>
+            <div class="speech-meta">
+              <span class="date">2019年</span>
+              <span class="venue">北京大学光华管理学院</span>
+            </div>
+            <div class="speech-desc">时隔四年再度登上北大讲台，从实践维度探讨知行合一——能力圈的真实边界、长期持有的考验、比亚迪22年8次暴跌50%的投资心路。</div>
+            <a href="value-investors-content/li-lu-2019.html" class="speech-link">阅读全文 →</a>
+          </div>
+        </div>
+
+        <div class="speech-card">
+          <div class="speech-icon icon-pku">🎓</div>
+          <div class="speech-content">
+            <div class="speech-title"><a href="value-investors-content/li-lu-2024.html">全球价值投资与时代</a></div>
+            <div class="speech-meta">
+              <span class="date">2024年12月7日</span>
+              <span class="venue">北京大学光华管理学院 · 价值投资课程十周年</span>
+            </div>
+            <div class="speech-desc">第三次北大演讲，从宏观时代变量切入——中等收入陷阱、国际秩序重塑、消费占比提升空间，回归价值投资六原则，回答"何时卖出""投资的社会价值"等终极问题。</div>
+            <a href="value-investors-content/li-lu-2024.html" class="speech-link">阅读全文 →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 莫尼什·帕伯莱 ===== -->
+  <div class="person-block">
+    <div class="person-header">
+      <div class="person-avatar pabrai">P</div>
+      <div>
+        <div class="person-name">莫尼什·帕伯莱</div>
+        <div class="person-name-en">Mohnish Pabrai · Pabrai Investment Funds Founder</div>
+        <div class="person-tags">
+          <span class="person-tag tag-pabrai-fund">帕伯莱投资基金</span>
+          <span class="person-tag tag-dhandho">《Dhandho Investor》</span>
+          <span class="person-tag tag-lunch">巴菲特午餐</span>
+          <span class="person-tag tag-munger-friend">芒格挚友</span>
+        </div>
+      </div>
+    </div>
+    <div class="person-body">
+      <div class="profile-info">
+        <h3>人物简介</h3>
+        <div class="info-row"><span class="info-label">出生</span><span class="info-value">1964年，印度 → 美国</span></div>
+        <div class="info-row"><span class="info-label">机构</span><span class="info-value">Pabrai Investment Funds</span></div>
+        <div class="info-row"><span class="info-label">角色</span><span class="info-value">创始人兼基金经理</span></div>
+        <div class="info-row"><span class="info-label">管理规模</span><span class="info-value">约14亿美元</span></div>
+        <div class="info-row"><span class="info-label">著作</span><span class="info-value">《The Dhandho Investor》（低风险高收益投资法）</span></div>
+        <div class="info-row"><span class="info-label">慈善</span><span class="info-value">Dakshana Foundation（教育扶贫）</span></div>
+        <div class="info-row"><span class="info-label">与巴菲特</span><span class="info-value">2007年以$65万拍得巴菲特午餐，芒格嘱他与李录每月午餐交流</span></div>
+        <div class="profile-quote">
+          "股市的核心功能是一个财富转移机制——从频繁交易者转移到不动如山者。能带来优异投资结果的细微差别，大多与性情有关，与智商无关。一切最终回到看油漆干燥。"
+          <div class="quote-source">—— 帕伯莱访谈</div>
+        </div>
+      </div>
+      <div class="speech-list">
+        <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin-bottom:16px">演讲与讲话</h3>
+
+        <div class="speech-card">
+          <div class="speech-icon icon-omaha">🏛️</div>
+          <div class="speech-content">
+            <div class="speech-title"><a href="value-investors-content/pabrai-2025-omaha.html">资本配置的30个心智模型</a></div>
+            <div class="speech-meta">
+              <span class="date">2025年</span>
+              <span class="venue">内布拉斯加大学奥马哈分校</span>
+            </div>
+            <div class="speech-desc">帕伯莱系统梳理30个跨学科心智模型——"基石"（认真对待简单想法）、"鲁拉效应"（1+1=11）、格雷厄姆三原则、航空业清单法、213道投资检查清单、无杠杆/持久护城河/管理层品性三条底线。</div>
+            <a href="value-investors-content/pabrai-2025-omaha.html" class="speech-link">阅读全文 →</a>
+          </div>
+        </div>
+
+        <div class="speech-card">
+          <div class="speech-icon icon-interview">🎙️</div>
+          <div class="speech-content">
+            <div class="speech-title"><a href="value-investors-content/pabrai-2026-interview.html">帕伯莱韩国访谈：投资清单、美光反思与巴菲特午餐</a></div>
+            <div class="speech-meta">
+              <span class="date">2026年6月</span>
+              <span class="venue">韩国《지식인사이드》访谈节目</span>
+            </div>
+            <div class="speech-desc">深度复盘美光与SK海力士的"卖飞"教训，分享213道投资清单方法论、巴菲特午餐收获、宜家无杠杆经营哲学，以及终极人生目标："2054年去世前一天，把钱全部捐完。"</div>
+            <a href="value-investors-content/pabrai-2026-interview.html" class="speech-link">阅读全文 →</a>
+          </div>
+        </div>
+
+        <div class="speech-card">
+          <div class="speech-icon icon-book">📖</div>
+          <div class="speech-content">
+            <div class="speech-title"><a href="value-investors-content/pabrai-dhandho.html">《Dhandho Investor》核心思想解读</a></div>
+            <div class="speech-meta">
+              <span class="date">著作</span>
+              <span class="venue">低风险高收益的投资法</span>
+            </div>
+            <div class="speech-desc">帕伯莱的投资哲学精华——"Dhandho"意为低风险高回报的创业精神，源自印度帕特尔人经营旅馆的智慧。核心论点：像买折扣资产一样投资，先求不亏再求盈利，用套利思维而非赌博心态做决策。</div>
+            <a href="value-investors-content/pabrai-dhandho.html" class="speech-link">阅读全文 →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== More Coming ===== -->
+  <div class="more-section">
+    <div class="more-badge">🚧 更多价值投资人物即将收录……</div>
+  </div>
+
+</div>
+
+<!-- ===== Footer ===== -->
+<div class="page-footer">
+  内容来源：公开演讲、访谈与著作 · 仅供学习参考 · 不构成投资建议
+</div>
+
+</body>
+</html>
