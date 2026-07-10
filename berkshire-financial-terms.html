@@ -76,41 +76,36 @@ footer a{font-weight:600}
 
 <section class="kb-hero">
   <h1>金融术语词典</h1>
-  <p class="lead">伯克希尔投资数据中心的内容导航：投资方法论、巴菲特致股东信、访谈、名言与年度股东大会。投资方法论可在站内直接阅读中文详解，股东信与年会可跳转至本站中文实录。</p>
+  <p class="lead">伯克希尔投资数据中心的内容导航：投资方法论、巴菲特访谈与年会名言。投资方法论可在站内直接阅读中文详解，访谈与名言作主题索引，方便检索。</p>
   <div class="kb-stats">
     <div class="kb-stat"><div class="num">12</div><div class="lab">投资方法论（中文）</div></div>
-    <div class="kb-stat"><div class="num">12</div><div class="lab">致股东信（英文）</div></div>
     <div class="kb-stat"><div class="num">10</div><div class="lab">巴菲特访谈（英文）</div></div>
-    <div class="kb-stat"><div class="num">13</div><div class="lab">年会 / 名言（英文）</div></div>
+    <div class="kb-stat"><div class="num">13</div><div class="lab">年会名言（英文）</div></div>
   </div>
 </section>
 
 <div class="kb-guide">
   <div class="kb-guide-card">
-    <b>怎么用：</b>点上方标签切换「投资方法论 / 股东信 / 访谈 / 名言 / 年度股东大会」。投资方法论板块提供「<b>投资方法论中文详解</b>」入口，可一键查看 12 篇站内方法论全文；股东信与年度股东大会条目链至本站中文实录；访谈与名言仅作主题索引，方便检索。
+    <b>怎么用：</b>点上方标签切换「投资方法论 / 访谈 / 名言」。投资方法论板块提供「<b>投资方法论中文详解</b>」入口，可一键查看 12 篇站内方法论全文；访谈与名言仅作主题索引，方便检索。
   </div>
 </div>
 
 <section class="kb-main">
   <div class="kb-tabs">
     <div class="kb-tab active" data-tab="method" onclick="switchTab('method')">📐 投资方法论</div>
-    <div class="kb-tab" data-tab="letters" onclick="switchTab('letters')">✉️ 致股东信</div>
     <div class="kb-tab" data-tab="interviews" onclick="switchTab('interviews')">🎙️ 访谈</div>
     <div class="kb-tab" data-tab="quotes" onclick="switchTab('quotes')">💬 名言</div>
-    <div class="kb-tab" data-tab="meetings" onclick="switchTab('meetings')">🏟️ 年度股东大会</div>
   </div>
   <div class="kb-search">
     <input id="kb-search" type="text" placeholder="搜索标题…" oninput="render()">
   </div>
   <div class="kb-panel active" id="panel-method"></div>
-  <div class="kb-panel" id="panel-letters"></div>
   <div class="kb-panel" id="panel-interviews"></div>
   <div class="kb-panel" id="panel-quotes"></div>
-  <div class="kb-panel" id="panel-meetings"></div>
 </section>
 
 <footer>
-  本页为伯克希尔投资数据中心的内容导航，收录投资方法论、致股东信、访谈、名言与年度股东大会等主题索引，供站内检索与跳转使用。
+  本页为伯克希尔投资数据中心的内容导航，收录投资方法论、巴菲特访谈与年会名言等主题索引，供站内检索与跳转使用。
 </footer>
 
 <script>
@@ -132,22 +127,6 @@ const method_strategy = [
   {t:"股息投资 (Dividend Investing)", u:"berkshire-methodology.html", a:"", d:"投资策略"}
 ];
 
-// ---------- 致股东信（链至本站中文实录） ----------
-const LETTER_YEARS = [2024,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013];
-const letters = LETTER_YEARS.map(y=>({
-  t: y+" 年伯克希尔·哈撒韦致股东信",
-  u: "meetings_content/full/"+y+".html",
-  a: "沃伦·巴菲特", d: (y+1)+"-02", lang:"zh"
-}));
-
-// ---------- 年度股东大会（链至本站中文实录） ----------
-const MEET_YEARS = [2026,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015];
-const meetings = MEET_YEARS.map(y=>({
-  t: y+" 年伯克希尔·哈撒韦股东大会",
-  u: "meetings_content/full/"+y+".html",
-  a: "沃伦·巴菲特", d: y+"-05", lang:"zh"
-}));
-
 // ---------- 访谈（主题索引） ----------
 const interviews = [
   {t:"沃伦·巴菲特完整访谈：与贝基·奎克对话（2026 股东大会）", u:"", a:"", d:"2026-05-02"},
@@ -162,9 +141,14 @@ const interviews = [
   {t:"「分散投资是对无知的防御」——巴菲特（1996）", u:"", a:"", d:"1996-06-02"}
 ];
 
-// ---------- 名言（主题索引） ----------
+// ---------- 名言（年会主题索引） ----------
+const MEET_YEARS = [2026,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015];
 const quotes = [
-  {t:"一生中没人能拥有超过 20 个好点子", u:"", a:"", d:""}
+  ...MEET_YEARS.map(y=>({
+    t: y+" 年伯克希尔·哈撒韦股东大会",
+    u: "", a: "沃伦·巴菲特", d: y+"-05", lang:"zh"
+  })),
+  {t:"一生中没人能拥有超过 20 个好点子", u:"", a:"", d:"", lang:"en"}
 ];
 
 let curTab = 'method';
@@ -211,17 +195,10 @@ function render(){
     document.getElementById('panel-method').innerHTML = html;
     return;
   }
-  if(curTab==='meetings'){
-    const note = '<div class="kb-note">📌 本站已收录 <b>1994–2026 伯克希尔股东大会中文实录</b>（含 2026 最新）。下方为 2015–2026 年索引，可直接前往：<a href="berkshire-meetings.html">伯克希尔股东大会实录 →</a></div>';
-    document.getElementById('panel-meetings').innerHTML = note + renderList(meetings, q);
-    return;
-  }
   let arr = [];
-  let preNote = '';
-  if(curTab==='letters'){ arr = letters; preNote = '<div class="kb-note">📌 下方为 2013–2024 年致股东信索引，链至本站中文实录。</div>'; }
-  else if(curTab==='interviews') arr = interviews;
+  if(curTab==='interviews') arr = interviews;
   else if(curTab==='quotes') arr = quotes;
-  document.getElementById('panel-'+curTab).innerHTML = preNote + renderList(arr, q);
+  document.getElementById('panel-'+curTab).innerHTML = renderList(arr, q);
 }
 
 render();
