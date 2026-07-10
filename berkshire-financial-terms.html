@@ -58,6 +58,13 @@ a{color:var(--blue);text-decoration:none}
 .kb-note a{font-weight:700}
 .kb-note b{color:#1e3a8a}
 .kb-empty{text-align:center;color:var(--muted);padding:40px;font-size:14px}
+.quote-wrap{max-width:780px;margin:0 auto}
+.quote-head{font-size:19px;font-weight:800;color:var(--navy);margin-bottom:18px;text-align:center;letter-spacing:.5px}
+.quote-item{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--orange);border-radius:12px;padding:16px 20px;margin-bottom:14px;box-shadow:0 4px 14px rgba(15,39,71,.06)}
+.quote-en{font-size:15px;color:#334155;font-style:italic;line-height:1.75}
+.quote-zh{font-size:15px;color:var(--navy);font-weight:600;margin-top:10px;line-height:1.75}
+.quote-by{font-size:13px;color:var(--muted);margin-top:8px;text-align:right}
+.quote-note{background:#fff7e6;border:1px solid #fde68a;border-radius:12px;padding:16px 20px;font-size:14px;color:#7c5a17;line-height:1.85;margin-top:6px}
 footer{max-width:1080px;margin:0 auto;padding:24px 20px 50px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 footer a{font-weight:600}
 @media(max-width:600px){
@@ -76,17 +83,17 @@ footer a{font-weight:600}
 
 <section class="kb-hero">
   <h1>金融术语词典</h1>
-  <p class="lead">伯克希尔投资数据中心的内容导航：投资方法论、巴菲特访谈与年会名言。投资方法论可在站内直接阅读中文详解，访谈与名言作主题索引，方便检索。</p>
+  <p class="lead">伯克希尔投资数据中心的内容导航：投资方法论、巴菲特访谈与巴菲特名言。投资方法论可在站内直接阅读中文详解；访谈作主题索引；名言展示巴菲特原话的中英对照。</p>
   <div class="kb-stats">
     <div class="kb-stat"><div class="num">12</div><div class="lab">投资方法论（中文）</div></div>
     <div class="kb-stat"><div class="num">10</div><div class="lab">巴菲特访谈（英文）</div></div>
-    <div class="kb-stat"><div class="num">13</div><div class="lab">年会名言（英文）</div></div>
+    <div class="kb-stat"><div class="num">1</div><div class="lab">巴菲特名言（中英）</div></div>
   </div>
 </section>
 
 <div class="kb-guide">
   <div class="kb-guide-card">
-    <b>怎么用：</b>点上方标签切换「投资方法论 / 访谈 / 名言」。投资方法论板块提供「<b>投资方法论中文详解</b>」入口，可一键查看 12 篇站内方法论全文；访谈与名言仅作主题索引，方便检索。
+    <b>怎么用：</b>点上方标签切换「投资方法论 / 访谈 / 名言」。投资方法论板块提供「<b>投资方法论中文详解</b>」入口，可一键查看 12 篇站内方法论全文；访谈作主题索引，方便检索；名言展示巴菲特原话的中英对照。
   </div>
 </div>
 
@@ -105,7 +112,7 @@ footer a{font-weight:600}
 </section>
 
 <footer>
-  本页为伯克希尔投资数据中心的内容导航，收录投资方法论、巴菲特访谈与年会名言等主题索引，供站内检索与跳转使用。
+  本页为伯克希尔投资数据中心的内容导航，收录投资方法论、巴菲特访谈与巴菲特名言等，供站内检索与阅读使用。
 </footer>
 
 <script>
@@ -141,15 +148,17 @@ const interviews = [
   {t:"「分散投资是对无知的防御」——巴菲特（1996）", u:"", a:"", d:"1996-06-02"}
 ];
 
-// ---------- 名言（年会主题索引） ----------
-const MEET_YEARS = [2026,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015];
-const quotes = [
-  ...MEET_YEARS.map(y=>({
-    t: y+" 年伯克希尔·哈撒韦股东大会",
-    u: "", a: "沃伦·巴菲特", d: y+"-05", lang:"zh"
-  })),
-  {t:"一生中没人能拥有超过 20 个好点子", u:"", a:"", d:"", lang:"en"}
-];
+// ---------- 名言（巴菲特原话中英对照，仅 1 篇） ----------
+const quote = {
+  title: "一生不超过 20 个好点子",
+  items: [
+    {en:"“No one will get more than 20 great ideas in their lifetime.”", zh:"「一个人一生中，不会拥有超过 20 个真正的好点子。」", by:"沃伦·巴菲特"},
+    {en:"“Imagine you got a ticket with only twenty punches on it when you graduated from business school. Every time you made an investment decision, it used up a punch. What would you do differently?”", zh:"「设想你从商学院毕业时，拿到一张只有 20 个打孔的票。每做一次投资决策，就耗掉一个孔。你会怎么做得出不同？」", by:"沃伦·巴菲特"},
+    {en:"“You’ll never use up all twenty punches if you save them for great ideas. And you shouldn’t use them on anything other than great ideas…”", zh:"「如果你把这些孔留給真正的好点子，你永远用不完这 20 个；而且除了好点子，你不该把它们用在任何别的东西上……」", by:"沃伦·巴菲特"},
+    {en:"“When the Buffett part of Berkshire is over… if you take out the best 15 decisions, it would not be much of a record.”", zh:"「等伯克希尔的巴菲特时代落幕……如果把其中最好的 15 个决策拿掉，剩下的记录也就不值一提了。」", by:"查理·芒格"}
+  ],
+  note:"「20 个打孔卡」是巴菲特常讲的思想实验：假设一生只有 20 次投资决定可做，你就会变得极度挑剔，只等那些显而易见、定价错误的「好球」，而不会因市场噪音频繁出手。巴菲特与芒格都强调，伯克希尔数千亿美元的成就，几乎都来自约 15 个关键决策——少而精，远胜多而杂。"
+};
 
 let curTab = 'method';
 
@@ -182,6 +191,21 @@ function renderList(arr, q){
   return '<div class="kb-grid">'+items.map(itemHTML).join('')+'</div>';
 }
 
+function renderQuotes(){
+  let html = '<div class="quote-wrap">';
+  html += '<div class="quote-head">💬 '+esc(quote.title)+'</div>';
+  quote.items.forEach(function(q){
+    html += '<div class="quote-item">';
+    html += '<div class="quote-en">'+esc(q.en)+'</div>';
+    html += '<div class="quote-zh">'+esc(q.zh)+'</div>';
+    html += '<div class="quote-by">— '+esc(q.by)+'</div>';
+    html += '</div>';
+  });
+  html += '<div class="quote-note">'+esc(quote.note)+'</div>';
+  html += '</div>';
+  return html;
+}
+
 function render(){
   const q = (document.getElementById('kb-search').value||'').trim();
   if(curTab==='method'){
@@ -195,10 +219,14 @@ function render(){
     document.getElementById('panel-method').innerHTML = html;
     return;
   }
-  let arr = [];
-  if(curTab==='interviews') arr = interviews;
-  else if(curTab==='quotes') arr = quotes;
-  document.getElementById('panel-'+curTab).innerHTML = renderList(arr, q);
+  if(curTab==='interviews'){
+    document.getElementById('panel-interviews').innerHTML = renderList(interviews, q);
+    return;
+  }
+  if(curTab==='quotes'){
+    document.getElementById('panel-quotes').innerHTML = renderQuotes();
+    return;
+  }
 }
 
 render();
