@@ -58,7 +58,7 @@ a{color:var(--blue);text-decoration:none}
 .kb-note a{font-weight:700}
 .kb-note b{color:#1e3a8a}
 .kb-empty{text-align:center;color:var(--muted);padding:40px;font-size:14px}
-.quote-wrap{max-width:780px;margin:0 auto}
+.quote-wrap{max-width:780px;margin:0 auto 28px}
 .quote-head{font-size:19px;font-weight:800;color:var(--navy);margin-bottom:18px;text-align:center;letter-spacing:.5px}
 .quote-item{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--orange);border-radius:12px;padding:16px 20px;margin-bottom:14px;box-shadow:0 4px 14px rgba(15,39,71,.06)}
 .quote-en{font-size:15px;color:#334155;font-style:italic;line-height:1.75}
@@ -83,36 +83,33 @@ footer a{font-weight:600}
 
 <section class="kb-hero">
   <h1>金融术语词典</h1>
-  <p class="lead">伯克希尔投资数据中心的内容导航：投资方法论、巴菲特访谈与巴菲特名言。投资方法论可在站内直接阅读中文详解；访谈作主题索引；名言展示巴菲特原话的中英对照。</p>
+  <p class="lead">伯克希尔投资数据中心的内容导航：投资方法论与巴菲特名言。投资方法论可在站内直接阅读中文详解；名言展示巴菲特原话的中英对照。</p>
   <div class="kb-stats">
     <div class="kb-stat"><div class="num">12</div><div class="lab">投资方法论（中文）</div></div>
-    <div class="kb-stat"><div class="num">10</div><div class="lab">巴菲特访谈（英文）</div></div>
-    <div class="kb-stat"><div class="num">1</div><div class="lab">巴菲特名言（中英）</div></div>
+    <div class="kb-stat"><div class="num">6</div><div class="lab">巴菲特名言（中英）</div></div>
   </div>
 </section>
 
 <div class="kb-guide">
   <div class="kb-guide-card">
-    <b>怎么用：</b>点上方标签切换「投资方法论 / 访谈 / 名言」。投资方法论板块提供「<b>投资方法论中文详解</b>」入口，可一键查看 12 篇站内方法论全文；访谈作主题索引，方便检索；名言展示巴菲特原话的中英对照。
+    <b>怎么用：</b>点上方标签切换「投资方法论 / 名言」。投资方法论板块提供「<b>投资方法论中文详解</b>」入口，可一键查看 12 篇站内方法论全文；名言展示巴菲特原话的中英对照。
   </div>
 </div>
 
 <section class="kb-main">
   <div class="kb-tabs">
     <div class="kb-tab active" data-tab="method" onclick="switchTab('method')">📐 投资方法论</div>
-    <div class="kb-tab" data-tab="interviews" onclick="switchTab('interviews')">🎙️ 访谈</div>
     <div class="kb-tab" data-tab="quotes" onclick="switchTab('quotes')">💬 名言</div>
   </div>
   <div class="kb-search">
     <input id="kb-search" type="text" placeholder="搜索标题…" oninput="render()">
   </div>
   <div class="kb-panel active" id="panel-method"></div>
-  <div class="kb-panel" id="panel-interviews"></div>
   <div class="kb-panel" id="panel-quotes"></div>
 </section>
 
 <footer>
-  本页为伯克希尔投资数据中心的内容导航，收录投资方法论、巴菲特访谈与巴菲特名言等，供站内检索与阅读使用。
+  本页为伯克希尔投资数据中心的内容导航，收录投资方法论与巴菲特名言等，供站内检索与阅读使用。
 </footer>
 
 <script>
@@ -134,31 +131,56 @@ const method_strategy = [
   {t:"股息投资 (Dividend Investing)", u:"berkshire-methodology.html", a:"", d:"投资策略"}
 ];
 
-// ---------- 访谈（主题索引） ----------
-const interviews = [
-  {t:"沃伦·巴菲特完整访谈：与贝基·奎克对话（2026 股东大会）", u:"", a:"", d:"2026-05-02"},
-  {t:"沃伦·巴菲特谈：如何把 114 美元变成 40 万美元", u:"", a:"", d:"2026-03-17"},
-  {t:"沃伦·巴菲特谈甲骨文、云计算与 IBM", u:"", a:"沃伦·巴菲特", d:"2026-03-04"},
-  {t:"为何持续投资石油股——巴菲特与芒格", u:"", a:"", d:"2026-03-03"},
-  {t:"「雪佛龙不是邪恶公司」——巴菲特与芒格", u:"", a:"沃伦·巴菲特", d:"2026-03-02"},
-  {t:"「未来 200 年石油将极其珍贵」——巴菲特与芒格", u:"", a:"查理·芒格", d:"2026-03-01"},
-  {t:"沃伦·巴菲特定义「所有者收益」概念", u:"", a:"", d:"2026-02-24"},
-  {t:"「我搞砸了」——巴菲特谈早年未投资谷歌（Alphabet）", u:"", a:"沃伦·巴菲特", d:"2026-02-23"},
-  {t:"买入标普 500 指数基金——沃伦·巴菲特", u:"", a:"沃伦·巴菲特", d:"2026-02-20"},
-  {t:"「分散投资是对无知的防御」——巴菲特（1996）", u:"", a:"", d:"1996-06-02"}
-];
 
-// ---------- 名言（巴菲特原话中英对照，仅 1 篇） ----------
-const quote = {
-  title: "一生不超过 20 个好点子",
-  items: [
-    {en:"“No one will get more than 20 great ideas in their lifetime.”", zh:"「一个人一生中，不会拥有超过 20 个真正的好点子。」", by:"沃伦·巴菲特"},
-    {en:"“Imagine you got a ticket with only twenty punches on it when you graduated from business school. Every time you made an investment decision, it used up a punch. What would you do differently?”", zh:"「设想你从商学院毕业时，拿到一张只有 20 个打孔的票。每做一次投资决策，就耗掉一个孔。你会怎么做得出不同？」", by:"沃伦·巴菲特"},
-    {en:"“You’ll never use up all twenty punches if you save them for great ideas. And you shouldn’t use them on anything other than great ideas…”", zh:"「如果你把这些孔留給真正的好点子，你永远用不完这 20 个；而且除了好点子，你不该把它们用在任何别的东西上……」", by:"沃伦·巴菲特"},
-    {en:"“When the Buffett part of Berkshire is over… if you take out the best 15 decisions, it would not be much of a record.”", zh:"「等伯克希尔的巴菲特时代落幕……如果把其中最好的 15 个决策拿掉，剩下的记录也就不值一提了。」", by:"查理·芒格"}
-  ],
-  note:"「20 个打孔卡」是巴菲特常讲的思想实验：假设一生只有 20 次投资决定可做，你就会变得极度挑剔，只等那些显而易见、定价错误的「好球」，而不会因市场噪音频繁出手。巴菲特与芒格都强调，伯克希尔数千亿美元的成就，几乎都来自约 15 个关键决策——少而精，远胜多而杂。"
-};
+// ---------- 名言（巴菲特原话中英对照） ----------
+const quotes = [
+  {
+    title: "一生不超过 20 个好点子",
+    items: [
+      {en:"“No one will get more than 20 great ideas in their lifetime.”", zh:"「一个人一生中，不会拥有超过 20 个真正的好点子。」", by:"沃伦·巴菲特"},
+      {en:"“Imagine you got a ticket with only twenty punches on it when you graduated from business school. Every time you made an investment decision, it used up a punch. What would you do differently?”", zh:"「设想你从商学院毕业时，拿到一张只有 20 个打孔的票。每做一次投资决策，就耗掉一个孔。你会怎么做得不同？」", by:"沃伦·巴菲特"},
+      {en:"“You’ll never use up all twenty punches if you save them for great ideas. And you shouldn’t use them on anything other than great ideas…”", zh:"「如果你把这些孔留給真正的好点子，你永远用不完这 20 个；而且除了好点子，你不该把它们用在任何别的东西上……」", by:"沃伦·巴菲特"},
+      {en:"“When the Buffett part of Berkshire is over… if you take out the best 15 decisions, it would not be much of a record.”", zh:"「等伯克希尔的巴菲特时代落幕……如果把其中最好的 15 个决策拿掉，剩下的记录也就不值一提了。」", by:"查理·芒格"}
+    ],
+    note:"「20 个打孔卡」是巴菲特常讲的思想实验：假设一生只有 20 次投资决定可做，你就会变得极度挑剔，只等那些显而易见、定价错误的「好球」，而不会因市场噪音频繁出手。巴菲特与芒格都强调，伯克希尔数千亿美元的成就，几乎都来自约 15 个关键决策——少而精，远胜多而杂。"
+  },
+  {
+    title: "价格与价值",
+    items: [
+      {en:"“Price is what you pay. Value is what you get.”", zh:"「你支付的是价格，得到的是价值。」", by:"沃伦·巴菲特，2008 年致股东的信"},
+      {en:"“Whether we’re talking about socks or stocks, I like buying quality merchandise when it is marked down.”", zh:"「不管是袜子还是股票，我都喜欢买打折的优质货。」", by:"沃伦·巴菲特，2008 年致股东的信"}
+    ],
+    note:"这是巴菲特价值投资的核心：价格围绕价值波动，但长期投资者关心的是企业内在价值，而非短期报价。只要价格低于价值，就是买入的「安全边际」。"
+  },
+  {
+    title: "恐惧与贪婪",
+    items: [
+      {en:"“Be fearful when others are greedy, and be greedy only when others are fearful.”", zh:"「别人贪婪时我恐惧，别人恐惧时我贪婪。」", by:"沃伦·巴菲特，1986 年致股东的信"}
+    ],
+    note:"巴菲特用这句话提醒投资者：市场情绪极端时，往往价格偏离价值最远。理性投资者应利用市场的情绪化，而非被市场裹挟。"
+  },
+  {
+    title: "好公司 vs. 便宜公司",
+    items: [
+      {en:"“It’s far better to buy a wonderful company at a fair price than a fair company at a wonderful price.”", zh:"「以合理价格买入一家优秀的公司，远胜于以优秀价格买入一家合理的公司。」", by:"沃伦·巴菲特，1989 年致股东的信"}
+    ],
+    note:"收购喜诗糖果后，巴菲特从「捡烟蒂」转向「优质企业」。好公司能持续创造价值，普通公司即使买入便宜，也可能拖累长期回报。"
+  },
+  {
+    title: "持有期限：永远",
+    items: [
+      {en:"“Our favorite holding period is forever.”", zh:"「我们最喜欢的持有期是永远。」", by:"沃伦·巴菲特，1988 年致股东的信"}
+    ],
+    note:"频繁交易会增加成本与税负，也让投资者难以享受复利。巴菲特偏爱那些业务清晰、护城河宽阔、能持续几十年的企业。"
+  },
+  {
+    title: "潮水退去方知裸泳",
+    items: [
+      {en:"“You only find out who is swimming naked when the tide goes out.”", zh:"「只有当潮水退去，你才知道谁在裸泳。」", by:"沃伦·巴菲特，2001 年致股东的信"}
+    ],
+    note:"泡沫时期杠杆与风险被掩盖；当流动性收紧、市场回调，过度冒险的公司才会暴露。这是巴菲特对高杠杆与盲目扩张的警示。"
+  }
+];
 
 let curTab = 'method';
 
@@ -192,17 +214,20 @@ function renderList(arr, q){
 }
 
 function renderQuotes(){
-  let html = '<div class="quote-wrap">';
-  html += '<div class="quote-head">💬 '+esc(quote.title)+'</div>';
-  quote.items.forEach(function(q){
-    html += '<div class="quote-item">';
-    html += '<div class="quote-en">'+esc(q.en)+'</div>';
-    html += '<div class="quote-zh">'+esc(q.zh)+'</div>';
-    html += '<div class="quote-by">— '+esc(q.by)+'</div>';
+  let html = '';
+  quotes.forEach(function(q){
+    html += '<div class="quote-wrap">';
+    html += '<div class="quote-head">💬 '+esc(q.title)+'</div>';
+    q.items.forEach(function(item){
+      html += '<div class="quote-item">';
+      html += '<div class="quote-en">'+esc(item.en)+'</div>';
+      html += '<div class="quote-zh">'+esc(item.zh)+'</div>';
+      html += '<div class="quote-by">— '+esc(item.by)+'</div>';
+      html += '</div>';
+    });
+    html += '<div class="quote-note">'+esc(q.note)+'</div>';
     html += '</div>';
   });
-  html += '<div class="quote-note">'+esc(quote.note)+'</div>';
-  html += '</div>';
   return html;
 }
 
@@ -217,10 +242,6 @@ function render(){
     if(s.length) html += '<div class="kb-period"><h3>投资策略（4 篇）</h3>'+renderList(s,'')+'</div>';
     if(!html) html = '<div class="kb-empty">没有匹配「'+esc(q)+'」的条目</div>';
     document.getElementById('panel-method').innerHTML = html;
-    return;
-  }
-  if(curTab==='interviews'){
-    document.getElementById('panel-interviews').innerHTML = renderList(interviews, q);
     return;
   }
   if(curTab==='quotes'){

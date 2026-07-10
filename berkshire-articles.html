@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>深度研究 — 伯克希尔·哈撒韦</title>
+<title>相关文章 — 伯克希尔·哈撒韦</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
@@ -15,18 +15,21 @@ body{
   min-height:100vh;
 }
 
-/* ===== Breadcrumb (inside hero) ===== */
-.breadcrumb{max-width:1100px;margin:0 auto;padding:14px 24px 6px;font-size:13px;color:rgba(255,255,255,0.6);position:relative;z-index:2}
-.breadcrumb a{color:rgba(255,255,255,0.7);text-decoration:none;transition:color 0.15s}
-.breadcrumb a:hover{color:#fbbf24}
-.breadcrumb span{color:rgba(255,255,255,0.35);margin:0 6px}
-.breadcrumb .current{color:rgba(255,255,255,0.9);font-weight:500}
+/* ===== Breadcrumb ===== */
+.breadcrumb{
+  max-width:960px;margin:0 auto;padding:20px 24px 0;
+  font-size:13px;color:#64748b;
+}
+.breadcrumb a{color:#64748b;text-decoration:none;transition:color 0.15s}
+.breadcrumb a:hover{color:#2563eb}
+.breadcrumb span{color:#94a3b8;margin:0 6px}
+.breadcrumb .current{color:#334155;font-weight:500}
 
 /* ===== Hero ===== */
 .hero{
   position:relative;
   background:linear-gradient(135deg,#0f172a 0%,#1e293b 40%,#1e3a5f 100%);
-  padding:60px 24px 80px;
+  padding:48px 24px 64px;
   text-align:center;
   overflow:hidden;
 }
@@ -54,113 +57,59 @@ body{
 .hero h1 span{color:#f59e0b}
 .hero p{font-size:15px;color:#94a3b8;max-width:560px;margin:0 auto;line-height:1.7}
 
-/* ===== Section Nav ===== */
-.section-nav{
-  max-width:1100px;margin:-40px auto 0;padding:0 24px;position:relative;z-index:3;
-}
-.section-nav-inner{
-  background:#fff;border-radius:14px;border:1px solid #e2e8f0;
-  padding:6px;display:flex;flex-wrap:wrap;gap:4px;box-shadow:0 4px 16px rgba(0,0,0,0.06);
-}
-.section-nav a{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:8px 16px;border-radius:10px;font-size:13px;font-weight:500;
-  color:#64748b;text-decoration:none;transition:all 0.2s ease;white-space:nowrap;
-}
-.section-nav a:hover{background:#f1f5f9;color:#2563eb}
-.nav-icon{font-size:15px}
-
 /* ===== Main ===== */
-.main{max-width:1100px;margin:0 auto;padding:40px 24px 80px}
-
-/* ===== Section ===== */
-.section{margin-bottom:48px}
-.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-.section-icon{
-  width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;
-}
-.si-gold{background:#fffbeb;color:#d97706}
-.si-blue{background:#eff6ff;color:#2563eb}
-.si-teal{background:#f0fdfa;color:#0d9488}
-.si-rose{background:#fff1f2;color:#e11d48}
-.si-purple{background:#faf5ff;color:#7c3aed}
-.section-title{font-size:20px;font-weight:800;color:#0f172a;letter-spacing:-0.3px}
-.section-subtitle{font-size:13px;color:#94a3b8;margin-top:2px}
-
-/* ===== Card Grid ===== */
-.card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.card-grid.three{grid-template-columns:repeat(3,1fr)}
+.main{max-width:960px;margin:0 auto;padding:32px 24px 80px}
 
 /* ===== Article Card ===== */
+.article-list{display:flex;flex-direction:column;gap:16px}
 .article-card{
   background:#fff;border-radius:14px;border:1px solid #e2e8f0;
   overflow:hidden;transition:all 0.25s ease;
-  display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(0,0,0,0.04);
-  text-decoration:none;
+  display:flex;align-items:stretch;box-shadow:0 1px 2px rgba(0,0,0,0.04);
 }
 .article-card:hover{
-  transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,0.08);border-color:#cbd5e1;
+  transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,0.08);border-color:#cbd5e1;
 }
-.card-top{padding:22px 24px 16px;flex:1}
-.card-category{
-  display:inline-block;padding:2px 10px;border-radius:6px;
-  font-size:11px;font-weight:600;letter-spacing:0.3px;margin-bottom:10px;
-}
-.cat-gold{background:#fffbeb;color:#b45309}
-.cat-blue{background:#eff6ff;color:#1d4ed8}
-.cat-teal{background:#f0fdfa;color:#0f766e}
-.cat-rose{background:#fff1f2;color:#be123c}
-.cat-purple{background:#faf5ff;color:#6d28d9}
+.card-accent{width:5px;flex-shrink:0}
+.card-accent.gold{background:linear-gradient(180deg,#f59e0b,#d97706)}
+.card-accent.blue{background:linear-gradient(180deg,#3b82f6,#2563eb)}
+.card-accent.teal{background:linear-gradient(180deg,#14b8a6,#0d9488)}
+.card-accent.rose{background:linear-gradient(180deg,#f43f5e,#e11d48)}
+.card-accent.slate{background:linear-gradient(180deg,#94a3b8,#64748b)}
 
+.card-body{padding:22px 24px;flex:1;display:flex;align-items:center;gap:16px}
 .card-icon{
-  width:44px;height:44px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;
+  width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;
 }
-.ci-gold{background:#fffbeb;color:#d97706}
-.ci-blue{background:#eff6ff;color:#2563eb}
-.ci-teal{background:#f0fdfa;color:#0d9488}
-.ci-rose{background:#fff1f2;color:#e11d48}
-.ci-purple{background:#faf5ff;color:#7c3aed}
+.card-icon.gold{background:#fffbeb;color:#d97706}
+.card-icon.blue{background:#eff6ff;color:#2563eb}
+.card-icon.teal{background:#f0fdfa;color:#0d9488}
+.card-icon.rose{background:#fff1f2;color:#e11d48}
+.card-icon.slate{background:#f8fafc;color:#64748b}
 
-.card-title{font-size:16px;font-weight:700;color:#0f172a;margin-bottom:6px;line-height:1.4}
-.card-desc{font-size:13px;color:#64748b;line-height:1.6}
-.card-footer{
-  padding:12px 24px;border-top:1px solid #f1f5f9;
-  display:flex;align-items:center;justify-content:space-between;
+.card-content{flex:1}
+.card-title{font-size:16px;font-weight:700;color:#0f172a;margin-bottom:4px;line-height:1.3}
+.card-desc{font-size:13px;color:#64748b;line-height:1.5}
+.card-arrow{
+  width:36px;height:36px;border-radius:50%;
+  background:#f8fafc;border:1px solid #e2e8f0;
+  display:flex;align-items:center;justify-content:center;
+  color:#94a3b8;font-size:18px;transition:all 0.2s ease;flex-shrink:0;
 }
-.card-source{font-size:12px;color:#94a3b8}
-.card-arrow{font-size:15px;color:#cbd5e1;transition:all 0.2s ease}
-.article-card:hover .card-arrow{color:#2563eb;transform:translateX(3px)}
+.article-card:hover .card-arrow{
+  background:#eff6ff;border-color:#93c5fd;color:#2563eb;transform:translateX(3px);
+}
 
-/* Source tag */
-.source-tag{
-  display:inline-flex;align-items:center;gap:4px;
-  padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500;
-}
-.source-internal{background:#f0fdf4;color:#166534}
-.source-external{background:#fefce8;color:#854d0e}
-.source-edu{background:#eff6ff;color:#1e40af}
+/* Coming soon */
+.coming-soon{opacity:0.6;pointer-events:none}
+.coming-soon .card-title{color:#94a3b8}
+.coming-soon .card-desc{color:#94a3b8}
 
-/* ===== External Article List ===== */
-.ext-list{display:flex;flex-direction:column;gap:12px}
-.ext-card{
-  background:#fff;border-radius:12px;border:1px solid #e2e8f0;
-  padding:18px 22px;display:flex;align-items:flex-start;gap:14px;
-  text-decoration:none;transition:all 0.2s ease;box-shadow:0 1px 2px rgba(0,0,0,0.03);
+/* Back link */
+.back-link{
+  margin-top:40px;text-align:center;
 }
-.ext-card:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,0.06);border-color:#cbd5e1}
-.ext-num{
-  width:28px;height:28px;border-radius:8px;background:#f1f5f9;
-  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#64748b;flex-shrink:0;
-}
-.ext-card:hover .ext-num{background:#e0e7ff;color:#2563eb}
-.ext-content{flex:1}
-.ext-title{font-size:15px;font-weight:600;color:#0f172a;margin-bottom:4px;line-height:1.3}
-.ext-desc{font-size:13px;color:#64748b;line-height:1.5}
-.ext-domain{font-size:11px;color:#94a3b8;margin-top:4px}
-
-/* ===== Back Link ===== */
-.back-link{margin-top:40px;text-align:center}
 .back-link a{
   display:inline-flex;align-items:center;gap:8px;
   padding:10px 24px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;
@@ -169,52 +118,40 @@ body{
 }
 .back-link a:hover{background:#f8fafc;border-color:#cbd5e1;color:#2563eb;box-shadow:0 4px 12px rgba(0,0,0,0.06)}
 
-/* ===== Footer ===== */
+/* Footer */
 .footer{
   text-align:center;padding:32px 24px;color:#94a3b8;font-size:12px;border-top:1px solid #e2e8f0;
 }
 .footer a{color:#64748b;text-decoration:none;transition:color 0.15s}
 .footer a:hover{color:#2563eb}
 
-/* ===== Responsive ===== */
-@media(max-width:1024px){
-  .card-grid.three{grid-template-columns:repeat(2,1fr)}
-}
+/* Responsive */
 @media(max-width:768px){
-  .hero{padding:36px 16px 60px}
+  .hero{padding:36px 16px 52px}
   .hero h1{font-size:22px}
   .hero p{font-size:13px}
-  .main{padding:28px 16px 56px}
+  .main{padding:24px 16px 56px}
   .breadcrumb{padding:14px 12px 0;font-size:12px}
-  .section-nav{margin-top:-36px;padding:0 16px}
-  .section-nav a{padding:6px 12px;font-size:12px}
-  .section{margin-bottom:36px}
-  .section-title{font-size:17px}
-  .card-grid,.card-grid.three{grid-template-columns:1fr}
-  .card-top{padding:18px 16px 12px}
-  .card-footer{padding:10px 16px}
+  .article-card{border-radius:10px}
+  .card-body{padding:18px 16px;gap:12px}
+  .card-icon{width:40px;height:40px;font-size:18px;border-radius:10px}
   .card-title{font-size:14.5px}
   .card-desc{font-size:12.5px}
-  .ext-card{padding:14px 16px;gap:10px}
-  .ext-num{width:24px;height:24px;font-size:12px;border-radius:6px}
-  .ext-title{font-size:14px}
-  .ext-desc{font-size:12px}
+  .card-arrow{width:32px;height:32px;font-size:16px}
   .back-link a{padding:8px 18px;font-size:13px}
   .footer{padding:24px 16px;font-size:11px}
 }
 @media(max-width:480px){
-  .hero{padding:28px 12px 48px}
+  .hero{padding:28px 12px 44px}
   .hero h1{font-size:19px}
   .hero-badge{font-size:10px;padding:3px 10px}
   .main{padding:20px 10px 48px}
-  .section{margin-bottom:28px}
-  .section-icon{width:34px;height:34px;font-size:17px}
-  .section-title{font-size:15.5px}
+  .card-body{padding:16px 12px;gap:10px}
+  .card-icon{width:36px;height:36px;font-size:16px}
   .card-title{font-size:14px}
   .card-desc{font-size:12px}
-  .ext-title{font-size:13px}
-  .card-grid,.card-grid.three{gap:12px}
-  .nav-icon{display:none}
+  .card-arrow{width:28px;height:28px;font-size:14px}
+  .article-list{gap:12px}
 }
 </style>
 </head>
@@ -226,433 +163,201 @@ body{
   <span>/</span>
   <a href="berkshire-standalone.html">投资数据中心</a>
   <span>/</span>
-  <span class="current">深度研究</span>
+  <span class="current">相关文章</span>
 </nav>
 
 <!-- Hero -->
 <header class="hero">
   <div class="hero-content">
     <div class="hero-badge">Research & Analysis</div>
-    <h1>伯克希尔·哈撒韦<br><span>深度研究</span></h1>
-    <p>精选伯克希尔、巴菲特及价值投资领域的深度文章、数据工具与学习资源</p>
+    <h1>伯克希尔·哈撒韦<br><span>相关文章</span></h1>
+    <p>关于伯克希尔、巴菲特、价值投资的深度分析文章合集，以及巴菲特访谈主题索引</p>
   </div>
 </header>
 
-<!-- Section Navigation -->
-<nav class="section-nav">
-  <div class="section-nav-inner">
-    <a href="#section-tools"><span class="nav-icon">🛠️</span>数据工具</a>
-    <a href="#section-guides"><span class="nav-icon">📘</span>入门指南</a>
-    <a href="#section-analysis"><span class="nav-icon">📊</span>深度分析</a>
-    <a href="#section-history"><span class="nav-icon">📜</span>历史研究</a>
-    <a href="#section-reading"><span class="nav-icon">📚</span>推荐阅读</a>
-  </div>
-</nav>
-
-<!-- Main Content -->
+<!-- Articles -->
 <main class="main">
+  <div class="article-list">
 
-  <!-- Section 1: 数据工具 -->
-  <section class="section" id="section-tools">
-    <div class="section-header">
-      <div class="section-icon si-gold">🛠️</div>
-      <div>
-        <div class="section-title">内部数据工具</div>
-        <div class="section-subtitle">一站式的伯克希尔数据查询与分析工具</div>
+    <a href="#" class="article-card" target="_blank">
+      <div class="card-accent gold"></div>
+      <div class="card-body">
+        <div class="card-icon gold">🗺️</div>
+        <div class="card-content">
+          <div class="card-title">值得收藏：伯克希尔哈撒韦「帝国」版图</div>
+          <div class="card-desc">全面梳理 BRK 旗下子公司与业务版图，一张图看懂巴菲特的商业帝国</div>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+
+    <a href="#" class="article-card" target="_blank">
+      <div class="card-accent blue"></div>
+      <div class="card-body">
+        <div class="card-icon blue">📊</div>
+        <div class="card-content">
+          <div class="card-title">值得收藏：伯克希尔哈撒韦历年投资详尽数据全览</div>
+          <div class="card-desc">历年持仓明细、买卖记录、行业分布，一文尽览 BRK 投资全景</div>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+
+    <a href="#" class="article-card" target="_blank">
+      <div class="card-accent teal"></div>
+      <div class="card-body">
+        <div class="card-icon teal">📖</div>
+        <div class="card-content">
+          <div class="card-title">伯克希尔哈撒韦前传</div>
+          <div class="card-desc">从纺织厂到投资巨头，探索 BRK 的崛起之路与关键转折点</div>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+
+    <a href="#" class="article-card" target="_blank">
+      <div class="card-accent rose"></div>
+      <div class="card-body">
+        <div class="card-icon rose">🔍</div>
+        <div class="card-content">
+          <div class="card-title">手把手教你看懂伯克希尔每季度披露的持仓</div>
+          <div class="card-desc">解读 13F 报告与季度持仓变动，学会跟踪 BRK 投资动向</div>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+
+    <div class="article-card coming-soon">
+      <div class="card-accent slate"></div>
+      <div class="card-body">
+        <div class="card-icon slate">📝</div>
+        <div class="card-content">
+          <div class="card-title">更多深度分析文章</div>
+          <div class="card-desc">持续更新中，敬请期待...</div>
+        </div>
       </div>
     </div>
-    <div class="card-grid three">
 
-      <a href="berkshire-business-map.html" class="article-card" target="_blank">
-        <div class="card-top">
-          <div class="card-icon ci-gold">🗺️</div>
-          <span class="card-category cat-gold">数据可视化</span>
-          <div class="card-title">伯克希尔哈撒韦「帝国」版图</div>
-          <div class="card-desc">55 家子公司全收录，中英文名称对照，按保险/铁路/能源/制造/零售/金融分类，支持缩放与搜索。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-internal">本站工具</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
+  </div>
 
-      <a href="berkshire-investments.html" class="article-card" target="_blank">
-        <div class="card-top">
-          <div class="card-icon ci-blue">📈</div>
-          <span class="card-category cat-blue">持仓数据</span>
-          <div class="card-title">历年来投资持仓详尽数据</div>
-          <div class="card-desc">按公司/行业/持有年份分类的全部持仓记录，含峰值持股、当前持股、持有状态等完整字段。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-internal">本站工具</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
+  <!-- 巴菲特访谈主题索引 -->
+  <div class="interview-section" style="margin-top:48px">
+    <h2 style="font-size:20px;color:#0f172a;margin-bottom:6px;text-align:center">🎙️ 巴菲特访谈主题索引</h2>
+    <p style="text-align:center;color:#64748b;font-size:13px;margin-bottom:20px">整理巴菲特历年访谈主题，方便检索关键观点</p>
+    <div class="article-list">
 
-      <a href="berkshire-acquisitions.html" class="article-card" target="_blank">
-        <div class="card-top">
-          <div class="card-icon ci-teal">🏢</div>
-          <span class="card-category cat-teal">收购记录</span>
-          <div class="card-title">历年来收购公司数据库</div>
-          <div class="card-desc">按年代与行业分类，完整收录 BRK 旗下子公司收购详情与收购原因，支持表格排序。</div>
+      <div class="article-card" style="cursor:default">
+        <div class="card-accent rose"></div>
+        <div class="card-body">
+          <div class="card-icon rose">🎙️</div>
+          <div class="card-content">
+            <div class="card-title">沃伦·巴菲特完整访谈：与贝基·奎克对话（2026 股东大会）</div>
+            <div class="card-desc">2026-05-02</div>
+          </div>
         </div>
-        <div class="card-footer">
-          <span class="source-tag source-internal">本站工具</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="berkshire-booklist.html" class="article-card" target="_blank">
-        <div class="card-top">
-          <div class="card-icon ci-purple">📚</div>
-          <span class="card-category cat-purple">荐书清单</span>
-          <div class="card-title">巴菲特 & 芒格推荐书单</div>
-          <div class="card-desc">68 部被推荐书籍，覆盖投资经典、商业管理、人物传记、芒格附录及延伸阅读，附微信读书链接。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-internal">本站工具</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="buffett-partnership-showcase.html" class="article-card" target="_blank">
-        <div class="card-top">
-          <div class="card-icon ci-rose">💎</div>
-          <span class="card-category cat-rose">原始文献</span>
-          <div class="card-title">巴菲特致股东的信中文合集</div>
-          <div class="card-desc">1957-2024 全部股东信中文翻译，含合伙基金时期 + 伯克希尔时期，支持手机朗读与定点跳转。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-internal">本站工具</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="berkshire-meetings.html" class="article-card" target="_blank">
-        <div class="card-top">
-          <div class="card-icon ci-gold">🎙️</div>
-          <span class="card-category cat-gold">会议记录</span>
-          <div class="card-title">历年来股东大会实录</div>
-          <div class="card-desc">巴菲特与芒格年度股东大会问答实录（1994-2025），投资智慧的年度盛宴。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-internal">本站工具</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- Section 2: 入门指南 -->
-  <section class="section" id="section-guides">
-    <div class="section-header">
-      <div class="section-icon si-blue">📘</div>
-      <div>
-        <div class="section-title">投资入门与指南</div>
-        <div class="section-subtitle">新手友好：理解伯克希尔与价值投资的基础知识</div>
       </div>
-    </div>
-    <div class="card-grid">
 
-      <a href="https://learnbuffett.com/companies/%E4%BC%AF%E5%85%8B%E5%B8%8C%E5%B0%94%E5%93%88%E6%92%92%E9%9F%A6.html" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-teal">🏭</div>
-          <span class="card-category cat-teal">历史研究</span>
-          <div class="card-title">伯克希尔哈撒韦前传：从纺织厂到投资巨头</div>
-          <div class="card-desc">BRK 从1839年纺织厂起步，1965年巴菲特入主后转型为万亿美元帝国。含完整投资故事、关键转折与启示。</div>
+      <div class="article-card" style="cursor:default">
+        <div class="card-accent rose"></div>
+        <div class="card-body">
+          <div class="card-icon rose">🎙️</div>
+          <div class="card-content">
+            <div class="card-title">沃伦·巴菲特谈：如何把 114 美元变成 40 万美元</div>
+            <div class="card-desc">2026-03-17</div>
+          </div>
         </div>
-        <div class="card-footer">
-          <span class="source-tag source-external">LearnBuffett · 已验证</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="https://zhuanlan.zhihu.com/p/2039405139736449626" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-blue">🔍</div>
-          <span class="card-category cat-blue">投资方法</span>
-          <div class="card-title">手把手教你看懂 13F 季度持仓报告</div>
-          <div class="card-desc">一文搞懂 SEC 13F 报告：什么是 13F、谁需要提交、如何解读机构持仓变动，附 BRK 案例分析。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-external">知乎 · 已验证</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="https://learnbuffett.com/concepts/%E5%86%85%E5%9C%A8%E4%BB%B7%E5%80%BC.html" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-gold">💡</div>
-          <span class="card-category cat-gold">价值投资</span>
-          <div class="card-title">价值投资核心理念：内在价值</div>
-          <div class="card-desc">巴菲特投资体系的基石——什么是内在价值？如何与账面价值区分？喜诗糖果、可口可乐等经典案例解析。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-external">LearnBuffett · 已验证</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="https://xueqiu.com/8295091535/380526985" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-rose">📊</div>
-          <span class="card-category cat-rose">估值分析</span>
-          <div class="card-title">伯克希尔哈撒韦深度分析（2026最新）</div>
-          <div class="card-desc">从公司概况、业务板块、财务数据到估值框架，全面拆解 BRK 的投资价值与潜在风险。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-external">雪球 · 已验证</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- Section 3: 深度分析 -->
-  <section class="section" id="section-analysis">
-    <div class="section-header">
-      <div class="section-icon si-rose">📊</div>
-      <div>
-        <div class="section-title">深度分析与研究</div>
-        <div class="section-subtitle">产业链、商业模式、投资策略的深层剖析</div>
       </div>
-    </div>
-    <div class="card-grid">
 
-      <a href="https://learnbuffett.com/concepts/%E4%BF%9D%E9%99%A9%E6%B5%AE%E5%AD%98%E9%87%91.html" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-blue">🛡️</div>
-          <span class="card-category cat-blue">保险业务</span>
-          <div class="card-title">保险浮存金：巴菲特的"免费杠杆"</div>
-          <div class="card-desc">深度解析 BRK 保险帝国核心引擎：浮存金定义、成本计算、增长史（1900万→1640亿）、常见误区。</div>
+      <div class="article-card" style="cursor:default">
+        <div class="card-accent rose"></div>
+        <div class="card-body">
+          <div class="card-icon rose">🎙️</div>
+          <div class="card-content">
+            <div class="card-title">沃伦·巴菲特谈甲骨文、云计算与 IBM</div>
+            <div class="card-desc">沃伦·巴菲特 · 2026-03-04</div>
+          </div>
         </div>
-        <div class="card-footer">
-          <span class="source-tag source-external">LearnBuffett · 已验证</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="https://xueqiu.com/5837886662/383494927" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-gold">⚡</div>
-          <span class="card-category cat-gold">能源板块</span>
-          <div class="card-title">伯克希尔能源帝国：BHE 全景复盘</div>
-          <div class="card-desc">从1999年布局到成为全美第五大公用事业，BHE 的八大业务部门、投资进程与绿色转型之路。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-external">雪球 · 已验证</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="https://learnbuffett.com/concepts/%E8%B5%84%E6%9C%AC%E9%85%8D%E7%BD%AE.html" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-teal">🤝</div>
-          <span class="card-category cat-teal">收购策略</span>
-          <div class="card-title">资本配置：巴菲特并购哲学的底层逻辑</div>
-          <div class="card-desc">巴菲特的资本配置框架——留存利润再投资 vs 收购 vs 回购的决策树，以及"永不出售"承诺的竞争价值。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-external">LearnBuffett · 已验证</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="https://learnbuffett.com/concepts/%E8%B4%A6%E9%9D%A2%E4%BB%B7%E5%80%BC.html" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-purple">📐</div>
-          <span class="card-category cat-purple">数据分析</span>
-          <div class="card-title">账面价值 vs 内在价值：读年报必知</div>
-          <div class="card-desc">巴菲特数十年反复强调的核心区分：为何账面价值越来越脱离经济现实？2018年正式放弃作为首要指标。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-external">LearnBuffett · 已验证</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="https://learnbuffett.com/concepts/%E5%9B%9E%E8%B4%AD.html" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-rose">💰</div>
-          <span class="card-category cat-rose">资本配置</span>
-          <div class="card-title">伯克希尔为何不分红？回购替代分红的逻辑</div>
-          <div class="card-desc">BRK 坚持不分红 60 年——留存利润再投资的复利效应 + 低于内在价值回购的税收优势，一箭双雕。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-external">LearnBuffett · 已验证</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="https://xueqiu.com/4431925731/375431689" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-blue">🍎</div>
-          <span class="card-category cat-blue">经典案例</span>
-          <div class="card-title">巴菲特投资苹果的完整复盘</div>
-          <div class="card-desc">2016年建仓到逐步减持全流程：如何将苹果纳入"消费+护城河"能力圈，获得超1500亿美元回报。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-external">雪球 · 已验证</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- Section 4: 历史研究 -->
-  <section class="section" id="section-history">
-    <div class="section-header">
-      <div class="section-icon si-teal">📜</div>
-      <div>
-        <div class="section-title">历史回顾与人物研究</div>
-        <div class="section-subtitle">追溯巴菲特的投资进化史与伯克希尔的关键篇章</div>
       </div>
-    </div>
-    <div class="card-grid">
 
-      <a href="https://xueqiu.com/4304996002/383997272" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-gold">🕰️</div>
-          <span class="card-category cat-gold">投资进化</span>
-          <div class="card-title">巴菲特的投资进化史：从烟蒂到护城河</div>
-          <div class="card-desc">从格雷厄姆的"雪茄烟蒂"到芒格影响的"护城河"，70年四阶段演化与关键转折点的深度梳理。</div>
+      <div class="article-card" style="cursor:default">
+        <div class="card-accent rose"></div>
+        <div class="card-body">
+          <div class="card-icon rose">🎙️</div>
+          <div class="card-content">
+            <div class="card-title">为何持续投资石油股——巴菲特与芒格</div>
+            <div class="card-desc">2026-03-03</div>
+          </div>
         </div>
-        <div class="card-footer">
-          <span class="source-tag source-external">雪球 · 已验证</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="https://finance.sina.com.cn/wm/2026-05-05/doc-inhwxhnr3532097.shtml" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-rose">⚠️</div>
-          <span class="card-category cat-rose">教训反思</span>
-          <div class="card-title">巴菲特做投资犯下的第一个大错</div>
-          <div class="card-desc">收购伯克希尔纺织厂——巴菲特亲口承认"如果不买它而是直接买保险公司，财富会多数千亿美元"。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-external">新浪财经 · 已验证</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="https://learnbuffett.com/people/%E8%8A%92%E6%A0%BC.html" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-purple">🤝</div>
-          <span class="card-category cat-purple">人物关系</span>
-          <div class="card-title">芒格如何改变了巴菲特</div>
-          <div class="card-desc">巴菲特称芒格为"伯克希尔的建筑师"——喜诗糖果如何成为投资哲学的转折点，56年从未争吵的合伙传奇。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-external">LearnBuffett · 已验证</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="https://finance.huanqiu.com/article/4QatRJ8eIWE" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-blue">🔮</div>
-          <span class="card-category cat-blue">后巴菲特时代</span>
-          <div class="card-title">后巴菲特时代的伯克希尔：阿贝尔接班</div>
-          <div class="card-desc">2026年巴菲特正式交班 Greg Abel——阿贝尔的首份财报、投资策略调整与 BRK 文化传承深度分析。</div>
-        </div>
-        <div class="card-footer">
-          <span class="source-tag source-external">环球网 · 已验证</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- Section 5: 推荐阅读 -->
-  <section class="section" id="section-reading">
-    <div class="section-header">
-      <div class="section-icon si-purple">📚</div>
-      <div>
-        <div class="section-title">外部推荐阅读与资源</div>
-        <div class="section-subtitle">来自全网的高质量巴菲特与伯克希尔研究资源</div>
       </div>
-    </div>
-    <div class="ext-list">
 
-      <a href="https://www.berkshirehathaway.com/letters/letters.html" class="ext-card" target="_blank" rel="noopener">
-        <div class="ext-num">1</div>
-        <div class="ext-content">
-          <div class="ext-title">Warren Buffett's Letters to Shareholders</div>
-          <div class="ext-desc">巴菲特历年致股东信官方原文（1977-2024）。所有研究的起点，建议与中文译本对照阅读。</div>
-          <div class="ext-domain">berkshirehathaway.com · 官方原文</div>
+      <div class="article-card" style="cursor:default">
+        <div class="card-accent rose"></div>
+        <div class="card-body">
+          <div class="card-icon rose">🎙️</div>
+          <div class="card-content">
+            <div class="card-title">「雪佛龙不是邪恶公司」——巴菲特与芒格</div>
+            <div class="card-desc">沃伦·巴菲特 · 2026-03-02</div>
+          </div>
         </div>
-      </a>
+      </div>
 
-      <a href="https://learnbuffett.com/" class="ext-card" target="_blank" rel="noopener">
-        <div class="ext-num">2</div>
-        <div class="ext-content">
-          <div class="ext-title">LearnBuffett — 巴菲特中文知识库</div>
-          <div class="ext-desc">98封股东信全文翻译 + 核心概念词条（内在价值、浮存金等） + 公司画像 + 人物研究，支持交叉引用。</div>
-          <div class="ext-domain">learnbuffett.com · 中文社区</div>
+      <div class="article-card" style="cursor:default">
+        <div class="card-accent rose"></div>
+        <div class="card-body">
+          <div class="card-icon rose">🎙️</div>
+          <div class="card-content">
+            <div class="card-title">「未来 200 年石油将极其珍贵」——巴菲特与芒格</div>
+            <div class="card-desc">查理·芒格 · 2026-03-01</div>
+          </div>
         </div>
-      </a>
+      </div>
 
-      <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001067983" class="ext-card" target="_blank" rel="noopener">
-        <div class="ext-num">3</div>
-        <div class="ext-content">
-          <div class="ext-title">SEC EDGAR — BRK 原始申报文件</div>
-          <div class="ext-desc">所有 13F（季度持仓）、10-K（年报）、10-Q（季报）等 SEC 官方申报文件入口，一手数据的终极来源。</div>
-          <div class="ext-domain">sec.gov · 官方数据</div>
+      <div class="article-card" style="cursor:default">
+        <div class="card-accent rose"></div>
+        <div class="card-body">
+          <div class="card-icon rose">🎙️</div>
+          <div class="card-content">
+            <div class="card-title">沃伦·巴菲特定义「所有者收益」概念</div>
+            <div class="card-desc">2026-02-24</div>
+          </div>
         </div>
-      </a>
+      </div>
 
-      <a href="https://www.dataroma.com/" class="ext-card" target="_blank" rel="noopener">
-        <div class="ext-num">4</div>
-        <div class="ext-content">
-          <div class="ext-title">Dataroma — 超级投资者持仓追踪</div>
-          <div class="ext-desc">追踪巴菲特、芒格、比尔·阿克曼等顶尖投资者的 13F 持仓变动，可视化行业分布与历史演变。</div>
-          <div class="ext-domain">dataroma.com · 数据平台</div>
+      <div class="article-card" style="cursor:default">
+        <div class="card-accent rose"></div>
+        <div class="card-body">
+          <div class="card-icon rose">🎙️</div>
+          <div class="card-content">
+            <div class="card-title">「我搞砸了」——巴菲特谈早年未投资谷歌（Alphabet）</div>
+            <div class="card-desc">沃伦·巴菲特 · 2026-02-23</div>
+          </div>
         </div>
-      </a>
+      </div>
 
-      <a href="https://www.cnbc.com/berkshire-hathaway-portfolio/" class="ext-card" target="_blank" rel="noopener">
-        <div class="ext-num">5</div>
-        <div class="ext-content">
-          <div class="ext-title">CNBC: Berkshire Hathaway Portfolio Tracker</div>
-          <div class="ext-desc">CNBC 的 BRK 投资组合追踪器，实时展示当前持仓的行业分布、市值占比与近期变动。</div>
-          <div class="ext-domain">cnbc.com · 实时追踪</div>
+      <div class="article-card" style="cursor:default">
+        <div class="card-accent rose"></div>
+        <div class="card-body">
+          <div class="card-icon rose">🎙️</div>
+          <div class="card-content">
+            <div class="card-title">买入标普 500 指数基金——沃伦·巴菲特</div>
+            <div class="card-desc">沃伦·巴菲特 · 2026-02-20</div>
+          </div>
         </div>
-      </a>
+      </div>
 
-      <a href="https://www.investopedia.com/terms/b/berkshire-hathaway.asp" class="ext-card" target="_blank" rel="noopener">
-        <div class="ext-num">6</div>
-        <div class="ext-content">
-          <div class="ext-title">Investopedia: What Is Berkshire Hathaway?</div>
-          <div class="ext-desc">Investopedia 的 BRK 百科词条，从公司架构到财务指标，适合作为快速查阅的结构化知识卡片。</div>
-          <div class="ext-domain">investopedia.com · 英文百科</div>
+      <div class="article-card" style="cursor:default">
+        <div class="card-accent rose"></div>
+        <div class="card-body">
+          <div class="card-icon rose">🎙️</div>
+          <div class="card-content">
+            <div class="card-title">「分散投资是对无知的防御」——巴菲特（1996）</div>
+            <div class="card-desc">1996-06-02</div>
+          </div>
         </div>
-      </a>
-
-      <a href="https://www.youtube.com/results?search_query=warren+buffett+interview" class="ext-card" target="_blank" rel="noopener">
-        <div class="ext-num">7</div>
-        <div class="ext-content">
-          <div class="ext-title">YouTube — 巴菲特访谈视频合集</div>
-          <div class="ext-desc">海量巴菲特访谈、纪录片与股东大会录像，理解其人格魅力与投资哲学的最生动途径。</div>
-          <div class="ext-domain">YouTube · 视频资源</div>
-        </div>
-      </a>
-
-      <a href="https://xueqiu.com/hub/stock/BRK.A" class="ext-card" target="_blank" rel="noopener">
-        <div class="ext-num">8</div>
-        <div class="ext-content">
-          <div class="ext-title">雪球 — 伯克希尔哈撒韦讨论区</div>
-          <div class="ext-desc">中文投资社区中 BRK 讨论最活跃的平台之一，大量投资者分享财报解读、持仓分析与投资心得。</div>
-          <div class="ext-domain">xueqiu.com · 中文社区</div>
-        </div>
-      </a>
+      </div>
 
     </div>
-  </section>
+  </div>
 
   <div class="back-link">
     <a href="berkshire-standalone.html">← 返回投资数据中心</a>
