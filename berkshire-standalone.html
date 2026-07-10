@@ -225,6 +225,23 @@ body{
 }
 .year-pill.cn-link:hover{background:#fef3c7;border-color:#fbbf24}
 
+
+/* 合伙信年份网格：仅 14 个年份，可稍宽 */
+.partner-year-grid{grid-template-columns:repeat(7,1fr)}
+/* 股东信年份网格：54 个年份，保持 10 列紧凑 */
+.shareholder-year-grid{grid-template-columns:repeat(10,1fr)}
+@media(max-width:900px){
+  .partner-year-grid{grid-template-columns:repeat(7,1fr)}
+  .shareholder-year-grid{grid-template-columns:repeat(6,1fr)}
+}
+@media(max-width:768px){
+  .partner-year-grid{grid-template-columns:repeat(5,1fr)}
+  .shareholder-year-grid{grid-template-columns:repeat(5,1fr)}
+}
+@media(max-width:480px){
+  .partner-year-grid{grid-template-columns:repeat(4,1fr)}
+  .shareholder-year-grid{grid-template-columns:repeat(4,1fr)}
+}
 /* Coming soon cards */
 .card.coming-soon{opacity:0.5;pointer-events:none}
 .card.coming-soon .card-title{color:#94a3b8}
@@ -447,7 +464,7 @@ body{
     </div>
 
     <!-- 3. 合伙人信 -->
-    <div class="card accent-gold" style="grid-row:span 2">
+    <div class="card accent-gold">
       <div class="card-accent"></div>
       <div class="card-body">
         <div class="card-icon">📜</div>
@@ -473,27 +490,13 @@ body{
     </div>
 
     <!-- 4. 股东信 -->
-    <div class="card accent-gold" style="grid-row:span 5">
+    <div class="card accent-gold">
       <div class="card-accent"></div>
       <div class="card-body">
         <div class="card-icon">✉️</div>
         <div class="card-title">巴菲特历年致股东的信</div>
-        <div class="card-desc">1957 — 2024 年中文翻译，含 1957-1970 合伙基金时期信件（芒格书院共读群友整理）</div>
+        <div class="card-desc">1971 — 2024 年中文翻译（芒格书院共读群友整理）</div>
         <div class="year-grid">
-          <a href="letters_content/cn/1957.html" class="year-pill">1957</a>
-          <a href="letters_content/cn/1958.html" class="year-pill">1958</a>
-          <a href="letters_content/cn/1959.html" class="year-pill">1959</a>
-          <a href="letters_content/cn/1960.html" class="year-pill">1960</a>
-          <a href="letters_content/cn/1961.html" class="year-pill">1961</a>
-          <a href="letters_content/cn/1962.html" class="year-pill">1962</a>
-          <a href="letters_content/cn/1963.html" class="year-pill">1963</a>
-          <a href="letters_content/cn/1964.html" class="year-pill">1964</a>
-          <a href="letters_content/cn/1965.html" class="year-pill">1965</a>
-          <a href="letters_content/cn/1966.html" class="year-pill">1966</a>
-          <a href="letters_content/cn/1967.html" class="year-pill">1967</a>
-          <a href="letters_content/cn/1968.html" class="year-pill">1968</a>
-          <a href="letters_content/cn/1969.html" class="year-pill">1969</a>
-          <a href="letters_content/cn/1970.html" class="year-pill">1970</a>
           <a href="letters_content/cn/1971.html" class="year-pill">1971</a>
           <a href="letters_content/cn/1972.html" class="year-pill">1972</a>
           <a href="letters_content/cn/1973.html" class="year-pill">1973</a>
