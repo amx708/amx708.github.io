@@ -149,6 +149,24 @@ body{
 .card-arrow{font-size:15px;color:#cbd5e1;transition:all 0.2s ease}
 .article-card:hover .card-arrow{color:#2563eb;transform:translateX(3px)}
 
+/* ===== Site Card with Extension Links ===== */
+.site-card{cursor:default}
+.card-main-link{display:block;text-decoration:none;color:inherit}
+.card-main-link:hover{color:inherit}
+.card-ext-links{
+  padding:6px 24px 4px;
+  display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+}
+.ext-label{color:#94a3b8;font-weight:500;font-size:12px;white-space:nowrap}
+.ext-link{
+  color:#2563eb;text-decoration:none;
+  padding:3px 10px;border-radius:6px;
+  background:#eff6ff;font-size:11px;font-weight:500;
+  transition:all 0.15s;
+  white-space:nowrap;
+}
+.ext-link:hover{background:#dbeafe;color:#1d4ed8}
+
 /* Source tag */
 .source-tag{
   display:inline-flex;align-items:center;gap:4px;
@@ -215,6 +233,9 @@ body{
   .card-title{font-size:14.5px}
   .card-desc{font-size:12.5px}
   .ext-card{padding:14px 16px;gap:10px}
+  .card-ext-links{padding:4px 16px 2px;gap:4px}
+  .ext-label{font-size:11px}
+  .ext-link{font-size:10px;padding:2px 8px}
   .ext-num{width:24px;height:24px;font-size:12px;border-radius:6px}
   .ext-title{font-size:14px}
   .ext-desc{font-size:12px}
@@ -231,6 +252,8 @@ body{
   .section-title{font-size:15.5px}
   .card-title{font-size:14px}
   .card-desc{font-size:12px}
+  .card-ext-links{padding:4px 10px 2px;gap:3px}
+  .ext-link{font-size:10px;padding:2px 6px}
   .ext-title{font-size:13px}
   .card-grid,.card-grid.three{gap:12px}
   .nav-icon{display:none}
@@ -382,18 +405,25 @@ body{
     </div>
     <div class="card-grid">
 
-      <a href="berkshire-business-map.html" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-teal">🏭</div>
-          <span class="card-category cat-teal">历史研究</span>
-          <div class="card-title">伯克希尔哈撒韦前传：从纺织厂到投资巨头</div>
-          <div class="card-desc">BRK 从1839年纺织厂起步，1965年巴菲特入主后转型为万亿美元帝国。含完整投资故事、关键转折与启示。</div>
+      <div class="article-card site-card">
+        <a href="berkshire-business-map.html" class="card-main-link" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon ci-teal">🏭</div>
+            <span class="card-category cat-teal">历史研究</span>
+            <div class="card-title">伯克希尔哈撒韦前传：从纺织厂到投资巨头</div>
+            <div class="card-desc">BRK 从1839年纺织厂起步，1965年巴菲特入主后转型为万亿美元帝国。含完整投资故事、关键转折与启示。</div>
+          </div>
+        </a>
+        <div class="card-ext-links">
+          <span class="ext-label">延伸阅读：</span>
+          <a href="https://xueqiu.com/4763905481/368810117" class="ext-link" target="_blank" rel="noopener">雪球 · 从纺织厂到投资巨头</a>
+          <a href="https://baijiahao.baidu.com/s?id=1844415350773290377" class="ext-link" target="_blank" rel="noopener">百家号 · 万亿帝国崛起之路</a>
         </div>
         <div class="card-footer">
           <span class="source-tag source-external">站内文章</span>
           <span class="card-arrow">→</span>
         </div>
-      </a>
+      </div>
 
       <a href="https://zhuanlan.zhihu.com/p/2039405139736449626" class="article-card" target="_blank" rel="noopener">
         <div class="card-top">
@@ -408,18 +438,25 @@ body{
         </div>
       </a>
 
-      <a href="berkshire-concepts.html" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-gold">💡</div>
-          <span class="card-category cat-gold">价值投资</span>
-          <div class="card-title">价值投资核心理念：内在价值</div>
-          <div class="card-desc">巴菲特投资体系的基石——什么是内在价值？如何与账面价值区分？喜诗糖果、可口可乐等经典案例解析。</div>
+      <div class="article-card site-card">
+        <a href="berkshire-concepts.html" class="card-main-link" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon ci-gold">💡</div>
+            <span class="card-category cat-gold">价值投资</span>
+            <div class="card-title">价值投资核心理念：内在价值</div>
+            <div class="card-desc">巴菲特投资体系的基石——什么是内在价值？如何与账面价值区分？喜诗糖果、可口可乐等经典案例解析。</div>
+          </div>
+        </a>
+        <div class="card-ext-links">
+          <span class="ext-label">延伸阅读：</span>
+          <a href="https://zhuanlan.zhihu.com/p/710136900" class="ext-link" target="_blank" rel="noopener">知乎 · 账面价值与内在价值</a>
+          <a href="https://baijiahao.baidu.com/s?id=1848907717505115011" class="ext-link" target="_blank" rel="noopener">百家号 · 看透三种价值</a>
         </div>
         <div class="card-footer">
           <span class="source-tag source-external">站内文章</span>
           <span class="card-arrow">→</span>
         </div>
-      </a>
+      </div>
 
       <a href="https://xueqiu.com/8295091535/380526985" class="article-card" target="_blank" rel="noopener">
         <div class="card-top">
@@ -448,18 +485,25 @@ body{
     </div>
     <div class="card-grid">
 
-      <a href="berkshire-concepts.html" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-blue">🛡️</div>
-          <span class="card-category cat-blue">保险业务</span>
-          <div class="card-title">保险浮存金：巴菲特的"免费杠杆"</div>
-          <div class="card-desc">深度解析 BRK 保险帝国核心引擎：浮存金定义、成本计算、增长史（1900万→1640亿）、常见误区。</div>
+      <div class="article-card site-card">
+        <a href="berkshire-concepts.html" class="card-main-link" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon ci-blue">🛡️</div>
+            <span class="card-category cat-blue">保险业务</span>
+            <div class="card-title">保险浮存金：巴菲特的"免费杠杆"</div>
+            <div class="card-desc">深度解析 BRK 保险帝国核心引擎：浮存金定义、成本计算、增长史（1900万→1640亿）、常见误区。</div>
+          </div>
+        </a>
+        <div class="card-ext-links">
+          <span class="ext-label">延伸阅读：</span>
+          <a href="https://zhuanlan.zhihu.com/p/73365903" class="ext-link" target="_blank" rel="noopener">知乎 · 揭秘巴菲特的杠杆</a>
+          <a href="https://www.nokolab.cn/reading/invest/warren-buffett/letters-to-shareholders/2026-04-29-float-and-capital.html" class="ext-link" target="_blank" rel="noopener">读书心得 · 浮存金与资本配置</a>
         </div>
         <div class="card-footer">
           <span class="source-tag source-external">站内文章</span>
           <span class="card-arrow">→</span>
         </div>
-      </a>
+      </div>
 
       <a href="https://xueqiu.com/5837886662/383494927" class="article-card" target="_blank" rel="noopener">
         <div class="card-top">
@@ -474,44 +518,65 @@ body{
         </div>
       </a>
 
-      <a href="berkshire-concepts.html" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-teal">🤝</div>
-          <span class="card-category cat-teal">收购策略</span>
-          <div class="card-title">资本配置：巴菲特并购哲学的底层逻辑</div>
-          <div class="card-desc">巴菲特的资本配置框架——留存利润再投资 vs 收购 vs 回购的决策树，以及"永不出售"承诺的竞争价值。</div>
+      <div class="article-card site-card">
+        <a href="berkshire-concepts.html" class="card-main-link" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon ci-teal">🤝</div>
+            <span class="card-category cat-teal">收购策略</span>
+            <div class="card-title">资本配置：巴菲特并购哲学的底层逻辑</div>
+            <div class="card-desc">巴菲特的资本配置框架——留存利润再投资 vs 收购 vs 回购的决策树，以及"永不出售"承诺的竞争价值。</div>
+          </div>
+        </a>
+        <div class="card-ext-links">
+          <span class="ext-label">延伸阅读：</span>
+          <a href="https://zhuanlan.zhihu.com/p/2030242058468841119" class="ext-link" target="_blank" rel="noopener">知乎 · 资本配置核心思想</a>
+          <a href="https://xueqiu.com/1625991001/360199698" class="ext-link" target="_blank" rel="noopener">雪球 · 核心投资哲学框架</a>
         </div>
         <div class="card-footer">
           <span class="source-tag source-external">站内文章</span>
           <span class="card-arrow">→</span>
         </div>
-      </a>
+      </div>
 
-      <a href="berkshire-concepts.html" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-purple">📐</div>
-          <span class="card-category cat-purple">数据分析</span>
-          <div class="card-title">账面价值 vs 内在价值：读年报必知</div>
-          <div class="card-desc">巴菲特数十年反复强调的核心区分：为何账面价值越来越脱离经济现实？2018年正式放弃作为首要指标。</div>
+      <div class="article-card site-card">
+        <a href="berkshire-concepts.html" class="card-main-link" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon ci-purple">📐</div>
+            <span class="card-category cat-purple">数据分析</span>
+            <div class="card-title">账面价值 vs 内在价值：读年报必知</div>
+            <div class="card-desc">巴菲特数十年反复强调的核心区分：为何账面价值越来越脱离经济现实？2018年正式放弃作为首要指标。</div>
+          </div>
+        </a>
+        <div class="card-ext-links">
+          <span class="ext-label">延伸阅读：</span>
+          <a href="https://zhuanlan.zhihu.com/p/710136900" class="ext-link" target="_blank" rel="noopener">知乎 · 账面价值与内在价值</a>
+          <a href="https://xueqiu.com/7691888374/316776996" class="ext-link" target="_blank" rel="noopener">雪球 · 巴菲特论两种价值</a>
         </div>
         <div class="card-footer">
           <span class="source-tag source-external">站内文章</span>
           <span class="card-arrow">→</span>
         </div>
-      </a>
+      </div>
 
-      <a href="berkshire-concepts.html" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-rose">💰</div>
-          <span class="card-category cat-rose">资本配置</span>
-          <div class="card-title">伯克希尔为何不分红？回购替代分红的逻辑</div>
-          <div class="card-desc">BRK 坚持不分红 60 年——留存利润再投资的复利效应 + 低于内在价值回购的税收优势，一箭双雕。</div>
+      <div class="article-card site-card">
+        <a href="berkshire-concepts.html" class="card-main-link" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon ci-rose">💰</div>
+            <span class="card-category cat-rose">资本配置</span>
+            <div class="card-title">伯克希尔为何不分红？回购替代分红的逻辑</div>
+            <div class="card-desc">BRK 坚持不分红 60 年——留存利润再投资的复利效应 + 低于内在价值回购的税收优势，一箭双雕。</div>
+          </div>
+        </a>
+        <div class="card-ext-links">
+          <span class="ext-label">延伸阅读：</span>
+          <a href="https://xueqiu.com/3871533038/345844280" class="ext-link" target="_blank" rel="noopener">雪球 · 不分红的深层逻辑</a>
+          <a href="https://caifuhao.eastmoney.com/news/20250909223609984445420" class="ext-link" target="_blank" rel="noopener">东方财富 · 为何从不分红</a>
         </div>
         <div class="card-footer">
           <span class="source-tag source-external">站内文章</span>
           <span class="card-arrow">→</span>
         </div>
-      </a>
+      </div>
 
       <a href="https://xueqiu.com/4431925731/375431689" class="article-card" target="_blank" rel="noopener">
         <div class="card-top">
@@ -566,18 +631,25 @@ body{
         </div>
       </a>
 
-      <a href="berkshire-concepts.html" class="article-card" target="_blank" rel="noopener">
-        <div class="card-top">
-          <div class="card-icon ci-purple">🤝</div>
-          <span class="card-category cat-purple">人物关系</span>
-          <div class="card-title">芒格如何改变了巴菲特</div>
-          <div class="card-desc">巴菲特称芒格为"伯克希尔的建筑师"——喜诗糖果如何成为投资哲学的转折点，56年从未争吵的合伙传奇。</div>
+      <div class="article-card site-card">
+        <a href="berkshire-concepts.html" class="card-main-link" target="_blank" rel="noopener">
+          <div class="card-top">
+            <div class="card-icon ci-purple">🤝</div>
+            <span class="card-category cat-purple">人物关系</span>
+            <div class="card-title">芒格如何改变了巴菲特</div>
+            <div class="card-desc">巴菲特称芒格为"伯克希尔的建筑师"——喜诗糖果如何成为投资哲学的转折点，56年从未争吵的合伙传奇。</div>
+          </div>
+        </a>
+        <div class="card-ext-links">
+          <span class="ext-label">延伸阅读：</span>
+          <a href="https://www.163.com/dy/article/L1AGCQU40556BP78.html" class="ext-link" target="_blank" rel="noopener">网易 · 芒格两大核心法则</a>
+          <a href="https://xueqiu.com/3871533038/398488864" class="ext-link" target="_blank" rel="noopener">雪球 · 芒格对巴菲特的核心改变</a>
         </div>
         <div class="card-footer">
           <span class="source-tag source-external">站内文章</span>
           <span class="card-arrow">→</span>
         </div>
-      </a>
+      </div>
 
       <a href="https://finance.huanqiu.com/article/4QatRJ8eIWE" class="article-card" target="_blank" rel="noopener">
         <div class="card-top">
