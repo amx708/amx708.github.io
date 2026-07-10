@@ -198,27 +198,30 @@ body{
 
 /* Year pills */
 .year-grid{
-  display:flex;flex-wrap:wrap;
-  gap:5px;
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:6px;
   margin-top:auto;
 }
 .year-pill{
-  display:inline-block;
-  padding:4px 9px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:6px 4px;
   background:#f8fafc;
   border:1px solid #e2e8f0;
-  border-radius:5px;
-  font-size:11px;font-weight:500;
+  border-radius:6px;
+  font-size:12px;font-weight:500;
   color:#475569;
   text-decoration:none;
   transition:all 0.15s ease;
+  min-height:30px;
 }
 .year-pill:hover{background:#eff6ff;border-color:#93c5fd;color:#2563eb}
 .year-pill.cn-link{
   background:#fffbeb;
   border-color:#fde68a;
   color:#b45309;
-  font-size:10px;
 }
 .year-pill.cn-link:hover{background:#fef3c7;border-color:#fbbf24}
 
@@ -271,6 +274,7 @@ body{
   .hero{padding:48px 20px 64px}
   .main-section{padding:40px 20px 64px}
   .section-header h2{font-size:22px}
+  .year-grid{grid-template-columns:repeat(6,1fr)}
 }
 @media(max-width:768px){
   .breadcrumb{padding:12px 16px 0;font-size:12px}
@@ -287,7 +291,7 @@ body{
   .card-desc{font-size:12.5px}
   .card-links{gap:6px}
   .card-link{padding:8px 12px;font-size:12px}
-  .year-grid{gap:4px}
+  .year-grid{grid-template-columns:repeat(5,1fr);gap:4px}
   .year-pill{padding:3px 7px;font-size:10px}
   .year-pill.cn-link{font-size:9px}
   .section-header h2{font-size:20px}
@@ -308,6 +312,7 @@ body{
   .card-icon{width:38px;height:38px;font-size:17px;margin-bottom:12px}
   .card-link{padding:7px 10px;font-size:11px}
   .year-pill{padding:3px 6px;font-size:9px}
+  .year-grid{grid-template-columns:repeat(4,1fr)}
   .footer{padding:24px 16px;font-size:11px}
 }
 </style>
@@ -449,20 +454,20 @@ body{
         <div class="card-title">巴菲特早年致合伙人的信</div>
         <div class="card-desc">1957 — 1970 年，巴菲特合伙基金时期经典信件，价值投资理念的奠基之作</div>
         <div class="year-grid">
-          <a href="buffett-partnership-showcase.html#year-1957" class="year-pill">1957</a>
-          <a href="buffett-partnership-showcase.html#year-1958" class="year-pill">1958</a>
-          <a href="buffett-partnership-showcase.html#year-1959" class="year-pill">1959</a>
-          <a href="buffett-partnership-showcase.html#year-1960" class="year-pill">1960</a>
-          <a href="buffett-partnership-showcase.html#year-1961" class="year-pill">1961</a>
-          <a href="buffett-partnership-showcase.html#year-1962" class="year-pill">1962</a>
-          <a href="buffett-partnership-showcase.html#year-1963" class="year-pill">1963</a>
-          <a href="buffett-partnership-showcase.html#year-1964" class="year-pill">1964</a>
-          <a href="buffett-partnership-showcase.html#year-1965" class="year-pill">1965</a>
-          <a href="buffett-partnership-showcase.html#year-1966" class="year-pill">1966</a>
-          <a href="buffett-partnership-showcase.html#year-1967" class="year-pill">1967</a>
-          <a href="buffett-partnership-showcase.html#year-1968" class="year-pill">1968</a>
-          <a href="buffett-partnership-showcase.html#year-1969" class="year-pill">1969</a>
-          <a href="buffett-partnership-showcase.html#year-1970" class="year-pill">1970</a>
+          <a href="letters_content/cn/1957.html" class="year-pill">1957</a>
+          <a href="letters_content/cn/1958.html" class="year-pill">1958</a>
+          <a href="letters_content/cn/1959.html" class="year-pill">1959</a>
+          <a href="letters_content/cn/1960.html" class="year-pill">1960</a>
+          <a href="letters_content/cn/1961.html" class="year-pill">1961</a>
+          <a href="letters_content/cn/1962.html" class="year-pill">1962</a>
+          <a href="letters_content/cn/1963.html" class="year-pill">1963</a>
+          <a href="letters_content/cn/1964.html" class="year-pill">1964</a>
+          <a href="letters_content/cn/1965.html" class="year-pill">1965</a>
+          <a href="letters_content/cn/1966.html" class="year-pill">1966</a>
+          <a href="letters_content/cn/1967.html" class="year-pill">1967</a>
+          <a href="letters_content/cn/1968.html" class="year-pill">1968</a>
+          <a href="letters_content/cn/1969.html" class="year-pill">1969</a>
+          <a href="letters_content/cn/1970.html" class="year-pill">1970</a>
         </div>
       </div>
     </div>
@@ -473,22 +478,22 @@ body{
       <div class="card-body">
         <div class="card-icon">✉️</div>
         <div class="card-title">巴菲特历年致股东的信</div>
-        <div class="card-desc">1957 — 2024 年中文翻译（芒格书院共读群友整理）</div>
+        <div class="card-desc">1957 — 2024 年中文翻译，含 1957-1970 合伙基金时期信件（芒格书院共读群友整理）</div>
         <div class="year-grid">
-          <a href="buffett-partnership-showcase.html#year-1957" class="year-pill">1957</a>
-          <a href="buffett-partnership-showcase.html#year-1958" class="year-pill">1958</a>
-          <a href="buffett-partnership-showcase.html#year-1959" class="year-pill">1959</a>
-          <a href="buffett-partnership-showcase.html#year-1960" class="year-pill">1960</a>
-          <a href="buffett-partnership-showcase.html#year-1961" class="year-pill">1961</a>
-          <a href="buffett-partnership-showcase.html#year-1962" class="year-pill">1962</a>
-          <a href="buffett-partnership-showcase.html#year-1963" class="year-pill">1963</a>
-          <a href="buffett-partnership-showcase.html#year-1964" class="year-pill">1964</a>
-          <a href="buffett-partnership-showcase.html#year-1965" class="year-pill">1965</a>
-          <a href="buffett-partnership-showcase.html#year-1966" class="year-pill">1966</a>
-          <a href="buffett-partnership-showcase.html#year-1967" class="year-pill">1967</a>
-          <a href="buffett-partnership-showcase.html#year-1968" class="year-pill">1968</a>
-          <a href="buffett-partnership-showcase.html#year-1969" class="year-pill">1969</a>
-          <a href="buffett-partnership-showcase.html#year-1970" class="year-pill">1970</a>
+          <a href="letters_content/cn/1957.html" class="year-pill">1957</a>
+          <a href="letters_content/cn/1958.html" class="year-pill">1958</a>
+          <a href="letters_content/cn/1959.html" class="year-pill">1959</a>
+          <a href="letters_content/cn/1960.html" class="year-pill">1960</a>
+          <a href="letters_content/cn/1961.html" class="year-pill">1961</a>
+          <a href="letters_content/cn/1962.html" class="year-pill">1962</a>
+          <a href="letters_content/cn/1963.html" class="year-pill">1963</a>
+          <a href="letters_content/cn/1964.html" class="year-pill">1964</a>
+          <a href="letters_content/cn/1965.html" class="year-pill">1965</a>
+          <a href="letters_content/cn/1966.html" class="year-pill">1966</a>
+          <a href="letters_content/cn/1967.html" class="year-pill">1967</a>
+          <a href="letters_content/cn/1968.html" class="year-pill">1968</a>
+          <a href="letters_content/cn/1969.html" class="year-pill">1969</a>
+          <a href="letters_content/cn/1970.html" class="year-pill">1970</a>
           <a href="letters_content/cn/1971.html" class="year-pill">1971</a>
           <a href="letters_content/cn/1972.html" class="year-pill">1972</a>
           <a href="letters_content/cn/1973.html" class="year-pill">1973</a>
