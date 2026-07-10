@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>李录：全球化、价值投资与人生 — 诺亚财富演讲</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.7;min-height:100vh}
+
+/* ===== Top Bar ===== */
+.top-home-bar{position:sticky;top:0;z-index:100;background:linear-gradient(135deg,#0f172a,#1e293b);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.08)}
+.top-home-bar .left{display:flex;align-items:center;gap:12px}
+.home-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:20px;color:rgba(255,255,255,0.85);font-size:13px;font-weight:500;text-decoration:none;transition:all 0.2s ease}
+.home-btn:hover{background:rgba(255,255,255,0.18);color:#fff}
+.breadcrumb-bar{font-size:13px;color:rgba(255,255,255,0.5);display:flex;align-items:center;gap:6px}
+.breadcrumb-bar a{color:rgba(255,255,255,0.65);text-decoration:none;transition:color 0.15s}
+.breadcrumb-bar a:hover{color:#fbbf24}
+.breadcrumb-bar span{color:rgba(255,255,255,0.3)}
+.breadcrumb-bar .current{color:rgba(255,255,255,0.85);font-weight:500}
+
+/* ===== Hero ===== */
+.speech-hero{
+  position:relative;background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 40%,#1e293b 100%);
+  padding:48px 24px 60px;text-align:center;overflow:hidden;
+}
+.speech-hero::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(ellipse at 30% 20%, rgba(37,99,235,0.12) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(245,158,11,0.06) 0%, transparent 50%);
+  pointer-events:none;
+}
+.speech-hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:80px;
+  background:linear-gradient(to top, #f1f5f9 0%, transparent 100%);pointer-events:none;
+}
+.hero-content{position:relative;z-index:2;max-width:800px;margin:0 auto}
+.hero-badge{
+  display:inline-block;padding:4px 14px;
+  background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.3);
+  border-radius:20px;color:#60a5fa;font-size:12px;font-weight:500;letter-spacing:0.5px;margin-bottom:18px;
+}
+.hero h1{font-size:clamp(22px,3.5vw,34px);font-weight:800;color:#fff;line-height:1.3;margin-bottom:10px}
+.hero .speech-sub{font-size:15px;color:#94a3b8;margin-bottom:16px;line-height:1.6}
+.hero .speech-meta-row{display:flex;gap:16px;justify-content:center;font-size:13px;color:rgba(255,255,255,0.55);flex-wrap:wrap}
+.hero .speech-meta-row span{display:flex;align-items:center;gap:4px}
+
+/* ===== Tags ===== */
+.tag-bar{display:flex;gap:8px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.tag-pill{
+  padding:4px 12px;border-radius:8px;font-size:12px;font-weight:500;
+}
+.tag-pill.tag-global{background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.3);color:#60a5fa}
+.tag-pill.tag-value{background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);color:#fbbf24}
+.tag-pill.tag-moat{background:rgba(5,150,105,0.15);border:1px solid rgba(5,150,105,0.3);color:#34d399}
+.tag-pill.tag-life{background:rgba(168,85,247,0.15);border:1px solid rgba(168,85,247,0.3);color:#c084fc}
+
+/* ===== Content ===== */
+.content-wrap{max-width:860px;margin:0 auto;padding:48px 24px 80px}
+
+/* Section headers */
+.section-h2{
+  font-size:22px;font-weight:700;color:#0f172a;margin:40px 0 16px;
+  padding-left:14px;border-left:4px solid #2563eb;line-height:1.3;
+}
+.section-h2:first-child{margin-top:0}
+.section-h3{font-size:17px;font-weight:600;color:#1e293b;margin:24px 0 12px}
+
+/* Paragraphs */
+.speech-p{font-size:15.5px;color:#334155;line-height:1.85;margin-bottom:16px;text-indent:0}
+
+/* Speaker highlights */
+.speaker-buf{color:#dc2626;font-weight:700}
+.speaker-host{color:#0284c7;font-weight:700}
+
+/* Quote block */
+.speech-quote{
+  margin:24px 0;padding:20px 24px;border-radius:12px;
+  background:linear-gradient(135deg,#f8fafc,#fff);
+  border:1px solid #e2e8f0;border-left:4px solid #f59e0b;
+  font-size:15px;color:#475569;line-height:1.75;
+}
+.speech-quote .quote-mark{font-size:28px;color:#f59e0b;font-weight:700;line-height:1;float:left;margin-right:8px;margin-top:-4px}
+.speech-quote .quote-source{font-size:12px;color:#94a3b8;margin-top:10px;font-style:normal;font-weight:500}
+
+/* Key point cards */
+.key-point{
+  margin:20px 0;padding:18px 22px;border-radius:10px;
+  background:#fff;border:1px solid #e2e8f0;
+  box-shadow:0 2px 8px rgba(0,0,0,0.04);
+}
+.key-point .kp-icon{font-size:18px;margin-bottom:4px}
+.key-point .kp-title{font-size:14px;font-weight:700;color:#0f172a;margin-bottom:6px}
+.key-point .kp-text{font-size:13.5px;color:#64748b;line-height:1.6}
+
+/* Time stamps */
+.time-stamp{font-size:12px;color:#94a3b8;font-weight:500;margin-right:8px;font-family:monospace}
+
+/* ===== Nav ===== */
+.section-nav{
+  position:sticky;top:48px;z-index:50;background:#fff;border-bottom:1px solid #e2e8f0;
+  padding:8px 24px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+  box-shadow:0 1px 4px rgba(0,0,0,0.04);
+}
+.nav-link{
+  padding:4px 12px;border-radius:6px;font-size:12px;font-weight:500;color:#64748b;
+  text-decoration:none;border:1px solid transparent;transition:all 0.15s ease;
+}
+.nav-link:hover{color:#2563eb;border-color:#bfdbfe;background:#eff6ff}
+
+/* ===== Footer ===== */
+.page-footer{
+  max-width:860px;margin:0 auto;padding:24px;text-align:center;
+  font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0;
+}
+
+/* ===== Responsive ===== */
+@media(max-width:768px){
+  .speech-hero{padding:40px 20px 50px}
+  .content-wrap{padding:32px 20px 60px}
+  .section-h2{font-size:18px}
+  .speech-p{font-size:14.5px}
+  .section-nav{top:0;padding:6px 12px}
+  .top-home-bar{padding:8px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Sticky Top Bar ===== -->
+<div class="top-home-bar">
+  <div class="left">
+    <a href="index.html" class="home-btn">🏠 首页</a>
+    <div class="breadcrumb-bar">
+      <a href="index.html">首页</a><span>/</span>
+      <a href="berkshire-standalone.html">数据中心</a><span>/</span>
+      <a href="berkshire-value-investors.html">价值投资人物</a><span>/</span>
+      <span class="current">李录·诺亚演讲</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Section Nav ===== -->
+<div class="section-nav">
+  <a href="#s1" class="nav-link">🌐 全球化</a>
+  <a href="#s2" class="nav-link">🇨🇳 中国机遇</a>
+  <a href="#s3" class="nav-link">💡 价值投资</a>
+  <a href="#s4" class="nav-link">🏰 竞争优势</a>
+  <a href="#s5" class="nav-link">❤️ 人生哲学</a>
+  <a href="#s6" class="nav-link">💰 投资建议</a>
+</div>
+
+<!-- ===== Hero ===== -->
+<div class="speech-hero">
+  <div class="hero-content">
+    <div class="hero-badge">🎓 Li Lu · 诺亚财富演讲</div>
+    <h1>全球化、价值投资与人生哲学</h1>
+    <div class="speech-sub">李录最完整的一次思考——从全球化挑战到价值投资本质，从竞争护城河到以热情而非恐惧驱动人生</div>
+    <div class="speech-meta-row">
+      <span>📅 约2020年11月</span>
+      <span>📍 诺亚财富学院</span>
+      <span>🎤 李录</span>
+      <span>⏱ 约44分钟</span>
+    </div>
+    <div class="tag-bar">
+      <span class="tag-pill tag-global">全球化与单一市场</span>
+      <span class="tag-pill tag-value">价值投资本质</span>
+      <span class="tag-pill tag-moat">竞争护城河</span>
+      <span class="tag-pill tag-life">人生哲学</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Content ===== -->
+<div class="content-wrap">
+
+<!-- ===== Section 1: 全球化 ===== -->
+<h2 class="section-h2" id="s1">🌐 全球化与单一市场</h2>
+
+<p class="speech-p"><span class="time-stamp">(00:00)</span> 并不是不存在，只是不是大概率事件。事实上，这种全球化现象确实是前所未有的。它是在过去30年里出现的。在此之前，所有市场通常都是由于某种形式的政治统一而形成的，例如在一个国家内，国家联盟之间或军事集团之间。</p>
+
+<p class="speech-p">原因很简单。我们所说的自由市场和自由竞争必然会产生赢家和输家。虽然这从长远来看对社会有利，但短期内对社会的压力是巨大的。因此，必须在政治层面进行调整。例如，各国都推出了福利金和失业保险，然后还有教育机会、政府财富重新分配等等。</p>
+
+<p class="speech-p">然而，在当前的全球政治体系中，这种二次调整的机会并不存在。<span class="time-stamp">(01:14)</span> 尽管我们有联合国、世界银行、国际货币基金组织等组织，但这些组织都无法发挥单一政府所能发挥的作用。</p>
+
+<p class="speech-p">所以，我们今天看到的全球化确实面临着一些挑战。但全球化本身所创造的贡献确实足够大，足以吸收其带来的负面影响。这需要特别是最大国家和主要经济体通过政治和政策手段主动调整。这就需要这些主要经济体的领导人有意识地做出这样的调整。</p>
+
+<div class="key-point">
+  <div class="kp-icon">🔑</div>
+  <div class="kp-title">核心观点：全球化是不可逆的</div>
+  <div class="kp-text">大国之间的理性领导至关重要。特朗普的领导并不真正理性，从根本上损害了美国利益。本届政府或许能让 G20 回归理性框架，通过政治手段解决矛盾。</div>
+</div>
+
+<p class="speech-p"><span class="time-stamp">(02:25)</span> 这就是为什么四年来国际形势一片混乱——就是因为特朗普的领导并不是真正理性的。今天，在本届政府的领导下，我们或许可以期待 G20、世界主要经济体应回归更加理性的框架，通过政治手段解决这些不可调和的矛盾，促进国家之间的合作。</p>
+
+<p class="speech-p">但任何一个国家是否仍有可能改变游戏规则并推动世界经济从全球化的方向回来？现在看来不太可能了。</p>
+
+<p class="speech-p"><span class="time-stamp">(03:32)</span> 当今的国际经济秩序确实是美国一手缔造的。早期，美国确实有权力接纳或驱逐其他国家。但由于我们很多人都熟悉创办公司的经历——一旦公司发展到一定程度，公司本身就获得了自己的生命，根据其创始人的意愿，轮班时间更长。</p>
+
+<p class="speech-p">今天经济全球化确实已经到了这个阶段。因为它已经吸引了全球70亿人口。每一个经济实体都离不开这个全球化的经济体系，它们都是高度相互依存的。因此，每个人，基本上每个国家今天，已经成为我们所说的利益相关者。</p>
+
+<div class="speech-quote">
+  <span class="quote-mark">"</span>
+  作为创始人，美国当然仍然拥有巨大的投票权，这是毫无疑问的。但它绝对不再是唯一拥有投票权的公司，其股份也已被显著稀释。二战后创建这个体系时，美国经济占比超过50%。如今，美国GDP占全球GDP的比重仅为20%左右。如果按照PPP来计算，中国实际上已经超过了美国。
+  <div class="quote-source">—— 李录论全球化的不可逆性</div>
+</div>
+
+<p class="speech-p"><span class="time-stamp">(04:41)</span> 即使按照美元计价计算，也已经在15%到16%左右，相当于三分之二。在可预见的未来，我们可能会看到两个经济体变得相当具有可比性。</p>
+
+<p class="speech-p">而且，经济本身的发展也会导致最大的市场逐渐成为唯一的市场，因为只有在这个唯一的市场中才会出现最有效率的经济和最高水平的技术。如果任何国家离开，最终的结果将是其孤立经济体系的效率、技术水平和竞争力下降。</p>
+
+<p class="speech-p"><span class="time-stamp">(05:46)</span> 所以，今天，真的是没有回头路了。真正脱钩、进入冷战或热战的最终结果只能是通过如此强硬的手段，这只会是一场互相毁灭的零和游戏。这种情况在领导相对理性的情况下是不太可能发生的。</p>
+
+<p class="speech-p">所以，今天来看，无论是在中国、美国还是世界其他主要经济体，我们正在看到逐渐回归理性。我们看到经济正在逐步回归理性。因此，我们整体的经济和科技行业总体上保持在单一市场。</p>
+
+<p class="speech-p"><span class="time-stamp">(06:57)</span> 然而，在这个单一市场之外，每个政府都会有一个政治层面来进行二次调整，包括经济和技术两个方面。因此，我们可能有不同的标准，但这些标准仍然必须在同一市场内竞争。而且您的供应商可能不再只有一家，而是两到三个。在选择美国供应商的同时，你可能还需要中国本土的供应商，即使他们的水平或效率不是最高的。</p>
+
+<p class="speech-p">因此，这种情况虽然会出现，但并不会改变全球经济一体化的基本现实。经济仍然是单一市场。所有这些技术最终都将在这一单一市场内取得进展。所以，虽然看起来有点乱，但整体情况不会改变。</p>
+
+<!-- ===== Section 2: 中国机遇 ===== -->
+<h2 class="section-h2" id="s2">🇨🇳 中国：最幸运的一代华人</h2>
+
+<p class="speech-p"><span class="time-stamp">(08:07)</span> 疫情期间，我读了好几本书，其中包括诺贝尔奖获得者苏联作家鲍里斯·帕斯捷尔纳克的《日瓦戈医生》。我读后感触很深。在俄罗斯和苏联两次内战和两次革命的背景下，个人陷入了充满复杂性和不确定性的伟大时代。</p>
+
+<p class="speech-p">现在，我们也达到了进化论的复杂性和不确定性。在如此复杂和不确定的未来，你认为最重要的是什么？对于我们每个人来说选择和准备很重要吗？</p>
+
+<p class="speech-p"><span class="time-stamp">(09:14)</span> 如果延长时间来看，你就会发现我们个人的风风雨雨，在历史的浩瀚森林里，其实是微不足道的。</p>
+
+<div class="speech-quote">
+  <span class="quote-mark">"</span>
+  今天，无论从哪个角度看，这一代中国企业家，生活在中国，仍然可以说是最近几百年世界上最幸运的华人群体。中国仍处于最好的发展时期，经过改革开放40年，中国已经迈出了最早也是最艰难的一步。现代化的基本轮廓已经显现。
+  <div class="quote-source">—— 李录论中国发展</div>
+</div>
+
+<p class="speech-p"><span class="time-stamp">(10:29)</span> 但与此同时，中国与发达国家之间的差距依然重要，整个民族依然拥有强大的提升生活水平的动力，所以未来仍然充满希望。所以，在这个时代，如果抛开个人的波动和恩怨来看待纵向来看，与过去200年的任何一代人相比，今天的中国人仍然是最幸运的。</p>
+
+<p class="speech-p">诚然，在过去的某个时期我们可能更幸运，但那确实是一个历史偏差，而不是规则。无法保证每个人的生活一定一帆风顺。起起落落是常态。</p>
+
+<div class="key-point">
+  <div class="kp-icon">🏆</div>
+  <div class="kp-title">历史性成就：一代人完成三百年转型</div>
+  <div class="kp-text">只用了一代人的时间，中国已经从第三世界生活方式转变到第一世界生活方式，几亿人口经历了这种转变。纵观人类历史进程，没有哪个国家能以如此快的速度完成转型、涉及如此多的人口。中国有4亿中产阶级，这个数字最终可能增长到8亿甚至更多。</div>
+</div>
+
+<p class="speech-p"><span class="time-stamp">(11:52)</span> 就我个人而言，如果我必须在一杯酒之间做出选择，我选择半满。如果我必须在幸运和不幸之间做出选择，我将永远选择专注于我的好运，不抱怨，以长远的眼光看待历史。</p>
+
+<p class="speech-p"><span class="time-stamp">(13:02)</span> 所以今天我们有4亿中产阶级，这个数字最终可能会增长到8亿甚至更多。因此，我们未来的机会仍然是巨大的。</p>
+
+<!-- ===== Section 3: 价值投资 ===== -->
+<h2 class="section-h2" id="s3">💡 价值投资：一旦接种就终身生效</h2>
+
+<p class="speech-p"><span class="time-stamp">(15:36)</span> 投资的本质是预测未来。评估一个公司的价值时，你认为最关键的要素和因素是什么？在什么情况下你会改变以前的信念？</p>
+
+<p class="speech-p"><span class="time-stamp">(16:46)</span> 首先谢谢你的夸奖。我相信，在一个人的一生中，运气其实起着非常非常重要的的作用。至少在我的生活中，以及我认识的所有成功人士的生活中，运气起了很大的作用。</p>
+
+<div class="speech-quote">
+  <span class="quote-mark">"</span>
+  对我来说，也许最大的幸运就是刚到美国的时候无意中发现了沃伦·巴菲特的演讲。那时我甚至不知道巴菲特是谁。我完全是偶然偶然听到了那个讲座。正是这一点让我大开眼界，影响深远。不到一年后，我开始使用他的方法购买我的第一只股票。从那时算起，已经有28年了。
+  <div class="quote-source">—— 李录谈自己如何发现价值投资</div>
+</div>
+
+<p class="speech-p"><span class="time-stamp">(18:00)</span> 在这个过程中，我并没有真正考虑过其他的方法。正如巴菲特所说，价值投资很像接种疫苗——它要么有效，要么无效，一旦你得到它你就知道了。他提到他从来没有真正见过不是价值投资者的人真正相信其他方法。使用其他方法最终转变为价值投资者的人也很少。</p>
+
+<p class="speech-p">所以对我来说，价值投资也许是最基本的。我相信这是正确的道路，是一条必将通向目的地的路。因此，我从未受过其他方法的诱惑。可以说，赚快钱的方法，或通过内部人士从他人身上赚钱的方法，从来没有对我有任何吸引力。我没钱的时候没有，有钱的时候更没有。在过去的27或28年里，这并不是一场真正的斗争。我基本上一直在做同样的事情。</p>
+
+<div class="key-point">
+  <div class="kp-icon">💉</div>
+  <div class="kp-title">价值投资 = 接种疫苗</div>
+  <div class="kp-text">巴菲特比喻：价值投资像接种疫苗，要么有效要么无效，一旦接种终身生效。李录28年来从未被其他方法诱惑——赚快钱、靠内幕消息对他从来没有吸引力。</div>
+</div>
+
+<p class="speech-p"><span class="time-stamp">(19:15)</span> 一旦到了这个地步，人们常说价值投资很大程度上取决于气质。有些人天生就是这样，而对于那些不是这样的人来说，这是非常困难的。所以从这个意义上说，优秀的价值投资者在某种程度上确实是天生的。</p>
+
+<p class="speech-p">我不知道这是天生的还是早年形成的。但一旦你有了这种气质，你就会始终相信逻辑和事实，你不太关心市场情绪或别人的意见——只要你的逻辑和事实是正确的，并且你不介意慢慢致富，你不介意走一条非常慢的路，慢慢地学会去赚你该赚的钱，那么这条路就会越走越宽。</p>
+
+<p class="speech-p"><span class="time-stamp">(20:35)</span> 然而，当你年轻的时候，在早期阶段，很多人都需要面对这样的考验。我和很多年轻朋友有过交流。我发现，一开始，人们更容易改变，但一旦你坚持到底并培养了这种信念，走这条路就会逐渐变得更容易。</p>
+
+<!-- ===== Section 4: 竞争优势 ===== -->
+<h2 class="section-h2" id="s4">🏰 竞争优势与复利的力量</h2>
+
+<p class="speech-p"><span class="time-stamp">(20:35)</span> 公司的价值是一个抽象的定义，但理论上它可以永远存在。事实上，我们基本上从未见过永远存在的公司。因此，我们基本上获取了一家公司在其整个生命周期中可以赚取的所有现金，回到今天，这就是公司的价值——将所有现金利润贴现到今天并加起来。</p>
+
+<p class="speech-p"><span class="time-stamp">(21:40)</span> 当然，公司的寿命越长，价值越高。那么，做出这些预测的困难到底在哪里呢？这是因为我们对未来的预测从来都不太准确，公司面临着如此多的变化。</p>
+
+<div class="speech-quote">
+  <span class="quote-mark">"</span>
+  一个企业能否长久，取决于它能否确保竞争优势。几乎任何能赚钱的生意，一旦别人发现它，就会吸引其他人。如果一家公司盈利或者业绩好、回报高，就必然会吸引大量的竞争对手。研究竞争优势是分析公司最重要的部分。
+  <div class="quote-source">—— 李录论竞争护城河</div>
+</div>
+
+<p class="speech-p"><span class="time-stamp">(22:46)</span> 然而，绝大多数企业缺乏竞争优势，它们只是在一定时期内偶然赚钱，然后就没有了。然而，有些公司可以持续赚钱并产生高额长期投资资本回报。此类企业为数不多，而且形成这种竞争优势的原因各不相同。</p>
+
+<p class="speech-p">比如有些是垄断企业，只要有垄断条件，他们将继续产生高额回报。但对于大多数公司来说，它们并不是垄断企业。他们可能在某个阶段拥有技术领先地位，或者他们的领导力具有独特的眼光，或者是他们的组织文化、商业模式或特定的消费者特征等等。</p>
+
+<p class="speech-p"><span class="time-stamp">(23:56)</span> 每家公司的竞争优势原因各不相同，竞争优势持续的时间也不同。这就是投资如此有趣的原因——这是最令人着迷的领域，可以无休止地学习，因为每种情况都是独一无二的。</p>
+
+<div class="key-point">
+  <div class="kp-icon">📊</div>
+  <div class="kp-title">知识积累的复利效应</div>
+  <div class="kp-text">在投资行业，知识和经验可以不断积累——这种积累方式就像财富的逐步积累一样。爱因斯坦称之为"世界第八大奇迹"。伯克希尔从1965年的$20股价（一度跌回$10），到今天$30万+，年复合回报率仅18-19%，但50年累积的结果令人惊讶。</div>
+</div>
+
+<p class="speech-p"><span class="time-stamp">(25:04)</span> 其实很简单，我们以伯克希尔哈撒韦公司为例。1965年巴菲特购买控股权时，股价为20美元。两年后一度跌回10美元，至于今天已经达到了三十万美元以上。但看看它的年回报率——实际上大约是18%到19%，复合回报率超过50年。结果是令人惊讶的。</p>
+
+<p class="speech-p"><span class="time-stamp">(26:19)</span> 如果你尝试用正确的方法学习和思考商业，比如在50年、60年的时间里，通过研究和亲身体验成千上万种不同的商业模式，你所积累的知识水平，将真正在你的心灵中形成一股如同巨大财富一样强大的力量。你对商业的判断、对估值的判断、对未来的判断，都会给你一种真正的跨越感。</p>
+
+<p class="speech-p">过了一段时间，你会发现你的判断能力变得超强。这和以前有很大的不同，所以当你进入这种状态的时候，你会发现你真正进入了一个投资的境界。它确实可以陪伴你直到你老。</p>
+
+<div class="speech-quote">
+  <span class="quote-mark">"</span>
+  如果你每天看K线图，不断研究最新的趋势或交易方法，试图猜测别人在做什么，猜测市场风格——总有一天市场风格将不可避免地发生变化，最终你会突然从市场之神一无所获。华尔街有一本著名的书，《股票作手回忆录》，一位非常聪明的交易员三度成为百万富翁，三度破产，最后一次他自杀了。
+  <div class="quote-source">—— 李录警示投机者的结局</div>
+</div>
+
+<p class="speech-p"><span class="time-stamp">(27:27)</span> 我这些年所看到的都是这样的。我真切地看到，知识也可以像复利一样逐步积累。进步的几乎都是价值投资者。</p>
+
+<!-- ===== Section 5: 人生哲学 ===== -->
+<h2 class="section-h2" id="s5">❤️ 以热情而非恐惧驱动人生</h2>
+
+<p class="speech-p"><span class="time-stamp">(29:50)</span> 人生中最重要的是要保持冷静和平衡的心态。这意味着不要太认真地对待自己。说白了，不要害怕，不要把自己太当回事。</p>
+
+<div class="speech-quote">
+  <span class="quote-mark">"</span>
+  无论是我们的成功还是失败，很大一部分确实是我们自己的努力造成的，但更大的一部分其实是我们在正确的时间出现在了正确的地点。归根结底是运气。运气对每个人的成功和失败所起的作用比我们想象的要大得多。当我们总结自己的成就时，我们往往会刻意强调自己的角色——这就是人性。
+  <div class="quote-source">—— 李录论运气与谦逊</div>
+</div>
+
+<p class="speech-p"><span class="time-stamp">(30:58)</span> 我认为首先把自己当作一个正常人来对待是非常重要的。通过这样做，你会不断发现生活中的许多乐趣。</p>
+
+<div class="key-point">
+  <div class="kp-icon">🔥</div>
+  <div class="kp-title">热情 > 恐惧：人生驱动力</div>
+  <div class="kp-text">一个人的人生动力首先应该源于激情，不是因为恐惧。年轻时我们可能有各种不安全感——不够聪明、不够富有、不够强大——这些不安全感会驱使你前进。但你很快会意识到，用不安全感作为前进的动力走不远。走得远的唯一途径是热情——对自己、对生活、对他人的热情，为了家庭，为了你从事的行业。</div>
+</div>
+
+<p class="speech-p"><span class="time-stamp">(32:04)</span> 足够有影响力，足够有知识，或者足够好看。简而言之，在各方面都感到不足，并且在很长一段时间内，这些不安全感会驱使你前进。但你很快就会意识到，用不安全感作为前进的动力走不远。走得远的唯一途径是热情——对自己、对生活、对他人的热情，为了家庭，为了你所从事的行业。</p>
+
+<p class="speech-p">对看到的每一片草叶每天，阳光变化的每一刻，云层的每一次变化都充满热情。看到每一个美好的事物，听到每一个美妙的旋律——这就是为什么人们有时在生活中变得更年轻。</p>
+
+<p class="speech-p"><span class="time-stamp">(33:20)</span> 当你真正以平静的心和热情度过每一天时，你会发现这个世界充满了有趣的事情，充满了好奇，充满了意义。</p>
+
+<div class="speech-quote">
+  <span class="quote-mark">"</span>
+  以查理为例，他已经97岁了，身边的同辈朋友都已经去世了。两周前，他最后一个朋友去世了，享年93岁。但这并没有影响他——他很想看看自己100岁的时候中国会是什么样子。今天我和他在电话里聊了大约40分钟，具体聊了辉瑞新药——他们的疫苗有效率已经达到90%。这是一个令人惊奇的现象。
+  <div class="quote-source">—— 李录谈芒格的好奇心</div>
+</div>
+
+<p class="speech-p"><span class="time-stamp">(34:32)</span> 我认为一个人应该有一个平静的心态，对这个世界充满好奇，充满爱心。然后你就会觉得这个世界上没有不可逾越的坎，也没有绝对不能反对的人。即使是那些反对你的人，其实也很可爱。没有什么值得特别生气的。</p>
+
+<p class="speech-p">一旦你消除了这些负面情绪的影响，你每天就会有精力去做你喜欢做的事情，无论是商业还是慈善，你会感受到复利的力量。知识积累也有复合的力量，但前提是你必须用正确的方式去做。</p>
+
+<p class="speech-p"><span class="time-stamp">(35:45)</span> 当你用正确的方式做正确的事时，你会觉得生活仍然充满意义。尽管我们都有在某个时刻离开，虽然身体的健康、美丽、财富是我们死后无法带走的东西，但在整个过程中，你会享受每一刻的喜悦，所以这仍然是一个非常美好的旅程。</p>
+
+<!-- ===== Section 6: 投资建议 ===== -->
+<h2 class="section-h2" id="s6">💰 如何保护和增长你的财富</h2>
+
+<p class="speech-p"><span class="time-stamp">(36:56)</span> 作为一个投资业绩出色的人，在这个过程中，我们怎样才能真正保护和增加自己的财富？很多人都期待有机会投资您的基金，但我听说即使您刚开始的时候钱很少，您对投资者也非常挑剔。</p>
+
+<p class="speech-p"><span class="time-stamp">(38:10)</span> 我们的投资原则是共同分享收益。我不想只靠别人赚钱。比如，我从来没有真正接受过行业标准的管理费。我们从一开始就不收取管理费，60%的回报免佣金额外费用，之后才进行利润分享。就我个人而言，除了我自己的基金之外，我没有任何投资。因为我相信共同分享是唯一可持续的方式，它让我无压力，让我走得很远。</p>
+
+<div class="key-point">
+  <div class="kp-icon">🪜</div>
+  <div class="kp-title">财富管理优先级</div>
+  <div class="kp-text">
+    <strong>A级（最优）：投资自己的公司。</strong>如果你是企业家，首先确定你的行业投入是否能产生高于平均水平的回报、可持续竞争优势。如果可以，把所有钱投进去。<br>
+    <strong>B级：投资你深刻理解的少数企业。</strong>找到真正拥有长期竞争优势的企业。<br>
+    <strong>C级：找到一个你完全信任的投资经理。</strong>标准：①方法正确且有长期记录 ②收费结构与你的利益一致 ③投资领域有持续竞争力 ④足够年轻。<br>
+    <strong>D级：投资指数基金。</strong>中国指数基金尚未完全成熟（注册制改革未完成），但未来会改善。<br>
+    <strong>E级：持有现金。</strong>什么都不做至少不会亏钱。<br>
+    <strong>F级（最差）：盲目投机。</strong>当你相信运气而不是概率时，将不可避免地受到惩罚。
+  </div>
+</div>
+
+<p class="speech-p"><span class="time-stamp">(39:18)</span> 首先，我个人会选择一些我真正了解的公司进行投资。比如说，我最了解的公司就是我创办的公司。如果是一名企业家，需要真正了解我对这个行业的持续投入是否能够产生高于平均水平的回报，是否能够建立可持续的竞争优势或者护城河。如果是，我会把我所有的钱都投入到那家公司。</p>
+
+<p class="speech-p">这正是我所做的——我没有投资于我的基金之外的任何东西。因为我知道我们的竞争优势很强并且只会变得更强，我的首要任务是充分了解我自己的公司。</p>
+
+<p class="speech-p"><span class="time-stamp">(40:31)</span> 然后我就看看除了我自己的公司之外，还有几个我能理解透彻的真正拥有长期竞争优势的企业。每个人的精力都是有限的，尤其是企业家，自然要把绝大多数精力投入到日常管理中。</p>
+
+<p class="speech-p">所以，我接下来要做的就是看看能否找到一个和我类似的人——一个把我的钱当成自己的，真正用有利的方式来管理它。我认为有几个方面应该检查：</p>
+
+<p class="speech-p"><span class="time-stamp">(41:38)</span> 首先，他们是否真的以正确的方式做正确的事情？这种方法真的能创造出独特的优势吗？是否有长期记录可以清楚地证明？第三，他们的收费结构是否与我的利益相冲突？很多管理者不管你赚不赚钱，只收管理费——他们先得到报酬，不管你是否赔钱，这是不合适的。</p>
+
+<p class="speech-p">你需要找到一个你可以完全信任的人，这意味着他们的利益必须与你的利益一致。接下来，你需要看看他们的投资领域是否具有极强的竞争力。他们能否在未完全饱和的领域持续获得优势？最后，我想看看他们是否足够年轻，以便我可以继续投资足够长的时间。</p>
+
+<p class="speech-p"><span class="time-stamp">(42:46)</span> 如果我没有这些选择，我认为指数基金也是一个不错的选择。当然，中国指数基金存在一个问题——IPO注册制还没有完全完成，因此这些指标的质量仍然参差不齐。但中国现在决心非常坚定改革股票登记制度。未来几年，我们可能会看到更能反映中国经济整体前景的指数。</p>
+
+<div class="speech-quote">
+  <span class="quote-mark">"</span>
+  最诚实的做法是，如果你什么都不做，至少持有现金。最糟糕的方法是猜测。最终，当你相信运气而不是概率时，你将不可避免地受到惩罚。
+  <div class="quote-source">—— 李录的终极投资建议</div>
+</div>
+
+</div>
+
+<!-- ===== Footer ===== -->
+<div class="page-footer">
+  内容来源：李录诺亚财富演讲实录 · 仅供学习参考 · 不构成投资建议<br>
+  <a href="berkshire-value-investors.html" style="color:#2563eb;text-decoration:none;font-weight:500">← 返回价值投资人物</a>
+</div>
+
+</body>
+</html>
