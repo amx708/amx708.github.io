@@ -38,6 +38,13 @@ header.top{position:sticky;top:0;z-index:30;background:rgba(11,31,58,.85);backdr
 .body hr{border:none;border-top:1px solid var(--line);margin:24px 0}
 .body blockquote{margin:14px 0;padding:12px 16px;background:#f8fafc;border-left:3px solid var(--orange);color:#4a5568}
 .body sup{color:var(--orange);font-weight:700}
+.view-bar{display:flex;align-items:center;gap:10px;margin:0 0 18px;flex-wrap:wrap}
+.view-label{color:var(--muted);font-size:14px}
+.view-btn{padding:8px 16px;border:1px solid var(--line);background:#fff;color:var(--navy2);border-radius:20px;font-size:14px;cursor:pointer;transition:.15s;font-family:inherit}
+.view-btn:hover{border-color:var(--orange)}
+.view-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.body.view-zh .en{display:none}
+.body.view-en .zh{display:none}
 .nav{display:flex;justify-content:space-between;align-items:center;margin-top:28px}
 .nav-link{display:inline-block;padding:10px 18px;background:var(--navy);color:#fff;text-decoration:none;border-radius:10px;font-size:14px;transition:.15s}
 .nav-link:hover{background:var(--orange);color:#fff}
@@ -55,14 +62,20 @@ footer{max-width:980px;margin:0 auto;padding:24px 20px 50px;color:var(--muted);f
 </header>
 <div class="wrap">
   <h1 class="page-title">2024 年致伯克希尔股东的信</h1>
-  <p class="page-sub">中英对照 · 来源：pzponge/Yestoday（芒格书院共读群友翻译整理）</p>
+  <div class="view-bar">
+    <span class="view-label">阅读版本：</span>
+    <button class="view-btn active" data-v="zh" onclick="setView('zh')">中文</button>
+    <button class="view-btn" data-v="both" onclick="setView('both')">中英文对照</button>
+    <button class="view-btn" data-v="en" onclick="setView('en')">英文原文</button>
+  </div>
+  <p class="page-sub">中文 · 中英文对照 · 英文原文（中文为首选）· 来源：pzponge/Yestoday（芒格书院共读群友翻译整理）</p>
   <div class="meta-card"><div class="m-row"><span class="m-k">标题</span><span class="m-v">2024 Letter to Berkshire Shareholders</span></div>
 <div class="m-row"><span class="m-k">作者</span><span class="m-v">Warren Buffett</span></div>
 <div class="m-row"><span class="m-k">发表时间</span><span class="m-v">2025-02-22</span></div>
 <div class="m-row"><span class="m-k">中文翻译</span><span class="m-v">和子</span></div>
 <div class="m-row"><span class="m-k">整理</span><span class="m-v">和子</span></div>
 <div class="m-row"><span class="m-k">原文</span><span class="m-v"><a href="https://www.berkshirehathaway.com/letters/2024ltr.pdf" target="_blank" rel="noopener">PDF</a></span></div></div>
-  <article class="body letter-body" id="letter-body">
+  <article class="body letter-body view-zh" id="letter-body">
     <h1 id="berkshire-hathaway-inc">BERKSHIRE HATHAWAY INC.</h1>
     <p>To the Shareholders of Berkshire Hathaway Inc.:</p>
     <p>致伯克希尔·哈撒韦公司股东们：</p>
@@ -700,11 +713,37 @@ footer{max-width:980px;margin:0 auto;padding:24px 20px 50px;color:var(--muted);f
   本页中文翻译来自 GitHub 仓库 <a href="https://github.com/pzponge/Yestoday" target="_blank" rel="noopener">pzponge/Yestoday</a>（芒格书院共读群友整理），仅供学习交流。英文原文版权归 Berkshire Hathaway Inc. 所有。
 </footer>
 <script>
-document.querySelectorAll('#letter-body p').forEach(function(p){
-  var t = p.textContent;
-  if (/[一-鿿]/.test(t)) p.classList.add('zh');
-  else p.classList.add('en');
+var CJK = /[一-鿿㐀-䶿]/;
+function isCJK(ch){ return CJK.test(ch); }
+function setView(v){
+  var b = document.getElementById('letter-body');
+  b.classList.remove('view-zh','view-both','view-en');
+  b.classList.add('view-' + v);
+  document.querySelectorAll('.view-btn').forEach(function(x){ x.classList.toggle('active', x.dataset.v === v); });
+}
+// 段落与列表项：按是否含中文归类为 zh / en
+document.querySelectorAll('#letter-body p, #letter-body li').forEach(function(p){
+  p.classList.add(CJK.test(p.textContent) ? 'zh' : 'en');
 });
+// 标题：把中文与英文拆成不同 span，便于按版本显隐
+document.querySelectorAll('#letter-body h1, #letter-body h2, #letter-body h3').forEach(function(h){
+  var txt = h.textContent, runs = [], cur = '', curCJK = null;
+  for (var i = 0; i < txt.length; i++){
+    var c = txt[i], cjk = isCJK(c);
+    if (curCJK === null) { cur = c; curCJK = cjk; }
+    else if (cjk === curCJK) { cur += c; }
+    else { runs.push([curCJK, cur]); cur = c; curCJK = cjk; }
+  }
+  if (cur) runs.push([curCJK, cur]);
+  h.innerHTML = '';
+  runs.forEach(function(r){
+    var s = document.createElement('span');
+    s.className = r[0] ? 'zh' : 'en';
+    s.textContent = r[1];
+    h.appendChild(s);
+  });
+});
+setView('zh');
 </script>
 </body>
 </html>
