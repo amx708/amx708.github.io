@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投资计算器 — A/H股投资工具</title>
+<style>
+/* ===== Reset & Base ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+  background:#f1f5f9;color:#1e293b;line-height:1.6;min-height:100vh;
+}
+
+/* ===== Top Home Bar ===== */
+.top-home-bar{position:absolute;top:16px;left:24px;z-index:10}
+.home-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);
+  border-radius:20px;color:rgba(255,255,255,0.85);font-size:13px;font-weight:500;
+  text-decoration:none;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  transition:all 0.2s ease;
+}
+.home-btn:hover{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.28);color:#fff;transform:translateY(-1px)}
+
+/* ===== Breadcrumb ===== */
+.breadcrumb{max-width:1100px;margin:0 auto;padding:14px 24px 6px;font-size:13px;color:rgba(255,255,255,0.6);position:relative;z-index:2}
+.breadcrumb a{color:rgba(255,255,255,0.7);text-decoration:none;transition:color 0.15s}
+.breadcrumb a:hover{color:#fbbf24}
+.breadcrumb span{color:rgba(255,255,255,0.35);margin:0 6px}
+.breadcrumb .current{color:rgba(255,255,255,0.9);font-weight:500}
+
+/* ===== Hero ===== */
+.hero{
+  position:relative;background:linear-gradient(135deg,#0f172a 0%,#1e293b 40%,#1e3a5f 100%);
+  padding:60px 24px 80px;text-align:center;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(ellipse at 30% 20%, rgba(245,158,11,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(37,99,235,0.06) 0%, transparent 50%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:100px;
+  background:linear-gradient(to top, #f1f5f9 0%, transparent 100%);pointer-events:none;
+}
+.hero-content{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.hero-badge{
+  display:inline-block;padding:4px 14px;
+  background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);
+  border-radius:20px;color:#fbbf24;font-size:12px;font-weight:500;letter-spacing:0.5px;margin-bottom:20px;
+}
+.hero h1{font-size:clamp(26px,4vw,40px);font-weight:800;color:#fff;line-height:1.25;letter-spacing:-0.5px;margin-bottom:12px}
+.hero h1 span{color:#f59e0b}
+.hero p{font-size:15px;color:#94a3b8;max-width:560px;margin:0 auto;line-height:1.7}
+
+/* ===== Calculator Nav ===== */
+.calc-nav{
+  max-width:1100px;margin:-40px auto 0;padding:0 24px;position:relative;z-index:3;
+}
+.calc-nav-inner{
+  background:#fff;border-radius:14px;border:1px solid #e2e8f0;
+  padding:6px;display:flex;flex-wrap:wrap;gap:4px;box-shadow:0 4px 16px rgba(0,0,0,0.06);
+}
+.calc-tab{
+  padding:10px 16px;border-radius:10px;font-size:13px;font-weight:500;
+  color:#64748b;background:transparent;border:none;cursor:pointer;transition:all 0.2s ease;
+  display:flex;align-items:center;gap:6px;white-space:nowrap;
+}
+.calc-tab:hover{background:#f1f5f9;color:#334155}
+.calc-tab.active{background:#1e293b;color:#fff;box-shadow:0 2px 8px rgba(15,23,42,0.2)}
+.calc-tab .tab-icon{font-size:15px}
+
+/* ===== Calculator Section ===== */
+.calc-section{
+  max-width:1100px;margin:32px auto 0;padding:0 24px;display:none;
+}
+.calc-section.active{display:block}
+
+.calc-panel{
+  background:#fff;border-radius:16px;border:1px solid #e2e8f0;
+  box-shadow:0 4px 16px rgba(0,0,0,0.06);overflow:hidden;
+}
+.calc-panel-header{
+  padding:28px 28px 20px;border-bottom:1px solid #e2e8f0;
+}
+.calc-panel-header h2{font-size:22px;font-weight:700;color:#0f172a;margin-bottom:6px}
+.calc-panel-header p{font-size:14px;color:#64748b;line-height:1.6}
+.calc-panel-body{padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:32px}
+
+/* ===== Input Form ===== */
+.form-group{margin-bottom:20px}
+.form-label{display:block;font-size:13px;font-weight:600;color:#475569;margin-bottom:6px}
+.form-label .unit{color:#94a3b8;font-weight:400;margin-left:4px}
+.form-input{
+  width:100%;padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;
+  font-size:15px;color:#1e293b;background:#f8fafc;transition:all 0.15s ease;
+  outline:none;
+}
+.form-input:focus{border-color:#f59e0b;background:#fff;box-shadow:0 0 0 3px rgba(245,158,11,0.12)}
+.form-input::placeholder{color:#94a3b8}
+.form-row{display:flex;gap:12px}
+.form-row .form-group{flex:1}
+
+.form-select{
+  width:100%;padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;
+  font-size:14px;color:#1e293b;background:#f8fafc;cursor:pointer;
+  appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;
+}
+.form-select:focus{border-color:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,0.12)}
+
+.form-toggle{
+  display:flex;gap:8px;margin-top:8px;
+}
+.toggle-btn{
+  padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;
+  border:1px solid #e2e8f0;background:#f8fafc;color:#64748b;cursor:pointer;transition:all 0.15s ease;
+}
+.toggle-btn.active{border-color:#f59e0b;background:#fffbeb;color:#b45309;font-weight:600}
+.toggle-btn:hover{border-color:#cbd5e1}
+
+/* ===== Results ===== */
+.result-area{background:#f8fafc;border-radius:12px;padding:24px;border:1px solid #e2e8f0}
+.result-title{font-size:14px;font-weight:600;color:#475569;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.result-title .emoji{font-size:16px}
+.result-grid{display:grid;gap:16px}
+.result-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-radius:8px;background:#fff;border:1px solid #e2e8f0}
+.result-item.primary{background:linear-gradient(135deg,#fffbeb,#fef3c7);border-color:#fde68a}
+.result-item.highlight{background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#bfdbfe}
+.result-label{font-size:13px;color:#64748b;font-weight:500}
+.result-value{font-size:18px;font-weight:700;color:#0f172a}
+.result-item.primary .result-value{color:#b45309;font-size:22px}
+.result-item.highlight .result-value{color:#2563eb}
+.result-sub{font-size:11px;color:#94a3b8;margin-top:2px}
+
+/* ===== Result Chart Area ===== */
+.result-chart{margin-top:20px;padding:16px;border-radius:10px;background:#fff;border:1px solid #e2e8f0}
+.chart-label{font-size:12px;color:#64748b;margin-bottom:12px;font-weight:500}
+.chart-bar-group{display:flex;flex-direction:column;gap:8px}
+.chart-bar-row{display:flex;align-items:center;gap:10px}
+.chart-bar-label{font-size:11px;color:#64748b;min-width:60px;text-align:right;font-weight:500}
+.chart-bar-track{flex:1;height:24px;background:#f1f5f9;border-radius:4px;overflow:hidden;position:relative}
+.chart-bar-fill{height:100%;border-radius:4px;transition:width 0.4s ease;min-width:2px}
+.chart-bar-fill.gold{background:linear-gradient(90deg,#f59e0b,#d97706)}
+.chart-bar-fill.blue{background:linear-gradient(90deg,#3b82f6,#2563eb)}
+.chart-bar-fill.teal{background:linear-gradient(90deg,#14b8a6,#0d9488)}
+.chart-bar-fill.red{background:linear-gradient(90deg,#ef4444,#dc2626)}
+.chart-bar-fill.slate{background:linear-gradient(90deg,#94a3b8,#64748b)}
+.chart-bar-value{font-size:11px;color:#475569;font-weight:600;min-width:80px}
+
+/* ===== Formula Box ===== */
+.formula-box{
+  margin-top:20px;padding:16px 20px;border-radius:10px;
+  background:#f1f5f9;border:1px solid #e2e8f0;
+}
+.formula-box .formula-title{font-size:12px;font-weight:600;color:#64748b;margin-bottom:8px}
+.formula-box .formula{font-size:14px;color:#334155;font-family:"SF Mono","Menlo","Consolas",monospace;padding:4px 0}
+.formula-box .formula-note{font-size:12px;color:#94a3b8;margin-top:8px;line-height:1.5}
+
+/* ===== Market Type Selector ===== */
+.market-selector{
+  display:flex;gap:8px;margin-bottom:20px;
+}
+.market-btn{
+  padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;
+  border:2px solid #e2e8f0;background:#fff;color:#64748b;cursor:pointer;transition:all 0.2s ease;
+}
+.market-btn.active-a{border-color:#dc2626;background:#fef2f2;color:#dc2626}
+.market-btn.active-h{border-color:#0891b2;background:#ecfeff;color:#0891b2}
+.market-btn:hover{border-color:#cbd5e1}
+
+/* ===== Fee Info Box ===== */
+.fee-info{
+  margin-top:12px;padding:12px 16px;border-radius:8px;
+  background:#f8fafc;border:1px solid #e2e8f0;font-size:12px;color:#94a3b8;line-height:1.6;
+}
+.fee-info strong{color:#64748b}
+
+/* ===== Responsive ===== */
+@media(max-width:768px){
+  .calc-nav-inner{padding:4px;gap:2px}
+  .calc-tab{padding:8px 10px;font-size:12px}
+  .calc-tab .tab-icon{font-size:13px}
+  .calc-panel-body{grid-template-columns:1fr;gap:20px;padding:20px}
+  .calc-panel-header{padding:20px}
+  .hero{padding:50px 20px 70px}
+  .form-row{flex-direction:column;gap:0}
+}
+@media(max-width:480px){
+  .calc-tab{padding:6px 8px;font-size:11px}
+  .calc-tab .tab-icon{display:none}
+}
+
+/* ===== Footer ===== */
+.page-footer{
+  max-width:1100px;margin:60px auto 0;padding:24px;text-align:center;
+  font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0;
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Hero ===== -->
+<div class="hero">
+  <div class="top-home-bar">
+    <a href="index.html" class="home-btn"><span class="home-icon">🏠</span> 返回首页</a>
+  </div>
+  <nav class="breadcrumb">
+    <a href="index.html">首页</a><span>/</span>
+    <a href="berkshire-standalone.html">投资数据中心</a><span>/</span>
+    <span class="current">投资计算器</span>
+  </nav>
+  <div class="hero-content">
+    <div class="hero-badge">Investment Calculators · A/H股专用</div>
+    <h1>投资<span>计算器</span></h1>
+    <p>专为A股与港股投资者设计的7款实用计算工具——复利增长、内在价值、持仓盈亏、股息收益、估值速查、年化回报、定投模拟</p>
+  </div>
+</div>
+
+<!-- ===== Calculator Navigation ===== -->
+<div class="calc-nav">
+  <div class="calc-nav-inner">
+    <button class="calc-tab active" data-tab="compound" onclick="switchTab('compound')"><span class="tab-icon">📈</span>复利计算器</button>
+    <button class="calc-tab" data-tab="intrinsic" onclick="switchTab('intrinsic')"><span class="tab-icon">💡</span>内在价值</button>
+    <button class="calc-tab" data-tab="position" onclick="switchTab('position')"><span class="tab-icon">💰</span>持仓盈亏</button>
+    <button class="calc-tab" data-tab="dividend" onclick="switchTab('dividend')"><span class="tab-icon">🛡️</span>股息收益</button>
+    <button class="calc-tab" data-tab="pepb" onclick="switchTab('pepb')"><span class="tab-icon">📐</span>PE/PB估值</button>
+    <button class="calc-tab" data-tab="cagr" onclick="switchTab('cagr')"><span class="tab-icon">📊</span>年化收益率</button>
+    <button class="calc-tab" data-tab="dca" onclick="switchTab('dca')"><span class="tab-icon">🔄</span>定投模拟</button>
+  </div>
+</div>
+
+<!-- ===== 1. 复利计算器 ===== -->
+<div class="calc-section active" id="sec-compound">
+  <div class="calc-panel">
+    <div class="calc-panel-header">
+      <h2>📈 复利计算器</h2>
+      <p>计算投资的复利增长与未来价值——爱因斯坦称之为"世界第八大奇迹"。支持初始本金 + 定期追加投资。</p>
+    </div>
+    <div class="calc-panel-body">
+      <div class="input-col">
+        <div class="form-group">
+          <label class="form-label">初始投资金额 <span class="unit">¥</span></label>
+          <input type="number" class="form-input" id="c-pv" value="100000" min="0" oninput="calcCompound()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">每月追加投入 <span class="unit">¥</span></label>
+          <input type="number" class="form-input" id="c-pmt" value="5000" min="0" oninput="calcCompound()">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">年化收益率 <span class="unit">%</span></label>
+            <input type="number" class="form-input" id="c-rate" value="10" min="0" step="0.1" oninput="calcCompound()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">投资年限 <span class="unit">年</span></label>
+            <input type="number" class="form-input" id="c-years" value="20" min="1" max="60" oninput="calcCompound()">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">复利频率</label>
+          <select class="form-select" id="c-freq" onchange="calcCompound()">
+            <option value="1">每年</option>
+            <option value="4">每季度</option>
+            <option value="12" selected>每月</option>
+            <option value="365">每日</option>
+          </select>
+        </div>
+        <div class="formula-box">
+          <div class="formula-title">计算公式</div>
+          <div class="formula">FV = PV×(1+r/n)^(n×t) + PMT×[(1+r/n)^(n×t)−1]/(r/n)</div>
+          <div class="formula-note">PV=初始本金, PMT=每期追加, r=年利率, n=复利频率, t=年限</div>
+        </div>
+      </div>
+      <div class="result-col">
+        <div class="result-area">
+          <div class="result-title"><span class="emoji">🎯</span> 计算结果</div>
+          <div class="result-grid">
+            <div class="result-item primary">
+              <div><div class="result-label">未来总价值</div><div class="result-sub" id="c-fv-sub"></div></div>
+              <div class="result-value" id="c-fv">¥0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">初始本金</div>
+              <div class="result-value" id="c-total-pv">¥0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">总追加投入</div>
+              <div class="result-value" id="c-total-pmt">¥0</div>
+            </div>
+            <div class="result-item highlight">
+              <div><div class="result-label">复利收益</div><div class="result-sub" id="c-int-sub"></div></div>
+              <div class="result-value" id="c-interest">¥0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">有效年利率</div>
+              <div class="result-value" id="c-ear">0%</div>
+            </div>
+          </div>
+        </div>
+        <div class="result-chart">
+          <div class="chart-label">资金构成占比</div>
+          <div class="chart-bar-group" id="c-chart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. 内在价值估算器 ===== -->
+<div class="calc-section" id="sec-intrinsic">
+  <div class="calc-panel">
+    <div class="calc-panel-header">
+      <h2>💡 内在价值估算器</h2>
+      <p>基于格雷厄姆数值与巴菲特简化DCF模型，估算股票的内在价值。安全边际越大，投资越安心。</p>
+    </div>
+    <div class="calc-panel-body">
+      <div class="input-col">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">每股收益 EPS <span class="unit">¥</span></label>
+            <input type="number" class="form-input" id="iv-eps" value="3.5" min="0" step="0.01" oninput="calcIntrinsic()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">每股净资产 BVPS <span class="unit">¥</span></label>
+            <input type="number" class="form-input" id="iv-bvps" value="25" min="0" step="0.01" oninput="calcIntrinsic()">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">预期增长率 g <span class="unit">%/年</span></label>
+            <input type="number" class="form-input" id="iv-g" value="8" min="-10" step="0.5" oninput="calcIntrinsic()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">当前股价 <span class="unit">¥</span></label>
+            <input type="number" class="form-input" id="iv-price" value="50" min="0" step="0.01" oninput="calcIntrinsic()">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">无风险利率 Y <span class="unit">%（参考国债收益率）</span></label>
+          <input type="number" class="form-input" id="iv-y" value="3" min="0" step="0.1" oninput="calcIntrinsic()">
+        </div>
+        <div class="formula-box">
+          <div class="formula-title">格雷厄姆数值公式</div>
+          <div class="formula">V = √(22.5 × EPS × BVPS)</div>
+          <div class="formula-title" style="margin-top:10px">巴菲特简化DCF（格雷厄姆原始公式改进）</div>
+          <div class="formula">V = EPS × (8.5 + 2g) × 4.4 / Y</div>
+          <div class="formula-note">8.5=零增长PE基准, 4.4=1962年AAA债券收益率, Y=当前无风险利率。安全边际=内在价值/股价−1</div>
+        </div>
+      </div>
+      <div class="result-col">
+        <div class="result-area">
+          <div class="result-title"><span class="emoji">🎯</span> 内在价值估算</div>
+          <div class="result-grid">
+            <div class="result-item primary">
+              <div><div class="result-label">格雷厄姆数值</div></div>
+              <div class="result-value" id="iv-graham">¥0</div>
+            </div>
+            <div class="result-item primary">
+              <div><div class="result-label">简化DCF估值</div></div>
+              <div class="result-value" id="iv-dcf">¥0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">当前股价</div>
+              <div class="result-value" id="iv-cur-price">¥0</div>
+            </div>
+            <div class="result-item highlight">
+              <div><div class="result-label">安全边际（格雷厄姆）</div><div class="result-sub" id="iv-mg-sub1"></div></div>
+              <div class="result-value" id="iv-margin1">0%</div>
+            </div>
+            <div class="result-item highlight">
+              <div><div class="result-label">安全边际（DCF）</div><div class="result-sub" id="iv-mg-sub2"></div></div>
+              <div class="result-value" id="iv-margin2">0%</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">隐含PE（格雷厄姆）</div>
+              <div class="result-value" id="iv-pe">0</div>
+            </div>
+          </div>
+        </div>
+        <div class="fee-info">
+          <strong>💡 使用提示：</strong>格雷厄姆数值适用于稳健型公司（银行、保险、传统制造）；简化DCF更适合有明确增长预期的优质企业。安全边际≥30%通常被视为"买入信号"，但需结合行业与公司质量综合判断。A股投资者可参考10年期国债收益率(~2.5-3%)作为无风险利率。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 3. 持仓盈亏计算器 ===== -->
+<div class="calc-section" id="sec-position">
+  <div class="calc-panel">
+    <div class="calc-panel-header">
+      <h2>💰 持仓盈亏计算器</h2>
+      <p>计算A股或港股持仓的实际盈亏，自动计入交易费用（佣金、印花税、过户费等），展示净收益率。</p>
+    </div>
+    <div class="calc-panel-body">
+      <div class="input-col">
+        <div class="market-selector">
+          <button class="market-btn active-a" id="mkt-a" onclick="setMarket('a')">🇨🇳 A股</button>
+          <button class="market-btn" id="mkt-h" onclick="setMarket('h')">🇭🇰 港股</button>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">买入价格 <span class="unit" id="p-buy-unit">¥</span></label>
+            <input type="number" class="form-input" id="p-buy" value="15.5" min="0" step="0.01" oninput="calcPosition()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">卖出价格 <span class="unit" id="p-sell-unit">¥</span></label>
+            <input type="number" class="form-input" id="p-sell" value="18.8" min="0" step="0.01" oninput="calcPosition()">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">买入数量 <span class="unit" id="p-qty-unit">股</span></label>
+            <input type="number" class="form-input" id="p-qty" value="1000" min="1" step="100" oninput="calcPosition()">
+          </div>
+          <div class="form-group" id="p-fee-rate-group">
+            <label class="form-label">佣金率 <span class="unit" id="p-fee-unit">万分之</span></label>
+            <input type="number" class="form-input" id="p-comm" value="2.5" min="0" step="0.1" oninput="calcPosition()">
+          </div>
+        </div>
+        <div class="fee-info" id="p-fee-detail">
+          <strong>A股交易费用：</strong><br>
+          佣金：买卖双向，最低¥5/笔 | 印花税：卖出0.05% | 过户费：双向0.001%
+        </div>
+      </div>
+      <div class="result-col">
+        <div class="result-area">
+          <div class="result-title"><span class="emoji">🎯</span> 持仓盈亏</div>
+          <div class="result-grid">
+            <div class="result-item primary">
+              <div><div class="result-label">净盈亏</div></div>
+              <div class="result-value" id="p-net">¥0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">买入总额</div>
+              <div class="result-value" id="p-buy-total">¥0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">卖出总额</div>
+              <div class="result-value" id="p-sell-total">¥0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">买入费用</div>
+              <div class="result-value" id="p-buy-fee">¥0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">卖出费用</div>
+              <div class="result-value" id="p-sell-fee">¥0</div>
+            </div>
+            <div class="result-item highlight">
+              <div><div class="result-label">净收益率</div><div class="result-sub" id="p-ret-sub"></div></div>
+              <div class="result-value" id="p-return">0%</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">总交易费用</div>
+              <div class="result-value" id="p-total-fee">¥0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 4. 股息收益率计算器 ===== -->
+<div class="calc-section" id="sec-dividend">
+  <div class="calc-panel">
+    <div class="calc-panel-header">
+      <h2>🛡️ 股息收益率计算器</h2>
+      <p>计算股票的股息率、分红覆盖率与预期分红收益——巴菲特最看重的投资回报来源之一。</p>
+    </div>
+    <div class="calc-panel-body">
+      <div class="input-col">
+        <div class="form-group">
+          <label class="form-label">每股年度分红 <span class="unit">¥</span></label>
+          <input type="number" class="form-input" id="d-div" value="1.2" min="0" step="0.01" oninput="calcDividend()">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">当前股价 <span class="unit">¥</span></label>
+            <input type="number" class="form-input" id="d-price" value="30" min="0" step="0.01" oninput="calcDividend()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">每股收益 EPS <span class="unit">¥</span></label>
+            <input type="number" class="form-input" id="d-eps" value="2.5" min="0" step="0.01" oninput="calcDividend()">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">持有股数</label>
+            <input type="number" class="form-input" id="d-shares" value="1000" min="1" step="100" oninput="calcDividend()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">持股成本 <span class="unit">¥/股</span></label>
+            <input type="number" class="form-input" id="d-cost" value="28" min="0" step="0.01" oninput="calcDividend()">
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="formula-title">核心公式</div>
+          <div class="formula">股息率 = 每股分红 / 当前股价 × 100%</div>
+          <div class="formula">分红覆盖率 = EPS / 每股分红（越大越安全）</div>
+          <div class="formula">成本股息率 = 每股分红 / 持股成本 × 100%</div>
+          <div class="formula-note">A股分红税：持股>1年免税，1月~1年10%，<1月20%</div>
+        </div>
+      </div>
+      <div class="result-col">
+        <div class="result-area">
+          <div class="result-title"><span class="emoji">🎯</span> 股息收益分析</div>
+          <div class="result-grid">
+            <div class="result-item primary">
+              <div><div class="result-label">股息率</div></div>
+              <div class="result-value" id="d-yield">0%</div>
+            </div>
+            <div class="result-item primary">
+              <div><div class="result-label">成本股息率</div><div class="result-sub">按你的持股成本计算</div></div>
+              <div class="result-value" id="d-cost-yield">0%</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">年度分红总额</div>
+              <div class="result-value" id="d-total-div">¥0</div>
+            </div>
+            <div class="result-item highlight">
+              <div><div class="result-label">分红覆盖率</div><div class="result-sub" id="d-cover-sub"></div></div>
+              <div class="result-value" id="d-cover">0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">分红支付率</div>
+              <div class="result-value" id="d-payout">0%</div>
+            </div>
+          </div>
+        </div>
+        <div class="fee-info">
+          <strong>💡 巴菲特视角：</strong>他更看重"成本股息率"而非当前股息率——因为你买入的成本才是你的真实收益率基准。伯克希尔从不分红，但巴菲特认为留存利润再投资的复利回报远超分红。对A股投资者而言，分红覆盖率≥2倍的公司分红更可持续。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 5. PE/PB估值速查 ===== -->
+<div class="calc-section" id="sec-pepb">
+  <div class="calc-panel">
+    <div class="calc-panel-header">
+      <h2>📐 PE/PB估值速查</h2>
+      <p>快速计算市盈率(PE)与市净率(PB)，并对比行业基准判断估值高低——价值投资者选股的第一步。</p>
+    </div>
+    <div class="calc-panel-body">
+      <div class="input-col">
+        <div class="form-group">
+          <label class="form-label">当前股价 <span class="unit">¥</span></label>
+          <input type="number" class="form-input" id="pe-price" value="35" min="0" step="0.01" oninput="calcPEPB()">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">每股收益 EPS <span class="unit">¥</span></label>
+            <input type="number" class="form-input" id="pe-eps" value="2.8" min="0" step="0.01" oninput="calcPEPB()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">每股净资产 BVPS <span class="unit">¥</span></label>
+            <input type="number" class="form-input" id="pe-bvps" value="20" min="0" step="0.01" oninput="calcPEPB()">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">行业平均PE <span class="unit">（参考基准）</span></label>
+            <input type="number" class="form-input" id="pe-ind-pe" value="18" min="0" step="0.5" oninput="calcPEPB()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">行业平均PB <span class="unit">（参考基准）</span></label>
+            <input type="number" class="form-input" id="pe-ind-pb" value="2.0" min="0" step="0.1" oninput="calcPEPB()">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">预期增长率 g <span class="unit">%/年（用于PEG计算）</span></label>
+          <input type="number" class="form-input" id="pe-g" value="12" min="-10" step="0.5" oninput="calcPEPB()">
+        </div>
+        <div class="formula-box">
+          <div class="formula-title">核心公式</div>
+          <div class="formula">PE = 股价 / EPS | PB = 肒价 / BVPS | PEG = PE / g</div>
+          <div class="formula-note">PEG<1通常被视为低估，PEG>2可能高估。银行/保险看PB，消费/科技看PE。</div>
+        </div>
+      </div>
+      <div class="result-col">
+        <div class="result-area">
+          <div class="result-title"><span class="emoji">🎯</span> 估值分析</div>
+          <div class="result-grid">
+            <div class="result-item primary">
+              <div><div class="result-label">市盈率 PE</div></div>
+              <div class="result-value" id="pe-val">0</div>
+            </div>
+            <div class="result-item primary">
+              <div><div class="result-label">市净率 PB</div></div>
+              <div class="result-value" id="pb-val">0</div>
+            </div>
+            <div class="result-item highlight">
+              <div><div class="result-label">PEG</div><div class="result-sub" id="peg-sub"></div></div>
+              <div class="result-value" id="peg-val">0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">vs 行业PE</div>
+              <div class="result-value" id="pe-vs">0%</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">vs 行业PB</div>
+              <div class="result-value" id="pb-vs">0%</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">格雷厄姆合理PE</div>
+              <div class="result-value" id="pe-graham">0</div>
+            </div>
+          </div>
+        </div>
+        <div class="fee-info">
+          <strong>💡 估值参考：</strong>A股各行业PE差异巨大——银行5-8倍、白酒30-40倍、科技50+倍。不能跨行业直接比PE。巴菲特偏好PE<15且增长稳定的企业。PEG把增长纳入考量，彼得·林奇常用PEG<1选股。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 6. 年化收益率(CAGR) ===== -->
+<div class="calc-section" id="sec-cagr">
+  <div class="calc-panel">
+    <div class="calc-panel-header">
+      <h2>📊 年化收益率计算器 (CAGR)</h2>
+      <p>计算投资在一段时期内的复合年均增长率(CAGR)——衡量长期投资表现的核心指标。</p>
+    </div>
+    <div class="calc-panel-body">
+      <div class="input-col">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">初始价值 <span class="unit">¥</span></label>
+            <input type="number" class="form-input" id="cg-beg" value="100000" min="0" oninput="calcCAGR()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">最终价值 <span class="unit">¥</span></label>
+            <input type="number" class="form-input" id="cg-end" value="350000" min="0" oninput="calcCAGR()">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">投资年限 <span class="unit">年</span></label>
+          <input type="number" class="form-input" id="cg-n" value="10" min="1" max="60" oninput="calcCAGR()">
+        </div>
+        <div class="formula-box">
+          <div class="formula-title">CAGR公式</div>
+          <div class="formula">CAGR = (终值/初值)^(1/n) − 1</div>
+          <div class="formula-note">CAGR忽略中间波动，只看起点到终点的复合增长。对比：同期沪深300 CAGR约8-10%（长期），巴菲特57年CAGR≈19.8%</div>
+        </div>
+      </div>
+      <div class="result-col">
+        <div class="result-area">
+          <div class="result-title"><span class="emoji">🎯</span> 年化收益</div>
+          <div class="result-grid">
+            <div class="result-item primary">
+              <div><div class="result-label">CAGR 年化收益率</div></div>
+              <div class="result-value" id="cg-rate">0%</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">总收益率</div>
+              <div class="result-value" id="cg-total">0%</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">总增长倍数</div>
+              <div class="result-value" id="cg-multi">0×</div>
+            </div>
+            <div class="result-item highlight">
+              <div><div class="result-label">同期沪深300基准</div><div class="result-sub">假设CAGR 9%</div></div>
+              <div class="result-value" id="cg-bench">¥0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">超额收益</div>
+              <div class="result-value" id="cg-alpha">0%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 7. 定投模拟器 ===== -->
+<div class="calc-section" id="sec-dca">
+  <div class="calc-panel">
+    <div class="calc-panel-header">
+      <h2>🔄 定投模拟器</h2>
+      <p>模拟按月定投的收益曲线——国内最流行的投资方式，适合看不懂市场但想长期增值的投资者。</p>
+    </div>
+    <div class="calc-panel-body">
+      <div class="input-col">
+        <div class="form-group">
+          <label class="form-label">每月定投金额 <span class="unit">¥</span></label>
+          <input type="number" class="form-input" id="dca-month" value="3000" min="100" step="100" oninput="calcDCA()">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">预期年化收益 <span class="unit">%</span></label>
+            <input type="number" class="form-input" id="dca-rate" value="10" min="-10" step="0.5" oninput="calcDCA()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">定投年限 <span class="unit">年</span></label>
+            <input type="number" class="form-input" id="dca-years" value="10" min="1" max="40" oninput="calcDCA()">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">定投类型</label>
+          <div class="form-toggle">
+            <button class="toggle-btn active" id="dca-type-fund" onclick="setDCAType('fund')">基金定投</button>
+            <button class="toggle-btn" id="dca-type-stock" onclick="setDCAType('stock')">股票定投</button>
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="formula-title">定投收益公式</div>
+          <div class="formula">终值 = M × [(1+r/12)^(12×n) − 1] / (r/12)</div>
+          <div class="formula-note">M=月投金额, r=年化收益, n=定投年数。定投的魔力：市场下跌时买入更多份额，上涨时自动获利——无需择时。</div>
+        </div>
+      </div>
+      <div class="result-col">
+        <div class="result-area">
+          <div class="result-title"><span class="emoji">🎯</span> 定投收益预测</div>
+          <div class="result-grid">
+            <div class="result-item primary">
+              <div><div class="result-label">定投终值</div></div>
+              <div class="result-value" id="dca-fv">¥0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">总投入本金</div>
+              <div class="result-value" id="dca-total-in">¥0</div>
+            </div>
+            <div class="result-item highlight">
+              <div><div class="result-label">定投收益</div><div class="result-sub" id="dca-int-sub"></div></div>
+              <div class="result-value" id="dca-profit">¥0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">收益率</div>
+              <div class="result-value" id="dca-ret">0%</div>
+            </div>
+          </div>
+        </div>
+        <div class="result-chart">
+          <div class="chart-label">逐年增长曲线</div>
+          <div class="chart-bar-group" id="dca-chart"></div>
+        </div>
+        <div class="fee-info" id="dca-note">
+          <strong>💡 定投参考：</strong>沪深300指数长期年化约8-10%，消费/医药指数约12-15%。巴菲特建议普通人定投宽基指数。A股基金定投起步门槛低（¥100），适合上班族。定投≥3年通常能穿越一个牛熊周期。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Footer ===== -->
+<div class="page-footer">
+  专为A股与港股投资者设计 · 所有计算仅供参考，不构成投资建议 · 数据与公式基于公开金融理论
+</div>
+
+<script>
+/* ===== Tab Switching ===== */
+function switchTab(id){
+  document.querySelectorAll('.calc-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.calc-tab[data-tab="'+id+'"]').classList.add('active');
+  document.querySelectorAll('.calc-section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+}
+
+/* ===== Number formatting ===== */
+function fmt(n,d=2){
+  if(Math.abs(n)>=1e8) return '¥'+(n/1e8).toFixed(d)+'亿';
+  if(Math.abs(n)>=1e4) return '¥'+(n/1e4).toFixed(d)+'万';
+  return '¥'+n.toFixed(d);
+}
+function pct(n,d=2){return n.toFixed(d)+'%'}
+
+/* ===== 1. Compound Interest ===== */
+function calcCompound(){
+  var pv=parseFloat(document.getElementById('c-pv').value)||0;
+  var pmt=parseFloat(document.getElementById('c-pmt').value)||0;
+  var r=parseFloat(document.getElementById('c-rate').value)||0;
+  var t=parseFloat(document.getElementById('c-years').value)||0;
+  var n=parseInt(document.getElementById('c-freq').value)||12;
+
+  var rn=r/100/n;
+  var nt=n*t;
+
+  // FV of initial investment
+  var fv_pv=pv*Math.pow(1+rn,nt);
+  // FV of monthly contributions (adjusted for frequency)
+  var pmt_period=pmt*(12/n); // convert monthly to period
+  var fv_pmt=0;
+  if(rn>0){
+    fv_pmt=pmt_period*(Math.pow(1+rn,nt)-1)/rn;
+  }else{
+    fv_pmt=pmt_period*nt;
+  }
+
+  var fv=fv_pv+fv_pmt;
+  var total_pv=pv;
+  var total_pmt=pmt*12*t;
+  var interest=fv-total_pv-total_pmt;
+  var ear=rn>0?(Math.pow(1+rn,n)-1)*100:0;
+
+  document.getElementById('c-fv').textContent=fmt(fv);
+  document.getElementById('c-fv-sub').textContent='本金'+fmt(total_pv)+' + 追加'+fmt(total_pmt)+' + 收益'+fmt(interest);
+  document.getElementById('c-total-pv').textContent=fmt(total_pv);
+  document.getElementById('c-total-pmt').textContent=fmt(total_pmt);
+  document.getElementById('c-interest').textContent=fmt(interest);
+  document.getElementById('c-int-sub').textContent='占总价值'+pct(interest/fv*100,1);
+  document.getElementById('c-ear').textContent=pct(ear);
+
+  // Chart
+  var maxV=Math.max(total_pv,total_pmt,interest,1);
+  var html='';
+  html+=barRow('初始本金',total_pv/maxV*100,fmt(total_pv),'gold');
+  html+=barRow('追加投入',total_pmt/maxV*100,fmt(total_pmt),'blue');
+  html+=barRow('复利收益',interest/maxV*100,fmt(interest),'teal');
+  document.getElementById('c-chart').innerHTML=html;
+}
+
+function barRow(label,pct,val,color){
+  return '<div class="chart-bar-row">'+
+    '<div class="chart-bar-label">'+label+'</div>'+
+    '<div class="chart-bar-track"><div class="chart-bar-fill '+color+'" style="width:'+Math.max(pct,2)+'%"></div></div>'+
+    '<div class="chart-bar-value">'+val+'</div>'+
+  '</div>';
+}
+
+/* ===== 2. Intrinsic Value ===== */
+function calcIntrinsic(){
+  var eps=parseFloat(document.getElementById('iv-eps').value)||0;
+  var bvps=parseFloat(document.getElementById('iv-bvps').value)||0;
+  var g=parseFloat(document.getElementById('iv-g').value)||0;
+  var price=parseFloat(document.getElementById('iv-price').value)||0;
+  var y=parseFloat(document.getElementById('iv-y').value)||0;
+
+  // Graham Number
+  var graham=Math.sqrt(22.5*eps*bvps);
+  // Simplified DCF (Graham's original formula with growth adjustment)
+  var dcf=0;
+  if(y>0) dcf=eps*(8.5+2*g)*4.4/y;
+
+  var margin1=price>0?(graham/price-1)*100:0;
+  var margin2=price>0?(dcf/price-1)*100:0;
+
+  var peGraham=eps>0?graham/eps:0;
+
+  document.getElementById('iv-graham').textContent=fmt(graham);
+  document.getElementById('iv-dcf').textContent=fmt(dcf);
+  document.getElementById('iv-cur-price').textContent=fmt(price);
+  document.getElementById('iv-margin1').textContent=pct(margin1);
+  document.getElementById('iv-margin2').textContent=pct(margin2);
+  document.getElementById('iv-mg-sub1').textContent=margin1>=30?'✅ 安全边际充足':margin1>=0?'⚠️ 安全边际不足':'❌ 高于内在价值';
+  document.getElementById('iv-mg-sub2').textContent=margin2>=30?'✅ 安全边际充足':margin2>=0?'⚠️ 安全边际不足':'❌ 高于内在价值';
+  document.getElementById('iv-pe').textContent=peGraham.toFixed(1)+'倍';
+}
+
+/* ===== 3. Position P/L ===== */
+var currentMarket='a';
+
+function setMarket(m){
+  currentMarket=m;
+  document.getElementById('mkt-a').className='market-btn'+(m==='a'?' active-a':'');
+  document.getElementById('mkt-h').className='market-btn'+(m==='h'?' active-h':'');
+  document.getElementById('p-buy-unit').textContent=m==='a'?'¥':'HK$';
+  document.getElementById('p-sell-unit').textContent=m==='a'?'¥':'HK$';
+  document.getElementById('p-fee-unit').textContent=m==='a'?'万分之':'%';
+
+  if(m==='a'){
+    document.getElementById('p-comm').value='2.5';
+    document.getElementById('p-fee-detail').innerHTML='<strong>A股交易费用：</strong><br>佣金：买卖双向，最低¥5/笔 | 印花税：卖出0.05% | 过户费：双向0.001%';
+  }else{
+    document.getElementById('p-comm').value='0.03';
+    document.getElementById('p-fee-detail').innerHTML='<strong>港股交易费用：</strong><br>佣金：买卖双向，最低HK$50/笔 | 印花税：双向0.13% | 交易征费0.00278% | 交易费0.005% | 中央结算费0.002%';
+  }
+  calcPosition();
+}
+
+function calcPosition(){
+  var buy=parseFloat(document.getElementById('p-buy').value)||0;
+  var sell=parseFloat(document.getElementById('p-sell').value)||0;
+  var qty=parseFloat(document.getElementById('p-qty').value)||0;
+  var commRate=parseFloat(document.getElementById('p-comm').value)||0;
+
+  var buyTotal=buy*qty;
+  var sellTotal=sell*qty;
+
+  var buyFee=0,sellFee=0;
+
+  if(currentMarket==='a'){
+    // A股：佣金万X, 最低¥5; 印花税卖出0.05%; 过户费双向0.001%
+    var commPct=commRate/10000;
+    buyFee=Math.max(5,buyTotal*commPct)+buyTotal*0.00001;
+    sellFee=Math.max(5,sellTotal*commPct)+sellTotal*0.0005+sellTotal*0.00001;
+  }else{
+    // 港股：佣金%X, 最低HK$50; 印花税双向0.13%; 交易征费0.00278%; 交易费0.005%; 中央结算费0.002%
+    var commPct=commRate/100;
+    buyFee=Math.max(50,buyTotal*commPct)+buyTotal*0.0013+buyTotal*0.0000278+buyTotal*0.00005+buyTotal*0.00002;
+    sellFee=Math.max(50,sellTotal*commPct)+sellTotal*0.0013+sellTotal*0.0000278+sellTotal*0.00005+sellTotal*0.00002;
+  }
+
+  var netProfit=sellTotal-buyTotal-buyFee-sellFee;
+  var totalFee=buyFee+sellFee;
+  var netReturn=buyTotal>0?(netProfit/buyTotal*100):0;
+
+  var unit=currentMarket==='a'?'¥':'HK$';
+
+  document.getElementById('p-net').textContent=unit+netProfit.toFixed(2);
+  document.getElementById('p-net').style.color=netProfit>=0?'#dc2626':'#16a34a';
+  document.getElementById('p-buy-total').textContent=unit+buyTotal.toFixed(2);
+  document.getElementById('p-sell-total').textContent=unit+sellTotal.toFixed(2);
+  document.getElementById('p-buy-fee').textContent=unit+buyFee.toFixed(2);
+  document.getElementById('p-sell-fee').textContent=unit+sellFee.toFixed(2);
+  document.getElementById('p-return').textContent=pct(netReturn);
+  document.getElementById('p-return').style.color=netReturn>=0?'#dc2626':'#16a34a';
+  document.getElementById('p-ret-sub').textContent=netProfit>=0?'盈利':'亏损';
+  document.getElementById('p-total-fee').textContent=unit+totalFee.toFixed(2);
+}
+
+/* ===== 4. Dividend Yield ===== */
+function calcDividend(){
+  var div=parseFloat(document.getElementById('d-div').value)||0;
+  var price=parseFloat(document.getElementById('d-price').value)||0;
+  var eps=parseFloat(document.getElementById('d-eps').value)||0;
+  var shares=parseFloat(document.getElementById('d-shares').value)||0;
+  var cost=parseFloat(document.getElementById('d-cost').value)||0;
+
+  var yieldRate=price>0?div/price*100:0;
+  var costYield=cost>0?div/cost*100:0;
+  var totalDiv=div*shares;
+  var coverage=eps>0?eps/div:0;
+  var payout=eps>0?div/eps*100:0;
+
+  document.getElementById('d-yield').textContent=pct(yieldRate);
+  document.getElementById('d-cost-yield').textContent=pct(costYield);
+  document.getElementById('d-total-div').textContent=fmt(totalDiv);
+  document.getElementById('d-cover').textContent=coverage.toFixed(2)+'倍';
+  document.getElementById('d-cover-sub').textContent=coverage>=2?'✅ 分红可持续':coverage>=1?'⚠️ 覆盖率偏低':'❌ 分红可能不可持续';
+  document.getElementById('d-payout').textContent=pct(payout);
+}
+
+/* ===== 5. PE/PB ===== */
+function calcPEPB(){
+  var price=parseFloat(document.getElementById('pe-price').value)||0;
+  var eps=parseFloat(document.getElementById('pe-eps').value)||0;
+  var bvps=parseFloat(document.getElementById('pe-bvps').value)||0;
+  var indPE=parseFloat(document.getElementById('pe-ind-pe').value)||0;
+  var indPB=parseFloat(document.getElementById('pe-ind-pb').value)||0;
+  var g=parseFloat(document.getElementById('pe-g').value)||0;
+
+  var pe=eps>0?price/eps:0;
+  var pb=bvps>0?price/bvps:0;
+  var peg=g>0?pe/g:0;
+
+  var vsPE=indPE>0?(pe/indPE-1)*100:0;
+  var vsPB=indPB>0?(pb/indPB-1)*100:0;
+
+  // Graham reasonable PE = 8.5 + 2g
+  var grahamPE=8.5+2*g;
+
+  document.getElementById('pe-val').textContent=pe.toFixed(1)+'倍';
+  document.getElementById('pb-val').textContent=pb.toFixed(2)+'倍';
+  document.getElementById('peg-val').textContent=peg.toFixed(2);
+  document.getElementById('peg-sub').textContent=peg<1?'✅ 可能低估':peg<2?'⚠️ 合理区间':'❌ 可能高估';
+  document.getElementById('pe-vs').textContent=pct(vsPE,1);
+  document.getElementById('pe-vs').style.color=vsPE<=0?'#dc2626':'#16a34a';
+  document.getElementById('pb-vs').textContent=pct(vsPB,1);
+  document.getElementById('pb-vs').style.color=vsPB<=0?'#dc2626':'#16a34a';
+  document.getElementById('pe-graham').textContent=grahamPE.toFixed(1)+'倍';
+}
+
+/* ===== 6. CAGR ===== */
+function calcCAGR(){
+  var beg=parseFloat(document.getElementById('cg-beg').value)||0;
+  var end=parseFloat(document.getElementById('cg-end').value)||0;
+  var n=parseFloat(document.getElementById('cg-n').value)||1;
+
+  var cagr=beg>0?(Math.pow(end/beg,1/n)-1)*100:0;
+  var totalRet=beg>0?(end/beg-1)*100:0;
+  var multi=beg>0?end/beg:0;
+
+  // Benchmark: 9% annual for CSI300
+  var bench=beg*Math.pow(1.09,n);
+  var alpha=cagr-9;
+
+  document.getElementById('cg-rate').textContent=pct(cagr);
+  document.getElementById('cg-total').textContent=pct(totalRet);
+  document.getElementById('cg-multi').textContent=multi.toFixed(2)+'×';
+  document.getElementById('cg-bench').textContent=fmt(bench);
+  document.getElementById('cg-alpha').textContent=pct(alpha);
+  document.getElementById('cg-alpha').style.color=alpha>=0?'#dc2626':'#16a34a';
+}
+
+/* ===== 7. DCA ===== */
+var dcaType='fund';
+
+function setDCAType(type){
+  dcaType=type;
+  document.getElementById('dca-type-fund').className='toggle-btn'+(type==='fund'?' active':'');
+  document.getElementById('dca-type-stock').className='toggle-btn'+(type==='stock'?' active':'');
+  document.getElementById('dca-note').innerHTML=type==='fund'?
+    '<strong>💡 定投参考：</strong>沪深300指数长期年化约8-10%，消费/医药指数约12-15%。巴菲特建议普通人定投宽基指数。A股基金定投起步门槛低（¥100），适合上班族。定投≥3年通常能穿越一个牛熊周期。':
+    '<strong>💡 股票定投提示：</strong>选股定投风险更高——需选长期增长的优质企业（如茅台、平安等）。巴菲特式选股：ROE>15%、PE<25、有护城河。建议每季度定额买入，而非每月，以降低手续费占比。';
+  calcDCA();
+}
+
+function calcDCA(){
+  var m=parseFloat(document.getElementById('dca-month').value)||0;
+  var r=parseFloat(document.getElementById('dca-rate').value)||0;
+  var n=parseFloat(document.getElementById('dca-years').value)||0;
+
+  var rm=r/100/12;
+  var totalMonths=n*12;
+
+  var fv=0;
+  if(rm>0){
+    fv=m*(Math.pow(1+rm,totalMonths)-1)/rm;
+  }else{
+    fv=m*totalMonths;
+  }
+
+  var totalIn=m*totalMonths;
+  var profit=fv-totalIn;
+  var ret=totalIn>0?profit/totalIn*100:0;
+
+  document.getElementById('dca-fv').textContent=fmt(fv);
+  document.getElementById('dca-total-in').textContent=fmt(totalIn);
+  document.getElementById('dca-profit').textContent=fmt(profit);
+  document.getElementById('dca-int-sub').textContent='收益占终值'+pct(profit/fv*100,1);
+  document.getElementById('dca-ret').textContent=pct(ret);
+
+  // Year-by-year chart
+  var html='';
+  var maxFV=fv;
+  for(var y=1;y<=Math.min(n,20);y++){
+    var ym=y*12;
+    var yfv=rm>0?m*(Math.pow(1+rm,ym)-1)/rm:m*ym;
+    var yIn=m*ym;
+    var barPct=maxFV>0?yfv/maxFV*100:0;
+    html+=barRow('第'+y+'年',barPct,fmt(yfv),'gold');
+  }
+  document.getElementById('dca-chart').innerHTML=html;
+}
+
+/* ===== Init all calculators on load ===== */
+calcCompound();
+calcIntrinsic();
+calcPosition();
+calcDividend();
+calcPEPB();
+calcCAGR();
+calcDCA();
+</script>
+</body>
+</html>
