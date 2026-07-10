@@ -76,8 +76,7 @@ footer a{font-weight:600}
 
 <section class="kb-hero">
   <h1>财智百科 · 内容索引</h1>
-  <p class="src">编译自 <a href="https://finanzapedia.com/zh" target="_blank" rel="noopener">财智百科（finanzapedia.com/zh）</a> · 原站作者 Gemino Rossi / Borja del Bosco / Borna Jurić / 财智百科团队 等</p>
-  <p class="lead">财智百科是一个多语言的「金融知识中心」，其中与巴菲特及价值投资最相关的，是中文的<b>投资方法论</b>（估值模型 + 投资策略），以及英文的<b>巴菲特股东信 / 访谈 / 名言</b>档案。本页将其编译为可检索的导航台；其中<b>投资方法论</b>板块顶部可直达<b>站内中文详解（12 篇）</b>，无需跳转原站即可阅读。</p>
+  <p class="lead">伯克希尔投资数据中心的内容导航：投资方法论、巴菲特致股东信、访谈、名言与年度股东大会。投资方法论可在站内直接阅读中文详解，股东信与年会可跳转至本站中文实录。</p>
   <div class="kb-stats">
     <div class="kb-stat"><div class="num">12</div><div class="lab">投资方法论（中文）</div></div>
     <div class="kb-stat"><div class="num">12</div><div class="lab">致股东信（英文）</div></div>
@@ -88,7 +87,7 @@ footer a{font-weight:600}
 
 <div class="kb-guide">
   <div class="kb-guide-card">
-    <b>怎么用：</b>点上方标签切换「投资方法论 / 股东信 / 访谈 / 名言 / 年度股东大会」。每条标注语言（<span style="color:#047857;font-weight:700">中文</span> 或 <span style="color:#b45309;font-weight:700">EN</span>）与作者，点击打开财智百科原文阅读。投资方法论板块另有「<b>投资方法论中文详解</b>」入口，可一键查看 12 篇站内方法论全文。
+    <b>怎么用：</b>点上方标签切换「投资方法论 / 股东信 / 访谈 / 名言 / 年度股东大会」。投资方法论板块提供「<b>投资方法论中文详解</b>」入口，可一键查看 12 篇站内方法论全文；股东信与年度股东大会条目链至本站中文实录；访谈与名言仅作主题索引，方便检索。
   </div>
 </div>
 
@@ -101,7 +100,7 @@ footer a{font-weight:600}
     <div class="kb-tab" data-tab="meetings" onclick="switchTab('meetings')">🏟️ 年度股东大会</div>
   </div>
   <div class="kb-search">
-    <input id="kb-search" type="text" placeholder="搜索标题 / 作者…" oninput="render()">
+    <input id="kb-search" type="text" placeholder="搜索标题…" oninput="render()">
   </div>
   <div class="kb-panel active" id="panel-method"></div>
   <div class="kb-panel" id="panel-letters"></div>
@@ -111,62 +110,61 @@ footer a{font-weight:600}
 </section>
 
 <footer>
-  数据来源：<a href="https://finanzapedia.com/zh" target="_blank" rel="noopener">财智百科（finanzapedia.com）</a>。本页为伯克希尔投资数据中心的导航索引，全文版权归原作者 / 原站所有，点击条目将跳转至原站阅读。<br>
-  本站「财智百科内容索引」收录方式同「漫漫扬（yeeyoung）」「巴菲特思想知识库（邦比快跑）」——读取外部优质数据源，编译为自有页面并署名来源。
+  本页为伯克希尔投资数据中心的内容导航，收录投资方法论、致股东信、访谈、名言与年度股东大会等主题索引，供站内检索与跳转使用。
 </footer>
 
 <script>
-// ---------- 投资方法论（中文原创） ----------
+// ---------- 投资方法论（站内中文详解） ----------
 const method_valuation = [
-  {t:"收益增长与退出倍数 (Delta of the Delta)", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/shou-yi-zeng-chang-yu-tui-chu-bei-shu", a:"Borja del Bosco", d:"2025-12-28"},
-  {t:"经济护城河评估", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/jing-ji-hu-cheng-ping-gu", a:"Borna Jurić", d:"2025-12-28"},
-  {t:"股息贴现模型（DDM）", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/gu-xi-tie-xian-mo-xing-ddm", a:"Borja del Bosco", d:"2025-12-27"},
-  {t:"账面价值收敛模型 (BV-Price Growth Parity)", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/zhang-mian-jia-zhi-shou-lian-mo-xing", a:"Borja del Bosco", d:"2025-12-27"},
-  {t:"当前市盈率 vs. 历史市盈率", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/dang-qian-shi-ying-lu-vs-li-shi-shi-ying-lu", a:"Borja del Bosco", d:"2025-12-27"},
-  {t:"股息收益率理论", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/gu-xi-shou-yi-lv-li-lun", a:"Borja del Bosco", d:"2025-12-27"},
-  {t:"倍数估值法", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/bei-shu-gu-zhi-fa", a:"Borja del Bosco", d:"2025-09-28"},
-  {t:"格雷厄姆公式", u:"https://finanzapedia.com/zh/tou-zi/gu-zhi-mo-xing/ge-lei-e-mu-gong-shi", a:"Borja del Bosco", d:"2025-09-27"}
+  {t:"收益增长与退出倍数 (Delta of the Delta)", u:"berkshire-methodology.html", a:"", d:"估值模型"},
+  {t:"经济护城河评估", u:"berkshire-methodology.html", a:"", d:"估值模型"},
+  {t:"股息贴现模型（DDM）", u:"berkshire-methodology.html", a:"", d:"估值模型"},
+  {t:"账面价值收敛模型 (BV-Price Growth Parity)", u:"berkshire-methodology.html", a:"", d:"估值模型"},
+  {t:"当前市盈率 vs. 历史市盈率", u:"berkshire-methodology.html", a:"", d:"估值模型"},
+  {t:"股息收益率理论", u:"berkshire-methodology.html", a:"", d:"估值模型"},
+  {t:"倍数估值法", u:"berkshire-methodology.html", a:"", d:"估值模型"},
+  {t:"格雷厄姆公式", u:"berkshire-methodology.html", a:"", d:"估值模型"}
 ];
 const method_strategy = [
-  {t:"优质与宽阔经济护城河投资 (Quality & Wide Moat Investing)", u:"https://finanzapedia.com/zh/tou-zi/tou-zi-ce-lve/youzhi-yu-kuankuo-jingji-huchenghe-touzi", a:"Gemino Rossi", d:"2025-12-29"},
-  {t:"价值投资 (Value Investing)", u:"https://finanzapedia.com/zh/tou-zi/tou-zi-ce-lve/jiazhi-touzi", a:"Gemino Rossi", d:"2025-12-28"},
-  {t:"成长投资 (Growth Investing)", u:"https://finanzapedia.com/zh/tou-zi/tou-zi-ce-lve/chengzhang-touzi-growth-investing", a:"Gemino Rossi", d:"2025-12-28"},
-  {t:"股息投资 (Dividend Investing)", u:"https://finanzapedia.com/zh/tou-zi/tou-zi-ce-lve/guxi-touzi", a:"Gemino Rossi", d:"2025-12-28"}
+  {t:"优质与宽阔经济护城河投资 (Quality & Wide Moat Investing)", u:"berkshire-methodology.html", a:"", d:"投资策略"},
+  {t:"价值投资 (Value Investing)", u:"berkshire-methodology.html", a:"", d:"投资策略"},
+  {t:"成长投资 (Growth Investing)", u:"berkshire-methodology.html", a:"", d:"投资策略"},
+  {t:"股息投资 (Dividend Investing)", u:"berkshire-methodology.html", a:"", d:"投资策略"}
 ];
 
-// ---------- 致股东信（英文原文，中文标题） ----------
+// ---------- 致股东信（链至本站中文实录） ----------
 const LETTER_YEARS = [2024,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013];
 const letters = LETTER_YEARS.map(y=>({
   t: y+" 年伯克希尔·哈撒韦致股东信",
-  u: "https://finanzapedia.com/en/warren-buffett/shareholder-letters/"+y+"-letter-to-berkshire-hathaway-shareholders",
-  a: "沃伦·巴菲特", d: (y+1)+"-02", lang:"en"
+  u: "meetings_content/full/"+y+".html",
+  a: "沃伦·巴菲特", d: (y+1)+"-02", lang:"zh"
 }));
 
-// ---------- 年度股东大会（英文原文，中文标题；本站已有中文实录） ----------
+// ---------- 年度股东大会（链至本站中文实录） ----------
 const MEET_YEARS = [2026,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015];
 const meetings = MEET_YEARS.map(y=>({
   t: y+" 年伯克希尔·哈撒韦股东大会",
-  u: "https://finanzapedia.com/en/warren-buffett/annual-meetings/"+y+"-berkshire-hathaway-annual-meeting",
-  a: (y===2026?"财智百科团队":"沃伦·巴菲特"), d: y+"-05", lang:"en"
+  u: "meetings_content/full/"+y+".html",
+  a: "沃伦·巴菲特", d: y+"-05", lang:"zh"
 }));
 
-// ---------- 访谈（英文原文，中文标题） ----------
+// ---------- 访谈（主题索引） ----------
 const interviews = [
-  {t:"沃伦·巴菲特完整访谈：与贝基·奎克对话（2026 股东大会）", u:"https://finanzapedia.com/en/warren-buffett/interviews/warren-buffett-full-interview-with-becky-quick-2026-berkshire-hathaway-annual-meeting", a:"财智百科团队", d:"2026-05-02"},
-  {t:"沃伦·巴菲特谈：如何把 114 美元变成 40 万美元", u:"https://finanzapedia.com/en/warren-buffett/interviews/warren-buffett-explains-how-to-turn-114-into-400000", a:"财智百科团队", d:"2026-03-17"},
-  {t:"沃伦·巴菲特谈甲骨文、云计算与 IBM", u:"https://finanzapedia.com/en/warren-buffett/interviews/warren-buffett-on-oracle-cloud-computing-and-ibm", a:"沃伦·巴菲特", d:"2026-03-04"},
-  {t:"为何持续投资石油股——巴菲特与芒格", u:"https://finanzapedia.com/en/warren-buffett/interviews/why-we-keep-investing-in-oil-stocks-warren-buffett-charlie-munger", a:"财智百科团队", d:"2026-03-03"},
-  {t:"「雪佛龙不是邪恶公司」——巴菲特与芒格", u:"https://finanzapedia.com/en/warren-buffett/interviews/chevrons-not-an-evil-company-w-buffett-c-munger", a:"沃伦·巴菲特", d:"2026-03-02"},
-  {t:"「未来 200 年石油将极其珍贵」——巴菲特与芒格", u:"https://finanzapedia.com/en/warren-buffett/interviews/oil-will-become-very-precious-over-the-next-200-years-w-buffett-c-munger", a:"查理·芒格", d:"2026-03-01"},
-  {t:"沃伦·巴菲特定义「所有者收益」概念", u:"https://finanzapedia.com/en/warren-buffett/interviews/warren-buffett-defines-the-owners-earnings-concept", a:"财智百科团队", d:"2026-02-24"},
-  {t:"「我搞砸了」——巴菲特谈早年未投资谷歌（Alphabet）", u:"https://finanzapedia.com/en/warren-buffett/interviews/i-blew-it-warren-buffett-on-not-investing-in-google-alphabet-early-on", a:"沃伦·巴菲特", d:"2026-02-23"},
-  {t:"买入标普 500 指数基金——沃伦·巴菲特", u:"https://finanzapedia.com/en/warren-buffett/interviews/buy-into-an-sp-500-index-fund-warren-buffett", a:"沃伦·巴菲特", d:"2026-02-20"},
-  {t:"「分散投资是对无知的防御」——巴菲特（1996）", u:"https://finanzapedia.com/en/warren-buffett/interviews/w-buffett-diversification-is-a-protection-against-ignorance", a:"财智百科团队", d:"1996-06-02"}
+  {t:"沃伦·巴菲特完整访谈：与贝基·奎克对话（2026 股东大会）", u:"", a:"", d:"2026-05-02"},
+  {t:"沃伦·巴菲特谈：如何把 114 美元变成 40 万美元", u:"", a:"", d:"2026-03-17"},
+  {t:"沃伦·巴菲特谈甲骨文、云计算与 IBM", u:"", a:"沃伦·巴菲特", d:"2026-03-04"},
+  {t:"为何持续投资石油股——巴菲特与芒格", u:"", a:"", d:"2026-03-03"},
+  {t:"「雪佛龙不是邪恶公司」——巴菲特与芒格", u:"", a:"沃伦·巴菲特", d:"2026-03-02"},
+  {t:"「未来 200 年石油将极其珍贵」——巴菲特与芒格", u:"", a:"查理·芒格", d:"2026-03-01"},
+  {t:"沃伦·巴菲特定义「所有者收益」概念", u:"", a:"", d:"2026-02-24"},
+  {t:"「我搞砸了」——巴菲特谈早年未投资谷歌（Alphabet）", u:"", a:"沃伦·巴菲特", d:"2026-02-23"},
+  {t:"买入标普 500 指数基金——沃伦·巴菲特", u:"", a:"沃伦·巴菲特", d:"2026-02-20"},
+  {t:"「分散投资是对无知的防御」——巴菲特（1996）", u:"", a:"", d:"1996-06-02"}
 ];
 
-// ---------- 名言（英文原文，中文标题） ----------
+// ---------- 名言（主题索引） ----------
 const quotes = [
-  {t:"一生中没人能拥有超过 20 个好点子", u:"https://finanzapedia.com/en/warren-buffett/quotes/no-one-will-get-more-than-20-great-ideas-in-their-lifetime", a:"Claudiu Stan", d:"2026-02-04"}
+  {t:"一生中没人能拥有超过 20 个好点子", u:"", a:"", d:""}
 ];
 
 let curTab = 'method';
@@ -182,13 +180,16 @@ function switchTab(t){
 }
 
 function itemHTML(it){
-  const lang = it.lang || 'en';
+  const lang = it.lang || 'zh';
   const langTxt = (lang==='zh') ? '<span class="lang zh">中文</span>' : '<span class="lang en">EN</span>';
   const auth = (it.a? esc(it.a)+' · ' : '') + (it.d||'');
-  return '<a class="kb-item" href="'+it.u+'" target="_blank" rel="noopener">'+
+  const go = it.u ? '查看 →' : '主题索引';
+  const inner =
     '<div class="nm">'+esc(it.t)+'</div>'+
     '<div class="meta"><span class="auth">'+auth+'</span>'+langTxt+'</div>'+
-    '<div class="go">阅读原文 →</div></a>';
+    '<div class="go">'+go+'</div>';
+  if(it.u) return '<a class="kb-item" href="'+it.u+'">'+inner+'</a>';
+  return '<div class="kb-item" style="cursor:default">'+inner+'</div>';
 }
 
 function renderList(arr, q){
@@ -203,21 +204,21 @@ function render(){
     const v = method_valuation.filter(it=> !q || (it.t+' '+it.a).toLowerCase().indexOf(q.toLowerCase())>=0);
     const s = method_strategy.filter(it=> !q || (it.t+' '+it.a).toLowerCase().indexOf(q.toLowerCase())>=0);
     let html = '';
-    html += '<div class="kb-feature" style="background:linear-gradient(135deg,#0b1f3a,#10294d);color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px"><div><div style="font-weight:800;font-size:16px">📘 投资方法论中文详解（12 篇）</div><div style="font-size:13px;color:#b9c8e0;margin-top:4px">格雷厄姆公式、DDM、护城河、价值 / 成长 / 股息投资… 含公式、巴菲特怎么用与案例，<b style="color:#f5a623">可直接站内阅读</b>。</div></div><a href="berkshire-methodology.html" style="background:#f5a623;color:#3a2700;font-weight:700;padding:10px 18px;border-radius:999px;white-space:nowrap">查看详解 →</a></div>';
-    if(v.length) html += '<div class="kb-period"><h3>估值模型（8 篇 · 财智百科原文索引）</h3>'+renderList(v,'')+'</div>';
-    if(s.length) html += '<div class="kb-period"><h3>投资策略（4 篇 · 财智百科原文索引）</h3>'+renderList(s,'')+'</div>';
+    html += '<div class="kb-feature" style="background:linear-gradient(135deg,#0b1f3a,#10294d);color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px"><div><div style="font-weight:800;font-size:16px">📘 投资方法论中文详解（12 篇）</div><div style="font-size:13px;color:#b9c8e0;margin-top:4px">格雷厄姆公式、DDM、护城河、价值 / 成长 / 股息投资… 含公式、巴菲特怎么用与案例。</div></div><a href="berkshire-methodology.html" style="background:#f5a623;color:#3a2700;font-weight:700;padding:10px 18px;border-radius:999px;white-space:nowrap">查看详解 →</a></div>';
+    if(v.length) html += '<div class="kb-period"><h3>估值模型（8 篇）</h3>'+renderList(v,'')+'</div>';
+    if(s.length) html += '<div class="kb-period"><h3>投资策略（4 篇）</h3>'+renderList(s,'')+'</div>';
     if(!html) html = '<div class="kb-empty">没有匹配「'+esc(q)+'」的条目</div>';
     document.getElementById('panel-method').innerHTML = html;
     return;
   }
   if(curTab==='meetings'){
-    const note = '<div class="kb-note">📌 本站已收录 <b>1994–2026 中文一字不漏股东大会实录</b>（含 2026 最新），比下方财智百科英文版更完整。可直接前往：<a href="berkshire-meetings.html">伯克希尔股东大会实录 →</a></div>';
+    const note = '<div class="kb-note">📌 本站已收录 <b>1994–2026 伯克希尔股东大会中文实录</b>（含 2026 最新）。下方为 2015–2026 年索引，可直接前往：<a href="berkshire-meetings.html">伯克希尔股东大会实录 →</a></div>';
     document.getElementById('panel-meetings').innerHTML = note + renderList(meetings, q);
     return;
   }
   let arr = [];
   let preNote = '';
-  if(curTab==='letters'){ arr = letters; preNote = '<div class="kb-note">📌 伯克希尔<b>官方股东信</b>为公开公司文件，可于官网阅读全文：<a href="https://www.berkshirehathaway.com/letters/letters.html" target="_blank" rel="noopener">berkshirehathaway.com/letters →</a>（下方为财智百科英文索引）</div>'; }
+  if(curTab==='letters'){ arr = letters; preNote = '<div class="kb-note">📌 下方为 2013–2024 年致股东信索引，链至本站中文实录。</div>'; }
   else if(curTab==='interviews') arr = interviews;
   else if(curTab==='quotes') arr = quotes;
   document.getElementById('panel-'+curTab).innerHTML = preNote + renderList(arr, q);
