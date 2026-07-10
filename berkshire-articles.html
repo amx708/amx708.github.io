@@ -16,6 +16,23 @@ body{
 }
 
 /* ===== Breadcrumb (inside hero) ===== */
+.top-home-bar{
+  position:absolute;top:16px;left:24px;z-index:10;
+}
+.home-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;
+  background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);
+  border-radius:20px;color:rgba(255,255,255,0.85);font-size:13px;font-weight:500;
+  text-decoration:none;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  transition:all 0.2s ease;
+}
+.home-btn:hover{
+  background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.28);color:#fff;
+  transform:translateY(-1px);
+}
+.home-icon{font-size:14px}
+
 .breadcrumb{max-width:1100px;margin:0 auto;padding:14px 24px 6px;font-size:13px;color:rgba(255,255,255,0.6);position:relative;z-index:2}
 .breadcrumb a{color:rgba(255,255,255,0.7);text-decoration:none;transition:color 0.15s}
 .breadcrumb a:hover{color:#fbbf24}
@@ -181,6 +198,8 @@ body{
   .card-grid.three{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:768px){
+  .home-btn{font-size:12px;padding:6px 12px}
+  .top-home-bar{top:12px;left:16px}
   .hero{padding:36px 16px 60px}
   .hero h1{font-size:22px}
   .hero p{font-size:13px}
@@ -219,6 +238,14 @@ body{
 </style>
 </head>
 <body>
+
+<!-- Top Home Bar -->
+<div class="top-home-bar">
+  <a href="index.html" class="home-btn">
+    <span class="home-icon">🏠</span>
+    <span>返回首页</span>
+  </a>
+</div>
 
 <!-- Breadcrumb -->
 <nav class="breadcrumb">
