@@ -132,6 +132,9 @@ body{
 .result-card .category-badge.cat-金融术语{background:#f0f9ff;color:#0284c7;border-color:#bae6fd}
 .result-card .tag{font-size:11px;color:#94a3b8;background:#f1f5f9;padding:2px 8px;border-radius:10px}
 .result-card .match-score{font-size:11px;color:#94a3b8}
+.fallback-note{font-size:12px;color:#f59e0b;font-weight:500;margin-left:6px}
+.suggest-link{display:inline-block;margin:4px 6px 4px 0;padding:5px 12px;background:#fff;border:1px solid #e2e8f0;border-radius:20px;color:#334155;font-size:13px;text-decoration:none;transition:all .15s}
+.suggest-link:hover{background:#fef3c7;border-color:#fde68a;color:#92400e}
 
 /* Highlight */
 .hl{background:#fef3c7;color:#92400e;padding:0 2px;border-radius:2px;font-weight:600}
@@ -255,48 +258,144 @@ function setCategory(cat){
 }
 
 function normalize(str){
-  return str.toLowerCase().replace(/[\s\-\_\.]/g,'');
+  if(!str) return '';
+  return str.toLowerCase().replace(/[\s\-_.·]/g,'');
 }
 
 function tokenize(q){
   return q.split(/\s+/).filter(s=>s.length>0);
 }
 
+function getSearchTokens(q){
+  return tokenize(q);
+}
+
 function highlight(text, tokens){
-  if(!tokens.length) return text;
+  if(!tokens.length || !text) return text;
   var out=text;
-  tokens.forEach(t=>{
-    var re=new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+  var sorted=tokens.slice(0).sort((a,b)=>b.length-a.length);
+  sorted.forEach(t=>{
+    if(!t) return;
+    var re=new RegExp('('+t.replace(/[.*+?^$\u007b\u007d()|[\]\\]/g,'\\$&')+')','gi');
     out=out.replace(re,'<span class="hl">$1</span>');
   });
   return out;
 }
 
-function calcScore(entry, tokens){
+function calcScore(entry, tokens, rawQuery){
   var score=0;
+  var matchedTokens=0;
   var titleNorm=normalize(entry.title);
   var descNorm=normalize(entry.description);
+  var searchNorm=normalize(entry.searchText || entry.description);
   var tagNorm=entry.tags.map(normalize).join(' ');
   var headNorm=entry.headings.map(normalize).join(' ');
+  var fullNorm=normalize(rawQuery) || '';
+  var allUserMatched=true;
+
+  if(fullNorm && fullNorm.length>=2){
+    if(titleNorm.indexOf(fullNorm)>-1) score+=50;
+    else if(tagNorm.indexOf(fullNorm)>-1) score+=35;
+    else if(headNorm.indexOf(fullNorm)>-1) score+=25;
+    else if(descNorm.indexOf(fullNorm)>-1) score+=15;
+    else if(searchNorm.indexOf(fullNorm)>-1) score+=8;
+  }
 
   tokens.forEach(t=>{
     var nt=normalize(t);
     if(!nt) return;
-    // Title match (highest)
-    if(titleNorm.indexOf(nt)>-1) score+=10;
-    // Tag match
-    if(tagNorm.indexOf(nt)>-1) score+=8;
-    // Heading match
-    if(headNorm.indexOf(nt)>-1) score+=5;
-    // Description match
-    if(descNorm.indexOf(nt)>-1) score+=3;
-    // Exact year bonus
-    if(/^\d{4}年?$/.test(t) && titleNorm.indexOf(nt)>-1) score+=5;
+    var matched=false;
+    var tokenScore=0;
+    if(titleNorm.indexOf(nt)>-1){ tokenScore+=10; matched=true; }
+    if(tagNorm.indexOf(nt)>-1){ tokenScore+=8; matched=true; }
+    if(headNorm.indexOf(nt)>-1){ tokenScore+=5; matched=true; }
+    if(descNorm.indexOf(nt)>-1){ tokenScore+=3; matched=true; }
+    if(searchNorm.indexOf(nt)>-1){ tokenScore+=2; matched=true; }
+    if(matched){
+      score+=tokenScore;
+      matchedTokens++;
+      if(nt.length>=2) score+=1;
+      if(nt.length>=3) score+=2;
+      if(/^\d{4}年?$/.test(t) && titleNorm.indexOf(nt)>-1) score+=5;
+    }
   });
 
-  // Slight priority boost
+  var distinctUserTokens = tokenize(rawQuery);
+  if(distinctUserTokens.length>0){
+    distinctUserTokens.forEach(t=>{
+      var nt=normalize(t);
+      if(!nt) return;
+      if(titleNorm.indexOf(nt)===-1 && tagNorm.indexOf(nt)===-1 &&
+         headNorm.indexOf(nt)===-1 && descNorm.indexOf(nt)===-1 &&
+         searchNorm.indexOf(nt)===-1){
+        allUserMatched=false;
+      }
+    });
+    if(allUserMatched) score+=20;
+  }
+
   score+=Math.max(0,30-entry.priority)/100;
-  return score;
+  return {score:score, matchedTokens:matchedTokens, allMatched:allUserMatched};
+}
+
+function extractSnippet(text, tokens, rawQuery){
+  if(!text || !tokens.length) return text;
+  var queryNorm=normalize(rawQuery);
+  var bestPos=-1, bestLen=0, bestScore=0;
+
+  function tryMatch(pattern, weight){
+    if(!pattern) return;
+    var re=new RegExp(pattern.replace(/[.*+?^$\u007b\u007d()|[\]\\]/g,'\\$&'),'gi');
+    var m;
+    while((m=re.exec(text))!==null){
+      var start=Math.max(0,m.index-40);
+      var end=Math.min(text.length,m.index+m[0].length+60);
+      var len=end-start;
+      var hitCount=0;
+      tokens.forEach(t=>{
+        var nt=normalize(t);
+        if(nt && normalize(text.substring(start,end)).indexOf(nt)>-1) hitCount++;
+      });
+      var score=hitCount*weight+(m[0].length>=queryNorm.length?3:0);
+      if(score>bestScore || (score===bestScore && len<bestLen)){
+        bestScore=score;
+        bestPos=start;
+        bestLen=len;
+      }
+    }
+  }
+
+  tryMatch(rawQuery, 5);
+  tokens.forEach(t=>tryMatch(t,2));
+
+  if(bestPos>=0){
+    var snippet=text.substring(bestPos,bestPos+bestLen);
+    if(bestPos>0) snippet='…'+snippet.trim();
+    if(bestPos+bestLen<text.length) snippet=snippet.trim()+'…';
+    return snippet;
+  }
+
+  return text.length>160?text.substring(0,160).trim()+'…':text;
+}
+
+function getRelatedSuggestions(q){
+  var suggestions=[];
+  var lower=q.toLowerCase();
+  var map={
+    '心理学':['行为金融','心理','认知偏差','情绪'],
+    '心理':['行为金融','情绪','认知偏差','价值投资'],
+    '行为':['行为金融','投资心理','芒格'],
+    '经济学':['经济','宏观','投资'],
+    '财务':['财报','ROE','自由现金流','利润率'],
+    '公司':['伯克希尔','投资案例','企业分析'],
+    '股票':['投资','估值','选股'],
+    '收益':['复利','股息','CAGR','回报']
+  };
+  for(var k in map){
+    if(lower.indexOf(k)>-1) suggestions=suggestions.concat(map[k]);
+  }
+  if(suggestions.length===0) suggestions=['巴菲特','芒格','护城河','安全边际','复利','价值投资'];
+  return suggestions.filter((v,i,a)=>a.indexOf(v)===i).slice(0,6);
 }
 
 function doSearch(){
@@ -309,42 +408,74 @@ function doSearch(){
     return;
   }
 
-  var tokens=tokenize(q);
+  var userTokens=tokenize(q);
+  var tokens=getSearchTokens(q);
 
-  var results=indexData.entries.filter(e=>{
-    if(currentCategory!=='全部' && e.category!==currentCategory) return false;
-    if(tokens.length===0) return true;
-    var score=calcScore(e,tokens);
-    return score>0;
+  var results=[];
+  var mode='and';
+  indexData.entries.forEach(e=>{
+    if(currentCategory!=='全部' && e.category!==currentCategory) return;
+    if(userTokens.length===0) return results.push(e);
+    var res=calcScore(e,tokens,q);
+    if(res.allMatched && res.matchedTokens>0){
+      results.push(Object.assign({}, e, {_score:res.score, _matched:res.matchedTokens}));
+    }
   });
 
-  if(tokens.length>0){
-    results.sort((a,b)=>calcScore(b,tokens)-calcScore(a,tokens));
-  }else{
-    results.sort((a,b)=>a.priority-b.priority||a.title.localeCompare(b.title,'zh'));
+  var usedFallback=false;
+  if(results.length<5 && userTokens.length>0){
+    results=[];
+    mode='or';
+    indexData.entries.forEach(e=>{
+      if(currentCategory!=='全部' && e.category!==currentCategory) return;
+      var res=calcScore(e,tokens,q);
+      if(res.matchedTokens>0){
+        results.push(Object.assign({}, e, {_score:res.score, _matched:res.matchedTokens}));
+      }
+    });
+    usedFallback=true;
   }
 
-  // Update URL
+  if(userTokens.length>0){
+    results.sort((a,b)=>b._score-a._score || a.priority-b.priority || a.title.localeCompare(a.title,'zh'));
+  }else{
+    results.sort((a,b)=>a.priority-b.priority || a.title.localeCompare(b.title,'zh'));
+  }
+
   var url=new URL(window.location.href);
   if(q) url.searchParams.set('q',q); else url.searchParams.delete('q');
   window.history.replaceState({},'',url);
 
-  document.getElementById('resultsMeta').innerHTML=
-    tokens.length?'找到 <strong>'+results.length+'</strong> 条关于 "<strong>'+escapeHtml(q)+'</strong>" 的结果':
-    '共 <strong>'+results.length+'</strong> 条资料'+(currentCategory!=='全部'?'（分类：'+currentCategory+'）':'');
+  var metaHtml='';
+  if(userTokens.length===0){
+    metaHtml='共 <strong>'+results.length+'</strong> 条资料'+(currentCategory!=='全部'?'（分类：'+currentCategory+'）':'');
+  }else if(results.length===0){
+    metaHtml='未找到 "<strong>'+escapeHtml(q)+'"</strong> 的精确匹配';
+  }else{
+    metaHtml='找到 <strong>'+results.length+'</strong> 条关于 "<strong>'+escapeHtml(q)+'"</strong> 的结果'+(usedFallback?' <span class="fallback-note">（已放宽为“任意词匹配”）</span>':'');
+  }
+  document.getElementById('resultsMeta').innerHTML=metaHtml;
 
   if(results.length===0){
-    showEmpty('未找到相关结果', '尝试更换关键词、减少筛选条件，或使用更通用的词（如"巴菲特"、"投资"）。');
+    var suggestions=getRelatedSuggestions(q).map(s=>'<a href="berkshire-search.html?q='+encodeURIComponent(s)+'" class="suggest-link">'+escapeHtml(s)+'</a>').join('');
+    showEmpty('未找到精确匹配', '试试更短、更通用的关键词，或点击下面的推荐词：'+suggestions);
     return;
   }
 
   var html='';
   results.forEach(r=>{
-    var desc=r.description || '';
-    if(tokens.length) desc=highlight(desc,tokens);
-    var title=tokens.length?highlight(r.title,tokens):r.title;
+    var desc=(r.searchText || r.description) || '';
+    if(userTokens.length){
+      desc=extractSnippet(desc,tokens,q);
+      desc=highlight(desc,tokens);
+    }
+    var title=userTokens.length?highlight(r.title,tokens):r.title;
     var catClass='category-badge '+('cat-'+r.category).replace(/[（）()]/g,'');
     var tagsHtml=r.tags.slice(0,4).map(t=>'<span class="tag">'+escapeHtml(t)+'</span>').join('');
+    var matchInfo='';
+    if(userTokens.length && r._matched>0){
+      matchInfo='<span class="match-score">'+r._matched+'/'+(tokens.length)+' 词匹配</span>';
+    }
     html+='<a class="result-card" href="'+r.url+'">'+
       '<div class="card-top">'+
         '<div>'+
@@ -354,7 +485,7 @@ function doSearch(){
       '</div>'+
       '<div class="card-meta">'+
         '<span class="'+catClass+'">'+escapeHtml(r.category)+'</span>'+
-        tagsHtml+
+        tagsHtml+matchInfo+
       '</div>'+
     '</a>';
   });
@@ -364,7 +495,7 @@ function doSearch(){
 function showEmpty(title,msg){
   document.getElementById('resultsMeta').innerHTML='';
   document.getElementById('resultList').innerHTML=
-    '<div class="empty-state"><div class="emoji">🔍</div><h3>'+escapeHtml(title)+'</h3><p>'+escapeHtml(msg)+'</p></div>';
+    '<div class="empty-state"><div class="emoji">🔍</div><h3>'+escapeHtml(title)+'</h3><p>'+msg+'</p></div>';
 }
 
 function escapeHtml(s){
