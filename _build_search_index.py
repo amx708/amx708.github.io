@@ -96,6 +96,8 @@ def categorize(rel_path: str, title: str) -> tuple:
         if "li-lu" in lower or "lilu" in lower:
             return "李录演讲", 12
         if "guijiang" in lower:
+            if "booklist" in lower:
+                return "归江书单", 12
             return "归江文章", 12
         return "价值投资演讲", 12
     if "articles/" in lower:
@@ -118,6 +120,7 @@ def categorize(rel_path: str, title: str) -> tuple:
         "berkshire-value-investors.html": ("价值投资人物", 17),
         "berkshire-pabrai-index.html": ("帕伯莱演讲", 12),
         "berkshire-guijiang-index.html": ("归江文章", 12),
+        "berkshire-guijiang-booklist.html": ("归江书单", 12),
         "berkshire-munger-speeches.html": ("芒格演讲", 18),
         "berkshire-buffett-quotes.html": ("巴菲特演讲与名言", 19),
         "berkshire-munger-quotes.html": ("芒格名言", 19),
