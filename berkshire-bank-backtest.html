@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>三轮大底回测</title><style>
+:root{--navy:#0f2c4c;--navy2:#16395f;--gold:#c8a04a;--silver:#9fb3c8;--bg:#f4f6f9;--card:#ffffff;--ink:#1b2733;--mut:#5d6b7a;--line:#e2e8f0;--red:#c0392b;--green:#1e7d4f;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+.nav{position:sticky;top:0;z-index:50;background:rgba(15,44,76,.92);backdrop-filter:blur(8px);border-bottom:2px solid var(--gold)}
+.nav-in{max-width:1180px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.nav .brand{color:#fff;font-weight:700;font-size:16px;letter-spacing:.5px}
+.nav .crumb{color:var(--silver);font-size:13px}
+.nav a{color:var(--silver);text-decoration:none;font-size:13px;padding:3px 8px;border-radius:6px}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:38px 18px 30px}
+.hero-in{max-width:1180px;margin:0 auto}
+.hero h1{margin:0 0 8px;font-size:28px}
+.hero p{margin:4px 0;color:var(--silver);max-width:820px}
+.hero .stat{display:flex;gap:22px;margin-top:16px;flex-wrap:wrap}
+.hero .stat b{color:var(--gold);font-size:22px;display:block}
+.hero .stat span{font-size:12px;color:var(--silver)}
+.wrap{max-width:1180px;margin:0 auto;padding:26px 18px 60px}
+.section-title{font-size:20px;font-weight:700;margin:30px 0 14px;padding-left:11px;border-left:4px solid var(--gold)}
+.filter{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 18px}
+.filter button{border:1px solid var(--line);background:#fff;color:var(--mut);padding:7px 15px;border-radius:20px;cursor:pointer;font-size:13px}
+.filter button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;transition:.2s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(15,44,76,.12);border-color:var(--gold)}
+.card .top{display:flex;justify-content:space-between;align-items:baseline}
+.card h3{margin:0;font-size:17px}
+.card .code{font-size:12px;color:var(--mut)}
+.card .cat{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;background:#eef2f7;color:var(--mut);margin:6px 0}
+.card .pos{font-size:12.5px;color:var(--mut);min-height:34px}
+.kpis{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
+.kpis div{font-size:12px;color:var(--mut)}
+.kpis b{display:block;color:var(--ink);font-size:14px}
+.detail{max-width:1000px;margin:0 auto;padding:26px 18px 60px}
+.detail .back{color:var(--navy);text-decoration:none;font-size:13px}
+.layer{background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:10px;padding:14px 16px;margin:12px 0}
+.layer h4{margin:0 0 4px;font-size:15px;color:var(--navy)}
+.layer p{margin:0;font-size:13.5px;color:var(--mut)}
+.snap{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:16px 0}
+.snap div{background:#f7f9fc;border:1px solid var(--line);border-radius:9px;padding:10px 12px;text-align:center}
+.snap b{display:block;font-size:18px;color:var(--navy)}
+.snap span{font-size:11.5px;color:var(--mut)}
+.deep{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
+.deep h4{margin:0 0 6px;font-size:15px;color:var(--navy);border-bottom:1px dashed var(--line);padding-bottom:6px}
+.deep ul{margin:6px 0;padding-left:18px;font-size:13.5px;color:var(--ink)}
+.note{background:#fff8e8;border:1px solid #f0d98a;border-radius:10px;padding:12px 15px;margin:14px 0;font-size:13px;color:#7a5e10}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:12px}
+.extend a{display:block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;text-decoration:none;color:var(--ink);transition:.2s}
+.extend a:hover{border-color:var(--gold);box-shadow:0 6px 18px rgba(15,44,76,.1)}
+.extend b{color:var(--navy);display:block;margin-bottom:4px}
+.extend span{font-size:12.5px;color:var(--mut)}
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:#fff}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 9px;text-align:center}
+.tbl th{background:var(--navy);color:#fff;font-weight:600}
+.tbl tr:nth-child(even){background:#f7f9fc}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.tag.low{background:#fde8e8;color:var(--red)}
+.tag.mid{background:#eef6ff;color:#2a6bd4}
+.tag.high{background:#e7f6ed;color:var(--green)}
+.thermo{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.thermo .nm{width:130px;font-weight:600;font-size:14px}
+.thermo .bar{flex:1;height:14px;background:linear-gradient(90deg,#c0392b,#e8b84b,#1e7d4f);border-radius:8px;position:relative;min-width:160px}
+.thermo .dot{position:absolute;top:-3px;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--navy);transform:translateX(-50%)}
+.thermo .v{font-size:12.5px;color:var(--mut);width:160px}
+footer{background:var(--navy);color:var(--silver);text-align:center;padding:22px;font-size:12.5px}
+.svgbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin:16px 0;overflow-x:auto}
+.guide{background:#eef4fb;border:1px solid #cfe0f5;border-radius:12px;padding:16px 18px;margin:14px 0}
+.guide h4{margin:0 0 8px;color:var(--navy)}
+.guide p,.guide li{font-size:13.5px;color:var(--ink)}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.hero h1{font-size:22px}.thermo .nm{width:100px}}
+</style></head><body>
+<div class="nav"><div class="nav-in">
+<div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 银行图谱 / 回测</div>
+<a href="berkshire-standalone.html">数据中心</a>
+<a href="berkshire-baijiu-chains.html">白酒</a>
+<a href="berkshire-bank-chains.html">银行</a>
+<a href="berkshire-ai-chains.html">AI</a>
+<a href="berkshire-robot-chains.html">机器人</a>
+</div></div><div class="detail">
+<a class="back" href="berkshire-bank-chains.html">← 返回银行图谱</a>
+<h1 style="margin:10px 0">银行股三轮大底买点回测</h1>
+<p style="color:var(--mut)">银行估值锚是 PB（市净率）而非 PE。三轮历史大底的 PB 与股息率水平，是判断「便宜与否」的标尺。</p>
+<table class="tbl">
+<tr><th>买点</th><th>宏观背景</th><th>大行 PB</th><th>大行股息率</th><th>逻辑</th></tr>
+<tr><td>2014底</td><td>牛市前夜、经济低迷</td><td>0.7-0.9x</td><td>4-5%</td><td>破净初期，无人问津</td></tr>
+<tr><td>2018底</td><td>去杠杆+贸易战+民企违约</td><td>0.6-0.8x</td><td>4-5%</td><td>悲观定价极致</td></tr>
+<tr><td>2022-2024</td><td>地产+城投风险、息差探底</td><td>0.4-0.6x</td><td>6-9%</td><td>破净比例历史新高，红利资产重估起点</td></tr>
+</table>
+<div class="guide"><h4>回测结论（以国有大行+招行为样本）</h4>
+<p>在三轮大底买入并持有至今（2025底），年化回报主要来自<b>股息再投资</b>与<b>PB修复</b>两部分。2014、2018买点持有至今累计回报以倍数计；2022-2024买点虽时间短，但股息率6-9%已提供高安全垫，PB从0.4-0.6x修复至0.7x附近贡献资本利得。</p></div>
+<div class="layer"><h4>为什么银行适合「买点+收息」策略？</h4><p>银行盈利波动小于周期股，分红连续且比例高（30%左右，大行更高）。低PB买入=用折价拿到1元净资产+高股息，时间站在收息者一边。但前提：资产质量真实（偏离度低、拨备厚），否则「便宜」是陷阱。</p></div>
+<div class="note">回测≠预测。历史低PB买点提供的是「安全边际参考」，不是买入保证。逐家买点回报曲线见<a href="berkshire-bank-backtest-detail.html" style="color:#7a5e10">逐轮买点回报图</a>（农商行10家已绘后复权曲线，国有大行/股份行/城商行因历史复权数据需行情终端接入，暂以本页买点逻辑呈现）。</div>
+</div><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报，估值=2026-07-10行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>

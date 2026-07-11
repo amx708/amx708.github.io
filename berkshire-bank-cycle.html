@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>信用周期 2016→2025</title><style>
+:root{--navy:#0f2c4c;--navy2:#16395f;--gold:#c8a04a;--silver:#9fb3c8;--bg:#f4f6f9;--card:#ffffff;--ink:#1b2733;--mut:#5d6b7a;--line:#e2e8f0;--red:#c0392b;--green:#1e7d4f;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+.nav{position:sticky;top:0;z-index:50;background:rgba(15,44,76,.92);backdrop-filter:blur(8px);border-bottom:2px solid var(--gold)}
+.nav-in{max-width:1180px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.nav .brand{color:#fff;font-weight:700;font-size:16px;letter-spacing:.5px}
+.nav .crumb{color:var(--silver);font-size:13px}
+.nav a{color:var(--silver);text-decoration:none;font-size:13px;padding:3px 8px;border-radius:6px}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:38px 18px 30px}
+.hero-in{max-width:1180px;margin:0 auto}
+.hero h1{margin:0 0 8px;font-size:28px}
+.hero p{margin:4px 0;color:var(--silver);max-width:820px}
+.hero .stat{display:flex;gap:22px;margin-top:16px;flex-wrap:wrap}
+.hero .stat b{color:var(--gold);font-size:22px;display:block}
+.hero .stat span{font-size:12px;color:var(--silver)}
+.wrap{max-width:1180px;margin:0 auto;padding:26px 18px 60px}
+.section-title{font-size:20px;font-weight:700;margin:30px 0 14px;padding-left:11px;border-left:4px solid var(--gold)}
+.filter{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 18px}
+.filter button{border:1px solid var(--line);background:#fff;color:var(--mut);padding:7px 15px;border-radius:20px;cursor:pointer;font-size:13px}
+.filter button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;transition:.2s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(15,44,76,.12);border-color:var(--gold)}
+.card .top{display:flex;justify-content:space-between;align-items:baseline}
+.card h3{margin:0;font-size:17px}
+.card .code{font-size:12px;color:var(--mut)}
+.card .cat{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;background:#eef2f7;color:var(--mut);margin:6px 0}
+.card .pos{font-size:12.5px;color:var(--mut);min-height:34px}
+.kpis{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
+.kpis div{font-size:12px;color:var(--mut)}
+.kpis b{display:block;color:var(--ink);font-size:14px}
+.detail{max-width:1000px;margin:0 auto;padding:26px 18px 60px}
+.detail .back{color:var(--navy);text-decoration:none;font-size:13px}
+.layer{background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:10px;padding:14px 16px;margin:12px 0}
+.layer h4{margin:0 0 4px;font-size:15px;color:var(--navy)}
+.layer p{margin:0;font-size:13.5px;color:var(--mut)}
+.snap{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:16px 0}
+.snap div{background:#f7f9fc;border:1px solid var(--line);border-radius:9px;padding:10px 12px;text-align:center}
+.snap b{display:block;font-size:18px;color:var(--navy)}
+.snap span{font-size:11.5px;color:var(--mut)}
+.deep{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
+.deep h4{margin:0 0 6px;font-size:15px;color:var(--navy);border-bottom:1px dashed var(--line);padding-bottom:6px}
+.deep ul{margin:6px 0;padding-left:18px;font-size:13.5px;color:var(--ink)}
+.note{background:#fff8e8;border:1px solid #f0d98a;border-radius:10px;padding:12px 15px;margin:14px 0;font-size:13px;color:#7a5e10}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:12px}
+.extend a{display:block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;text-decoration:none;color:var(--ink);transition:.2s}
+.extend a:hover{border-color:var(--gold);box-shadow:0 6px 18px rgba(15,44,76,.1)}
+.extend b{color:var(--navy);display:block;margin-bottom:4px}
+.extend span{font-size:12.5px;color:var(--mut)}
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:#fff}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 9px;text-align:center}
+.tbl th{background:var(--navy);color:#fff;font-weight:600}
+.tbl tr:nth-child(even){background:#f7f9fc}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.tag.low{background:#fde8e8;color:var(--red)}
+.tag.mid{background:#eef6ff;color:#2a6bd4}
+.tag.high{background:#e7f6ed;color:var(--green)}
+.thermo{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.thermo .nm{width:130px;font-weight:600;font-size:14px}
+.thermo .bar{flex:1;height:14px;background:linear-gradient(90deg,#c0392b,#e8b84b,#1e7d4f);border-radius:8px;position:relative;min-width:160px}
+.thermo .dot{position:absolute;top:-3px;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--navy);transform:translateX(-50%)}
+.thermo .v{font-size:12.5px;color:var(--mut);width:160px}
+footer{background:var(--navy);color:var(--silver);text-align:center;padding:22px;font-size:12.5px}
+.svgbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin:16px 0;overflow-x:auto}
+.guide{background:#eef4fb;border:1px solid #cfe0f5;border-radius:12px;padding:16px 18px;margin:14px 0}
+.guide h4{margin:0 0 8px;color:var(--navy)}
+.guide p,.guide li{font-size:13.5px;color:var(--ink)}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.hero h1{font-size:22px}.thermo .nm{width:100px}}
+</style></head><body>
+<div class="nav"><div class="nav-in">
+<div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 银行图谱 / 信用周期</div>
+<a href="berkshire-standalone.html">数据中心</a>
+<a href="berkshire-baijiu-chains.html">白酒</a>
+<a href="berkshire-bank-chains.html">银行</a>
+<a href="berkshire-ai-chains.html">AI</a>
+<a href="berkshire-robot-chains.html">机器人</a>
+</div></div><div class="detail">
+<a class="back" href="berkshire-bank-chains.html">← 返回银行图谱</a>
+<h1 style="margin:10px 0">银行业信用周期 · 2016→2025</h1>
+<p style="color:var(--mut)">把42家银行的调整数据串成一条宏观视图：监管周期、货币政策与风险暴露交替主导银行股十年估值。</p>
+<div class="guide"><h4>十年主线</h4>
+<p>2016-2017 去产能后资产质量改善 → 2018 去杠杆+资管新规刺破同业与民企风险 → 2020 疫情让利压息差 → 2021-2022 地产与城投风险 sequential 暴露 → 2023-2025 高股息行情+化债+注资推动估值修复。银行股本质是对「经济信用风险」的定价。</p></div>
+<table class="tbl"><tr><th>年份</th><th>监管/政策主线</th><th>对银行的影响</th></tr><tr><td>2016</td><td style='text-align:left'>债转股试点、去产能</td><td style='text-align:left'>银行不良贷款见顶回落，资产质量边际改善</td></tr><tr><td>2017</td><td style='text-align:left'>金融去杠杆开启</td><td style='text-align:left'>同业、理财扩张受限，MPA考核收紧</td></tr><tr><td>2018</td><td style='text-align:left'>资管新规落地(4月)、紧信用</td><td style='text-align:left'>民企违约潮，股份行/城商行不良承压，PB探底</td></tr><tr><td>2019</td><td style='text-align:left'>包商银行接管(5月)</td><td style='text-align:left'>中小银行风险首次公开暴露，同业信仰打破</td></tr><tr><td>2020</td><td style='text-align:left'>疫情、让利实体1.5万亿、LPR下行</td><td style='text-align:left'>净息差快速收窄，拨备计提加大，利润零增/负增</td></tr><tr><td>2021</td><td style='text-align:left'>房地产三道红线传导、恒大违约</td><td style='text-align:left'>地产风险暴露，对公地产贷款不良抬头</td></tr><tr><td>2022</td><td style='text-align:left'>断供潮、理财破净、河南村镇银行</td><td style='text-align:left'>地产+城投担忧加剧，银行股破净比例创新高</td></tr><tr><td>2023</td><td style='text-align:left'>城投风险、中特估行情、存款降息开启</td><td style='text-align:left'>高股息策略升温，国有大行率先修复；手工补息前存款成本仍高</td></tr><tr><td>2024</td><td style='text-align:left'>手工补息治理、息差探底、高股息行情</td><td style='text-align:left'>行业NIM约1.5%历史低位；大行PB跌至0.4-0.6x，股息率6-9%</td></tr><tr><td>2025</td><td style='text-align:left'>化债推进、险资举牌银行、PB修复</td><td style='text-align:left'>财政部注资大行；大行PB回到0.7-0.8x，股息率仍高</td></tr></table>
+<h3 class="section-title">关键指标十年变化</h3>
+<div class="layer"><h4>行业净息差 NIM</h4><p>约 2.2%(2016) → 2.1%(2019) → 1.7%(2022) → 1.5%(2024) → 1.5%(2025)。单边下行是利润增速放缓的核心，也是高股息行情的背景（估值已充分反映悲观预期）。</p></div>
+<div class="layer"><h4>上市银行平均 PB</h4><p>约 0.9x(2016) → 0.8x(2018) → 0.7x(2020) → 0.5x(2022-2024谷底) → 0.7x(2025修复)。破净成为常态，股息率从3%升至6-9%吸引配置型资金。</p></div>
+<div class="layer"><h4>不良率</h4><p>行业商业银行不良率约 1.74%(2016) → 1.96%(2018峰) → 1.84%(2020) → 1.62%(2025)，总体平稳但结构分化（地产/城投相关敞口隐性压力用拨备与注资对冲）。</p></div>
+<div class="note">周期启示：银行股的最佳买点往往出现在「坏消息最密集、PB最低、股息率最高」之时（如2014、2018、2022-2024），而非财报最好看时。详见<a href="berkshire-bank-backtest.html" style="color:#7a5e10">三轮大底回测</a>。</div>
+</div><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报，估值=2026-07-10行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>

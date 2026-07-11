@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>银行方法论文</title><style>
+:root{--navy:#0f2c4c;--navy2:#16395f;--gold:#c8a04a;--silver:#9fb3c8;--bg:#f4f6f9;--card:#ffffff;--ink:#1b2733;--mut:#5d6b7a;--line:#e2e8f0;--red:#c0392b;--green:#1e7d4f;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+.nav{position:sticky;top:0;z-index:50;background:rgba(15,44,76,.92);backdrop-filter:blur(8px);border-bottom:2px solid var(--gold)}
+.nav-in{max-width:1180px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.nav .brand{color:#fff;font-weight:700;font-size:16px;letter-spacing:.5px}
+.nav .crumb{color:var(--silver);font-size:13px}
+.nav a{color:var(--silver);text-decoration:none;font-size:13px;padding:3px 8px;border-radius:6px}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:38px 18px 30px}
+.hero-in{max-width:1180px;margin:0 auto}
+.hero h1{margin:0 0 8px;font-size:28px}
+.hero p{margin:4px 0;color:var(--silver);max-width:820px}
+.hero .stat{display:flex;gap:22px;margin-top:16px;flex-wrap:wrap}
+.hero .stat b{color:var(--gold);font-size:22px;display:block}
+.hero .stat span{font-size:12px;color:var(--silver)}
+.wrap{max-width:1180px;margin:0 auto;padding:26px 18px 60px}
+.section-title{font-size:20px;font-weight:700;margin:30px 0 14px;padding-left:11px;border-left:4px solid var(--gold)}
+.filter{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 18px}
+.filter button{border:1px solid var(--line);background:#fff;color:var(--mut);padding:7px 15px;border-radius:20px;cursor:pointer;font-size:13px}
+.filter button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;transition:.2s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(15,44,76,.12);border-color:var(--gold)}
+.card .top{display:flex;justify-content:space-between;align-items:baseline}
+.card h3{margin:0;font-size:17px}
+.card .code{font-size:12px;color:var(--mut)}
+.card .cat{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;background:#eef2f7;color:var(--mut);margin:6px 0}
+.card .pos{font-size:12.5px;color:var(--mut);min-height:34px}
+.kpis{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
+.kpis div{font-size:12px;color:var(--mut)}
+.kpis b{display:block;color:var(--ink);font-size:14px}
+.detail{max-width:1000px;margin:0 auto;padding:26px 18px 60px}
+.detail .back{color:var(--navy);text-decoration:none;font-size:13px}
+.layer{background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:10px;padding:14px 16px;margin:12px 0}
+.layer h4{margin:0 0 4px;font-size:15px;color:var(--navy)}
+.layer p{margin:0;font-size:13.5px;color:var(--mut)}
+.snap{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:16px 0}
+.snap div{background:#f7f9fc;border:1px solid var(--line);border-radius:9px;padding:10px 12px;text-align:center}
+.snap b{display:block;font-size:18px;color:var(--navy)}
+.snap span{font-size:11.5px;color:var(--mut)}
+.deep{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
+.deep h4{margin:0 0 6px;font-size:15px;color:var(--navy);border-bottom:1px dashed var(--line);padding-bottom:6px}
+.deep ul{margin:6px 0;padding-left:18px;font-size:13.5px;color:var(--ink)}
+.note{background:#fff8e8;border:1px solid #f0d98a;border-radius:10px;padding:12px 15px;margin:14px 0;font-size:13px;color:#7a5e10}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:12px}
+.extend a{display:block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;text-decoration:none;color:var(--ink);transition:.2s}
+.extend a:hover{border-color:var(--gold);box-shadow:0 6px 18px rgba(15,44,76,.1)}
+.extend b{color:var(--navy);display:block;margin-bottom:4px}
+.extend span{font-size:12.5px;color:var(--mut)}
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:#fff}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 9px;text-align:center}
+.tbl th{background:var(--navy);color:#fff;font-weight:600}
+.tbl tr:nth-child(even){background:#f7f9fc}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.tag.low{background:#fde8e8;color:var(--red)}
+.tag.mid{background:#eef6ff;color:#2a6bd4}
+.tag.high{background:#e7f6ed;color:var(--green)}
+.thermo{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.thermo .nm{width:130px;font-weight:600;font-size:14px}
+.thermo .bar{flex:1;height:14px;background:linear-gradient(90deg,#c0392b,#e8b84b,#1e7d4f);border-radius:8px;position:relative;min-width:160px}
+.thermo .dot{position:absolute;top:-3px;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--navy);transform:translateX(-50%)}
+.thermo .v{font-size:12.5px;color:var(--mut);width:160px}
+footer{background:var(--navy);color:var(--silver);text-align:center;padding:22px;font-size:12.5px}
+.svgbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin:16px 0;overflow-x:auto}
+.guide{background:#eef4fb;border:1px solid #cfe0f5;border-radius:12px;padding:16px 18px;margin:14px 0}
+.guide h4{margin:0 0 8px;color:var(--navy)}
+.guide p,.guide li{font-size:13.5px;color:var(--ink)}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.hero h1{font-size:22px}.thermo .nm{width:100px}}
+</style></head><body>
+<div class="nav"><div class="nav-in">
+<div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 银行图谱 / 方法论文</div>
+<a href="berkshire-standalone.html">数据中心</a>
+<a href="berkshire-baijiu-chains.html">白酒</a>
+<a href="berkshire-bank-chains.html">银行</a>
+<a href="berkshire-ai-chains.html">AI</a>
+<a href="berkshire-robot-chains.html">机器人</a>
+</div></div><div class="detail">
+<a class="back" href="berkshire-bank-chains.html">← 返回银行图谱</a>
+<h1 style="margin:10px 0">银行怎么读：核心指标框架</h1>
+<div class="guide"><h4>为什么银行不能用普通工商企业的估值框架？</h4>
+<p>银行是经营「风险」的企业：用存款人的钱去放贷，赚利差。它的「存货」是贷款（会违约），所以估值核心是<b>资产质量</b>与<b>拨备厚度</b>，而非单纯的营收增速。市场长期给银行PB&lt;1（破净），本质是在给「看不见的坏账」打折。</p></div>
+
+<h3 class="section-title">1. 资产质量三件套：不良率 / 关注类 / 逾期</h3>
+<div class="layer"><h4>不良贷款率（NPL ratio）</h4><p>不良余额 / 贷款总额。公认「已出问题」的贷款。但要警惕：不良是「分类结果」，银行有调节空间（借新还旧、展期可暂不计入不良）。</p></div>
+<div class="layer"><h4>关注类贷款</h4><p>虽未违约但存在隐患的贷款。关注类占比上升往往预示未来不良压力。看「（不良+关注）/ 贷款总额」比单看不良率更前瞻。</p></div>
+<div class="layer"><h4>逾期贷款与「逾期偏离度」</h4><p>逾期90天以上贷款原则上应计入不良。偏离度 = 逾期90天以上贷款 / 不良贷款，&lt;100%说明分类严格（藏雷少），&gt;100%说明有「逾期但没认定为不良」的粉饰嫌疑。</p></div>
+
+<h3 class="section-title">2. 拨备覆盖率：安全垫厚不厚</h3>
+<div class="layer"><h4>拨备覆盖率 = 贷款减值准备金 / 不良余额</h4><p>越高越能吸收未来坏账。但过高的拨备也可能在「隐藏利润」（监管曾要求不低于150%，后改为120%-150%弹性区间）。拨备覆盖率高的银行（如招行390%+、杭州500%+）抗风险与利润释放空间都大。</p></div>
+<div class="layer"><h4>拨贷比 = 贷款减值准备金 / 贷款总额</h4><p>拨备覆盖率的补充，反映每100元贷款提了多少「保险」。与拨备覆盖率配合看，避免被低不良率+低拨备的「虚假安全」误导。</p></div>
+
+<h3 class="section-title">3. 净息差 NIM：银行盈利的发动机</h3>
+<div class="layer"><h4>净息差 = （利息收入-利息支出）/ 生息资产均值</h4><p>银行最核心的盈利驱动。2022-2024年行业NIM从2.1%降至1.5%附近（LPR下调+存款定期化），是银行利润增速放缓的主因。常熟银行NIM 2.5%、邮储1.66%显著高于大行，源于存款成本优势。</p></div>
+
+<h3 class="section-title">4. 资本充足率：扩张的天花板</h3>
+<div class="layer"><h4>核心一级资本充足率 / 一级 / 资本充足率</h4><p>监管红线（核心一级≥7.5%、资本充足率≥10.5%，系统重要性银行更高）。资本不足则无法放贷、无法分红。2025年财政部注资国有大行即补充核心一级资本。高ROE+高资本充足率=可持续扩张能力。</p></div>
+
+<h3 class="section-title">5. ROE 与 PB：破净之谜</h3>
+<div class="layer"><h4>为什么高ROE的银行PB却低于1？</h4><p>招行ROE 13%、宁波13%，但PB仅0.8-0.9x；民生ROE 5%、PB 0.26x。市场给PB=1以下的折扣，是在为「潜在不良+让利政策+经济下行」定价。反过来，<b>高ROE + 低PB + 高股息</b>常被价值投资者视为「烟蒂变金条」——但前提是资产质量真实稳健，否则是价值陷阱。</p></div>
+<div class="note">实用口诀：看银行先看「不良偏离度+拨备覆盖率」定安全边际，再看「NIM+中收」定盈利趋势，最后用「PB分位+股息率」定买点。具体买点方法见<a href="berkshire-bank-thermometer.html" style="color:#7a5e10">估值温度计</a>与<a href="berkshire-bank-backtest.html" style="color:#7a5e10">三轮大底回测</a>。</div>
+</div><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报，估值=2026-07-10行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>交通银行 · 银行图谱</title><style>
+:root{--navy:#0f2c4c;--navy2:#16395f;--gold:#c8a04a;--silver:#9fb3c8;--bg:#f4f6f9;--card:#ffffff;--ink:#1b2733;--mut:#5d6b7a;--line:#e2e8f0;--red:#c0392b;--green:#1e7d4f;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+.nav{position:sticky;top:0;z-index:50;background:rgba(15,44,76,.92);backdrop-filter:blur(8px);border-bottom:2px solid var(--gold)}
+.nav-in{max-width:1180px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.nav .brand{color:#fff;font-weight:700;font-size:16px;letter-spacing:.5px}
+.nav .crumb{color:var(--silver);font-size:13px}
+.nav a{color:var(--silver);text-decoration:none;font-size:13px;padding:3px 8px;border-radius:6px}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:38px 18px 30px}
+.hero-in{max-width:1180px;margin:0 auto}
+.hero h1{margin:0 0 8px;font-size:28px}
+.hero p{margin:4px 0;color:var(--silver);max-width:820px}
+.hero .stat{display:flex;gap:22px;margin-top:16px;flex-wrap:wrap}
+.hero .stat b{color:var(--gold);font-size:22px;display:block}
+.hero .stat span{font-size:12px;color:var(--silver)}
+.wrap{max-width:1180px;margin:0 auto;padding:26px 18px 60px}
+.section-title{font-size:20px;font-weight:700;margin:30px 0 14px;padding-left:11px;border-left:4px solid var(--gold)}
+.filter{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 18px}
+.filter button{border:1px solid var(--line);background:#fff;color:var(--mut);padding:7px 15px;border-radius:20px;cursor:pointer;font-size:13px}
+.filter button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;transition:.2s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(15,44,76,.12);border-color:var(--gold)}
+.card .top{display:flex;justify-content:space-between;align-items:baseline}
+.card h3{margin:0;font-size:17px}
+.card .code{font-size:12px;color:var(--mut)}
+.card .cat{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;background:#eef2f7;color:var(--mut);margin:6px 0}
+.card .pos{font-size:12.5px;color:var(--mut);min-height:34px}
+.kpis{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
+.kpis div{font-size:12px;color:var(--mut)}
+.kpis b{display:block;color:var(--ink);font-size:14px}
+.detail{max-width:1000px;margin:0 auto;padding:26px 18px 60px}
+.detail .back{color:var(--navy);text-decoration:none;font-size:13px}
+.layer{background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:10px;padding:14px 16px;margin:12px 0}
+.layer h4{margin:0 0 4px;font-size:15px;color:var(--navy)}
+.layer p{margin:0;font-size:13.5px;color:var(--mut)}
+.snap{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:16px 0}
+.snap div{background:#f7f9fc;border:1px solid var(--line);border-radius:9px;padding:10px 12px;text-align:center}
+.snap b{display:block;font-size:18px;color:var(--navy)}
+.snap span{font-size:11.5px;color:var(--mut)}
+.deep{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
+.deep h4{margin:0 0 6px;font-size:15px;color:var(--navy);border-bottom:1px dashed var(--line);padding-bottom:6px}
+.deep ul{margin:6px 0;padding-left:18px;font-size:13.5px;color:var(--ink)}
+.note{background:#fff8e8;border:1px solid #f0d98a;border-radius:10px;padding:12px 15px;margin:14px 0;font-size:13px;color:#7a5e10}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:12px}
+.extend a{display:block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;text-decoration:none;color:var(--ink);transition:.2s}
+.extend a:hover{border-color:var(--gold);box-shadow:0 6px 18px rgba(15,44,76,.1)}
+.extend b{color:var(--navy);display:block;margin-bottom:4px}
+.extend span{font-size:12.5px;color:var(--mut)}
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:#fff}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 9px;text-align:center}
+.tbl th{background:var(--navy);color:#fff;font-weight:600}
+.tbl tr:nth-child(even){background:#f7f9fc}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.tag.low{background:#fde8e8;color:var(--red)}
+.tag.mid{background:#eef6ff;color:#2a6bd4}
+.tag.high{background:#e7f6ed;color:var(--green)}
+.thermo{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.thermo .nm{width:130px;font-weight:600;font-size:14px}
+.thermo .bar{flex:1;height:14px;background:linear-gradient(90deg,#c0392b,#e8b84b,#1e7d4f);border-radius:8px;position:relative;min-width:160px}
+.thermo .dot{position:absolute;top:-3px;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--navy);transform:translateX(-50%)}
+.thermo .v{font-size:12.5px;color:var(--mut);width:160px}
+footer{background:var(--navy);color:var(--silver);text-align:center;padding:22px;font-size:12.5px}
+.svgbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin:16px 0;overflow-x:auto}
+.guide{background:#eef4fb;border:1px solid #cfe0f5;border-radius:12px;padding:16px 18px;margin:14px 0}
+.guide h4{margin:0 0 8px;color:var(--navy)}
+.guide p,.guide li{font-size:13.5px;color:var(--ink)}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.hero h1{font-size:22px}.thermo .nm{width:100px}}
+</style></head><body>
+<div class="nav"><div class="nav-in">
+<div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 银行图谱 / 交通银行</div>
+<a href="berkshire-standalone.html">数据中心</a>
+<a href="berkshire-baijiu-chains.html">白酒</a>
+<a href="berkshire-bank-chains.html">银行</a>
+<a href="berkshire-ai-chains.html">AI</a>
+<a href="berkshire-robot-chains.html">机器人</a>
+</div></div><div class="detail">
+<a class="back" href="berkshire-bank-chains.html">← 返回银行图谱</a>
+<h1 style="margin:10px 0 2px">交通银行 <span style="font-size:14px;color:var(--mut)">601328 · 国有大行</span></h1>
+<p style="color:var(--mut);margin:0 0 14px">总行在沪的综合性大行，长三角区位优势。</p>
+<h3 class="section-title" style="margin-top:18px">财务快照（2025年报 / 2026-07-10估值）</h3><div class="snap">
+<div><b>2650.71</b><span>营收(亿)</span></div>
+<div><b>956.22</b><span>归母净利(亿)</span></div>
+<div><b>1.28%</b><span>不良率</span></div>
+<div><b>208.38%</b><span>拨备覆盖率</span></div>
+<div><b>1.2%</b><span>净息差NIM</span></div>
+<div><b>8.38%</b><span>ROE</span></div>
+<div><b>0.51x</b><span>PB</span></div>
+<div><b>4.91%</b><span>股息率</span></div>
+<div><b>5840.85</b><span>总市值(亿)</span></div></div>
+<h3 class="section-title">业务条线框架（5层）</h3><div class="layer"><h4>零售</h4><p>全国网点+手机银行覆盖最广的零售客群，住房按揭与借记卡基础雄厚。</p></div><div class="layer"><h4>对公</h4><p>央企、地方国企与重大项目主力融资行，对公存款成本低。</p></div><div class="layer"><h4>同业</h4><p>同业拆借、票据贴现、金融市场投资与债券交易，管理流动性与利率风险。</p></div><div class="layer"><h4>财富</h4><p>理财子公司产品、私人银行、代理代销与托管，沉淀中收与AUM。</p></div><div class="layer"><h4>投行</h4><p>债券承销、并购顾问、交易银行与资本市场服务，对接直接融资。</p></div>
+<div class="deep"><h4>深凿 · 资产质量</h4><ul><li>不良率1.28%，拨备覆盖率208%。</li></ul></div>
+<div class="deep"><h4>深凿 · 净息差</h4><ul><li>净息差1.20%为大行偏低，负债成本有待优化。</li></ul></div>
+<div class="deep"><h4>深凿 · 资本充足</h4><ul><li>核心一级资本充足率约10.5%（注资后提升）。</li></ul></div>
+<div class="deep"><h4>深凿 · 估值与分红</h4><ul><li>PB约0.51x为大行最低，股息率约4.9%；估值修复空间大但弹性弱。</li></ul></div>
+<div class="deep"><h4>深凿 · 最新信号</h4><ul><li>2025年净利956亿，长三角一体化与金融科技投入加大。</li></ul></div>
+<div class="deep"><h4>深凿 · 新闻时间线</h4><ul><li>2023 估值跌至0.4x历史极低</li><li>2024 中期分红</li><li>2025 注资</li><li>2026 PB修复至0.51x</li></ul></div><div class="note">框架知识：银行看三张表——资产质量（不良率/拨备/逾期偏离度）、盈利能力（NIM/ROE/中收）、资本与估值（核心一级资本充足率/PB/股息率）。详见<a href="berkshire-bank-methodology.html" style="color:#7a5e10">银行方法论文</a>。</div>
+</div><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报，估值=2026-07-10行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>
