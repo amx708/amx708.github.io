@@ -3,39 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NVIDIA 链 · 跨层全栈分析</title>
+<title>NVIDIA 链 · 跨层深凿分析</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#0a0e1a;color:#e2e8f0;line-height:1.8}
 .top-bar{position:sticky;top:0;z-index:100;background:rgba(10,14,26,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 20px;display:flex;align-items:center;gap:12px}
 .home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,0.12);color:#22d3ee;border:1px solid rgba(34,211,238,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
 .home-btn:hover{background:#22d3ee;color:#0a0e1a}
-.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center;flex-wrap:wrap}
 .breadcrumb a{color:#64748b;text-decoration:none}
 .breadcrumb a:hover{color:#22d3ee}
 .crumb-sep{color:#334155}
-.container{max-width:860px;margin:0 auto;padding:24px 16px 48px}
+.container{max-width:880px;margin:0 auto;padding:24px 16px 48px}
 .hero{background:linear-gradient(135deg,#0f1729,#1e3a5f);border-radius:14px;padding:28px;margin-bottom:20px;border:1px solid rgba(34,211,238,0.15)}
 .hero-name{font-size:24px;font-weight:800;color:#fff}
 .hero-tag{display:inline-block;font-size:12px;color:#22d3ee;background:rgba(34,211,238,0.12);padding:3px 10px;border-radius:10px;margin-top:8px}
 .hero-sub{font-size:13px;color:#94a3b8;margin-top:10px}
+.hero-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.hstat{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 14px;text-align:center;min-width:84px}
+.hstat .hs-num{font-size:19px;font-weight:800;color:#22d3ee}
+.hstat .hs-lab{font-size:10.5px;color:#94a3b8;margin-top:2px}
+.section-title{font-size:17px;font-weight:700;color:#f1f5f9;margin:28px 0 12px;padding-left:12px;border-left:3px solid #22d3ee}
+.oneliner{background:rgba(34,211,238,0.06);border:1px solid rgba(34,211,238,0.2);border-radius:12px;padding:16px 18px;font-size:14.5px;color:#cbd5e1;line-height:1.8}
+.oneliner b{color:#fff}
 .layer-block{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px 20px;margin-bottom:14px}
 .layer-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .layer-num{width:26px;height:26px;border-radius:50%;background:#22d3ee;color:#0a0e1a;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .layer-title{font-size:16px;font-weight:700;color:#f1f5f9}
 .layer-body{font-size:14px;color:#cbd5e1;line-height:1.85}
 .layer-body b{color:#fff}
+.layer-body .node{display:inline-block;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.22);color:#7dd3fc;font-size:12.5px;padding:2px 9px;border-radius:8px;margin:3px 4px 3px 0}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 14px}
+.kpi .k-num{font-size:18px;font-weight:800;color:#22d3ee}
+.kpi .k-lab{font-size:11.5px;color:#94a3b8;margin-top:2px}
+.kpi .k-sub{font-size:11px;color:#64748b;margin-top:1px}
+.table-wrap{overflow-x:auto;margin-top:6px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:9px 10px;text-align:right;border-bottom:1px solid rgba(255,255,255,0.08);color:#cbd5e1}
+th:first-child,td:first-child{text-align:left;color:#f1f5f9;font-weight:600}
+th{color:#94a3b8;font-weight:600;background:rgba(255,255,255,0.03)}
+td .pos{color:#4ade80}
+td .neg{color:#f87171}
 .invest-box{background:linear-gradient(135deg,#102a43,#0c1a2e);border:1px solid rgba(34,211,238,0.25);border-radius:12px;padding:18px 20px;margin-top:8px}
 .invest-box .ib-title{font-size:16px;font-weight:700;color:#22d3ee;margin-bottom:10px}
 .invest-row{margin-bottom:12px}
 .invest-row .ir-label{font-size:13px;font-weight:700;color:#f1f5f9;margin-bottom:3px}
 .invest-row .ir-text{font-size:13.5px;color:#cbd5e1;line-height:1.75}
+.invest-row .ir-text b{color:#fff}
+.timeline{position:relative;padding-left:22px;margin-top:4px}
+.timeline::before{content:"";position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:rgba(34,211,238,0.3)}
+.tl-item{position:relative;margin-bottom:16px}
+.tl-item::before{content:"";position:absolute;left:-19px;top:6px;width:10px;height:10px;border-radius:50%;background:#22d3ee;box-shadow:0 0 0 3px rgba(34,211,238,0.15)}
+.tl-date{font-size:12px;color:#22d3ee;font-weight:700}
+.tl-text{font-size:13.5px;color:#cbd5e1;line-height:1.75;margin-top:2px}
+.tl-text b{color:#fff}
 .src-links{font-size:12.5px;color:#64748b;margin-top:10px}
 .src-links a{color:#22d3ee;text-decoration:none}
 .src-links a:hover{text-decoration:underline}
 .source-note{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px;margin-top:20px;font-size:12.5px;color:#64748b;line-height:1.7}
 .source-note b{color:#94a3b8}
-@media(max-width:640px){.hero{padding:20px 16px}.hero-name{font-size:20px}.layer-block,.invest-box{padding:16px 14px}}
+@media(max-width:640px){.hero{padding:20px 16px}.hero-name{font-size:20px}.layer-block,.invest-box{padding:16px 14px}.kpi-grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -52,57 +80,111 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 <div class="hero">
 <div class="hero-name">NVIDIA 链</div>
 <span class="hero-tag">全球 · GPU 与 CUDA 生态垄断者</span>
-<div class="hero-sub">本页为「跨层全栈」框架示例：用公开年报 / 官网 / 新闻原创整理，不构成投资建议。</div>
+<div class="hero-sub">「深凿版」样板：用公开年报 / 官网 / 新闻原创整理，落地到具体数字与节点，不构成投资建议。</div>
+<div class="hero-stats">
+<div class="hstat"><div class="hs-num">$81.6B</div><div class="hs-lab">FY27 Q1 营收</div></div>
+<div class="hstat"><div class="hs-num">+85%</div><div class="hs-lab">同比</div></div>
+<div class="hstat"><div class="hs-num">92%</div><div class="hs-lab">数据中心占比</div></div>
+<div class="hstat"><div class="hs-num">75%</div><div class="hs-lab">毛利率</div></div>
 </div>
+</div>
+
+<div class="section-title">一句话业务</div>
+<div class="oneliner">NVIDIA 不是「卖芯片的」，而是<b>卖 AI 算力平台</b>的：用 GPU 硬件 + CUDA 软件生态 + NVLink/网络，把单卡算力编织成「AI 工厂」，向云厂商、模型公司、主权 AI 与工业企业收「算力税」。数据中心业务已占其营收的 90% 以上，是这一轮 AI 基建周期最核心的「卖铲人」。</div>
+
+<div class="section-title">关键数字</div>
+<div class="kpi-grid">
+<div class="kpi"><div class="k-num">$215.9B</div><div class="k-lab">FY2026 全年营收</div><div class="k-sub">同比 +65%</div></div>
+<div class="kpi"><div class="k-num">$120.1B</div><div class="k-lab">FY2026 全年净利</div><div class="k-sub">GAAP，同比 +65%</div></div>
+<div class="kpi"><div class="k-num">$81.6B</div><div class="k-lab">FY27 Q1 营收</div><div class="k-sub">环比 +20% / 同比 +85%</div></div>
+<div class="kpi"><div class="k-num">$75.2B</div><div class="k-lab">FY27 Q1 数据中心</div><div class="k-sub">同比 +92%，占营收 92%</div></div>
+<div class="kpi"><div class="k-num">$800B</div><div class="k-lab">新增回购授权</div><div class="k-sub">股息上调至 $0.25/股</div></div>
+<div class="kpi"><div class="k-num">14 季</div><div class="k-lab">连续超预期</div><div class="k-sub">营收连续 14 季 Beat</div></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>指标（FY27 Q1，截至 2026-04-26）</th><th>本季</th><th>环比</th><th>同比</th></tr></thead>
+<tbody>
+<tr><td>总营收</td><td>$81.6B</td><td class="pos">+20%</td><td class="pos">+85%</td></tr>
+<tr><td>数据中心营收</td><td>$75.2B</td><td class="pos">+21%</td><td class="pos">+92%</td></tr>
+<tr><td>　├ 数据中心计算</td><td>$60.4B</td><td class="pos">+18%</td><td class="pos">+77%</td></tr>
+<tr><td>　└ 数据中心网络</td><td>$14.8B</td><td class="pos">+35%</td><td class="pos">+199%</td></tr>
+<tr><td>边缘计算营收</td><td>$6.4B</td><td class="pos">+10%</td><td class="pos">+29%</td></tr>
+<tr><td>GAAP 净利润</td><td>$58.3B</td><td class="pos">+36%</td><td class="pos">+211%</td></tr>
+<tr><td>GAAP 毛利率</td><td>74.9%</td><td class="pos">持平</td><td class="pos">+14.4pct</td></tr>
+<tr><td>摊薄 EPS（GAAP）</td><td>$2.39</td><td class="pos">+36%</td><td class="pos">+214%</td></tr>
+</tbody>
+</table>
+</div>
+<div class="source-note" style="margin-top:10px">注：毛利率同比大幅提升，主因去年同期计提了与 H20 过剩库存及采购承诺相关的 45 亿美元费用，基数偏低。FY27 Q2 指引：营收约 $91B（±2%）。数据来源：NVIDIA FY27 Q1 财报（2026-05-20 发布）。</div>
+
+<div class="section-title">跨层拆解（5 层）</div>
 
 <div class="layer-block">
 <div class="layer-head"><span class="layer-num">01</span><span class="layer-title">芯片与算力层</span></div>
 <div class="layer-body">
-NVIDIA 的核心壁垒是 <b>GPU + CUDA 软件生态</b>的双锁定。其数据中心 GPU（如 H100、Blackwell 架构的 B200 等）是当前大模型训练与推理的主流算力；CUDA 作为事实标准的编程框架，让全球开发者与科研工具深度绑定，形成<b>「硬件 + 软件 + 开发者」的强网络效应</b>。相比单纯卖芯片，NVIDIA 卖的是一整套难以替换的算力平台。
+核心壁垒是 <b>GPU + CUDA 软件生态</b>的双锁定：全球大模型训练与推理的主流算力几乎都跑在 NVIDIA GPU 上，而 CUDA 作为事实标准的编程框架，让开发者与科研工具深度绑定，形成「硬件 + 软件 + 开发者」的强网络效应。<br>
+<span class="node">Blackwell（B200 / GB200 / GB300 NVL72）</span><span class="node">下一代 Vera Rubin（Rubin GPU + Vera CPU + BlueField-4 DPU）</span><span class="node">CUDA / TensorRT</span><span class="node">NVLink 高速互连</span><span class="node">TSMC 3nm + CoWoS-L 封装</span><br>
+Blackwell 已是收入主力，GB300 NVL72（单柜 72 颗 GPU）需求尤旺；Vera Rubin 于 2026-06-01 在台北 COMPUTEX 由黄仁勋宣布「全面投产」，跳过试产，预计 2026 Q3 首批量货、Q4 放量，整机柜组装效率从上一代 2 小时/台压缩至 5 分钟/台。
 </div>
 </div>
 
 <div class="layer-block">
 <div class="layer-head"><span class="layer-num">02</span><span class="layer-title">云与基础设施层</span></div>
 <div class="layer-body">
-NVIDIA 不直接运营公有云，而是与 <b>微软、谷歌、亚马逊、Oracle 等云厂商</b>深度合作，为其提供 GPU 集群；同时通过 DGX 整机、NVLink 高速互连、InfiniBand 网络（源自 Mellanox 收购）把单卡算力编织成「算力工厂」。它也从「卖芯片」延伸到「卖整套 AI 工厂方案」，吃下更多价值链。
+NVIDIA 不直接运营公有云，而是与 <b>微软、谷歌、亚马逊、Oracle、Meta</b> 等深度合作，为其提供 GPU 集群；同时通过 DGX 整机、NVLink、Spectrum-X 以太网、InfiniBand 网络（源自 Mellanox 收购）把单卡算力编织成「算力工厂」。<br>
+<span class="node">DGX 整机 / GB 系列机柜</span><span class="node">NVLink + InfiniBand 网络</span><span class="node">Spectrum-X 以太网</span><span class="node">云厂商合作（MSFT / GOOGL / AMZN / ORCL）</span><br>
+它已从「卖芯片」延伸到「卖整套 AI 工厂方案」，吃下更多价值链；超大规模客户约占数据中心收入的 50%，其余来自 AI 云、工业、企业与主权客户，客户结构趋于多元。
 </div>
 </div>
 
 <div class="layer-block">
 <div class="layer-head"><span class="layer-num">03</span><span class="layer-title">大模型与算法层</span></div>
 <div class="layer-body">
-NVIDIA 自身不做消费级大模型，而是<b>赋能所有大模型</b>：其 GPU 是 GPT、Gemini、LLaMA 等基础模型训练的事实底座；并通过 NIM 微服务、NeMo 框架、TensorRT 推理优化等软件栈，把模型从「训练」到「部署」的环节都攥在手里。算法层越繁荣，对 NVIDIA 算力的需求越刚性。
+NVIDIA 自身不做消费级大模型，而是<b>赋能所有大模型</b>：其 GPU 是 GPT、Gemini、LLaMA 等基础模型训练的事实底座；并通过 NIM 微服务、NeMo 框架、TensorRT 推理优化等软件栈，把模型从「训练」到「部署」的环节都攥在手里。<br>
+<span class="node">NIM 微服务</span><span class="node">NeMo 训练框架</span><span class="node">TensorRT-LLM 推理优化</span><span class="node">代理式 AI（Agentic AI）基础设施</span><br>
+算法层越繁荣，对 NVIDIA 算力的需求越刚性。AgentPerf 基准显示，GB300 NVL72 单位兆瓦可运行的代理式 AI 智能体数量约为上代 Hopper 的 20 倍——代理式 AI 的「多步链式调用」特性，让算力消耗从「加法」变成「乘法」。
 </div>
 </div>
 
 <div class="layer-block">
 <div class="layer-head"><span class="layer-num">04</span><span class="layer-title">应用与终端层</span></div>
 <div class="layer-body">
-算力向下游渗透到多个场景：<b>游戏</b>（传统基本盘，GeForce）、<b>自动驾驶</b>（车厂基于 NVIDIA 平台开发）、<b>机器人</b>（Isaac 平台）、<b>工业数字孪生</b>（Omniverse），以及医疗、科学计算等垂直领域。应用越广，算力需求越持续，形成需求端的长期拉力。
+算力向下游渗透到多个场景，应用越广，算力需求越持续：<br>
+<span class="node">游戏（GeForce，传统基本盘）</span><span class="node">自动驾驶（车厂基于 NVIDIA 平台）</span><span class="node">机器人（Isaac 平台）</span><span class="node">工业数字孪生（Omniverse）</span><span class="node">医疗 / 科学计算</span><span class="node">边缘计算（PC / 工作站 / 汽车 / AI-RAN）</span><br>
+FY27 Q1 起 NVIDIA 将业务重划分为「数据中心」与「边缘计算」两大板块，边缘计算聚焦代理式与物理 AI 的数据处理设备，单季营收 $6.4B（同比 +29%）。
 </div>
 </div>
 
 <div class="invest-box">
-<div class="ib-title">投资逻辑（框架示例）</div>
+<div class="ib-title">05 · 投资逻辑</div>
 <div class="invest-row">
 <div class="ir-label">护城河</div>
-<div class="ir-text">CUDA 生态 + NVLink/网络 + 开发者习惯构成的三重壁垒，短期难被替代；先发优势在每一代架构（Ampere→Hopper→Blackwell）持续累积。</div>
+<div class="ir-text"><b>三重壁垒</b>：① CUDA 软件生态 + 开发者习惯，迁移成本极高；② NVLink / 网络 + 整机柜系统，对手难在短期补齐「全栈」；③ 每一代架构（Ampere→Hopper→Blackwell→Rubin）的先发优势持续累积，客户已习惯「买最新一代」。本质是<b>算力平台的网络效应</b>，而非单纯芯片性能。</div>
 </div>
 <div class="invest-row">
 <div class="ir-label">主要风险</div>
-<div class="ir-text">① 大客户（云厂商、超大模型公司）<b>自研 ASIC 芯片</b>削减依赖；② 估值已反映极高成长预期，任何增速放缓都会被放大；③ <b>出口管制</b>限制部分市场销售；④ 行业资本开支周期性强，可能存在产能过剩。
-</div>
+<div class="ir-text">① <b>大客户自研 ASIC</b>：谷歌 TPU、AWS Trainium、微软 Maia、Meta MTIA 持续放量，长期削减对 NVIDIA 的依赖；② <b>估值已反映极高成长预期</b>，任何增速放缓都会被放大；③ <b>出口管制</b>（如 H20 受限曾计提 45 亿美元库存减值）限制部分市场；④ <b>供应链刚性瓶颈</b>：CoWoS 先进封装、HBM 显存、TSMC 3nm 产能约束整个供给；⑤ <b>行业资本开支周期性强</b>，存在产能过剩与「AI 泡沫」担忧。</div>
 </div>
 <div class="invest-row">
-<div class="ir-label">观察要点</div>
-<div class="ir-text">数据中心营收占比与增速、 Blackwell 产能爬坡、软件（CUDA/NIM）订阅化进展、以及大客户自研芯片的替代节奏。</div>
+<div class="ir-label">最新季度信号（FY27 Q1）</div>
+<div class="ir-text">需求「抛物线式增长」（黄仁勋语），数据中心网络收入同比 +199% 显示互联需求爆发；<b>Blackwell 已占收入多数</b>，Rubin 2026 Q3 量产接力。公司新增 <b>$800B 回购</b>、股息上调至 $0.25/股，资本回报力度空前——通常是对自身现金流有强信心的信号。但 Q2 指引环比仅 +11%，增速斜率边际放缓，需跟踪 Rubin 爬坡与 ASP 走势。</div>
 </div>
-<div class="src-links">资料来源（公开）：<a href="https://www.nvidia.com/en-us/about-nvidia/" target="_blank" rel="noopener">NVIDIA 官网</a> · <a href="https://investor.nvidia.com/financial-info/financial-reports/" target="_blank" rel="noopener">NVIDIA 年报 / 投资者关系</a> · 各云厂商公开合作公告与新闻。</div>
+<div class="src-links">资料来源（公开）：<a href="https://www.nvidia.com/en-us/about-nvidia/" target="_blank" rel="noopener">NVIDIA 官网</a> · <a href="https://investor.nvidia.com/financial-info/financial-reports/" target="_blank" rel="noopener">NVIDIA 投资者关系 / 年报</a> · <a href="https://blogs.nvidia.cn/blog/nvidia-announces-financial-results-for-first-quarter-fiscal-2027/" target="_blank" rel="noopener">FY27 Q1 财报新闻稿</a> · 各云厂商公开合作公告与权威媒体报道。</div>
+</div>
+
+<div class="section-title">新闻时间线（近 1 年）</div>
+<div class="timeline">
+<div class="tl-item"><div class="tl-date">2026-02-26</div><div class="tl-text"><b>FY2026 全年财报</b>：全年营收 $215.9B（+65%）、净利 $120.1B（+65%）；连续 <b>14 个季度</b>营收超预期；数据中心全年 $193.7B（+68%）。</div></div>
+<div class="tl-item"><div class="tl-date">2026-03</div><div class="tl-text"><b>GTC 2026</b>：正式发布 Vera Rubin 完整平台（Rubin GPU + Vera CPU + BlueField-4 DPU，TSMC 3nm + CoWoS-L）。</div></div>
+<div class="tl-item"><div class="tl-date">2026-05-20</div><div class="tl-text"><b>FY27 Q1 财报</b>：营收 $81.6B 创纪录（同比 +85%）；数据中心 $75.2B（+92%）；新增 <b>$800B 回购</b>、股息上调至 $0.25/股；指引 Q2 约 $91B。</div></div>
+<div class="tl-item"><div class="tl-date">2026-06-01</div><div class="tl-text"><b>COMPUTEX 台北</b>：黄仁勋宣布 Vera Rubin <b>全面投产</b>，跳过试产；预计 2026 Q3 首批交付、Q4 放量，供应链规模为 Blackwell 两倍（覆盖 30+ 国、350+ 工厂）。</div></div>
+<div class="tl-item"><div class="tl-date">2026 H2（预计）</div><div class="tl-text"><b>竞争节点</b>：AMD MI450 进入 Meta 首个吉瓦级部署；Rubin 占全年出货约 22%，Blackwell 仍主导 70%+，供给受 HBM4 与 3nm 制约。</div></div>
+<div class="tl-item"><div class="tl-date">持续</div><div class="tl-text"><b>结构性变量</b>：出口管制（H20）与大客户自研 ASIC（TPU / Trainium / Maia / MTIA）是中长期最大不确定性。</div></div>
 </div>
 
 <div class="source-note">
-📌 <b>合规说明</b>：本页所有内容均基于 NVIDIA <b>公开年报、官网与新闻</b>等事实层信息，由本站原创整理与重写，不复制、不转载任何付费 / 闭源专享内容。文中的投资逻辑仅为「跨层框架」研究示例，<b>不构成任何投资建议</b>。版权归 NVIDIA 及各原发布方所有。
+📌 <b>合规说明</b>：本页所有内容均基于 NVIDIA <b>公开年报、官网与新闻</b>等事实层信息，由本站原创整理与重写，不复制、不转载任何付费 / 闭源专享内容；其中第三方机构（如 TrendForce、摩根士丹利、供应链调研）的出货量 / 产能预测为<b>估算或传闻</b>，仅供框架参考，请以公司官方披露为准。文中的投资逻辑仅为「跨层框架」研究示例，<b>不构成任何投资建议</b>。版权归 NVIDIA 及各原发布方所有。
 </div>
 
 </div>
