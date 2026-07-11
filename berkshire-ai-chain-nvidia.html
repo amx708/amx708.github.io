@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NVIDIA 链 · 跨层全栈分析</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#0a0e1a;color:#e2e8f0;line-height:1.8}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(10,14,26,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,0.12);color:#22d3ee;border:1px solid rgba(34,211,238,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#22d3ee;color:#0a0e1a}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#22d3ee}
+.crumb-sep{color:#334155}
+.container{max-width:860px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#0f1729,#1e3a5f);border-radius:14px;padding:28px;margin-bottom:20px;border:1px solid rgba(34,211,238,0.15)}
+.hero-name{font-size:24px;font-weight:800;color:#fff}
+.hero-tag{display:inline-block;font-size:12px;color:#22d3ee;background:rgba(34,211,238,0.12);padding:3px 10px;border-radius:10px;margin-top:8px}
+.hero-sub{font-size:13px;color:#94a3b8;margin-top:10px}
+.layer-block{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px 20px;margin-bottom:14px}
+.layer-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.layer-num{width:26px;height:26px;border-radius:50%;background:#22d3ee;color:#0a0e1a;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.layer-title{font-size:16px;font-weight:700;color:#f1f5f9}
+.layer-body{font-size:14px;color:#cbd5e1;line-height:1.85}
+.layer-body b{color:#fff}
+.invest-box{background:linear-gradient(135deg,#102a43,#0c1a2e);border:1px solid rgba(34,211,238,0.25);border-radius:12px;padding:18px 20px;margin-top:8px}
+.invest-box .ib-title{font-size:16px;font-weight:700;color:#22d3ee;margin-bottom:10px}
+.invest-row{margin-bottom:12px}
+.invest-row .ir-label{font-size:13px;font-weight:700;color:#f1f5f9;margin-bottom:3px}
+.invest-row .ir-text{font-size:13.5px;color:#cbd5e1;line-height:1.75}
+.src-links{font-size:12.5px;color:#64748b;margin-top:10px}
+.src-links a{color:#22d3ee;text-decoration:none}
+.src-links a:hover{text-decoration:underline}
+.source-note{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px;margin-top:20px;font-size:12.5px;color:#64748b;line-height:1.7}
+.source-note b{color:#94a3b8}
+@media(max-width:640px){.hero{padding:20px 16px}.hero-name{font-size:20px}.layer-block,.invest-box{padding:16px 14px}}
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-ai-chains.html" class="home-btn">← 产业链地图</a>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<a href="berkshire-ai-chains.html">AI 巨头产业链</a><span class="crumb-sep">/</span>
+<span>NVIDIA 链</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-name">NVIDIA 链</div>
+<span class="hero-tag">全球 · GPU 与 CUDA 生态垄断者</span>
+<div class="hero-sub">本页为「跨层全栈」框架示例：用公开年报 / 官网 / 新闻原创整理，不构成投资建议。</div>
+</div>
+
+<div class="layer-block">
+<div class="layer-head"><span class="layer-num">01</span><span class="layer-title">芯片与算力层</span></div>
+<div class="layer-body">
+NVIDIA 的核心壁垒是 <b>GPU + CUDA 软件生态</b>的双锁定。其数据中心 GPU（如 H100、Blackwell 架构的 B200 等）是当前大模型训练与推理的主流算力；CUDA 作为事实标准的编程框架，让全球开发者与科研工具深度绑定，形成<b>「硬件 + 软件 + 开发者」的强网络效应</b>。相比单纯卖芯片，NVIDIA 卖的是一整套难以替换的算力平台。
+</div>
+</div>
+
+<div class="layer-block">
+<div class="layer-head"><span class="layer-num">02</span><span class="layer-title">云与基础设施层</span></div>
+<div class="layer-body">
+NVIDIA 不直接运营公有云，而是与 <b>微软、谷歌、亚马逊、Oracle 等云厂商</b>深度合作，为其提供 GPU 集群；同时通过 DGX 整机、NVLink 高速互连、InfiniBand 网络（源自 Mellanox 收购）把单卡算力编织成「算力工厂」。它也从「卖芯片」延伸到「卖整套 AI 工厂方案」，吃下更多价值链。
+</div>
+</div>
+
+<div class="layer-block">
+<div class="layer-head"><span class="layer-num">03</span><span class="layer-title">大模型与算法层</span></div>
+<div class="layer-body">
+NVIDIA 自身不做消费级大模型，而是<b>赋能所有大模型</b>：其 GPU 是 GPT、Gemini、LLaMA 等基础模型训练的事实底座；并通过 NIM 微服务、NeMo 框架、TensorRT 推理优化等软件栈，把模型从「训练」到「部署」的环节都攥在手里。算法层越繁荣，对 NVIDIA 算力的需求越刚性。
+</div>
+</div>
+
+<div class="layer-block">
+<div class="layer-head"><span class="layer-num">04</span><span class="layer-title">应用与终端层</span></div>
+<div class="layer-body">
+算力向下游渗透到多个场景：<b>游戏</b>（传统基本盘，GeForce）、<b>自动驾驶</b>（车厂基于 NVIDIA 平台开发）、<b>机器人</b>（Isaac 平台）、<b>工业数字孪生</b>（Omniverse），以及医疗、科学计算等垂直领域。应用越广，算力需求越持续，形成需求端的长期拉力。
+</div>
+</div>
+
+<div class="invest-box">
+<div class="ib-title">投资逻辑（框架示例）</div>
+<div class="invest-row">
+<div class="ir-label">护城河</div>
+<div class="ir-text">CUDA 生态 + NVLink/网络 + 开发者习惯构成的三重壁垒，短期难被替代；先发优势在每一代架构（Ampere→Hopper→Blackwell）持续累积。</div>
+</div>
+<div class="invest-row">
+<div class="ir-label">主要风险</div>
+<div class="ir-text">① 大客户（云厂商、超大模型公司）<b>自研 ASIC 芯片</b>削减依赖；② 估值已反映极高成长预期，任何增速放缓都会被放大；③ <b>出口管制</b>限制部分市场销售；④ 行业资本开支周期性强，可能存在产能过剩。
+</div>
+</div>
+<div class="invest-row">
+<div class="ir-label">观察要点</div>
+<div class="ir-text">数据中心营收占比与增速、 Blackwell 产能爬坡、软件（CUDA/NIM）订阅化进展、以及大客户自研芯片的替代节奏。</div>
+</div>
+<div class="src-links">资料来源（公开）：<a href="https://www.nvidia.com/en-us/about-nvidia/" target="_blank" rel="noopener">NVIDIA 官网</a> · <a href="https://investor.nvidia.com/financial-info/financial-reports/" target="_blank" rel="noopener">NVIDIA 年报 / 投资者关系</a> · 各云厂商公开合作公告与新闻。</div>
+</div>
+
+<div class="source-note">
+📌 <b>合规说明</b>：本页所有内容均基于 NVIDIA <b>公开年报、官网与新闻</b>等事实层信息，由本站原创整理与重写，不复制、不转载任何付费 / 闭源专享内容。文中的投资逻辑仅为「跨层框架」研究示例，<b>不构成任何投资建议</b>。版权归 NVIDIA 及各原发布方所有。
+</div>
+
+</div>
+</body>
+</html>

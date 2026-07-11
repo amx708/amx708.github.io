@@ -80,6 +80,8 @@ def categorize(rel_path: str, title: str) -> tuple:
     p = rel_path.replace("\\", "/")
     lower = p.lower()
 
+    if "berkshire-ai-chain" in lower and "coming" not in lower:
+        return "AI产业链", 40
     if p == "index.html":
         return "首页", 1
     if "meetings_content/full_en/" in lower:
@@ -136,6 +138,8 @@ def categorize(rel_path: str, title: str) -> tuple:
         "berkshire-speeches.html": ("演讲访谈", 18),
         "curated36.html": ("投资清单", 23),
         "investments/berkshire.html": ("伯克希尔投资", 21),
+        "berkshire-ai-chains.html": ("AI产业链", 40),
+        "berkshire-ai-chain-nvidia.html": ("AI产业链", 40),
     }
     if p in page_map:
         return page_map[p]
