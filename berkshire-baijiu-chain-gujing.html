@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>古井贡酒 链 · 白酒产业链地图</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#15110a; color:#efe6d4; line-height:1.75; }
+.top-bar { position:sticky; top:0; z-index:100; background:rgba(21,17,10,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(232,184,75,0.15); padding:12px 20px; display:flex; align-items:center; gap:12px; }
+.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(232,184,75,0.12); color:#e8b84b; border:1px solid rgba(232,184,75,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
+.home-btn:hover { background:#e8b84b; color:#15110a; }
+.breadcrumb { font-size:13px; color:#9a8a6a; display:flex; gap:4px; align-items:center; }
+.breadcrumb a { color:#9a8a6a; text-decoration:none; }
+.breadcrumb a:hover { color:#e8b84b; }
+.crumb-sep { color:#5a4d35; }
+.container { max-width:980px; margin:0 auto; padding:24px 16px 48px; }
+.hero { background:linear-gradient(135deg,#241c0e 0%,#3d2f15 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(232,184,75,0.2); box-shadow:0 8px 30px rgba(0,0,0,0.3); }
+.hero-title { font-size:26px; font-weight:800; color:#f5e9cf; margin-bottom:6px; letter-spacing:.5px; }
+.hero-sub { font-size:14px; color:#c9b48a; margin-bottom:18px; }
+.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+.stat-item { background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
+.stat-num { font-size:18px; font-weight:800; color:#e8b84b; }
+.stat-label { font-size:11px; color:#c9b48a; margin-top:2px; white-space:nowrap; }
+.region-tag { font-size:11px; padding:2px 10px; border-radius:10px; font-weight:600; display:inline-block; margin-top:8px; }
+.region-cn { background:rgba(220,38,38,0.18); color:#fca5a5; border:1px solid rgba(220,38,38,0.3); }
+.section-title { font-size:18px; font-weight:700; color:#f5e9cf; margin:28px 0 14px; padding-left:12px; border-left:3px solid #e8b84b; }
+.overview { background:rgba(232,184,75,0.05); border:1px solid rgba(232,184,75,0.12); border-radius:12px; padding:18px 20px; margin-bottom:8px; font-size:14px; color:#d8c8a6; line-height:1.85; }
+.overview b { color:#f5e9cf; font-weight:600; }
+.layer-detail { background:rgba(255,255,255,0.03); border:1px solid rgba(232,184,75,0.1); border-radius:12px; padding:16px 18px; margin-bottom:10px; }
+.layer-detail-title { font-size:15px; font-weight:700; color:#f5e9cf; display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.layer-num { font-size:12px; color:#e8b84b; font-weight:700; }
+.layer-detail-body { font-size:13.5px; color:#bda988; line-height:1.8; }
+.layer-detail-body b { color:#e8d3a0; }
+.info-table { width:100%; border-collapse:collapse; background:rgba(255,255,255,0.03); border:1px solid rgba(232,184,75,0.1); border-radius:12px; overflow:hidden; margin-top:8px; }
+.info-table tr { border-bottom:1px solid rgba(232,184,75,0.08); }
+.info-table tr:last-child { border-bottom:none; }
+.info-table td { padding:12px 16px; font-size:13.5px; color:#d8c8a6; }
+.info-table td:first-child { width:160px; color:#c9b48a; background:rgba(232,184,75,0.04); }
+.insight-box { background:linear-gradient(135deg,#2a2110,#1c1608); border:1px solid rgba(232,184,75,0.2); border-radius:12px; padding:18px 20px; margin-top:16px; }
+.insight-title { font-size:15px; font-weight:700; color:#f5e9cf; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.insight-title .icon { color:#e8b84b; }
+.insight-body { font-size:13.5px; color:#d8c8a6; line-height:1.8; }
+.source-note { background:rgba(255,255,255,0.03); border:1px solid rgba(232,184,75,0.1); border-radius:10px; padding:14px 16px; margin-top:24px; font-size:12.5px; color:#9a8a6a; line-height:1.7; }
+.source-note b { color:#c9b48a; }
+.back-bar { margin-top:20px; }
+.back-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(232,184,75,0.08); color:#e8b84b; border:1px solid rgba(232,184,75,0.25); border-radius:20px; padding:8px 16px; font-size:13px; text-decoration:none; transition:all .2s; }
+.back-btn:hover { background:rgba(232,184,75,0.16); }
+@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .info-table td:first-child{width:100px} }
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<a href="berkshire-baijiu-chains.html">白酒产业链</a><span class="crumb-sep">/</span>
+<span>古井贡酒 链</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">古井贡酒 链</div>
+<div class="hero-sub">徽酒龙头，年份原浆系列引领，华北华东双线扩张。</div>
+<span class="region-tag region-cn">中国</span>
+<div class="hero-stats" style="margin-top:14px">
+<div class="stat-item"><div class="stat-num">浓香</div><div class="stat-label">香型</div></div>
+<div class="stat-item"><div class="stat-num">古 20 / 年份原浆</div><div class="stat-label">核心单品</div></div>
+<div class="stat-item"><div class="stat-num">约 203 亿</div><div class="stat-label">2023 营收</div></div>
+<div class="stat-item"><div class="stat-num">75%+</div><div class="stat-label">毛利率</div></div>
+</div>
+</div>
+
+<div class="section-title">公司概述</div>
+<div class="overview">
+
+        <p>古井贡酒是<b>徽酒绝对龙头</b>，以「年份原浆」系列（古 5/8/16/20）构建清晰价格带，古 20 成功卡位次高端。通过收购黄鹤楼（湖北）与明光酒业，形成「安徽 + 湖北」双根据地。2023 年营收约 203 亿元、归母净利润约 46 亿元，是区域名酒全国化的代表。</p>
+        
+</div>
+
+<div class="section-title">跨层全栈分析（5 层）</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">01</span>上游 · 原料与包材</div>
+<div class="layer-detail-body">皖北高粱、小麦制曲，亳州产区水质优良；年份原浆包装强调金色质感，礼盒化明显。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">02</span>中游 · 酿造与生产</div>
+<div class="layer-detail-body">浓香型老五甑工艺，古井有明代窖池（公兴槽坊遗址）背书；原酒分级与陶坛储藏支撑年份原浆概念。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">03</span>下游 · 渠道与品牌</div>
+<div class="layer-detail-body">安徽大本营深度掌控，古 20 通过「中国年·古 20」等营销绑定政商宴请；省外重点突破河南、湖北、江浙。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">04</span>消费与场景</div>
+<div class="layer-detail-body">安徽及华中宴席、商务主力；年份原浆是区域「面子酒」首选。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">05</span>投资逻辑</div>
+<div class="layer-detail-body">护城河 = 徽酒龙头地位 + 古 20 大单品 + 双根据地。风险 = 全国化费用高、华东竞争激烈（迎驾/今世缘）、省内天花板。增长稳但全国化是胜负手。</div>
+</div>
+
+<div class="section-title">关键信息一览</div>
+<table class="info-table">
+<tr><td><b>核心香型</b></td><td>浓香</td></tr>
+<tr><td><b>代表单品</b></td><td>古 20、年份原浆古 5/8/16</td></tr>
+<tr><td><b>渠道亮点</b></td><td>安徽大本营 + 湖北双根据地</td></tr>
+<tr><td><b>关键指标</b></td><td>徽酒龙头，次高端古 20 放量</td></tr>
+</table>
+
+<div class="insight-box">
+<div class="insight-title"><span class="icon">🛡️</span> 护城河</div>
+<div class="insight-body">徽酒难以撼动的龙头地位 + 古 20 次高端大单品 + 安徽/湖北双根据地。</div>
+</div>
+
+<div class="insight-box">
+<div class="insight-title"><span class="icon">⚠️</span> 主要风险</div>
+<div class="insight-body">1）全国化营销费用高企；2）华东区域竞争白热化（迎驾、今世缘）；3）省内市场渐近天花板；4）黄鹤楼等收购整合成效待验。</div>
+</div>
+
+<div class="back-bar">
+<a href="berkshire-baijiu-chains.html" class="back-btn">← 返回白酒产业链</a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中数字为近年财报四舍五入值，最新数据以公司公告为准。对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+</body>
+</html>
