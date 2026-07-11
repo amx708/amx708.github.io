@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>机器人产业链地图 · 价值投资视角</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#0a0e1a;color:#e2e8f0;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(10,14,26,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#34d399;color:#0a0e1a}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#34d399}
+.crumb-sep{color:#334155}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#0c1a14 0%,#14532d 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(52,211,153,0.15);box-shadow:0 8px 30px rgba(0,0,0,0.3)}
+.hero-title{font-size:26px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#94a3b8;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:22px;font-weight:800;color:#34d399}
+.stat-label{font-size:11px;color:#94a3b8;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#0c1a14,#14321f);border:1px solid rgba(52,211,153,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 4px 16px rgba(52,211,153,0.08)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#34d399;background:rgba(52,211,153,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#a7f3d0;line-height:1.8}
+.explain-banner .eb-text b{color:#fff;font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:#f1f5f9;margin:28px 0 14px;padding-left:12px;border-left:3px solid #34d399}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 14px}
+.layer-num{font-size:12px;color:#34d399;font-weight:700}
+.layer-name{font-size:14px;color:#f1f5f9;font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#94a3b8;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block}
+.giant-card:hover{border-color:#34d399;background:rgba(52,211,153,0.06);transform:translateY(-2px)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:#f1f5f9}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(220,38,38,0.18);color:#fca5a5;border:1px solid rgba(220,38,38,0.3)}
+.region-global{background:rgba(37,99,235,0.18);color:#93c5fd;border:1px solid rgba(37,99,235,0.3)}
+.giant-desc{font-size:12.5px;color:#94a3b8;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#34d399;font-weight:600}
+.coming-tag{font-size:11px;color:#64748b;background:rgba(255,255,255,0.05);padding:2px 8px;border-radius:8px}
+.source-note{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7}
+.source-note b{color:#94a3b8}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<span>机器人产业链</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">机器人产业链地图</div>
+<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开资料原创整理，不复制任何付费内容</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">14</div><div class="stat-label">机器人玩家</div></div>
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+</div>
+</div>
+
+<div class="explain-banner">
+<div class="eb-icon">🦾</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴公开方法论、用公开资料自行整理</b>的知识框架，目的是把机器人（含人形机器人）玩家的布局按「层级」拆解，便于从投资视角理解其护城河与风险。<br>
+<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 产品发布（如特斯拉 AI Day、投资者日）与行业公开数据——均为公开事实层。<br>
+<b>合规边界</b>：不复制任何付费 / 闭源专享内容；事实可自由采用，文字均为本站原创重写并标注来源；如需深读某玩家的独家产业链研究，请前往其一手发布渠道。
+</div>
+</div>
+</div>
+
+<div class="section-title">跨层分析框架（5 层）</div>
+<div class="layers">
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">核心零部件</div><div class="layer-desc">减速器、伺服电机、控制器、丝杠（滚珠/行星）、传感器、电池等「卡脖子」环节</div></div>
+<div class="layer-card"><div class="layer-num">02</div><div class="layer-name">本体与执行器</div><div class="layer-desc">工业机器人本体、人形机器人关节模组 / 灵巧手 / 执行器总成</div></div>
+<div class="layer-card"><div class="layer-num">03</div><div class="layer-name">软件与具身智能</div><div class="layer-desc">运动控制、端到端 VLA 大模型、仿真训练、感知与决策算法</div></div>
+<div class="layer-card"><div class="layer-num">04</div><div class="layer-name">应用场景</div><div class="layer-desc">工业制造、仓储物流、商业服务、特种作业、家庭消费等人形落地</div></div>
+<div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">护城河（量产 / 成本 / 数据闭环）、估值与主要风险</div></div>
+</div>
+
+<div class="section-title">玩家索引（14 家）</div>
+<div class="grid">
+
+<a class="giant-card" href="berkshire-robot-chain-tesla.html">
+<div class="giant-head"><span class="giant-name">Tesla Optimus 链</span><span class="region-tag region-global">全球</span></div>
+<div class="giant-desc">人形机器人标杆，自研执行器 / 电机 / 减速器 / 电池，复用 FSD 端到端神经网络，目标工厂规模化量产。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+
+<a class="giant-card" href="berkshire-robot-chain-coming.html">
+<div class="giant-head"><span class="giant-name">Figure AI 链</span><span class="region-tag region-global">全球</span></div>
+<div class="giant-desc">明星人形机器人创企，Figure 02 / 03，与 OpenAI、BMW 合作，融资与估值快速攀升。</div>
+<div class="giant-foot"><span class="coming-tag">整理中</span></div>
+</a>
+
+<a class="giant-card" href="berkshire-robot-chain-coming.html">
+<div class="giant-head"><span class="giant-name">Boston Dynamics 链</span><span class="region-tag region-global">全球</span></div>
+<div class="giant-desc">液压 / 全电动 Atlas 标杆，运动控制技术天花板，现属现代汽车旗下。</div>
+<div class="giant-foot"><span class="coming-tag">整理中</span></div>
+</a>
+
+<a class="giant-card" href="berkshire-robot-chain-coming.html">
+<div class="giant-head"><span class="giant-name">NVIDIA 机器人链</span><span class="region-tag region-global">全球</span></div>
+<div class="giant-desc">Isaac 平台 + GR00T 具身大模型 + Jetson 边缘算力，做人形机器人的「卖铲人」。</div>
+<div class="giant-foot"><span class="coming-tag">整理中</span></div>
+</a>
+
+<a class="giant-card" href="berkshire-robot-chain-coming.html">
+<div class="giant-head"><span class="giant-name">ABB 链</span><span class="region-tag region-global">全球</span></div>
+<div class="giant-desc">工业机器人四大家族之一，运动控制与工厂自动化龙头，并购深耕协作机器人。</div>
+<div class="giant-foot"><span class="coming-tag">整理中</span></div>
+</a>
+
+<a class="giant-card" href="berkshire-robot-chain-coming.html">
+<div class="giant-head"><span class="giant-name">发那科 FANUC 链</span><span class="region-tag region-global">全球</span></div>
+<div class="giant-desc">工业机器人四大家族，数控系统 + 机器人本体，全球装机量领先。</div>
+<div class="giant-foot"><span class="coming-tag">整理中</span></div>
+</a>
+
+<a class="giant-card" href="berkshire-robot-chain-coming.html">
+<div class="giant-head"><span class="giant-name">安川 YASKAWA 链</span><span class="region-tag region-global">全球</span></div>
+<div class="giant-desc">工业机器人四大家族，伺服电机与运动控制底蕴深厚，Motoman 系列广用。</div>
+<div class="giant-foot"><span class="coming-tag">整理中</span></div>
+</a>
+
+<a class="giant-card" href="berkshire-robot-chain-coming.html">
+<div class="giant-head"><span class="giant-name">库卡 KUKA 链</span><span class="region-tag region-global">全球</span></div>
+<div class="giant-desc">工业机器人四大家族，现属美的集团，中国本土化制造与服务优势突出。</div>
+<div class="giant-foot"><span class="coming-tag">整理中</span></div>
+</a>
+
+<a class="giant-card" href="berkshire-robot-chain-coming.html">
+<div class="giant-head"><span class="giant-name">宇树科技 Unitree 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">四足机器狗 + 人形 G1/H1 代表，高性价比量产能力突出，全球出货量领先。</div>
+<div class="giant-foot"><span class="coming-tag">整理中</span></div>
+</a>
+
+<a class="giant-card" href="berkshire-robot-chain-coming.html">
+<div class="giant-head"><span class="giant-name">智元机器人 AgiBot 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">远征 / 灵犀系列人形机器人，具身智能数据闭环 + 数据采集工厂，量产节奏快。</div>
+<div class="giant-foot"><span class="coming-tag">整理中</span></div>
+</a>
+
+<a class="giant-card" href="berkshire-robot-chain-coming.html">
+<div class="giant-head"><span class="giant-name">优必选 UBTECH 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">Walker 人形机器人，港股上市，工业 + 教育 + 消费场景布局，Walker S 进车厂实训。</div>
+<div class="giant-foot"><span class="coming-tag">整理中</span></div>
+</a>
+
+<a class="giant-card" href="berkshire-robot-chain-coming.html">
+<div class="giant-head"><span class="giant-name">小米机器人链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">CyberOne（铁大）全尺寸人形，依托造车与生态能力，内部研发持续推进。</div>
+<div class="giant-foot"><span class="coming-tag">整理中</span></div>
+</a>
+
+<a class="giant-card" href="berkshire-robot-chain-coming.html">
+<div class="giant-head"><span class="giant-name">华为具身智能链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">盘古大模型 + 昇腾算力赋能具身智能，与车企 / 工业伙伴共建机器人生态。</div>
+<div class="giant-foot"><span class="coming-tag">整理中</span></div>
+</a>
+
+<a class="giant-card" href="berkshire-robot-chain-coming.html">
+<div class="giant-head"><span class="giant-name">美的机器人链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">通过库卡布局工业机器人，并推进人形机器人研发，制造与渠道协同优势强。</div>
+<div class="giant-foot"><span class="coming-tag">整理中</span></div>
+</a>
+
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。如需某玩家的独家深度产业链研究，请前往其一手发布渠道。
+</div>
+
+</div>
+</body>
+</html>

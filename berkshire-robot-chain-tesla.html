@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tesla Optimus 链 · 跨层全栈分析</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#0a0e1a;color:#e2e8f0;line-height:1.8}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(10,14,26,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#34d399;color:#0a0e1a}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#34d399}
+.crumb-sep{color:#334155}
+.container{max-width:860px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#0c1a14,#14532d);border-radius:14px;padding:28px;margin-bottom:20px;border:1px solid rgba(52,211,153,0.15)}
+.hero-name{font-size:24px;font-weight:800;color:#fff}
+.hero-tag{display:inline-block;font-size:12px;color:#34d399;background:rgba(52,211,153,0.12);padding:3px 10px;border-radius:10px;margin-top:8px}
+.hero-sub{font-size:13px;color:#94a3b8;margin-top:10px}
+.layer-block{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px 20px;margin-bottom:14px}
+.layer-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.layer-num{width:26px;height:26px;border-radius:50%;background:#34d399;color:#0a0e1a;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.layer-title{font-size:16px;font-weight:700;color:#f1f5f9}
+.layer-body{font-size:14px;color:#cbd5e1;line-height:1.85}
+.layer-body b{color:#fff}
+.invest-box{background:linear-gradient(135deg,#14321f,#0c1a14);border:1px solid rgba(52,211,153,0.25);border-radius:12px;padding:18px 20px;margin-top:8px}
+.invest-box .ib-title{font-size:16px;font-weight:700;color:#34d399;margin-bottom:10px}
+.invest-row{margin-bottom:12px}
+.invest-row .ir-label{font-size:13px;font-weight:700;color:#f1f5f9;margin-bottom:3px}
+.invest-row .ir-text{font-size:13.5px;color:#cbd5e1;line-height:1.75}
+.src-links{font-size:12.5px;color:#64748b;margin-top:10px}
+.src-links a{color:#34d399;text-decoration:none}
+.src-links a:hover{text-decoration:underline}
+.source-note{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px;margin-top:20px;font-size:12.5px;color:#64748b;line-height:1.7}
+.source-note b{color:#94a3b8}
+@media(max-width:640px){.hero{padding:20px 16px}.hero-name{font-size:20px}.layer-block,.invest-box{padding:16px 14px}}
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-robot-chains.html" class="home-btn">← 产业链地图</a>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<a href="berkshire-robot-chains.html">机器人产业链</a><span class="crumb-sep">/</span>
+<span>Tesla Optimus 链</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-name">Tesla Optimus 链</div>
+<span class="hero-tag">全球 · 人形机器人量产标杆</span>
+<div class="hero-sub">本页为「跨层全栈」框架示例：用公开年报 / 官网 / 新闻原创整理，不构成投资建议。</div>
+</div>
+
+<div class="layer-block">
+<div class="layer-head"><span class="layer-num">01</span><span class="layer-title">核心零部件与执行器层</span></div>
+<div class="layer-body">
+Optimus 的关键在 <b>自研执行器（actuator）</b>——特斯拉把旋转执行器、线性执行器、灵巧手（手指）做成模块化、可大规模制造的标准件。公开信息显示，整机拥有 <b>数十个自由度</b>（手部单只即达 20+ 自由度），关节大量采用<b>无框力矩电机 + 减速器（谐波/行星） + 丝杠 + 力矩 / 位置传感器 + 电池包</b>的组合；许多零部件由特斯拉自研或深度定制，目标是把「机械 + 电子 + 能源」高度集成，从而把成本压下来、把可靠性提上去。
+</div>
+</div>
+
+<div class="layer-block">
+<div class="layer-head"><span class="layer-num">02</span><span class="layer-title">本体与制造层</span></div>
+<div class="layer-body">
+从 2022 年 AI Day 首次亮相，到后续 Gen 2、Gen 3（更纤细、更类人）的迭代，Optimus 的核心叙事是<b>「在特斯拉自有工厂里量产」</b>：复用汽车制造的冲压、压铸、电驱、电池与供应链能力，把机器人当成「带轮子的车去掉轮子」来造。特斯拉对外表述的量产节奏是 先小批量内部部署、再逐步爬坡，长期成本目标指向数万美元级别——这是它与纯实验室机器人最本质的区别：<b>制造，而非原型</b>。
+</div>
+</div>
+
+<div class="layer-block">
+<div class="layer-head"><span class="layer-num">03</span><span class="layer-title">软件与具身智能层</span></div>
+<div class="layer-body">
+Optimus 的「大脑」直接<b>复用特斯拉汽车的端到端神经网络</b>：占用网络、自动标注、视频训练集群（含 Dojo）同源迁移到机器人上，让机器人从视觉输入直接学到动作输出，而不是手写规则。训练数据来自仿真 + 真实遥操作采集。这套 <b>「车 — 机器人共享 AI 栈」</b>是特斯拉相对多数机器人公司的独特杠杆：它已积累海量真实世界驾驶数据，可用于加速具身智能收敛。
+</div>
+</div>
+
+<div class="layer-block">
+<div class="layer-head"><span class="layer-num">04</span><span class="layer-title">应用场景层</span></div>
+<div class="layer-body">
+近期落地场景集中在 <b>特斯拉自家工厂</b>：搬运零部件、电池分拣、拧螺丝等结构化重复任务，先把封闭、可控环境跑通，再向更复杂场景扩展。更远期想象空间在家庭服务、商业服务与人形通用作业——但特斯拉公开口径强调「先工厂、再外溢」，与「为量产而设计」的策略一致。
+</div>
+</div>
+
+<div class="invest-box">
+<div class="ib-title">投资逻辑（框架示例）</div>
+<div class="invest-row">
+<div class="ir-label">护城河</div>
+<div class="ir-text">① <b>制造能力迁移</b>：汽车级供应链 + 工厂可把机器人做成规模品，而非展品；② <b>车 — 机器人共享 AI 与数据闭环</b>：真实世界数据红利难以复制；③ 核心零部件自研带来的成本与迭代主动权。</div>
+</div>
+<div class="invest-row">
+<div class="ir-label">主要风险</div>
+<div class="ir-text">① <b>量产爬坡不确定性</b>：从演示到稳定、经济量产仍是大工程；② <b>成本与安全</b>：人形进入工厂 / 家庭对可靠性与责任边界要求极高；③ <b>监管与舆论</b>：劳动替代、安全合规可能成为变量；④ 人形赛道竞争快速升温，先发不等于终局。</div>
+</div>
+<div class="invest-row">
+<div class="ir-label">观察要点</div>
+<div class="ir-text">特斯拉工厂内部实际部署台数、执行器自研率与单位成本、端到端策略的泛化能力、以及量产时间表是否兑现——这些公开信号比单支演示视频更能说明进展。</div>
+</div>
+<div class="src-links">资料来源（公开）：<a href="https://www.tesla.com/we-robot" target="_blank" rel="noopener">Tesla 官网 / We, Robot</a> · <a href="https://ir.tesla.com/" target="_blank" rel="noopener">Tesla 投资者关系（年报 / 财报电话会）</a> · 历年 AI Day 与公开新闻。</div>
+</div>
+
+<div class="source-note">
+📌 <b>合规说明</b>：本页所有内容均基于 Tesla <b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写，不复制、不转载任何付费 / 闭源专享内容。文中的投资逻辑仅为「跨层框架」研究示例，<b>不构成任何投资建议</b>。版权归 Tesla 及各原发布方所有。
+</div>
+
+</div>
+</body>
+</html>
