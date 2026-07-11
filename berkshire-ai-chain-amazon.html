@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amazon 链 · AI 巨头产业链地图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#0a0e1a;color:#e2e8f0;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(10,14,26,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,0.12);color:#22d3ee;border:1px solid rgba(34,211,238,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#22d3ee;color:#0a0e1a}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#22d3ee}
+.crumb-sep{color:#334155}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#0f1729 0%,#1e3a5f 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(34,211,238,0.15);box-shadow:0 8px 30px rgba(0,0,0,0.3)}
+.hero-title{font-size:26px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#94a3b8;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#22d3ee}
+.stat-label{font-size:11px;color:#94a3b8;margin-top:2px;white-space:nowrap}
+.region-tag{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
+.region-cn{background:rgba(220,38,38,0.18);color:#fca5a5;border:1px solid rgba(220,38,38,0.3)}
+.region-global{background:rgba(37,99,235,0.18);color:#93c5fd;border:1px solid rgba(37,99,235,0.3)}
+.section-title{font-size:18px;font-weight:700;color:#f1f5f9;margin:28px 0 14px;padding-left:12px;border-left:3px solid #22d3ee}
+.overview{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#cbd5e1;line-height:1.85}
+.overview b{color:#fff;font-weight:600}
+.layer-detail{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 18px;margin-bottom:10px}
+.layer-detail-title{font-size:15px;font-weight:700;color:#f1f5f9;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-num{font-size:12px;color:#22d3ee;font-weight:700}
+.layer-detail-body{font-size:13.5px;color:#94a3b8;line-height:1.8}
+.layer-detail-body b{color:#cbd5e1}
+.info-table{width:100%;border-collapse:collapse;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-top:8px}
+.info-table tr{border-bottom:1px solid rgba(255,255,255,0.06)}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#cbd5e1}
+.info-table td:first-child{width:160px;color:#94a3b8;background:rgba(255,255,255,0.02)}
+.insight-box{background:linear-gradient(135deg,#0c1a2e,#102a43);border:1px solid rgba(34,211,238,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#22d3ee}
+.insight-body{font-size:13.5px;color:#bae6fd;line-height:1.8}
+.source-note{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7}
+.source-note b{color:#94a3b8}
+.back-bar{margin-top:20px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.05);color:#22d3ee;border:1px solid rgba(34,211,238,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(34,211,238,0.12)}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.info-table td:first-child{width:100px}}
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<a href="berkshire-ai-chains.html">AI 巨头产业链</a><span class="crumb-sep">/</span>
+<span>Amazon 链</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">Amazon 链</div>
+<div class="hero-sub">AWS 云算力 + 自研 Trainium/Inferentia 芯片 + Alexa，电商与云双引擎。</div>
+<span class="region-tag region-global">全球</span>
+<div class="hero-stats" style="margin-top:14px">
+<div class="stat-item"><div class="stat-num">150 万+</div><div class="stat-label">员工</div></div>
+<div class="stat-item"><div class="stat-num">全球第一云</div><div class="stat-label">AWS 市占</div></div>
+<div class="stat-item"><div class="stat-num">Trainium / Inferentia</div><div class="stat-label">自研芯片</div></div>
+</div>
+</div>
+
+<div class="section-title">公司 / 主题概述</div>
+<div class="overview">
+
+        <p>Amazon 是 AI 产业链中「卖铲子」的代表。AWS 不仅是英伟达 GPU 的重要销售渠道，也自研 Trainium（训练芯片）与 Inferentia（推理芯片），试图降低对 NVIDIA 的依赖。电商业务则通过推荐算法、物流优化、AIGC 商品描述与客服机器人持续受益。Amazon 的 AI 战略是「底层自研、上层应用」，资本开支重点放在 AWS 数据中心扩张。</p>
+        
+</div>
+
+<div class="section-title">跨层全栈分析（5 层）</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">01</span>芯片与算力</div>
+<div class="layer-detail-body">自研 Trainium2（训练）、Inferentia2（推理）以及 Graviton 通用 CPU。AWS  Trainium/Inferentia 芯片主要服务于价格敏感型客户，与 NVIDIA 高端 GPU 形成错位竞争。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">02</span>云与基础设施</div>
+<div class="layer-detail-body">AWS 是全球市占率最高的公有云，提供 Amazon Bedrock（多模型平台）、SageMaker、EC2 上的 GPU 实例。AWS 是 Amazon 利润的主要来源，AI 工作负载是其增长核心。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">03</span>大模型与算法</div>
+<div class="layer-detail-body">Amazon Bedrock 集成 Claude、Llama、Stability AI、Titan 等多模型。自研 Titan 模型主要用于内部业务。2024 年推出 Amazon Nova 模型系列，覆盖文本、图像、视频。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">04</span>应用与终端</div>
+<div class="layer-detail-body">电商推荐与搜索、物流路径优化、Alexa 语音助手、Ring 智能家居、Amazon Pharmacy、广告（DSP）。Amazon 的 AI 应用多为「降本增效」型，而非面向消费者的聊天机器人。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">05</span>投资逻辑</div>
+<div class="layer-detail-body">护城河 = AWS 规模与政企客户基础 + 电商物流网络。风险 = 自研芯片性能差距、云价格战、电商增长放缓。Amazon 的 AI 价值主要来自「基础设施抽成」，而非爆款 AI 应用。</div>
+</div>
+
+<div class="section-title">关键信息一览</div>
+<table class="info-table">
+<tr><td><b>核心业务</b></td><td>AWS、电商、广告、物流、Prime 会员</td></tr>
+<tr><td><b>AI 代表作</b></td><td>Bedrock、Trainium、Inferentia、Alexa、Nova</td></tr>
+<tr><td><b>竞争壁垒</b></td><td>AWS 规模、电商物流网络、Prime 生态</td></tr>
+<tr><td><b>主要风险</b></td><td>自研芯片不及预期、云竞争加剧、电商放缓</td></tr>
+</table>
+
+<div class="insight-box">
+<div class="insight-title"><span class="icon">🛡️</span> 护城河</div>
+<div class="insight-body">AWS 的先发优势与广泛服务组合使企业迁移成本极高；电商侧的物流与 Prime 会员体系形成飞轮。</div>
+</div>
+
+<div class="insight-box">
+<div class="insight-title"><span class="icon">⚠️</span> 主要风险</div>
+<div class="insight-body">1）AI 资本开支对自由现金流的压力；2）自研芯片性能与生态不及 NVIDIA；3）电商竞争（Temu、Shein）与消费疲软。</div>
+</div>
+
+<div class="back-bar">
+<a href="berkshire-ai-chains.html" class="back-btn">← 返回 AI 巨头产业链</a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。如需某巨头的独家深度产业链研究，请前往其一手发布渠道。
+</div>
+
+</div>
+</body>
+</html>

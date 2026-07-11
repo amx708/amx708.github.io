@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>腾讯 链 · AI 巨头产业链地图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#0a0e1a;color:#e2e8f0;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(10,14,26,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,0.12);color:#22d3ee;border:1px solid rgba(34,211,238,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#22d3ee;color:#0a0e1a}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#22d3ee}
+.crumb-sep{color:#334155}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#0f1729 0%,#1e3a5f 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(34,211,238,0.15);box-shadow:0 8px 30px rgba(0,0,0,0.3)}
+.hero-title{font-size:26px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#94a3b8;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#22d3ee}
+.stat-label{font-size:11px;color:#94a3b8;margin-top:2px;white-space:nowrap}
+.region-tag{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
+.region-cn{background:rgba(220,38,38,0.18);color:#fca5a5;border:1px solid rgba(220,38,38,0.3)}
+.region-global{background:rgba(37,99,235,0.18);color:#93c5fd;border:1px solid rgba(37,99,235,0.3)}
+.section-title{font-size:18px;font-weight:700;color:#f1f5f9;margin:28px 0 14px;padding-left:12px;border-left:3px solid #22d3ee}
+.overview{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#cbd5e1;line-height:1.85}
+.overview b{color:#fff;font-weight:600}
+.layer-detail{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 18px;margin-bottom:10px}
+.layer-detail-title{font-size:15px;font-weight:700;color:#f1f5f9;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-num{font-size:12px;color:#22d3ee;font-weight:700}
+.layer-detail-body{font-size:13.5px;color:#94a3b8;line-height:1.8}
+.layer-detail-body b{color:#cbd5e1}
+.info-table{width:100%;border-collapse:collapse;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-top:8px}
+.info-table tr{border-bottom:1px solid rgba(255,255,255,0.06)}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#cbd5e1}
+.info-table td:first-child{width:160px;color:#94a3b8;background:rgba(255,255,255,0.02)}
+.insight-box{background:linear-gradient(135deg,#0c1a2e,#102a43);border:1px solid rgba(34,211,238,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#22d3ee}
+.insight-body{font-size:13.5px;color:#bae6fd;line-height:1.8}
+.source-note{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7}
+.source-note b{color:#94a3b8}
+.back-bar{margin-top:20px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.05);color:#22d3ee;border:1px solid rgba(34,211,238,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(34,211,238,0.12)}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.info-table td:first-child{width:100px}}
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<a href="berkshire-ai-chains.html">AI 巨头产业链</a><span class="crumb-sep">/</span>
+<span>腾讯 链</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">腾讯 链</div>
+<div class="hero-sub">混元大模型 + 微信生态 + 腾讯云 + 游戏，场景与流量优势突出。</div>
+<span class="region-tag region-cn">中国</span>
+<div class="hero-stats" style="margin-top:14px">
+<div class="stat-item"><div class="stat-num">10 万+</div><div class="stat-label">员工</div></div>
+<div class="stat-item"><div class="stat-num">13 亿+</div><div class="stat-label">微信月活</div></div>
+<div class="stat-item"><div class="stat-num">全球前列</div><div class="stat-label">游戏收入</div></div>
+</div>
+</div>
+
+<div class="section-title">公司 / 主题概述</div>
+<div class="overview">
+
+        <p>腾讯的 AI 战略特点是「慢热但场景深」。相比阿里与字节在模型与应用上的高调，腾讯更强调把 AI 能力嵌入现有业务：微信（搜索、助手、小程序）、企业微信与腾讯会议（生产力）、游戏（NPC、生成内容）、广告（智能投放）。混元大模型是其基础模型层，腾讯云是模型对外服务的载体。腾讯的核心优势是<b>无与伦比的 C 端场景与社交网络数据</b>。</p>
+        
+</div>
+
+<div class="section-title">跨层全栈分析（5 层）</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">01</span>芯片与算力</div>
+<div class="layer-detail-body">腾讯不自研芯片，主要采购英伟达 GPU 与华为昇腾等国产芯片，建设大规模智算中心。混元大模型训练依赖外部算力供应。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">02</span>云与基础设施</div>
+<div class="layer-detail-body">腾讯云是中国第二大公有云，提供混元大模型 API、TI 平台、向量数据库等。政企与互联网客户并重，金融、政务、传媒是优势行业。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">03</span>大模型与算法</div>
+<div class="layer-detail-body">混元大模型覆盖文本、图像、视频、代码等多模态。2024 年混元已升级为万亿参数 MoE 架构，并对外开源部分版本。腾讯元宝、微信搜一搜、腾讯文档 AI 助手等接入混元。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">04</span>应用与终端</div>
+<div class="layer-detail-body">微信搜一搜、腾讯元宝、腾讯文档 / 腾讯会议 AI 助手、游戏 AI NPC、广告智能投放、视频号内容推荐。腾讯的 AI 应用重点不是新建超级应用，而是升级现有产品。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">05</span>投资逻辑</div>
+<div class="layer-detail-body">护城河 = 微信社交关系 + 游戏 IP + 内容生态。风险 = 游戏版号与监管、广告竞争、AI 投入节奏相对谨慎。腾讯是「场景为王」的防守型 AI 玩家。</div>
+</div>
+
+<div class="section-title">关键信息一览</div>
+<table class="info-table">
+<tr><td><b>核心业务</b></td><td>微信、游戏、广告、腾讯云、金融科技</td></tr>
+<tr><td><b>AI 代表作</b></td><td>混元大模型、腾讯元宝、腾讯会议 AI</td></tr>
+<tr><td><b>竞争壁垒</b></td><td>微信生态、游戏 IP、社交关系</td></tr>
+<tr><td><b>主要风险</b></td><td>监管、游戏周期、广告竞争</td></tr>
+</table>
+
+<div class="insight-box">
+<div class="insight-title"><span class="icon">🛡️</span> 护城河</div>
+<div class="insight-body">微信是中国移动互联网的底层连接器，游戏业务拥有全球顶级 IP，社交关系链迁移成本极高。</div>
+</div>
+
+<div class="insight-box">
+<div class="insight-title"><span class="icon">⚠️</span> 主要风险</div>
+<div class="insight-body">1）游戏行业监管与未成年人保护；2）广告收入受宏观经济影响；3）AI 应用层面的爆款产品相对滞后。</div>
+</div>
+
+<div class="back-bar">
+<a href="berkshire-ai-chains.html" class="back-btn">← 返回 AI 巨头产业链</a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。如需某巨头的独家深度产业链研究，请前往其一手发布渠道。
+</div>
+
+</div>
+</body>
+</html>
