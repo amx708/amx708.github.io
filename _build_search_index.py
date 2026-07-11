@@ -122,6 +122,7 @@ def categorize(rel_path: str, title: str) -> tuple:
         "berkshire-pabrai-index.html": ("帕伯莱演讲", 12),
         "berkshire-guijiang-index.html": ("归江文章", 12),
         "berkshire-guijiang-booklist.html": ("归江书单", 12),
+        "berkshire-duan-index.html": ("段永平思想", 12),
         "berkshire-munger-speeches.html": ("芒格演讲", 18),
         "berkshire-buffett-quotes.html": ("巴菲特演讲与名言", 19),
         "berkshire-munger-quotes.html": ("芒格名言", 19),

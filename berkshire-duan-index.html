@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>段永平投资思想 — 大道无形我有型</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f8f9fa;color:#1a1a2e;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(249,115,22,0.15);color:#fb923c;border:1px solid rgba(249,115,22,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#f97316;color:#fff}
+.breadcrumb{font-size:13px;color:#94a3b8;display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.breadcrumb a{color:#94a3b8;text-decoration:none}
+.breadcrumb a:hover{color:#fb923c}
+.crumb-sep{color:#64748b}
+.container{max-width:900px;margin:0 auto;padding:20px 16px 40px}
+.hero{background:linear-gradient(135deg,#0f172a 0%,#7c2d12 60%,#ea580c 100%);border-radius:12px;padding:32px 28px;margin-bottom:24px;color:#fff;display:flex;gap:24px;align-items:center}
+.hero-avatar{width:84px;height:84px;border-radius:16px;background:rgba(249,115,22,0.18);display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800;color:#fb923c;border:2px solid rgba(249,115,22,0.4);flex-shrink:0}
+.hero-name{font-size:26px;font-weight:800;margin-bottom:6px}
+.hero-name-en{font-size:14px;color:#fdba74;margin-bottom:12px;font-weight:400}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.hero-tag{font-size:12px;padding:3px 10px;border-radius:14px;background:rgba(255,255,255,0.1);color:#fdba74;border:1px solid rgba(249,115,22,0.3)}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(255,255,255,0.08);border-radius:8px;padding:8px 14px;text-align:center}
+.stat-num{font-size:20px;font-weight:700;color:#fb923c}
+.stat-label{font-size:11px;color:#cbd5e1;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#431407 0%,#7c2d12 50%,#ea580c 100%);border-radius:12px;padding:20px 22px;margin-bottom:24px;color:#fff;border:1px solid rgba(249,115,22,0.3);box-shadow:0 6px 18px rgba(234,88,12,0.18)}
+.explain-banner .eb-icon{font-size:26px;flex-shrink:0;line-height:1.4}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:16px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#fed7aa;background:rgba(255,255,255,0.15);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13.5px;color:#ffedd5;line-height:1.8}
+.explain-banner .eb-text b{color:#fff;font-weight:600}
+.section{margin-bottom:26px;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:22px 24px;box-shadow:0 2px 10px rgba(0,0,0,0.04)}
+.section-title{font-size:19px;font-weight:700;color:#0f172a;padding-bottom:10px;margin-bottom:16px;border-bottom:2px solid #ea580c;display:flex;align-items:center;gap:8px}
+.section-title .st-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:8px;background:#ea580c;color:#fff;font-size:14px;font-weight:700;flex-shrink:0}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.intro-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px}
+.intro-card h4{font-size:14px;font-weight:700;color:#ea580c;margin-bottom:8px}
+.intro-card p{font-size:13.5px;color:#475569;line-height:1.7}
+.intro-card ul{margin:0;padding-left:18px}
+.intro-card li{font-size:13.5px;color:#475569;line-height:1.7;margin-bottom:4px}
+.source-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.source-card{display:flex;flex-direction:column;gap:4px;padding:14px 16px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;transition:all .2s;text-decoration:none}
+.source-card:hover{border-color:#ea580c;background:#fff7ed;transform:translateY(-2px);box-shadow:0 4px 12px rgba(234,88,12,0.1)}
+.source-title{font-size:14px;font-weight:600;color:#0f172a}
+.source-desc{font-size:12.5px;color:#64748b;line-height:1.6}
+.source-link{font-size:12px;color:#ea580c;font-weight:600;margin-top:2px;word-break:break-all}
+.theme-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.theme-point{padding:12px 16px;background:#f8fafc;border-left:3px solid #ea580c;border-radius:0 8px 8px 0;font-size:14px;color:#334155;line-height:1.75}
+.theme-point b{color:#0f172a}
+.theme-point .tp-src{display:block;margin-top:6px;font-size:12px;color:#ea580c}
+.theme-point .tp-src a{color:#ea580c;text-decoration:none}
+.theme-point .tp-src a:hover{text-decoration:underline}
+.optable{width:100%;border-collapse:collapse;margin:8px 0 16px;font-size:13.5px}
+.optable th,.optable td{border:1px solid #e2e8f0;padding:10px 12px;text-align:left;vertical-align:top}
+.optable th{background:#fff7ed;color:#9a3412;font-weight:700;width:130px}
+.optable td{color:#334155}
+.op-note{background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:14px 16px;font-size:13.5px;color:#9a3412;line-height:1.8}
+.op-note b{color:#7c2d12}
+.steps{margin:0;padding:0;list-style:none;counter-reset:step}
+.steps li{counter-increment:step;position:relative;padding:10px 0 10px 44px;border-bottom:1px dashed #e2e8f0;font-size:14px;color:#334155}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(step);position:absolute;left:0;top:10px;width:28px;height:28px;border-radius:50%;background:#ea580c;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.steps li b{color:#0f172a}
+.source-note{background:rgba(234,88,12,0.07);border:1px solid rgba(234,88,12,0.2);border-radius:8px;padding:14px 16px;margin-top:8px;font-size:13px;color:#64748b;line-height:1.7}
+@media(max-width:640px){.hero{padding:20px 16px;gap:16px;flex-direction:column;text-align:center}.hero-avatar{width:68px;height:68px;font-size:32px}.hero-name{font-size:22px}.hero-stats{justify-content:center}.intro-grid,.source-grid{grid-template-columns:1fr}.section{padding:18px 16px}.explain-banner{flex-direction:column;padding:18px 18px}}
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-value-investors.html" class="home-btn">← 价值投资人物</a>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<a href="berkshire-value-investors.html">价值投资人物</a><span class="crumb-sep">/</span>
+<span>段永平</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-avatar">段</div>
+<div class="hero-left">
+<div class="hero-name">段永平</div>
+<div class="hero-name-en">Duan Yongping · 企业家 · 价值投资人（雪球「大道无形我有型」）</div>
+<div class="hero-tags">
+<span class="hero-tag">小霸王 · 步步高</span>
+<span class="hero-tag">OPPO · vivo 幕后</span>
+<span class="hero-tag">重仓苹果茅台腾讯</span>
+<span class="hero-tag">本分哲学</span>
+</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">思想主题</div></div>
+<div class="stat-item"><div class="stat-num">1</div><div class="stat-label">期权专题</div></div>
+<div class="stat-item"><div class="stat-num">6</div><div class="stat-label">资料来源</div></div>
+</div>
+</div>
+</div>
+
+<div class="explain-banner">
+<div class="eb-icon">📖</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">收录说明</span> 关于这份段永平投资思想整理</div>
+<div class="eb-text">
+本页整理自段永平<b>公开</b>的雪球发言、2025 年雪球访谈及第三方研究，仅做<b>要点摘要与来源索引</b>，不复制大段原文。<br>
+每条要点均附原始出处链接，点击可跳转一手平台查看原文；段永平公开言论版权归原作者所有，本站仅作学习索引，<b>不提供原文转载或下载</b>。<br>
+期权数据（如英伟达 Buy Write）来自公开媒体报道，具体仓位与条款以雪球「大道无形我有型」原帖为准。
+</div>
+</div>
+</div>
+
+<!-- 一、段永平是谁 -->
+<div class="section">
+<div class="section-title"><span class="st-num">1</span> 段永平是谁</div>
+<div class="intro-grid">
+<div class="intro-card">
+<h4>企业家阶段</h4>
+<ul>
+<li><b>小霸王</b>：打造小霸王学习机/游戏机，成为一代人的国民品牌。</li>
+<li><b>步步高</b>：创立步步高，延伸出电话机、DVD、教育电子等品类。</li>
+<li><b>OPPO · vivo</b>：作为幕后关键推手与早期投资人，深刻影响两大手机品牌的基因。</li>
+</ul>
+</div>
+<div class="intro-card">
+<h4>投资阶段</h4>
+<ul>
+<li>以雪球账号 <b>「大道无形我有型」</b> 活跃于中文投资社区，发言跨度约 2006–2025 年。</li>
+<li>长期重仓 <b>苹果、茅台、腾讯</b> 等，奉行「买股票就是买公司」的价值投资理念。</li>
+<li>与巴菲特、芒格价值体系一脉相承，又以「本分」哲学形成鲜明个人标签。</li>
+</ul>
+</div>
+<div class="intro-card">
+<h4>思想标签</h4>
+<ul>
+<li><b>本分</b>：做对的事，把事做对；不占别人便宜。</li>
+<li><b>Stop Doing List</b>：用「不为清单」规避错误，比追求做对更重要。</li>
+<li><b>能力圈</b>：只投真正穿透理解的公司，不懂不碰。</li>
+<li><b>毛估估</b>：估值是模糊的艺术，模糊的正确优于精确的错误。</li>
+</ul>
+</div>
+<div class="intro-card">
+<h4>与伯克希尔体系</h4>
+<ul>
+<li>公开盛赞并长期持有巴菲特旗下核心持仓（苹果等），是巴菲特理念的中文布道者之一。</li>
+<li>期权策略（只卖不买）亦呼应巴菲特「用卖出期权创造现金流」的操作逻辑。</li>
+<li>其「本分」「平常心」与芒格的「理性」「逆向」互为映照。</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- 二、核心资料来源 -->
+<div class="section">
+<div class="section-title"><span class="st-num">2</span> 核心资料来源（链回原文）</div>
+<div class="source-grid">
+<a class="source-card" href="https://xueqiu.com/%E5%A4%A7%E9%81%93%E6%97%A0%E5%BD%A2%E6%88%91%E6%9C%89%E5%9E%8B" target="_blank" rel="noopener">
+<div class="source-title">雪球账号：大道无形我有型</div>
+<div class="source-desc">段永平官方账号，发言跨度约 2006–2025 年，覆盖投资理念、企业分析与人生感悟。</div>
+<div class="source-link">xueqiu.com/大道无形我有型 →</div>
+</a>
+<a class="source-card" href="https://xueqiu.com/1290568231/355535415" target="_blank" rel="noopener">
+<div class="source-title">雪球发言深度研究报告</div>
+<div class="source-desc">第三方基于雪球发言整理的结构化研究，分投资理念 / 企业判断 / 操作策略三大维度。</div>
+<div class="source-link">xueqiu.com/1290568231/355535415 →</div>
+</a>
+<a class="source-card" href="https://zhuanlan.zhihu.com/p/1978828563542192727" target="_blank" rel="noopener">
+<div class="source-title">2025 年雪球访谈完整版</div>
+<div class="source-desc">2025-10-16 雪球创始人方三文采访段永平，约 2 小时，覆盖人生、企业经营、投资、AI、教育。</div>
+<div class="source-link">zhuanlan.zhihu.com/p/1978828563542192727 →</div>
+</a>
+<a class="source-card" href="https://zhuanlan.zhihu.com/p/1973201735028856346" target="_blank" rel="noopener">
+<div class="source-title">访谈 NotebookLM 总结</div>
+<div class="source-desc">对 2025 年雪球访谈的 AI 辅助总结，适合快速浏览核心观点。</div>
+<div class="source-link">zhuanlan.zhihu.com/p/1973201735028856346 →</div>
+</a>
+<a class="source-card" href="https://www.sohu.com/a/423834645_100034414" target="_blank" rel="noopener">
+<div class="source-title">搜狐：段永平语录最全总结</div>
+<div class="source-desc">早期人生经历 + 语录汇总，偏生平梳理。</div>
+<div class="source-link">sohu.com/a/423834645_100034414 →</div>
+</a>
+<a class="source-card" href="https://xueqiu.com/4316576467/393912339" target="_blank" rel="noopener">
+<div class="source-title">雪球近半年发言汇总</div>
+<div class="source-desc">「大道无形我有型」近期发言整理，跟踪最新观点与操作。</div>
+<div class="source-link">xueqiu.com/4316576467/393912339 →</div>
+</a>
+</div>
+</div>
+
+<!-- 三、投资哲学 -->
+<div class="section">
+<div class="section-title"><span class="st-num">3</span> 投资哲学</div>
+<ul class="theme-list">
+<li class="theme-point"><b>买股票就是买公司</b>：本质是买入公司未来现金流的折现，股价短期是投票机、长期是称重机。<span class="tp-src">来源：<a href="https://xueqiu.com/1290568231/355535415" target="_blank" rel="noopener">雪球发言深度研究报告</a></span></li>
+<li class="theme-point"><b>价值投资 vs 投机</b>：价值投资是「种田逻辑」——播种、等待、收获；投机是「狩猎游戏」——靠频繁博弈、不可持续。<span class="tp-src">来源：<a href="https://xueqiu.com/1290568231/355535415" target="_blank" rel="noopener">雪球发言深度研究报告</a></span></li>
+<li class="theme-point"><b>能力圈</b>：懂的标准不是「听过」，而是能穿透式理解其商业模式与企业文化；圈外再热闹也不碰。<span class="tp-src">来源：<a href="https://xueqiu.com/1290568231/355535415" target="_blank" rel="noopener">雪球发言深度研究报告</a></span></li>
+<li class="theme-point"><b>不为清单（Stop Doing List）</b>：不借钱、不做空、不懂不碰——先保证不犯致命错误，比追求高收益更重要。<span class="tp-src">来源：<a href="https://xueqiu.com/1290568231/355535415" target="_blank" rel="noopener">雪球发言深度研究报告</a></span></li>
+<li class="theme-point"><b>毛估估估值</b>：估值是模糊的艺术，能大致判断「明显便宜」或「明显贵」即可，模糊的正确远胜精确的错误。<span class="tp-src">来源：<a href="https://xueqiu.com/1290568231/355535415" target="_blank" rel="noopener">雪球发言深度研究报告</a></span></li>
+</ul>
+</div>
+
+<!-- 四、企业分析框架 -->
+<div class="section">
+<div class="section-title"><span class="st-num">4</span> 企业分析框架</div>
+<ul class="theme-list">
+<li class="theme-point"><b>好生意的定义</b>：能持续产生自由现金流，且难以被复制——赚钱不费劲、护城河深。<span class="tp-src">来源：<a href="https://xueqiu.com/1290568231/355535415" target="_blank" rel="noopener">雪球发言深度研究报告</a></span></li>
+<li class="theme-point"><b>商业模式 + 企业文化双核心</b>：两者都过硬，才值得长期持有；企业文化坏了，再好的模式也会走样。<span class="tp-src">来源：<a href="https://xueqiu.com/1290568231/355535415" target="_blank" rel="noopener">雪球发言深度研究报告</a></span></li>
+<li class="theme-point"><b>护城河要素</b>：品牌壁垒、用户粘性、生态闭环——让用户「离不开」、让对手「抄不来」。<span class="tp-src">来源：<a href="https://xueqiu.com/1290568231/355535415" target="_blank" rel="noopener">雪球发言深度研究报告</a></span></li>
+<li class="theme-point"><b>经典标的</b>：茅台（文化+稀缺）、苹果（生态+现金流）、腾讯（社交壁垒）、网易（产品基因）、伯克希尔（资本配置）。<span class="tp-src">来源：<a href="https://xueqiu.com/1290568231/355535415" target="_blank" rel="noopener">雪球发言深度研究报告</a></span></li>
+</ul>
+</div>
+
+<!-- 五、操作策略 -->
+<div class="section">
+<div class="section-title"><span class="st-num">5</span> 操作策略</div>
+<ul class="theme-list">
+<li class="theme-point"><b>高度集中持仓</b>：前五大重仓占比可超 80%，把筹码压在最懂、最有把握的公司上。<span class="tp-src">来源：<a href="https://xueqiu.com/1290568231/355535415" target="_blank" rel="noopener">雪球发言深度研究报告</a></span></li>
+<li class="theme-point"><b>买入即持有</b>：决策基于公司价值而非买入成本；没有「该卖」的触发价，只有「逻辑变了」才动。<span class="tp-src">来源：<a href="https://xueqiu.com/1290568231/355535415" target="_blank" rel="noopener">雪球发言深度研究报告</a></span></li>
+<li class="theme-point"><b>逆向布局</b>：在行业低谷或企业危机时验证价值，别人恐惧时检查自己是否真懂。<span class="tp-src">来源：<a href="https://xueqiu.com/1290568231/355535415" target="_blank" rel="noopener">雪球发言深度研究报告</a></span></li>
+<li class="theme-point"><b>卖出三条件</b>：买错了、基本面恶化、或找到了明显更好的标的——否则不动。<span class="tp-src">来源：<a href="https://xueqiu.com/1290568231/355535415" target="_blank" rel="noopener">雪球发言深度研究报告</a></span></li>
+</ul>
+</div>
+
+<!-- 六、人生与经营 -->
+<div class="section">
+<div class="section-title"><span class="st-num">6</span> 人生与经营哲学</div>
+<ul class="theme-list">
+<li class="theme-point"><b>做对的事，把事做对</b>：方向错了，跑得越快错得越多；先判断「对的事」，再谈执行效率。<span class="tp-src">来源：<a href="https://www.sohu.com/a/423834645_100034414" target="_blank" rel="noopener">搜狐·段永平语录总结</a></span></li>
+<li class="theme-point"><b>本分文化</b>：不占别人便宜、不出界、不眼红别人赚钱；本分是步步高系企业的底层操作系统。<span class="tp-src">来源：<a href="https://www.sohu.com/a/423834645_100034414" target="_blank" rel="noopener">搜狐·段永平语录总结</a></span></li>
+<li class="theme-point"><b>Stop Doing List</b>：用「不做什么」来减少犯错，少犯错本身就是复利。<span class="tp-src">来源：<a href="https://www.sohu.com/a/423834645_100034414" target="_blank" rel="noopener">搜狐·段永平语录总结</a></span></li>
+<li class="theme-point"><b>平常心</b>：降低预期、客观面对波动，不被市场情绪带着走。<span class="tp-src">来源：<a href="https://www.sohu.com/a/423834645_100034414" target="_blank" rel="noopener">搜狐·段永平语录总结</a></span></li>
+</ul>
+</div>
+
+<!-- 七、AI 与未来 -->
+<div class="section">
+<div class="section-title"><span class="st-num">7</span> AI 与未来</div>
+<ul class="theme-list">
+<li class="theme-point"><b>AI 是工业革命级机会</b>：长期会大幅提升效率、创造 GDP 增量，但当下伴随明显泡沫。<span class="tp-src">来源：<a href="https://zhuanlan.zhihu.com/p/1978828563542192727" target="_blank" rel="noopener">2025 雪球访谈</a></span></li>
+<li class="theme-point"><b>「掺和一下」的谨慎态度</b>：既不错过趋势，也不盲目下重注——用少量仓位保持手感与学习。<span class="tp-src">来源：<a href="https://zhuanlan.zhihu.com/p/1978828563542192727" target="_blank" rel="noopener">2025 雪球访谈</a></span></li>
+<li class="theme-point"><b>对人的影响</b>：AI 提效的同时会让部分岗位被替代，投资上需关注产业格局的重塑。<span class="tp-src">来源：<a href="https://zhuanlan.zhihu.com/p/1978828563542192727" target="_blank" rel="noopener">2025 雪球访谈</a></span></li>
+</ul>
+</div>
+
+<!-- 八、期权专题 -->
+<div class="section">
+<div class="section-title"><span class="st-num">8</span> 期权专题：美股与泡泡玛特操作</div>
+
+<div class="op-note" style="margin-bottom:16px">
+<b>段永平期权核心观：「option 只卖不买」。</b><br>
+买期权 = 赌，赌是错的；卖期权 = 赚投机者或对冲者的钱，是产生净现金流的办法；不了解的公司的 option 绝对不碰。
+<span class="tp-src" style="display:block;margin-top:6px;font-size:12px;color:#9a3412">来源：<a href="https://xueqiu.com/5694251804/257019680" target="_blank" rel="noopener" style="color:#9a3412">雪球发言整理 · 期权观点</a></span>
+</div>
+
+<h4 style="font-size:15px;font-weight:700;color:#0f172a;margin:8px 0 4px">案例一：英伟达（NVDA）Buy Write / Covered Call</h4>
+<table class="optable">
+<tr><th>标的</th><td>英伟达（NVDA）</td></tr>
+<tr><th>策略</th><td>Buy Write / Covered Call（买入股票 + 卖出看涨期权）</td></tr>
+<tr><th>规模</th><td>买入 10 万股，卖出 1000 份看涨期权</td></tr>
+<tr><th>行权价 / 到期</th><td>$120 / 2026 年 3 月 20 日</td></tr>
+<tr><th>净成本</th><td>约 $92.52 / 股</td></tr>
+<tr><th>总投入</th><td>约 $925.2 万美元</td></tr>
+<tr><th>逻辑</th><td>看好英伟达但谨慎短期波动，卖 call 收权利金降低持股成本；股价涨过 $120 被行权则赚权利金 + 部分涨幅，下跌则权利金缓冲损失。</td></tr>
+</table>
+<div class="source-note" style="margin-top:0">
+📌 来源：<a href="https://www.sohu.com/a/873509796_362225" target="_blank" rel="noopener" style="color:#ea580c">搜狐报道</a> · <a href="https://www.163.com/dy/article/JPFHF7OI0519QIKK.html" target="_blank" rel="noopener" style="color:#ea580c">网易报道</a> · <a href="https://www.laohu8.com/post/415162158198792" target="_blank" rel="noopener" style="color:#ea580c">laohu8 整理</a>。具体仓位与条款以雪球「大道无形我有型」原帖为准。
+</div>
+
+<h4 style="font-size:15px;font-weight:700;color:#0f172a;margin:20px 0 4px">案例二：泡泡玛特（POP MART，09992.HK）</h4>
+<div class="op-note">
+段永平亦公开以<b>卖出看跌期权（sell put）</b>布局泡泡玛特，是其「option 只卖不买」原则的又一实践——在看好且愿意长期持有的价位「挂单接货」，同时收权利金增厚收益。<br>
+<b>具体仓位、行权价与到期条款以雪球「大道无形我有型」原帖为准</b>（本页未转载具体数字，避免与一手源出入）。如需补全确切数据，请提供可靠来源链接。
+</div>
+</div>
+
+<!-- 九、推荐学习顺序 -->
+<div class="section">
+<div class="section-title"><span class="st-num">9</span> 推荐学习顺序</div>
+<ol class="steps">
+<li><b>先建立框架</b>：读《雪球发言深度研究报告》，快速了解其投资体系全貌。</li>
+<li><b>再听系统访谈</b>：看《2025 年雪球访谈完整版》，听他亲口讲人生、企业与投资。</li>
+<li><b>针对具体标的</b>：在雪球账号内搜索茅台、苹果、腾讯、英伟达、泡泡玛特等关键词发言。</li>
+<li><b>期权专题</b>：重点读「只卖不买」发言 + 英伟达 Buy Write 与泡泡玛特卖 put 案例分析。</li>
+<li><b>复盘对照</b>：把他的观点与自己的投资笔记对照，形成个人 checklist。</li>
+</ol>
+</div>
+
+<div class="source-note">
+📌 <strong>版权与边界</strong>：段永平公开言论版权归原作者所有。本页为个人学习用途的要点摘要与来源索引，不复制、不转载、不提供原文下载；如欲引用请注明出处，商用请获合法授权。所有外链均指向原始公开平台。
+</div>
+
+</div>
+</body>
+</html>
