@@ -116,6 +116,7 @@ def categorize(rel_path: str, title: str) -> tuple:
         "berkshire-financial-terms.html": ("金融术语", 16),
         "berkshire-articles.html": ("深度文章", 13),
         "berkshire-index-investing.html": ("指数投资", 28),
+        "berkshire-changying-booklist.html": ("指数投资", 28),
         "berkshire-stress-test.html": ("指数投资", 1),
         "berkshire-value-investors.html": ("价值投资人物", 17),
         "berkshire-pabrai-index.html": ("帕伯莱演讲", 12),
