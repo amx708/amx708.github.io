@@ -65,6 +65,16 @@ def extract_snippet(html: str, max_chars: int = 220) -> str:
     return text
 
 
+def extract_search_text(html: str, max_chars: int = 1000) -> str:
+    """Return a longer plain text for search matching (not display)."""
+    text = strip_tags(html)
+    # Remove very common boilerplate
+    text = re.sub(r"^(首页|返回| Berkshire Hathaway Research|投资数据中心)\s*", "", text)
+    if len(text) > max_chars:
+        text = text[:max_chars].rsplit(" ", 1)[0] + "…"
+    return text
+
+
 def categorize(rel_path: str, title: str) -> tuple:
     """Return (category, priority)."""
     p = rel_path.replace("\\", "/")
@@ -88,6 +98,8 @@ def categorize(rel_path: str, title: str) -> tuple:
         return "价值投资演讲", 12
     if "articles/" in lower:
         return "深度文章", 13
+    if "index-investing-content/" in lower:
+        return "指数投资", 28
 
     # Root-level special pages
     page_map = {
@@ -99,6 +111,7 @@ def categorize(rel_path: str, title: str) -> tuple:
         "berkshire-methodology.html": ("投资方法论", 15),
         "berkshire-financial-terms.html": ("金融术语", 16),
         "berkshire-articles.html": ("深度文章", 13),
+        "berkshire-index-investing.html": ("指数投资", 28),
         "berkshire-value-investors.html": ("价值投资人物", 17),
         "berkshire-pabrai-index.html": ("帕伯莱演讲", 12),
         "berkshire-munger-speeches.html": ("芒格演讲", 18),
@@ -169,8 +182,10 @@ def main():
         # For long transcripts, limit snippet length to keep index small
         if any(x in rel.lower() for x in ["meetings_content/full", "letters_content/cn", "value-investors-content"]):
             snippet = extract_snippet(html, max_chars=180)
+            search_text = extract_search_text(html, max_chars=1000)
         else:
             snippet = extract_snippet(html, max_chars=260)
+            search_text = extract_search_text(html, max_chars=800)
 
         category, priority = categorize(rel, title)
         tags = build_tags(title, snippet, headings, rel)
@@ -184,6 +199,7 @@ def main():
             "category": category,
             "priority": priority,
             "description": snippet,
+            "searchText": search_text,
             "headings": headings[:6],
             "tags": tags,
         }
