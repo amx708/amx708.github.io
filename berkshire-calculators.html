@@ -194,12 +194,53 @@ body{
   .calc-tab .tab-icon{display:none}
 }
 
+/* ===== Usage Guide ===== */
+.usage-guide{
+  background:#f8fafc;border-top:1px solid #e2e8f0;
+  padding:24px 28px;
+}
+.usage-guide-title{
+  font-size:16px;font-weight:700;color:#0f172a;margin-bottom:18px;
+  display:flex;align-items:center;gap:8px;
+}
+.usage-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;
+}
+.usage-block{
+  background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px;
+}
+.usage-block-title{
+  font-size:13px;font-weight:600;color:#f59e0b;margin-bottom:8px;
+}
+.usage-block ul{
+  margin:0;padding-left:18px;color:#475569;font-size:13px;line-height:1.7;
+}
+.usage-block li{margin-bottom:4px}
+.usage-example{
+  background:#fff;border:1px dashed #cbd5e1;border-radius:10px;
+  padding:14px 16px;margin-top:10px;
+}
+.usage-example-title{
+  font-size:12px;font-weight:600;color:#64748b;margin-bottom:8px;
+}
+.usage-example p{
+  font-size:13px;color:#334155;line-height:1.7;margin:0;
+}
+.usage-example .hl{
+  color:#b45309;font-weight:600;
+}
+.usage-tip{
+  margin-top:14px;padding:12px 16px;background:#fffbeb;border:1px solid #fde68a;
+  border-radius:8px;font-size:12px;color:#92400e;line-height:1.6;
+}
+
 /* ===== Footer ===== */
 .page-footer{
   max-width:1100px;margin:60px auto 0;padding:24px;text-align:center;
   font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0;
 }
 </style>
+
 </head>
 <body>
 
@@ -307,6 +348,41 @@ body{
         </div>
       </div>
     </div>
+    <div class="usage-guide">
+      <div class="usage-guide-title">📝 使用说明 & 示例</div>
+      <div class="usage-grid">
+        <div class="usage-block">
+          <div class="usage-block-title">什么时候用</div>
+          <ul>
+            <li>规划养老金、教育金等长期目标</li>
+            <li>估算每月定投/储蓄多年后的总规模</li>
+            <li>理解"时间+复利"的滚雪球效应</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">输入说明</div>
+          <ul>
+            <li><strong>初始投资金额</strong>：已投入的本金</li>
+            <li><strong>每月追加投入</strong>：每月定期投入金额</li>
+            <li><strong>年化收益率</strong>：预期年化回报（沪深300长期约8-10%）</li>
+            <li><strong>复利频率</strong>：通常选"每月"与定投节奏一致</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">结果怎么看</div>
+          <ul>
+            <li><strong>未来总价值</strong>：到期总金额</li>
+            <li><strong>复利收益</strong>：收益占总价值的比例越高，复利威力越大</li>
+            <li><strong>有效年利率</strong>：考虑复利后的实际年化</li>
+          </ul>
+        </div>
+      </div>
+      <div class="usage-example">
+        <div class="usage-example-title">举个栗子</div>
+        <p>小王已有本金 <span class="hl">10万</span>，每月再投入 <span class="hl">5,000</span>，预期年化 <span class="hl">10%</span>，坚持 <span class="hl">20年</span>。结果显示未来总价值约 <span class="hl">¥452.8万</span>，其中本金投入¥130万，复利收益约¥322.8万，收益占比约 <span class="hl">71%</span>——时间越长，收益占比越高。</p>
+      </div>
+      <div class="usage-tip">💡 新手提示：不要小看"每月追加"，复利最强大的地方不是高收益率，而是长期坚持。即使年化只有8%，每月3000元坚持30年也能超过400万。</div>
+    </div>
   </div>
 </div>
 
@@ -386,6 +462,41 @@ body{
         </div>
       </div>
     </div>
+    <div class="usage-guide">
+      <div class="usage-guide-title">📝 使用说明 & 示例</div>
+      <div class="usage-grid">
+        <div class="usage-block">
+          <div class="usage-block-title">什么时候用</div>
+          <ul>
+            <li>想判断一只股票"大概值多少钱"</li>
+            <li>筛选是否有安全边际的买入机会</li>
+            <li>快速估算价值，作为深入研究起点</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">输入说明</div>
+          <ul>
+            <li><strong>EPS</strong>：最近一年每股收益（年报/财报里找）</li>
+            <li><strong>BVPS</strong>：每股净资产</li>
+            <li><strong>预期增长率 g</strong>：未来3-5年净利润年化增速估计</li>
+            <li><strong>无风险利率 Y</strong>：参考10年期国债收益率（约2.5-3%）</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">结果怎么看</div>
+          <ul>
+            <li><strong>安全边际 > 30%</strong>：通常认为有买入安全边际</li>
+            <li><strong>安全边际 0-30%</strong>：合理但偏贵，继续观察</li>
+            <li><strong>安全边际 < 0</strong>：股价高于估值，可能高估</li>
+          </ul>
+        </div>
+      </div>
+      <div class="usage-example">
+        <div class="usage-example-title">举个栗子</div>
+        <p>某公司 <span class="hl">EPS=3.5元</span>，<span class="hl">BVPS=25元</span>，预期年增长 <span class="hl">8%</span>，当前股价 <span class="hl">50元</span>，无风险利率取 <span class="hl">3%</span>。格雷厄姆数值约 <span class="hl">¥44.37</span>，低于股价，说明按稳健估值股价偏贵；简化DCF估值约 <span class="hl">¥125.77</span>，安全边际 <span class="hl">151%</span>。两者信号不同，说明市场给这家公司一定增长预期，需结合护城河、ROE进一步判断。</p>
+      </div>
+      <div class="usage-tip">💡 新手提示：不要只看单一数字。格雷厄姆数值适合银行、保险等稳健资产；DCF更适合有持续增长预期的优质企业。安全边际是"便宜"的缓冲垫，不是买入信号。</div>
+    </div>
   </div>
 </div>
 
@@ -463,6 +574,41 @@ body{
         </div>
       </div>
     </div>
+    <div class="usage-guide">
+      <div class="usage-guide-title">📝 使用说明 & 示例</div>
+      <div class="usage-grid">
+        <div class="usage-block">
+          <div class="usage-block-title">什么时候用</div>
+          <ul>
+            <li>真实买卖前，算清楚到手盈亏</li>
+            <li>对比佣金高低对收益的影响</li>
+            <li>检查一笔交易扣除费用后是否仍划算</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">输入说明</div>
+          <ul>
+            <li><strong>A股/港股</strong>：自动切换税费规则</li>
+            <li><strong>买入/卖出价格</strong>：实际成交价</li>
+            <li><strong>数量</strong>：A股1手=100股，港股每手股数不同</li>
+            <li><strong>佣金率</strong>：A股通常万2.5，港股通常0.03%</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">结果怎么看</div>
+          <ul>
+            <li><strong>净盈亏</strong>：扣除所有费用后的真实收益</li>
+            <li><strong>净收益率</strong>：相对于买入成本的收益率</li>
+            <li><strong>总交易费用</strong>：费用占比过高时要警惕</li>
+          </ul>
+        </div>
+      </div>
+      <div class="usage-example">
+        <div class="usage-example-title">举个栗子</div>
+        <p>A股：小李 <span class="hl">15.5元</span> 买入 <span class="hl">1000股</span>，<span class="hl">18.8元</span> 卖出，佣金率 <span class="hl">万2.5</span>。买入费用约¥7.82，卖出费用约¥103.59（含印花税）。<span class="hl">净盈利约¥3,188.59</span>，净收益率约 <span class="hl">20.57%</span>。注意：A股卖出印花税是费用大头。</p>
+      </div>
+      <div class="usage-tip">💡 新手提示：频繁交易会吃掉利润。如果你一年换手10次，万2.5佣金+印花税可能吃掉本金的2-3%。长期投资者通常持有数年，大幅降低摩擦成本。</div>
+    </div>
   </div>
 </div>
 
@@ -537,6 +683,41 @@ body{
           <strong>💡 巴菲特视角：</strong>他更看重"成本股息率"而非当前股息率——因为你买入的成本才是你的真实收益率基准。伯克希尔从不分红，但巴菲特认为留存利润再投资的复利回报远超分红。对A股投资者而言，分红覆盖率≥2倍的公司分红更可持续。
         </div>
       </div>
+    </div>
+    <div class="usage-guide">
+      <div class="usage-guide-title">📝 使用说明 & 示例</div>
+      <div class="usage-grid">
+        <div class="usage-block">
+          <div class="usage-block-title">什么时候用</div>
+          <ul>
+            <li>筛选高股息股票（银行、电力、煤炭、高速等）</li>
+            <li>评估分红是否可持续</li>
+            <li>计算真实到手回报率</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">输入说明</div>
+          <ul>
+            <li><strong>每股年度分红</strong>：最近一年每股分红总额</li>
+            <li><strong>当前股价</strong>：买入时或现在的股价</li>
+            <li><strong>EPS</strong>：每股盈利，用于算分红覆盖率</li>
+            <li><strong>持股成本</strong>：你的实际买入成本，用于算"成本股息率"</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">结果怎么看</div>
+          <ul>
+            <li><strong>股息率</strong>：按当前股价算的分红回报率</li>
+            <li><strong>成本股息率</strong>：按你的真实成本算，更关键</li>
+            <li><strong>分红覆盖率 > 2</strong>：分红较安全；<1.5则偏紧</li>
+          </ul>
+        </div>
+      </div>
+      <div class="usage-example">
+        <div class="usage-example-title">举个栗子</div>
+        <p>某银行股每股年度分红 <span class="hl">1.2元</span>，当前股价 <span class="hl">30元</span>，你以 <span class="hl">28元</span> 成本买入 <span class="hl">1000股</span>，EPS为 <span class="hl">2.5元</span>。股息率= <span class="hl">4.0%</span>，成本股息率= <span class="hl">4.29%</span>，年度分红总额= <span class="hl">¥1,200</span>，分红覆盖率= <span class="hl">2.08倍</span>，大于2倍，分红相对可持续。</p>
+      </div>
+      <div class="usage-tip">💡 新手提示：高股息率不等于好投资。如果股价持续下跌，4%股息会被本金亏损吞掉。巴菲特更关心"公司能否持续盈利并提高分红"，而不是单纯股息率高低。</div>
     </div>
   </div>
 </div>
@@ -619,6 +800,40 @@ body{
         </div>
       </div>
     </div>
+    <div class="usage-guide">
+      <div class="usage-guide-title">📝 使用说明 & 示例</div>
+      <div class="usage-grid">
+        <div class="usage-block">
+          <div class="usage-block-title">什么时候用</div>
+          <ul>
+            <li>快速判断一只股票贵不贵</li>
+            <li>同行业公司横向对比</li>
+            <li>粗略筛选低估/高估标的</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">输入说明</div>
+          <ul>
+            <li><strong>股价/EPS/BVPS</strong>：财报数据，同内在价值计算器</li>
+            <li><strong>行业平均PE/PB</strong>：可在券商App或财经网站查</li>
+            <li><strong>预期增长率 g</strong>：用于计算PEG</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">结果怎么看</div>
+          <ul>
+            <li><strong>PE</strong>：越低通常越便宜，但要看行业</li>
+            <li><strong>PB</strong>：重资产行业（银行、地产）更适用</li>
+            <li><strong>PEG < 1</strong>：可能低估；PEG > 2：可能高估</li>
+          </ul>
+        </div>
+      </div>
+      <div class="usage-example">
+        <div class="usage-example-title">举个栗子</div>
+        <p>某消费股股价 <span class="hl">35元</span>，EPS <span class="hl">2.8元</span>，BVPS <span class="hl">20元</span>，行业平均PE <span class="hl">18倍</span>、PB <span class="hl">2.0倍</span>，预期增长率 <span class="hl">12%</span>。计算得PE= <span class="hl">12.5倍</span>，PB= <span class="hl">1.75倍</span>，PEG= <span class="hl">1.04</span>。PE、PB均低于行业平均，PEG接近1，属于合理偏低估区间。</p>
+      </div>
+      <div class="usage-tip">💡 新手提示：不能跨行业比PE。银行股PE常年5-8倍，白酒30-40倍，芯片50+倍。PE低未必好，可能是增长停滞；PE高也未必差，可能是高成长。结合PEG和PB一起看。</div>
+    </div>
   </div>
 </div>
 
@@ -678,6 +893,40 @@ body{
           </div>
         </div>
       </div>
+    </div>
+    <div class="usage-guide">
+      <div class="usage-guide-title">📝 使用说明 & 示例</div>
+      <div class="usage-grid">
+        <div class="usage-block">
+          <div class="usage-block-title">什么时候用</div>
+          <ul>
+            <li>算过去N年的真实投资回报</li>
+            <li>设定目标收益时反推所需年化</li>
+            <li>比较不同资产/基金经理的表现</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">输入说明</div>
+          <ul>
+            <li><strong>初始价值</strong>：期初投入金额</li>
+            <li><strong>最终价值</strong>：期末金额</li>
+            <li><strong>投资年限</strong>：持有年数</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">结果怎么看</div>
+          <ul>
+            <li><strong>CAGR</strong>：年均复合增长，平滑了中间波动</li>
+            <li><strong>总收益率</strong>：整体涨跌幅度</li>
+            <li><strong>超额收益</strong>：与沪深300长期9%的对比</li>
+          </ul>
+        </div>
+      </div>
+      <div class="usage-example">
+        <div class="usage-example-title">举个栗子</div>
+        <p>你10年前投入 <span class="hl">10万</span>，现在账户价值 <span class="hl">35万</span>。CAGR= <span class="hl">13.35%</span>，总收益率 <span class="hl">250%</span>，增长 <span class="hl">2.5倍</span>。同期沪深300按9%计算终值约 <span class="hl">¥23.67万</span>，你每年超额收益约 <span class="hl">4.35个百分点</span>。</p>
+      </div>
+      <div class="usage-tip">💡 新手提示：CAGR忽略了中间波动。一只基金10年CAGR 15%，不代表每年都赚15%，中间可能腰斩再翻倍。长期数据更可靠，短期别被CAGR迷惑。</div>
     </div>
   </div>
 </div>
@@ -748,6 +997,41 @@ body{
           <strong>💡 定投参考：</strong>沪深300指数长期年化约8-10%，消费/医药指数约12-15%。巴菲特建议普通人定投宽基指数。A股基金定投起步门槛低（¥100），适合上班族。定投≥3年通常能穿越一个牛熊周期。
         </div>
       </div>
+    </div>
+    <div class="usage-guide">
+      <div class="usage-guide-title">📝 使用说明 & 示例</div>
+      <div class="usage-grid">
+        <div class="usage-block">
+          <div class="usage-block-title">什么时候用</div>
+          <ul>
+            <li>上班族每月结余投资，算长期收益</li>
+            <li>不想择时，用定投穿越牛熊</li>
+            <li>比较基金定投 vs 一次性投入</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">输入说明</div>
+          <ul>
+            <li><strong>每月定投金额</strong>：每月固定投入金额</li>
+            <li><strong>预期年化收益</strong>：沪深300约8-10%，行业指数10-15%</li>
+            <li><strong>定投年限</strong>：建议至少3年以上</li>
+            <li><strong>基金/股票</strong>：基金风险分散，股票定投需精选个股</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">结果怎么看</div>
+          <ul>
+            <li><strong>定投终值</strong>：到期总金额</li>
+            <li><strong>总投入本金</strong>：自己累计投了多少钱</li>
+            <li><strong>收益率</strong>：收益/本金的百分比</li>
+          </ul>
+        </div>
+      </div>
+      <div class="usage-example">
+        <div class="usage-example-title">举个栗子</div>
+        <p>小王每月定投 <span class="hl">3,000元</span>，预期年化 <span class="hl">10%</span>，坚持 <span class="hl">10年</span>。总投入 <span class="hl">¥36万</span>，定投终值约 <span class="hl">¥61.45万</span>，收益约 <span class="hl">¥25.45万</span>，收益率约 <span class="hl">70.7%</span>。定投最大好处：不用猜顶底，市场越跌买到的份额越多。</p>
+      </div>
+      <div class="usage-tip">💡 新手提示：定投基金比定投股票更适合新手。巴菲特曾多次建议普通人定投低费率宽基指数基金（如沪深300、标普500）。别在市场高点一次性All-in，也别在市场低点停止定投。</div>
     </div>
   </div>
 </div>
