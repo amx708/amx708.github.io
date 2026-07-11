@@ -59,6 +59,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .booklist-weread{display:inline-flex;align-items:center;gap:3px;font-size:12px;padding:5px 10px;border-radius:14px;background:#07c160;color:#fff;text-decoration:none;white-space:nowrap;transition:opacity .2s}
 .booklist-weread:hover{opacity:.85}
 @media(max-width:640px){.booklist-item{flex-direction:column;align-items:flex-start;gap:8px}.booklist-actions{width:100%;justify-content:space-between}.booklist-title,.booklist-author{white-space:normal}}
+.booklist-banner{display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,#1e1b4b 0%,#3730a3 50%,#4f46e5 100%);border-radius:14px;padding:22px 26px;margin:0 0 24px;color:#fff;text-decoration:none;transition:all .25s ease;border:1px solid rgba(99,102,241,0.3);box-shadow:0 8px 24px rgba(79,70,229,0.18)}
+.booklist-banner:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(79,70,229,0.28);border-color:rgba(99,102,241,0.5)}
+.booklist-banner-icon{width:56px;height:56px;border-radius:14px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.booklist-banner-body{flex:1}
+.booklist-banner-tag{font-size:11px;color:#c7d2fe;background:rgba(255,255,255,0.12);padding:3px 10px;border-radius:12px;display:inline-block;margin-bottom:6px}
+.booklist-banner-title{font-size:18px;font-weight:700;margin-bottom:5px}
+.booklist-banner-desc{font-size:13px;color:#c7d2fe;line-height:1.5}
+.booklist-banner-arrow{font-size:24px;color:#c7d2fe;flex-shrink:0}
+.filter-btn.bookshelf{background:linear-gradient(135deg,#3730a3,#4f46e5);color:#fff;border-color:#4f46e5}
+.filter-btn.bookshelf:hover{background:linear-gradient(135deg,#312e81,#4338ca)}
+@media(max-width:640px){.booklist-banner{flex-direction:column;align-items:flex-start;padding:18px 20px}.booklist-banner-icon{width:48px;height:48px;font-size:24px}.booklist-banner-title{font-size:16px}}
 </style>
 </head>
 <body>
@@ -77,7 +88,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 <div class="hero-name">归江</div>
 <div class="hero-sub">信璞投资创始人 · 中国价值投资实践者 · 25年投资路</div>
 <div class="hero-stats">
-<div class="stat-item"><div class="stat-num">28</div><div class="stat-label">全部收录</div></div><div class="stat-item"><div class="stat-num">6</div><div class="stat-label">实务讲义</div></div><div class="stat-item"><div class="stat-num">4</div><div class="stat-label">开卷有益</div></div><div class="stat-item"><div class="stat-num">2</div><div class="stat-label">持有人信</div></div><div class="stat-item"><div class="stat-num">3</div><div class="stat-label">基础理念</div></div><div class="stat-item"><div class="stat-num">7</div><div class="stat-label">价值投资体系</div></div><div class="stat-item"><div class="stat-num">3</div><div class="stat-label">宏观洞察</div></div><div class="stat-item"><div class="stat-num">1</div><div class="stat-label">专题研究</div></div><div class="stat-item"><div class="stat-num">1</div><div class="stat-label">精选文章</div></div><div class="stat-item"><div class="stat-num">1</div><div class="stat-label">其他</div></div>
+<div class="stat-item"><div class="stat-num">57</div><div class="stat-label">推荐书单</div></div><div class="stat-item"><div class="stat-num">28</div><div class="stat-label">全部收录</div></div><div class="stat-item"><div class="stat-num">6</div><div class="stat-label">实务讲义</div></div><div class="stat-item"><div class="stat-num">4</div><div class="stat-label">开卷有益</div></div><div class="stat-item"><div class="stat-num">2</div><div class="stat-label">持有人信</div></div><div class="stat-item"><div class="stat-num">3</div><div class="stat-label">基础理念</div></div><div class="stat-item"><div class="stat-num">7</div><div class="stat-label">价值投资体系</div></div><div class="stat-item"><div class="stat-num">3</div><div class="stat-label">宏观洞察</div></div><div class="stat-item"><div class="stat-num">1</div><div class="stat-label">专题研究</div></div><div class="stat-item"><div class="stat-num">1</div><div class="stat-label">精选文章</div></div><div class="stat-item"><div class="stat-num">1</div><div class="stat-label">其他</div></div>
 </div>
 <div class="profile-quote">
 “价值投资不是一套僵化的公式，而是活的、不断迭代不断生长的体系。我们的工作就是利用股市波动，不断增厚基金拥有的企业价值。”
@@ -86,8 +97,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 </div>
 </div>
 <div class="filter-bar">
-<a class="filter-btn" href="#cat-实务讲义">实务讲义</a><a class="filter-btn" href="#cat-开卷有益">开卷有益</a><a class="filter-btn" href="#cat-持有人信">持有人信</a><a class="filter-btn" href="#cat-基础理念">基础理念</a><a class="filter-btn" href="#cat-价值投资体系">价值投资体系</a><a class="filter-btn" href="#cat-宏观洞察">宏观洞察</a><a class="filter-btn" href="#cat-专题研究">专题研究</a><a class="filter-btn" href="#cat-精选文章">精选文章</a><a class="filter-btn" href="#cat-其他">其他</a><a class="filter-btn" href="berkshire-guijiang-booklist.html">📚 书单</a>
+<a class="filter-btn bookshelf" href="berkshire-guijiang-booklist.html">📚 推荐书单</a><a class="filter-btn" href="#cat-实务讲义">实务讲义</a><a class="filter-btn" href="#cat-开卷有益">开卷有益</a><a class="filter-btn" href="#cat-持有人信">持有人信</a><a class="filter-btn" href="#cat-基础理念">基础理念</a><a class="filter-btn" href="#cat-价值投资体系">价值投资体系</a><a class="filter-btn" href="#cat-宏观洞察">宏观洞察</a><a class="filter-btn" href="#cat-专题研究">专题研究</a><a class="filter-btn" href="#cat-精选文章">精选文章</a><a class="filter-btn" href="#cat-其他">其他</a>
 </div>
+
+<a href="berkshire-guijiang-booklist.html" class="booklist-banner">
+  <div class="booklist-banner-icon">📚</div>
+  <div class="booklist-banner-body">
+    <span class="booklist-banner-tag">归江推荐</span>
+    <div class="booklist-banner-title">57 本价值投资书目</div>
+    <div class="booklist-banner-desc">按投资开悟、价值投资谱系、财务估值、商业洞察、市场周期、大师传记等 7 大主题分类整理，每本附微信读书链接。</div>
+  </div>
+  <span class="booklist-banner-arrow">→</span>
+</a>
 
     <div class="year-section" id="cat-实务讲义">
       <div class="year-header">实务讲义<span class="year-count">6篇</span></div>
