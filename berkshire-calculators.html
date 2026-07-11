@@ -257,7 +257,7 @@ body{
   <div class="hero-content">
     <div class="hero-badge">Investment Calculators · A/H股专用</div>
     <h1>投资<span>计算器</span></h1>
-    <p>专为A股与港股投资者设计的7款实用计算工具——复利增长、内在价值、持仓盈亏、股息收益、估值速查、年化回报、定投模拟</p>
+    <p>专为A股与港股投资者设计的8款实用计算工具——复利增长、内在价值、持仓盈亏、补仓成本、股息收益、估值速查、年化回报、定投模拟</p>
   </div>
 </div>
 
@@ -271,6 +271,7 @@ body{
     <button class="calc-tab" data-tab="pepb" onclick="switchTab('pepb')"><span class="tab-icon">📐</span>PE/PB估值</button>
     <button class="calc-tab" data-tab="cagr" onclick="switchTab('cagr')"><span class="tab-icon">📊</span>年化收益率</button>
     <button class="calc-tab" data-tab="dca" onclick="switchTab('dca')"><span class="tab-icon">🔄</span>定投模拟</button>
+    <button class="calc-tab" data-tab="avg" onclick="switchTab('avg')"><span class="tab-icon">⚖️</span>补仓成本</button>
   </div>
 </div>
 
@@ -1187,6 +1188,144 @@ body{
   </div>
 </div>
 
+<!-- ===== 8. 补仓成本计算器 ===== -->
+<div class="calc-section" id="sec-avg">
+  <div class="calc-panel">
+    <div class="calc-panel-header">
+      <h2>⚖️ 补仓成本计算器</h2>
+      <p>计算补仓后的新均价、总成本与保本价，自动计入A股/港股交易费用。补仓前先算清楚，避免越补越深。</p>
+    </div>
+    <div class="calc-panel-body">
+      <div class="input-col">
+        <div class="market-selector">
+          <button class="market-btn active-a" id="avg-mkt-a" onclick="setAvgMarket('a')">🇨🇳 A股</button>
+          <button class="market-btn" id="avg-mkt-h" onclick="setAvgMarket('h')">🇭🇰 港股</button>
+        </div>
+        <div class="form-group">
+          <label class="form-label" style="font-size:14px;color:#0f172a;font-weight:700;margin-bottom:10px">📦 原持仓</label>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">原持仓股数 <span class="unit" id="avg-old-qty-unit">股</span></label>
+              <input type="number" class="form-input" id="avg-old-qty" value="1000" min="1" step="100" oninput="calcAvg()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">原成本价 <span class="unit" id="avg-old-price-unit">¥</span></label>
+              <input type="number" class="form-input" id="avg-old-price" value="15.5" min="0" step="0.01" oninput="calcAvg()">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" style="font-size:14px;color:#0f172a;font-weight:700;margin-bottom:10px">🛒 本次补仓</label>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">补仓股数 <span class="unit" id="avg-new-qty-unit">股</span></label>
+              <input type="number" class="form-input" id="avg-new-qty" value="1000" min="1" step="100" oninput="calcAvg()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">补仓价格 <span class="unit" id="avg-new-price-unit">¥</span></label>
+              <input type="number" class="form-input" id="avg-new-price" value="10.0" min="0" step="0.01" oninput="calcAvg()">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">佣金率 <span class="unit" id="avg-comm-unit">万分之</span></label>
+            <input type="number" class="form-input" id="avg-comm" value="2.5" min="0" step="0.1" oninput="calcAvg()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">当前股价 <span class="unit" id="avg-cur-unit">¥</span> <span style="font-size:11px;color:#94a3b8">(选填)</span></label>
+            <input type="number" class="form-input" id="avg-cur-price" value="11.0" min="0" step="0.01" oninput="calcAvg()">
+          </div>
+        </div>
+        <div class="fee-info" id="avg-fee-detail">
+          <strong>A股交易费用：</strong><br>
+          佣金：买卖双向，最低¥5/笔 | 印花税：卖出0.05% | 过户费：双向0.001%
+        </div>
+      </div>
+      <div class="result-col">
+        <div class="result-area">
+          <div class="result-title"><span class="emoji">⚖️</span> 补仓后结果</div>
+          <div class="result-grid">
+            <div class="result-item primary">
+              <div><div class="result-label">补仓后均价</div><div class="result-sub" id="avg-cost-sub"></div></div>
+              <div class="result-value" id="avg-new-cost">¥0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">补仓后总股数</div>
+              <div class="result-value" id="avg-total-shares">0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">补仓后总成本</div>
+              <div class="result-value" id="avg-total-cost">¥0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">本次买入金额</div>
+              <div class="result-value" id="avg-buy-amount">¥0</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">本次买入费用</div>
+              <div class="result-value" id="avg-buy-fee">¥0</div>
+            </div>
+            <div class="result-item highlight">
+              <div><div class="result-label">成本变动</div><div class="result-sub" id="avg-change-sub"></div></div>
+              <div class="result-value" id="avg-cost-change">0%</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">保本价（含卖出费）</div>
+              <div class="result-value" id="avg-breakeven">¥0</div>
+            </div>
+            <div class="result-item" id="avg-pnl-row" style="display:none">
+              <div><div class="result-label">当前浮盈亏</div><div class="result-sub" id="avg-pnl-sub"></div></div>
+              <div class="result-value" id="avg-pnl">¥0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="usage-guide">
+      <div class="usage-guide-title">📝 使用说明 & 示例</div>
+      <div class="usage-grid">
+        <div class="usage-block">
+          <div class="usage-block-title">什么时候用</div>
+          <ul>
+            <li>股票跌了，想补仓摊低成本——先算新均价</li>
+            <li>判断补仓后成本能降多少，值不值得补</li>
+            <li>计算保本价，知道涨到多少卖出才不亏</li>
+            <li>规划加仓金额，避免一把梭哈</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">输入说明</div>
+          <ul>
+            <li><strong>原持仓股数/成本价</strong>：当前持仓的股数和均价</li>
+            <li><strong>补仓股数/价格</strong>：本次计划买入的数量和价格</li>
+            <li><strong>佣金率</strong>：A股通常万2.5，港股通常0.03%</li>
+            <li><strong>当前股价</strong>：选填，填了可看浮盈亏</li>
+          </ul>
+        </div>
+        <div class="usage-block">
+          <div class="usage-block-title">结果怎么看</div>
+          <ul>
+            <li><strong>补仓后均价</strong>：最核心——新成本基准</li>
+            <li><strong>成本变动</strong>：绿色=成本降低，红色=成本抬高</li>
+            <li><strong>保本价</strong>：含卖出印花税等，高于此价卖才不亏</li>
+            <li><strong>浮盈亏</strong>：填了当前价才显示</li>
+          </ul>
+        </div>
+      </div>
+      <div class="usage-example">
+        <div class="usage-example-title">举个栗子</div>
+        <p>A股：小王持有 <span class="hl">1000股</span>，成本价 <span class="hl">15.5元</span>。股价跌到 <span class="hl">10.0元</span>，他补仓 <span class="hl">1000股</span>，佣金率 <span class="hl">万2.5</span>。补仓后：新均价约 <span class="hl">12.75元</span>（从15.5降到12.75，降幅 <span class="hl">17.73%</span>），总股数2000股，总成本约 <span class="hl">¥25,505</span>（含买入费¥5.10），保本价约 <span class="hl">12.76元</span>。若当前价 <span class="hl">11.0元</span>，浮亏约 <span class="hl">–¥3,522</span>（–13.81%）。</p>
+      </div>
+      <div class="usage-example" style="margin-top:14px;border-color:#fecaca;background:#fef2f2">
+        <div class="usage-example-title" style="color:#dc2626">⚠️ 补仓三大铁律</div>
+        <p style="font-size:13px;color:#334155;line-height:1.8"><strong>① 补仓不是止损。</strong>成本降低了≠亏损消失了，只是把亏损"摊"到更多股数上。如果股票继续跌，亏得更多。<strong>② 只补有价值的股票。</strong>巴菲特说"不要补仓烂公司"——如果基本面恶化，补仓等于把钱往水里扔。<strong>③ 控制仓位。</strong>单只股票占总仓位不宜超过 <span class="hl">20-30%</span>，补仓后仍超限就该减而非加。</p>
+      </div>
+      <div class="usage-tip">💡 新手提示：补仓前问自己三个问题——①这只股票基本面还好吗？②补仓后总仓位是否过高？③如果继续跌30%，你能承受吗？三个都"是"才补。巴菲特的核心原则不是"摊低成本"，而是"在价格远低于价值时加仓"——前提是你确信它的价值。</div>
+    </div>
+  </div>
+</div>
+
 <!-- ===== Footer ===== -->
 <div class="page-footer">
   专为A股与港股投资者设计 · 所有计算仅供参考，不构成投资建议 · 数据与公式基于公开金融理论
@@ -1478,6 +1617,120 @@ function calcDCA(){
   document.getElementById('dca-chart').innerHTML=html;
 }
 
+/* ===== 8. Position Averaging Cost ===== */
+var avgMarket='a';
+
+function setAvgMarket(m){
+  avgMarket=m;
+  document.getElementById('avg-mkt-a').className='market-btn'+(m==='a'?' active-a':'');
+  document.getElementById('avg-mkt-h').className='market-btn'+(m==='h'?' active-h':'');
+  var unit=m==='a'?'¥':'HK$';
+  var commUnit=m==='a'?'万分之':'%';
+  document.getElementById('avg-old-price-unit').textContent=unit;
+  document.getElementById('avg-new-price-unit').textContent=unit;
+  document.getElementById('avg-cur-unit').textContent=unit;
+  document.getElementById('avg-comm-unit').textContent=commUnit;
+  if(m==='a'){
+    document.getElementById('avg-comm').value='2.5';
+    document.getElementById('avg-fee-detail').innerHTML='<strong>A股交易费用：</strong><br>佣金：买卖双向，最低¥5/笔 | 印花税：卖出0.05% | 过户费：双向0.001%';
+  }else{
+    document.getElementById('avg-comm').value='0.03';
+    document.getElementById('avg-fee-detail').innerHTML='<strong>港股交易费用：</strong><br>佣金：买卖双向，最低HK$50/笔 | 印花税：双向0.13% | 交易征费0.00278% | 交易费0.005% | 中央结算费0.002%';
+  }
+  calcAvg();
+}
+
+function calcAvg(){
+  var oldQty=parseFloat(document.getElementById('avg-old-qty').value)||0;
+  var oldPrice=parseFloat(document.getElementById('avg-old-price').value)||0;
+  var newQty=parseFloat(document.getElementById('avg-new-qty').value)||0;
+  var newPrice=parseFloat(document.getElementById('avg-new-price').value)||0;
+  var commRate=parseFloat(document.getElementById('avg-comm').value)||0;
+  var curPrice=parseFloat(document.getElementById('avg-cur-price').value)||0;
+
+  var unit=avgMarket==='a'?'¥':'HK$';
+
+  // Original position cost (already-averaged cost from previous buys)
+  var oldCost=oldQty*oldPrice;
+
+  // New buy amount
+  var newBuyAmount=newQty*newPrice;
+
+  // Calculate buy fee
+  var buyFee=0;
+  if(avgMarket==='a'){
+    var commPct=commRate/10000;
+    buyFee=Math.max(5,newBuyAmount*commPct)+newBuyAmount*0.00001;
+  }else{
+    var commPct=commRate/100;
+    buyFee=Math.max(50,newBuyAmount*commPct)+newBuyAmount*0.0013+newBuyAmount*0.0000278+newBuyAmount*0.00005+newBuyAmount*0.00002;
+  }
+
+  // Total cost and shares after averaging
+  var totalCost=oldCost+newBuyAmount+buyFee;
+  var totalShares=oldQty+newQty;
+  var newAvgCost=totalShares>0?totalCost/totalShares:0;
+
+  // Cost change
+  var costChange=oldPrice>0?(newAvgCost/oldPrice-1)*100:0;
+
+  // Break-even price (including sell fees)
+  var breakeven=0;
+  if(totalShares>0){
+    if(avgMarket==='a'){
+      var sellRate=commRate/10000+0.0005+0.00001;
+      breakeven=totalCost/(totalShares*(1-sellRate));
+    }else{
+      var sellRate=commRate/100+0.0013+0.0000278+0.00005+0.00002;
+      breakeven=totalCost/(totalShares*(1-sellRate));
+    }
+  }
+
+  // Current P&L
+  var showPnL=curPrice>0&&totalShares>0;
+  var pnl=0,pnlRate=0,sellFee=0;
+  if(showPnL){
+    var curValue=curPrice*totalShares;
+    if(avgMarket==='a'){
+      var commPct=commRate/10000;
+      sellFee=Math.max(5,curValue*commPct)+curValue*0.0005+curValue*0.00001;
+    }else{
+      var commPct=commRate/100;
+      sellFee=Math.max(50,curValue*commPct)+curValue*0.0013+curValue*0.0000278+curValue*0.00005+curValue*0.00002;
+    }
+    pnl=curValue-sellFee-totalCost;
+    pnlRate=totalCost>0?pnl/totalCost*100:0;
+  }
+
+  // Update DOM
+  document.getElementById('avg-new-cost').textContent=unit+newAvgCost.toFixed(3);
+  document.getElementById('avg-cost-sub').textContent=oldPrice>0?('原均价 '+unit+oldPrice.toFixed(2)): '';
+  document.getElementById('avg-total-shares').textContent=totalShares.toLocaleString()+'股';
+  document.getElementById('avg-total-cost').textContent=unit+totalCost.toFixed(2);
+  document.getElementById('avg-buy-amount').textContent=unit+newBuyAmount.toFixed(2);
+  document.getElementById('avg-buy-fee').textContent=unit+buyFee.toFixed(2);
+
+  // Cost change color
+  var changeEl=document.getElementById('avg-cost-change');
+  changeEl.textContent=(costChange<=0?'':'')+pct(costChange,2);
+  changeEl.style.color=costChange<0?'#16a34a':costChange>0?'#dc2626':'#64748b';
+  document.getElementById('avg-change-sub').textContent=costChange<0?'✅ 成本降低':costChange>0?'⚠️ 成本抬高':'成本不变';
+
+  document.getElementById('avg-breakeven').textContent=unit+breakeven.toFixed(3);
+
+  // P&L
+  var pnlRow=document.getElementById('avg-pnl-row');
+  if(showPnL){
+    pnlRow.style.display='flex';
+    var pnlEl=document.getElementById('avg-pnl');
+    pnlEl.textContent=unit+pnl.toFixed(2);
+    pnlEl.style.color=pnl>=0?'#dc2626':'#16a34a';
+    document.getElementById('avg-pnl-sub').textContent=pct(pnlRate,2)+(pnl>=0?' 盈利':' 亏损');
+  }else{
+    pnlRow.style.display='none';
+  }
+}
+
 /* ===== Init all calculators on load ===== */
 calcCompound();
 calcIntrinsic();
@@ -1486,6 +1739,7 @@ calcDividend();
 calcPEPB();
 calcCAGR();
 calcDCA();
+calcAvg();
 </script>
 </body>
 </html>
