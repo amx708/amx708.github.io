@@ -95,6 +95,8 @@ def categorize(rel_path: str, title: str) -> tuple:
             return "帕伯莱演讲", 12
         if "li-lu" in lower or "lilu" in lower:
             return "李录演讲", 12
+        if "guijiang" in lower:
+            return "归江文章", 12
         return "价值投资演讲", 12
     if "articles/" in lower:
         return "深度文章", 13
@@ -115,6 +117,7 @@ def categorize(rel_path: str, title: str) -> tuple:
         "berkshire-stress-test.html": ("指数投资", 1),
         "berkshire-value-investors.html": ("价值投资人物", 17),
         "berkshire-pabrai-index.html": ("帕伯莱演讲", 12),
+        "berkshire-guijiang-index.html": ("归江文章", 12),
         "berkshire-munger-speeches.html": ("芒格演讲", 18),
         "berkshire-buffett-quotes.html": ("巴菲特演讲与名言", 19),
         "berkshire-munger-quotes.html": ("芒格名言", 19),
@@ -143,7 +146,7 @@ def build_tags(title: str, snippet: str, headings: list, rel_path: str) -> list:
         tags.append(y + "年")
 
     # Person / company tags from title
-    keywords = ["巴菲特", "芒格", "阿贝尔", "格雷格", "李录", "帕伯莱", "莫尼什",
+    keywords = ["巴菲特", "芒格", "阿贝尔", "格雷格", "李录", "帕伯莱", "莫尼什", "归江", "信璞投资",
                 "伯克希尔", "比亚迪", "苹果", "可口可乐", "美国银行", "西方石油",
                 "保险", "浮存金", "护城河", "安全边际", "内在价值", "股息",
                 "复利", "定投", "持仓", "补仓", "仓位", "PE", "PB", "ROE"]
