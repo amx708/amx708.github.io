@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>指数投资 — 长赢指数投资必读精华</title>
+<meta name="description" content="精选长赢指数投资公众号必读精华文章：理念框架、资产配置、估值择时、心态纪律、进阶策略、精华问答与围炉夜话。">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+  background:#f1f5f9;color:#1e293b;line-height:1.6;min-height:100vh;
+}
+.top-home-bar{position:absolute;top:16px;left:24px;z-index:10}
+.home-btn{
+  display:inline-flex;align-items:center;gap:6px;padding:7px 14px;
+  background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);
+  border-radius:20px;color:rgba(255,255,255,0.85);font-size:13px;font-weight:500;
+  text-decoration:none;backdrop-filter:blur(4px);transition:all 0.2s ease;
+}
+.home-btn:hover{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.28);color:#fff;transform:translateY(-1px)}
+.home-icon{font-size:14px}
+.breadcrumb{max-width:1100px;margin:0 auto;padding:14px 24px 6px;font-size:13px;color:rgba(255,255,255,0.6);position:relative;z-index:2}
+.breadcrumb a{color:rgba(255,255,255,0.7);text-decoration:none;transition:color 0.15s}
+.breadcrumb a:hover{color:#fbbf24}
+.breadcrumb span{color:rgba(255,255,255,0.35);margin:0 6px}
+.breadcrumb .current{color:rgba(255,255,255,0.9);font-weight:500}
+.hero{
+  position:relative;background:linear-gradient(135deg,#0f172a 0%,#1e293b 40%,#1e3a5f 100%);
+  padding:60px 24px 80px;text-align:center;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(ellipse at 30% 20%, rgba(245,158,11,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(37,99,235,0.06) 0%, transparent 50%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:100px;
+  background:linear-gradient(to top, #f1f5f9 0%, transparent 100%);pointer-events:none;
+}
+.hero-content{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.hero-badge{
+  display:inline-block;padding:4px 14px;background:rgba(245,158,11,0.15);
+  border:1px solid rgba(245,158,11,0.3);border-radius:20px;color:#fbbf24;
+  font-size:12px;font-weight:500;letter-spacing:0.5px;margin-bottom:20px;
+}
+.hero h1{font-size:clamp(26px,4vw,40px);font-weight:800;color:#fff;line-height:1.25;letter-spacing:-0.5px;margin-bottom:12px}
+.hero h1 span{color:#f59e0b}
+.hero p{font-size:15px;color:#94a3b8;max-width:560px;margin:0 auto;line-height:1.7}
+.section-nav{
+  max-width:1100px;margin:-40px auto 0;padding:0 24px;position:relative;z-index:3;
+}
+.section-nav-inner{
+  background:#fff;border-radius:14px;border:1px solid #e2e8f0;padding:6px;
+  display:flex;flex-wrap:wrap;gap:4px;box-shadow:0 4px 16px rgba(0,0,0,0.06);
+}
+.section-nav a{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;
+  font-size:13px;font-weight:500;color:#64748b;text-decoration:none;transition:all 0.2s ease;white-space:nowrap;
+}
+.section-nav a:hover{background:#f1f5f9;color:#2563eb}
+.nav-icon{font-size:15px}
+.main{max-width:1100px;margin:0 auto;padding:40px 24px 80px}
+.section{margin-bottom:48px}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.section-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.si-gold{background:#fffbeb;color:#d97706}
+.si-blue{background:#eff6ff;color:#2563eb}
+.si-teal{background:#f0fdfa;color:#0d9488}
+.si-rose{background:#fff1f2;color:#e11d48}
+.si-purple{background:#faf5ff;color:#7c3aed}
+.section-title{font-size:20px;font-weight:800;color:#0f172a;letter-spacing:-0.3px}
+.card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card-grid.three{grid-template-columns:repeat(3,1fr)}
+.article-card{
+  background:#fff;border-radius:14px;border:1px solid #e2e8f0;overflow:hidden;
+  transition:all 0.25s ease;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(0,0,0,0.04);
+  text-decoration:none;
+}
+.article-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,0.08);border-color:#cbd5e1}
+.card-top{padding:22px 24px 16px;flex:1}
+.card-category{
+  display:inline-block;padding:2px 10px;border-radius:6px;font-size:11px;font-weight:600;letter-spacing:0.3px;margin-bottom:10px;
+}
+.cat-gold{background:#fffbeb;color:#b45309}
+.cat-blue{background:#eff6ff;color:#1d4ed8}
+.cat-teal{background:#f0fdfa;color:#0f766e}
+.cat-rose{background:#fff1f2;color:#be123c}
+.cat-purple{background:#faf5ff;color:#6d28d9}
+.card-icon{
+  width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;
+}
+.ci-gold{background:#fffbeb;color:#d97706}
+.ci-blue{background:#eff6ff;color:#2563eb}
+.ci-teal{background:#f0fdfa;color:#0d9488}
+.ci-rose{background:#fff1f2;color:#e11d48}
+.ci-purple{background:#faf5ff;color:#7c3aed}
+.card-title{font-size:16px;font-weight:700;color:#0f172a;margin-bottom:6px;line-height:1.4}
+.card-desc{font-size:13px;color:#64748b;line-height:1.6}
+.card-footer{
+  padding:12px 24px;border-top:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;
+}
+.card-source{font-size:12px;color:#94a3b8}
+.card-arrow{font-size:15px;color:#cbd5e1;transition:all 0.2s ease}
+.article-card:hover .card-arrow{color:#2563eb;transform:translateX(3px)}
+.back-link{margin-top:40px;text-align:center}
+.back-link a{
+  display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;
+  color:#334155;font-size:14px;font-weight:500;text-decoration:none;transition:all 0.2s ease;box-shadow:0 1px 2px rgba(0,0,0,0.04);
+}
+.back-link a:hover{background:#f8fafc;border-color:#cbd5e1;color:#2563eb;box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+.footer{text-align:center;padding:32px 24px;color:#94a3b8;font-size:12px;border-top:1px solid #e2e8f0}
+.footer a{color:#64748b;text-decoration:none;transition:color 0.15s}
+.footer a:hover{color:#2563eb}
+@media(max-width:1024px){.card-grid.three{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){
+  .home-btn{font-size:12px;padding:6px 12px}
+  .top-home-bar{top:12px;left:16px}
+  .hero{padding:36px 16px 60px}
+  .hero h1{font-size:22px}
+  .hero p{font-size:13px}
+  .main{padding:28px 16px 56px}
+  .breadcrumb{padding:14px 12px 0;font-size:12px}
+  .section-nav{margin-top:-36px;padding:0 16px}
+  .section-nav a{padding:6px 12px;font-size:12px}
+  .section{margin-bottom:36px}
+  .section-title{font-size:17px}
+  .card-grid,.card-grid.three{grid-template-columns:1fr}
+  .card-top{padding:18px 16px 12px}
+  .card-footer{padding:10px 16px}
+  .card-title{font-size:14.5px}
+  .card-desc{font-size:12.5px}
+  .back-link a{padding:8px 18px;font-size:13px}
+}
+@media(max-width:480px){
+  .hero{padding:28px 12px 48px}
+  .hero-badge{font-size:10px;padding:3px 10px}
+  .main{padding:20px 10px 48px}
+  .section{margin-bottom:28px}
+  .section-icon{width:34px;height:34px;font-size:17px}
+  .section-title{font-size:15.5px}
+  .card-title{font-size:14px}
+  .card-desc{font-size:12px}
+  .nav-icon{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="top-home-bar">
+  <a href="index.html" class="home-btn"><span class="home-icon">🏠</span><span>返回首页</span></a>
+</div>
+
+<nav class="breadcrumb">
+  <a href="index.html">首页</a>
+  <span>/</span>
+  <a href="berkshire-standalone.html">投资数据中心</a>
+  <span>/</span>
+  <span class="current">指数投资</span>
+</nav>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Index Investing</div>
+    <h1>指数投资<br><span>长赢指数投资必读精华</span></h1>
+    <p>从 421 篇长赢指数投资公众号文章中精选 24 篇必读精华，覆盖理念、配置、估值、心态、策略与实战问答。</p>
+  </div>
+</header>
+
+<nav class="section-nav">
+  <div class="section-nav-inner">
+    <a href="#section-理念框架"><span class="nav-icon">🧭</span>理念框架</a>
+    <a href="#section-资产配置"><span class="nav-icon">⚖️</span>资产配置</a>
+    <a href="#section-估值择时"><span class="nav-icon">📊</span>估值与择时</a>
+    <a href="#section-心态纪律"><span class="nav-icon">🧠</span>心态与纪律</a>
+    <a href="#section-进阶策略"><span class="nav-icon">🎯</span>进阶策略</a>
+    <a href="#section-精华问答"><span class="nav-icon">💬</span>精华问答</a>
+    <a href="#section-围炉夜话"><span class="nav-icon">🔥</span>围炉夜话</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <section class="section" id="section-理念框架">
+    <div class="section-header">
+      <div class="section-icon si-gold">🧭</div>
+      <div>
+        <div class="section-title">理念框架</div>
+      </div>
+    </div>
+    <div class="card-grid three">
+
+      <a href="index-investing-content/2015-09-04_投资指数才是你进行金融投资的最佳方式.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-gold">🧭</div>
+          <span class="card-category cat-gold">理念框架</span>
+          <div class="card-title">投资指数才是你进行金融投资的最佳方式</div>
+          <div class="card-desc">从巴菲特推荐指数基金讲起，系统阐述指数投资省心、低风险、长期收益不输主动基金的三大优势，是理解指数投资的入门必读。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2015-09-04</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2016-01-19_没有股神，只有长跑赢家-兼论ETF计划的未来.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-gold">🧭</div>
+          <span class="card-category cat-gold">理念框架</span>
+          <div class="card-title">没有股神，只有长跑赢家——兼论ETF计划的未来</div>
+          <div class="card-desc">用老巴买中石油、A股牛熊切换等案例说明：投资没有股神，时间才是审判者。兼谈ETF计划为何能长跑致胜。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2016-01-19</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2017-11-03_写给新朋友：ETF计划的投资世界观.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-gold">🧭</div>
+          <span class="card-category cat-gold">理念框架</span>
+          <div class="card-title">写给新朋友：ETF计划的投资世界观</div>
+          <div class="card-desc">以“三观一致”为喻，向新朋友交代ETF计划的投资世界观：不预测、重估值、讲纪律、长期主义。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2017-11-03</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2016-04-30_五分钟学会没有ETF如何投资指数.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-gold">🧭</div>
+          <span class="card-category cat-gold">理念框架</span>
+          <div class="card-title">五分钟学会没有ETF如何投资指数</div>
+          <div class="card-desc">当指数没有ETF或成交量太小时，如何用分级基金、LOF、场外指数基金等替代，是实操层面的入门指南。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2016-04-30</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </section>
+  <section class="section" id="section-资产配置">
+    <div class="section-header">
+      <div class="section-icon si-blue">⚖️</div>
+      <div>
+        <div class="section-title">资产配置</div>
+      </div>
+    </div>
+    <div class="card-grid three">
+
+      <a href="index-investing-content/2015-06-11_2015年三季度金融资产配置建议.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-blue">⚖️</div>
+          <span class="card-category cat-blue">资产配置</span>
+          <div class="card-title">2015年三季度金融资产配置建议</div>
+          <div class="card-desc">长赢早期资产配置框架示例：股票、债券、黄金、港股、美股的配比逻辑，以及高估时降仓的纪律。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2015-06-11</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2020-08-15_填坑：仓位控制及主动基金.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-blue">⚖️</div>
+          <span class="card-category cat-blue">资产配置</span>
+          <div class="card-title">填坑：仓位控制及主动基金</div>
+          <div class="card-desc">回应“不要买指数基金”的论调，用真实账户数据说明仓位控制与指数基金结合的效果，并谈对主动基金的看法。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2020-08-15</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2021-03-28_以前的投资笔记(002)：详解家庭资产配置(一).html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-blue">⚖️</div>
+          <span class="card-category cat-blue">资产配置</span>
+          <div class="card-title">以前的投资笔记（002）：详解家庭资产配置(一）</div>
+          <div class="card-desc">从普通家庭视角出发，详解资产配置的核心原则：根据风险承受能力、资金期限与目标进行分散。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2021-03-28</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2020-10-30_2020年11月ETF计划(一)：150买入三份；S买入一份；资产配置3.0.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-blue">⚖️</div>
+          <span class="card-category cat-blue">资产配置</span>
+          <div class="card-title">2020年11月ETF计划（一）：150买入三份；S买入一份；资产配置3.0</div>
+          <div class="card-desc">资产配置3.0版本升级说明：将资产类别、估值状态与仓位管理进一步系统化，适合长期跟车者学习。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2020-10-30</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </section>
+  <section class="section" id="section-估值择时">
+    <div class="section-header">
+      <div class="section-icon si-teal">📊</div>
+      <div>
+        <div class="section-title">估值与择时</div>
+      </div>
+    </div>
+    <div class="card-grid three">
+
+      <a href="index-investing-content/2015-07-02_四张估值图告诉你明天能买了吗？.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-teal">📊</div>
+          <span class="card-category cat-teal">估值与择时</span>
+          <div class="card-title">四张估值图告诉你明天能买了吗？</div>
+          <div class="card-desc">用四张估值图展示A股历史规律：高点一样、低点也一样。核心启示是“找到规律，遵守纪律”。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2015-07-02</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2015-08-12_A股的哈迪斯之顶.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-teal">📊</div>
+          <span class="card-category cat-teal">估值与择时</span>
+          <div class="card-title">A股的哈迪斯之顶</div>
+          <div class="card-desc">将A股整体PE 60倍、PB 5.5倍以上定义为“哈迪斯之顶”，警示极端估值下的集体狂热与风险。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2015-08-12</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2022-04-25_就是这里。三年半后的钻石坑.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-teal">📊</div>
+          <span class="card-category cat-teal">估值与择时</span>
+          <div class="card-title">就是这里。三年半后的钻石坑</div>
+          <div class="card-desc">2022年4月A股再次进入钻石坑的旗帜鲜明判断，含关键指数支撑位与仓位策略，是熊市底部买入的实战参考。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2022-04-25</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2018-11-04_钻石坑里的心理状态.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-teal">📊</div>
+          <span class="card-category cat-teal">估值与择时</span>
+          <div class="card-title">钻石坑里的心理状态</div>
+          <div class="card-desc">在十年一遇的钻石大坑里，比估值更重要的是心态：不急躁、不上杠杆、不卖房买股，保持平和才能赚大钱。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2018-11-04</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </section>
+  <section class="section" id="section-心态纪律">
+    <div class="section-header">
+      <div class="section-icon si-rose">🧠</div>
+      <div>
+        <div class="section-title">心态与纪律</div>
+      </div>
+    </div>
+    <div class="card-grid three">
+
+      <a href="index-investing-content/2015-10-23_道理懂了，你也能从容面对股市涨跌：谈笑风生，然后把钱赚了.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-rose">🧠</div>
+          <span class="card-category cat-rose">心态与纪律</span>
+          <div class="card-title">道理懂了，你也能从容面对股市涨跌：谈笑风生，然后把钱赚了</div>
+          <div class="card-desc">用中证500不同估值起点回测，证明长期收益由买入估值决定，懂得这个道理才能谈笑风生。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2015-10-23</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2015-06-25_噪音太多，请简单赚钱.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-rose">🧠</div>
+          <span class="card-category cat-rose">心态与纪律</span>
+          <div class="card-title">噪音太多，请简单赚钱</div>
+          <div class="card-desc">市场噪音越多，越要回归简单：看估值、守纪律。用2007年牛市与1600点熊市说明大众为何总在高买低卖。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2015-06-25</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2018-08-18_这场战争，请弱者走开.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-rose">🧠</div>
+          <span class="card-category cat-rose">心态与纪律</span>
+          <div class="card-title">这场战争，请弱者走开</div>
+          <div class="card-desc">2018年熊市宣言：投资是一场战争，没有准备、没有体系、没有心态的弱者，请在大跌前离开。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2018-08-18</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2018-03-24_如果有人打你的左脸.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-rose">🧠</div>
+          <span class="card-category cat-rose">心态与纪律</span>
+          <div class="card-title">如果有人打你的左脸</div>
+          <div class="card-desc">用“疫苗”比喻提前的风险教育：当市场暴跌时，你能否免疫恐慌，取决于平时有没有被持续打过预防针。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2018-03-24</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </section>
+  <section class="section" id="section-进阶策略">
+    <div class="section-header">
+      <div class="section-icon si-purple">🎯</div>
+      <div>
+        <div class="section-title">进阶策略</div>
+      </div>
+    </div>
+    <div class="card-grid three">
+
+      <a href="index-investing-content/2019-04-28_波段策略.网格之一：写在前面、体系以及策略.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-purple">🎯</div>
+          <span class="card-category cat-purple">进阶策略</span>
+          <div class="card-title">波段策略.网格之一：写在前面、体系以及策略</div>
+          <div class="card-desc">网格策略系列开篇：为何分享、适用场景、体系定位，以及使用中必须注意的纪律与风险。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2019-04-28</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2019-05-06_波段策略.网格之二：网格策略基础1.0版.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-purple">🎯</div>
+          <span class="card-category cat-purple">进阶策略</span>
+          <div class="card-title">波段策略.网格之二：网格策略基础1.0版</div>
+          <div class="card-desc">详解网格策略1.0版的基础原理、操作步骤、仓位设置与止盈止损，是震荡市吃波段利润的入门方法。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2019-05-06</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2019-05-26_波段策略.网格之三：网格策略进阶2.0版.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-purple">🎯</div>
+          <span class="card-category cat-purple">进阶策略</span>
+          <div class="card-title">波段策略.网格之三：网格策略进阶2.0版</div>
+          <div class="card-desc">在1.0基础上升级：解决强势上涨赚太少的问题，通过动态调整网格间距提升收益。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2019-05-26</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2022-10-05_策略研讨：跌破最后一个支撑后的交易策略.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-purple">🎯</div>
+          <span class="card-category cat-purple">进阶策略</span>
+          <div class="card-title">策略研讨：跌破最后一个支撑后的交易策略</div>
+          <div class="card-desc">当指数跌破最后一个支撑位时如何交易：不是铁底，而是向交易系统致敬的致敬仓位，强调纪律与应对。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2022-10-05</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </section>
+  <section class="section" id="section-精华问答">
+    <div class="section-header">
+      <div class="section-icon si-gold">💬</div>
+      <div>
+        <div class="section-title">精华问答</div>
+      </div>
+    </div>
+    <div class="card-grid">
+
+      <a href="index-investing-content/2016-11-27_周日问答(一)：飞翔吧少年-如何开始投资之路.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-gold">💬</div>
+          <span class="card-category cat-gold">精华问答</span>
+          <div class="card-title">周日问答（一）：飞翔吧少年——如何开始投资之路</div>
+          <div class="card-desc">回答刚毕业学生如何开始投资：从建立投资体系、确定资金量、选择指数到长期纪律，是新手启航指南。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2016-11-27</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2018-07-15_周日问答(二)：如果必须要独行，我送你几只锦囊(上).html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-gold">💬</div>
+          <span class="card-category cat-gold">精华问答</span>
+          <div class="card-title">周日问答（二）：如果必须要独行，我送你几只锦囊（上）</div>
+          <div class="card-desc">如果某天无法参考计划，作者送给读者的几个投资锦囊：让你独立也能不做得太差。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2018-07-15</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </section>
+  <section class="section" id="section-围炉夜话">
+    <div class="section-header">
+      <div class="section-icon si-blue">🔥</div>
+      <div>
+        <div class="section-title">围炉夜话</div>
+      </div>
+    </div>
+    <div class="card-grid">
+
+      <a href="index-investing-content/2018-05-12_围炉夜话(一)：那些年，我从失败中学到的.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-blue">🔥</div>
+          <span class="card-category cat-blue">围炉夜话</span>
+          <div class="card-title">围炉夜话（一）：那些年，我从失败中学到的</div>
+          <div class="card-desc">作者分享自己投资失败案例：承认无知、总结教训，是理解风险与人性的珍贵记录。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2018-05-12</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+      <a href="index-investing-content/2023-01-09_围炉2023-.-壹：拨开2023的迷雾.html" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-blue">🔥</div>
+          <span class="card-category cat-blue">围炉夜话</span>
+          <div class="card-title">围炉2023 . 壹：拨开2023的迷雾</div>
+          <div class="card-desc">回顾2022年预测，展望2023年市场：复杂行情下的判断框架，适合学习如何独立进行年度研判。</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-source">2023-01-09</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <div class="back-link">
+    <a href="berkshire-standalone.html">← 返回投资数据中心</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>内容来源：长赢指数投资公众号（ETF拯救世界）· 仅供学习交流</p>
+</footer>
+
+</body>
+</html>
