@@ -52,7 +52,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
 .overview{background:rgba(236,72,153,0.05);border:1px solid rgba(236,72,153,0.12);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#cbd5e1;line-height:1.85}
 .overview b{color:#fff;font-weight:600}
-.layer-detail{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 18px;margin-bottom:10px}
+.layer-detail{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #ec4899;border-radius:12px;padding:16px 18px;margin-bottom:10px}
 .layer-detail-title{font-size:15px;font-weight:700;color:#f1f5f9;display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .layer-detail-body{font-size:13.5px;color:#94a3b8;line-height:1.8}
 .layer-detail-body b{color:#cbd5e1}
@@ -68,13 +68,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .back-bar{margin-top:20px}
 .back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(236,72,153,0.08);color:#ec4899;border:1px solid rgba(236,72,153,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
 .back-btn:hover{background:rgba(236,72,153,0.16)}
+.data-banner{background:rgba(236,72,153,0.10);border:1px solid rgba(236,72,153,0.30);border-left:4px solid #ec4899;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#cbd5e1;line-height:1.7}
+.data-banner b{color:#fff;font-weight:600}
+.data-banner .upd{color:#ec4899;font-weight:600}
 
 </style>
 </head>
 <body>
 <div class="top-bar">
 <a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
-<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:ec4899;text-decoration:none;font-size:13px;font-weight:700">创新药</a><a href="berkshire-appliance-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:#ec4899;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:#ec4899;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:#ec4899;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:#ec4899;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:#ec4899;text-decoration:none;font-size:13px">电力设备</a></span>
+<span style="display:inline-flex;gap:14px;align-items:center;margin-left:10px"><a href="berkshire-bank-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:ec4899;text-decoration:none;font-size:13px;font-weight:700">创新药</a><a href="berkshire-appliance-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:ec4899;text-decoration:none;font-size:13px">电力设备</a></span>
 <div class="breadcrumb">
 <a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><a href="berkshire-innov-chains.html">创新药产业链</a><span class="crumb-sep">/</span><span>再鼎医药 链</span>
 </div>
@@ -90,13 +93,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 </div>
 </div>
 
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
+
 <div class="section-title">公司 / 主题概述</div>
 <div class="overview">
 再鼎医药以「引进（license-in）+ 本土商业化」模式著称，将海外（如 Paratek、Turning Point、Novocure）优质创新药引入中国并负责开发上市，已商业化多款肿瘤 / 抗感染 / 电场疗法产品。优势是选品与注册能力；挑战是依赖外部管线、授权成本与盈利。
 </div>
 
 <div class="section-title">跨层全栈分析（5 层）</div>
-<div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">01</span>上游 · 研发与 CRO/CDMO</div><div class="layer-detail-body">以外部引进为主，内部小规模研发；全球合作网络广。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">02</span>中游 · 生产与工艺</div><div class="layer-detail-body">依赖 CDMO 与外部生产，本土化产能逐步建设。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">03</span>下游 · 商业化与出海</div><div class="layer-detail-body">自建肿瘤 / 专科销售团队，国内注册与医保准入能力强。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">04</span>消费与场景</div><div class="layer-detail-body">肿瘤（肺癌、胃肠间质瘤等）、抗感染、脑胶质瘤电场疗法。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">05</span>投资逻辑</div><div class="layer-detail-body">护城河 = 选品 + 注册商业化；风险 = 授权成本、依赖外部、谈判、盈利。</div></div>
+<div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">01</span>上游 · 研发与 CRO/CDMO</div><div class="layer-detail-body">以外部引进为主，内部小规模研发，全球合作网络广。选品眼光决定管线质量。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">02</span>中游 · 生产与工艺</div><div class="layer-detail-body">依赖 CDMO 与外部生产，本土化产能逐步建设。CDMO 降资本开支，本土化补短板。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">03</span>下游 · 商业化与出海</div><div class="layer-detail-body">自建肿瘤 / 专科销售团队，国内注册与医保准入能力强。注册与商业化能力是引进模式的变现关键。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">04</span>消费与场景</div><div class="layer-detail-body">肿瘤（肺癌、胃肠间质瘤等）、抗感染、脑胶质瘤电场疗法。差异化疗法填补空白适应症。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">05</span>投资逻辑</div><div class="layer-detail-body">护城河 = 选品 + 注册商业化，风险 = 授权成本、依赖外部、谈判、盈利。选品与商业化强，但外部依赖与成本高。</div></div>
 
 <div class="section-title">关键信息一览</div>
 <table class="info-table">

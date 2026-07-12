@@ -52,7 +52,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
 .overview{background:rgba(224,83,61,0.05);border:1px solid rgba(224,83,61,0.12);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#cbd5e1;line-height:1.85}
 .overview b{color:#fff;font-weight:600}
-.layer-detail{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 18px;margin-bottom:10px}
+.layer-detail{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #e0533d;border-radius:12px;padding:16px 18px;margin-bottom:10px}
 .layer-detail-title{font-size:15px;font-weight:700;color:#f1f5f9;display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .layer-detail-body{font-size:13.5px;color:#94a3b8;line-height:1.8}
 .layer-detail-body b{color:#cbd5e1}
@@ -68,13 +68,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .back-bar{margin-top:20px}
 .back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(224,83,61,0.08);color:#e0533d;border:1px solid rgba(224,83,61,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
 .back-btn:hover{background:rgba(224,83,61,0.16)}
+.data-banner{background:rgba(224,83,61,0.10);border:1px solid rgba(224,83,61,0.30);border-left:4px solid #e0533d;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#cbd5e1;line-height:1.7}
+.data-banner b{color:#fff;font-weight:600}
+.data-banner .upd{color:#e0533d;font-weight:600}
 
 </style>
 </head>
 <body>
 <div class="top-bar">
 <a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
-<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:e0533d;text-decoration:none;font-size:13px;font-weight:700">中药</a><a href="berkshire-innov-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:#e0533d;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:#e0533d;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:#e0533d;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:#e0533d;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:#e0533d;text-decoration:none;font-size:13px">电力设备</a></span>
+<span style="display:inline-flex;gap:14px;align-items:center;margin-left:10px"><a href="berkshire-bank-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:e0533d;text-decoration:none;font-size:13px;font-weight:700">中药</a><a href="berkshire-innov-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">电力设备</a></span>
 <div class="breadcrumb">
 <a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><a href="berkshire-tcm-chains.html">中药产业链</a><span class="crumb-sep">/</span><span>步长制药 链</span>
 </div>
@@ -90,13 +93,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 </div>
 </div>
 
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
+
 <div class="section-title">公司 / 主题概述</div>
 <div class="overview">
 步长制药以心脑血管中成药为核心，代表品种脑心通胶囊、稳心颗粒、丹红注射液等，在院线与 OTC 均有布局。销售网络以学术推广见长。关注点在于中药注射剂（丹红）的政策压力、销售费用率偏高与产品迭代。
 </div>
 
 <div class="section-title">跨层全栈分析（5 层）</div>
-<div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">01</span>上游 · 药材与种植</div><div class="layer-detail-body">中药材采购，注射剂对原料与质控要求高。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">02</span>中游 · 炮制与制药</div><div class="layer-detail-body">心脑血管专利中成药品种群，含口服 + 注射剂型；丹红注射液为代表性注射品种。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">03</span>下游 · 渠道与终端</div><div class="layer-detail-body">医院（处方 / 学术推广）+ 零售；销售队伍庞大。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">04</span>消费与场景</div><div class="layer-detail-body">心脑血管慢病长期用药，中老年群体为主。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">05</span>投资逻辑</div><div class="layer-detail-body">护城河 = 心脑血管品种群 + 学术网络；风险 = 中药注射剂政策、销售费用、单品依赖、集采。</div></div>
+<div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">01</span>上游 · 药材与种植</div><div class="layer-detail-body">中药材采购，注射剂对原料与质控要求高。注射剂质控标准严，原料稳定性直接影响安全与批签发。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">02</span>中游 · 炮制与制药</div><div class="layer-detail-body">心脑血管专利中成药品种群，含口服 + 注射剂型，丹红注射液为代表性注射品种。口服与注射组合覆盖院内外场景。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">03</span>下游 · 渠道与终端</div><div class="layer-detail-body">医院（处方 / 学术推广）+ 零售，销售队伍庞大。学术推广网络是处方放量的核心抓手。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">04</span>消费与场景</div><div class="layer-detail-body">心脑血管慢病长期用药，中老年群体为主。慢病长期用药带来持续复购。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">05</span>投资逻辑</div><div class="layer-detail-body">护城河 = 心脑血管品种群 + 学术网络，风险 = 中药注射剂政策、销售费用、单品依赖、集采。品种群与渠道构成壁垒，但注射剂政策与费用是主要风险。</div></div>
 
 <div class="section-title">关键信息一览</div>
 <table class="info-table">

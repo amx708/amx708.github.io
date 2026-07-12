@@ -52,7 +52,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
 .overview{background:rgba(224,83,61,0.05);border:1px solid rgba(224,83,61,0.12);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#cbd5e1;line-height:1.85}
 .overview b{color:#fff;font-weight:600}
-.layer-detail{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 18px;margin-bottom:10px}
+.layer-detail{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-left:3px solid #e0533d;border-radius:12px;padding:16px 18px;margin-bottom:10px}
 .layer-detail-title{font-size:15px;font-weight:700;color:#f1f5f9;display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .layer-detail-body{font-size:13.5px;color:#94a3b8;line-height:1.8}
 .layer-detail-body b{color:#cbd5e1}
@@ -68,13 +68,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .back-bar{margin-top:20px}
 .back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(224,83,61,0.08);color:#e0533d;border:1px solid rgba(224,83,61,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
 .back-btn:hover{background:rgba(224,83,61,0.16)}
+.data-banner{background:rgba(224,83,61,0.10);border:1px solid rgba(224,83,61,0.30);border-left:4px solid #e0533d;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#cbd5e1;line-height:1.7}
+.data-banner b{color:#fff;font-weight:600}
+.data-banner .upd{color:#e0533d;font-weight:600}
 
 </style>
 </head>
 <body>
 <div class="top-bar">
 <a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
-<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:e0533d;text-decoration:none;font-size:13px;font-weight:700">中药</a><a href="berkshire-innov-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:#e0533d;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:#e0533d;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:#e0533d;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:#e0533d;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:#e0533d;text-decoration:none;font-size:13px">电力设备</a></span>
+<span style="display:inline-flex;gap:14px;align-items:center;margin-left:10px"><a href="berkshire-bank-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:e0533d;text-decoration:none;font-size:13px;font-weight:700">中药</a><a href="berkshire-innov-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">电力设备</a></span>
 <div class="breadcrumb">
 <a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><a href="berkshire-tcm-chains.html">中药产业链</a><span class="crumb-sep">/</span><span>以岭药业 链</span>
 </div>
@@ -90,13 +93,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 </div>
 </div>
 
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
+
 <div class="section-title">公司 / 主题概述</div>
 <div class="overview">
 以岭药业以吴以岭院士「络病理论」为学术根基，走「理论—临床—新药」的专利中药路线。核心产品连花清瘟（感冒 / 流感 / 新冠相关）为其打响全国知名度，此外在心脑血管（通心络、参松养心、芪苈强心）也有专利大品种。研发驱动特征明显，但单品依赖与医保 / 集采是关注点。
 </div>
 
 <div class="section-title">跨层全栈分析（5 层）</div>
-<div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">01</span>上游 · 药材与种植</div><div class="layer-detail-body">中药材采购与基地，连花清瘟涉及金银花、连翘等多味药材，原料价格波动影响成本。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">02</span>中游 · 炮制与制药</div><div class="layer-detail-body">专利中药工艺，围绕络病理论形成心脑血管 + 呼吸 + 神经多管线；连花清瘟为代表性大单品。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">03</span>下游 · 渠道与终端</div><div class="layer-detail-body">医院（处方）+ 零售药店（OTC）+ 电商；疫情后渠道铺货广。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">04</span>消费与场景</div><div class="layer-detail-body">感冒流感自我药疗、心脑血管慢病长期用药、家庭常备药箱。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">05</span>投资逻辑</div><div class="layer-detail-body">护城河 = 络病理论学术壁垒 + 专利品种；风险 = 连花清瘟需求回落、单品集中、医保谈判与集采、研发转化不确定性。</div></div>
+<div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">01</span>上游 · 药材与种植</div><div class="layer-detail-body">中药材采购与基地，连花清瘟涉及金银花、连翘等多味药材，原料价格波动影响成本。多味药材组合使成本对单一品种价格不敏感，但整体受药市周期影响。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">02</span>中游 · 炮制与制药</div><div class="layer-detail-body">专利中药工艺，围绕络病理论形成心脑血管 + 呼吸 + 神经多管线，连花清瘟为代表性大单品。络病理论支撑学术推广与医生认知，形成差异化壁垒。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">03</span>下游 · 渠道与终端</div><div class="layer-detail-body">医院（处方）+ 零售药店（OTC）+ 电商，疫情后渠道铺货广。全渠道覆盖使大单品在流感季快速放量。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">04</span>消费与场景</div><div class="layer-detail-body">感冒流感自我药疗、心脑血管慢病长期用药、家庭常备药箱。OTC 与慢病双属性带来即期与长期需求叠加。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">05</span>投资逻辑</div><div class="layer-detail-body">护城河 = 络病理论学术壁垒 + 专利品种，风险 = 连花清瘟需求回落、单品集中、医保谈判与集采、研发转化不确定性。学术与专利构成壁垒，但单品依赖与集采是主要风险。</div></div>
 
 <div class="section-title">关键信息一览</div>
 <table class="info-table">
