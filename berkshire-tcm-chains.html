@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>中药产业链 · 价值投资视角</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#0a0e1a;color:#e2e8f0;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(10,14,26,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(224,83,61,0.15);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(224,83,61,0.12);color:#e0533d;border:1px solid rgba(224,83,61,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#e0533d;color:#0a0e1a}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#e0533d}
+.crumb-sep{color:#334155}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#0f1729 0%,#2a1410 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(224,83,61,0.2);box-shadow:0 8px 30px rgba(0,0,0,0.3)}
+.hero-title{font-size:26px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#94a3b8;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(224,83,61,0.08);border:1px solid rgba(224,83,61,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#e0533d}
+.stat-label{font-size:11px;color:#94a3b8;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#0c1a2e,#2a1410);border:1px solid rgba(224,83,61,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 4px 16px rgba(224,83,61,0.08)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#e0533d;background:rgba(224,83,61,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#cbd5e1;line-height:1.8}
+.explain-banner .eb-text b{color:#fff;font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:#f1f5f9;margin:28px 0 14px;padding-left:12px;border-left:3px solid #e0533d}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 14px}
+.layer-num{font-size:12px;color:#e0533d;font-weight:700}
+.layer-name{font-size:14px;color:#f1f5f9;font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#94a3b8;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block}
+.giant-card:hover{border-color:#e0533d;background:rgba(224,83,61,0.06);transform:translateY(-2px)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:#f1f5f9}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(220,38,38,0.18);color:#fca5a5;border:1px solid rgba(220,38,38,0.3)}
+.region-hk{background:rgba(234,179,8,0.18);color:#fde68a;border:1px solid rgba(234,179,8,0.3)}
+.giant-desc{font-size:12.5px;color:#94a3b8;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#e0533d;font-weight:600}
+.source-note{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7}
+.source-note b{color:#94a3b8}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
+.overview{background:rgba(224,83,61,0.05);border:1px solid rgba(224,83,61,0.12);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#cbd5e1;line-height:1.85}
+.overview b{color:#fff;font-weight:600}
+.layer-detail{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 18px;margin-bottom:10px}
+.layer-detail-title{font-size:15px;font-weight:700;color:#f1f5f9;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-detail-body{font-size:13.5px;color:#94a3b8;line-height:1.8}
+.layer-detail-body b{color:#cbd5e1}
+.info-table{width:100%;border-collapse:collapse;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-top:8px}
+.info-table tr{border-bottom:1px solid rgba(255,255,255,0.06)}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#cbd5e1}
+.info-table td:first-child{width:160px;color:#94a3b8;background:rgba(255,255,255,0.02)}
+.insight-box{background:linear-gradient(135deg,#2a1410,#0c1a2e);border:1px solid rgba(224,83,61,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#e0533d}
+.insight-body{font-size:13.5px;color:#cbd5e1;line-height:1.8}
+.back-bar{margin-top:20px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(224,83,61,0.08);color:#e0533d;border:1px solid rgba(224,83,61,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(224,83,61,0.16)}
+
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span style="display:inline-flex;gap:14px;align-items:center;margin-left:10px"><a href="berkshire-bank-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:e0533d;text-decoration:none;font-size:13px;font-weight:700">中药</a><a href="berkshire-innov-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:e0533d;text-decoration:none;font-size:13px">家电</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>中药产业链</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">中药产业链</div>
+<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">11</div><div class="stat-label">上市公司</div></div>
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+</div>
+</div>
+
+<div class="explain-banner">
+<div class="eb-icon">🌿</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「中药产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把中药龙头按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
+<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中为框架级定性梳理，不编造具体财务数字，最新数据以公司公告为准。
+</div>
+</div>
+</div>
+
+<div class="section-title">跨层分析框架（5 层）</div>
+<div class="layers">
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游 · 药材与种植</div><div class="layer-desc">中药材种植 / GAP 基地 / 野生与稀缺资源（麝香、牛黄、驴皮），原料供给与质量是根基</div></div><div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游 · 炮制与制药</div><div class="layer-desc">传统炮制工艺 / 保密与专利处方 / 多剂型（丸散膏丹、颗粒、注射），工艺壁垒显著</div></div><div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游 · 渠道与终端</div><div class="layer-desc">医院处方 / 零售药店 / 电商 / 连锁，OTC 自我药疗占比高</div></div><div class="layer-card"><div class="layer-num">04</div><div class="layer-name">消费与场景</div><div class="layer-desc">自我药疗、滋补保健、礼品社交与收藏，兼具「药」与「消费」双重属性</div></div><div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">品牌 / 配方 / 老字号壁垒、消费化能力，风险在集采、医保、原材料与年轻化</div></div>
+</div>
+
+<div class="section-title">中药龙头索引（上市公司 11 家）</div>
+<div class="grid">
+<a class="giant-card" href="berkshire-tcm-chain-yunnanbaiyao.html"><div class="giant-head"><span class="giant-name">云南白药 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">中药老字号 + 日化大健康双轮，白药保密配方是核心资产。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-tcm-chain-pianzaihuang.html"><div class="giant-head"><span class="giant-name">片仔癀 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">国家绝密配方 + 天然麝香，稀缺性驱动的「中药茅台」。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-tcm-chain-tongrentang.html"><div class="giant-head"><span class="giant-name">同仁堂 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">300 余年老字号，安宫牛黄丸与心脑血管中成药的金字招牌。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-tcm-chain-dongejiao.html"><div class="giant-head"><span class="giant-name">东阿阿胶 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">阿胶品类代名词，从「滋补国宝」到年轻化复兴。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-tcm-chain-baiyunshan.html"><div class="giant-head"><span class="giant-name">白云山 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">大南药 + 大健康（王老吉）+ 大商业，广州医药集团旗舰。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-tcm-chain-yiling.html"><div class="giant-head"><span class="giant-name">以岭药业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">络病理论特色的专利中药龙头，连花清瘟打响名气。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-tcm-chain-huaren_sanjio.html"><div class="giant-head"><span class="giant-name">华润三九 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">OTC 与配方颗粒龙头，CHC 自我诊疗 + 处方药双轮。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-tcm-chain-buchang.html"><div class="giant-head"><span class="giant-name">步长制药 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">心脑血管中成药大户，脑心通等专利品种见长。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-tcm-chain-jichuan.html"><div class="giant-head"><span class="giant-name">济川药业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">儿科与呼吸中成药特色，蒲地蓝消炎口碑品种。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-tcm-chain-lingrui.html"><div class="giant-head"><span class="giant-name">羚锐制药 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">贴膏剂细分龙头，OTC 膏药「隐形冠军」。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-tcm-chain-jiangzhong.html"><div class="giant-head"><span class="giant-name">江中药业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">胃肠 OTC 龙头，健胃消食片家喻户晓。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+</body>
+</html>
