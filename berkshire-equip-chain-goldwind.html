@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
+<title>金风科技 链 · 电力设备产业链</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#0a0e1a;color:#e2e8f0;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(10,14,26,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(45,212,191,0.15);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(45,212,191,0.12);color:#2dd4bf;border:1px solid rgba(45,212,191,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#2dd4bf;color:#0a0e1a}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#2dd4bf}
+.crumb-sep{color:#334155}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#0f1729 0%,#08251f 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(45,212,191,0.2);box-shadow:0 8px 30px rgba(0,0,0,0.3)}
+.hero-title{font-size:26px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#94a3b8;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#2dd4bf}
+.stat-label{font-size:11px;color:#94a3b8;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#0c1a2e,#08251f);border:1px solid rgba(45,212,191,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 4px 16px rgba(45,212,191,0.08)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#2dd4bf;background:rgba(45,212,191,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#cbd5e1;line-height:1.8}
+.explain-banner .eb-text b{color:#fff;font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:#f1f5f9;margin:28px 0 14px;padding-left:12px;border-left:3px solid #2dd4bf}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 14px}
+.layer-num{font-size:12px;color:#2dd4bf;font-weight:700}
+.layer-name{font-size:14px;color:#f1f5f9;font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#94a3b8;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block}
+.giant-card:hover{border-color:#2dd4bf;background:rgba(45,212,191,0.06);transform:translateY(-2px)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:#f1f5f9}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(220,38,38,0.18);color:#fca5a5;border:1px solid rgba(220,38,38,0.3)}
+.region-hk{background:rgba(234,179,8,0.18);color:#fde68a;border:1px solid rgba(234,179,8,0.3)}
+.giant-desc{font-size:12.5px;color:#94a3b8;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#2dd4bf;font-weight:600}
+.source-note{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7}
+.source-note b{color:#94a3b8}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
+.overview{background:rgba(45,212,191,0.05);border:1px solid rgba(45,212,191,0.12);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#cbd5e1;line-height:1.85}
+.overview b{color:#fff;font-weight:600}
+.layer-detail{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 18px;margin-bottom:10px}
+.layer-detail-title{font-size:15px;font-weight:700;color:#f1f5f9;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-detail-body{font-size:13.5px;color:#94a3b8;line-height:1.8}
+.layer-detail-body b{color:#cbd5e1}
+.info-table{width:100%;border-collapse:collapse;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-top:8px}
+.info-table tr{border-bottom:1px solid rgba(255,255,255,0.06)}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#cbd5e1}
+.info-table td:first-child{width:160px;color:#94a3b8;background:rgba(255,255,255,0.02)}
+.insight-box{background:linear-gradient(135deg,#08251f,#0c1a2e);border:1px solid rgba(45,212,191,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#2dd4bf}
+.insight-body{font-size:13.5px;color:#cbd5e1;line-height:1.8}
+.back-bar{margin-top:20px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(45,212,191,0.08);color:#2dd4bf;border:1px solid rgba(45,212,191,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(45,212,191,0.16)}
+
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:2dd4bf;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:2dd4bf;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:2dd4bf;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:2dd4bf;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:2dd4bf;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:2dd4bf;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:2dd4bf;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:2dd4bf;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:2dd4bf;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:2dd4bf;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:2dd4bf;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:2dd4bf;text-decoration:none;font-size:13px;font-weight:700">电力设备</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><a href="berkshire-equip-chains.html">电力设备产业链</a><span class="crumb-sep">/</span><span>金风科技 链</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">金风科技 链</div>
+<div class="hero-sub">风电整机龙头，风光储一体。</div>
+<span class="region-tag region-tag-mini region-cn">中国</span>
+<div class="hero-stats" style="margin-top:14px">
+<div class="stat-item"><div class="stat-num">风电</div><div class="stat-label">整机龙头</div></div><div class="stat-item"><div class="stat-num">海风</div><div class="stat-label">布局</div></div><div class="stat-item"><div class="stat-num">制造</div><div class="stat-label">设备</div></div>
+</div>
+</div>
+
+<div class="section-title">公司 / 主题概述</div>
+<div class="overview">
+金风科技是国内风电整机龙头，直驱永磁机组见长，布局陆风与海风，并拓展风电场运营与储能。盈利随风电装机与价格竞争波动，海风与运维是成长点。
+</div>
+
+<div class="section-title">跨层全栈分析（5 层）</div>
+<div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">01</span>上游 · 材料与部件</div><div class="layer-detail-body">钢材 / 叶片材料等外采。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">02</span>中游 · 设备制造</div><div class="layer-detail-body">风电机组制造（直驱永磁）+ 风场运营。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">03</span>下游 · 电站与电网</div><div class="layer-detail-body">机组供开发商，自营风电场发电。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">04</span>消费与场景</div><div class="layer-detail-body">陆风 / 海风电站、绿电。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">05</span>投资逻辑</div><div class="layer-detail-body">护城河 = 整机技术 + 运行业绩；风险 = 价格战、装机节奏、海风、毛利。</div></div>
+
+<div class="section-title">关键信息一览</div>
+<table class="info-table">
+<tr><td><b>主业</b></td><td>风电整机</td></tr><tr><td><b>技术</b></td><td>直驱永磁</td></tr><tr><td><b>延伸</b></td><td>风场 / 储能</td></tr><tr><td><b>关注</b></td><td>装机</td></tr>
+</table>
+
+<div class="insight-box">
+<div class="insight-title"><span class="icon">🛡️</span> 护城河</div>
+<div class="insight-body">风电整机技术与风场运营经验，构成设备 + 运营壁垒。</div>
+</div>
+
+<div class="insight-box">
+<div class="insight-title"><span class="icon">⚠️</span> 主要风险</div>
+<div class="insight-body">1）风机价格战；2）风电装机不及预期；3）海风节奏；4）毛利率。</div>
+</div>
+
+<div class="back-bar">
+<a href="berkshire-equip-chains.html" class="back-btn">← 返回电力设备产业链</a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+</body>
+</html>
