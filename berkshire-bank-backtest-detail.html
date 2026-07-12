@@ -80,6 +80,33 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 .guide h4{margin:0 0 8px;color:var(--accent);font-weight:600}
 .guide p,.guide li{font-size:13.5px;color:var(--ink);line-height:1.7}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.hero h1{font-size:23px}.hero .stat{gap:24px}.thermo .nm{width:100px}}
+/* ---- 产业链三层流 ---- */
+.flow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:18px 0}
+.flow3 .stage{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 16px 10px;position:relative}
+.flow3 .stage .sno{position:absolute;top:-12px;left:16px;background:var(--accent);color:#fff;font-size:12px;font-weight:600;padding:3px 11px;border-radius:20px}
+.flow3 .stage h4{margin:6px 0 2px;font-size:15px;color:var(--accent);font-weight:600}
+.flow3 .stage .tagline{font-size:12px;color:var(--mut);margin-bottom:10px;line-height:1.5}
+.node{background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin:8px 0}
+.node b{display:block;font-size:13.5px;color:var(--ink)}
+.node span{font-size:12px;color:var(--mut);line-height:1.5}
+.flow-cap{text-align:center;font-size:12.5px;color:var(--mut);margin:2px 0 18px}
+.flow-cap b{color:var(--accent)}
+@media(max-width:768px){.flow3{grid-template-columns:1fr}}
+/* ---- 对比工具 ---- */
+.cmp-ctrl{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.cmp-ctrl .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.cmp-ctrl input[type=text]{flex:1;min-width:180px;border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:13px;outline:none}
+.cmp-ctrl input[type=text]:focus{border-color:var(--accent)}
+.cmp-ctrl .fbtn{border:1px solid var(--line);background:var(--soft);color:var(--mut);padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13px}
+.cmp-ctrl .fbtn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.cmp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;max-height:230px;overflow:auto;padding:4px}
+.cmp-item{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 9px;border:1px solid var(--line);border-radius:8px;cursor:pointer;transition:.15s}
+.cmp-item:hover{border-color:var(--accent)}
+.cmp-item input{accent-color:var(--accent);width:15px;height:15px}
+.cmp-item .cc{font-size:11px;color:var(--mut)}
+.cmp-sel{font-size:12.5px;color:var(--mut);margin:6px 0}
+.cmp-good{color:var(--green);font-weight:600}
+.cmp-bad{color:var(--red);font-weight:600}
 </style></head><body>
 <div class="nav"><div class="nav-in">
 <div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 银行图谱 / 回报图</div>
@@ -91,7 +118,7 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 </div></div><div class="detail">
 <a class="back" href="berkshire-bank-chains.html">← 返回银行图谱</a>
 <h1 style="margin:10px 0">逐轮买点回报图（后复权）</h1>
-<div class="note">数据说明：银行几乎只分红不送股，后复权价能真实反映「分红再投资」的总回报。全 42 家均已接入<b>行情接口后复权（hfq）年线收盘价</b>（数据源：腾讯自选股行情接口，采集于 2026-07-10），从各自上市年起绘制曲线，基准年=100。后复权价含历次分红再投资累积，绝对值可能远高于现价（如招行、平安），归一化为指数后可横向比较。数据仅供研究参考，最终以交易所与行情终端为准，<b>不构成投资建议</b>。</div>
+<div class="note">数据说明：银行几乎只分红不送股，后复权价能真实反映「分红再投资」的总回报。全 42 家均已接入<b>行情接口后复权（hfq）年线收盘价</b>（数据源：腾讯自选股行情接口，采集于 2026-07-12），从各自上市年起绘制曲线，基准年=100。后复权价含历次分红再投资累积，绝对值可能远高于现价（如招行、平安），归一化为指数后可横向比较。数据仅供研究参考，最终以交易所与行情终端为准，<b>不构成投资建议</b>。</div>
 <div class="svgbox"><h3 style="margin:0 0 8px;color:var(--navy)">工商银行 <span style="font-size:13px;color:var(--mut)">601398 · 国有大行</span></h3><svg viewBox="0 0 560 240" width="100%" style="max-width:560px">
 <rect x="44" y="16" width="500" height="196" fill="#fafcff" stroke="#e2e8f0"/>
 <line x1="44" y1="214.3" x2="544" y2="214.3" stroke="#eef2f7"/><text x="38" y="217.3" font-size="10" fill="#5d6b7a" text-anchor="end">60</text><line x1="44" y1="189.4" x2="544" y2="189.4" stroke="#eef2f7"/><text x="38" y="192.4" font-size="10" fill="#5d6b7a" text-anchor="end">80</text><line x1="44" y1="164.5" x2="544" y2="164.5" stroke="#eef2f7"/><text x="38" y="167.5" font-size="10" fill="#5d6b7a" text-anchor="end">100</text><line x1="44" y1="139.5" x2="544" y2="139.5" stroke="#eef2f7"/><text x="38" y="142.5" font-size="10" fill="#5d6b7a" text-anchor="end">120</text><line x1="44" y1="114.6" x2="544" y2="114.6" stroke="#eef2f7"/><text x="38" y="117.6" font-size="10" fill="#5d6b7a" text-anchor="end">140</text><line x1="44" y1="89.7" x2="544" y2="89.7" stroke="#eef2f7"/><text x="38" y="92.7" font-size="10" fill="#5d6b7a" text-anchor="end">160</text><line x1="44" y1="64.7" x2="544" y2="64.7" stroke="#eef2f7"/><text x="38" y="67.7" font-size="10" fill="#5d6b7a" text-anchor="end">180</text><line x1="44" y1="39.8" x2="544" y2="39.8" stroke="#eef2f7"/><text x="38" y="42.8" font-size="10" fill="#5d6b7a" text-anchor="end">200</text>
@@ -346,4 +373,4 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <text x="44" y="12" font-size="11" fill="#0f2c4c">后复权累计回报指数（2022底=100）</text>
 </svg><p style="font-size:12px;color:var(--mut)">口径：2021-08上市 · 后复权；后复权价基准=2022底=100。</p></div><div class="guide"><h4>怎么用这张图</h4>
 <p>曲线从买入年起算=100，上行代表持有至今的后复权总回报。银行回报主要由「股息再投资」累积，长期持有+低PB买入，曲线斜率往往比直觉更陡。42 家横向比较可看出：宁波、成都、江苏、南京等成长型城商行后复权回报斜率最陡，国有大行则以稳健分红复利见长，郑州、兰州等则长期跑输。<b>注意：过去回报≠未来收益，后复权曲线不含买卖摩擦成本。</b></p></div>
-</div><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报，估值=2026-07-10行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>
+</div><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露），估值=2026-07-12行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>

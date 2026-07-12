@@ -80,6 +80,33 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 .guide h4{margin:0 0 8px;color:var(--accent);font-weight:600}
 .guide p,.guide li{font-size:13.5px;color:var(--ink);line-height:1.7}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.hero h1{font-size:23px}.hero .stat{gap:24px}.thermo .nm{width:100px}}
+/* ---- 产业链三层流 ---- */
+.flow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:18px 0}
+.flow3 .stage{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 16px 10px;position:relative}
+.flow3 .stage .sno{position:absolute;top:-12px;left:16px;background:var(--accent);color:#fff;font-size:12px;font-weight:600;padding:3px 11px;border-radius:20px}
+.flow3 .stage h4{margin:6px 0 2px;font-size:15px;color:var(--accent);font-weight:600}
+.flow3 .stage .tagline{font-size:12px;color:var(--mut);margin-bottom:10px;line-height:1.5}
+.node{background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin:8px 0}
+.node b{display:block;font-size:13.5px;color:var(--ink)}
+.node span{font-size:12px;color:var(--mut);line-height:1.5}
+.flow-cap{text-align:center;font-size:12.5px;color:var(--mut);margin:2px 0 18px}
+.flow-cap b{color:var(--accent)}
+@media(max-width:768px){.flow3{grid-template-columns:1fr}}
+/* ---- 对比工具 ---- */
+.cmp-ctrl{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.cmp-ctrl .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.cmp-ctrl input[type=text]{flex:1;min-width:180px;border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:13px;outline:none}
+.cmp-ctrl input[type=text]:focus{border-color:var(--accent)}
+.cmp-ctrl .fbtn{border:1px solid var(--line);background:var(--soft);color:var(--mut);padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13px}
+.cmp-ctrl .fbtn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.cmp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;max-height:230px;overflow:auto;padding:4px}
+.cmp-item{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 9px;border:1px solid var(--line);border-radius:8px;cursor:pointer;transition:.15s}
+.cmp-item:hover{border-color:var(--accent)}
+.cmp-item input{accent-color:var(--accent);width:15px;height:15px}
+.cmp-item .cc{font-size:11px;color:var(--mut)}
+.cmp-sel{font-size:12.5px;color:var(--mut);margin:6px 0}
+.cmp-good{color:var(--green);font-weight:600}
+.cmp-bad{color:var(--red);font-weight:600}
 </style></head><body>
 <div class="nav"><div class="nav-in">
 <div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 银行图谱</div>
@@ -90,8 +117,8 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <a href="berkshire-robot-chains.html">机器人</a>
 </div></div><div class="hero"><div class="hero-in">
 <h1>银行业投资图谱</h1>
-<p>42家A股上市银行，按属性分4类，逐家业务条线框架 + 财务快照 + 要点解读；国有大行6家、招商银行与3家特色农商行附资产质量、息差、资本、估值的重点解析与事件时间线。</p>
-<p style="font-size:12.5px">数据口径：财务=2025年年报；估值=2026-07-10行情。42家均已绘制后复权累计回报曲线。</p>
+<p>42家A股上市银行，按属性分4类，逐家业务条线框架 + 财务快照 + 六维要点解读（资产质量/盈利/估值/规模/投资逻辑/核心风险）；国有大行6家、招商与3家特色农商行附资产质量、息差、资本、估值的重点解析与事件时间线。</p>
+<p style="font-size:12.5px">数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露）；估值=2026-07-12行情。42家均已绘制后复权累计回报曲线。</p>
 <div class="stat">
 <b>42家</b><span>上市银行覆盖</span>
 <b>4类</b><span>国有大行/股份行/城商行/农商行</span>
@@ -399,6 +426,8 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <div><b>0.96%</b>不良率</div><div><b>328.87%</b>拨备</div>
 <div><b>1.37%</b>NIM</div><div><b>9.74%</b>ROE</div></div></a></div>
 <div class="section-title">延伸阅读</div><div class="extend">
+<a href="berkshire-bank-industrial-chain.html"><b>银行业产业链</b><span>资金流向地图：上游负债来源→中游运作→下游资产去向，读懂银行生意模式</span></a>
+<a href="berkshire-bank-compare.html"><b>横向对比工具</b><span>勾选多家银行并排比 PB/股息率/不良率/拨备/NIM/ROE 等</span></a>
 <a href="berkshire-bank-methodology.html"><b>银行方法论文</b><span>不良率/关注类/逾期、净息差、拨备、ROE与PB、资本约束怎么读</span></a>
 <a href="berkshire-bank-cycle.html"><b>信用周期 2016→2025</b><span>去杠杆、资管新规、让利、地产风险、息差探底串起来看</span></a>
 <a href="berkshire-bank-backtest.html"><b>三轮大底回测</b><span>2014 / 2018 / 2022-24 的 PB 与股息率买点复盘</span></a>
@@ -411,4 +440,4 @@ var grid=document.getElementById('grid');
 var cards=Array.from(grid.children);
 btns.forEach(function(b){b.onclick=function(){btns.forEach(x=>x.classList.remove('on'));b.classList.add('on');
 var f=b.dataset.f;cards.forEach(function(c){var cat=c.querySelector('.cat').textContent;c.style.display=(f==='all'||cat===f)?'':'none';});};});
-</script><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报，估值=2026-07-10行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>
+</script><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露），估值=2026-07-12行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>

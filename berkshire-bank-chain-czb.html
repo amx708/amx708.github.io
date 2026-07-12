@@ -80,6 +80,33 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 .guide h4{margin:0 0 8px;color:var(--accent);font-weight:600}
 .guide p,.guide li{font-size:13.5px;color:var(--ink);line-height:1.7}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.hero h1{font-size:23px}.hero .stat{gap:24px}.thermo .nm{width:100px}}
+/* ---- 产业链三层流 ---- */
+.flow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:18px 0}
+.flow3 .stage{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 16px 10px;position:relative}
+.flow3 .stage .sno{position:absolute;top:-12px;left:16px;background:var(--accent);color:#fff;font-size:12px;font-weight:600;padding:3px 11px;border-radius:20px}
+.flow3 .stage h4{margin:6px 0 2px;font-size:15px;color:var(--accent);font-weight:600}
+.flow3 .stage .tagline{font-size:12px;color:var(--mut);margin-bottom:10px;line-height:1.5}
+.node{background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin:8px 0}
+.node b{display:block;font-size:13.5px;color:var(--ink)}
+.node span{font-size:12px;color:var(--mut);line-height:1.5}
+.flow-cap{text-align:center;font-size:12.5px;color:var(--mut);margin:2px 0 18px}
+.flow-cap b{color:var(--accent)}
+@media(max-width:768px){.flow3{grid-template-columns:1fr}}
+/* ---- 对比工具 ---- */
+.cmp-ctrl{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.cmp-ctrl .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.cmp-ctrl input[type=text]{flex:1;min-width:180px;border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:13px;outline:none}
+.cmp-ctrl input[type=text]:focus{border-color:var(--accent)}
+.cmp-ctrl .fbtn{border:1px solid var(--line);background:var(--soft);color:var(--mut);padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13px}
+.cmp-ctrl .fbtn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.cmp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;max-height:230px;overflow:auto;padding:4px}
+.cmp-item{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 9px;border:1px solid var(--line);border-radius:8px;cursor:pointer;transition:.15s}
+.cmp-item:hover{border-color:var(--accent)}
+.cmp-item input{accent-color:var(--accent);width:15px;height:15px}
+.cmp-item .cc{font-size:11px;color:var(--mut)}
+.cmp-sel{font-size:12.5px;color:var(--mut);margin:6px 0}
+.cmp-good{color:var(--green);font-weight:600}
+.cmp-bad{color:var(--red);font-weight:600}
 </style></head><body>
 <div class="nav"><div class="nav-in">
 <div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 银行图谱 / 浙商银行</div>
@@ -92,7 +119,7 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <a class="back" href="berkshire-bank-chains.html">← 返回银行图谱</a>
 <h1 style="margin:10px 0 2px">浙商银行 <span style="font-size:14px;color:var(--mut)">601916 · 股份行</span></h1>
 <p style="color:var(--mut);margin:0 0 14px">最年轻的股份行，平台化服务战略。</p>
-<h3 class="section-title" style="margin-top:18px">财务快照（2025年报 / 2026-07-10估值）</h3><div class="snap">
+<h3 class="section-title" style="margin-top:18px">财务快照（2025年报 / 2026-07-12估值）</h3><div class="snap">
 <div><b>625.14</b><span>营收(亿)</span></div>
 <div><b>129.31</b><span>归母净利(亿)</span></div>
 <div><b>1.36%</b><span>不良率</span></div>
@@ -103,5 +130,5 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <div><b>4.76%</b><span>股息率</span></div>
 <div><b>755.28</b><span>总市值(亿)</span></div></div>
 <h3 class="section-title">业务条线框架（5层）</h3><div class="layer"><h4>零售</h4><p>差异化零售策略（如招行零售之王、平安银行零售转型），信用卡与财富管理见长。</p></div><div class="layer"><h4>对公</h4><p>聚焦浙江与长三角，平台化场景撮合融资。</p></div><div class="layer"><h4>同业</h4><p>同业拆借、票据贴现、金融市场投资与债券交易，管理流动性与利率风险。</p></div><div class="layer"><h4>财富</h4><p>理财子公司产品、私人银行、代理代销与托管，沉淀中收与AUM。</p></div><div class="layer"><h4>投行</h4><p>债券承销、并购顾问、交易银行与资本市场服务，对接直接融资。</p></div>
-<h3 class="section-title">要点解读（基于2025年报 / 2026-07-10估值）</h3><div class="deep-grid"><div class="deep-item"><h4>资产质量</h4><p>不良率 1.36% 与行业均值相当，总体可控；拨备覆盖率 155.37% 相对偏薄，抵御坏账的余地有限。</p></div><div class="deep-item"><h4>盈利能力</h4><p>净息差 1.6% 与行业相当，处于合理区间；ROE 6.8% 偏低，盈利能力有待修复。</p></div><div class="deep-item"><h4>估值与分红</h4><p>PB 0.42x 破净幅度深，市场对其资产质量或成长性定价偏谨慎；股息率 4.76% 较高，具备稳定收息价值。</p></div><div class="deep-item"><h4>规模与定位</h4><p>2025年营收 625.14 亿、归母净利 129.31 亿，总市值 755.28 亿，属中型体量；作为全国性股份行，最年轻的股份行，平台化服务战略。</p></div></div><div class="note">框架知识：银行看三张表——资产质量（不良率/拨备/逾期偏离度）、盈利能力（NIM/ROE/中收）、资本与估值（核心一级资本充足率/PB/股息率）。详见<a href="berkshire-bank-methodology.html" style="color:var(--accent)">银行方法论文</a>。</div>
-</div><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报，估值=2026-07-10行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>
+<h3 class="section-title">要点解读（基于2025年报 / 2026-07-12估值）</h3><div class="deep-grid"><div class="deep-item"><h4>资产质量</h4><p>不良率 1.36% 与行业均值相当，总体可控；拨备覆盖率 155.37% 相对偏薄，抵御坏账的余地有限。</p></div><div class="deep-item"><h4>盈利能力</h4><p>净息差 1.6% 与行业相当，处于合理区间；ROE 6.8% 偏低，盈利能力有待修复。</p></div><div class="deep-item"><h4>估值与分红</h4><p>PB 0.42x 破净幅度深，市场对其资产质量或成长性定价偏谨慎；股息率 4.76% 较高，具备稳定收息价值。</p></div><div class="deep-item"><h4>规模与定位</h4><p>2025年营收 625.14 亿、归母净利 129.31 亿，总市值 755.28 亿，属中型体量；作为全国性股份行，最年轻的股份行，平台化服务战略。</p></div><div class="deep-item"><h4>投资逻辑</h4><p>低PB（0.42x）+ 高股息率（4.76%）构成高安全边际，是红利/价值策略的核心标的；机制灵活、综合化经营，零售/投行/同业各有特色，弹性大于大行。</p></div><div class="deep-item"><h4>核心风险</h4><p>不良率 1.36% 高于行业均值，需持续跟踪资产质量走向；拨备覆盖率 155.37% 偏薄，抵御坏账余量有限；ROE 6.8% 偏低，资本内生能力弱、估值修复动力不足；PB 深度破净（0.42x）反映市场对资产质量的深度担忧，警惕价值陷阱。</p></div></div><div class="note">框架知识：银行看三张表——资产质量（不良率/拨备/逾期偏离度）、盈利能力（NIM/ROE/中收）、资本与估值（核心一级资本充足率/PB/股息率）。详见<a href="berkshire-bank-methodology.html" style="color:var(--accent)">银行方法论文</a>。</div>
+</div><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露），估值=2026-07-12行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>

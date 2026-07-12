@@ -80,6 +80,33 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 .guide h4{margin:0 0 8px;color:var(--accent);font-weight:600}
 .guide p,.guide li{font-size:13.5px;color:var(--ink);line-height:1.7}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.hero h1{font-size:23px}.hero .stat{gap:24px}.thermo .nm{width:100px}}
+/* ---- 产业链三层流 ---- */
+.flow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:18px 0}
+.flow3 .stage{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 16px 10px;position:relative}
+.flow3 .stage .sno{position:absolute;top:-12px;left:16px;background:var(--accent);color:#fff;font-size:12px;font-weight:600;padding:3px 11px;border-radius:20px}
+.flow3 .stage h4{margin:6px 0 2px;font-size:15px;color:var(--accent);font-weight:600}
+.flow3 .stage .tagline{font-size:12px;color:var(--mut);margin-bottom:10px;line-height:1.5}
+.node{background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin:8px 0}
+.node b{display:block;font-size:13.5px;color:var(--ink)}
+.node span{font-size:12px;color:var(--mut);line-height:1.5}
+.flow-cap{text-align:center;font-size:12.5px;color:var(--mut);margin:2px 0 18px}
+.flow-cap b{color:var(--accent)}
+@media(max-width:768px){.flow3{grid-template-columns:1fr}}
+/* ---- 对比工具 ---- */
+.cmp-ctrl{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.cmp-ctrl .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.cmp-ctrl input[type=text]{flex:1;min-width:180px;border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:13px;outline:none}
+.cmp-ctrl input[type=text]:focus{border-color:var(--accent)}
+.cmp-ctrl .fbtn{border:1px solid var(--line);background:var(--soft);color:var(--mut);padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13px}
+.cmp-ctrl .fbtn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.cmp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;max-height:230px;overflow:auto;padding:4px}
+.cmp-item{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 9px;border:1px solid var(--line);border-radius:8px;cursor:pointer;transition:.15s}
+.cmp-item:hover{border-color:var(--accent)}
+.cmp-item input{accent-color:var(--accent);width:15px;height:15px}
+.cmp-item .cc{font-size:11px;color:var(--mut)}
+.cmp-sel{font-size:12.5px;color:var(--mut);margin:6px 0}
+.cmp-good{color:var(--green);font-weight:600}
+.cmp-bad{color:var(--red);font-weight:600}
 </style></head><body>
 <div class="nav"><div class="nav-in">
 <div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 银行图谱 / 张家港行</div>
@@ -92,7 +119,7 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <a class="back" href="berkshire-bank-chains.html">← 返回银行图谱</a>
 <h1 style="margin:10px 0 2px">张家港行 <span style="font-size:14px;color:var(--mut)">002839 · 农商行</span></h1>
 <p style="color:var(--mut);margin:0 0 14px">张家港地区的农商行。</p>
-<h3 class="section-title" style="margin-top:18px">财务快照（2025年报 / 2026-07-10估值）</h3><div class="snap">
+<h3 class="section-title" style="margin-top:18px">财务快照（2025年报 / 2026-07-12估值）</h3><div class="snap">
 <div><b>47.47</b><span>营收(亿)</span></div>
 <div><b>19.79</b><span>归母净利(亿)</span></div>
 <div><b>0.94%</b><span>不良率</span></div>
@@ -104,7 +131,7 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <div><b>99.97</b><span>总市值(亿)</span></div></div>
 <h3 class="section-title">业务条线框架（5层）</h3><div class="layer"><h4>零售</h4><p>县域农户、小微与乡镇居民，存款扎根本地、成本极低。</p></div><div class="layer"><h4>对公</h4><p>县域中小微、三农与个体工商户，接地气的普惠金融服务。</p></div><div class="layer"><h4>同业</h4><p>同业拆借、票据贴现、金融市场投资与债券交易，管理流动性与利率风险。</p></div><div class="layer"><h4>财富</h4><p>理财子公司产品、私人银行、代理代销与托管，沉淀中收与AUM。</p></div><div class="layer"><h4>投行</h4><p>债券承销、并购顾问、交易银行与资本市场服务，对接直接融资。</p></div>
 <h3 class="section-title">重点解析（资产质量 / 息差 / 资本 / 估值）</h3>
-<div class="deep-grid"><div class="deep-item"><h4>资产质量</h4><p>不良率0.94%，拨备覆盖率329%较为充足；以张家港本地小微与个体工商户为主，风险分散、区域经济外向型活跃。</p></div><div class="deep-item"><h4>净息差</h4><p>净息差1.39%，处农商行中游；小微定价能力与存款成本控制决定息差韧性。</p></div><div class="deep-item"><h4>资本充足</h4><p>核心一级资本充足率满足监管要求，转债与利润留存补充资本。</p></div><div class="deep-item"><h4>估值与分红</h4><p>PB约0.53x，股息率约5.4%在农商行中偏高；低估值+高分红是主要吸引力。</p></div><div class="deep-item"><h4>最新经营信号</h4><p>2025年营收47亿、净利20亿；港口外贸经济与小微投放支撑基本面。</p></div></div>
+<div class="deep-grid"><div class="deep-item"><h4>资产质量</h4><p>不良率0.94%，拨备覆盖率329%较为充足；以张家港本地小微与个体工商户为主，风险分散、区域经济外向型活跃。</p></div><div class="deep-item"><h4>净息差</h4><p>净息差1.39%，处农商行中游；小微定价能力与存款成本控制决定息差韧性。</p></div><div class="deep-item"><h4>资本充足</h4><p>核心一级资本充足率满足监管要求，转债与利润留存补充资本。</p></div><div class="deep-item"><h4>估值与分红</h4><p>PB约0.53x，股息率约5.4%在农商行中偏高；低估值+高分红是主要吸引力。</p></div><div class="deep-item"><h4>最新经营信号</h4><p>2025年营收47亿、净利20亿；港口外贸经济与小微投放支撑基本面。</p></div><div class="deep-item"><h4>投资逻辑</h4><p>低PB（0.53x）+ 高股息率（5.38%）构成高安全边际，是红利/价值策略的核心标的。</p></div><div class="deep-item"><h4>核心风险</h4><p>净息差 1.39% 偏低，受让利与负债成本挤压，盈利弹性弱。</p></div></div>
 <h3 class="section-title">关键事件时间线</h3>
 <div class="timeline"><div>2017 上市成为'农商第一股'之一</div><div>2021 转债发行补充资本</div><div>2024 高股息属性受红利资金关注</div><div>2026 PB约0.53x、股息率5.4%</div></div><div class="note">框架知识：银行看三张表——资产质量（不良率/拨备/逾期偏离度）、盈利能力（NIM/ROE/中收）、资本与估值（核心一级资本充足率/PB/股息率）。详见<a href="berkshire-bank-methodology.html" style="color:var(--accent)">银行方法论文</a>。</div>
-</div><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报，估值=2026-07-10行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>
+</div><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露），估值=2026-07-12行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>
