@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="initial-scale=1"><title>中药横向对比工具</title><style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.08);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.04);color:#475569;border:1px solid rgba(0,0,0,.12);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:##e0533d;color:#fff;border-color:##e0533d}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center;margin-left:auto}
+.breadcrumb a{color:#64748b;text-decoration:none}.breadcrumb a:hover{color:##e0533d}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:1000px;margin:0 auto;padding:24px 16px 56px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:30px 28px;margin-bottom:18px;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.hero h1{font-size:25px;font-weight:800;color:#0f172a;margin:0 0 6px}
+.hero p{font-size:13.5px;color:#64748b;margin:0;max-width:820px}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid ##e0533d}
+.guide{background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px 20px;margin:14px 0;font-size:13.5px;color:#475569;line-height:1.8}
+.guide h4{margin:0 0 8px;color:##e0533d;font-weight:700;font-size:15px}
+.guide b{color:#0f172a}
+.note{background:#fff;border:1px solid rgba(0,0,0,.08);border-left:3px solid ##e0533d;border-radius:10px;padding:14px 18px;margin:16px 0;font-size:13px;color:#64748b;line-height:1.7}
+.note a{color:##e0533d}
+.tbl{width:100%;border-collapse:collapse;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;margin:14px 0;font-size:13px}
+.tbl th,.tbl td{border-bottom:1px solid #eef2f7;padding:10px 10px;text-align:center}
+.tbl th{background:#f8fafc;color:#334155;font-weight:700;border-bottom:2px solid rgba(0,0,0,.08)}
+.tbl tr:hover td{background:#f8fafc}
+.tag{display:inline-block;padding:2px 9px;border-radius:7px;font-size:11px;font-weight:600}
+.tag.low{background:rgba(220,38,38,.12);color:#dc2626}
+.tag.mid{background:rgba(59,130,246,.14);color:#2563eb}
+.tag.high{background:rgba(22,163,74,.14);color:#16a34a}
+/* ---- 对比工具 ---- */
+.cmp-ctrl{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px 18px;margin:14px 0;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.cmp-ctrl .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.cmp-ctrl input[type=text]{flex:1;min-width:180px;border:1px solid rgba(0,0,0,.12);border-radius:8px;padding:9px 12px;font-size:13px;outline:none;background:#f0f2f5;color:#1e293b}
+.cmp-ctrl input[type=text]:focus{border-color:##e0533d}
+.cmp-ctrl .fbtn{border:1px solid rgba(0,0,0,.12);background:#f8fafc;color:#64748b;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13px}
+.cmp-ctrl .fbtn.on{background:##e0533d;color:#fff;border-color:##e0533d}
+.cmp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;max-height:240px;overflow:auto;padding:4px}
+.cmp-item{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 9px;border:1px solid rgba(0,0,0,.1);border-radius:8px;cursor:pointer;transition:.15s}
+.cmp-item:hover{border-color:##e0533d}
+.cmp-item input{accent-color:##e0533d;width:15px;height:15px}
+.cmp-item .cc{font-size:11px;color:#94a3b8}
+.cmp-sel{font-size:12.5px;color:#64748b;margin:6px 0}
+.cmp-good{color:#16a34a;font-weight:700}
+.cmp-bad{color:#dc2626;font-weight:700}
+/* ---- 温度计 ---- */
+.thermo{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #eef2f7;flex-wrap:wrap}
+.thermo .nm{width:120px;font-weight:600;font-size:14px;color:#0f172a}
+.thermo .bar{flex:1;height:10px;background:linear-gradient(90deg,#f87171,#e8b84b,#34d399);border-radius:6px;position:relative;min-width:160px;opacity:.85}
+.thermo .dot{position:absolute;top:-4px;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid ##e0533d;transform:translateX(-50%);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.thermo .v{font-size:12.5px;color:#64748b;width:210px}
+/* ---- 买点回报 SVG ---- */
+.svgbox{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px 18px;margin:16px 0;overflow-x:auto;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.svgbox svg{width:100%;height:auto;display:block}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin:8px 0 4px;font-size:12.5px;color:#475569}
+.legend i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
+/* ---- 延伸阅读 ---- */
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.extend a:hover{border-color:##e0533d;box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.extend b{color:##e0533d;display:block;margin-bottom:5px;font-weight:700}
+.extend span{font-size:12.5px;color:#64748b;line-height:1.55}
+footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}
+</style></head><body><div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a><span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:##e0533d;text-decoration:none;font-size:13px">bank</a><a href="berkshire-baijiu-chains.html" style="color:##e0533d;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:##e0533d;text-decoration:none;font-size:13px">ai</a><a href="berkshire-robot-chains.html" style="color:##e0533d;text-decoration:none;font-size:13px">robot</a><a href="berkshire-tcm-chains.html" style="color:##e0533d;text-decoration:none;font-size:13px;font-weight:700">中药</a><a href="berkshire-innov-chains.html" style="color:##e0533d;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:##e0533d;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:##e0533d;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:##e0533d;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:##e0533d;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:##e0533d;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:##e0533d;text-decoration:none;font-size:13px">电力设备</a></span><div class="breadcrumb"><a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>中药产业链</span></div></div><div class="container"><div class="hero"><h1>中药横向对比工具</h1><p>勾选多家中药公司并排比较 PE/PB/ROE/毛利率/负债率/股息率等核心指标（财务=2025年报，估值=采集日快照）。</p></div><div class="cmp-ctrl"><div class="bar"><input type="text" id="q" placeholder="搜索公司名称或代码…"><button class="fbtn on" data-f="all">全部</button></div><div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div><div class="svgbox" style="overflow-x:auto"><table class="tbl" id="tbl"><thead><tr><th>公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收亿</th><th>净利亿</th><th>市值亿</th><th>经营现金流亿</th></tr></thead><tbody id="tbody"></tbody></table></div><div class="note">提示：勾选多家公司并排比较。绿色=该项在所选样本中占优，红色=偏弱。PE/PB 越低通常越「便宜」，但低估值也可能是价值陷阱（基本面恶化），需结合 ROE 与负债率判断。数据口径见各公司详情页，<b>不构成投资建议</b>。</div><div class="section-title">延伸阅读</div><div class="extend"><a href="berkshire-tcm-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/股息率等核心指标</span></a><a href="berkshire-tcm-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a><a href="berkshire-tcm-buyback.html"><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a><a href="berkshire-tcm-chains.html"><b>返回产业链地图</b><span>回到 中药 产业链 5 层框架与个股详情</span></a></div><footer>伯克希尔数据中心 · 中药产业链投资图谱 ｜ 财务=2025年报，行情=采集日快照 ｜ 数据来自公开接口，仅供研究参考，不构成投资建议</footer></div><script>var DATA=[{"name": "东阿阿胶", "code": "000423", "cat": "中药", "pe": 17.93, "pb": 3.02, "dy": 3.22, "roe": 16.84, "gross": 73.47, "debt": 22.55, "rev": 67.0, "np": 17.39, "mcap": 311.79, "opcf": 22.89}, {"name": "云南白药", "code": "002538", "cat": "中药", "pe": 30.03, "pb": 0.95, "dy": 0.95, "roe": 3.18, "gross": 13.33, "debt": 21.22, "rev": 46.62, "np": 1.65, "mcap": 49.59, "opcf": 4.61}, {"name": "以岭药业", "code": "002603", "cat": "中药", "pe": 21.39, "pb": 2.5, "dy": 2.6, "roe": 12.13, "gross": 64.28, "debt": 19.69, "rev": 78.31, "np": 12.86, "mcap": 275.17, "opcf": 17.77}, {"name": "华润三九", "code": "000999", "cat": "中药", "pe": 11.91, "pb": 1.84, "dy": 1.83, "roe": 16.26, "gross": 54.03, "debt": 34.58, "rev": 316.03, "np": 34.21, "mcap": 407.57, "opcf": 55.13}, {"name": "同仁堂", "code": "600085", "cat": "中药", "pe": 28.29, "pb": 2.46, "dy": 2.51, "roe": 8.86, "gross": 42.87, "debt": 30.18, "rev": 172.56, "np": 11.89, "mcap": 336.42, "opcf": 26.93}, {"name": "步长制药", "code": "603858", "cat": "中药", "pe": 45.74, "pb": 1.65, "dy": 1.61, "roe": 3.57, "gross": 62.95, "debt": 50.97, "rev": 118.75, "np": 3.61, "mcap": 165.04, "opcf": 11.58}, {"name": "江中药业", "code": "600750", "cat": "中药", "pe": 17.32, "pb": 3.9, "dy": 4.18, "roe": 23.0, "gross": 65.37, "debt": 31.65, "rev": 42.2, "np": 9.07, "mcap": 157.0, "opcf": 9.71}, {"name": "济川药业", "code": "600566", "cat": "中药", "pe": 12.76, "pb": 1.55, "dy": 1.69, "roe": 12.13, "gross": 78.95, "debt": 17.33, "rev": 62.19, "np": 17.78, "mcap": 226.84, "opcf": 11.98}, {"name": "片仔癀", "code": "600436", "cat": "中药", "pe": 35.1, "pb": 5.21, "dy": 4.98, "roe": 14.98, "gross": 36.43, "debt": 14.08, "rev": 90.01, "np": 21.59, "mcap": 757.65, "opcf": 0.77}, {"name": "白云山", "code": "600332", "cat": "中药", "pe": 11.94, "pb": 0.94, "dy": 0.92, "roe": 8.1, "gross": 16.24, "debt": 52.57, "rev": 776.56, "np": 29.83, "mcap": 356.05, "opcf": -2.32}, {"name": "羚锐制药", "code": "600285", "cat": "中药", "pe": 16.92, "pb": 3.78, "dy": 4.25, "roe": 23.47, "gross": 80.03, "debt": 39.03, "rev": 38.53, "np": 7.6, "mcap": 128.51, "opcf": 5.54}];
+var COLS=[["pe", "PE", "low"], ["pb", "PB", "low"], ["dy", "股息率%", "high"], ["roe", "ROE%", "high"], ["gross", "毛利率%", "high"], ["debt", "资产负债率%", "low"], ["rev", "营收亿", "high"], ["np", "净利亿", "high"], ["mcap", "市值亿", "high"], ["opcf", "经营现金流亿", "high"]];
+var sel=new Set();var filt='all',q='';
+var listEl=document.getElementById('list'),tbody=document.getElementById('tbody'),selinfo=document.getElementById('selinfo');
+function renderList(){listEl.innerHTML='';DATA.filter(function(d){(filt==='all')&&(q===''||d.name.indexOf(q)>=0||d.code.indexOf(q)>=0)}).forEach(function(d){var lab=document.createElement('label');lab.className='cmp-item';lab.innerHTML='<input type="checkbox" '+(sel.has(d.code)?'checked':'')+'><b>'+d.name+'</b><span class="cc">'+d.code+' · '+d.cat+'</span>';lab.querySelector('input').onchange=function(e){if(e.target.checked)sel.add(d.code);else sel.delete(d.code);renderList();renderTbl();};listEl.appendChild(lab);});}
+function fmt(v){return (v===null||v===undefined)?'—':v;}
+function color(v,dir,best,worst){if(v===null||v===undefined)return '—';if(v===best)return '<span class="cmp-good">'+v+'</span>';if(v===worst)return '<span class="cmp-bad">'+v+'</span>';return ''+v;}
+function renderTbl(){var rows=DATA.filter(function(d){return sel.has(d.code);});selinfo.textContent='已选 '+rows.length+' 家';if(!rows.length){tbody.innerHTML='<tr><td colspan="12" style="color:#94a3b8">请在上方勾选公司</td></tr>';return;}var stats={};COLS.forEach(function(c){var vs=rows.map(function(r){return r[c[0]];}).filter(function(x){return x!==null&&x!==undefined;});stats[c[0]]={best:Math[c[2]==='high'?'max':'min'].apply(null,vs),worst:Math[c[2]==='high'?'min':'max'].apply(null,vs)};});tbody.innerHTML=rows.map(function(d){var tds=COLS.map(function(c){return '<td>'+color(d[c[0]],c[2],stats[c[0]].best,stats[c[0]].worst)+'</td>';}).join('');return '<tr><td style="text-align:left"><b>'+d.name+'</b></td><td>'+d.cat+'</td>'+tds+'</tr>';}).join('');}
+document.getElementById('q').oninput=function(e){q=e.target.value.trim();renderList();};
+renderList();renderTbl();
+</script></body></html>

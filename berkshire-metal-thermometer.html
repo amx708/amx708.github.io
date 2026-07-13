@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="initial-scale=1"><title>有色估值温度计</title><style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.08);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.04);color:#475569;border:1px solid rgba(0,0,0,.12);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:##a78bfa;color:#fff;border-color:##a78bfa}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center;margin-left:auto}
+.breadcrumb a{color:#64748b;text-decoration:none}.breadcrumb a:hover{color:##a78bfa}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:1000px;margin:0 auto;padding:24px 16px 56px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:30px 28px;margin-bottom:18px;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.hero h1{font-size:25px;font-weight:800;color:#0f172a;margin:0 0 6px}
+.hero p{font-size:13.5px;color:#64748b;margin:0;max-width:820px}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid ##a78bfa}
+.guide{background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px 20px;margin:14px 0;font-size:13.5px;color:#475569;line-height:1.8}
+.guide h4{margin:0 0 8px;color:##a78bfa;font-weight:700;font-size:15px}
+.guide b{color:#0f172a}
+.note{background:#fff;border:1px solid rgba(0,0,0,.08);border-left:3px solid ##a78bfa;border-radius:10px;padding:14px 18px;margin:16px 0;font-size:13px;color:#64748b;line-height:1.7}
+.note a{color:##a78bfa}
+.tbl{width:100%;border-collapse:collapse;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;margin:14px 0;font-size:13px}
+.tbl th,.tbl td{border-bottom:1px solid #eef2f7;padding:10px 10px;text-align:center}
+.tbl th{background:#f8fafc;color:#334155;font-weight:700;border-bottom:2px solid rgba(0,0,0,.08)}
+.tbl tr:hover td{background:#f8fafc}
+.tag{display:inline-block;padding:2px 9px;border-radius:7px;font-size:11px;font-weight:600}
+.tag.low{background:rgba(220,38,38,.12);color:#dc2626}
+.tag.mid{background:rgba(59,130,246,.14);color:#2563eb}
+.tag.high{background:rgba(22,163,74,.14);color:#16a34a}
+/* ---- 对比工具 ---- */
+.cmp-ctrl{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px 18px;margin:14px 0;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.cmp-ctrl .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.cmp-ctrl input[type=text]{flex:1;min-width:180px;border:1px solid rgba(0,0,0,.12);border-radius:8px;padding:9px 12px;font-size:13px;outline:none;background:#f0f2f5;color:#1e293b}
+.cmp-ctrl input[type=text]:focus{border-color:##a78bfa}
+.cmp-ctrl .fbtn{border:1px solid rgba(0,0,0,.12);background:#f8fafc;color:#64748b;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13px}
+.cmp-ctrl .fbtn.on{background:##a78bfa;color:#fff;border-color:##a78bfa}
+.cmp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;max-height:240px;overflow:auto;padding:4px}
+.cmp-item{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 9px;border:1px solid rgba(0,0,0,.1);border-radius:8px;cursor:pointer;transition:.15s}
+.cmp-item:hover{border-color:##a78bfa}
+.cmp-item input{accent-color:##a78bfa;width:15px;height:15px}
+.cmp-item .cc{font-size:11px;color:#94a3b8}
+.cmp-sel{font-size:12.5px;color:#64748b;margin:6px 0}
+.cmp-good{color:#16a34a;font-weight:700}
+.cmp-bad{color:#dc2626;font-weight:700}
+/* ---- 温度计 ---- */
+.thermo{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #eef2f7;flex-wrap:wrap}
+.thermo .nm{width:120px;font-weight:600;font-size:14px;color:#0f172a}
+.thermo .bar{flex:1;height:10px;background:linear-gradient(90deg,#f87171,#e8b84b,#34d399);border-radius:6px;position:relative;min-width:160px;opacity:.85}
+.thermo .dot{position:absolute;top:-4px;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid ##a78bfa;transform:translateX(-50%);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.thermo .v{font-size:12.5px;color:#64748b;width:210px}
+/* ---- 买点回报 SVG ---- */
+.svgbox{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px 18px;margin:16px 0;overflow-x:auto;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.svgbox svg{width:100%;height:auto;display:block}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin:8px 0 4px;font-size:12.5px;color:#475569}
+.legend i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
+/* ---- 延伸阅读 ---- */
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.extend a:hover{border-color:##a78bfa;box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.extend b{color:##a78bfa;display:block;margin-bottom:5px;font-weight:700}
+.extend span{font-size:12.5px;color:#64748b;line-height:1.55}
+footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}
+</style></head><body><div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a><span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:##a78bfa;text-decoration:none;font-size:13px">bank</a><a href="berkshire-baijiu-chains.html" style="color:##a78bfa;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:##a78bfa;text-decoration:none;font-size:13px">ai</a><a href="berkshire-robot-chains.html" style="color:##a78bfa;text-decoration:none;font-size:13px">robot</a><a href="berkshire-tcm-chains.html" style="color:##a78bfa;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:##a78bfa;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:##a78bfa;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:##a78bfa;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:##a78bfa;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:##a78bfa;text-decoration:none;font-size:13px;font-weight:700">有色</a><a href="berkshire-chem-chains.html" style="color:##a78bfa;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:##a78bfa;text-decoration:none;font-size:13px">电力设备</a></span><div class="breadcrumb"><a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>有色产业链</span></div></div><div class="container"><div class="hero"><h1>有色估值温度计</h1><p>一眼看清有色各公司 PB/PE 在行业内的相对位置——谁被低估、谁在高位。</p></div><p style='font-size:12.5px;color:#64748b'>横轴为行业内 <b>PB 相对位置</b>：左端=行业内 PB 最低（最「冷」/最破净低估），右端=行业内 PB 最高（最「热」/溢价）。本温度计是<b>行业内截面比较</b>，非历史分位；红→黄→绿仅表示在行业中的相对便宜程度。</p><h3 class="section-title">有色 11家，按 PB 升序</h3><div class="thermo"><div class="nm">华友钴业</div><div class="bar"><div class="dot" style="left:0.0%"></div></div><div class="v">PB <b>1.55x</b> · PE 12.2 · 股息率 1.51%</div></div><div class="thermo"><div class="nm">江西铜业</div><div class="bar"><div class="dot" style="left:5.3%"></div></div><div class="v">PB <b>1.70x</b> · PE 19.4 · 股息率 1.65%</div></div><div class="thermo"><div class="nm">天齐锂业</div><div class="bar"><div class="dot" style="left:10.2%"></div></div><div class="v">PB <b>1.84x</b> · PE 168.9 · 股息率 1.69%</div></div><div class="thermo"><div class="nm">中国铝业</div><div class="bar"><div class="dot" style="left:11.0%"></div></div><div class="v">PB <b>1.86x</b> · PE 11.0 · 股息率 1.73%</div></div><div class="thermo"><div class="nm">神火股份</div><div class="bar"><div class="dot" style="left:20.1%"></div></div><div class="v">PB <b>2.12x</b> · PE 13.0 · 股息率 2.07%</div></div><div class="thermo"><div class="nm">赣锋锂业</div><div class="bar"><div class="dot" style="left:29.0%"></div></div><div class="v">PB <b>2.37x</b> · PE 66.5 · 股息率 2.31%</div></div><div class="thermo"><div class="nm">山东黄金</div><div class="bar"><div class="dot" style="left:32.2%"></div></div><div class="v">PB <b>2.46x</b> · PE 23.3 · 股息率 3.54%</div></div><div class="thermo"><div class="nm">云铝股份</div><div class="bar"><div class="dot" style="left:33.6%"></div></div><div class="v">PB <b>2.50x</b> · PE 13.2 · 股息率 2.33%</div></div><div class="thermo"><div class="nm">中金黄金</div><div class="bar"><div class="dot" style="left:56.2%"></div></div><div class="v">PB <b>3.14x</b> · PE 19.3 · 股息率 2.91%</div></div><div class="thermo"><div class="nm">紫金矿业</div><div class="bar"><div class="dot" style="left:83.7%"></div></div><div class="v">PB <b>3.92x</b> · PE 14.1 · 股息率 3.84%</div></div><div class="thermo"><div class="nm">洛阳钼业</div><div class="bar"><div class="dot" style="left:100.0%"></div></div><div class="v">PB <b>4.38x</b> · PE 17.7 · 股息率 4.36%</div></div><div class="guide"><h4>怎么读有色温度计</h4><p>低 PB + 高股息 通常是「便宜」的信号（如周期谷底、红利策略）；但低估值也可能反映基本面担忧（产能过剩、价格下行、负债高）。请结合 <a href="berkshire-metal-compare.html" style="color:##a78bfa">横向对比工具</a> 的 ROE / 负债率交叉验证。PE 过高的公司（如高成长或亏损）需单独看待。</p></div><div class="section-title">延伸阅读</div><div class="extend"><a href="berkshire-metal-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/股息率等核心指标</span></a><a href="berkshire-metal-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a><a href="berkshire-metal-buyback.html"><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a><a href="berkshire-metal-chains.html"><b>返回产业链地图</b><span>回到 有色 产业链 5 层框架与个股详情</span></a></div><footer>伯克希尔数据中心 · 有色产业链投资图谱 ｜ 财务=2025年报，行情=采集日快照 ｜ 数据来自公开接口，仅供研究参考，不构成投资建议</footer></div></body></html>
