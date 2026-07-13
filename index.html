@@ -15,42 +15,26 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
 .header { background:linear-gradient(135deg,#7c3aed 0%,#2563eb 100%); color:#fff; padding:0; text-align:center; position:relative; overflow:hidden; }
 .header::before { content:""; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 60%); animation:headerBg 8s ease-in-out infinite alternate; }
 @keyframes headerBg { from{transform:translate(0,0)} to{transform:translate(20px,20px)} }
-.header-inner { position:relative; padding:56px 20px 30px; max-width:640px; margin:0 auto; }
+.header-inner { position:relative; padding:60px 20px 50px; max-width:600px; margin:0 auto; }
 .header h1 { font-size:32px; font-weight:800; letter-spacing:2px; margin-bottom:10px; }
 .header p { font-size:15px; opacity:0.85; line-height:1.6; }
-.search-form { display:flex; gap:8px; margin:20px auto 0; max-width:440px; }
-.search-input { flex:1; padding:11px 18px; border-radius:24px; border:none; font-size:14px; outline:none; background:rgba(255,255,255,0.95); color:var(--text); }
-.search-input::placeholder { color:#9ca3af; }
-.search-btn { padding:11px 20px; border-radius:24px; border:none; background:#fff; color:var(--accent); font-size:15px; font-weight:700; cursor:pointer; transition:all .2s; }
-.search-btn:hover { background:#f3e8ff; }
 .main { flex:1; max-width:900px; margin:-30px auto 40px; padding:0 20px; width:100%; position:relative; z-index:1; }
-.category-section { margin-top:34px; }
-.category-section:first-child { margin-top:6px; }
-.category-title { font-size:22px; font-weight:800; margin:0 0 4px; display:flex; align-items:center; gap:8px; color:var(--text); }
-.category-sub { font-size:13px; color:var(--text2); margin-bottom:16px; padding-left:2px; }
-.card-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; margin-top:4px; }
-.card { background:var(--card-bg); border-radius:var(--radius); box-shadow:var(--shadow); padding:32px 28px; text-decoration:none; color:var(--text); transition:all .2s; position:relative; overflow:hidden; border:1px solid rgba(0,0,0,0.04); display:flex; flex-direction:column; }
+.card-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; margin-top:10px; }
+.card { background:var(--card-bg); border-radius:var(--radius); box-shadow:var(--shadow); padding:32px 28px; text-decoration:none; color:var(--text); transition:all .2s; position:relative; overflow:hidden; border:1px solid rgba(0,0,0,0.04); }
 .card:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(0,0,0,0.12); }
 .card-icon { font-size:42px; margin-bottom:16px; display:block; }
 .card-title { font-size:20px; font-weight:700; margin-bottom:8px; }
-.card-desc { font-size:14px; color:var(--text2); line-height:1.6; flex:1; }
+.card-desc { font-size:14px; color:var(--text2); line-height:1.6; }
 .card-meta { margin-top:18px; display:flex; gap:12px; flex-wrap:wrap; }
 .card-tag { font-size:12px; padding:3px 10px; border-radius:20px; font-weight:600; }
 .tag-purple { background:#ede9fe; color:#7c3aed; }
 .tag-blue { background:#dbeafe; color:#2563eb; }
 .tag-green { background:#d1fae5; color:#059669; }
 .tag-amber { background:#fef3c7; color:#d97706; }
-.tag-red { background:#fee2e2; color:#dc2626; }
-.tag-pink { background:#fce7f3; color:#db2777; }
-.tag-orange { background:#ffedd5; color:#ea580c; }
-.tag-sky { background:#e0f2fe; color:#0284c7; }
-.tag-stone { background:#e7e5e4; color:#57534e; }
-.tag-lime { background:#ecfccb; color:#65a30d; }
-.tag-teal { background:#ccfbf1; color:#0d9488; }
 .footer { text-align:center; padding:24px; font-size:12px; color:#9ca3af; }
 /* ===== 平板适配 (768px-1024px) ===== */
 @media(max-width:900px) {
-  .header-inner { padding:48px 20px 28px; }
+  .header-inner { padding:50px 20px 44px; }
   .header h1 { font-size:28px; }
   .main { max-width:700px; padding:0 24px; }
   .card-grid { grid-template-columns:repeat(2,1fr); gap:20px; }
@@ -58,13 +42,10 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
 }
 /* ===== 手机适配 (≤600px) ===== */
 @media(max-width:600px) {
-  .header-inner { padding:36px 16px 26px; }
+  .header-inner { padding:36px 16px 36px; }
   .header h1 { font-size:24px; letter-spacing:1px; }
   .header p { font-size:13px; }
-  .search-form { margin-top:16px; }
   .main { margin:-24px auto 32px; padding:0 16px; }
-  .category-section { margin-top:26px; }
-  .category-title { font-size:19px; }
   .card-grid { grid-template-columns:1fr; gap:16px; }
   .card { padding:24px 20px; }
   .card-icon { font-size:36px; margin-bottom:12px; }
@@ -77,7 +58,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
 /* ===== 小屏手机适配 (≤380px) ===== */
 @media(max-width:380px) {
   .header h1 { font-size:21px; }
-  .header-inner { padding:28px 12px 22px; }
+  .header-inner { padding:28px 12px 28px; }
   .card { padding:20px 16px; }
   .card-tag { font-size:10px; padding:2px 6px; }
 }
@@ -90,314 +71,76 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
   <div class="header-inner">
     <h1>📖 信息收录</h1>
     <p>精选阅读 · 随时收听 · 手机电脑同步</p>
-    <form class="search-form" action="./berkshire-search.html" method="get">
-      <input type="text" name="q" class="search-input" placeholder="搜索全站：巴菲特、产业链、中药、估值…" aria-label="全站搜索">
-      <button type="submit" class="search-btn">🔍 搜索</button>
-    </form>
   </div>
 </div>
 
 <div class="main">
+  <div class="card-grid">
 
-  <!-- ===== 巴菲特研究 ===== -->
-  <section class="category-section">
-    <h2 class="category-title">📜 巴菲特研究</h2>
-    <div class="category-sub">股东信、投资数据、年会实录与价值投资人物</div>
-    <div class="card-grid">
+    <a class="card" href="./curated36.html">
+      <span class="card-icon">🌐</span>
+      <div class="card-title">跨境电商参考</div>
+      <div class="card-desc">精选36篇文章，涵盖商业认知、案例拆解、选品方法论、Shopify实战、AI+跨境、平台趋势六大分类，支持普通话/粤语朗读。</div>
+      <div class="card-meta">
+        <span class="card-tag tag-purple">32篇文章</span>
+        <span class="card-tag tag-blue">6大分类</span>
+        <span class="card-tag tag-amber">🔊 支持朗读</span>
+      </div>
+    </a>
 
-      <a class="card" href="./buffett-partnership-showcase.html">
-        <span class="card-icon">📚</span>
-        <div class="card-title">巴菲特致股东信</div>
-        <div class="card-desc">1957-1972年巴菲特合伙基金及伯克希尔早期致股东信中文合集，RanRan最佳翻译版，支持逐字高亮朗读。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-green">16封信</span>
-          <span class="card-tag tag-blue">1957-1972</span>
-          <span class="card-tag tag-amber">🔊 支持朗读</span>
-        </div>
-      </a>
+    <a class="card" href="./buffett-partnership-showcase.html">
+      <span class="card-icon">📚</span>
+      <div class="card-title">巴菲特致股东信</div>
+      <div class="card-desc">1957-1972年巴菲特合伙基金及伯克希尔早期致股东信中文合集，RanRan最佳翻译版，支持逐字高亮朗读。</div>
+      <div class="card-meta">
+        <span class="card-tag tag-green">16封信</span>
+        <span class="card-tag tag-blue">1957-1972</span>
+        <span class="card-tag tag-amber">🔊 支持朗读</span>
+      </div>
+    </a>
 
-      <a class="card" href="./berkshire-standalone.html">
-        <span class="card-icon">📊</span>
-        <div class="card-title">伯克希尔投资数据</div>
-        <div class="card-desc">巴菲特历年投资数据、收购数据、68封致股东信（1957-2024）、股东大会、演讲等 comprehensive 数据合集。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-green">68封信</span>
-          <span class="card-tag tag-blue">1957-2024</span>
-          <span class="card-tag tag-purple">投资数据</span>
-        </div>
-      </a>
+    <a class="card" href="./berkshire-standalone.html">
+      <span class="card-icon">📊</span>
+      <div class="card-title">伯克希尔投资数据</div>
+      <div class="card-desc">巴菲特历年投资数据、收购数据、68封致股东信（1957-2024）、股东大会、演讲等 comprehensive 数据合集。</div>
+      <div class="card-meta">
+        <span class="card-tag tag-green">68封信</span>
+        <span class="card-tag tag-blue">1957-2024</span>
+        <span class="card-tag tag-purple">投资数据</span>
+      </div>
+    </a>
 
-      <a class="card" href="./berkshire-letters.html">
-        <span class="card-icon">📜</span>
-        <div class="card-title">历年致股东信</div>
-        <div class="card-desc">1957–2024 年伯克希尔及合伙基金致股东信中文合集（方法论+原文），54 期完整收录。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-blue">1957-2024</span>
-          <span class="card-tag tag-purple">54 期</span>
-        </div>
-      </a>
+    <a class="card" href="./berkshire-ai-chains.html">
+      <span class="card-icon">🧬</span>
+      <div class="card-title">AI 巨头产业链</div>
+      <div class="card-desc">基于公开财报、官网与新闻原创整理的 AI 产业链地图：13 家巨头（中国 5 家 + 全球 8 家）跨 5 层全栈分析，NVIDIA 链已出完整示例。</div>
+      <div class="card-meta">
+        <span class="card-tag tag-blue">13 家巨头</span>
+        <span class="card-tag tag-amber">5 层跨链</span>
+      </div>
+    </a>
 
-      <a class="card" href="./berkshire-investments.html">
-        <span class="card-icon">💼</span>
-        <div class="card-title">伯克希尔投资版图</div>
-        <div class="card-desc">用保险浮存金买的股票与股权：当前持仓 + 历史持仓 + 已转化子公司，41 家跨层梳理。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-teal">41 家</span>
-          <span class="card-tag tag-amber">浮存金</span>
-        </div>
-      </a>
+    <a class="card" href="./berkshire-robot-chains.html">
+      <span class="card-icon">🤖</span>
+      <div class="card-title">机器人产业链</div>
+      <div class="card-desc">基于公开年报、官网与新闻原创整理的机器人产业链地图：14 家玩家（中国 6 + 全球 8）跨 5 层全栈分析，Tesla Optimus 链已出完整示例。</div>
+      <div class="card-meta">
+        <span class="card-tag tag-green">14 家玩家</span>
+        <span class="card-tag tag-amber">5 层跨链</span>
+      </div>
+    </a>
 
-      <a class="card" href="./berkshire-meetings.html">
-        <span class="card-icon">🎙️</span>
-        <div class="card-title">股东大会实录</div>
-        <div class="card-desc">1994–2026 年伯克希尔股东大会文字实录，中文 / 英文双入口，逐年可查。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-green">1994-2026</span>
-          <span class="card-tag tag-blue">中英双版</span>
-        </div>
-      </a>
+    <a class="card" href="./berkshire-baijiu-chains.html">
+      <span class="card-icon">🍶</span>
+      <div class="card-title">白酒产业链</div>
+      <div class="card-desc">价值投资经典样本：11 家上市公司（茅五泸汾洋等）跨 5 层全栈梳理（原料/酿造/渠道/消费/投资逻辑），金色主题、框架级原创整理。</div>
+      <div class="card-meta">
+        <span class="card-tag tag-amber">11 家上市公司</span>
+        <span class="card-tag tag-blue">5 层跨链</span>
+      </div>
+    </a>
 
-      <a class="card" href="./berkshire-value-investors.html">
-        <span class="card-icon">👤</span>
-        <div class="card-title">价值投资人物</div>
-        <div class="card-desc">李录（4 篇）+ 帕伯莱（74 篇）等价值投资人物研究合集，附主题索引。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-purple">李录</span>
-          <span class="card-tag tag-pink">帕伯莱</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-articles.html">
-        <span class="card-icon">📰</span>
-        <div class="card-title">相关文章</div>
-        <div class="card-desc">伯克希尔相关文章 + 巴菲特访谈主题索引，按主题归类，便于深挖。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-sky">文章</span>
-          <span class="card-tag tag-amber">访谈索引</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-business-map.html">
-        <span class="card-icon">🗺️</span>
-        <div class="card-title">业务版图</div>
-        <div class="card-desc">伯克希尔收购的 60 家并表子公司业务地图，可按年代筛选与查看详情。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-orange">60 家</span>
-          <span class="card-tag tag-stone">并表子公司</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- ===== 产业链地图 ===== -->
-  <section class="category-section">
-    <h2 class="category-title">🗺️ 产业链地图</h2>
-    <div class="category-sub">12 条产业链 · 每家上市公司跨 5 层（上游/中游/下游/消费场景/投资逻辑）框架级原创整理</div>
-    <div class="card-grid">
-
-      <a class="card" href="./berkshire-ai-chains.html">
-        <span class="card-icon">🧬</span>
-        <div class="card-title">AI 巨头产业链</div>
-        <div class="card-desc">基于公开财报、官网与新闻原创整理的 AI 产业链地图：13 家巨头（中国 5 家 + 全球 8 家）跨 5 层全栈分析，NVIDIA 链已出完整示例。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-blue">13 家巨头</span>
-          <span class="card-tag tag-amber">5 层跨链</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-robot-chains.html">
-        <span class="card-icon">🤖</span>
-        <div class="card-title">机器人产业链</div>
-        <div class="card-desc">基于公开年报、官网与新闻原创整理的机器人产业链地图：14 家玩家（中国 6 + 全球 8）跨 5 层全栈分析，Tesla Optimus 链已出完整示例。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-green">14 家玩家</span>
-          <span class="card-tag tag-amber">5 层跨链</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-baijiu-chains.html">
-        <span class="card-icon">🍶</span>
-        <div class="card-title">白酒产业链</div>
-        <div class="card-desc">价值投资经典样本：11 家上市公司（茅五泸汾洋等）跨 5 层全栈梳理（原料/酿造/渠道/消费/投资逻辑），金色主题、框架级原创整理。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-amber">11 家上市公司</span>
-          <span class="card-tag tag-blue">5 层跨链</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-bank-chains.html">
-        <span class="card-icon">🏦</span>
-        <div class="card-title">银行产业链</div>
-        <div class="card-desc">基于公开年报、官网与财报原创整理的银行业产业链地图：42 家 A 股上市银行（国有大行 6 / 股份行 9 / 城商行 17 / 农商行 10）跨 5 层框架分析，附产业链视角与横向对比工具。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-blue">42 家银行</span>
-          <span class="card-tag tag-amber">5 层框架</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-tcm-chains.html">
-        <span class="card-icon">🌿</span>
-        <div class="card-title">中药产业链</div>
-        <div class="card-desc">价值投资视角下的中药产业链地图：11 家中药龙头（云南白药 / 片仔癀 / 同仁堂 / 东阿阿胶等）跨 5 层全栈梳理（药材 / 炮制 / 渠道 / 消费 / 投资逻辑），药红主题、框架级原创整理。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-red">11 家中药</span>
-          <span class="card-tag tag-amber">5 层跨链</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-innov-chains.html">
-        <span class="card-icon">💊</span>
-        <div class="card-title">创新药产业链</div>
-        <div class="card-desc">价值投资视角下的创新药产业链地图：11 家创新药企（恒瑞 / 百济 / 信达 / 君实 / 康方 / 荣昌等）跨 5 层全栈梳理（研发 / 生产 / 商业化 / 临床 / 投资逻辑），生命粉主题、框架级原创整理。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-pink">11 家药企</span>
-          <span class="card-tag tag-amber">5 层跨链</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-appliance-chains.html">
-        <span class="card-icon">🔌</span>
-        <div class="card-title">家电产业链</div>
-        <div class="card-desc">价值投资视角下的家电产业链地图：11 家家电龙头（美的 / 格力 / 海尔 / 海信 / 老板 / 石头 / 科沃斯等）跨 5 层全栈梳理（零部件 / 制造 / 渠道 / 消费 / 投资逻辑），暖橙主题、框架级原创整理。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-orange">11 家家电</span>
-          <span class="card-tag tag-amber">5 层跨链</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-power-chains.html">
-        <span class="card-icon">⚡</span>
-        <div class="card-title">电力产业链</div>
-        <div class="card-desc">价值投资视角下的电力产业链地图：11 家电力龙头（长江电力 / 华能 / 三峡能源 / 中国核电 / 龙源等）跨 5 层全栈梳理（燃料 / 发电 / 电网 / 消费 / 投资逻辑），天蓝主题、框架级原创整理。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-sky">11 家电力</span>
-          <span class="card-tag tag-amber">5 层跨链</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-coal-chains.html">
-        <span class="card-icon">🪨</span>
-        <div class="card-title">煤炭产业链</div>
-        <div class="card-desc">价值投资视角下的煤炭产业链地图：11 家煤炭龙头（中国神华 / 陕西煤业 / 兖矿 / 中煤 / 山焦等）跨 5 层全栈梳理（开采 / 洗选 / 运输 / 消费 / 投资逻辑），石灰主题、框架级原创整理。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-stone">11 家煤炭</span>
-          <span class="card-tag tag-amber">5 层跨链</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-metal-chains.html">
-        <span class="card-icon">🪙</span>
-        <div class="card-title">有色产业链</div>
-        <div class="card-desc">价值投资视角下的有色产业链地图：11 家有色龙头（紫金 / 江铜 / 中铝 / 洛钼 / 山金 / 天齐 / 赣锋等）跨 5 层全栈梳理（勘探 / 冶炼 / 加工 / 消费 / 投资逻辑），紫调主题、框架级原创整理。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-purple">11 家有色</span>
-          <span class="card-tag tag-amber">5 层跨链</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-chem-chains.html">
-        <span class="card-icon">🧪</span>
-        <div class="card-title">化工产业链</div>
-        <div class="card-desc">价值投资视角下的化工产业链地图：11 家化工龙头（万华 / 荣盛 / 恒力 / 卫星 / 华鲁 / 宝丰等）跨 5 层全栈梳理（原料 / 炼化 / 精细 / 消费 / 投资逻辑），青柠主题、框架级原创整理。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-lime">11 家化工</span>
-          <span class="card-tag tag-amber">5 层跨链</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-equip-chains.html">
-        <span class="card-icon">🔋</span>
-        <div class="card-title">电力设备产业链</div>
-        <div class="card-desc">价值投资视角下的电力设备产业链地图：11 家设备龙头（宁德 / 隆基 / 阳光 / 通威 / 特变 / 南瑞等）跨 5 层全栈梳理（材料 / 制造 / 电站 / 消费 / 投资逻辑），青碧主题、框架级原创整理。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-teal">11 家设备</span>
-          <span class="card-tag tag-amber">5 层跨链</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- ===== 投资工具 ===== -->
-  <section class="category-section">
-    <h2 class="category-title">🧰 投资工具</h2>
-    <div class="category-sub">计算器、术语词典、概念库与指数投资方法论</div>
-    <div class="card-grid">
-
-      <a class="card" href="./berkshire-calculators.html">
-        <span class="card-icon">🧮</span>
-        <div class="card-title">投资计算器</div>
-        <div class="card-desc">7 款 A/H 股计算器：复利、内在价值、盈亏、股息、PE·PB、CAGR、定投，随算随用。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-purple">7 款</span>
-          <span class="card-tag tag-blue">A·H 股</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-financial-terms.html">
-        <span class="card-icon">📖</span>
-        <div class="card-title">金融术语词典</div>
-        <div class="card-desc">投资方法论 12 篇 + 巴菲特名言 6 篇（中英对照），术语与理念一站式查阅。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-green">12 篇</span>
-          <span class="card-tag tag-amber">名言 6</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-concepts.html">
-        <span class="card-icon">🧩</span>
-        <div class="card-title">概念库</div>
-        <div class="card-desc">核心概念 49 + 重要公司 61 + 关键人物 7 + 股东信 95，结构化知识图谱可检索。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-pink">49 概念</span>
-          <span class="card-tag tag-sky">61 公司</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-index-investing.html">
-        <span class="card-icon">📈</span>
-        <div class="card-title">指数投资</div>
-        <div class="card-desc">长赢体系 28 篇，「7080 定律」核心逻辑与实操，普通人的资产配置框架。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-teal">28 篇</span>
-          <span class="card-tag tag-orange">7080 定律</span>
-        </div>
-      </a>
-
-      <a class="card" href="./berkshire-stress-test.html">
-        <span class="card-icon">🛡️</span>
-        <div class="card-title">投资压力测试</div>
-        <div class="card-desc">五维问卷 + 回撤表 + 7080 计算器 + 投资箴言，测一测你的组合抗压性。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-red">五维问卷</span>
-          <span class="card-tag tag-stone">回撤表</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- ===== 延伸阅读 ===== -->
-  <section class="category-section">
-    <h2 class="category-title">📚 延伸阅读</h2>
-    <div class="category-sub">跨界的商业与认知拓展</div>
-    <div class="card-grid">
-
-      <a class="card" href="./curated36.html">
-        <span class="card-icon">🌐</span>
-        <div class="card-title">跨境电商参考</div>
-        <div class="card-desc">精选36篇文章，涵盖商业认知、案例拆解、选品方法论、Shopify实战、AI+跨境、平台趋势六大分类，支持普通话/粤语朗读。</div>
-        <div class="card-meta">
-          <span class="card-tag tag-purple">32篇文章</span>
-          <span class="card-tag tag-blue">6大分类</span>
-          <span class="card-tag tag-amber">🔊 支持朗读</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
+  </div>
 </div>
 
 <div class="footer">信息收录 · github.io/amx708 · 持续更新中</div>

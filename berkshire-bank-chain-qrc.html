@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>青农商行 · 银行图谱</title><style>
-:root{--bg:#0a0e1a;--soft:#111a2e;--card:#0f1729;--ink:#e2e8f0;--mut:#94a3b8;--line:rgba(255,255,255,.09);--red:#f87171;--green:#34d399;--accent:#3b82f6;}
+:root{--bg:#f0f2f5;--soft:#f8fafc;--card:#ffffff;--ink:#1e293b;--mut:#64748b;--line:rgba(0,0,0,.09);--red:#dc2626;--green:#16a34a;--accent:#3b82f6;}
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased}
-.nav{position:sticky;top:0;z-index:50;background:rgba(10,14,26,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .nav .brand{color:var(--ink);font-weight:600;font-size:15px;letter-spacing:.3px}
 .nav .crumb{color:var(--mut);font-size:12.5px}
 .nav a{color:var(--mut);text-decoration:none;font-size:13px;padding:4px 9px;border-radius:6px;transition:.15s}
 .nav a:hover{color:var(--accent);background:var(--soft)}
-.hero{background:linear-gradient(135deg,#0f1729 0%,#1b2c4d 100%);border-bottom:1px solid var(--line);padding:46px 20px 38px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f1f5f9 100%);border-bottom:1px solid var(--line);padding:46px 20px 38px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
 .hero-in{max-width:1080px;margin:0 auto}
-.hero h1{margin:0 0 10px;font-size:29px;font-weight:700;letter-spacing:-.5px;color:#fff}
+.hero h1{margin:0 0 10px;font-size:29px;font-weight:700;letter-spacing:-.5px;color:#0f172a}
 .hero p{margin:5px 0;color:var(--mut);max-width:760px;font-size:14.5px}
 .hero .stat{display:flex;gap:40px;margin-top:26px;flex-wrap:wrap}
 .hero .stat b{color:var(--accent);font-size:26px;display:block;font-weight:700}
@@ -24,8 +24,8 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang 
 .filter button:hover{border-color:var(--accent);color:var(--accent)}
 .filter button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;transition:.18s;position:relative}
-.card:hover{border-color:var(--accent);box-shadow:0 6px 22px rgba(0,0,0,.45)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;transition:.18s;position:relative;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.card:hover{border-color:var(--accent);box-shadow:0 6px 20px rgba(59,130,246,.14)}
 .card .top{display:flex;justify-content:space-between;align-items:baseline}
 .card h3{margin:0;font-size:16.5px;font-weight:600;color:var(--ink)}
 .card .code{font-size:12px;color:var(--mut)}
@@ -57,18 +57,18 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang 
 .note{background:var(--soft);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:13px;color:var(--mut);line-height:1.65}
 .note a{color:var(--accent)}
 .extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
-.extend a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;text-decoration:none;color:var(--ink);transition:.18s}
-.extend a:hover{border-color:var(--accent);box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.extend a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;text-decoration:none;color:var(--ink);transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.extend a:hover{border-color:var(--accent);box-shadow:0 6px 18px rgba(59,130,246,.14)}
 .extend b{color:var(--accent);display:block;margin-bottom:5px;font-weight:600}
 .extend span{font-size:12.5px;color:var(--mut);line-height:1.55}
-.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:var(--card)}
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .tbl th,.tbl td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:center}
 .tbl th{background:var(--soft);color:var(--ink);font-weight:600;border-bottom:2px solid var(--line)}
 .tbl tr:hover td{background:var(--soft)}
 .tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600}
-.tag.low{background:rgba(248,113,113,.16);color:var(--red)}
-.tag.mid{background:rgba(59,130,246,.16);color:#93b4fb}
-.tag.high{background:rgba(52,211,153,.16);color:var(--green)}
+.tag.low{background:rgba(220,38,38,.12);color:var(--red)}
+.tag.mid{background:rgba(59,130,246,.14);color:#2563eb}
+.tag.high{background:rgba(22,163,74,.14);color:var(--green)}
 .thermo{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .thermo .nm{width:130px;font-weight:600;font-size:14px;color:var(--ink)}
 .thermo .bar{flex:1;height:10px;background:linear-gradient(90deg,#f87171,#e8b84b,#34d399);border-radius:6px;position:relative;min-width:160px;opacity:.85}
@@ -82,7 +82,7 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 @media(max-width:600px){.grid{grid-template-columns:1fr}.hero h1{font-size:23px}.hero .stat{gap:24px}.thermo .nm{width:100px}}
 /* ---- 产业链三层流 ---- */
 .flow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:18px 0}
-.flow3 .stage{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 10px;position:relative}
+.flow3 .stage{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 10px;position:relative;box-shadow:0 1px 6px rgba(0,0,0,.04)}
 .flow3 .stage .sno{position:absolute;top:-12px;left:16px;background:var(--accent);color:#fff;font-size:12px;font-weight:600;padding:3px 11px;border-radius:20px}
 .flow3 .stage h4{margin:6px 0 2px;font-size:15px;color:var(--accent);font-weight:600}
 .flow3 .stage .tagline{font-size:12px;color:var(--mut);margin-bottom:10px;line-height:1.5}
@@ -93,7 +93,7 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 .flow-cap b{color:var(--accent)}
 @media(max-width:768px){.flow3{grid-template-columns:1fr}}
 /* ---- 对比工具 ---- */
-.cmp-ctrl{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.cmp-ctrl{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0;box-shadow:0 1px 6px rgba(0,0,0,.04)}
 .cmp-ctrl .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
 .cmp-ctrl input[type=text]{flex:1;min-width:180px;border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:13px;outline:none;background:var(--bg);color:var(--ink)}
 .cmp-ctrl input[type=text]:focus{border-color:var(--accent)}
@@ -114,7 +114,7 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <a href="berkshire-bank-chains.html">银行</a>
 <a href="berkshire-baijiu-chains.html">白酒</a>
 <a href="berkshire-ai-chains.html">AI</a>
-<a href="berkshire-robot-chains.html">机器人</a><a href="berkshire-tcm-chains.html" style="color:#3b82f6;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:#3b82f6;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:#3b82f6;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:#3b82f6;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:#3b82f6;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:#3b82f6;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:#3b82f6;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:#3b82f6;text-decoration:none;font-size:13px">电力设备</a>
+<a href="berkshire-robot-chains.html">机器人</a>
 </div></div><div class="detail">
 <a class="back" href="berkshire-bank-chains.html">← 返回银行图谱</a>
 <h1 style="margin:10px 0 2px">青农商行 <span style="font-size:14px;color:var(--mut)">002958 · 农商行</span></h1>

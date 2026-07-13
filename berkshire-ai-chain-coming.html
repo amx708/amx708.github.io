@@ -4,15 +4,68 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>整理中 · AI 巨头产业链地图</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#0a0e1a;color:#e2e8f0;line-height:1.8;display:flex;align-items:center;justify-content:center;min-height:100vh}
-.wrap{text-align:center;max-width:480px;padding:40px 24px}
-.icon{font-size:54px;margin-bottom:16px}
-.title{font-size:22px;font-weight:800;color:#fff;margin-bottom:10px}
-.desc{font-size:14px;color:#94a3b8;margin-bottom:24px}
-.btn{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,0.12);color:#22d3ee;border:1px solid rgba(34,211,238,0.3);border-radius:20px;padding:9px 18px;font-size:14px;cursor:pointer;text-decoration:none;transition:all .2s}
-.btn:hover{background:#22d3ee;color:#0a0e1a}
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.8}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(34,211,238,0.2);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,0.12);color:#0e7490;border:1px solid rgba(34,211,238,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#0e7490;color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#0e7490}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:880px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#ffffff,#ecfeff);border-radius:14px;padding:28px;margin-bottom:20px;border:1px solid rgba(34,211,238,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-name{font-size:24px;font-weight:800;color:#0f172a}
+.hero-tag{display:inline-block;font-size:12px;color:#0e7490;background:rgba(34,211,238,0.12);padding:3px 10px;border-radius:10px;margin-top:8px}
+.hero-sub{font-size:13px;color:#64748b;margin-top:10px}
+.hero-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.hstat{background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);border-radius:10px;padding:8px 14px;text-align:center;min-width:84px}
+.hstat .hs-num{font-size:19px;font-weight:800;color:#0e7490}
+.hstat .hs-lab{font-size:10.5px;color:#64748b;margin-top:2px}
+.section-title{font-size:17px;font-weight:700;color:#0f172a;margin:28px 0 12px;padding-left:12px;border-left:3px solid rgba(34,211,238,0.5)}
+.oneliner{background:rgba(34,211,238,0.06);border:1px solid rgba(34,211,238,0.2);border-radius:12px;padding:16px 18px;font-size:14.5px;color:#334155;line-height:1.8}
+.oneliner b{color:#0f172a}
+.layer-block{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.layer-num{width:26px;height:26px;border-radius:50%;background:#0e7490;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.layer-title{font-size:16px;font-weight:700;color:#0f172a}
+.layer-body{font-size:14px;color:#475569;line-height:1.85}
+.layer-body b{color:#1e293b}
+.layer-body .node{display:inline-block;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.22);color:#0e7490;font-size:12.5px;padding:2px 9px;border-radius:8px;margin:3px 4px 3px 0}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.kpi .k-num{font-size:18px;font-weight:800;color:#0e7490}
+.kpi .k-lab{font-size:11.5px;color:#64748b;margin-top:2px}
+.kpi .k-sub{font-size:11px;color:#94a3b8;margin-top:1px}
+.table-wrap{overflow-x:auto;margin-top:6px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:9px 10px;text-align:right;border-bottom:1px solid #eef2f7;color:#334155}
+th:first-child,td:first-child{text-align:left;color:#0f172a;font-weight:600}
+th{color:#64748b;font-weight:600;background:#f8fafc}
+td .pos{color:#16a34a}
+td .neg{color:#dc2626}
+.invest-box{background:linear-gradient(135deg,#ecfeff,#ffffff);border:1px solid rgba(34,211,238,0.25);border-radius:12px;padding:18px 20px;margin-top:8px}
+.invest-box .ib-title{font-size:16px;font-weight:700;color:#0e7490;margin-bottom:10px}
+.invest-row{margin-bottom:12px}
+.invest-row .ir-label{font-size:13px;font-weight:700;color:#0f172a;margin-bottom:3px}
+.invest-row .ir-text{font-size:13.5px;color:#475569;line-height:1.75}
+.invest-row .ir-text b{color:#1e293b}
+.timeline{position:relative;padding-left:22px;margin-top:4px}
+.timeline::before{content:"";position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:rgba(34,211,238,0.4)}
+.tl-item{position:relative;margin-bottom:16px}
+.tl-item::before{content:"";position:absolute;left:-19px;top:6px;width:10px;height:10px;border-radius:50%;background:#0e7490;box-shadow:0 0 0 3px rgba(34,211,238,0.15)}
+.tl-date{font-size:12px;color:#0e7490;font-weight:700}
+.tl-text{font-size:13.5px;color:#475569;line-height:1.75;margin-top:2px}
+.tl-text b{color:#1e293b}
+.src-links{font-size:12.5px;color:#64748b;margin-top:10px}
+.src-links a{color:#0e7490;text-decoration:none}
+.src-links a:hover{text-decoration:underline}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:20px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+@media(max-width:640px){.hero{padding:20px 16px}.hero-name{font-size:20px}.layer-block,.invest-box{padding:16px 14px}.kpi-grid{grid-template-columns:1fr 1fr}}
+.data-banner{background:rgba(100,116,139,0.12);border:1px solid rgba(100,116,139,0.35);border-left:4px solid #64748b;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:#0f172a;font-weight:600}
+.data-banner .upd{color:#64748b;font-weight:600}
 </style>
 </head>
 <body>

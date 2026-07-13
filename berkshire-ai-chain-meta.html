@@ -6,58 +6,54 @@
 <title>Meta 链 · AI 巨头产业链地图</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#0a0e1a;color:#e2e8f0;line-height:1.75}
-.top-bar{position:sticky;top:0;z-index:100;background:rgba(10,14,26,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 20px;display:flex;align-items:center;gap:12px}
-.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,0.12);color:#22d3ee;border:1px solid rgba(34,211,238,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
-.home-btn:hover{background:#22d3ee;color:#0a0e1a}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(34,211,238,0.2);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,0.12);color:#0e7490;border:1px solid rgba(34,211,238,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#0e7490;color:#fff}
 .breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
 .breadcrumb a{color:#64748b;text-decoration:none}
-.breadcrumb a:hover{color:#22d3ee}
-.crumb-sep{color:#334155}
+.breadcrumb a:hover{color:#0e7490}
+.crumb-sep{color:#cbd5e1}
 .container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
-.hero{background:linear-gradient(135deg,#0f1729 0%,#1e3a5f 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(34,211,238,0.15);box-shadow:0 8px 30px rgba(0,0,0,0.3)}
-.hero-title{font-size:26px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.5px}
-.hero-sub{font-size:14px;color:#94a3b8;margin-bottom:18px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#ecfeff 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(34,211,238,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
 .hero-stats{display:flex;gap:12px;flex-wrap:wrap}
-.stat-item{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 18px;text-align:center}
-.stat-num{font-size:20px;font-weight:800;color:#22d3ee}
-.stat-label{font-size:11px;color:#94a3b8;margin-top:2px;white-space:nowrap}
+.stat-item{background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#0e7490}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
 .region-tag{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
-.region-cn{background:rgba(220,38,38,0.18);color:#fca5a5;border:1px solid rgba(220,38,38,0.3)}
-.region-global{background:rgba(37,99,235,0.18);color:#93c5fd;border:1px solid rgba(37,99,235,0.3)}
-.section-title{font-size:18px;font-weight:700;color:#f1f5f9;margin:28px 0 14px;padding-left:12px;border-left:3px solid #22d3ee}
-.overview{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#cbd5e1;line-height:1.85}
-.overview b{color:#fff;font-weight:600}
-.layer-detail{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 18px;margin-bottom:10px}
-.layer-detail-title{font-size:15px;font-weight:700;color:#f1f5f9;display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.layer-num{font-size:12px;color:#22d3ee;font-weight:700}
-.layer-detail-body{font-size:13.5px;color:#94a3b8;line-height:1.8}
-.layer-detail-body b{color:#cbd5e1}
-.info-table{width:100%;border-collapse:collapse;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-top:8px}
-.info-table tr{border-bottom:1px solid rgba(255,255,255,0.06)}
+.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
+.region-global{background:rgba(37,99,235,0.12);color:#2563eb;border:1px solid rgba(37,99,235,0.3)}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid rgba(34,211,238,0.5)}
+.overview{background:rgba(34,211,238,0.05);border:1px solid rgba(34,211,238,0.15);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
+.overview b{color:#0f172a;font-weight:600}
+.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid rgba(34,211,238,0.5);border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-num{font-size:12px;color:#0e7490;font-weight:700}
+.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
+.layer-detail-body b{color:#334155}
+.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.info-table tr{border-bottom:1px solid #eef2f7}
 .info-table tr:last-child{border-bottom:none}
-.info-table td{padding:12px 16px;font-size:13.5px;color:#cbd5e1}
-.info-table td:first-child{width:160px;color:#94a3b8;background:rgba(255,255,255,0.02)}
-.insight-box{background:linear-gradient(135deg,#0c1a2e,#102a43);border:1px solid rgba(34,211,238,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
-.insight-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.insight-title .icon{color:#22d3ee}
-.insight-body{font-size:13.5px;color:#bae6fd;line-height:1.8}
-.source-note{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7}
-.source-note b{color:#94a3b8}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
+.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
+.insight-box{background:linear-gradient(135deg,#ecfeff,#ffffff);border:1px solid rgba(34,211,238,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#0e7490}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
 .back-bar{margin-top:20px}
-.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.05);color:#22d3ee;border:1px solid rgba(34,211,238,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
-.back-btn:hover{background:rgba(34,211,238,0.12)}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,0.08);color:#0e7490;border:1px solid rgba(34,211,238,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(34,211,238,0.16)}
 @media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.info-table td:first-child{width:100px}}
-.data-banner{background:rgba(100,116,139,0.12);border:1px solid rgba(100,116,139,0.35);border-left:4px solid #64748b;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#cbd5e1;line-height:1.7}
-.data-banner b{color:#fff;font-weight:600}
-.data-banner .upd{color:#94a3b8;font-weight:600}
+
 </style>
 </head>
 <body>
 <div class="top-bar">
 <a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
-<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:#22d3ee;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:#22d3ee;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:#22d3ee;text-decoration:none;font-size:13px;font-weight:700">AI</a><a href="berkshire-robot-chains.html" style="color:#22d3ee;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:#22d3ee;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:#22d3ee;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:#22d3ee;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:#22d3ee;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:#22d3ee;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:#22d3ee;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:#22d3ee;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:#22d3ee;text-decoration:none;font-size:13px">电力设备</a></span>
-
 <div class="breadcrumb">
 <a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
 <a href="berkshire-ai-chains.html">AI 巨头产业链</a><span class="crumb-sep">/</span>
@@ -76,8 +72,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 <div class="stat-item"><div class="stat-num">年投 600 亿美元级</div><div class="stat-label">AI 资本开支</div></div>
 </div>
 </div>
-
-<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
 
 <div class="section-title">公司 / 主题概述</div>
 <div class="overview">
