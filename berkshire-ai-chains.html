@@ -1,190 +1,50 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI 巨头产业链地图 · 价值投资视角</title>
-<style>*{margin:0;padding:0;box-sizing:border-box}
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="initial-scale=1"><title>AI 巨头产业链 · 价值投资视角</title><style>*{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
-.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(34,211,238,0.2);padding:12px 20px;display:flex;align-items:center;gap:12px}
-.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,0.12);color:#0e7490;border:1px solid rgba(34,211,238,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
-.home-btn:hover{background:#0e7490;color:#fff}
-.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
-.breadcrumb a{color:#64748b;text-decoration:none}
-.breadcrumb a:hover{color:#0e7490}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.08);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.04);color:#475569;border:1px solid rgba(0,0,0,.12);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:##22d3ee;color:#fff;border-color:##22d3ee}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center;margin-left:auto}
+.breadcrumb a{color:#64748b;text-decoration:none}.breadcrumb a:hover{color:##22d3ee}
 .crumb-sep{color:#cbd5e1}
-.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
-.hero{background:linear-gradient(135deg,#ffffff 0%,#ecfeff 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(34,211,238,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
-.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
-.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
-.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
-.stat-item{background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);border-radius:10px;padding:10px 18px;text-align:center}
-.stat-num{font-size:22px;font-weight:800;color:#0e7490}
-.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
-.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ecfeff,#ffffff);border:1px solid rgba(34,211,238,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
-.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
-.explain-banner .eb-body{flex:1;min-width:0}
-.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.explain-banner .eb-tag{font-size:11px;color:#0e7490;background:rgba(34,211,238,0.12);padding:2px 9px;border-radius:10px}
-.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
-.explain-banner .eb-text b{color:#0f172a;font-weight:600}
-.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid rgba(34,211,238,0.5)}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 56px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:18px;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.hero h1{font-size:25px;font-weight:800;color:#0f172a;margin:0 0 6px}
+.hero p{font-size:13.5px;color:#64748b;margin:0;max-width:840px}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid ##22d3ee}
 .layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
-.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.layer-num{font-size:12px;color:#0e7490;font-weight:700}
-.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.layer-num{font-size:12px;color:##22d3ee;font-weight:700}
+.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0}
 .layer-desc{font-size:12px;color:#64748b;line-height:1.6}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.giant-card:hover{border-color:#0e7490;background:rgba(34,211,238,0.06);transform:translateY(-2px);box-shadow:0 4px 14px rgba(34,211,238,0.18)}
-.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.giant-card:hover{border-color:##22d3ee;background:rgba(0,0,0,.02);transform:translateY(-2px)}
 .giant-name{font-size:16px;font-weight:700;color:#0f172a}
-.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
-.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
-.region-global{background:rgba(37,99,235,0.12);color:#2563eb;border:1px solid rgba(37,99,235,0.3)}
-.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
-.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
-.giant-link{color:#0e7490;font-weight:600}
-.coming-tag{font-size:11px;color:#64748b;background:#f1f5f9;padding:2px 8px;border-radius:8px}
-.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.source-note b{color:#475569}
-@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
-.data-banner{background:rgba(100,116,139,0.12);border:1px solid rgba(100,116,139,0.35);border-left:4px solid #64748b;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600;margin-left:8px}
+.region-HK{background:rgba(234,179,8,.14);color:#b45309;border:1px solid rgba(234,179,8,.3)}
+.region-US{background:rgba(59,130,246,.14);color:#2563eb;border:1px solid rgba(59,130,246,.3)}
+.region-CN{background:rgba(220,38,38,.12);color:#dc2626;border:1px solid rgba(220,38,38,.25)}
+.region-private{background:rgba(100,116,139,.14);color:#475569;border:1px solid rgba(100,116,139,.3)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.6;margin-top:8px}
+.note{background:#fff;border:1px solid rgba(0,0,0,.08);border-left:3px solid ##22d3ee;border-radius:10px;padding:14px 18px;margin:16px 0;font-size:13px;color:#64748b;line-height:1.7}
+.note b{color:#0f172a}
+.tbl{width:100%;border-collapse:collapse;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;margin:14px 0;font-size:13px}
+.tbl th,.tbl td{border-bottom:1px solid #eef2f7;padding:10px 12px;text-align:left}
+.tbl th{background:#f8fafc;color:#334155;font-weight:700}
+.tbl tr:hover td{background:#f8fafc}
+.mcap-bar{height:10px;background:linear-gradient(90deg,##22d3ee,#34d399);border-radius:6px;min-width:4px}
+.data-banner{background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.08);border-left:4px solid ##22d3ee;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
 .data-banner b{color:#0f172a;font-weight:600}
-.data-banner .upd{color:#64748b;font-weight:600}
-</style>
-</head>
-<body>
-<div class="top-bar">
-<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
-<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px;font-weight:700">AI</a><a href="berkshire-robot-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px">电力设备</a></span>
-
-<div class="breadcrumb">
-<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
-<span>AI 巨头产业链</span>
-</div>
-</div>
-<div class="container">
-
-<div class="hero">
-<div class="hero-title">AI 巨头产业链地图</div>
-<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开资料原创整理，不复制任何付费内容</div>
-<div class="hero-stats">
-<div class="stat-item"><div class="stat-num">13</div><div class="stat-label">AI 巨头</div></div>
-<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
-<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
-</div>
-</div>
-
-<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
-
-<div class="explain-banner">
-<div class="eb-icon">🧭</div>
-<div class="eb-body">
-<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「产业链地图」是怎么来的</div>
-<div class="eb-text">
-本页是<b>借鉴公开方法论、用公开资料自行整理</b>的知识框架，目的是把 AI 巨头的布局按「层级」拆解，便于从投资视角理解其护城河与风险。<br>
-<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 产品发布信息——均为公开事实层。
-</div>
-</div>
-</div>
-
-<div class="section-title">跨层分析框架（5 层）</div>
-<div class="layers">
-<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">芯片与算力</div><div class="layer-desc">GPU / ASIC / TPU / 昇腾等 AI 芯片，以及超算与网络互连</div></div>
-<div class="layer-card"><div class="layer-num">02</div><div class="layer-name">云与基础设施</div><div class="layer-desc">AWS / Azure / 阿里云 / 自建数据中心等算力供给</div></div>
-<div class="layer-card"><div class="layer-num">03</div><div class="layer-name">大模型与算法</div><div class="layer-desc">GPT / Gemini / LLaMA / 通义 / 文心等基础模型</div></div>
-<div class="layer-card"><div class="layer-num">04</div><div class="layer-name">应用与终端</div><div class="layer-desc">搜索 / 社交 / 电商 / 自动驾驶 / 机器人 / 消费终端</div></div>
-<div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">护城河（生态 / 数据 / 算力）、估值与主要风险</div></div>
-</div>
-
-<div class="section-title">巨头索引（13 家）</div>
-<div class="grid">
-
-<a class="giant-card" href="berkshire-ai-chain-nvidia.html">
-<div class="giant-head"><span class="giant-name">NVIDIA 链</span><span class="region-tag region-global">全球</span></div>
-<div class="giant-desc">GPU 与 CUDA 生态垄断者，AI 训练的算力底座。<b style="color:#0e7490">★ 深凿样板</b>：含最新财报、5 层节点、竞争位置与新闻时间线。</div>
-<div class="giant-foot"><span class="giant-link">查看深凿样板 →</span></div>
-</a>
-
-<a class="giant-card" href="berkshire-ai-chain-apple.html">
-<div class="giant-head"><span class="giant-name">Apple 链</span><span class="region-tag region-global">全球</span></div>
-<div class="giant-desc">消费终端霸主，自研芯片 + Apple Intelligence 端侧 AI 布局，海量用户生态。</div>
-<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
-</a>
-
-<a class="giant-card" href="berkshire-ai-chain-microsoft.html">
-<div class="giant-head"><span class="giant-name">Microsoft 链</span><span class="region-tag region-global">全球</span></div>
-<div class="giant-desc">Azure 云 + OpenAI 深度投资 + Copilot 全家桶，企业级 AI 落地最前锋。</div>
-<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
-</a>
-
-<a class="giant-card" href="berkshire-ai-chain-google.html">
-<div class="giant-head"><span class="giant-name">Google 链</span><span class="region-tag region-global">全球</span></div>
-<div class="giant-desc">自研 TPU + Gemini 大模型 + 安卓 / 搜索生态，全栈协同的 AI 巨头。</div>
-<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
-</a>
-
-<a class="giant-card" href="berkshire-ai-chain-amazon.html">
-<div class="giant-head"><span class="giant-name">Amazon 链</span><span class="region-tag region-global">全球</span></div>
-<div class="giant-desc">AWS 云算力 + 自研 Trainium/Inferentia 芯片 + Alexa，电商与云双引擎。</div>
-<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
-</a>
-
-<a class="giant-card" href="berkshire-ai-chain-meta.html">
-<div class="giant-head"><span class="giant-name">Meta 链</span><span class="region-tag region-global">全球</span></div>
-<div class="giant-desc">开源 LLaMA 模型领跑者，社交 / VR-AR 海量场景，AI 投入换长期卡位。</div>
-<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
-</a>
-
-<a class="giant-card" href="berkshire-ai-chain-tesla.html">
-<div class="giant-head"><span class="giant-name">Tesla 链</span><span class="region-tag region-global">全球</span></div>
-<div class="giant-desc">FSD 自动驾驶 + Dojo 超算 + 人形机器人，AI 落地于物理世界的代表。</div>
-<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
-</a>
-
-<a class="giant-card" href="berkshire-ai-chain-ali.html">
-<div class="giant-head"><span class="giant-name">阿里链</span><span class="region-tag region-cn">中国</span></div>
-<div class="giant-desc">电商 + 阿里云 + 通义千问大模型 + 含光芯片，国产 AI 全栈代表。</div>
-<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
-</a>
-
-<a class="giant-card" href="berkshire-ai-chain-tencent.html">
-<div class="giant-head"><span class="giant-name">腾讯链</span><span class="region-tag region-cn">中国</span></div>
-<div class="giant-desc">混元大模型 + 微信生态 + 腾讯云 + 游戏，场景与流量优势突出。</div>
-<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
-</a>
-
-<a class="giant-card" href="berkshire-ai-chain-bytedance.html">
-<div class="giant-head"><span class="giant-name">字节链</span><span class="region-tag region-cn">中国</span></div>
-<div class="giant-desc">推荐算法基因 + 抖音生态 + 豆包大模型 + 火山引擎云，C 端 AI 先锋。</div>
-<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
-</a>
-
-<a class="giant-card" href="berkshire-ai-chain-huawei.html">
-<div class="giant-head"><span class="giant-name">华为链</span><span class="region-tag region-cn">中国</span></div>
-<div class="giant-desc">昇腾芯片 + 鸿蒙系统 + 盘古大模型 + 通信设备，国产算力自主核心。</div>
-<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
-</a>
-
-<a class="giant-card" href="berkshire-ai-chain-baidu.html">
-<div class="giant-head"><span class="giant-name">百度链</span><span class="region-tag region-cn">中国</span></div>
-<div class="giant-desc">文心大模型 + 昆仑芯 + 搜索 + 智能云，国内大模型先行者。</div>
-<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
-</a>
-
-<a class="giant-card" href="berkshire-ai-chain-power.html">
-<div class="giant-head"><span class="giant-name">AI 电力链</span><span class="region-tag region-global">中美</span></div>
-<div class="giant-desc">支撑 AI 算力的电力基础设施（核电 / 可再生能源 / 电网），算力背后的「卖铲人」。</div>
-<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
-</a>
-
-</div>
-
-<div class="source-note">
-📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。如需某巨头的独家深度产业链研究，请前往其一手发布渠道。
-</div>
-
-</div>
-</body>
-</html>
+.data-banner .upd{color:##22d3ee;font-weight:600}
+.svgbox{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px 18px;margin:16px 0;overflow-x:auto}
+.svgbox svg{width:100%;height:auto;display:block}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin:8px 0 4px;font-size:12.5px;color:#475569}
+.legend i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.extend a:hover{border-color:##22d3ee;box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.extend b{color:##22d3ee;display:block;margin-bottom:5px;font-weight:700}
+.extend span{font-size:12.5px;color:#64748b;line-height:1.55}
+footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+</style></head><body><div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a><span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:##22d3ee;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:##22d3ee;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:##22d3ee;text-decoration:none;font-size:13px;font-weight:700">AI</a><a href="berkshire-robot-chains.html" style="color:##22d3ee;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:##22d3ee;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:##22d3ee;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:##22d3ee;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:##22d3ee;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:##22d3ee;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:##22d3ee;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:##22d3ee;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:##22d3ee;text-decoration:none;font-size:13px">电力设备</a></span><div class="breadcrumb"><a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>AI 巨头产业链</span></div></div><div class="container"><div class="hero"><h1>AI 巨头产业链 · 价值投资视角</h1><p>全球 AI 产业链地图：从算力芯片、大模型到应用与生态。成分多为美股/港股上市巨头，跨市场不可直接比 PE/PB。</p></div><div class="data-banner">数据口径：AI 巨头 为全球概念链，成分跨市场上市（港股/美股/非上市），<b>PE/PB 不可直接比较</b>。市值来自腾讯行情快照（采集日 <span class="upd">2026-07-13</span>）；美股/非上市成分历史行情接口当前环境不可用。框架为<b>科普坐标</b>，不构成投资建议。</div><div class="section-title">五层产业链框架</div><div class="layers"><div class="layer-card"><div class="layer-num">第 1 层</div><div class="layer-name">上游</div><div class="layer-desc">算力芯片(GPU/ASIC)、云算力、训练/推理数据</div></div><div class="layer-card"><div class="layer-num">第 2 层</div><div class="layer-name">中游</div><div class="layer-desc">基础大模型、算法框架、Agent 与工具调用</div></div><div class="layer-card"><div class="layer-num">第 3 层</div><div class="layer-name">下游</div><div class="layer-desc">办公/搜索/广告/自动驾驶/编程等应用层</div></div><div class="layer-card"><div class="layer-num">第 4 层</div><div class="layer-name">消费场景</div><div class="layer-desc">C 端订阅产品、企业 API 与行业解决方案</div></div><div class="layer-card"><div class="layer-num">第 5 层</div><div class="layer-name">投资逻辑</div><div class="layer-desc">拼算力规模、拼模型能力、拼生态与变现路径</div></div></div><div class="section-title">成分公司（13）</div><div class="grid"><a class="giant-card" href="berkshire-ai-chain-ali.html"><span class="giant-name">阿里</span><span class="region-tag region-HK">港股</span><div class="giant-desc">查看产业链定位与个股分析 →</div></a><a class="giant-card" href="berkshire-ai-chain-amazon.html"><span class="giant-name">Amazon</span><span class="region-tag region-US">美股</span><div class="giant-desc">查看产业链定位与个股分析 →</div></a><a class="giant-card" href="berkshire-ai-chain-apple.html"><span class="giant-name">Apple</span><span class="region-tag region-US">美股</span><div class="giant-desc">查看产业链定位与个股分析 →</div></a><a class="giant-card" href="berkshire-ai-chain-baidu.html"><span class="giant-name">百度</span><span class="region-tag region-HK">港股</span><div class="giant-desc">查看产业链定位与个股分析 →</div></a><a class="giant-card" href="berkshire-ai-chain-bytedance.html"><span class="giant-name">字节</span><div class="giant-desc">查看产业链定位与个股分析 →</div></a><a class="giant-card" href="berkshire-ai-chain-google.html"><span class="giant-name">Google</span><span class="region-tag region-US">美股</span><div class="giant-desc">查看产业链定位与个股分析 →</div></a><a class="giant-card" href="berkshire-ai-chain-huawei.html"><span class="giant-name">华为</span><div class="giant-desc">查看产业链定位与个股分析 →</div></a><a class="giant-card" href="berkshire-ai-chain-meta.html"><span class="giant-name">Meta</span><span class="region-tag region-US">美股</span><div class="giant-desc">查看产业链定位与个股分析 →</div></a><a class="giant-card" href="berkshire-ai-chain-microsoft.html"><span class="giant-name">Microsoft</span><span class="region-tag region-US">美股</span><div class="giant-desc">查看产业链定位与个股分析 →</div></a><a class="giant-card" href="berkshire-ai-chain-nvidia.html"><span class="giant-name">NVIDIA</span><span class="region-tag region-US">美股</span><div class="giant-desc">查看产业链定位与个股分析 →</div></a><a class="giant-card" href="berkshire-ai-chain-power.html"><span class="giant-name">AI 电力</span><div class="giant-desc">查看产业链定位与个股分析 →</div></a><a class="giant-card" href="berkshire-ai-chain-tencent.html"><span class="giant-name">腾讯</span><span class="region-tag region-HK">港股</span><div class="giant-desc">查看产业链定位与个股分析 →</div></a><a class="giant-card" href="berkshire-ai-chain-tesla.html"><span class="giant-name">Tesla</span><span class="region-tag region-US">美股</span><div class="giant-desc">查看产业链定位与个股分析 →</div></a></div><div class="section-title">延伸阅读</div><div class="extend"><a href="berkshire-ai-compare.html"><b>成分市值对比</b><span>全球成分公司的市值与上市地一览</span></a><a href="berkshire-ai-thermometer.html"><b>市值相对位置</b><span>链内市值体量分布（跨市场 PB 不可比）</span></a><a href="berkshire-ai-buyback.html"><b>逐轮买点回报图</b><span>港股成分的後复权累计回报</span></a><a href="berkshire-ai-chains.html"><b>返回产业链地图</b><span>回到 AI 巨头 产业链框架与个股详情</span></a></div><footer>伯克希尔数据中心 · AI 巨头产业链投资图谱 ｜ 全球概念链，跨市场市值/行情仅供参考，不构成投资建议</footer></div>
