@@ -231,7 +231,7 @@ body{
 /* Year pills */
 .year-grid{
   display:grid;
-  grid-template-columns:repeat(10,1fr);
+  grid-template-columns:repeat(auto-fit, minmax(40px, 1fr));
   gap:6px;
   margin-top:auto;
 }
@@ -239,15 +239,16 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:6px 4px;
+  padding:5px 3px;
   background:#f8fafc;
   border:1px solid #e2e8f0;
   border-radius:6px;
-  font-size:12px;font-weight:500;
+  font-size:11px;font-weight:500;
   color:#475569;
   text-decoration:none;
   transition:all 0.15s ease;
-  min-height:30px;
+  min-height:28px;
+  box-sizing:border-box;
 }
 .year-pill:hover{background:#eff6ff;border-color:#93c5fd;color:#2563eb}
 .year-pill.cn-link{
@@ -258,17 +259,20 @@ body{
 .year-pill.cn-link:hover{background:#fef3c7;border-color:#fbbf24}
 
 
-/* 合伙信年份网格：仅 14 个年份，可稍宽 */
-.partner-year-grid{grid-template-columns:repeat(7,1fr)}
-/* 股东信年份网格：54 个年份，保持 10 列紧凑 */
-.shareholder-year-grid{grid-template-columns:repeat(10,1fr)}
+/* 年份网格：自动适应容器宽度，避免右侧被截断 */
+.partner-year-grid,
+.shareholder-year-grid{grid-template-columns:repeat(auto-fit, minmax(40px, 1fr))}
 @media(max-width:900px){
-  .partner-year-grid{grid-template-columns:repeat(7,1fr)}
-  .shareholder-year-grid{grid-template-columns:repeat(6,1fr)}
+  .partner-year-grid,
+  .shareholder-year-grid{grid-template-columns:repeat(auto-fit, minmax(40px, 1fr))}
 }
 @media(max-width:768px){
-  .partner-year-grid{grid-template-columns:repeat(5,1fr)}
-  .shareholder-year-grid{grid-template-columns:repeat(5,1fr)}
+  .partner-year-grid,
+  .shareholder-year-grid{grid-template-columns:repeat(auto-fit, minmax(36px, 1fr))}
+}
+@media(max-width:480px){
+  .partner-year-grid,
+  .shareholder-year-grid{grid-template-columns:repeat(auto-fit, minmax(32px, 1fr))}
 }
 @media(max-width:480px){
   .partner-year-grid{grid-template-columns:repeat(4,1fr)}
