@@ -96,6 +96,36 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
 
 .extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}.extend a:hover{border-color:##2dd4bf;box-shadow:0 6px 18px rgba(0,0,0,.1)}.extend b{color:##2dd4bf;display:block;margin-bottom:5px;font-weight:700}.extend span{font-size:12.5px;color:#64748b;line-height:1.55}</style>
+
+/* P0 估值历史分位 + 成本传导 */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0f766e;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
 </head>
 <body>
 <div class="top-bar">
@@ -143,6 +173,47 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 <li><b>储能与出海</b>：海外利率下行 → 储能需求释放；电网投资加速 → 特高压/变压器订单。</li>
 <li><b>电池</b>：碳酸锂价格企稳 → 库存减值压力缓解。</li>
 </ul></div><div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：电力设备（光储锂网）周期看"价格底+产能出清+出海"：当前光伏链深度内卷、产能过剩，处于价格底与出清观察期；储能与电网侧呈结构性景气。</div></div>
+
+<div class="section-title">估值历史分位总览（电力设备 11 家）</div>
+<div class="ovtable">
+<table>
+<thead><tr><th>公司</th><th>PE(TTM)</th><th>PE 分位</th><th>PB</th><th>PB 分位</th><th>股息率</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-equip-chain-catl.html">宁德时代</a></td><td>21.32</td><td><span class="pct-cell pct-lo">15.8%</span></td><td><span class="pct-cell pct-lo">24.4%</span></td><td>5.08%</td></tr>
+<tr><td><a href="berkshire-equip-chain-longi.html">隆基绿能</a></td><td>-12.88</td><td>亏损</td><td><span class="pct-cell pct-lo">2.9%</span></td><td>1.75%</td></tr>
+<tr><td><a href="berkshire-equip-chain-sungrow.html">阳光电源</a></td><td>18.82</td><td><span class="pct-cell pct-lo">29.1%</span></td><td><span class="pct-cell pct-mid">49.0%</span></td><td>4.74%</td></tr>
+<tr><td><a href="berkshire-equip-chain-tongwei.html">通威股份</a></td><td>-5.11</td><td>亏损</td><td><span class="pct-cell pct-lo">1.1%</span></td><td>1.38%</td></tr>
+<tr><td><a href="berkshire-equip-chain-jinko.html">晶科能源</a></td><td>-6.12</td><td>亏损</td><td><span class="pct-cell pct-lo">0.6%</span></td><td>1.67%</td></tr>
+<tr><td><a href="berkshire-equip-chain-trina.html">天合光能</a></td><td>-4.73</td><td>亏损</td><td><span class="pct-cell pct-lo">14.0%</span></td><td>1.38%</td></tr>
+<tr><td><a href="berkshire-equip-chain-tebian.html">特变电工</a></td><td>15.81</td><td><span class="pct-cell pct-hi">72.0%</span></td><td><span class="pct-cell pct-hi">60.6%</span></td><td>1.38%</td></tr>
+<tr><td><a href="berkshire-equip-chain-nari.html">国电南瑞</a></td><td>21.23</td><td><span class="pct-cell pct-lo">13.0%</span></td><td><span class="pct-cell pct-lo">14.0%</span></td><td>3.51%</td></tr>
+<tr><td><a href="berkshire-equip-chain-dongfang.html">东方电气</a></td><td>22.21</td><td><span class="pct-cell pct-hi">64.4%</span></td><td><span class="pct-cell pct-hi">92.7%</span></td><td>1.98%</td></tr>
+<tr><td><a href="berkshire-equip-chain-chint.html">正泰电器</a></td><td>11.18</td><td><span class="pct-cell pct-lo">4.9%</span></td><td><span class="pct-cell pct-lo">8.1%</span></td><td>1.15%</td></tr>
+<tr><td><a href="berkshire-equip-chain-goldwind.html">金风科技</a></td><td>26.01</td><td><span class="pct-cell pct-hi">86.7%</span></td><td><span class="pct-cell pct-hi">63.5%</span></td><td>2.15%</td></tr>
+</tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
+<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+亏损企业（隆基/通威/晶科/天合）PE 为负、PE 分位不适用，仅看 PB。分位为时点统计。</div>
+</div>
+
+<div class="section-title">产业链成本传导 · 碳酸锂 → 电池 / 材料毛利</div>
+<div class="cost-block">
+  <div class="cost-chart"><svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="碳酸锂价格走势">
+  <line x1="48" y1="16.0" x2="664" y2="16.0" stroke="#e2e8f0"/><text x="42" y="20.0" text-anchor="end" font-size="10" fill="#94a3b8">22.8万</text><line x1="48" y1="74.7" x2="664" y2="74.7" stroke="#e2e8f0"/><text x="42" y="78.7" text-anchor="end" font-size="10" fill="#94a3b8">17.2万</text><line x1="48" y1="133.3" x2="664" y2="133.3" stroke="#e2e8f0"/><text x="42" y="137.3" text-anchor="end" font-size="10" fill="#94a3b8">11.6万</text><line x1="48" y1="192.0" x2="664" y2="192.0" stroke="#e2e8f0"/><text x="42" y="196.0" text-anchor="end" font-size="10" fill="#94a3b8">6.0万</text><polygon points="48,192 48.0,16.0 65.1,59.1 82.2,97.6 99.3,93.7 116.4,143.5 133.6,141.9 150.7,150.8 167.8,129.9 184.9,142.6 202.0,138.0 219.1,144.9 236.2,155.7 253.3,168.0 270.4,172.0 287.6,171.1 304.7,176.3 321.8,172.4 338.9,173.9 356.0,171.3 373.1,175.9 390.2,177.0 407.3,185.6 424.4,192.0 441.6,189.4 458.7,183.1 475.8,173.8 492.9,178.4 510.0,170.1 527.1,153.7 544.2,127.4 561.3,99.5 578.4,70.4 595.6,90.1 612.7,56.8 629.8,66.5 646.9,83.7 664.0,95.3 664.0,192" fill="rgba(45,212,191,0.12)"/>
+  <polyline points="48.0,16.0 65.1,59.1 82.2,97.6 99.3,93.7 116.4,143.5 133.6,141.9 150.7,150.8 167.8,129.9 184.9,142.6 202.0,138.0 219.1,144.9 236.2,155.7 253.3,168.0 270.4,172.0 287.6,171.1 304.7,176.3 321.8,172.4 338.9,173.9 356.0,171.3 373.1,175.9 390.2,177.0 407.3,185.6 424.4,192.0 441.6,189.4 458.7,183.1 475.8,173.8 492.9,178.4 510.0,170.1 527.1,153.7 544.2,127.4 561.3,99.5 578.4,70.4 595.6,90.1 612.7,56.8 629.8,66.5 646.9,83.7 664.0,95.3" fill="none" stroke="#0d9488" stroke-width="2"/>
+  <text x="48" y="212" font-size="10" fill="#94a3b8">2023-07</text>
+  <text x="664" y="212" text-anchor="end" font-size="10" fill="#94a3b8">2026-07</text>
+  <text x="48" y="18" font-size="10" fill="#0d9488" font-weight="600">碳酸锂(元/吨) 现价约 ¥15.2万</text>
+</svg></div>
+  <div class="cost-note">
+    <p><b>锂盐是动力电池第一大成本项</b>（电芯物料成本中锂盐占两到三成）。碳酸锂价格直接决定电池与材料环节的毛利弹性：锂价暴涨时，<b>无矿的一体化企业（如宁德、部分电池厂）受压</b>；锂价暴跌时，材料/电池价格跟跌，但<b>有规模与技术溢价的龙头能把降价传导给下游、保住毛利</b>。</p>
+    <p>2023-07 碳酸锂约 <b>¥22.8 万/吨</b> 高位，至 2026-07 跌至约 <b>¥7.5 万/吨</b>（腰斩有余）。这轮塌陷是光伏链（硅料/硅片/组件）与锂链深度内卷、产能过剩的共同背景，也是 2024–2025 年电力设备链多数公司<b>毛利率与利润大幅承压</b>的核心外因。</p>
+    <p><b>怎么读</b>：① 看 PB 分位，通威(1.1%)/隆基(2.9%)/晶科(0.6%)/天合(14%)已处历史极低位，但需结合"是否真出清"判断；② 宁德 PB 24% 分位、毛利率仍稳在 26% 上下，体现龙头传导能力；③ 成本底+产能出清+出海，是本轮周期反转的三把钥匙（详见产业周期段）。</p>
+  </div>
+</div>
 
 <div class="section-title">电力设备龙头索引（上市公司 11 家）</div>
 <div class="grid">
