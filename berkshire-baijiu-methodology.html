@@ -1,141 +1,34 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>白酒估值与周期：框架知识 · 价值投资视角</title>
-<style>* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f2f5; color:#1e293b; line-height:1.75; }
-.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(232,184,75,0.2); padding:12px 20px; display:flex; align-items:center; gap:12px; }
-.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(232,184,75,0.12); color:#b45309; border:1px solid rgba(232,184,75,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
-.home-btn:hover { background:#b45309; color:#fff; }
-.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
-.breadcrumb a { color:#64748b; text-decoration:none; }
-.breadcrumb a:hover { color:#b45309; }
-.crumb-sep { color:#cbd5e1; }
-.container { max-width:980px; margin:0 auto; padding:24px 16px 48px; }
-.hero { background:linear-gradient(135deg,#ffffff 0%,#fbf7ee 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(232,184,75,0.25); box-shadow:0 2px 12px rgba(0,0,0,0.06); }
-.hero-title { font-size:26px; font-weight:800; color:#0f172a; margin-bottom:6px; letter-spacing:.5px; }
-.hero-sub { font-size:14px; color:#64748b; margin-bottom:18px; }
-.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
-.stat-item { background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
-.stat-num { font-size:18px; font-weight:800; color:#b45309; }
-.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
-.region-tag { font-size:11px; padding:2px 10px; border-radius:10px; font-weight:600; display:inline-block; margin-top:8px; }
-.region-cn { background:rgba(220,38,38,0.12); color:#dc2626; border:1px solid rgba(220,38,38,0.25); }
-.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(232,184,75,0.5); }
-.overview { background:rgba(232,184,75,0.05); border:1px solid rgba(232,184,75,0.15); border-radius:12px; padding:18px 20px; margin-bottom:8px; font-size:14px; color:#334155; line-height:1.85; }
-.overview b { color:#0f172a; font-weight:600; }
-.layer-detail { background:#fff; border:1px solid #e2e8f0; border-left:3px solid rgba(232,184,75,0.5); border-radius:12px; padding:16px 18px; margin-bottom:10px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-.layer-detail-title { font-size:15px; font-weight:700; color:#0f172a; display:flex; align-items:center; gap:10px; margin-bottom:8px; }
-.layer-num { font-size:12px; color:#b45309; font-weight:700; }
-.layer-detail-body { font-size:13.5px; color:#475569; line-height:1.8; }
-.layer-detail-body b { color:#334155; }
-.info-table { width:100%; border-collapse:collapse; background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; margin-top:8px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-.info-table tr { border-bottom:1px solid #eef2f7; }
-.info-table tr:last-child { border-bottom:none; }
-.info-table td { padding:12px 16px; font-size:13.5px; color:#334155; }
-.info-table td:first-child { width:160px; color:#64748b; background:#f8fafc; }
-.insight-box { background:linear-gradient(135deg,#fbf7ee,#ffffff); border:1px solid rgba(232,184,75,0.2); border-radius:12px; padding:18px 20px; margin-top:16px; }
-.insight-title { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
-.insight-title .icon { color:#b45309; }
-.insight-body { font-size:13.5px; color:#475569; line-height:1.8; }
-.source-note { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; margin-top:24px; font-size:12.5px; color:#64748b; line-height:1.7; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-.source-note b { color:#475569; }
-.back-bar { margin-top:20px; }
-.back-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(232,184,75,0.08); color:#b45309; border:1px solid rgba(232,184,75,0.25); border-radius:20px; padding:8px 16px; font-size:13px; text-decoration:none; transition:all .2s; }
-.back-btn:hover { background:rgba(232,184,75,0.16); }
-.news-list { list-style:none; padding:0; margin:6px 0 0; }
-.news-list li { display:flex; gap:12px; padding:11px 0; border-bottom:1px solid #eef2f7; }
-.news-list li:last-child { border-bottom:none; }
-.news-date { color:#b45309; font-weight:700; flex-shrink:0; min-width:64px; font-size:12.5px; }
-.news-text { flex:1; font-size:13.5px; color:#475569; line-height:1.7; }
-.pe { color:#b45309; font-weight:700; font-size:13px; }
-.dy { color:#16a34a; font-size:12px; }
-.pr { color:#64748b; font-size:12px; }
-.ret { color:#475569; font-size:12px; line-height:1.6; }
-.ret2 { color:#94a3b8; font-size:11.5px; }
-.table-note { font-size:12px; color:#94a3b8; margin:6px 0 2px; }
-.backtest-table td:first-child { width:96px; }
-.backtest-table td { vertical-align:top; }
-.thermo-cell { min-width:150px; }
-.thermo-track { display:inline-block; width:120px; height:9px; border-radius:5px; background:rgba(232,184,75,0.18); vertical-align:middle; overflow:hidden; }
-.thermo-fill { height:100%; border-radius:5px; }
-.thermo-val { font-size:12px; font-weight:700; margin-left:6px; color:#b45309; }
-.tnote { color:#94a3b8; font-size:11px; }
-.thermo-table td:first-child { width:96px; }
-.chart-wrap { overflow-x:auto; background:rgba(0,0,0,.03); border:1px solid #e2e8f0; border-radius:10px; padding:10px 8px; margin:12px 0; }
-.ret-table { font-size:12px; }
-.ret-table th, .ret-table td { padding:6px 9px; white-space:nowrap; }
-@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .info-table td:first-child{width:100px} .news-list li{flex-direction:column; gap:2px} .thermo-track{width:80px} }
-</style>
-</head>
-<body>
-<div class="top-bar">
-<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
-<div class="breadcrumb">
-<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
-<a href="berkshire-baijiu-chains.html">白酒产业链</a><span class="crumb-sep">/</span>
-<span>框架知识</span>
-</div>
-</div>
-<div class="container">
-
-<div class="hero">
-<div class="hero-title">白酒估值与周期：框架知识</div>
-<div class="hero-sub">价值投资视角下读白酒的 4 个核心框架概念 · 配套 13 家酒企深凿版与《白酒周期 2016→2025》专题</div>
-</div>
-
-<div class="explain-banner">
-<div class="eb-icon">📘</div>
-<div class="eb-body">
-<div class="eb-title"><span class="eb-tag">怎么用</span> 这份方法论文的定位</div>
-<div class="eb-text">
-读白酒财报时，真正有用的不是「营收涨了几个点」，而是<b>藏在数字背后的周期信号</b>。下面 4 个概念（合同负债 / 批价倒挂 / 估值 / 库存），是看懂白酒景气的「最小可行框架」。每家酒企深凿版底部也都放了速览入口。
-</div>
-</div>
-</div>
-
-<div class="section-title">四个核心框架概念</div>
-<div class="insight-box" style="margin-bottom:16px">
-<div class="insight-title"><span class="icon">📑</span> ① 怎么读「合同负债」（旧称预收账款）</div>
-<div class="insight-body"><p>白酒行业惯例是<b>「先款后货」</b>：经销商先把钱打给酒企，酒企计入<b>合同负债</b>，等发货时才把这笔钱转成营业收入。所以合同负债本质上是<b>已经收到、但尚未确认的订单蓄水池</b>。</p>
-<p><b>它是需求的先行指标。</b>环比 / 同比上升，说明经销商愿意提前打款，渠道对动销有信心；同比下降，往往是渠道谨慎、主动去库存的信号。本轮调整里，<b>五粮液、今世缘合同负债逆势上升</b>是亮点；<b>古井、口子窖大幅下降</b>则需警惕。</p>
-<p><b>但要结合「蓄水池」操作看趋势。</b>酒企常在淡季压低合同负债平滑业绩、旺季释放，单季数字会被人为摆动。所以看连续几个季度的趋势，比盯一两个数更可靠。</p></div>
-</div>
-<div class="insight-box" style="margin-bottom:16px">
-<div class="insight-title"><span class="icon">🔻</span> ② 「批价倒挂」意味着什么</div>
-<div class="insight-body"><p><b>批价</b>是经销商之间调货的真实价格（一线供需），<b>出厂价</b>是酒企给经销商的供货价。正常情况批价 &gt; 出厂价，经销商才有利差可赚。</p>
-<p>当批价跌破出厂价，就叫<b>「倒挂」</b>——经销商卖一瓶亏一瓶，渠道利润消失，进货意愿随之崩塌。它是<b>行业景气的反向放大镜</b>：需求弱、库存高时，经销商为回笼资金低价甩货，把批价砸穿。</p>
-<p>本轮周期，<b>五粮液 / 古井 / 水井坊 / 口子窖</b>均出现不同程度倒挂；<b>茅台</b>因强品牌仍保持顺价，是景气分水岭。倒挂持续会倒逼酒企「控量稳价」、停货挺价。</p></div>
-</div>
-<div class="insight-box" style="margin-bottom:16px">
-<div class="insight-title"><span class="icon">💰</span> ③ 白酒怎么看估值：PE 会失真</div>
-<div class="insight-body"><p>周期下行时净利润骤降，<b>TTM-PE 会被分母变小而「虚高」</b>——你看到 50 倍，可能恰恰是周期底部。所以白酒估值要换几把尺子：</p>
-<p>· <b>股息率</b>更稳：头部酒企分红率 60–80%，股息率到 4–8% 时，往往是长线买点的参考锚。<br>
-· <b>ROE / 净利率</b>判断盈利质量，而非单年增速。<br>
-· 用<b>前瞻 PE 或静态 PE（以正常年份利润）</b>交叉验证，避开低基数陷阱。</p>
-<p>当下茅台 PE ~18 倍、老窖 / 汾酒 ~12 倍，股息率 4–8%，已具「类债」属性。但「便宜」不等于立刻涨，要等库存与批价拐点。</p></div>
-</div>
-<div class="insight-box" style="margin-bottom:16px">
-<div class="insight-title"><span class="icon">📦</span> ④ 库存周期：白酒的「血压」</div>
-<div class="insight-body"><p>渠道库存是白酒周期的<b>「血压」</b>。健康库存约 1–2 个月，3 个月以上即偏高。本轮调整渠道库存高企（行业平均存货周转天数约 900 天），「去库存」是 2024–2025 的主线。</p>
-<p>酒企用<b>「停货、控量、库存熔断」</b>换价盘：单品库存超标就停开票。库存见顶回落 + 批价企稳，是周期可能临近底部的<b>前瞻信号</b>，比单季财报更早。</p>
-<p><b>一句话框架</b>：合同负债看需求、批价看供需缺口、库存看渠道健康、股息率看长线安全边际——四者共振向上，才是周期反转的确认。</p></div>
-</div>
-
-<div class="insight-box">
-<div class="insight-title"><span class="icon">🔗</span> 配套阅读</div>
-<div class="insight-body">
-· <a href="berkshire-baijiu-chains.html" style="color:#b45309">白酒产业链地图（13 家深凿版）</a><br>
-· <a href="berkshire-baijiu-cycle.html" style="color:#b45309">白酒周期 2016→2025 专题（宏观视图 + 13 家调整数据）</a>
-</div>
-</div>
-
-<div class="source-note">
-📌 <b>资料与合规</b>：本页框架概念基于公开财报与行业研究常识原创整理，不复制任何付费 / 闭源专享内容。文中具体数字以各公司公告为准，判断仅作研究框架示例，<b>不构成投资建议</b>。
-</div>
-
-</div>
-</body>
-</html>
+<style>
+:root{--bg:#f0f2f5;--soft:#f8fafc;--card:#ffffff;--ink:#1e293b;--mut:#64748b;--line:rgba(0,0,0,.09);--red:#dc2626;--green:#16a34a;--accent:#e8b84b;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased}
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.nav .brand{color:var(--ink);font-weight:600;font-size:15px;letter-spacing:.3px}
+.nav .crumb{color:var(--mut);font-size:12.5px}
+.nav a{color:var(--mut);text-decoration:none;font-size:13px;padding:4px 9px;border-radius:6px;transition:.15s}
+.nav a:hover{color:var(--accent);background:var(--soft)}
+.detail{max-width:920px;margin:0 auto;padding:28px 20px 70px}
+.detail .back{color:var(--accent);text-decoration:none;font-size:13px}
+.detail>h1{font-weight:700;letter-spacing:-.5px;color:var(--ink)}
+.section-title{font-size:18px;font-weight:700;margin:34px 0 16px;padding-left:12px;border-left:3px solid var(--accent);letter-spacing:-.2px;color:var(--ink)}
+.layer{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:10px 0}
+.layer h4{margin:0 0 4px;font-size:14px;color:var(--accent);font-weight:600}
+.layer p{margin:0;font-size:13.5px;color:var(--mut);line-height:1.65}
+.guide{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0}
+.guide h4{margin:0 0 8px;color:var(--accent);font-weight:600}
+.guide p,.guide li{font-size:13.5px;color:var(--ink);line-height:1.7}
+.note{background:var(--soft);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:13px;color:var(--mut);line-height:1.65}
+.note a{color:var(--accent)}
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:center}
+.tbl th{background:var(--soft);color:var(--ink);font-weight:600;border-bottom:2px solid var(--line)}
+.tbl tr:hover td{background:var(--soft)}
+footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid var(--line)}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.extend a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;text-decoration:none;color:var(--ink);transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.extend a:hover{border-color:var(--accent);box-shadow:0 6px 18px rgba(232,184,75,.14)}
+.extend b{color:var(--accent);display:block;margin-bottom:5px;font-weight:600}
+.extend span{font-size:12.5px;color:var(--mut);line-height:1.55}
+@media(max-width:600px){.detail>h1{font-size:23px}}
+</style><div class="nav"><div class="nav-in"><div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 白酒图谱 / 方法论文</div><a href="berkshire-standalone.html">数据中心</a><a href="berkshire-baijiu-chains.html">白酒</a><a href="berkshire-bank-chains.html">银行</a><a href="berkshire-ai-chains.html">AI</a><a href="berkshire-robot-chains.html">机器人</a></div></div><div class="detail"><a class="back" href="berkshire-baijiu-chains.html">← 返回白酒图谱</a><h1 style="margin:10px 0">白酒怎么读：核心指标框架</h1><div class="guide"><h4>为什么白酒不能用普通框架？</h4><p>白酒是 A 股罕见的「社交货币+可蓄水」生意：产品不腐败、先款后货、品牌有定价权。但它<span>不能</span>用普通消费品的「营收=销量×单价」框架——渠道库存与批价是先行指标，报表收入往往滞后 1-2 个季度。</p></div><h3 class="section-title">1. 量价逻辑：销量见顶，价格定生死</h3><div class="layer"><h4>行业总量见顶，结构升级</h4><p>白酒总产量自 2016 年见顶（约 1358 万千升）后持续下行，进入「少喝酒、喝好酒」。总量不增长，增长来自价位带上移与集中度提升。</p></div><div class="layer"><h4>批价是生命线</h4><p>飞天/五粮液批价是景气先行指标：批价上行→渠道利润厚→经销商打款积极→报表亮丽；批价倒挂→甩货→报表双杀。看白酒先看批价，再看报表。</p></div><h3 class="section-title">2. 渠道蓄水：报表与真实需求的「时差」</h3><div class="layer"><h4>压货与蓄水池</h4><p>酒企可给经销商压货平滑收入，故「合同负债（预收款）」比单季营收更能反映真实动销，其环比下滑常是景气拐点信号。</p></div><div class="layer"><h4>库存周期</h4><p>渠道库存高低决定批价弹性。库存高+需求弱=批价承压；库存去化+需求回暖=批价反弹。这是白酒「库存周期」的核心。</p></div><h3 class="section-title">3. 品牌梯度与估值锚</h3><div class="layer"><h4>梯度定价权</h4><p>高端（茅五泸）有提价权；次高端（汾酒/舍得/酒鬼）弹性大但周期性强；区域酒（古井/今世缘/迎驾）靠基地市场。高端给确定性溢价，次高端给弹性折价。</p></div><div class="layer"><h4>现金含量</h4><p>先款后货、几乎无应收、高毛利高自由现金流。用「PE + 股息率 + 合同负债趋势」比单纯看增速更稳。</p></div><h3 class="section-title">4. 风险框架</h3><div class="layer"><h4>政策与消费力</h4><p>限三公、消费税、年轻人口味迁移是长期风险；短期看宏观经济与商务宴请频次（白酒与其高度相关）。</p></div><div class="layer"><h4>周期位置</h4><p>买点常在「批价筑底+库存高企+预期最悲观」时，而非报表最亮眼时。</p></div><div class="note">实用框架：先判<b>行业周期位置</b>，再看<b>关键指标趋势</b>，最后用<b>估值分位+股息率/订单</b>定买点。具体买点方法见<a href="berkshire-%s-%s.html" style="color:var(--accent)">逐轮买点回报图</a>与<a href="berkshire-%s-thermometer.html" style="color:var(--accent)">估值温度计</a>；行业周期脉络见<a href="berkshire-baijiu-cycle.html" style="color:var(--accent)">价格/库存周期</a>。</div></div><footer>伯克希尔数据中心 · 白酒产业投资图谱 ｜ 内容定位：框架级原创整理，非精确历史数据，不构成投资建议 ｜ 数据口径：财务=最新可得年报，估值/行情=采集日快照；实时行情接口当前环境不可用</footer>
