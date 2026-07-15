@@ -96,6 +96,36 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
 
 .extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}.extend a:hover{border-color:##a8a29e;box-shadow:0 6px 18px rgba(0,0,0,.1)}.extend b{color:##a8a29e;display:block;margin-bottom:5px;font-weight:700}.extend span{font-size:12.5px;color:#64748b;line-height:1.55}</style>
+
+/* P0 估值历史分位 + 成本传导 */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#a8a29e;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
 </head>
 <body>
 <div class="top-bar">
@@ -143,6 +173,45 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 <li><b>安监</b>：矿难/环保督察趋严 → 供给收缩、价格支撑。</li>
 <li><b>进口价差</b>：印尼/澳煤到岸价低于内贸 → 进口补充、压制内价。</li>
 </ul></div><div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：煤炭周期看"库存+煤价+安监"三角：当前长协占比高、供给受控，波动收敛，投资逻辑从周期弹性转向高分红与现金回报，周期属性弱化。</div></div>
+
+<div class="section-title">估值历史分位总览（煤炭 11 家）</div>
+<div class="ovtable">
+<table>
+<thead><tr><th>公司</th><th>PE(TTM)</th><th>PE 分位</th><th>PB</th><th>PB 分位</th><th>股息率</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-coal-chain-shenhua.html">中国神华</a></td><td>18.26</td><td><span class="pct-cell pct-hi">90.6%</span></td><td><span class="pct-cell pct-hi">90.3%</span></td><td>1.93%</td></tr>
+<tr><td><a href="berkshire-coal-chain-shaanxi.html">陕西煤业</a></td><td>14.72</td><td><span class="pct-cell pct-hi">96.9%</span></td><td><span class="pct-cell pct-hi">85.2%</span></td><td>2.49%</td></tr>
+<tr><td><a href="berkshire-coal-chain-yanzhou.html">兖矿能源</a></td><td>20.05</td><td><span class="pct-cell pct-hi">89.2%</span></td><td><span class="pct-cell pct-hi">75.4%</span></td><td>2.36%</td></tr>
+<tr><td><a href="berkshire-coal-chain-zhongmei.html">中煤能源</a></td><td>9.9</td><td><span class="pct-cell pct-mid">41.2%</span></td><td><span class="pct-cell pct-hi">82.6%</span></td><td>1.04%</td></tr>
+<tr><td><a href="berkshire-coal-chain-sxjk.html">山西焦煤</a></td><td>27.15</td><td><span class="pct-cell pct-hi">87.3%</span></td><td><span class="pct-cell pct-lo">21.1%</span></td><td>0.94%</td></tr>
+<tr><td><a href="berkshire-coal-chain-luan.html">潞安环能</a></td><td>37.77</td><td><span class="pct-cell pct-hi">91.0%</span></td><td><span class="pct-cell pct-lo">39.9%</span></td><td>0.94%</td></tr>
+<tr><td><a href="berkshire-coal-chain-huaibei.html">淮北矿业</a></td><td>30.51</td><td><span class="pct-cell pct-hi">84.3%</span></td><td><span class="pct-cell pct-lo">22.8%</span></td><td>0.9%</td></tr>
+<tr><td><a href="berkshire-coal-chain-jizhong.html">冀中能源</a></td><td>42.41</td><td><span class="pct-cell pct-hi">84.1%</span></td><td><span class="pct-cell pct-lo">35.6%</span></td><td>0.89%</td></tr>
+<tr><td><a href="berkshire-coal-chain-pingmei.html">平煤股份</a></td><td>98.2</td><td><span class="pct-cell pct-hi">98.9%</span></td><td><span class="pct-cell pct-lo">39.5%</span></td><td>0.85%</td></tr>
+<tr><td><a href="berkshire-coal-chain-shanmei.html">山煤国际</a></td><td>18.85</td><td><span class="pct-cell pct-hi">75.6%</span></td><td><span class="pct-cell pct-lo">18.1%</span></td><td>1.41%</td></tr>
+<tr><td><a href="berkshire-coal-chain-sxjh.html">山西焦化</a></td><td>65.95</td><td><span class="pct-cell pct-hi">86.6%</span></td><td><span class="pct-cell pct-lo">2.5%</span></td><td>0.57%</td></tr>
+</tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
+<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+亏损企业 PE 为负、PE 分位不适用，仅看 PB；港股成分百度不覆盖，标"港股"。分位为时点统计。</div>
+</div>
+
+<div class="section-title">产业链成本传导 · 焦煤 → 毛利</div>
+<div class="cost-block">
+  <div class="cost-chart"><svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="焦煤价格走势">
+  <line x1="54" y1="16.0" x2="664" y2="16.0" stroke="#e2e8f0"/><text x="48" y="20.0" text-anchor="end" font-size="10" fill="#94a3b8">3290</text><line x1="54" y1="74.7" x2="664" y2="74.7" stroke="#e2e8f0"/><text x="48" y="78.7" text-anchor="end" font-size="10" fill="#94a3b8">2363</text><line x1="54" y1="133.3" x2="664" y2="133.3" stroke="#e2e8f0"/><text x="48" y="137.3" text-anchor="end" font-size="10" fill="#94a3b8">1436</text><line x1="54" y1="192.0" x2="664" y2="192.0" stroke="#e2e8f0"/><text x="48" y="196.0" text-anchor="end" font-size="10" fill="#94a3b8">509</text><polygon points="54,192 54.0,145.7 57.8,152.2 61.6,155.0 65.4,157.6 69.2,157.2 73.1,152.5 76.9,152.3 80.7,156.6 84.5,153.8 88.3,160.6 92.1,165.5 95.9,166.3 99.8,171.3 103.6,172.3 107.4,172.3 111.2,173.3 115.0,174.5 118.8,174.1 122.6,175.0 126.4,175.6 130.2,176.4 134.1,177.4 137.9,178.2 141.7,178.3 145.5,181.1 149.3,182.0 153.1,180.7 156.9,181.4 160.8,185.4 164.6,188.3 168.4,188.1 172.2,189.1 176.0,192.0 179.8,188.5 183.6,189.1 187.4,185.5 191.2,183.6 195.1,175.3 198.9,181.0 202.7,178.7 206.5,175.9 210.3,169.8 214.1,160.2 217.9,141.5 221.8,142.3 225.6,149.7 229.4,144.5 233.2,145.1 237.0,146.1 240.8,152.9 244.6,164.2 248.4,153.3 252.2,139.2 256.1,134.4 259.9,152.5 263.7,156.9 267.5,138.1 271.3,141.1 275.1,142.4 278.9,134.8 282.8,143.1 286.6,151.0 290.4,145.8 294.2,148.2 298.0,148.4 301.8,145.2 305.6,143.7 309.4,136.1 313.2,140.1 317.1,149.5 320.9,143.9 324.7,142.2 328.5,146.3 332.3,138.7 336.1,136.5 339.9,136.1 343.8,135.7 347.6,141.4 351.4,145.5 355.2,146.0 359.0,146.6 362.8,150.5 366.6,147.4 370.4,145.6 374.2,144.4 378.1,156.6 381.9,150.7 385.7,149.5 389.5,147.0 393.3,145.8 397.1,143.8 400.9,140.6 404.8,134.1 408.6,121.1 412.4,128.7 416.2,130.9 420.0,119.2 423.8,112.0 427.6,112.4 431.4,101.2 435.2,77.6 439.1,68.6 442.9,16.0 446.7,80.7 450.5,104.8 454.3,83.2 458.1,79.8 461.9,58.8 465.8,22.6 469.6,43.7 473.4,53.7 477.2,75.9 481.0,89.2 484.8,105.9 488.6,90.9 492.4,106.2 496.2,82.9 500.1,106.2 503.9,108.3 507.7,96.8 511.5,106.5 515.3,136.6 519.1,146.5 522.9,138.7 526.8,131.7 530.6,127.0 534.4,107.2 538.2,109.4 542.0,92.0 545.8,104.8 549.6,116.4 553.4,110.8 557.2,130.1 561.1,109.9 564.9,118.5 568.7,124.6 572.5,131.8 576.3,137.5 580.1,126.4 583.9,138.0 587.8,145.4 591.6,150.8 595.4,152.4 599.2,155.0 603.0,161.7 606.8,165.3 610.6,178.3 614.4,172.0 618.2,152.4 622.1,151.4 625.9,153.0 629.7,142.8 633.5,156.7 637.3,153.7 641.1,151.1 644.9,155.0 648.8,151.5 652.6,142.8 656.4,142.9 660.2,143.2 664.0,145.8 664.0,192" fill="#a8a29e" opacity="0.12"/>
+  <polyline points="54.0,145.7 57.8,152.2 61.6,155.0 65.4,157.6 69.2,157.2 73.1,152.5 76.9,152.3 80.7,156.6 84.5,153.8 88.3,160.6 92.1,165.5 95.9,166.3 99.8,171.3 103.6,172.3 107.4,172.3 111.2,173.3 115.0,174.5 118.8,174.1 122.6,175.0 126.4,175.6 130.2,176.4 134.1,177.4 137.9,178.2 141.7,178.3 145.5,181.1 149.3,182.0 153.1,180.7 156.9,181.4 160.8,185.4 164.6,188.3 168.4,188.1 172.2,189.1 176.0,192.0 179.8,188.5 183.6,189.1 187.4,185.5 191.2,183.6 195.1,175.3 198.9,181.0 202.7,178.7 206.5,175.9 210.3,169.8 214.1,160.2 217.9,141.5 221.8,142.3 225.6,149.7 229.4,144.5 233.2,145.1 237.0,146.1 240.8,152.9 244.6,164.2 248.4,153.3 252.2,139.2 256.1,134.4 259.9,152.5 263.7,156.9 267.5,138.1 271.3,141.1 275.1,142.4 278.9,134.8 282.8,143.1 286.6,151.0 290.4,145.8 294.2,148.2 298.0,148.4 301.8,145.2 305.6,143.7 309.4,136.1 313.2,140.1 317.1,149.5 320.9,143.9 324.7,142.2 328.5,146.3 332.3,138.7 336.1,136.5 339.9,136.1 343.8,135.7 347.6,141.4 351.4,145.5 355.2,146.0 359.0,146.6 362.8,150.5 366.6,147.4 370.4,145.6 374.2,144.4 378.1,156.6 381.9,150.7 385.7,149.5 389.5,147.0 393.3,145.8 397.1,143.8 400.9,140.6 404.8,134.1 408.6,121.1 412.4,128.7 416.2,130.9 420.0,119.2 423.8,112.0 427.6,112.4 431.4,101.2 435.2,77.6 439.1,68.6 442.9,16.0 446.7,80.7 450.5,104.8 454.3,83.2 458.1,79.8 461.9,58.8 465.8,22.6 469.6,43.7 473.4,53.7 477.2,75.9 481.0,89.2 484.8,105.9 488.6,90.9 492.4,106.2 496.2,82.9 500.1,106.2 503.9,108.3 507.7,96.8 511.5,106.5 515.3,136.6 519.1,146.5 522.9,138.7 526.8,131.7 530.6,127.0 534.4,107.2 538.2,109.4 542.0,92.0 545.8,104.8 549.6,116.4 553.4,110.8 557.2,130.1 561.1,109.9 564.9,118.5 568.7,124.6 572.5,131.8 576.3,137.5 580.1,126.4 583.9,138.0 587.8,145.4 591.6,150.8 595.4,152.4 599.2,155.0 603.0,161.7 606.8,165.3 610.6,178.3 614.4,172.0 618.2,152.4 622.1,151.4 625.9,153.0 629.7,142.8 633.5,156.7 637.3,153.7 641.1,151.1 644.9,155.0 648.8,151.5 652.6,142.8 656.4,142.9 660.2,143.2 664.0,145.8" fill="none" stroke="#a8a29e" stroke-width="2"/>
+  <text x="54" y="212" font-size="10" fill="#94a3b8">2013-03</text>
+  <text x="664" y="212" text-anchor="end" font-size="10" fill="#94a3b8">2026-07</text>
+  <text x="54" y="18" font-size="10" fill="#a8a29e" font-weight="600">焦煤 现价约 ¥1239/吨</text>
+</svg></div>
+  <div class="cost-note"><p><b>焦煤是钢铁高炉核心燃料，也是煤化工（焦化、煤制烯烃）的原料</b>。焦煤价格（jm0）两头作用：① 对煤炭企业自身，煤价高位→高盈利高分红、低位→利润压缩；② 对焦化/煤化工，煤价即原料成本，决定其毛利价差。</p>
+<p>历史上煤价大起大落：2013–2015 产能过剩、煤价崩塌→全行业亏损；2021 供给侧改革+能耗双控→煤价暴涨→煤企暴利、高分红；2023 后长协占比提升、供给受控→波动收敛，投资逻辑从"周期弹性"转向"高分红+现金回报"，周期属性弱化。</p>
+<p>当前焦煤约 <b>¥1,239/吨</b>（2026-07），较 2021 高位显著回落、但仍高于 2015 低谷。看分位：高分红龙头（中国神华等）在煤价中高位回落中凭长协与现金流显韧性；弹性标的则看煤价能否企稳。</p></div>
+</div>
 
 <div class="section-title">煤炭龙头索引（上市公司 11 家）</div>
 <div class="grid">

@@ -96,6 +96,36 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
 
 .extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}.extend a:hover{border-color:##a78bfa;box-shadow:0 6px 18px rgba(0,0,0,.1)}.extend b{color:##a78bfa;display:block;margin-bottom:5px;font-weight:700}.extend span{font-size:12.5px;color:#64748b;line-height:1.55}</style>
+
+/* P0 估值历史分位 + 成本传导 */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#a78bfa;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
 </head>
 <body>
 <div class="top-bar">
@@ -143,6 +173,45 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 <li><b>能源金属</b>：锂价跌破高成本矿现金成本 → 底部锚；过剩出清+需求放量 → 回升。</li>
 <li><b>美元与实际利率</b>：美元走弱/实际利率下行 → 工业金属与黄金皆受益。</li>
 </ul></div><div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：有色按品种判周期：工业金属看库存+美元+TC，贵金属看实际利率+央行购金，能源金属看成本曲线与过剩出清；当前铜强、金稳、锂处产能出清寻底阶段。</div></div>
+
+<div class="section-title">估值历史分位总览（有色 11 家）</div>
+<div class="ovtable">
+<table>
+<thead><tr><th>公司</th><th>PE(TTM)</th><th>PE 分位</th><th>PB</th><th>PB 分位</th><th>股息率</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-metal-chain-zijin.html">紫金矿业</a></td><td>12.53</td><td><span class="pct-cell pct-lo">5.1%</span></td><td><span class="pct-cell pct-hi">74.6%</span></td><td>3.84%</td></tr>
+<tr><td><a href="berkshire-metal-chain-jiangxi.html">江西铜业</a></td><td>18.99</td><td><span class="pct-cell pct-mid">44.0%</span></td><td><span class="pct-cell pct-hi">94.9%</span></td><td>1.65%</td></tr>
+<tr><td><a href="berkshire-metal-chain-chalco.html">中国铝业</a></td><td>10.37</td><td><span class="pct-cell pct-lo">4.7%</span></td><td><span class="pct-cell pct-hi">64.7%</span></td><td>1.73%</td></tr>
+<tr><td><a href="berkshire-metal-chain-lomo.html">洛阳钼业</a></td><td>16.13</td><td><span class="pct-cell pct-lo">17.1%</span></td><td><span class="pct-cell pct-hi">85.4%</span></td><td>4.36%</td></tr>
+<tr><td><a href="berkshire-metal-chain-sdgold.html">山东黄金</a></td><td>22.57</td><td><span class="pct-cell pct-lo">7.0%</span></td><td><span class="pct-cell pct-lo">32.0%</span></td><td>3.54%</td></tr>
+<tr><td><a href="berkshire-metal-chain-zhongjin.html">中金黄金</a></td><td>15.81</td><td><span class="pct-cell pct-lo">0.7%</span></td><td><span class="pct-cell pct-hi">82.6%</span></td><td>2.91%</td></tr>
+<tr><td><a href="berkshire-metal-chain-yunlu.html">云铝股份</a></td><td>9.98</td><td><span class="pct-cell pct-lo">21.5%</span></td><td><span class="pct-cell pct-hi">74.3%</span></td><td>2.33%</td></tr>
+<tr><td><a href="berkshire-metal-chain-shenhuo.html">神火股份</a></td><td>9.94</td><td><span class="pct-cell pct-mid">57.7%</span></td><td><span class="pct-cell pct-mid">49.1%</span></td><td>2.07%</td></tr>
+<tr><td><a href="berkshire-metal-chain-tianqi.html">天齐锂业</a></td><td>36.31</td><td><span class="pct-cell pct-hi">86.7%</span></td><td><span class="pct-cell pct-lo">19.0%</span></td><td>1.69%</td></tr>
+<tr><td><a href="berkshire-metal-chain-ganfeng.html">赣锋锂业</a></td><td>28.95</td><td><span class="pct-cell pct-mid">49.4%</span></td><td><span class="pct-cell pct-lo">20.9%</span></td><td>2.31%</td></tr>
+<tr><td><a href="berkshire-metal-chain-huayou.html">华友钴业</a></td><td>10.66</td><td><span class="pct-cell pct-lo">14.4%</span></td><td><span class="pct-cell pct-lo">9.8%</span></td><td>1.51%</td></tr>
+</tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
+<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+亏损企业 PE 为负、PE 分位不适用，仅看 PB；港股成分百度不覆盖，标"港股"。分位为时点统计。</div>
+</div>
+
+<div class="section-title">产业链成本传导 · 铜 → 毛利</div>
+<div class="cost-block">
+  <div class="cost-chart"><svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="铜价格走势">
+  <line x1="54" y1="16.0" x2="664" y2="16.0" stroke="#e2e8f0"/><text x="48" y="20.0" text-anchor="end" font-size="10" fill="#94a3b8">10.5万</text><line x1="54" y1="74.7" x2="664" y2="74.7" stroke="#e2e8f0"/><text x="48" y="78.7" text-anchor="end" font-size="10" fill="#94a3b8">7.8万</text><line x1="54" y1="133.3" x2="664" y2="133.3" stroke="#e2e8f0"/><text x="48" y="137.3" text-anchor="end" font-size="10" fill="#94a3b8">5.1万</text><line x1="54" y1="192.0" x2="664" y2="192.0" stroke="#e2e8f0"/><text x="48" y="196.0" text-anchor="end" font-size="10" fill="#94a3b8">2.4万</text><polygon points="54,192 54.0,179.8 56.4,176.8 58.7,175.3 61.1,174.1 63.5,177.2 65.8,172.5 68.2,169.2 70.6,167.9 72.9,166.5 75.3,164.9 77.6,163.4 80.0,153.2 82.4,144.2 84.7,146.7 87.1,134.4 89.5,96.2 91.8,84.4 94.2,109.4 96.6,96.9 98.9,97.8 101.3,90.3 103.7,94.0 106.0,101.1 108.4,113.4 110.7,129.9 113.1,117.4 115.5,106.8 117.8,89.8 120.2,102.5 122.6,104.9 124.9,94.2 127.3,101.4 129.7,96.1 132.0,102.3 134.4,117.6 136.8,120.4 139.1,111.1 141.5,94.5 143.8,100.3 146.2,101.9 148.6,112.4 150.9,106.1 153.3,109.8 155.7,116.5 158.0,128.0 160.4,175.6 162.8,183.2 165.1,192.0 167.5,187.7 169.9,183.3 172.2,171.5 174.6,165.2 176.9,163.0 179.3,155.0 181.7,145.7 184.0,136.8 186.4,139.5 188.8,132.7 191.1,124.8 193.5,113.5 195.9,123.2 198.2,117.5 200.6,110.1 203.0,116.3 205.3,124.3 207.7,131.4 210.0,121.7 212.4,117.0 214.8,112.3 217.1,108.3 219.5,107.8 221.9,86.7 224.2,83.6 226.6,82.5 229.0,90.4 231.3,93.6 233.7,95.0 236.1,92.2 238.4,86.1 240.8,95.5 243.1,124.9 245.5,117.4 247.9,125.4 250.2,123.6 252.6,112.2 255.0,111.3 257.3,113.4 259.7,116.9 262.1,125.4 264.4,123.9 266.8,124.3 269.2,123.5 271.5,114.1 273.9,120.4 276.2,119.4 278.6,118.2 281.0,114.3 283.3,118.6 285.7,124.8 288.1,131.4 290.4,129.4 292.8,138.3 295.2,137.0 297.5,131.0 299.9,129.2 302.3,131.3 304.6,134.0 307.0,130.3 309.3,133.2 311.7,137.1 314.1,142.3 316.4,140.4 318.8,138.2 321.2,136.2 323.5,134.2 325.9,135.7 328.3,139.5 330.6,140.1 333.0,144.0 335.4,144.4 337.7,158.9 340.1,151.0 342.4,149.7 344.8,147.8 347.2,147.6 349.5,152.4 351.9,160.8 354.3,158.7 356.6,160.5 359.0,159.6 361.4,168.4 363.7,164.4 366.1,166.3 368.5,165.9 370.8,163.8 373.2,162.0 375.6,166.2 377.9,162.3 380.3,162.4 382.6,165.0 385.0,161.9 387.4,160.4 389.7,143.7 392.1,145.0 394.5,139.5 396.8,140.2 399.2,140.1 401.6,143.2 403.9,145.6 406.3,140.8 408.7,133.7 411.0,129.2 413.4,131.2 415.7,127.0 418.1,129.1 420.5,123.2 422.8,128.3 425.2,129.7 427.6,134.9 429.9,131.9 432.3,132.3 434.7,131.7 437.0,135.6 439.4,138.3 441.8,134.9 444.1,137.3 446.5,136.0 448.8,138.9 451.2,139.4 453.6,134.9 455.9,137.9 458.3,137.6 460.7,143.6 463.0,141.8 465.4,142.4 467.8,142.4 470.1,141.2 472.5,141.1 474.9,141.1 477.2,137.1 479.6,139.6 481.9,147.4 484.3,158.8 486.7,150.6 489.0,148.4 491.4,137.9 493.8,131.3 496.1,131.0 498.5,133.3 500.9,133.2 503.2,118.6 505.6,118.5 508.0,118.9 510.3,96.3 512.7,101.4 515.0,87.8 517.4,83.3 519.8,95.4 522.1,88.0 524.5,91.7 526.9,96.3 529.2,90.7 531.6,93.1 534.0,91.1 536.3,91.3 538.7,89.8 541.1,84.7 543.4,84.1 545.8,87.3 548.1,105.2 550.5,113.4 552.9,109.1 555.2,110.7 557.6,109.1 560.0,103.4 562.3,100.0 564.7,93.5 567.1,94.0 569.4,93.6 571.8,97.5 574.2,102.9 576.5,97.8 578.9,92.9 581.2,93.1 583.6,97.9 586.0,97.7 588.3,95.8 590.7,94.2 593.1,93.3 595.4,94.1 597.8,86.4 600.2,65.5 602.5,64.8 604.9,73.7 607.3,82.2 609.6,82.7 612.0,72.8 614.3,77.7 616.7,83.6 619.1,83.7 621.4,79.9 623.8,77.1 626.2,70.3 628.5,76.2 630.9,75.4 633.3,70.5 635.6,74.5 638.0,71.5 640.4,63.5 642.7,55.0 645.1,54.1 647.4,30.7 649.8,18.9 652.2,18.3 654.5,36.9 656.9,24.6 659.3,16.0 661.6,19.7 664.0,20.2 664.0,192" fill="#a78bfa" opacity="0.12"/>
+  <polyline points="54.0,179.8 56.4,176.8 58.7,175.3 61.1,174.1 63.5,177.2 65.8,172.5 68.2,169.2 70.6,167.9 72.9,166.5 75.3,164.9 77.6,163.4 80.0,153.2 82.4,144.2 84.7,146.7 87.1,134.4 89.5,96.2 91.8,84.4 94.2,109.4 96.6,96.9 98.9,97.8 101.3,90.3 103.7,94.0 106.0,101.1 108.4,113.4 110.7,129.9 113.1,117.4 115.5,106.8 117.8,89.8 120.2,102.5 122.6,104.9 124.9,94.2 127.3,101.4 129.7,96.1 132.0,102.3 134.4,117.6 136.8,120.4 139.1,111.1 141.5,94.5 143.8,100.3 146.2,101.9 148.6,112.4 150.9,106.1 153.3,109.8 155.7,116.5 158.0,128.0 160.4,175.6 162.8,183.2 165.1,192.0 167.5,187.7 169.9,183.3 172.2,171.5 174.6,165.2 176.9,163.0 179.3,155.0 181.7,145.7 184.0,136.8 186.4,139.5 188.8,132.7 191.1,124.8 193.5,113.5 195.9,123.2 198.2,117.5 200.6,110.1 203.0,116.3 205.3,124.3 207.7,131.4 210.0,121.7 212.4,117.0 214.8,112.3 217.1,108.3 219.5,107.8 221.9,86.7 224.2,83.6 226.6,82.5 229.0,90.4 231.3,93.6 233.7,95.0 236.1,92.2 238.4,86.1 240.8,95.5 243.1,124.9 245.5,117.4 247.9,125.4 250.2,123.6 252.6,112.2 255.0,111.3 257.3,113.4 259.7,116.9 262.1,125.4 264.4,123.9 266.8,124.3 269.2,123.5 271.5,114.1 273.9,120.4 276.2,119.4 278.6,118.2 281.0,114.3 283.3,118.6 285.7,124.8 288.1,131.4 290.4,129.4 292.8,138.3 295.2,137.0 297.5,131.0 299.9,129.2 302.3,131.3 304.6,134.0 307.0,130.3 309.3,133.2 311.7,137.1 314.1,142.3 316.4,140.4 318.8,138.2 321.2,136.2 323.5,134.2 325.9,135.7 328.3,139.5 330.6,140.1 333.0,144.0 335.4,144.4 337.7,158.9 340.1,151.0 342.4,149.7 344.8,147.8 347.2,147.6 349.5,152.4 351.9,160.8 354.3,158.7 356.6,160.5 359.0,159.6 361.4,168.4 363.7,164.4 366.1,166.3 368.5,165.9 370.8,163.8 373.2,162.0 375.6,166.2 377.9,162.3 380.3,162.4 382.6,165.0 385.0,161.9 387.4,160.4 389.7,143.7 392.1,145.0 394.5,139.5 396.8,140.2 399.2,140.1 401.6,143.2 403.9,145.6 406.3,140.8 408.7,133.7 411.0,129.2 413.4,131.2 415.7,127.0 418.1,129.1 420.5,123.2 422.8,128.3 425.2,129.7 427.6,134.9 429.9,131.9 432.3,132.3 434.7,131.7 437.0,135.6 439.4,138.3 441.8,134.9 444.1,137.3 446.5,136.0 448.8,138.9 451.2,139.4 453.6,134.9 455.9,137.9 458.3,137.6 460.7,143.6 463.0,141.8 465.4,142.4 467.8,142.4 470.1,141.2 472.5,141.1 474.9,141.1 477.2,137.1 479.6,139.6 481.9,147.4 484.3,158.8 486.7,150.6 489.0,148.4 491.4,137.9 493.8,131.3 496.1,131.0 498.5,133.3 500.9,133.2 503.2,118.6 505.6,118.5 508.0,118.9 510.3,96.3 512.7,101.4 515.0,87.8 517.4,83.3 519.8,95.4 522.1,88.0 524.5,91.7 526.9,96.3 529.2,90.7 531.6,93.1 534.0,91.1 536.3,91.3 538.7,89.8 541.1,84.7 543.4,84.1 545.8,87.3 548.1,105.2 550.5,113.4 552.9,109.1 555.2,110.7 557.6,109.1 560.0,103.4 562.3,100.0 564.7,93.5 567.1,94.0 569.4,93.6 571.8,97.5 574.2,102.9 576.5,97.8 578.9,92.9 581.2,93.1 583.6,97.9 586.0,97.7 588.3,95.8 590.7,94.2 593.1,93.3 595.4,94.1 597.8,86.4 600.2,65.5 602.5,64.8 604.9,73.7 607.3,82.2 609.6,82.7 612.0,72.8 614.3,77.7 616.7,83.6 619.1,83.7 621.4,79.9 623.8,77.1 626.2,70.3 628.5,76.2 630.9,75.4 633.3,70.5 635.6,74.5 638.0,71.5 640.4,63.5 642.7,55.0 645.1,54.1 647.4,30.7 649.8,18.9 652.2,18.3 654.5,36.9 656.9,24.6 659.3,16.0 661.6,19.7 664.0,20.2" fill="none" stroke="#a78bfa" stroke-width="2"/>
+  <text x="54" y="212" font-size="10" fill="#94a3b8">2005-01</text>
+  <text x="664" y="212" text-anchor="end" font-size="10" fill="#94a3b8">2026-07</text>
+  <text x="54" y="18" font-size="10" fill="#a78bfa" font-weight="600">铜 现价约 ¥10.3万/吨</text>
+</svg></div>
+  <div class="cost-note"><p><b>铜是有色定价的"锚"</b>，兼具商品（电网/电动车/AI 数据中心）与金融（美元/利率）双重属性。铜价（cu0）决定产业链利润分配：① 矿端（紫金、江西铜业自产矿）直接享受价格弹性；② 冶炼端受矿紧→加工费(TC/RC)下行挤压；③ 加工（铝/铜加工）承压于原料成本。</p>
+<p>长周期看，铜从 2005 年约 ¥3 万/吨升至 2026 年约 <b>¥10.3万/吨</b>，中枢持续上移（电气化+AI+电网投资）。但短周期波动大：2020–2021 宽松+碳中和预期冲高，2022 加息回落，2023–2024 再启上行。</p>
+<p><b>怎么读</b>：资源型龙头（紫金）在铜价高位最受益、PB 分位却未必贵；冶炼/加工则看价差与产能出清。分位表一眼看清"谁在历史便宜位"。</p></div>
+</div>
 
 <div class="section-title">有色龙头索引（上市公司 11 家）</div>
 <div class="grid">
