@@ -69,6 +69,36 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 .ret-table th, .ret-table td { padding:6px 9px; white-space:nowrap; }
 @media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .info-table td:first-child{width:100px} .news-list li{flex-direction:column; gap:2px} .thermo-track{width:80px} }
 </style>
+
+/* P0 估值历史分位 + 成本传导（扩展链） */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#e8b84b;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
 </head>
 <body>
 <div class="top-bar">
@@ -117,6 +147,17 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 <tr><td><b>股息率(约,2026-07-10)</b></td><td>约 0%（2025 年未分红）</td></tr>
 </table>
 <div class="insight-box"><div class="insight-title"><span class="icon">📡</span> 最新经营信号</div><div class="insight-body">白酒（牛栏山）持续承压：2025 年白酒营收 52.18 亿（-25.89%）、销量 27.04 万千升（-26.79%），高低中档全线下滑，整体归母由盈转亏（-1.52 亿）。2026Q1 延续低迷：整体营收 24.11 亿（-26%）、归母 1.16 亿（-59%）；牛栏山产能利用率仅约 27.3%。</div></div>
+
+<div class="section-title">估值历史分位</div>
+<div class="valband">
+<div class="vrow"><div class="vlab">PE（TTM）</div><div class="vbar"></div><div class="vval"><b>-23.79</b> 倍 · <span class="vtag" style="color:#64748b">亏损(PE不适用)</span></div></div>
+<div class="vrow"><div class="vlab">PB</div><div class="vbar"><div class="vfill" style="width:0.8%;background:#15803d"></div><div class="vmark" style="left:0.8%"></div></div><div class="vval"><b>1.11</b> 倍 · 历史 <b>0.8%</b> 分位 <span class="vtag" style="color:#15803d">极低</span></div></div>
+  <div class="fin-note">分位口径：近十年日度 PE(TTM)/PB（百度股市通），当前值所处历史百分位。
+  <span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+  <span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+  <span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+  亏损企业 PE 不适用，仅看 PB。样本起点 2016-07-16，分位为时点统计，随行情变动。</div>
+</div>
 
 <div class="section-title">跨层全栈分析（5 层）</div>
 <div class="layer-detail">

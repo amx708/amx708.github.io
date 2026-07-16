@@ -107,7 +107,37 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 .cmp-sel{font-size:12.5px;color:var(--mut);margin:6px 0}
 .cmp-good{color:var(--green);font-weight:600}
 .cmp-bad{color:var(--red);font-weight:600}
-</style></head><body>
+</style>
+/* P0 估值历史分位 + 成本传导（扩展链） */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#1e3a8a;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
+</head><body>
 <div class="nav"><div class="nav-in">
 <div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 银行图谱 / 浦发银行</div>
 <a href="berkshire-standalone.html">数据中心</a>
@@ -129,6 +159,17 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <div><b>0.4x</b><span>PB</span></div>
 <div><b>4.11%</b><span>股息率</span></div>
 <div><b>3017.51</b><span>总市值(亿)</span></div></div>
+<div class="section-title">估值历史分位</div>
+<div class="valband">
+<div class="vrow"><div class="vlab">PE（TTM）</div><div class="vbar"><div class="vfill" style="width:60.7%;background:#b91c1c"></div><div class="vmark" style="left:60.7%"></div></div><div class="vval"><b>6.07</b> 倍 · 历史 <b>60.7%</b> 分位 <span class="vtag" style="color:#b91c1c">偏高</span></div></div>
+<div class="vrow"><div class="vlab">PB</div><div class="vbar"><div class="vfill" style="width:24.1%;background:#15803d"></div><div class="vmark" style="left:24.1%"></div></div><div class="vval"><b>0.4</b> 倍 · 历史 <b>24.1%</b> 分位 <span class="vtag" style="color:#15803d">偏低</span></div></div>
+  <div class="fin-note">分位口径：近十年日度 PE(TTM)/PB（百度股市通），当前值所处历史百分位。
+  <span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+  <span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+  <span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+  亏损企业 PE 不适用，仅看 PB。样本起点 2016-07-16，分位为时点统计，随行情变动。</div>
+</div>
+
 <h3 class="section-title">业务条线框架（5层）</h3><div class="layer"><h4>零售</h4><p>差异化零售策略（如招行零售之王、平安银行零售转型），信用卡与财富管理见长。</p></div><div class="layer"><h4>对公</h4><p>股份制灵活机制，深耕民企、投行与同业链条。</p></div><div class="layer"><h4>同业</h4><p>同业拆借、票据贴现、金融市场投资与债券交易，管理流动性与利率风险。</p></div><div class="layer"><h4>财富</h4><p>理财子公司产品、私人银行、代理代销与托管，沉淀中收与AUM。</p></div><div class="layer"><h4>投行</h4><p>债券承销、并购顾问、交易银行与资本市场服务，对接直接融资。</p></div>
 <h3 class="section-title">要点解读（基于2025年报 / 2026-07-12估值）</h3><div class="deep-grid"><div class="deep-item"><h4>资产质量</h4><p>不良率 1.26% 与行业均值相当，总体可控；拨备覆盖率 200.72% 高于监管红线、处于中等水平。</p></div><div class="deep-item"><h4>盈利能力</h4><p>净息差 1.42% 与行业相当，处于合理区间；ROE 6.76% 偏低，盈利能力有待修复。</p></div><div class="deep-item"><h4>估值与分红</h4><p>PB 0.4x 破净幅度深，市场对其资产质量或成长性定价偏谨慎；股息率 4.11% 处于合理水平。</p></div><div class="deep-item"><h4>规模与定位</h4><p>2025年营收 1739.64 亿、归母净利 500.17 亿，总市值 3017.51 亿，属中大型体量；作为全国性股份行，上海起家的老牌股份行，对公底蕴深。</p></div><div class="deep-item"><h4>投资逻辑</h4><p>深度破净（PB 0.4x）提供折价买入1元净资产的机会，下行空间相对有限；机制灵活、综合化经营，零售/投行/同业各有特色，弹性大于大行。</p></div><div class="deep-item"><h4>核心风险</h4><p>ROE 6.76% 偏低，资本内生能力弱、估值修复动力不足；PB 深度破净（0.4x）反映市场对资产质量的深度担忧，警惕价值陷阱。</p></div></div><div class="note">框架知识：银行看三张表——资产质量（不良率/拨备/逾期偏离度）、盈利能力（NIM/ROE/中收）、资本与估值（核心一级资本充足率/PB/股息率）。详见<a href="berkshire-bank-methodology.html" style="color:var(--accent)">银行方法论文</a>。</div>
 </div><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露），估值=2026-07-12行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>

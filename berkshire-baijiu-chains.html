@@ -50,6 +50,36 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 .source-note b { color:#475569; }
 @media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .grid{grid-template-columns:1fr} .explain-banner{flex-direction:column;padding:16px} }
 </style>
+
+/* P0 估值历史分位 + 成本传导（扩展链） */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#e8b84b;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
 </head>
 <body>
 <div class="top-bar">
@@ -93,6 +123,34 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 <div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">护城河（品牌/产区/老窖池）、估值特征、库存与价盘周期风险</div></div>
 
 </div>
+
+<div class="section-title">估值历史分位总览（%s %s 家）</div>
+<div class="ovtable">
+<table>
+<thead><tr><th>公司</th><th>PE(TTM)</th><th>PE 分位</th><th>PB</th><th>PB 分位</th><th>股息率</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-baijiu-chain-maotai.html">贵州茅台</a></td><td>18.36</td><td><span class="pct-cell pct-lo">0.8%</span></td><td><span class="pct-cell pct-lo">1.2%</span></td><td>—</td></tr>
+<tr><td><a href="berkshire-baijiu-chain-wuliangye.html">五粮液</a></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td><a href="berkshire-baijiu-chain-luzhou.html">泸州老窖</a></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td><a href="berkshire-baijiu-chain-fenjiu.html">山西汾酒</a></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td><a href="berkshire-baijiu-chain-yanghe.html">洋河股份</a></td><td>—</td><td>—</td><td><span class="pct-cell pct-lo">0.3%</span></td><td>—</td></tr>
+<tr><td><a href="berkshire-baijiu-chain-gujing.html">古井贡酒</a></td><td>15.05</td><td><span class="pct-cell pct-lo">8.2%</span></td><td><span class="pct-cell pct-lo">0.7%</span></td><td>—</td></tr>
+<tr><td><a href="berkshire-baijiu-chain-jinshiyuan.html">今世缘</a></td><td>13.0</td><td><span class="pct-cell pct-lo">2.5%</span></td><td><span class="pct-cell pct-lo">0.8%</span></td><td>—</td></tr>
+<tr><td><a href="berkshire-baijiu-chain-shede.html">舍得酒业</a></td><td>99.75</td><td><span class="pct-cell pct-hi">75.2%</span></td><td><span class="pct-cell pct-lo">0.1%</span></td><td>—</td></tr>
+<tr><td><a href="berkshire-baijiu-chain-yingjia.html">迎驾贡酒</a></td><td>12.86</td><td><span class="pct-cell pct-lo">2.3%</span></td><td><span class="pct-cell pct-lo">0.8%</span></td><td>—</td></tr>
+<tr><td><a href="berkshire-baijiu-chain-shuijingfang.html">水井坊</a></td><td>34.2</td><td><span class="pct-cell pct-mid">46.2%</span></td><td><span class="pct-cell pct-lo">0.3%</span></td><td>—</td></tr>
+<tr><td><a href="berkshire-baijiu-chain-jiugui.html">酒鬼酒</a></td><td>-390.3</td><td>亏损</td><td><span class="pct-cell pct-lo">11.6%</span></td><td>—</td></tr>
+<tr><td><a href="berkshire-baijiu-chain-kouzijiao.html">口子窖</a></td><td>28.12</td><td><span class="pct-cell pct-hi">84.4%</span></td><td><span class="pct-cell pct-lo">0.3%</span></td><td>—</td></tr>
+<tr><td><a href="berkshire-baijiu-chain-shunxin.html">顺鑫农业</a></td><td>-23.79</td><td>亏损</td><td><span class="pct-cell pct-lo">0.8%</span></td><td>—</td></tr></tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
+<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+亏损企业 PE 为负、PE 分位不适用，仅看 PB；港股 / 美股 / 未上市成分百度不覆盖，标"非A股"。分位为时点统计。</div>
+
+<div class="section-title">产业链成本传导</div>
+<div class="cost-block"><div class="cost-note"><p>本产业链（白酒）<b>无交易所可观测的商品期货 / 利率序列</b>（白酒、机器人、AI 没有统一定价期货），成本传导段暂以定性框架呈现——见上方「产业周期判断标准」段。A 股成分的估值历史分位已在本段上方给出。</p></div></div>
 
 <div class="section-title">主要玩家索引（上市公司 13 家）</div>
 <div class="grid">
