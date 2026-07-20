@@ -163,18 +163,70 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <div><b>4.91%</b><span>股息率</span></div>
 <div><b>5840.85</b><span>总市值(亿)</span></div></div>
 <!-- CHIP_BADGE -->
-<div style="margin:18px 0;padding:16px 18px;border:1px solid #e2e8f0;border-left:4px solid #dc2626;border-radius:12px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,0.04);">
-  <div style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px;">🎯 筹码博弈 · 股东人数（中报视角）</div>
-  <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:#475569;">
-    <div><b style="color:#0f172a;">最新股东人数</b><br>32.74万</div>
-    <div><b style="color:#0f172a;">环比增幅</b><br><span style="color:#dc2626">+9.0%</span></div>
-    <div><b style="color:#0f172a;">人均持股变化</b><br><span style="color:#16a34a">-8.3%</span></div>
-    <div><b style="color:#0f172a;">连续趋势</b><br>—</div>
+<div class="cb-card">
+<style>
+.cb-card{margin:18px 0;padding:18px 20px;border:1px solid #e2e8f0;border-left:4px solid #dc2626;border-radius:14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,0.04);font-family:inherit}
+.cb-head{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#0f172a;margin-bottom:12px}
+.cb-verdict{display:flex;align-items:center;gap:12px;margin:6px 0 14px;padding:12px 14px;border-radius:12px;background:#fffbeb;border:1px solid #fde68a}
+.cb-lamp{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fde68a,#f59e0b);box-shadow:0 0 0 5px rgba(245,158,11,0.15),0 0 14px rgba(245,158,11,0.4);flex-shrink:0}
+.cb-verdict b{font-size:19px;color:#0f172a}
+.cb-verdict span{display:block;font-size:12px;color:#64748b;margin-top:2px}
+.cb-big{display:flex;align-items:baseline;gap:8px;margin:4px 2px 14px}
+.cb-big .n{font-size:32px;font-weight:800;color:#0f172a;letter-spacing:-1px}
+.cb-big .u{font-size:14px;color:#64748b}
+.cb-big .r{margin-left:auto;font-size:11.5px;color:#b45309;background:#fffbeb;padding:4px 10px;border-radius:20px;font-weight:600;text-align:right}
+.cb-chgs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.cb-chg{background:#f8fafc;border:1px solid #f1f5f9;border-radius:12px;padding:11px}
+.cb-chg .l{font-size:12px;color:#64748b}
+.cb-chg .v{font-size:17px;font-weight:800;margin:3px 0 7px}
+.cb-chg .bar{height:8px;border-radius:5px;background:#e2e8f0;overflow:hidden}
+.cb-chg .bar i{display:block;height:100%;border-radius:5px}
+.cb-chg .nt{font-size:11px;color:#94a3b8;margin-top:6px}
+.cb-up{color:#dc2626}.cb-down{color:#16a34a}
+.cb-fill-up{background:#dc2626}.cb-fill-down{background:#16a34a}
+.cb-streak{display:flex;align-items:center;gap:8px;margin:0 2px 14px;font-size:12.5px;color:#475569;flex-wrap:wrap}
+.cb-dots{display:flex;gap:5px}
+.cb-dots i{width:13px;height:13px;border-radius:50%;background:#e2e8f0}
+.cb-dots i.on{background:#16a34a}
+.cb-peers .ph{font-size:13px;font-weight:700;color:#0f172a;margin-bottom:9px;display:flex;justify-content:space-between}
+.cb-peers .ph span{font-size:11px;color:#94a3b8;font-weight:400}
+.cb-prow{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px}
+.cb-prow .pn{width:60px;flex-shrink:0;color:#475569}
+.cb-prow .pt{flex:1;height:15px;background:#f1f5f9;border-radius:5px;overflow:hidden}
+.cb-prow .pb{height:100%;border-radius:5px;background:#cbd5e1}
+.cb-prow .pv{width:58px;text-align:right;color:#64748b;flex-shrink:0}
+.cb-prow.me .pn{color:#b45309;font-weight:700}
+.cb-prow.me .pb{background:linear-gradient(90deg,#f59e0b,#d97706)}
+.cb-prow.me .pv{color:#b45309;font-weight:700}
+.cb-prow.dim{opacity:.7}
+.cb-footer{border-top:1px solid #f1f5f9;padding-top:11px;margin-top:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:8px}
+.cb-src{font-size:11px;color:#94a3b8;line-height:1.5}
+.cb-footer a{font-size:12px;color:#2563eb;font-weight:600;text-decoration:none;white-space:nowrap}
+</style>
+  <div class="cb-head">🎯 筹码博弈 · 股东人数（中报视角）</div>
+  <div class="cb-verdict"><div class="cb-lamp"></div><div><b>筹码分散</b><span>筹码明显发散，警惕散户退潮</span></div></div>
+  <div class="cb-big"><div class="n">32.74<span class="u">万</span></div><div class="r">银行板块股东人数第 7 多 → 筹码偏分散</div></div>
+  <div class="cb-chgs">
+    <div class="cb-chg"><div class="l">股东人数（环比）</div><div class="v cb-down">▼ +9.02%</div><div class="bar"><i class="cb-fill-down" style="width:54%"></i></div><div class="nt">变动很小 → 集中迹象弱</div></div>
+    <div class="cb-chg"><div class="l">人均持股（环比）</div><div class="v cb-up">▲ -8.27%</div><div class="bar"><i class="cb-fill-up" style="width:50%"></i></div><div class="nt">变动很小 → 集中迹象弱</div></div>
   </div>
-  <div style="margin-top:10px;font-size:13px;">筹码信号：<b style="color:#dc2626">筹码分散</b> · <a href="berkshire-chip-game.html" style="color:#2563eb;text-decoration:none;">查看全链筹码榜 →</a></div>
-  <div style="margin-top:6px;font-size:11.5px;color:#94a3b8;">数据：巨潮股东户数（2026-03-31），滞后于股价，非投资建议。</div>
+  <div class="cb-streak"><span>趋势强度（连续下降期数）：</span><div class="cb-dots"><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div><span>无连续下降</span></div>
+  <div class="cb-peers">
+    <div class="ph">银行板块股东人数对比 <span>单位：万人 · 高亮为本股</span></div>
+    <div class="cb-prow dim"><div class="pn">工商银行</div><div class="pt"><div class="pb" style="width:100.0%"></div></div><div class="pv">78.83万</div></div>
+    <div class="cb-prow dim"><div class="pn">农业银行</div><div class="pt"><div class="pb" style="width:84.6%"></div></div><div class="pv">66.66万</div></div>
+    <div class="cb-prow dim"><div class="pn">中国银行</div><div class="pt"><div class="pb" style="width:82.0%"></div></div><div class="pv">64.65万</div></div>
+    <div class="cb-prow dim"><div class="pn">招商银行</div><div class="pt"><div class="pb" style="width:78.3%"></div></div><div class="pv">61.73万</div></div>
+    <div class="cb-prow dim"><div class="pn">平安银行</div><div class="pt"><div class="pb" style="width:58.1%"></div></div><div class="pv">45.76万</div></div>
+    <div class="cb-prow dim"><div class="pn">民生银行</div><div class="pt"><div class="pb" style="width:48.1%"></div></div><div class="pv">37.95万</div></div>
+    <div class="cb-prow me"><div class="pn">交通银行</div><div class="pt"><div class="pb" style="width:41.5%"></div></div><div class="pv">32.74万</div></div>
+    <div class="cb-prow dim"><div class="pn">建设银行</div><div class="pt"><div class="pb" style="width:37.6%"></div></div><div class="pv">29.62万</div></div>
+    <div class="cb-prow dim"><div class="pn">兴业银行</div><div class="pt"><div class="pb" style="width:35.5%"></div></div><div class="pv">27.98万</div></div>
+    <div class="cb-prow dim"><div class="pn">光大银行</div><div class="pt"><div class="pb" style="width:29.0%"></div></div><div class="pv">22.84万</div></div>
+  </div>
+  <div class="cb-footer"><div class="cb-src">数据：巨潮股东户数（2026-03-31）<br>滞后于股价，非投资建议。</div><a href="berkshire-chip-game.html">查看全链筹码榜 →</a></div>
 </div>
-
+<!-- /CHIP_BADGE -->
 <div class="section-title">估值历史分位</div>
 <div class="valband">
 <div class="vrow"><div class="vlab">PE（TTM）</div><div class="vbar"><div class="vfill" style="width:70.6%;background:#b91c1c"></div><div class="vmark" style="left:70.6%"></div></div><div class="vval"><b>6.21</b> 倍 · 历史 <b>70.6%</b> 分位 <span class="vtag" style="color:#b91c1c">偏高</span></div></div>
