@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>伯克希尔·哈撒韦 — 巴菲特访谈</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;
+  background:#f1f5f9;
+  color:#1e293b;
+  line-height:1.6;
+  min-height:100vh;
+}
+
+/* ===== Breadcrumb (inside hero) ===== */
+.top-home-bar{
+  position:absolute;top:16px;left:24px;z-index:10;
+}
+.home-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;
+  background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);
+  border-radius:20px;color:rgba(255,255,255,0.85);font-size:13px;font-weight:500;
+  text-decoration:none;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  transition:all 0.2s ease;
+}
+.home-btn:hover{
+  background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.28);color:#fff;
+  transform:translateY(-1px);
+}
+.home-icon{font-size:14px}
+
+.breadcrumb{max-width:1100px;margin:0 auto;padding:14px 24px 6px;font-size:13px;color:rgba(255,255,255,0.6);position:relative;z-index:2}
+.breadcrumb a{color:rgba(255,255,255,0.7);text-decoration:none;transition:color 0.15s}
+.breadcrumb a:hover{color:#fbbf24}
+.breadcrumb span{color:rgba(255,255,255,0.35);margin:0 6px}
+.breadcrumb .current{color:rgba(255,255,255,0.9);font-weight:500}
+
+/* ===== Hero ===== */
+.hero{
+  position:relative;
+  background:linear-gradient(135deg,#0f172a 0%,#1e293b 40%,#1e3a5f 100%);
+  padding:60px 24px 80px;
+  text-align:center;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(ellipse at 30% 20%, rgba(245,158,11,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(37,99,235,0.06) 0%, transparent 50%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:100px;
+  background:linear-gradient(to top, #f1f5f9 0%, transparent 100%);
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.hero-badge{
+  display:inline-block;padding:4px 14px;
+  background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);
+  border-radius:20px;color:#fbbf24;font-size:12px;font-weight:500;letter-spacing:0.5px;margin-bottom:20px;
+}
+.hero h1{
+  font-size:clamp(26px,4vw,40px);font-weight:800;color:#fff;line-height:1.25;letter-spacing:-0.5px;margin-bottom:12px;
+}
+.hero h1 span{color:#f59e0b}
+.hero p{font-size:15px;color:#94a3b8;max-width:560px;margin:0 auto;line-height:1.7}
+
+/* ===== Section Nav ===== */
+.section-nav{
+  max-width:1100px;margin:-40px auto 0;padding:0 24px;position:relative;z-index:3;
+}
+.section-nav-inner{
+  background:#fff;border-radius:14px;border:1px solid #e2e8f0;
+  padding:6px;display:flex;flex-wrap:wrap;gap:4px;box-shadow:0 4px 16px rgba(0,0,0,0.06);
+}
+.section-nav a{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 16px;border-radius:10px;font-size:13px;font-weight:500;
+  color:#64748b;text-decoration:none;transition:all 0.2s ease;white-space:nowrap;
+}
+.section-nav a:hover{background:#f1f5f9;color:#2563eb}
+.nav-icon{font-size:15px}
+
+/* ===== Main ===== */
+.main{max-width:1100px;margin:0 auto;padding:40px 24px 80px}
+
+/* ===== Section ===== */
+.section{margin-bottom:48px}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.section-icon{
+  width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;
+}
+.si-gold{background:#fffbeb;color:#d97706}
+.si-blue{background:#eff6ff;color:#2563eb}
+.si-teal{background:#f0fdfa;color:#0d9488}
+.si-rose{background:#fff1f2;color:#e11d48}
+.si-purple{background:#faf5ff;color:#7c3aed}
+.section-title{font-size:20px;font-weight:800;color:#0f172a;letter-spacing:-0.3px}
+.section-subtitle{font-size:13px;color:#94a3b8;margin-top:2px}
+
+/* ===== Card Grid ===== */
+.card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card-grid.three{grid-template-columns:repeat(3,1fr)}
+
+/* ===== Article Card ===== */
+.article-card{
+  background:#fff;border-radius:14px;border:1px solid #e2e8f0;
+  overflow:hidden;transition:all 0.25s ease;
+  display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(0,0,0,0.04);
+  text-decoration:none;
+}
+.article-card:hover{
+  transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,0.08);border-color:#cbd5e1;
+}
+.card-top{padding:22px 24px 16px;flex:1}
+.card-category{
+  display:inline-block;padding:2px 10px;border-radius:6px;
+  font-size:11px;font-weight:600;letter-spacing:0.3px;margin-bottom:10px;
+}
+.cat-gold{background:#fffbeb;color:#b45309}
+.cat-blue{background:#eff6ff;color:#1d4ed8}
+.cat-teal{background:#f0fdfa;color:#0f766e}
+.cat-rose{background:#fff1f2;color:#be123c}
+.cat-purple{background:#faf5ff;color:#6d28d9}
+.cat-orange{background:#fff7ed;color:#ea580c}
+
+.card-icon{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;
+}
+.ci-gold{background:#fffbeb;color:#d97706}
+.ci-blue{background:#eff6ff;color:#2563eb}
+.ci-teal{background:#f0fdfa;color:#0d9488}
+.ci-rose{background:#fff1f2;color:#e11d48}
+.ci-purple{background:#faf5ff;color:#7c3aed}
+.ci-orange{background:#fff7ed;color:#ea580c}
+
+.card-title{font-size:16px;font-weight:700;color:#0f172a;margin-bottom:6px;line-height:1.4}
+.card-desc{font-size:13px;color:#64748b;line-height:1.6}
+.card-footer{
+  padding:12px 24px;border-top:1px solid #f1f5f9;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.card-source{font-size:12px;color:#94a3b8}
+.card-arrow{font-size:15px;color:#cbd5e1;transition:all 0.2s ease}
+.article-card:hover .card-arrow{color:#2563eb;transform:translateX(3px)}
+
+/* ===== Source tag ===== */
+.source-tag{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500;
+}
+.source-internal{background:#f0fdf4;color:#166534}
+.source-external{background:#fefce8;color:#854d0e}
+.source-edu{background:#eff6ff;color:#1e40af}
+
+/* ===== Back Link ===== */
+.back-link{margin-top:40px;text-align:center}
+.back-link a{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 24px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;
+  color:#334155;font-size:14px;font-weight:500;text-decoration:none;
+  transition:all 0.2s ease;box-shadow:0 1px 2px rgba(0,0,0,0.04);
+}
+.back-link a:hover{background:#f8fafc;border-color:#cbd5e1;color:#2563eb;box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+
+/* ===== Footer ===== */
+.footer{
+  text-align:center;padding:32px 24px;color:#94a3b8;font-size:12px;border-top:1px solid #e2e8f0;
+}
+.footer a{color:#64748b;text-decoration:none;transition:color 0.15s}
+.footer a:hover{color:#2563eb}
+
+/* ===== Interview Detail ===== */
+.iv-detail{
+  background:#fff;border-radius:14px;border:1px solid #e2e8f0;
+  padding:26px 28px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,0.04);
+}
+.iv-head{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.iv-flag{
+  font-size:30px;line-height:1;flex-shrink:0;
+}
+.iv-head-text{flex:1;min-width:220px}
+.iv-title{font-size:20px;font-weight:800;color:#0f172a;line-height:1.35;letter-spacing:-0.3px}
+.iv-sub{font-size:13px;color:#94a3b8;margin-top:4px}
+.iv-meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px}
+.iv-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 11px;border-radius:20px;font-size:12px;font-weight:500;
+  background:#f1f5f9;color:#475569;
+}
+.iv-chip b{color:#334155;font-weight:600}
+.iv-chip.acc{background:#fff7ed;color:#ea580c}
+.iv-video{
+  position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;
+  background:#0f172a;margin-bottom:8px;border:1px solid #e2e8f0;
+}
+.iv-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.iv-watch{display:inline-flex;align-items:center;gap:6px;margin:6px 0 18px;
+  font-size:13px;font-weight:600;color:#ea580c;text-decoration:none}
+.iv-watch:hover{text-decoration:underline}
+.iv-note{
+  font-size:12px;color:#94a3b8;background:#f8fafc;border:1px dashed #e2e8f0;
+  border-radius:8px;padding:8px 12px;margin-bottom:18px;line-height:1.6;
+}
+.iv-summary h4{
+  font-size:15px;font-weight:700;color:#0f172a;margin:18px 0 6px;
+  padding-left:11px;border-left:3px solid #f59e0b;
+}
+.iv-summary p{font-size:14px;color:#475569;line-height:1.75;margin-bottom:8px}
+.iv-summary ul{margin:0 0 8px 20px}
+.iv-summary li{font-size:14px;color:#475569;line-height:1.75;margin-bottom:4px}
+
+/* ===== Responsive ===== */
+@media(max-width:1024px){
+  .card-grid.three{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .home-btn{font-size:12px;padding:6px 12px}
+  .top-home-bar{top:12px;left:16px}
+  .hero{padding:36px 16px 60px}
+  .hero h1{font-size:22px}
+  .hero p{font-size:13px}
+  .main{padding:28px 16px 56px}
+  .breadcrumb{padding:14px 12px 0;font-size:12px}
+  .section-nav{margin-top:-36px;padding:0 16px}
+  .section-nav a{padding:6px 12px;font-size:12px}
+  .section{margin-bottom:36px}
+  .section-title{font-size:17px}
+  .card-grid,.card-grid.three{grid-template-columns:1fr}
+  .card-top{padding:18px 16px 12px}
+  .card-footer{padding:10px 16px}
+  .card-title{font-size:14.5px}
+  .card-desc{font-size:12.5px}
+  .iv-detail{padding:18px 16px}
+  .iv-title{font-size:17px}
+}
+</style>
+
+</head>
+<body>
+
+<!-- Top Home Bar -->
+<div class="top-home-bar">
+  <a href="index.html" class="home-btn">
+    <span class="home-icon">🏠</span>
+    <span>返回首页</span>
+  </a>
+</div>
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb">
+  <a href="index.html">首页</a>
+  <span>/</span>
+  <a href="berkshire-standalone.html">投资数据中心</a>
+  <span>/</span>
+  <span class="current">巴菲特访谈</span>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Buffett · Interviews</div>
+    <h1>巴菲特<span>访谈</span></h1>
+    <p>逐期整理巴菲特在 CNBC、电视台与公开场合的专访实录要点，附原视频与中文主题归纳</p>
+  </div>
+</header>
+
+<!-- Section Navigation -->
+<nav class="section-nav">
+  <div class="section-nav-inner">
+    <a href="#interviews"><span class="nav-icon">🎬</span>访谈列表</a>
+    <a href="#iv-2026-07-15"><span class="nav-icon">📰</span>最新一期</a>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main">
+
+  <!-- 访谈列表 -->
+  <section class="section" id="interviews">
+    <div class="section-header">
+      <div class="section-icon si-orange">🎬</div>
+      <div>
+        <div class="section-title">访谈实录</div>
+        <div class="section-subtitle">按时间倒序收录巴菲特公开专访</div>
+      </div>
+    </div>
+    <div class="card-grid">
+
+      <a href="#iv-2026-07-15" class="article-card">
+        <div class="card-top">
+          <div class="card-icon ci-orange">📺</div>
+          <span class="card-category cat-orange">CNBC 专访</span>
+          <div class="card-title">2026年7月15日 CNBC 专访：慈善、AI 与投资的本质</div>
+          <div class="card-desc">谈停止向盖茨基金会捐款的安排、投资 Google 与苹果的逻辑、对 AI 的看法，以及那句「当每个人都更喜欢赌博时，很难找到有价值的东西」。</div>
+        </div>
+        <div class="card-footer">
+          <span class="source-tag source-external">CNBC · 2026-07-15</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- 详细：2026-07-15 -->
+  <section class="section" id="iv-2026-07-15">
+    <div class="section-header">
+      <div class="section-icon si-orange">📰</div>
+      <div>
+        <div class="section-title">最新一期 · 访谈要点</div>
+        <div class="section-subtitle">2026年7月15日 CNBC 专访巴菲特</div>
+      </div>
+    </div>
+
+    <div class="iv-detail">
+      <div class="iv-head">
+        <div class="iv-flag">🇺🇸</div>
+        <div class="iv-head-text">
+          <div class="iv-title">巴菲特最新 CNBC 访谈：当每个人都更喜欢赌博时，很难找到有价值的东西</div>
+          <div class="iv-sub">投资 Google 的原因 · 对 AI 的看法 · 为何停止捐款盖茨基金会 · 利率如引力 · 赌博与投资的区别</div>
+        </div>
+      </div>
+
+      <div class="iv-meta">
+        <span class="iv-chip"><b>受访者</b> 沃伦·巴菲特</span>
+        <span class="iv-chip"><b>采访方</b> CNBC</span>
+        <span class="iv-chip"><b>日期</b> 2026-07-15</span>
+        <span class="iv-chip"><b>时长</b> 约 1 小时</span>
+        <span class="iv-chip acc"><b>主题</b> 慈善 / AI / 利率 / 投资观</span>
+      </div>
+
+      <div class="iv-video">
+        <iframe src="https://www.youtube.com/embed/Igft9InNXrc" title="2026-07-15 CNBC 专访巴菲特" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <a class="iv-watch" href="https://www.youtube.com/watch?v=Igft9InNXrc" target="_blank" rel="noopener">▶ 在 YouTube 观看原视频（含完整中文字幕）</a>
+
+      <div class="iv-note">
+        以下为本站对本期访谈的<b>要点归纳（非逐字稿）</b>，按主题整理，便于快速回顾；具体表述、语气与完整上下文请以 YouTube 原视频为准。
+      </div>
+
+      <div class="iv-summary">
+        <h4>一、慈善捐赠与盖茨基金会</h4>
+        <p>巴菲特谈及个人财富的慈善分配安排，以及为何决定停止向盖茨基金会持续捐款的时间表。他强调巨额财富最终应当回馈社会，但处置方式与节奏会随年龄、认知与家庭考量而调整；这一安排也体现了他「在生前有序分配、而非身后一次性处置」的一贯思路。</p>
+
+        <h4>二、投资 Google（Alphabet）的原因</h4>
+        <p>他解释了为何投资 Google / Alphabet：看重其搜索与数字广告业务的寡头地位、极高的资本回报率，以及宽阔且仍在加深的护城河。同时也延续了其一贯的坦诚——早年因「看不懂」而错过了它（他曾通过 GEICO 的广告投放早早观察到 Google 的商业模式），后来才补上仓位，并把这次「错过」当作能力圈边界的生动教材。</p>
+
+        <h4>三、对苹果（Apple）的看法</h4>
+        <p>苹果被他视为「消费 + 护城河」能力圈的标杆案例：兼具极强品牌黏性、用户生态与资本回报，是他构建过的最大单一股权持仓。他也在访谈中回应了近年大幅减持的考量——在仓位变得过于集中、估值不再便宜时，适度兑现以控制单一标的权重，是其风险管理的自然动作。</p>
+
+        <h4>四、对 AI 的看法</h4>
+        <p>巴菲特将 AI 视作足以重塑经济的重大力量，影响之深远可能堪比甚至超过历史上的工业革命；既看到它提升生产率、创造新机会的一面，也提醒其带来的颠覆与不确定性。他的态度一如既往地审慎：惊叹于技术威力，却拒绝轻易预测赢家，更强调在自己能看懂的边界内做决策。</p>
+
+        <h4>五、利率如引力</h4>
+        <p>他重提那个著名比喻——<b>利率之于资产估值，犹如重力之于物体</b>。利率越低，未来现金流的折现值越高，所有资产价格都会被向上推；反之利率上行则系统性压低估值。理解这一点，是读懂他为何在不同利率环境下调整仓位与现金持有比例的关键。</p>
+
+        <h4>六、赌博与投资的区别</h4>
+        <p>本期标题引用的那句话——<b>「当每个人都更喜欢赌博时，很难找到有价值的东西」</b>——点出了他的核心忧虑：当市场参与者越来越把买卖当作押注价格涨跌的赌局、而非评估企业内在价值的投资时，真正做功课、愿意长期持有的价值发现者反而更难被发现，但其回报也更显稀缺与珍贵。投资是 owning a business（拥有一门生意）并估算其内在价值；赌博与纯投机则是押注短期价格波动与情绪。</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="back-link">
+    <a href="berkshire-standalone.html">← 返回投资数据中心</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>数据来源：CNBC 公开专访（YouTube）& 伯克希尔·哈撒韦公开资料 · 要点归纳仅供学习参考</p>
+</footer>
+
+</body>
+</html>
