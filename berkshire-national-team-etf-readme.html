@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国家队 ETF 信号 · 人话解读 — 伯克希尔数据中心</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.7;min-height:100vh}
+a{color:#2563eb;text-decoration:none}
+a:hover{text-decoration:underline}
+.breadcrumb{max-width:1040px;margin:0 auto;padding:14px 24px;font-size:13px;color:#64748b}
+.breadcrumb a{color:#64748b}
+.breadcrumb a:hover{color:#f59e0b}
+.breadcrumb span{margin:0 6px;color:#cbd5e1}
+.hero{position:relative;background:linear-gradient(135deg,#0f172a 0%,#1e293b 40%,#1e3a5f 100%);padding:44px 24px 60px;text-align:center;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 20%,rgba(245,158,11,0.08) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(37,99,235,0.06) 0%,transparent 50%);pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:820px;margin:0 auto}
+.hero-badge{display:inline-block;padding:4px 16px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:20px;color:#fbbf24;font-size:13px;font-weight:500;letter-spacing:.5px;margin-bottom:18px}
+.hero h1{font-size:clamp(26px,4.5vw,40px);font-weight:800;color:#fff;line-height:1.25;margin-bottom:12px}
+.hero p{font-size:15px;color:#94a3b8;max-width:640px;margin:0 auto}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px 64px}
+.lead{background:#fff;border-radius:12px;padding:18px 22px;margin:-30px auto 28px;position:relative;z-index:3;box-shadow:0 1px 3px rgba(15,23,42,.06);font-size:14px;color:#475569;border-left:4px solid #f59e0b}
+.sec{margin-bottom:34px}
+.sec-title{font-size:20px;font-weight:800;margin:0 0 16px;display:flex;align-items:center;gap:10px;color:#0f172a}
+.sec-title .num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:#f59e0b;color:#0f172a;font-size:15px;font-weight:800;flex:0 0 auto}
+.grid{display:grid;gap:14px}
+.grid.c3{grid-template-columns:repeat(3,1fr)}
+.grid.c4{grid-template-columns:repeat(4,1fr)}
+.grid.c2{grid-template-columns:repeat(2,1fr)}
+.card{background:#fff;border-radius:12px;padding:18px 18px;box-shadow:0 1px 3px rgba(15,23,42,.06)}
+.card h4{font-size:15.5px;font-weight:700;margin-bottom:8px;color:#1e293b}
+.card .sub{font-size:12px;color:#94a3b8;margin-bottom:8px}
+.card p{font-size:13.5px;color:#475569}
+.card .hl{color:#b45309;font-weight:600}
+.acts{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:6px 4px}
+.act{display:flex;gap:14px;padding:14px 18px;border-bottom:1px solid #fde9d3}
+.act:last-child{border-bottom:none}
+.act .yr{font-weight:800;color:#c2410c;font-size:15px;flex:0 0 64px}
+.act .body{font-size:13.5px;color:#475569}
+.act .body b{color:#1e293b}
+.note-rule{background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #2563eb;border-radius:10px;padding:12px 16px;font-size:13.5px;color:#1e40af;margin-top:12px}
+.myth{background:#fff;border-radius:12px;padding:16px 18px;box-shadow:0 1px 3px rgba(15,23,42,.06);border-left:4px solid #dc2626}
+.myth .x{display:inline-block;font-weight:800;color:#dc2626;margin-right:6px}
+.myth h4{font-size:15px;color:#b91c1c;margin-bottom:6px}
+.myth p{font-size:13.5px;color:#475569}
+.check{list-style:none;background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 1px 3px rgba(15,23,42,.06)}
+.check li{position:relative;padding:8px 0 8px 30px;font-size:14px;color:#334155;border-bottom:1px dashed #eef2f7}
+.check li:last-child{border-bottom:none}
+.check li::before{content:'✓';position:absolute;left:4px;top:8px;color:#16a34a;font-weight:800}
+.rel{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:18px 22px;font-size:13.5px;color:#475569;line-height:1.8}
+.rel a{font-weight:600}
+.src{font-size:13px;color:#64748b;background:#fff;border-radius:12px;padding:16px 22px;box-shadow:0 1px 3px rgba(15,23,42,.06)}
+.src h4{font-size:14px;color:#1e293b;margin-bottom:8px}
+.src li{margin:4px 0 4px 18px}
+.upd{margin-top:18px;font-size:12.5px;color:#94a3b8;border-collapse:collapse;width:100%}
+.upd th,.upd td{border:1px solid #e2e8f0;padding:6px 10px;text-align:left}
+.upd th{background:#f8fafc;color:#475569;font-weight:600}
+.disclaimer{margin-top:24px;font-size:12px;color:#94a3b8;text-align:center;line-height:1.7}
+@media(max-width:760px){.grid.c3,.grid.c4,.grid.c2{grid-template-columns:1fr 1fr}.act .yr{flex-basis:54px}}
+@media(max-width:520px){.grid.c3,.grid.c4,.grid.c2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="breadcrumb"><a href="index.html">伯克希尔数据中心</a><span>›</span><a href="berkshire-standalone.html">数据中心</a><span>›</span><a href="berkshire-index-investing.html">指数投资</a><span>›</span><a href="berkshire-national-team-etf.html">国家队ETF信号</a><span>›</span><span class="current">人话解读</span></div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">配套解读 · 怎么读国家队信号</div>
+    <h1>国家队 ETF 买卖信号 · 人话解读</h1>
+    <p>怎么看、怎么读、别踩坑——一份基于公开报道的朴素版说明书，方便你对着信号页一起用。</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="lead">
+    <b>一句话总纲：</b>国家队是市场的「<span class="hl">压舱石</span>」，不是「印钞机」。它负责在极端时点提供买盘、阻断恐慌、释放政策底信号；但它<b>不能替代基本面</b>，也<b>不保证只买不卖</b>。把它的动作当「温度计」，别当「买卖指令」。
+  </div>
+
+  <!-- SECTION: 国家队是谁 -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">1</span>国家队到底是谁？（不是一个人，是一支队伍）</div>
+    <div class="grid c2">
+      <div class="card">
+        <h4>中央汇金（投资 + 资管）</h4>
+        <div class="sub">绝对的「压舱石」</div>
+        <p>持有 ETF 市值约 <span class="hl">1.53 万亿</span>（投资 7973 亿 + 资管 7290 亿），平均持仓比例 36%~38%。<b>最爱宽基</b>：沪深300、上证50、中证1000、科创50。</p>
+      </div>
+      <div class="card">
+        <h4>证金公司</h4>
+        <div class="sub">流动性危机专业户</div>
+        <p>2015 年那轮救市主力，专门承接流动性枯竭、千股跌停时的抛压。</p>
+      </div>
+      <div class="card">
+        <h4>中国诚通 / 中国国新</h4>
+        <div class="sub">国资委旗下资本运营平台</div>
+        <p>更偏 <span class="hl">央企、科技创新、红利</span> 主题 ETF；2025年4月、2026年7月都同步加码。</p>
+      </div>
+      <div class="card">
+        <h4>一句话记</h4>
+        <div class="sub">分工</div>
+        <p><b>汇金负责「托住大盘」，诚通/国新负责「挺央企和科技」。</b>三者加起来才是完整版「国家队」。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: 怎么用ETF托市 -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">2</span>他们怎么用 ETF 托市？</div>
+    <div class="grid c3">
+      <div class="card">
+        <h4>买宽基，不挑个股</h4>
+        <p>买沪深300ETF = 给大盘打底；买中证1000 = 给小盘打底。覆盖面广，不押单一公司。</p>
+      </div>
+      <div class="card">
+        <h4>三种打法</h4>
+        <p>① 公开公告增持（放政策底信号）；② 盘中/尾盘大额净申购（尤其恐慌时）；③ 用央行「股票回购增持再贷款」让资金可持续。</p>
+      </div>
+      <div class="card">
+        <h4>2024 年后机制化</h4>
+        <p>互换便利 + 再贷款 + 宽基ETF + 央企平台一起上，不再是临时抱佛脚，而是「常态化承托」。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: 四个真实作用 -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">3</span>国家队进场，到底管不管用？（四个真实作用）</div>
+    <div class="grid c4">
+      <div class="card"><h4>① 确定性买盘</h4><p>直接对冲抛压，买宽基ETF 就是给市场提供对手盘。</p></div>
+      <div class="card"><h4>② 政策底信号</h4><p>汇金增持公告通常被市场视为「政策底」信号，稳住预期。</p></div>
+      <div class="card"><h4>③ 阻断负循环</h4><p>防止「赎回→减仓→再跌→再赎回」的踩踏式负反馈。</p></div>
+      <div class="card"><h4>④ 长线共振</h4><p>带动社保、险资、央企回购等长线资金一起进场。</p></div>
+    </div>
+    <div class="note-rule"><b>关键一句：</b>国家队只能把你从「流动性崩盘」里拉回来，<b>不能替基本面做主</b>。后面能涨多高，看盈利、产业趋势、增量资金接不接得上。</div>
+  </div>
+
+  <!-- SECTION: 历史复盘 -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">4</span>历史复盘（人话版）</div>
+    <div class="acts">
+      <div class="act"><div class="yr">2008</div><div class="body"><b>汇金买四大行</b>→政策底；但市场底晚了约 40 天（探明 1664）。</div></div>
+      <div class="act"><div class="yr">2015</div><div class="body"><b>证金万亿救市</b>→止住断崖式下跌；但杠杆没出清，半年后 2638 才见底。</div></div>
+      <div class="act"><div class="yr">2018</div><div class="body"><b>纾困股权质押</b>→底部最扎实，之后开启 2019–2021 结构牛。</div></div>
+      <div class="act"><div class="yr">2023</div><div class="body"><b>汇金买 ETF</b>→温和信号，指数仍反复磨底。</div></div>
+      <div class="act"><div class="yr">2024</div><div class="body"><b>扩大 ETF 增持 + 央行工具</b>→反弹更快，稳市走向机制化。</div></div>
+      <div class="act"><div class="yr">2025·4</div><div class="body"><b>关税冲击盘中救市</b>→反应最快，几乎无深度二次探底。</div></div>
+      <div class="act"><div class="yr">2026·7</div><div class="body"><b>范围扩到科技 ETF</b>→稳市也开始兼顾「新质生产力」方向。</div></div>
+    </div>
+    <div class="note-rule"><b>规律：</b>国家队 = 政策底标志，<b>市场底不一定同步</b>。早则约 40 天，晚则约半年，取决于抛压是否出清、政策是否合力、基本面能否接上。</div>
+  </div>
+
+  <!-- SECTION: 四大误区 -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">5</span>最常见的 4 个误区（重点）</div>
+    <div class="grid c2">
+      <div class="myth"><span class="x">✗</span><h4>误区1：国家队只买不卖</h4><p>错。2025年一季度汇金就减过部分宽基；2026年一季度资金从沪深300/科创50 流出，是「腾笼换鸟」换到央企科创/主题 ETF，<b>不是撤退</b>。</p></div>
+      <div class="myth"><span class="x">✗</span><h4>误区2：ETF 份额涨=国家队在买</h4><p>错。份额增长是<b>所有申购者的总和</b>（机构+散户+套利），国家队只是其中一部分。真要确认，看<b>季报前十大持有人</b>里汇金/诚通/国新的份额变化。</p></div>
+      <div class="myth"><span class="x">✗</span><h4>误区3：盘口超大单=国家队</h4><p>错。超大单里也有普通机构、大户、量化。只能当<b>代理信号</b>，不能当「国家队指纹」。</p></div>
+      <div class="myth"><span class="x">✗</span><h4>误区4：国家队能造牛市</h4><p>错。它管「别崩」，不管「涨多高」。趋势最终由基本面决定。</p></div>
+    </div>
+  </div>
+
+  <!-- SECTION: 普通人怎么用 -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">6</span>普通人怎么用这个信息？</div>
+    <ul class="check">
+      <li>把「国家队进场」当 <b>政策底温度计</b>，不是买卖指令。</li>
+      <li>重点盯三件事：宽基 ETF 是否<b>持续净流入</b>（尤其恐慌日尾盘放量净申购）、<b>两融去杠杆</b>是否缓和、<b>中报业绩</b>能否兑现。</li>
+      <li><b>别抄作业</b>：国家队是长线「压舱石」，周期以季度/年计，你多半拿不住那个久。</li>
+      <li>信号页是<b>盘口行为刻画（代理）</b>，不是国家队实名持仓；<b>真·国家队仓位以基金季报为准</b>。</li>
+    </ul>
+  </div>
+
+  <!-- SECTION: 与信号页的关系 -->
+  <div class="sec">
+    <div class="sec-title"><span class="num">7</span>这页和「信号页」什么关系？</div>
+    <div class="rel">
+      <a href="berkshire-national-team-etf.html">「国家队 ETF 买卖信号」页</a> 用的是 <b>超大单 + 主力净流入</b> 的实时盘口，计算一份<b>快照式信号</b>（买入/中性/卖出）。它刻画的是「大资金方向」，是<b>代理</b>，不是国家队实名持仓。<br><br>
+      想确认国家队<b>真实仓位与动作</b>，请以<b>基金季报/年报前十大持有人</b>（中央汇金、中国诚通、中国国新）为准；想看「怎么读、别踩坑」，就是本页。<br><br>
+      本页为静态解读，随公开报道更新；信号页为手动快照，按需重跑生成器刷新。
+    </div>
+  </div>
+
+  <!-- SECTION: 来源与更新（方便以后维护） -->
+  <div class="src">
+    <h4>数据来源</h4>
+    <ul>
+      <li>财联社《国家队历次进场后，A股怎么走？》（2026-07-21）</li>
+      <li>21世纪经济报道 / 证券时报《"国家队"1.5万亿持仓曝光 多只行业主题ETF获加仓》（2026-04-09）</li>
+      <li>新浪财经《多家央企出手增持中国股票资产》（2026-07-19 引述 2025-04-07/2025-04-08 公告）</li>
+    </ul>
+    <table class="upd">
+      <tr><th>日期</th><th>更新内容</th></tr>
+      <tr><td>2026-07-21</td><td>初版建立：国家队构成、托市机制、四大作用、历史复盘、四大误区、使用建议。</td></tr>
+    </table>
+  </div>
+
+  <div class="disclaimer">
+    本页内容基于公开报道整理，仅用于研究与学习，<b>不构成任何投资建议</b>。市场有风险，决策需独立判断。<br>
+    伯克希尔数据中心 · 个人研究用途 · 最后更新 2026-07-21
+  </div>
+</div>
+</body>
+</html>

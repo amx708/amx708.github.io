@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国家队 ETF 买卖信号参考 — 伯克希尔数据中心</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.6;min-height:100vh}
+a{color:#2563eb;text-decoration:none}
+a:hover{text-decoration:underline}
+.breadcrumb{max-width:1100px;margin:0 auto;padding:14px 24px;font-size:13px;color:#64748b}
+.breadcrumb a{color:#64748b}
+.breadcrumb a:hover{color:#f59e0b}
+.breadcrumb span{margin:0 6px;color:#cbd5e1}
+.hero{position:relative;background:linear-gradient(135deg,#0f172a 0%,#1e293b 40%,#1e3a5f 100%);padding:44px 24px 64px;text-align:center;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 20%,rgba(245,158,11,0.08) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(37,99,235,0.06) 0%,transparent 50%);pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:860px;margin:0 auto}
+.hero-badge{display:inline-block;padding:4px 16px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:20px;color:#fbbf24;font-size:13px;font-weight:500;letter-spacing:.5px;margin-bottom:18px}
+.hero h1{font-size:clamp(26px,4.5vw,40px);font-weight:800;color:#fff;line-height:1.25;margin-bottom:12px}
+.hero p{font-size:15px;color:#94a3b8;max-width:640px;margin:0 auto}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px 64px}
+.note-box{background:#fffbeb;border:1px solid #fde68a;border-left:4px solid #f59e0b;border-radius:10px;padding:16px 18px;margin:-32px auto 28px;max-width:1100px;position:relative;z-index:3;font-size:13.5px;color:#78350f;line-height:1.7}
+.note-box b{color:#92400e}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
+.scard{background:#fff;border-radius:12px;padding:18px 16px;text-align:center;box-shadow:0 1px 3px rgba(15,23,42,.06)}
+.scard .k{font-size:13px;color:#64748b;margin-bottom:6px}
+.scard .v{font-size:26px;font-weight:800}
+.scard .v.buy{color:#dc2626}
+.scard .v.sell{color:#16a34a}
+.scard .v.neutral{color:#64748b}
+.sec-title{font-size:19px;font-weight:700;margin:8px 0 14px;display:flex;align-items:center;gap:8px}
+.sec-title .dot{width:8px;height:8px;border-radius:50%;background:#f59e0b}
+.table-card{background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(15,23,42,.06);overflow:hidden;margin-bottom:30px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+thead th{background:#0f172a;color:#e2e8f0;font-weight:600;padding:12px 12px;text-align:left;white-space:nowrap}
+tbody td{padding:11px 12px;border-bottom:1px solid #eef2f7;vertical-align:middle}
+tbody tr:hover{background:#f8fafc}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#475569;font-size:12.5px}
+.name{font-weight:600;color:#1e293b}
+.tag{display:inline-block;padding:2px 9px;background:#eef2ff;border:1px solid #c7d2fe;color:#4338ca;border-radius:6px;font-size:12px}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.num.up{color:#dc2626;font-weight:600}
+.num.down{color:#16a34a;font-weight:600}
+.note{color:#64748b;font-size:12.5px;min-width:230px}
+.na{color:#94a3b8;font-style:italic}
+.sig{display:inline-block;padding:3px 10px;border-radius:6px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.sig-buy{background:#fee2e2;color:#dc2626;border:1px solid #fecaca}
+.sig-sell{background:#dcfce7;color:#16a34a;border:1px solid #bbf7d0}
+.sig-neutral{background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0}
+.method{background:#fff;border-radius:12px;padding:22px 24px;box-shadow:0 1px 3px rgba(15,23,42,.06);font-size:13.5px;color:#475569;line-height:1.8}
+.method h3{font-size:16px;color:#1e293b;margin:4px 0 10px}
+.method ul{margin:0 0 0 18px}
+.method li{margin-bottom:6px}
+.disclaimer{margin-top:22px;font-size:12px;color:#94a3b8;text-align:center;line-height:1.7}
+.readme-cta{max-width:1100px;margin:0 auto 22px;background:#0f172a;color:#e2e8f0;border-radius:12px;padding:14px 20px;text-align:center;font-size:14px}
+.readme-cta a{color:#fbbf24;font-weight:700}
+@media(max-width:760px){.summary{grid-template-columns:repeat(2,1fr)}.note{min-width:0}table{font-size:12px}thead th:nth-child(9),tbody td:nth-child(9){display:none}}
+</style>
+</head>
+<body>
+<div class="breadcrumb"><a href="index.html">伯克希尔数据中心</a><span>›</span><a href="berkshire-standalone.html">数据中心</a><span>›</span><a href="berkshire-index-investing.html">指数投资</a><span>›</span><span class="current">国家队 ETF 信号</span></div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">国家队资金流向 · 信号参考</div>
+    <h1>国家队 ETF 买卖信号参考</h1>
+    <p>以宽基核心 ETF 的「超大单 + 主力净流入」方向刻画汇金等护盘资金动向，为抄底与离场提供逆向参考。</p>
+  </div>
+</header>
+
+<div class="note-box">
+  <b>口径与限制：</b>本页为<strong>静态快照</strong>（数据日期 2026-07-21 00:00:00，盘口更新 2026-07-21 16:12:01+08:00），<strong>非实时刷新</strong>。
+  信号以<strong>超大单净流入 + 主力净流入方向</strong>为主、最新份额为体量参考。
+  受沙箱数据源限制，<strong>ETF 历史份额序列暂不可得，「份额变化」日环比信号尚未启用</strong>；待日后接入日更自动累积历史后开通。
+  信号仅为资金行为刻画，<strong>不构成任何投资建议</strong>。
+</div>
+
+<div class="wrap">
+  <div class="summary">
+    <div class="scard"><div class="k">国家队态势</div><div class="v buy">积极托盘（强）</div></div>
+    <div class="scard"><div class="k">核心篮子·买入信号</div><div class="v buy">5</div></div>
+    <div class="scard"><div class="k">核心篮子·中性</div><div class="v neutral">0</div></div>
+    <div class="scard"><div class="k">核心篮子·卖出信号</div><div class="v sell">1</div></div>
+  </div>
+
+  <div class="sec-title"><span class="dot"></span>核心宽基篮子（主信号）</div>
+  <div class="table-card">
+    <table>
+      <thead><tr>
+        <th>代码</th><th>名称</th><th>宽基</th><th>最新份额</th><th>涨跌幅</th>
+        <th>超大单净流入</th><th>主力净流入</th><th>信号</th><th>解读</th>
+      </tr></thead>
+      <tbody>
+<tr>
+      <td class="mono">510300</td>
+      <td class="name">沪深300ETF华泰柏瑞</td>
+      <td class="tag">沪深300</td>
+      <td class="num">244.22亿份</td>
+      <td class="num up">+2.95%</td>
+      <td class="num up">+4.46亿</td>
+      <td class="num up">+8.35亿</td>
+      <td><span class="sig sig-buy">强买入·强</span></td>
+      <td class="note">顺势流入：资金与价格同向，多头占优</td>
+    </tr>
+<tr>
+      <td class="mono">510500</td>
+      <td class="name">中证500ETF南方</td>
+      <td class="tag">中证500</td>
+      <td class="num">61.73亿份</td>
+      <td class="num up">+4.93%</td>
+      <td class="num up">+5.39亿</td>
+      <td class="num up">+4.63亿</td>
+      <td><span class="sig sig-buy">强买入·强</span></td>
+      <td class="note">顺势流入：资金与价格同向，多头占优</td>
+    </tr>
+<tr>
+      <td class="mono">512100</td>
+      <td class="name">中证1000ETF南方</td>
+      <td class="tag">中证1000</td>
+      <td class="num">97.41亿份</td>
+      <td class="num up">+4.08%</td>
+      <td class="num down">-3.39亿</td>
+      <td class="num down">-0.95亿</td>
+      <td><span class="sig sig-sell">强卖出·中</span></td>
+      <td class="note">逢高兑现：价格上涨但大单净流出，疑似获利了结</td>
+    </tr>
+<tr>
+      <td class="mono">510050</td>
+      <td class="name">上证50ETF华夏</td>
+      <td class="tag">上证50</td>
+      <td class="num">83.22亿份</td>
+      <td class="num up">+2.39%</td>
+      <td class="num up">+16.38亿</td>
+      <td class="num up">+4.93亿</td>
+      <td><span class="sig sig-buy">强买入·强</span></td>
+      <td class="note">顺势流入：资金与价格同向，多头占优</td>
+    </tr>
+<tr>
+      <td class="mono">588000</td>
+      <td class="name">科创50ETF华夏</td>
+      <td class="tag">科创50</td>
+      <td class="num">374.25亿份</td>
+      <td class="num up">+11.07%</td>
+      <td class="num up">+3.03亿</td>
+      <td class="num up">+7.94亿</td>
+      <td><span class="sig sig-buy">强买入·中</span></td>
+      <td class="note">顺势流入：资金与价格同向，多头占优</td>
+    </tr>
+<tr>
+      <td class="mono">159915</td>
+      <td class="name">创业板ETF易方达</td>
+      <td class="tag">创业板指</td>
+      <td class="num">176.39亿份</td>
+      <td class="num up">+6.67%</td>
+      <td class="num up">+17.14亿</td>
+      <td class="num up">+13.41亿</td>
+      <td><span class="sig sig-buy">强买入·强</span></td>
+      <td class="note">顺势流入：资金与价格同向，多头占优</td>
+    </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-title"><span class="dot"></span>扩展观察篮子（交叉验证）</div>
+  <div class="table-card">
+    <table>
+      <thead><tr>
+        <th>代码</th><th>名称</th><th>宽基</th><th>最新份额</th><th>涨跌幅</th>
+        <th>超大单净流入</th><th>主力净流入</th><th>信号</th><th>解读</th>
+      </tr></thead>
+      <tbody>
+<tr>
+      <td class="mono">510310</td>
+      <td class="name">沪深300ETF易方达</td>
+      <td class="tag">沪深300</td>
+      <td class="num">110.19亿份</td>
+      <td class="num up">+2.83%</td>
+      <td class="num down">-2.33亿</td>
+      <td class="num up">+0.07亿</td>
+      <td><span class="sig sig-sell">偏卖出·强</span></td>
+      <td class="note">逢高兑现：价格上涨但大单净流出，疑似获利了结</td>
+    </tr>
+<tr>
+      <td class="mono">159919</td>
+      <td class="name">沪深300ETF嘉实</td>
+      <td class="tag">沪深300</td>
+      <td class="num">63.74亿份</td>
+      <td class="num up">+2.57%</td>
+      <td class="num up">+3.80亿</td>
+      <td class="num up">+1.45亿</td>
+      <td><span class="sig sig-buy">强买入·强</span></td>
+      <td class="note">顺势流入：资金与价格同向，多头占优</td>
+    </tr>
+<tr>
+      <td class="mono">510510</td>
+      <td class="name">中证500ETF广发</td>
+      <td class="tag">中证500</td>
+      <td class="num">9.83亿份</td>
+      <td class="num up">+5.61%</td>
+      <td class="num down">-0.03亿</td>
+      <td class="num up">+0.12亿</td>
+      <td><span class="sig sig-sell">偏卖出·强</span></td>
+      <td class="note">逢高兑现：价格上涨但大单净流出，疑似获利了结</td>
+    </tr>
+<tr>
+      <td class="mono">560010</td>
+      <td class="name">中证1000ETF广发</td>
+      <td class="tag">中证1000</td>
+      <td class="num">19.49亿份</td>
+      <td class="num up">+4.34%</td>
+      <td class="num down">-2.28亿</td>
+      <td class="num up">+0.00亿</td>
+      <td><span class="sig sig-sell">偏卖出·强</span></td>
+      <td class="note">逢高兑现：价格上涨但大单净流出，疑似获利了结</td>
+    </tr>
+<tr>
+      <td class="mono">588080</td>
+      <td class="name">科创50ETF易方达</td>
+      <td class="tag">科创50</td>
+      <td class="num">220.52亿份</td>
+      <td class="num up">+10.91%</td>
+      <td class="num down">-0.07亿</td>
+      <td class="num up">+2.39亿</td>
+      <td><span class="sig sig-sell">偏卖出·强</span></td>
+      <td class="note">逢高兑现：价格上涨但大单净流出，疑似获利了结</td>
+    </tr>
+<tr>
+      <td class="mono">159949</td>
+      <td class="name">创业板50ETF华安</td>
+      <td class="tag">创业板50</td>
+      <td class="num">132.79亿份</td>
+      <td class="num up">+6.97%</td>
+      <td class="num down">-0.88亿</td>
+      <td class="num up">+1.34亿</td>
+      <td><span class="sig sig-sell">偏卖出·中</span></td>
+      <td class="note">逢高兑现：价格上涨但大单净流出，疑似获利了结</td>
+    </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="method">
+    <h3>信号计算方法</h3>
+    <ul>
+      <li><b>主信号</b>：score = 2×sign(超大单净流入) + sign(主力净流入)。score ≥ +3 为「强买入」，≤ −3 为「强卖出」，0 为「中性」。</li>
+      <li><b>强度</b>：取 |超大单净占比| 与 |主力净占比| 之较大者，≥5% 为「强」、≥2% 为「中」、其余为「弱」。</li>
+      <li><b>逆势托盘识别</b>：当涨跌幅 &lt; 0 但大单净流入 &gt; 0，标注「逆势托盘」——典型国家队借跌吸筹特征。</li>
+      <li><b>体量参考</b>：最新份额反映 ETF 规模，国家队护盘优先选择高流动性宽基（沪深300/中证500/中证1000/上证50/科创50/创业板）。</li>
+      <li><b>综合态势</b>：统计核心篮子中买入/卖出信号数量，≥4 个买入判「积极托盘」、≥4 个卖出判「明显撤离」。</li>
+    </ul>
+    <h3 style="margin-top:16px">数据源与更新</h3>
+    <ul>
+      <li>实时盘口：akshare <code>fund_etf_spot_em()</code>（东方财富）。</li>
+      <li>本页为手动生成快照，按需重跑 <code>_build_national_team_etf.py</code> 刷新；日更自动累积后将在表内新增「份额变化」列。</li>
+    </ul>
+  </div>
+
+  <div class="readme-cta">📖 看不懂信号、想知道怎么读、别踩哪些坑？读这篇 <a href="berkshire-national-team-etf-readme.html">国家队 ETF 信号 · 人话解读 →</a></div>
+
+  <div class="disclaimer">
+    本页所有信号均基于公开盘口数据的机械刻画，仅用于研究与学习，<b>不构成任何投资建议</b>。市场有风险，决策需独立判断。<br>
+    伯克希尔数据中心 · 个人研究用途 · 数据日期 2026-07-21 00:00:00
+  </div>
+</div>
+</body>
+</html>
