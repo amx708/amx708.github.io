@@ -85,6 +85,28 @@ def categorize(rel_path: str, title: str) -> tuple:
 
     if "berkshire-robot-chain" in lower and "coming" not in lower:
         return "机器人产业链", 40
+    if "berkshire-baijiu-methodology" in lower or "berkshire-baijiu-cycle" in lower or "berkshire-baijiu-backtest" in lower or "berkshire-baijiu-thermometer" in lower or "berkshire-baijiu-backtest-detail" in lower:
+        return "白酒产业链", 40
+    if "berkshire-baijiu-chain" in lower and "coming" not in lower:
+        return "白酒产业链", 40
+    if "berkshire-tcm-chain" in lower and "coming" not in lower:
+        return "中药产业链", 40
+    if "berkshire-innov-chain" in lower and "coming" not in lower:
+        return "创新药产业链", 40
+    if "berkshire-appliance-chain" in lower and "coming" not in lower:
+        return "家电产业链", 40
+    if "berkshire-power-chain" in lower and "coming" not in lower:
+        return "电力产业链", 40
+    if "berkshire-coal-chain" in lower and "coming" not in lower:
+        return "煤炭产业链", 40
+    if "berkshire-metal-chain" in lower and "coming" not in lower:
+        return "有色产业链", 40
+    if "berkshire-chem-chain" in lower and "coming" not in lower:
+        return "化工产业链", 40
+    if "berkshire-equip-chain" in lower and "coming" not in lower:
+        return "电力设备产业链", 40
+    if "berkshire-bank" in lower and "coming" not in lower:
+        return "银行业图谱", 40
     if p == "index.html":
         return "首页", 1
     if "meetings_content/full_en/" in lower:
@@ -157,6 +179,73 @@ def categorize(rel_path: str, title: str) -> tuple:
         "berkshire-ai-chain-power.html": ("AI产业链", 40),
         "berkshire-robot-chains.html": ("机器人产业链", 40),
         "berkshire-robot-chain-tesla.html": ("机器人产业链", 40),
+        "berkshire-baijiu-chains.html": ("白酒产业链", 40),
+        "berkshire-baijiu-chain-maotai.html": ("白酒产业链", 40),
+        "berkshire-baijiu-chain-wuliangye.html": ("白酒产业链", 40),
+        "berkshire-baijiu-chain-luzhou.html": ("白酒产业链", 40),
+        "berkshire-baijiu-chain-fenjiu.html": ("白酒产业链", 40),
+        "berkshire-baijiu-chain-yanghe.html": ("白酒产业链", 40),
+        "berkshire-baijiu-chain-gujing.html": ("白酒产业链", 40),
+        "berkshire-baijiu-chain-jinshiyuan.html": ("白酒产业链", 40),
+        "berkshire-baijiu-chain-shede.html": ("白酒产业链", 40),
+        "berkshire-baijiu-chain-yingjia.html": ("白酒产业链", 40),
+        "berkshire-baijiu-chain-shuijingfang.html": ("白酒产业链", 40),
+        "berkshire-baijiu-chain-jiugui.html": ("白酒产业链", 40),
+        "berkshire-baijiu-chain-kouzijiao.html": ("白酒产业链", 40),
+        "berkshire-baijiu-chain-shunxin.html": ("白酒产业链", 40),
+        "berkshire-baijiu-methodology.html": ("白酒产业链", 40),
+        "berkshire-baijiu-cycle.html": ("白酒产业链", 40),
+        "berkshire-baijiu-backtest.html": ("白酒产业链", 40),
+        "berkshire-baijiu-thermometer.html": ("白酒产业链", 40),
+        "berkshire-baijiu-backtest-detail.html": ("白酒产业链", 40),
+        "berkshire-bank-chains.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-icbc.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-ccb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-abc.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-boc.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-bocom.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-psbc.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-cmb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-citic.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-spdb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-indy.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-cmbc.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-ceb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-hxb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-pab.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-czb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-bobj.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-njcb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-nib.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-shb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-jsb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-hzb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-cdb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-csb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-cqb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-qdb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-zzb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-szb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-xab.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-xmb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-qlb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-gyb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-lzb.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-cqrc.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-qrc.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-changshu.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-zijin.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-wuxi.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-zjg.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-sunong.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-jiangyin.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-ruifeng.html": ("银行业图谱", 40),
+        "berkshire-bank-chain-shnc.html": ("银行业图谱", 40),
+        "berkshire-bank-methodology.html": ("银行业图谱", 40),
+        "berkshire-bank-cycle.html": ("银行业图谱", 40),
+        "berkshire-bank-backtest.html": ("银行业图谱", 40),
+        "berkshire-bank-thermometer.html": ("银行业图谱", 40),
+        "berkshire-bank-backtest-detail.html": ("银行业图谱", 40),
     }
     if p in page_map:
         return page_map[p]

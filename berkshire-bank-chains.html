@@ -140,6 +140,23 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 .cost-note p{margin:0 0 10px}
 
 </style>
+<style>
+
+/* 员工效率与景气度 */
+.emp-block{margin:6px 0 2px}
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
+.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
+.emp-val{font-size:18px;font-weight:700;color:#0f172a}
+.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
+.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
+.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
+.emp-signal b{font-weight:700}
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+
+</style>
 </head><body>
 <div class="nav"><div class="nav-in">
 <div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 银行图谱</div>
@@ -182,6 +199,59 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
   <div class="cost-note"><p><b>10 年期国债收益率（以国债期货价格近似）是银行股的"估值锚"</b>。银行资产端（贷款 / 债券）收益与长端利率高度相关：利率下行→资产收益率降、净息差(NIM)承压，但债券估值升；利率上行→NIM 修复、但债券估值跌，估值(PB)端取决于"资产收益 vs 折现率"的博弈。</p>
 <p>历史上：2021–2022 降息周期银行 PB 持续破净（普遍 0.4–0.7x）；2023–2024 地产风险暴露 + 让利实体→PB 低位；2025 后化债推进 + 高股息防御逻辑→部分优质行 PB 修复，但多数仍破净。</p>
 <p><b>怎么读</b>：银行看"低 PB + 高股息 + 资产质量改善"。当前 10Y 国债期货约 <b>109.16</b>（价格高位 = 收益率低位），利率环境对银行息差仍偏压制，但高股息属性在资产荒下支撑估值。分位表帮你看清每家行 PB 在历史便宜与否——破净≠便宜，要看资产质量与分红持续性。</p></div>
+</div>
+
+<div class="section-title">员工效率与景气度排行（银行 42 家）</div>
+<div class="ovtable"><table>
+<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>景气度</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-bank-chain-xab.html">西安银行</a></td><td>3,251</td><td class="num up">+2157.64%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-qlb.html">齐鲁银行</a></td><td>5,977</td><td class="num up">+5.32%</td><td class="num">¥219.8万</td><td class="num">¥95.6万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-qdb.html">青岛银行</a></td><td>5,571</td><td class="num up">+4.88%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-lzb.html">兰州银行</a></td><td>4,431</td><td class="num up">+3.53%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-wuxi.html">无锡银行</a></td><td>1,797</td><td class="num up">+2.63%</td><td class="num">¥268.2万</td><td class="num">¥128.5万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-jiangyin.html">江阴银行</a></td><td>1,747</td><td class="num up">+2.04%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-zijin.html">紫金银行</a></td><td>2,490</td><td class="num up">+1.59%</td><td class="num">¥1.40亿</td><td class="num">¥2079.4万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-changshu.html">常熟银行</a></td><td>7,473</td><td class="num up">+0.99%</td><td class="num">¥398</td><td class="num">¥145</td><td><span class="emp-badge" style="background:#f8fafc;color:#475569">平稳微利</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-abc.html">农业银行</a></td><td>457,835</td><td class="num up">+0.69%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f8fafc;color:#64748b">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-xmb.html">厦门银行</a></td><td>3,854</td><td class="num up">+0.36%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f8fafc;color:#64748b">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-csb.html">长沙银行</a></td><td>9,798</td><td class="num up">+0.19%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f8fafc;color:#64748b">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-indy.html">兴业银行</a></td><td>75</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-ruifeng.html">瑞丰银行</a></td><td>2,134</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cdb.html">成都银行</a></td><td>7,847</td><td class="num down">-0.41%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f8fafc;color:#64748b">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-sunong.html">苏农银行</a></td><td>1,967</td><td class="num down">-0.41%</td><td class="num">¥214.2万</td><td class="num">¥103.9万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-gyb.html">贵阳银行</a></td><td>6,484</td><td class="num down">-0.77%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f8fafc;color:#64748b">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-spdb.html">浦发银行</a></td><td>62,198</td><td class="num down">-1.25%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f8fafc;color:#64748b">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-szb.html">苏州银行</a></td><td>5,920</td><td class="num down">-1.60%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f8fafc;color:#64748b">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-zzb.html">郑州银行</a></td><td>6,052</td><td class="num down">-2.07%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-zjg.html">张家港行</a></td><td>2,396</td><td class="num down">-2.28%</td><td class="num">¥55.3万</td><td class="num">¥23.5万</td><td><span class="emp-badge" style="background:#fffbeb;color:#b45309">收缩增效</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-hzb.html">杭州银行</a></td><td>232</td><td class="num down">-3.33%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-ccb.html">建设银行</a></td><td>21,204</td><td class="num down">-3.84%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-shnc.html">沪农商行</a></td><td>529</td><td class="num down">-29.75%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-shb.html">上海银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-citic.html">中信银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-boc.html">中国银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-bocom.html">交通银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-ceb.html">光大银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-bobj.html">北京银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-hxb.html">华夏银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-njcb.html">南京银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-nib.html">宁波银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-icbc.html">工商银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-pab.html">平安银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cmb.html">招商银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cmbc.html">民生银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-jsb.html">江苏银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-czb.html">浙商银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cqrc.html">渝农商行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-psbc.html">邮储银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cqb.html">重庆银行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-qrc.html">青农商行</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">员工增速=在职员工同比；人均营收/净利=2025 营收(元)÷员工数。已覆盖 23/42 家员工数据，
+其余为非 A 股主体或年报未披露标准口径，标「数据不足」。排序：有数据优先、按员工增速降序。
+景气度信号由「员工增速分档 × 人均盈利分档 × 人均营收趋势」组合判定，为代理指标，非投资建议。</div>
 </div>
 
 <div class="section-title">银行图谱（点击进入逐家详情）</div>
