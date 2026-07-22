@@ -107,6 +107,21 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 .cmp-sel{font-size:12.5px;color:var(--mut);margin:6px 0}
 .cmp-good{color:var(--green);font-weight:600}
 .cmp-bad{color:var(--red);font-weight:600}
+
+.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.fin-title .icon{color:#64748b}
+.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px}
+.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.fin-table tr{border-bottom:1px solid #eef2f7}
+.fin-table tr:last-child{border-bottom:none}
+.fin-table td{padding:10px 14px;font-size:13px;color:#334155}
+.fin-table td:first-child{width:130px;color:#64748b}
+.fin-table .val{color:#b45309;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+.poisson-char{font-family:"Segoe UI","Microsoft YaHei",Arial,sans-serif;font-variant-emoji:text;-webkit-font-variant-emoji:text}
+.poisson-pill{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700}
 </style>
 <style>
 /* P0 估值历史分位 + 成本传导（扩展链） */
@@ -276,16 +291,17 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <h3 class="section-title">关键事件时间线</h3>
 <div class="timeline"><div>2023 估值跌至0.4x历史极低</div><div>2024 中期分红</div><div>2025 注资</div><div>2026 PB修复至0.51x</div></div><div class="note">框架知识：银行看三张表——资产质量（不良率/拨备/逾期偏离度）、盈利能力（NIM/ROE/中收）、资本与估值（核心一级资本充足率/PB/股息率）。详见<a href="berkshire-bank-methodology.html" style="color:var(--accent)">银行方法论文</a>。</div>
 </div><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露），估值=2026-07-12行情 ｜ 内容仅供研究参考，不构成投资建议</footer>
+
 <div class="section-title">泊松信号（跳变频率参考）</div>
 <div class="fin-block">
-  <div class="fin-head"><div class="fin-title"><span class="icon">📡</span> 泊松过程 λ 信号</div><span class="fin-tag">近36个月</span></div>
+  <div class="fin-head"><div class="fin-title"><span class="icon">📡</span> 泊松过程 <span class="poisson-char">λ</span> 信号</div><span class="fin-tag">近36个月</span></div>
   <table class="fin-table">
-    <tr><td>λ净（λ↑−λ↓）</td><td class="val">+0.000</td></tr>
-    <tr><td>λ↑ 多头跳变/月</td><td class="val">0.000</td></tr>
-    <tr><td>λ↓ 空头跳变/月</td><td class="val">0.000</td></tr>
+    <tr><td><span class="poisson-char">λ</span>净（<span class="poisson-char">λ</span><span class="poisson-char">↑</span>−<span class="poisson-char">λ</span><span class="poisson-char">↓</span>）</td><td class="val">+0.000</td></tr>
+    <tr><td><span class="poisson-char">λ</span><span class="poisson-char">↑</span> 多头跳变/月</td><td class="val">0.000</td></tr>
+    <tr><td><span class="poisson-char">λ</span><span class="poisson-char">↓</span> 空头跳变/月</td><td class="val">0.000</td></tr>
     <tr><td>观察期总收益</td><td class="val">+44.3%</td></tr>
     <tr><td>跳变月数（涨/跌）</td><td class="val">0 / 0</td></tr>
-    <tr><td>信号分类</td><td class="val" style="color:#64748b;font-weight:700">空头主导</td></tr>
+    <tr><td>信号分类</td><td class="val"><span class="poisson-pill" style="color:#64748b;background:rgba(100,116,139,0.1);border:1px solid rgba(100,116,139,0.25)">空头主导</span></td></tr>
   </table>
   <div class="fin-note">基于近36个月月收益，单月涨跌≥15%计一次跳变；λ净&gt;0 且总收益&gt;0 为入选信号。本指标仅反映价格跳变频率与方向，<b>不替代估值与基本面</b>，不构成投资建议。采集日 20260722。</div>
 </div>
