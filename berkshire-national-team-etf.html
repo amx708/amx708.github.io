@@ -56,6 +56,8 @@ tbody tr:hover{background:#f8fafc}
 .disclaimer{margin-top:22px;font-size:12px;color:#94a3b8;text-align:center;line-height:1.7}
 .readme-cta{max-width:1100px;margin:0 auto 22px;background:#0f172a;color:#e2e8f0;border-radius:12px;padding:14px 20px;text-align:center;font-size:14px}
 .readme-cta a{color:#fbbf24;font-weight:700}
+/*sort-table*/
+.sortable thead th{cursor:pointer;user-select:none}.sortable thead th:hover{background:#1e3a5f}.sortable thead th::after{content:'';display:inline-block;width:6px;height:10px;margin-left:6px;opacity:.4}.sortable thead th.asc::after{content:'▲';opacity:1;color:#fbbf24}.sortable thead th.desc::after{content:'▼';opacity:1;color:#fbbf24}
 @media(max-width:760px){.summary{grid-template-columns:repeat(2,1fr)}.note{min-width:0}table{font-size:12px}thead th:nth-child(9),tbody td:nth-child(9){display:none}}
 </style>
 </head>
@@ -66,7 +68,7 @@ tbody tr:hover{background:#f8fafc}
   <div class="hero-content">
     <div class="hero-badge">国家队资金流向 · 信号参考</div>
     <h1>国家队 ETF 买卖信号参考</h1>
-    <p>以宽基核心 ETF 的「超大单 + 主力净流入」方向刻画汇金等护盘资金动向，为抄底与离场提供逆向参考。</p>
+    <p>以宽基核心 ETF 的「超大单 + 主力净流入」方向刻画汇金等护盘资金动向，叠加国新/诚通直投持仓图谱，为抄底与离场提供逆向参考。</p>
   </div>
 </header>
 
@@ -80,9 +82,9 @@ tbody tr:hover{background:#f8fafc}
 <div class="wrap">
   <div class="summary">
     <div class="scard"><div class="k">国家队态势</div><div class="v buy">积极托盘（强）</div></div>
-    <div class="scard"><div class="k">核心篮子·买入信号</div><div class="v buy">5</div></div>
-    <div class="scard"><div class="k">核心篮子·中性</div><div class="v neutral">0</div></div>
-    <div class="scard"><div class="k">核心篮子·卖出信号</div><div class="v sell">1</div></div>
+    <div class="scard"><div class="k">国新直投 · 持仓市值</div><div class="v buy">560亿（22只）</div></div>
+    <div class="scard"><div class="k">诚通系直投 · 持仓市值</div><div class="v neutral">69亿（16只）</div></div>
+    <div class="scard"><div class="k">7月新增再贷款</div><div class="v buy">国新500亿 + 诚通1000亿</div></div>
   </div>
 
   <div class="sec-title"><span class="dot"></span>核心宽基篮子（主信号）</div>
@@ -241,6 +243,71 @@ tbody tr:hover{background:#f8fafc}
     </table>
   </div>
 
+  <!-- national-team-direct-holdings -->
+  <div class="sec-title"><span class="dot"></span>国新投资直投持仓（22只 · 合计560亿）</div>
+  <div class="note-box" style="margin-bottom:18px">
+    <b>定位：</b>国新投资隶属中国国新控股，聚焦<strong>科技创新与战略性新兴产业</strong>，以电子/通信/国防军工为主。7月19日动用专项再贷款<strong>增持超500亿元</strong>。以下为截至2026年Q1前十大流通股东持仓，数据源Wind/东方财富。
+  </div>
+  <div class="table-card">
+    <table class="sortable">
+      <thead><tr>
+        <th data-type="name">代码</th><th data-type="name">名称</th><th data-type="name">行业</th><th data-type="num">持股(万股)</th><th data-type="num">市值(亿)</th><th data-type="name">变动</th><th data-type="name">信号</th>
+      </tr></thead>
+      <tbody>
+<tr><td class="mono">002371</td><td class="name">北方华创</td><td class="tag">电子</td><td class="num">2282.38</td><td class="num up">102.02</td><td><span class="sig sig-buy">增持</span></td><td class="note">半导体设备龙头，国新第一大持仓</td></tr>
+<tr><td class="mono">688981</td><td class="name">中芯国际</td><td class="tag">电子</td><td class="num">4333.62</td><td class="num up">40.76</td><td><span class="sig sig-buy">新进</span></td><td class="note">晶圆代工龙头，Q1新进重仓</td></tr>
+<tr><td class="mono">601919</td><td class="name">中远海控</td><td class="tag">交通运输</td><td class="num">23045.43</td><td class="num up">34.59</td><td><span class="sig sig-neutral">未变</span></td><td class="note">全球航运龙头，体量持仓</td></tr>
+<tr><td class="mono">601088</td><td class="name">中国神华</td><td class="tag">煤炭</td><td class="num">13270.87</td><td class="num">—</td><td><span class="sig sig-buy">增持</span></td><td class="note">煤电一体化央企</td></tr>
+<tr><td class="mono">601899</td><td class="name">紫金矿业</td><td class="tag">有色金属</td><td class="num">25386.07</td><td class="num">—</td><td><span class="sig sig-buy">增持</span></td><td class="note">全球铜金矿龙头</td></tr>
+<tr><td class="mono">301269</td><td class="name">华大九天 ★</td><td class="tag">计算机</td><td class="num">2176.57</td><td class="num up">17.66</td><td><span class="sig sig-buy">增持</span></td><td class="note">EDA软件，与诚旸联合持仓</td></tr>
+<tr><td class="mono">003031</td><td class="name">中瓷电子 ★</td><td class="tag">通信</td><td class="num">1765.79</td><td class="num">13.25</td><td><span class="sig sig-sell">减持</span></td><td class="note">光通信器件，与诚通联合持仓</td></tr>
+<tr><td class="mono">601106</td><td class="name">中国一重</td><td class="tag">机械设备</td><td class="num">27431.13</td><td class="num">11.88</td><td><span class="sig sig-neutral">未变</span></td><td class="note">重型机械央企</td></tr>
+<tr><td class="mono">688037</td><td class="name">芯源微</td><td class="tag">电子</td><td class="num">702.65</td><td class="num">11.77</td><td><span class="sig sig-neutral">未变</span></td><td class="note">涂胶显影设备</td></tr>
+<tr><td class="mono">600760</td><td class="name">中航沈飞</td><td class="tag">国防军工</td><td class="num">1890.53</td><td class="num">9.28</td><td><span class="sig sig-buy">增持</span></td><td class="note">歼击机总装</td></tr>
+<tr><td class="mono">000657</td><td class="name">中钨高新</td><td class="tag">有色金属</td><td class="num">8723.02</td><td class="num">—</td><td><span class="sig sig-buy">增持</span></td><td class="note">硬质合金龙头</td></tr>
+<tr><td class="mono">002281</td><td class="name">光迅科技</td><td class="tag">通信</td><td class="num">2913.52</td><td class="num">—</td><td><span class="sig sig-buy">增持</span></td><td class="note">光模块/光器件</td></tr>
+<tr><td class="mono">600206</td><td class="name">有研新材</td><td class="tag">电子</td><td class="num">2061.72</td><td class="num">—</td><td><span class="sig sig-neutral">未变</span></td><td class="note">稀土功能材料</td></tr>
+<tr><td class="mono">300034</td><td class="name">钢研高纳</td><td class="tag">国防军工</td><td class="num">2805.54</td><td class="num">—</td><td><span class="sig sig-neutral">未变</span></td><td class="note">高温合金</td></tr>
+<tr><td class="mono">600038</td><td class="name">中直股份</td><td class="tag">国防军工</td><td class="num">1551.26</td><td class="num">—</td><td><span class="sig sig-neutral">未变</span></td><td class="note">直升机总装</td></tr>
+<tr><td class="mono">300073</td><td class="name">当升科技</td><td class="tag">电力设备</td><td class="num">1694.45</td><td class="num">—</td><td><span class="sig sig-sell">减持</span></td><td class="note">锂电正极材料</td></tr>
+<tr><td class="mono">688027</td><td class="name">国盾量子</td><td class="tag">通信</td><td class="num">135.44</td><td class="num">—</td><td><span class="sig sig-buy">新进</span></td><td class="note">量子通信，Q1新进</td></tr>
+<tr><td class="mono">000625</td><td class="name">长安汽车</td><td class="tag">汽车</td><td class="num">4739.06</td><td class="num">—</td><td><span class="sig sig-neutral">未变</span></td><td class="note">央企整车</td></tr>
+<tr><td class="mono">001280</td><td class="name">中国铀业</td><td class="tag">核电</td><td class="num">15257.46</td><td class="num">—</td><td><span class="sig sig-neutral">未变</span></td><td class="note">铀矿央企（限售流通股）</td></tr>
+<tr><td class="mono">601868</td><td class="name">中国能建</td><td class="tag">电力建筑</td><td class="num">20293.79</td><td class="num">—</td><td><span class="sig sig-neutral">未变</span></td><td class="note">电力工程央企（持股4.87%）</td></tr>
+<tr><td class="mono">600938</td><td class="name">中国海油</td><td class="tag">石油</td><td class="num">15313.62</td><td class="num">—</td><td><span class="sig sig-neutral">未变</span></td><td class="note">海上油气龙头</td></tr>
+<tr><td class="mono">600535</td><td class="name">天士力</td><td class="tag">医药</td><td class="num">7469.75</td><td class="num">—</td><td><span class="sig sig-neutral">未变</span></td><td class="note">中药创新药</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-title"><span class="dot"></span>诚通系直投持仓（16只 · 合计69亿）</div>
+  <div class="note-box" style="margin-bottom:18px">
+    <b>定位：</b>诚通系含中国诚通控股、诚通金控、诚旸投资三主体，偏重<strong>计算机/机械设备/电力设备</strong>。7月19日累计<strong>增持近百亿元</strong>（再贷款额度1000亿）。以下为截至2026年Q1前十大流通股东持仓。
+  </div>
+  <div class="table-card">
+    <table class="sortable">
+      <thead><tr>
+        <th data-type="name">代码</th><th data-type="name">名称</th><th data-type="name">行业</th><th data-type="name">持股主体</th><th data-type="num">持股(万股)</th><th data-type="num">市值(亿)</th><th data-type="name">变动</th><th data-type="name">信号</th>
+      </tr></thead>
+      <tbody>
+<tr><td class="mono">600126</td><td class="name">杭钢股份</td><td class="tag">钢铁</td><td>诚通金控</td><td class="num">34386.54</td><td class="num up">29.43</td><td><span class="sig sig-neutral">未变</span></td><td class="note">诚通系第一大持仓，7月20日涨停</td></tr>
+<tr><td class="mono">600582</td><td class="name">天地科技</td><td class="tag">机械设备</td><td>诚通金控</td><td class="num">20692.95</td><td class="num">11.84</td><td><span class="sig sig-neutral">未变</span></td><td class="note">煤机装备龙头</td></tr>
+<tr><td class="mono">301269</td><td class="name">华大九天 ★</td><td class="tag">计算机</td><td>诚旸投资</td><td class="num">457.10</td><td class="num">3.71</td><td><span class="sig sig-buy">增持</span></td><td class="note">EDA软件，与国新联合持仓</td></tr>
+<tr><td class="mono">600968</td><td class="name">海油发展</td><td class="tag">石油</td><td>诚通金控</td><td class="num">6586.37</td><td class="num">2.96</td><td><span class="sig sig-buy">增持</span></td><td class="note">海上油田服务</td></tr>
+<tr><td class="mono">003031</td><td class="name">中瓷电子 ★</td><td class="tag">通信</td><td>诚通金控</td><td class="num">165.33</td><td class="num">1.24</td><td><span class="sig sig-buy">新进</span></td><td class="note">光通信器件，与国新联合持仓</td></tr>
+<tr><td class="mono">920116</td><td class="name">星图测控</td><td class="tag">计算机</td><td>诚通金控</td><td class="num">123.29</td><td class="num">1.11</td><td><span class="sig sig-sell">减持</span></td><td class="note">北交所，数字地球应用</td></tr>
+<tr><td class="mono">688009</td><td class="name">中国通号</td><td class="tag">机械设备</td><td>诚通金控</td><td class="num">—</td><td class="num">—</td><td><span class="sig sig-buy">新进</span></td><td class="note">轨道交通信号龙头，Q1新进</td></tr>
+<tr><td class="mono">600827</td><td class="name">东方电气</td><td class="tag">电力设备</td><td>诚通系</td><td class="num">—</td><td class="num">—</td><td><span class="sig sig-buy">新进</span></td><td class="note">发电设备央企，Q1新进</td></tr>
+<tr><td class="na">—</td><td class="na">其余8只详见公开财报</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="note">诚通系完整16只名单见每经/Wind源</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-box" style="margin-bottom:18px">
+    <b>★ 联合持仓：</b>国新与诚通均重仓<strong>中瓷电子</strong>（国新1765.79万股/13.25亿减持156.69万 + 诚通165.33万股/1.24亿新进）和<strong>华大九天</strong>（国新2176.57万股/17.66亿增持 + 诚旸457.10万股/3.71亿增持47.11万）。两大平台对同一标的操作方向不同，反映各自策略差异。<br>
+    <b>7月最新动作：</b>国新增持超<strong>500亿</strong>（专项再贷款）；诚通累计增持近<strong>100亿</strong>（再贷款额度1000亿）。7月20-21日38只重仓股反弹：杭钢/中国海油涨停→有研新材/芯源微/北方华创/中瓷电子涨停。
+  </div>
+
   <div class="method">
     <h3>信号计算方法</h3>
     <ul>
@@ -260,9 +327,31 @@ tbody tr:hover{background:#f8fafc}
   <div class="readme-cta">📖 看不懂信号、想知道怎么读、别踩哪些坑？读这篇 <a href="berkshire-national-team-etf-readme.html">国家队 ETF 信号 · 人话解读 →</a></div>
 
   <div class="disclaimer">
-    本页所有信号均基于公开盘口数据的机械刻画，仅用于研究与学习，<b>不构成任何投资建议</b>。市场有风险，决策需独立判断。<br>
-    伯克希尔数据中心 · 个人研究用途 · 数据日期 2026-07-21 00:00:00
+    本页所有信号均基于公开盘口数据的机械刻画，国新/诚通持仓数据基于2026年Q1财报前十大流通股东（数据源Wind/东方财富），仅用于研究与学习，<b>不构成任何投资建议</b>。市场有风险，决策需独立判断。<br>
+    伯克希尔数据中心 · 个人研究用途 · ETF数据 2026-07-21 / 持仓数据 2026-Q1
   </div>
 </div>
+<script>/*sort-js*/
+function num(v){if(!v||v==='—')return NaN;v=v.replace(/[¥,万亿%]/g,'');return parseFloat(v)}
+document.querySelectorAll('.sortable').forEach(function(t){
+  var ths=t.querySelectorAll('thead th');
+  ths.forEach(function(th,i){
+    th.addEventListener('click',function(){
+      var dt=th.getAttribute('data-type')||'name';
+      var dir=th.classList.contains('asc')?'desc':'asc';
+      ths.forEach(function(h){h.classList.remove('asc','desc')});
+      th.classList.add(dir);
+      var rows=Array.from(t.querySelectorAll('tbody tr'));
+      rows.sort(function(a,b){
+        var ca=a.children[i],cb=b.children[i];
+        var va=ca.textContent.trim(),vb=cb.textContent.trim();
+        if(dt==='num'){var na=num(va),nb=num(vb);if(isNaN(na)&&isNaN(nb))return 0;if(isNaN(na))return 1;if(isNaN(nb))return -1;return dir==='asc'?na-nb:nb-na}
+        return dir==='asc'?va.localeCompare(vb,'zh'):vb.localeCompare(va,'zh');
+      });
+      rows.forEach(function(r){t.querySelector('tbody').appendChild(r)});
+    });
+  });
+});
+</script>
 </body>
 </html>
