@@ -146,6 +146,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
 
 </style>
+<style>
+/* chain-sort */
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
+.sortable th:hover{background:#e0f2fe}
+.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
+.sortable th.asc .sort-ind::before{content:"▲";color:var(--accent)}
+.sortable th.desc .sort-ind::before{content:"▼";color:var(--accent)}
+</style>
+<!-- chain-sort -->
 </head>
 <body>
 <div class="top-bar">
@@ -196,8 +205,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 
 <div class="section-title">估值历史分位总览（电力设备 11 家）</div>
 <div class="ovtable">
-<table>
-<thead><tr><th>公司</th><th>PE(TTM)</th><th>PE 分位</th><th>PB</th><th>PB 分位</th></tr></thead>
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
 <tbody><tr><td><a href="berkshire-equip-chain-catl.html">宁德时代</a></td><td>21.32</td><td><span class="pct-cell pct-lo">15.8%</span></td><td>4.71</td><td><span class="pct-cell pct-lo">24.4%</span></td></tr><tr><td><a href="berkshire-equip-chain-longi.html">隆基绿能</a></td><td>-12.88</td><td>亏损</td><td>1.76</td><td><span class="pct-cell pct-lo">2.9%</span></td></tr><tr><td><a href="berkshire-equip-chain-sungrow.html">阳光电源</a></td><td>18.82</td><td><span class="pct-cell pct-lo">29.1%</span></td><td>4.61</td><td><span class="pct-cell pct-mid">49.0%</span></td></tr><tr><td><a href="berkshire-equip-chain-tongwei.html">通威股份</a></td><td>-5.11</td><td>亏损</td><td>1.38</td><td><span class="pct-cell pct-lo">1.1%</span></td></tr><tr><td><a href="berkshire-equip-chain-jinko.html">晶科能源</a></td><td>-6.12</td><td>亏损</td><td>1.68</td><td><span class="pct-cell pct-lo">0.6%</span></td></tr><tr><td><a href="berkshire-equip-chain-trina.html">天合光能</a></td><td>-4.73</td><td>亏损</td><td>1.39</td><td><span class="pct-cell pct-lo">14.0%</span></td></tr><tr><td><a href="berkshire-equip-chain-tebian.html">特变电工</a></td><td>15.81</td><td><span class="pct-cell pct-hi">72.0%</span></td><td>1.36</td><td><span class="pct-cell pct-hi">60.6%</span></td></tr><tr><td><a href="berkshire-equip-chain-nari.html">国电南瑞</a></td><td>21.23</td><td><span class="pct-cell pct-lo">13.0%</span></td><td>3.30</td><td><span class="pct-cell pct-lo">14.0%</span></td></tr><tr><td><a href="berkshire-equip-chain-dongfang.html">东方电气</a></td><td>22.21</td><td><span class="pct-cell pct-hi">64.4%</span></td><td>2.02</td><td><span class="pct-cell pct-hi">92.7%</span></td></tr><tr><td><a href="berkshire-equip-chain-chint.html">正泰电器</a></td><td>11.18</td><td><span class="pct-cell pct-lo">4.9%</span></td><td>1.13</td><td><span class="pct-cell pct-lo">8.1%</span></td></tr><tr><td><a href="berkshire-equip-chain-goldwind.html">金风科技</a></td><td>26.01</td><td><span class="pct-cell pct-hi">86.7%</span></td><td>2.04</td><td><span class="pct-cell pct-hi">63.5%</span></td></tr></tbody>
 </table>
 <div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
@@ -214,8 +223,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 
 <div class="section-title">R15 三维评级总览（装备 11 家）</div>
 <div class="ovtable">
-<table>
-<thead><tr><th>公司</th><th>相对估值星级</th><th>质量星级(ROE)</th><th>时机分</th><th>PE分位</th><th>PB分位</th></tr></thead>
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
 <tbody>
 <tr><td><a href="berkshire-equip-chain-dongfang.html">东方电气</a></td><td><span class="pct-cell pct-mid">合理</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-mid">0.9</span></td><td><span class="pct-cell pct-hi">64.4%</span></td><td><span class="pct-cell pct-hi">92.7%</span></td></tr>
 <tr><td><a href="berkshire-equip-chain-nari.html">国电南瑞</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-mid">★★★☆</span></td><td><span class="pct-cell pct-mid">0.9</span></td><td><span class="pct-cell pct-lo">13.0%</span></td><td><span class="pct-cell pct-lo">14.0%</span></td></tr>
@@ -254,8 +263,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 </div>
 
 <div class="section-title">员工效率与组织效能排行（电力设备 11 家）</div>
-<div class="ovtable"><table>
-<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>效率信号</th></tr></thead>
+<div class="ovtable"><table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">员工(2025)<span class="sort-ind"></span></th><th data-type="num">员工增速<span class="sort-ind"></span></th><th data-type="num">人均营收<span class="sort-ind"></span></th><th data-type="num">人均净利<span class="sort-ind"></span></th><th data-type="text">效率信号<span class="sort-ind"></span></th></tr></thead>
 <tbody>
 <tr><td><a href="berkshire-equip-chain-catl.html">宁德时代</a></td><td>185,839</td><td class="num up">+40.80%</td><td class="num">¥228.0万</td><td class="num">¥38.9万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
 <tr><td><a href="berkshire-equip-chain-nari.html">国电南瑞</a></td><td>12,781</td><td class="num up">+14.82%</td><td class="num">¥518.2万</td><td class="num">¥64.8万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
@@ -285,5 +294,58 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 </div>
 
 </div>
-<div class="section-title">延伸阅读</div><div class="extend"><a href="berkshire-equip-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a><a href="berkshire-equip-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a><a href="berkshire-equip-buyback.html"><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a></div></body><a href="berkshire-equip-cycle.html"><b>产能/技术周期</b><span>框架级梳理行业周期脉络与关键信号</span></a><a href="berkshire-equip-methodology.html"><b>方法论文</b><span>怎么读这个行业：核心指标与分析框架</span></a>
+<div class="section-title">延伸阅读</div><div class="extend"><a href="berkshire-equip-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a><a href="berkshire-equip-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a><a href="berkshire-equip-buyback.html"><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a></div><script>
+(function(){
+  function num(v){
+    if(v==null) return NaN;
+    v=v.textContent||v;
+    if(typeof v==='string'){
+      v=v.replace(/,/g,'').replace(/[ \t\r\n]/g,'');
+      if(v==='—'||v==='-'||v==='') return NaN;
+      var unit=1;
+      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
+      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
+      v=v.replace(/[¥,%]/g,'');
+      var n=parseFloat(v);
+      if(!isNaN(n)) n*=unit;
+      return n;
+    }
+    return NaN;
+  }
+  function cmp(a,b,asc){
+    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
+    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
+    var nanA=isNaN(a), nanB=isNaN(b);
+    if(nanA && nanB) return 0;
+    if(nanA) return asc?1:-1;
+    if(nanB) return asc?-1:1;
+    if(an<bn) return asc?-1:1;
+    if(an>bn) return asc?1:-1;
+    return 0;
+  }
+  function sortTable(th){
+    var table=th.closest('table');
+    var tbody=table.querySelector('tbody');
+    var rows=Array.from(tbody.querySelectorAll('tr'));
+    var idx=Array.from(th.parentNode.children).indexOf(th);
+    var type=th.getAttribute('data-type')||'text';
+    var asc=!th.classList.contains('asc');
+    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
+    th.classList.add(asc?'asc':'desc');
+    rows.sort(function(r1,r2){
+      var c1=r1.cells[idx], c2=r2.cells[idx];
+      var v1, v2;
+      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      else if(type==='num'){ v1=num(c1); v2=num(c2); }
+      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      return cmp(v1,v2,asc);
+    });
+    rows.forEach(function(r){ tbody.appendChild(r); });
+  }
+  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
+    th.addEventListener('click',function(){ sortTable(th); });
+  });
+})();
+</script>
+</body><a href="berkshire-equip-cycle.html"><b>产能/技术周期</b><span>框架级梳理行业周期脉络与关键信号</span></a><a href="berkshire-equip-methodology.html"><b>方法论文</b><span>怎么读这个行业：核心指标与分析框架</span></a>
 </html>

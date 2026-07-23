@@ -100,6 +100,15 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 .ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
 
 </style>
+<style>
+/* chain-sort */
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
+.sortable th:hover{background:#e0f2fe}
+.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
+.sortable th.asc .sort-ind::before{content:"▲";color:var(--accent)}
+.sortable th.desc .sort-ind::before{content:"▼";color:var(--accent)}
+</style>
+<!-- chain-sort -->
 </head>
 <body>
 <div class="top-bar">
@@ -135,8 +144,8 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 
 <div class="section-title">跨层分析框架（5 层）</div><div class="section-title">估值历史分位总览（白酒 13 家）</div>
 <div class="ovtable">
-<table>
-<thead><tr><th>公司</th><th>PE(TTM)</th><th>PE 分位</th><th>PB</th><th>PB 分位</th></tr></thead>
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
 <tbody><tr><td><a href="berkshire-baijiu-chain-maotai.html">贵州茅台</a></td><td>18.36</td><td><span class="pct-cell pct-lo">0.8%</span></td><td>5.61</td><td><span class="pct-cell pct-lo">1.2%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-wuliangye.html">五粮液</a></td><td>22.41</td><td><span class="pct-cell pct-lo">39.3%</span></td><td>2.21</td><td><span class="pct-cell pct-lo">0.3%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-luzhou.html">泸州老窖</a></td><td>12.2</td><td><span class="pct-cell pct-lo">3.7%</span></td><td>2.35</td><td><span class="pct-cell pct-lo">0.8%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-fenjiu.html">山西汾酒</a></td><td>12.91</td><td><span class="pct-cell pct-lo">0.8%</span></td><td>3.15</td><td><span class="pct-cell pct-lo">0.8%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-yanghe.html">洋河股份</a></td><td>59.0</td><td><span class="pct-cell pct-hi">98.4%</span></td><td>1.22</td><td><span class="pct-cell pct-lo">0.7%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-gujing.html">古井贡酒</a></td><td>15.05</td><td><span class="pct-cell pct-lo">8.2%</span></td><td>1.63</td><td><span class="pct-cell pct-lo">0.7%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-jinshiyuan.html">今世缘</a></td><td>13.0</td><td><span class="pct-cell pct-lo">2.5%</span></td><td>1.70</td><td><span class="pct-cell pct-lo">0.8%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-shede.html">舍得酒业</a></td><td>99.75</td><td><span class="pct-cell pct-hi">75.2%</span></td><td>1.51</td><td><span class="pct-cell pct-lo">0.1%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-yingjia.html">迎驾贡酒</a></td><td>12.86</td><td><span class="pct-cell pct-lo">2.3%</span></td><td>2.23</td><td><span class="pct-cell pct-lo">0.8%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-shuijingfang.html">水井坊</a></td><td>34.2</td><td><span class="pct-cell pct-mid">46.2%</span></td><td>2.50</td><td><span class="pct-cell pct-lo">0.3%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-jiugui.html">酒鬼酒</a></td><td>-390.3</td><td>亏损</td><td>3.36</td><td><span class="pct-cell pct-lo">11.6%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-kouzijiao.html">口子窖</a></td><td>28.12</td><td><span class="pct-cell pct-hi">84.4%</span></td><td>1.03</td><td><span class="pct-cell pct-lo">0.3%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-shunxin.html">顺鑫农业</a></td><td>-23.79</td><td>亏损</td><td>1.11</td><td><span class="pct-cell pct-lo">0.8%</span></td></tr></tbody>
 </table>
 <div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
@@ -149,8 +158,8 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 
 <div class="section-title">R15 三维评级总览（白酒 13 家）</div>
 <div class="ovtable">
-<table>
-<thead><tr><th>公司</th><th>相对估值星级</th><th>质量星级(ROE)</th><th>时机分</th><th>PE分位</th><th>PB分位</th></tr></thead>
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
 <tbody>
 <tr><td><a href="berkshire-baijiu-chain-maotai.html">贵州茅台</a></td><td><span class="pct-cell pct-lo">低估5★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-mid">3.5</span></td><td><span class="pct-cell pct-lo">0.8%</span></td><td><span class="pct-cell pct-lo">1.2%</span></td></tr>
 <tr><td><a href="berkshire-baijiu-chain-wuliangye.html">五粮液</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-mid">3.5</span></td><td><span class="pct-cell pct-lo">39.3%</span></td><td><span class="pct-cell pct-lo">0.3%</span></td></tr>
@@ -178,8 +187,8 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 <div class="cost-block"><div class="cost-note"><p>本产业链（白酒）<b>无交易所可观测的商品期货 / 利率序列</b>（白酒、机器人、AI 没有统一定价期货），成本传导段暂以定性框架呈现——见上方「产业周期判断标准」段。A 股成分的估值历史分位已在本段上方给出。</p></div></div>
 
 <div class="section-title">员工效率与组织效能排行（白酒 13 家）</div>
-<div class="ovtable"><table>
-<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>效率信号</th></tr></thead>
+<div class="ovtable"><table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">员工(2025)<span class="sort-ind"></span></th><th data-type="num">员工增速<span class="sort-ind"></span></th><th data-type="num">人均营收<span class="sort-ind"></span></th><th data-type="num">人均净利<span class="sort-ind"></span></th><th data-type="text">效率信号<span class="sort-ind"></span></th></tr></thead>
 <tbody>
 <tr><td><a href="berkshire-baijiu-chain-yanghe.html">洋河股份</a></td><td>22,392</td><td class="num up">+3.99%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
 <tr><td><a href="berkshire-baijiu-chain-jinshiyuan.html">今世缘</a></td><td>5,300</td><td class="num up">+1.34%</td><td class="num">¥192.1万</td><td class="num">¥49.1万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
@@ -308,5 +317,58 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 </div>
 
 </div>
+<script>
+(function(){
+  function num(v){
+    if(v==null) return NaN;
+    v=v.textContent||v;
+    if(typeof v==='string'){
+      v=v.replace(/,/g,'').replace(/[ \t\r\n]/g,'');
+      if(v==='—'||v==='-'||v==='') return NaN;
+      var unit=1;
+      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
+      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
+      v=v.replace(/[¥,%]/g,'');
+      var n=parseFloat(v);
+      if(!isNaN(n)) n*=unit;
+      return n;
+    }
+    return NaN;
+  }
+  function cmp(a,b,asc){
+    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
+    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
+    var nanA=isNaN(a), nanB=isNaN(b);
+    if(nanA && nanB) return 0;
+    if(nanA) return asc?1:-1;
+    if(nanB) return asc?-1:1;
+    if(an<bn) return asc?-1:1;
+    if(an>bn) return asc?1:-1;
+    return 0;
+  }
+  function sortTable(th){
+    var table=th.closest('table');
+    var tbody=table.querySelector('tbody');
+    var rows=Array.from(tbody.querySelectorAll('tr'));
+    var idx=Array.from(th.parentNode.children).indexOf(th);
+    var type=th.getAttribute('data-type')||'text';
+    var asc=!th.classList.contains('asc');
+    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
+    th.classList.add(asc?'asc':'desc');
+    rows.sort(function(r1,r2){
+      var c1=r1.cells[idx], c2=r2.cells[idx];
+      var v1, v2;
+      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      else if(type==='num'){ v1=num(c1); v2=num(c2); }
+      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      return cmp(v1,v2,asc);
+    });
+    rows.forEach(function(r){ tbody.appendChild(r); });
+  }
+  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
+    th.addEventListener('click',function(){ sortTable(th); });
+  });
+})();
+</script>
 </body>
 </html>
