@@ -158,6 +158,15 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 .cost-note p{margin:0 0 10px}
 
 </style>
+<style>
+/* bank-chain-sort */
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
+.sortable th:hover{background:#e0f2fe}
+.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
+.sortable th.asc .sort-ind::before{content:"▲";color:var(--accent)}
+.sortable th.desc .sort-ind::before{content:"▼";color:var(--accent)}
+</style>
+<!-- bank-chain-sort -->
 </head><body>
 <div class="nav"><div class="nav-in">
 <div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 银行图谱</div>
@@ -178,8 +187,8 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <div class="wrap">
 <div class="section-title">估值历史分位总览（银行 42 家）</div>
 <div class="ovtable">
-<table>
-<thead><tr><th>公司</th><th>PE(TTM)</th><th>PE 分位</th><th>PB</th><th>PB 分位</th></tr></thead>
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
 <tbody>
 <tr><td><a href="berkshire-bank-chain-abc.html">农业银行</a></td><td>7.58</td><td><span class="pct-cell pct-hi">90.6%</span></td><td>0.79</td><td><span class="pct-cell pct-hi">62.7%</span></td></tr>
 <tr><td><a href="berkshire-bank-chain-bobj.html">北京银行</a></td><td>5.16</td><td><span class="pct-cell pct-mid">59.0%</span></td><td>0.37</td><td><span class="pct-cell pct-lo">0.7%</span></td></tr>
@@ -234,8 +243,8 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 
 <div class="section-title">R15 三维评级总览（银行 42 家）</div>
 <div class="ovtable">
-<table>
-<thead><tr><th>公司</th><th>相对估值星级</th><th>质量星级(ROE)</th><th>时机分</th><th>PE分位</th><th>PB分位</th></tr></thead>
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
 <tbody>
 <tr><td><a href="berkshire-bank-chain-abc.html">农业银行</a></td><td><span class="pct-cell pct-mid">合理</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-hi">90.6%</span></td><td><span class="pct-cell pct-hi">62.7%</span></td></tr>
 <tr><td><a href="berkshire-bank-chain-bobj.html">北京银行</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-mid">59.0%</span></td><td><span class="pct-cell pct-lo">0.7%</span></td></tr>
@@ -303,8 +312,8 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 </div>
 
 <div class="section-title">员工效率与组织效能排行（银行 42 家）</div>
-<div class="ovtable"><table>
-<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>效率信号</th></tr></thead>
+<div class="ovtable"><table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">员工(2025)<span class="sort-ind"></span></th><th data-type="num">员工增速<span class="sort-ind"></span></th><th data-type="num">人均营收<span class="sort-ind"></span></th><th data-type="num">人均净利<span class="sort-ind"></span></th><th data-type="text">效率信号<span class="sort-ind"></span></th></tr></thead>
 <tbody>
 <tr><td><a href="berkshire-bank-chain-xab.html">西安银行</a></td><td>3,251</td><td class="num up">+2157.64%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
 <tr><td><a href="berkshire-bank-chain-qrc.html">青农商行</a></td><td>5,849</td><td class="num up">+9.35%</td><td class="num">¥171.4万</td><td class="num">¥53.5万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
@@ -670,4 +679,57 @@ var grid=document.getElementById('grid');
 var cards=Array.from(grid.children);
 btns.forEach(function(b){b.onclick=function(){btns.forEach(x=>x.classList.remove('on'));b.classList.add('on');
 var f=b.dataset.f;cards.forEach(function(c){var cat=c.querySelector('.cat').textContent;c.style.display=(f==='all'||cat===f)?'':'none';});};});
-</script><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露），估值=2026-07-12行情 ｜ 内容仅供研究参考，不构成投资建议</footer><!--poisson-chain-link--><div class="poisson-chain-link" style="max-width:1080px;margin:14px auto 0;padding:0 20px"><a href="berkshire-bank-poisson.html" style="display:inline-block;background:#fff;border:1px solid #e2e8f0;border-left:3px solid #2563eb;border-radius:8px;padding:8px 14px;font-size:13px;color:#1e40af;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.04)">📊 查看 银行 产业链泊松象限图（λ净 vs 总收益）</a></div></body></html>
+</script><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露），估值=2026-07-12行情 ｜ 内容仅供研究参考，不构成投资建议</footer><!--poisson-chain-link--><div class="poisson-chain-link" style="max-width:1080px;margin:14px auto 0;padding:0 20px"><a href="berkshire-bank-poisson.html" style="display:inline-block;background:#fff;border:1px solid #e2e8f0;border-left:3px solid #2563eb;border-radius:8px;padding:8px 14px;font-size:13px;color:#1e40af;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.04)">📊 查看 银行 产业链泊松象限图（λ净 vs 总收益）</a></div><script>
+(function(){
+  function num(v){
+    if(v==null) return NaN;
+    v=v.textContent||v;
+    if(typeof v==='string'){
+      v=v.replace(/,/g,'').replace(/[\s]/g,'');
+      if(v==='—'||v==='-'||v==='') return NaN;
+      var unit=1;
+      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
+      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
+      v=v.replace(/[¥,%]/g,'');
+      var n=parseFloat(v);
+      if(!isNaN(n)) n*=unit;
+      return n;
+    }
+    return NaN;
+  }
+  function cmp(a,b,asc){
+    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
+    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
+    var nanA=isNaN(a), nanB=isNaN(b);
+    if(nanA && nanB) return 0;
+    if(nanA) return asc?1:-1;
+    if(nanB) return asc?-1:1;
+    if(an<bn) return asc?-1:1;
+    if(an>bn) return asc?1:-1;
+    return 0;
+  }
+  function sortTable(th){
+    var table=th.closest('table');
+    var tbody=table.querySelector('tbody');
+    var rows=Array.from(tbody.querySelectorAll('tr'));
+    var idx=Array.from(th.parentNode.children).indexOf(th);
+    var type=th.getAttribute('data-type')||'text';
+    var asc=!th.classList.contains('asc');
+    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
+    th.classList.add(asc?'asc':'desc');
+    rows.sort(function(r1,r2){
+      var c1=r1.cells[idx], c2=r2.cells[idx];
+      var v1, v2;
+      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      else if(type==='num'){ v1=num(c1); v2=num(c2); }
+      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      return cmp(v1,v2,asc);
+    });
+    rows.forEach(function(r){ tbody.appendChild(r); });
+  }
+  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
+    th.addEventListener('click',function(){ sortTable(th); });
+  });
+})();
+</script>
+</body></html>
