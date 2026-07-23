@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
+<title>化工产业链 · 价值投资视角</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(132,204,22,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(132,204,22,0.10);color:#84cc16;border:1px solid rgba(132,204,22,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#84cc16;color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#84cc16}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(132,204,22,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(132,204,22,0.08);border:1px solid rgba(132,204,22,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#84cc16}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(132,204,22,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#84cc16;background:rgba(132,204,22,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
+.explain-banner .eb-text b{color:#0f172a;font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #84cc16}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#84cc16;font-weight:700}
+.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.giant-card:hover{border-color:#84cc16;background:rgba(132,204,22,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(132,204,22,0.12)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:#0f172a}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
+.region-hk{background:rgba(234,179,8,0.14);color:#b45309;border:1px solid rgba(234,179,8,0.3)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#84cc16;font-weight:600}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
+.overview{background:rgba(132,204,22,0.05);border:1px solid rgba(132,204,22,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
+.overview b{color:#0f172a;font-weight:600}
+.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #84cc16;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
+.layer-detail-body b{color:#334155}
+.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.info-table tr{border-bottom:1px solid #eef2f7}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
+.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
+.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(132,204,22,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#84cc16}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.back-bar{margin-top:20px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(132,204,22,0.08);color:#84cc16;border:1px solid rgba(132,204,22,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(132,204,22,0.16)}
+.data-banner{background:rgba(132,204,22,0.07);border:1px solid rgba(132,204,22,0.22);border-left:4px solid #84cc16;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:#0f172a;font-weight:600}
+.data-banner .upd{color:#84cc16;font-weight:600}
+.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(132,204,22,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cycle-title .icon{color:#84cc16}
+.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
+.cycle-body b{color:#0f172a;font-weight:600}
+.cycle-body p{margin-bottom:8px}
+.cycle-body ul{margin:8px 0 0 18px;padding:0}
+.cycle-body li{margin-bottom:6px}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #84cc16;padding:8px 12px;background:rgba(132,204,22,0.06);line-height:1.7}
+.cycle-current b{color:#334155}
+.cycle-current a{text-decoration:none}
+.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.fin-title .icon{color:#84cc16}
+.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px}
+.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.fin-table tr{border-bottom:1px solid #eef2f7}
+.fin-table tr:last-child{border-bottom:none}
+.fin-table td{padding:10px 14px;font-size:13px;color:#334155}
+.fin-table td:first-child{width:130px;color:#64748b}
+.fin-table .val{color:#b45309;font-weight:600}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}.extend a:hover{border-color:##84cc16;box-shadow:0 6px 18px rgba(0,0,0,.1)}.extend b{color:##84cc16;display:block;margin-bottom:5px;font-weight:700}.extend span{font-size:12.5px;color:#64748b;line-height:1.55}</style>
+
+<style>
+/* P0 估值历史分位 + 成本传导 */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0f766e;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
+
+</style>
+<style>
+
+/* 员工效率与景气度 */
+.emp-block{margin:6px 0 2px}
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
+.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
+.emp-val{font-size:18px;font-weight:700;color:#0f172a}
+.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
+.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
+.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
+.emp-signal b{font-weight:700}
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:84cc16;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:84cc16;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:84cc16;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:84cc16;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:84cc16;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:84cc16;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:84cc16;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:84cc16;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:84cc16;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:84cc16;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:84cc16;text-decoration:none;font-size:13px;font-weight:700">化工</a><a href="berkshire-equip-chains.html" style="color:84cc16;text-decoration:none;font-size:13px">电力设备</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>化工产业链</span>
+</div>
+</div><!--poisson-chain-link--><div class="poisson-chain-link" style="max-width:1080px;margin:14px auto 0;padding:0 20px"><a href="berkshire-chem-poisson.html" style="display:inline-block;background:#fff;border:1px solid #e2e8f0;border-left:3px solid #2563eb;border-radius:8px;padding:8px 14px;font-size:13px;color:#1e40af;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.04)">📊 查看 化工 产业链泊松象限图（λ净 vs 总收益）</a></div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">化工产业链</div>
+<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">11</div><div class="stat-label">上市公司</div></div>
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+</div>
+</div>
+
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
+
+<div class="explain-banner">
+<div class="eb-icon">🧪</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「化工产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把化工龙头按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
+<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中为框架级定性梳理，不编造具体财务数字，最新数据以公司公告为准。
+</div>
+</div>
+</div>
+
+<div class="section-title">跨层分析框架（5 层）</div>
+<div class="layers">
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游 · 原料</div><div class="layer-desc">原油 / 天然气 / 煤炭等化石原料，成本之锚</div></div><div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游 · 基础与炼化</div><div class="layer-desc">乙烯 / 丙烯 / 芳烃、炼化一体化、煤化工</div></div><div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游 · 精细与材料</div><div class="layer-desc">农药、钛白、聚酯、改性塑料等深加工</div></div><div class="layer-card"><div class="layer-num">04</div><div class="layer-name">消费与场景</div><div class="layer-desc">地产 / 汽车 / 农业 / 消费 / 电子等终端需求</div></div><div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">成本优势 / 产能周期 / 技术壁垒；风险在油价、产能过剩、景气</div></div>
+</div>
+
+<div class="section-title">产业周期判断标准</div>
+<div class="cycle-block" id="cycle"><div class="cycle-title"><span class="icon">🔄</span> 化工产业链 产业周期怎么看</div><div class="cycle-body"><p><b>驱动变量</b>：原油/煤炭（成本端）、PPI 与制造业景气（需求）、地产/汽车/纺服/农业（下游）、产能投放节奏、产品价差。</p>
+<ul>
+<li><b>价差</b>（单位利润）：触底回升 + 资本开支见顶 → 景气反转；价差新高+产能集中投放 → 见顶回落。</li>
+<li><b>产能利用率/投产周期</b>：大规模新装置集中投产 → 供给过剩、降价；投产尾声+老旧产能出清 → 拐点。</li>
+<li><b>PPI</b>：同比回升 → 化工品价格中枢上移、补库需求。</li>
+<li><b>油价</b>：成本推动 + 库存收益（涨价时库存增值）。</li>
+</ul></div><div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：化工周期核心是"价差+产能投放"：当前多子行业经历产能扩张后进入出清与价差磨底，具备"剩者为王"逻辑的龙头更具韧性，关注资本开支见顶信号。</div></div>
+
+<div class="section-title">估值历史分位总览（化工 11 家）</div>
+<div class="ovtable">
+<table>
+<thead><tr><th>公司</th><th>PE(TTM)</th><th>PE 分位</th><th>PB</th><th>PB 分位</th></tr></thead>
+<tbody><tr><td><a href="berkshire-chem-chain-wanhua.html">万华化学</a></td><td>16.55</td><td><span class="pct-cell pct-hi">60.9%</span></td><td>1.96</td><td><span class="pct-cell pct-lo">4.8%</span></td></tr><tr><td><a href="berkshire-chem-chain-rongsheng.html">荣盛石化</a></td><td>36.67</td><td><span class="pct-cell pct-hi">69.5%</span></td><td>2.43</td><td><span class="pct-cell pct-lo">20.9%</span></td></tr><tr><td><a href="berkshire-chem-chain-hengli.html">恒力石化</a></td><td>12.33</td><td><span class="pct-cell pct-lo">25.7%</span></td><td>1.56</td><td><span class="pct-cell pct-lo">5.3%</span></td></tr><tr><td><a href="berkshire-chem-chain-weixing.html">卫星化学</a></td><td>13.61</td><td><span class="pct-cell pct-mid">48.8%</span></td><td>2.25</td><td><span class="pct-cell pct-mid">43.6%</span></td></tr><tr><td><a href="berkshire-chem-chain-hualu.html">华鲁恒升</a></td><td>13.89</td><td><span class="pct-cell pct-mid">45.3%</span></td><td>1.51</td><td><span class="pct-cell pct-lo">6.0%</span></td></tr><tr><td><a href="berkshire-chem-chain-baofeng.html">宝丰能源</a></td><td>12.85</td><td><span class="pct-cell pct-lo">4.4%</span></td><td>3.10</td><td><span class="pct-cell pct-mid">52.0%</span></td></tr><tr><td><a href="berkshire-chem-chain-yangnong.html">扬农化工</a></td><td>15.89</td><td><span class="pct-cell pct-lo">10.0%</span></td><td>1.68</td><td><span class="pct-cell pct-lo">0.1%</span></td></tr><tr><td><a href="berkshire-chem-chain-longbai.html">龙佰集团</a></td><td>49.13</td><td><span class="pct-cell pct-hi">91.0%</span></td><td>1.60</td><td><span class="pct-cell pct-lo">1.4%</span></td></tr><tr><td><a href="berkshire-chem-chain-tongkun.html">桐昆股份</a></td><td>14.73</td><td><span class="pct-cell pct-mid">57.7%</span></td><td>1.22</td><td><span class="pct-cell pct-mid">42.3%</span></td></tr><tr><td><a href="berkshire-chem-chain-hengyi.html">恒逸石化</a></td><td>25.24</td><td><span class="pct-cell pct-hi">71.4%</span></td><td>2.10</td><td><span class="pct-cell pct-hi">74.6%</span></td></tr><tr><td><a href="berkshire-chem-chain-kingfa.html">金发科技</a></td><td>31.66</td><td><span class="pct-cell pct-hi">77.4%</span></td><td>1.94</td><td><span class="pct-cell pct-hi">61.0%</span></td></tr></tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
+<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+亏损企业 PE 为负、PE 分位不适用，仅看 PB；港股成分百度不覆盖，标"港股"。分位为时点统计。</div>
+</div>
+
+<div class="section-title">产业链成本传导 · 甲醇 → 毛利</div>
+<div class="cost-block">
+  <div class="cost-chart"><svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="甲醇价格走势">
+  <line x1="54" y1="16.0" x2="664" y2="16.0" stroke="#e2e8f0"/><text x="48" y="20.0" text-anchor="end" font-size="10" fill="#94a3b8">3769</text><line x1="54" y1="74.7" x2="664" y2="74.7" stroke="#e2e8f0"/><text x="48" y="78.7" text-anchor="end" font-size="10" fill="#94a3b8">3045</text><line x1="54" y1="133.3" x2="664" y2="133.3" stroke="#e2e8f0"/><text x="48" y="137.3" text-anchor="end" font-size="10" fill="#94a3b8">2320</text><line x1="54" y1="192.0" x2="664" y2="192.0" stroke="#e2e8f0"/><text x="48" y="196.0" text-anchor="end" font-size="10" fill="#94a3b8">1596</text><polygon points="54,192 54.0,155.1 58.4,156.3 62.8,130.4 67.2,126.4 71.6,113.0 75.9,120.6 80.3,119.8 84.7,146.2 89.1,166.0 93.5,166.1 97.9,170.7 102.3,187.5 106.7,180.7 111.1,179.4 115.4,177.5 119.8,169.6 124.2,155.1 128.6,166.9 133.0,159.4 137.4,171.8 141.8,164.6 146.2,151.9 150.5,120.6 154.9,119.8 159.3,100.1 163.7,84.0 168.1,85.7 172.5,112.7 176.9,127.2 181.3,140.1 185.7,130.2 190.0,127.4 194.4,87.8 198.8,101.1 203.2,105.1 207.6,85.9 212.0,90.2 216.4,95.8 220.8,104.4 225.2,101.0 229.5,104.1 233.9,97.9 238.3,91.3 242.7,82.0 247.1,57.1 251.5,59.8 255.9,76.8 260.3,132.0 264.6,127.9 269.0,117.1 273.4,116.5 277.8,128.2 282.2,127.0 286.6,126.5 291.0,137.2 295.4,150.0 299.8,147.9 304.1,126.4 308.5,151.1 312.9,163.2 317.3,144.4 321.7,138.9 326.1,158.5 330.5,192.0 334.9,176.6 339.3,184.5 343.6,179.4 348.0,181.6 352.4,160.9 356.8,166.0 361.2,158.2 365.6,137.1 370.0,127.1 374.4,135.2 378.7,121.0 383.1,128.4 387.5,123.6 391.9,114.7 396.3,113.4 400.7,97.0 405.1,95.2 409.5,16.0 413.9,90.2 418.2,107.8 422.6,120.6 427.0,92.6 431.4,86.8 435.8,85.0 440.2,101.9 444.6,92.3 449.0,107.8 453.4,110.7 457.7,112.8 462.1,93.1 466.5,120.7 470.9,111.2 475.3,106.4 479.7,98.3 484.1,108.5 488.5,117.3 492.8,132.2 497.2,157.7 501.6,146.2 506.0,136.0 510.4,112.5 514.8,121.2 519.2,124.7 523.6,118.7 528.0,124.4 532.3,120.3 536.7,117.5 541.1,119.6 545.5,114.1 549.9,108.2 554.3,114.5 558.7,119.5 563.1,116.5 567.5,116.8 571.8,119.3 576.2,113.4 580.6,102.3 585.0,114.4 589.4,111.8 593.8,120.5 598.2,138.9 602.6,142.4 606.9,128.4 611.3,126.5 615.7,130.0 620.1,132.7 624.5,144.7 628.9,148.3 633.3,141.8 637.7,133.4 642.1,144.8 646.4,59.7 650.8,77.6 655.2,95.1 659.6,124.6 664.0,117.5 664.0,192" fill="#84cc16" opacity="0.12"/>
+  <polyline points="54.0,155.1 58.4,156.3 62.8,130.4 67.2,126.4 71.6,113.0 75.9,120.6 80.3,119.8 84.7,146.2 89.1,166.0 93.5,166.1 97.9,170.7 102.3,187.5 106.7,180.7 111.1,179.4 115.4,177.5 119.8,169.6 124.2,155.1 128.6,166.9 133.0,159.4 137.4,171.8 141.8,164.6 146.2,151.9 150.5,120.6 154.9,119.8 159.3,100.1 163.7,84.0 168.1,85.7 172.5,112.7 176.9,127.2 181.3,140.1 185.7,130.2 190.0,127.4 194.4,87.8 198.8,101.1 203.2,105.1 207.6,85.9 212.0,90.2 216.4,95.8 220.8,104.4 225.2,101.0 229.5,104.1 233.9,97.9 238.3,91.3 242.7,82.0 247.1,57.1 251.5,59.8 255.9,76.8 260.3,132.0 264.6,127.9 269.0,117.1 273.4,116.5 277.8,128.2 282.2,127.0 286.6,126.5 291.0,137.2 295.4,150.0 299.8,147.9 304.1,126.4 308.5,151.1 312.9,163.2 317.3,144.4 321.7,138.9 326.1,158.5 330.5,192.0 334.9,176.6 339.3,184.5 343.6,179.4 348.0,181.6 352.4,160.9 356.8,166.0 361.2,158.2 365.6,137.1 370.0,127.1 374.4,135.2 378.7,121.0 383.1,128.4 387.5,123.6 391.9,114.7 396.3,113.4 400.7,97.0 405.1,95.2 409.5,16.0 413.9,90.2 418.2,107.8 422.6,120.6 427.0,92.6 431.4,86.8 435.8,85.0 440.2,101.9 444.6,92.3 449.0,107.8 453.4,110.7 457.7,112.8 462.1,93.1 466.5,120.7 470.9,111.2 475.3,106.4 479.7,98.3 484.1,108.5 488.5,117.3 492.8,132.2 497.2,157.7 501.6,146.2 506.0,136.0 510.4,112.5 514.8,121.2 519.2,124.7 523.6,118.7 528.0,124.4 532.3,120.3 536.7,117.5 541.1,119.6 545.5,114.1 549.9,108.2 554.3,114.5 558.7,119.5 563.1,116.5 567.5,116.8 571.8,119.3 576.2,113.4 580.6,102.3 585.0,114.4 589.4,111.8 593.8,120.5 598.2,138.9 602.6,142.4 606.9,128.4 611.3,126.5 615.7,130.0 620.1,132.7 624.5,144.7 628.9,148.3 633.3,141.8 637.7,133.4 642.1,144.8 646.4,59.7 650.8,77.6 655.2,95.1 659.6,124.6 664.0,117.5" fill="none" stroke="#84cc16" stroke-width="2"/>
+  <text x="54" y="212" font-size="10" fill="#94a3b8">2014-12</text>
+  <text x="664" y="212" text-anchor="end" font-size="10" fill="#94a3b8">2026-07</text>
+  <text x="54" y="18" font-size="10" fill="#84cc16" font-weight="600">甲醇 现价约 ¥2516/吨</text>
+</svg></div>
+  <div class="cost-note"><p><b>甲醇是煤化工/气头化工的核心原料</b>，也是烯烃、醋酸、二甲醚、MTBE 的上游。甲醇价格（MA0）决定两条线：① 煤制烯烃（宝丰能源、华鲁恒升）的"煤—甲醇—聚烯烃"价差；② 外购甲醇的醋酸/二甲醚企业成本。</p>
+<p>甲醇走势：2014–2015 低位（产能投放）；2021 能源危机冲高至 ¥4000+；2023 后产能持续释放+需求偏弱→回落至 <b>¥2,516/吨</b> 上下震荡（2026-07）。化工链整体处于"产能出清 + 价差修复"的前半段。</p>
+<p><b>怎么读</b>：煤头一体化龙头（华鲁恒升、宝丰）凭"低成本原料 + 全产业链"在低价差环境仍保毛利，看 PB 分位判断安全边际；纯外购/单环节企业则看价差反转时点。</p></div>
+</div>
+
+<div class="section-title">员工效率与景气度排行（化工 11 家）</div>
+<div class="ovtable"><table>
+<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>景气度</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-chem-chain-hengyi.html">恒逸石化</a></td><td>17,511</td><td class="num up">+9.35%</td><td class="num">¥648.3万</td><td class="num">¥1.5万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-chem-chain-baofeng.html">宝丰能源</a></td><td>22,037</td><td class="num up">+7.96%</td><td class="num">¥218.0万</td><td class="num">¥51.5万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-chem-chain-kingfa.html">金发科技</a></td><td>14,111</td><td class="num up">+7.86%</td><td class="num">¥463.4万</td><td class="num">¥8.1万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-chem-chain-rongsheng.html">荣盛石化</a></td><td>19,849</td><td class="num up">+4.05%</td><td class="num">¥1554.8万</td><td class="num">¥4.3万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-chem-chain-tongkun.html">桐昆股份</a></td><td>33,639</td><td class="num up">+2.46%</td><td class="num">¥279.1万</td><td class="num">¥6.0万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-chem-chain-hualu.html">华鲁恒升</a></td><td>6,174</td><td class="num up">+2.34%</td><td class="num">¥501.6万</td><td class="num">¥53.7万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-chem-chain-yangnong.html">扬农化工</a></td><td>3,823</td><td class="num up">+2.03%</td><td class="num">¥310.5万</td><td class="num">¥33.6万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-chem-chain-longbai.html">龙佰集团</a></td><td>19,100</td><td class="num down">-1.47%</td><td class="num">¥136.1万</td><td class="num">¥6.5万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-chem-chain-hengli.html">恒力石化</a></td><td>37,368</td><td class="num down">-2.43%</td><td class="num">¥538.1万</td><td class="num">¥18.9万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-chem-chain-weixing.html">卫星化学</a></td><td>4,811</td><td class="num down">-4.86%</td><td class="num">¥957.6万</td><td class="num">¥110.4万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-chem-chain-wanhua.html">万华化学</a></td><td>30,772</td><td class="num down">-7.60%</td><td class="num">¥660.5万</td><td class="num">¥40.7万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">员工增速=在职员工同比；人均营收/净利=2025 营收(元)÷员工数。已覆盖 11/11 家员工数据，
+其余为非 A 股主体或年报未披露标准口径，标「数据不足」。排序：有数据优先、按员工增速降序。
+景气度信号由「员工增速分档 × 人均盈利分档 × 人均营收趋势」组合判定，为代理指标，非投资建议。</div>
+</div>
+
+<div class="section-title">化工龙头索引（上市公司 11 家）</div>
+<div class="grid">
+<a class="giant-card" href="berkshire-chem-chain-wanhua.html"><div class="giant-head"><span class="giant-name">万华化学 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">MDI 全球龙头，「化工茅」一体化典范。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-chem-chain-rongsheng.html"><div class="giant-head"><span class="giant-name">荣盛石化 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">炼化一体化龙头，浙石化核心资产。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-chem-chain-hengli.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">恒力石化 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">炼化化纤一体化龙头，大连长兴岛基地。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-chem-chain-weixing.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">卫星化学 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">轻烃一体化龙头，C2/C3 产业链。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-chem-chain-hualu.html"><div class="giant-head"><span class="giant-name">华鲁恒升 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">煤化工标杆，多联产低成本。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-chem-chain-baofeng.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">宝丰能源 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">煤制烯烃龙头，绿氢耦合降本。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-chem-chain-yangnong.html"><div class="giant-head"><span class="giant-name">扬农化工 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">菊酯农药龙头，拟除虫菊酯领先。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-chem-chain-longbai.html"><div class="giant-head"><span class="giant-name">龙佰集团 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">钛白粉龙头，氯化法技术领先。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-chem-chain-tongkun.html"><div class="giant-head"><span class="giant-name">桐昆股份 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">涤纶长丝龙头，PTA-聚酯一体。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-chem-chain-hengyi.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">恒逸石化 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">炼化化纤龙头，文莱项目示范。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-chem-chain-kingfa.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">金发科技 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">改性塑料龙头，新材料平台。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+<div class="section-title">延伸阅读</div><div class="extend"><a href="berkshire-chem-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a><a href="berkshire-chem-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a><a href="berkshire-chem-buyback.html"><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a></div></body><a href="berkshire-chem-cycle.html"><b>产能/库存周期</b><span>框架级梳理行业周期脉络与关键信号</span></a><a href="berkshire-chem-methodology.html"><b>方法论文</b><span>怎么读这个行业：核心指标与分析框架</span></a>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
+<title>煤炭产业链 · 价值投资视角</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(168,162,158,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(168,162,158,0.10);color:#a8a29e;border:1px solid rgba(168,162,158,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#a8a29e;color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#a8a29e}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(168,162,158,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(168,162,158,0.08);border:1px solid rgba(168,162,158,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#a8a29e}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(168,162,158,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#a8a29e;background:rgba(168,162,158,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
+.explain-banner .eb-text b{color:#0f172a;font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #a8a29e}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#a8a29e;font-weight:700}
+.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.giant-card:hover{border-color:#a8a29e;background:rgba(168,162,158,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(168,162,158,0.12)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:#0f172a}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
+.region-hk{background:rgba(234,179,8,0.14);color:#b45309;border:1px solid rgba(234,179,8,0.3)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#a8a29e;font-weight:600}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
+.overview{background:rgba(168,162,158,0.05);border:1px solid rgba(168,162,158,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
+.overview b{color:#0f172a;font-weight:600}
+.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #a8a29e;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
+.layer-detail-body b{color:#334155}
+.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.info-table tr{border-bottom:1px solid #eef2f7}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
+.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
+.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(168,162,158,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#a8a29e}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.back-bar{margin-top:20px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(168,162,158,0.08);color:#a8a29e;border:1px solid rgba(168,162,158,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(168,162,158,0.16)}
+.data-banner{background:rgba(168,162,158,0.07);border:1px solid rgba(168,162,158,0.22);border-left:4px solid #a8a29e;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:#0f172a;font-weight:600}
+.data-banner .upd{color:#a8a29e;font-weight:600}
+.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(168,162,158,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cycle-title .icon{color:#a8a29e}
+.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
+.cycle-body b{color:#0f172a;font-weight:600}
+.cycle-body p{margin-bottom:8px}
+.cycle-body ul{margin:8px 0 0 18px;padding:0}
+.cycle-body li{margin-bottom:6px}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #a8a29e;padding:8px 12px;background:rgba(168,162,158,0.06);line-height:1.7}
+.cycle-current b{color:#334155}
+.cycle-current a{text-decoration:none}
+.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.fin-title .icon{color:#a8a29e}
+.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px}
+.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.fin-table tr{border-bottom:1px solid #eef2f7}
+.fin-table tr:last-child{border-bottom:none}
+.fin-table td{padding:10px 14px;font-size:13px;color:#334155}
+.fin-table td:first-child{width:130px;color:#64748b}
+.fin-table .val{color:#b45309;font-weight:600}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}.extend a:hover{border-color:##a8a29e;box-shadow:0 6px 18px rgba(0,0,0,.1)}.extend b{color:##a8a29e;display:block;margin-bottom:5px;font-weight:700}.extend span{font-size:12.5px;color:#64748b;line-height:1.55}</style>
+
+<style>
+/* P0 估值历史分位 + 成本传导 */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0f766e;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
+
+</style>
+<style>
+
+/* 员工效率与景气度 */
+.emp-block{margin:6px 0 2px}
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
+.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
+.emp-val{font-size:18px;font-weight:700;color:#0f172a}
+.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
+.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
+.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
+.emp-signal b{font-weight:700}
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:a8a29e;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:a8a29e;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:a8a29e;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:a8a29e;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:a8a29e;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:a8a29e;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:a8a29e;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:a8a29e;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:a8a29e;text-decoration:none;font-size:13px;font-weight:700">煤炭</a><a href="berkshire-metal-chains.html" style="color:a8a29e;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:a8a29e;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:a8a29e;text-decoration:none;font-size:13px">电力设备</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>煤炭产业链</span>
+</div>
+</div><!--poisson-chain-link--><div class="poisson-chain-link" style="max-width:1080px;margin:14px auto 0;padding:0 20px"><a href="berkshire-coal-poisson.html" style="display:inline-block;background:#fff;border:1px solid #e2e8f0;border-left:3px solid #2563eb;border-radius:8px;padding:8px 14px;font-size:13px;color:#1e40af;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.04)">📊 查看 煤炭 产业链泊松象限图（λ净 vs 总收益）</a></div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">煤炭产业链</div>
+<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">11</div><div class="stat-label">上市公司</div></div>
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+</div>
+</div>
+
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
+
+<div class="explain-banner">
+<div class="eb-icon">🪨</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「煤炭产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把煤炭龙头按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
+<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中为框架级定性梳理，不编造具体财务数字，最新数据以公司公告为准。
+</div>
+</div>
+</div>
+
+<div class="section-title">跨层分析框架（5 层）</div>
+<div class="layers">
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游 · 勘探与开采</div><div class="layer-desc">地质勘探、井工 / 露天开采，资源储量与煤质是根本</div></div><div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游 · 洗选与煤化工</div><div class="layer-desc">原煤洗选提质、焦化与煤制烯烃等转化</div></div><div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游 · 运输与销售</div><div class="layer-desc">铁路 / 港口 / 航运发运，长协 + 市场煤销售</div></div><div class="layer-card"><div class="layer-num">04</div><div class="layer-name">消费与场景</div><div class="layer-desc">电煤（火电）、炼焦煤（钢铁）、建材与化工原料</div></div><div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">高分红 / 资源储量 / 煤价周期；风险在能源转型、价格与政策</div></div>
+</div>
+
+<div class="section-title">产业周期判断标准</div>
+<div class="cycle-block" id="cycle"><div class="cycle-title"><span class="icon">🔄</span> 煤炭产业链 产业周期怎么看</div><div class="cycle-body"><p><b>驱动变量</b>：宏观经济与用电/粗钢/水泥产量（需求）、产地安监与保供（供给）、进口煤性价比、港口与电厂库存、长协价 vs 市场价。</p>
+<ul>
+<li><b>库存</b>（环渤海港/秦皇岛、电厂库存天数）：高位累库+煤价跌 → 供给宽松/需求弱；低位去库+煤价涨 → 紧平衡。</li>
+<li><b>煤价</b>（CCI/Q5500）：长协价 570–770 元/吨区间托底，市场价围绕波动；突破上沿 → 供需偏紧信号。</li>
+<li><b>安监</b>：矿难/环保督察趋严 → 供给收缩、价格支撑。</li>
+<li><b>进口价差</b>：印尼/澳煤到岸价低于内贸 → 进口补充、压制内价。</li>
+</ul></div><div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：煤炭周期看"库存+煤价+安监"三角：当前长协占比高、供给受控，波动收敛，投资逻辑从周期弹性转向高分红与现金回报，周期属性弱化。</div></div>
+
+<div class="section-title">估值历史分位总览（煤炭 11 家）</div>
+<div class="ovtable">
+<table>
+<thead><tr><th>公司</th><th>PE(TTM)</th><th>PE 分位</th><th>PB</th><th>PB 分位</th></tr></thead>
+<tbody><tr><td><a href="berkshire-coal-chain-shenhua.html">中国神华</a></td><td>18.26</td><td><span class="pct-cell pct-hi">90.6%</span></td><td>1.96</td><td><span class="pct-cell pct-hi">90.3%</span></td></tr><tr><td><a href="berkshire-coal-chain-shaanxi.html">陕西煤业</a></td><td>14.72</td><td><span class="pct-cell pct-hi">96.9%</span></td><td>2.33</td><td><span class="pct-cell pct-hi">85.2%</span></td></tr><tr><td><a href="berkshire-coal-chain-yanzhou.html">兖矿能源</a></td><td>20.05</td><td><span class="pct-cell pct-hi">89.2%</span></td><td>2.52</td><td><span class="pct-cell pct-hi">75.4%</span></td></tr><tr><td><a href="berkshire-coal-chain-zhongmei.html">中煤能源</a></td><td>9.9</td><td><span class="pct-cell pct-mid">41.2%</span></td><td>1.07</td><td><span class="pct-cell pct-hi">82.6%</span></td></tr><tr><td><a href="berkshire-coal-chain-sxjk.html">山西焦煤</a></td><td>27.15</td><td><span class="pct-cell pct-hi">87.3%</span></td><td>0.97</td><td><span class="pct-cell pct-lo">21.1%</span></td></tr><tr><td><a href="berkshire-coal-chain-luan.html">潞安环能</a></td><td>37.77</td><td><span class="pct-cell pct-hi">91.0%</span></td><td>0.96</td><td><span class="pct-cell pct-lo">39.9%</span></td></tr><tr><td><a href="berkshire-coal-chain-huaibei.html">淮北矿业</a></td><td>30.51</td><td><span class="pct-cell pct-hi">84.3%</span></td><td>0.95</td><td><span class="pct-cell pct-lo">22.8%</span></td></tr><tr><td><a href="berkshire-coal-chain-jizhong.html">冀中能源</a></td><td>42.41</td><td><span class="pct-cell pct-hi">84.1%</span></td><td>0.89</td><td><span class="pct-cell pct-lo">35.6%</span></td></tr><tr><td><a href="berkshire-coal-chain-pingmei.html">平煤股份</a></td><td>98.2</td><td><span class="pct-cell pct-hi">98.9%</span></td><td>0.90</td><td><span class="pct-cell pct-lo">39.5%</span></td></tr><tr><td><a href="berkshire-coal-chain-shanmei.html">山煤国际</a></td><td>18.85</td><td><span class="pct-cell pct-hi">75.6%</span></td><td>1.51</td><td><span class="pct-cell pct-lo">18.1%</span></td></tr><tr><td><a href="berkshire-coal-chain-sxjh.html">山西焦化</a></td><td>65.95</td><td><span class="pct-cell pct-hi">86.6%</span></td><td>0.59</td><td><span class="pct-cell pct-lo">2.5%</span></td></tr></tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
+<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+亏损企业 PE 为负、PE 分位不适用，仅看 PB；港股成分百度不覆盖，标"港股"。分位为时点统计。</div>
+</div>
+
+<div class="section-title">产业链成本传导 · 焦煤 → 毛利</div>
+<div class="cost-block">
+  <div class="cost-chart"><svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="焦煤价格走势">
+  <line x1="54" y1="16.0" x2="664" y2="16.0" stroke="#e2e8f0"/><text x="48" y="20.0" text-anchor="end" font-size="10" fill="#94a3b8">3290</text><line x1="54" y1="74.7" x2="664" y2="74.7" stroke="#e2e8f0"/><text x="48" y="78.7" text-anchor="end" font-size="10" fill="#94a3b8">2363</text><line x1="54" y1="133.3" x2="664" y2="133.3" stroke="#e2e8f0"/><text x="48" y="137.3" text-anchor="end" font-size="10" fill="#94a3b8">1436</text><line x1="54" y1="192.0" x2="664" y2="192.0" stroke="#e2e8f0"/><text x="48" y="196.0" text-anchor="end" font-size="10" fill="#94a3b8">509</text><polygon points="54,192 54.0,145.7 57.8,152.2 61.6,155.0 65.4,157.6 69.2,157.2 73.1,152.5 76.9,152.3 80.7,156.6 84.5,153.8 88.3,160.6 92.1,165.5 95.9,166.3 99.8,171.3 103.6,172.3 107.4,172.3 111.2,173.3 115.0,174.5 118.8,174.1 122.6,175.0 126.4,175.6 130.2,176.4 134.1,177.4 137.9,178.2 141.7,178.3 145.5,181.1 149.3,182.0 153.1,180.7 156.9,181.4 160.8,185.4 164.6,188.3 168.4,188.1 172.2,189.1 176.0,192.0 179.8,188.5 183.6,189.1 187.4,185.5 191.2,183.6 195.1,175.3 198.9,181.0 202.7,178.7 206.5,175.9 210.3,169.8 214.1,160.2 217.9,141.5 221.8,142.3 225.6,149.7 229.4,144.5 233.2,145.1 237.0,146.1 240.8,152.9 244.6,164.2 248.4,153.3 252.2,139.2 256.1,134.4 259.9,152.5 263.7,156.9 267.5,138.1 271.3,141.1 275.1,142.4 278.9,134.8 282.8,143.1 286.6,151.0 290.4,145.8 294.2,148.2 298.0,148.4 301.8,145.2 305.6,143.7 309.4,136.1 313.2,140.1 317.1,149.5 320.9,143.9 324.7,142.2 328.5,146.3 332.3,138.7 336.1,136.5 339.9,136.1 343.8,135.7 347.6,141.4 351.4,145.5 355.2,146.0 359.0,146.6 362.8,150.5 366.6,147.4 370.4,145.6 374.2,144.4 378.1,156.6 381.9,150.7 385.7,149.5 389.5,147.0 393.3,145.8 397.1,143.8 400.9,140.6 404.8,134.1 408.6,121.1 412.4,128.7 416.2,130.9 420.0,119.2 423.8,112.0 427.6,112.4 431.4,101.2 435.2,77.6 439.1,68.6 442.9,16.0 446.7,80.7 450.5,104.8 454.3,83.2 458.1,79.8 461.9,58.8 465.8,22.6 469.6,43.7 473.4,53.7 477.2,75.9 481.0,89.2 484.8,105.9 488.6,90.9 492.4,106.2 496.2,82.9 500.1,106.2 503.9,108.3 507.7,96.8 511.5,106.5 515.3,136.6 519.1,146.5 522.9,138.7 526.8,131.7 530.6,127.0 534.4,107.2 538.2,109.4 542.0,92.0 545.8,104.8 549.6,116.4 553.4,110.8 557.2,130.1 561.1,109.9 564.9,118.5 568.7,124.6 572.5,131.8 576.3,137.5 580.1,126.4 583.9,138.0 587.8,145.4 591.6,150.8 595.4,152.4 599.2,155.0 603.0,161.7 606.8,165.3 610.6,178.3 614.4,172.0 618.2,152.4 622.1,151.4 625.9,153.0 629.7,142.8 633.5,156.7 637.3,153.7 641.1,151.1 644.9,155.0 648.8,151.5 652.6,142.8 656.4,142.9 660.2,143.2 664.0,145.8 664.0,192" fill="#a8a29e" opacity="0.12"/>
+  <polyline points="54.0,145.7 57.8,152.2 61.6,155.0 65.4,157.6 69.2,157.2 73.1,152.5 76.9,152.3 80.7,156.6 84.5,153.8 88.3,160.6 92.1,165.5 95.9,166.3 99.8,171.3 103.6,172.3 107.4,172.3 111.2,173.3 115.0,174.5 118.8,174.1 122.6,175.0 126.4,175.6 130.2,176.4 134.1,177.4 137.9,178.2 141.7,178.3 145.5,181.1 149.3,182.0 153.1,180.7 156.9,181.4 160.8,185.4 164.6,188.3 168.4,188.1 172.2,189.1 176.0,192.0 179.8,188.5 183.6,189.1 187.4,185.5 191.2,183.6 195.1,175.3 198.9,181.0 202.7,178.7 206.5,175.9 210.3,169.8 214.1,160.2 217.9,141.5 221.8,142.3 225.6,149.7 229.4,144.5 233.2,145.1 237.0,146.1 240.8,152.9 244.6,164.2 248.4,153.3 252.2,139.2 256.1,134.4 259.9,152.5 263.7,156.9 267.5,138.1 271.3,141.1 275.1,142.4 278.9,134.8 282.8,143.1 286.6,151.0 290.4,145.8 294.2,148.2 298.0,148.4 301.8,145.2 305.6,143.7 309.4,136.1 313.2,140.1 317.1,149.5 320.9,143.9 324.7,142.2 328.5,146.3 332.3,138.7 336.1,136.5 339.9,136.1 343.8,135.7 347.6,141.4 351.4,145.5 355.2,146.0 359.0,146.6 362.8,150.5 366.6,147.4 370.4,145.6 374.2,144.4 378.1,156.6 381.9,150.7 385.7,149.5 389.5,147.0 393.3,145.8 397.1,143.8 400.9,140.6 404.8,134.1 408.6,121.1 412.4,128.7 416.2,130.9 420.0,119.2 423.8,112.0 427.6,112.4 431.4,101.2 435.2,77.6 439.1,68.6 442.9,16.0 446.7,80.7 450.5,104.8 454.3,83.2 458.1,79.8 461.9,58.8 465.8,22.6 469.6,43.7 473.4,53.7 477.2,75.9 481.0,89.2 484.8,105.9 488.6,90.9 492.4,106.2 496.2,82.9 500.1,106.2 503.9,108.3 507.7,96.8 511.5,106.5 515.3,136.6 519.1,146.5 522.9,138.7 526.8,131.7 530.6,127.0 534.4,107.2 538.2,109.4 542.0,92.0 545.8,104.8 549.6,116.4 553.4,110.8 557.2,130.1 561.1,109.9 564.9,118.5 568.7,124.6 572.5,131.8 576.3,137.5 580.1,126.4 583.9,138.0 587.8,145.4 591.6,150.8 595.4,152.4 599.2,155.0 603.0,161.7 606.8,165.3 610.6,178.3 614.4,172.0 618.2,152.4 622.1,151.4 625.9,153.0 629.7,142.8 633.5,156.7 637.3,153.7 641.1,151.1 644.9,155.0 648.8,151.5 652.6,142.8 656.4,142.9 660.2,143.2 664.0,145.8" fill="none" stroke="#a8a29e" stroke-width="2"/>
+  <text x="54" y="212" font-size="10" fill="#94a3b8">2013-03</text>
+  <text x="664" y="212" text-anchor="end" font-size="10" fill="#94a3b8">2026-07</text>
+  <text x="54" y="18" font-size="10" fill="#a8a29e" font-weight="600">焦煤 现价约 ¥1239/吨</text>
+</svg></div>
+  <div class="cost-note"><p><b>焦煤是钢铁高炉核心燃料，也是煤化工（焦化、煤制烯烃）的原料</b>。焦煤价格（jm0）两头作用：① 对煤炭企业自身，煤价高位→高盈利高分红、低位→利润压缩；② 对焦化/煤化工，煤价即原料成本，决定其毛利价差。</p>
+<p>历史上煤价大起大落：2013–2015 产能过剩、煤价崩塌→全行业亏损；2021 供给侧改革+能耗双控→煤价暴涨→煤企暴利、高分红；2023 后长协占比提升、供给受控→波动收敛，投资逻辑从"周期弹性"转向"高分红+现金回报"，周期属性弱化。</p>
+<p>当前焦煤约 <b>¥1,239/吨</b>（2026-07），较 2021 高位显著回落、但仍高于 2015 低谷。看分位：高分红龙头（中国神华等）在煤价中高位回落中凭长协与现金流显韧性；弹性标的则看煤价能否企稳。</p></div>
+</div>
+
+<div class="section-title">员工效率与景气度排行（煤炭 11 家）</div>
+<div class="ovtable"><table>
+<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>景气度</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-coal-chain-yanzhou.html">兖矿能源</a></td><td>90,921</td><td class="num up">+16.63%</td><td class="num">¥159.4万</td><td class="num">¥9.2万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-coal-chain-shenhua.html">中国神华</a></td><td>91,392</td><td class="num up">+9.65%</td><td class="num">¥322.7万</td><td class="num">¥57.8万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-coal-chain-luan.html">潞安环能</a></td><td>36,128</td><td class="num up">+3.36%</td><td class="num">¥77.0万</td><td class="num">¥3.1万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-coal-chain-sxjh.html">山西焦化</a></td><td>5,585</td><td class="num up">+1.03%</td><td class="num">¥110.6万</td><td class="num">¥1.5万</td><td><span class="emp-badge" style="background:#f8fafc;color:#475569">平稳微利</span></td></tr>
+<tr><td><a href="berkshire-coal-chain-jizhong.html">冀中能源</a></td><td>35,588</td><td class="num up">+0.93%</td><td class="num">¥42.5万</td><td class="num">¥1.7万</td><td><span class="emp-badge" style="background:#f8fafc;color:#475569">平稳微利</span></td></tr>
+<tr><td><a href="berkshire-coal-chain-shanmei.html">山煤国际</a></td><td>14,353</td><td class="num up">+0.82%</td><td class="num">¥142.6万</td><td class="num">¥8.1万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-coal-chain-zhongmei.html">中煤能源</a></td><td>46,585</td><td class="num up">+0.29%</td><td class="num">¥317.8万</td><td class="num">¥38.4万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-coal-chain-shaanxi.html">陕西煤业</a></td><td>43,455</td><td class="num up">—</td><td class="num">¥364.0万</td><td class="num">¥38.6万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-coal-chain-sxjk.html">山西焦煤</a></td><td>37,554</td><td class="num down">-0.32%</td><td class="num">¥98.9万</td><td class="num">¥3.2万</td><td><span class="emp-badge" style="background:#f8fafc;color:#475569">平稳微利</span></td></tr>
+<tr><td><a href="berkshire-coal-chain-pingmei.html">平煤股份</a></td><td>41,360</td><td class="num down">-2.37%</td><td class="num">¥49.6万</td><td class="num">¥5585</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-coal-chain-huaibei.html">淮北矿业</a></td><td>39,570</td><td class="num down">-3.44%</td><td class="num">¥104.2万</td><td class="num">¥3.8万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">员工增速=在职员工同比；人均营收/净利=2025 营收(元)÷员工数。已覆盖 11/11 家员工数据，
+其余为非 A 股主体或年报未披露标准口径，标「数据不足」。排序：有数据优先、按员工增速降序。
+景气度信号由「员工增速分档 × 人均盈利分档 × 人均营收趋势」组合判定，为代理指标，非投资建议。</div>
+</div>
+
+<div class="section-title">煤炭龙头索引（上市公司 11 家）</div>
+<div class="grid">
+<a class="giant-card" href="berkshire-coal-chain-shenhua.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">中国神华 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">煤电运一体化龙头，现金牛 + 高分红标杆。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-coal-chain-shaanxi.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">陕西煤业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">优质动力煤龙头，高分红高 ROE。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-coal-chain-yanzhou.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">兖矿能源 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">华东煤炭龙头，煤化一体 + 海外资产。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-coal-chain-zhongmei.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">中煤能源 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">央企煤炭龙头，煤化一体 + 煤电。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-coal-chain-sxjk.html"><div class="giant-head"><span class="giant-name">山西焦煤 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">焦煤龙头，炼焦精煤核心供应商。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-coal-chain-luan.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">潞安环能 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">喷吹煤龙头，焦煤喷吹一体化。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-coal-chain-huaibei.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">淮北矿业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">华东焦煤 + 煤化工，煤焦化一体。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-coal-chain-jizhong.html"><div class="giant-head"><span class="giant-name">冀中能源 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">河北煤炭，煤种齐全 + 化工。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-coal-chain-pingmei.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">平煤股份 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">主焦煤龙头，冶炼精煤核心。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-coal-chain-shanmei.html"><div class="giant-head"><span class="giant-name">山煤国际 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">煤炭贸易 + 自产，海运销一体。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-coal-chain-sxjh.html"><div class="giant-head"><span class="giant-name">山西焦化 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">焦炭龙头，焦煤焦化一体。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+<div class="section-title">延伸阅读</div><div class="extend"><a href="berkshire-coal-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a><a href="berkshire-coal-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a><a href="berkshire-coal-buyback.html"><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a></div></body><a href="berkshire-coal-cycle.html"><b>产能/政策周期</b><span>框架级梳理行业周期脉络与关键信号</span></a><a href="berkshire-coal-methodology.html"><b>方法论文</b><span>怎么读这个行业：核心指标与分析框架</span></a>
+</html>

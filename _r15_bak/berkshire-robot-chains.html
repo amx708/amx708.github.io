@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
+<title>机器人产业链 · 价值投资视角</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(16,185,129,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,0.10);color:#10b981;border:1px solid rgba(16,185,129,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#10b981;color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#10b981}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(16,185,129,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#10b981}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(16,185,129,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#10b981;background:rgba(16,185,129,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
+.explain-banner .eb-text b{color:#0f172a;font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #10b981}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#10b981;font-weight:700}
+.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.giant-card:hover{border-color:#10b981;background:rgba(16,185,129,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(16,185,129,0.12)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:#0f172a}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
+.region-hk{background:rgba(234,179,8,0.14);color:#b45309;border:1px solid rgba(234,179,8,0.3)}
+.region-us{background:rgba(59,130,246,0.14);color:#1d4ed8;border:1px solid rgba(59,130,246,0.3)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#10b981;font-weight:600}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
+.overview{background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
+.overview b{color:#0f172a;font-weight:600}
+.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #10b981;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
+.layer-detail-body b{color:#334155}
+.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.info-table tr{border-bottom:1px solid #eef2f7}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
+.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
+.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#10b981}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.back-bar{margin-top:20px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,0.08);color:#10b981;border:1px solid rgba(16,185,129,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(16,185,129,0.16)}
+.data-banner{background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.22);border-left:4px solid #10b981;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:#0f172a;font-weight:600}
+.data-banner .upd{color:#10b981;font-weight:600}
+.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(16,185,129,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cycle-title .icon{color:#10b981}
+.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
+.cycle-body b{color:#0f172a;font-weight:600}
+.cycle-body p{margin-bottom:8px}
+.cycle-body ul{margin:8px 0 0 18px;padding:0}
+.cycle-body li{margin-bottom:6px}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #10b981;padding:8px 12px;background:rgba(16,185,129,0.06);line-height:1.7}
+.cycle-current b{color:#334155}
+.cycle-current a{text-decoration:none}
+.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.fin-title .icon{color:#10b981}
+.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px}
+.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.fin-table tr{border-bottom:1px solid #eef2f7}
+.fin-table tr:last-child{border-bottom:none}
+.fin-table td{padding:10px 14px;font-size:13px;color:#334155}
+.fin-table td:first-child{width:130px;color:#64748b}
+.fin-table .val{color:#b45309;font-weight:600}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+
+</style>
+
+<style>
+/* P0 估值历史分位 + 成本传导（扩展链） */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0f766e;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
+
+</style>
+<style>
+
+/* 员工效率与景气度 */
+.emp-block{margin:6px 0 2px}
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
+.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
+.emp-val{font-size:18px;font-weight:700;color:#0f172a}
+.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
+.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
+.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
+.emp-signal b{font-weight:700}
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:10b981;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:10b981;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:10b981;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:10b981;text-decoration:none;font-size:13px;font-weight:700">机器人</a><a href="berkshire-tcm-chains.html" style="color:10b981;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:10b981;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:10b981;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:10b981;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:10b981;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:10b981;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:10b981;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:10b981;text-decoration:none;font-size:13px">电力设备</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>机器人产业链</span>
+</div>
+</div><!--poisson-chain-link--><div class="poisson-chain-link" style="max-width:1080px;margin:14px auto 0;padding:0 20px"><a href="berkshire-robot-poisson.html" style="display:inline-block;background:#fff;border:1px solid #e2e8f0;border-left:3px solid #2563eb;border-radius:8px;padding:8px 14px;font-size:13px;color:#1e40af;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.04)">📊 查看 机器人 产业链泊松象限图（λ净 vs 总收益）</a></div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">机器人产业链</div>
+<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 全球概念链（A股 / 港股 / 美股），跨市场估值不可直接对比 · 用公开资料原创整理，不复制任何付费内容</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">16</div><div class="stat-label">成分公司</div></div>
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+</div>
+</div>
+
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
+
+<div class="explain-banner">
+<div class="eb-icon">🤖</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「机器人产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把机器人按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
+机器人是<b>全球概念链</b>（A股 / 港股 / 美股 / 非上市），跨市场 PE / PB <b>不可直接对比</b>；A 股成分公司的财务 / 估值经真实年报与行情快照填充，无 A 股代码的全球标的（Tesla / NVIDIA / 优必选）保留占位诚实标注。<br>
+<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中为框架级定性梳理，不编造具体财务数字，最新数据以公司公告为准。
+</div>
+</div>
+</div>
+
+<div class="section-title">跨层分析框架（5 层）</div>
+<div class="layers">
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游 · 核心零部件</div><div class="layer-desc">减速器 / 丝杠 / 电机 / 传感器 / 视觉 / 控制器——机器人的"肌肉与感官"，价值量高、国产替代空间大</div></div><div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游 · 本体与执行器总成</div><div class="layer-desc">整机厂 / 关节模组 / 结构件——把零件拼成"身体"，量产与工艺是核心壁垒</div></div><div class="layer-card"><div class="layer-num">03</div><div class="layer-name">软件与具身智能</div><div class="layer-desc">AI 大脑 / 运动控制算法 / 仿真训练——机器人的"神经与思维"，大模型降低具身智能门槛</div></div><div class="layer-card"><div class="layer-num">04</div><div class="layer-name">应用场景</div><div class="layer-desc">工厂 / 商业服务 / 家庭 / 特种——落地的"用武之地"，先从结构化封闭场景跑通</div></div><div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">量产进度 / 订单定点 / 估值水位 / 护城河与风险——价值投资视角下的框架判断</div></div>
+</div>
+
+<div class="section-title">产业周期判断标准</div><div class="section-title">估值历史分位总览（机器人 13 家）</div>
+<div class="ovtable">
+<table>
+<thead><tr><th>公司</th><th>PE(TTM)</th><th>PE 分位</th><th>PB</th><th>PB 分位</th></tr></thead>
+<tbody><tr><td><a href="berkshire-robot-chain-lvharmonics.html">绿的谐波</a></td><td>518.64</td><td><span class="pct-cell pct-hi">98.1%</span></td><td>19.87</td><td><span class="pct-cell pct-hi">98.8%</span></td></tr><tr><td><a href="berkshire-robot-chain-shuanghuan.html">双环传动</a></td><td>28.38</td><td><span class="pct-cell pct-lo">39.1%</span></td><td>3.50</td><td><span class="pct-cell pct-hi">77.8%</span></td></tr><tr><td><a href="berkshire-robot-chain-zhongdali.html">中大力德</a></td><td>248.82</td><td><span class="pct-cell pct-hi">96.8%</span></td><td>11.64</td><td><span class="pct-cell pct-hi">86.8%</span></td></tr><tr><td><a href="berkshire-robot-chain-henli.html">恒立液压</a></td><td>52.16</td><td><span class="pct-cell pct-hi">70.6%</span></td><td>8.07</td><td><span class="pct-cell pct-hi">68.3%</span></td></tr><tr><td><a href="berkshire-robot-chain-beisite.html">贝斯特</a></td><td>37.7</td><td><span class="pct-cell pct-hi">78.1%</span></td><td>3.16</td><td><span class="pct-cell pct-hi">60.3%</span></td></tr><tr><td><a href="berkshire-robot-chain-mingzhi.html">鸣志电器</a></td><td>344.35</td><td><span class="pct-cell pct-hi">91.8%</span></td><td>7.85</td><td><span class="pct-cell pct-hi">71.0%</span></td></tr><tr><td><a href="berkshire-robot-chain-huichuan.html">汇川技术</a></td><td>34.41</td><td><span class="pct-cell pct-lo">12.7%</span></td><td>4.48</td><td><span class="pct-cell pct-lo">0.7%</span></td></tr><tr><td><a href="berkshire-robot-chain-jiangsuleili.html">江苏雷利</a></td><td>58.16</td><td><span class="pct-cell pct-hi">86.8%</span></td><td>4.40</td><td><span class="pct-cell pct-hi">81.9%</span></td></tr><tr><td><a href="berkshire-robot-chain-keli.html">柯力传感</a></td><td>53.82</td><td><span class="pct-cell pct-hi">80.1%</span></td><td>5.90</td><td><span class="pct-cell pct-hi">78.9%</span></td></tr><tr><td><a href="berkshire-robot-chain-orbbec.html">奥比中光</a></td><td>340.75</td><td><span class="pct-cell pct-hi">87.9%</span></td><td>15.32</td><td><span class="pct-cell pct-hi">97.0%</span></td></tr><tr><td><a href="berkshire-robot-chain-estun.html">埃斯顿</a></td><td>285.48</td><td><span class="pct-cell pct-hi">97.8%</span></td><td>11.48</td><td><span class="pct-cell pct-hi">87.4%</span></td></tr><tr><td><a href="berkshire-robot-chain-tuopu.html">拓普集团</a></td><td>34.16</td><td><span class="pct-cell pct-mid">41.0%</span></td><td>3.84</td><td><span class="pct-cell pct-lo">35.6%</span></td></tr><tr><td><a href="berkshire-robot-chain-sanhuayd.html">三花智控</a></td><td>43.18</td><td><span class="pct-cell pct-hi">68.3%</span></td><td>5.41</td><td><span class="pct-cell pct-mid">45.6%</span></td></tr></tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
+<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+亏损企业 PE 为负、PE 分位不适用，仅看 PB；港股 / 美股 / 未上市成分百度不覆盖，标"非A股"。分位为时点统计。</div>
+
+<div class="section-title">产业链成本传导</div>
+<div class="cost-block"><div class="cost-note"><p>本产业链（机器人）<b>无交易所可观测的商品期货 / 利率序列</b>（白酒、机器人、AI 没有统一定价期货），成本传导段暂以定性框架呈现——见上方「产业周期判断标准」段。A 股成分的估值历史分位已在本段上方给出。</p></div></div>
+
+<div class="section-title">员工效率与景气度排行（机器人 16 家）</div>
+<div class="ovtable"><table>
+<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>景气度</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-robot-chain-lvharmonics.html">绿的谐波</a></td><td>1,087</td><td class="num up">+32.08%</td><td class="num">¥52.5万</td><td class="num">¥11.4万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-orbbec.html">奥比中光</a></td><td>888</td><td class="num up">+29.26%</td><td class="num">¥106.0万</td><td class="num">¥14.4万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-beisite.html">贝斯特</a></td><td>1,436</td><td class="num up">+21.08%</td><td class="num">¥104.7万</td><td class="num">¥19.4万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-tuopu.html">拓普集团</a></td><td>26,123</td><td class="num up">+15.09%</td><td class="num">¥113.2万</td><td class="num">¥10.6万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-mingzhi.html">鸣志电器</a></td><td>3,906</td><td class="num up">+12.79%</td><td class="num">¥70.7万</td><td class="num">¥1.6万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-henli.html">恒立液压</a></td><td>8,403</td><td class="num up">+12.73%</td><td class="num">¥130.2万</td><td class="num">¥32.5万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-huichuan.html">汇川技术</a></td><td>27,292</td><td class="num up">+11.65%</td><td class="num">¥165.3万</td><td class="num">¥18.5万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-keli.html">柯力传感</a></td><td>2,967</td><td class="num up">+8.96%</td><td class="num">¥52.5万</td><td class="num">¥11.5万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-shuanghuan.html">双环传动</a></td><td>8,982</td><td class="num up">+7.79%</td><td class="num">¥101.4万</td><td class="num">¥14.1万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-zhongdali.html">中大力德</a></td><td>2,122</td><td class="num up">+6.79%</td><td class="num">¥49.1万</td><td class="num">¥3.0万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-ubttech.html">优必选</a></td><td>2,550</td><td class="num up">—</td><td class="num">¥78.5万</td><td class="num">¥-27.6万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-jiangsuleili.html">江苏雷利</a></td><td>4,417</td><td class="num down">-1.56%</td><td class="num">¥94.6万</td><td class="num">¥6.8万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-sanhuayd.html">三花智控</a></td><td>19,090</td><td class="num down">-3.52%</td><td class="num">¥162.5万</td><td class="num">¥21.3万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-estun.html">埃斯顿</a></td><td>3,261</td><td class="num down">-8.71%</td><td class="num">¥149.9万</td><td class="num">¥1.4万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-nvidia.html">NVIDIA</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-robot-chain-tesla.html">Tesla</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">员工增速=在职员工同比；人均营收/净利=2025 营收(元)÷员工数。已覆盖 14/16 家员工数据，
+其余为非 A 股主体或年报未披露标准口径，标「数据不足」。排序：有数据优先、按员工增速降序。
+景气度信号由「员工增速分档 × 人均盈利分档 × 人均营收趋势」组合判定，为代理指标，非投资建议。</div>
+</div>
+
+<div class="section-title">机器人索引（成分公司 16 家）</div>
+<div class="grid">
+<a class="giant-card" href="berkshire-robot-chain-lvharmonics.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">绿的谐波 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">谐波减速器国产龙头，人形机器人旋转关节核心供应商。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-shuanghuan.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">双环传动 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">高精度齿轮与 RV 减速器龙头，机器人 + 新能源车双主业。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-zhongdali.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">中大力德 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">精密减速器与传动件供应商，覆盖谐波 / RV / 行星。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-henli.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">恒立液压 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">液压件龙头，进军线性执行器与行星滚柱丝杠。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-beisite.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">贝斯特 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">精密零部件与涡轮增压件，拓展行星滚柱丝杠。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-mingzhi.html"><div class="giant-head"><span class="giant-name">鸣志电器 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">步进 / 无框力矩电机与驱动龙头，人形灵巧手受益。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-huichuan.html"><div class="giant-head"><span class="giant-name">汇川技术 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">工业自动化与伺服龙头，机器人"大脑 + 神经"供应商。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-jiangsuleili.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">江苏雷利 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">微特电机与执行器供应商，人形关节 / 灵巧手受益。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-keli.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">柯力传感 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">应变式传感器龙头，布局力矩 / 六维力传感器。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-orbbec.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">奥比中光 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">3D 视觉传感龙头，机器人"眼睛"核心供应商。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-estun.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">埃斯顿 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">国产工业机器人本体龙头，全产业链布局。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-tuopu.html"><div class="giant-head"><span class="giant-name">拓普集团 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">汽车底盘与执行器龙头，Tesla 机器人执行器核心供应商。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-sanhuayd.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">三花智控 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">热管理全球龙头，切入机器人机电执行器。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-ubttech.html"><div class="giant-head"><span class="giant-name">优必选 链</span><span class="region-tag region-hk">中国香港</span></div><div class="giant-desc">港股人形机器人第一股，Walker 系列本体厂。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-tesla.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">Tesla Optimus 链</span><span class="region-tag region-us">美国</span></div><div class="giant-desc">全球人形机器人量产标杆，Optimus 跨层全栈。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-robot-chain-nvidia.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">NVIDIA 链</span><span class="region-tag region-us">美国</span></div><div class="giant-desc">机器人"大脑"算力与平台供应商，Isaac / GR00T。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+</body>
+</html>

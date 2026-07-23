@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
+<title>电力产业链 · 价值投资视角</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(14,165,233,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(14,165,233,0.10);color:#0ea5e9;border:1px solid rgba(14,165,233,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#0ea5e9;color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#0ea5e9}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(14,165,233,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(14,165,233,0.08);border:1px solid rgba(14,165,233,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#0ea5e9}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(14,165,233,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#0ea5e9;background:rgba(14,165,233,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
+.explain-banner .eb-text b{color:#0f172a;font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #0ea5e9}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#0ea5e9;font-weight:700}
+.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.giant-card:hover{border-color:#0ea5e9;background:rgba(14,165,233,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(14,165,233,0.12)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:#0f172a}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
+.region-hk{background:rgba(234,179,8,0.14);color:#b45309;border:1px solid rgba(234,179,8,0.3)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#0ea5e9;font-weight:600}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
+.overview{background:rgba(14,165,233,0.05);border:1px solid rgba(14,165,233,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
+.overview b{color:#0f172a;font-weight:600}
+.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #0ea5e9;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
+.layer-detail-body b{color:#334155}
+.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.info-table tr{border-bottom:1px solid #eef2f7}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
+.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
+.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(14,165,233,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#0ea5e9}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.back-bar{margin-top:20px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(14,165,233,0.08);color:#0ea5e9;border:1px solid rgba(14,165,233,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(14,165,233,0.16)}
+.data-banner{background:rgba(14,165,233,0.07);border:1px solid rgba(14,165,233,0.22);border-left:4px solid #0ea5e9;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:#0f172a;font-weight:600}
+.data-banner .upd{color:#0ea5e9;font-weight:600}
+.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(14,165,233,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cycle-title .icon{color:#0ea5e9}
+.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
+.cycle-body b{color:#0f172a;font-weight:600}
+.cycle-body p{margin-bottom:8px}
+.cycle-body ul{margin:8px 0 0 18px;padding:0}
+.cycle-body li{margin-bottom:6px}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #0ea5e9;padding:8px 12px;background:rgba(14,165,233,0.06);line-height:1.7}
+.cycle-current b{color:#334155}
+.cycle-current a{text-decoration:none}
+.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.fin-title .icon{color:#0ea5e9}
+.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px}
+.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.fin-table tr{border-bottom:1px solid #eef2f7}
+.fin-table tr:last-child{border-bottom:none}
+.fin-table td{padding:10px 14px;font-size:13px;color:#334155}
+.fin-table td:first-child{width:130px;color:#64748b}
+.fin-table .val{color:#b45309;font-weight:600}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}.extend a:hover{border-color:##0ea5e9;box-shadow:0 6px 18px rgba(0,0,0,.1)}.extend b{color:##0ea5e9;display:block;margin-bottom:5px;font-weight:700}.extend span{font-size:12.5px;color:#64748b;line-height:1.55}</style>
+
+<style>
+/* P0 估值历史分位 + 成本传导 */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0f766e;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
+
+</style>
+<style>
+
+/* 员工效率与景气度 */
+.emp-block{margin:6px 0 2px}
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
+.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
+.emp-val{font-size:18px;font-weight:700;color:#0f172a}
+.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
+.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
+.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
+.emp-signal b{font-weight:700}
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:0ea5e9;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:0ea5e9;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:0ea5e9;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:0ea5e9;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:0ea5e9;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:0ea5e9;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:0ea5e9;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:0ea5e9;text-decoration:none;font-size:13px;font-weight:700">电力</a><a href="berkshire-coal-chains.html" style="color:0ea5e9;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:0ea5e9;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:0ea5e9;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:0ea5e9;text-decoration:none;font-size:13px">电力设备</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>电力产业链</span>
+</div>
+</div><!--poisson-chain-link--><div class="poisson-chain-link" style="max-width:1080px;margin:14px auto 0;padding:0 20px"><a href="berkshire-power-poisson.html" style="display:inline-block;background:#fff;border:1px solid #e2e8f0;border-left:3px solid #2563eb;border-radius:8px;padding:8px 14px;font-size:13px;color:#1e40af;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.04)">📊 查看 电力 产业链泊松象限图（λ净 vs 总收益）</a></div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">电力产业链</div>
+<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">11</div><div class="stat-label">上市公司</div></div>
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+</div>
+</div>
+
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
+
+<div class="explain-banner">
+<div class="eb-icon">⚡</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「电力产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把电力龙头按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
+<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中为框架级定性梳理，不编造具体财务数字，最新数据以公司公告为准。
+</div>
+</div>
+</div>
+
+<div class="section-title">跨层分析框架（5 层）</div>
+<div class="layers">
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游 · 燃料与资源</div><div class="layer-desc">煤、天然气、铀、水能、风能与光照——发电的「原料」与资源禀赋，决定成本与可持续性</div></div><div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游 · 发电运营</div><div class="layer-desc">火电 / 水电 / 核电 / 风电 / 光伏等多种电源，把资源转化为电力，利用小时与电价是核心</div></div><div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游 · 电网与售电</div><div class="layer-desc">输配电网络、调度与售电侧，连接电厂与终端用户，受管制电价影响大</div></div><div class="layer-card"><div class="layer-num">04</div><div class="layer-name">消费与场景</div><div class="layer-desc">工商业、居民、数据中心与电动车充电——电力是经济活动的底层能源</div></div><div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">公用事业属性、稳定现金流与高股息；风险在煤价 / 来水 / 利用小时 / 电价管制与新能源挤压</div></div>
+</div>
+
+<div class="section-title">产业周期判断标准</div>
+<div class="cycle-block" id="cycle"><div class="cycle-title"><span class="icon">🔄</span> 电力产业链 产业周期怎么看</div><div class="cycle-body"><p><b>驱动变量</b>：全社会用电量增速（宏观晴雨表）、发电设备<b>利用小时数</b>（供需松紧）、<b>煤价</b>（火电成本）、来水（水电）、风光装机与消纳、容量电价政策。</p>
+<ul>
+<li><b>利用小时数</b>：低位企稳回升 → 供需改善、景气拐点；持续下行 → 过剩。</li>
+<li><b>煤价（秦皇岛港 Q5500）</b>：下行 + 利用小时回升 → 火电盈利双击；暴涨 → 成本压制。</li>
+<li><b>来水</b>：偏丰 → 水电大年；偏枯 → 水电承压、火电补位。</li>
+<li><b>新能源消纳</b>：装机高增但弃风弃光率抬升 → 瓶颈；强配储能缓解。</li>
+<li><b>政策</b>：容量电价机制 → 火电从"电量"转向"容量+调节"盈利，弱化周期波动。</li>
+</ul></div><div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：电力呈"弱周期+公用事业化"：容量电价弱化火电波动，利用小时与煤价是核心观察变量；当前火电盈利稳定性提升，水电看丰枯，新能源重消纳与电价机制落地。</div></div>
+
+<div class="section-title">估值历史分位总览（电力 11 家）</div>
+<div class="ovtable">
+<table>
+<thead><tr><th>公司</th><th>PE(TTM)</th><th>PE 分位</th><th>PB</th><th>PB 分位</th></tr></thead>
+<tbody><tr><td><a href="berkshire-power-chain-cypc.html">长江电力</a></td><td>19.36</td><td><span class="pct-cell pct-mid">57.7%</span></td><td>3.07</td><td><span class="pct-cell pct-hi">79.6%</span></td></tr><tr><td><a href="berkshire-power-chain-huaneng.html">华能国际</a></td><td>7.79</td><td><span class="pct-cell pct-lo">19.4%</span></td><td>1.55</td><td><span class="pct-cell pct-mid">48.0%</span></td></tr><tr><td><a href="berkshire-power-chain-sxor.html">三峡能源</a></td><td>46.71</td><td><span class="pct-cell pct-hi">95.9%</span></td><td>1.20</td><td><span class="pct-cell pct-lo">1.0%</span></td></tr><tr><td><a href="berkshire-power-chain-cnnc.html">中国核电</a></td><td>22.14</td><td><span class="pct-cell pct-hi">72.6%</span></td><td>1.52</td><td><span class="pct-cell pct-lo">20.7%</span></td></tr><tr><td><a href="berkshire-power-chain-guodian.html">国电电力</a></td><td>12.58</td><td><span class="pct-cell pct-lo">26.9%</span></td><td>1.39</td><td><span class="pct-cell pct-hi">64.3%</span></td></tr><tr><td><a href="berkshire-power-chain-datang.html">大唐发电</a></td><td>13.53</td><td><span class="pct-cell pct-lo">33.9%</span></td><td>2.96</td><td><span class="pct-cell pct-hi">98.4%</span></td></tr><tr><td><a href="berkshire-power-chain-huadian.html">华电国际</a></td><td>9.05</td><td><span class="pct-cell pct-lo">33.1%</span></td><td>1.07</td><td><span class="pct-cell pct-mid">48.4%</span></td></tr><tr><td><a href="berkshire-power-chain-shenergy.html">申能股份</a></td><td>10.74</td><td><span class="pct-cell pct-lo">20.5%</span></td><td>1.07</td><td><span class="pct-cell pct-hi">61.1%</span></td></tr><tr><td><a href="berkshire-power-chain-zheenergy.html">浙能电力</a></td><td>9.91</td><td><span class="pct-cell pct-lo">31.2%</span></td><td>0.95</td><td><span class="pct-cell pct-mid">49.8%</span></td></tr><tr><td><a href="berkshire-power-chain-yuedian.html">粤电力A</a></td><td>37.27</td><td><span class="pct-cell pct-hi">72.2%</span></td><td>1.33</td><td><span class="pct-cell pct-hi">88.0%</span></td></tr><tr><td><a href="berkshire-power-chain-longyuan.html">龙源电力</a></td><td>30.99</td><td><span class="pct-cell pct-hi">84.6%</span></td><td>1.72</td><td><span class="pct-cell pct-lo">7.7%</span></td></tr></tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
+<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+亏损企业 PE 为负、PE 分位不适用，仅看 PB；港股成分百度不覆盖，标"港股"。分位为时点统计。</div>
+</div>
+
+<div class="section-title">产业链成本传导 · 焦煤(燃料成本) → 毛利</div>
+<div class="cost-block">
+  <div class="cost-chart"><svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="焦煤(燃料成本)价格走势">
+  <line x1="54" y1="16.0" x2="664" y2="16.0" stroke="#e2e8f0"/><text x="48" y="20.0" text-anchor="end" font-size="10" fill="#94a3b8">3290</text><line x1="54" y1="74.7" x2="664" y2="74.7" stroke="#e2e8f0"/><text x="48" y="78.7" text-anchor="end" font-size="10" fill="#94a3b8">2363</text><line x1="54" y1="133.3" x2="664" y2="133.3" stroke="#e2e8f0"/><text x="48" y="137.3" text-anchor="end" font-size="10" fill="#94a3b8">1436</text><line x1="54" y1="192.0" x2="664" y2="192.0" stroke="#e2e8f0"/><text x="48" y="196.0" text-anchor="end" font-size="10" fill="#94a3b8">509</text><polygon points="54,192 54.0,145.7 57.8,152.2 61.6,155.0 65.4,157.6 69.2,157.2 73.1,152.5 76.9,152.3 80.7,156.6 84.5,153.8 88.3,160.6 92.1,165.5 95.9,166.3 99.8,171.3 103.6,172.3 107.4,172.3 111.2,173.3 115.0,174.5 118.8,174.1 122.6,175.0 126.4,175.6 130.2,176.4 134.1,177.4 137.9,178.2 141.7,178.3 145.5,181.1 149.3,182.0 153.1,180.7 156.9,181.4 160.8,185.4 164.6,188.3 168.4,188.1 172.2,189.1 176.0,192.0 179.8,188.5 183.6,189.1 187.4,185.5 191.2,183.6 195.1,175.3 198.9,181.0 202.7,178.7 206.5,175.9 210.3,169.8 214.1,160.2 217.9,141.5 221.8,142.3 225.6,149.7 229.4,144.5 233.2,145.1 237.0,146.1 240.8,152.9 244.6,164.2 248.4,153.3 252.2,139.2 256.1,134.4 259.9,152.5 263.7,156.9 267.5,138.1 271.3,141.1 275.1,142.4 278.9,134.8 282.8,143.1 286.6,151.0 290.4,145.8 294.2,148.2 298.0,148.4 301.8,145.2 305.6,143.7 309.4,136.1 313.2,140.1 317.1,149.5 320.9,143.9 324.7,142.2 328.5,146.3 332.3,138.7 336.1,136.5 339.9,136.1 343.8,135.7 347.6,141.4 351.4,145.5 355.2,146.0 359.0,146.6 362.8,150.5 366.6,147.4 370.4,145.6 374.2,144.4 378.1,156.6 381.9,150.7 385.7,149.5 389.5,147.0 393.3,145.8 397.1,143.8 400.9,140.6 404.8,134.1 408.6,121.1 412.4,128.7 416.2,130.9 420.0,119.2 423.8,112.0 427.6,112.4 431.4,101.2 435.2,77.6 439.1,68.6 442.9,16.0 446.7,80.7 450.5,104.8 454.3,83.2 458.1,79.8 461.9,58.8 465.8,22.6 469.6,43.7 473.4,53.7 477.2,75.9 481.0,89.2 484.8,105.9 488.6,90.9 492.4,106.2 496.2,82.9 500.1,106.2 503.9,108.3 507.7,96.8 511.5,106.5 515.3,136.6 519.1,146.5 522.9,138.7 526.8,131.7 530.6,127.0 534.4,107.2 538.2,109.4 542.0,92.0 545.8,104.8 549.6,116.4 553.4,110.8 557.2,130.1 561.1,109.9 564.9,118.5 568.7,124.6 572.5,131.8 576.3,137.5 580.1,126.4 583.9,138.0 587.8,145.4 591.6,150.8 595.4,152.4 599.2,155.0 603.0,161.7 606.8,165.3 610.6,178.3 614.4,172.0 618.2,152.4 622.1,151.4 625.9,153.0 629.7,142.8 633.5,156.7 637.3,153.7 641.1,151.1 644.9,155.0 648.8,151.5 652.6,142.8 656.4,142.9 660.2,143.2 664.0,145.8 664.0,192" fill="#0ea5e9" opacity="0.12"/>
+  <polyline points="54.0,145.7 57.8,152.2 61.6,155.0 65.4,157.6 69.2,157.2 73.1,152.5 76.9,152.3 80.7,156.6 84.5,153.8 88.3,160.6 92.1,165.5 95.9,166.3 99.8,171.3 103.6,172.3 107.4,172.3 111.2,173.3 115.0,174.5 118.8,174.1 122.6,175.0 126.4,175.6 130.2,176.4 134.1,177.4 137.9,178.2 141.7,178.3 145.5,181.1 149.3,182.0 153.1,180.7 156.9,181.4 160.8,185.4 164.6,188.3 168.4,188.1 172.2,189.1 176.0,192.0 179.8,188.5 183.6,189.1 187.4,185.5 191.2,183.6 195.1,175.3 198.9,181.0 202.7,178.7 206.5,175.9 210.3,169.8 214.1,160.2 217.9,141.5 221.8,142.3 225.6,149.7 229.4,144.5 233.2,145.1 237.0,146.1 240.8,152.9 244.6,164.2 248.4,153.3 252.2,139.2 256.1,134.4 259.9,152.5 263.7,156.9 267.5,138.1 271.3,141.1 275.1,142.4 278.9,134.8 282.8,143.1 286.6,151.0 290.4,145.8 294.2,148.2 298.0,148.4 301.8,145.2 305.6,143.7 309.4,136.1 313.2,140.1 317.1,149.5 320.9,143.9 324.7,142.2 328.5,146.3 332.3,138.7 336.1,136.5 339.9,136.1 343.8,135.7 347.6,141.4 351.4,145.5 355.2,146.0 359.0,146.6 362.8,150.5 366.6,147.4 370.4,145.6 374.2,144.4 378.1,156.6 381.9,150.7 385.7,149.5 389.5,147.0 393.3,145.8 397.1,143.8 400.9,140.6 404.8,134.1 408.6,121.1 412.4,128.7 416.2,130.9 420.0,119.2 423.8,112.0 427.6,112.4 431.4,101.2 435.2,77.6 439.1,68.6 442.9,16.0 446.7,80.7 450.5,104.8 454.3,83.2 458.1,79.8 461.9,58.8 465.8,22.6 469.6,43.7 473.4,53.7 477.2,75.9 481.0,89.2 484.8,105.9 488.6,90.9 492.4,106.2 496.2,82.9 500.1,106.2 503.9,108.3 507.7,96.8 511.5,106.5 515.3,136.6 519.1,146.5 522.9,138.7 526.8,131.7 530.6,127.0 534.4,107.2 538.2,109.4 542.0,92.0 545.8,104.8 549.6,116.4 553.4,110.8 557.2,130.1 561.1,109.9 564.9,118.5 568.7,124.6 572.5,131.8 576.3,137.5 580.1,126.4 583.9,138.0 587.8,145.4 591.6,150.8 595.4,152.4 599.2,155.0 603.0,161.7 606.8,165.3 610.6,178.3 614.4,172.0 618.2,152.4 622.1,151.4 625.9,153.0 629.7,142.8 633.5,156.7 637.3,153.7 641.1,151.1 644.9,155.0 648.8,151.5 652.6,142.8 656.4,142.9 660.2,143.2 664.0,145.8" fill="none" stroke="#0ea5e9" stroke-width="2"/>
+  <text x="54" y="212" font-size="10" fill="#94a3b8">2013-03</text>
+  <text x="664" y="212" text-anchor="end" font-size="10" fill="#94a3b8">2026-07</text>
+  <text x="54" y="18" font-size="10" fill="#0ea5e9" font-weight="600">焦煤(燃料成本) 现价约 ¥1239/吨</text>
+</svg></div>
+  <div class="cost-note"><p><b>燃料成本占火电总成本 60–70%</b>。煤电用煤（近似焦煤/动力煤价格 jm0）直接决定火电毛利：煤价低位→火电盈利扩张、高位→受压。</p>
+<p>历史镜鉴：2021 煤价暴涨→火电全行业巨亏；2022–2023 后煤价回落 + 电价机制理顺→火电盈利强劲修复、分红回升。当前焦煤/动力煤约 <b>¥1,239/吨</b>（2026-07），较 2021 高位明显回落，火电处盈利修复通道。</p>
+<p><b>怎么读</b>：火电看"煤价下行 + 电量稳增长 + 高分红"三重奏；水电/新能源运营商（长电/华能水电）燃料免疫、看来水与装机。分位表帮你看清各电力央企在历史便宜与否。</p></div>
+</div>
+
+<div class="section-title">员工效率与景气度排行（电力 11 家）</div>
+<div class="ovtable"><table>
+<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>景气度</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-power-chain-huadian.html">华电国际</a></td><td>30,595</td><td class="num up">+21.93%</td><td class="num">¥411.9万</td><td class="num">¥19.8万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-power-chain-sxor.html">三峡能源</a></td><td>7,427</td><td class="num up">+12.80%</td><td class="num">¥382.4万</td><td class="num">¥50.0万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-power-chain-cnnc.html">中国核电</a></td><td>22,306</td><td class="num up">+9.58%</td><td class="num">¥368.0万</td><td class="num">¥41.7万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-power-chain-yuedian.html">粤电力A</a></td><td>10,497</td><td class="num up">+2.40%</td><td class="num">¥491.0万</td><td class="num">¥5.7万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-power-chain-datang.html">大唐发电</a></td><td>27,149</td><td class="num up">—</td><td class="num">¥446.6万</td><td class="num">¥27.2万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-power-chain-longyuan.html">龙源电力</a></td><td>7,928</td><td class="num up">—</td><td class="num">¥381.6万</td><td class="num">¥57.1万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-power-chain-shenergy.html">申能股份</a></td><td>2,579</td><td class="num down">-2.72%</td><td class="num">¥1086.8万</td><td class="num">¥155.6万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-power-chain-zheenergy.html">浙能电力</a></td><td>12,889</td><td class="num down">-2.92%</td><td class="num">¥617.2万</td><td class="num">¥58.4万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-power-chain-guodian.html">国电电力</a></td><td>35,407</td><td class="num down">-4.69%</td><td class="num">¥480.8万</td><td class="num">¥20.2万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-power-chain-cypc.html">长江电力</a></td><td>8,482</td><td class="num down">-89.31%</td><td class="num">¥1016.8万</td><td class="num">¥406.8万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-power-chain-huaneng.html">华能国际</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">员工增速=在职员工同比；人均营收/净利=2025 营收(元)÷员工数。已覆盖 10/11 家员工数据，
+其余为非 A 股主体或年报未披露标准口径，标「数据不足」。排序：有数据优先、按员工增速降序。
+景气度信号由「员工增速分档 × 人均盈利分档 × 人均营收趋势」组合判定，为代理指标，非投资建议。</div>
+</div>
+
+<div class="section-title">电力龙头索引（上市公司 11 家）</div>
+<div class="grid">
+<a class="giant-card" href="berkshire-power-chain-cypc.html"><div class="giant-head"><span class="giant-name">长江电力 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">全球最大水电上市公司，运营三峡 / 葛洲坝 / 溪洛渡等巨型水电站。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-power-chain-huaneng.html"><div class="giant-head"><span class="giant-name">华能国际 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">火电龙头，煤电为主、新能源转型加速。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-power-chain-sxor.html"><div class="giant-head"><span class="giant-name">三峡能源 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">三峡集团新能源旗舰，风光发电运营龙头。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-power-chain-cnnc.html"><div class="giant-head"><span class="giant-name">中国核电 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">核电运营双寡头之一，机组稳健发电 + 新能源补充。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-power-chain-guodian.html"><div class="giant-head"><span class="giant-name">国电电力 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">国家能源集团旗舰，水火风光多元发电。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-power-chain-datang.html"><div class="giant-head"><span class="giant-name">大唐发电 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">火电为主的老牌发电央企，转型绿电。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-power-chain-huadian.html"><div class="giant-head"><span class="giant-name">华电国际 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">华电集团火电平台，煤电为主 + 新能源。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-power-chain-shenergy.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">申能股份 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">上海能源平台，电力 + 燃气双主业。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-power-chain-zheenergy.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">浙能电力 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">浙江火电龙头，煤电为主 + 新能源。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-power-chain-yuedian.html"><div class="giant-head"><span class="giant-name">粤电力A 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">广东电力平台，火电 + 新能源。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-power-chain-longyuan.html"><div class="giant-head"><span class="giant-name">龙源电力 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">全球最大风电运营商，国家能源集团新能源平台。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+<div class="section-title">延伸阅读</div><div class="extend"><a href="berkshire-power-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a><a href="berkshire-power-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a><a href="berkshire-power-buyback.html"><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a></div></body><a href="berkshire-power-cycle.html"><b>政策/利用小时周期</b><span>框架级梳理行业周期脉络与关键信号</span></a><a href="berkshire-power-methodology.html"><b>方法论文</b><span>怎么读这个行业：核心指标与分析框架</span></a>
+</html>

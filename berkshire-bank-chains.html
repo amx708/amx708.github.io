@@ -125,6 +125,39 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 .ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
 
 </style>
+<style>
+
+/* P0 估值历史分位 + 成本传导（扩展链） */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0f766e;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
+
+</style>
 </head><body>
 <div class="nav"><div class="nav-in">
 <div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 银行图谱</div>
@@ -143,6 +176,132 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <b>7页</b><span>图谱+方法论+周期+回测+温度计+回报图</span>
 </div></div></div>
 <div class="wrap">
+<div class="section-title">估值历史分位总览（银行 42 家）</div>
+<div class="ovtable">
+<table>
+<thead><tr><th>公司</th><th>PE(TTM)</th><th>PE 分位</th><th>PB</th><th>PB 分位</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-bank-chain-abc.html">农业银行</a></td><td>7.58</td><td><span class="pct-cell pct-hi">90.6%</span></td><td>0.79</td><td><span class="pct-cell pct-hi">62.7%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-bobj.html">北京银行</a></td><td>5.16</td><td><span class="pct-cell pct-mid">59.0%</span></td><td>0.37</td><td><span class="pct-cell pct-lo">0.7%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-boc.html">中国银行</a></td><td>7.71</td><td><span class="pct-cell pct-hi">96.9%</span></td><td>0.69</td><td><span class="pct-cell pct-hi">65.8%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-bocom.html">交通银行</a></td><td>6.21</td><td><span class="pct-cell pct-hi">70.6%</span></td><td>0.51</td><td><span class="pct-cell pct-lo">37.2%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-ccb.html">建设银行</a></td><td>7.81</td><td><span class="pct-cell pct-hi">96.4%</span></td><td>0.74</td><td><span class="pct-cell pct-mid">56.2%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cdb.html">成都银行</a></td><td>5.62</td><td><span class="pct-cell pct-lo">38.3%</span></td><td>0.82</td><td><span class="pct-cell pct-lo">14.9%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-ceb.html">光大银行</a></td><td>4.87</td><td><span class="pct-cell pct-lo">36.1%</span></td><td>0.37</td><td><span class="pct-cell pct-lo">3.8%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-changshu.html">常熟银行</a></td><td>5.17</td><td><span class="pct-cell pct-lo">0.7%</span></td><td>0.70</td><td><span class="pct-cell pct-lo">0.7%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-citic.html">中信银行</a></td><td>5.74</td><td><span class="pct-cell pct-mid">51.8%</span></td><td>0.55</td><td><span class="pct-cell pct-mid">41.0%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cmb.html">招商银行</a></td><td>6.22</td><td><span class="pct-cell pct-lo">16.1%</span></td><td>0.83</td><td><span class="pct-cell pct-lo">3.3%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cmbc.html">民生银行</a></td><td>5.07</td><td><span class="pct-cell pct-mid">41.5%</span></td><td>0.26</td><td><span class="pct-cell pct-lo">0.8%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cqb.html">重庆银行</a></td><td>6.38</td><td><span class="pct-cell pct-mid">57.1%</span></td><td>0.63</td><td><span class="pct-cell pct-mid">56.6%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cqrc.html">渝农商行</a></td><td>6.17</td><td><span class="pct-cell pct-hi">75.4%</span></td><td>0.56</td><td><span class="pct-cell pct-hi">71.5%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-csb.html">长沙银行</a></td><td>4.63</td><td><span class="pct-cell pct-lo">34.4%</span></td><td>0.52</td><td><span class="pct-cell pct-lo">15.7%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-czb.html">浙商银行</a></td><td>5.95</td><td><span class="pct-cell pct-hi">60.4%</span></td><td>0.42</td><td><span class="pct-cell pct-lo">2.5%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-gyb.html">贵阳银行</a></td><td>3.7</td><td><span class="pct-cell pct-lo">23.8%</span></td><td>0.30</td><td><span class="pct-cell pct-lo">1.4%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-hxb.html">华夏银行</a></td><td>4.07</td><td><span class="pct-cell pct-lo">33.9%</span></td><td>0.34</td><td><span class="pct-cell pct-lo">17.8%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-hzb.html">杭州银行</a></td><td>6.05</td><td><span class="pct-cell pct-lo">23.0%</span></td><td>0.81</td><td><span class="pct-cell pct-lo">16.8%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-icbc.html">工商银行</a></td><td>7.43</td><td><span class="pct-cell pct-hi">89.3%</span></td><td>0.68</td><td><span class="pct-cell pct-mid">44.2%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-indy.html">兴业银行</a></td><td>4.76</td><td><span class="pct-cell pct-lo">23.4%</span></td><td>0.44</td><td><span class="pct-cell pct-lo">2.6%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-jiangyin.html">江阴银行</a></td><td>5.18</td><td><span class="pct-cell pct-lo">17.9%</span></td><td>0.53</td><td><span class="pct-cell pct-lo">3.3%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-jsb.html">江苏银行</a></td><td>5.89</td><td><span class="pct-cell pct-hi">66.4%</span></td><td>0.79</td><td><span class="pct-cell pct-hi">71.5%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-lzb.html">兰州银行</a></td><td>6.41</td><td><span class="pct-cell pct-lo">1.2%</span></td><td>0.38</td><td><span class="pct-cell pct-lo">1.2%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-nib.html">宁波银行</a></td><td>7.03</td><td><span class="pct-cell pct-lo">27.1%</span></td><td>0.91</td><td><span class="pct-cell pct-lo">23.4%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-njcb.html">南京银行</a></td><td>6.1</td><td><span class="pct-cell pct-mid">45.8%</span></td><td>0.72</td><td><span class="pct-cell pct-lo">15.3%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-pab.html">平安银行</a></td><td>4.82</td><td><span class="pct-cell pct-lo">14.5%</span></td><td>0.45</td><td><span class="pct-cell pct-lo">2.1%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-psbc.html">邮储银行</a></td><td>6.89</td><td><span class="pct-cell pct-hi">64.0%</span></td><td>0.59</td><td><span class="pct-cell pct-lo">11.5%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-qdb.html">青岛银行</a></td><td>5.88</td><td><span class="pct-cell pct-lo">20.7%</span></td><td>0.75</td><td><span class="pct-cell pct-mid">49.0%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-qlb.html">齐鲁银行</a></td><td>6.36</td><td><span class="pct-cell pct-hi">68.3%</span></td><td>0.74</td><td><span class="pct-cell pct-mid">58.5%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-qrc.html">青农商行</a></td><td>4.99</td><td><span class="pct-cell pct-lo">2.0%</span></td><td>0.42</td><td><span class="pct-cell pct-lo">3.1%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-ruifeng.html">瑞丰银行</a></td><td>4.68</td><td><span class="pct-cell pct-lo">1.5%</span></td><td>0.45</td><td><span class="pct-cell pct-lo">1.5%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-shb.html">上海银行</a></td><td>5.3</td><td><span class="pct-cell pct-lo">36.5%</span></td><td>0.51</td><td><span class="pct-cell pct-lo">28.8%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-shnc.html">沪农商行</a></td><td>6.21</td><td><span class="pct-cell pct-mid">51.9%</span></td><td>0.58</td><td><span class="pct-cell pct-mid">40.1%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-spdb.html">浦发银行</a></td><td>6.07</td><td><span class="pct-cell pct-hi">60.7%</span></td><td>0.40</td><td><span class="pct-cell pct-lo">24.1%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-sunong.html">苏农银行</a></td><td>4.48</td><td><span class="pct-cell pct-lo">3.0%</span></td><td>0.48</td><td><span class="pct-cell pct-lo">1.6%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-szb.html">苏州银行</a></td><td>6.34</td><td><span class="pct-cell pct-lo">26.6%</span></td><td>0.67</td><td><span class="pct-cell pct-lo">14.3%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-wuxi.html">无锡银行</a></td><td>5.05</td><td><span class="pct-cell pct-lo">5.7%</span></td><td>0.51</td><td><span class="pct-cell pct-lo">1.1%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-xab.html">西安银行</a></td><td>5.81</td><td><span class="pct-cell pct-lo">8.9%</span></td><td>0.44</td><td><span class="pct-cell pct-lo">3.2%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-xmb.html">厦门银行</a></td><td>7.26</td><td><span class="pct-cell pct-hi">64.1%</span></td><td>0.71</td><td><span class="pct-cell pct-mid">56.1%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-zijin.html">紫金银行</a></td><td>7.46</td><td><span class="pct-cell pct-mid">55.1%</span></td><td>0.46</td><td><span class="pct-cell pct-lo">1.5%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-zjg.html">张家港行</a></td><td>5.18</td><td><span class="pct-cell pct-lo">11.6%</span></td><td>0.54</td><td><span class="pct-cell pct-lo">2.0%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-zzb.html">郑州银行</a></td><td>8.07</td><td><span class="pct-cell pct-lo">31.7%</span></td><td>0.34</td><td><span class="pct-cell pct-lo">1.7%</span></td></tr></tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
+<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+亏损企业 PE 为负、PE 分位不适用，仅看 PB；港股 / 美股 / 未上市成分百度不覆盖，标"非A股"。分位为时点统计。</div>
+
+
+
+<div class="section-title">R15 三维评级总览（银行 42 家）</div>
+<div class="ovtable">
+<table>
+<thead><tr><th>公司</th><th>相对估值星级</th><th>质量星级(ROE)</th><th>时机分</th><th>PE分位</th><th>PB分位</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-bank-chain-abc.html">农业银行</a></td><td><span class="pct-cell pct-mid">合理</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-hi">90.6%</span></td><td><span class="pct-cell pct-hi">62.7%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-bobj.html">北京银行</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-mid">59.0%</span></td><td><span class="pct-cell pct-lo">0.7%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-boc.html">中国银行</a></td><td><span class="pct-cell pct-mid">合理</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-hi">96.9%</span></td><td><span class="pct-cell pct-hi">65.8%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-bocom.html">交通银行</a></td><td><span class="pct-cell pct-mid">低估1★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-hi">70.6%</span></td><td><span class="pct-cell pct-lo">37.2%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-ccb.html">建设银行</a></td><td><span class="pct-cell pct-mid">合理</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-hi">96.4%</span></td><td><span class="pct-cell pct-mid">56.2%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cdb.html">成都银行</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★★☆</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">38.3%</span></td><td><span class="pct-cell pct-lo">14.9%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-ceb.html">光大银行</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">36.1%</span></td><td><span class="pct-cell pct-lo">3.8%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-changshu.html">常熟银行</a></td><td><span class="pct-cell pct-lo">低估6★♔</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">0.7%</span></td><td><span class="pct-cell pct-lo">0.7%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-citic.html">中信银行</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-mid">51.8%</span></td><td><span class="pct-cell pct-mid">41.0%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cmb.html">招商银行</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">16.1%</span></td><td><span class="pct-cell pct-lo">3.3%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cmbc.html">民生银行</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-mid">41.5%</span></td><td><span class="pct-cell pct-lo">0.8%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cqb.html">重庆银行</a></td><td><span class="pct-cell pct-mid">低估1★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-mid">57.1%</span></td><td><span class="pct-cell pct-mid">56.6%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-cqrc.html">渝农商行</a></td><td><span class="pct-cell pct-mid">合理</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-hi">75.4%</span></td><td><span class="pct-cell pct-hi">71.5%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-csb.html">长沙银行</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">34.4%</span></td><td><span class="pct-cell pct-lo">15.7%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-czb.html">浙商银行</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-hi">60.4%</span></td><td><span class="pct-cell pct-lo">2.5%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-gyb.html">贵阳银行</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">23.8%</span></td><td><span class="pct-cell pct-lo">1.4%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-hxb.html">华夏银行</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">33.9%</span></td><td><span class="pct-cell pct-lo">17.8%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-hzb.html">杭州银行</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">23.0%</span></td><td><span class="pct-cell pct-lo">16.8%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-icbc.html">工商银行</a></td><td><span class="pct-cell pct-mid">低估1★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-hi">89.3%</span></td><td><span class="pct-cell pct-mid">44.2%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-indy.html">兴业银行</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">23.4%</span></td><td><span class="pct-cell pct-lo">2.6%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-jiangyin.html">江阴银行</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">17.9%</span></td><td><span class="pct-cell pct-lo">3.3%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-jsb.html">江苏银行</a></td><td><span class="pct-cell pct-mid">低估1★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-hi">66.4%</span></td><td><span class="pct-cell pct-hi">71.5%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-lzb.html">兰州银行</a></td><td><span class="pct-cell pct-lo">低估5★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">1.2%</span></td><td><span class="pct-cell pct-lo">1.2%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-nib.html">宁波银行</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">27.1%</span></td><td><span class="pct-cell pct-lo">23.4%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-njcb.html">南京银行</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-mid">45.8%</span></td><td><span class="pct-cell pct-lo">15.3%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-pab.html">平安银行</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">14.5%</span></td><td><span class="pct-cell pct-lo">2.1%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-psbc.html">邮储银行</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-hi">64.0%</span></td><td><span class="pct-cell pct-lo">11.5%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-qdb.html">青岛银行</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">20.7%</span></td><td><span class="pct-cell pct-mid">49.0%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-qlb.html">齐鲁银行</a></td><td><span class="pct-cell pct-mid">低估1★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-hi">68.3%</span></td><td><span class="pct-cell pct-mid">58.5%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-qrc.html">青农商行</a></td><td><span class="pct-cell pct-lo">低估5★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">2.0%</span></td><td><span class="pct-cell pct-lo">3.1%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-ruifeng.html">瑞丰银行</a></td><td><span class="pct-cell pct-lo">低估5★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">1.5%</span></td><td><span class="pct-cell pct-lo">1.5%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-shb.html">上海银行</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">36.5%</span></td><td><span class="pct-cell pct-lo">28.8%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-shnc.html">沪农商行</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-mid">51.9%</span></td><td><span class="pct-cell pct-mid">40.1%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-spdb.html">浦发银行</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-hi">60.7%</span></td><td><span class="pct-cell pct-lo">24.1%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-sunong.html">苏农银行</a></td><td><span class="pct-cell pct-lo">低估5★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">3.0%</span></td><td><span class="pct-cell pct-lo">1.6%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-szb.html">苏州银行</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">26.6%</span></td><td><span class="pct-cell pct-lo">14.3%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-wuxi.html">无锡银行</a></td><td><span class="pct-cell pct-lo">低估5★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">5.7%</span></td><td><span class="pct-cell pct-lo">1.1%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-xab.html">西安银行</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">8.9%</span></td><td><span class="pct-cell pct-lo">3.2%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-xmb.html">厦门银行</a></td><td><span class="pct-cell pct-mid">低估1★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-hi">64.1%</span></td><td><span class="pct-cell pct-mid">56.1%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-zijin.html">紫金银行</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-mid">55.1%</span></td><td><span class="pct-cell pct-lo">1.5%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-zjg.html">张家港行</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">11.6%</span></td><td><span class="pct-cell pct-lo">2.0%</span></td></tr>
+<tr><td><a href="berkshire-bank-chain-zzb.html">郑州银行</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.2</span></td><td><span class="pct-cell pct-lo">31.7%</span></td><td><span class="pct-cell pct-lo">1.7%</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">R15 三维框架：①<b>相对估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；
+②<b>质量星级</b>=近10年ROE均值（★越多质地越好；带※为亏损/生物科技，ROE 失真仅供参考）；
+③<b>时机分</b>=链周期指数百分位换算（=round(10−链分位/5)，分越高越接近周期底部、买点越好）。
+<span class="vleg"><i style="background:#15803d"></i>绿=好</span>
+<span class="vleg"><i style="background:#b45309"></i>橙=中</span>
+<span class="vleg"><i style="background:#b91c1c"></i>红=差/贵</span>。数据为时点统计。</div>
+</div>
+<div class="section-title">产业链成本传导 · 10年期国债期货(利率环境) → 银行估值</div>
+<div class="cost-block">
+  <div class="cost-chart"><svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="10年期国债期货(利率环境)走势">
+  <line x1="54" y1="16.0" x2="664" y2="16.0" stroke="#e2e8f0"/><text x="48" y="20.0" text-anchor="end" font-size="10" fill="#94a3b8">109.3</text><line x1="54" y1="74.7" x2="664" y2="74.7" stroke="#e2e8f0"/><text x="48" y="78.7" text-anchor="end" font-size="10" fill="#94a3b8">103.5</text><line x1="54" y1="133.3" x2="664" y2="133.3" stroke="#e2e8f0"/><text x="48" y="137.3" text-anchor="end" font-size="10" fill="#94a3b8">97.7</text><line x1="54" y1="192.0" x2="664" y2="192.0" stroke="#e2e8f0"/><text x="48" y="196.0" text-anchor="end" font-size="10" fill="#94a3b8">91.9</text><polygon points="54,192 54.0,168.4 59.35087719298245,152.7 64.7017543859649,142.4 70.05263157894737,151.8 75.40350877192982,164.0 80.75438596491227,158.2 86.10526315789474,164.2 91.45614035087719,162.6 96.80701754385964,159.1 102.15789473684211,184.5 107.50877192982456,180.9 112.85964912280701,179.6 118.21052631578947,192.0 123.56140350877193,184.9 128.91228070175438,174.8 134.26315789473682,166.1 139.6140350877193,163.3 144.96491228070175,152.1 150.31578947368422,151.9 155.66666666666666,159.8 161.01754385964912,163.3 166.36842105263156,152.9 171.71929824561403,144.1 177.0701754385965,133.4 182.42105263157893,130.4 187.7719298245614,141.4 193.12280701754386,131.5 198.4736842105263,144.2 203.82456140350877,141.5 209.17543859649123,135.4 214.52631578947367,126.8 219.87719298245614,121.2 225.22807017543857,128.4 230.57894736842107,136.0 235.9298245614035,130.5 241.28070175438597,129.3 246.6315789473684,113.6 251.98245614035088,99.2 257.3333333333333,91.1 262.68421052631584,80.7 268.03508771929825,100.6 273.3859649122807,107.3 278.7368421052631,122.2 284.0877192982456,130.2 289.43859649122805,132.9 294.7894736842105,129.9 300.140350877193,134.0 305.49122807017545,130.7 310.84210526315786,133.2 316.1929824561403,146.5 321.5438596491228,136.0 326.89473684210526,130.5 332.2456140350877,126.9 337.5964912280702,126.5 342.9473684210526,106.8 348.29824561403507,110.5 353.64912280701753,111.9 359.0,118.7 364.35087719298247,108.2 369.70175438596493,103.1 375.05263157894734,96.1 380.4035087719298,108.1 385.7543859649123,106.0 391.1052631578948,107.4 396.45614035087715,105.2 401.8070175438597,110.5 407.15789473684214,99.9 412.5087719298246,95.9 417.859649122807,104.7 423.2105263157895,92.6 428.56140350877195,117.6 433.9122807017544,108.2 439.2631578947368,108.5 444.6140350877193,112.2 449.96491228070175,105.9 455.3157894736842,97.8 460.66666666666663,95.1 466.0175438596491,90.3 471.3684210526316,90.3 476.7192982456141,86.0 482.0701754385965,92.5 487.42105263157896,91.4 492.7719298245614,91.1 498.1228070175439,81.7 503.4736842105263,74.4 508.82456140350877,69.1 514.1754385964912,68.9 519.5263157894738,68.9 524.8771929824561,66.5 530.2280701754386,56.7 535.578947368421,48.7 540.9298245614035,52.3 546.280701754386,56.3 551.6315789473683,50.3 556.9824561403509,38.8 562.3333333333334,20.2 567.6842105263157,16.0 573.0350877192982,27.0 578.3859649122807,30.9 583.7368421052632,19.4 589.0877192982456,22.3 594.438596491228,20.6 599.7894736842105,24.7 605.140350877193,31.5 610.4912280701755,31.2 615.8421052631579,22.7 621.1929824561404,30.2 626.5438596491229,31.0 631.8947368421052,26.4 637.2456140350877,25.6 642.5964912280701,25.5 647.9473684210526,23.3 653.2982456140351,17.7 658.6491228070175,17.2 664.0,17.8 664.0,192" fill="#1e3a8a" opacity="0.12"/>
+  <polyline points="54.0,168.4 59.35087719298245,152.7 64.7017543859649,142.4 70.05263157894737,151.8 75.40350877192982,164.0 80.75438596491227,158.2 86.10526315789474,164.2 91.45614035087719,162.6 96.80701754385964,159.1 102.15789473684211,184.5 107.50877192982456,180.9 112.85964912280701,179.6 118.21052631578947,192.0 123.56140350877193,184.9 128.91228070175438,174.8 134.26315789473682,166.1 139.6140350877193,163.3 144.96491228070175,152.1 150.31578947368422,151.9 155.66666666666666,159.8 161.01754385964912,163.3 166.36842105263156,152.9 171.71929824561403,144.1 177.0701754385965,133.4 182.42105263157893,130.4 187.7719298245614,141.4 193.12280701754386,131.5 198.4736842105263,144.2 203.82456140350877,141.5 209.17543859649123,135.4 214.52631578947367,126.8 219.87719298245614,121.2 225.22807017543857,128.4 230.57894736842107,136.0 235.9298245614035,130.5 241.28070175438597,129.3 246.6315789473684,113.6 251.98245614035088,99.2 257.3333333333333,91.1 262.68421052631584,80.7 268.03508771929825,100.6 273.3859649122807,107.3 278.7368421052631,122.2 284.0877192982456,130.2 289.43859649122805,132.9 294.7894736842105,129.9 300.140350877193,134.0 305.49122807017545,130.7 310.84210526315786,133.2 316.1929824561403,146.5 321.5438596491228,136.0 326.89473684210526,130.5 332.2456140350877,126.9 337.5964912280702,126.5 342.9473684210526,106.8 348.29824561403507,110.5 353.64912280701753,111.9 359.0,118.7 364.35087719298247,108.2 369.70175438596493,103.1 375.05263157894734,96.1 380.4035087719298,108.1 385.7543859649123,106.0 391.1052631578948,107.4 396.45614035087715,105.2 401.8070175438597,110.5 407.15789473684214,99.9 412.5087719298246,95.9 417.859649122807,104.7 423.2105263157895,92.6 428.56140350877195,117.6 433.9122807017544,108.2 439.2631578947368,108.5 444.6140350877193,112.2 449.96491228070175,105.9 455.3157894736842,97.8 460.66666666666663,95.1 466.0175438596491,90.3 471.3684210526316,90.3 476.7192982456141,86.0 482.0701754385965,92.5 487.42105263157896,91.4 492.7719298245614,91.1 498.1228070175439,81.7 503.4736842105263,74.4 508.82456140350877,69.1 514.1754385964912,68.9 519.5263157894738,68.9 524.8771929824561,66.5 530.2280701754386,56.7 535.578947368421,48.7 540.9298245614035,52.3 546.280701754386,56.3 551.6315789473683,50.3 556.9824561403509,38.8 562.3333333333334,20.2 567.6842105263157,16.0 573.0350877192982,27.0 578.3859649122807,30.9 583.7368421052632,19.4 589.0877192982456,22.3 594.438596491228,20.6 599.7894736842105,24.7 605.140350877193,31.5 610.4912280701755,31.2 615.8421052631579,22.7 621.1929824561404,30.2 626.5438596491229,31.0 631.8947368421052,26.4 637.2456140350877,25.6 642.5964912280701,25.5 647.9473684210526,23.3 653.2982456140351,17.7 658.6491228070175,17.2 664.0,17.8" fill="none" stroke="#1e3a8a" stroke-width="2"/>
+  <text x="54" y="212" font-size="10" fill="#94a3b8">2017-01</text>
+  <text x="664" y="212" text-anchor="end" font-size="10" fill="#94a3b8">2026-07</text>
+  <text x="54" y="18" font-size="10" fill="#1e3a8a" font-weight="600">10年期国债期货(利率环境) 现价约 109.16</text>
+</svg></div>
+  <div class="cost-note"><p><b>10 年期国债收益率（以国债期货价格近似）是银行股的"估值锚"</b>。银行资产端（贷款 / 债券）收益与长端利率高度相关：利率下行→资产收益率降、净息差(NIM)承压，但债券估值升；利率上行→NIM 修复、但债券估值跌，估值(PB)端取决于"资产收益 vs 折现率"的博弈。</p>
+<p>历史上：2021–2022 降息周期银行 PB 持续破净（普遍 0.4–0.7x）；2023–2024 地产风险暴露 + 让利实体→PB 低位；2025 后化债推进 + 高股息防御逻辑→部分优质行 PB 修复，但多数仍破净。</p>
+<p><b>怎么读</b>：银行看"低 PB + 高股息 + 资产质量改善"。当前 10Y 国债期货约 <b>109.16</b>（价格高位 = 收益率低位），利率环境对银行息差仍偏压制，但高股息属性在资产荒下支撑估值。分位表帮你看清每家行 PB 在历史便宜与否——破净≠便宜，要看资产质量与分红持续性。</p></div>
+</div>
+
 <div class="section-title">员工效率与组织效能排行（银行 42 家）</div>
 <div class="ovtable"><table>
 <thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>效率信号</th></tr></thead>
@@ -511,4 +670,4 @@ var grid=document.getElementById('grid');
 var cards=Array.from(grid.children);
 btns.forEach(function(b){b.onclick=function(){btns.forEach(x=>x.classList.remove('on'));b.classList.add('on');
 var f=b.dataset.f;cards.forEach(function(c){var cat=c.querySelector('.cat').textContent;c.style.display=(f==='all'||cat===f)?'':'none';});};});
-</script><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露），估值=2026-07-12行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>
+</script><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露），估值=2026-07-12行情 ｜ 内容仅供研究参考，不构成投资建议</footer><!--poisson-chain-link--><div class="poisson-chain-link" style="max-width:1080px;margin:14px auto 0;padding:0 20px"><a href="berkshire-bank-poisson.html" style="display:inline-block;background:#fff;border:1px solid #e2e8f0;border-left:3px solid #2563eb;border-radius:8px;padding:8px 14px;font-size:13px;color:#1e40af;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.04)">📊 查看 银行 产业链泊松象限图（λ净 vs 总收益）</a></div></body></html>

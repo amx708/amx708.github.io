@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>白酒产业链地图 · 价值投资视角</title>
+<style>* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f2f5; color:#1e293b; line-height:1.75; }
+.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(232,184,75,0.2); padding:12px 20px; display:flex; align-items:center; gap:12px; }
+.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(232,184,75,0.12); color:#b45309; border:1px solid rgba(232,184,75,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
+.home-btn:hover { background:#b45309; color:#fff; }
+.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
+.breadcrumb a { color:#64748b; text-decoration:none; }
+.breadcrumb a:hover { color:#b45309; }
+.crumb-sep { color:#cbd5e1; }
+.container { max-width:980px; margin:0 auto; padding:24px 16px 48px; }
+.hero { background:linear-gradient(135deg,#ffffff 0%,#fbf7ee 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(232,184,75,0.25); box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+.hero-title { font-size:26px; font-weight:800; color:#0f172a; margin-bottom:6px; letter-spacing:.5px; }
+.hero-sub { font-size:14px; color:#64748b; margin-bottom:18px; }
+.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+.stat-item { background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
+.stat-num { font-size:22px; font-weight:800; color:#b45309; }
+.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
+.explain-banner { display:flex; gap:16px; align-items:flex-start; background:linear-gradient(135deg,#fbf7ee,#ffffff); border:1px solid rgba(232,184,75,0.25); border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+.explain-banner .eb-icon { font-size:24px; flex-shrink:0; }
+.explain-banner .eb-body { flex:1; min-width:0; }
+.explain-banner .eb-title { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.explain-banner .eb-tag { font-size:11px; color:#b45309; background:rgba(232,184,75,0.12); padding:2px 9px; border-radius:10px; }
+.explain-banner .eb-text { font-size:13px; color:#475569; line-height:1.8; }
+.explain-banner .eb-text b { color:#0f172a; font-weight:600; }
+.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(232,184,75,0.5); }
+.layers { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:8px; }
+.layer-card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.layer-num { font-size:12px; color:#b45309; font-weight:700; }
+.layer-name { font-size:14px; color:#0f172a; font-weight:600; margin:4px 0; }
+.layer-desc { font-size:12px; color:#64748b; line-height:1.6; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
+.giant-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; transition:all .2s; text-decoration:none; display:block; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.giant-card:hover { border-color:#b45309; background:rgba(232,184,75,0.06); transform:translateY(-2px); box-shadow:0 4px 14px rgba(232,184,75,0.2); }
+.giant-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.giant-name { font-size:16px; font-weight:700; color:#0f172a; }
+.region-tag { font-size:11px; padding:2px 9px; border-radius:10px; font-weight:600; }
+.region-cn { background:rgba(220,38,38,0.12); color:#dc2626; border:1px solid rgba(220,38,38,0.25); }
+.giant-desc { font-size:12.5px; color:#64748b; line-height:1.65; margin-bottom:10px; }
+.giant-foot { font-size:12px; display:flex; align-items:center; justify-content:space-between; }
+.giant-link { color:#b45309; font-weight:600; }
+.note-line { font-size:12.5px; color:#64748b; margin-top:14px; line-height:1.7; }
+.note-line b { color:#475569; }
+.source-note { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; margin-top:24px; font-size:12.5px; color:#64748b; line-height:1.7; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.source-note b { color:#475569; }
+@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .grid{grid-template-columns:1fr} .explain-banner{flex-direction:column;padding:16px} }
+</style>
+
+<style>
+/* P0 估值历史分位 + 成本传导（扩展链） */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0f766e;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
+
+</style>
+<style>
+
+/* 员工效率与景气度 */
+.emp-block{margin:6px 0 2px}
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
+.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
+.emp-val{font-size:18px;font-weight:700;color:#0f172a}
+.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
+.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
+.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
+.emp-signal b{font-weight:700}
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<span>白酒产业链</span>
+</div>
+</div><!--poisson-chain-link--><div class="poisson-chain-link" style="max-width:1080px;margin:14px auto 0;padding:0 20px"><a href="berkshire-baijiu-poisson.html" style="display:inline-block;background:#fff;border:1px solid #e2e8f0;border-left:3px solid #2563eb;border-radius:8px;padding:8px 14px;font-size:13px;color:#1e40af;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.04)">📊 查看 白酒 产业链泊松象限图（λ净 vs 总收益）</a></div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">白酒产业链地图</div>
+<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">13</div><div class="stat-label">上市公司</div></div>
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
+<div class="stat-item"><div class="stat-num">4</div><div class="stat-label">主要香型</div></div>
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+</div>
+</div>
+
+<div class="explain-banner">
+<div class="eb-icon">🍶</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「白酒产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把白酒巨头按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
+<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中数字为近年财报四舍五入值，最新以公司公告为准。
+</div>
+</div>
+</div>
+
+<div class="section-title">跨层分析框架（5 层）</div><div class="section-title">估值历史分位总览（白酒 13 家）</div>
+<div class="ovtable">
+<table>
+<thead><tr><th>公司</th><th>PE(TTM)</th><th>PE 分位</th><th>PB</th><th>PB 分位</th></tr></thead>
+<tbody><tr><td><a href="berkshire-baijiu-chain-maotai.html">贵州茅台</a></td><td>18.36</td><td><span class="pct-cell pct-lo">0.8%</span></td><td>5.61</td><td><span class="pct-cell pct-lo">1.2%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-wuliangye.html">五粮液</a></td><td>22.41</td><td><span class="pct-cell pct-lo">39.3%</span></td><td>2.21</td><td><span class="pct-cell pct-lo">0.3%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-luzhou.html">泸州老窖</a></td><td>12.2</td><td><span class="pct-cell pct-lo">3.7%</span></td><td>2.35</td><td><span class="pct-cell pct-lo">0.8%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-fenjiu.html">山西汾酒</a></td><td>12.91</td><td><span class="pct-cell pct-lo">0.8%</span></td><td>3.15</td><td><span class="pct-cell pct-lo">0.8%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-yanghe.html">洋河股份</a></td><td>59.0</td><td><span class="pct-cell pct-hi">98.4%</span></td><td>1.22</td><td><span class="pct-cell pct-lo">0.7%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-gujing.html">古井贡酒</a></td><td>15.05</td><td><span class="pct-cell pct-lo">8.2%</span></td><td>1.63</td><td><span class="pct-cell pct-lo">0.7%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-jinshiyuan.html">今世缘</a></td><td>13.0</td><td><span class="pct-cell pct-lo">2.5%</span></td><td>1.70</td><td><span class="pct-cell pct-lo">0.8%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-shede.html">舍得酒业</a></td><td>99.75</td><td><span class="pct-cell pct-hi">75.2%</span></td><td>1.51</td><td><span class="pct-cell pct-lo">0.1%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-yingjia.html">迎驾贡酒</a></td><td>12.86</td><td><span class="pct-cell pct-lo">2.3%</span></td><td>2.23</td><td><span class="pct-cell pct-lo">0.8%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-shuijingfang.html">水井坊</a></td><td>34.2</td><td><span class="pct-cell pct-mid">46.2%</span></td><td>2.50</td><td><span class="pct-cell pct-lo">0.3%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-jiugui.html">酒鬼酒</a></td><td>-390.3</td><td>亏损</td><td>3.36</td><td><span class="pct-cell pct-lo">11.6%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-kouzijiao.html">口子窖</a></td><td>28.12</td><td><span class="pct-cell pct-hi">84.4%</span></td><td>1.03</td><td><span class="pct-cell pct-lo">0.3%</span></td></tr><tr><td><a href="berkshire-baijiu-chain-shunxin.html">顺鑫农业</a></td><td>-23.79</td><td>亏损</td><td>1.11</td><td><span class="pct-cell pct-lo">0.8%</span></td></tr></tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
+<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+亏损企业 PE 为负、PE 分位不适用，仅看 PB；港股 / 美股 / 未上市成分百度不覆盖，标"非A股"。分位为时点统计。</div>
+
+<div class="section-title">产业链成本传导</div>
+<div class="cost-block"><div class="cost-note"><p>本产业链（白酒）<b>无交易所可观测的商品期货 / 利率序列</b>（白酒、机器人、AI 没有统一定价期货），成本传导段暂以定性框架呈现——见上方「产业周期判断标准」段。A 股成分的估值历史分位已在本段上方给出。</p></div></div>
+
+<div class="section-title">员工效率与景气度排行（白酒 13 家）</div>
+<div class="ovtable"><table>
+<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>景气度</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-baijiu-chain-yanghe.html">洋河股份</a></td><td>22,392</td><td class="num up">+3.99%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">景气上行</span></td></tr>
+<tr><td><a href="berkshire-baijiu-chain-jinshiyuan.html">今世缘</a></td><td>5,300</td><td class="num up">+1.34%</td><td class="num">¥192.1万</td><td class="num">¥49.1万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-baijiu-chain-gujing.html">古井贡酒</a></td><td>13,596</td><td class="num up">+1.06%</td><td class="num">¥138.5万</td><td class="num">¥26.1万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-baijiu-chain-maotai.html">贵州茅台</a></td><td>34,992</td><td class="num up">+0.70%</td><td class="num">¥482.5万</td><td class="num">¥235.3万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-baijiu-chain-fenjiu.html">山西汾酒</a></td><td>14,026</td><td class="num up">+0.68%</td><td class="num">¥276.0万</td><td class="num">¥87.3万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-baijiu-chain-wuliangye.html">五粮液</a></td><td>25,216</td><td class="num up">+0.33%</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f8fafc;color:#64748b">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-baijiu-chain-luzhou.html">泸州老窖</a></td><td>3,912</td><td class="num up">—</td><td class="num">¥657.7万</td><td class="num">¥276.9万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-baijiu-chain-shede.html">舍得酒业</a></td><td>8,796</td><td class="num up">—</td><td class="num">¥50.2万</td><td class="num">¥2.5万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-baijiu-chain-kouzijiao.html">口子窖</a></td><td>4,431</td><td class="num down">-0.89%</td><td class="num">¥90.1万</td><td class="num">¥15.2万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-baijiu-chain-shunxin.html">顺鑫农业</a></td><td>3,580</td><td class="num down">-4.25%</td><td class="num">¥201.8万</td><td class="num">¥-4.3万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">景气下行</span></td></tr>
+<tr><td><a href="berkshire-baijiu-chain-jiugui.html">酒鬼酒</a></td><td>1,725</td><td class="num down">-10.94%</td><td class="num">¥64.2万</td><td class="num">¥-2.0万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">景气下行</span></td></tr>
+<tr><td><a href="berkshire-baijiu-chain-yingjia.html">迎驾贡酒</a></td><td>7,069</td><td class="num down">-11.75%</td><td class="num">¥85.1万</td><td class="num">¥28.1万</td><td><span class="emp-badge" style="background:#fff7ed;color:#c2410c">见顶回落</span></td></tr>
+<tr><td><a href="berkshire-baijiu-chain-shuijingfang.html">水井坊</a></td><td>1,733</td><td class="num down">-14.00%</td><td class="num">¥175.3万</td><td class="num">¥23.4万</td><td><span class="emp-badge" style="background:#fff7ed;color:#c2410c">见顶回落</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">员工增速=在职员工同比；人均营收/净利=2025 营收(元)÷员工数。已覆盖 13/13 家员工数据，
+其余为非 A 股主体或年报未披露标准口径，标「数据不足」。排序：有数据优先、按员工增速降序。
+景气度信号由「员工增速分档 × 人均盈利分档 × 人均营收趋势」组合判定，为代理指标，非投资建议。</div>
+</div>
+
+<div class="section-title">主要玩家索引（上市公司 13 家）</div>
+<div class="grid">
+<a class="giant-card" href="berkshire-baijiu-chain-maotai.html">
+<div class="giant-head"><span class="giant-name">贵州茅台 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">酱香型龙头，A 股白酒市值第一，「硬通货」级社交货币。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-chain-wuliangye.html">
+<div class="giant-head"><span class="giant-name">五粮液 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">浓香型龙头，千元价格带霸主，品牌矩阵最完整。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-chain-luzhou.html">
+<div class="giant-head"><span class="giant-name">泸州老窖 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">国窖 1573 扛旗，高端化最坚决的浓香名酒。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-chain-fenjiu.html">
+<div class="giant-head"><span class="giant-name">山西汾酒 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">清香型龙头，全国化扩张最快的「加速度」名酒。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-chain-yanghe.html">
+<div class="giant-head"><span class="giant-name">洋河股份 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">绵柔浓香代表，江苏霸主，梦之蓝扛高端。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-chain-gujing.html">
+<div class="giant-head"><span class="giant-name">古井贡酒 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">徽酒龙头，年份原浆系列引领，华北华东双线扩张。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-chain-jinshiyuan.html">
+<div class="giant-head"><span class="giant-name">今世缘 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">江苏老二，国缘系列猛攻，省内挑战洋河。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-chain-shede.html">
+<div class="giant-head"><span class="giant-name">舍得酒业 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">老酒战略独树一帜，复星赋能，次高端弹性标的。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-chain-yingjia.html">
+<div class="giant-head"><span class="giant-name">迎驾贡酒 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">徽酒老二，洞藏系列崛起，生态白酒差异化。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-chain-shuijingfang.html">
+<div class="giant-head"><span class="giant-name">水井坊 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">外资（帝亚吉欧）控股，高端定位，聚焦次高端以上。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-chain-jiugui.html">
+<div class="giant-head"><span class="giant-name">酒鬼酒 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">馥郁香型独苗，内参扛高端，调整期弹性标的。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-chain-kouzijiao.html">
+<div class="giant-head"><span class="giant-name">口子窖 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">徽酒兼香代表，安徽腰部价格带的稳健地产名酒。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-chain-shunxin.html">
+<div class="giant-head"><span class="giant-name">顺鑫农业 链</span><span class="region-tag region-cn">中国</span></div>
+<div class="giant-desc">牛栏山二锅头母公司，百元内光瓶「民酒」规模之王。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+</div>
+
+<div class="section-title">延伸阅读</div><div class="extend"><a href="berkshire-baijiu-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a><a href="berkshire-baijiu-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a><a href="berkshire-baijiu-buyback.html"><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a><a href="berkshire-baijiu-cycle.html"><b>价格/库存周期</b><span>框架级梳理行业周期脉络与关键信号</span></a><a href="berkshire-baijiu-methodology.html"><b>方法论文</b><span>怎么读这个行业：核心指标与分析框架</span></a></div>
+<div class="grid">
+<a class="giant-card" href="berkshire-baijiu-methodology.html">
+<div class="giant-head"><span class="giant-name">📘 白酒估值与周期：框架知识</span></div>
+<div class="giant-desc">怎么读合同负债、批价倒挂意味着什么、估值（PE 会失真）怎么看、库存周期——白酒投资的 4 个核心框架概念。</div>
+<div class="giant-foot"><span class="giant-link">阅读方法论文 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-cycle.html">
+<div class="giant-head"><span class="giant-name">📈 白酒周期 2016→2025</span></div>
+<div class="giant-desc">把 13 家调整数据串成宏观视图：产量拐点、茅台批价史、本轮深度调整与周期底部信号。</div>
+<div class="giant-foot"><span class="giant-link">查看周期专题 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-backtest.html">
+<div class="giant-head"><span class="giant-name">🎯 白酒估值回测</span></div>
+<div class="giant-desc">用「低 PE + 高股息率」买点复盘 2014 / 2018 / 2024–25 三轮大底的历史回报，提炼可复用的买点信号框架。</div>
+<div class="giant-foot"><span class="giant-link">查看回测专题 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-thermometer.html">
+<div class="giant-head"><span class="giant-name">🌡️ 白酒估值温度计</span></div>
+<div class="giant-desc">13 家上市酒企估值冷热一览：低 PE + 高股息 = 冷（安全边际高），高 PE + 低股息 = 热（溢价区），一眼看清谁在历史悲观区。</div>
+<div class="giant-foot"><span class="giant-link">查看温度计 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-baijiu-backtest-detail.html">
+<div class="giant-head"><span class="giant-name">📊 逐轮买点回报图</span></div>
+<div class="giant-desc">全部 13 家上市酒企，2014 / 2018 / 2025 三轮大底买入后的累计回报曲线，含 2021 年峰值标注与逐点回报数据表。</div>
+<div class="giant-foot"><span class="giant-link">查看回报图 →</span></div>
+</a>
+</div>
+
+<div class="note-line">
+📌 <b>未上市巨头</b>：郎酒（青花郎，酱香）、剑南春（浓香，四川绵竹）、劲牌毛铺（草本白酒）等规模亦居行业前列，因未上市暂未单列详情页。如需可后续补充。
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+</body>
+</html>

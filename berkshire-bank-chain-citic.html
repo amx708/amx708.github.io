@@ -108,6 +108,35 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 .cmp-sel{font-size:12.5px;color:var(--mut);margin:6px 0}
 .cmp-good{color:var(--green);font-weight:600}
 .cmp-bad{color:var(--red);font-weight:600}
+
+.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px}
+.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.fin-title .icon{color:#64748b}
+.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px;white-space:nowrap}
+.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.fin-table tr{border-bottom:1px solid #eef2f7}
+.fin-table tr:last-child{border-bottom:none}
+.fin-table td{padding:9px 12px;font-size:13px;color:#334155}
+.fin-table td:first-child{width:130px;color:#64748b}
+.fin-table .val{color:#b45309;font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+.poisson-char{font-family:"Segoe UI","Microsoft YaHei",Arial,sans-serif;font-variant-emoji:text;-webkit-font-variant-emoji:text}
+.poisson-pill{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700}
+/*poisson-mobile*/@media(max-width:640px){.fin-block{padding:10px 12px;margin-bottom:6px}.fin-head{flex-wrap:wrap;gap:6px;margin-bottom:8px}.fin-title{font-size:14px;gap:6px}.fin-tag{font-size:10px;padding:2px 7px}.fin-table td{padding:7px 10px;font-size:12px}.fin-table td:first-child{width:auto;min-width:90px}.fin-note{font-size:11px;line-height:1.55}}
+/*poisson-tune-v2*/.fin-block{padding:14px 16px;margin-bottom:8px;border-radius:10px}.fin-head{margin-bottom:8px}.fin-table td{padding:8px 12px;font-size:12.5px}.fin-note{font-size:11.5px;line-height:1.55}
+/*poisson-explain*/.poisson-explain{margin-top:10px;padding:11px 13px;background:rgba(37,99,235,0.05);border:1px solid rgba(37,99,235,0.15);border-left:3px solid #2563eb;border-radius:8px}.poisson-explain .pe-title{font-size:12.5px;font-weight:700;color:#1e40af;margin-bottom:6px}
+.poisson-explain p{font-size:12px;color:#475569;line-height:1.7;margin:0 0 6px}
+.poisson-explain ul{margin:0 0 6px 18px;padding:0}
+.poisson-explain li{font-size:12px;color:#475569;line-height:1.7;margin-bottom:3px}
+.poisson-explain b{color:#0f172a}
+/*poisson-mini*/.poisson-mini{margin-top:10px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;padding:8px 10px}
+.poisson-mini .pm-title{font-size:12px;font-weight:700;color:#1e40af;margin-bottom:4px}
+.poisson-mini svg{display:block;width:100%;height:auto}
+.poisson-mini .pm-cap{font-size:11.5px;color:#475569;margin-top:4px;text-align:center}
+.poisson-mini .pm-links{margin-top:6px;text-align:center}
+.poisson-mini .pm-links a{font-size:12px;color:#2563eb;text-decoration:none;margin:0 4px}
+.poisson-mini .pm-links a:hover{text-decoration:underline}
 </style><style>
 
 /* 员工效率与组织效能 */
@@ -123,6 +152,39 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 .emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
 .ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
 .ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+
+</style>
+<style>
+
+/* P0 估值历史分位 + 成本传导（扩展链） */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0f766e;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
 
 </style>
 </head><body>
@@ -147,6 +209,282 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <div><b>0.54x</b><span>PB</span></div>
 <div><b>5.33%</b><span>股息率</span></div>
 <div><b>3978.63</b><span>总市值(亿)</span></div></div>
+<!-- CHIP_BADGE -->
+<div class="cb-card">
+<style>
+.cb-card{margin:18px 0;padding:18px 20px;border:1px solid #e2e8f0;border-left:4px solid #94a3b8;border-radius:14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,0.04);font-family:inherit}
+.cb-head{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#0f172a;margin-bottom:12px}
+.cb-verdict{display:flex;align-items:center;gap:12px;margin:6px 0 14px;padding:12px 14px;border-radius:12px;background:#fffbeb;border:1px solid #fde68a}
+.cb-lamp{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fde68a,#f59e0b);box-shadow:0 0 0 5px rgba(245,158,11,0.15),0 0 14px rgba(245,158,11,0.4);flex-shrink:0}
+.cb-verdict b{font-size:19px;color:#0f172a}
+.cb-verdict span{display:block;font-size:12px;color:#64748b;margin-top:2px}
+.cb-big{display:flex;align-items:baseline;gap:8px;margin:4px 2px 14px}
+.cb-big .n{font-size:32px;font-weight:800;color:#0f172a;letter-spacing:-1px}
+.cb-big .u{font-size:14px;color:#64748b}
+.cb-big .r{margin-left:auto;font-size:11.5px;color:#b45309;background:#fffbeb;padding:4px 10px;border-radius:20px;font-weight:600;text-align:right}
+.cb-chgs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.cb-chg{background:#f8fafc;border:1px solid #f1f5f9;border-radius:12px;padding:11px}
+.cb-chg .l{font-size:12px;color:#64748b}
+.cb-chg .v{font-size:17px;font-weight:800;margin:3px 0 7px}
+.cb-chg .bar{height:8px;border-radius:5px;background:#e2e8f0;overflow:hidden}
+.cb-chg .bar i{display:block;height:100%;border-radius:5px}
+.cb-chg .nt{font-size:11px;color:#94a3b8;margin-top:6px}
+.cb-up{color:#dc2626}.cb-down{color:#16a34a}
+.cb-fill-up{background:#dc2626}.cb-fill-down{background:#16a34a}
+.cb-streak{display:flex;align-items:center;gap:8px;margin:0 2px 14px;font-size:12.5px;color:#475569;flex-wrap:wrap}
+.cb-dots{display:flex;gap:5px}
+.cb-dots i{width:13px;height:13px;border-radius:50%;background:#e2e8f0}
+.cb-dots i.on{background:#16a34a}
+.cb-peers .ph{font-size:13px;font-weight:700;color:#0f172a;margin-bottom:9px;display:flex;justify-content:space-between}
+.cb-peers .ph span{font-size:11px;color:#94a3b8;font-weight:400}
+.cb-prow{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px}
+.cb-prow .pn{width:60px;flex-shrink:0;color:#475569}
+.cb-prow .pt{flex:1;height:15px;background:#f1f5f9;border-radius:5px;overflow:hidden}
+.cb-prow .pb{height:100%;border-radius:5px;background:#cbd5e1}
+.cb-prow .pv{width:58px;text-align:right;color:#64748b;flex-shrink:0}
+.cb-prow.me .pn{color:#b45309;font-weight:700}
+.cb-prow.me .pb{background:linear-gradient(90deg,#f59e0b,#d97706)}
+.cb-prow.me .pv{color:#b45309;font-weight:700}
+.cb-prow.dim{opacity:.7}
+.cb-footer{border-top:1px solid #f1f5f9;padding-top:11px;margin-top:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:8px}
+.cb-src{font-size:11px;color:#94a3b8;line-height:1.5}
+.cb-footer a{font-size:12px;color:#2563eb;font-weight:600;text-decoration:none;white-space:nowrap}
+</style>
+  <div class="cb-head">🎯 筹码博弈 · 股东人数（中报视角）</div>
+  <div class="cb-verdict"><div class="cb-lamp"></div><div><b>筹码平稳</b><span>筹码无明显集中或发散</span></div></div>
+  <div class="cb-big"><div class="n">11.07<span class="u">万</span></div><div class="r">银行板块股东人数第 17 多</div></div>
+  <div class="cb-chgs">
+    <div class="cb-chg"><div class="l">股东人数（环比）</div><div class="v cb-down">▼ -6.73%</div><div class="bar"><i class="cb-fill-down" style="width:40%"></i></div><div class="nt">变动很小 → 集中迹象弱</div></div>
+    <div class="cb-chg"><div class="l">人均持股（环比）</div><div class="v cb-up">▲ +7.22%</div><div class="bar"><i class="cb-fill-up" style="width:43%"></i></div><div class="nt">变动很小 → 集中迹象弱</div></div>
+  </div>
+  <div class="cb-streak"><span>趋势强度（连续下降期数）：</span><div class="cb-dots"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></div><span>连续2期↓，尚未确立</span></div>
+  <div class="cb-peers">
+    <div class="ph">银行板块股东人数对比 <span>单位：万人 · 高亮为本股</span></div>
+    <div class="cb-prow dim"><div class="pn">工商银行</div><div class="pt"><div class="pb" style="width:100.0%"></div></div><div class="pv">78.83万</div></div>
+    <div class="cb-prow dim"><div class="pn">农业银行</div><div class="pt"><div class="pb" style="width:84.6%"></div></div><div class="pv">66.66万</div></div>
+    <div class="cb-prow dim"><div class="pn">中国银行</div><div class="pt"><div class="pb" style="width:82.0%"></div></div><div class="pv">64.65万</div></div>
+    <div class="cb-prow dim"><div class="pn">招商银行</div><div class="pt"><div class="pb" style="width:78.3%"></div></div><div class="pv">61.73万</div></div>
+    <div class="cb-prow dim"><div class="pn">平安银行</div><div class="pt"><div class="pb" style="width:58.1%"></div></div><div class="pv">45.76万</div></div>
+    <div class="cb-prow dim"><div class="pn">民生银行</div><div class="pt"><div class="pb" style="width:48.1%"></div></div><div class="pv">37.95万</div></div>
+    <div class="cb-prow dim"><div class="pn">交通银行</div><div class="pt"><div class="pb" style="width:41.5%"></div></div><div class="pv">32.74万</div></div>
+    <div class="cb-prow dim"><div class="pn">建设银行</div><div class="pt"><div class="pb" style="width:37.6%"></div></div><div class="pv">29.62万</div></div>
+    <div class="cb-prow dim"><div class="pn">兴业银行</div><div class="pt"><div class="pb" style="width:35.5%"></div></div><div class="pv">27.98万</div></div>
+    <div class="cb-prow me"><div class="pn">中信银行</div><div class="pt"><div class="pb" style="width:14.0%"></div></div><div class="pv">11.07万</div></div>
+  </div>
+  <div class="cb-footer"><div class="cb-src">数据：巨潮股东户数（2026-03-31）<br>滞后于股价，非投资建议。</div><a href="berkshire-chip-game.html">查看全链筹码榜 →</a></div>
+</div>
+<!-- /CHIP_BADGE -->
+
+<div class="section-title">泊松信号（跳变频率参考）</div>
+<div class="fin-block">
+  <div class="fin-head"><div class="fin-title"><span class="icon">📡</span> 泊松过程 <span class="poisson-char">λ</span> 信号</div><span class="fin-tag">近36个月</span></div>
+  <table class="fin-table">
+    <tr><td><span class="poisson-char">λ</span>净（<span class="poisson-char">λ</span><span class="poisson-char">↑</span>−<span class="poisson-char">λ</span><span class="poisson-char">↓</span>）</td><td class="val">+0.083</td></tr>
+    <tr><td><span class="poisson-char">λ</span><span class="poisson-char">↑</span> 多头跳变/月</td><td class="val">0.083</td></tr>
+    <tr><td><span class="poisson-char">λ</span><span class="poisson-char">↓</span> 空头跳变/月</td><td class="val">0.000</td></tr>
+    <tr><td>观察期总收益</td><td class="val">+50.1%</td></tr>
+    <tr><td>跳变月数（涨/跌）</td><td class="val">3 / 0</td></tr>
+    <tr><td>信号分类</td><td class="val"><span class="poisson-pill" style="color:#16a34a;background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25)">★泊松信号</span></td></tr>
+  </table>
+  <div class="fin-note">基于近36个月月收益，单月涨跌≥15%计一次跳变；λ净&gt;0 且总收益&gt;0 为入选信号。本指标仅反映价格跳变频率与方向，<b>不替代估值与基本面</b>，不构成投资建议。采集日 20260722。</div>
+  <div class="poisson-explain">
+    <div class="pe-title">📖 人话解读</div>
+    <p><span class="poisson-char">λ</span>（lambda）=「跳变频率计」。把近 36 个月里单月涨跌≥15% 的月份数出来：<span class="poisson-char">λ</span><span class="poisson-char">↑</span> 是暴涨月数÷总月数（多头爆发力），<span class="poisson-char">λ</span><span class="poisson-char">↓</span> 是暴跌月数÷总月数（空头打击力），<span class="poisson-char">λ</span>净 = <span class="poisson-char">λ</span><span class="poisson-char">↑</span>−<span class="poisson-char">λ</span><span class="poisson-char">↓</span>。</p>
+    <p>怎么读：<span class="poisson-char">λ</span>净&gt;0 <b>且</b> 总收益&gt;0 才是真信号（跳变多 + 整体往上）；<span class="poisson-char">λ</span>净&gt;0 但总收益≤0 只是「坑里蹦」（死猫反弹），排除；<span class="poisson-char">λ</span>净≤0 空头主导，不是我们的形态。</p>
+    <ul>
+      <li><b>中信银行</b>：λ净 +0.083、总收益 +50.1%，跳变偏多且整体向上 = <b>真信号</b>。</li>
+      <li>正面例：<b>洛阳钼业</b> λ净 +0.222、总收益 +263.3%，跳变偏多又真涨 → ★泊松信号。</li><li>反面例：<b>古井贡酒</b> λ净 +0.028 看着多头，但总收益 -63.0% ≤ 0，属于「坑里蹦」，被排除。</li>
+    </ul>
+    <p><b>记住</b>：<span class="poisson-char">λ</span> 只说「跳变多不多、偏哪边」，<b>不说估值贵不贵、基本面扎不扎实</b>。它是筛选工具，不是买卖信号，非投资建议。</p>
+  </div>
+  <div class="poisson-mini">
+    <div class="pm-title">📍 我在象限中的位置</div>
+    <svg viewBox="0 0 300 188" preserveAspectRatio="xMidYMid meet"><rect x="114.3" y="8.0" width="177.7" height="121.5" fill="rgba(22,163,74,0.06)"/>
+<rect x="114.3" y="129.5" width="177.7" height="38.5" fill="rgba(220,38,38,0.06)"/>
+<rect x="32.0" y="8.0" width="82.3" height="121.5" fill="rgba(100,116,139,0.06)"/>
+<rect x="32.0" y="129.5" width="82.3" height="38.5" fill="rgba(100,116,139,0.06)"/>
+<line x1="114.3" y1="8" x2="114.3" y2="168" stroke="#2563eb" stroke-width="1.6" stroke-dasharray="6,5"/>
+<line x1="32" y1="129.5" x2="292" y2="129.5" stroke="#2563eb" stroke-width="1.6" stroke-dasharray="6,5"/>
+<circle cx="133.4" cy="108.8" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="152.5" cy="119.9" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="104.1" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="80.2" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="171.5" cy="98.0" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="114.3" cy="122.9" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="209.6" cy="25.9" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="190.5" cy="117.0" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="95.3" cy="141.0" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="152.5" cy="122.1" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="95.3" cy="143.6" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="152.5" cy="133.6" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="95.3" cy="144.5" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="120.7" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="122.8" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="129.9" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="95.3" cy="137.3" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="152.5" cy="138.2" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="133.4" cy="107.6" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="95.3" cy="141.7" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="127.6" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="114.3" cy="145.9" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="145.7" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="76.2" cy="149.1" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="148.3" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="171.5" cy="143.3" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="114.3" cy="148.0" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="148.0" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="95.3" cy="150.5" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="76.2" cy="152.5" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="136.9" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="76.2" cy="143.2" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="95.3" cy="147.8" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="95.3" cy="148.1" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="101.3" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="171.5" cy="114.5" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="114.3" cy="104.5" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="116.3" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="124.1" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="137.2" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="133.4" cy="119.5" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="92.8" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="119.3" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="117.5" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="111.9" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="114.3" cy="113.2" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="124.0" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="114.3" cy="100.9" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="120.4" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="128.1" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="114.3" cy="98.5" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="127.6" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="152.5" cy="111.8" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="120.8" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="127.2" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="115.0" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="128.6" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="114.3" cy="99.9" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="121.8" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="152.5" cy="107.1" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="114.3" cy="123.0" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="118.1" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="93.7" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="132.3" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="114.3" cy="133.3" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="152.5" cy="121.9" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="119.5" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="130.6" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="133.4" cy="125.2" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="114.3" cy="125.4" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="136.9" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="133.4" cy="113.0" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="120.3" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="126.3" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="171.5" cy="102.8" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="106.2" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="114.3" cy="135.8" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="133.6" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="133.4" cy="109.4" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="171.5" cy="104.5" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="124.4" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="152.5" cy="95.7" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="152.5" cy="134.9" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="114.3" cy="113.9" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="152.5" cy="130.8" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="190.5" cy="111.6" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="131.1" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="133.4" cy="98.1" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="152.5" cy="100.6" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="228.7" cy="104.6" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="114.3" cy="129.2" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="171.5" cy="130.8" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="133.4" cy="139.2" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="133.4" cy="135.6" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="190.5" cy="122.6" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="152.5" cy="116.1" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="190.5" cy="126.8" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="101.6" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="116.6" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="114.3" cy="128.1" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="76.2" cy="148.9" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="190.5" cy="108.1" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="95.3" cy="149.1" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="152.5" cy="131.8" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="190.5" cy="121.3" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="114.3" cy="149.7" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="209.6" cy="110.6" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="209.6" cy="116.1" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="76.2" cy="146.7" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="228.7" cy="78.5" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="76.2" cy="139.6" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="171.5" cy="131.7" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="247.7" cy="23.4" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="190.5" cy="86.0" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="121.8" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="190.5" cy="96.4" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="102.5" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="190.5" cy="103.5" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="190.5" cy="86.9" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="190.5" cy="125.3" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="190.5" cy="111.5" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="152.5" cy="91.6" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="209.6" cy="102.8" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="57.2" cy="134.6" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="139.5" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="171.5" cy="124.7" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="228.7" cy="85.8" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="266.8" cy="50.9" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="152.5" cy="103.0" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="76.2" cy="135.1" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="136.7" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="119.3" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="131.5" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="131.5" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="114.3" cy="113.0" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="89.6" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="121.9" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="111.7" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="171.5" cy="133.6" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="114.3" cy="113.6" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="95.3" cy="134.2" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="171.5" cy="117.4" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="171.5" cy="80.6" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="70.1" cy="131.5" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="152.5" cy="121.5" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="171.5" cy="115.5" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="171.5" cy="76.6" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="190.5" cy="114.8" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="209.6" cy="129.6" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="190.5" cy="103.2" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="171.5" cy="133.2" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="209.6" cy="109.9" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="228.7" cy="80.8" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="171.5" cy="120.9" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="114.3" cy="135.1" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="123.2" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="95.3" cy="132.1" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="137.8" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="131.4" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="114.3" cy="143.7" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="133.4" cy="134.2" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="114.3" cy="109.1" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="152.5" cy="121.5" r="2.3" fill="#16a34a" opacity="0.22"/>
+<circle cx="133.4" cy="144.6" r="2.3" fill="#dc2626" opacity="0.22"/>
+<circle cx="114.3" cy="137.2" r="2.3" fill="#64748b" opacity="0.22"/>
+<circle cx="152.5" cy="106.3" r="2.3" fill="#16a34a" opacity="0.22"/><circle cx="171.5" cy="114.5" r="5.5" fill="#16a34a" stroke="#fff" stroke-width="2"/><circle cx="171.5" cy="114.5" r="10" fill="none" stroke="#16a34a" stroke-width="1.5" opacity="0.5"/></svg>
+    <div class="pm-cap">中信银行：λ净 +0.083 · 总收益 +50.1% → ★泊松信号</div>
+    <div class="pm-links"><a href="berkshire-bank-poisson.html">查看 银行 产业链象限图</a> · <a href="berkshire-poisson-quadrant.html">查看总象限图</a></div>
+  </div></div>
+<div class="section-title">估值历史分位</div>
+<div class="valband">
+<div class="vrow"><div class="vlab">PE（TTM）</div><div class="vbar"><div class="vfill" style="width:51.8%;background:#b45309"></div><div class="vmark" style="left:51.8%"></div></div><div class="vval"><b>5.74</b> 倍 · 历史 <b>51.8%</b> 分位 <span class="vtag" style="color:#b45309">中位</span></div></div>
+<div class="vrow"><div class="vlab">PB</div><div class="vbar"><div class="vfill" style="width:41.0%;background:#b45309"></div><div class="vmark" style="left:41.0%"></div></div><div class="vval"><b>0.55</b> 倍 · 历史 <b>41.0%</b> 分位 <span class="vtag" style="color:#b45309">中位</span></div></div>
+  <div class="fin-note">分位口径：近十年日度 PE(TTM)/PB（百度股市通），当前值所处历史百分位。
+  <span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+  <span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+  <span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+  亏损企业 PE 不适用，仅看 PB。样本起点 2016-07-16，分位为时点统计，随行情变动。</div>
+</div>
+
 <div class="section-title">员工效率与组织效能</div>
 <div class="emp-block">
   <div class="emp-grid">
@@ -160,4 +498,6 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 
 <h3 class="section-title">业务条线框架（5层）</h3><div class="layer"><h4>零售</h4><p>差异化零售策略（如招行零售之王、平安银行零售转型），信用卡与财富管理见长。</p></div><div class="layer"><h4>对公</h4><p>股份制灵活机制，深耕民企、投行与同业链条。</p></div><div class="layer"><h4>同业</h4><p>同业拆借、票据贴现、金融市场投资与债券交易，管理流动性与利率风险。</p></div><div class="layer"><h4>财富</h4><p>理财子公司产品、私人银行、代理代销与托管，沉淀中收与AUM。</p></div><div class="layer"><h4>投行</h4><p>债券承销与交易银行领先，集团内产融协同。</p></div>
 <h3 class="section-title">要点解读（基于2025年报 / 2026-07-12估值）</h3><div class="deep-grid"><div class="deep-item"><h4>资产质量</h4><p>不良率 1.15% 优于行业均值，资产质量良好；拨备覆盖率 203.61% 高于监管红线、处于中等水平。</p></div><div class="deep-item"><h4>盈利能力</h4><p>净息差 1.63% 与行业相当，处于合理区间；ROE 9.39% 处于行业中游。</p></div><div class="deep-item"><h4>估值与分红</h4><p>PB 0.54x 明显破净，估值处于折价区间；股息率 5.33% 较高，具备稳定收息价值。</p></div><div class="deep-item"><h4>规模与定位</h4><p>2025年营收 2124.75 亿、归母净利 706.18 亿，总市值 3978.63 亿，属中大型体量；作为全国性股份行，对公与投行见长，集团协同（中信集团）优势。</p></div><div class="deep-item"><h4>投资逻辑</h4><p>低PB（0.54x）+ 高股息率（5.33%）构成高安全边际，是红利/价值策略的核心标的；机制灵活、综合化经营，零售/投行/同业各有特色，弹性大于大行。</p></div><div class="deep-item"><h4>核心风险</h4><p>主要风险为行业共性：经济下行期资产质量扰动、净息差持续收窄与政策让利。</p></div></div><div class="note">框架知识：银行看三张表——资产质量（不良率/拨备/逾期偏离度）、盈利能力（NIM/ROE/中收）、资本与估值（核心一级资本充足率/PB/股息率）。详见<a href="berkshire-bank-methodology.html" style="color:var(--accent)">银行方法论文</a>。</div>
-</div><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露），估值=2026-07-12行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>
+</div><div id="annual-reports" style="margin-top:28px;padding-top:10px"><div style="font-size:16px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px"><span style="font-size:18px">📄</span> 历年年报（巨潮资讯网）</div><p style="font-size:12.5px;color:#64748b;margin:0 0 12px;line-height:1.6">点击年份直达该公司年度报告原文 PDF（来源：巨潮资讯网）。本页仅作链接聚合，不托管文件，最新以公司公告为准。</p><div style="display:flex;flex-wrap:wrap;gap:8px"><a href="https://static.cninfo.com.cn/finalpage/2026-03-21/1225022321.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2025 年报</a><a href="https://static.cninfo.com.cn/finalpage/2025-03-27/1222911392.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2024 年报</a><a href="https://static.cninfo.com.cn/finalpage/2024-03-22/1219375055.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2023 年报</a><a href="https://static.cninfo.com.cn/finalpage/2023-03-24/1216202395.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2022 年报</a><a href="https://static.cninfo.com.cn/finalpage/2022-03-25/1212669945.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2021 年报</a><a href="https://static.cninfo.com.cn/finalpage/2021-03-26/1209453589.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2020 年报</a><a href="https://static.cninfo.com.cn/finalpage/2020-03-27/1207410570.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2019 年报</a><a href="https://static.cninfo.com.cn/finalpage/2019-03-27/1205942376.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2018 年报</a><a href="https://static.cninfo.com.cn/finalpage/2018-03-27/1204519887.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2017 年报</a><a href="https://static.cninfo.com.cn/finalpage/2017-04-28/1203417380.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2016 年报</a><a href="https://static.cninfo.com.cn/finalpage/2017-03-23/1203188072.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2016 年报</a><a href="https://static.cninfo.com.cn/finalpage/2016-03-24/1202071954.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2015 年报</a><a href="https://static.cninfo.com.cn/finalpage/2015-03-21/1200725138.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2014 年报</a><a href="https://static.cninfo.com.cn/finalpage/2014-03-28/63742162.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2013 年报</a><a href="https://static.cninfo.com.cn/finalpage/2013-03-29/62296706.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2012 年报</a><a href="https://static.cninfo.com.cn/finalpage/2012-03-31/60774424.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2011 年报</a><a href="https://static.cninfo.com.cn/finalpage/2011-04-01/59215268.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2010 年报</a><a href="https://static.cninfo.com.cn/finalpage/2010-04-29/57891802.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2009 年报</a><a href="https://static.cninfo.com.cn/finalpage/2009-04-29/51940410.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2008 年报</a><a href="https://static.cninfo.com.cn/finalpage/2008-05-10/39623391.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2007 年报</a><a href="https://static.cninfo.com.cn/finalpage/2008-03-27/38292321.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2007 年报</a><a href="https://static.cninfo.com.cn/finalpage/2025-04-30/1223416018.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">H股公告-二零二四年年度报告</a></div></div>
+<div id="research-reports" style="margin-top:28px;padding-top:10px"><div style="font-size:16px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px"><span style="font-size:18px">📊</span> 券商研报（东方财富）</div><p style="font-size:12.5px;color:#64748b;margin:0 0 12px;line-height:1.6">下方为机构近期研究报告（来源：东方财富网）。研报版权归原券商所有，本页仅作链接聚合、不托管文件，点击直达东方财富托管原文。仅供参考，不构成投资建议。</p><div style="display:flex;flex-direction:column;gap:8px"><a href="https://pdf.dfcfw.com/pdf/H3_AP202605061821981990_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">中信银行2026年一季报点评：息差降幅收窄，营收增速显著改善</div><div style="font-size:12px;color:#64748b">开源证券 · 买入 · 2026-05-06</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202603311820892416_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">中信银行2025年年报点评：业绩稳中有进，股息回报增强</div><div style="font-size:12px;color:#64748b">太平洋 · 增持 · 2026-03-31</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202603251820750163_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">点评报告：规模稳健增长，分红比例提升</div><div style="font-size:12px;color:#64748b">万联证券 · 增持 · 2026-03-25</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202603251820739254_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">中信银行2025年报点评：净息差企稳，分红比例新高</div><div style="font-size:12px;color:#64748b">开源证券 · 买入 · 2026-03-25</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202603221820687528_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">2025年报点评：分红比例提升，资产质量平稳</div><div style="font-size:12px;color:#64748b">国信证券 · 增持 · 2026-03-22</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202511021773856429_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">中信银行2025年三季报点评：单季息差环比提升，零售AUM高增</div><div style="font-size:12px;color:#64748b">开源证券 · 买入 · 2025-11-02</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202509031738377922_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">2025年半年报点评：业绩稳中有进，资产质量改善</div><div style="font-size:12px;color:#64748b">国信证券 · 增持 · 2025-09-03</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202508281736135986_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">中信银行2025年中报点评：利润平稳增长，中期分红比例拟提升</div><div style="font-size:12px;color:#64748b">开源证券 · 买入 · 2025-08-28</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202508071723010453_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">零售战略推进，对公根基深厚</div><div style="font-size:12px;color:#64748b">国信证券(香港) · 2025-08-07</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202508061722391292_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">零售战略推进，对公根基深厚</div><div style="font-size:12px;color:#64748b">国信证券 · 增持 · 2025-08-06</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202506041684622316_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">中信银行跟踪更新：中信银行AIC获批筹建，投贷联动迈向新阶段</div><div style="font-size:12px;color:#64748b">开源证券 · 买入 · 2025-06-04</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202505011665622247_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">中信银行2025年一季报点评：存贷增速提升，盈利韧性仍强</div><div style="font-size:12px;color:#64748b">开源证券 · 买入 · 2025-05-01</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202504051651855398_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">中信银行2024年年报点评：整体经营稳健，息差韧性显著</div><div style="font-size:12px;color:#64748b">太平洋 · 增持 · 2025-04-05</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202503281648531816_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">2024年报点评：资产质量稳定，息差表现亮眼</div><div style="font-size:12px;color:#64748b">国信证券 · 增持 · 2025-03-28</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202503271648167627_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">中信银行2024年报点评：息差表现跑赢同业，分红比例继续提升</div><div style="font-size:12px;color:#64748b">开源证券 · 买入 · 2025-03-27</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202411011640661659_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">中信银行2024年三季报点评：营收增速回升，息差持续改善</div><div style="font-size:12px;color:#64748b">开源证券 · 买入 · 2024-11-01</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202410311640637239_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">2024年三季报点评：营收利润维持正增，净息差持续改善</div><div style="font-size:12px;color:#64748b">国信证券 · 增持 · 2024-10-31</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202408301639631833_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">营收维持正增，规模增速放缓</div><div style="font-size:12px;color:#64748b">国信证券 · 增持 · 2024-08-30</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202408291639583850_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">中信银行2024年中报点评：息差回升，营收维持正增</div><div style="font-size:12px;color:#64748b">开源证券 · 买入 · 2024-08-29</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202408291639548558_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">2024年半年报点评：息差边际回升，中期分红兑现</div><div style="font-size:12px;color:#64748b">民生证券 · 买入 · 2024-08-29</div></a></div></div>
+<footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露），估值=2026-07-12行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>
