@@ -58,6 +58,16 @@ tbody tr:hover{background:#f8fafc}
 .readme-cta a{color:#fbbf24;font-weight:700}
 /*sort-table*/
 .sortable thead th{cursor:pointer;user-select:none}.sortable thead th:hover{background:#1e3a5f}.sortable thead th::after{content:'';display:inline-block;width:6px;height:10px;margin-left:6px;opacity:.4}.sortable thead th.asc::after{content:'▲';opacity:1;color:#fbbf24}.sortable thead th.desc::after{content:'▼';opacity:1;color:#fbbf24}
+/*sci-box*/
+.sci{background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 1px 3px rgba(15,23,42,.06);margin-bottom:26px;font-size:13.5px;color:#475569;line-height:1.75}
+.sci h3{font-size:15px;color:#1e293b;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.sci h3 .dot{width:8px;height:8px;border-radius:50%;background:#2563eb}
+.sci table{margin:0;font-size:13px}
+.sci .role{font-weight:600;color:#1e293b;white-space:nowrap}
+.sci .hl{color:#dc2626;font-weight:600}
+.sci .hl2{color:#2563eb;font-weight:600}
+.sci p{margin-bottom:8px}
+.sci p:last-child{margin-bottom:0}
 @media(max-width:760px){.summary{grid-template-columns:repeat(2,1fr)}.note{min-width:0}table{font-size:12px}thead th:nth-child(9),tbody td:nth-child(9){display:none}}
 </style>
 </head>
@@ -85,6 +95,21 @@ tbody tr:hover{background:#f8fafc}
     <div class="scard"><div class="k">国新直投 · 持仓市值</div><div class="v buy">560亿（22只）</div></div>
     <div class="scard"><div class="k">诚通系直投 · 持仓市值</div><div class="v neutral">69亿（16只）</div></div>
     <div class="scard"><div class="k">7月新增再贷款</div><div class="v buy">国新500亿 + 诚通1000亿</div></div>
+  </div>
+
+  <!-- sci-three-entities -->
+  <div class="sci">
+    <h3><span class="dot"></span>国家队三大主体：为什么有的买 ETF、有的买个股？</h3>
+    <p>常说「国家队」其实混了三种定位完全不同的主体，本页正好对应两类数据——<span class="hl2">宽基 ETF 表</span>对应汇金的平准护盘，<span class="hl">国新/诚通直投持仓表</span>对应国有资本运营的扶产业。</p>
+    <table>
+      <thead><tr><th>主体</th><th>定位</th><th>买什么</th><th>目的</th></tr></thead>
+      <tbody>
+        <tr><td class="role">中央汇金<br><span style="font-weight:400;color:#64748b;font-size:12px">（含汇金资管）</span></td><td>平准基金式护盘</td><td>宽基 ETF（沪深300/中证500/中证1000/上证50/科创50/创业板）</td><td>机械托指数，分散、不挑个股，避免「救市救出选股争议」</td></tr>
+        <tr><td class="role">中国国新</td><td>国有资本运营公司</td><td>战略个股（电子/通信/国防军工为主）</td><td>优化国有资本布局、扶持卡脖子战略新兴产业</td></tr>
+        <tr><td class="role">中国诚通<br><span style="font-weight:400;color:#64748b;font-size:12px">（含诚通金控/诚旸）</span></td><td>国有资本运营公司</td><td>战略个股（计算机/机械设备/电力设备为主）</td><td>同上，做股权运作、央企结构调整</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:10px;color:#64748b;font-size:12.5px">一句话：<span class="hl2">汇金买 ETF 稳指数，国新/诚通买个股扶产业</span>。让运营公司也买 ETF 就白瞎了——半导体设备、EDA、量子这些公司在沪深300权重微乎其微，必须直接持股才能表达。</p>
   </div>
 
   <div class="sec-title"><span class="dot"></span>核心宽基篮子（主信号）</div>
@@ -306,6 +331,23 @@ tbody tr:hover{background:#f8fafc}
   <div class="note-box" style="margin-bottom:18px">
     <b>★ 联合持仓：</b>国新与诚通均重仓<strong>中瓷电子</strong>（国新1765.79万股/13.25亿减持156.69万 + 诚通165.33万股/1.24亿新进）和<strong>华大九天</strong>（国新2176.57万股/17.66亿增持 + 诚旸457.10万股/3.71亿增持47.11万）。两大平台对同一标的操作方向不同，反映各自策略差异。<br>
     <b>7月最新动作：</b>国新增持超<strong>500亿</strong>（专项再贷款）；诚通累计增持近<strong>100亿</strong>（再贷款额度1000亿）。7月20-21日38只重仓股反弹：杭钢/中国海油涨停→有研新材/芯源微/北方华创/中瓷电子涨停。
+  </div>
+
+  <!-- sci-relending -->
+  <div class="sci">
+    <h3><span class="dot"></span>「再贷款 500亿 / 1000亿」是什么？不是保证金杠杆</h3>
+    <p><b>工具：</b>央行 2024-10-18 推出「<span class="hl2">股票回购增持再贷款</span>」，首期额度 3000 亿，年利率 <span class="hl">1.75%</span>。流向是：央行 1.75% → 21 家全国性银行（转贷 ≤2.25%）→ 国新/诚通等央企大股东 → 直接买个股，资金<span class="hl2">「专款专用、封闭运行」</span>（只能进专用证券账户买股，还清前不得提现或转出）。</p>
+    <p><b>三个数字别混：</b></p>
+    <table>
+      <thead><tr><th>口径</th><th>含义</th></tr></thead>
+      <tbody>
+        <tr><td class="role">国新「动用超 500亿」</td><td>已从该工具<span class="hl">实际提款</span> &gt;500 亿</td></tr>
+        <tr><td class="role">诚通「额度 1000亿」</td><td>获批的<span class="hl2">授信上限</span>（不一定全提）</td></tr>
+        <tr><td class="role">诚通「累计增持近百亿」</td><td><span class="hl">实际买股花费</span>约 100 亿</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:10px"><b>算杠杆吗？</b>严格说算（借钱买股），但结构是<span class="hl2">政策性低息贷款</span>而非保证金交易——<span class="hl">没有平仓线、没有追缴保证金、不被强平</span>。利率仅 2.25%，持有成本极低。</p>
+    <p><b>怕风险吗？</b>真实风险是市值浮亏 + 年利息（1000亿×2.25%≈22.5亿/年），但借款人是央企、隐含国家信用，超长周期+政策使命不以短期盈亏论英雄。他们赌的是「市场最终回来 + 产业真被扶起」，浮亏算战略成本。</p>
   </div>
 
   <div class="method">
