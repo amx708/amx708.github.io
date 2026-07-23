@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>上海银行 · 银行图谱</title><style>
-:root{--bg:#f0f2f5;--soft:#f8fafc;--card:#ffffff;--ink:#1e293b;--mut:#64748b;--line:rgba(0,0,0,.09);--red:#dc2626;--green:#16a34a;--accent:#3b82f6;}
+:root{--bg:#f5f9ff;--soft:#eef5ff;--card:#ffffff;--ink:#0f172a;--mut:#475569;--line:rgba(59,130,246,.15);--red:#dc2626;--green:#16a34a;--accent:#2563eb;--accent-light:#3b82f6;--accent-ghost:rgba(59,130,246,.08);}
 *{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(180deg,#f8fbff 0%,#f0f7ff 100%);background-attachment:fixed;color:var(--ink);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased}
 .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .nav .brand{color:var(--ink);font-weight:600;font-size:15px;letter-spacing:.3px}
 .nav .crumb{color:var(--mut);font-size:12.5px}
 .nav a{color:var(--mut);text-decoration:none;font-size:13px;padding:4px 9px;border-radius:6px;transition:.15s}
 .nav a:hover{color:var(--accent);background:var(--soft)}
-.hero{background:linear-gradient(135deg,#ffffff 0%,#f1f5f9 100%);border-bottom:1px solid var(--line);padding:46px 20px 38px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#e8f1ff 100%);border-bottom:1px solid var(--line);padding:46px 20px 38px;box-shadow:0 4px 20px rgba(37,99,235,.10)}
 .hero-in{max-width:1080px;margin:0 auto}
 .hero h1{margin:0 0 10px;font-size:29px;font-weight:700;letter-spacing:-.5px;color:#0f172a}
 .hero p{margin:5px 0;color:var(--mut);max-width:760px;font-size:14.5px}
@@ -18,22 +18,23 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang 
 .hero .stat b{color:var(--accent);font-size:26px;display:block;font-weight:700}
 .hero .stat span{font-size:12px;color:var(--mut)}
 .wrap{max-width:1080px;margin:0 auto;padding:30px 20px 70px}
-.section-title{font-size:18px;font-weight:700;margin:34px 0 16px;padding-left:12px;border-left:3px solid var(--accent);letter-spacing:-.2px;color:var(--ink)}
+.section-title{font-size:18px;font-weight:700;margin:34px 0 16px;padding-left:12px;border-left:4px solid var(--accent);letter-spacing:-.2px;color:var(--ink)}
 .filter{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 22px}
-.filter button{border:1px solid var(--line);background:var(--card);color:var(--mut);padding:7px 16px;border-radius:8px;cursor:pointer;font-size:13px;transition:.15s}
-.filter button:hover{border-color:var(--accent);color:var(--accent)}
+.filter button{border:1px solid var(--line);background:var(--card);color:var(--mut);padding:7px 16px;border-radius:20px;cursor:pointer;font-size:13px;transition:.15s;font-weight:500}
+.filter button:hover{border-color:var(--accent);color:var(--accent);background:#eff6ff}
 .filter button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;transition:.18s;position:relative;box-shadow:0 1px 6px rgba(0,0,0,.04)}
-.card:hover{border-color:var(--accent);box-shadow:0 6px 20px rgba(59,130,246,.14)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;transition:.18s;position:relative;box-shadow:0 3px 10px rgba(37,99,235,.06);overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#60a5fa);opacity:.85}
+.card:hover{border-color:rgba(59,130,246,.45);box-shadow:0 10px 28px rgba(37,99,235,.16);transform:translateY(-2px)}
 .card .top{display:flex;justify-content:space-between;align-items:baseline}
-.card h3{margin:0;font-size:16.5px;font-weight:600;color:var(--ink)}
-.card .code{font-size:12px;color:var(--mut)}
-.card .cat{display:inline-block;font-size:11px;padding:2px 9px;border-radius:6px;background:var(--soft);color:var(--mut);margin:7px 0}
-.card .pos{font-size:12.5px;color:var(--mut);min-height:34px;line-height:1.55}
+.card h3{margin:0;font-size:17px;font-weight:700;color:var(--ink)}
+.card .code{font-size:12px;color:var(--mut);font-weight:500}
+.card .cat{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;background:linear-gradient(135deg,#dbeafe 0%,#eff6ff 100%);color:#1d4ed8;margin:8px 0;font-weight:600;border:1px solid rgba(59,130,246,.18)}
+.card .pos{font-size:12.5px;color:#475569;min-height:34px;line-height:1.55}
 .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
-.kpis div{font-size:11px;color:var(--mut)}
-.kpis b{display:block;color:var(--ink);font-size:14px;font-weight:600}
+.kpis div{font-size:11px;color:#64748b}
+.kpis b{display:block;color:#0f172a;font-size:14.5px;font-weight:700}
 .detail{max-width:920px;margin:0 auto;padding:28px 20px 70px}
 .detail .back{color:var(--accent);text-decoration:none;font-size:13px}
 .detail>h1{font-weight:700;letter-spacing:-.5px;color:var(--ink)}
@@ -107,100 +108,6 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 .cmp-sel{font-size:12.5px;color:var(--mut);margin:6px 0}
 .cmp-good{color:var(--green);font-weight:600}
 .cmp-bad{color:var(--red);font-weight:600}
-
-.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
-.fin-title .icon{color:#64748b}
-.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px}
-.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
-.fin-table tr{border-bottom:1px solid #eef2f7}
-.fin-table tr:last-child{border-bottom:none}
-.fin-table td{padding:10px 14px;font-size:13px;color:#334155}
-.fin-table td:first-child{width:130px;color:#64748b}
-.fin-table .val{color:#b45309;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
-.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
-.poisson-char{font-family:"Segoe UI","Microsoft YaHei",Arial,sans-serif;font-variant-emoji:text;-webkit-font-variant-emoji:text}
-.poisson-pill{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700}
-
-@media(max-width:640px){.fin-block{padding:10px 12px;margin-bottom:6px}.fin-head{flex-wrap:wrap;gap:6px;margin-bottom:8px}.fin-title{font-size:14px;gap:6px}.fin-tag{font-size:10px;padding:2px 7px}.fin-table td{padding:7px 10px;font-size:12px}.fin-table td:first-child{width:auto;min-width:90px}.fin-note{font-size:11px;line-height:1.55}}
-
-/*poisson-mobile*/@media(max-width:640px){.fin-block{padding:10px 12px;margin-bottom:6px}.fin-head{flex-wrap:wrap;gap:6px;margin-bottom:8px}.fin-title{font-size:14px;gap:6px}.fin-tag{font-size:10px;padding:2px 7px}.fin-table td{padding:7px 10px;font-size:12px}.fin-table td:first-child{width:auto;min-width:90px}.fin-note{font-size:11px;line-height:1.55}}
-
-/*poisson-tune*/.fin-block{padding:13px 15px;margin-bottom:8px}.fin-head{margin-bottom:8px}.fin-table td{padding:8px 12px;font-size:12.5px}.fin-note{font-size:11.5px;line-height:1.55}
-
-/*poisson-tune-v2*/.fin-block{padding:14px 16px;margin-bottom:8px;border-radius:10px}.fin-head{margin-bottom:8px}.fin-table td{padding:8px 12px;font-size:12.5px}.fin-note{font-size:11.5px;line-height:1.55}
-
-/*poisson-explain*/.poisson-explain{margin-top:10px;padding:11px 13px;background:rgba(37,99,235,0.05);border:1px solid rgba(37,99,235,0.15);border-left:3px solid #2563eb;border-radius:8px}.poisson-explain .pe-title{font-size:12.5px;font-weight:700;color:#1e40af;margin-bottom:6px}
-.poisson-explain p{font-size:12px;color:#475569;line-height:1.7;margin:0 0 6px}
-.poisson-explain ul{margin:0 0 6px 18px;padding:0}
-.poisson-explain li{font-size:12px;color:#475569;line-height:1.7;margin-bottom:3px}
-.poisson-explain b{color:#0f172a}
-
-/*poisson-mini*/.poisson-mini{margin-top:10px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;padding:8px 10px}
-.poisson-mini .pm-title{font-size:12px;font-weight:700;color:#1e40af;margin-bottom:4px}
-.poisson-mini svg{display:block;width:100%;height:auto}
-.poisson-mini .pm-cap{font-size:11.5px;color:#475569;margin-top:4px;text-align:center}
-</style>
-<style>
-/* P0 估值历史分位 + 成本传导（扩展链） */
-.valband{margin:6px 0 2px}
-.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
-.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
-.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
-.vfill{height:100%;border-radius:6px}
-.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
-.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
-.vval b{color:#0f172a}
-.vtag{font-weight:700;margin-left:4px}
-.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
-.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
-.ovtable{overflow-x:auto;margin:6px 0}
-.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
-.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
-.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
-.ovtable td:first-child,.ovtable th:first-child{text-align:left}
-.ovtable a{color:#0f766e;text-decoration:none}
-.ovtable a:hover{text-decoration:underline}
-.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
-.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
-.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
-.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
-.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
-.cost-chart{flex:1;min-width:300px}
-.cost-chart svg{width:100%;height:auto;display:block}
-.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
-.cost-note b{color:#0f172a}
-.cost-note p{margin:0 0 10px}
-
-</style>
-<style>
-
-/* 员工效率与组织效能 */
-.emp-block{margin:6px 0 2px}
-.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
-.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
-.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
-.emp-val{font-size:18px;font-weight:700;color:#0f172a}
-.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
-.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
-.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
-.emp-signal b{font-weight:700}
-.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
-.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
-.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
-
-</style>
-<style>
-.r15-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;box-shadow:0 1px 6px rgba(0,0,0,0.04);margin-bottom:8px}
-.r15-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px dashed #eef2f7}
-.r15-row:last-of-type{border-bottom:none}
-.r15-lab{width:84px;flex-shrink:0;font-size:14px;font-weight:700;color:#0f172a}
-.r15-val{font-size:15px;font-weight:800;padding:3px 10px;border-radius:8px;white-space:nowrap}
-.r15-lo{background:rgba(22,163,74,0.12);color:#15803d}
-.r15-mid{background:rgba(180,83,9,0.12);color:#b45309}
-.r15-hi{background:rgba(185,28,28,0.12);color:#b91c1c}
-.r15-sub{font-size:12px;color:#64748b;flex:1}
 </style></head><body>
 <div class="nav"><div class="nav-in">
 <div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 银行图谱 / 上海银行</div>
@@ -223,317 +130,6 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <div><b>0.51x</b><span>PB</span></div>
 <div><b>5.76%</b><span>股息率</span></div>
 <div><b>1283.07</b><span>总市值(亿)</span></div></div>
-<!-- CHIP_BADGE -->
-<div class="cb-card">
-<style>
-.cb-card{margin:18px 0;padding:18px 20px;border:1px solid #e2e8f0;border-left:4px solid #94a3b8;border-radius:14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,0.04);font-family:inherit}
-.cb-head{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#0f172a;margin-bottom:12px}
-.cb-verdict{display:flex;align-items:center;gap:12px;margin:6px 0 14px;padding:12px 14px;border-radius:12px;background:#fffbeb;border:1px solid #fde68a}
-.cb-lamp{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fde68a,#f59e0b);box-shadow:0 0 0 5px rgba(245,158,11,0.15),0 0 14px rgba(245,158,11,0.4);flex-shrink:0}
-.cb-verdict b{font-size:19px;color:#0f172a}
-.cb-verdict span{display:block;font-size:12px;color:#64748b;margin-top:2px}
-.cb-big{display:flex;align-items:baseline;gap:8px;margin:4px 2px 14px}
-.cb-big .n{font-size:32px;font-weight:800;color:#0f172a;letter-spacing:-1px}
-.cb-big .u{font-size:14px;color:#64748b}
-.cb-big .r{margin-left:auto;font-size:11.5px;color:#b45309;background:#fffbeb;padding:4px 10px;border-radius:20px;font-weight:600;text-align:right}
-.cb-chgs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.cb-chg{background:#f8fafc;border:1px solid #f1f5f9;border-radius:12px;padding:11px}
-.cb-chg .l{font-size:12px;color:#64748b}
-.cb-chg .v{font-size:17px;font-weight:800;margin:3px 0 7px}
-.cb-chg .bar{height:8px;border-radius:5px;background:#e2e8f0;overflow:hidden}
-.cb-chg .bar i{display:block;height:100%;border-radius:5px}
-.cb-chg .nt{font-size:11px;color:#94a3b8;margin-top:6px}
-.cb-up{color:#dc2626}.cb-down{color:#16a34a}
-.cb-fill-up{background:#dc2626}.cb-fill-down{background:#16a34a}
-.cb-streak{display:flex;align-items:center;gap:8px;margin:0 2px 14px;font-size:12.5px;color:#475569;flex-wrap:wrap}
-.cb-dots{display:flex;gap:5px}
-.cb-dots i{width:13px;height:13px;border-radius:50%;background:#e2e8f0}
-.cb-dots i.on{background:#16a34a}
-.cb-peers .ph{font-size:13px;font-weight:700;color:#0f172a;margin-bottom:9px;display:flex;justify-content:space-between}
-.cb-peers .ph span{font-size:11px;color:#94a3b8;font-weight:400}
-.cb-prow{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px}
-.cb-prow .pn{width:60px;flex-shrink:0;color:#475569}
-.cb-prow .pt{flex:1;height:15px;background:#f1f5f9;border-radius:5px;overflow:hidden}
-.cb-prow .pb{height:100%;border-radius:5px;background:#cbd5e1}
-.cb-prow .pv{width:58px;text-align:right;color:#64748b;flex-shrink:0}
-.cb-prow.me .pn{color:#b45309;font-weight:700}
-.cb-prow.me .pb{background:linear-gradient(90deg,#f59e0b,#d97706)}
-.cb-prow.me .pv{color:#b45309;font-weight:700}
-.cb-prow.dim{opacity:.7}
-.cb-footer{border-top:1px solid #f1f5f9;padding-top:11px;margin-top:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:8px}
-.cb-src{font-size:11px;color:#94a3b8;line-height:1.5}
-.cb-footer a{font-size:12px;color:#2563eb;font-weight:600;text-decoration:none;white-space:nowrap}
-</style>
-  <div class="cb-head">🎯 筹码博弈 · 股东人数（中报视角）</div>
-  <div class="cb-verdict"><div class="cb-lamp"></div><div><b>筹码平稳</b><span>筹码无明显集中或发散</span></div></div>
-  <div class="cb-big"><div class="n">9.23<span class="u">万</span></div><div class="r">银行板块股东人数第 21 多</div></div>
-  <div class="cb-chgs">
-    <div class="cb-chg"><div class="l">股东人数（环比）</div><div class="v cb-down">▼ -4.16%</div><div class="bar"><i class="cb-fill-down" style="width:25%"></i></div><div class="nt">变动很小 → 集中迹象弱</div></div>
-    <div class="cb-chg"><div class="l">人均持股（环比）</div><div class="v cb-up">▲ +4.34%</div><div class="bar"><i class="cb-fill-up" style="width:26%"></i></div><div class="nt">变动很小 → 集中迹象弱</div></div>
-  </div>
-  <div class="cb-streak"><span>趋势强度（连续下降期数）：</span><div class="cb-dots"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></div><span>连续2期↓，尚未确立</span></div>
-  <div class="cb-peers">
-    <div class="ph">银行板块股东人数对比 <span>单位：万人 · 高亮为本股</span></div>
-    <div class="cb-prow dim"><div class="pn">工商银行</div><div class="pt"><div class="pb" style="width:100.0%"></div></div><div class="pv">78.83万</div></div>
-    <div class="cb-prow dim"><div class="pn">农业银行</div><div class="pt"><div class="pb" style="width:84.6%"></div></div><div class="pv">66.66万</div></div>
-    <div class="cb-prow dim"><div class="pn">中国银行</div><div class="pt"><div class="pb" style="width:82.0%"></div></div><div class="pv">64.65万</div></div>
-    <div class="cb-prow dim"><div class="pn">招商银行</div><div class="pt"><div class="pb" style="width:78.3%"></div></div><div class="pv">61.73万</div></div>
-    <div class="cb-prow dim"><div class="pn">平安银行</div><div class="pt"><div class="pb" style="width:58.1%"></div></div><div class="pv">45.76万</div></div>
-    <div class="cb-prow dim"><div class="pn">民生银行</div><div class="pt"><div class="pb" style="width:48.1%"></div></div><div class="pv">37.95万</div></div>
-    <div class="cb-prow dim"><div class="pn">交通银行</div><div class="pt"><div class="pb" style="width:41.5%"></div></div><div class="pv">32.74万</div></div>
-    <div class="cb-prow dim"><div class="pn">建设银行</div><div class="pt"><div class="pb" style="width:37.6%"></div></div><div class="pv">29.62万</div></div>
-    <div class="cb-prow dim"><div class="pn">兴业银行</div><div class="pt"><div class="pb" style="width:35.5%"></div></div><div class="pv">27.98万</div></div>
-    <div class="cb-prow me"><div class="pn">上海银行</div><div class="pt"><div class="pb" style="width:11.7%"></div></div><div class="pv">9.23万</div></div>
-  </div>
-  <div class="cb-footer"><div class="cb-src">数据：巨潮股东户数（2026-03-31）<br>滞后于股价，非投资建议。</div><a href="berkshire-chip-game.html">查看全链筹码榜 →</a></div>
-</div>
-<!-- /CHIP_BADGE -->
-
-
-
-
-
-
-
-<div class="section-title">泊松信号（跳变频率参考）</div>
-<div class="fin-block">
-  <div class="fin-head"><div class="fin-title"><span class="icon">📡</span> 泊松过程 <span class="poisson-char">λ</span> 信号</div><span class="fin-tag">近36个月</span></div>
-  <table class="fin-table">
-    <tr><td><span class="poisson-char">λ</span>净（<span class="poisson-char">λ</span><span class="poisson-char">↑</span>−<span class="poisson-char">λ</span><span class="poisson-char">↓</span>）</td><td class="val">+0.000</td></tr>
-    <tr><td><span class="poisson-char">λ</span><span class="poisson-char">↑</span> 多头跳变/月</td><td class="val">0.000</td></tr>
-    <tr><td><span class="poisson-char">λ</span><span class="poisson-char">↓</span> 空头跳变/月</td><td class="val">0.000</td></tr>
-    <tr><td>观察期总收益</td><td class="val">+94.5%</td></tr>
-    <tr><td>跳变月数（涨/跌）</td><td class="val">0 / 0</td></tr>
-    <tr><td>信号分类</td><td class="val"><span class="poisson-pill" style="color:#64748b;background:rgba(100,116,139,0.1);border:1px solid rgba(100,116,139,0.25)">空头主导</span></td></tr>
-  </table>
-  <div class="fin-note">基于近36个月月收益，单月涨跌≥15%计一次跳变；λ净&gt;0 且总收益&gt;0 为入选信号。本指标仅反映价格跳变频率与方向，<b>不替代估值与基本面</b>，不构成投资建议。采集日 20260722。</div>
-  <div class="poisson-explain">
-    <div class="pe-title">📖 人话解读</div>
-    <p><span class="poisson-char">λ</span>（lambda）=「跳变频率计」。把近 36 个月里单月涨跌≥15% 的月份数出来：<span class="poisson-char">λ</span><span class="poisson-char">↑</span> 是暴涨月数÷总月数（多头爆发力），<span class="poisson-char">λ</span><span class="poisson-char">↓</span> 是暴跌月数÷总月数（空头打击力），<span class="poisson-char">λ</span>净 = <span class="poisson-char">λ</span><span class="poisson-char">↑</span>−<span class="poisson-char">λ</span><span class="poisson-char">↓</span>。</p>
-    <p>怎么读：<span class="poisson-char">λ</span>净&gt;0 <b>且</b> 总收益&gt;0 才是真信号（跳变多 + 整体往上）；<span class="poisson-char">λ</span>净&gt;0 但总收益≤0 只是「坑里蹦」（死猫反弹），排除；<span class="poisson-char">λ</span>净≤0 空头主导，不是我们的形态。</p>
-    <ul>
-      <li><b>上海银行</b>：λ净 +0.000 ≤ 0，空头跳变占上风，当前不是我们的关注形态。</li>
-      <li>正面例：<b>洛阳钼业</b> λ净 +0.222、总收益 +263.3%，跳变偏多又真涨 → ★泊松信号。</li><li>反面例：<b>古井贡酒</b> λ净 +0.028 看着多头，但总收益 -63.0% ≤ 0，属于「坑里蹦」，被排除。</li>
-    </ul>
-    <p><b>记住</b>：<span class="poisson-char">λ</span> 只说「跳变多不多、偏哪边」，<b>不说估值贵不贵、基本面扎不扎实</b>。它是筛选工具，不是买卖信号，非投资建议。</p>
-  </div>
-  <div class="poisson-mini">
-    <div class="pm-title">📍 我在象限中的位置</div>
-    <svg viewBox="0 0 300 188" preserveAspectRatio="xMidYMid meet"><rect x="114.3" y="8.0" width="177.7" height="121.5" fill="rgba(22,163,74,0.06)"/>
-<rect x="114.3" y="129.5" width="177.7" height="38.5" fill="rgba(220,38,38,0.06)"/>
-<rect x="32.0" y="8.0" width="82.3" height="121.5" fill="rgba(100,116,139,0.06)"/>
-<rect x="32.0" y="129.5" width="82.3" height="38.5" fill="rgba(100,116,139,0.06)"/>
-<line x1="114.3" y1="8" x2="114.3" y2="168" stroke="#2563eb" stroke-width="1.6" stroke-dasharray="6,5"/>
-<line x1="32" y1="129.5" x2="292" y2="129.5" stroke="#2563eb" stroke-width="1.6" stroke-dasharray="6,5"/>
-<circle cx="133.4" cy="108.8" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="152.5" cy="119.9" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="104.1" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="80.2" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="171.5" cy="98.0" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="114.3" cy="122.9" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="209.6" cy="25.9" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="190.5" cy="117.0" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="95.3" cy="141.0" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="152.5" cy="122.1" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="95.3" cy="143.6" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="152.5" cy="133.6" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="95.3" cy="144.5" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="120.7" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="122.8" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="129.9" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="95.3" cy="137.3" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="152.5" cy="138.2" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="133.4" cy="107.6" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="95.3" cy="141.7" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="127.6" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="114.3" cy="145.9" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="145.7" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="76.2" cy="149.1" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="148.3" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="171.5" cy="143.3" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="114.3" cy="148.0" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="148.0" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="95.3" cy="150.5" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="76.2" cy="152.5" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="136.9" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="76.2" cy="143.2" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="95.3" cy="147.8" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="95.3" cy="148.1" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="101.3" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="171.5" cy="114.5" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="114.3" cy="104.5" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="116.3" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="124.1" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="137.2" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="133.4" cy="119.5" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="92.8" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="119.3" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="117.5" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="111.9" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="114.3" cy="113.2" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="124.0" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="114.3" cy="100.9" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="120.4" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="128.1" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="114.3" cy="98.5" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="127.6" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="152.5" cy="111.8" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="120.8" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="127.2" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="115.0" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="128.6" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="114.3" cy="99.9" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="121.8" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="152.5" cy="107.1" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="114.3" cy="123.0" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="118.1" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="93.7" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="132.3" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="114.3" cy="133.3" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="152.5" cy="121.9" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="119.5" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="130.6" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="133.4" cy="125.2" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="114.3" cy="125.4" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="136.9" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="133.4" cy="113.0" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="120.3" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="126.3" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="171.5" cy="102.8" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="106.2" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="114.3" cy="135.8" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="133.6" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="133.4" cy="109.4" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="171.5" cy="104.5" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="124.4" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="152.5" cy="95.7" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="152.5" cy="134.9" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="114.3" cy="113.9" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="152.5" cy="130.8" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="190.5" cy="111.6" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="131.1" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="133.4" cy="98.1" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="152.5" cy="100.6" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="228.7" cy="104.6" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="114.3" cy="129.2" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="171.5" cy="130.8" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="133.4" cy="139.2" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="133.4" cy="135.6" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="190.5" cy="122.6" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="152.5" cy="116.1" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="190.5" cy="126.8" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="101.6" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="116.6" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="114.3" cy="128.1" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="76.2" cy="148.9" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="190.5" cy="108.1" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="95.3" cy="149.1" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="152.5" cy="131.8" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="190.5" cy="121.3" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="114.3" cy="149.7" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="209.6" cy="110.6" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="209.6" cy="116.1" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="76.2" cy="146.7" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="228.7" cy="78.5" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="76.2" cy="139.6" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="171.5" cy="131.7" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="247.7" cy="23.4" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="190.5" cy="86.0" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="121.8" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="190.5" cy="96.4" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="102.5" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="190.5" cy="103.5" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="190.5" cy="86.9" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="190.5" cy="125.3" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="190.5" cy="111.5" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="152.5" cy="91.6" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="209.6" cy="102.8" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="57.2" cy="134.6" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="139.5" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="171.5" cy="124.7" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="228.7" cy="85.8" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="266.8" cy="50.9" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="152.5" cy="103.0" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="76.2" cy="135.1" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="136.7" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="119.3" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="131.5" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="131.5" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="114.3" cy="113.0" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="89.6" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="121.9" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="111.7" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="171.5" cy="133.6" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="114.3" cy="113.6" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="95.3" cy="134.2" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="171.5" cy="117.4" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="171.5" cy="80.6" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="70.1" cy="131.5" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="152.5" cy="121.5" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="171.5" cy="115.5" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="171.5" cy="76.6" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="190.5" cy="114.8" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="209.6" cy="129.6" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="190.5" cy="103.2" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="171.5" cy="133.2" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="209.6" cy="109.9" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="228.7" cy="80.8" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="171.5" cy="120.9" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="114.3" cy="135.1" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="123.2" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="95.3" cy="132.1" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="137.8" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="131.4" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="114.3" cy="143.7" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="133.4" cy="134.2" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="114.3" cy="109.1" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="152.5" cy="121.5" r="2.3" fill="#16a34a" opacity="0.22"/>
-<circle cx="133.4" cy="144.6" r="2.3" fill="#dc2626" opacity="0.22"/>
-<circle cx="114.3" cy="137.2" r="2.3" fill="#64748b" opacity="0.22"/>
-<circle cx="152.5" cy="106.3" r="2.3" fill="#16a34a" opacity="0.22"/><circle cx="114.3" cy="101.3" r="5.5" fill="#64748b" stroke="#fff" stroke-width="2"/><circle cx="114.3" cy="101.3" r="10" fill="none" stroke="#64748b" stroke-width="1.5" opacity="0.5"/></svg>
-    <div class="pm-cap">上海银行：λ净 +0.000 · 总收益 +94.5% → 空头主导</div>
-    <div class="pm-links"><a href="berkshire-bank-poisson.html">查看 银行 产业链象限图</a> · <a href="berkshire-poisson-quadrant.html">查看总象限图</a></div>
-  </div></div>
-<div class="section-title">估值历史分位</div>
-<div class="valband">
-<div class="vrow"><div class="vlab">PE（TTM）</div><div class="vbar"><div class="vfill" style="width:36.5%;background:#15803d"></div><div class="vmark" style="left:36.5%"></div></div><div class="vval"><b>5.3</b> 倍 · 历史 <b>36.5%</b> 分位 <span class="vtag" style="color:#15803d">偏低</span></div></div>
-<div class="vrow"><div class="vlab">PB</div><div class="vbar"><div class="vfill" style="width:28.8%;background:#15803d"></div><div class="vmark" style="left:28.8%"></div></div><div class="vval"><b>0.51</b> 倍 · 历史 <b>28.8%</b> 分位 <span class="vtag" style="color:#15803d">偏低</span></div></div>
-  <div class="fin-note">年报来源：<a href="https://emweb.eastmoney.com/PC_HSF10/NewFinanceAnalysis/Index?type=web&code=SH601229" target="_blank" rel="noopener">查看原始年报/财报</a> ｜ 分位口径：近十年日度 PE(TTM)/PB（百度股市通），当前值所处历史百分位。
-  <span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
-  <span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
-  <span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
-  亏损企业 PE 不适用，仅看 PB。样本起点 2016-11-18，分位为时点统计，随行情变动。</div>
-</div>
-
-
-
-<div class="section-title">R15 三维评级</div>
-<div class="r15-card">
-  <div class="r15-row"><span class="r15-lab">相对估值</span><span class="r15-val r15-mid">低估2★</span><span class="r15-sub">PE/PB 分位均值 32.6%</span></div>
-  <div class="r15-row"><span class="r15-lab">质量(ROE)</span><span class="r15-val r15-mid">★★★</span><span class="r15-sub">近11年 ROE 均值 10.88%</span></div>
-  <div class="r15-row"><span class="r15-lab">链级时机</span><span class="r15-val r15-hi">-2.2</span><span class="r15-sub">银行链周期百分位 60.9%</span></div>
-  <div class="fin-note">R15 三维框架（编程浪子）：相对估值=PE/PB 十年分位均值换算星级；质量=近10年 ROE 星级；时机=链周期百分位换算（分越高越接近周期底部、买点越好）。本页时机为<b>链级代理</b>，非个股择时。详见 <a href="berkshire-r15-ratings.html">R15 总览</a>。</div>
-</div>
-<div class="section-title">员工效率与组织效能</div>
-<div class="emp-block">
-  <div class="emp-grid">
-    <div class="emp-cell"><div class="emp-lab">在职员工（2025）</div><div class="emp-val">14,558 <span>人</span></div></div>
-    <div class="emp-cell"><div class="emp-lab">员工增速 24→25</div><div class="emp-val down">-1.05%</div></div>
-    <div class="emp-cell"><div class="emp-lab">人均营收</div><div class="emp-val">¥376.2万</div></div>
-    <div class="emp-cell"><div class="emp-lab">人均净利</div><div class="emp-val">¥166.2万</div></div>
-  </div>
-  <div class="emp-signal" style="background:#f0fdfa;color:#0f766e">组织效能信号：<b>效率兑现</b>　·　人员稳定、人均盈利高，成熟稳态/效率兑现期</div>
-<div class="fin-note">员工数为年报披露的员工合计（集团/母公司口径）同比；人均营收/净利 = 2025 年营收(元) ÷ 员工数。营收/净利来源：A 股优先取自年报主要会计数据/财务摘要，其次财务快照；港股取自公司概况；银行链取自财务摘要。人均营收变化(效率趋势)仅年报源可见。数据截至 2025 年报，分位/行情为时点值。</div></div>
-
 <h3 class="section-title">业务条线框架（5层）</h3><div class="layer"><h4>零售</h4><p>立足本地市民与公积金、市民卡场景，区域零售客群稳定。</p></div><div class="layer"><h4>对公</h4><p>地方平台、城投与本土企业主力行，区域深耕能力强。</p></div><div class="layer"><h4>同业</h4><p>同业拆借、票据贴现、金融市场投资与债券交易，管理流动性与利率风险。</p></div><div class="layer"><h4>财富</h4><p>理财子公司产品、私人银行、代理代销与托管，沉淀中收与AUM。</p></div><div class="layer"><h4>投行</h4><p>债券承销、并购顾问、交易银行与资本市场服务，对接直接融资。</p></div>
 <h3 class="section-title">要点解读（基于2025年报 / 2026-07-12估值）</h3><div class="deep-grid"><div class="deep-item"><h4>资产质量</h4><p>不良率 1.18% 与行业均值相当，总体可控；拨备覆盖率 244.94% 高于监管红线、处于中等水平。</p></div><div class="deep-item"><h4>盈利能力</h4><p>净息差 1.16% 偏低，受让利与负债成本挤压；ROE 9.44% 处于行业中游。</p></div><div class="deep-item"><h4>估值与分红</h4><p>PB 0.51x 明显破净，估值处于折价区间；股息率 5.76% 极具吸引力，是红利策略的核心标的。</p></div><div class="deep-item"><h4>规模与定位</h4><p>2025年营收 547.61 亿、归母净利 241.93 亿，总市值 1283.07 亿，属中大型体量；作为区域城商行，立足上海的综合性城商行。</p></div><div class="deep-item"><h4>投资逻辑</h4><p>低PB（0.51x）+ 高股息率（5.76%）构成高安全边际，是红利/价值策略的核心标的。</p></div><div class="deep-item"><h4>核心风险</h4><p>净息差 1.16% 偏低，受让利与负债成本挤压，盈利弹性弱。</p></div></div><div class="note">框架知识：银行看三张表——资产质量（不良率/拨备/逾期偏离度）、盈利能力（NIM/ROE/中收）、资本与估值（核心一级资本充足率/PB/股息率）。详见<a href="berkshire-bank-methodology.html" style="color:var(--accent)">银行方法论文</a>。</div>
-</div><div id="annual-reports" style="margin-top:28px;padding-top:10px"><div style="font-size:16px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px"><span style="font-size:18px">📄</span> 历年年报（巨潮资讯网）</div><p style="font-size:12.5px;color:#64748b;margin:0 0 12px;line-height:1.6">点击年份直达该公司年度报告原文 PDF（来源：巨潮资讯网）。本页仅作链接聚合，不托管文件，最新以公司公告为准。</p><div style="display:flex;flex-wrap:wrap;gap:8px"><a href="https://static.cninfo.com.cn/finalpage/2020-04-25/1207610850.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2019 年报</a><a href="https://static.cninfo.com.cn/finalpage/2019-04-20/1206063263.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2018 年报</a><a href="https://static.cninfo.com.cn/finalpage/2018-04-21/1204681078.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2017 年报</a><a href="https://static.cninfo.com.cn/finalpage/2017-04-24/1203361916.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">2016 年报</a><a href="https://static.cninfo.com.cn/finalpage/2026-04-24/1225173739.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">上海银行2025年度报告</a><a href="https://static.cninfo.com.cn/finalpage/2025-04-25/1223286930.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">上海银行2024年度报告</a><a href="https://static.cninfo.com.cn/finalpage/2024-04-26/1219842032.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">上海银行2023年度报告</a><a href="https://static.cninfo.com.cn/finalpage/2023-04-28/1216664776.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">上海银行2022年度报告</a><a href="https://static.cninfo.com.cn/finalpage/2022-04-22/1213030184.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">上海银行2021年度报告</a><a href="https://static.cninfo.com.cn/finalpage/2021-04-24/1209792528.PDF" target="_blank" rel="noopener" style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1d4ed8;text-decoration:none">上海银行2020年度报告</a></div></div>
-<div id="research-reports" style="margin-top:28px;padding-top:10px"><div style="font-size:16px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px"><span style="font-size:18px">📊</span> 券商研报（东方财富）</div><p style="font-size:12.5px;color:#64748b;margin:0 0 12px;line-height:1.6">下方为机构近期研究报告（来源：东方财富网）。研报版权归原券商所有，本页仅作链接聚合、不托管文件，点击直达东方财富托管原文。仅供参考，不构成投资建议。</p><div style="display:flex;flex-direction:column;gap:8px"><a href="https://pdf.dfcfw.com/pdf/H3_AP202606111823464521_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">扎根上海，立足长三角</div><div style="font-size:12px;color:#64748b">国信证券 · 增持 · 2026-06-11</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202205051563626233_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">1Q22 review: results in line, sufficient provision for headwind</div><div style="font-size:12px;color:#64748b">招银国际 · 买入 · 2022-05-05</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202204271561930057_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">FY21 review: results in line, gratifying optimization on deposit strategy</div><div style="font-size:12px;color:#64748b">招银国际 · 买入 · 2022-04-27</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202204241561233294_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">营收增长向好，关注资产质量走势</div><div style="font-size:12px;color:#64748b">中银证券 · 增持 · 2022-04-24</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202110291525772748_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">手续费收入增速靓丽，ROE同比改善</div><div style="font-size:12px;color:#64748b">中银证券 · 增持 · 2021-10-29</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202104261487873062_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">营收表现向好，拨备释放助推业绩增速回正</div><div style="font-size:12px;color:#64748b">中银证券 · 增持 · 2021-04-26</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202101131450271444_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">首份上市行业绩快报，净利润增速转正释放积极信号</div><div style="font-size:12px;color:#64748b">东兴证券 · 买入 · 2021-01-13</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202101111449681586_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">全年业绩增速回正，资产结构优化</div><div style="font-size:12px;color:#64748b">中银证券 · 增持 · 2021-01-11</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202101101449351488_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">上海银行2020年业绩快报点评:寒冬中的喜报，利润增速率先转正</div><div style="font-size:12px;color:#64748b">民生证券 · 买入 · 2021-01-11</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202010271423934663_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">季报点评报告：资产质量表现符合市场预期</div><div style="font-size:12px;color:#64748b">万联证券 · 增持 · 2020-10-27</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202010261423664644_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">加大拨备计提力度，息差环比持平</div><div style="font-size:12px;color:#64748b">中银证券 · 增持 · 2020-10-26</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202010261423653692_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">息差保持平稳，资产质量承压</div><div style="font-size:12px;color:#64748b">东兴证券 · 买入 · 2020-10-26</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202010261423631921_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">详细解读上海银行2020年三季报：解除包袱再上阵，息差改善尤可期</div><div style="font-size:12px;color:#64748b">民生证券 · 买入 · 2020-10-26</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202008241400997639_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">上海银行2020年半年报详细解读：PPOP增速改善，不良率稳定</div><div style="font-size:12px;color:#64748b">民生证券 · 买入 · 2020-08-24</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202008241400975749_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">息差逆势走阔，关注个贷资产质量表现</div><div style="font-size:12px;color:#64748b">中银证券 · 增持 · 2020-08-24</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202008241400966032_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">息差持续改善，盈利增长平稳</div><div style="font-size:12px;color:#64748b">东兴证券 · 买入 · 2020-08-24</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202004271378703671_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">负债端成本改善促息差走阔，规模平稳增长ROE提升</div><div style="font-size:12px;color:#64748b">中银证券 · 增持 · 2020-04-27</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP202004271378700172_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">点评上海银行2019年年报：利润较快增长，存量风险加速出清</div><div style="font-size:12px;color:#64748b">民生证券 · 买入 · 2020-04-27</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP201910281369866599_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">点评报告：三季度净息差环比基本持平</div><div style="font-size:12px;color:#64748b">万联证券 · 增持 · 2019-10-28</div></a><a href="https://pdf.dfcfw.com/pdf/H3_AP201910281369849075_1.pdf" target="_blank" rel="noopener" style="display:block;padding:9px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-decoration:none;color:#0f172a;transition:.15s"><div style="font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:3px;color:#1e293b">存贷保持较快增长，关注资产质量变化</div><div style="font-size:12px;color:#64748b">中银国际 · 增持 · 2019-10-28</div></a></div></div>
-<footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露），估值=2026-07-12行情 ｜ 内容仅供研究参考，不构成投资建议</footer>
-
-
-
-
-
-
-</body></html>
+</div><footer>伯克希尔数据中心 · 银行业投资图谱 ｜ 数据口径：财务=2025年年报（最新可得年报，2026年中报预计8月后披露），估值=2026-07-12行情 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>
