@@ -69,6 +69,20 @@ tbody tr:hover{background:#f8fafc}
 .sci p{margin-bottom:8px}
 .sci p:last-child{margin-bottom:0}
 @media(max-width:760px){.summary{grid-template-columns:repeat(2,1fr)}.note{min-width:0}table{font-size:12px}thead th:nth-child(9),tbody td:nth-child(9){display:none}}
+    /* central-soe-list */
+    .soe-wrap{max-width:100%;margin:0 0 18px 0;}
+    .soe-note{font-size:13px;line-height:1.7;color:#3a3a3a;background:#f7f9fc;border-left:3px solid #2b6cb0;padding:10px 14px;border-radius:6px;margin:0 0 12px 0;}
+    .soe-search{width:100%;max-width:400px;padding:9px 12px;font-size:14px;border:1px solid #ccd4e0;border-radius:8px;margin:0 0 8px 0;box-sizing:border-box;font-family:inherit;}
+    .soe-search:focus{outline:none;border-color:#2b6cb0;box-shadow:0 0 0 2px rgba(43,108,176,.15);}
+    .soe-count{font-size:13px;color:#666;margin:0 0 8px 0;}
+    .soe-count b{color:#2b6cb0;}
+    .soe-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+    .soe-table th{background:#2b6cb0;color:#fff;padding:8px 10px;text-align:left;font-weight:500;}
+    .soe-table td{padding:7px 10px;border-bottom:1px solid #eef1f6;}
+    .soe-table tr:nth-child(even){background:#fafbfd;}
+    .soe-table .mono{font-family:"SF Mono",Consolas,monospace;color:#444;}
+    .soe-table .name{font-weight:500;}
+    .soe-table .tag{color:#888;font-size:12px;}
 </style>
 </head>
 <body>
@@ -359,6 +373,121 @@ tbody tr:hover{background:#f8fafc}
     <b>7月最新动作：</b>国新增持超<strong>500亿</strong>（专项再贷款）；诚通累计增持近<strong>100亿</strong>（再贷款额度1000亿）。7月20-21日38只重仓股反弹：杭钢/中国海油涨停→有研新材/芯源微/北方华创/中瓷电子涨停。
   </div>
 
+  <!-- central-soe-list -->
+  <div class="sec-title"><span class="dot"></span>国资委控股 · 中央央企核心清单（中字头口径 · 102只）</div>
+  <div class="soe-wrap">
+    <p class="soe-note">东财「中字头」板块（BK0505），为名称带「中/国」字的中央央企集团核心上市平台，是可得最严的「纯央企」口径。真实全量纯中央央企（实控人=国务院国资委，约400-500只）需 F10 实控人数据，本次接口受限，先给核心 102 只。<b>输入代码或名称可实时筛选。</b></p>
+    <input type="text" id="soeSearch" class="soe-search" placeholder="输入代码或名称筛选（如 600028 / 中国石化）" />
+    <div class="soe-count">共 <b id="soeTotal">102</b> 只</div>
+    <table class="soe-table" id="soeTable">
+      <thead><tr><th>代码</th><th>名称</th><th>交易所</th></tr></thead>
+      <tbody>
+      <tr><td class="mono">000066</td><td class="name">中国长城</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000099</td><td class="name">中信海直</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000151</td><td class="name">中成股份</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000519</td><td class="name">中兵红箭</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000617</td><td class="name">中油资本</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000736</td><td class="name">中交发展</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000758</td><td class="name">中色股份</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000777</td><td class="name">中核科技</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000798</td><td class="name">中水渔业</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000831</td><td class="name">中国稀土</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000839</td><td class="name">国安股份</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000881</td><td class="name">中广核技</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000927</td><td class="name">中国铁物</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000928</td><td class="name">中钢国际</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000930</td><td class="name">中粮科技</td><td class="tag">深</td></tr>
+      <tr><td class="mono">000951</td><td class="name">中国重汽</td><td class="tag">深</td></tr>
+      <tr><td class="mono">001213</td><td class="name">中铁特货</td><td class="tag">深</td></tr>
+      <tr><td class="mono">002051</td><td class="name">中工国际</td><td class="tag">深</td></tr>
+      <tr><td class="mono">002057</td><td class="name">中钢天源</td><td class="tag">深</td></tr>
+      <tr><td class="mono">002080</td><td class="name">中材科技</td><td class="tag">深</td></tr>
+      <tr><td class="mono">002116</td><td class="name">中国海诚</td><td class="tag">深</td></tr>
+      <tr><td class="mono">002189</td><td class="name">中光学</td><td class="tag">深</td></tr>
+      <tr><td class="mono">002401</td><td class="name">中远海科</td><td class="tag">深</td></tr>
+      <tr><td class="mono">002423</td><td class="name">中粮资本</td><td class="tag">深</td></tr>
+      <tr><td class="mono">003816</td><td class="name">中国广核</td><td class="tag">深</td></tr>
+      <tr><td class="mono">300374</td><td class="name">中铁装配</td><td class="tag">深</td></tr>
+      <tr><td class="mono">300425</td><td class="name">中建环能</td><td class="tag">深</td></tr>
+      <tr><td class="mono">300847</td><td class="name">中船汉光</td><td class="tag">深</td></tr>
+      <tr><td class="mono">300962</td><td class="name">中金辐照</td><td class="tag">深</td></tr>
+      <tr><td class="mono">301058</td><td class="name">中粮科工</td><td class="tag">深</td></tr>
+      <tr><td class="mono">301215</td><td class="name">中汽股份</td><td class="tag">深</td></tr>
+      <tr><td class="mono">301508</td><td class="name">中机认检</td><td class="tag">深</td></tr>
+      <tr><td class="mono">301516</td><td class="name">中远通</td><td class="tag">深</td></tr>
+      <tr><td class="mono">302132</td><td class="name">中航成飞</td><td class="tag">深</td></tr>
+      <tr><td class="mono">600026</td><td class="name">中远海能</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600028</td><td class="name">中国石化</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600050</td><td class="name">中国联通</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600056</td><td class="name">中国医药</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600088</td><td class="name">中视传媒</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600118</td><td class="name">XD中国卫</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600138</td><td class="name">中青旅</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600150</td><td class="name">中国船舶</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600158</td><td class="name">中体产业</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600176</td><td class="name">中国巨石</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600328</td><td class="name">中盐化工</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600339</td><td class="name">中油工程</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600428</td><td class="name">中远海特</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600482</td><td class="name">中国动力</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600489</td><td class="name">中金黄金</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600528</td><td class="name">中铁工业</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600536</td><td class="name">中国软件</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600685</td><td class="name">中船防务</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600720</td><td class="name">中交设计</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600737</td><td class="name">中粮糖业</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600764</td><td class="name">中国海防</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600787</td><td class="name">中储股份</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600862</td><td class="name">中航高科</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600916</td><td class="name">中国黄金</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600938</td><td class="name">中国海油</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600941</td><td class="name">中国移动</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600970</td><td class="name">中材国际</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">600977</td><td class="name">中国电影</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601061</td><td class="name">中信金属</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601068</td><td class="name">中铝国际</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601088</td><td class="name">中国神华</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601106</td><td class="name">中国一重</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601111</td><td class="name">中国国航</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601117</td><td class="name">中国化学</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601179</td><td class="name">中国西电</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601186</td><td class="name">中国铁建</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601319</td><td class="name">中国人保</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601390</td><td class="name">中国中铁</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601598</td><td class="name">中国外运</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601600</td><td class="name">中国铝业</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601611</td><td class="name">中国核建</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601618</td><td class="name">中国中冶</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601628</td><td class="name">中国人寿</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601668</td><td class="name">中国建筑</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601669</td><td class="name">中国电建</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601698</td><td class="name">中国卫通</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601728</td><td class="name">中国电信</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601766</td><td class="name">中国中车</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601800</td><td class="name">中国交建</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601857</td><td class="name">中国石油</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601858</td><td class="name">中国科传</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601866</td><td class="name">中远海发</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601868</td><td class="name">中国能建</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601881</td><td class="name">中国银河</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601888</td><td class="name">中国中免</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601898</td><td class="name">中煤能源</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601919</td><td class="name">中远海控</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601949</td><td class="name">中国出版</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601965</td><td class="name">中国汽研</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601985</td><td class="name">中国核电</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">601988</td><td class="name">中国银行</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">603019</td><td class="name">中科曙光</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">603126</td><td class="name">中材节能</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">603860</td><td class="name">中公高科</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">688009</td><td class="name">中国通号</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">688119</td><td class="name">中钢洛耐</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">688128</td><td class="name">中国电研</td><td class="tag">沪</td></tr>
+      <tr><td class="mono">920122</td><td class="name">中纺标</td><td class="tag">京</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- sci-relending -->
   <div class="sci">
     <h3><span class="dot"></span>「再贷款 500亿 / 1000亿」是什么？不是保证金杠杆</h3>
@@ -400,6 +529,25 @@ tbody tr:hover{background:#f8fafc}
   </div>
 </div>
 <script>/*sort-js*/
+    /* soe-filter */
+    (function(){
+      var s=document.getElementById("soeSearch"); if(!s) return;
+      var t=document.getElementById("soeTable");
+      var rows=t.tBodies[0].querySelectorAll("tr");
+      var total=document.getElementById("soeTotal");
+      s.addEventListener("input", function(){
+        var q=s.value.trim().toLowerCase();
+        var n=0;
+        rows.forEach(function(r){
+          var c=r.cells[0].textContent.toLowerCase();
+          var nm=r.cells[1].textContent.toLowerCase();
+          var hit=!q || c.indexOf(q)>-1 || nm.indexOf(q)>-1;
+          r.style.display=hit?"":"none";
+          if(hit) n++;
+        });
+        total.textContent=n;
+      });
+    })();
 function num(v){if(!v||v==='—')return NaN;v=v.replace(/[¥,万亿%]/g,'');return parseFloat(v)}
 document.querySelectorAll('.sortable').forEach(function(t){
   var ths=t.querySelectorAll('thead th');
