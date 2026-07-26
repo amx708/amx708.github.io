@@ -141,19 +141,18 @@
 
   <!-- 人话解读 -->
   <div class="card">
-    <div class="sec-t">人话解读 · 当前恐贪 16.63 说明了什么</div>
-    <div class="human">
-      <p><b style="color:var(--red)">1. 这是“阴跌型恐惧”，不是“暴跌型恐慌”。</b>
-      波动率只有 <b>4.61</b>、相对换手率 <b>46.15</b>，说明市场没在放量杀跌；跌得很沉闷、很窄，多数股票在默默走弱。没有恐慌盘涌出，也就没有一次性“杀透”的 V 型底。</p>
-
-      <p><b style="color:var(--red)">2. 流动性在撤退。</b>
-      融资融券 <b>1.32</b>、市场宽度 <b>6.35</b> 双双接近历史低位：杠杆资金不愿进场，上涨的股票极少，资金在观望或离场。指数表面没崩，但底下个股已经“流动性休克”。</p>
-
-      <p><b style="color:var(--amber)">3. 超卖，但不一定是底。</b>
-      RSI <b>22.22</b>、涨跌停比 <b>28.04</b> 都显示情绪低迷，但还没有到那种“所有人都割肉”的极端状态。这种底通常要反复磨，或等外部变量（地缘/政策/业绩）打破僵局。</p>
-
+    <div class="sec-t">人话解读 · 当前恐贪 <span id="hg-val">--</span> 说明了什么</div>
+    <div class="human" id="human-body">
+      <p id="hg-dynamic" style="border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:12px;margin-bottom:12px;color:var(--txt)"></p>
+      <p><b>六个维度分别是什么（越高 = 越偏贪婪端）：</b></p>
+      <p><b style="color:var(--cyan)">① 波动率</b>：大盘最近抖不抖。越低越沉闷（阴跌/躺平），越高越像暴涨暴跌的恐慌盘。</p>
+      <p><b style="color:var(--cyan)">② 相对换手率</b>：场内资金换仓勤不勤。高=有人在割肉或短线博弈、情绪不稳；低=无人问津。</p>
+      <p><b style="color:var(--cyan)">③ 融资融券</b>：杠杆资金的态度。低=没人借钱加仓、缺增量；高=杠杆活跃、偏贪婪。</p>
+      <p><b style="color:var(--cyan)">④ 市场宽度</b>：有多少股票在涨。低=只有少数票涨、多数在跌或横盘，赚钱效应差。</p>
+      <p><b style="color:var(--cyan)">⑤ RSI</b>：技术超买超卖。低位=超卖（跌多了），高位=超买（涨疯了）。</p>
+      <p><b style="color:var(--cyan)">⑥ 涨跌停比</b>：涨停 vs 跌停。低=跌停多/涨停少、偏冷；高=涨停潮、偏热。</p>
       <p style="border-top:1px solid rgba(255,255,255,0.08);padding-top:12px;margin-top:12px;color:var(--txt)">
-      <b>对你规则的启示：</b>恐贪 <b>&lt;25</b> 已触发“加仓区”，但这属于左侧接飞刀。结合估值温度计：若估值也在低位，可启动<b>分批观察仓</b>；若估值不便宜，继续等情绪从“加速下跌”转为“低位钝化”（不再创新低）再动手。别因为恐贪低就一把梭。</p>
+      <b>对你规则的启示：</b>恐贪 <b>&lt;25</b> 进入“加仓区”，但这是左侧接飞刀。结合估值温度计：若估值也低，可启动<b>分批观察仓</b>；若估值不便宜，等情绪从“加速下跌”转为“低位钝化”（不再创新低）再动手。别因为恐贪低就一把梭。</p>
     </div>
   </div>
 
@@ -203,6 +202,38 @@ function renderStatic(data){
       + '<div class="sub-val" style="color:'+sb.color+'">'+sb.value.toFixed(2)+'</div>'
       + '</div>';
   }).join('');
+  renderHuman(data);
+}
+
+// ---- 人话解读：基于最新数据自动生成（不再写死）----
+function renderHuman(data){
+  const pts = data.points || [];
+  if(!pts.length) return;
+  const last = pts[pts.length-1][1];
+  const bd = bandOf(last);
+  const hv = document.getElementById('hg-val');
+  if(hv) hv.textContent = last.toFixed(2);
+
+  // 六维：值越低=越偏恐惧端，挑最低的 3 个作为拖累项
+  const subs = (data.subs || []).slice().sort((a,b)=>a.value-b.value);
+  const drag = subs.filter(s=>s.value<50);
+  const picks = (drag.length ? drag : subs).slice(0,3);
+  const names = picks.map(s=>s.name+'('+s.value.toFixed(0)+')').join('、');
+
+  let head;
+  if(last<20)      head='「极度恐惧」——市场已经慌到边缘，对长期资金反而是最该贪婪的时候。';
+  else if(last<40) head='「恐惧」——大家普遍不看好、不敢动手，但还没到恐慌性抛售。';
+  else if(last<60) head='「中性」——多空均衡，情绪没给明显的便宜或泡沫信号。';
+  else if(last<80) head='「贪婪」——乐观情绪升温，追高要开始警惕。';
+  else             head='「极度贪婪」——市场热到发烫，历史上这种位置往往是风险区。';
+
+  let para = '当前恐贪 '+last.toFixed(2)+'（'+bd.t+'）。'+head;
+  if(picks.length) para += '从六维看，主要拖累来自 '+names+'（数值越低=越偏恐惧端）。';
+  para += '对您的纪律：恐贪<25 才进入加仓区；现在'+(last<25
+      ? '已触发阈值，可启动分批观察仓，但仍是左侧接飞刀，务必分档、别一把梭。'
+      : '尚未到低吸区，可继续等，或只以小仓位试探。');
+  const dyn = document.getElementById('hg-dynamic');
+  if(dyn) dyn.textContent = para;
 }
 
 // ---- 走势图（按区间绘制 + hover 交互）----
