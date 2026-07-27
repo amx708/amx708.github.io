@@ -2,71 +2,108 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>证券产业链 | 伯克希尔投资数据中心</title>
 <style>
-  :root{--navy:#0b1f3a;--navy2:#10294d;--ink:#1d2b40;--line:#e4e9f2;
-    --orange:#f5a623;--txt:#23344e;--muted:#6b7a93;--card:#fff;--bg:#f4f7fc;--green:#1f9d6b;}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;
-    background:var(--bg);color:var(--txt);line-height:1.75;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  .topbar{position:sticky;top:0;z-index:50;background:rgba(11,31,58,.82);backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
-  .topbar-in{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px}
-  .brand{font-weight:800;font-size:17px;letter-spacing:.5px}
-  .brand .ac{color:var(--orange)}
-  .crumb{font-size:13px;color:#9fb2cf}
-  .crumb a:hover{color:var(--orange)}
-  .hero{max-width:1180px;margin:30px auto 10px;padding:0 20px}
-  .hero h1{font-size:30px;margin:0 0 8px;color:var(--navy)}
-  .hero p{margin:0;color:var(--muted);max-width:820px}
-  .badge{display:inline-block;background:var(--orange);color:#3a2700;font-size:12px;font-weight:700;
-    padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
-  .decl{max-width:1180px;margin:16px auto 0;padding:0 20px}
-  .decl .bar{border-left:4px solid #1d4ed8;background:#fffaf0;padding:11px 16px;border-radius:0 10px 10px 0;font-size:14px;color:var(--ink)}
-  .stats{max-width:1180px;margin:20px auto;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
-  .stat .v{font-size:27px;font-weight:800;color:var(--navy)}
-  .stat .v.ac{color:#1e40af}
-  .stat .k{font-size:12.5px;color:var(--muted);margin-top:4px}
-  .wrap{max-width:1180px;margin:10px auto 60px;padding:0 20px}
-  .sec{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:20px;
-    box-shadow:0 1px 3px rgba(16,41,77,.04)}
-  .sec h2{margin:0 0 4px;font-size:21px;color:var(--navy);display:flex;align-items:center;gap:10px}
-  .sec .cnt{font-size:12px;color:#fff;background:var(--navy2);border-radius:999px;padding:2px 10px;font-weight:700}
-  .sec .desc{font-size:13px;color:var(--muted);margin:2px 0 14px}
-  .framework{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:6px}
-  .layer{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-top:3px solid #1d4ed8}
-  .layer .ln{font-size:12px;font-weight:800;color:#1e40af}
-  .layer .lt{font-weight:700;color:var(--navy);font-size:15px;margin:4px 0 6px}
-  .layer .ld{font-size:13px;color:var(--muted)}
-  .companies{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:11px;margin-top:6px}
-  .co{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-  .co .nm{font-weight:700;color:var(--navy);font-size:15px}
-  .co .st{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#eef1f6;color:#7a8aa3;border:1px solid #dde3ec;margin:6px 0}
-  .co .nt{font-size:12.5px;color:var(--muted)}
-  .foot{max-width:1180px;margin:0 auto 50px;padding:0 20px;color:var(--muted);font-size:13px}
-  @media(max-width:860px){.stats{grid-template-columns:1fr} .hero h1{font-size:24px}}
+:root{--navy:#0b1f3a;--navy2:#10294d;--ink:#1d2b40;--line:#e4e9f2;
+  --blue:#1d4ed8;--accent:#1d4ed8;--txt:#23344e;--muted:#6b7a93;--card:#fff;--bg:#f4f7fc;--green:#1f9d6b;--orange:#f5a623;--red:#c0392b;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;
+  background:var(--bg);color:var(--txt);line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(11,31,58,.9);backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px}
+.brand{font-weight:800;font-size:17px;letter-spacing:.5px}
+.brand .ac{color:var(--orange)}
+.crumb{font-size:13px;color:#9fb2cf}
+.crumb a:hover{color:var(--orange)}
+.hero{max-width:1180px;margin:30px auto 10px;padding:0 20px}
+.hero h1{font-size:30px;margin:0 0 8px;color:var(--navy)}
+.hero p{margin:0;color:var(--muted);max-width:860px}
+.badge{display:inline-block;background:var(--orange);color:#3a2700;font-size:12px;font-weight:700;
+  padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
+.badge.green{background:var(--green);color:#fff;margin-left:6px}
+.decl{max-width:1180px;margin:16px auto 0;padding:0 20px}
+.decl .bar{border-left:4px solid #1d4ed8;background:#eef3fb;padding:11px 16px;border-radius:0 10px 10px 0;font-size:14px;color:var(--ink)}
+.stats{max-width:1180px;margin:20px auto;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+.stat .v{font-size:27px;font-weight:800;color:var(--navy)}
+.stat .v.ac{color:var(--blue)}
+.stat .k{font-size:12.5px;color:var(--muted);margin-top:4px}
+.wrap{max-width:1180px;margin:10px auto 60px;padding:0 20px}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:20px;
+  box-shadow:0 1px 3px rgba(16,41,77,.04)}
+.sec h2{margin:0 0 4px;font-size:21px;color:var(--navy);display:flex;align-items:center;gap:10px}
+.sec .cnt{font-size:12px;color:#fff;background:var(--navy2);border-radius:999px;padding:2px 10px;font-weight:700}
+.sec .desc{font-size:13px;color:var(--muted);margin:2px 0 14px}
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;
+  border-left:3px solid var(--blue);max-width:1180px;margin-left:auto;margin-right:auto}
+.signal-box{background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--blue);border-radius:12px;
+  padding:16px 18px;margin:4px auto 8px;max-width:1180px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.framework{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:6px}
+.layer{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-top:3px solid var(--blue)}
+.layer .ln{font-size:12px;font-weight:800;color:var(--blue)}
+.layer .lt{font-weight:700;color:var(--navy);font-size:15px;margin:4px 0 6px}
+.layer .ld{font-size:13px;color:var(--muted)}
 
-  .co .st.pe-low{background:#e7f6ee;color:#1f9d6b;border-color:#bfe6cf}
-  .co .st.pe-high{background:#fdeaea;color:#c0392b;border-color:#f3c9c9}
-  .co .st.poi{background:#fff3e0;color:#c2410c;border-color:#f6dcae}
-  /*cf-deep*/
+/* P0 估值历史分位 / R15 / 员工排行 通用表 */
+.ovtable{overflow-x:auto;margin:6px 0;max-width:1180px;margin-left:auto;margin-right:auto}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff}
+.ovtable th,.ovtable td{padding:9px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f3f6fb;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:var(--blue);text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#1f9d6b;background:rgba(31,157,107,.12)}
+.pct-mid{color:#c2410c;background:rgba(245,166,35,.14)}
+.pct-hi{color:#c0392b;background:rgba(192,57,43,.12)}
+.fin-note{max-width:1180px;margin:10px auto 0;font-size:12.5px;color:var(--muted);line-height:1.7;padding:0 4px}
+.fin-note b{color:var(--ink)}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.cost-block{max-width:1180px;margin:6px auto;font-size:13px;color:var(--ink);line-height:1.85}
+.cost-block b{color:var(--navy)}
+.cost-block p{margin:0 0 10px}
 
-  .co .cf-fin{font-size:11px;color:#445;line-height:1.5;margin:5px 0 0}
-  .co .cf-fin b{color:#1d2b40;font-weight:600}
-  .co .cf-emp{font-size:11px;line-height:1.5;margin:2px 0 0}
-  .co .cf-emp b{font-weight:600}
-  .co .cf-emp .s-good{color:#1f9d6b}
-  .co .cf-emp .s-bad{color:#c0392b}
-  .co .cf-emp .s-watch{color:#c2410c}
-  .co .cf-emp .s-none{color:#999}
-  
-  .co .co-detail{display:inline-block;margin:8px 0 2px;font-size:12px;font-weight:600;color:#1d4ed8;text-decoration:none}
-  .co .co-detail:hover{text-decoration:underline}
-/*cf-deep2*/
-></style>
+/* 主要玩家索引 */
+.grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;transition:all .2s;
+  text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.giant-card:hover{border-color:var(--blue);background:rgba(29,77,216,.05);transform:translateY(-2px)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:var(--navy)}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(29,77,216,.12);color:var(--blue);border:1px solid rgba(29,77,216,.25)}
+.giant-desc{font-size:12.5px;color:var(--muted);line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px}
+.giant-link{color:var(--blue);font-weight:600}
+
+/* 延伸阅读 */
+.extend{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.extend a{display:block;background:#fff;border:1px solid var(--line);border-left:3px solid var(--blue);
+  border-radius:8px;padding:12px 14px;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.extend a b{display:block;color:var(--navy);font-size:14px;margin-bottom:3px}
+.extend a span{font-size:12px;color:var(--muted)}
+
+/* 员工效率徽章（沿用证券页配色） */
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.emp-badge.s-good{background:#e7f6ee;color:#1f9d6b;border:1px solid #bfe6cf}
+.emp-badge.s-bad{background:#fdeaea;color:#c0392b;border:1px solid #f3c9c9}
+.emp-badge.s-watch{background:#fff3e0;color:#c2410c;border:1px solid #f6dcae}
+.emp-badge.s-none{background:#f1f5f9;color:#94a3b8;border:1px solid #e2e8f0}
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ovtable .num.up{color:#1f9d6b;font-weight:700}.ovtable .num.down{color:#c0392b;font-weight:700}
+
+@media(max-width:860px){.stats{grid-template-columns:1fr}.hero h1{font-size:24px}.section-title,.ovtable,.cost-block,.fin-note,.grid,.extend{max-width:auto;margin-left:20px;margin-right:20px}}
+/*chain-sort*/
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
+.sortable th:hover{background:#e0e7f5}
+.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
+.sortable th.asc .sort-ind::before{content:"▲";color:var(--accent)}
+.sortable th.desc .sort-ind::before{content:"▼";color:var(--accent)}
+</style>
 </head>
 <body>
 <div class="topbar">
@@ -76,8 +113,8 @@
   </div>
 </div>
 <div class="hero">
-  <h1>证券产业链<span class="badge">已建框架</span><span class="badge" style="background:#1f9d6b;color:#fff;margin-left:6px">已补叙事</span><!--cf-narrative-index--></h1>
-  <p>强 beta 品种，业绩与市场成交额、指数高度正相关；注册制与两融扩容是长期变量。</p>
+  <h1>证券产业链<span class="badge">已建框架</span><span class="badge green">已补叙事</span><!--cf-narrative-index--></h1>
+  <p>强 beta 品种，业绩与市场成交额、指数高度正相关；注册制、两融扩容与财富管理转型是长期变量。</p>
 </div>
 <div class="decl">
   <div class="bar"><b>⚠️ 网络收集 · 已建深凿 · 不做投资依据：</b>本页为证券产业链的研究框架与代表公司索引。估值历史分位(PE/PB 近十年)、泊松跳变信号、2025 年报财报基本面(营收/净利/ROE/负债率)、组织效能(员工人数/增速/人均净利)均已基于 akshare 行情与 cninfo 年报公开披露回填（截至 2026-07-25）；个别公司因披露格式/数据源限制未取到数据的字段诚实标注「待采集」。公司列表为公开资料整理的代表性样本，非穷举，不构成投资建议。</div>
@@ -87,54 +124,188 @@
   <div class="stat"><div class="v">5</div><div class="k">框架层级</div></div>
   <div class="stat"><div class="v">已建</div><div class="k">估值分位/泊松/财报/效能</div></div>
 </div>
+
 <!--research-signal-->
-<div class="section-title" style="border-left:3px solid #6366f1">研究信号（框架研判）</div>
-<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #6366f1;border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+<div class="section-title" style="border-left:3px solid #1d4ed8">研究信号（深凿版）</div>
+<div class="signal-box">
   <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
-    <div style="font-weight:700;color:#475569">周期位置</div><div>市场活跃度驱动</div>
-    <div style="font-weight:700;color:#475569">景气方向</div><div>beta属性强</div>
-    <div style="font-weight:700;color:#475569">结论信号</div><div><b>🟡 中性</b> — 交投回暖利好，但强周期</div>
-    <div style="font-weight:700;color:#475569">核心催化</div><div>①成交额放大  ②IPO恢复  ③财富管理</div>
-    <div style="font-weight:700;color:#475569">关键风险</div><div>①市场转冷  ②佣金战  ③自营波动</div>
+    <div style="font-weight:700;color:#475569">周期位置</div><div>市场活跃度驱动（成交额/两融/指数 beta）</div>
+    <div style="font-weight:700;color:#475569">景气方向</div><div>beta 属性强，交投回暖即利润弹性最大</div>
+    <div style="font-weight:700;color:#475569">结论信号</div><div><b>🟡 中性</b> — 估值整体不贵（多数 PB&lt;1.3x、PE分位多在 5–25%），但强周期、业绩随市波动</div>
+    <div style="font-weight:700;color:#475569">核心催化</div><div>①成交额放大  ②IPO/再融资恢复  ③财富管理 AUM 增长</div>
+    <div style="font-weight:700;color:#475569">关键风险</div><div>①市场转冷  ②佣金战  ③自营/信用减值波动</div>
   </div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：成分股未纳入量化库·非数据锚定（行业框架研判，需结合实盘校验）。结论为框架合成，需结合实盘研究校验。</div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：PE分位中位数约 11% · PB分位中位数约 22% · 泊松★信号 4/10（中信/广发/银河/中信建投）。结论为框架合成，需结合实盘研究校验。</div>
 </div>
-<!--/research-signal--><div class="wrap">
-  <div class="sec">
-    <h2>证券产业链 · 五层框架 <span class="cnt">5</span></h2>
-    <div class="desc">沿「上游资源 → 中游制造 → 下游需求 → 投资逻辑」拆解为五层，便于逐层定位景气与风险。</div>
-    <div class="framework">
-      <div class="layer"><div class="ln">LAYER 1</div><div class="lt">经纪业务</div><div class="ld">代理买卖，佣金率与市占率决定基本盘</div></div>
-      <div class="layer"><div class="ln">LAYER 2</div><div class="lt">资管业务</div><div class="ld">公募/私募/社保受托，AUM 增长定弹性</div></div>
-      <div class="layer"><div class="ln">LAYER 3</div><div class="lt">自营投资</div><div class="ld">股债投资，市场 beta 弹性最大的一块</div></div>
-      <div class="layer"><div class="ln">LAYER 4</div><div class="lt">投行资本化</div><div class="ld">IPO/再融资/并购，注册制直接受益</div></div>
-      <div class="layer"><div class="ln">LAYER 5</div><div class="lt">投资逻辑</div><div class="ld">看市场成交额/指数 beta/政策松紧，高 beta 弹性</div></div>
-    </div>
-  </div>
-  <div class="sec">
-    <h2>代表公司（A股样本） <span class="cnt">10</span></h2>
-    <div class="desc">以下为公开资料整理的代表性 A 股公司，按规模/代表性选取，非穷举；已含 2025 年报财报基本面与组织效能(员工效率)模块，数据基于 akshare 行情与 cninfo 年报公开披露回填（截至 2026-07-25）。</div>
-    <div class="companies">
-      <div class="co"><div class="nm">中信证券</div><a class="co-detail" href="berkshire-securities-co-600030.html">查看详情 →</a><span class="st pe-low">PE分位 4.7%</span><span class="st ">PB分位 39.7%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>748.5亿</b> · 净利 <b>—</b> · ROE <b>—</b> · 负债率 <b>84.3</b></div><div class="cf-emp">员工 <b>2.7万</b> · 增速 <b>—</b> · 人均净利 <b>—</b> · <span class="s-none">数据不足</span></div><div class="nt">券商龙头，综合实力第一</div></div>
-      <div class="co"><div class="nm">国泰海通</div><a class="co-detail" href="berkshire-securities-co-601211.html">查看详情 →</a><span class="st ">PE分位 65.0%</span><span class="st ">PB分位 32.3%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>631.1亿</b> · 净利 <b>—</b> · ROE <b>—</b> · 负债率 <b>83.6</b></div><div class="cf-emp">员工 <b>2.6万</b> · 增速 <b>+80.6%</b> · 人均净利 <b>—</b> · <span class="s-good">扩张向好</span></div><div class="nt">国君+海通合并龙头</div></div>
-      <div class="co"><div class="nm">华泰证券</div><a class="co-detail" href="berkshire-securities-co-601688.html">查看详情 →</a><span class="st pe-low">PE分位 24.5%</span><span class="st ">PB分位 36.5%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>358.1亿</b> · 净利 <b>—</b> · ROE <b>—</b> · 负债率 <b>80.8</b></div><div class="cf-emp">员工 <b>1.6万</b> · 增速 <b>-8.6%</b> · 人均净利 <b>—</b> · <span class="s-watch">收缩调整</span></div><div class="nt">财富管理领先</div></div>
-      <div class="co"><div class="nm">招商证券</div><a class="co-detail" href="berkshire-securities-co-600999.html">查看详情 →</a><span class="st pe-low">PE分位 14.1%</span><span class="st ">PB分位 34.2%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>249.7亿</b> · 净利 <b>—</b> · ROE <b>—</b> · 负债率 <b>81.7</b></div><div class="cf-emp">员工 <b>1.3万</b> · 增速 <b>-5.0%</b> · 人均净利 <b>—</b> · <span class="s-watch">收缩调整</span></div><div class="nt">招商系券商</div></div>
-      <div class="co"><div class="nm">广发证券</div><a class="co-detail" href="berkshire-securities-co-000776.html">查看详情 →</a><span class="st pe-low">PE分位 4.4%</span><span class="st ">PB分位 54.9%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>354.9亿</b> · 净利 <b>—</b> · ROE <b>—</b> · 负债率 <b>83.3</b></div><div class="cf-emp">员工 <b>1.4万</b> · 增速 <b>-2.4%</b> · 人均净利 <b>—</b> · <span class="s-watch">收缩调整</span></div><div class="nt">资管强势</div></div>
-      <div class="co"><div class="nm">中国银河</div><a class="co-detail" href="berkshire-securities-co-601881.html">查看详情 →</a><span class="st pe-low">PE分位 11.2%</span><span class="st pe-low">PB分位 10.5%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>283.0亿</b> · 净利 <b>—</b> · ROE <b>—</b> · 负债率 <b>82.7</b></div><div class="cf-emp">员工 <b>1.4万</b> · 增速 <b>-3.0%</b> · 人均净利 <b>—</b> · <span class="s-watch">收缩调整</span></div><div class="nt">网点广</div></div>
-      <div class="co"><div class="nm">中信建投</div><a class="co-detail" href="berkshire-securities-co-601066.html">查看详情 →</a><span class="st pe-low">PE分位 10.0%</span><span class="st pe-low">PB分位 20.9%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>233.2亿</b> · 净利 <b>—</b> · ROE <b>—</b> · 负债率 <b>82.4</b></div><div class="cf-emp">员工 <b>1.3万</b> · 增速 <b>—</b> · 人均净利 <b>—</b> · <span class="s-none">数据不足</span></div><div class="nt">投行强势</div></div>
-      <div class="co"><div class="nm">兴业证券</div><a class="co-detail" href="berkshire-securities-co-601377.html">查看详情 →</a><span class="st pe-low">PE分位 22.3%</span><span class="st pe-low">PB分位 14.5%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>118.4亿</b> · 净利 <b>—</b> · ROE <b>—</b> · 负债率 <b>80.7</b></div><div class="cf-emp">员工 <b>0.8万</b> · 增速 <b>-7.3%</b> · 人均净利 <b>—</b> · <span class="s-watch">收缩调整</span></div><div class="nt">区域龙头</div></div>
-      <div class="co"><div class="nm">东方财富</div><a class="co-detail" href="berkshire-securities-co-300059.html">查看详情 →</a><span class="st pe-low">PE分位 3.6%</span><span class="st pe-low">PB分位 8.9%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>160.7亿</b> · 净利 <b>120.8亿</b> · ROE <b>14.0</b> · 负债率 <b>76.6</b></div><div class="cf-emp">员工 <b>0.6万</b> · 增速 <b>+15.2%</b> · 人均净利 <b>188.7万</b> · <span class="s-good">扩张向好</span></div><div class="nt">互联网券商</div></div>
-      <div class="co"><div class="nm">申万宏源</div><a class="co-detail" href="berkshire-securities-co-000166.html">查看详情 →</a><span class="st pe-low">PE分位 2.9%</span><span class="st pe-low">PB分位 2.5%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>242.6亿</b> · 净利 <b>—</b> · ROE <b>—</b> · 负债率 <b>81.1</b></div><div class="cf-emp">员工 <b>1.1万</b> · 增速 <b>-1.1%</b> · 人均净利 <b>—</b> · <span class="s-watch">平稳待观察</span></div><div class="nt">汇金系</div></div>
-    </div>
-  </div>
-  <div class="sec">
-    <h2>建设状态</h2>
-    <div class="desc">本链为已建深凿版：估值历史分位(PE/PB 近十年)、泊松跳变信号、2025 年报财报基本面(营收/净利/ROE/负债率)、组织效能(员工人数/增速/人均净利)均已基于 akshare 行情与 cninfo 年报公开披露回填（截至 2026-07-25）；个别公司因披露格式/数据源限制未取到数据的字段诚实标注「待采集」。</div>
+<!--/research-signal-->
+
+<div class="section-title">跨层分析框架（5 层）</div>
+<div class="sec" style="max-width:1180px;margin-left:auto;margin-right:auto">
+  <div class="desc">沿「上游资源 → 中游制造 → 下游需求 → 投资逻辑」拆解为五层，便于逐层定位景气与风险。</div>
+  <div class="framework">
+    <div class="layer"><div class="ln">LAYER 1</div><div class="lt">经纪业务</div><div class="ld">代理买卖，佣金率与市占率决定基本盘</div></div>
+    <div class="layer"><div class="ln">LAYER 2</div><div class="lt">资管业务</div><div class="ld">公募/私募/社保受托，AUM 增长定弹性</div></div>
+    <div class="layer"><div class="ln">LAYER 3</div><div class="lt">自营投资</div><div class="ld">股债投资，市场 beta 弹性最大的一块</div></div>
+    <div class="layer"><div class="ln">LAYER 4</div><div class="lt">投行资本化</div><div class="ld">IPO/再融资/并购，注册制直接受益</div></div>
+    <div class="layer"><div class="ln">LAYER 5</div><div class="lt">投资逻辑</div><div class="ld">看市场成交额/指数 beta/政策松紧，高 beta 弹性</div></div>
   </div>
 </div>
-<div class="foot">
-  <p><b>关于本页：</b>证券产业链框架版，隶属「全A股产业链覆盖地图」分阶段建设成果。框架参照申万/中信行业分类公开标准整理。</p>
-  <p>⚠️ 以上内容由 AI 基于公开信息整理生成，<b>深度数据(估值/财务/信号/效能)已基于公开披露回填，不构成任何投资建议或个股推荐，不做投资依据</b>。投资有风险，决策需谨慎。</p>
+
+<div class="section-title">估值历史分位总览（证券 10 家）</div>
+<div class="ovtable">
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-securities-co-600030.html">中信证券</a></td><td>12.27</td><td><span class="pct-cell pct-lo">4.7%</span></td><td>1.42</td><td><span class="pct-cell pct-lo">39.7%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601211.html">国泰海通</a></td><td>15.43</td><td><span class="pct-cell pct-hi">65.0%</span></td><td>1.04</td><td><span class="pct-cell pct-lo">32.3%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601688.html">华泰证券</a></td><td>10.50</td><td><span class="pct-cell pct-lo">24.5%</span></td><td>1.03</td><td><span class="pct-cell pct-lo">36.5%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-600999.html">招商证券</a></td><td>12.18</td><td><span class="pct-cell pct-lo">14.1%</span></td><td>1.30</td><td><span class="pct-cell pct-lo">34.2%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-000776.html">广发证券</a></td><td>10.85</td><td><span class="pct-cell pct-lo">4.4%</span></td><td>1.23</td><td><span class="pct-cell pct-mid">54.9%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601881.html">中国银河</a></td><td>10.62</td><td><span class="pct-cell pct-lo">11.2%</span></td><td>1.12</td><td><span class="pct-cell pct-lo">10.5%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601066.html">中信建投</a></td><td>17.95</td><td><span class="pct-cell pct-lo">10.0%</span></td><td>2.34</td><td><span class="pct-cell pct-lo">20.9%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601377.html">兴业证券</a></td><td>16.72</td><td><span class="pct-cell pct-lo">22.3%</span></td><td>0.93</td><td><span class="pct-cell pct-lo">14.5%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-300059.html">东方财富</a></td><td>23.42</td><td><span class="pct-cell pct-lo">3.6%</span></td><td>3.21</td><td><span class="pct-cell pct-lo">8.9%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-000166.html">申万宏源</a></td><td>11.75</td><td><span class="pct-cell pct-lo">2.9%</span></td><td>1.01</td><td><span class="pct-cell pct-lo">2.5%</span></td></tr>
+
+</tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通，截至 2026-07-24）。
+<span class="vleg"><i style="background:#1f9d6b"></i>&lt;40% 偏低/便宜</span>
+<span class="vleg"><i style="background:#c2410c"></i>40–60% 中位</span>
+<span class="vleg"><i style="background:#c0392b"></i>&gt;60% 偏高/贵</span>。
+证券板块 beta 高，分位为时点统计，非买卖建议。</div>
 </div>
+
+<div class="section-title">R15 三维评级总览（证券 10 家）</div>
+<div class="ovtable">
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE·单年)<span class="sort-ind"></span></th><th data-type="text">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-securities-co-600030.html">中信证券</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell ">—</span></td><td><span class="pct-cell pct-lo">4.7%</span></td><td><span class="pct-cell pct-lo">39.7%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601211.html">国泰海通</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell ">—</span></td><td><span class="pct-cell pct-hi">65.0%</span></td><td><span class="pct-cell pct-lo">32.3%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601688.html">华泰证券</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell ">—</span></td><td><span class="pct-cell pct-lo">24.5%</span></td><td><span class="pct-cell pct-lo">36.5%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-600999.html">招商证券</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell ">—</span></td><td><span class="pct-cell pct-lo">14.1%</span></td><td><span class="pct-cell pct-lo">34.2%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-000776.html">广发证券</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell ">—</span></td><td><span class="pct-cell pct-lo">4.4%</span></td><td><span class="pct-cell pct-mid">54.9%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601881.html">中国银河</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell ">—</span></td><td><span class="pct-cell pct-lo">11.2%</span></td><td><span class="pct-cell pct-lo">10.5%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601066.html">中信建投</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell ">—</span></td><td><span class="pct-cell pct-lo">10.0%</span></td><td><span class="pct-cell pct-lo">20.9%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601377.html">兴业证券</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-hi">★(弱)</span></td><td><span class="pct-cell ">—</span></td><td><span class="pct-cell pct-lo">22.3%</span></td><td><span class="pct-cell pct-lo">14.5%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-300059.html">东方财富</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell ">—</span></td><td><span class="pct-cell pct-lo">3.6%</span></td><td><span class="pct-cell pct-lo">8.9%</span></td></tr>
+<tr><td><a href="berkshire-securities-co-000166.html">申万宏源</a></td><td><span class="pct-cell pct-lo">低估5★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell ">—</span></td><td><span class="pct-cell pct-lo">2.9%</span></td><td><span class="pct-cell pct-lo">2.5%</span></td></tr>
+
+</tbody>
+</table>
+<div class="fin-note">R15 三维框架：①<b>相对估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多，公式与全站一致）；
+②<b>质量星级(ROE·单年)</b>=以 2025 单年 ROE 作代理（框架链暂无近十年 ROE 均值，标注「单年」仅供参照，非十年均值）；
+③<b>时机分</b>=链周期指数百分位换算，<b>框架链无周期指数分位，暂标「—」</b>。
+<span class="vleg"><i style="background:#1f9d6b"></i>绿=好/便宜</span>
+<span class="vleg"><i style="background:#c2410c"></i>橙=中</span>
+<span class="vleg"><i style="background:#c0392b"></i>红=差/贵</span>。数据为时点统计。</div>
+</div>
+
+<div class="section-title">产业链成本传导</div>
+<div class="cost-block"><div class="cost-block"><p>证券业<b>无交易所可观测的商品期货 / 利率序列</b>（券商、基金没有统一定价期货），成本传导段暂以定性框架呈现：其「成本」主要体现为<b>资金成本（两融/自营杠杆）、人力成本（投顾与投行团队）、以及合规与IT投入</b>，传导路径为「市场成交额↑ → 经纪佣金↑ + 两融利息↑ → 营收↑ → 但自营 beta 同步放大利润波动」。A 股成分的估值历史分位已在本段上方给出。</p></div></div>
+
+<div class="section-title">员工效率与组织效能排行（证券 10 家）</div>
+<div class="ovtable"><table>
+<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>效率信号</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-securities-co-600030.html">中信证券</a></td><td class="num">26,823</td><td><span class="num">—</span></td><td class="num">¥279.1万</td><td class="num">¥112.1万</td><td><span class="emp-badge s-none">数据不足（缺同比）</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601211.html">国泰海通</a></td><td class="num">26,228</td><td><span class="num up">+80.6%</span></td><td class="num">¥240.6万</td><td class="num">¥106.0万</td><td><span class="emp-badge s-watch">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601688.html">华泰证券</a></td><td class="num">15,511</td><td><span class="num down">-8.6%</span></td><td class="num">¥230.9万</td><td class="num">¥105.6万</td><td><span class="emp-badge s-watch">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-securities-co-600999.html">招商证券</a></td><td class="num">12,792</td><td><span class="num down">-5.0%</span></td><td class="num">¥195.2万</td><td class="num">¥96.5万</td><td><span class="emp-badge s-watch">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-securities-co-000776.html">广发证券</a></td><td class="num">13,640</td><td><span class="num down">-2.4%</span></td><td class="num">¥260.2万</td><td class="num">¥100.5万</td><td><span class="emp-badge s-watch">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601881.html">中国银河</a></td><td class="num">14,259</td><td><span class="num down">-3.0%</span></td><td class="num">¥198.5万</td><td class="num">¥87.8万</td><td><span class="emp-badge s-watch">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601066.html">中信建投</a></td><td class="num">12,618</td><td><span class="num">—</span></td><td class="num">¥184.8万</td><td class="num">¥74.8万</td><td><span class="emp-badge s-none">数据不足（缺同比）</span></td></tr>
+<tr><td><a href="berkshire-securities-co-601377.html">兴业证券</a></td><td class="num">8,279</td><td><span class="num down">-7.3%</span></td><td class="num">¥143.0万</td><td class="num">¥34.7万</td><td><span class="emp-badge s-watch">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-securities-co-300059.html">东方财富</a></td><td class="num">6,403</td><td><span class="num up">+15.2%</span></td><td class="num">¥250.9万</td><td class="num">¥188.7万</td><td><span class="emp-badge s-watch">平稳待观察</span></td></tr>
+<tr><td><a href="berkshire-securities-co-000166.html">申万宏源</a></td><td class="num">11,423</td><td><span class="num down">-1.1%</span></td><td class="num">¥212.3万</td><td class="num">¥83.2万</td><td><span class="emp-badge s-watch">平稳待观察</span></td></tr>
+
+</tbody>
+</table>
+<div class="fin-note">员工增速=在职员工同比（中信证券 2024 年披露口径异常，增速标「数据不足」）；人均营收/净利=2025 营收(元)÷员工数，人均净利=2025 净利÷员工数。
+已覆盖 10/10 家员工数据（中信建投缺 2024 同比）。组织效能信号由「员工增速分档 × 人均盈利」组合判定，为代理指标，非投资建议。</div>
+</div>
+
+<div class="section-title">主要玩家索引（上市公司 10 家）</div>
+<div class="grid">
+<a class="giant-card" href="berkshire-securities-co-600030.html"><div class="giant-head"><span class="giant-name">中信证券</span><span class="region-tag region-cn">A股</span></div><div class="giant-desc">券商综合实力第一，机构与高净值客户基础最厚，多项业务市占率居首。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+<a class="giant-card" href="berkshire-securities-co-601211.html"><div class="giant-head"><span class="giant-name">国泰海通</span><span class="region-tag region-cn">A股</span></div><div class="giant-desc">国泰君安+海通证券 2025 年合并，资本实力与网点跃居行业最前。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+<a class="giant-card" href="berkshire-securities-co-601688.html"><div class="giant-head"><span class="giant-name">华泰证券</span><span class="region-tag region-cn">A股</span></div><div class="giant-desc">财富管理领先，涨乐财富通月活行业第一，机构经纪与融券厚。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+<a class="giant-card" href="berkshire-securities-co-600999.html"><div class="giant-head"><span class="giant-name">招商证券</span><span class="region-tag region-cn">A股</span></div><div class="giant-desc">招商局系综合券商，机构与资管稳健，托管外包份额居前。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+<a class="giant-card" href="berkshire-securities-co-000776.html"><div class="giant-head"><span class="giant-name">广发证券</span><span class="region-tag region-cn">A股</span></div><div class="giant-desc">资管强势（参股易方达/广发基金），投顾与财富布局深。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+<a class="giant-card" href="berkshire-securities-co-601881.html"><div class="giant-head"><span class="giant-name">中国银河</span><span class="region-tag region-cn">A股</span></div><div class="giant-desc">网点最广的国资券商之一，零售经纪基本盘厚，汇金系。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+<a class="giant-card" href="berkshire-securities-co-601066.html"><div class="giant-head"><span class="giant-name">中信建投</span><span class="region-tag region-cn">A股</span></div><div class="giant-desc">投行强势，IPO 储备丰富，机构与固收业务均衡。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+<a class="giant-card" href="berkshire-securities-co-601377.html"><div class="giant-head"><span class="giant-name">兴业证券</span><span class="region-tag region-cn">A股</span></div><div class="giant-desc">兴证全球基金母公司，福建区域龙头，权益投研有特色。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+<a class="giant-card" href="berkshire-securities-co-300059.html"><div class="giant-head"><span class="giant-name">东方财富</span><span class="region-tag region-cn">A股</span></div><div class="giant-desc">互联网券商+天天基金，零售流量入口，平台边际成本极低。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+<a class="giant-card" href="berkshire-securities-co-000166.html"><div class="giant-head"><span class="giant-name">申万宏源</span><span class="region-tag region-cn">A股</span></div><div class="giant-desc">汇金系综合券商，旗下申万宏源证券网点与客户基础扎实。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+</div>
+
+<div class="section-title">延伸阅读</div>
+<div class="extend">
+<a href="berkshire-chain-map.html"><b>产业链覆盖地图</b><span>总览全站 105 条产业链与交叉导航</span></a>
+<a href="berkshire-standalone.html"><b>数据中心枢纽</b><span>返回全站研究入口与工具索引</span></a>
+<a href="berkshire-bank-methodology.html"><b>银行链方法论（金融同业参考）</b><span>金融板块怎么读：核心指标与分析框架范式</span></a>
+</div>
+<div class="fin-note">注：证券链专属的<b>横向对比 / 估值温度计 / 泊松象限</b>工具随「深链范式」滚动补全（12 条深链已上线对应工具，框架链后续铺开）。当前可用跨链地图与枢纽总览。</div>
+
+<div class="decl" style="margin-top:24px">
+  <div class="bar"><b>关于本页：</b>证券产业链框架版，隶属「全A股产业链覆盖地图」分阶段建设成果。框架参照申万/中信行业分类公开标准整理。
+  ⚠️ 以上内容由 AI 基于公开信息整理生成，<b>深度数据(估值/财务/信号/效能)已基于公开披露回填，不构成任何投资建议或个股推荐，不做投资依据</b>。投资有风险，决策需谨慎。</div>
+</div>
+
+<script>
+(function(){
+  function num(v){
+    if(v==null) return NaN;
+    v=v.textContent||v;
+    if(typeof v==='string'){
+      v=v.replace(/,/g,'').replace(/[ 	
+
+]/g,'');
+      if(v==='—'||v==='-'||v==='') return NaN;
+      var unit=1;
+      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
+      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
+      v=v.replace(/[¥,%]/g,'');
+      var n=parseFloat(v);
+      if(!isNaN(n)) n*=unit;
+      return n;
+    }
+    return NaN;
+  }
+  function cmp(a,b,asc){
+    var nanA=isNaN(a), nanB=isNaN(b);
+    if(nanA && nanB) return 0;
+    if(nanA) return asc?1:-1;
+    if(nanB) return asc?-1:1;
+    if(a<b) return asc?-1:1;
+    if(a>b) return asc?1:-1;
+    return 0;
+  }
+  function sortTable(th){
+    var table=th.closest('table');
+    var tbody=table.querySelector('tbody');
+    var rows=Array.from(tbody.querySelectorAll('tr'));
+    var idx=Array.from(th.parentNode.children).indexOf(th);
+    var type=th.getAttribute('data-type')||'text';
+    var asc=!th.classList.contains('asc');
+    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
+    th.classList.add(asc?'asc':'desc');
+    rows.sort(function(r1,r2){
+      var c1=r1.cells[idx], c2=r2.cells[idx];
+      var v1, v2;
+      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      else if(type==='num'){ v1=num(c1); v2=num(c2); }
+      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      return cmp(v1,v2,asc);
+    });
+    rows.forEach(function(r){ tbody.appendChild(r); });
+  }
+  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
+    th.addEventListener('click',function(){ sortTable(th); });
+  });
+})();
+</script>
 </body>
 </html>
