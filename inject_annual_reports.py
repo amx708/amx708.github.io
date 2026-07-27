@@ -151,7 +151,10 @@ def build_section(reports, is_hk):
         pdf = r.get("pdf") or r.get("detail") or ""
         if not pdf:
             continue
-        label = ("%s 年报" % yr) if yr else title
+        if r.get("summary"):
+            label = ("%s 摘要" % yr) if yr else title
+        else:
+            label = ("%s 年报" % yr) if yr else title
         chips.append(
             '<a href="%s" target="_blank" rel="noopener" '
             'style="display:inline-block;padding:6px 12px;background:#f8fafc;border:1px solid #e2e8f0;'

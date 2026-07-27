@@ -96,6 +96,42 @@ def extract_meta():
     return out
 
 
+YEAR_RE = re.compile(r"(\d{4})年(?:度)?(?:报告|年报)")
+DIGIT4_RE = re.compile(r"\d{4}")
+
+
+def extract_year(title, date=None):
+    """从标题提取年报年份；标题只有'年报全文'等时按披露日期推断上一年。"""
+    title = str(title or "")
+    m = YEAR_RE.search(title)
+    if m:
+        y = int(m.group(1))
+        if 1990 <= y <= 2030:
+            return str(y)
+    candidates = [int(y) for y in DIGIT4_RE.findall(title)]
+    candidates = [y for y in candidates if 1990 <= y <= 2030]
+    if candidates:
+        return str(max(candidates))
+    if date and len(str(date)) >= 4:
+        try:
+            y = int(str(date)[:4]) - 1
+            if 1990 <= y <= 2030:
+                return str(y)
+        except ValueError:
+            pass
+    return ""
+
+
+def is_h_share(title):
+    t = str(title or "")
+    return "H股" in t or t.startswith("H股公告") or "港股公告" in t
+
+
+def is_summary(title):
+    t = str(title or "")
+    return "摘要" in t and "全文" not in t
+
+
 def get_reports(code):
     import akshare as ak
     df = ak.stock_zh_a_disclosure_report_cninfo(
@@ -104,13 +140,16 @@ def get_reports(code):
     out = []
     for _, r in df.iterrows():
         title = r["公告标题"]
-        if "年度报告" in title and "摘要" not in title:
-            aid = re.search(r"announcementId=(\d+)", r["公告链接"])
-            dt = str(r["公告时间"])[:10]
-            aid = aid.group(1) if aid else ""
-            pdf = ("https://static.cninfo.com.cn/finalpage/%s/%s.PDF" % (dt, aid)) if aid else ""
-            ym = re.search(r"(\d{4})年年度报告", title)
-            yr = ym.group(1) if ym else (title[:4] if title[:4].isdigit() else "")
+        if "年度报告" not in title and "年报" not in title:
+            continue
+        if is_h_share(title) or is_summary(title):
+            continue
+        aid = re.search(r"announcementId=(\d+)", r["公告链接"])
+        dt = str(r["公告时间"])[:10]
+        aid = aid.group(1) if aid else ""
+        pdf = ("https://static.cninfo.com.cn/finalpage/%s/%s.PDF" % (dt, aid)) if aid else ""
+        yr = extract_year(title, dt)
+        if yr:
             out.append({"year": yr, "title": title, "date": dt, "pdf": pdf, "detail": r["公告链接"]})
     return out
 
