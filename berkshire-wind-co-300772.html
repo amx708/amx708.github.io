@@ -1,42 +1,257 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>运达股份 · 风电产业链</title><style>
-:root{--bg:#f5f9ff;--soft:#eef5ff;--card:#ffffff;--ink:#0f172a;--mut:#475569;--line:rgba(59,130,246,.15);--accent:#2563eb;}
+:root{--bg:#f5f9ff;--soft:#eef5ff;--card:#ffffff;--ink:#0f172a;--mut:#475569;--line:rgba(59,130,246,.15);--red:#dc2626;--green:#16a34a;--accent:#2563eb;--accent-light:#3b82f6;--accent-ghost:rgba(59,130,246,.08);}
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(180deg,#f8fbff 0%,#f0f7ff 100%);background-attachment:fixed;color:var(--ink);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased}
 .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.brand{color:var(--ink);font-weight:600;font-size:15px;letter-spacing:.3px}
-.crumb{color:var(--mut);font-size:12.5px}
+.nav .brand{color:var(--ink);font-weight:600;font-size:15px;letter-spacing:.3px}
+.nav .crumb{color:var(--mut);font-size:12.5px}
 .nav a{color:var(--mut);text-decoration:none;font-size:13px;padding:4px 9px;border-radius:6px;transition:.15s}
 .nav a:hover{color:var(--accent);background:var(--soft)}
 .hero{background:linear-gradient(135deg,#ffffff 0%,#e8f1ff 100%);border-bottom:1px solid var(--line);padding:46px 20px 38px;box-shadow:0 4px 20px rgba(37,99,235,.10)}
 .hero-in{max-width:1080px;margin:0 auto}
 .hero h1{margin:0 0 10px;font-size:29px;font-weight:700;letter-spacing:-.5px;color:#0f172a}
 .hero p{margin:5px 0;color:var(--mut);max-width:760px;font-size:14.5px}
+.hero .stat{display:flex;gap:40px;margin-top:26px;flex-wrap:wrap}
+.hero .stat b{color:var(--accent);font-size:26px;display:block;font-weight:700}
+.hero .stat span{font-size:12px;color:var(--mut)}
 .wrap{max-width:1080px;margin:0 auto;padding:30px 20px 70px}
 .section-title{font-size:18px;font-weight:700;margin:34px 0 16px;padding-left:12px;border-left:4px solid var(--accent);letter-spacing:-.2px;color:var(--ink)}
+.filter{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 22px}
+.filter button{border:1px solid var(--line);background:var(--card);color:var(--mut);padding:7px 16px;border-radius:20px;cursor:pointer;font-size:13px;transition:.15s;font-weight:500}
+.filter button:hover{border-color:var(--accent);color:var(--accent);background:#eff6ff}
+.filter button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;transition:.18s;position:relative;box-shadow:0 3px 10px rgba(37,99,235,.06);overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#60a5fa);opacity:.85}
+.card:hover{border-color:rgba(59,130,246,.45);box-shadow:0 10px 28px rgba(37,99,235,.16);transform:translateY(-2px)}
+.card .top{display:flex;justify-content:space-between;align-items:baseline}
+.card h3{margin:0;font-size:17px;font-weight:700;color:var(--ink)}
+.card .code{font-size:12px;color:var(--mut);font-weight:500}
+.card .cat{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;background:linear-gradient(135deg,#dbeafe 0%,#eff6ff 100%);color:#1d4ed8;margin:8px 0;font-weight:600;border:1px solid rgba(59,130,246,.18)}
+.card .pos{font-size:12.5px;color:#475569;min-height:34px;line-height:1.55}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.kpis div{font-size:11px;color:#64748b}
+.kpis b{display:block;color:#0f172a;font-size:14.5px;font-weight:700}
+.detail{max-width:920px;margin:0 auto;padding:28px 20px 70px}
+.detail .back{color:var(--accent);text-decoration:none;font-size:13px}
+.detail>h1{font-weight:700;letter-spacing:-.5px;color:var(--ink)}
 .layer{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:10px 0}
 .layer h4{margin:0 0 4px;font-size:14px;color:var(--accent);font-weight:600}
 .layer p{margin:0;font-size:13.5px;color:var(--mut);line-height:1.65}
-.note{background:var(--soft);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:13px;color:var(--mut);line-height:1.65}
 .snap{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin:16px 0}
 .snap div{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 10px;text-align:center}
 .snap b{display:block;font-size:19px;color:var(--accent);font-weight:700}
 .snap span{font-size:11px;color:var(--mut)}
+.deep{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 18px 14px;margin:14px 0}
+.deep h4{margin:0 0 6px;font-size:14px;color:var(--accent);font-weight:600}
+.deep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.deep-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--soft)}
+.deep-item h4{margin:0 0 6px;font-size:14px;color:var(--accent);font-weight:600}
+.deep-item p{margin:0;font-size:13px;color:var(--ink);line-height:1.65}
+.deep ul{margin:6px 0;padding-left:18px;font-size:13px;color:var(--ink);line-height:1.6}
+.timeline{border-left:2px solid var(--line);padding-left:16px;margin:8px 0 8px 6px}
+.timeline div{position:relative;font-size:13px;color:var(--ink);margin:8px 0;padding-left:2px}
+.timeline div::before{content:'';position:absolute;left:-21px;top:7px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.note{background:var(--soft);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:13px;color:var(--mut);line-height:1.65}
+.note a{color:var(--accent)}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.extend a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;text-decoration:none;color:var(--ink);transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.extend a:hover{border-color:var(--accent);box-shadow:0 6px 18px rgba(59,130,246,.14)}
+.extend b{color:var(--accent);display:block;margin-bottom:5px;font-weight:600}
+.extend span{font-size:12.5px;color:var(--mut);line-height:1.55}
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:center}
+.tbl th{background:var(--soft);color:var(--ink);font-weight:600;border-bottom:2px solid var(--line)}
+.tbl tr:hover td{background:var(--soft)}
+.tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600}
+.tag.low{background:rgba(220,38,38,.12);color:var(--red)}
+.tag.mid{background:rgba(59,130,246,.14);color:#2563eb}
+.tag.high{background:rgba(22,163,74,.14);color:var(--green)}
+.thermo{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.thermo .nm{width:130px;font-weight:600;font-size:14px;color:var(--ink)}
+.thermo .bar{flex:1;height:10px;background:linear-gradient(90deg,#f87171,#e8b84b,#34d399);border-radius:6px;position:relative;min-width:160px;opacity:.85}
+.thermo .dot{position:absolute;top:-4px;width:18px;height:18px;border-radius:50%;background:var(--card);border:3px solid var(--accent);transform:translateX(-50%);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.thermo .v{font-size:12.5px;color:var(--mut);width:160px}
 footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid var(--line)}
-</style></head><body><div class="nav"><div class="nav-in"><div class="brand">伯克希尔<span style="color:#2563eb">投资数据中心</span></div><div class="crumb">/ <a href="berkshire-standalone.html">枢纽</a> / <a href="berkshire-chain-map.html">覆盖地图</a> / <a href="berkshire-wind-chains.html">风电产业链</a> / 运达股份</div></div></div><div class="hero"><div class="hero-in"><h1>运达股份 <span style="font-size:14px;color:var(--mut)">300772 · </span></h1><p>风电产业链代表公司；深度数据模块(估值/财务/信号/效能)因 akshare 实时获取受限暂标注「待采集」，仅供研究参考，不构成投资建议。</p></div></div><div class="wrap">
-<div class="section-title">公司概述</div>
-<div class="note">本页为「阶段 A 铺满地图」框架版：运达股份（300772）已纳入风电产业链代表公司样本。公司叙事、财务基本面、估值分位、泊松信号与组织效能等深度数据模块因数据源限制统一标注「待采集」，后续按全站同规格回填（基于 akshare 行情与 cninfo 年报公开披露）。</div>
-<div class="section-title">所在产业链五层框架</div>
-<div class="layer"><h4>叶片/塔筒</h4><p>材料与模具周期</p></div><div class="layer"><h4>齿轮箱/发电机</h4><p>核心零部件国产化</p></div><div class="layer"><h4>整机</h4><p>价格竞争+出海</p></div><div class="layer"><h4>装机需求</h4><p>海风招标+陆风大基地</p></div><div class="layer"><h4>投资逻辑</h4><p>看招标量与整机价格，海风弹性大</p></div>
-<div class="section-title">财务快照（待采集）</div>
-<div class="snap"><div><b>—</b><span>营收(亿)</span></div><div><b>—</b><span>归母净利(亿)</span></div><div><b>—</b><span>毛利率(%)</span></div><div><b>—</b><span>ROE(%)</span></div><div><b>—</b><span>负债率(%)</span></div><div><b>—</b><span>经营现金流(亿)</span></div><div><b>—</b><span>总市值(亿)</span></div><div><b>—</b><span>PE</span></div><div><b>—</b><span>PB</span></div><div><b>—</b><span>股息率(%)</span></div></div>
-<div class="section-title">泊松信号（待采集）</div>
-<div class="note">泊松跳变信号（λ净/λ↑/λ↓ 与信号分类）待采集回填。指标仅反映价格跳变频率与方向，不替代估值与基本面，非投资建议。</div>
-<div class="section-title">估值历史分位（待采集）</div>
-<div class="note">PE/PB 近十年历史分位待采集回填（百度估值仅覆盖 A 股）。</div>
-<div class="section-title">组织效能（待采集）</div>
-<div class="note">员工人数/增速/人均净利待采集回填。</div>
-<div class="section-title">结论合成（待采集）</div>
-<div class="note">护城河 × 估值 × 周期 × 信号 的机械合成结论待数据回填后生成。本段为机械合成，非研究结论，不构成投资建议。</div>
-</div><footer>伯克希尔数据中心 · 风电产业链投资图谱 ｜ 数据口径：深度模块待采集 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>
+.svgbox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:16px 0;overflow-x:auto}
+.guide{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0}
+.guide h4{margin:0 0 8px;color:var(--accent);font-weight:600}
+.guide p,.guide li{font-size:13.5px;color:var(--ink);line-height:1.7}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.hero h1{font-size:23px}.hero .stat{gap:24px}.thermo .nm{width:100px}}
+/* ---- 产业链三层流 ---- */
+.flow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:18px 0}
+.flow3 .stage{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 10px;position:relative;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.flow3 .stage .sno{position:absolute;top:-12px;left:16px;background:var(--accent);color:#fff;font-size:12px;font-weight:600;padding:3px 11px;border-radius:20px}
+.flow3 .stage h4{margin:6px 0 2px;font-size:15px;color:var(--accent);font-weight:600}
+.flow3 .stage .tagline{font-size:12px;color:var(--mut);margin-bottom:10px;line-height:1.5}
+.node{background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin:8px 0}
+.node b{display:block;font-size:13.5px;color:var(--ink)}
+.node span{font-size:12px;color:var(--mut);line-height:1.5}
+.flow-cap{text-align:center;font-size:12.5px;color:var(--mut);margin:2px 0 18px}
+.flow-cap b{color:var(--accent)}
+@media(max-width:768px){.flow3{grid-template-columns:1fr}}
+/* ---- 对比工具 ---- */
+.cmp-ctrl{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.cmp-ctrl .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.cmp-ctrl input[type=text]{flex:1;min-width:180px;border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:13px;outline:none;background:var(--bg);color:var(--ink)}
+.cmp-ctrl input[type=text]:focus{border-color:var(--accent)}
+.cmp-ctrl .fbtn{border:1px solid var(--line);background:var(--soft);color:var(--mut);padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13px}
+.cmp-ctrl .fbtn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.cmp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;max-height:230px;overflow:auto;padding:4px}
+.cmp-item{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 9px;border:1px solid var(--line);border-radius:8px;cursor:pointer;transition:.15s}
+.cmp-item:hover{border-color:var(--accent)}
+.cmp-item input{accent-color:var(--accent);width:15px;height:15px}
+.cmp-item .cc{font-size:11px;color:var(--mut)}
+.cmp-sel{font-size:12.5px;color:var(--mut);margin:6px 0}
+.cmp-good{color:var(--green);font-weight:600}
+.cmp-bad{color:var(--red);font-weight:600}
+
+.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px}
+.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.fin-title .icon{color:#64748b}
+.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px;white-space:nowrap}
+.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.fin-table tr{border-bottom:1px solid #eef2f7}
+.fin-table tr:last-child{border-bottom:none}
+.fin-table td{padding:9px 12px;font-size:13px;color:#334155}
+.fin-table td:first-child{width:130px;color:#64748b}
+.fin-table .val{color:#b45309;font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+.poisson-char{font-family:"Segoe UI","Microsoft YaHei",Arial,sans-serif;font-variant-emoji:text;-webkit-font-variant-emoji:text}
+.poisson-pill{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700}
+/*poisson-mobile*/@media(max-width:640px){.fin-block{padding:10px 12px;margin-bottom:6px}.fin-head{flex-wrap:wrap;gap:6px;margin-bottom:8px}.fin-title{font-size:14px;gap:6px}.fin-tag{font-size:10px;padding:2px 7px}.fin-table td{padding:7px 10px;font-size:12px}.fin-table td:first-child{width:auto;min-width:90px}.fin-note{font-size:11px;line-height:1.55}}
+/*poisson-tune-v2*/.fin-block{padding:14px 16px;margin-bottom:8px;border-radius:10px}.fin-head{margin-bottom:8px}.fin-table td{padding:8px 12px;font-size:12.5px}.fin-note{font-size:11.5px;line-height:1.55}
+/*poisson-explain*/.poisson-explain{margin-top:10px;padding:11px 13px;background:rgba(37,99,235,0.05);border:1px solid rgba(37,99,235,0.15);border-left:3px solid #2563eb;border-radius:8px}.poisson-explain .pe-title{font-size:12.5px;font-weight:700;color:#1e40af;margin-bottom:6px}
+.poisson-explain p{font-size:12px;color:#475569;line-height:1.7;margin:0 0 6px}
+.poisson-explain ul{margin:0 0 6px 18px;padding:0}
+.poisson-explain li{font-size:12px;color:#475569;line-height:1.7;margin-bottom:3px}
+.poisson-explain b{color:#0f172a}
+/*poisson-mini*/.poisson-mini{margin-top:10px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;padding:8px 10px}
+.poisson-mini .pm-title{font-size:12px;font-weight:700;color:#1e40af;margin-bottom:4px}
+.poisson-mini svg{display:block;width:100%;height:auto}
+.poisson-mini .pm-cap{font-size:11.5px;color:#475569;margin-top:4px;text-align:center}
+.poisson-mini .pm-links{margin-top:6px;text-align:center}
+.poisson-mini .pm-links a{font-size:12px;color:#2563eb;text-decoration:none;margin:0 4px}
+.poisson-mini .pm-links a:hover{text-decoration:underline}
+
+/*synth-v1*/
+.synth-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px;margin:6px 0 14px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.synth-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.synth-tbl td{border-bottom:1px solid #f1f5f9;padding:7px 8px;vertical-align:top;color:#334155}
+.synth-tbl td.ax{color:#0f172a;font-weight:700;width:140px;white-space:nowrap}
+.synth-verdict{margin-top:10px;padding:9px 12px;background:#f8fafc;border-left:3px solid #a8a29e;border-radius:6px;font-size:13px;line-height:1.6;color:#1e293b}
+.synth-lines{font-size:13px;line-height:1.75;color:#334155}
+.synth-gov{font-size:13px;line-height:1.7;color:#334155}
+.synth-inv-title{font-size:13px;color:#0f172a;font-weight:600;margin-bottom:6px}
+.synth-inv{margin:0;padding-left:20px;font-size:13px;line-height:1.7;color:#334155}
+.synth-inv li{margin-bottom:3px}
+
+
+
+
+/* 员工效率与组织效能 */
+.emp-block{margin:6px 0 2px}
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
+.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
+.emp-val{font-size:18px;font-weight:700;color:#0f172a}
+.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
+.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
+.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
+.emp-signal b{font-weight:700}
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+
+
+
+
+/* P0 估值历史分位 + 成本传导（扩展链） */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0f766e;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
+
+
+
+.cb-card{margin:18px 0;padding:18px 20px;border:1px solid #e2e8f0;border-left:4px solid #dc2626;border-radius:14px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,0.04);font-family:inherit}
+.cb-head{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#0f172a;margin-bottom:12px}
+.cb-verdict{display:flex;align-items:center;gap:12px;margin:6px 0 14px;padding:12px 14px;border-radius:12px;background:#fffbeb;border:1px solid #fde68a}
+.cb-lamp{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fde68a,#f59e0b);box-shadow:0 0 0 5px rgba(245,158,11,0.15),0 0 14px rgba(245,158,11,0.4);flex-shrink:0}
+.cb-verdict b{font-size:19px;color:#0f172a}
+.cb-verdict span{display:block;font-size:12px;color:#64748b;margin-top:2px}
+.cb-big{display:flex;align-items:baseline;gap:8px;margin:4px 2px 14px}
+.cb-big .n{font-size:32px;font-weight:800;color:#0f172a;letter-spacing:-1px}
+.cb-big .u{font-size:14px;color:#64748b}
+.cb-big .r{margin-left:auto;font-size:11.5px;color:#b45309;background:#fffbeb;padding:4px 10px;border-radius:20px;font-weight:600;text-align:right}
+.cb-chgs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.cb-chg{background:#f8fafc;border:1px solid #f1f5f9;border-radius:12px;padding:11px}
+.cb-chg .l{font-size:12px;color:#64748b}
+.cb-chg .v{font-size:17px;font-weight:800;margin:3px 0 7px}
+.cb-chg .bar{height:8px;border-radius:5px;background:#e2e8f0;overflow:hidden}
+.cb-chg .bar i{display:block;height:100%;border-radius:5px}
+.cb-chg .nt{font-size:11px;color:#94a3b8;margin-top:6px}
+.cb-up{color:#dc2626}.cb-down{color:#16a34a}
+.cb-fill-up{background:#dc2626}.cb-fill-down{background:#16a34a}
+.cb-streak{display:flex;align-items:center;gap:8px;margin:0 2px 14px;font-size:12.5px;color:#475569;flex-wrap:wrap}
+.cb-dots{display:flex;gap:5px}
+.cb-dots i{width:13px;height:13px;border-radius:50%;background:#e2e8f0}
+.cb-dots i.on{background:#16a34a}
+.cb-peers .ph{font-size:13px;font-weight:700;color:#0f172a;margin-bottom:9px;display:flex;justify-content:space-between}
+.cb-peers .ph span{font-size:11px;color:#94a3b8;font-weight:400}
+.cb-prow{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px}
+.cb-prow .pn{width:60px;flex-shrink:0;color:#475569}
+.cb-prow .pt{flex:1;height:15px;background:#f1f5f9;border-radius:5px;overflow:hidden}
+.cb-prow .pb{height:100%;border-radius:5px;background:#cbd5e1}
+.cb-prow .pv{width:58px;text-align:right;color:#64748b;flex-shrink:0}
+.cb-prow.me .pn{color:#b45309;font-weight:700}
+.cb-prow.me .pb{background:linear-gradient(90deg,#f59e0b,#d97706)}
+.cb-prow.me .pv{color:#b45309;font-weight:700}
+.cb-prow.dim{opacity:.7}
+.cb-footer{border-top:1px solid #f1f5f9;padding-top:11px;margin-top:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:8px}
+.cb-src{font-size:11px;color:#94a3b8;line-height:1.5}
+.cb-footer a{font-size:12px;color:#2563eb;font-weight:600;text-decoration:none;white-space:nowrap}
+</style><style>
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(11,31,58,.82);backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
+  .topbar-in{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .brand{font-weight:800;font-size:17px;letter-spacing:.5px}
+  .brand .ac{color:#f5a623}
+  .crumb{font-size:13px;color:#9fb2cf}
+  .crumb a:hover{color:#f5a623}
+</style><style>
+  .ovw{background:#eef5ff;border:1px solid rgba(59,130,246,.15);border-left:3px solid #2563eb;border-radius:8px;padding:12px 16px;margin:14px 0;font-size:13px;color:#475569;line-height:1.65}
+  .fw-layers{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:6px}
+  .fw-layer{background:#fff;border:1px solid rgba(59,130,246,.15);border-radius:12px;padding:14px 16px;border-top:3px solid #2563eb}
+  .fw-layer h4{margin:0 0 4px;font-size:13px;color:#2563eb;font-weight:600}
+  .fw-layer p{margin:0;font-size:13px;color:#475569;line-height:1.6}
+</style></head><body>
+<div class="topbar"><div class="topbar-in"><div class="brand">伯克希尔<span class="ac">投资数据中心</span></div><div class="crumb">/ <a href="berkshire-standalone.html">枢纽</a> / <a href="berkshire-chain-map.html">覆盖地图</a> / <a href="berkshire-wind-chains.html">风电产业链</a> / 运达股份</div></div></div>
+<div class="detail"><a class="back" href="berkshire-wind-chains.html">← 返回风电产业链</a><h1 style="margin:10px 0 2px">运达股份 <span style="font-size:14px;color:var(--mut)">300772 · 整机</span></h1><p style="color:var(--mut);margin:0 0 14px">风电产业链代表公司；估值历史分位(PE/PB)与泊松跳变信号已基于 akshare 公开行情回填（截至 2026-07-26）；财报基本面与组织效能模块待采集。以下数据仅供研究参考，不构成投资建议。</p><div class="section-title">公司概述</div><div class="ovw">本页为「阶段 A 铺满地图」框架版详情：运达股份（300772）已纳入风电产业链代表公司样本。估值分位与泊松信号已回填，财报基本面与组织效能待采集；公司叙事与五层框架为公开资料整理。</div><div class="section-title">所在产业链五层框架</div><div class="fw-layers"><div class="layer"><h4>叶片/塔筒</h4><p>材料与模具周期</p></div><div class="layer"><h4>齿轮箱/发电机</h4><p>核心零部件国产化</p></div><div class="layer"><h4>整机</h4><p>价格竞争+出海</p></div><div class="layer"><h4>装机需求</h4><p>海风招标+陆风大基地</p></div><div class="layer"><h4>投资逻辑</h4><p>看招标量与整机价格，海风弹性大</p></div></div><h3 class="section-title" style="margin-top:18px">财务快照（最新年报 / 2026-07-26估值）</h3><div class="snap"><div><b>待采集</b><span>营收(亿)</span></div><div><b>待采集</b><span>归母净利(亿)</span></div><div><b>待采集</b><span>毛利率(%)</span></div><div><b>待采集</b><span>ROE(%)</span></div><div><b>待采集</b><span>负债率(%)</span></div><div><b>待采集</b><span>经营现金流(亿)</span></div><div><b>待采集</b><span>总市值(亿)</span></div><div><b>26.70</b><span>PE</span></div><div><b>1.30</b><span>PB</span></div><div><b>待采集</b><span>股息率(%)</span></div></div><h3 class="section-title">泊松信号（跳变频率参考）</h3><div class="fin-block"><div class="fin-head"><div class="fin-title"><span class="icon">📡</span> 泊松过程 λ 信号</div><span class="fin-tag">近36个月</span></div><table class="fin-table"><tbody><tr><td>λ净（λ↑−λ↓）</td><td class='val'>+0.068</td></tr><tr><td>λ↑ 多头跳变/月</td><td class='val'>0.170</td></tr><tr><td>λ↓ 空头跳变/月</td><td class='val'>0.102</td></tr><tr><td>跳变月数（涨/跌）</td><td class='val'>15 / 9</td></tr><tr><td>观察月数</td><td class='val'>88</td></tr><tr><td>信号分类</td><td class='val'><span class="poisson-pill" style="color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35)">死猫反弹</span></td></tr></tbody></table><div class="fin-note">跳变基于近36个月月收益，单月涨跌≥15%计一次跳变；信号分类由采集脚本按 λ净 与总收益 判定。本指标仅反映价格跳变频率与方向，<b>不替代估值与基本面</b>，不构成投资建议。采集日 2026-07-26。</div><div class="poisson-explain"><div class="pe-title">📖 人话解读</div><p>λ（lambda）=「跳变频率计」。把近 36 个月里单月涨跌≥15% 的月份数出来：λ↑ 是暴涨月数÷总月数（多头爆发力），λ↓ 是暴跌月数÷总月数（空头打击力），λ净 = λ↑−λ↓。</p><p>怎么读：λ净&gt;0 且 总收益&gt;0 才是真信号（跳变多 + 整体往上）；λ净&gt;0 但总收益≤0 只是「坑里蹦」（死猫反弹），排除；λ净≤0 空头主导，不是我们的形态。</p><p><b>记住</b>：λ 只说「跳变多不多、偏哪边」，不说估值贵不贵、基本面扎不扎实。它是筛选工具，不是买卖信号，非投资建议。</p></div><div class="pm-links"><a href="berkshire-poisson-quadrant.html">查看总象限图 →</a></div></div><h3 class="section-title">估值历史分位</h3><div class="valband"><div class="vrow"><div class="vlab">PE（TTM）</div><div class="vbar"><div class="vfill" style="width:58.2%;background:#b45309"></div><div class="vmark" style="left:58.2%"></div></div><div class="vval"><b>26.70</b> 倍 · 历史 <b>58.2%</b> 分位 <span class="vtag" style="color:#b45309">中位</span></div></div><div class="vrow"><div class="vlab">PB</div><div class="vbar"><div class="vfill" style="width:7.2%;background:#15803d"></div><div class="vmark" style="left:7.2%"></div></div><div class="vval"><b>1.30</b> 倍 · 历史 <b>7.2%</b> 分位 <span class="vtag" style="color:#15803d">极低/便宜</span></div></div><div class="fin-note">分位口径：近十年日度 PE(TTM)/PB（百度股市通），当前值所处历史百分位。<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span><span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span><span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。亏损企业 PE 不适用，仅看 PB。样本起点约 2016-07，分位为时点统计，随行情变动。</div></div><h3 class="section-title">员工效率与组织效能</h3><div class="emp-block"><div class="fin-note">员工效率：待采集（2025 年报员工数/人均效能尚未回填，计划后续按同规格采集）。</div></div><div class="section-title"><span class="dot"></span>结论合成 · 护城河 × 估值 × 周期 × 信号</div><div class="synth-card"><table class="synth-tbl"><tbody><tr><td class='ax'>护城河质量</td><td>—（无10年ROE序列，按弱假设）</td></tr><tr><td class='ax'>估值便宜度</td><td>PE分位 58.2% · PB分位 7.2% → 便宜（<40%）</td></tr><tr><td class='ax'>周期位置</td><td>—（CF链无R15周期序列）</td></tr><tr><td class='ax'>价格信号</td><td><span class="poisson-pill" style="color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35)">死猫反弹</span></td></tr></tbody></table><div class="synth-verdict"><b>综合结论：</b>便宜的平庸 / 烟蒂（警惕价值陷阱）· 价格信号中性或负向</div><div class="fin-note">本段为<b>机械合成</b>：将本页已呈现的护城河/分位/泊松按透明规则归并，<b>非研究结论、不构成投资建议</b>。规则：便宜+强护城河=便宜的好生意；贵+强护城河=贵的好生意；贵+弱护城河=回避；便宜+弱护城河=警惕价值陷阱。</div></div><div class="section-title"><span class="dot"></span>安全边际量化线（巴菲特式买点阈值）</div><div class="synth-card"><div class="synth-lines">• PB分位线：PB历史分位 &lt; 20% 视为低PB安全边际区间 → 当前 PB分位 7.2% → <b>已触发</b><br>• PE分位线：PE历史分位 &lt; 20% 视为低PE安全边际区间 → 当前 PE分位 58.2% → <b>不适用/未触发</b></div><div class="fin-note">安全边际 = 价格显著低于内在价值的缓冲。本线为<b>透明规则触发</b>，非 DCF 精算；现金牛看股息率与低PB，成长看兑现与分位。不构成买卖建议。</div></div><div class="section-title"><span class="dot"></span>两轴拆分 · 估值分位 ≠ 永久损失风险（霍华德·马克斯）</div><div class="synth-card"><table class="synth-tbl"><tbody><tr><td class='ax'>轴① 估值分位</td><td>便宜（<40%）</td></tr><tr><td class='ax'>轴② 永久损失风险</td><td>—（需结合基本面逐案判断，本页未量化）</td></tr></tbody></table><div class="synth-verdict"><b>读图：</b>马克斯警告「贵≠高风险」。两轴需结合护城河质量与信号综合判断，勿单看分位定买卖。</div></div></div><footer>伯克希尔数据中心 · 风电产业链投资图谱 ｜ 数据口径：估值=2026-07-26行情，财报/效能待采集 ｜ 内容仅供研究参考，不构成投资建议</footer></body></html>
