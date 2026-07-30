@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
+<title>中国铁建 链 · 建筑产业链</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(6,182,212,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(6,182,212,0.10);color:#06b6d4;border:1px solid rgba(6,182,212,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#06b6d4;color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#06b6d4}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(6,182,212,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#06b6d4}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(6,182,212,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#06b6d4;background:rgba(6,182,212,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
+.explain-banner .eb-text b{color:#0f172a;font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #06b6d4}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#06b6d4;font-weight:700}
+.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.giant-card:hover{border-color:#06b6d4;background:rgba(6,182,212,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(6,182,212,0.12)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:#0f172a}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
+.region-hk{background:rgba(234,179,8,0.14);color:#b45309;border:1px solid rgba(234,179,8,0.3)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#06b6d4;font-weight:600}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
+.overview{background:rgba(6,182,212,0.05);border:1px solid rgba(6,182,212,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
+.overview b{color:#0f172a;font-weight:600}
+.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #06b6d4;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
+.layer-detail-body b{color:#334155}
+.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.info-table tr{border-bottom:1px solid #eef2f7}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
+.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
+.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(6,182,212,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#06b6d4}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.back-bar{margin-top:20px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(6,182,212,0.08);color:#06b6d4;border:1px solid rgba(6,182,212,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(6,182,212,0.16)}
+.data-banner{background:rgba(6,182,212,0.07);border:1px solid rgba(6,182,212,0.22);border-left:4px solid #06b6d4;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:#0f172a;font-weight:600}
+.data-banner .upd{color:#06b6d4;font-weight:600}
+.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(6,182,212,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cycle-title .icon{color:#06b6d4}
+.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
+.cycle-body b{color:#0f172a;font-weight:600}
+.cycle-body p{margin-bottom:8px}
+.cycle-body ul{margin:8px 0 0 18px;padding:0}
+.cycle-body li{margin-bottom:6px}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #06b6d4;padding:8px 12px;background:rgba(6,182,212,0.06);line-height:1.7}
+.cycle-current b{color:#334155}
+.cycle-current a{text-decoration:none}
+.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px}
+.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.fin-title .icon{color:#06b6d4}
+.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px;white-space:nowrap}
+.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.fin-table tr{border-bottom:1px solid #eef2f7}
+.fin-table tr:last-child{border-bottom:none}
+.fin-table td{padding:9px 12px;font-size:13px;color:#334155}
+.fin-table td:first-child{width:130px;color:#64748b}
+.fin-table .val{color:#b45309;font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+.poisson-char{font-family:"Segoe UI","Microsoft YaHei",Arial,sans-serif;font-variant-emoji:text;-webkit-font-variant-emoji:text}
+.poisson-pill{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700}
+@media(max-width:640px){.fin-block{padding:10px 12px;margin-bottom:6px}.fin-head{flex-wrap:wrap;gap:6px;margin-bottom:8px}.fin-title{font-size:14px;gap:6px}.fin-tag{font-size:10px;padding:2px 7px}.fin-table td{padding:7px 10px;font-size:12px}.fin-table td:first-child{width:auto;min-width:90px}.fin-note{font-size:11px;line-height:1.55}}
+
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:06b6d4;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:06b6d4;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:06b6d4;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:06b6d4;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:06b6d4;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:06b6d4;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:06b6d4;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:06b6d4;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:06b6d4;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:06b6d4;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:06b6d4;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:06b6d4;text-decoration:none;font-size:13px">电力设备</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><a href="berkshire-construction-chains.html">建筑产业链</a><span class="crumb-sep">/</span><span>中国铁建 链</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">中国铁建 链</div>
+<div class="hero-sub">基建央企</div>
+<span class="region-tag region-tag-mini region-cn">中国</span>
+<div class="hero-stats" style="margin-top:14px">
+<div class="stat-item"><div class="stat-num">定位</div><div class="stat-label">基建央企</div></div><div class="stat-item"><div class="stat-num">产业链</div><div class="stat-label">建筑</div></div><div class="stat-item"><div class="stat-num">属性</div><div class="stat-label">A股样本</div></div>
+</div>
+</div>
+
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
+
+<div class="section-title">公司 / 主题概述</div>
+<div class="overview">
+中国铁建（601186）是建筑产业链产业链中的代表公司，基建央企。本页为框架级原创梳理，业务结构、市场份额与最新财务以各公司公开年报为准，不构成投资建议。
+</div>
+
+<div class="section-title">跨层全栈分析（5 层）</div>
+<div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">01</span>订单获取</div><div class="layer-detail-body">基建央企；在「订单获取」环节：基建/房建招投标，央企市占率提升</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">02</span>施工组织</div><div class="layer-detail-body">基建央企；在「施工组织」环节：总承包管理，周转与成本管控定毛利</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">03</span>产值结算</div><div class="layer-detail-body">基建央企；在「产值结算」环节：按进度确认收入，结算周期长</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">04</span>回款质量</div><div class="layer-detail-body">基建央企；在「回款质量」环节：城投/地产应收款风险是核心变量</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">05</span>投资逻辑</div><div class="layer-detail-body">基建央企；在「投资逻辑」环节：看新签增速/经营现金流/化债受益，低估值高分红</div></div>
+
+<div class="section-title">关键信息一览</div>
+<table class="info-table">
+<tr><td><b>主业</b></td><td>基建央企</td></tr><tr><td><b>地位</b></td><td>代表公司</td></tr><tr><td><b>关注</b></td><td>投资逻辑</td></tr>
+</table>
+
+<div class="insight-box">
+<div class="insight-title"><span class="icon">🛡️</span> 护城河</div>
+<div class="insight-body">护城河取决于本链「投资逻辑」所述逻辑（看新签增速/经营现金流/化债受益，低估值高分红）；需结合基建央企判断其份额、牌照或工艺壁垒的高低。</div>
+</div>
+
+<div class="insight-box">
+<div class="insight-title"><span class="icon">⚠️</span> 主要风险</div>
+<div class="insight-body">主要风险来自行业周期与本链「投资逻辑」变量（看新签增速/经营现金流/化债受益，低估值高分红），以及价格、竞争与需求波动；具体以年报披露为准。</div>
+</div>
+
+
+<div class="section-title">财务数据（待采集）</div>
+<div class="fin-block">
+  <div class="fin-head"><div class="fin-title"><span class="icon">📊</span> 关键财务（最新可得年报）</div><span class="fin-tag">待采集</span></div>
+  <table class="fin-table">
+    <tr><td>营业总收入</td><td class="val">10,297.8 亿</td></tr>
+    <tr><td>归母净利润</td><td class="val">183.6 亿</td></tr>
+    <tr><td>毛利率</td><td class="val">9.7 %</td></tr>
+    <tr><td>ROE（加权）</td><td class="val">5.5 %</td></tr>
+    <tr><td>资产负债率</td><td class="val">79.5 %</td></tr>
+    <tr><td>经营现金流净额</td><td class="val">29.6 亿</td></tr>
+  </table>
+  <div class="fin-note">占位框架：待逐家抓取最新年报（以 2025 年报为主）后填充真实数值，并标注报告期与数据来源。</div>
+</div>
+
+<div class="section-title">估值指标（待采集）</div>
+<div class="fin-block">
+  <div class="fin-head"><div class="fin-title"><span class="icon">💰</span> 估值快照</div><span class="fin-tag">待采集</span></div>
+  <table class="fin-table">
+    <tr><td>总市值</td><td class="val">— 待采集</td></tr>
+    <tr><td>PE（TTM）</td><td class="val">— 待采集</td></tr>
+    <tr><td>PB</td><td class="val">— 待采集</td></tr>
+    <tr><td>股息率</td><td class="val">— 待采集</td></tr>
+  </table>
+</div>
+
+<div class="section-title">产业周期判断标准（建筑产业链）</div>
+<div class="cycle-block">
+<div class="cycle-title"><span class="icon">🔄</span> 本行业周期怎么看</div>
+<div class="cycle-body">建筑产业链周期看「投资逻辑」：看新签增速/经营现金流/化债受益，低估值高分红（框架研判，需结合实盘校验）。</div>
+<div class="cycle-current">完整判断标准与指标清单见<a href="berkshire-construction-chains.html#cycle" style="color:#06b6d4">《建筑产业链》索引页 →</a></div>
+</div>
+
+<div class="back-bar">
+<a href="berkshire-construction-chains.html" class="back-btn">← 返回建筑产业链</a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+</body>
+</html>
