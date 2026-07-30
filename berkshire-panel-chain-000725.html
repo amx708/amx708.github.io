@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
+<title>京东方A 链 · 面板产业链</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(37,99,235,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(37,99,235,0.10);color:#2563eb;border:1px solid rgba(37,99,235,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#2563eb;color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#2563eb}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(37,99,235,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#2563eb}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(37,99,235,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#2563eb;background:rgba(37,99,235,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
+.explain-banner .eb-text b{color:#0f172a;font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #2563eb}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#2563eb;font-weight:700}
+.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.giant-card:hover{border-color:#2563eb;background:rgba(37,99,235,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(37,99,235,0.12)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:#0f172a}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
+.region-hk{background:rgba(234,179,8,0.14);color:#b45309;border:1px solid rgba(234,179,8,0.3)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#2563eb;font-weight:600}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
+.overview{background:rgba(37,99,235,0.05);border:1px solid rgba(37,99,235,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
+.overview b{color:#0f172a;font-weight:600}
+.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #2563eb;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
+.layer-detail-body b{color:#334155}
+.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.info-table tr{border-bottom:1px solid #eef2f7}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
+.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
+.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(37,99,235,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#2563eb}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.back-bar{margin-top:20px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(37,99,235,0.08);color:#2563eb;border:1px solid rgba(37,99,235,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(37,99,235,0.16)}
+.data-banner{background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.22);border-left:4px solid #2563eb;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:#0f172a;font-weight:600}
+.data-banner .upd{color:#2563eb;font-weight:600}
+.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(37,99,235,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cycle-title .icon{color:#2563eb}
+.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
+.cycle-body b{color:#0f172a;font-weight:600}
+.cycle-body p{margin-bottom:8px}
+.cycle-body ul{margin:8px 0 0 18px;padding:0}
+.cycle-body li{margin-bottom:6px}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #2563eb;padding:8px 12px;background:rgba(37,99,235,0.06);line-height:1.7}
+.cycle-current b{color:#334155}
+.cycle-current a{text-decoration:none}
+.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px}
+.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.fin-title .icon{color:#2563eb}
+.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px;white-space:nowrap}
+.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.fin-table tr{border-bottom:1px solid #eef2f7}
+.fin-table tr:last-child{border-bottom:none}
+.fin-table td{padding:9px 12px;font-size:13px;color:#334155}
+.fin-table td:first-child{width:130px;color:#64748b}
+.fin-table .val{color:#b45309;font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+.poisson-char{font-family:"Segoe UI","Microsoft YaHei",Arial,sans-serif;font-variant-emoji:text;-webkit-font-variant-emoji:text}
+.poisson-pill{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700}
+@media(max-width:640px){.fin-block{padding:10px 12px;margin-bottom:6px}.fin-head{flex-wrap:wrap;gap:6px;margin-bottom:8px}.fin-title{font-size:14px;gap:6px}.fin-tag{font-size:10px;padding:2px 7px}.fin-table td{padding:7px 10px;font-size:12px}.fin-table td:first-child{width:auto;min-width:90px}.fin-note{font-size:11px;line-height:1.55}}
+
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:2563eb;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:2563eb;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:2563eb;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:2563eb;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:2563eb;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:2563eb;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:2563eb;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:2563eb;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:2563eb;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:2563eb;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:2563eb;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:2563eb;text-decoration:none;font-size:13px">电力设备</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><a href="berkshire-panel-chains.html">面板产业链</a><span class="crumb-sep">/</span><span>京东方A 链</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">京东方A 链</div>
+<div class="hero-sub">全球 LCD/OLED 面板龙头，TV 与 IT 面板份额领先。</div>
+<span class="region-tag region-tag-mini region-cn">中国</span>
+<div class="hero-stats" style="margin-top:14px">
+<div class="stat-item"><div class="stat-num">定位</div><div class="stat-label">面板龙头</div></div><div class="stat-item"><div class="stat-num">主业</div><div class="stat-label">LCD/OLED</div></div><div class="stat-item"><div class="stat-num">属性</div><div class="stat-label">面板制造</div></div>
+</div>
+</div>
+
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
+
+<div class="section-title">公司 / 主题概述</div>
+<div class="overview">
+京东方是全球半导体显示龙头，LCD 电视与 IT 面板份额领先，并加速 OLED（柔性/IT）产能布局。公司受益供给格局优化与国产替代，但面板价格周期、稼动率与 OLED 折旧是主要变量。
+</div>
+
+<div class="section-title">跨层全栈分析（5 层）</div>
+<div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">01</span>上游 · 材料与设备</div><div class="layer-detail-body">上游材料与设备：玻璃基板、偏光片、OLED 材料与驱动 IC 是底层约束，国产替代推进中。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">02</span>中游 · 面板制造</div><div class="layer-detail-body">中游面板制造：高世代 LCD 与 OLED 产线规模领先，工艺与产能壁垒高。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">03</span>下游 · 模组与终端</div><div class="layer-detail-body">下游模组与终端：背光/触控模组配套，供货 TV/IT/手机品牌。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">04</span>应用场景</div><div class="layer-detail-body">应用场景：TV + 显示器 + 笔电 + 车载 + 手机。大尺寸化是根本驱动。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">05</span>投资逻辑</div><div class="layer-detail-body">护城河 = 规模 + 高世代产线 + 客户；风险 = 价格周期、稼动率、OLED折旧。规模是壁垒，变量在周期。</div></div>
+
+<div class="section-title">关键信息一览</div>
+<table class="info-table">
+<tr><td><b>主业</b></td><td>LCD/OLED</td></tr><tr><td><b>地位</b></td><td>全球龙头</td></tr><tr><td><b>延展</b></td><td>车载</td></tr><tr><td><b>关注</b></td><td>供给格局</td></tr>
+</table>
+
+<div class="insight-box">
+<div class="insight-title"><span class="icon">🛡️</span> 护城河</div>
+<div class="insight-body">高世代 LCD 与 OLED 产线规模及核心客户，构成显示龙头壁垒。</div>
+</div>
+
+<div class="insight-box">
+<div class="insight-title"><span class="icon">⚠️</span> 主要风险</div>
+<div class="insight-body">1）面板价格周期；2）稼动率波动；3）OLED 折旧压力；4）需求放缓与价格战。</div>
+</div>
+
+
+<div class="section-title">财务数据（待采集）</div>
+<div class="fin-block">
+  <div class="fin-head"><div class="fin-title"><span class="icon">📊</span> 关键财务（最新可得年报）</div><span class="fin-tag">待采集</span></div>
+  <table class="fin-table">
+    <tr><td>营业总收入</td><td class="val">— 待采集</td></tr>
+    <tr><td>归母净利润</td><td class="val">— 待采集</td></tr>
+    <tr><td>毛利率</td><td class="val">— 待采集</td></tr>
+    <tr><td>ROE（加权）</td><td class="val">— 待采集</td></tr>
+    <tr><td>资产负债率</td><td class="val">— 待采集</td></tr>
+    <tr><td>经营现金流净额</td><td class="val">— 待采集</td></tr>
+  </table>
+  <div class="fin-note">占位框架：待逐家抓取最新年报（以 2025 年报为主）后填充真实数值，并标注报告期与数据来源。</div>
+</div>
+
+<div class="section-title">估值指标（待采集）</div>
+<div class="fin-block">
+  <div class="fin-head"><div class="fin-title"><span class="icon">💰</span> 估值快照</div><span class="fin-tag">待采集</span></div>
+  <table class="fin-table">
+    <tr><td>总市值</td><td class="val">— 待采集</td></tr>
+    <tr><td>PE（TTM）</td><td class="val">— 待采集</td></tr>
+    <tr><td>PB</td><td class="val">— 待采集</td></tr>
+    <tr><td>股息率</td><td class="val">— 待采集</td></tr>
+  </table>
+</div>
+
+<div class="section-title">产业周期判断标准（面板产业链）</div>
+<div class="cycle-block">
+<div class="cycle-title"><span class="icon">🔄</span> 本行业周期怎么看</div>
+<div class="cycle-body">面板呈「大尺寸化 + 供给格局优化 + 车载显示」三轮驱动：TV/IT 平均尺寸提升与龙头控产改善供需，车载智能座舱提升面板用量；最大变量是面板价格周期与稼动率、OLED 折旧压力，以及需求端资本开支节奏，格局优化下龙头盈利弹性改善。</div>
+<div class="cycle-current">完整判断标准与指标清单见<a href="berkshire-panel-chains.html#cycle" style="color:#2563eb">《面板产业链》索引页 →</a></div>
+</div>
+
+<div class="back-bar">
+<a href="berkshire-panel-chains.html" class="back-btn">← 返回面板产业链</a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+</body>
+</html>
