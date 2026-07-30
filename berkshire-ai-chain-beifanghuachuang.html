@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>北方华创 链 · AI 巨头产业链地图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(34,211,238,0.2);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,0.12);color:#0e7490;border:1px solid rgba(34,211,238,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#0e7490;color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#0e7490}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#ecfeff 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(34,211,238,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#0e7490}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
+.region-tag{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
+.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
+.region-global{background:rgba(37,99,235,0.12);color:#2563eb;border:1px solid rgba(37,99,235,0.3)}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid rgba(34,211,238,0.5)}
+.overview{background:rgba(34,211,238,0.05);border:1px solid rgba(34,211,238,0.15);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
+.overview b{color:#0f172a;font-weight:600}
+.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid rgba(34,211,238,0.5);border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-num{font-size:12px;color:#0e7490;font-weight:700}
+.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
+.layer-detail-body b{color:#334155}
+.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.info-table tr{border-bottom:1px solid #eef2f7}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
+.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
+.insight-box{background:linear-gradient(135deg,#ecfeff,#ffffff);border:1px solid rgba(34,211,238,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#0e7490}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+.back-bar{margin-top:20px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,0.08);color:#0e7490;border:1px solid rgba(34,211,238,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(34,211,238,0.16)}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.info-table td:first-child{width:100px}}
+
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<a href="berkshire-ai-chains.html">AI 巨头产业链</a><span class="crumb-sep">/</span>
+<span>北方华创 链</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">北方华创 链</div>
+<div class="hero-sub">国产半导体设备平台型龙头</div>
+<span class="region-tag region-cn">中国</span>
+<div class="hero-stats" style="margin-top:14px">
+<div class="stat-item"><div class="stat-num">国产平台</div><div class="stat-label">产业地位</div></div>
+<div class="stat-item"><div class="stat-num">刻蚀/沉积</div><div class="stat-label">核心品类</div></div>
+<div class="stat-item"><div class="stat-num">晶圆厂扩产</div><div class="stat-label">下游</div></div>
+<div class="stat-item"><div class="stat-num">关键受益</div><div class="stat-label">国产替代</div></div>
+</div>
+</div>
+
+<div class="section-title">公司 / 主题概述</div>
+<div class="overview">
+<b>北方华创</b>是覆盖刻蚀、薄膜沉积（PVD/CVD/ALD）、清洗、炉管等多品类的半导体设备平台型公司，深度受益晶圆厂扩产与半导体设备国产替代。其多品类布局与工艺积累构成平台化壁垒。本页为产业链定性框架，具体财务数据以公司公告为准。
+</div>
+
+<div class="section-title">跨层全栈分析（5 层）</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">01</span>上游：零部件与基础件</div>
+<div class="layer-detail-body">设备依赖真空、射频电源、精密机械件等，部分高端零部件仍依赖海外，是国产化短板。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">02</span>中游：设备制造</div>
+<div class="layer-detail-body">公司主战场。刻蚀、沉积、清洗、炉管等多线设备自主研发，工艺覆盖度决定可服务产线广度。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">03</span>下游：晶圆制造与封测</div>
+<div class="layer-detail-body">国内晶圆厂（逻辑、存储）扩产是核心需求，设备验证通过后方可批量导入。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">04</span>客户：晶圆厂资本开支</div>
+<div class="layer-detail-body">客户为本土晶圆厂，扩产周期与资本开支节奏决定订单弹性，同时也受下游景气波动影响。</div>
+</div>
+<div class="layer-detail">
+<div class="layer-detail-title"><span class="layer-num">05</span>生态：国产替代链条</div>
+<div class="layer-detail-body">与国产材料、零部件、EDA 等环节协同，构成半导体自主可控生态的关键一环。</div>
+</div>
+
+<div class="section-title">关键信息一览</div>
+<table class="info-table">
+<tr><td><b>核心资产</b></td><td>多品类半导体设备研发与交付平台</td></tr>
+<tr><td><b>代表产品</b></td><td>刻蚀机、PVD/CVD/ALD、清洗机、炉管</td></tr>
+<tr><td><b>竞争壁垒</b></td><td>多品类平台、工艺积累、晶圆厂验证</td></tr>
+<tr><td><b>主要风险</b></td><td>下游资本开支波动、设备验证周期、海外零部件限制</td></tr>
+</table>
+
+<div class="insight-box">
+<div class="insight-title"><span class="icon">🛡️</span> 护城河</div>
+<div class="insight-body">多品类设备平台带来的交叉销售与客户黏性；刻蚀、沉积等核心品类的工艺积累；深度绑定本土晶圆厂扩产周期。</div>
+</div>
+
+<div class="insight-box">
+<div class="insight-title"><span class="icon">⚠️</span> 主要风险</div>
+<div class="insight-body">1）下游晶圆厂资本开支波动影响订单；2）先进制程设备验证周期长、导入慢；3）部分高端零部件仍受海外出口管制；4）行业产能扩张可能带来中期供需错配。</div>
+</div>
+
+<div class="back-bar">
+<a href="berkshire-ai-chains.html" class="back-btn">← 返回 AI 巨头产业链</a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。如需某巨头的独家深度产业链研究，请前往其一手发布渠道。
+</div>
+
+</div>
+</body>
+</html>
