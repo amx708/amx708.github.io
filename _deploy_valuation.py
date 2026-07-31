@@ -4,7 +4,7 @@ import subprocess, json, base64, os, sys, tempfile, time, re
 
 REPO = "amx708/amx708.github.io"
 WD = r"C:/Users/Administrator/WorkBuddy/2026-07-08-13-16-44/deploy_site"
-COMMIT_MSG = "feat: 深链详情页估值回填 — akshare 百度 PE(TTM)/PB 近十年分位 (2026-07-30)"
+COMMIT_MSG = "feat: 深链详情页估值刷新 — akshare 百度 PE(TTM)/PB 近十年分位 (2026-07-31)"
 
 def gh(method, path, data=None, jq=None):
     cmd = ["gh", "api", path, "-X", method]
@@ -55,8 +55,8 @@ for attempt in range(1, 8):
         break
     except RuntimeError as e:
         err = str(e)
-        if ("409" in err or "422" in err or "conflict" in err.lower() or "rate limit" in err.lower()):
-            print(f"  冲突/限流重试... {err[:120]}"); time.sleep(4); continue
+        if any(k in err for k in ("409","422","conflict","rate limit","TLS","timeout","handshake","connection reset","EOF","i/o timeout","network is unreachable")):
+            print(f"  冲突/限流/网络抖动重试... {err[:120]}"); time.sleep(4); continue
         raise
 else:
     print("重试超限"); sys.exit(1)
