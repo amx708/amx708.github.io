@@ -2,173 +2,154 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PCB产业链 | 伯克希尔投资数据中心</title>
+<meta name="viewport" content="initial-scale=1">
+<title>PCB 产业链 · 价值投资视角</title>
 <style>
-  :root{--navy:#0b1f3a;--navy2:#10294d;--ink:#1d2b40;--line:#e4e9f2;
-    --orange:#f5a623;--txt:#23344e;--muted:#6b7a93;--card:#fff;--bg:#f4f7fc;--green:#1f9d6b;}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;
-    background:var(--bg);color:var(--txt);line-height:1.75;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  .topbar{position:sticky;top:0;z-index:50;background:rgba(11,31,58,.82);backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
-  .topbar-in{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px}
-  .brand{font-weight:800;font-size:17px;letter-spacing:.5px}
-  .brand .ac{color:var(--orange)}
-  .crumb{font-size:13px;color:#9fb2cf}
-  .crumb a:hover{color:var(--orange)}
-  .hero{max-width:1180px;margin:30px auto 10px;padding:0 20px}
-  .hero h1{font-size:30px;margin:0 0 8px;color:var(--navy)}
-  .hero p{margin:0;color:var(--muted);max-width:820px}
-  .badge{display:inline-block;background:var(--orange);color:#3a2700;font-size:12px;font-weight:700;
-    padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
-  .decl{max-width:1180px;margin:16px auto 0;padding:0 20px}
-  .decl .bar{border-left:4px solid #0891b2;background:#fffaf0;padding:11px 16px;border-radius:0 10px 10px 0;font-size:14px;color:var(--ink)}
-  .stats{max-width:1180px;margin:20px auto;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
-  .stat .v{font-size:27px;font-weight:800;color:var(--navy)}
-  .stat .v.ac{color:#0e7490}
-  .stat .k{font-size:12.5px;color:var(--muted);margin-top:4px}
-  .wrap{max-width:1180px;margin:10px auto 60px;padding:0 20px}
-  .sec{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:20px;
-    box-shadow:0 1px 3px rgba(16,41,77,.04)}
-  .sec h2{margin:0 0 4px;font-size:21px;color:var(--navy);display:flex;align-items:center;gap:10px}
-  .sec .cnt{font-size:12px;color:#fff;background:var(--navy2);border-radius:999px;padding:2px 10px;font-weight:700}
-  .sec .desc{font-size:13px;color:var(--muted);margin:2px 0 14px}
-  .framework{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:6px}
-  .layer{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-top:3px solid #0891b2}
-  .layer .ln{font-size:12px;font-weight:800;color:#0e7490}
-  .layer .lt{font-weight:700;color:var(--navy);font-size:15px;margin:4px 0 6px}
-  .layer .ld{font-size:13px;color:var(--muted)}
-  .companies{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:11px;margin-top:6px}
-  .co{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-  .co .nm{font-weight:700;color:var(--navy);font-size:15px}
-  .co .st{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#eef1f6;color:#7a8aa3;border:1px solid #dde3ec;margin:6px 0}
-  .co .nt{font-size:12.5px;color:var(--muted)}
-  .foot{max-width:1180px;margin:0 auto 50px;padding:0 20px;color:var(--muted);font-size:13px}
-  @media(max-width:860px){.stats{grid-template-columns:1fr} .hero h1{font-size:24px}}
-
-  .co .st.pe-low{background:#e7f6ee;color:#1f9d6b;border-color:#bfe6cf}
-  .co .st.pe-high{background:#fdeaea;color:#c0392b;border-color:#f3c9c9}
-  .co .st.poi{background:#fff3e0;color:#c2410c;border-color:#f6dcae}
-  /*cf-deep*/
-
-  .co .cf-fin{font-size:11px;color:#445;line-height:1.5;margin:5px 0 0}
-  .co .cf-fin b{color:#1d2b40;font-weight:600}
-  .co .cf-emp{font-size:11px;line-height:1.5;margin:2px 0 0}
-  .co .cf-emp b{font-weight:600}
-  .co .cf-emp .s-good{color:#1f9d6b}
-  .co .cf-emp .s-bad{color:#c0392b}
-  .co .cf-emp .s-watch{color:#c2410c}
-  .co .cf-emp .s-none{color:#999}
-  
-  .co .co-detail{display:inline-block;margin:8px 0 2px;font-size:12px;font-weight:600;color:#1d4ed8;text-decoration:none}
-  .co .co-detail:hover{text-decoration:underline}
-/*cf-deep2*/
-></style>
-<style>
-
-/*cf-emp-ranking*/
-.ovtable{margin:10px 0 6px;overflow-x:auto}
-.ovtable table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
-.ovtable th{background:#f8fafc;color:#475569;font-weight:600;text-align:left;padding:9px 12px;border-bottom:1px solid #e2e8f0;white-space:nowrap}
-.ovtable td{padding:8px 12px;border-bottom:1px solid #f1f5f9;color:#0f172a}
-.ovtable tbody tr:last-child td{border-bottom:none}
-.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
-.ovtable .num.up{color:#15803d;font-weight:700}
-.ovtable .num.down{color:#b91c1c;font-weight:700}
-.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;border:1px solid transparent}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(13,148,136,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(13,148,136,0.10);color:#0d9488;border:1px solid rgba(13,148,136,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#0d9488;color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#0d9488}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(13,148,136,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(13,148,136,0.08);border:1px solid rgba(13,148,136,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#0d9488}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(13,148,136,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#0d9488;background:rgba(13,148,136,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
+.explain-banner .eb-text b{color:#0f172a;font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #0d9488}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#0d9488;font-weight:700}
+.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.giant-card:hover{border-color:#0d9488;background:rgba(13,148,136,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(13,148,136,0.12)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:#0f172a}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
+.region-hk{background:rgba(234,179,8,0.14);color:#b45309;border:1px solid rgba(234,179,8,0.3)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#0d9488;font-weight:600}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
+.overview{background:rgba(13,148,136,0.05);border:1px solid rgba(13,148,136,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
+.overview b{color:#0f172a;font-weight:600}
+.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #0d9488;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
+.layer-detail-body b{color:#334155}
+.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.info-table tr{border-bottom:1px solid #eef2f7}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
+.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
+.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(13,148,136,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#0d9488}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.back-bar{margin-top:20px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(13,148,136,0.08);color:#0d9488;border:1px solid rgba(13,148,136,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(13,148,136,0.16)}
+.data-banner{background:rgba(13,148,136,0.07);border:1px solid rgba(13,148,136,0.22);border-left:4px solid #0d9488;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:#0f172a;font-weight:600}
+.data-banner .upd{color:#0d9488;font-weight:600}
+.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(13,148,136,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cycle-title .icon{color:#0d9488}
+.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
+.cycle-body b{color:#0f172a;font-weight:600}
+.cycle-body p{margin-bottom:8px}
+.cycle-body ul{margin:8px 0 0 18px;padding:0}
+.cycle-body li{margin-bottom:6px}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #0d9488;padding:8px 12px;background:rgba(13,148,136,0.06);line-height:1.7}
+.cycle-current b{color:#334155}
+.cycle-current a{text-decoration:none}
+.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px}
+.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.fin-title .icon{color:#0d9488}
+.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px;white-space:nowrap}
+.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.fin-table tr{border-bottom:1px solid #eef2f7}
+.fin-table tr:last-child{border-bottom:none}
+.fin-table td{padding:9px 12px;font-size:13px;color:#334155}
+.fin-table td:first-child{width:130px;color:#64748b}
+.fin-table .val{color:#b45309;font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+.poisson-char{font-family:"Segoe UI","Microsoft YaHei",Arial,sans-serif;font-variant-emoji:text;-webkit-font-variant-emoji:text}
+.poisson-pill{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700}
+@media(max-width:640px){.fin-block{padding:10px 12px;margin-bottom:6px}.fin-head{flex-wrap:wrap;gap:6px;margin-bottom:8px}.fin-title{font-size:14px;gap:6px}.fin-tag{font-size:10px;padding:2px 7px}.fin-table td{padding:7px 10px;font-size:12px}.fin-table td:first-child{width:auto;min-width:90px}.fin-note{font-size:11px;line-height:1.55}}
 
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div class="topbar-in">
-    <div class="brand">伯克希尔<span class="ac">投资数据中心</span></div>
-    <div class="crumb">/ <a href="berkshire-standalone.html">枢纽</a> / <a href="berkshire-chain-map.html">覆盖地图</a> / PCB产业链</div>
-  </div>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:0d9488;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:0d9488;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:0d9488;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:0d9488;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:0d9488;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:0d9488;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:0d9488;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:0d9488;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:0d9488;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:0d9488;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:0d9488;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:0d9488;text-decoration:none;font-size:13px">电力设备</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>PCB 产业链</span>
 </div>
+</div>
+<div class="container">
+
 <div class="hero">
-  <h1>PCB产业链<span class="badge">已建框架</span><span class="badge" style="background:#1f9d6b;color:#fff;margin-left:6px">已补叙事</span><!--cf-narrative-index--></h1>
-  <p>AI 服务器拉动高层板与 IC 载板，HDI/高速板量价齐升。</p>
+<div class="hero-title">PCB 产业链</div>
+<div class="hero-sub">价值投资视角下的「覆铜板 + 印制电路板 + 封装基板」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">9</div><div class="stat-label">上市公司</div></div>
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
 </div>
-<div class="decl">
-  <div class="bar"><b>⚠️ 网络收集 · 已建深凿 · 不做投资依据：</b>本页为PCB产业链的研究框架与代表公司索引。估值历史分位(PE/PB 近十年)、泊松跳变信号、2025 年报财报基本面(营收/净利/ROE/负债率)、组织效能(员工人数/增速/人均净利)均已基于 akshare 行情与 cninfo 年报公开披露回填（截至 2026-07-28）；公司详情页另已增补财报与研报(东财研报PDF/财报公告)与可视化决策仪表盘(结论合成·马克斯象限·安全边际·治理维度)；个别公司因披露格式/数据源限制未取到数据的字段诚实标注「待采集」。公司列表为公开资料整理的代表性样本，非穷举，不构成投资建议。</div>
-</div>
-<div class="stats">
-  <div class="stat"><div class="v ac">10</div><div class="k">代表公司（A股样本）</div></div>
-  <div class="stat"><div class="v">5</div><div class="k">框架层级</div></div>
-  <div class="stat"><div class="v">已建</div><div class="k">估值分位/泊松/财报/效能/研报/可视化</div></div>
-</div>
-<!--research-signal-->
-<div class="section-title" style="border-left:3px solid #22d3ee">研究信号（框架研判）</div>
-<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #22d3ee;border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
-    <div style="font-weight:700;color:#475569">周期位置</div><div>AI服务器拉动高端PCB需求</div>
-    <div style="font-weight:700;color:#475569">景气方向</div><div>结构性高景气</div>
-    <div style="font-weight:700;color:#475569">结论信号</div><div><b>🟢 看好</b> — AI算力链传导，高端产能紧缺</div>
-    <div style="font-weight:700;color:#475569">核心催化</div><div>①AI服务器放量  ②高层板/IC载板缺口  ③汽车电子增量</div>
-    <div style="font-weight:700;color:#475569">关键风险</div><div>①产能扩太快  ②技术路线变化  ③原料铜价</div>
-  </div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：成分股未纳入量化库·非数据锚定（行业框架研判，需结合实盘校验）。结论为框架合成，需结合实盘研究校验。</div>
-</div>
-<!--/research-signal--><div class="wrap">
-  <div class="sec">
-    <h2>PCB产业链 · 五层框架 <span class="cnt">5</span></h2>
-    <div class="desc">沿「上游资源 → 中游制造 → 下游需求 → 投资逻辑」拆解为五层，便于逐层定位景气与风险。</div>
-    <div class="framework">
-      <div class="layer"><div class="ln">LAYER 1</div><div class="lt">基材</div><div class="ld">覆铜板/树脂</div></div>
-      <div class="layer"><div class="ln">LAYER 2</div><div class="lt">制造</div><div class="ld">多层/HDI/载板</div></div>
-      <div class="layer"><div class="ln">LAYER 3</div><div class="lt">应用</div><div class="ld">通信/服务器/汽车</div></div>
-      <div class="layer"><div class="ln">LAYER 4</div><div class="lt">客户</div><div class="ld">云厂与设备商</div></div>
-      <div class="layer"><div class="ln">LAYER 5</div><div class="lt">投资逻辑</div><div class="ld">看 AI 服务器/载板国产化</div></div>
-    </div>
-  </div>
-  <div class="sec">
-    <h2>代表公司（A股样本） <span class="cnt">10</span></h2>
-    <div class="desc">以下为公开资料整理的代表性 A 股公司，按规模/代表性选取，非穷举；已含 2025 年报财报基本面与组织效能(员工效率)模块，数据基于 akshare 行情与 cninfo 年报公开披露回填（截至 2026-07-25）。</div>
-    <div class="companies">
-      <div class="co"><div class="nm">鹏鼎控股</div><a class="co-detail" href="berkshire-pcb-co-002938.html">查看详情 →</a><span class="st pe-high">PE分位 97.8%</span><span class="st pe-high">PB分位 91.5%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>391.5亿</b> · 净利 <b>37.4亿</b> · ROE <b>11.3</b> · 负债率 <b>28.9</b></div><div class="cf-emp">员工 <b>4.8万</b> · 增速 <b>+10.3%</b> · 人均净利 <b>7.9万</b> · <span class="s-good">扩张向好</span></div><div class="nt">PCB 龙头</div></div>
-      <div class="co"><div class="nm">沪电股份</div><a class="co-detail" href="berkshire-pcb-co-002463.html">查看详情 →</a><span class="st pe-high">PE分位 89.7%</span><span class="st pe-high">PB分位 98.4%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>189.4亿</b> · 净利 <b>38.2亿</b> · ROE <b>28.4</b> · 负债率 <b>46.5</b></div><div class="cf-emp">员工 <b>1.5万</b> · 增速 <b>+40.6%</b> · 人均净利 <b>25.1万</b> · <span class="s-good">扩张向好</span></div><div class="nt">高速板</div></div>
-      <div class="co"><div class="nm">深南电路</div><a class="co-detail" href="berkshire-pcb-co-002916.html">查看详情 →</a><span class="st pe-high">PE分位 94.7%</span><span class="st pe-high">PB分位 87.9%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>236.5亿</b> · 净利 <b>32.8亿</b> · ROE <b>20.6</b> · 负债率 <b>43.8</b></div><div class="cf-emp">员工 <b>2.1万</b> · 增速 <b>+22.5%</b> · 人均净利 <b>15.4万</b> · <span class="s-good">扩张向好</span></div><div class="nt">载板</div></div>
-      <div class="co"><div class="nm">生益科技</div><a class="co-detail" href="berkshire-pcb-co-600183.html">查看详情 →</a><span class="st pe-high">PE分位 98.5%</span><span class="st pe-high">PB分位 98.5%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>284.3亿</b> · 净利 <b>33.3亿</b> · ROE <b>21.1</b> · 负债率 <b>42.3</b></div><div class="cf-emp">员工 <b>1.5万</b> · 增速 <b>+22.9%</b> · 人均净利 <b>23.0万</b> · <span class="s-good">扩张向好</span></div><div class="nt">覆铜板</div></div>
-      <div class="co"><div class="nm">景旺电子</div><a class="co-detail" href="berkshire-pcb-co-603228.html">查看详情 →</a><span class="st pe-high">PE分位 99.3%</span><span class="st pe-high">PB分位 70.8%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>153.1亿</b> · 净利 <b>12.3亿</b> · ROE <b>10.1</b> · 负债率 <b>44.1</b></div><div class="cf-emp">员工 <b>2.1万</b> · 增速 <b>+15.3%</b> · 人均净利 <b>6.0万</b> · <span class="s-good">扩张向好</span></div><div class="nt">刚性板</div></div>
-      <div class="co"><div class="nm">胜宏科技</div><a class="co-detail" href="berkshire-pcb-co-300476.html">查看详情 →</a><span class="st pe-high">PE分位 82.8%</span><span class="st pe-high">PB分位 89.7%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>192.9亿</b> · 净利 <b>43.1亿</b> · ROE <b>33.8</b> · 负债率 <b>52.9</b></div><div class="cf-emp">员工效率：待采集</div><div class="nt">多层板</div></div>
-      <div class="co"><div class="nm">东山精密</div><a class="co-detail" href="berkshire-consumer-electronics-co-002384.html">查看详情 →</a><span class="st pe-high">PE分位 93.6%</span><span class="st pe-high">PB分位 97.9%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>401.2亿</b> · 净利 <b>13.9亿</b> · ROE <b>6.9</b> · 负债率 <b>64.0</b></div><div class="cf-emp">员工效率：待采集</div><div class="nt">柔性板</div></div>
-      <div class="co"><div class="nm">兴森科技</div><a class="co-detail" href="berkshire-pcb-co-002436.html">查看详情 →</a><span class="st pe-high">PE分位 98.4%</span><span class="st pe-high">PB分位 98.4%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>72.0亿</b> · 净利 <b>1.4亿</b> · ROE <b>2.6</b> · 负债率 <b>61.9</b></div><div class="cf-emp">员工 <b>0.8万</b> · 增速 <b>-2.0%</b> · 人均净利 <b>1.7万</b> · <span class="s-watch">收缩调整</span></div><div class="nt">样板/载板</div></div>
-      <div class="co"><div class="nm">崇达技术</div><a class="co-detail" href="berkshire-pcb-co-002815.html">查看详情 →</a><span class="st pe-high">PE分位 92.7%</span><span class="st pe-low">PB分位 14.3%</span><span class="st ">泊松:空头主导</span><div class="cf-fin">营收 <b>75.4亿</b> · 净利 <b>3.2亿</b> · ROE <b>4.0</b> · 负债率 <b>25.5</b></div><div class="cf-emp">员工 <b>0.7万</b> · 增速 <b>+5.9%</b> · 人均净利 <b>4.5万</b> · <span class="s-good">扩张向好</span></div><div class="nt">小批量</div></div>
-      <div class="co"><div class="nm">超声电子</div><a class="co-detail" href="berkshire-pcb-co-000823.html">查看详情 →</a><span class="st pe-high">PE分位 87.8%</span><span class="st ">PB分位 59.5%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>63.3亿</b> · 净利 <b>2.2亿</b> · ROE <b>4.6</b> · 负债率 <b>36.2</b></div><div class="cf-emp">员工 <b>0.8万</b> · 增速 <b>-2.0%</b> · 人均净利 <b>2.9万</b> · <span class="s-watch">收缩调整</span></div><div class="nt">HDI</div></div>
-    </div>
-  </div>
-  <div class="sec">
-    <h2>员工效率与组织效能排行（PCB 9 家）</h2>
-<div class="ovtable"><table>
-<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>效率信号</th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-pcb-co-002463.html">沪电股份</a></td><td class="num">15,243</td><td class="num up">+40.61%</td><td class="num">¥124.3万</td><td class="num">¥25.1万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-pcb-co-600183.html">生益科技</a></td><td class="num">14,523</td><td class="num up">+22.88%</td><td class="num">¥195.8万</td><td class="num">¥23.0万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-pcb-co-002916.html">深南电路</a></td><td class="num">21,211</td><td class="num up">+22.54%</td><td class="num">¥111.5万</td><td class="num">¥15.4万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-pcb-co-603228.html">景旺电子</a></td><td class="num">20,680</td><td class="num up">+15.29%</td><td class="num">¥74.0万</td><td class="num">¥6.0万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-pcb-co-002938.html">鹏鼎控股</a></td><td class="num">47,573</td><td class="num up">+10.30%</td><td class="num">¥82.3万</td><td class="num">¥7.9万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-pcb-co-002815.html">崇达技术</a></td><td class="num">7,174</td><td class="num up">+5.89%</td><td class="num">¥105.2万</td><td class="num">¥4.5万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-pcb-co-002436.html">兴森科技</a></td><td class="num">7,761</td><td class="num down">-2.01%</td><td class="num">¥92.7万</td><td class="num">¥1.7万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-pcb-co-000823.html">超声电子</a></td><td class="num">7,531</td><td class="num down">-2.04%</td><td class="num">¥84.1万</td><td class="num">¥2.9万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-pcb-co-300476.html">胜宏科技</a></td><td class="num">—</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
-</tbody>
-</table>
-<div class="fin-note">员工增速=在职员工(集团/母公司口径)同比；人均营收/净利=2025 营收(元)÷员工数。已覆盖 8/9 家员工数据，
-其余因年报未披露标准「在职员工的数量合计」口径或非 A 股主体标「数据不足」。排序：有数据优先、按员工增速降序。
-组织效能信号由「员工增速分档 × 人均盈利分档」组合判定，为代理指标，非投资建议。</div>
 </div>
 
-<h2>建设状态</h2>
-    <div class="desc">本链为已建深凿版：估值历史分位(PE/PB 近十年)、泊松跳变信号、2025 年报财报基本面(营收/净利/ROE/负债率)、组织效能(员工人数/增速/人均净利)均已基于 akshare 行情与 cninfo 年报公开披露回填（截至 2026-07-25）；个别公司因披露格式/数据源限制未取到数据的字段诚实标注「待采集」。</div>
-  </div>
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
+
+<div class="explain-banner">
+<div class="eb-icon">🔲</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「PCB 产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把PCB 龙头按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
+<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中为框架级定性梳理，不编造具体财务数字，最新数据以公司公告为准。
 </div>
-<div class="foot">
-  <p><b>关于本页：</b>PCB产业链框架版，隶属「全A股产业链覆盖地图」分阶段建设成果。框架参照申万/中信行业分类公开标准整理。</p>
-  <p>⚠️ 以上内容由 AI 基于公开信息整理生成，<b>深度数据(估值/财务/信号/效能)已基于公开披露回填，不构成任何投资建议或个股推荐，不做投资依据</b>。投资有风险，决策需谨慎。</p>
+</div>
+</div>
+
+<div class="section-title">跨层分析框架（5 层）</div>
+<div class="layers">
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游 · 覆铜板与材料</div><div class="layer-desc">覆铜板（CCL）、铜箔、树脂、玻纤布，是 PCB 的底层材料</div></div><div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游 · 印制电路板制造</div><div class="layer-desc">刚性板 / 柔性板（FPC）/ HDI / 高频高速板制造</div></div><div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游 · 封装基板</div><div class="layer-desc">IC 载板（ABF/BT）等高端基板，是先进封装核心材料</div></div><div class="layer-card"><div class="layer-num">04</div><div class="layer-name">应用场景</div><div class="layer-desc">通信 / 服务器 / 汽车电子 / 消费电子 / AI 算力，是需求根本来源</div></div><div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">层数 / 材料升级 + 算力与汽车放量；风险在周期、铜价、稼动率与价格战</div></div>
+</div>
+
+<div class="section-title">产业周期判断标准</div>
+<div class="cycle-block" id="cycle"><div class="cycle-title"><span class="icon">🔄</span> PCB 产业链 产业周期怎么看</div><div class="cycle-body"><p><b>驱动变量</b>：AI 算力与数据中心资本开支、汽车电动化/智能化、覆铜板材料升级（高频高速/载板）、铜价与稼动率、行业价格周期。</p><ul><li><b>算力需求</b>：AI 服务器拉动高阶数通板与封装基板用量，是近年最强增量。</li><li><b>汽车电子</b>：电动化与智能化提升车用板层数与时价，需求稳健。</li><li><b>材料升级</b>：覆铜板与载板高端化打开单价与国产替代空间。</li><li><b>周期属性</b>：PCB 行业稼动率与价格呈周期波动，铜价与产能投放是变量。</li><li><b>格局</b>：高阶板与载板认证壁垒高，头部集中。</li></ul></div><div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：PCB 呈「AI 算力数通板 + 汽车电子 + 高端载板国产替代」三轮驱动：AI 服务器资本开支拉动高阶多层/高频板与 IC 载板需求，汽车电动化提升车用板价值量；最大变量是行业稼动率与价格周期、铜价，以及载板良率爬坡，龙头凭借工艺与客户认证穿越周期。</div></div>
+
+<div class="section-title">PCB 龙头索引（上市公司 9 家）</div>
+<div class="grid">
+<a class="giant-card" href="berkshire-pcb-chain-002463.html"><div class="giant-head"><span class="giant-name">沪电股份 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">企业通信与汽车 PCB 龙头，高阶数通与汽车板占比高。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-pcb-chain-002916.html"><div class="giant-head"><span class="giant-name">深南电路 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">通信/工控 PCB 与 IC 载板一体化龙头，载板国产替代核心。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-pcb-chain-600183.html"><div class="giant-head"><span class="giant-name">生益科技 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">覆铜板（CCL）龙头，PCB 上游核心材料供应商。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-pcb-chain-603228.html"><div class="giant-head"><span class="giant-name">景旺电子 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">刚性板/柔性板/FPC 综合 PCB 厂，多元布局。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-pcb-chain-002938.html"><div class="giant-head"><span class="giant-name">鹏鼎控股 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">全球 FPC 与 PCB 龙头，消费电子与通信板主力。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-pcb-chain-002436.html"><div class="giant-head"><span class="giant-name">兴森科技 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">样板/小批量板与 IC 载板（FCBGA）布局企业。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-pcb-chain-002815.html"><div class="giant-head"><span class="giant-name">崇达技术 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">多品种小批量 PCB 厂商，工控/通信/汽车客户为主。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-pcb-chain-300476.html"><div class="giant-head"><span class="giant-name">胜宏科技 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">高密度多层板与汽车/AI PCB 供应商。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-pcb-chain-000823.html"><div class="giant-head"><span class="giant-name">超声电子 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">印制板与显示（LCD）双主业，PCB 以多层/HDI 为主。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
 </div>
 </body>
 </html>
