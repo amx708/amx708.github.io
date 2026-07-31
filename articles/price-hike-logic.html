@@ -3,293 +3,380 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>涨价逻辑专题 · 吾知讲乜价值体系拆解与实战应用</title>
+<title>周期股涨价逻辑攻略 · 通用方法论</title>
 <style>
   :root{
-    --bg:#f6f8fa; --card:#fff; --ink:#1f2733; --sub:#5b6776; --line:#e6e9ef;
-    --accent:#c0392b; --accent2:#1f6feb; --gold:#b8860b; --green:#1a7a4a; --soft:#f0f3f8;
+    --bg:#f5f7fa; --card:#ffffff; --ink:#1f2933; --muted:#5b6770;
+    --line:#e3e8ee; --brand:#0f6e4f; --brand2:#0b8a5f;
+    --up:#c0392b; --down:#1e8449; --warn:#b8860b; --info:#1f6feb;
+    --soft:#eef3f0; --chip:#e8f0ec;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:-apple-system,"PingFang SC","Microsoft YaHei",Helvetica,Arial,sans-serif;line-height:1.7;font-size:15px}
-  .wrap{max-width:1000px;margin:0 auto;padding:30px 22px 60px}
-  header{background:linear-gradient(135deg,#b8860b,#8a6508);color:#fff;border-radius:14px;padding:24px 28px;margin-bottom:20px}
-  header h1{margin:0 0 6px;font-size:22px}
-  header p{margin:0;opacity:.92;font-size:13.5px}
-  section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin-bottom:16px}
-  h2{font-size:18px;margin:0 0 12px;padding-left:11px;border-left:4px solid var(--gold);}
-  h3{font-size:15px;color:var(--accent);margin:18px 0 8px}
-  .lead{background:var(--soft);border-left:4px solid var(--accent2);padding:14px 16px;border-radius:8px}
-  .lead b{color:var(--accent)}
-  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px}
-  th,td{border:1px solid var(--line);padding:8px 11px;vertical-align:top;text-align:left}
-  th{background:var(--soft);color:var(--sub);font-weight:600}
-  tr:nth-child(even) td{background:#fcfdff}
-  .q{color:var(--accent)}
-  .num{font-variant-numeric:tabular-nums;color:var(--accent2);font-weight:600}
-  .pill{display:inline-block;padding:1px 8px;border-radius:6px;font-size:12px;background:#fdecea;color:var(--accent)}
-  .pill.g{background:#e8f5ee;color:var(--green)}
-  .pill.b{background:#e8f0fe;color:var(--accent2)}
-  .pill.y{background:#fdf6e3;color:var(--gold)}
-  .step{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:8px 0;background:#fcfdff}
-  .step .n{flex:0 0 34px;height:34px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
-  .step .c{flex:1}
-  .step .c b{color:var(--ink)}
-  .formula{background:#1f2733;color:#e8f0fe;padding:14px 16px;border-radius:10px;font-family:"SFMono-Regular",Consolas,monospace;font-size:13.5px;margin:10px 0;line-height:1.9}
-  .formula .hl{color:#ffd479}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media(max-width:680px){.grid2{grid-template-columns:1fr}}
-  .box{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:#fcfdff}
-  .box h4{margin:0 0 8px;font-size:14px;color:var(--accent)}
-  .box.g h4{color:var(--green)}
-  .case{border-left:4px solid var(--gold);background:#fdfbf3;padding:12px 16px;border-radius:8px;margin:10px 0}
-  .case .t{font-weight:700;color:var(--gold);font-size:14.5px;margin-bottom:6px}
-  ul{margin:8px 0;padding-left:20px}
-  li{margin:5px 0}
-  .warn{background:#fdecea;border-left:4px solid var(--accent);padding:12px 16px;border-radius:8px;margin:10px 0}
-  .warn b{color:var(--accent)}
-  .src{font-size:12px;color:var(--sub);border-top:1px dashed var(--line);margin-top:14px;padding-top:10px}
-  .foot{font-size:12.5px;color:var(--sub);text-align:center;margin-top:22px}
-  .tag{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:2px 9px;border-radius:20px;font-size:12px;margin:6px 5px 0 0}
+  body{margin:0;font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px}
+  a{color:var(--brand2);text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+  header.hero{background:linear-gradient(135deg,#0b3d2e 0%,#0f6e4f 60%,#0b8a5f 100%);color:#fff;padding:54px 0 40px}
+  header.hero h1{font-size:30px;margin:0 0 10px;letter-spacing:.5px}
+  header.hero p{margin:6px 0;opacity:.92;max-width:760px}
+  .badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);
+    padding:3px 10px;border-radius:20px;font-size:12px;margin-bottom:14px}
+  nav.toc{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);padding:10px 0}
+  nav.toc .wrap{display:flex;gap:14px;flex-wrap:wrap;font-size:13px}
+  nav.toc a{color:var(--muted);padding:4px 8px;border-radius:6px}
+  nav.toc a:hover{background:var(--soft);color:var(--brand)}
+  section{padding:34px 0 8px}
+  h2{font-size:22px;border-left:5px solid var(--brand);padding-left:12px;margin:6px 0 16px}
+  h3{font-size:17px;color:var(--brand);margin:22px 0 8px}
+  p{margin:8px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0;
+    box-shadow:0 1px 3px rgba(20,40,30,.04)}
+  .grid{display:grid;gap:14px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:760px){.g3,.g2{grid-template-columns:1fr}}
+  .metric{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .metric .n{font-size:13px;color:var(--muted)}
+  .metric .t{font-size:18px;font-weight:700;margin:4px 0}
+  .metric .d{font-size:13px;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;background:var(--card);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:var(--soft);color:var(--brand);font-weight:600}
+  tr:last-child td{border-bottom:none}
+  .pill{display:inline-block;font-size:12px;padding:2px 9px;border-radius:20px;font-weight:600}
+  .p-up{background:#fdecea;color:var(--up)}
+  .p-down{background:#eafaf1;color:var(--down)}
+  .p-warn{background:#fdf6e3;color:var(--warn)}
+  .p-info{background:#eaf2ff;color:var(--info)}
+  .p-ok{background:var(--chip);color:var(--brand)}
+  .callout{border-left:4px solid var(--warn);background:#fdfaf0;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+  .callout.danger{border-color:var(--up);background:#fdf3f2}
+  .callout.tip{border-color:var(--info);background:#f1f7ff}
+  .steps{counter-reset:s;list-style:none;padding:0;margin:10px 0}
+  .steps li{position:relative;padding:14px 16px 14px 56px;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;margin:10px 0}
+  .steps li:before{counter-increment:s;content:counter(s);position:absolute;left:14px;top:14px;
+    width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;display:flex;
+    align-items:center;justify-content:center;font-weight:700}
+  .calc{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .calc .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin:8px 0}
+  .calc label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+  .calc input{width:160px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+  .calc .res{font-size:20px;font-weight:700;color:var(--brand);margin-top:6px}
+  .formula{background:#0b3d2e;color:#eafff4;padding:12px 16px;border-radius:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
+  footer{background:#0b3d2e;color:#cfe9df;padding:30px 0;margin-top:40px;font-size:13px}
+  footer .wrap{max-width:1080px}
+  .kpi{font-size:26px;font-weight:800;color:var(--brand)}
+  .small{font-size:12px;color:var(--muted)}
+  ul.tight{margin:8px 0;padding-left:20px}
+  ul.tight li{margin:5px 0}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<header>
-  <h1>涨价逻辑专题 ｜ 吾知讲乜价值体系拆解与实战应用</h1>
-  <p>整理人：阿研 ｜ 2026-07-31 ｜ 主题：把「涨价逻辑」从价值体系中独立出来，配化工 / 有色实例</p>
-  <div>
-    <span class="tag">五步法</span><span class="tag">业绩弹性公式</span><span class="tag">周期化工</span><span class="tag">有色金属</span><span class="tag">领先定价</span>
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">通用方法论 · 非个股推荐</span>
+    <h1>周期股涨价逻辑攻略</h1>
+    <p>一套用于筛选"产品涨价→股价未反映"错配机会的通用研究框架。适用于化工、有色、建材、农产品等强周期行业，本质是<strong>用公开价格数据寻找信息差与安全边际</strong>。</p>
+    <p class="small">本页为方法论与历史案例整理，不构成任何投资建议；所有数据均标注来源与时间，过时数据请自行复核。</p>
   </div>
 </header>
 
-<!-- 体系一句话 -->
-<section>
-  <h2>一、价值体系一句话（独立提炼）</h2>
-  <div class="lead">
-    <b>吾知讲乜的核心，不是"价值投资"，而是"错配套利"：在「行业产品价格」与「股价」出现错配、且确定性高时重仓下注；价格涨→利润涨→股价涨的链条里，他赚的是"行业周期↔股价"的时间差与认知差。</b>
-    支撑这套体系的四根柱子：<b>信息差（每日盯价）</b> + <b>确定性（只赌看底牌的局）</b> + <b>极致纪律（永远不满仓）</b> + <b>独立心性（投资是孤独的事）</b>。其中「涨价逻辑」是方法论的发动机。
+<nav class="toc">
+  <div class="wrap">
+    <a href="#what">① 是什么</a>
+    <a href="#core">② 三大核心指标</a>
+    <a href="#factor">③ 四大决定因素</a>
+    <a href="#method">④ 五步法</a>
+    <a href="#chem">⑤ 化工实例</a>
+    <a href="#metal">⑥ 有色实例</a>
+    <a href="#law">⑦ 规律与陷阱</a>
+    <a href="#calc">⑧ 弹性计算器</a>
+    <a href="#system">⑨ 监测系统</a>
+    <a href="#risk">⑩ 风险与免责</a>
   </div>
-</section>
+</nav>
 
-<!-- 五步法 -->
-<section>
-  <h2>二、涨价逻辑五步法（机制拆解）</h2>
-
-  <div class="step">
-    <div class="n">1</div>
-    <div class="c"><b>抓价格信号</b>——盯住"中游产品价格"。上游（原油/铜/铝）看期货人人都看，终端消费日常可感；<b>唯独中游化工/材料品（维生素、纯碱、有机硅、钛白粉、磷化工）关注度低、信息差最大</b>。数据源：百川盈孚、卓创、生意社、中国化工网等付费/公开报价。</div>
-  </div>
-  <div class="step">
-    <div class="n">2</div>
-    <div class="c"><b>算业绩弹性</b>——把"涨了多少价"换算成"多赚多少 EPS"。这是判断值不值得做的量化尺（公式见第三节）。</div>
-  </div>
-  <div class="step">
-    <div class="n">3</div>
-    <div class="c"><b>找错配</b>——找"产品价格已显著上涨，但股价还没涨/甚至下跌"的公司。<span class="q">「在行业出现拐点并且加速上涨的时间段买入」</span>。价涨股未涨 = 市场预期尚未打满 = 安全边际。</div>
-  </div>
-  <div class="step">
-    <div class="n">4</div>
-    <div class="c"><b>择时</b>——不抄底不逃顶，等"拐点+加速段"确认；利用财报季（1/4/7/10 月）兑现，<span class="q">「buy rumor, sell fact」</span>。暴跌有速度时才敢越跌越买，阴跌不碰。</div>
-  </div>
-  <div class="step">
-    <div class="n">5</div>
-    <div class="c"><b>退出</b>——周期下行（业绩下滑→股价缺驱动）即退；<span class="q">「每个股票都有始有终，说买也说清」</span>；<span class="q">「留点钱给别人赚」</span>不赚最后铜板。</div>
-  </div>
-</section>
-
-<!-- 业绩弹性公式 -->
-<section>
-  <h2>三、业绩弹性怎么算（通用公式）</h2>
-  <div class="formula">
-    <span class="hl">ΔEPS</span> = ( Δ价格 × 年销量 × 毛利率敏感度 × (1 − 税率) ) ÷ 总股本
-    <br>简化（近似）：Δ净利润 ≈ <span class="hl">涨价金额 × 相关年产量</span>（忽略成本联动）
-    <br>→ 再 ÷ 总股本 = <span class="hl">ΔEPS</span>；ΔEPS × 当前 PE ≈ 理论股价弹性
-  </div>
-  <div class="grid2">
-    <div class="box">
-      <h4>例 A · 维生素（新和成）</h4>
-      <ul>
-        <li>VE 产能 3 万吨（国内 26%）；VA 产能 8000 吨</li>
-        <li>VE 从 60 → 82 元/kg，VA 从 75 → 92 → <b>巴斯夫爆炸后冲 290–300 元/kg</b></li>
-        <li>结果：2024 年归母净利 <span class="num">58.7 亿</span>（同比 <span class="num">+117%</span>），EPS 约 1.91 元</li>
-        <li>弹性来源：龙头产能集中 + 供给不可抗力（巴斯夫停产）</li>
-      </ul>
+<!-- ① -->
+<section id="what"><div class="wrap">
+  <h2>① 涨价逻辑到底是什么</h2>
+  <div class="card">
+    <p><strong>一句话：</strong>当一家公司的<strong>主营产品价格持续上涨</strong>，而市场还没有把这份利润预期打进股价时，就出现了"错配"——这是周期股最核心的超额收益来源之一。</p>
+    <p>它赚的不是"长期价值成长"的钱，而是<strong>"价格周期反转 + 预期差"</strong>的钱。价格由供需决定，股价由预期决定；两者之间天然存在时间差，框架的作用就是捕捉这个时间差。</p>
+    <div class="grid g3">
+      <div class="metric"><div class="n">发动机</div><div class="t">产品价格</div><div class="d">没有价格动，一切免谈。价格是唯一因，利润与股价都是果。</div></div>
+      <div class="metric"><div class="n">机会本身</div><div class="t">价股错配</div><div class="d">价涨了、股没跟 = 预期未打满 = 安全边际。这是"买点"的本体。</div></div>
+      <div class="metric"><div class="n">可持续性</div><div class="t">供给硬约束</div><div class="d">事故/检修/环保/矿权造成的缺口，比情绪拉涨更暴利、更持久。</div></div>
     </div>
-    <div class="box">
-      <h4>例 B · 铜（紫金矿业）</h4>
-      <ul>
-        <li>2025 年矿产铜约 <span class="num">118 万吨</span>，权益约 85%</li>
-        <li>铜价每涨 <span class="num">1000 美元/吨</span> → 归母净利增厚约 <span class="num">35–40 亿元</span>（约占年利 10–12%）</li>
-        <li>金价每涨 100 美元/盎司 → 净利 +18–22 亿</li>
-        <li>这就是周期股估值的"量尺"：铜价一动，先看弹性</li>
-      </ul>
+    <div class="callout tip">
+      <strong>适用边界：</strong>强周期、产品有公开报价、成本曲线清晰、供给端易出"黑天鹅缺口"的行业最有效（化工、有色、建材、农产品、航运等）。对消费、科技等弱周期或定价权在需求端的行业，框架需大幅打折使用。
     </div>
   </div>
-  <p class="src">注：弹性为静态近似，假设成本/税率/估值不变；实战中铜价上涨常伴随 PE 抬升（戴维斯双击）。</p>
-</section>
+</div></section>
 
-<!-- 周期化工 -->
-<section>
-  <h2>四、套用 · 周期化工</h2>
-  <p>化工最契合"涨价逻辑"：品类多、供需缺口常由<b>检修/事故/环保/产能出清</b>触发，价格弹性大且股价反应有滞后。</p>
-
-  <div class="case">
-    <div class="t">例1 维生素（新和成 002001 / 浙江医药 600216）——供给冲击型</div>
-    <ul>
-      <li><b>触发</b>：2024-07 巴斯夫德国路德维希港爆炸，VA/VE 宣布不可抗力，全球近 3 成 VA、13% VE 产能受影响</li>
-      <li><b>价格</b>：VA 75→92→<b>290–300 元/kg</b>；VE 60→82 元/kg</li>
-      <li><b>业绩</b>：新和成 2024 净利 +117%，浙江医药 +170%；毛利率抬升 5–7pct</li>
-      <li><b>启示</b>：龙头产能集中 + 不可抗力的"错配"最暴利；但涨价能否持续看复产时间（巴斯夫 2025-01 后才逐步恢复）</li>
-    </ul>
+<!-- ② -->
+<section id="core"><div class="wrap">
+  <h2>② 三大核心指标（仪表盘）</h2>
+  <p>把复杂框架浓缩成每天只需盯的<strong>三个数字</strong>。其中前两个是"机会窗口"，第三个决定"值不值得做"。</p>
+  <table>
+    <thead><tr><th>重要性</th><th>指标</th><th>看什么</th><th>经验阈值</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="pill p-up">第一</span></td>
+        <td><strong>产品价格变化率</strong><br><span class="small">月涨% / 周涨%</span></td>
+        <td>涨价逻辑的发动机。月度看趋势，周度看"急涨冲击"。</td>
+        <td>月度门槛：化工 10–15%、有色 6–10%；周涨≥20% 视为供给冲击</td>
+      </tr>
+      <tr>
+        <td><span class="pill p-up">第一</span></td>
+        <td><strong>价股错配度</strong><br><span class="small">= 价月涨% − 股月涨%</span></td>
+        <td>价涨、股没跟 = 预期未打满 = 安全边际。这是"机会"本身。</td>
+        <td>价涨≥门槛 且 股月涨&lt;价的 60% → 错配买点</td>
+      </tr>
+      <tr>
+        <td><span class="pill p-ok">第二</span></td>
+        <td><strong>业绩弹性 ΔEPS</strong><br><span class="small">≈ 涨价额×年产量÷股本</span></td>
+        <td>决定"这波涨价值不值得做"，避免小题大做、被稀释。</td>
+        <td>弹性小（占比低/成本同涨）直接 Pass</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <strong>最简记忆：</strong>真正每天只需看一个核心数字 —— <strong>「产品价格月涨幅 − 代表标的股价月涨幅」</strong>。
+    它是正且够大 = 机会；它是负（价涨股跌）= 撤退信号。其余指标都是给这个数字做背书或排雷的。
   </div>
+</div></section>
 
-  <div class="case">
-    <div class="t">例2 纯碱 / 天然碱（远兴能源 000683）——成本壁垒型</div>
-    <ul>
-      <li><b>逻辑</b>：天然碱法成本（约 800–1000 元/吨）远低于合成碱（约 1500+），成本曲线最左</li>
-      <li><b>涨价弹性</b>：纯碱每涨 100 元/吨，低成本产能利润增量最大；价在高位时远兴盈利近 8 位数（吾知自述）</li>
-      <li><b>风险</b>：大规模扩产后纯碱价格中枢下移，周期下行段"股价缺乏向上驱动"→ 吾知清仓</li>
-    </ul>
-  </div>
-
-  <div class="case">
-    <div class="t">例3 钛白粉（龙佰集团 002601）——成本传导型</div>
-    <ul>
-      <li><b>逻辑</b>：钛精矿 + 硫酸涨价 → 钛白粉提价；龙头有矿源一体化，传导能力最强</li>
-      <li><b>看点</b>：出口占比高，海外补库周期叠加；但地产链需求弱会压制持续性</li>
-      <li><b>检验</b>：提价比价是否"量价齐升"，还是"价涨量缩"（后者是虚涨）</li>
-    </ul>
-  </div>
-
-  <div class="case">
-    <div class="t">例4 磷化工（兴发集团 600141 / 云天化 600096）——资源 + 新能源型</div>
-    <ul>
-      <li><b>逻辑</b>：磷矿石稀缺（开采指标受限）+ 草甘膦/磷酸铁锂需求；兴发是吾知经典战役之一</li>
-      <li><b>看点</b>：矿—肥—新材料一体化，资源壁垒高；新能源退潮时回撤大</li>
-    </ul>
-  </div>
-
-  <div class="box g" style="margin-top:12px">
-    <h4>✅ 化工股"涨价逻辑"检查清单</h4>
-    <ul>
-      <li>① 涨价由<b>供给端硬约束</b>（事故/检修/环保/矿权）触发，而非单纯情绪？</li>
-      <li>② 该品种占公司营收/利润<b>比重够大</b>（&gt;20%）？否则"价涨利不涨"</li>
-      <li>③ 公司处于<b>成本曲线左侧</b>（低成本龙头），弹性最大？</li>
-      <li>④ 股价<b>尚未反映</b>涨价（错配存在）？</li>
-      <li>⑤ 涨价<b>持续性</b>：复产/扩产周期多长？库存水位？</li>
-    </ul>
-  </div>
-</section>
-
-<!-- 有色金属 -->
-<section>
-  <h2>五、套用 · 有色金属</h2>
-  <p>有色价格多跟宏观/全球供需，透明度高（LME/SHFE 实时报价），信息差小，但<b>股价对价格高度敏感、且"领先定价"特征最典型</b>。</p>
-
-  <div class="case">
-    <div class="t">例1 铜（紫金矿业 601899 / 西部矿业 601168 / 洛阳钼业 603993）——量价齐升型</div>
-    <ul>
-      <li><b>弹性尺</b>：铜价 +1000 美元/吨 → 紫金净利 +35–40 亿；<b>高自给率矿山 &gt; 纯冶炼</b>（冶炼几乎无弹性）</li>
-      <li><b>选股顺序</b>：矿产铜自给率高 + 现金成本低 + 估值处历史低位 = 戴维斯双击标的</li>
-      <li><b>宏观叙事</b>：铜=AI 算力/电网/新能源的"底层 beta"，需求叙事强；但地缘、美元、海外矿山是风险</li>
-    </ul>
-  </div>
-
-  <div class="case">
-    <div class="t">例2 锂（天齐锂业 002466 / 赣锋锂业 002460）——完整周期教科书</div>
-    <ul>
-      <li><b>暴涨</b>：碳酸锂 2021 初 5 万 → 2022-11 最高 <b>60 万/吨</b>（十余倍）</li>
-      <li><b>业绩</b>：天齐 2022 净利 <span class="num">241 亿</span>（同比 +1060%），赣锋 205 亿（+292%）</li>
-      <li><b>暴跌</b>：2023 跌到 10 万/吨，双雄净利<b>腰斩</b>（天齐 66–89 亿、赣锋 42–62 亿指引）</li>
-      <li><b>⚠️ 关键规律</b>：<b>股价领先商品 6–12 个月见顶</b>——天齐 2021-09 股价见顶（148 元），锂价 2022-11 才见顶。周期股炒"预期"，不炒"现价"</li>
-    </ul>
-  </div>
-
-  <div class="case">
-    <div class="t">例3 铝（神火股份 000933 / 云铝股份 000807）——价格 × 成本（电）型</div>
-    <ul>
-      <li><b>逻辑</b>：铝价弹性 + 自备电/绿电成本优势；云南水电铝有能耗双控与来水双约束</li>
-      <li><b>看点</b>：成本端（电价）比价格端更决定利润厚度；需同时盯铝价与电力政策</li>
-    </ul>
-  </div>
-
-  <div class="case">
-    <div class="t">例4 黄金（山东黄金 600547 / 中金黄金 600489 / 紫金）——宏观对冲型</div>
-    <ul>
-      <li><b>逻辑</b>：金价涨 → 矿产金毛利高（紫金黄金业务毛利率约 74%）；是组合"安全垫"</li>
-      <li><b>看点</b>：与实际利率/美元/避险负相关；适合在"不确定性升温"时作对冲仓位</li>
-    </ul>
-  </div>
-
-  <div class="box g" style="margin-top:12px">
-    <h4>✅ 有色股"涨价逻辑"检查清单</h4>
-    <ul>
-      <li>① 是<b>矿山股（资源自给）</b>还是冶炼股？弹性差十倍，只选前者</li>
-      <li>② 在<b>成本曲线左侧</b>（低成本）吗？价跌时它最后亏、价涨时它最先赚</li>
-      <li>③ 估值（PE/PB）处自身<b>历史分位偏低</b>吗？给双击留空间</li>
-      <li>④ 盯<b>股价是否领先商品</b>：若商品还在涨但股价不创新高，是见顶信号</li>
-      <li>⑤ 宏观变量（美元/利率/地缘）方向是否配合？</li>
-    </ul>
-  </div>
-</section>
-
-<!-- 致命陷阱 -->
-<section>
-  <h2>六、涨价逻辑的致命陷阱（老板最该警惕）</h2>
-  <div class="warn">
-    <b>① 涨价 ≠ 利润涨。</b>若涨价品种占主营比重小、或成本同步上涨（如钛白粉的原料也涨）、或时长太短，EPS 弹性会被稀释。<br>
-    <b>② 股价提前反映。</b>周期股炒预期，股价领先现货 6–12 个月。等"价格暴涨、新闻满天飞"你才看到，往往已是<b>卖点而非买点</b>（锂的教训）。<br>
-    <b>③ 周期反转杀伤。</b>业绩下滑段"股价自然缺乏向上驱动"，重仓周期股回撤可超 30%（如 2023 锂、煤炭回撤）。<br>
-    <b>④ 看错底牌。</b>产能复产/扩产节奏、库存、政策（如锂的"保供稳价"）都会让"确定性"瞬间变"赌博"。<br>
-    <b>⑤ 抄作业滞后。</b>大佬说买会说清，但你未必跟得上清；信息差是要自己每日盯出来的，不是看别人帖子。
-  </div>
-</section>
-
-<!-- 与价投框架接口 -->
-<section>
-  <h2>七、与老板「价值投资」框架的接口</h2>
-  <div class="grid2">
-    <div class="box">
-      <h4>怎么"借用"涨价逻辑</h4>
-      <ul>
-        <li><b>作选股/排雷工具</b>：用"产品在涨价 + 低成本龙头 + 估值低位"缩小股票池，而非日内追涨</li>
-        <li><b>安全边际</b>：只在"低价 + 业绩刚反转"时上仓位，与你的逆向框架一致</li>
-        <li><b>周期定位</b>：用"价格分位 + 产能周期"判断当下是买点还是卖点</li>
-        <li><b>不赚最后铜板</b>：人声鼎沸（新闻、研报齐吹）即减仓，契合你的风控</li>
-      </ul>
+<!-- ③ -->
+<section id="factor"><div class="wrap">
+  <h2>③ 四大决定因素（能不能做）</h2>
+  <p>指标告诉你"窗口出现了"，这四个因素判断"这个窗口能不能进、能进多大"。</p>
+  <div class="grid g2">
+    <div class="card">
+      <h3>🥇 确定性（第一原则）</h3>
+      <p>只在高确定性错配上下注，不确定就轻仓或旁观。确定性来自：价格已真实落地（非传闻）、供需缺口可验证、公司受益路径清晰。</p>
+      <p class="small">反面：赌情绪、赌题材、赌"可能要涨" —— 多半接盘。</p>
     </div>
-    <div class="box g">
-      <h4>和老板框架的差异 / 边界</h4>
-      <ul>
-        <li>吾知靠<b>全天盯盘 + 盘感</b>，你做不了；所以只取"研究框架"，不取"交易节奏"</li>
-        <li>他做<b>周期套利</b>（事件驱动），你做<b>存量服务/硬资产长持</b>；涨价逻辑适合做"卫星仓位"而非核心仓</li>
-        <li>他的回撤极小靠<b>永远不满仓 + 极轻仓</b>，这点直接可照搬</li>
-      </ul>
+    <div class="card">
+      <h3>🥈 信息差 / 数据源</h3>
+      <p>中游产品价格（维生素、纯碱、磷矿石）关注度远低于上游期货，每日盯<strong>百川盈孚、卓创、生意社</strong>等报价即拥有超额信息。</p>
+      <p class="small">反面：等新闻满天飞才看到 → 往往已是卖点。</p>
+    </div>
+    <div class="card">
+      <h3>🥉 供给端硬约束</h3>
+      <p>事故、检修、环保限产、矿权稀缺导致的供给缺口，才是最暴利且可持续的涨价（如装置爆炸致 VA 冲高）。</p>
+      <p class="small">反面：纯情绪/资金拉涨、无供给约束 → 不可持续、易回吐。</p>
+    </div>
+    <div class="card">
+      <h3>🥉 成本曲线位置</h3>
+      <p>低成本龙头（天然碱、自有矿山）弹性最大：价跌它最后亏、价涨它最先赚；价涨它吃满利润。</p>
+      <p class="small">反面：成本曲线右侧、纯冶炼加工 → 涨价也分不到多少利润。</p>
     </div>
   </div>
-</section>
+  <div class="callout tip">
+    <strong>两个不能忽视的附加因子：</strong>
+    <ul class="tight">
+      <li><strong>产品占主营比重（exposure）：</strong>占比 &lt; 20% 时"价涨利不涨"，弹性被严重稀释，必须一票否决或下调权重。</li>
+      <li><strong>股价领先定价（最重要风险因子）：</strong>股价通常领先商品 6–12 个月见顶，所以"价还在涨、股已跌"= 派发警惕，而不是买点。</li>
+    </ul>
+  </div>
+</div></section>
 
-<section>
-  <h2>八、数据来源与免责</h2>
-  <ul>
-    <li>维生素案例：证券时报(2024-08-22)、富途研报、百川盈孚/博亚和讯报价</li>
-    <li>紫金矿业弹性：公司公告、雪球铜股估值分析、公开成本曲线数据</li>
-    <li>锂周期：华夏时报、人民日报·中国能源报、时代周报、雪球复盘</li>
-    <li>吾知讲乜体系：集思录主帖 ID 264580 及《研究札记：周期股与周期策略》ID 476846</li>
-  </ul>
-  <p class="src">
-    ⚠️ 弹性数字为静态近似/第三方口径，紫金"铜价+1000美元→净利+35~40亿"不同来源在 35–60 亿区间，均非本人核验；维生素/锂价为公开报道区间值。<b>本报告为方法论整理与历史案例复盘，不构成任何投资建议，决策请自行判断。</b>
-  </p>
-</section>
+<!-- ④ -->
+<section id="method"><div class="wrap">
+  <h2>④ 五步法（落地流程）</h2>
+  <ol class="steps">
+    <li><strong>抓价格信号</strong>：每日跟踪"中游产品"报价（维生素/纯碱/钛白粉/磷化工/铜锂铝），优先选关注度低、信息差大的品种。</li>
+    <li><strong>算业绩弹性</strong>：ΔEPS ≈ 涨价金额 × 年产量 ÷ 总股本。先算弹性再决定是否值得研究。</li>
+    <li><strong>找错配</strong>：产品价格涨、股价未涨 = 安全边际。用"价股错配度"量化，正且够大才是真错配。</li>
+    <li><strong>择时</strong>：拐点 + 加速段买入；财报季（1/4/7/10 月）是预期兑现窗口，遵循"买预期、卖事实"。</li>
+    <li><strong>退出</strong>：周期下行即清仓，不赚最后一段；人声鼎沸、新闻刷屏时反而警惕。</li>
+  </ol>
+</div></section>
 
-<div class="foot">
-  <a href="../berkshire-articles.html" style="color:var(--accent2);text-decoration:none">← 返回文章中心</a>
-  ｜ <a href="../index.html" style="color:var(--accent2);text-decoration:none">站点首页</a><br>
-  阿研 · 投研副手 ｜ 数据先行 ｜ 以上为公开资料整理，不构成投资建议
-</div>
+<!-- ⑤ -->
+<section id="chem"><div class="wrap">
+  <h2>⑤ 化工实例（含硬数据）</h2>
+  <table>
+    <thead><tr><th>品种 / 标的</th><th>涨价逻辑</th><th>关键数据</th><th>类型</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>维生素（新和成 / 浙江医药）</strong></td>
+        <td>海外大厂装置爆炸/不可抗力 → 供给缺口 → VA/VE 暴涨，国内龙头直接吃满利润。</td>
+        <td>VA 从约 75 元/kg 冲至 290–300 元/kg；新和成 2024 年净利 <strong>+117%</strong>。</td>
+        <td><span class="pill p-up">供给冲击型</span></td>
+      </tr>
+      <tr>
+        <td><strong>纯碱 / 天然碱（远兴能源）</strong></td>
+        <td>天然碱法成本远低于氨碱/联碱，处于成本曲线最左端，价格回暖时弹性最大。</td>
+        <td>低成本 + 大产能 = 周期反转首选弹性标的。</td>
+        <td><span class="pill p-ok">低成本龙头</span></td>
+      </tr>
+      <tr>
+        <td><strong>钛白粉（龙佰集团）</strong></td>
+        <td>成本传导型：看"量价齐升"还是"价涨量缩"。钛精矿成本是利润锚。</td>
+        <td>需同时跟踪钛精矿价格与出口订单，避免"价涨但成本同步涨"。</td>
+        <td><span class="pill p-info">成本传导</span></td>
+      </tr>
+      <tr>
+        <td><strong>磷化工（兴发 / 云天化）</strong></td>
+        <td>磷矿权稀缺 + 新能源（磷酸铁锂）需求增量，矿端供给硬约束。</td>
+        <td>矿自给率高的标的弹性显著优于外购矿企业。</td>
+        <td><span class="pill p-ok">资源约束</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout tip"><strong>化工要点：</strong>化工品的涨价多由"装置事故 / 检修 / 环保"触发，持续时间看缺口大小；优先选<strong>单品占比高 + 成本曲线左端</strong>的龙头。</div>
+</div></section>
 
-</div>
+<!-- ⑥ -->
+<section id="metal"><div class="wrap">
+  <h2>⑥ 有色实例</h2>
+  <table>
+    <thead><tr><th>品种 / 标的</th><th>涨价逻辑</th><th>关键数据</th><th>类型</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>铜（紫金矿业）</strong></td>
+        <td>铜价是估值"量尺"。只选<strong>高自给率矿山股</strong>，纯冶炼无弹性。</td>
+        <td>铜价每涨 1000 美元/吨 → 紫金净利约 <strong>+35~40 亿元</strong>。</td>
+        <td><span class="pill p-ok">资源弹性</span></td>
+      </tr>
+      <tr>
+        <td><strong>锂（天齐 / 赣锋）</strong></td>
+        <td>碳酸锂强周期，price 由供需缺口主导；<strong>最关键的规律：股价领先商品见顶</strong>。</td>
+        <td>碳酸锂 2021 初约 5 万 → 2022.11 最高约 60 万 → 2023 跌至约 10 万；天齐 2022 净利 241 亿(+1060%)；<strong>天齐股价 2021.09 即见顶，锂价 2022.11 才见顶</strong>。</td>
+        <td><span class="pill p-warn">领先见顶</span></td>
+      </tr>
+      <tr>
+        <td><strong>铝（神火 / 云铝）</strong></td>
+        <td>价格 × 电力成本双变量；水电铝成本低且减碳溢价。</td>
+        <td>需同时看铝价与电价/煤炭成本，成本端不失控才有弹性。</td>
+        <td><span class="pill p-info">双变量</span></td>
+      </tr>
+      <tr>
+        <td><strong>黄金（山东黄金）</strong></td>
+        <td>宏观对冲属性，与实际利率、避险需求负相关，与周期商品逻辑不同。</td>
+        <td>更多作为组合"防御垫"，而非弹性进攻品种。</td>
+        <td><span class="pill p-info">对冲垫</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout danger"><strong>锂的教训：</strong>商品还在新高、股价早已腰斩——这就是"股价领先商品 6–12 个月见顶"。看到"价涨股跌"千万别当错配买点，那是派发/撤退信号。</div>
+</div></section>
+
+<!-- ⑦ -->
+<section id="law"><div class="wrap">
+  <h2>⑦ 规律与陷阱（必须记牢）</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3>规律一：股价领先商品见顶</h3>
+      <p>周期股炒的是"未来预期"，不是"当前价格"。商品见顶前半年，股价往往已提前反应。所以<strong>商品新高 ≠ 还能买</strong>。</p>
+    </div>
+    <div class="card">
+      <h3>规律二：涨价 ≠ 利润涨</h3>
+      <p>占比小、成本同步涨、涨价时长短，都会稀释弹性。先算 ΔEPS，再谈机会。</p>
+    </div>
+    <div class="card">
+      <h3>规律三：信息差在"中游"</h3>
+      <p>上游期货人人看，超额收益薄；中游产品报价冷门，才是错配温床。建立自己的数据源 = 建立护城河。</p>
+    </div>
+    <div class="card">
+      <h3>规律四：不赚最后铜板</h3>
+      <p>人声鼎沸、新闻刷屏即警惕。周期品利润兑现最快，反转也最快，留一段给别人。</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ⑧ -->
+<section id="calc"><div class="wrap">
+  <h2>⑧ 业绩弹性计算器（自用）</h2>
+  <div class="calc">
+    <p class="small">公式：ΔEPS ≈ （涨价后单价 − 涨价前单价）× 年产量 ÷ 总股本。结果仅为毛弹性示意，未扣税费与成本变动。</p>
+    <div class="formula">ΔEPS = ΔPrice × AnnualOutput ÷ TotalShares</div>
+    <div class="row">
+      <div><label>涨价前单价（元/吨或元/kg）</label><input id="p0" type="number" value="5000"></div>
+      <div><label>涨价后单价</label><input id="p1" type="number" value="6500"></div>
+      <div><label>年产量（吨）</label><input id="q" type="number" value="1000000"></div>
+      <div><label>总股本（亿股）</label><input id="s" type="number" value="20"></div>
+    </div>
+    <div class="res" id="out">ΔEPS ≈ —</div>
+    <p class="small" id="note"></p>
+  </div>
+</div></section>
+
+<!-- ⑨ -->
+<section id="system"><div class="wrap">
+  <h2>⑨ 如何搭建监测系统</h2>
+  <div class="card">
+    <p>把以上框架工程化，做成一个<strong>每日自动跑、自动推送</strong>的监测器。最小可用架构：</p>
+    <div class="formula" style="background:#0b3d2e">
+      监测清单(watchlist) + 行情数据源(可插拔) → 信号引擎 → 看板(report.html) + 推送文本(alerts.txt)
+    </div>
+    <h3>信号引擎五类判定</h3>
+    <table>
+      <thead><tr><th>信号</th><th>触发逻辑</th><th>动作</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pill p-up">供给冲击</span></td><td>周涨 ≥ 20%（事故/不可抗力型急涨）</td><td>重点跟踪</td></tr>
+        <tr><td><span class="pill p-down">错配买点</span></td><td>价月涨≥门槛 且 股月涨仅为价的 0~60%</td><td>研究建仓</td></tr>
+        <tr><td><span class="pill p-warn">价涨股跌·警惕</span></td><td>价月涨≥10% 但股价月跌（领先见顶）</td><td>减仓/勿追</td></tr>
+        <tr><td><span class="pill p-up">周期下行·退出</span></td><td>价月跌 ≥ -15%</td><td>考虑退出</td></tr>
+        <tr><td><span class="pill p-info">趋势中·已反映</span></td><td>价涨、股同步涨</td><td>持有观察</td></tr>
+      </tbody>
+    </table>
+    <h3>数据源可插拔</h3>
+    <ul class="tight">
+      <li><strong>期货/有色：</strong>akshare（免费，pip install akshare）可取铜、锂、铝、金等期货与个股行情。</li>
+      <li><strong>化工品：</strong>生意社 / 百川盈孚 等报价接口（低价位付费即可，符合小预算），覆盖维生素、纯碱、钛白粉、磷矿石。</li>
+      <li><strong>演示模式：</strong>先用静态 sample_data 跑通逻辑，再替换为实盘 Provider。</li>
+    </ul>
+    <p class="small">工程化后可用定时任务每日收市后运行，把机会/风险摘要推送至邮箱或 IM。本页同源工程已包含 Python 信号引擎与可运行演示。</p>
+  </div>
+</div></section>
+
+<!-- ⑩ -->
+<section id="risk"><div class="wrap">
+  <h2>⑩ 风险与免责</h2>
+  <div class="callout danger">
+    <strong>核心风险：</strong>
+    <ul class="tight">
+      <li>周期反转极快，商品见顶前股价已先行，追高易被埋。</li>
+      <li>涨价持续性难判断，短促脉冲型涨价弹性被稀释。</li>
+      <li>成本同步上涨会吞噬利润，需动态复核成本曲线。</li>
+      <li>框架是"研究/排雷工具"，不是下单机器；信号只提示错配，买卖仍须结合个人安全边际。</li>
+    </ul>
+  </div>
+  <p class="small"><strong>免责声明：</strong>本页所有内容为公开方法论与历史案例的整理，用于研究与学习，<strong>不构成任何投资建议</strong>。文中数据均标注时间与来源，可能存在滞后或偏差，请务必自行复核。投资决策与风险由使用者自行承担。</p>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <p><strong>周期股涨价逻辑攻略</strong> · 通用方法论整理（非个股推荐）</p>
+    <p class="small">数据与案例来源：公开财报、行业报价平台（百川盈孚/卓创/生意社）及历史行情，时间跨度为 2021–2024，请以最新数据为准。</p>
+    <p class="small">以上为方法论与历史案例整理，不构成投资建议，决策请自行判断。</p>
+    <p class="small" style="margin-top:10px"><a href="../berkshire-articles.html">← 返回文章中心</a> ｜ <a href="../index.html">站点首页</a></p>
+  </div>
+</footer>
+
+<script>
+  function calc(){
+    var p0=+document.getElementById('p0').value;
+    var p1=+document.getElementById('p1').value;
+    var q=+document.getElementById('q').value;
+    var s=+document.getElementById('s').value;
+    if(!p0||!p1||!q||!s){document.getElementById('out').textContent='ΔEPS ≈ —';return;}
+    var dP=p1-p0;
+    var delta=dP*q/(s*1e8); // 股本单位为亿股
+    var pct=(dP/p0*100);
+    document.getElementById('out').textContent='ΔEPS ≈ '+(delta>=0?'+':'')+delta.toFixed(3)+' 元/股';
+    var note='单价上涨 '+pct.toFixed(1)+'%，年化新增毛利约 '+(dP*q/1e8).toFixed(2)+' 亿元（未扣费税）。';
+    note+= delta<0.05?' 弹性偏小，谨慎。':(delta>=0.3?' 弹性显著，重点研究。':' 弹性中等。');
+    document.getElementById('note').textContent=note;
+  }
+  ['p0','p1','q','s'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+  calc();
+</script>
 </body>
 </html>
