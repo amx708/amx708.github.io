@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>深凿升级进度</title>
+<style>
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,"Segoe UI",Roboto,sans-serif;background:#0f172a;color:#e2e8f0;
+       display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:20px}
+  .card{background:#1e293b;padding:36px;border-radius:18px;width:520px;max-width:100%;box-shadow:0 12px 48px rgba(0,0,0,.45)}
+  h1{font-size:21px;margin:0 0 4px}
+  .sub{color:#94a3b8;font-size:13px;margin-bottom:26px}
+  .bar{height:30px;background:#334155;border-radius:15px;overflow:hidden;position:relative}
+  .fill{height:100%;background:linear-gradient(90deg,#f97316,#fb923c);width:0;transition:width .6s ease}
+  .pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+  .stat{background:#0f172a;border-radius:10px;padding:14px}
+  .stat .k{font-size:12px;color:#94a3b8}
+  .stat .v{font-size:21px;font-weight:800;margin-top:4px}
+  .status{margin-top:20px;font-size:13px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#22c55e}
+  .ts{color:#64748b}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>产业链深凿升级 · 部署上线进度</h1>
+  <div class="sub">生成已完成 1244/1244 页，正分批推送 GitHub Pages（共 13 批，每批约 100 页）</div>
+  <div class="bar"><div class="fill" id="fill"></div><div class="pct" id="pct">0%</div></div>
+  <div class="stats">
+    <div class="stat"><div class="k">已推送批次</div><div class="v" id="done">0 / 0</div></div>
+    <div class="stat"><div class="k">剩余批次</div><div class="v" id="rem">0</div></div>
+    <div class="stat"><div class="k">速率（批/分）</div><div class="v" id="rate">0</div></div>
+    <div class="stat"><div class="k">预计剩余</div><div class="v" id="eta">—</div></div>
+  </div>
+  <div class="status"><span class="dot" id="dot"></span><span id="stext">部署中…</span><span class="ts">· 更新于 <span id="upd">—</span></span></div>
+</div>
+<script>
+async function tick(){
+  try{
+    const r=await fetch('_progress.json?t='+Date.now());
+    const d=await r.json();
+    document.getElementById('fill').style.width=d.percent+'%';
+    document.getElementById('pct').textContent=d.percent+'%';
+    document.getElementById('done').textContent=d.done+' / '+d.total;
+    document.getElementById('rem').textContent=d.remaining;
+    document.getElementById('rate').textContent=d.rate_per_min;
+    let eta='—';
+    if(d.status==='done') eta='完成';
+    else if(d.status==='stalled') eta='已停滞';
+    else if(d.eta_sec>0) eta=Math.ceil(d.eta_sec/60)+' 分';
+    document.getElementById('eta').textContent=eta;
+    document.getElementById('upd').textContent=d.updated;
+    const dot=document.getElementById('dot'), st=document.getElementById('stext');
+    if(d.status==='done'){dot.style.background='#22c55e';st.textContent='全部上线 ✓（GitHub Pages 构建中）';}
+    else if(d.status==='stalled'){dot.style.background='#ef4444';st.textContent='进度停滞（部署进程可能已结束），请检查';}
+    else{dot.style.background='#22c55e';st.textContent='部署中…';}
+  }catch(e){}
+}
+tick(); setInterval(tick,2000);
+</script>
+</body></html>
