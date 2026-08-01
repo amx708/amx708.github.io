@@ -113,19 +113,28 @@ def main():
             continue
         pe, pb = res["市盈率(TTM)"], res["市净率"]
         date = pe.get("d") or pb.get("d") or "—"
-        rows = (
-            '    <tr><td>总市值</td><td class="val">— 待采集</td></tr>\n'
-            f'    <tr><td>PE（TTM）</td><td class="val">{pe["v"]:.2f} · 近十年 {pe["p"]}%</td></tr>\n'
-            f'    <tr><td>PB</td><td class="val">{pb["v"]:.2f} · 近十年 {pb["p"]}%</td></tr>\n'
-            '    <tr><td>股息率</td><td class="val">— 待采集</td></tr>\n'
-        )
         tag = f"百度分位 · {date}"
         for fn in flist:
             p = os.path.join(DS, fn)
             t = open(p, encoding="utf-8").read()
             if "估值快照" not in t:
                 continue
-            def sub(m):
+            # 保留原块已有的 总市值 / 股息率，不被本次刷新强制覆盖（避免抹掉已回填的股息率）
+            old_total, old_div = "— 待采集", "— 待采集"
+            m_old = VAL_BLOCK_RE.search(t)
+            if m_old:
+                block = m_old.group(3)
+                tm = re.search(r'<td>总市值</td><td class="val">([^<]*)</td>', block)
+                dm = re.search(r'<td>股息率</td><td class="val">([^<]*)</td>', block)
+                if tm: old_total = tm.group(1)
+                if dm: old_div = dm.group(1)
+            rows = (
+                f'    <tr><td>总市值</td><td class="val">{old_total}</td></tr>\n'
+                f'    <tr><td>PE（TTM）</td><td class="val">{pe["v"]:.2f} · 近十年 {pe["p"]}%</td></tr>\n'
+                f'    <tr><td>PB</td><td class="val">{pb["v"]:.2f} · 近十年 {pb["p"]}%</td></tr>\n'
+                f'    <tr><td>股息率</td><td class="val">{old_div}</td></tr>\n'
+            )
+            def sub(m, rows=rows):
                 return m.group(1) + f'<span class="fin-tag">{tag}</span>' + m.group(2) + rows + m.group(4)
             nt, n = VAL_BLOCK_RE.subn(sub, t)
             if n == 0:

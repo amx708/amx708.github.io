@@ -12,7 +12,6 @@
 import os, re, json, time, subprocess
 
 DS = os.path.dirname(os.path.abspath(__file__))
-PY = r"C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps\python.exe"
 CACHE = os.path.join(DS, "_dividend_cache.json")
 DATA_FILES = ["_mil_electronics_data.py", "_consumer_electronics_data.py",
               "_rare_earth_data.py", "_semiconductor_equip_data.py"]
@@ -37,37 +36,23 @@ def slug_code_map():
 
 
 def fetch_dps(code):
-    """THS 分红方案 → 最新每股现金股利（元）。无现金分红返回 None。"""
-    # 写到临时 .py 跑，避免 python -c 在 Windows 下中文/正则转义问题
-    tmpl = (
-        "import sys, json, re, akshare as ak\n"
-        "code = %r\n"
-        "df = ak.stock_fhps_detail_ths(symbol=code)\n"
-        "rows = df.to_dict('records')\n"
-        "cand = None\n"
-        "for d in reversed(rows):\n"
-        "    s = str(d.get('\\u5206\\u7ea2\\u65b9\\u6848\\u8bf4\\u660e', ''))\n"
-        "    if '\\u6d3e' in s and d.get('\\u65b9\\u6848\\u8fdb\\u5ea6') in ('\\u5b9e\\u65bd\\u65b9\\u6848', '\\u80a1\\u4e1c\\u5927\\u4f1a\\u9884\\u6848'):\n"
-        "        cand = s; break\n"
-        "m = re.search(r'[\\u6d3e\\u53d1]\\s*([0-9]+(?:\\.[0-9]+)?)\\s*\\u5143', cand) if cand else None\n"
-        "print(json.dumps({'desc': cand, 'dps': float(m.group(1))/10.0 if m else None}, ensure_ascii=False))\n"
-    ) % code
-    tmp = os.path.join(DS, "_dps_tmp.py")
-    open(tmp, "w", encoding="utf-8").write(tmpl)
-    try:
-        for _ in range(3):
-            try:
-                p = subprocess.run([PY, tmp], capture_output=True, text=True, timeout=80)
-                if p.returncode == 0 and p.stdout.strip():
-                    return json.loads(p.stdout.strip())
-            except Exception:
-                pass
-            time.sleep(1.5)
-    finally:
+    """THS 分红方案 → 最新每股现金股利（元）。无现金分红返回 None。
+    直接在进程内调用 akshare，避免写临时 .py 文件触发沙箱 safe-delete 拦截。"""
+    for _ in range(3):
         try:
-            os.remove(tmp)
+            import akshare as ak
+            df = ak.stock_fhps_detail_ths(symbol=code)
+            rows = df.to_dict("records") if hasattr(df, "to_dict") else []
+            cand = None
+            for d in reversed(rows):
+                s = str(d.get("分红方案说明", ""))
+                if "派" in s and d.get("方案进度") in ("实施方案", "股东大会预案"):
+                    cand = s
+                    break
+            m = re.search(r"[派发]\s*([0-9]+(?:\.[0-9]+)?)\s*元", cand) if cand else None
+            return {"desc": cand, "dps": float(m.group(1)) / 10.0 if m else None}
         except Exception:
-            pass
+            time.sleep(1.5)
     return None
 
 
