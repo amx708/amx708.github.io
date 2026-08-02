@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""给重点页追加「我的结话（示例·待你定稿）」块。
+"""给重点页追加「我的结话（模板示例·待你填写）」块。
 锚点：插在 </footer> 之前（commodity-co 页的 masters-outro 块本就在 footer 前；
 链 co 页无 outro 块，同样落在所有内容之后、footer 之前）。
 幂等标记：<!--my-conclusion-sample-->。
-注意：本块是 AI 按真实数据起草的【模板示例】，明确标注待用户定稿替换，不冒充真实结论。
+注意：本块是 AI 按真实数据起草的【模板示例】，明确标注供你填写替换，不冒充真实结论。
 """
 import os, re
 
@@ -57,7 +57,7 @@ def build_block(body):
     return (
         MARK + "\n"
         '<section style="margin:20px 0;padding:16px 18px;border:1.5px dashed #b8860b;border-radius:12px;background:#fffaf0">'
-        '<div style="font-size:14px;font-weight:700;color:#9a6a00;margin-bottom:4px">我的结话（示例 · 待你定稿替换）</div>'
+        '<div style="font-size:14px;font-weight:700;color:#9a6a00;margin-bottom:4px">我的结话（模板示例 · 待你填写）</div>'
         '<div style="font-size:11.5px;color:#a07840;margin-bottom:10px">【AI 按本页真实财务/估值数据起草的模板示例，不代表你的真实观点；请用自己的话替换这一块】</div>'
         '<div style="font-size:13.5px;line-height:1.75;color:#374151">' + body + '</div>'
         '</section>'
