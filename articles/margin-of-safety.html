@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安全边际实操 · 通用方法论</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#ffffff; --ink:#1f2933; --muted:#5b6770;
+    --line:#e3e8ee; --brand:#0f6e4f; --brand2:#0b8a5f;
+    --up:#c0392b; --down:#1e8449; --warn:#b8860b; --info:#1f6feb;
+    --soft:#eef3f0; --chip:#e8f0ec;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px}
+  a{color:var(--brand2);text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+  header.hero{background:linear-gradient(135deg,#0b3d2e 0%,#0f6e4f 60%,#0b8a5f 100%);color:#fff;padding:54px 0 40px}
+  header.hero h1{font-size:30px;margin:0 0 10px;letter-spacing:.5px}
+  header.hero p{margin:6px 0;opacity:.92;max-width:760px}
+  .badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);
+    padding:3px 10px;border-radius:20px;font-size:12px;margin-bottom:14px}
+  nav.toc{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);padding:10px 0}
+  nav.toc .wrap{display:flex;gap:14px;flex-wrap:wrap;font-size:13px}
+  nav.toc a{color:var(--muted);padding:4px 8px;border-radius:6px}
+  nav.toc a:hover{background:var(--soft);color:var(--brand)}
+  section{padding:34px 0 8px}
+  h2{font-size:22px;border-left:5px solid var(--brand);padding-left:12px;margin:6px 0 16px}
+  h3{font-size:17px;color:var(--brand);margin:22px 0 8px}
+  p{margin:8px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0;
+    box-shadow:0 1px 3px rgba(20,40,30,.04)}
+  .grid{display:grid;gap:14px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:760px){.g3,.g2{grid-template-columns:1fr}}
+  .metric{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .metric .n{font-size:13px;color:var(--muted)}
+  .metric .t{font-size:18px;font-weight:700;margin:4px 0}
+  .metric .d{font-size:13px;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;background:var(--card);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:var(--soft);color:var(--brand);font-weight:600}
+  tr:last-child td{border-bottom:none}
+  .pill{display:inline-block;font-size:12px;padding:2px 9px;border-radius:20px;font-weight:600}
+  .p-up{background:#fdecea;color:var(--up)}
+  .p-down{background:#eafaf1;color:var(--down)}
+  .p-warn{background:#fdf6e3;color:var(--warn)}
+  .p-info{background:#eaf2ff;color:var(--info)}
+  .p-ok{background:var(--chip);color:var(--brand)}
+  .callout{border-left:4px solid var(--warn);background:#fdfaf0;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+  .callout.danger{border-color:var(--up);background:#fdf3f2}
+  .callout.tip{border-color:var(--info);background:#f1f7ff}
+  .steps{counter-reset:s;list-style:none;padding:0;margin:10px 0}
+  .steps li{position:relative;padding:14px 16px 14px 56px;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;margin:10px 0}
+  .steps li:before{counter-increment:s;content:counter(s);position:absolute;left:14px;top:14px;
+    width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;display:flex;
+    align-items:center;justify-content:center;font-weight:700}
+  .formula{background:#0b3d2e;color:#eafff4;padding:12px 16px;border-radius:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
+  footer{background:#0b3d2e;color:#cfe9df;padding:30px 0;margin-top:40px;font-size:13px}
+  footer .wrap{max-width:1080px}
+  .kpi{font-size:26px;font-weight:800;color:var(--brand)}
+  .small{font-size:12px;color:var(--muted)}
+  ul.tight{margin:8px 0;padding-left:20px}
+  ul.tight li{margin:5px 0}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">价值投资 · 非个股推荐</span>
+    <h1>安全边际实操</h1>
+    <p>安全边际就是"买得便宜、留给自己的缓冲垫"。巴菲特说它是投资里唯一的口诀；施洛斯靠它一辈子跑出约 20% 年化。本页讲清楚：<strong>怎么算、怎么用本站点现成数据去找、以及最坑人的价值陷阱</strong>。</p>
+    <p class="small">本页为通用方法论整理，不构成任何投资建议；所有判断最终由你自己下，本站点只负责把事实数据摆清楚。</p>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#what">① 一句话讲清</a>
+    <a href="#two">② 两种算法</a>
+    <a href="#tools">③ 本站的四个找锚工具</a>
+    <a href="#steps">④ 实操四步法</a>
+    <a href="#trap">⑤ 价值陷阱</a>
+    <a href="#practice">⑥ 用站里数据练手</a>
+  </div>
+</nav>
+
+<section id="what">
+  <div class="wrap">
+    <h2>① 一句话讲清</h2>
+    <div class="card">
+      <p>你估这公司值 <b>10 块</b>，<b>7 块</b>买，那 <b>3 块</b>就是安全边际。跌了你有垫、看错了少亏、看对了多赚。</p>
+      <p>估值永远有误差——宏观变了、管理层变了、行业反转了，哪个都可能让"值 10 块"变成"值 8 块"。边际就是给这些误差留的空间。<b>没有边际的便宜，只是赌博；有边际的便宜，才是投资。</b></p>
+      <div class="callout tip">
+        <b>人话版：</b>安全边际 = 你愿意"少赚一点的那个差价"。宁可少赚，也不让自己暴露在"算错就亏大"的位置上。
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="two">
+  <div class="wrap">
+    <h2>② 两种算法：施洛斯 vs 巴菲特</h2>
+    <p>同样讲安全边际，两派算法完全不同。不是谁对谁错，是<strong>能力圈和精力分配</strong>不同。</p>
+    <div class="grid g2">
+      <div class="card">
+        <h3>施洛斯式（静态 · 清算价值）</h3>
+        <p>不深研公司、不预测未来，只看<strong>当下账本</strong>：净资产、净现金、PB。</p>
+        <ul class="tight">
+          <li>买 <b>PB &lt; 1</b> 且负债不高的 → 等于"低于账面清算价买"</li>
+          <li>分散持有上百家，单只出错也不致命</li>
+          <li>逻辑：就算公司明天关门清算，你也能拿回比买价多的钱</li>
+        </ul>
+        <p class="small">适合：看不懂复杂生意、但会看资产负债表的人。</p>
+      </div>
+      <div class="card">
+        <h3>巴菲特式（动态 · 现金流折现）</h3>
+        <p>深研一门好生意，把<strong>未来能赚的自由现金流</strong>折回到今天。</p>
+        <ul class="tight">
+          <li>内在价值 = Σ 未来每年自由现金流 ÷ (1+折现率)ⁿ</li>
+          <li>护城河决定现金流能持续多少年（越长越值钱）</li>
+          <li>逻辑：买价远低于这个折现和，就是边际</li>
+        </ul>
+        <p class="small">适合：能判断"这门生意十年后还在不在、赚不赚钱"的人。</p>
+      </div>
+    </div>
+    <div class="formula">内在价值 ≈ 今年自由现金流 × (1 − 1/(1+r)ⁿ) / r 　　（r = 你的要求回报，n = 可看清的年份）</div>
+    <table>
+      <tr><th>维度</th><th>施洛斯</th><th>巴菲特</th></tr>
+      <tr><td>核心锚</td><td>净资产 / PB</td><td>未来自由现金流</td></tr>
+      <tr><td>研究深度</td><td>浅（看报表就够了）</td><td>深（要懂生意模式）</td></tr>
+      <tr><td>持仓</td><td>极度分散（百家+）</td><td>相对集中（少数懂的）</td></tr>
+      <tr><td>最大风险</td><td>价值陷阱（资产注水）</td><td>看错护城河（现金流断）</td></tr>
+    </table>
+    <p class="small">本站点两种都能用：低 PB + 低负债适合施洛斯法；高 ROE + 稳现金流适合巴菲特法。下面④的四步法把两者揉成一套可操作动作。</p>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="wrap">
+    <h2>③ 本站的四个"找锚"工具</h2>
+    <p>不用你自己算，站点每个公司深链页的「估值快照」+「关键财务」已经把四个锚摆好了：</p>
+    <div class="grid g2">
+      <div class="metric">
+        <div class="n">工具 1</div>
+        <div class="t">PE(TTM) 近十年分位</div>
+        <div class="d">分位低 = 市场冷、历史便宜区概率高。<b>但要看"为什么低"</b>——是周期顶还是真便宜，见⑤。</div>
+      </div>
+      <div class="metric">
+        <div class="n">工具 2</div>
+        <div class="t">PB 近十年分位</div>
+        <div class="d">银行 / 保险 / 重资产周期股尤其看这个。PB 低 + 资产真实 = 施洛斯式边际。</div>
+      </div>
+      <div class="metric">
+        <div class="n">工具 3</div>
+        <div class="t">股息率</div>
+        <div class="d">高股息率 = 现金流真实 + 下行有票息托底，是边际里最"硬"的锚。&gt;3% 通常开始有看头。</div>
+      </div>
+      <div class="metric">
+        <div class="n">工具 4</div>
+        <div class="t">ROE / 负债率</div>
+        <div class="d">ROE 高且稳 + 负债率低 = 赚钱能力强、不怕风吹草动，边际更可靠。</div>
+      </div>
+    </div>
+    <div class="callout tip">
+      <b>组合用法：</b>四个锚同时指向"便宜且稳"= 边际厚，进观察池；只有一个锚低、其他都糟 = 多半是陷阱，慎入。
+    </div>
+  </div>
+</section>
+
+<section id="steps">
+  <div class="wrap">
+    <h2>④ 实操四步法</h2>
+    <ol class="steps">
+      <li><b>初筛：</b>打开任意产业链 → 公司深链页，把 PE/PB 近十年分位 <b>&lt; 30%</b> 的拉进清单。分位越高越贵，先不碰。</li>
+      <li><b>排雷：</b>对照「关键财务」看负债率、经营现金流是否为负、商誉是否过大。任一亮红灯，直接踢出（详见⑤）。</li>
+      <li><b>定锚：</b>用股息率 + ROE 判断边际够不够厚。粗略区间：分位 &lt; 20% + ROE &gt; 12% + 负债率 &lt; 50% + 股息率 &gt; 3% = 厚边际候选。</li>
+      <li><b>等击球：</b>不急。只在"地仓区"（分位 &lt; 20%）下重手，其余只观察。巴菲特的原话是"不到好球区就一直等"。</li>
+    </ol>
+    <div class="callout">
+      <b>节奏提醒：</b>价值投资赚钱靠"等"+"不亏"。四步里三步是"不买"，只有最后一步才是买。多数时间你该在清单里发呆。
+    </div>
+  </div>
+</section>
+
+<section id="trap">
+  <div class="wrap">
+    <h2>⑤ 价值陷阱（必看）</h2>
+    <p>低估值最常见的原因，是"它确实该这么便宜"。下面几个坑，踩中一个就抹掉所有边际：</p>
+    <div class="callout danger">
+      <b>陷阱 1 · 周期顶的低 PE：</b>周期股利润最高点，PE 反而最低——那是最贵的时候，不是最便宜。要看分位是"真低"还是"利润虚高导致的假低"。
+    </div>
+    <div class="callout danger">
+      <b>陷阱 2 · 贬值的低 PB：</b>PB&lt;1 看着香，但账面可能是注水商誉、卖不掉的存货、收不回的应收账款。施洛斯式买法必须确认资产"真能变现"。
+    </div>
+    <div class="callout danger">
+      <b>陷阱 3 · 不可持续的高股息：</b>一次性暴利分红、或借钱分红，股息率再高也是烟花。看「分红方案」是否来自稳定经营现金流。
+    </div>
+    <div class="callout danger">
+      <b>陷阱 4 · 价值毁灭的生意：</b>一门每年烧钱、护城河垮掉的生意，再便宜也会越便宜。低估值 + ROE 持续为负 = 远离。
+    </div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <h2>⑥ 用本站点数据练手</h2>
+    <div class="card">
+      <p>打开 <b>任意产业链索引页 → 某家公司深链页</b>，你能直接看到：</p>
+      <ul class="tight">
+        <li><b>估值快照：</b>PE / PB 的近十年分位（工具 1、2）</li>
+        <li><b>关键财务：</b>ROE、负债率、经营现金流（工具 4）</li>
+        <li><b>估值快照：</b>股息率（工具 3）</li>
+        <li><b>七大师透镜：</b>各视角的方法论点评（标注"示例·待你定稿"，仅供参考）</li>
+      </ul>
+      <p><b>练手规则：</b>低分位 + 高 ROE + 低负债 + 股息率 &gt; 3% → 边际厚，进观察池；反之任一恶化 → 谨慎。把④的四步法套进去跑一遍，比看十篇鸡汤有用。</p>
+    </div>
+    <div class="callout tip">
+      <b>本站点定位：</b>这里只把<strong>事实数据</strong>摆清楚（分位、财务、分红均来自公开披露），<strong>结论由你自己定</strong>。七大师区的文字是示例草稿，不是投资建议——真要动手，请用你自己的判断。
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>方法论整理自巴菲特 / 施洛斯 / 芒格等公开投资思想，仅作学习研究之用，<b>不构成任何投资建议或个股推荐</b>。投资有风险，决策需谨慎。</p>
+    <p class="small">数据来源：akshare 行情、cninfo 年报公开披露（截至各深链页标注日期）。过时数据请自行复核。</p>
+  </div>
+</footer>
+
+</body>
+</html>
