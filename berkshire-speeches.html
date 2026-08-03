@@ -26,21 +26,27 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 
 .main{max-width:1100px;margin:0 auto;padding:32px 24px 80px}
 
-.year-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px}
-.year-pill{display:flex;align-items:center;justify-content:center;padding:10px 14px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;color:#334155;font-size:14px;font-weight:500;text-decoration:none;transition:all .2s ease;box-shadow:0 1px 2px rgba(0,0,0,.04)}
-.year-pill:hover{background:#eff6ff;border-color:#bfdbfe;color:#2563eb;transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
-.year-pill.accent{background:linear-gradient(135deg,#fef3c7,#fffbeb);border-color:#fde68a;color:#92400e}
-.year-pill.accent:hover{background:linear-gradient(135deg,#fde68a,#fef3c7)}
+.content-card{background:#fff;border-radius:14px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:26px 28px;margin-bottom:24px}
+.content-card h2{font-size:18px;font-weight:700;color:#0f172a;margin-bottom:12px}
+.content-card p{color:#475569;font-size:14.5px;line-height:1.85}
+.content-card .note{margin-top:12px;padding:10px 14px;background:#fffbeb;border:1px solid #fde68a;border-left:3px solid #f59e0b;border-radius:8px;font-size:13px;color:#92400e;line-height:1.7}
+.content-card .note b{color:#78350f}
 
-.content-card{background:#fff;border-radius:14px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:32px 28px}
-.content-card h2{font-size:18px;font-weight:700;color:#0f172a;margin-bottom:16px}
-.content-card p{color:#475569;font-size:14.5px;line-height:1.8}
-.content-card .meta{margin-top:20px;padding-top:20px;border-top:1px solid #f1f5f0;font-size:13px;color:#94a3b8}
-
-.empty-state{text-align:center;padding:60px 20px}
-.empty-state .icon{font-size:48px;margin-bottom:16px;display:block}
-.empty-state h3{font-size:18px;color:#334155;margin-bottom:8px}
-.empty-state p{font-size:14px;color:#94a3b8}
+.speech-list{display:flex;flex-direction:column;gap:20px}
+.speech-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:22px 26px;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:box-shadow .2s,transform .2s}
+.speech-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
+.speech-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.speech-year{font-size:13px;font-weight:700;color:#92400e;background:#fef3c7;border:1px solid #fde68a;padding:3px 12px;border-radius:20px}
+.speech-venue{font-size:13px;color:#64748b}
+.speech-title{font-size:18px;font-weight:700;color:#0f172a;margin:2px 0 2px;line-height:1.4}
+.speech-title .en{display:block;font-size:12.5px;font-weight:500;color:#94a3b8;margin-top:3px}
+.speech-thesis{font-size:14.5px;color:#334155;line-height:1.8;margin:12px 0;padding-left:14px;border-left:3px solid #f59e0b}
+.speech-points{list-style:none;padding:0;margin:0 0 14px}
+.speech-points li{font-size:14px;color:#475569;line-height:1.75;padding-left:20px;position:relative;margin-bottom:7px}
+.speech-points li::before{content:'▹';position:absolute;left:0;color:#f59e0b;font-weight:700}
+.speech-src{font-size:12.5px;color:#64748b;border-top:1px solid #f1f5f0;padding-top:12px;line-height:1.7}
+.speech-src a{color:#2563eb;text-decoration:none}
+.speech-src a:hover{text-decoration:underline}
 
 .back-link{margin-top:40px;text-align:center}
 .back-link a{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;color:#334155;font-size:14px;font-weight:500;text-decoration:none;transition:all .2s ease;box-shadow:0 1px 2px rgba(0,0,0,.04)}
@@ -53,9 +59,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 @media(max-width:600px){
   .hero{padding:36px 20px 48px}
   .hero h1{font-size:24px}
-  .year-grid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr))}
   .main{padding:24px 16px 60px}
   .breadcrumb{padding:16px 16px 0}
+  .speech-card{padding:18px 18px}
 }
 </style>
 
@@ -74,18 +80,85 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
   <div class="hero-content">
     <div class="hero-badge">Speeches</div>
     <h1>伯克希尔·哈撒韦<br><span>巴菲特演讲</span></h1>
-    <p>巴菲特历年在各大学、会议上的经典演讲</p>
+    <p>巴菲特历年在各大学、会议上的经典演讲 · 策展索引</p>
   </div>
 </header>
 
 <main class="main">
 
   <div class="content-card">
-    <div class="empty-state">
-      <span class="icon">🚧</span>
-      <h3>内容正在建设中</h3>
-      <p>演讲合集正在整理中，敬请期待。</p>
-    </div>
+    <h2>经典演讲策展索引</h2>
+    <p>以下为巴菲特历年在大学与公开场合的<b>经典演讲</b>，按时间排序。本页为<b>框架级原创整理</b>：标题、年份、场合、核心论点与要点，均依据公开可考的演讲实录与出版物提炼，<b>非全文转录</b>；一手来源以官方档案与权威书籍为主。</p>
+    <div class="note">⚠️ 本页只做「事实与框架」的外部化记录，<b>不构成投资建议</b>。请据此建立你自己的理解，<b>结论由你写定</b>。想先读金句可前往 <a href="berkshire-buffett-quotes.html" style="color:#b45309;font-weight:600">巴菲特名言 →</a></div>
+  </div>
+
+  <div class="speech-list">
+
+    <article class="speech-card">
+      <div class="speech-head">
+        <span class="speech-year">1984</span>
+        <span class="speech-venue">哥伦比亚大学商学院</span>
+      </div>
+      <div class="speech-title">格雷厄姆-多德镇的超超级投资者们<span class="en">The Superinvestors of Graham-and-Doddsville</span></div>
+      <p class="speech-thesis">用九位格雷厄姆-多德门徒的长期超额业绩，反驳「市场有效 / 纯属运气」论——同村出群英，说明价值投资是可复制的范式。</p>
+      <ul class="speech-points">
+        <li>有效市场假说无法解释这群「超级投资者」长期、集中的跑赢，绝非随机巧合。</li>
+        <li>价值投资是可传承、可复制的框架，而非天赋或运气。</li>
+        <li>投资内核是「用四毛买一元」的安全边际思维。</li>
+        <li>关注企业内在价值，不被股价短期的「投票」左右。</li>
+      </ul>
+      <div class="speech-src">一手来源：伯克希尔官方股东信档案（<a href="https://www.berkshirehathaway.com/letters/letters.html" target="_blank" rel="noopener">berkshirehathaway.com/letters</a>）；亦收录于《巴菲特致股东的信》。</div>
+    </article>
+
+    <article class="speech-card">
+      <div class="speech-head">
+        <span class="speech-year">1998</span>
+        <span class="speech-venue">佛罗里达大学（盖恩斯维尔）MBA 讲座 · 俗称「打卡孔演讲」</span>
+      </div>
+      <div class="speech-title">什么样的品质造就伟大投资者与幸福人生<span class="en">University of Florida MBA Talk</span></div>
+      <p class="speech-thesis">用「一生只有 20 个孔的投资打卡卡」逼迫自己只投真正懂的机会，并强调诚信是聪明与精力的前提。</p>
+      <ul class="speech-points">
+        <li>20 孔打卡卡——限制出手次数，反而提高命中率。</li>
+        <li>看人三要素：诚信 &gt; 聪明 &gt; 精力；缺诚信，则后两者反而有害。</li>
+        <li>最爱「永远持有」的好生意（喜诗糖果式），而非便宜的烟蒂。</li>
+        <li>能力圈的边界比广度更重要——知道自己「不不懂」什么。</li>
+        <li>写作能力 = 思考能力，清晰表达来自清晰思考。</li>
+      </ul>
+      <div class="speech-src">一手来源：佛罗里达大学公开转录，及广为流传的文字稿；亦见《巴菲特传：雪球》(The Snowball)。</div>
+    </article>
+
+    <article class="speech-card">
+      <div class="speech-head">
+        <span class="speech-year">1998</span>
+        <span class="speech-venue">北卡罗来纳大学教堂山分校</span>
+      </div>
+      <div class="speech-title">人文学科教给了我什么<span class="en">What We Learn From the Humanities</span></div>
+      <p class="speech-thesis">广泛的人文阅读（历史、哲学、写作）是投资判断力与人生智慧的复利来源。</p>
+      <ul class="speech-points">
+        <li>广泛阅读是长期可累积、难以被替代的优势。</li>
+        <li>写作训练清晰思考，是表达与决策的基础。</li>
+        <li>历史提供可参照的模式，帮人识别重复的人性与周期。</li>
+        <li>人文素养帮助理解人与制度，是商业判断的底层。</li>
+      </ul>
+      <div class="speech-src">一手来源：北卡罗来纳大学公开演讲；亦见《巴菲特如是说》等公开汇编。</div>
+    </article>
+
+    <article class="speech-card">
+      <div class="speech-head">
+        <span class="speech-year">1999</span>
+        <span class="speech-venue">太阳谷 · Allen &amp; Co 年会</span>
+      </div>
+      <div class="speech-title">市场是投票机，还是称重机？<span class="en">The Market Is a Voting Machine, Not a Weighing Machine</span></div>
+      <p class="speech-thesis">短期价格是「投票」（情绪），长期价值是「称重」（基本面）；泡沫终会回归，须专注生意本质。</p>
+      <ul class="speech-points">
+        <li>价格短期是投票机，长期是称重机。</li>
+        <li>泡沫期最危险的是用「这次不一样」麻痹自己。</li>
+        <li>专注企业现金流与内在价值，而非热门叙事。</li>
+        <li>对无法估值、靠故事支撑的热度保持警惕。</li>
+      </ul>
+      <div class="speech-src">一手来源：见《巴菲特传：雪球》(The Snowball) 及公开记述；伯克希尔年会相关回顾亦有提及。</div>
+    </article>
+
   </div>
 
   <div class="back-link">
@@ -94,7 +167,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 </main>
 
 <footer class="footer">
-  <p>数据来源：伯克希尔·哈撒韦官方年报 & 公开财经数据</p>
+  <p>数据来源：伯克希尔·哈撒韦官方档案 & 公开出版物（框架级整理，非投资建议）</p>
 </footer>
 
 </body>
