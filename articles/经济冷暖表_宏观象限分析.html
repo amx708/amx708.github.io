@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang='zh'><head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>经济冷暖表 · 宏观象限分析（可视化版）</title>
+<style>
+ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#f5f6f8;margin:0;color:#222;padding:22px}
+ .wrap{max-width:1040px;margin:0 auto}
+ h1{font-size:22px;margin:0 0 2px}
+ .sub{color:#8a8a8a;font-size:12px;margin-bottom:18px}
+ .sec{font-size:15px;font-weight:800;margin:24px 0 10px;padding-left:8px;border-left:4px solid #E2711D}
+ .sec .secnum{display:inline-block;background:#E2711D;color:#fff;font-size:11px;font-weight:800;padding:2px 7px;border-radius:10px;margin-right:6px;vertical-align:middle}
+ .top{display:flex;gap:14px;align-items:stretch;background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:14px}
+ .gauge{flex:0 0 260px;text-align:center}
+ .meta{flex:1;display:flex;flex-direction:column;justify-content:center}
+ .verdict{font-size:22px;font-weight:800;color:#E2711D;margin-bottom:4px}
+ .vdesc{font-size:13px;color:#555;line-height:1.6}
+
+ .cards{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:6px}
+ .card{flex:1 1 290px;background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.05);border-top:4px solid #ccc}
+ .cname{font-size:13px;font-weight:700}
+ .cunit{font-size:10px;color:#aaa;font-weight:400}
+ .cval{font-size:28px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+ .cmeta{font-size:11px;color:#666;margin-bottom:8px}
+ .bar{position:relative;height:12px;background:#eee;border-radius:6px;margin:6px 0 4px}
+ .band{position:absolute;top:0;bottom:0;left:25%;width:50%;background:#cdeccd;border-radius:6px}
+ .dot{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:#333;transform:translate(-50%,-50%);border:2px solid #fff;box-shadow:0 0 0 1px #999}
+ .tag{display:inline-block;font-size:10px;padding:1px 7px;border-radius:9px;margin-top:3px}
+ .tag.hi{background:#fde8e0;color:#c0392b}
+ .tag.mid{background:#e3f0fb;color:#2E86AB}
+ .tag.lo{background:#e8f5e9;color:#2e7d32}
+
+ .divergence{display:flex;gap:14px;align-items:stretch;margin:6px 0 12px}
+ .divcol{flex:1;background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.05);border-left:4px solid #ccc}
+ .divcol h4{font-size:13px;font-weight:800;margin:0 0 6px}
+ .divcol p{font-size:12px;color:#555;line-height:1.6;margin:4px 0}
+ .hi2{border-left-color:#c0392b}
+ .lo1{border-left-color:#2E86AB}
+
+ .phases{margin:6px 0 6px}
+ .phaserow{display:flex;align-items:center;background:#fff;border-radius:10px;padding:10px 14px;margin-bottom:6px;box-shadow:0 1px 2px rgba(0,0,0,.04);gap:12px}
+ .phasename{flex:0 0 220px;font-size:12px;font-weight:700;color:#222}
+ .phasemon{flex:0 0 50px;font-size:11px;color:#888;text-align:center}
+ .minibars{flex:1;display:flex;flex-direction:column;gap:4px}
+ .mb{display:flex;align-items:center;gap:6px;font-size:10px}
+ .mbname{flex:0 0 60px;color:#666}
+ .mbtrack{flex:1;height:8px;background:#f0f0f0;border-radius:4px;position:relative;overflow:hidden}
+ .mbfill{position:absolute;top:0;left:0;bottom:0;border-radius:4px}
+ .mbval{flex:0 0 50px;text-align:right;font-weight:700;font-size:11px}
+
+ .usage{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 6px}
+ .usecard{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.05);border-left:4px solid #2E86AB}
+ .usecard h4{font-size:13px;font-weight:800;margin:0 0 6px;color:#222}
+ .usecard p{font-size:12px;color:#555;line-height:1.6;margin:4px 0 0}
+
+ .note{font-size:11px;color:#999;line-height:1.7;border-top:1px dashed #ddd;padding-top:12px;margin-top:18px}
+ .note b{color:#c0392b}
+
+ @media(max-width:760px){
+  .top{flex-direction:column}.gauge{flex:none}.phaserow{flex-wrap:wrap}
+  .phasename{flex:0 0 100%}.usage{grid-template-columns:1fr}
+  .divergence{flex-direction:column}
+ }
+</style></head>
+<body><div class='wrap'>
+<h1>经济冷暖表 · 宏观象限分析（可视化版）</h1>
+<div class='sub'>数据区间 2000-01 至 2026-07（COMEX 月线，266 个数据点）· 生成 2026-08-04 · 与 <code>经济冷暖表_宏观象限分析.md</code> 同源</div>
+
+<!-- 一、当前读数可视化 -->
+<div class='sec'><span class='secnum'>二</span>当前读数（2026-07）</div>
+<div class='top'>
+ <div class='gauge'>
+  <svg viewBox='0 0 200 120' width='220' height='132'>
+   <path d='M 20 100 A 80 80 0 0 1 180 100' fill='none' stroke='#eee' stroke-width='14' stroke-linecap='round'/>
+   <path d='M 20 100 A 80 80 0 0 1 180 100' fill='none' stroke='url(#g)' stroke-width='14' stroke-linecap='round' stroke-dasharray='251.3' stroke-dashoffset='50.3'/>
+   <text x='100' y='84' text-anchor='middle' font-size='36' font-weight='800' fill='#E2711D'>80</text>
+   <text x='100' y='104' text-anchor='middle' font-size='11' fill='#888'>综合防御指数</text>
+   <text x='22' y='118' font-size='10' fill='#2E86AB'>进攻</text>
+   <text x='158' y='118' font-size='10' fill='#E2711D'>防御</text>
+   <defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='0'>
+     <stop offset='0' stop-color='#2E86AB'/><stop offset='0.5' stop-color='#E0C000'/><stop offset='1' stop-color='#E2711D'/>
+   </linearGradient></defs>
+  </svg>
+ </div>
+ <div class='meta'>
+  <div class='verdict'>当前宏观偏防御基调</div>
+  <div class='vdesc'>综合防御指数 = 三比值历史分位均值（80 / 100）。<br>金铜比 91% + 金油比 95% 双双历史极高位，但<strong style='color:#2E86AB'>金银比仅 54%（常态）</strong>——两高一带的分化型防御，不是全面衰退。</div>
+ </div>
+</div>
+
+<div class='cards'>
+ <div class='card' style='border-top-color:#E2711D'>
+  <div class='cname'>金铜比 <span class='cunit'>金/铜（盎司÷磅）</span></div>
+  <div class='cval' style='color:#E2711D'>629</div>
+  <div class='cmeta'>分位 <b>91%</b> · 24M均线 674 · 常态带 353–493</div>
+  <div class='bar'><div class='band'></div><div class='dot' style='left:91%;background:#E2711D'></div></div>
+  <span class='tag hi'>偏高区</span>
+ </div>
+ <div class='card' style='border-top-color:#2E86AB'>
+  <div class='cname'>金银比 <span class='cunit'>金/银（盎司÷盎司）</span></div>
+  <div class='cval' style='color:#2E86AB'>70.3</div>
+  <div class='cmeta'>分位 <b>54%</b> · 24M均线 81 · 常态带 60–79</div>
+  <div class='bar'><div class='band'></div><div class='dot' style='left:54%;background:#2E86AB'></div></div>
+  <span class='tag mid'>常态区</span>
+ </div>
+ <div class='card' style='border-top-color:#A23B72'>
+  <div class='cname'>金油比 <span class='cunit'>1盎司金换桶数</span></div>
+  <div class='cval' style='color:#A23B72'>47.8</div>
+  <div class='cmeta'>分位 <b>95%</b> · 24M均线 48 · 常态带 12–26</div>
+  <div class='bar'><div class='band'></div><div class='dot' style='left:95%;background:#A23B72'></div></div>
+  <span class='tag hi'>偏高区</span>
+ </div>
+</div>
+
+<!-- 三、关键发现：两高一带的分化 -->
+<div class='sec'><span class='secnum'>三</span>关键发现：两高一带的"分化"</div>
+<div class='divergence'>
+ <div class='divcol hi2'>
+  <h4 style='color:#c0392b'>🔴 双双极高位 — 金铜比 91% / 金油比 95%</h4>
+  <p>宏观派强调的"全面衰退"特征：若真衰退，<strong>三比值应同步飙升</strong>。</p>
+  <p>当前金铜+金油均历史 90%+ 分位，<strong>看似</strong>符合衰退脚本。</p>
+ </div>
+ <div class='divcol lo1'>
+  <h4 style='color:#2E86AB'>🔵 金银比仅 54% — 掉队的"缓冲信号"</h4>
+  <p>白银的<strong>工业属性</strong>（光伏 / AI 服务器）在强力对冲。</p>
+  <p>资金并未全面逃向纯避险 —— <strong>非</strong> 2008/2020 危机模式。</p>
+ </div>
+</div>
+<div style='background:#fff;border-left:4px solid #E2711D;border-radius:8px;padding:12px 16px;font-size:13px;color:#5a3210;line-height:1.7;margin-bottom:8px'>
+ <b style='color:#c0392b'>结论：</b>高金铜/高金油，<strong>更大概率是"央行购金 + 美元信用疑虑 + 降息预期"</strong>推高金价的结构性结果，而非纯粹经济衰退信号 —— 与 2008/2020 危机模式不同。<b>不必恐慌砍仓</b>，但要控仓位、留安全边际。
+</div>
+
+<!-- 四、历史阶段复盘 -->
+<div class='sec'><span class='secnum'>四</span>历史阶段复盘（各阶段均值 · 月数加粗）</div>
+<div class='phases'>
+
+ <div class='phaserow'>
+  <div class='phasename'>2000-2002 科网泡沫后</div>
+  <div class='phasemon'>24 个月</div>
+  <div class='minibars'>
+   <div class='mb'><span class='mbname'>金铜比</span><div class='mbtrack'><div class='mbfill' style='width:60.1%;background:#E2711D'></div></div><span class='mbval' style='color:#E2711D'>388</span></div>
+   <div class='mb'><span class='mbname'>金银比</span><div class='mbtrack'><div class='mbfill' style='width:73.0%;background:#2E86AB'></div></div><span class='mbval' style='color:#2E86AB'>63.5</span></div>
+   <div class='mb'><span class='mbname'>金油比</span><div class='mbtrack'><div class='mbfill' style='width:23.2%;background:#A23B72'></div></div><span class='mbval' style='color:#A23B72'>11.2</span></div>
+  </div>
+ </div>
+
+ <div class='phaserow'>
+  <div class='phasename'>2003-2007 商品牛市</div>
+  <div class='phasemon'>52 个月</div>
+  <div class='minibars'>
+   <div class='mb'><span class='mbname'>金铜比</span><div class='mbtrack'><div class='mbfill' style='width:45.4%;background:#E2711D'></div></div><span class='mbval' style='color:#E2711D'>293</span></div>
+   <div class='mb'><span class='mbname'>金银比</span><div class='mbtrack'><div class='mbfill' style='width:69.7%;background:#2E86AB'></div></div><span class='mbval' style='color:#2E86AB'>60.6</span></div>
+   <div class='mb'><span class='mbname'>金油比</span><div class='mbtrack'><div class='mbfill' style='width:20.1%;background:#A23B72'></div></div><span class='mbval' style='color:#A23B72'>9.7</span></div>
+  </div>
+ </div>
+
+ <div class='phaserow'>
+  <div class='phasename'>2008 金融危机</div>
+  <div class='phasemon'>11 个月</div>
+  <div class='minibars'>
+   <div class='mb'><span class='mbname'>金铜比</span><div class='mbtrack'><div class='mbfill' style='width:50.1%;background:#E2711D'></div></div><span class='mbval' style='color:#E2711D'>323</span></div>
+   <div class='mb'><span class='mbname'>金银比</span><div class='mbtrack'><div class='mbfill' style='width:70.8%;background:#2E86AB'></div></div><span class='mbval' style='color:#2E86AB'>61.6</span></div>
+   <div class='mb'><span class='mbname'>金油比</span><div class='mbtrack'><div class='mbfill' style='width:21.1%;background:#A23B72'></div></div><span class='mbval' style='color:#A23B72'>10.2</span></div>
+  </div>
+ </div>
+
+ <div class='phaserow'>
+  <div class='phasename'>2009-2011 复苏/商品见顶</div>
+  <div class='phasemon'>31 个月</div>
+  <div class='minibars'>
+   <div class='mb'><span class='mbname'>金铜比</span><div class='mbtrack'><div class='mbfill' style='width:60.1%;background:#E2711D'></div></div><span class='mbval' style='color:#E2711D'>388</span></div>
+   <div class='mb'><span class='mbname'>金银比</span><div class='mbtrack'><div class='mbfill' style='width:65.6%;background:#2E86AB'></div></div><span class='mbval' style='color:#2E86AB'>57.1</span></div>
+   <div class='mb'><span class='mbname'>金油比</span><div class='mbtrack'><div class='mbfill' style='width:32.5%;background:#A23B72'></div></div><span class='mbval' style='color:#A23B72'>15.7</span></div>
+  </div>
+ </div>
+
+ <div class='phaserow'>
+  <div class='phasename'>2012-2015 商品熊市</div>
+  <div class='phasemon'>39 个月</div>
+  <div class='minibars'>
+   <div class='mb'><span class='mbname'>金铜比</span><div class='mbtrack'><div class='mbfill' style='width:68.0%;background:#E2711D'></div></div><span class='mbval' style='color:#E2711D'>439</span></div>
+   <div class='mb'><span class='mbname'>金银比</span><div class='mbtrack'><div class='mbfill' style='width:73.9%;background:#2E86AB'></div></div><span class='mbval' style='color:#2E86AB'>64.3</span></div>
+   <div class='mb'><span class='mbname'>金油比</span><div class='mbtrack'><div class='mbfill' style='width:36.0%;background:#A23B72'></div></div><span class='mbval' style='color:#A23B72'>17.4</span></div>
+  </div>
+ </div>
+
+ <div class='phaserow'>
+  <div class='phasename'>2016-2019 贸易战/低利率</div>
+  <div class='phasemon'>41 个月</div>
+  <div class='minibars'>
+   <div class='mb'><span class='mbname'>金铜比</span><div class='mbtrack'><div class='mbfill' style='width:76.1%;background:#E2711D'></div></div><span class='mbval' style='color:#E2711D'>491</span></div>
+   <div class='mb'><span class='mbname'>金银比</span><div class='mbtrack'><div class='mbfill' style='width:90.3%;background:#2E86AB'></div></div><span class='mbval' style='color:#2E86AB'>78.6</span></div>
+   <div class='mb'><span class='mbname'>金油比</span><div class='mbtrack'><div class='mbfill' style='width:51.1%;background:#A23B72'></div></div><span class='mbval' style='color:#A23B72'>24.7</span></div>
+  </div>
+ </div>
+
+ <div class='phaserow'>
+  <div class='phasename' style='color:#c0392b'>2020 新冠（危机模式）</div>
+  <div class='phasemon' style='color:#c0392b'>10 个月</div>
+  <div class='minibars'>
+   <div class='mb'><span class='mbname'>金铜比</span><div class='mbtrack'><div class='mbfill' style='width:100.0%;background:#c0392b'></div></div><span class='mbval' style='color:#c0392b'>645</span></div>
+   <div class='mb'><span class='mbname'>金银比</span><div class='mbtrack'><div class='mbfill' style='width:100.0%;background:#c0392b'></div></div><span class='mbval' style='color:#c0392b'>87.0</span></div>
+   <div class='mb'><span class='mbname'>金油比</span><div class='mbtrack'><div class='mbfill' style='width:100.0%;background:#c0392b'></div></div><span class='mbval' style='color:#c0392b'>48.3</span></div>
+  </div>
+ </div>
+
+ <div class='phaserow'>
+  <div class='phasename'>2021-2022 通胀/加息</div>
+  <div class='phasemon'>22 个月</div>
+  <div class='minibars'>
+   <div class='mb'><span class='mbname'>金铜比</span><div class='mbtrack'><div class='mbfill' style='width:68.4%;background:#E2711D'></div></div><span class='mbval' style='color:#E2711D'>441</span></div>
+   <div class='mb'><span class='mbname'>金银比</span><div class='mbtrack'><div class='mbfill' style='width:89.4%;background:#2E86AB'></div></div><span class='mbval' style='color:#2E86AB'>77.8</span></div>
+   <div class='mb'><span class='mbname'>金油比</span><div class='mbtrack'><div class='mbfill' style='width:48.0%;background:#A23B72'></div></div><span class='mbval' style='color:#A23B72'>23.2</span></div>
+  </div>
+ </div>
+
+ <div class='phaserow'>
+  <div class='phasename'>2023-2026 近年</div>
+  <div class='phasemon'>36 个月</div>
+  <div class='minibars'>
+   <div class='mb'><span class='mbname'>金铜比</span><div class='mbtrack'><div class='mbfill' style='width:95.9%;background:#E2711D'></div></div><span class='mbval' style='color:#E2711D'>619</span></div>
+   <div class='mb'><span class='mbname'>金银比</span><div class='mbtrack'><div class='mbfill' style='width:94.1%;background:#2E86AB'></div></div><span class='mbval' style='color:#2E86AB'>81.9</span></div>
+   <div class='mb'><span class='mbname'>金油比</span><div class='mbtrack'><div class='mbfill' style='width:83.4%;background:#A23B72'></div></div><span class='mbval' style='color:#A23B72'>40.3</span></div>
+  </div>
+ </div>
+
+</div>
+<div style='background:#fff;border-left:4px solid #E2711D;border-radius:8px;padding:10px 14px;font-size:12px;color:#5a3210;line-height:1.6;margin-top:4px'>
+ <b style='color:#c0392b'>规律：</b>长期中枢系统性上移 —— 2000 年代金铜比 300–400、金油比 12–26；2020 年代金铜比 600+、金油比 40+。<strong>2020 新冠三比值共振 100%</strong>才是真正的危机模式；当前 2023-2026 三比值都高但未共振，是"分化型防御"。
+</div>
+
+<!-- 五、对价值投资者的用法 -->
+<div class='sec'><span class='secnum'>五</span>对价值投资者的用法</div>
+<div class='usage'>
+ <div class='usecard'>
+  <h4>① 当宏观温度计，不当买卖点</h4>
+  <p>比值高位 → 仓位留安全边际、偏防御；回落 → 可更积极。</p>
+ </div>
+ <div class='usecard'>
+  <h4>② 看共振，不看极端</h4>
+  <p>三比值同向极端才强信号；出现背离（如本次金银比掉队）要警惕"假衰退"，别恐慌砍仓。</p>
+ </div>
+ <div class='usecard'>
+  <h4>③ 跟你的框架交叉验证</h4>
+  <p>配合 CPI/PPI、人民币汇率、铜价、美联储利率一起看，比单看比值稳。</p>
+ </div>
+ <div class='usecard'>
+  <h4>④ 加北向/估值水位</h4>
+  <p>A 股决策最终落回 ROE+PE/PB+现金流；比价只是"天气"。</p>
+ </div>
+</div>
+
+<!-- 六、诚实提示 -->
+<div class='note'>
+ <b>⚠ 诚实边界：</b><br>
+ ① <b>结构性失效</b>：2025–2026 三大比价的传统"衰退=比值飙升"逻辑弱化，央行购金等结构性因素使金价含额外溢价，<b>分位需打折看</b>。<br>
+ ② <b>美国 COMEX 视角</b>：对 A 股/人民币资产有传导时滞，<b>不能直接套用</b>。<br>
+ ③ <b>单位口径</b>：金铜比按盎司÷磅、金银比盎司÷盎司、金油比"1盎司金换桶数"；现价金价 4049 为数据源 2026-07 返回值（偏高），<b>比值重点看相对走势与分位，不依赖绝对价</b>。<br>
+ ④ <b>非老雷指标</b>：金铜比/金银比/金油比均非 TheMarketMemo 老雷的指标（他只有技术面 5 类）；这类宏观比价属 FICC/宏观派（付鹏那一路），别混源。<br><br>
+ <i>— 以上为数据整理，不构成投资建议，决策请自行判断。</i>
+</div>
+
+</div></body></html>

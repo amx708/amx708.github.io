@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang='zh'><head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>经济冷暖表 · 使用手册（可视化版）</title>
+<style>
+ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#f5f6f8;margin:0;color:#222;padding:22px}
+ .wrap{max-width:1040px;margin:0 auto}
+ h1{font-size:22px;margin:0 0 2px}
+ .sub{color:#8a8a8a;font-size:12px;margin-bottom:8px}
+ .tagbar{display:inline-block;background:#fff7ed;color:#c0392b;font-size:13px;font-weight:700;padding:4px 12px;border-radius:12px;margin-bottom:16px;border:1px solid #f3c9b0}
+ .sec{font-size:15px;font-weight:800;margin:24px 0 10px;padding-left:8px;border-left:4px solid #2E86AB}
+ .sec .secnum{display:inline-block;background:#2E86AB;color:#fff;font-size:11px;font-weight:800;padding:2px 7px;border-radius:10px;margin-right:6px;vertical-align:middle}
+
+ /* 三个镜子 cards */
+ .cards{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:6px}
+ .card{flex:1 1 290px;background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.05);border-top:4px solid #ccc}
+ .cname{font-size:13px;font-weight:700}
+ .calias{font-size:10px;color:#999;font-weight:400;margin-left:4px}
+ .cunit{font-size:10px;color:#aaa;font-weight:400}
+ .cval{font-size:28px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+ .cmeta{font-size:11px;color:#666;margin-bottom:8px}
+ .bar{position:relative;height:12px;background:#eee;border-radius:6px;margin:6px 0 4px}
+ .band{position:absolute;top:0;bottom:0;left:25%;width:50%;background:#cdeccd;border-radius:6px}
+ .dot{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:#333;transform:translate(-50%,-50%);border:2px solid #fff;box-shadow:0 0 0 1px #999}
+ .tag{display:inline-block;font-size:10px;padding:1px 7px;border-radius:9px;margin-top:3px}
+ .tag.hi{background:#fde8e0;color:#c0392b}
+ .tag.mid{background:#e3f0fb;color:#2E86AB}
+ .tag.lo{background:#e8f5e9;color:#2e7d32}
+ .sig{font-size:11px;color:#444;margin-top:6px;line-height:1.5}
+
+ /* 综合防御指数 gauge */
+ .defbox{background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 1px 4px rgba(0,0,0,.06);display:flex;gap:18px;align-items:stretch;margin-bottom:14px}
+ .defgauge{flex:0 0 280px;text-align:center}
+ .defmeta{flex:1;display:flex;flex-direction:column;justify-content:center}
+ .verdict{font-size:22px;font-weight:800;color:#E2711D;margin-bottom:4px}
+ .vdesc{font-size:13px;color:#555;line-height:1.6}
+
+ .thtable{margin-top:10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+ .thcard{background:#fff;border-radius:10px;padding:10px 12px;box-shadow:0 1px 2px rgba(0,0,0,.04);border-top:4px solid #ccc}
+ .thcard.lo{border-top-color:#2E86AB}.thcard.mid{border-top-color:#E0C000}.thcard.hi{border-top-color:#E2711D}
+ .thr{flex:0 0 1fr;text-align:center}
+ .thr .r{font-size:18px;font-weight:800;color:#222}
+ .thr.lo .r{color:#2E86AB}.thr.mid .r{color:#b8860b}.thr.hi .r{color:#E2711D}
+ .thr .m{font-size:11px;color:#666;margin:4px 0}
+ .thr .a{font-size:11px;color:#444;font-weight:700}
+
+ /* 持仓映射 */
+ .map{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px}
+ .mapcard{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.05);border-left:4px solid #ccc;display:flex;gap:10px;align-items:flex-start}
+ .mapcard .badge{flex:0 0 auto;background:#fff7ed;color:#c0392b;font-size:10px;font-weight:800;padding:4px 8px;border-radius:8px;align-self:flex-start}
+ .mapcard .body{flex:1}
+ .mapcard h4{font-size:13px;font-weight:800;margin:0 0 4px}
+ .mapcard p{font-size:11px;color:#555;line-height:1.6;margin:2px 0}
+ .mapcard .use{font-size:11px;font-weight:700;color:#2E86AB;margin-top:4px}
+
+ /* 3步流程 */
+ .steps{display:flex;gap:12px;margin-bottom:6px;align-items:stretch}
+ .step{flex:1;background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.05);text-align:center;border-top:4px solid #E0C000;position:relative}
+ .step .num{display:inline-block;width:32px;height:32px;line-height:32px;border-radius:50%;background:#E0C000;color:#fff;font-weight:800;font-size:16px;margin-bottom:8px}
+ .step h4{font-size:13px;font-weight:800;margin:0 0 4px}
+ .step p{font-size:11px;color:#555;line-height:1.6;margin:0}
+ .step::after{content:'→';position:absolute;right:-12px;top:50%;transform:translateY(-50%);font-size:20px;color:#bbb;z-index:1}
+ .step:last-child::after{content:''}
+
+ /* 自动化 */
+ .auto{background:#fff;border-left:4px solid #2E86AB;border-radius:8px;padding:12px 16px;font-size:12px;color:#1f3a5e;line-height:1.7;margin-bottom:6px}
+
+ .note{font-size:11px;color:#999;line-height:1.7;border-top:1px dashed #ddd;padding-top:12px;margin-top:18px}
+ .note b{color:#c0392b}
+
+ @media(max-width:760px){
+  .defbox{flex-direction:column}.defgauge{flex:none}
+  .thtable{grid-template-columns:1fr}
+  .map{grid-template-columns:1fr}
+  .steps{flex-direction:column}
+  .step::after{content:'↓';right:50%;top:auto;bottom:-18px;transform:translateX(50%)}
+  .step:last-child::after{content:''}
+ }
+</style></head>
+<body><div class='wrap'>
+<h1>经济冷暖表 · 使用手册（可视化版）</h1>
+<div class='sub'>适用对象：价值投资者（不择时、长持、安全边际优先）· 与 <code>经济冷暖表_使用手册.md</code> 同源</div>
+<div class='tagbar'>⚠ 经济冷暖表是"宏观仓位温度计"——告诉你该把安全垫垫厚还是可更积极找机会。不是买卖点，只调"舒适度"，不调"方向"。</div>
+
+<!-- 一、三个镜子 -->
+<div class='sec'><span class='secnum'>一</span>三个镜子各看什么</div>
+<div class='cards'>
+ <div class='card' style='border-top-color:#E2711D'>
+  <div class='cname'>金铜比 <span class='calias'>「经济博士」</span></div>
+  <div class='cval' style='color:#E2711D'>629 <span class='cunit'>（盎司÷磅）</span></div>
+  <div class='cmeta'>分位 <b>91%</b> · 常态带 353–493 · 当前<b style='color:#c0392b'>偏高</b></div>
+  <div class='bar'><div class='band'></div><div class='dot' style='left:91%;background:#E2711D'></div></div>
+  <span class='tag hi'>偏高区</span>
+  <div class='sig'>升高 = 衰退忧虑 / 增长弱 / 铜被压。<strong>经济博士</strong>预警。</div>
+ </div>
+ <div class='card' style='border-top-color:#2E86AB'>
+  <div class='cname'>金银比 <span class='calias'>「风险温度计」</span></div>
+  <div class='cval' style='color:#2E86AB'>70.3 <span class='cunit'>（盎司÷盎司）</span></div>
+  <div class='cmeta'>分位 <b>54%</b> · 常态带 60–79 · 当前常态</div>
+  <div class='bar'><div class='band'></div><div class='dot' style='left:54%;background:#2E86AB'></div></div>
+  <span class='tag mid'>常态区</span>
+  <div class='sig'>升高 = 避险升温 / 风险偏好降。当前<strong>掉队</strong>说明白银工业属性对冲，<strong>非全面危机</strong>。</div>
+ </div>
+ <div class='card' style='border-top-color:#A23B72'>
+  <div class='cname'>金油比 <span class='calias'>「滞胀平衡木」</span></div>
+  <div class='cval' style='color:#A23B72'>47.8 <span class='cunit'>桶（1盎司金换桶数）</span></div>
+  <div class='cmeta'>分位 <b>95%</b> · 常态带 12–26 · 当前<b style='color:#c0392b'>偏高</b></div>
+  <div class='bar'><div class='band'></div><div class='dot' style='left:95%;background:#A23B72'></div></div>
+  <span class='tag hi'>偏高区</span>
+  <div class='sig'>升高 = 滞胀 / 地缘 / 经济下行。<strong>滞胀平衡木</strong>示警惕。</div>
+ </div>
+</div>
+
+<!-- 二、综合防御指数 -->
+<div class='sec'><span class='secnum'>二</span>综合防御指数怎么读（核心指标）</div>
+<div class='defbox'>
+ <div class='defgauge'>
+  <svg viewBox='0 0 320 110' width='280' height='96'>
+   <!-- 区间底色 -->
+   <rect x='10' y='20' width='100' height='18' fill='#e3f0fb' rx='4'/>
+   <rect x='110' y='20' width='100' height='18' fill='#fdf6cf' rx='4'/>
+   <rect x='210' y='20' width='100' height='18' fill='#fde8e0' rx='4'/>
+   <!-- 阈值标记 -->
+   <line x1='110' y1='14' x2='110' y2='44' stroke='#999' stroke-width='1' stroke-dasharray='2,2'/>
+   <text x='110' y='12' text-anchor='middle' font-size='9' fill='#666'>40</text>
+   <line x1='210' y1='14' x2='210' y2='44' stroke='#999' stroke-width='1' stroke-dasharray='2,2'/>
+   <text x='210' y='12' text-anchor='middle' font-size='9' fill='#666'>70</text>
+   <!-- 当前值标记 -->
+   <circle cx='258' cy='29' r='10' fill='#fff' stroke='#E2711D' stroke-width='3'/>
+   <text x='258' y='33' text-anchor='middle' font-size='11' font-weight='800' fill='#E2711D'>80</text>
+   <text x='258' y='56' text-anchor='middle' font-size='10' fill='#E2711D' font-weight='700'>当前</text>
+   <!-- 区间名 -->
+   <text x='60' y='64' text-anchor='middle' font-size='10' font-weight='700' fill='#2E86AB'>偏进攻</text>
+   <text x='160' y='64' text-anchor='middle' font-size='10' font-weight='700' fill='#b8860b'>中性</text>
+   <text x='260' y='64' text-anchor='middle' font-size='10' font-weight='700' fill='#E2711D'>偏防御</text>
+   <!-- 0 / 100 端点 -->
+   <text x='10' y='78' font-size='9' fill='#888'>0</text>
+   <text x='310' y='78' text-anchor='end' font-size='9' fill='#888'>100</text>
+   <text x='160' y='92' text-anchor='middle' font-size='11' font-weight='700' fill='#222'>综合防御指数 = 三比值历史分位均值</text>
+  </svg>
+ </div>
+ <div class='defmeta'>
+  <div class='verdict'>当前 80 → 偏防御</div>
+  <div class='vdesc'>三比值历史分位均值（0=极度进攻 / 100=极度防御）。当前处于高位平台，<strong>非尖峰</strong>——意味着防御基调<strong style='color:#2E86AB'>已持续</strong>一段时间，不是突发事件。</div>
+ </div>
+</div>
+
+<div class='thtable'>
+ <div class='thcard lo'>
+  <div class='r'>&lt; 40</div>
+  <div class='m'>偏进攻</div>
+  <div class='a'>可更积极寻找机会<br>适度提高权益仓位</div>
+ </div>
+ <div class='thcard mid'>
+  <div class='r'>40 – 70</div>
+  <div class='m'>中性</div>
+  <div class='a'>维持既定仓位<br>正常定投 / 检视</div>
+ </div>
+ <div class='thcard hi'>
+  <div class='r'>&gt; 70</div>
+  <div class='m'>偏防御</div>
+  <div class='a'>控仓位、留足现金<br>不加杠杆 / 高负债标的更谨慎</div>
+ </div>
+</div>
+
+<!-- 三、怎么落到我的持仓 -->
+<div class='sec'><span class='secnum'>三</span>怎么落到我的持仓（映射）</div>
+<div class='map'>
+ <div class='mapcard'>
+  <div class='badge'>金铜比</div>
+  <div class='body'>
+   <h4>消费复苏 / 存量服务 / 医疗</h4>
+   <p>高位 = 短期逆风；铜价低位 + 金铜比高位 = 铜/资源股左侧机会。</p>
+   <div class='use'>用法：等待左侧信号 + 逢低布局</div>
+  </div>
+ </div>
+ <div class='mapcard'>
+  <div class='badge'>金油比</div>
+  <div class='body'>
+   <h4>能源敏感持仓</h4>
+   <p>高位留意，不必动。</p>
+   <div class='use'>用法：仅作温度参考，不调仓</div>
+  </div>
+ </div>
+ <div class='mapcard'>
+  <div class='badge'>金银比</div>
+  <div class='body'>
+   <h4>整体风险偏好 / 恐慌程度</h4>
+   <p>它若也飙升 = 真危机信号；当前掉队 = 缓冲。</p>
+   <div class='use'>用法：观察是否共振，未共振则非真危机</div>
+  </div>
+ </div>
+ <div class='mapcard'>
+  <div class='badge' style='background:#e3f0fb;color:#2E86AB'>总开关</div>
+  <div class='body'>
+   <h4>仓位舒适度总开关</h4>
+   <p>综合防御指数 = 仓位现金比例的调节旋钮。</p>
+   <div class='use'>用法：按区间表调现金比例（&lt;40 加权益 / &gt;70 加现金）</div>
+  </div>
+ </div>
+</div>
+
+<!-- 四、每月怎么用（3步） -->
+<div class='sec'><span class='secnum'>四</span>每月怎么用（3 步）</div>
+<div class='steps'>
+ <div class='step'>
+  <div class='num'>1</div>
+  <h4>看方向不看点</h4>
+  <p>盯防御指数的<b>趋势</b>（升 / 降），不是单月数值。</p>
+ </div>
+ <div class='step'>
+  <div class='num'>2</div>
+  <h4>对阈值</h4>
+  <p>&gt; 70 控仓位留现金；&lt; 40 可积极；中间维持。</p>
+ </div>
+ <div class='step'>
+  <div class='num'>3</div>
+  <h4>交叉验证</h4>
+  <p>配合 CPI / PPI、人民币汇率、美联储利率一起看。经济冷暖表是<b>"结果"</b>，利率 / PMI 是<b>"先行"</b>，别孤立用。</p>
+ </div>
+</div>
+
+<!-- 五、自动化 -->
+<div class='sec'><span class='secnum'>五</span>自动化</div>
+<div class='auto'>
+ 已建「经济冷暖表·月度更新」自动化（每月 1 号）：自动重跑 <code>ratio_data.py → ratio_dashboard.py → ratio_report.py</code>，刷新仪表盘 + 报告 + 读数，并向你汇报当月最新值、分位、防御指数。<b>你每月看一眼趋势即可，无需手动。</b>
+</div>
+
+<!-- 六、诚实边界 -->
+<div class='note'>
+ <b>⚠ 诚实边界（务必记得）：</b><br>
+ ① <b>COMEX 美国视角</b>：对 A 股 / 人民币资产有传导时滞，<b>不能直接套</b>。<br>
+ ② <b>结构性失效</b>：2025–2026 央行购金、美元信用疑虑给金价加了溢价，比值高位<b>不全是衰退信号</b>，分位要打折看。<br>
+ ③ <b>绝对价偏高</b>：数据源黄金现价可能偏高（如 4049），<b>比值只看相对走势与历史分位，不依赖绝对价</b>。<br>
+ ④ <b>非老雷指标</b>：经济冷暖表属宏观派（付鹏 FICC 路数），与 TheMarketMemo 老雷（仅技术面 5 类）无关。<br>
+ ⑤ <b>非买卖依据</b>：仅调仓位舒适度，最终决策仍以 ROE + PE/PB + 现金流 的安全边际为准。<br><br>
+ <i>— 以上为数据整理，不构成投资建议，决策请自行判断。</i>
+</div>
+
+</div></body></html>
