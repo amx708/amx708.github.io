@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang='zh'><head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>经济冷暖表 · 数据预览</title>
+<style>
+ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#f5f6f8;margin:0;color:#222;padding:22px}
+ .wrap{max-width:1100px;margin:0 auto}
+ h1{font-size:22px;margin:0 0 2px}
+ .sub{color:#8a8a8a;font-size:12px;margin-bottom:14px}
+ .bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#fff;border-radius:12px;padding:12px 14px;box-shadow:0 1px 3px rgba(0,0,0,.05);margin-bottom:12px}
+ .bar input[type='search']{flex:1;min-width:180px;border:1px solid #ddd;border-radius:8px;padding:7px 10px;font-size:13px;outline:none}
+ .bar input[type='search']:focus{border-color:#2E86AB;box-shadow:0 0 0 3px rgba(46,134,171,.12)}
+ .bar .pill{font-size:11px;padding:4px 10px;border-radius:10px;background:#eef;color:#555}
+ .bar .pill b{color:#c0392b;font-weight:800}
+ .dl{font-size:11px;color:#888;text-decoration:none;padding:5px 10px;border:1px solid #ddd;border-radius:6px;background:#fafafa}
+ .dl:hover{background:#eef;border-color:#2E86AB}
+
+ .charts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+ .chart{background:#fff;border-radius:10px;padding:10px 12px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+ .chart h3{font-size:12px;font-weight:700;margin:0 0 6px;color:#222}
+ .chart .last{font-size:11px;color:#888;margin-top:4px}
+ .chart .last b{color:#E2711D}
+
+ .tablewrap{background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:auto;max-height:560px}
+ table{border-collapse:collapse;width:100%;font-size:12px}
+ thead th{position:sticky;top:0;background:#fafbfc;padding:8px 10px;text-align:right;border-bottom:1px solid #eee;font-weight:700;color:#555;cursor:pointer;user-select:none;white-space:nowrap}
+ thead th:first-child,thead th.label{text-align:left}
+ thead th:hover{background:#eef;color:#222}
+ thead th.sort-asc::after{content:' ▲';color:#2E86AB;font-size:10px}
+ thead th.sort-desc::after{content:' ▼';color:#E2711D;font-size:10px}
+ tbody td{padding:6px 10px;text-align:right;border-bottom:1px solid #f3f3f3;white-space:nowrap;font-variant-numeric:tabular-nums}
+ tbody td.label{text-align:left;color:#444;font-weight:600}
+ tbody tr:hover{background:#fafbfc}
+ tbody tr.hi{background:#fff5f0}
+ tbody tr.lo{background:#f5fbff}
+
+ .note{font-size:11px;color:#999;line-height:1.7;border-top:1px dashed #ddd;padding-top:10px;margin-top:12px}
+ @media(max-width:760px){
+  .charts{grid-template-columns:1fr}
+  .tablewrap{max-height:480px}
+ }
+</style></head>
+<body><div class='wrap'>
+<h1>经济冷暖表 · 数据预览</h1>
+<div class='sub'>数据区间 2000-01 至 2026-07 · COMEX 月线 · 266 个数据点 · 列可点击排序 · 顶部搜索框模糊匹配所有列</div>
+
+<div class='bar'>
+ <input type='search' id='q' placeholder='搜索：日期 / 数值（例如 2024-08、&gt;500、≥90%分位）'/>
+ <span class='pill'>显示 <b id='cnt'>0</b> 行 / 共 <b id='total'>0</b> 行</span>
+ <a class='dl' href='经济冷暖表_数据.csv' download>下载 CSV</a>
+</div>
+
+<div class='charts'>
+ <div class='chart'>
+  <h3>金铜比（gold/copper，盎司÷磅）</h3>
+  <svg id='c1' viewBox='0 0 320 80' preserveAspectRatio='none' width='100%' height='80'></svg>
+  <div class='last'>最新 <b id='v1'>--</b> · 全期最大 <span id='m1'>--</span> · 全期最小 <span id='n1'>--</span></div>
+ </div>
+ <div class='chart'>
+  <h3>金银比（gold/silver，盎司÷盎司）</h3>
+  <svg id='c2' viewBox='0 0 320 80' preserveAspectRatio='none' width='100%' height='80'></svg>
+  <div class='last'>最新 <b id='v2'>--</b> · 全期最大 <span id='m2'>--</span> · 全期最小 <span id='n2'>--</span></div>
+ </div>
+ <div class='chart'>
+  <h3>金油比（oil/gold，桶/盎司）</h3>
+  <svg id='c3' viewBox='0 0 320 80' preserveAspectRatio='none' width='100%' height='80'></svg>
+  <div class='last'>最新 <b id='v3'>--</b> · 全期最大 <span id='m3'>--</span> · 全期最小 <span id='n3'>--</span></div>
+ </div>
+</div>
+
+<div class='tablewrap'><table id='t'>
+ <thead><tr>
+  <th class='label' data-k='Date'>日期</th>
+  <th data-k='gold'>金($/oz)</th>
+  <th data-k='copper'>铜($/lb)</th>
+  <th data-k='silver'>银($/oz)</th>
+  <th data-k='oil'>油($/bbl)</th>
+  <th data-k='gold_copper'>金铜比</th>
+  <th data-k='gold_silver'>金银比</th>
+  <th data-k='oil_gold'>金油比</th>
+ </tr></thead>
+ <tbody id='tb'></tbody>
+</table></div>
+
+<div class='note'>
+ 数据源：yfinance → COMEX GC=F / HG=F / SI=F / CL=F 月线收盘价；金铜比 = gold÷copper，金银比 = gold÷silver，金油比 = oil÷gold（金/油 = 一盎司金能换多少桶油 = 倒数关系）。每月 1 号由「经济冷暖表·月度更新」自动化刷新。
+</div>
+</div>
+
+<script>
+const COLS=['Date','gold','copper','silver','oil','gold_copper','gold_silver','oil_gold'];
+let RAW=[], VIEW=[];
+const $ = s => document.querySelector(s);
+const fmt = n => n==null ? '--' : (Math.abs(n)>=1000 ? n.toFixed(1) : n.toFixed(3).replace(/\.?0+$/,''));
+
+async function load(){
+ try{
+  const r = await fetch('经济冷暖表_数据.csv');
+  let t = await r.text();
+  if(t.charCodeAt(0)===0xFEFF) t=t.slice(1);
+  const lines = t.trim().split(/\r?\n/);
+  const head = lines[0].split(',');
+  RAW = lines.slice(1).map(l=>{
+   const c = l.split(',');
+   const o = {}; head.forEach((h,i)=>o[h]=c[i]);
+   return o;
+  });
+  VIEW = RAW.slice();
+  render();
+  drawCharts();
+  $('#total').textContent = RAW.length;
+ }catch(e){
+  $('#tb').innerHTML = '<tr><td colspan="8" style="padding:18px;text-align:center;color:#c0392b">加载失败：'+e.message+'（页面需通过 HTTP 打开，本地 file:// 会被浏览器拦截 fetch）</td></tr>';
+ }
+}
+
+function render(){
+ const q = $('#q').value.trim().toLowerCase();
+ const rows = q ? VIEW.filter(r=>Object.values(r).some(v=>String(v).toLowerCase().includes(q))) : VIEW;
+ $('#cnt').textContent = rows.length;
+ const html = rows.map(r=>{
+  const gc = +r.gold_copper, gs = +r.gold_silver, og = +r.oil_gold;
+  let cls='';
+  if(gc>=493||og>=26) cls='hi';
+  else if(gc<=353&&og<=12) cls='lo';
+  return '<tr class="'+cls+'">'
+   +'<td class="label">'+r.Date+'</td>'
+   +'<td>'+fmt(+r.gold)+'</td>'
+   +'<td>'+fmt(+r.copper)+'</td>'
+   +'<td>'+fmt(+r.silver)+'</td>'
+   +'<td>'+fmt(+r.oil)+'</td>'
+   +'<td>'+fmt(gc)+'</td>'
+   +'<td>'+fmt(gs)+'</td>'
+   +'<td>'+fmt(og)+'</td>'
+   +'</tr>';
+ }).join('');
+ $('#tb').innerHTML = html;
+}
+
+function drawCharts(){
+ const series=[
+  {col:'gold_copper', id:'c1', vId:'v1', mId:'m1', nId:'n1', color:'#E2711D'},
+  {col:'gold_silver', id:'c2', vId:'v2', mId:'m2', nId:'n2', color:'#2E86AB'},
+  {col:'oil_gold',    id:'c3', vId:'v3', mId:'m3', nId:'n3', color:'#A23B72'},
+ ];
+ series.forEach(s=>{
+  const arr = RAW.map(r=>+r[s.col]).filter(n=>!isNaN(n));
+  const max = Math.max(...arr), min = Math.min(...arr);
+  const range = max-min || 1;
+  const W=320, H=80, step=W/(arr.length-1);
+  let path='M 0 '+H;
+  arr.forEach((v,i)=>{
+   const x = i*step;
+   const y = H - ((v-min)/range)*H*0.9 - 4;
+   path += ' L '+x.toFixed(1)+' '+y.toFixed(1);
+  });
+  path += ' L '+W+' '+H+' Z';
+  const svg = document.getElementById(s.id);
+  svg.innerHTML = '<defs><linearGradient id="g'+s.id+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+s.color+'" stop-opacity="0.55"/><stop offset="1" stop-color="'+s.color+'" stop-opacity="0.02"/></linearGradient></defs>'
+   +'<path d="'+path+'" fill="url(#g'+s.id+')" stroke="'+s.color+'" stroke-width="1.4" stroke-linejoin="round"/>';
+  $('#'+s.vId).textContent = fmt(arr[arr.length-1]);
+  $('#'+s.mId).textContent = fmt(max)+'（'+RAW[arr.indexOf(max)].Date+'）';
+  $('#'+s.nId).textContent = fmt(min)+'（'+RAW[arr.indexOf(min)].Date+'）';
+ });
+}
+
+// 排序
+let sortKey=null, sortAsc=true;
+document.querySelectorAll('thead th').forEach(th=>{
+ th.addEventListener('click',()=>{
+  const k = th.dataset.k;
+  if(sortKey===k) sortAsc=!sortAsc; else {sortKey=k; sortAsc=true;}
+  document.querySelectorAll('thead th').forEach(x=>x.classList.remove('sort-asc','sort-desc'));
+  th.classList.add(sortAsc?'sort-asc':'sort-desc');
+  VIEW.sort((a,b)=>{
+   const va = (k==='Date')?a[k]:(+a[k]);
+   const vb = (k==='Date')?b[k]:(+b[k]);
+   return sortAsc ? (va>vb?1:va<vb?-1:0) : (va<vb?1:va>vb?-1:0);
+  });
+  render();
+ });
+});
+
+// 搜索
+let qTimer;
+$('#q').addEventListener('input',()=>{
+ clearTimeout(qTimer);
+ qTimer=setTimeout(render,120);
+});
+
+load();
+</script>
+</body></html>
