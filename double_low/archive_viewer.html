@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>双低轮动 · 留底档案</title>
+<style>
+  :root {
+    --bg:#0a0e1a; --card:rgba(20,28,48,.72); --line:rgba(120,160,255,.18);
+    --cyan:#22d3ee; --green:#34d399; --yellow:#fbbf24; --red:#f87171;
+    --blue:#60a5fa; --purple:#a78bfa; --text:#e2e8f0; --muted:#94a3b8;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:radial-gradient(1200px 600px at 80% -10%,rgba(34,211,238,.08),transparent),var(--bg);
+    color:var(--text); font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; line-height:1.65;
+    padding:26px 18px 60px; }
+  .wrap { max-width:1080px; margin:0 auto; }
+  .head { border-left:4px solid var(--purple); padding:6px 16px; margin-bottom:20px; }
+  .head h1 { font-size:23px; letter-spacing:.5px; }
+  .head .sub { color:var(--muted); font-size:13px; margin-top:4px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px;
+    margin-bottom:18px; backdrop-filter:blur(8px); box-shadow:0 8px 30px rgba(0,0,0,.35); }
+  .card h2 { font-size:17px; margin-bottom:12px; display:flex; align-items:center; gap:9px; }
+  .dot { width:9px; height:9px; border-radius:50%; background:var(--purple); box-shadow:0 0 10px var(--purple); }
+  .desc { color:var(--muted); font-size:13px; margin-bottom:12px; }
+  table { width:100%; border-collapse:collapse; font-size:13.5px; }
+  th,td { padding:9px 7px; text-align:center; border-bottom:1px solid rgba(255,255,255,.06); }
+  th { color:var(--cyan); font-weight:600; font-size:12px; }
+  td.name { text-align:left; font-weight:600; }
+  td.rank { color:var(--muted); }
+  .code { display:block; font-size:11px; color:var(--muted); font-weight:400; }
+  .q { font-size:12px; color:var(--purple); }
+  .trig { font-size:11.5px; color:var(--muted); max-width:120px; }
+  .sig { padding:3px 9px; border-radius:20px; font-size:12px; font-weight:600; white-space:nowrap; }
+  .s-green { background:rgba(52,211,153,.15); color:var(--green); }
+  .s-yellow { background:rgba(251,191,36,.15); color:var(--yellow); }
+  .s-blue { background:rgba(96,165,250,.15); color:var(--blue); }
+  .s-red { background:rgba(248,113,113,.15); color:var(--red); }
+  .s-gray { background:rgba(148,163,184,.15); color:var(--muted); }
+  .val { color:var(--text); font-weight:700; }
+  .pricein { color:var(--green); font-weight:600; }   /* 录入价 */
+  .priceout { color:var(--red); font-weight:600; }    /* 剔除价 */
+  .up { color:var(--red); } .down { color:var(--green); }
+  .periods { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:6px; }
+  .pbtn { background:rgba(255,255,255,.05); border:1px solid var(--line); color:var(--muted);
+    padding:8px 16px; border-radius:20px; cursor:pointer; font-size:13.5px; transition:.2s; }
+  .pbtn:hover { color:var(--text); border-color:var(--purple); }
+  .pbtn.on { background:rgba(167,139,250,.16); color:#ddd6fe; border-color:var(--purple); box-shadow:0 0 12px rgba(167,139,250,.3); }
+  .badge { font-size:12px; padding:4px 11px; border-radius:20px; font-weight:700; }
+  .badge.bad { background:rgba(248,113,113,.18); color:var(--red); }
+  .badge.ok { background:rgba(52,211,153,.18); color:var(--green); }
+  .badge.hold { background:rgba(96,165,250,.15); color:var(--blue); }
+  footer { text-align:center; color:var(--muted); font-size:12px; margin-top:26px; line-height:1.9; }
+  @media(max-width:680px){ .trig{max-width:90px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>双低轮动 · 留底档案</h1>
+    <div class="sub">按月期次归档 · 录入价/剔除价跨期追踪 · 数据网络收集整理 · 非投资建议</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>一期次清单（点击查看）</h2>
+    <div class="periods" id="periods"></div>
+    <table style="margin-top:10px">
+      <tr><th>期次</th><th>基准日</th><th>候选池</th><th>价格中位</th><th>双低中位</th><th>双低均值</th><th>双低&lt;125只</th><th>进场指标</th><th>信号</th></tr>
+      <tbody id="idxbody"></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>持仓追踪档案（录入价 / 剔除价）</h2>
+    <p class="desc">每只债纳入（录入）与移出（剔除）时的价格跨期自动追踪，价差% =（最新/剔除价 − 录入价）÷ 录入价。</p>
+    <table>
+      <tr><th>转债</th><th>代码</th><th>录入期</th><th>录入价</th><th>最新价</th><th>状态</th><th>剔除期</th><th>剔除价</th><th>价差%</th></tr>
+      <tbody id="trackbody"></tbody>
+    </table>
+  </div>
+
+  <div class="card" id="detail">
+    <h2><span class="dot"></span><span id="dt-title">—</span> · 实时双低 TOP20</h2>
+    <div class="kpi" id="dt-kpi"></div>
+    <table>
+      <tr><th>#</th><th>转债</th><th>双低</th><th>价</th><th>溢价</th><th>转股值</th><th>评级</th><th>象限</th><th>信号</th><th>触发/动作</th><th>录入价</th></tr>
+      <tbody id="dt-rows"></tbody>
+    </table>
+    <p class="desc" style="margin-top:10px">双低值着色：&lt;125 绿 / 125~150 黄 / &gt;150 红。价&gt;130 标红提醒强赎兑现。「录入价」= 该债纳入本档案时的价格。</p>
+  </div>
+
+  <footer>
+    数据来源：网络收集整理 · 按月留底归档<br>
+    以上为方法论与数据整理，不构成投资建议；历史不代表未来，决策请自行判断。
+  </footer>
+</div>
+
+<script>
+const PERIODS = [{"meta": {"期次": "2026年8月期", "基准日": "2026-08-04", "候选池": "197", "价格中位": "136.6", "双低中位": "192.6", "双低均值": "192.7", "双低<125只": "7", "进场指标满足": "0/4", "信号": "空仓防守", "ranking文件": "2026年8月期_ranking.csv", "top20文件": "2026年8月期_top20.json"}, "top": [{"rank": 1, "code": "113658", "name": "密卫转债", "dl": 111.3, "price": 111.19, "prem": 0.1, "value": 111.1, "rating": "AA-", "size": 8.7}, {"rank": 2, "code": "110081", "name": "闻泰转债", "dl": 114.9, "price": 103.68, "prem": 11.3, "value": 93.2, "rating": "BBB+", "size": 86.0}, {"rank": 3, "code": "127061", "name": "美锦转债", "dl": 115.6, "price": 110.54, "prem": 5.1, "value": 105.2, "rating": "A", "size": 35.9}, {"rank": 4, "code": "128134", "name": "鸿路转债", "dl": 121.4, "price": 115.88, "prem": 5.6, "value": 109.8, "rating": "AA", "size": 18.8}, {"rank": 5, "code": "118053", "name": "正帆转债", "dl": 121.6, "price": 122.67, "prem": -1.1, "value": 124.1, "rating": "AA", "size": 10.4}, {"rank": 6, "code": "113605", "name": "大参转债", "dl": 122.4, "price": 116.61, "prem": 5.8, "value": 110.3, "rating": "AA", "size": 14.1}, {"rank": 7, "code": "113042", "name": "上银转债", "dl": 124.4, "price": 118.94, "prem": 5.4, "value": 112.8, "rating": "AAA", "size": 200.0}, {"rank": 8, "code": "128128", "name": "齐翔转2", "dl": 126.0, "price": 110.1, "prem": 15.9, "value": 95.0, "rating": "AA", "size": 29.9}, {"rank": 9, "code": "128127", "name": "文科转债", "dl": 131.5, "price": 114.72, "prem": 16.8, "value": 98.2, "rating": "BBB+", "size": 9.5}, {"rank": 10, "code": "110075", "name": "南航转债", "dl": 134.1, "price": 106.83, "prem": 27.2, "value": 84.0, "rating": "AAA", "size": 160.0}, {"rank": 11, "code": "110076", "name": "华海转债", "dl": 134.8, "price": 119.28, "prem": 15.5, "value": 103.3, "rating": "AA", "size": 18.4}, {"rank": 12, "code": "113056", "name": "重银转债", "dl": 134.9, "price": 128.5, "prem": 6.3, "value": 120.8, "rating": "AAA", "size": 130.0}, {"rank": 13, "code": "113062", "name": "常银转债", "dl": 138.5, "price": 130.02, "prem": 8.5, "value": 119.8, "rating": "AAA", "size": 60.0}, {"rank": 14, "code": "127027", "name": "能化转债", "dl": 140.3, "price": 112.29, "prem": 28.0, "value": 87.7, "rating": "AAA", "size": 28.0}, {"rank": 15, "code": "128142", "name": "新乳转债", "dl": 141.3, "price": 119.8, "prem": 21.5, "value": 98.6, "rating": "AA", "size": 7.2}, {"rank": 16, "code": "128129", "name": "青农转债", "dl": 141.6, "price": 107.89, "prem": 33.8, "value": 80.7, "rating": "AAA", "size": 50.0}, {"rank": 17, "code": "123064", "name": "万孚转债", "dl": 141.8, "price": 109.94, "prem": 31.9, "value": 83.4, "rating": "AA", "size": 6.0}, {"rank": 18, "code": "113052", "name": "兴业转债", "dl": 145.9, "price": 117.98, "prem": 28.0, "value": 92.2, "rating": "AAA", "size": 500.0}, {"rank": 19, "code": "123107", "name": "温氏转债", "dl": 148.0, "price": 113.03, "prem": 34.9, "value": 83.8, "rating": "AAA", "size": 93.0}, {"rank": 20, "code": "127030", "name": "盛虹转债", "dl": 149.1, "price": 120.0, "prem": 29.1, "value": 93.0, "rating": "AA+", "size": 50.0}]}];
+const TRACK = [{"代码": "113658", "名称": "密卫转债", "录入期": "2026年8月期", "录入价": "111.19", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "111.19", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "110081", "名称": "闻泰转债", "录入期": "2026年8月期", "录入价": "103.68", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "103.68", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "127061", "名称": "美锦转债", "录入期": "2026年8月期", "录入价": "110.54", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "110.54", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "128134", "名称": "鸿路转债", "录入期": "2026年8月期", "录入价": "115.88", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "115.88", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "118053", "名称": "正帆转债", "录入期": "2026年8月期", "录入价": "122.67", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "122.67", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "113605", "名称": "大参转债", "录入期": "2026年8月期", "录入价": "116.61", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "116.61", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "113042", "名称": "上银转债", "录入期": "2026年8月期", "录入价": "118.94", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "118.94", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "128128", "名称": "齐翔转2", "录入期": "2026年8月期", "录入价": "110.1", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "110.1", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "128127", "名称": "文科转债", "录入期": "2026年8月期", "录入价": "114.72", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "114.72", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "110075", "名称": "南航转债", "录入期": "2026年8月期", "录入价": "106.83", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "106.83", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "110076", "名称": "华海转债", "录入期": "2026年8月期", "录入价": "119.28", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "119.28", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "113056", "名称": "重银转债", "录入期": "2026年8月期", "录入价": "128.5", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "128.5", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "113062", "名称": "常银转债", "录入期": "2026年8月期", "录入价": "130.02", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "130.02", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "127027", "名称": "能化转债", "录入期": "2026年8月期", "录入价": "112.29", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "112.29", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "128142", "名称": "新乳转债", "录入期": "2026年8月期", "录入价": "119.8", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "119.8", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "128129", "名称": "青农转债", "录入期": "2026年8月期", "录入价": "107.89", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "107.89", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "123064", "名称": "万孚转债", "录入期": "2026年8月期", "录入价": "109.94", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "109.94", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "113052", "名称": "兴业转债", "录入期": "2026年8月期", "录入价": "117.98", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "117.98", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "123107", "名称": "温氏转债", "录入期": "2026年8月期", "录入价": "113.03", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "113.03", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}, {"代码": "127030", "名称": "盛虹转债", "录入期": "2026年8月期", "录入价": "120.0", "录入日": "2026-08-04", "最新期": "2026年8月期", "最新价": "120.0", "状态": "持有中", "剔除期": "", "剔除价": "", "价差%": ""}];
+const LOW = ['BBB+','BBB','BBB-','BB+','BB','BB-','B+','B','B-','CCC','CC','C'];
+const TM = {}; TRACK.forEach(t=>TM[t['代码']]=t);
+function classify(price, prem, rating){
+  let quad = (price<115 && prem<20)?'黄金区':(price<115?'等下修':(prem<20?'强势区':'偏贵区'));
+  if(LOW.includes(rating)) return [quad,'排雷·不碰','s-red','低价≠安全，疑违约边缘'];
+  if(price>130) return [quad,'强赎盯盘·兑现','s-red','130前必须卖/转股'];
+  if(quad==='黄金区') return [quad,'买入候选','s-green','可分批建仓≤115'];
+  if(quad==='等下修') return [quad,'埋伏下修','s-yellow','等下修博弈，耐心'];
+  if(quad==='强势区') return [quad,'持有跟涨','s-blue','跟正股，设止盈'];
+  return [quad,'观察','s-gray','偏贵，不追'];
+}
+function renderIndex(){
+  document.getElementById('idxbody').innerHTML = PERIODS.map(p=>{
+    const m=p.meta; const cls=m['信号'].includes('空仓')?'bad':'ok';
+    return `<tr><td style="text-align:left;font-weight:600">${m['期次']}</td><td>${m['基准日']}</td>
+      <td>${m['候选池']}</td><td>${m['价格中位']}</td><td>${m['双低中位']}</td>
+      <td>${m['双低均值']}</td><td>${m['双低<125只']}</td><td>${m['进场指标满足']}</td>
+      <td><span class="badge ${cls}">${m['信号']}</span></td></tr>`;
+  }).join('');
+  document.getElementById('periods').innerHTML = PERIODS.map((p,i)=>
+    `<div class="pbtn ${i===0?'on':''}" onclick="sel(${i},this)">${p.meta['期次']}</div>`).join('');
+  // 持仓追踪
+  document.getElementById('trackbody').innerHTML = TRACK.map(t=>{
+    const cls = t['状态']==='持有中'?'hold':'bad';
+    const diff = t['价差%'];
+    const dcol = (diff!=='' && parseFloat(diff)>0)?'up':(parseFloat(diff)<0?'down':'');
+    const dsign = (diff!==''&&parseFloat(diff)>0)?'+':'';
+    return `<tr><td class="name">${t['名称']}</td><td>${t['代码']}</td><td>${t['录入期']}</td>
+      <td class="pricein">${t['录入价']}</td><td>${t['最新价']}</td>
+      <td><span class="badge ${cls}">${t['状态']}</span></td><td>${t['剔除期']||'—'}</td>
+      <td class="priceout">${t['剔除价']||'—'}</td>
+      <td class="${dcol}">${diff!==''?dsign+diff+'%':'—'}</td></tr>`;
+  }).join('');
+}
+function sel(i, btn){
+  document.querySelectorAll('.pbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const p=PERIODS[i], m=p.meta;
+  document.getElementById('dt-title').textContent = m['期次'];
+  let buy=0,low=0,hold=0,bury=0;
+  const rows = p.top.map(r=>{
+    const [quad,sig,scls,trig]=classify(r.price,r.prem,r.rating);
+    if(sig==='买入候选')buy++; if(LOW.includes(r.rating))low++;
+    if(sig==='持有跟涨')hold++; if(sig==='埋伏下修')bury++;
+    const color = r.dl<125?'#34d399':(r.dl<150?'#fbbf24':'#f87171');
+    const inPrice = (TM[r.code] && TM[r.code]['录入价']!=='')? TM[r.code]['录入价'] : r.price;
+    return `<tr><td class="rank">${r.rank}</td><td class="name">${r.name}<span class="code">${r.code}</span></td>
+      <td style="color:${color};font-weight:700">${r.dl}</td><td>${r.price}</td><td>${r.prem}%</td>
+      <td>${r.value}</td><td>${r.rating}</td><td><span class="q">${quad}</span></td>
+      <td><span class="sig ${scls}">${sig}</span></td><td class="trig">${trig}</td>
+      <td class="pricein">${inPrice}</td></tr>`;
+  }).join('');
+  document.getElementById('dt-rows').innerHTML = rows;
+  document.getElementById('dt-kpi').innerHTML =
+    `<div class="b"><div class="n" style="color:var(--green)">${buy}</div><div class="l">买入候选</div></div>
+     <div class="b"><div class="n" style="color:var(--blue)">${hold}</div><div class="l">持有跟涨</div></div>
+     <div class="b"><div class="n" style="color:var(--yellow)">${bury}</div><div class="l">埋伏下修</div></div>
+     <div class="b"><div class="n" style="color:var(--red)">${low}</div><div class="l">低评级排雷</div></div>`;
+}
+renderIndex();
+sel(0, document.querySelector('.pbtn'));
+</script>
+</body>
+</html>

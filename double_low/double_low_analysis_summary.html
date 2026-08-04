@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>双低轮动策略分析 · 综合版</title>
+<style>
+  :root {
+    --bg:#0a0e1a; --card:rgba(20,28,48,.72); --line:rgba(120,160,255,.18);
+    --cyan:#22d3ee; --green:#34d399; --yellow:#fbbf24; --red:#f87171;
+    --blue:#60a5fa; --purple:#a78bfa; --text:#e2e8f0; --muted:#94a3b8;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:radial-gradient(1200px 600px at 80% -10%,rgba(34,211,238,.08),transparent),var(--bg);
+    color:var(--text); font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;
+    line-height:1.65; padding:28px 18px 60px; }
+  .wrap { max-width:1080px; margin:0 auto; }
+  .head { border-left:4px solid var(--cyan); padding:6px 16px; margin-bottom:22px; }
+  .head h1 { font-size:25px; letter-spacing:.5px; }
+  .head .sub { color:var(--muted); font-size:13px; margin-top:4px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:22px 22px; margin-bottom:20px; backdrop-filter:blur(8px);
+    box-shadow:0 8px 30px rgba(0,0,0,.35); }
+  .card h2 { font-size:18px; margin-bottom:6px; display:flex; align-items:center; gap:9px; }
+  .dot { width:9px; height:9px; border-radius:50%; background:var(--cyan); box-shadow:0 0 10px var(--cyan); }
+  .desc { color:var(--muted); font-size:13px; margin-bottom:14px; }
+  table { width:100%; border-collapse:collapse; font-size:13.5px; }
+  th,td { padding:9px 10px; text-align:center; border-bottom:1px solid rgba(255,255,255,.06); }
+  th { color:var(--cyan); font-weight:600; font-size:12.5px; letter-spacing:.3px; }
+  td.name { text-align:left; font-weight:600; }
+  td.rank { color:var(--muted); }
+  .code { display:block; font-size:11px; color:var(--muted); font-weight:400; }
+  .q { font-size:12px; color:var(--purple); }
+  .trig { font-size:11.5px; color:var(--muted); max-width:130px; }
+  .sig { padding:3px 9px; border-radius:20px; font-size:12px; font-weight:600; white-space:nowrap; }
+  .s-green { background:rgba(52,211,153,.15); color:var(--green); }
+  .s-yellow { background:rgba(251,191,36,.15); color:var(--yellow); }
+  .s-blue { background:rgba(96,165,250,.15); color:var(--blue); }
+  .s-red { background:rgba(248,113,113,.15); color:var(--red); }
+  .s-gray { background:rgba(148,163,184,.15); color:var(--muted); }
+  .val { color:var(--text); font-weight:700; }
+  .file { font-family:monospace; font-size:12px; color:var(--blue); }
+  .desc2 { color:var(--muted); font-size:12.5px; text-align:left; }
+  /* 温度计 */
+  .thermo { position:relative; height:34px; border-radius:17px; margin:18px 0 10px;
+    background:linear-gradient(90deg,#34d399 0%,#fbbf24 55%,#f87171 100%); opacity:.92; }
+  .thermo .mark { position:absolute; top:-6px; width:3px; height:46px; background:#fff;
+    box-shadow:0 0 8px #fff; border-radius:2px; transform:translateX(-50%); }
+  .thermo .tag { position:absolute; top:-30px; transform:translateX(-50%); font-size:11px;
+    color:#fff; white-space:nowrap; background:rgba(0,0,0,.45); padding:1px 6px; border-radius:6px; }
+  .scale { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); }
+  .verdict { margin-top:14px; padding:13px 16px; border-radius:12px; font-size:14px;
+    background:rgba(248,113,113,.12); border:1px solid rgba(248,113,113,.4); color:#fecaca; }
+  /* 框架三列 */
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .mini { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+    border-radius:12px; padding:14px; }
+  .mini h3 { font-size:14px; margin-bottom:7px; color:var(--cyan); }
+  .mini p, .mini li { font-size:12.5px; color:var(--muted); }
+  .mini ul { padding-left:16px; }
+  .formula { text-align:center; font-size:17px; padding:14px; border-radius:12px;
+    background:rgba(34,211,238,.08); border:1px solid rgba(34,211,238,.3); margin:6px 0 12px;
+    color:#a5f3fc; font-weight:600; }
+  .kpi { display:flex; gap:12px; flex-wrap:wrap; margin:4px 0 14px; }
+  .kpi .b { flex:1; min-width:110px; background:rgba(255,255,255,.04); border-radius:12px;
+    padding:12px; text-align:center; border:1px solid rgba(255,255,255,.08); }
+  .kpi .n { font-size:22px; font-weight:700; }
+  .kpi .l { font-size:11.5px; color:var(--muted); }
+  .tips li { font-size:13px; color:var(--muted); margin:6px 0; padding-left:16px; }
+  footer { text-align:center; color:var(--muted); font-size:12px; margin-top:30px; line-height:1.9; }
+  @media(max-width:680px){ .grid3{grid-template-columns:1fr} .trig{max-width:90px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <h1>双低轮动策略分析 · 综合版</h1>
+    <div class="sub">数据日期 2026-08-04 · 来源 网络收集整理 · 非投资建议</div>
+  </div>
+
+  <!-- 1. 成果清单 -->
+  <div class="card">
+    <h2><span class="dot"></span>一、本次已产出的表格与可视化</h2>
+    <p class="desc">本轮围绕「双低轮动可转债策略」共完成 5 份结构化产物：</p>
+    <table>
+      <tr><th>产物</th><th>文件</th><th>内容</th></tr>
+      <tr><td>双低轮动可视化作战手册</td><td class='file'>double_low_strategy.html</td><td class='desc'>公式/四象限/轮动规则/银行打分/风控/实盘战绩</td></tr>
+<tr><td>可转债轮动法人话详解</td><td class='file'>double_low_explain.html</td><td class='desc'>时间·空间·价格三维 + 7 个情景举例</td></tr>
+<tr><td>双低轮动监控表（实时）</td><td class='file'>double_low_rotation.html</td><td class='desc'>TOP20 自动判定象限/信号/触发价</td></tr>
+<tr><td>实时双低排名快照</td><td class='file'>snapshot_report.html</td><td class='desc'>全市场双低排名 + TOP20 原始数据</td></tr>
+<tr><td>集思录策略采集分析报告</td><td class='file'>jisilu_analysis_report.md</td><td class='desc'>公开帖体系还原与边界说明</td></tr>
+    </table>
+  </div>
+
+  <!-- 2. 市场温度计 -->
+  <div class="card">
+    <h2><span class="dot"></span>二、市场温度计 · 当前是否值得进场</h2>
+    <p class="desc">用全市场双低中位数衡量整体贵贱。标尺：左=便宜（100），右=贵（200）。</p>
+    <div class="thermo">
+      <div class="mark" style="left:92.6%"><div class="tag">双低中值 192.6</div></div>
+    </div>
+    <div class="scale"><span>100 便宜</span><span>150</span><span>200 贵</span></div>
+    <table style="margin-top:14px">
+      <tr><th>进场指标</th><th>实测值</th><th>是否满足</th></tr>
+      <tr><td>全市场转债价格中位数 < 112</td><td class='val'>136.6</td><td><span class='sig s-red'>✗ 不满足</span></td></tr>
+<tr><td>全市场双低中位数 < 140</td><td class='val'>192.6</td><td><span class='sig s-red'>✗ 不满足</span></td></tr>
+<tr><td>全市场双低均值 < 160</td><td class='val'>192.7</td><td><span class='sig s-red'>✗ 不满足</span></td></tr>
+<tr><td>双低 < 125 的转债数量 > 40 只</td><td class='val'>7</td><td><span class='sig s-red'>✗ 不满足</span></td></tr>
+    </table>
+    <div class="verdict">🔴 当前满足 <b>4/4</b> 个指标 → <b>明确空仓 / 防守信号</b>。
+      双低中位数 192.6 远高于 140 进场线，便宜货极度稀缺（全市场双低&lt;125 仅 7 只）。
+      此时只做「关注清单」，不盲目建仓。</div>
+  </div>
+
+  <!-- 3. 核心框架 -->
+  <div class="card">
+    <h2><span class="dot"></span>三、双低轮动核心框架</h2>
+    <div class="formula">双低值 = 转债价格 + 转股溢价率 × 100</div>
+    <div class="grid3">
+      <div class="mini">
+        <h3>① 空间 · 四象限</h3>
+        <ul>
+          <li><b>黄金区</b>：价&lt;115 且溢价&lt;20% → 重仓</li>
+          <li><b>等下修</b>：价&lt;115 溢价高 → 埋伏下修</li>
+          <li><b>强势区</b>：价≥115 溢价低 → 跟涨吃肉</li>
+          <li><b>偏贵区</b>：双高 → 兑现不追</li>
+        </ul>
+      </div>
+      <div class="mini">
+        <h3>② 时间 · 轮动节奏</h3>
+        <ul>
+          <li>调仓频率：每月（或双月）一次</li>
+          <li>建仓：双低排序前 10%~15%</li>
+          <li>轮出：单只跌出前 20% 即换</li>
+          <li>温度计全红 → 空仓等机会</li>
+        </ul>
+      </div>
+      <div class="mini">
+        <h3>③ 价格 · 触发线</h3>
+        <ul>
+          <li>&lt;100：破发，债底保护区</li>
+          <li>100~115：主战场买区</li>
+          <li>115~130：观察/持有区</li>
+          <li>&gt;130：强赎兑现区（必卖）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 实时轮动监控表 -->
+  <div class="card">
+    <h2><span class="dot"></span>四、实时轮动监控表 · 当前双低 TOP20</h2>
+    <p class="desc">每只自动判定所在象限、操作信号与触发价。数据源为网络收集整理（2026-08-04）。</p>
+    <div class="kpi">
+      <div class="b"><div class="n" style="color:var(--green)">3</div><div class="l">买入候选</div></div>
+      <div class="b"><div class="n" style="color:var(--blue)">6</div><div class="l">持有跟涨</div></div>
+      <div class="b"><div class="n" style="color:var(--yellow)">5</div><div class="l">埋伏下修</div></div>
+      <div class="b"><div class="n" style="color:var(--red)">2</div><div class="l">低评级排雷</div></div>
+    </div>
+    <table>
+      <tr><th>#</th><th>转债</th><th>双低</th><th>价</th><th>溢价</th><th>转股值</th><th>评级</th><th>象限</th><th>信号</th><th>触发/动作</th></tr>
+      <tr>
+  <td class='rank'>1</td>
+  <td class='name'>密卫转债<span class='code'>113658</span></td>
+  <td style='color:#34d399;font-weight:700'>111.3</td>
+  <td>111.19</td>
+  <td>0.1%</td>
+  <td>111.1</td>
+  <td>AA-</td>
+  <td><span class='q'>黄金区</span></td>
+  <td><span class='sig s-green'>买入候选</span></td>
+  <td class='trig'>可分批建仓 ≤115</td>
+</tr>
+<tr>
+  <td class='rank'>2</td>
+  <td class='name'>闻泰转债<span class='code'>110081</span></td>
+  <td style='color:#34d399;font-weight:700'>114.9</td>
+  <td>103.68</td>
+  <td>11.3%</td>
+  <td>93.2</td>
+  <td>BBB+</td>
+  <td><span class='q'>黄金区</span></td>
+  <td><span class='sig s-red'>排雷·不碰</span></td>
+  <td class='trig'>低价≠安全，疑违约边缘</td>
+</tr>
+<tr>
+  <td class='rank'>3</td>
+  <td class='name'>美锦转债<span class='code'>127061</span></td>
+  <td style='color:#34d399;font-weight:700'>115.6</td>
+  <td>110.54</td>
+  <td>5.1%</td>
+  <td>105.2</td>
+  <td>A</td>
+  <td><span class='q'>黄金区</span></td>
+  <td><span class='sig s-green'>买入候选</span></td>
+  <td class='trig'>可分批建仓 ≤115</td>
+</tr>
+<tr>
+  <td class='rank'>4</td>
+  <td class='name'>鸿路转债<span class='code'>128134</span></td>
+  <td style='color:#34d399;font-weight:700'>121.4</td>
+  <td>115.88</td>
+  <td>5.6%</td>
+  <td>109.8</td>
+  <td>AA</td>
+  <td><span class='q'>强势区</span></td>
+  <td><span class='sig s-blue'>持有跟涨</span></td>
+  <td class='trig'>跟正股，设止盈</td>
+</tr>
+<tr>
+  <td class='rank'>5</td>
+  <td class='name'>正帆转债<span class='code'>118053</span></td>
+  <td style='color:#34d399;font-weight:700'>121.6</td>
+  <td>122.67</td>
+  <td>-1.1%</td>
+  <td>124.1</td>
+  <td>AA</td>
+  <td><span class='q'>强势区</span></td>
+  <td><span class='sig s-blue'>持有跟涨</span></td>
+  <td class='trig'>跟正股，设止盈</td>
+</tr>
+<tr>
+  <td class='rank'>6</td>
+  <td class='name'>大参转债<span class='code'>113605</span></td>
+  <td style='color:#34d399;font-weight:700'>122.4</td>
+  <td>116.61</td>
+  <td>5.8%</td>
+  <td>110.3</td>
+  <td>AA</td>
+  <td><span class='q'>强势区</span></td>
+  <td><span class='sig s-blue'>持有跟涨</span></td>
+  <td class='trig'>跟正股，设止盈</td>
+</tr>
+<tr>
+  <td class='rank'>7</td>
+  <td class='name'>上银转债<span class='code'>113042</span></td>
+  <td style='color:#34d399;font-weight:700'>124.4</td>
+  <td>118.94</td>
+  <td>5.4%</td>
+  <td>112.8</td>
+  <td>AAA</td>
+  <td><span class='q'>强势区</span></td>
+  <td><span class='sig s-blue'>持有跟涨</span></td>
+  <td class='trig'>跟正股，设止盈</td>
+</tr>
+<tr>
+  <td class='rank'>8</td>
+  <td class='name'>齐翔转2<span class='code'>128128</span></td>
+  <td style='color:#fbbf24;font-weight:700'>126.0</td>
+  <td>110.1</td>
+  <td>15.9%</td>
+  <td>95.0</td>
+  <td>AA</td>
+  <td><span class='q'>黄金区</span></td>
+  <td><span class='sig s-green'>买入候选</span></td>
+  <td class='trig'>可分批建仓 ≤115</td>
+</tr>
+<tr>
+  <td class='rank'>9</td>
+  <td class='name'>文科转债<span class='code'>128127</span></td>
+  <td style='color:#fbbf24;font-weight:700'>131.5</td>
+  <td>114.72</td>
+  <td>16.8%</td>
+  <td>98.2</td>
+  <td>BBB+</td>
+  <td><span class='q'>黄金区</span></td>
+  <td><span class='sig s-red'>排雷·不碰</span></td>
+  <td class='trig'>低价≠安全，疑违约边缘</td>
+</tr>
+<tr>
+  <td class='rank'>10</td>
+  <td class='name'>南航转债<span class='code'>110075</span></td>
+  <td style='color:#fbbf24;font-weight:700'>134.1</td>
+  <td>106.83</td>
+  <td>27.2%</td>
+  <td>84.0</td>
+  <td>AAA</td>
+  <td><span class='q'>等下修</span></td>
+  <td><span class='sig s-yellow'>埋伏下修</span></td>
+  <td class='trig'>等下修博弈，耐心</td>
+</tr>
+<tr>
+  <td class='rank'>11</td>
+  <td class='name'>华海转债<span class='code'>110076</span></td>
+  <td style='color:#fbbf24;font-weight:700'>134.8</td>
+  <td>119.28</td>
+  <td>15.5%</td>
+  <td>103.3</td>
+  <td>AA</td>
+  <td><span class='q'>强势区</span></td>
+  <td><span class='sig s-blue'>持有跟涨</span></td>
+  <td class='trig'>跟正股，设止盈</td>
+</tr>
+<tr>
+  <td class='rank'>12</td>
+  <td class='name'>重银转债<span class='code'>113056</span></td>
+  <td style='color:#fbbf24;font-weight:700'>134.9</td>
+  <td>128.5</td>
+  <td>6.3%</td>
+  <td>120.8</td>
+  <td>AAA</td>
+  <td><span class='q'>强势区</span></td>
+  <td><span class='sig s-blue'>持有跟涨</span></td>
+  <td class='trig'>跟正股，设止盈</td>
+</tr>
+<tr>
+  <td class='rank'>13</td>
+  <td class='name'>常银转债<span class='code'>113062</span></td>
+  <td style='color:#fbbf24;font-weight:700'>138.5</td>
+  <td>130.02</td>
+  <td>8.5%</td>
+  <td>119.8</td>
+  <td>AAA</td>
+  <td><span class='q'>强势区</span></td>
+  <td><span class='sig s-red'>强赎盯盘·兑现</span></td>
+  <td class='trig'>130 前必须卖/转股</td>
+</tr>
+<tr>
+  <td class='rank'>14</td>
+  <td class='name'>能化转债<span class='code'>127027</span></td>
+  <td style='color:#fbbf24;font-weight:700'>140.3</td>
+  <td>112.29</td>
+  <td>28.0%</td>
+  <td>87.7</td>
+  <td>AAA</td>
+  <td><span class='q'>等下修</span></td>
+  <td><span class='sig s-yellow'>埋伏下修</span></td>
+  <td class='trig'>等下修博弈，耐心</td>
+</tr>
+<tr>
+  <td class='rank'>15</td>
+  <td class='name'>新乳转债<span class='code'>128142</span></td>
+  <td style='color:#fbbf24;font-weight:700'>141.3</td>
+  <td>119.8</td>
+  <td>21.5%</td>
+  <td>98.6</td>
+  <td>AA</td>
+  <td><span class='q'>偏贵区</span></td>
+  <td><span class='sig s-gray'>观察</span></td>
+  <td class='trig'>偏贵，不追</td>
+</tr>
+<tr>
+  <td class='rank'>16</td>
+  <td class='name'>青农转债<span class='code'>128129</span></td>
+  <td style='color:#fbbf24;font-weight:700'>141.6</td>
+  <td>107.89</td>
+  <td>33.8%</td>
+  <td>80.7</td>
+  <td>AAA</td>
+  <td><span class='q'>等下修</span></td>
+  <td><span class='sig s-yellow'>埋伏下修</span></td>
+  <td class='trig'>等下修博弈，耐心</td>
+</tr>
+<tr>
+  <td class='rank'>17</td>
+  <td class='name'>万孚转债<span class='code'>123064</span></td>
+  <td style='color:#fbbf24;font-weight:700'>141.8</td>
+  <td>109.94</td>
+  <td>31.9%</td>
+  <td>83.4</td>
+  <td>AA</td>
+  <td><span class='q'>等下修</span></td>
+  <td><span class='sig s-yellow'>埋伏下修</span></td>
+  <td class='trig'>等下修博弈，耐心</td>
+</tr>
+<tr>
+  <td class='rank'>18</td>
+  <td class='name'>兴业转债<span class='code'>113052</span></td>
+  <td style='color:#fbbf24;font-weight:700'>145.9</td>
+  <td>117.98</td>
+  <td>28.0%</td>
+  <td>92.2</td>
+  <td>AAA</td>
+  <td><span class='q'>偏贵区</span></td>
+  <td><span class='sig s-gray'>观察</span></td>
+  <td class='trig'>偏贵，不追</td>
+</tr>
+<tr>
+  <td class='rank'>19</td>
+  <td class='name'>温氏转债<span class='code'>123107</span></td>
+  <td style='color:#fbbf24;font-weight:700'>148.0</td>
+  <td>113.03</td>
+  <td>34.9%</td>
+  <td>83.8</td>
+  <td>AAA</td>
+  <td><span class='q'>等下修</span></td>
+  <td><span class='sig s-yellow'>埋伏下修</span></td>
+  <td class='trig'>等下修博弈，耐心</td>
+</tr>
+<tr>
+  <td class='rank'>20</td>
+  <td class='name'>盛虹转债<span class='code'>127030</span></td>
+  <td style='color:#fbbf24;font-weight:700'>149.1</td>
+  <td>120.0</td>
+  <td>29.1%</td>
+  <td>93.0</td>
+  <td>AA+</td>
+  <td><span class='q'>偏贵区</span></td>
+  <td><span class='sig s-gray'>观察</span></td>
+  <td class='trig'>偏贵，不追</td>
+</tr>
+    </table>
+    <p class="desc" style="margin-top:12px">双低值着色：&lt;125 绿 / 125~150 黄 / &gt;150 红。强赎价附近（价&gt;130）标红提醒兑现。</p>
+  </div>
+
+  <!-- 5. 人话要点 -->
+  <div class="card">
+    <h2><span class="dot"></span>五、人话要点（策略本质）</h2>
+    <ul class="tips">
+      <li><b>可转债 = 借条 + 彩票</b>：到期还本付息（债性保底）+ 转股价可换股票（股性跟涨）。</li>
+      <li><b>双低 = 两头占便宜</b>：价格低→下跌有债底兜着；溢价低→正股涨它跟得快。一手债性一手股性。</li>
+      <li><b>轮动 = 菜市场挑新鲜货</b>：每月按双低值重排，把变贵/变差的踢出去，换进更便宜更新的，永续循环。</li>
+      <li><b>便宜≠安全</b>：低价+负溢价可能是要违约的雷（如信用边缘债），必须排低评级，不单押一只。</li>
+      <li><b>贵了就空仓</b>：温度计全红时按纪律防守，宁可少赚不接飞刀——控制回撤靠的是"不贪"。</li>
+    </ul>
+  </div>
+
+  <footer>
+    数据来源：网络收集整理（2026-08-04 快照）<br>
+    以上为方法论与数据整理，不构成投资建议；历史不代表未来，决策请自行判断。
+  </footer>
+
+</div>
+</body>
+</html>

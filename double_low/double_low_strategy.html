@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>双低轮动策略 · 可视化作战手册</title>
+<style>
+:root{
+  --bg:#070b16; --bg2:#0c1322; --glass:rgba(20,30,52,.55); --line:rgba(120,160,220,.14);
+  --cyan:#22d3ee; --amber:#fbbf24; --green:#34d399; --red:#f87171; --txt:#dfe7f5; --sub:#8aa0c4;
+  --neon:0 0 12px rgba(34,211,238,.45);
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 700px at 80% -10%,rgba(34,211,238,.10),transparent 60%),radial-gradient(900px 600px at -10% 20%,rgba(251,191,36,.07),transparent 55%),var(--bg);color:var(--txt);font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 80px}
+header.hero{text-align:center;padding:40px 0 26px}
+.eyebrow{letter-spacing:3px;color:var(--cyan);font-size:12px;text-transform:uppercase;opacity:.85}
+h1{font-size:34px;margin:10px 0 6px;font-weight:800;letter-spacing:1px}
+h1 .accent{color:var(--cyan);text-shadow:var(--neon)}
+.sub{color:var(--sub);font-size:14px}
+.tag{display:inline-block;margin:6px 4px 0;padding:3px 11px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--sub)}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:22px 24px;margin:18px 0;backdrop-filter:blur(10px);box-shadow:0 8px 30px rgba(0,0,0,.35)}
+.card h2{font-size:19px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+.card h2 .dot{width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:var(--neon)}
+.card .desc{color:var(--sub);font-size:13px;margin:0 0 16px}
+.formula{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin:8px 0 4px}
+.fbox{background:linear-gradient(135deg,rgba(34,211,238,.16),rgba(34,211,238,.04));border:1px solid rgba(34,211,238,.3);border-radius:14px;padding:14px 20px;text-align:center;min-width:150px}
+.fbox .k{font-size:12px;color:var(--sub)}
+.fbox .v{font-size:22px;font-weight:800;color:var(--cyan)}
+.op{font-size:26px;color:var(--amber);font-weight:800}
+.eq{font-size:30px;color:var(--txt);font-weight:300}
+.axis{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.axis .a{background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.2);border-radius:12px;padding:12px 14px}
+.axis .a.r{border-color:rgba(251,191,36,.25);background:rgba(251,191,36,.06)}
+.axis .a b{color:var(--green)} .axis .a.r b{color:var(--amber)}
+/* 温度计 */
+.thermo{margin:6px 0 10px}
+.track{position:relative;height:30px;border-radius:999px;background:linear-gradient(90deg,var(--green) 0%,var(--green) 27%,var(--amber) 27%,var(--amber) 53%,var(--red) 53%,var(--red) 100%);opacity:.92}
+.scale{display:flex;justify-content:space-between;font-size:11px;color:var(--sub);margin-top:5px}
+.marker{position:absolute;top:-8px;transform:translateX(-50%);width:4px;height:46px;background:#fff;box-shadow:0 0 8px #fff;border-radius:2px}
+.marker::after{content:attr(data-v);position:absolute;top:-22px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:12px;font-weight:700;color:#fff}
+.signal{text-align:center;margin-top:14px;font-size:20px;font-weight:800}
+.signal .bad{color:var(--red);text-shadow:0 0 12px rgba(248,113,113,.5)}
+.signal .good{color:var(--green)}
+.inds{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.ind{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.ind .nm{font-size:13px;color:var(--sub)}
+.ind .vv{font-size:18px;font-weight:800}
+.ind .vv.ok{color:var(--green)} .ind .vv.no{color:var(--red)}
+.ind .tag2{font-size:11px;padding:2px 8px;border-radius:6px;margin-left:8px}
+.ind .tag2.ok{background:rgba(52,211,153,.15);color:var(--green)}
+.ind .tag2.no{background:rgba(248,113,113,.15);color:var(--red)}
+/* 四象限 */
+.quad{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:14px;margin-top:6px}
+.q{padding:16px;border-radius:14px;border:1px solid var(--line);position:relative;transition:.2s;cursor:default}
+.q:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.4)}
+.q .qt{font-weight:800;font-size:15px;margin-bottom:4px}
+.q .qa{font-size:13px;color:var(--sub)}
+.q.q1{border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.06)} .q.q1 .qt{color:var(--green)}
+.q.q2{border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.06)} .q.q2 .qt{color:var(--amber)}
+.q.q3{border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.06)} .q.q3 .qt{color:var(--red)}
+.q.q4{border-color:rgba(34,211,238,.4);background:rgba(34,211,238,.06)} .q.q4 .qt{color:var(--cyan)}
+.quad-legend{display:flex;justify-content:space-between;font-size:11px;color:var(--sub);margin:8px 2px 0}
+/* 轮动 */
+.flow{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:10px}
+.step{background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.25);border-radius:12px;padding:12px 14px;flex:1;min-width:120px;text-align:center}
+.step .sn{font-size:11px;color:var(--cyan);letter-spacing:1px}
+.step .st{font-weight:700;font-size:14px;margin-top:3px}
+.step .sd{font-size:11px;color:var(--sub);margin-top:3px}
+.arrow{color:var(--amber);font-size:20px;font-weight:800}
+.loopnote{text-align:center;color:var(--sub);font-size:12px;margin-top:10px}
+/* 银行打分 */
+.dims{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
+.dim{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+.dim .dname{font-size:13px;color:var(--txt)}
+.dim .dhint{font-size:11px;color:var(--sub);margin-top:2px}
+.scorehint{background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.25);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:13px;color:var(--txt)}
+.scorehint b{color:var(--amber)}
+/* 风控 */
+.risk{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.risk .box{background:rgba(248,113,113,.05);border:1px solid rgba(248,113,113,.2);border-radius:12px;padding:14px}
+.risk .box.ok{background:rgba(52,211,153,.05);border-color:rgba(52,211,153,.2)}
+.risk .box h3{font-size:14px;margin:0 0 8px}
+.risk .box ol{margin:0;padding-left:18px;font-size:13px;color:var(--sub)} .risk .box ol b{color:var(--txt)}
+/* 实盘 */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:6px}
+.kpi{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+.kpi .lv{font-size:24px;font-weight:800;color:var(--green)}
+.kpi .lv.r{color:var(--red)} .kpi .lv.a{color:var(--amber)} .kpi .lv.c{color:var(--cyan)}
+.kpi .lk{font-size:12px;color:var(--sub);margin-top:3px}
+/* 表格 */
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:center}
+th{color:var(--sub);font-weight:600;font-size:12px;background:rgba(255,255,255,.02)}
+td.dl{font-weight:800;color:var(--cyan)}
+tr:hover td{background:rgba(34,211,238,.05)}
+.rat{font-size:11px;padding:1px 7px;border-radius:6px}
+.rat.AAA{background:rgba(52,211,153,.15);color:var(--green)}
+.rat.AA{background:rgba(34,211,238,.12);color:var(--cyan)}
+.rat.AA_,.rat.AA\+{background:rgba(34,211,238,.12);color:var(--cyan)}
+.rat.A{background:rgba(251,191,36,.14);color:var(--amber)}
+.rat.BBB{background:rgba(248,113,113,.14);color:var(--red)}
+.note{font-size:12px;color:var(--sub);background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:12px 14px;line-height:1.8}
+.note b{color:var(--amber)}
+.books{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+.book{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:13px}
+footer{text-align:center;color:var(--sub);font-size:12px;margin-top:30px;line-height:1.8}
+a{color:var(--cyan);text-decoration:none}
+.section-num{color:var(--cyan);font-weight:800;margin-right:6px}
+@media(max-width:720px){.axis,.inds,.risk,.books,.dims{grid-template-columns:1fr 1fr}.kpis{grid-template-columns:1fr 1fr}.flow{flex-direction:column}.arrow{transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Convertible Bond · Double-Low Rotation</div>
+  <h1>双低轮动 <span class="accent">可视化作战手册</span></h1>
+  <div class="sub">双低轮动策略可视化手册 · 价值/安全边际同源</div>
+  <div>
+    <span class="tag">双低 = 价格 + 溢价率×100</span>
+    <span class="tag">债性保护 + 股性弹性</span>
+    <span class="tag">估值高→空仓防守</span>
+    <span class="tag">数据截至 2026-08-04</span>
+  </div>
+</header>
+
+<!-- 1. 市场温度计 -->
+<div class="card">
+  <h2><span class="dot"></span>当前市场温度计 · 四指标进场法</h2>
+  <p class="desc">进场纪律：4 指标中 ≥2 个满足。当前实测如下——<b style="color:var(--red)">全部不满足</b>，按纪律应空仓/防守。</p>
+  <div class="thermo">
+    <div class="track"></div>
+    <div class="marker" data-v="当前 192.6" style="left:61.7%"></div>
+    <div class="scale"><span>100</span><span style="color:var(--green)">140 进场线</span><span>250</span></div>
+  </div>
+  <div class="signal"><span class="bad">🔴 估值偏高 · 空仓防守信号</span></div>
+  <div class="inds">
+    <div class="ind"><span class="nm">价格中值 &lt; 112</span><span class="vv no">136.6<span class="tag2 no">✗</span></span></div>
+    <div class="ind"><span class="nm">双低中值 &lt; 140</span><span class="vv no">192.6<span class="tag2 no">✗</span></span></div>
+    <div class="ind"><span class="nm">双低均值 &lt; 160</span><span class="vv no">192.7<span class="tag2 no">✗</span></span></div>
+    <div class="ind"><span class="nm">双低&lt;125 数量 &gt; 40</span><span class="vv no">仅 7<span class="tag2 no">✗</span></span></div>
+  </div>
+  <p class="note" style="margin-top:16px">候选池（价 95~200 / 溢价 −20%~100% / 已上市）共 <b>197</b> 只，双低中位数 <b>192.6</b>。2023 年正是靠"估值高时空仓躲进有债底保护的银行双低"控制回撤——当前环境同理。<b>历史不代表未来，不构成投资建议。</b></p>
+</div>
+
+<!-- 2. 双低公式 -->
+<div class="card">
+  <h2><span class="dot"></span>双低是什么 · 一手债性一手股性</h2>
+  <p class="desc">双低值越小越靠前。它把"便宜"和"跟涨"合成一个排序维度。</p>
+  <div class="formula">
+    <div class="fbox"><div class="k">转债价格（债性）</div><div class="v">越低越安全</div></div>
+    <div class="op">+</div>
+    <div class="fbox"><div class="k">转股溢价率 × 100（股性）</div><div class="v">越低越跟涨</div></div>
+    <div class="eq">=</div>
+    <div class="fbox" style="border-color:rgba(34,211,238,.5)"><div class="k">双低值</div><div class="v">越小越好</div></div>
+  </div>
+  <div class="axis">
+    <div class="a"><b>低价 → 债底保护</b><br>价格贴近回售价/纯债价值，下跌有底，对应施洛斯式"买得便宜"。</div>
+    <div class="a r"><b>低溢价 → 跟涨弹性</b><br>溢价率小，正股涨转债基本同步涨，不吃"看对方向赚不到钱"的亏。</div>
+  </div>
+</div>
+
+<!-- 3. 四象限 -->
+<div class="card">
+  <h2><span class="dot"></span>四象限估值定位 · 价格 × 溢价率</h2>
+  <p class="desc">横轴=价格（债底远近），纵轴=溢价率（股性强弱）。鼠标悬停看每个象限的动作。</p>
+  <div class="quad">
+    <div class="q q1"><div class="qt">① 价近债底 + 低溢价</div><div class="qa">债股双强 → 可重仓（如 2014 中行转债 103 元 / 溢价 1%）</div></div>
+    <div class="q q2"><div class="qt">② 远离债底 + 低溢价</div><div class="qa">获利兑现 → 130 元强赎节点逐步减仓，负溢价可套利</div></div>
+    <div class="q q4"><div class="qt">④ 价近债底 + 高溢价</div><div class="qa">债性安全 → 等下修 / 行情消灭高溢价</div></div>
+    <div class="q q3"><div class="qt">③ 远离债底 + 高溢价</div><div class="qa">情绪驱动 → 及早兑现，杀跌首选</div></div>
+  </div>
+  <div class="quad-legend"><span>← 价格低（债底近）</span><span>价格高（远离债底）→</span></div>
+  <div class="quad-legend" style="margin-top:2px"><span>↑ 溢价率低（股性强）</span><span>↑ 溢价率高（股性弱）</span></div>
+</div>
+
+<!-- 4. 轮动规则 -->
+<div class="card">
+  <h2><span class="dot"></span>轮动规则 · 建仓前 10% / 轮出前 20%</h2>
+  <p class="desc">样本池按双低升序排序，机械轮动，避免主观择时。</p>
+  <div class="flow">
+    <div class="step"><div class="sn">STEP 1</div><div class="st">选股</div><div class="sd">全样本双低升序</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="sn">STEP 2</div><div class="st">建仓</div><div class="sd">前 10%（如70选7）等权</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="sn">STEP 3</div><div class="st">监控</div><div class="sd">月度刷新排名</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="sn">STEP 4</div><div class="st">轮出</div><div class="sd">跌出前 20%（如15名）即换</div></div>
+  </div>
+  <div class="loopnote">⟳ 卖出所得循环买入新进前 10% → 永续轮动（注：指标仅参考，实盘加入主观判断）</div>
+</div>
+
+<!-- 5. 银行打分神器 -->
+<div class="card">
+  <h2><span class="dot"></span>增强维度 · 银行打分神器（8 维价值筛选）</h2>
+  <p class="desc">用纯价值指标给 42 家银行打分——与「ROE+PE/PB 质量价值」思路同源。</p>
+  <div class="dims">
+    <div class="dim"><div class="dname">不良率</div><div class="dhint">越低越好</div></div>
+    <div class="dim"><div class="dname">拨备覆盖率</div><div class="dhint">越高越安全</div></div>
+    <div class="dim"><div class="dname">资本充足率</div><div class="dhint">抗风险</div></div>
+    <div class="dim"><div class="dname">ROE</div><div class="dhint">盈利能力</div></div>
+    <div class="dim"><div class="dname">净利增速</div><div class="dhint">成长性</div></div>
+    <div class="dim"><div class="dname">负债率</div><div class="dhint">越低越好</div></div>
+    <div class="dim"><div class="dname">PB</div><div class="dhint">估值水位</div></div>
+    <div class="dim"><div class="dname">股息率</div><div class="dhint">现金流回报</div></div>
+  </div>
+  <div class="scorehint">📐 <b>估值差 = 基本面排名 − 估值排名</b>，差值越负 = 越被低估。据此在银行转债与银行正股间切换：溢价率高时买银行正股作"等价物"，赌转股价值&gt;到期赎回价促成转股。</div>
+</div>
+
+<!-- 6. 风控纪律 -->
+<div class="card">
+  <h2><span class="dot"></span>风控纪律 · 管住手</h2>
+  <p class="desc">双低最大的坑是"低价+负溢价≠便宜"（可能是违约边缘债）。纪律优先。</p>
+  <div class="risk">
+    <div class="box">
+      <h3 style="color:var(--red)">⚠ 排雷红线</h3>
+      <ol>
+        <li><b>信用雷</b>：剔除评级 CCC/CC/C 及 ST 正股转债</li>
+        <li><b>双低失灵场景</b>：全市场高估时选出的都不便宜，安全边际变薄</li>
+        <li><b>拥挤交易</b>：2019 后全网跑双低，alpha 被摊薄</li>
+        <li><b>强赎风险</b>：130 元上方及时兑现，防强赎踏空</li>
+      </ol>
+    </div>
+    <div class="box ok">
+      <h3 style="color:var(--green)">✓ 策略守则</h3>
+      <ol>
+        <li><b>估值太高→空仓</b>，躲进有债底保护的银行双低</li>
+        <li><b>进场四指标</b>≥2 满足才动手（见温度计）</li>
+        <li><b>"管住手"</b>：出来的不要轻易再进场</li>
+        <li><b>动态仓位</b>：1%↔92% 随估值收放</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- 7. 实盘战绩 -->
+<div class="card">
+  <h2><span class="dot"></span>实盘战绩 · 历史公开记录统计</h2>
+  <p class="desc">基于公开实盘记录统计整理。</p>
+  <div class="kpis">
+    <div class="kpi"><div class="lv">+28.83%</div><div class="lk">2023 年组合收益</div></div>
+    <div class="kpi"><div class="lv r">−16.03%</div><div class="lk">5.5年最大回撤(2023.12)</div></div>
+    <div class="kpi"><div class="lv a">&lt;1.5%</div><div class="lk">日常回撤</div></div>
+    <div class="kpi"><div class="lv c">1%~92%</div><div class="lk">动态仓位区间</div></div>
+  </div>
+  <p class="note" style="margin-top:14px">2025/2026 本年收益约 <b>+29% 级别</b>（公开记录年内 +29.x%）。穿越牛熊靠的是"估值高时空仓"而非死扛。
+
+<b>个人观点</b>：双低是压舱石策略，不是圣杯——牛市前半段低溢价吊打双低，熊市/震荡双低更抗跌，全周期拉长夏普大概率最优。建议双低/三低做核心 + 低评级剔除 + 下修催化做增强。</p>
+</div>
+
+<!-- 8. 当前双低 TOP20 -->
+<div class="card">
+  <h2><span class="dot"></span>当前双低 TOP20 · 实时排名快照</h2>
+  <p class="desc">数据源为网络收集整理（2026-08-04）。仅作策略当下关注标的示意，<b>非持仓建议</b>。</p>
+  <table id="tbl">
+    <thead><tr><th>排名</th><th>代码</th><th>简称</th><th>双低</th><th>债现价</th><th>转股溢价率%</th><th>转股价值</th><th>评级</th><th>规模(亿)</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <p class="note" style="margin-top:14px">观察：TOP20 双低区间 <b>111~149</b>，但全市场中位数已 192.6——说明当前"便宜货"极度稀缺，符合温度计的空仓信号。密卫/闻泰/美锦居前，但闻泰(BBB+)/美锦(A)评级偏低，需自行排雷。
+
+完整历史回测脚本已就绪，待转债历史行情接口限流恢复即可跑出真实年化/回撤/夏普对比。</p>
+</div>
+
+
+<footer>
+  数据来源：网络收集整理（2026-08-04）<br>
+  本报告由系统整理生成，版权归原作者所有，仅用于个人投研分析。<br>
+  <b style="color:var(--amber)">以上为数据整理与方法论还原，不构成投资建议，决策请自行判断，历史不代表未来。</b>
+</footer>
+
+</div>
+
+<script>
+const DATA = [
+{"rank":1,"code":"113658","name":"密卫转债","dl":111.3,"price":111.19,"prem":0.1,"value":111.1,"rating":"AA-","size":8.7},
+{"rank":2,"code":"110081","name":"闻泰转债","dl":114.9,"price":103.68,"prem":11.3,"value":93.2,"rating":"BBB+","size":86.0},
+{"rank":3,"code":"127061","name":"美锦转债","dl":115.6,"price":110.54,"prem":5.1,"value":105.2,"rating":"A","size":35.9},
+{"rank":4,"code":"128134","name":"鸿路转债","dl":121.4,"price":115.88,"prem":5.6,"value":109.8,"rating":"AA","size":18.8},
+{"rank":5,"code":"118053","name":"正帆转债","dl":121.6,"price":122.67,"prem":-1.1,"value":124.1,"rating":"AA","size":10.4},
+{"rank":6,"code":"113605","name":"大参转债","dl":122.4,"price":116.61,"prem":5.8,"value":110.3,"rating":"AA","size":14.1},
+{"rank":7,"code":"113042","name":"上银转债","dl":124.4,"price":118.94,"prem":5.4,"value":112.8,"rating":"AAA","size":200.0},
+{"rank":8,"code":"128128","name":"齐翔转2","dl":126.0,"price":110.1,"prem":15.9,"value":95.0,"rating":"AA","size":29.9},
+{"rank":9,"code":"128127","name":"文科转债","dl":131.5,"price":114.72,"prem":16.8,"value":98.2,"rating":"BBB+","size":9.5},
+{"rank":10,"code":"110075","name":"南航转债","dl":134.1,"price":106.83,"prem":27.2,"value":84.0,"rating":"AAA","size":160.0},
+{"rank":11,"code":"110076","name":"华海转债","dl":134.8,"price":119.28,"prem":15.5,"value":103.3,"rating":"AA","size":18.4},
+{"rank":12,"code":"113056","name":"重银转债","dl":134.9,"price":128.5,"prem":6.3,"value":120.8,"rating":"AAA","size":130.0},
+{"rank":13,"code":"113062","name":"常银转债","dl":138.5,"price":130.02,"prem":8.5,"value":119.8,"rating":"AAA","size":60.0},
+{"rank":14,"code":"127027","name":"能化转债","dl":140.3,"price":112.29,"prem":28.0,"value":87.7,"rating":"AAA","size":28.0},
+{"rank":15,"code":"128142","name":"新乳转债","dl":141.3,"price":119.8,"prem":21.5,"value":98.6,"rating":"AA","size":7.2},
+{"rank":16,"code":"128129","name":"青农转债","dl":141.6,"price":107.89,"prem":33.8,"value":80.7,"rating":"AAA","size":50.0},
+{"rank":17,"code":"123064","name":"万孚转债","dl":141.8,"price":109.94,"prem":31.9,"value":83.4,"rating":"AA","size":6.0},
+{"rank":18,"code":"113052","name":"兴业转债","dl":145.9,"price":117.98,"prem":28.0,"value":92.2,"rating":"AAA","size":500.0},
+{"rank":19,"code":"123107","name":"温氏转债","dl":148.0,"price":113.03,"prem":34.9,"value":83.8,"rating":"AAA","size":93.0},
+{"rank":20,"code":"127030","name":"盛虹转债","dl":149.1,"price":120.0,"prem":29.1,"value":93.0,"rating":"AA+","size":50.0}
+];
+const tb=document.querySelector('#tbl tbody');
+DATA.forEach(r=>{
+  const rat=r.rating.replace('+','\\+');
+  const rc=rat.startsWith('AAA')?'AAA':rat.startsWith('AA')?'AA':rat.startsWith('A')?'A':'BBB';
+  tb.insertAdjacentHTML('beforeend',`<tr>
+    <td>${r.rank}</td><td>${r.code}</td><td>${r.name}</td>
+    <td class="dl">${r.dl.toFixed(1)}</td><td>${r.price.toFixed(2)}</td>
+    <td>${r.prem.toFixed(1)}</td><td>${r.value.toFixed(1)}</td>
+    <td><span class="rat ${rc}">${r.rating}</span></td><td>${r.size.toFixed(1)}</td>
+  </tr>`);
+});
+</script>
+</body>
+</html>

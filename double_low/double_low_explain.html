@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>可转债轮动法 · 人话详解</title>
+<style>
+  :root{
+    --bg:#0a0e14; --card:rgba(255,255,255,.045); --line:rgba(255,255,255,.09);
+    --text:#e7eaf0; --dim:#8b93a7; --red:#ff5a5f; --green:#2dd4a7;
+    --gold:#f5c451; --blue:#5aa9ff; --purple:#b98bff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1200px 600px at 80% -10%,rgba(45,212,167,.10),transparent),radial-gradient(900px 500px at 0% 0%,rgba(90,169,255,.10),transparent),var(--bg);
+    color:var(--text);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.75;padding:28px 16px 60px}
+  .wrap{max-width:960px;margin:0 auto}
+  h1{font-size:30px;letter-spacing:1px;margin-bottom:6px}
+  .sub{color:var(--dim);margin-bottom:26px;font-size:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:18px 0;backdrop-filter:blur(8px)}
+  h2{font-size:21px;margin:6px 0 14px;display:flex;align-items:center;gap:10px}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+  h3{font-size:16px;margin:18px 0 8px;color:var(--gold)}
+  p{margin:8px 0;color:#d6dae4}
+  .dim{color:var(--dim);font-size:14px}
+  b{color:#fff}
+  .hl{color:var(--green);font-weight:600}
+  .hr{color:var(--red);font-weight:600}
+  .hg{color:var(--gold);font-weight:600}
+  .hb{color:var(--blue);font-weight:600}
+  .formula{background:rgba(45,212,167,.08);border:1px solid rgba(45,212,167,.25);border-radius:10px;padding:12px 16px;margin:12px 0;font-size:17px}
+  .box{background:rgba(255,255,255,.03);border-left:3px solid var(--blue);border-radius:8px;padding:12px 16px;margin:12px 0}
+  .box.life{border-left-color:var(--green)}
+  .box.warn{border-left-color:var(--red)}
+  .box.tip{border-left-color:var(--gold)}
+  .box.story{border-left-color:var(--purple)}
+  .box h4{color:var(--text);font-size:15px;margin-bottom:4px}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:center}
+  th{background:rgba(255,255,255,.05);color:var(--gold)}
+  .quad{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+  .q{border-radius:12px;padding:14px 16px;border:1px solid var(--line)}
+  .q.good{background:rgba(45,212,167,.10);border-color:rgba(45,212,167,.35)}
+  .q.wait{background:rgba(245,196,81,.08);border-color:rgba(245,196,81,.30)}
+  .q.hot{background:rgba(90,169,255,.08);border-color:rgba(90,169,255,.30)}
+  .q.bubble{background:rgba(255,90,95,.08);border-color:rgba(255,90,95,.30)}
+  .q .tag{font-size:12px;color:var(--dim);display:block;margin-bottom:4px}
+  .q .act{font-weight:600;margin-top:6px;display:block}
+  .axis{position:relative;height:2px;background:var(--line);margin:30px 0}
+  .axis::before,.axis::after{content:"";position:absolute;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--dim)}
+  .axis::before{left:0}.axis::after{right:0}
+  .scale{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);margin-top:-22px}
+  .ladder{display:flex;flex-direction:column;gap:0;margin:14px 0}
+  .step{padding:11px 16px;border-left:4px solid;font-size:14px}
+  .s1{border-color:var(--green);background:rgba(45,212,167,.07)}
+  .s2{border-color:var(--gold);background:rgba(245,196,81,.07)}
+  .s3{border-color:var(--blue);background:rgba(90,169,255,.07)}
+  .s4{border-color:var(--red);background:rgba(255,90,95,.07)}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0;font-size:14px}
+  .node{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:20px;padding:8px 14px}
+  .node.go{background:rgba(45,212,167,.14);border-color:rgba(45,212,167,.4);color:var(--green)}
+  .node.no{background:rgba(255,90,95,.12);border-color:rgba(255,90,95,.4);color:var(--red)}
+  .arr{color:var(--dim)}
+  .legend{font-size:13px;color:var(--dim);margin-top:6px}
+  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:13px;text-align:center}
+  .num{display:inline-block;min-width:22px;height:22px;line-height:22px;text-align:center;background:var(--green);color:#04221a;border-radius:6px;font-weight:700;font-size:13px;margin-right:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>可转债轮动法 · 人话详解</h1>
+<div class="sub">时间 × 空间 × 价格，三个维度把"什么时候买、买什么、什么时候卖"讲明白 · 全文口语化 + 大量举例</div>
+
+<!-- 1. 本质 -->
+<div class="card">
+  <h2><span class="dot"></span>一、先把可转债是个啥说清楚</h2>
+  <p>可转债 = <b>一张借条</b> + <b>一张看涨期权（彩票）</b>。</p>
+  <div class="box life">
+    <h4>🌰 生活类比：你借钱给朋友开奶茶店</h4>
+    <p>你借给朋友 10 万块，打了借条：<b>"1 年后还本 + 5% 利息"</b>。这是<b class="hl">债性</b>——最坏情况，1 年后他连本带利还你 10.5 万，亏不到哪去。<br>
+    但借条上还写了句：<b>"期间你有权按每股 10 块的价格，把这 10 万块换成他家的股份"</b>。这是<b class="hg">股性</b>——万一他家奶茶店火了、股价涨到 20 块，你按 10 块转成股份，转手就赚一倍。</p>
+  </div>
+  <p>可转债就是上市公司向你借钱，附带"可以按约定价格换成股票"的权利。</p>
+  <ul style="margin:8px 0 0 20px;color:#d6dae4">
+    <li><b class="hl">跌的时候</b>：它是一张债，有"到期还本付息"托底，跌不动（除非公司要破产）。</li>
+    <li><b class="hg">涨的时候</b>：它能换成股票，正股涨它就跟着涨，弹性不输股票。</li>
+    <li>一句话：<b>"下有保底，上不封顶"</b>——当然，保底是建立在公司不违约的前提下。</li>
+  </ul>
+  <div class="box warn">
+    <h4>⚠️ 保底不是无条件的</h4>
+    <p>那个"底"是公司到期还钱。如果公司财务爆雷、还不上钱（像曾经的岭南、搜特），这张债也会暴跌。所以"便宜"不等于"安全"，后面会专门讲怎么排雷。</p>
+  </div>
+</div>
+
+<!-- 2. 轮动本质 -->
+<div class="card">
+  <h2><span class="dot"></span>二、轮动是啥？就是"挑新鲜水果"的循环</h2>
+  <p>"轮动"听着玄乎，其实就是一句话：<b>定期把不便宜的换成更便宜的</b>。</p>
+  <div class="box story">
+    <h4>🌰 菜市场挑草莓</h4>
+    <p>周一你买了 10 盒最便宜、最新鲜的草莓。到了周日，其中 3 盒不新鲜了（变贵了 / 快坏了），你就把这 3 盒扔掉，再补 3 盒当下最便宜最新鲜的。<b>始终保持手里是"全市场性价比最高的那一小批"</b>。轮动 = 这个"定期换批"的动作。</p>
+  </div>
+  <p>可转债轮动也一样：你同时持有一篮子（比如 10~15 只）可转债，每隔一段时间（比如一个月），把其中已经"不便宜"的踢掉，换进当下"最便宜、最跟涨"的。永远持有全市场性价比最高的那批。</p>
+  <p class="dim">它不赌某一只暴涨，而是靠"持续待在便宜区"这个系统性优势，长期跑赢随便买。</p>
+</div>
+
+<!-- 3. 双低公式 -->
+<div class="card">
+  <h2><span class="dot"></span>三、"双低"是什么？轮动选股的尺子</h2>
+  <p>挑草莓得有标准。轮动可转债最常用的尺子叫<b class="hl">双低值</b>：</p>
+  <div class="formula">双低值 = 转债价格 + 转股溢价率 × 100</div>
+  <p>这俩数字分别代表"债性"和"股性"，拆开看：</p>
+  <table>
+    <tr><th>指标</th><th>代表什么</th><th>数值低 =</th><th>数值高 =</th></tr>
+    <tr><td><b>转债价格</b><br>(通常 100 附近)</td><td>债性 / 跌的空间</td><td class="hl">便宜，跌不动<br>(越接近100越有保底)</td><td class="hr">贵，涨不动<br>(已透支)</td></tr>
+    <tr><td><b>转股溢价率</b><br>(%)</td><td>股性 / 跟涨能力</td><td class="hl">正股涨它跟涨紧<br>(弹性好)</td><td class="hr">正股涨它不跟<br>(死沉)</td></tr>
+  </table>
+  <div class="box tip">
+    <h4>💡 为什么两个都要低？</h4>
+    <p><b class="hl">价格低</b> → 债底厚，跌到 100 附近就有"到期还本"托着，安全。<br>
+    <b class="hl">溢价率低</b> → 正股一涨，它立马跟上，能吃肉。<br>
+    两个都低，就是<b>"既便宜、又跟涨"</b>——性价比最高。所以叫"双低"。</p>
+  </div>
+  <div class="box story">
+    <h4>🌰 两只债比一比</h4>
+    <p>· 债 A：价格 105，溢价率 5% → 双低 = 105 + 5 = <b class="hl">110</b><br>
+    · 债 B：价格 120，溢价率 20% → 双低 = 120 + 20 = <b class="hr">140</b><br>
+    选 A。A 更便宜（跌得少），且溢价低（正股涨它跟得紧）。A 双低值小，性价比高。</p>
+  </div>
+  <p class="dim">轮动的动作就一句话：<b>双低值越小越优先买，排名掉到后面就卖</b>。下面三节讲清"什么时候调、买在哪个价位区间、用什么空间判断"。</p>
+</div>
+
+<!-- 4. 时间判断 -->
+<div class="card">
+  <h2><span class="dot"></span>四、时间怎么判断（什么时候动手）</h2>
+  <p>时间维度管三件事：<b>调仓频率</b>、<b>建仓大时点</b>、<b>单只轮出时点</b>。</p>
+
+  <h3>① 调仓频率：别太勤，也别太懒</h3>
+  <div class="flow">
+    <span class="node">每天调</span><span class="arr">→</span>
+    <span class="node no">手续费吃掉利润 + 被噪声带节奏</span>
+  </div>
+  <div class="flow">
+    <span class="node">半年调一次</span><span class="arr">→</span>
+    <span class="node no">跟不上市场，好债变贵了还拿着</span>
+  </div>
+  <div class="flow">
+    <span class="node">每月 / 每两月调</span><span class="arr">→</span>
+    <span class="node go">✓ 主流节奏：摩擦成本可控，又能及时换血</span>
+  </div>
+  <div class="box tip"><h4>💡 人话</h4><p>就像草莓不用天天换（费钱），也不能放半个月（烂了）。<b class="hg">每月挑一次</b>最舒服。</p></div>
+
+  <h3>② 建仓大时点：看全市场"贵不贵"</h3>
+  <p>不是随时都该满仓。要看<b>全市场双低中位数</b>——它像"全市场草莓的平均新鲜度"。</p>
+  <div class="axis"></div>
+  <div class="scale"><span>双低中位数 80<br>(极便宜·2018底)</span><span>120<br>(合理)</span><span>140<br>(警戒线)</span><span>190+<br>(极贵·当下)</span></div>
+  <table style="margin-top:26px">
+    <tr><th>全市场双低中位数</th><th>市场状态</th><th>该咋办</th></tr>
+    <tr><td>&lt; 110</td><td class="hl">遍地黄金</td><td class="hl">重仓甚至满仓双低</td></tr>
+    <tr><td>110 ~ 140</td><td>正常</td><td>正常轮动，仓位 60~80%</td></tr>
+    <tr><td>140 ~ 160</td><td class="hg">偏贵</td><td class="hg">减仓，只留最便宜的</td></tr>
+    <tr><td>&gt; 160</td><td class="hr">太贵</td><td class="hr">空仓 / 只持银行双低防御</td></tr>
+  </table>
+  <div class="box life">
+    <h4>🌰 真实场景对照</h4>
+    <p>· <b class="hl">2018 年底</b>：全市场双低中位数才 80 左右，闭眼买双低都赚钱，那是"草莓论斤称"的时候。<br>
+    · <b class="hr">2026 年当下</b>：双低中位数约 190，绝大多数双低值都虚高——按纪律该<b class="hr">空仓防守</b>。不是方法失效，是现在没便宜货可挑。</p>
+  </div>
+
+  <h3>③ 单只轮出时点：排名掉了就换</h3>
+  <p>每次调仓日，按双低值给全市场排序。约定一个阈值：</p>
+  <div class="box tip"><h4>💡 常见规则</h4>
+    <p>· <b class="hl">买入</b>：双低值排名前 10%（或前 10~15 只）<br>
+    · <b class="hr">卖出</b>：某只债的双低排名跌出前 20%，就踢掉换新的</p></div>
+  <div class="box story">
+    <h4>🌰 小明的一篮子</h4>
+    <p>小明持 15 只双低债。到了调仓日，发现其中 3 只因为正股大涨、转债价冲到 130+，双低排名从"前 10"掉到了"前 40"。这 3 只不再是便宜货，小明就把它们卖了，换进当下排名前 15 的新面孔。<b>篮子永远装着最便宜的那批，这就是"轮"。</b></p>
+  </div>
+</div>
+
+<!-- 5. 空间判断 -->
+<div class="card">
+  <h2><span class="dot"></span>五、空间怎么判断（买在哪个价格区间）</h2>
+  <p>"空间"= 这只债现在处于什么价位段、还有没有肉吃。用<b>价格 × 溢价率</b>画成四个象限最直观：</p>
+  <div class="quad">
+    <div class="q good"><span class="tag">低价格 · 低溢价</span><b>黄金区 🟢</b><span class="act hl">重仓区：又便宜又跟涨，轮动首选</span></div>
+    <div class="q wait"><span class="tag">低价格 · 高溢价</span><b>等下修区 🟡</b><span class="act hg">埋伏区：便宜但不跟涨，赌公司下修转股价</span></div>
+    <div class="q hot"><span class="tag">高价格 · 低溢价</span><b>强势区 🔵</b><span class="act hb">吃肉区：正股猛涨带动，但已贵，随时止盈</span></div>
+    <div class="q bubble"><span class="tag">高价格 · 高溢价</span><b>泡沫区 🔴</b><span class="act hr">兑现区：又贵又不跟涨，该卖了</span></div>
+  </div>
+  <div class="box story">
+    <h4>🌰 四个象限的真实例子</h4>
+    <p>· <b class="hl">黄金区</b>：某银行转债价 102、溢价 3%。银行不会轻易违约（债底厚），正股微涨它就跟——双低轮动最爱这种。<br>
+    · <b class="hg">等下修区</b>：某债价 98、溢价 40%。便宜但正股跌太多、转股价高高在上不跟涨。赌公司为了不还钱，主动<b>下修转股价</b>，溢价率一夜降到 5%，双低骤降，提前埋伏的人吃大肉。<br>
+    · <b class="hb">强势区</b>：某热门债价 135、溢价 2%。正股连板，它紧跟吃肉。但 135 已贵，盯着强赎公告随时跑。<br>
+    · <b class="hr">泡沫区</b>：某妖债价 180、溢价 60%。纯炒作，既不便宜也不跟涨，谁接最后一棒谁亏。</p>
+  </div>
+  <p class="dim">轮动策略主要收割<b class="hl">黄金区</b>，少量埋伏<b class="hg">等下修区</b>；<b class="hr">泡沫区</b>是卖出信号，不是买点。</p>
+</div>
+
+<!-- 6. 价格判断 -->
+<div class="card">
+  <h2><span class="dot"></span>六、价格怎么判断（买卖触发价）</h2>
+  <p>空间给了区间，价格给具体"动作线"。把转债价格从低到高排成阶梯：</p>
+  <div class="ladder">
+    <div class="step s1"><b>＜ 100（破发区）</b> — 比面值还便宜，债底保护最强。但要先排雷（确认公司还得起钱），否则是"便宜的陷阱"。</div>
+    <div class="step s2"><b>100 ~ 115（舒适区）</b> — 双低轮动主战场。下有保底，上跟正股，性价比最高。</div>
+    <div class="step s3"><b>115 ~ 130（观察区）</b> — 开始贵了，溢价可能还在。持有可以，但不再新买；排名掉出就换。</div>
+    <div class="step s4"><b>＞ 130（兑现区）</b> — 通常触发<b>强赎</b>预警。公司有权按约 100 出头的价格赎回，此时市价 130+ 会被强制压回，<b class="hr">必须卖或转股</b>，不然白白亏 20%+。</div>
+  </div>
+  <div class="box warn">
+    <h4>⚠️ 强赎——双低玩家最大的"时间陷阱"</h4>
+    <p>转债规则：正股连续 15 个交易日里有 30 天收盘价 ≥ 转股价的 130%，公司就能发<b>强赎</b>。一旦强赎，你手里的 130+ 转债会被按 100 出头赎回。<br>
+    <b class="hr">所以价格过了 130，就得天天盯公告。</b>不卖不转股，到期被低价赎回 = 实亏。</p>
+  </div>
+  <div class="box story">
+    <h4>🌰 强赎时间线</h4>
+    <p>某债正股从 1 月起连续大涨，1/5、1/12、1/20… 第 15 个"达标日"触发强赎条件。公司 2/1 发强赎公告，规定 2/28 为最后交易日。小明在 2/10 以 138 卖出，赚 38%；他朋友忘了看，2/28 被 102 强制赎回，白白少了 36 块/张。<b>时间 + 价格，两个维度一起卡死。</b></p>
+  </div>
+</div>
+
+<!-- 7. 完整闭环 -->
+<div class="card">
+  <h2><span class="dot"></span>七、把三维度串成完整轮动闭环</h2>
+  <div class="flow">
+    <span class="node go">① 看时间：<br>市场贵不贵？</span><span class="arr">→</span>
+    <span class="node">② 看空间：<br>挑黄金/下修区</span><span class="arr">→</span>
+    <span class="node">③ 看价格：<br>买在100~115</span><span class="arr">→</span>
+    <span class="node go">④ 等涨：<br>持有跟涨</span><span class="arr">→</span>
+    <span class="node no">⑤ 触发：<br>排名掉/价&gt;130</span><span class="arr">→</span>
+    <span class="node">⑥ 换血：<br>踢旧补新</span><span class="arr">↺</span>
+    <span class="node go">回到①</span>
+  </div>
+  <div class="box tip"><h4>💡 一句话闭环</h4>
+    <p><b>市场便宜时（时间）多买黄金区（空间）里 100~115 的便宜货（价格），涨贵了或排名掉了就换掉，循环往复。</b></p></div>
+</div>
+
+<!-- 8. 多场景举例 -->
+<div class="card">
+  <h2><span class="dot"></span>八、更多实战例子（掰开揉碎）</h2>
+
+  <h3>例 1：双低怎么算，三债 PK</h3>
+  <table>
+    <tr><th>转债</th><th>价格</th><th>溢价率</th><th>双低值</th><th>结论</th></tr>
+    <tr><td>A</td><td>103</td><td>2%</td><td class="hl">105</td><td class="hl">首选，便宜又跟涨</td></tr>
+    <tr><td>B</td><td>108</td><td>15%</td><td>123</td><td>中规中矩</td></tr>
+    <tr><td>C</td><td>128</td><td>25%</td><td class="hr">153</td><td class="hr">贵且不跟涨，不买</td></tr>
+  </table>
+
+  <h3>例 2：市场温度计指挥仓位</h3>
+  <div class="box life">
+    <p>老王 2019 年初看双低中位数 90 → 满仓 15 只双低，拿两年赚 50%+。<br>
+    老王 2021 年春节看中位数 150 → 砍到只剩 3 只银行双低，其余现金。结果 2021 下半年转债杀估值，他几乎没伤着。<br>
+    <b>同一个轮动方法，靠"时间维度看贵贱"控制仓位，躲过回撤。</b></p>
+  </div>
+
+  <h3>例 3：下修博弈（空间维度的彩蛋）</h3>
+  <div class="box story">
+    <p>某转债价 99、溢价 45%，躺在"等下修区"。公司发现还本压力山大，主动把转股价从 20 下修到 12。次日溢价率从 45% 暴跌到 8%，双低值从 144 降到 107，瞬间挤进黄金区、排名蹿升。提前埋伏的人，一天吃 10%+。<b>这是"空间判断"里最肥的一块肉，但前提是公司真有下修动机（不想还钱）。</b></p>
+  </div>
+
+  <h3>例 4：回售条款——价格的"铁底"</h3>
+  <div class="box tip">
+    <p>很多转债写着：<b>"最后两年，正股连续 30 天低于转股价 70%，持有人有权按面值+利息回售给公司"</b>。这给价格钉了根铁底——真跌到那，你可以 100 卖回给公司，别人不敢再往下砸。<b>看价格时，回售底也是一道安全线。</b></p>
+  </div>
+
+  <h3>例 5：信用雷——便宜的陷阱</h3>
+  <div class="box warn">
+    <p>某债价 95、双低排名前 5，看着完美。但公司是 ST、财报爆雷，市场怕它到期还不上钱。结果它不按"债底"走，一路跌到 60。<b>双低轮动最大的坑：低价可能是"要违约"的信号，不是"便宜"。</b>所以买入前必须加一道过滤：剔除信用评级低（如 A- 以下 / 负面展望）、正股 ST、有违约记录的。</p>
+  </div>
+
+  <h3>例 6：为什么不能死磕一只</h3>
+  <div class="box story">
+    <p>小李 2020 年重仓单押一只"双低第一"的债，结果该公司被立案调查，单只腰斩，账户亏 30%。而双低轮动是<b>一篮子 10~15 只</b>，单只暴雷只伤 1/15。<b>分散，是轮动对抗"个体黑天鹅"的盔甲。</b></p>
+  </div>
+</div>
+
+<!-- 9. 风控 -->
+<div class="card">
+  <h2><span class="dot"></span>九、人话版风控清单（必看）</h2>
+  <div class="box warn">
+    <h4>🚫 三条红线</h4>
+    <p>1. <b>排雷</b>：低评级（A- 以下）、ST、有违约史的，再便宜也不碰。<br>
+    2. <b>盯强赎</b>：价格过 130，天天看公告，到期前必须卖/转股。<br>
+    3. <b>不单押</b>：至少 10 只分散，别把命运压在一只上。</p>
+  </div>
+  <div class="box tip">
+    <h4>✅ 三个好习惯</h4>
+    <p>1. <b>看温度计</b>：市场双低中位数 &gt; 160，宁空仓不硬买。<br>
+    2. <b>守纪律</b>：每月调仓，排名掉出前 20% 就换，不恋战。<br>
+    3. <b>留现金</b>：贵的时候现金也是仓位，等便宜了才有子弹。</p>
+  </div>
+</div>
+
+<footer>
+  本页为可转债轮动方法的通俗讲解，内容基于公开方法论整理，仅供学习参考。<br>
+  以上为数据与方法论整理，不构成投资建议；历史不代表未来，决策请自行判断。
+</footer>
+
+</div>
+</body>
+</html>
