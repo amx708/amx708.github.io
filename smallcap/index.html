@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国九小市值策略 · 信号看板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;}</style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+<div class="max-w-6xl mx-auto px-4 py-10">
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold text-slate-900">国九小市值 + 拥挤度减仓策略</h1>
+    <p class="text-slate-500 mt-2">自动信号看板 · 数据源 akshare（免费）· GitHub Action 每周二收盘后自动更新</p>
+  </header>
+
+  <div id="kpi" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"></div>
+
+  <div class="grid md:grid-cols-3 gap-6 mb-8">
+    <div class="md:col-span-2 bg-white rounded-xl shadow p-6">
+      <h2 class="text-lg font-semibold mb-4">当前信号组合 · 近一年等权表现</h2>
+      <canvas id="curveChart" height="300"></canvas>
+      <p class="text-xs text-slate-400 mt-2">说明：按当周选出的 8 只等权持有、近一年回测式表现，仅用于观察信号质量，非实盘收益。</p>
+    </div>
+    <div class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-lg font-semibold mb-4">当前持仓</h2>
+      <div class="overflow-auto max-h-96">
+        <table class="w-full text-sm text-left">
+          <thead class="text-slate-500 border-b"><tr>
+            <th class="py-2 pr-3">代码</th><th class="py-2 pr-3">名称</th>
+            <th class="py-2 pr-3">现价</th><th class="py-2 pr-3">市值(亿)</th>
+            <th class="py-2 pr-3">营收(亿)</th><th class="py-2 pr-3">净利(亿)</th>
+          </tr></thead>
+          <tbody id="holdBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-4">近 12 周持仓轮换</h2>
+    <div class="overflow-auto max-h-80">
+      <table class="w-full text-sm text-left">
+        <thead class="text-slate-500 border-b"><tr>
+          <th class="py-2 pr-3">日期</th><th class="py-2 pr-3">持仓代码</th><th class="py-2 pr-3">近一年收益</th>
+        </tr></thead>
+        <tbody id="histBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-4">策略参数</h2>
+    <div id="params" class="grid md:grid-cols-3 gap-y-2 gap-x-6 text-sm"></div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-4">回测参考指标（v7）</h2>
+    <div id="metrics" class="grid md:grid-cols-4 gap-y-2 gap-x-6 text-sm"></div>
+  </div>
+
+  <div class="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-8">
+    <h2 class="text-lg font-semibold text-amber-800 mb-2">风险提示</h2>
+    <ul class="list-disc list-inside text-sm text-amber-900 space-y-1">
+      <li>本页为策略<b>信号跟踪</b>，由 akshare 公开数据每周重算，不等于实盘收益，亦不构成投资建议。</li>
+      <li>小市值策略对流动性、滑点、市场风格切换高度敏感，实盘表现可能显著弱于回测/信号曲线。</li>
+      <li>akshare 数据为第三方公开接口，存在延迟或口径差异，信号仅供参考。</li>
+      <li>策略尚未经过模拟盘或实盘验证，仅作为研究记录使用。</li>
+    </ul>
+  </div>
+
+  <footer class="text-center text-xs text-slate-400">
+    <p>生成时间：2026-08-05 · 数据源：akshare（免费公开接口）</p>
+    <p class="mt-1">以上为数据整理，不构成投资建议，决策请自行判断。</p>
+  </footer>
+</div>
+
+<script>
+const D = {"curve": {"dates": ["2025-08-05", "2025-08-06", "2025-08-07", "2025-08-08", "2025-08-11", "2025-08-12", "2025-08-13", "2025-08-14", "2025-08-15", "2025-08-18", "2025-08-19", "2025-08-20", "2025-08-21", "2025-08-22", "2025-08-25", "2025-08-26", "2025-08-27", "2025-08-28", "2025-08-29", "2025-09-01", "2025-09-02", "2025-09-03", "2025-09-04", "2025-09-05", "2025-09-08", "2025-09-09", "2025-09-10", "2025-09-11", "2025-09-12", "2025-09-15", "2025-09-16", "2025-09-17", "2025-09-18", "2025-09-19", "2025-09-22", "2025-09-23", "2025-09-24", "2025-09-25", "2025-09-26", "2025-09-29", "2025-09-30", "2025-10-09", "2025-10-10", "2025-10-13", "2025-10-14", "2025-10-15", "2025-10-16", "2025-10-17", "2025-10-20", "2025-10-21", "2025-10-22", "2025-10-23", "2025-10-24", "2025-10-27", "2025-10-28", "2025-10-29", "2025-10-30", "2025-10-31", "2025-11-03", "2025-11-04", "2025-11-05", "2025-11-06", "2025-11-07", "2025-11-10", "2025-11-11", "2025-11-12", "2025-11-13", "2025-11-14", "2025-11-17", "2025-11-18", "2025-11-19", "2025-11-20", "2025-11-21", "2025-11-24", "2025-11-25", "2025-11-26", "2025-11-27", "2025-11-28", "2025-12-01", "2025-12-02", "2025-12-03", "2025-12-04", "2025-12-05", "2025-12-08", "2025-12-09", "2025-12-10", "2025-12-11", "2025-12-12", "2025-12-15", "2025-12-16", "2025-12-17", "2025-12-18", "2025-12-19", "2025-12-22", "2025-12-23", "2025-12-24", "2025-12-25", "2025-12-26", "2025-12-29", "2025-12-30", "2025-12-31", "2026-01-05", "2026-01-06", "2026-01-07", "2026-01-08", "2026-01-09", "2026-01-12", "2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-26", "2026-01-27", "2026-01-28", "2026-01-29", "2026-01-30", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-12", "2026-02-13", "2026-02-24", "2026-02-25", "2026-02-26", "2026-02-27", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24", "2026-04-27", "2026-04-28", "2026-04-29", "2026-04-30", "2026-05-06", "2026-05-07", "2026-05-08", "2026-05-11", "2026-05-12", "2026-05-13", "2026-05-14", "2026-05-15", "2026-05-18", "2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05"], "values": [100.0, 101.01, 100.03, 101.59, 102.78, 102.4, 103.33, 101.52, 104.26, 105.06, 106.03, 105.27, 105.21, 106.33, 106.4, 105.94, 102.9, 105.34, 103.91, 104.01, 102.66, 99.27, 97.93, 100.69, 103.68, 100.83, 102.19, 103.64, 103.28, 103.13, 105.52, 105.17, 102.72, 100.86, 101.09, 99.36, 100.81, 99.87, 98.65, 99.82, 99.79, 100.51, 99.43, 98.04, 95.9, 97.46, 96.97, 93.95, 94.43, 95.27, 94.6, 94.33, 94.51, 95.46, 95.8, 97.33, 96.27, 98.01, 98.59, 97.28, 97.8, 99.2, 98.26, 98.37, 99.28, 98.44, 99.28, 99.31, 99.34, 98.0, 96.9, 95.67, 92.38, 93.23, 93.96, 93.31, 94.15, 95.56, 95.64, 94.45, 93.37, 92.5, 93.86, 94.57, 93.61, 92.97, 91.38, 91.64, 90.23, 88.13, 89.04, 89.06, 90.22, 90.48, 89.9, 91.81, 92.25, 91.82, 91.56, 92.59, 92.4, 93.53, 94.42, 94.13, 94.34, 95.17, 96.16, 94.92, 95.58, 95.35, 96.34, 96.82, 97.66, 97.93, 98.25, 98.75, 97.6, 97.19, 96.61, 96.28, 97.24, 94.82, 96.73, 97.4, 95.02, 97.17, 98.8, 99.93, 99.9, 100.05, 98.89, 99.19, 99.87, 99.16, 98.8, 97.28, 94.0, 93.2, 93.51, 94.84, 93.76, 95.0, 95.26, 95.65, 93.03, 92.11, 89.88, 89.85, 87.64, 86.66, 81.61, 83.27, 84.78, 84.69, 85.95, 86.04, 84.83, 86.5, 84.35, 82.14, 82.71, 85.9, 84.56, 85.84, 86.12, 86.92, 86.63, 86.79, 87.68, 88.41, 87.75, 87.99, 87.07, 85.25, 85.27, 83.29, 84.09, 84.54, 85.13, 85.98, 87.65, 87.94, 86.16, 86.56, 84.18, 85.51, 84.57, 84.25, 83.07, 82.07, 81.26, 80.67, 80.5, 78.2, 77.74, 75.67, 75.97, 74.52, 75.37, 74.68, 75.09, 72.37, 73.04, 70.54, 69.65, 70.36, 70.79, 71.08, 70.02, 69.56, 68.16, 67.67, 65.08, 63.63, 61.57, 62.34, 63.03, 64.9, 64.87, 66.86, 65.42, 63.39, 62.34, 62.13, 63.23, 61.2, 61.77, 62.88, 63.84, 61.49, 61.66, 61.47, 60.77, 61.55, 59.29, 60.65, 61.98, 62.85, 63.1, 63.86, 65.0, 64.99, 64.95]}, "current": {"date": "2026-08-05", "holdings": [{"code": "301268", "name": "铭利达", "price": 13.35, "mcap_yi": 53.51, "rev_yi": 8.03, "np_yi": 0.06}, {"code": "605555", "name": "德昌股份", "price": 12.02, "mcap_yi": 58.19, "rev_yi": 10.27, "np_yi": 0.13}, {"code": "002073", "name": "软控股份", "price": 5.71, "mcap_yi": 58.49, "rev_yi": 16.76, "np_yi": 0.3}, {"code": "603395", "name": "红四方", "price": 22.69, "mcap_yi": 58.99, "rev_yi": 9.5, "np_yi": 0.21}, {"code": "600963", "name": "岳阳林纸", "price": 3.38, "mcap_yi": 59.41, "rev_yi": 19.55, "np_yi": 0.13}, {"code": "301101", "name": "明月镜片", "price": 30.07, "mcap_yi": 60.59, "rev_yi": 2.33, "np_yi": 0.56}, {"code": "300841", "name": "康华生物", "price": 46.8, "mcap_yi": 60.82, "rev_yi": 1.72, "np_yi": 0.27}, {"code": "300809", "name": "华辰装备", "price": 24.35, "mcap_yi": 61.74, "rev_yi": 1.04, "np_yi": 0.13}], "trailing_1y_return": -35.05}, "history": [{"date": "2026-08-05", "holdings": [{"code": "301268", "name": "铭利达", "price": 13.35, "mcap_yi": 53.51, "rev_yi": 8.03, "np_yi": 0.06}, {"code": "605555", "name": "德昌股份", "price": 12.02, "mcap_yi": 58.19, "rev_yi": 10.27, "np_yi": 0.13}, {"code": "002073", "name": "软控股份", "price": 5.71, "mcap_yi": 58.49, "rev_yi": 16.76, "np_yi": 0.3}, {"code": "603395", "name": "红四方", "price": 22.69, "mcap_yi": 58.99, "rev_yi": 9.5, "np_yi": 0.21}, {"code": "600963", "name": "岳阳林纸", "price": 3.38, "mcap_yi": 59.41, "rev_yi": 19.55, "np_yi": 0.13}, {"code": "301101", "name": "明月镜片", "price": 30.07, "mcap_yi": 60.59, "rev_yi": 2.33, "np_yi": 0.56}, {"code": "300841", "name": "康华生物", "price": 46.8, "mcap_yi": 60.82, "rev_yi": 1.72, "np_yi": 0.27}, {"code": "300809", "name": "华辰装备", "price": 24.35, "mcap_yi": 61.74, "rev_yi": 1.04, "np_yi": 0.13}], "trailing_1y_return": -35.05}], "params": [["持仓数量", "8 只"], ["基础池", "中证1000 (000852)"], ["调仓频率", "每周二收盘后重算"], ["空仓月份", "1 月、4 月（回测逻辑）"], ["小市值候选池", "市值最小的 200 只里取 8"], ["股价上限", "¥100"], ["财务过滤", "营收>1亿 & 净利>0 & 净资产>0"], ["个股止损", "-9%（回测逻辑）"], ["大盘清仓", "沪深300 跌破 MA20（回测逻辑）"], ["拥挤度代理", "中证2000 近 20 日涨幅>25% 则半仓（回测逻辑）"]], "metrics": {"策略收益": "511.28%", "年化收益": "32.83%", "超额收益": "329.68%", "基准收益": "42.26%", "夏普比率": "1.185", "最大回撤": "27.68%", "胜率": "62.6%", "盈亏比": "1.533"}};
+const colorMap={red:'text-red-600 border-red-500',blue:'text-blue-600 border-blue-500',emerald:'text-emerald-600 border-emerald-500',slate:'text-slate-600 border-slate-400'};
+document.getElementById('kpi').innerHTML = [
+  ['更新日期',D.current?D.current.date:'—','slate'],
+  ['当前持仓',(D.current?D.current.holdings.length:0)+' 只','blue'],
+  ['平均市值',(D.current&&D.current.holdings.length)?(D.current.holdings.reduce((s,h)=>s+h.mcap_yi,0)/D.current.holdings.length).toFixed(1)+' 亿':'—','blue'],
+  ['信号近一年收益',(D.current&&D.current.trailing_1y_return!=null)?((D.current.trailing_1y_return>=0?'+':'')+D.current.trailing_1y_return.toFixed(2)+'%'):'—',(D.current&&D.current.trailing_1y_return>=0)?'emerald':'red']
+].map(([k,v,c])=>`<div class="bg-white rounded-xl shadow p-5 border-l-4 ${colorMap[c]}"><p class="text-xs text-slate-400 uppercase tracking-wide">${k}</p><p class="text-2xl font-bold ${colorMap[c].split(' ')[0]}">${v}</p></div>`).join('');
+document.getElementById('holdBody').innerHTML = (D.current?D.current.holdings:[]).map(h=>
+  `<tr class="border-b"><td class="py-2 pr-3">${h.code}</td><td class="py-2 pr-3">${h.name}</td><td class="py-2 pr-3">${h.price.toFixed(2)}</td><td class="py-2 pr-3">${h.mcap_yi.toFixed(1)}</td><td class="py-2 pr-3">${h.rev_yi.toFixed(1)}</td><td class="py-2 pr-3">${h.np_yi.toFixed(1)}</td></tr>`).join('');
+document.getElementById('histBody').innerHTML = (D.history||[]).slice().reverse().map(s=>
+  `<tr class="border-b"><td class="py-2 pr-3">${s.date}</td><td class="py-2 pr-3">${(s.holdings||[]).map(h=>h.code).join(', ')}</td><td class="py-2 pr-3 ${s.trailing_1y_return>=0?'text-emerald-600':'text-red-600'}">${s.trailing_1y_return!=null?(s.trailing_1y_return>=0?'+':'')+s.trailing_1y_return.toFixed(2)+'%':'—'}</td></tr>`).join('');
+document.getElementById('params').innerHTML = D.params.map(([k,v])=>`<div class="flex justify-between border-b py-2"><span class="text-slate-500">${k}</span><span class="font-medium">${v}</span></div>`).join('');
+document.getElementById('metrics').innerHTML = Object.entries(D.metrics).map(([k,v])=>`<div class="flex justify-between border-b py-2"><span class="text-slate-500">${k}</span><span class="font-medium">${v}</span></div>`).join('');
+if(D.curve&&D.curve.dates&&D.curve.dates.length){
+  new Chart(document.getElementById('curveChart'),{type:'line',data:{labels:D.curve.dates,datasets:[{label:'信号组合(基期100)',data:D.curve.values,borderColor:'#2563eb',backgroundColor:'rgba(37,99,235,0.08)',fill:true,pointRadius:0,borderWidth:2}]},options:{plugins:{legend:{display:false}},scales:{x:{ticks:{maxTicksLimit:12}},y:{ticks:{callback:v=>v.toFixed(0)}}}}});
+}
+</script>
+</body>
+</html>
