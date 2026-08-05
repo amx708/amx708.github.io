@@ -4,14 +4,20 @@
 # 抗并发改进（2026-08-02）：blob 仅创建一次；commit/ref 阶段在紧凑重试循环里
 # 反复重取 main 并重建 tree+commit，从而能在「抢 main 锁」的并发推送间隙落地，
 # 不再每次重试都重做 ~1000 个 blob POST（旧逻辑每次尝试 ~22min，遇持续 409 必被 SIGKILL）。
-import subprocess, json, base64, os, sys, tempfile, time, re
+import subprocess, json, base64, os, sys, tempfile, time, re, datetime
 
 REPO = "amx708/amx708.github.io"
 WD = r"C:/Users/Administrator/WorkBuddy/2026-07-08-13-16-44/deploy_site"
-COMMIT_MSG = "feat: 深链详情页估值刷新 — akshare 百度 PE(TTM)/PB 近十年分位 (2026-08-02)"
+# 日期动态取当天，避免每次刷新都要手改 commit message
+COMMIT_MSG = ("feat: 深链详情页估值刷新 — akshare 百度 PE(TTM)/PB 近十年分位 "
+              f"({datetime.date.today().isoformat()})")
 
 RETRY_KEYS = ("409","422","conflict","rate limit","TLS","timeout","handshake",
-              "connection reset","EOF","i/o timeout","network is unreachable")
+              "connection reset","EOF","i/o timeout","network is unreachable",
+              # Windows/Go 网络抖动措辞（2026-08-03 实测：wsarecv 连接失败未被覆盖直接退出）
+              "wsarecv","wsasend","read tcp","write tcp","dial tcp","connection attempt failed",
+              "forcibly closed","no such host","context deadline exceeded","unexpected EOF",
+              "server error","502","503","504")
 
 def gh(method, path, data=None, jq=None, tries=4):
     cmd = ["gh", "api", path, "-X", method]
@@ -44,15 +50,39 @@ print("待部署估值回填页:", len(filled))
 filled.sort()
 
 # ---- 阶段1：创建 blob（仅一次，内容寻址，并发无关）----
+# 断点续传：blob sha 按「文件内容 git sha1」缓存，网络中断重跑时跳过已上传的 blob，
+# 避免每次失败都重做 ~1000 次 POST（旧行为一次 ~13-22min）。
+import hashlib
+CKPT = os.path.join(WD, "_deploy_valuation_blobs.json")
+ckpt = {}
+if os.path.exists(CKPT):
+    try: ckpt = json.load(open(CKPT, encoding="utf-8"))
+    except Exception: ckpt = {}
+
+def git_sha1(data: bytes) -> str:
+    return hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest()
+
 print("创建 blob ...")
 tree_items = []
-for f in filled:
+reused = 0
+for idx, f in enumerate(filled, 1):
     with open(f, "rb") as fh:
-        b = base64.b64encode(fh.read()).decode()
+        raw = fh.read()
+    csha = git_sha1(raw)
+    hit = ckpt.get(f)
+    if hit and hit.get("csha") == csha:
+        tree_items.append({"path": f, "mode": "100644", "type": "blob", "sha": hit["blob"]})
+        reused += 1
+        continue
+    b = base64.b64encode(raw).decode()
     sha = json.loads(gh("POST", f"repos/{REPO}/git/blobs",
-                        data={"content": b, "encoding": "base64"}, tries=5))["sha"]
+                        data={"content": b, "encoding": "base64"}, tries=8))["sha"]
+    ckpt[f] = {"csha": csha, "blob": sha}
     tree_items.append({"path": f, "mode": "100644", "type": "blob", "sha": sha})
-print(f"blob 创建完成: {len(tree_items)}")
+    if idx % 50 == 0:
+        json.dump(ckpt, open(CKPT, "w", encoding="utf-8"), ensure_ascii=False)
+json.dump(ckpt, open(CKPT, "w", encoding="utf-8"), ensure_ascii=False)
+print(f"blob 创建完成: {len(tree_items)}（复用缓存 {reused}）")
 
 # ---- 阶段2：紧凑重试 commit/ref（反复重取 main，抢到稳定间隙即落地）----
 MAX_ROUNDS = 400
