@@ -63,6 +63,27 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
   .card { padding:20px 16px; }
   .card-tag { font-size:10px; padding:2px 6px; }
 }
+/* ===== 链页 hub 卡片（含子链导航） ===== */
+.card-chain-hub { padding: 0; overflow: hidden; }
+@media(min-width:601px) { .card-chain-hub { grid-column: span 2; } }
+.card-main { padding: 32px 28px; text-decoration: none; color: var(--text); display: block; }
+.card-main:hover { background: rgba(124,58,237,0.03); }
+.sub-header { font-size: 12px; color: var(--text2); padding: 14px 28px 10px; font-weight: 600; letter-spacing: 0.5px; border-top: 1px solid rgba(0,0,0,0.06); background: #fafbfc; }
+.sub-grid { display: grid; grid-template-columns: repeat(5, 1fr); }
+.sub-card { padding: 16px 8px; text-decoration: none; color: var(--text); text-align: center; font-size: 12px; border-right: 1px solid rgba(0,0,0,0.06); transition: all .2s; display: block; }
+.sub-card:last-child { border-right: none; }
+.sub-card:hover { background: rgba(124,58,237,0.08); }
+.sub-icon { display: block; font-size: 24px; margin-bottom: 6px; }
+.sub-title { display: block; font-weight: 600; margin-bottom: 3px; }
+.sub-count { display: block; color: var(--text2); font-size: 11px; }
+@media(max-width:600px) {
+  .sub-grid { grid-template-columns: repeat(3, 1fr); }
+  .sub-card { padding: 14px 6px; }
+  .sub-card:nth-child(4), .sub-card:nth-child(5) { border-top: 1px solid rgba(0,0,0,0.06); }
+  .sub-card:nth-child(3) { border-right: none; }
+  .sub-header { padding: 12px 20px 8px; }
+  .card-main { padding: 24px 20px; }
+}
 </style>
 
 </head>
@@ -78,7 +99,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
 <div class="main">
   <div class="card-grid">
 
-    
     <a class="card" href="./curated36.html">
       <span class="card-icon">🌐</span>
       <div class="card-title">跨境电商参考</div>
@@ -89,7 +109,8 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
         <span class="card-tag tag-amber">🔊 支持朗读</span>
       </div>
     </a>
-<a class="card" href="./buffett-partnership-showcase.html">
+
+    <a class="card" href="./buffett-partnership-showcase.html">
       <span class="card-icon">📚</span>
       <div class="card-title">巴菲特致股东信</div>
       <div class="card-desc">1957-1972年巴菲特合伙基金及伯克希尔早期致股东信中文合集，RanRan最佳翻译版，支持逐字高亮朗读。</div>
@@ -121,16 +142,46 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
       </div>
     </a>
 
-    <a class="card" href="./berkshire-chain-map.html">
-      <span class="card-icon">🗺️</span>
-      <div class="card-title">全A产业链</div>
-      <div class="card-desc">全站产业链的统一入口：把 5000+ 上市公司归并到约 126 条产业链，已深凿与框架版全部可一键直达，自动随站点文件更新状态。</div>
-      <div class="card-meta">
-        <span class="card-tag tag-blue">12 深凿</span>
-        <span class="card-tag tag-green">73 框架</span>
-        <span class="card-tag tag-amber">自动布局</span>
+    <div class="card card-chain-hub">
+      <a class="card-main" href="./berkshire-chain-map.html">
+        <span class="card-icon">🗺️</span>
+        <div class="card-title">全A产业链</div>
+        <div class="card-desc">全站产业链的统一入口：把 5000+ 上市公司归并到约 126 条产业链，已深凿与框架版全部可一键直达，自动随站点文件更新状态。</div>
+        <div class="card-meta">
+          <span class="card-tag tag-blue">12 深凿</span>
+          <span class="card-tag tag-green">73 框架</span>
+          <span class="card-tag tag-amber">自动布局</span>
+        </div>
+      </a>
+      <div class="sub-header">近期上新 · 5 条深凿</div>
+      <div class="sub-grid">
+        <a class="sub-card" href="./berkshire-aero-chains.html">
+          <span class="sub-icon">🛩️</span>
+          <span class="sub-title">航空装备</span>
+          <span class="sub-count">10 家</span>
+        </a>
+        <a class="sub-card" href="./berkshire-panel-chains.html">
+          <span class="sub-icon">📺</span>
+          <span class="sub-title">面板</span>
+          <span class="sub-count">10 家</span>
+        </a>
+        <a class="sub-card" href="./berkshire-pcb-chains.html">
+          <span class="sub-icon">🔌</span>
+          <span class="sub-title">PCB</span>
+          <span class="sub-count">9 家</span>
+        </a>
+        <a class="sub-card" href="./berkshire-satnav-chains.html">
+          <span class="sub-icon">🛰️</span>
+          <span class="sub-title">卫星导航</span>
+          <span class="sub-count">9 家</span>
+        </a>
+        <a class="sub-card" href="./berkshire-shipbuilding-chains.html">
+          <span class="sub-icon">🚢</span>
+          <span class="sub-title">船舶制造</span>
+          <span class="sub-count">10 家</span>
+        </a>
       </div>
-    </a>
+    </div>
 
     <a class="card" href="./fear_greed_chart.html">
       <span class="card-icon">📊</span>
@@ -178,57 +229,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
 
   </div>
 </div>
-
-    <a class="card" href="./berkshire-aero-chains.html">
-      <span class="card-icon">🛩️</span>
-      <div class="card-title">航空装备产业链</div>
-      <div class="card-desc">军工航空装备全链：战机/直升机/运输机总装、航空发动机、机载系统与材料配套，计划属性强、弱宏观相关。图谱、横向对比、估值温度计与逐轮买点回报工具齐全。</div>
-      <div class="card-meta">
-        <span class="card-tag tag-purple">10 家</span>
-        <span class="card-tag tag-blue">图谱·对比·温度计</span>
-        <span class="card-tag tag-green">买回测</span>
-      </div>
-    </a>
-    <a class="card" href="./berkshire-panel-chains.html">
-      <span class="card-icon">📺</span>
-      <div class="card-title">面板产业链</div>
-      <div class="card-desc">LCD/OLED 面板及材料全链，含 10 家代表公司；横向对比、估值温度计与逐轮买点回报工具齐全。</div>
-      <div class="card-meta">
-        <span class="card-tag tag-purple">10 家</span>
-        <span class="card-tag tag-blue">图谱·对比·温度计</span>
-        <span class="card-tag tag-green">买回测</span>
-      </div>
-    </a>
-    <a class="card" href="./berkshire-pcb-chains.html">
-      <span class="card-icon">🔌</span>
-      <div class="card-title">PCB产业链</div>
-      <div class="card-desc">覆铜板/数通板/载板全链，含 9 家代表公司；横向对比、估值温度计与逐轮买点回报工具齐全。</div>
-      <div class="card-meta">
-        <span class="card-tag tag-purple">9 家</span>
-        <span class="card-tag tag-blue">图谱·对比·温度计</span>
-        <span class="card-tag tag-green">买回测</span>
-      </div>
-    </a>
-    <a class="card" href="./berkshire-satnav-chains.html">
-      <span class="card-icon">🛰️</span>
-      <div class="card-title">卫星导航产业链</div>
-      <div class="card-desc">北斗芯片/终端/系统集成与运营服务全链，自主可控与行业应用渗透；图谱、横向对比、估值温度计与逐轮买点回报工具齐全。</div>
-      <div class="card-meta">
-        <span class="card-tag tag-purple">9 家</span>
-        <span class="card-tag tag-blue">图谱·对比·温度计</span>
-        <span class="card-tag tag-green">买回测</span>
-      </div>
-    </a>
-    <a class="card" href="./berkshire-shipbuilding-chains.html">
-      <span class="card-icon">🚢</span>
-      <div class="card-title">船舶制造产业链</div>
-      <div class="card-desc">民船/军船总装与船舶动力配套全链，新一轮造船周期上行、订单饱满；图谱、横向对比、估值温度计与逐轮买点回报工具齐全。</div>
-      <div class="card-meta">
-        <span class="card-tag tag-purple">10 家</span>
-        <span class="card-tag tag-blue">图谱·对比·温度计</span>
-        <span class="card-tag tag-green">买回测</span>
-      </div>
-    </a>
 
 <div class="footer">信息收录 · github.io/amx708 · 持续更新中</div>
 
