@@ -129,7 +129,7 @@ def build(d):
   </div>
 
   <footer class="text-center text-xs text-slate-400">
-    <p>生成时间：__UPDATED__ · 数据源：akshare（免费公开接口）</p>
+    <p>生成时间：__UPDATED__ · 数据源：<span id="srcTag">akshare（免费公开接口）</span></p>
     <p class="mt-1">以上为数据整理，不构成投资建议，决策请自行判断。</p>
   </footer>
 </div>
@@ -143,6 +143,15 @@ document.getElementById('kpi').innerHTML = [
   ['平均市值',(D.current&&D.current.holdings.length)?(D.current.holdings.reduce((s,h)=>s+h.mcap_yi,0)/D.current.holdings.length).toFixed(1)+' 亿':'—','blue'],
   ['信号近一年收益',(D.current&&D.current.trailing_1y_return!=null)?((D.current.trailing_1y_return>=0?'+':'')+D.current.trailing_1y_return.toFixed(2)+'%'):'—',(D.current&&D.current.trailing_1y_return>=0)?'emerald':'red']
 ].map(([k,v,c])=>`<div class="bg-white rounded-xl shadow p-5 border-l-4 ${colorMap[c]}"><p class="text-xs text-slate-400 uppercase tracking-wide">${k}</p><p class="text-2xl font-bold ${colorMap[c].split(' ')[0]}">${v}</p></div>`).join('');
+(function(){
+  var s = D.current ? D.current.source : null, el = document.getElementById('srcTag');
+  if(!el) return;
+  if(s === 'sina_cached'){
+    el.innerHTML = '新浪行情 + 股本缓存（<span class="text-amber-600 font-semibold">备用源，市值为近似值</span>）';
+  } else if(s === 'eastmoney'){
+    el.textContent = '东方财富实时快照（akshare）';
+  }
+})();
 document.getElementById('holdBody').innerHTML = (D.current?D.current.holdings:[]).map(h=>
   `<tr class="border-b"><td class="py-2 pr-3">${h.code}</td><td class="py-2 pr-3">${h.name}</td><td class="py-2 pr-3">${h.price.toFixed(2)}</td><td class="py-2 pr-3">${h.mcap_yi.toFixed(1)}</td><td class="py-2 pr-3">${h.rev_yi.toFixed(1)}</td><td class="py-2 pr-3">${h.np_yi.toFixed(1)}</td></tr>`).join('');
 document.getElementById('histBody').innerHTML = (D.history||[]).slice().reverse().map(s=>
