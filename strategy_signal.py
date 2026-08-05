@@ -11,7 +11,7 @@ strategy_signal.py  —— 用 akshare(免费) 复刻 v7 小市值选股信号
   6. 写入 data.json（供 generate_site.py 生成网页）
 akshare 无 token，全程无需密钥。
 """
-import os, json, datetime as dt
+import os, json, time, datetime as dt
 import pandas as pd
 
 try:
@@ -54,18 +54,32 @@ def get_index_codes():
     return []
 
 
-def get_spot():
-    df = ak.stock_zh_a_spot_em()
-    df["code"] = df["代码"].map(norm_code)
-    return df
+def get_spot(max_attempts=3):
+    for attempt in range(1, max_attempts + 1):
+        try:
+            df = ak.stock_zh_a_spot_em()
+            df["code"] = df["代码"].map(norm_code)
+            return df
+        except Exception as e:
+            print("[warn] 行情(spot)获取失败（%d/%d）: %s" % (attempt, max_attempts, e))
+            if attempt < max_attempts:
+                time.sleep(5)
+    raise RuntimeError("行情(spot)连续 %d 次获取失败" % max_attempts)
 
 
-def get_fundamentals(report_date):
-    yj = ak.stock_yjbb_em(date=report_date)
-    zc = ak.stock_zcfz_em(date=report_date)
-    yj["code"] = yj["股票代码"].map(norm_code)
-    zc["code"] = zc["股票代码"].map(norm_code)
-    return yj, zc
+def get_fundamentals(report_date, max_attempts=3):
+    for attempt in range(1, max_attempts + 1):
+        try:
+            yj = ak.stock_yjbb_em(date=report_date)
+            zc = ak.stock_zcfz_em(date=report_date)
+            yj["code"] = yj["股票代码"].map(norm_code)
+            zc["code"] = zc["股票代码"].map(norm_code)
+            return yj, zc
+        except Exception as e:
+            print("[warn] 财务(%s)获取失败（%d/%d）: %s" % (report_date, attempt, max_attempts, e))
+            if attempt < max_attempts:
+                time.sleep(5)
+    raise RuntimeError("财务(%s)连续 %d 次获取失败" % (report_date, max_attempts))
 
 
 def get_st_set():
@@ -168,22 +182,31 @@ def select():
     return selected
 
 
+def _hist_one(symbol, start, end, max_attempts=3):
+    for attempt in range(1, max_attempts + 1):
+        try:
+            df = ak.stock_zh_a_hist(symbol=symbol, period="daily",
+                                    start_date=start, end_date=end, adjust="qfq")
+            return df
+        except Exception as e:
+            print("[warn] %s 历史行情获取失败（%d/%d）: %s" % (symbol, attempt, max_attempts, e))
+            if attempt < max_attempts:
+                time.sleep(3)
+    return None
+
+
 def portfolio_curve(selected, today):
     """当前 8 只近一年等权组合指数（基期=100）"""
     start = (today - dt.timedelta(days=365)).strftime("%Y%m%d")
     end = today.strftime("%Y%m%d")
     frames = []
     for s in selected:
-        try:
-            df = ak.stock_zh_a_hist(symbol=s["code"], period="daily",
-                                    start_date=start, end_date=end, adjust="qfq")
-            if df is None or df.empty:
-                continue
-            idx = (1 + df["收盘"].pct_change().fillna(0)).cumprod() * 100
-            sub = pd.Series(idx.values, index=df["日期"].tolist(), name=s["code"])
-            frames.append(sub)
-        except Exception as e:
-            print("[warn] %s 行情获取失败: %s" % (s["code"], e))
+        df = _hist_one(s["code"], start, end)
+        if df is None or df.empty:
+            continue
+        idx = (1 + df["收盘"].pct_change().fillna(0)).cumprod() * 100
+        sub = pd.Series(idx.values, index=df["日期"].tolist(), name=s["code"])
+        frames.append(sub)
     if not frames:
         return [], []
     mat = pd.concat(frames, axis=1).ffill().bfill()
