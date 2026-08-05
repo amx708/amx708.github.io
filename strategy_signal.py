@@ -11,7 +11,7 @@ strategy_signal.py  —— 用 akshare(免费) 复刻 v7 小市值选股信号
   6. 写入 data.json（供 generate_site.py 生成网页）
 akshare 无 token，全程无需密钥。
 """
-import os, json, time, datetime as dt
+import os, re, json, time, datetime as dt
 import pandas as pd
 
 try:
@@ -22,6 +22,7 @@ except Exception as e:
 
 OUT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(OUT_DIR, "data.json")
+SHARES_PATH = os.path.join(OUT_DIR, "shares.json")   # 总股本缓存，供异源兜底还原市值
 
 HOLD_NUM = 8
 MCAP_CEILING = 200
@@ -29,11 +30,15 @@ PRICE_CAP = 100.0
 REVENUE_MIN = 1e8
 REPORT_DATES = ["20260331", "20251231", "20250930", "20250630"]
 
+SPOT_SOURCE = "unknown"   # 本轮实际使用的行情源，写进 data.json 便于溯源
+
 
 def norm_code(c):
-    """统一成 6 位代码：去空格、去后缀、零填充"""
-    s = str(c).strip().split(".")[0]
-    return s.zfill(6)
+    """统一成 6 位代码：兼容 600000 / 600000.SH / sh600000 三种写法"""
+    s = re.sub(r"\D", "", str(c))
+    if not s:
+        return ""
+    return s[-6:].zfill(6)
 
 
 def col(df, *kw):
@@ -44,51 +49,236 @@ def col(df, *kw):
     return None
 
 
-def get_index_codes():
-    try:
-        df = ak.index_stock_cons_csindex(symbol="000852")
-        if df is not None and not df.empty and "成分券代码" in df.columns:
-            return [norm_code(c) for c in df["成分券代码"].tolist()]
-    except Exception as e:
-        print("[warn] index_stock_cons_csindex 失败: %s" % e)
-    return []
+def get_index_codes(max_attempts=3):
+    """中证1000成分股，双数据源：中证官网 → 新浪"""
+    sources = [
+        ("中证官网", lambda: ak.index_stock_cons_csindex(symbol="000852"), "成分券代码"),
+        ("新浪", lambda: ak.index_stock_cons(symbol="000852"), "品种代码"),
+    ]
+    last_err = None
+    for name, fn, code_col in sources:
+        for attempt in range(1, max_attempts + 1):
+            try:
+                df = fn()
+                if df is None or df.empty:
+                    raise RuntimeError("返回空表")
+                if code_col not in df.columns:
+                    raise RuntimeError("缺列 %s，实际列 %s" % (code_col, list(df.columns)[:8]))
+                codes = [norm_code(c) for c in df[code_col].tolist()]
+                print("[成分] 数据源=%s 数量=%d" % (name, len(codes)))
+                return codes
+            except Exception as e:
+                last_err = e
+                print("[warn] 成分源[%s]失败（%d/%d）: %s" % (name, attempt, max_attempts, e))
+                if attempt < max_attempts:
+                    time.sleep(5 * attempt)
+    raise RuntimeError("所有成分源均失败，最后错误: %s" % last_err)
 
 
-def get_spot(max_attempts=3):
-    for attempt in range(1, max_attempts + 1):
+def _spot_em_all():
+    """东财全A快照（一次到位）"""
+    return ak.stock_zh_a_spot_em()
+
+
+def _spot_em_by_market():
+    """东财分市场快照（沪 + 深），备用端点"""
+    parts = []
+    for fn_name in ("stock_sh_a_spot_em", "stock_sz_a_spot_em"):
+        fn = getattr(ak, fn_name, None)
+        if fn is None:
+            continue
         try:
-            df = ak.stock_zh_a_spot_em()
-            df["code"] = df["代码"].map(norm_code)
-            return df
+            d = fn()
+            if d is not None and not d.empty:
+                parts.append(d)
         except Exception as e:
-            print("[warn] 行情(spot)获取失败（%d/%d）: %s" % (attempt, max_attempts, e))
-            if attempt < max_attempts:
-                time.sleep(5)
-    raise RuntimeError("行情(spot)连续 %d 次获取失败" % max_attempts)
+            print("[warn] %s 失败: %s" % (fn_name, e))
+    if not parts:
+        raise RuntimeError("分市场接口全部失败")
+    return pd.concat(parts, ignore_index=True)
+
+
+def save_shares(spot):
+    """东财快照成功时，反算总股本(总市值/最新价)并落盘缓存，供异源兜底使用"""
+    try:
+        rec = {}
+        for _, r in spot.iterrows():
+            try:
+                p = float(r["最新价"]); m = float(r["总市值"])
+            except Exception:
+                continue
+            if p > 0 and m > 0:
+                rec[str(r["code"])] = round(m / p, 1)
+        if len(rec) < 3000:
+            print("[warn] 股本缓存样本过少(%d)，跳过写入" % len(rec))
+            return
+        with open(SHARES_PATH, "w", encoding="utf-8") as f:
+            json.dump({"updated": dt.date.today().strftime("%Y-%m-%d"),
+                       "count": len(rec), "shares": rec}, f, ensure_ascii=False)
+        print("[缓存] 总股本表已刷新 %d 只 -> shares.json" % len(rec))
+    except Exception as e:
+        print("[warn] 股本缓存写入失败: %s" % e)
+
+
+def _shares_from_cache():
+    """来源1：仓库缓存（东财快照反算，精度最高）"""
+    if not os.path.exists(SHARES_PATH):
+        raise RuntimeError("shares.json 不存在")
+    with open(SHARES_PATH, "r", encoding="utf-8") as f:
+        cache = json.load(f)
+    rec = cache.get("shares", {})
+    if len(rec) < 3000:
+        raise RuntimeError("缓存样本过少(%d)" % len(rec))
+    print("[股本] 缓存(%s) %d 只" % (cache.get("updated", "?"), len(rec)))
+    return {k: float(v) for k, v in rec.items()}
+
+
+def _shares_from_szse():
+    """来源2：深交所官网 A股总股本（仅深市，实测误差 0.01%）"""
+    df = ak.stock_info_sz_name_code(symbol="A股列表")
+    c_code = col(df, "A股代码") or "A股代码"
+    c_sh = col(df, "A股总股本") or "A股总股本"
+    rec = {}
+    for _, r in df.iterrows():
+        try:
+            v = float(str(r[c_sh]).replace(",", ""))
+        except Exception:
+            continue
+        if v > 0:
+            rec[norm_code(r[c_code])] = v
+    if len(rec) < 1000:
+        raise RuntimeError("深交所样本过少(%d)" % len(rec))
+    print("[股本] 深交所官网 %d 只" % len(rec))
+    return rec
+
+
+def _shares_from_financials():
+    """来源3：股东权益合计 ÷ 每股净资产 反算（补齐沪市；含少数股东权益，偏差 0~12%）"""
+    for rd in REPORT_DATES:
+        try:
+            yj, zc = get_fundamentals(rd)
+        except Exception:
+            continue
+        bps_c = col(yj, "每股净资产")
+        eq_c = col(zc, "股东权益合计")
+        if not bps_c or not eq_c:
+            continue
+        m = yj[["code", bps_c]].merge(zc[["code", eq_c]], on="code", how="inner")
+        m[bps_c] = pd.to_numeric(m[bps_c], errors="coerce")
+        m[eq_c] = pd.to_numeric(m[eq_c], errors="coerce")
+        m = m[(m[bps_c] > 0) & (m[eq_c] > 0)]
+        rec = {str(r["code"]): float(r[eq_c]) / float(r[bps_c]) for _, r in m.iterrows()}
+        if len(rec) >= 2000:
+            print("[股本] 财报反算(%s) %d 只（近似）" % (rd, len(rec)))
+            return rec
+    raise RuntimeError("财报反算股本失败")
+
+
+def load_shares():
+    """总股本表：缓存 → 深交所官网 → 财报反算，逐级合并（前者优先）"""
+    rec = {}
+    for fn in (_shares_from_cache, _shares_from_szse, _shares_from_financials):
+        try:
+            extra = fn()
+            for k, v in extra.items():
+                rec.setdefault(k, v)
+        except Exception as e:
+            print("[warn] %s: %s" % (fn.__name__, str(e)[:120]))
+    if len(rec) < 500:
+        raise RuntimeError("总股本表不可用(仅 %d 只)" % len(rec))
+    print("[股本] 合并后共 %d 只" % len(rec))
+    return rec
+
+
+def _spot_sina_composed():
+    """异源兜底：新浪批量行情(价) × 总股本表 → 还原总市值，口径与东财一致"""
+    shares = load_shares()
+    df = ak.stock_zh_a_spot()
+    df = df.copy()
+    df["code"] = df["代码"].map(norm_code)
+    df["最新价"] = pd.to_numeric(df["最新价"], errors="coerce")
+    df["_shares"] = pd.to_numeric(df["code"].map(shares), errors="coerce")
+    df["总市值"] = df["_shares"] * df["最新价"]
+    df = df[df["总市值"].notna() & (df["总市值"] > 0) & (df["最新价"] > 0)].copy()
+    if len(df) < 500:
+        raise RuntimeError("新浪行情与股本表匹配过少(%d)" % len(df))
+    print("[行情] 新浪兜底生效｜匹配 %d 只（总市值为近似值）" % len(df))
+    return df
+
+
+def get_spot(max_attempts=4):
+    """实时行情快照，多源多次重试。返回表必须含【code/名称/最新价/总市值】"""
+    sources = [
+        ("东财全A", _spot_em_all, True),
+        ("东财分市场", _spot_em_by_market, True),
+        ("新浪+股本表", _spot_sina_composed, False),
+    ]
+    last_err = None
+    for name, fn, is_em in sources:
+        attempts = max_attempts if is_em else 2
+        for attempt in range(1, attempts + 1):
+            try:
+                df = fn()
+                if df is None or df.empty:
+                    raise RuntimeError("返回空表")
+                need = ["最新价", "总市值"]
+                miss = [c for c in need if c not in df.columns]
+                if miss:
+                    raise RuntimeError("缺列 %s，实际列 %s" % (miss, list(df.columns)[:10]))
+                df = df.copy()
+                if "code" not in df.columns:
+                    df["code"] = df["代码"].map(norm_code)
+                if "名称" not in df.columns:
+                    df["名称"] = ""
+                print("[行情] 数据源=%s 条数=%d" % (name, len(df)))
+                if is_em:
+                    save_shares(df)
+                    df.attrs["source"] = "eastmoney"
+                else:
+                    df.attrs["source"] = "sina_cached"
+                return df
+            except Exception as e:
+                last_err = e
+                print("[warn] 行情源[%s]失败（%d/%d）: %s" % (name, attempt, attempts, e))
+                if attempt < attempts:
+                    time.sleep(5 * attempt)
+    raise RuntimeError("所有行情源均失败，最后错误: %s" % last_err)
+
+
+_FIN_CACHE = {}
 
 
 def get_fundamentals(report_date, max_attempts=3):
+    if report_date in _FIN_CACHE:
+        return _FIN_CACHE[report_date]
     for attempt in range(1, max_attempts + 1):
         try:
             yj = ak.stock_yjbb_em(date=report_date)
             zc = ak.stock_zcfz_em(date=report_date)
             yj["code"] = yj["股票代码"].map(norm_code)
             zc["code"] = zc["股票代码"].map(norm_code)
+            _FIN_CACHE[report_date] = (yj, zc)
             return yj, zc
         except Exception as e:
             print("[warn] 财务(%s)获取失败（%d/%d）: %s" % (report_date, attempt, max_attempts, e))
             if attempt < max_attempts:
-                time.sleep(5)
+                time.sleep(5 * attempt)
     raise RuntimeError("财务(%s)连续 %d 次获取失败" % (report_date, max_attempts))
 
 
-def get_st_set():
-    try:
-        df = ak.stock_zh_a_st_em()
-        return set(norm_code(c) for c in df["代码"].tolist())
-    except Exception as e:
-        print("[warn] ST列表获取失败: %s" % e)
-        return set()
+def get_st_set(max_attempts=3):
+    for attempt in range(1, max_attempts + 1):
+        try:
+            df = ak.stock_zh_a_st_em()
+            s = set(norm_code(c) for c in df["代码"].tolist())
+            print("[ST] 风险警示股 %d 只" % len(s))
+            return s
+        except Exception as e:
+            print("[warn] ST列表获取失败（%d/%d）: %s" % (attempt, max_attempts, e))
+            if attempt < max_attempts:
+                time.sleep(3 * attempt)
+    print("[warn] ST列表最终失败，改用名称含 ST 兜底过滤")
+    return set()
 
 
 def select():
@@ -99,7 +289,9 @@ def select():
         return None
     code_set = set(codes)
 
+    global SPOT_SOURCE
     spot = get_spot()
+    SPOT_SOURCE = spot.attrs.get("source", "unknown")
     spot = spot[spot["code"].isin(code_set)].copy()
     print("[选股] 成分股行情数: %d" % len(spot))
     if spot.empty:
@@ -146,7 +338,8 @@ def select():
             continue
         if code6.startswith("8") or code6.startswith("4"):
             continue
-        if code in st_set:
+        nm = str(r.get("名称", "")).upper().replace(" ", "")
+        if code in st_set or "ST" in nm or "退" in nm:
             continue
         try:
             rev = float(r["rev"]); np_ = float(r["np"])
@@ -182,16 +375,61 @@ def select():
     return selected
 
 
-def _hist_one(symbol, start, end, max_attempts=3):
-    for attempt in range(1, max_attempts + 1):
-        try:
-            df = ak.stock_zh_a_hist(symbol=symbol, period="daily",
-                                    start_date=start, end_date=end, adjust="qfq")
-            return df
-        except Exception as e:
-            print("[warn] %s 历史行情获取失败（%d/%d）: %s" % (symbol, attempt, max_attempts, e))
-            if attempt < max_attempts:
-                time.sleep(3)
+def _mkt_prefix(code):
+    """6→sh，0/3→sz，4/8/9→bj"""
+    if code.startswith("6"):
+        return "sh"
+    if code.startswith(("0", "3")):
+        return "sz"
+    if code.startswith(("4", "8", "9")):
+        return "bj"
+    return "sh"
+
+
+def _hist_em(symbol, start, end):
+    """东财历史行情（push2his 域名）"""
+    df = ak.stock_zh_a_hist(symbol=symbol, period="daily",
+                            start_date=start, end_date=end, adjust="qfq")
+    return pd.DataFrame({"日期": pd.to_datetime(df["日期"]).dt.date,
+                         "收盘": pd.to_numeric(df["收盘"], errors="coerce")})
+
+
+def _hist_sina(symbol, start, end):
+    """新浪历史行情（异源）"""
+    df = ak.stock_zh_a_daily(symbol=_mkt_prefix(symbol) + symbol,
+                             start_date=start, end_date=end, adjust="qfq")
+    return pd.DataFrame({"日期": pd.to_datetime(df["date"]).dt.date,
+                         "收盘": pd.to_numeric(df["close"], errors="coerce")})
+
+
+def _hist_tx(symbol, start, end):
+    """腾讯历史行情（第三源）"""
+    fn = getattr(ak, "stock_zh_a_hist_tx", None)
+    if fn is None:
+        raise RuntimeError("当前 akshare 无 stock_zh_a_hist_tx")
+    df = fn(symbol=_mkt_prefix(symbol) + symbol,
+            start_date=start, end_date=end, adjust="qfq")
+    return pd.DataFrame({"日期": pd.to_datetime(df["date"]).dt.date,
+                         "收盘": pd.to_numeric(df["close"], errors="coerce")})
+
+
+def _hist_one(symbol, start, end, max_attempts=2):
+    """单只历史行情，三源依次兜底：东财 → 新浪 → 腾讯"""
+    for name, fn in (("东财", _hist_em), ("新浪", _hist_sina), ("腾讯", _hist_tx)):
+        for attempt in range(1, max_attempts + 1):
+            try:
+                df = fn(symbol, start, end)
+                if df is None or df.empty:
+                    raise RuntimeError("返回空表")
+                df = df.dropna()
+                if df.empty:
+                    raise RuntimeError("收盘价全空")
+                return df
+            except Exception as e:
+                print("[warn] %s 历史行情[%s]失败（%d/%d）: %s"
+                      % (symbol, name, attempt, max_attempts, str(e)[:90]))
+                if attempt < max_attempts:
+                    time.sleep(2)
     return None
 
 
@@ -207,7 +445,9 @@ def portfolio_curve(selected, today):
         idx = (1 + df["收盘"].pct_change().fillna(0)).cumprod() * 100
         sub = pd.Series(idx.values, index=df["日期"].tolist(), name=s["code"])
         frames.append(sub)
-    if not frames:
+    print("[曲线] 成功获取 %d/%d 只历史行情" % (len(frames), len(selected)))
+    if len(frames) < max(2, len(selected) // 2):
+        print("[warn] 历史行情覆盖不足，放弃本期曲线")
         return [], []
     mat = pd.concat(frames, axis=1).ffill().bfill()
     eq = mat.mean(axis=1)
@@ -240,12 +480,16 @@ def main():
                      "rev_yi": round(s["rev_yi"], 2), "np_yi": round(s["np_yi"], 2)}
                     for s in selected],
         "trailing_1y_return": round((curve_vals[-1] / curve_vals[0] - 1) * 100, 2) if curve_vals else None,
+        "source": SPOT_SOURCE,
     }
     hist["history"].append(snap)
     hist["history"] = hist["history"][-52:]
     hist["updated"] = today.strftime("%Y-%m-%d")
     hist["current"] = snap
-    hist["curve"] = {"dates": [str(d) for d in curve_dates], "values": curve_vals}
+    if curve_vals:
+        hist["curve"] = {"dates": [str(d) for d in curve_dates], "values": curve_vals}
+    else:
+        print("[warn] 本期曲线缺失，沿用上一期曲线（不清空历史数据）")
 
     with open(DATA_PATH, "w", encoding="utf-8") as f:
         json.dump(hist, f, ensure_ascii=False, indent=2)
