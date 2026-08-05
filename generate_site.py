@@ -44,7 +44,7 @@ def build(d):
     avg_mcap = round(sum(h["mcap_yi"] for h in holdings) / len(holdings), 2) if holdings else None
     kpis = [
         ("更新日期", updated, "slate"),
-        ("当前持仓", "%d 只" % len(holdings), "blue"),
+        ("模拟盘持仓", "%d 只" % len(holdings), "blue"),
         ("平均市值", ("%.1f 亿" % avg_mcap) if avg_mcap else "—", "blue"),
         ("信号近一年收益", ("+%.2f%%" % trail) if trail is not None else "—",
          "emerald" if (trail or 0) >= 0 else "red"),
@@ -60,7 +60,7 @@ def build(d):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>国九小市值策略 · 信号看板</title>
+<title>小市值策略 · 信号看板</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -69,20 +69,20 @@ def build(d):
 <body class="bg-slate-50 text-slate-800">
 <div class="max-w-6xl mx-auto px-4 py-10">
   <header class="mb-8">
-    <h1 class="text-3xl font-bold text-slate-900">国九小市值 + 拥挤度减仓策略</h1>
-    <p class="text-slate-500 mt-2">自动信号看板 · 数据源 akshare（免费）· GitHub Action 每周二收盘后自动更新</p>
+    <h1 class="text-3xl font-bold text-slate-900">小市值策略</h1>
+    <p class="text-slate-500 mt-2">模拟盘信号看板 · 数据源 akshare（免费）· GitHub Action 每周二收盘后自动更新</p>
   </header>
 
   <div id="kpi" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"></div>
 
   <div class="grid md:grid-cols-3 gap-6 mb-8">
     <div class="md:col-span-2 bg-white rounded-xl shadow p-6">
-      <h2 class="text-lg font-semibold mb-4">当前信号组合 · 近一年等权表现</h2>
+      <h2 class="text-lg font-semibold mb-4">当前 8 只 · 近一年等权走势</h2>
       <canvas id="curveChart" height="300"></canvas>
-      <p class="text-xs text-slate-400 mt-2">说明：按当周选出的 8 只等权持有、近一年回测式表现，仅用于观察信号质量，非实盘收益。</p>
+      <p class="text-xs text-slate-400 mt-2">说明：按当周选出的 8 只等权持有、近一年回测式表现，仅用于观察当期信号质量，不是策略累计收益。</p>
     </div>
     <div class="bg-white rounded-xl shadow p-6">
-      <h2 class="text-lg font-semibold mb-4">当前持仓</h2>
+      <h2 class="text-lg font-semibold mb-4">模拟盘持仓</h2>
       <div class="overflow-auto max-h-96">
         <table class="w-full text-sm text-left">
           <thead class="text-slate-500 border-b"><tr>
@@ -139,7 +139,7 @@ const D = __DATA__;
 const colorMap={red:'text-red-600 border-red-500',blue:'text-blue-600 border-blue-500',emerald:'text-emerald-600 border-emerald-500',slate:'text-slate-600 border-slate-400'};
 document.getElementById('kpi').innerHTML = [
   ['更新日期',D.current?D.current.date:'—','slate'],
-  ['当前持仓',(D.current?D.current.holdings.length:0)+' 只','blue'],
+  ['模拟盘持仓',(D.current?D.current.holdings.length:0)+' 只','blue'],
   ['平均市值',(D.current&&D.current.holdings.length)?(D.current.holdings.reduce((s,h)=>s+h.mcap_yi,0)/D.current.holdings.length).toFixed(1)+' 亿':'—','blue'],
   ['信号近一年收益',(D.current&&D.current.trailing_1y_return!=null)?((D.current.trailing_1y_return>=0?'+':'')+D.current.trailing_1y_return.toFixed(2)+'%'):'—',(D.current&&D.current.trailing_1y_return>=0)?'emerald':'red']
 ].map(([k,v,c])=>`<div class="bg-white rounded-xl shadow p-5 border-l-4 ${colorMap[c]}"><p class="text-xs text-slate-400 uppercase tracking-wide">${k}</p><p class="text-2xl font-bold ${colorMap[c].split(' ')[0]}">${v}</p></div>`).join('');
