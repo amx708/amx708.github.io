@@ -176,13 +176,7 @@
 <div id="fg-modal"><div class="modal-card">
   <div class="modal-head"><span class="modal-title" id="fg-modal-title">--</span>
   <span style="display:flex;align-items:center;gap:10px">
-    <span class="ranges" id="fg-ranges">
-      <button data-r="1">1年</button>
-      <button data-r="3" class="on">3年</button>
-      <button data-r="5">5年</button>
-      <button data-r="10">10年</button>
-      <button data-r="all">全部</button>
-    </span>
+    <span class="ranges" id="fg-ranges"></span>
     <span class="modal-close" onclick="closeModal()">✕</span>
   </span>
   </div>
@@ -425,15 +419,6 @@ async function openFactorChart(el){
   document.getElementById('fg-modal-chart').innerHTML = '<div class="factor-loading">加载中...</div>';
   document.getElementById('fg-modal').classList.add('show');
   document.body.style.overflow = 'hidden';
-  // 绑定 range 切换(一次性)
-  document.querySelectorAll('#fg-ranges button').forEach(btn=>{
-    btn.onclick = ()=>{
-      document.querySelectorAll('#fg-ranges button').forEach(b=>b.classList.remove('on'));
-      btn.classList.add('on');
-      FACTOR_STATE.range = btn.dataset.r;
-      renderFactorChart();
-    };
-  });
   try{
     if(!FACTOR_CACHE[key]){
       const resp = await fetch('fear_greed_factor_'+key+'.json');
@@ -443,11 +428,35 @@ async function openFactorChart(el){
     const data = FACTOR_CACHE[key];
     FACTOR_STATE.points = data.points;
     FACTOR_STATE.color = color;
-    FACTOR_STATE.range = '3';
-    // 重置 range 按钮
-    document.querySelectorAll('#fg-ranges button').forEach(b=>{
-      b.classList.toggle('on', b.dataset.r === '3');
-    });
+    // 动态生成 range 按钮(数据点够才显示对应年)
+    const n = data.points.length;
+    const rangeContainer = document.getElementById('fg-ranges');
+    rangeContainer.innerHTML = '';
+    const labels = [['1','1年',252],['3','3年',756],['5','5年',1260],['10','10年',2520],['all','全部',1]];
+    let defaultRange = 'all';
+    for(const [r, lab, minN] of labels){
+      if(n < minN) continue;
+      const btn = document.createElement('button');
+      btn.dataset.r = r;
+      btn.textContent = lab;
+      if(r === defaultRange) btn.classList.add('on');
+      btn.onclick = ()=>{
+        rangeContainer.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+        btn.classList.add('on');
+        FACTOR_STATE.range = r;
+        renderFactorChart();
+      };
+      rangeContainer.appendChild(btn);
+      if(defaultRange === 'all' && r !== 'all' && n >= minN) defaultRange = r; // 选第一个能显示的有意义范围
+    }
+    FACTOR_STATE.range = defaultRange;
+    // 标注数据源限制
+    if(n < 252){
+      const cap = document.createElement('span');
+      cap.style.cssText = 'font-size:10px;color:var(--txt2);margin-left:6px;';
+      cap.textContent = '· 数据源仅 ~30 交易日';
+      rangeContainer.appendChild(cap);
+    }
     renderFactorChart();
   }catch(e){
     document.getElementById('fg-modal-chart').innerHTML =
