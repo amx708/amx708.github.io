@@ -441,44 +441,150 @@ function drawFactorChart(points, color){
     document.getElementById('fg-modal-chart').innerHTML = '<div class="factor-loading">数据不足（需至少2个点）</div>';
     return;
   }
-  // 取最近 252 个点
-  const pts = points.length > 252 ? points.slice(-252) : points;
-  const vals = pts.map(p=>p[1]);
-  const min = Math.min(...vals), max = Math.max(...vals);
-  const range = max - min || 1;
-  const pad = 30, w = 660, h = 260, plotW = w - pad*2, plotH = h - pad*2;
+  const w = 660, h = 280;
+  const padL = 56, padR = 16, padT = 16, padB = 36;
+  const plotW = w - padL - padR, plotH = h - padT - padB;
+
+  // 范围选择: 默认全部; 显示统计
+  const stats = (function(){
+    const vals = points.map(p=>p[1]).filter(v=>typeof v==='number' && !isNaN(v));
+    const min = Math.min(...vals), max = Math.max(...vals);
+    const avg = vals.reduce((a,b)=>a+b,0) / vals.length;
+    const last = vals[vals.length-1];
+    return {min, max, avg, last, n: vals.length};
+  })();
+  document.getElementById('fg-modal-note').innerHTML =
+    '共 <b style="color:var(--txt)">'+stats.n+'</b> 个交易日 ('
+    +points[0][0]+' → '+points[points.length-1][0]+') · '
+    +'当前 <b style="color:'+color+'">'+stats.last.toFixed(2)+'</b> · '
+    +'区间 ['+stats.min.toFixed(2)+', '+stats.max.toFixed(2)+'] · 均值 '+stats.avg.toFixed(2)+' · '
+    +'鼠标移入图表看具体数值';
+
+  // 自适应范围
+  const allVals = points.map(p=>p[1]);
+  const yMin = Math.min(...allVals), yMax = Math.max(...allVals);
+  const yPad = (yMax - yMin) * 0.05 || 1;
+  const lo = yMin - yPad, hi = yMax + yPad;
+  const range = hi - lo;
+
+  // 折线: 数据多时降采样到 ~600 个点(保留头尾),保证渲染顺滑
+  const TARGET = 600;
+  let pts = points;
+  let idxMap = points.map((_,i)=>i);
+  if(points.length > TARGET){
+    const step = Math.ceil(points.length / TARGET);
+    pts = [];
+    idxMap = [];
+    for(let i=0; i<points.length; i+=step){
+      pts.push(points[i]);
+      idxMap.push(i);
+    }
+    if(idxMap[idxMap.length-1] !== points.length-1){
+      pts.push(points[points.length-1]);
+      idxMap.push(points.length-1);
+    }
+  }
+  const xAt = i => padL + (i/(points.length-1)) * plotW;
+  const yAt = v => padT + plotH - ((v-lo)/range) * plotH;
 
   let pathD = '';
-  pts.forEach((p, i)=>{
-    const x = pad + (i/(pts.length-1)) * plotW;
-    const y = pad + plotH - ((p[1]-min)/range) * plotH;
-    pathD += (i===0 ? 'M' : 'L') + x.toFixed(1)+','+y.toFixed(1)+' ';
-  });
+  pts.forEach((p, j) => pathD += (pathD?'L':'M')+xAt(idxMap[j]).toFixed(1)+','+yAt(p[1]).toFixed(1)+' ');
 
-  // 零线
-  let y0 = pad + plotH - ((0-min)/range) * plotH;
-  if(min < 0 && max > 0) y0 = pad + plotH - ((0-min)/range) * plotH;
-  else y0 = null;
+  // Y 轴刻度(5 条)
+  let yTicks = '';
+  for(let k=0; k<=4; k++){
+    const v = lo + (range * k/4);
+    const y = padT + plotH - (k/4) * plotH;
+    yTicks += '<line x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+(w-padR)+'" y2="'+y.toFixed(1)+'" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>';
+    yTicks += '<text x="'+(padL-8)+'" y="'+(y+4).toFixed(1)+'" text-anchor="end" font-size="10" fill="var(--txt2)">'+v.toFixed(2)+'</text>';
+  }
+  // 当前值虚线
+  const yLast = yAt(stats.last);
+  yTicks += '<line x1="'+padL+'" y1="'+yLast.toFixed(1)+'" x2="'+(w-padR)+'" y2="'+yLast.toFixed(1)+'" stroke="'+color+'" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>';
+  yTicks += '<text x="'+(w-padR+2)+'" y="'+(yLast+4).toFixed(1)+'" text-anchor="end" font-size="10" font-weight="600" fill="'+color+'">'+stats.last.toFixed(2)+'</text>';
 
-  // 采样标签
-  const labels = [];
-  const step = Math.max(1, Math.floor(pts.length / 6));
-  for(let i=0; i<pts.length; i+=step) labels.push([i, pts[i][0]]);
-  if(labels[labels.length-1][0] !== pts.length-1) labels.push([pts.length-1, pts[pts.length-1][0]]);
+  // X 轴标签(月度采样)
+  let xLabels = '';
+  const xstep = Math.max(1, Math.floor(points.length / 8));
+  for(let i=0; i<points.length; i+=xstep){
+    const x = xAt(i);
+    xLabels += '<text x="'+x.toFixed(1)+'" y="'+(h-8)+'" text-anchor="middle" font-size="10" fill="var(--txt2)">'+points[i][0].slice(2,7)+'</text>';
+  }
+  const lastX = xAt(points.length-1);
+  if(xLabels.indexOf(points[points.length-1][0].slice(2,7)) === -1){
+    xLabels += '<text x="'+lastX.toFixed(1)+'" y="'+(h-8)+'" text-anchor="middle" font-size="10" font-weight="600" fill="var(--txt)">'+points[points.length-1][0].slice(2,7)+'</text>';
+  }
 
-  let labelHtml = '';
-  labels.forEach(([i, d])=>{
-    const x = pad + ((i)/(pts.length-1)) * plotW;
-    labelHtml += '<text x="'+x.toFixed(1)+'" y="'+(h-8)+'" text-anchor="middle" font-size="10" fill="var(--txt2)">'+d.slice(5)+'</text>';
-  });
-
-  const svg = '<svg viewBox="0 0 '+w+' '+h+'" xmlns="http://www.w3.org/2000/svg">'
-    + '<rect x="'+pad+'" y="'+pad+'" width="'+plotW+'" height="'+plotH+'" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>'
-    + (y0 !== null ? '<line x1="'+pad+'" y1="'+y0.toFixed(1)+'" x2="'+(w-pad)+'" y2="'+y0.toFixed(1)+'" stroke="rgba(255,255,255,0.10)" stroke-width="1" stroke-dasharray="4,3"/>' : '')
-    + labelHtml
+  // Hover 互动层: 在 SVG 顶层加透明 rect + 监听 mousemove 显示十字线 + tooltip
+  const svg = '<svg viewBox="0 0 '+w+' '+h+'" xmlns="http://www.w3.org/2000/svg" id="fg-factor-svg">'
+    + '<rect x="0" y="0" width="'+w+'" height="'+h+'" fill="var(--bg2)"/>'
+    + yTicks
+    + xLabels
     + '<path d="'+pathD+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linejoin="round"/>'
+    + '<g id="fg-cursor" style="display:none">'
+      + '<line id="fg-cursor-v" x1="0" y1="'+padT+'" x2="0" y2="'+(h-padB)+'" stroke="'+color+'" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>'
+      + '<circle id="fg-cursor-dot" cx="0" cy="0" r="4" fill="'+color+'" stroke="var(--bg2)" stroke-width="1.5"/>'
+    + '</g>'
     + '</svg>';
+
   document.getElementById('fg-modal-chart').innerHTML = svg;
+
+  // 绑定 hover 事件
+  const svgEl = document.getElementById('fg-factor-svg');
+  const cursor = document.getElementById('fg-cursor');
+  const cursorV = document.getElementById('fg-cursor-v');
+  const cursorDot = document.getElementById('fg-cursor-dot');
+
+  // 复用页面顶部的 #tip(可改)
+  let tip = document.getElementById('tip');
+  if(!tip){ tip = document.createElement('div'); tip.id='fg-hover-tip';
+    tip.style.cssText='position:absolute;z-index:999;display:none;background:rgba(10,16,30,0.94);border:1px solid '+color+';border-radius:8px;padding:7px 11px;font-size:12px;line-height:1.5;box-shadow:0 6px 20px rgba(0,0,0,0.5);white-space:nowrap;';
+    document.body.appendChild(tip);
+  }
+  // 改用专属 tip(避免被主图 css 干扰)
+  const localTip = document.createElement('div');
+  localTip.id = 'fg-hover-tip';
+  localTip.style.cssText = 'position:fixed;z-index:1000;display:none;background:rgba(10,16,30,0.96);border:1px solid '+color+';border-radius:8px;padding:8px 12px;font-size:12px;line-height:1.6;box-shadow:0 6px 20px rgba(0,0,0,0.6);white-space:nowrap;pointer-events:none;';
+  document.body.appendChild(localTip);
+  const oldTip = document.getElementById('fg-hover-tip-old');
+  if(oldTip) oldTip.remove();
+
+  function onMove(e){
+    const rect = svgEl.getBoundingClientRect();
+    // 鼠标在 SVG 坐标系中的 X
+    const sx = (e.clientX - rect.left) * (w / rect.width);
+    if(sx < padL || sx > w - padR){ onLeave(); return; }
+    // 反推最近点
+    const relX = (sx - padL) / plotW;
+    const idx = Math.round(relX * (points.length - 1));
+    if(idx < 0 || idx >= points.length) return;
+    const p = points[idx];
+    const px = xAt(idx), py = yAt(p[1]);
+    cursor.style.display = 'block';
+    cursorV.setAttribute('x1', px);
+    cursorV.setAttribute('x2', px);
+    cursorDot.setAttribute('cx', px);
+    cursorDot.setAttribute('cy', py);
+    // tooltip: 显示日期 + 数值 + 距今天数
+    const today = new Date();
+    const pdate = new Date(p[0]);
+    const daysAgo = Math.floor((today - pdate) / 86400000);
+    localTip.innerHTML = '<div style="color:var(--txt2);font-family:ui-monospace,monospace">'+p[0]+'</div>'
+      + '<div style="color:'+color+';font-weight:700;font-size:14px;font-family:ui-monospace,monospace">'+p[1].toFixed(2)+'</div>'
+      + (daysAgo > 0 ? '<div style="color:var(--txt2);font-size:10px">'+daysAgo+' 天前</div>' : '');
+    localTip.style.display = 'block';
+    // tooltip 位置(避免出界)
+    const tipX = e.clientX + 14;
+    const tipY = e.clientY - 10;
+    localTip.style.left = Math.min(tipX, window.innerWidth - 180) + 'px';
+    localTip.style.top = Math.max(tipY, 10) + 'px';
+  }
+  function onLeave(){
+    cursor.style.display = 'none';
+    localTip.style.display = 'none';
+  }
+  svgEl.addEventListener('mousemove', onMove);
+  svgEl.addEventListener('mouseleave', onLeave);
 }
 </script>
   <script src="/analytics.js"></script>
