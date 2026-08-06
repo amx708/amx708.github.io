@@ -1,85 +1,71 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="initial-scale=1"><title>lithium-battery横向对比工具</title><style>*{margin:0;padding:0;box-sizing:border-box}
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="initial-scale=1"><title>锂电池横向对比工具</title><style>*{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
 .top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.08);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.04);color:#475569;border:1px solid rgba(0,0,0,.12);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
-.home-btn:hover{background:#e8b84b;color:#fff;border-color:#e8b84b}
+.home-btn:hover{background:##84cc16;color:#fff;border-color:##84cc16}
 .breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center;margin-left:auto}
-.breadcrumb a{color:#64748b;text-decoration:none}.breadcrumb a:hover{color:#e8b84b}
+.breadcrumb a{color:#64748b;text-decoration:none}.breadcrumb a:hover{color:##84cc16}
 .crumb-sep{color:#cbd5e1}
 .container{max-width:1000px;margin:0 auto;padding:24px 16px 56px}
 .hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:30px 28px;margin-bottom:18px;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 12px rgba(0,0,0,.05)}
 .hero h1{font-size:25px;font-weight:800;color:#0f172a;margin:0 0 6px}
 .hero p{font-size:13.5px;color:#64748b;margin:0;max-width:820px}
-.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #e8b84b}
-.note{background:#fff;border:1px solid rgba(0,0,0,.08);border-left:3px solid #e8b84b;border-radius:10px;padding:14px 18px;margin:16px 0;font-size:13px;color:#64748b;line-height:1.7}
-.note a{color:#e8b84b}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid ##84cc16}
+.guide{background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px 20px;margin:14px 0;font-size:13.5px;color:#475569;line-height:1.8}
+.guide h4{margin:0 0 8px;color:##84cc16;font-weight:700;font-size:15px}
+.guide b{color:#0f172a}
+.note{background:#fff;border:1px solid rgba(0,0,0,.08);border-left:3px solid ##84cc16;border-radius:10px;padding:14px 18px;margin:16px 0;font-size:13px;color:#64748b;line-height:1.7}
+.note a{color:##84cc16}
 .tbl{width:100%;border-collapse:collapse;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;margin:14px 0;font-size:13px}
 .tbl th,.tbl td{border-bottom:1px solid #eef2f7;padding:10px 10px;text-align:center}
 .tbl th{background:#f8fafc;color:#334155;font-weight:700;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl tr:hover td{background:#f8fafc}
+.tag{display:inline-block;padding:2px 9px;border-radius:7px;font-size:11px;font-weight:600}
+.tag.low{background:rgba(220,38,38,.12);color:#dc2626}
+.tag.mid{background:rgba(59,130,246,.14);color:#2563eb}
+.tag.high{background:rgba(22,163,74,.14);color:#16a34a}
+/* ---- 对比工具 ---- */
 .cmp-ctrl{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px 18px;margin:14px 0;box-shadow:0 1px 6px rgba(0,0,0,.04)}
 .cmp-ctrl .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
 .cmp-ctrl input[type=text]{flex:1;min-width:180px;border:1px solid rgba(0,0,0,.12);border-radius:8px;padding:9px 12px;font-size:13px;outline:none;background:#f0f2f5;color:#1e293b}
-.cmp-ctrl input[type=text]:focus{border-color:#e8b84b}
+.cmp-ctrl input[type=text]:focus{border-color:##84cc16}
 .cmp-ctrl .fbtn{border:1px solid rgba(0,0,0,.12);background:#f8fafc;color:#64748b;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13px}
-.cmp-ctrl .fbtn.on{background:#e8b84b;color:#fff;border-color:#e8b84b}
+.cmp-ctrl .fbtn.on{background:##84cc16;color:#fff;border-color:##84cc16}
 .cmp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;max-height:240px;overflow:auto;padding:4px}
 .cmp-item{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 9px;border:1px solid rgba(0,0,0,.1);border-radius:8px;cursor:pointer;transition:.15s}
-.cmp-item:hover{border-color:#e8b84b}
-.cmp-item input{accent-color:#e8b84b;width:15px;height:15px}
+.cmp-item:hover{border-color:##84cc16}
+.cmp-item input{accent-color:##84cc16;width:15px;height:15px}
 .cmp-item .cc{font-size:11px;color:#94a3b8}
 .cmp-sel{font-size:12.5px;color:#64748b;margin:6px 0}
 .cmp-good{color:#16a34a;font-weight:700}
 .cmp-bad{color:#dc2626;font-weight:700}
+/* ---- 温度计 ---- */
 .thermo{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #eef2f7;flex-wrap:wrap}
 .thermo .nm{width:120px;font-weight:600;font-size:14px;color:#0f172a}
 .thermo .bar{flex:1;height:10px;background:linear-gradient(90deg,#f87171,#e8b84b,#34d399);border-radius:6px;position:relative;min-width:160px;opacity:.85}
-.thermo .dot{position:absolute;top:-4px;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid #e8b84b;transform:translateX(-50%);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.thermo .dot{position:absolute;top:-4px;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid ##84cc16;transform:translateX(-50%);box-shadow:0 1px 3px rgba(0,0,0,.3)}
 .thermo .v{font-size:12.5px;color:#64748b;width:210px}
+/* ---- 买点回报 SVG ---- */
+.svgbox{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px 18px;margin:16px 0;overflow-x:auto;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.svgbox svg{width:100%;height:auto;display:block}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin:8px 0 4px;font-size:12.5px;color:#475569}
+.legend i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
+/* ---- 延伸阅读 ---- */
 .extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
 .extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}
-.extend a:hover{border-color:#e8b84b;box-shadow:0 6px 18px rgba(0,0,0,.1)}
-.extend b{color:#e8b84b;display:block;margin-bottom:5px;font-weight:700}
+.extend a:hover{border-color:##84cc16;box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.extend b{color:##84cc16;display:block;margin-bottom:5px;font-weight:700}
 .extend span{font-size:12.5px;color:#64748b;line-height:1.55}
 footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
-@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}</style></head><body>
-<div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
-<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">bank</a>
-<a href="berkshire-baijiu-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">baijiu</a>
-<a href="berkshire-ai-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">ai</a>
-<a href="berkshire-robot-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">robot</a>
-<a href="berkshire-tcm-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">tcm</a>
-<a href="berkshire-innov-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">innov</a>
-<a href="berkshire-appliance-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">appliance</a>
-<a href="berkshire-power-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">power</a>
-<a href="berkshire-coal-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">coal</a>
-<a href="berkshire-metal-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">metal</a>
-<a href="berkshire-chem-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">chem</a>
-<a href="berkshire-equip-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">equip</a>
-<a href="berkshire-lithium-battery-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px;font-weight:700">lithium-battery</a></span>
-<div class="breadcrumb"><a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>lithium-battery产业链</span></div></div>
-<div class="container">
-<div class="hero"><h1>lithium-battery横向对比工具</h1><p>勾选多家lithium-battery公司并排比较 PE/PB/ROE/毛利率/负债率/股息率等核心指标（财务=最新可得年报，估值=采集日快照）。</p></div>
-<div class="cmp-ctrl"><div class="bar"><input type="text" id="q" placeholder="搜索公司名称或代码…"><button class="fbtn on" id="selAll">全选</button><button class="fbtn" id="selNone">清空</button></div>
-<div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div>
-<table class="tbl"><thead><tr><th style="text-align:left">公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收(亿)</th><th>净利(亿)</th><th>市值(亿)</th><th>经营现金流(亿)</th></tr></thead><tbody id="tbody"></tbody></table>
-<div class="note">数据：各公司公开年报与行情快照（akshare / 腾讯行情 / 百度分位），框架级原创整理，<b>不构成投资建议</b>。绿色=同行该列最优，红色=同行该列最弱（按指标方向：PE/PB/负债率越低越好，其余越高越好）。字段缺失者诚实留空。</div>
-<div class="extend"><a href="berkshire-lithium-battery-chains.html"><b>返回lithium-battery产业链</b><span>查看完整跨层分析与各公司详情页</span></a>
-<a href="berkshire-lithium-battery-thermometer.html"><b>估值温度计</b><span>行业内 PB 相对位置一览</span></a></div>
-</div>
-<footer>数据来源：akshare / 腾讯行情 / 百度股市通 · 框架级整理，非投资建议</footer>
-<script>var DATA=[{"name": "德赛电池", "code": "000049", "cat": "lithium-battery", "pe": 29.01, "pb": 1.38, "dy": 0.94, "roe": 4.4, "gross": 9.0, "debt": 60.6, "rev": 224.0, "np": 2.9, "mcap": 93.85, "opcf": 12.3, "pe_pct": 84.7, "pb_pct": 9.6}, {"name": "国轩高科", "code": "002074", "cat": "lithium-battery", "pe": 22.49, "pb": 1.79, "dy": 0.35, "roe": 8.7, "gross": 16.2, "debt": 71.0, "rev": 450.7, "np": 23.8, "mcap": 518.1, "opcf": 36.2, "pe_pct": 22.8, "pb_pct": 29.1}, {"name": "蔚蓝锂芯", "code": "002245", "cat": "lithium-battery", "pe": 35.46, "pb": 3.46, "dy": 0.63, "roe": 9.8, "gross": 19.9, "debt": 36.8, "rev": 81.1, "np": 7.1, "mcap": 271.17, "opcf": 15.9, "pe_pct": 48.8, "pb_pct": 62.8}, {"name": "比亚迪", "code": "002594", "cat": "lithium-battery", "pe": 31.7, "pb": 3.77, "dy": 0.37, "roe": 15.1, "gross": 17.7, "debt": 70.7, "rev": 8039.6, "np": 326.2, "mcap": 8731.54, "opcf": 591.4, "pe_pct": 34.5, "pb_pct": 39.0}, {"name": "亿纬锂能", "code": "300014", "cat": "lithium-battery", "pe": 26.33, "pb": 2.7, "dy": 0.43, "roe": 10.3, "gross": 16.2, "debt": 64.2, "rev": 614.7, "np": 41.3, "mcap": 1179.23, "opcf": 74.9, "pe_pct": 20.1, "pb_pct": 15.9}, {"name": "欣旺达", "code": "300207", "cat": "lithium-battery", "pe": 44.84, "pb": 1.43, "dy": 0.47, "roe": 4.4, "gross": 13.9, "debt": 71.2, "rev": 632.5, "np": 10.6, "mcap": 351.94, "opcf": 36.3, "pe_pct": 71.7, "pb_pct": 13.0}, {"name": "鹏辉能源", "code": "300438", "cat": "lithium-battery", "pe": 52.44, "pb": 5.29, "dy": 0.1, "roe": 3.9, "gross": 14.6, "debt": 74.2, "rev": 119.4, "np": 2.1, "mcap": 301.25, "opcf": 9.3, "pe_pct": 61.8, "pb_pct": 71.0}, {"name": "宁德时代", "code": "300750", "cat": "lithium-battery", "pe": 21.52, "pb": 4.82, "dy": 1.76, "roe": 24.7, "gross": 26.3, "debt": 61.9, "rev": 4237.0, "np": 722.0, "mcap": 18289.17, "opcf": 1332.2, "pe_pct": 16.5, "pb_pct": 27.3}, {"name": "派能科技", "code": "688063", "cat": "lithium-battery", "pe": 73.56, "pb": 1.16, "dy": 0.28, "roe": 0.9, "gross": 17.6, "debt": 30.3, "rev": 31.6, "np": 0.8, "mcap": 106.8, "opcf": 6.8, "pe_pct": 47.4, "pb_pct": 14.1}, {"name": "孚能科技", "code": "688567", "cat": "lithium-battery", "pe": 16.97, "pb": 1.36, "dy": null, "roe": 7.8, "gross": 9.2, "debt": 59.4, "rev": 91.2, "np": 7.5, "mcap": 124.53, "opcf": 17.2, "pe_pct": 77.5, "pb_pct": 8.2}];
-var COLS=[["pe","PE","low"],["pb","PB","low"],["dy","股息率%","high"],["roe","ROE%","high"],["gross","毛利率%","high"],["debt","资产负债率%","low"],["rev","营收亿","high"],["np","净利亿","high"],["mcap","市值亿","high"],["opcf","经营现金流亿","high"]];
-var sel=new Set(DATA.map(function(d){return d.code;}));var filt='all',q='';
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}
+</style></head><body><div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a><span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">bank</a><a href="berkshire-baijiu-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">ai</a><a href="berkshire-robot-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">robot</a><a href="berkshire-tcm-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">电力设备</a><a href="berkshire-aero-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">军工</a><a href="berkshire-panel-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">面板</a><a href="berkshire-pcb-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">PCB</a><a href="berkshire-satnav-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">卫星导航</a><a href="berkshire-shipbuilding-chains.html" style="color:##84cc16;text-decoration:none;font-size:13px">造船</a></span><div class="breadcrumb"><a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>锂电池产业链</span></div></div><div class="container"><div class="hero"><h1>锂电池横向对比工具</h1><p>勾选多家锂电池公司并排比较 PE/PB/ROE/毛利率/负债率/股息率等核心指标。</p></div><div class="cmp-ctrl"><div class="bar"><input type="text" id="q" placeholder="搜索公司名称或代码…"><button class="fbtn on" data-f="all">全部</button></div><div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div><div class="svgbox" style="overflow-x:auto"><table class="tbl" id="tbl"><thead><tr><th>公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收亿</th><th>净利亿</th><th>市值亿</th><th>经营现金流亿</th></tr></thead><tbody id="tbody"></tbody></table></div><div class="note">提示：勾选多家公司并排比较。绿色=该项在所选样本中占优，红色=偏弱。PE/PB 越低通常越「便宜」，但低估值也可能是价值陷阱（基本面恶化），需结合 ROE 与负债率判断。数据口径见各公司详情页，<b>不构成投资建议</b>。</div><div class="section-title">延伸阅读</div><div class="extend"><a href="berkshire-lithium-battery-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/股息率等核心指标</span></a><a href="berkshire-lithium-battery-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a><a href="berkshire-lithium-battery-buyback.html"><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a><a href="berkshire-lithium-battery-chains.html"><b>返回产业链地图</b><span>回到 锂电池 产业链 5 层框架与个股详情</span></a></div><footer>伯克希尔数据中心 · 锂电池产业链投资图谱 ｜ 财务=2025年报，行情=采集日快照 ｜ 数据来自公开接口，仅供研究参考，不构成投资建议</footer></div><script>var DATA=[{"name": "亿纬锂能", "code": "300014", "cat": "锂电池", "pe": 26.66, "pb": 2.73, "dy": 0.43, "roe": 10.3, "gross": 16.2, "debt": 64.2, "rev": 614.7, "np": 41.3, "mcap": 1179.23, "opcf": 74.9}, {"name": "国轩高科", "code": "002074", "cat": "锂电池", "pe": 22.17, "pb": 1.77, "dy": 0.35, "roe": 8.7, "gross": 16.2, "debt": 71.0, "rev": 450.7, "np": 23.8, "mcap": 518.1, "opcf": 36.2}, {"name": "孚能科技", "code": "688567", "cat": "锂电池", "pe": -17.12, "pb": 1.38, "dy": null, "roe": -7.8, "gross": 9.2, "debt": 59.4, "rev": 91.2, "np": -7.5, "mcap": 124.53, "opcf": 17.2}, {"name": "宁德时代", "code": "300750", "cat": "锂电池", "pe": 21.51, "pb": 4.82, "dy": 1.76, "roe": 24.7, "gross": 26.3, "debt": 61.9, "rev": 4237.0, "np": 722.0, "mcap": 18289.17, "opcf": 1332.2}, {"name": "德赛电池", "code": "000049", "cat": "锂电池", "pe": 29.51, "pb": 1.4, "dy": 0.94, "roe": 4.4, "gross": 9.0, "debt": 60.6, "rev": 224.0, "np": 2.9, "mcap": 93.85, "opcf": 12.3}, {"name": "欣旺达", "code": "300207", "cat": "锂电池", "pe": 43.9, "pb": 1.4, "dy": 0.47, "roe": 4.4, "gross": 13.9, "debt": 71.2, "rev": 632.5, "np": 10.6, "mcap": 351.94, "opcf": 36.3}, {"name": "比亚迪", "code": "002594", "cat": "锂电池", "pe": 31.26, "pb": 3.71, "dy": 0.37, "roe": 15.1, "gross": 17.7, "debt": 70.7, "rev": 8039.6, "np": 326.2, "mcap": 8731.54, "opcf": 591.4}, {"name": "派能科技", "code": "688063", "cat": "锂电池", "pe": 75.74, "pb": 1.19, "dy": 0.28, "roe": 0.9, "gross": 17.6, "debt": 30.3, "rev": 31.6, "np": 0.8, "mcap": 106.8, "opcf": 6.8}, {"name": "蔚蓝锂芯", "code": "002245", "cat": "锂电池", "pe": 35.24, "pb": 3.44, "dy": 0.63, "roe": 9.8, "gross": 19.9, "debt": 36.8, "rev": 81.1, "np": 7.1, "mcap": 271.17, "opcf": 15.9}, {"name": "鹏辉能源", "code": "300438", "cat": "锂电池", "pe": 52.82, "pb": 5.33, "dy": 0.1, "roe": 3.9, "gross": 14.6, "debt": 74.2, "rev": 119.4, "np": 2.1, "mcap": 301.25, "opcf": 9.3}];
+var COLS=[["pe", "PE", "low"], ["pb", "PB", "low"], ["dy", "股息率%", "high"], ["roe", "ROE%", "high"], ["gross", "毛利率%", "high"], ["debt", "资产负债率%", "low"], ["rev", "营收亿", "high"], ["np", "净利亿", "high"], ["mcap", "市值亿", "high"], ["opcf", "经营现金流亿", "high"]];
+var sel=new Set();var filt='all',q='';
 var listEl=document.getElementById('list'),tbody=document.getElementById('tbody'),selinfo=document.getElementById('selinfo');
-function renderList(){listEl.innerHTML='';DATA.filter(function(d){return (filt==='all')&&(q===''||d.name.indexOf(q)>=0||d.code.indexOf(q)>=0)}).forEach(function(d){var lab=document.createElement('label');lab.className='cmp-item';lab.innerHTML='<input type="checkbox" '+(sel.has(d.code)?'checked':'')+'><b>'+d.name+'</b><span class="cc">'+d.code+'</span>';lab.querySelector('input').onchange=function(e){if(e.target.checked)sel.add(d.code);else sel.delete(d.code);renderList();renderTbl();};listEl.appendChild(lab);});}
+function renderList(){listEl.innerHTML='';DATA.filter(function(d){return (filt==='all')&&(q===''||d.name.indexOf(q)>=0||d.code.indexOf(q)>=0)}).forEach(function(d){var lab=document.createElement('label');lab.className='cmp-item';lab.innerHTML='<input type="checkbox" '+(sel.has(d.code)?'checked':'')+'><b>'+d.name+'</b><span class="cc">'+d.code+' · '+d.cat+'</span>';lab.querySelector('input').onchange=function(e){if(e.target.checked)sel.add(d.code);else sel.delete(d.code);renderList();renderTbl();};listEl.appendChild(lab);});}
 function fmt(v){return (v===null||v===undefined)?'—':v;}
 function color(v,dir,best,worst){if(v===null||v===undefined)return '—';if(v===best)return '<span class="cmp-good">'+v+'</span>';if(v===worst)return '<span class="cmp-bad">'+v+'</span>';return ''+v;}
 function renderTbl(){var rows=DATA.filter(function(d){return sel.has(d.code);});selinfo.textContent='已选 '+rows.length+' 家';if(!rows.length){tbody.innerHTML='<tr><td colspan="12" style="color:#94a3b8">请在上方勾选公司</td></tr>';return;}var stats={};COLS.forEach(function(c){var vs=rows.map(function(r){return r[c[0]];}).filter(function(x){return x!==null&&x!==undefined;});stats[c[0]]={best:Math[c[2]==='high'?'max':'min'].apply(null,vs),worst:Math[c[2]==='high'?'min':'max'].apply(null,vs)};});tbody.innerHTML=rows.map(function(d){var tds=COLS.map(function(c){return '<td>'+color(d[c[0]],c[2],stats[c[0]].best,stats[c[0]].worst)+'</td>';}).join('');return '<tr><td style="text-align:left"><b>'+d.name+'</b></td><td>'+d.cat+'</td>'+tds+'</tr>';}).join('');}
 document.getElementById('q').oninput=function(e){q=e.target.value.trim();renderList();};
-document.getElementById('selAll').onclick=function(){DATA.forEach(function(d){sel.add(d.code);});renderList();renderTbl();};
-document.getElementById('selNone').onclick=function(){sel.clear();renderList();renderTbl();};
 renderList();renderTbl();
-</script>
-  <script src="/analytics.js"></script>
-</body></html>
+</script></body></html>
