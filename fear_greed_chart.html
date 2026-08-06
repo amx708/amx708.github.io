@@ -174,7 +174,18 @@
 
 <!-- 子指标折线 Modal -->
 <div id="fg-modal"><div class="modal-card">
-  <div class="modal-head"><span class="modal-title" id="fg-modal-title">--</span><span class="modal-close" onclick="closeModal()">✕</span></div>
+  <div class="modal-head"><span class="modal-title" id="fg-modal-title">--</span>
+  <span style="display:flex;align-items:center;gap:10px">
+    <span class="ranges" id="fg-ranges">
+      <button data-r="1">1年</button>
+      <button data-r="3" class="on">3年</button>
+      <button data-r="5">5年</button>
+      <button data-r="10">10年</button>
+      <button data-r="all">全部</button>
+    </span>
+    <span class="modal-close" onclick="closeModal()">✕</span>
+  </span>
+  </div>
   <div id="fg-modal-chart"></div>
   <div class="modal-note" id="fg-modal-note"></div>
 </div></div>
@@ -406,12 +417,23 @@ setRange('3');                          // 默认 3 年区间
 
 // ---- 子指标折线 Modal ----
 const FACTOR_CACHE = {};
+let FACTOR_STATE = {points: null, color: null, range: '3'};
+
 async function openFactorChart(el){
   const key = el.dataset.key, name = el.dataset.name, color = el.dataset.color;
   document.getElementById('fg-modal-title').innerHTML = '<span style="color:'+color+'">'+name+'</span> 历史走势';
   document.getElementById('fg-modal-chart').innerHTML = '<div class="factor-loading">加载中...</div>';
   document.getElementById('fg-modal').classList.add('show');
   document.body.style.overflow = 'hidden';
+  // 绑定 range 切换(一次性)
+  document.querySelectorAll('#fg-ranges button').forEach(btn=>{
+    btn.onclick = ()=>{
+      document.querySelectorAll('#fg-ranges button').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      FACTOR_STATE.range = btn.dataset.r;
+      renderFactorChart();
+    };
+  });
   try{
     if(!FACTOR_CACHE[key]){
       const resp = await fetch('fear_greed_factor_'+key+'.json');
@@ -419,9 +441,14 @@ async function openFactorChart(el){
       FACTOR_CACHE[key] = await resp.json();
     }
     const data = FACTOR_CACHE[key];
-    document.getElementById('fg-modal-note').textContent =
-      '共 '+data.points.length+' 个数据点 · 更新至 '+data.updated+' · 点击空白处关闭';
-    drawFactorChart(data.points, color);
+    FACTOR_STATE.points = data.points;
+    FACTOR_STATE.color = color;
+    FACTOR_STATE.range = '3';
+    // 重置 range 按钮
+    document.querySelectorAll('#fg-ranges button').forEach(b=>{
+      b.classList.toggle('on', b.dataset.r === '3');
+    });
+    renderFactorChart();
   }catch(e){
     document.getElementById('fg-modal-chart').innerHTML =
       '<div class="factor-loading" style="color:var(--red)">加载失败: '+e.message+'</div>';
@@ -436,55 +463,82 @@ document.getElementById('fg-modal').addEventListener('click', function(e){
 });
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
 
-function drawFactorChart(points, color){
+// 按 range 截取数据(基于最后一天)
+function filterByRange(points, range){
+  if(range === 'all') return points;
+  const years = parseInt(range);
+  if(!years || points.length === 0) return points;
+  const last = new Date(points[points.length-1][0]);
+  const cutoff = new Date(last);
+  cutoff.setFullYear(cutoff.getFullYear() - years);
+  const cutoffStr = cutoff.toISOString().slice(0,10);
+  // 二分找 cutoff 位置
+  let lo=0, hi=points.length-1;
+  while(lo<hi){
+    const mid = (lo+hi) >> 1;
+    if(points[mid][0] < cutoffStr) lo = mid+1; else hi = mid;
+  }
+  return points.slice(lo);
+}
+
+function renderFactorChart(){
+  const points = FACTOR_STATE.points;
+  const color = FACTOR_STATE.color;
   if(!points || points.length < 2){
     document.getElementById('fg-modal-chart').innerHTML = '<div class="factor-loading">数据不足（需至少2个点）</div>';
+    return;
+  }
+  const visible = filterByRange(points, FACTOR_STATE.range);
+  if(visible.length < 2){
+    document.getElementById('fg-modal-chart').innerHTML = '<div class="factor-loading">当前范围内数据不足</div>';
     return;
   }
   const w = 660, h = 280;
   const padL = 56, padR = 16, padT = 16, padB = 36;
   const plotW = w - padL - padR, plotH = h - padT - padB;
 
-  // 范围选择: 默认全部; 显示统计
+  // 统计: 用全部历史点算全量范围; 用可见范围算子集
+  const allVals = points.map(p=>p[1]);
+  const visVals = visible.map(p=>p[1]);
+  const rangeLabel = FACTOR_STATE.range === 'all' ? '全部' : '近'+FACTOR_STATE.range+'年';
   const stats = (function(){
-    const vals = points.map(p=>p[1]).filter(v=>typeof v==='number' && !isNaN(v));
-    const min = Math.min(...vals), max = Math.max(...vals);
-    const avg = vals.reduce((a,b)=>a+b,0) / vals.length;
-    const last = vals[vals.length-1];
-    return {min, max, avg, last, n: vals.length};
+    const min = Math.min(...visVals), max = Math.max(...visVals);
+    const avg = visVals.reduce((a,b)=>a+b,0) / visVals.length;
+    const last = visVals[visVals.length-1];
+    return {min, max, avg, last, n: visVals.length};
   })();
   document.getElementById('fg-modal-note').innerHTML =
-    '共 <b style="color:var(--txt)">'+stats.n+'</b> 个交易日 ('
-    +points[0][0]+' → '+points[points.length-1][0]+') · '
+    '<b style="color:var(--cyan)">'+rangeLabel+'</b> · '
+    +'显示 <b style="color:var(--txt)">'+stats.n+'</b> / '+allVals.length+' 个交易日 ('
+    +visible[0][0]+' → '+visible[visible.length-1][0]+') · '
     +'当前 <b style="color:'+color+'">'+stats.last.toFixed(2)+'</b> · '
     +'区间 ['+stats.min.toFixed(2)+', '+stats.max.toFixed(2)+'] · 均值 '+stats.avg.toFixed(2)+' · '
     +'鼠标移入图表看具体数值';
 
-  // 自适应范围
-  const allVals = points.map(p=>p[1]);
-  const yMin = Math.min(...allVals), yMax = Math.max(...allVals);
+  // 自适应范围(用 visible 范围)
+  const yMin = stats.min, yMax = stats.max;
   const yPad = (yMax - yMin) * 0.05 || 1;
   const lo = yMin - yPad, hi = yMax + yPad;
   const range = hi - lo;
 
   // 折线: 数据多时降采样到 ~600 个点(保留头尾),保证渲染顺滑
   const TARGET = 600;
-  let pts = points;
-  let idxMap = points.map((_,i)=>i);
-  if(points.length > TARGET){
-    const step = Math.ceil(points.length / TARGET);
+  let pts = visible;
+  let idxMap = visible.map((_,i)=>i);
+  if(visible.length > TARGET){
+    const step = Math.ceil(visible.length / TARGET);
     pts = [];
     idxMap = [];
-    for(let i=0; i<points.length; i+=step){
-      pts.push(points[i]);
+    for(let i=0; i<visible.length; i+=step){
+      pts.push(visible[i]);
       idxMap.push(i);
     }
-    if(idxMap[idxMap.length-1] !== points.length-1){
-      pts.push(points[points.length-1]);
-      idxMap.push(points.length-1);
+    if(idxMap[idxMap.length-1] !== visible.length-1){
+      pts.push(visible[visible.length-1]);
+      idxMap.push(visible.length-1);
     }
   }
-  const xAt = i => padL + (i/(points.length-1)) * plotW;
+  const xAt = i => padL + (i/(visible.length-1)) * plotW;
   const yAt = v => padT + plotH - ((v-lo)/range) * plotH;
 
   let pathD = '';
@@ -505,14 +559,14 @@ function drawFactorChart(points, color){
 
   // X 轴标签(月度采样)
   let xLabels = '';
-  const xstep = Math.max(1, Math.floor(points.length / 8));
-  for(let i=0; i<points.length; i+=xstep){
+  const xstep = Math.max(1, Math.floor(visible.length / 8));
+  for(let i=0; i<visible.length; i+=xstep){
     const x = xAt(i);
-    xLabels += '<text x="'+x.toFixed(1)+'" y="'+(h-8)+'" text-anchor="middle" font-size="10" fill="var(--txt2)">'+points[i][0].slice(2,7)+'</text>';
+    xLabels += '<text x="'+x.toFixed(1)+'" y="'+(h-8)+'" text-anchor="middle" font-size="10" fill="var(--txt2)">'+visible[i][0].slice(2,7)+'</text>';
   }
-  const lastX = xAt(points.length-1);
-  if(xLabels.indexOf(points[points.length-1][0].slice(2,7)) === -1){
-    xLabels += '<text x="'+lastX.toFixed(1)+'" y="'+(h-8)+'" text-anchor="middle" font-size="10" font-weight="600" fill="var(--txt)">'+points[points.length-1][0].slice(2,7)+'</text>';
+  const lastX = xAt(visible.length-1);
+  if(xLabels.indexOf(visible[visible.length-1][0].slice(2,7)) === -1){
+    xLabels += '<text x="'+lastX.toFixed(1)+'" y="'+(h-8)+'" text-anchor="middle" font-size="10" font-weight="600" fill="var(--txt)">'+visible[visible.length-1][0].slice(2,7)+'</text>';
   }
 
   // Hover 互动层: 在 SVG 顶层加透明 rect + 监听 mousemove 显示十字线 + tooltip
@@ -541,24 +595,24 @@ function drawFactorChart(points, color){
     tip.style.cssText='position:absolute;z-index:999;display:none;background:rgba(10,16,30,0.94);border:1px solid '+color+';border-radius:8px;padding:7px 11px;font-size:12px;line-height:1.5;box-shadow:0 6px 20px rgba(0,0,0,0.5);white-space:nowrap;';
     document.body.appendChild(tip);
   }
-  // 改用专属 tip(避免被主图 css 干扰)
+  // 改用专属 tip(避免被主图 css 干扰;每次渲染先清掉旧 tip)
+  const oldLocal = document.getElementById('fg-hover-tip');
+  if(oldLocal) oldLocal.remove();
   const localTip = document.createElement('div');
   localTip.id = 'fg-hover-tip';
   localTip.style.cssText = 'position:fixed;z-index:1000;display:none;background:rgba(10,16,30,0.96);border:1px solid '+color+';border-radius:8px;padding:8px 12px;font-size:12px;line-height:1.6;box-shadow:0 6px 20px rgba(0,0,0,0.6);white-space:nowrap;pointer-events:none;';
   document.body.appendChild(localTip);
-  const oldTip = document.getElementById('fg-hover-tip-old');
-  if(oldTip) oldTip.remove();
 
   function onMove(e){
     const rect = svgEl.getBoundingClientRect();
     // 鼠标在 SVG 坐标系中的 X
     const sx = (e.clientX - rect.left) * (w / rect.width);
     if(sx < padL || sx > w - padR){ onLeave(); return; }
-    // 反推最近点
+    // 反推最近点(基于 visible 数组)
     const relX = (sx - padL) / plotW;
-    const idx = Math.round(relX * (points.length - 1));
-    if(idx < 0 || idx >= points.length) return;
-    const p = points[idx];
+    const idx = Math.round(relX * (visible.length - 1));
+    if(idx < 0 || idx >= visible.length) return;
+    const p = visible[idx];
     const px = xAt(idx), py = yAt(p[1]);
     cursor.style.display = 'block';
     cursorV.setAttribute('x1', px);
