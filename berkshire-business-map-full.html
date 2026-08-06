@@ -124,6 +124,24 @@ body{
   transition:opacity .3s;
 }
 .loading.hide{opacity:0}
+.img-missing-note{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  max-width:680px;
+  padding:32px 40px;
+  background:rgba(15,23,42,0.85);
+  border:1px solid rgba(251,191,36,0.4);
+  border-radius:14px;
+  color:#fbbf24;
+  font-size:15px;
+  line-height:1.8;
+  text-align:center;
+  backdrop-filter:blur(6px);
+  box-shadow:0 8px 40px rgba(0,0,0,0.5);
+}
+.img-missing-note b{color:#fff;font-size:17px;display:block;margin-bottom:8px}
+.img-missing-note small{display:block;margin-top:14px;color:#94a3b8;font-size:12px;line-height:1.6}
 </style>
 </head>
 <body>
@@ -133,14 +151,19 @@ body{
     <a href="berkshire-business-map.html" class="back-link">← 返回业务版图</a>
     <div class="topnav-title">
       🗺️ 伯克希尔业务版图
-      <span class="topnav-meta">高清原图 4500 × 4224 · 长按鼠标左键拖动</span>
+      <span class="topnav-meta">9708 × 9113 像素 · 长按鼠标左键拖动</span>
     </div>
     <a href="index.html" class="back-link">首页 →</a>
   </div>
 </nav>
 
 <div id="stage">
-  <img id="map" src="images/berkshire-business-map-full.jpg" alt="伯克希尔哈撒韦业务版图原图">
+  <div class="img-missing-note">
+    <b>🗺️ 伯克希尔哈撒韦业务版图</b>
+    原图 PNG 文件缺失（暂未上传 / 仓库内查无此图），先以文字说明代替。
+    <small>需要提供 9708 × 9113 像素高清原图，命名 <code>berkshire-business-map-full.png</code> 放到 deploy_site/ 根目录后刷新即可。<br>
+    旧址：<a href="berkshire-business-map.html" style="color:#fbbf24;text-decoration:underline">返回缩略版业务版图</a></small>
+  </div>
 </div>
 
 <div class="loading" id="loading">正在加载高清原图…</div>
@@ -246,14 +269,25 @@ stage.addEventListener('touchend', () => {
 
 // Resize / load
 window.addEventListener('resize', center);
-map.addEventListener('load', () => {
-  center();
-  hideLoading();
-});
+if (map){
+  map.addEventListener('load', () => {
+    center();
+    hideLoading();
+  });
+}
 
-if (map.complete && map.naturalWidth){
+// 防御性: 若 <img id="map"> 不存在(原图文件缺失), 走 fallback 路径
+if (map && map.complete && map.naturalWidth){
   center();
   hideLoading();
+}
+if (!map){
+  // 没有图片元素 -> 显示 fallback 文字说明, 不留 loading
+  document.getElementById('loading').classList.add('hide');
+  const hint = document.getElementById('hint');
+  if (hint) hint.classList.add('hide');
+  const stage = document.getElementById('stage');
+  if (stage) stage.style.cursor = 'default';
 }
 </script>
   <script src="/analytics.js"></script>
