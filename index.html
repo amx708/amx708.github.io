@@ -124,6 +124,8 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
       </div>
     </a>
 
+    <!-- 本地优先收录：以下 6 张卡片只在本地 127.0.0.1:8080 显示，公网 github.io 自动移除 -->
+    <div class="local-only-cards" data-reason="本地优先收录，公网暂不展示">
     <a class="card" href="./berkshire-national-team-etf.html">
       <span class="card-icon">🛡️</span>
       <div class="card-title">战略配置型 ETF 买卖信号</div>
@@ -188,6 +190,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
         <span class="card-tag tag-amber">子站导航</span>
       </div>
     </a>
+    </div><!-- /.local-only-cards -->
 
   </div>
 </div>
@@ -232,6 +235,14 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
 
 <div class="footer">信息收录 · github.io/amx708 · 持续更新中</div>
 
+  <script>
+    // 本地/线上分流：公网 github.io 自动隐藏 .local-only-cards；本地 127.0.0.1 保留全部
+    if (location.hostname && location.hostname.indexOf('github.io') !== -1) {
+      document.querySelectorAll('.local-only-cards').forEach(function (el) {
+        el.parentNode && el.parentNode.removeChild(el);
+      });
+    }
+  </script>
   <script src="/analytics.js"></script>
 </body>
 </html>
