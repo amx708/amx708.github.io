@@ -16,11 +16,13 @@
     background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px}
   a{color:var(--brand2);text-decoration:none}
   .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
-  header.hero{background:linear-gradient(135deg,#0b3d2e 0%,#0f6e4f 60%,#0b8a5f 100%);color:#fff;padding:54px 0 40px}
+  header.hero{background:linear-gradient(135deg,#0b3d2e 0%,#0f6e4f 60%,#0b8a5f 100%);color:#fff;padding:54px 0 40px;position:relative}
   header.hero h1{font-size:30px;margin:0 0 10px;letter-spacing:.5px}
   header.hero p{margin:6px 0;opacity:.92;max-width:760px}
   .badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);
     padding:3px 10px;border-radius:20px;font-size:12px;margin-bottom:14px}
+  header.hero .home-link{position:absolute;top:18px;right:24px;display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;text-decoration:none;backdrop-filter:blur(4px);transition:background .15s}
+  header.hero .home-link:hover{background:rgba(255,255,255,.32);color:#fff}
   nav.toc{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);
     border-bottom:1px solid var(--line);padding:10px 0}
   nav.toc .wrap{display:flex;gap:14px;flex-wrap:wrap;font-size:13px}
@@ -79,6 +81,7 @@
 
 <header class="hero">
   <div class="wrap">
+    <a class="home-link" href="../index.html">🏠 返回首页</a>
     <span class="badge">通用方法论 · 非个股推荐</span>
     <h1>周期股涨价逻辑攻略</h1>
     <p>一套用于筛选"产品涨价→股价未反映"错配机会的通用研究框架。适用于化工、有色、建材、农产品等强周期行业，本质是<strong>用公开价格数据寻找信息差与安全边际</strong>。</p>
@@ -98,7 +101,6 @@
     <a href="#calc">⑧ 弹性计算器</a>
     <a href="#system">⑨ 监测系统</a>
     <a href="#risk">⑩ 风险与免责</a>
-    <a href="../index.html" style="background:var(--brand);color:#fff;border-radius:6px;padding:4px 10px;font-weight:600">🏠 返回首页</a>
   </div>
 </nav>
 
