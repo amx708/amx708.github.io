@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>贴水策略 · 股指期货吃贴水完整方案</title>
+<style>
+:root{
+  --bg:#f5f6f8; --panel:#ffffff; --line:#e3e6ea; --line2:#eef0f3;
+  --ink:#1a1d21; --ink2:#4a5058; --ink3:#868e96;
+  --up:#d9342b; --down:#0f9960; --accent:#1b4f8f; --accent-l:#e8eff8;
+  --warn:#b5651d; --warn-bg:#fdf4e7; --danger:#c0392b; --danger-bg:#fdecea;
+  --gold:#a8801a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg); color:var(--ink); line-height:1.6; padding:28px 20px 60px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto}
+
+/* header */
+.hd{margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid var(--ink)}
+.hd h1{font-size:27px;font-weight:700;letter-spacing:-.4px;margin-bottom:8px}
+.hd .sub{font-size:13px;color:var(--ink3);display:flex;gap:18px;flex-wrap:wrap}
+.hd .sub b{color:var(--ink2);font-weight:600}
+.tag{display:inline-block;padding:2px 9px;border-radius:3px;font-size:11px;font-weight:600;letter-spacing:.3px}
+.tag-w{background:var(--warn-bg);color:var(--warn);border:1px solid #e8d5b5}
+
+/* nav */
+.nav{position:sticky;top:0;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 16px;margin-bottom:24px;z-index:10;display:flex;gap:8px;flex-wrap:wrap;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.nav a{font-size:12px;color:var(--accent);text-decoration:none;padding:4px 10px;border-radius:4px;font-weight:600;white-space:nowrap}
+.nav a:hover{background:var(--accent-l)}
+.nav .sep{color:var(--line);align-self:center}
+
+/* section */
+section{margin-bottom:30px}
+h2{font-size:17px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+h2::before{content:"";width:3px;height:16px;background:var(--accent);border-radius:2px}
+h3{font-size:14px;font-weight:650;margin-bottom:10px;color:var(--ink2)}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px}
+.card .k{font-size:11px;color:var(--ink3);letter-spacing:.5px;font-weight:600;margin-bottom:7px;text-transform:uppercase}
+.card .v{font-size:29px;font-weight:700;letter-spacing:-1px;line-height:1.1}
+.card .d{font-size:12px;color:var(--ink3);margin-top:7px;line-height:1.5}
+.v-up{color:var(--up)} .v-ac{color:var(--accent)} .v-dn{color:var(--down)}
+
+/* conclusion */
+.concl{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;padding:18px 20px}
+.concl ol{margin-left:18px}
+.concl li{margin-bottom:11px;font-size:14px}
+.concl li:last-child{margin-bottom:0}
+.concl b{color:var(--accent);font-weight:650}
+.hl{background:#fff3cd;padding:1px 4px;border-radius:2px;font-weight:600}
+
+/* chart */
+.chartbox{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px}
+.legend{display:flex;gap:16px;margin-bottom:14px;font-size:12px;color:var(--ink2);flex-wrap:wrap}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.bars{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.bg-grp{}
+.bg-grp .ttl{font-size:13px;font-weight:700;margin-bottom:3px}
+.bg-grp .stl{font-size:11px;color:var(--ink3);margin-bottom:12px}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.bar-lb{font-size:11px;color:var(--ink3);width:34px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.bar-tr{flex:1;height:20px;background:var(--line2);border-radius:3px;overflow:hidden;position:relative}
+.bar-fl{height:100%;border-radius:3px;transition:width .6s cubic-bezier(.2,.8,.3,1)}
+.bar-vl{font-size:11px;font-weight:650;width:42px;text-align:right;flex-shrink:0;font-variant-numeric:tabular-nums}
+
+/* table */
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13px}
+th{background:#fafbfc;text-align:left;padding:10px 12px;font-size:11px;font-weight:650;color:var(--ink3);letter-spacing:.4px;border-bottom:1px solid var(--line);text-transform:uppercase}
+td{padding:10px 12px;border-bottom:1px solid var(--line2);font-variant-numeric:tabular-nums}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafbfc}
+td.num{text-align:right}
+.best{background:#fffbe6 !important}
+.best td:first-child::after{content:" 最优";font-size:10px;color:var(--gold);font-weight:700}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:300px 1fr;gap:20px}
+.ctrl{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px}
+.fld{margin-bottom:16px}
+.fld:last-child{margin-bottom:0}
+.fld label{display:block;font-size:11px;font-weight:650;color:var(--ink3);letter-spacing:.4px;margin-bottom:6px;text-transform:uppercase}
+select,input[type=number]{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:5px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink)}
+select:focus,input:focus{outline:none;border-color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.rngv{font-size:13px;font-weight:700;color:var(--accent);float:right}
+.out{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px}
+.ogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.oc{background:#fafbfc;border:1px solid var(--line2);border-radius:6px;padding:13px}
+.oc .k{font-size:10px;color:var(--ink3);font-weight:600;letter-spacing:.4px;margin-bottom:5px}
+.oc .v{font-size:19px;font-weight:700;letter-spacing:-.5px}
+.oc .s{font-size:11px;color:var(--ink3);margin-top:3px}
+.verdict{padding:11px 14px;border-radius:6px;font-size:13px;font-weight:600;margin-top:4px}
+.vd-ok{background:#e8f6ef;color:#0b6e4f;border:1px solid #b8e0cd}
+.vd-wn{background:var(--warn-bg);color:var(--warn);border:1px solid #e8d5b5}
+.vd-dg{background:var(--danger-bg);color:var(--danger);border:1px solid #f0c4bf}
+
+/* stress */
+.stress{margin-top:16px}
+.st-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;font-size:12px}
+.st-lb{width:52px;color:var(--ink3);font-variant-numeric:tabular-nums;flex-shrink:0}
+.st-tr{flex:1;height:16px;background:var(--line2);border-radius:3px;overflow:hidden}
+.st-fl{height:100%;background:linear-gradient(90deg,#f0a8a3,#c0392b);border-radius:3px;transition:width .4s}
+.st-vl{width:96px;text-align:right;font-variant-numeric:tabular-nums;font-weight:600;flex-shrink:0}
+.st-st{width:58px;text-align:right;font-size:11px;font-weight:700;flex-shrink:0}
+
+/* posts */
+.posts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.post{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:15px}
+.post:hover{border-color:var(--accent)}
+.post .pt{font-size:14px;font-weight:650;margin-bottom:5px;color:var(--accent)}
+.post .pm{font-size:11px;color:var(--ink3);margin-bottom:8px}
+.post .pd{font-size:12.5px;color:var(--ink2);line-height:1.55}
+.rank{display:inline-flex;width:18px;height:18px;background:var(--accent);color:#fff;border-radius:3px;font-size:11px;font-weight:700;align-items:center;justify-content:center;margin-right:7px}
+
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+.rule{background:var(--danger-bg);border:1px solid #f0c4bf;border-radius:6px;padding:13px 15px;font-size:13px;display:flex;gap:10px}
+.rule .no{color:var(--danger);font-weight:700;flex-shrink:0}
+.rule b{color:var(--danger)}
+
+/* pitfalls */
+.pit td:first-child{font-weight:650;width:110px}
+.pit td:nth-child(2){color:var(--ink2);font-size:12.5px}
+.pit td:last-child{color:var(--accent);font-size:12.5px;font-weight:550}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tl-i{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px;text-align:center;position:relative}
+.tl-i.now{border-color:var(--up);background:#fff8f7}
+.tl-i .c{font-size:15px;font-weight:700;margin-bottom:4px}
+.tl-i .d{font-size:12px;color:var(--ink2)}
+.tl-i .m{font-size:11px;color:var(--up);font-weight:650;margin-top:6px}
+
+/* note */
+.note{background:var(--warn-bg);border:1px solid #e8d5b5;border-left:3px solid var(--warn);border-radius:6px;padding:14px 16px;font-size:13px;color:#6b4a1a;line-height:1.65}
+.note b{color:var(--warn)}
+.note-blue{background:var(--accent-l);border:1px solid #c5d4ea;border-left:3px solid var(--accent);border-radius:6px;padding:14px 16px;font-size:13px;color:#1a3a6b;line-height:1.65}
+.note-blue b{color:var(--accent)}
+.ft{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--ink3);line-height:1.7}
+
+/* report sections — from MD */
+.rpt-sep{text-align:center;margin:40px 0 30px;position:relative}
+.rpt-sep::before{content:"";position:absolute;left:0;top:50%;right:0;height:1px;background:var(--line)}
+.rpt-sec{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px 24px;margin-bottom:24px}
+.rpt-sec h3{font-size:15px;font-weight:700;color:var(--accent);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--line2)}
+.rpt-sec p{margin-bottom:10px;font-size:13.5px}
+.rpt-sec p:last-child{margin-bottom:0}
+.rpt-sec ul{margin-left:20px;margin-bottom:10px}
+.rpt-sec li{margin-bottom:6px;font-size:13.5px}
+.rpt-sec pre{background:#fafbfc;border:1px solid var(--line2);border-radius:6px;padding:14px 16px;font-size:12.5px;line-height:1.7;overflow-x:auto;margin:10px 0}
+.rpt-sec code{background:#f0f1f3;padding:1px 5px;border-radius:3px;font-size:12px;font-family:"Cascadia Code","Fira Code",Consolas,monospace}
+.checklist{list-style:none;margin-left:0!important}
+.checklist li{padding:6px 0 6px 28px;position:relative;font-size:13.5px!important}
+.checklist li::before{content:"☐";position:absolute;left:0;font-size:15px;color:var(--ink3)}
+
+@media(max-width:900px){
+ .cards,.ogrid,.bars,.posts,.rules,.tl{grid-template-columns:1fr}
+ .calc{grid-template-columns:1fr}
+ .nav{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hd">
+  <h1>📊 贴水策略 · 股指期货吃贴水完整方案</h1>
+  <div class="sub">
+    <span>数据基准 <b>2026-08-04 结算</b></span>
+    <span>资料来源 <b>网络收录实盘帖 + 中金所参数</b></span>
+    <span class="tag tag-w">不构成投资建议</span>
+  </div>
+</div>
+
+<!-- 导航 -->
+<nav class="nav">
+  <a href="#core">核心指标</a><a href="#conclusion">结论</a><a href="#term">期限结构</a><a href="#full">全合约</a><a href="#calc">测算器</a><span class="sep">|</span>
+  <a href="#capital">资金管理</a><a href="#redline">风控红线</a><a href="#roll">移仓规则</a><a href="#calendar">交割日历</a><span class="sep">|</span>
+  <a href="#report">完整报告</a><a href="#compare">收益拆解</a><a href="#selection">品种选择</a><a href="#timing">择时分析</a><span class="sep">|</span>
+  <a href="#enhance">增强模块</a><a href="#cost">摩擦成本</a><a href="#checklist">落地清单</a><a href="#reminder">个人提醒</a>
+</nav>
+
+<!-- ═══════════════════════════ 工作台区域 ═══════════════════════════ -->
+
+<!-- 核心指标 -->
+<section id="core">
+  <div class="cards">
+    <div class="card">
+      <div class="k">当前最厚贴水</div>
+      <div class="v v-up">6.78%</div>
+      <div class="d">IM2703（中证1000 · 2027年3月）年化<br>持有到期单手可收 <b>62,685 元</b></div>
+    </div>
+    <div class="card">
+      <div class="k">一手 IM 名义市值</div>
+      <div class="v v-ac">141<span style="font-size:18px">万</span></div>
+      <div class="d">这才是真实门槛<br>不是 50 万开户线</div>
+    </div>
+    <div class="card">
+      <div class="k">历史最大回撤</div>
+      <div class="v v-dn">−33%</div>
+      <div class="d">无杠杆口径（2018高点起算）<br>2 倍杠杆 = <b>−68%</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- 结论 -->
+<section id="conclusion">
+  <h2>三句话结论</h2>
+  <div class="concl">
+    <ol>
+      <li><b>肉真实存在，但 2026 年明显变薄。</b> 早期玩家吃到的年化 10–15% 是 2016–2022 的行情。当前 IM 最深合约只有 8.44%，IC 为 7.47%，整个基差体系已被指增建仓、雪球对冲、被动基金期货替代重新定价。</li>
+      <li><b>今年最大的结构性变化：近月贴水几乎归零，远月才有肉。</b> <span class="hl">这与 2021 年流传最广的经典结论「滚近月最优」完全相反</span>。IM2608 年化仅 2.83%，IM2703 达 8.44%，差 5.6 个百分点 —— 照抄 5 年前的作业会直接吃亏。</li>
+      <li><b>决定生死的从来不是贴水，是杠杆和入场位。</b> 7 篇实盘帖的共同结论只有一条：3 倍杠杆必爆，2 倍是极限，1.5 倍以内才活得下去。实盘帖原话：<span class="hl">「100万以下买一手 IC 或 IM，不能算吃贴水，只是加杠杆赌上涨」</span>。</li>
+    </ol>
+  </div>
+</section>
+
+<!-- 期限结构 -->
+<section id="term">
+  <h2>期限结构：贴水都在远月</h2>
+  <div class="chartbox">
+    <div class="legend">
+      <span><i style="background:#c0392b"></i>IM 中证1000</span>
+      <span><i style="background:#d9742b"></i>IC 中证500</span>
+      <span><i style="background:#1b4f8f"></i>IF 沪深300</span>
+      <span><i style="background:#5a9bd4"></i>IH 上证50</span>
+      <span style="margin-left:auto;color:var(--ink3)">横轴 = 年化贴水率，满格 10%</span>
+    </div>
+    <div class="bars" id="bars"></div>
+  </div>
+  <div class="note" style="margin-top:14px">
+    <b>三个必须注意的异常信号：</b><br>
+    ① <b>曲线陡峭化</b> —— 近月合约被"期货替代现货"的多头买盘推高，肉已被吃干净，必须改看「月均贴水差」而非固守近月规则。<br>
+    ② <b>IF/IH 出现历史罕见深贴水</b> —— 2021 年的方法论帖写过"沪深300和上证50几乎没有贴水"，现在 IF2609 达 6.76%。原因未明，标注仅供参考。<br>
+    ③ <b>当前是暴涨后的高位贴水，含水分</b> —— 8月3–5日中证1000三天涨 5.90%。多篇实盘帖反复验证：<b>涨时贴水扩大，跌时贴水收敛</b>。8% 不是稳态。
+  </div>
+</section>
+
+<!-- 全表 -->
+<section id="full">
+  <h2>四品种全合约明细</h2>
+  <table>
+    <thead><tr>
+      <th>品种</th><th>合约</th><th class="num">期货价</th><th class="num">基差</th>
+      <th class="num">剩余天</th><th class="num">年化贴水</th><th class="num">月均贴水</th>
+      <th class="num">名义市值</th><th class="num">保证金15%</th>
+    </tr></thead>
+    <tbody id="tbl"></tbody>
+  </table>
+</section>
+
+<!-- 测算器 -->
+<section id="calc">
+  <h2>收益 / 保证金测算器</h2>
+  <div class="calc">
+    <div class="ctrl">
+      <div class="fld">
+        <label>合约</label>
+        <select id="sel"></select>
+      </div>
+      <div class="fld">
+        <label>手数</label>
+        <input type="number" id="lots" value="1" min="1" max="20" step="1">
+      </div>
+      <div class="fld">
+        <label>投入资金（万元）<span class="rngv" id="capv">141</span></label>
+        <input type="range" id="cap" min="20" max="600" step="5" value="141">
+      </div>
+      <div class="fld">
+        <label>闲置资金年化（%）<span class="rngv" id="idlev">1.8</span></label>
+        <input type="range" id="idle" min="0" max="5" step="0.1" value="1.8">
+      </div>
+      <div class="fld">
+        <label>假设指数涨跌（%）<span class="rngv" id="betav">0</span></label>
+        <input type="range" id="beta" min="-40" max="40" step="1" value="0">
+      </div>
+    </div>
+
+    <div class="out">
+      <div class="ogrid">
+        <div class="oc"><div class="k">名义市值</div><div class="v" id="o1">—</div><div class="s" id="o1s"></div></div>
+        <div class="oc"><div class="k">实际杠杆</div><div class="v" id="o2">—</div><div class="s" id="o2s"></div></div>
+        <div class="oc"><div class="k">扛跌极限</div><div class="v" id="o3">—</div><div class="s">强平线（15%维持）</div></div>
+        <div class="oc"><div class="k">持有到期贴水收益</div><div class="v v-up" id="o4">—</div><div class="s" id="o4s"></div></div>
+        <div class="oc"><div class="k">闲置资金收益</div><div class="v v-up" id="o5">—</div><div class="s">同期</div></div>
+        <div class="oc"><div class="k">合计损益（含Beta）</div><div class="v" id="o6">—</div><div class="s" id="o6s">对投入资金收益率</div></div>
+      </div>
+      <div class="verdict" id="vd">—</div>
+
+      <div class="stress">
+        <h3 style="margin-top:18px">保证金压力测试 · 需追加金额</h3>
+        <div id="stress"></div>
+        <div style="font-size:11.5px;color:var(--ink3);margin-top:9px;line-height:1.6">
+          追保公式：<code>需补金额 = 亏损额 × (1 − 保证金率)</code>。
+          血泪教训：只备一个跌停（8.5%）<b style="color:var(--danger)">绝对不够</b> —— 交易所会突然上调保证金率、暴跌次日往往还是暴跌、平时没人天天盯保证金。<b>必须备 1.5–2 个跌停。</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 三层账本 -->
+<section id="capital">
+  <h2>三层资金账本（策略生死线）</h2>
+  <table>
+    <thead><tr><th>层级</th><th>用途</th><th class="num">占名义市值</th><th class="num">一手IM金额</th><th>存放形式</th></tr></thead>
+    <tbody>
+      <tr><td>第一层</td><td>初始保证金</td><td class="num">15%</td><td class="num">21.2 万</td><td>期货账户（交易所12%+期货公司3%）</td></tr>
+      <tr><td>第二层</td><td>极端行情追保金</td><td class="num">17%</td><td class="num">24.0 万</td><td>货基 / 银行T+0理财（1.5–2个跌停）</td></tr>
+      <tr><td>第三层</td><td>闲置资金池</td><td class="num">65%</td><td class="num">91.8 万</td><td>国债ETF / 3A转债 / 打新债基</td></tr>
+      <tr class="best"><td><b>合计</b></td><td><b>「1倍杠杆」的真实含义</b></td><td class="num"><b>≈97%</b></td><td class="num"><b>137 万</b></td><td><b>三层必须分开记账</b></td></tr>
+    </tbody>
+  </table>
+  <div style="height:14px"></div>
+  <table>
+    <thead><tr><th>杠杆</th><th class="num">一手IM需备资金</th><th class="num">理论强平跌幅</th><th>实盘帖评价</th></tr></thead>
+    <tbody>
+      <tr><td>1.0 倍</td><td class="num">141 万</td><td class="num">理论不爆</td><td style="color:var(--down)">✅ 最稳，"纯粹的吃贴水"</td></tr>
+      <tr><td>1.5 倍</td><td class="num">94 万</td><td class="num">−60.8%</td><td style="color:var(--down)">✅ 老玩家共识上限</td></tr>
+      <tr><td>2.0 倍</td><td class="num">70 万</td><td class="num">−41.2%</td><td style="color:var(--warn)">⚠️ 极限，会遭遇 68% 回撤</td></tr>
+      <tr><td>3.0 倍</td><td class="num">47 万</td><td class="num">−21.6%</td><td style="color:var(--danger)">❌ "基本上总是要爆仓的"</td></tr>
+      <tr><td>开户线 50 万</td><td class="num">50 万</td><td class="num">−24.1%</td><td style="color:var(--danger)">❌ 这不叫吃贴水，叫赌方向</td></tr>
+    </tbody>
+  </table>
+  <div class="note" style="margin-top:12px;font-size:12px">
+    强平公式：<code>理论强平跌幅 = (自有资金 − 名义市值×15%) ÷ (名义市值×85%)</code>。
+    <b>历史验证：</b>2024 年 1 月至 2 月 5 日中证1000 跌超 30%，<b style="color:var(--danger)">3 倍杠杆在跌 21.6% 时即被强平</b> —— 那一轮集体爆仓是数学必然，不是运气。
+  </div>
+</section>
+
+<!-- 红线 -->
+<section id="redline">
+  <h2>六条风控红线</h2>
+  <div class="rules">
+    <div class="rule"><span class="no">01</span><div>杠杆绝不超过 <b>2 倍</b>。3 倍以上历史证明必爆。</div></div>
+    <div class="rule"><span class="no">02</span><div>绝不<b>浮盈加仓</b>。2024年1-2月集体噩梦的主因。</div></div>
+    <div class="rule"><span class="no">03</span><div>绝不因<b>贴水变大</b>而加仓。贴水扩大往往因为要跌。</div></div>
+    <div class="rule"><span class="no">04</span><div>绝不<b>借钱</b>做。等于把生活质量抵押给市场。</div></div>
+    <div class="rule"><span class="no">05</span><div>绝不<b>高位建仓</b>。低点比贴水更重要——要搞清楚主要矛盾。</div></div>
+    <div class="rule"><span class="no">06</span><div>追保金必须是<b>现金或T+0资产</b>，不能是股票（二次加杠杆）。</div></div>
+  </div>
+</section>
+
+<!-- 移仓规则 -->
+<section id="roll">
+  <h2>移仓换月规则（2026 修正版）</h2>
+  <table>
+    <thead><tr><th>项目</th><th>规则</th><th>依据</th></tr></thead>
+    <tbody class="pit">
+      <tr><td>选合约</td><td>看<b>月均贴水差</b>最大者，不固守近月/远月</td><td>2026年曲线已倒挂，老结论失效</td></tr>
+      <tr><td>移仓时点</td><td>交割日<b>前 2–3 天</b>，绝不进交割月</td><td>个人不能进交割月，提前换从容</td></tr>
+      <tr><td>移仓频率</td><td>按季滚动（03/06/09/12）优先</td><td>滑点手续费省 2/3</td></tr>
+      <tr><td>换仓判据</td><td>看两合约<b>价差绝对值</b>，不看收益率</td><td>价差有强均值回复性（IC当月/次月历史均值约60点）</td></tr>
+      <tr><td>分批执行</td><td>大仓位分 3–5 批换</td><td>一次换完常买在最差点位</td></tr>
+      <tr><td>分红季</td><td>5–8月贴水虚高，必须<b>剔除分红</b>判断</td><td>近月含 40–60 点分红因素，是假肉</td></tr>
+      <tr><td>出现升水</td><td>立即移到有贴水合约或暂换 ETF</td><td>2026年1月 IC2602/IM2602 曾转升水</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 交割日历 -->
+<section id="calendar">
+  <h2>2026–2027 交割日历</h2>
+  <div class="tl">
+    <div class="tl-i now"><div class="c">2608</div><div class="d">2026-08-21</div><div class="m">08-18 前移仓</div></div>
+    <div class="tl-i"><div class="c">2609</div><div class="d">2026-09-18</div><div class="m">09-15 前移仓</div></div>
+    <div class="tl-i"><div class="c">2612</div><div class="d">2026-12-18</div><div class="m">12-15 前移仓</div></div>
+    <div class="tl-i"><div class="c">2703</div><div class="d">2027-03-19</div><div class="m">03-16 前移仓</div></div>
+  </div>
+</section>
+
+<!-- 踩坑 -->
+<section>
+  <h2>踩坑名录（网络收录真实案例）</h2>
+  <table>
+    <thead><tr><th>坑</th><th>案例</th><th>教训</th></tr></thead>
+    <tbody class="pit">
+      <tr><td>高杠杆</td><td>某实盘者2倍起步→加到10倍，净值跌到 0.2，被迫贷款</td><td>杠杆是魔鬼，波动会让人丢掉原则</td></tr>
+      <tr><td>浮盈加仓</td><td>上涨中"脑子一热加一手"，立刻套牢</td><td>上涨自然降杠杆，别主动加回去</td></tr>
+      <tr><td>贴水加仓</td><td>见贴水变厚就加，结果贴水扩大是因为要跌</td><td>贴水和风险同向</td></tr>
+      <tr><td>频繁 T0</td><td>10个交易日交 3.6 万手续费且每笔亏损</td><td>平今仓费率是隔夜的 <b>10 倍</b>（万2.3 vs 万0.23）</td></tr>
+      <tr><td>底部割肉</td><td>2024年2月5日多人割在最低点</td><td>备足追保金的唯一目的就是不在低点失去头寸</td></tr>
+      <tr><td>贴水断供</td><td>2023年 IC 全年只吃到 <b>186 点</b></td><td>贴水不是固定工资，会断供</td></tr>
+      <tr><td>切品种</td><td>2022年8月价差高位从 IC 换 IM，2024两个低点巨亏</td><td>切换品种也是择时，同样会错</td></tr>
+      <tr><td>借钱投资</td><td>借50万给亲戚5–10年还；借出20万人联系不上</td><td>赚钱容易时手别松</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 帖子索引 -->
+<section>
+  <h2>网络收录高价值实盘帖索引</h2>
+  <div class="note" style="margin-bottom:14px;font-size:12px">
+    以下均为网络公开收录内容，已隐去原站点与发帖人标识，仅保留主题、时间与信息价值。
+  </div>
+  <div class="posts">
+    <div class="post">
+      <div class="pt"><span class="rank">1</span>期指贴水策略 FAQ</div>
+      <div class="pm">2021-03 · 方法论总纲</div>
+      <div class="pd">9 问覆盖全部基础问题。保证金"血的教训"章节最有价值，是关于追保准备最系统的论述。</div>
+    </div>
+    <div class="post">
+      <div class="pt"><span class="rank">2</span>从10倍到1000倍——吃 IC 贴水的正确姿势</div>
+      <div class="pm">2021-02 · 唯一系统回测</div>
+      <div class="pd">2015–2020 全样本回测：合约选择、最大回撤、爆仓阈值、交易成本敏感性。"3倍杠杆必爆"结论出处。</div>
+    </div>
+    <div class="post">
+      <div class="pt"><span class="rank">3</span>4年前开始吃贴水的兄弟怎么样了</div>
+      <div class="pm">2025-06→2026-05 · 完整实盘</div>
+      <div class="pd">单手期指 4 年全周期记录，3 次至暗时刻（最惨浮亏30万＝本金1.5倍），最终盈利 87 万退出。心理压力实录。</div>
+    </div>
+    <div class="post">
+      <div class="pt"><span class="rank">4</span>构建以高抛低吸为核心的多种策略</div>
+      <div class="pm">2026 · 策略族全景</div>
+      <div class="pd">无脑吃贴水10%/波段7%/卖沽增强5%/价差4-8%，附1000万资金的具体手数建议（1-3手，最多4手）。</div>
+    </div>
+    <div class="post">
+      <div class="pt"><span class="rank">5</span>股指期货 IC 长期吃贴水实盘</div>
+      <div class="pm">2019→ · 逐笔移仓</div>
+      <div class="pd">6 年逐笔移仓记录，"商铺收租"心法（日均贴水×200×手数＝每日租金），换月月份选择实操。</div>
+    </div>
+    <div class="post">
+      <div class="pt"><span class="rank">6</span>贴水历史演变长帖</div>
+      <div class="pm">2015至今 · 贴水历史演变</div>
+      <div class="pd">贴水从升水→股灾后年化30%→逐年收敛的完整史料。对冲吃贴水（多近空远）→单多吃贴水的转型逻辑。</div>
+    </div>
+    <div class="post">
+      <div class="pt"><span class="rank">7</span>铁矿石吃贴水策略实盘</div>
+      <div class="pm">2025-11 · 两大铁律</div>
+      <div class="pd">提炼出吃贴水的两条铁律；并指出长期稳定贴水的品种只有三个：IC、IM、铁矿石。低相关分散思路。</div>
+    </div>
+    <div class="post">
+      <div class="pt"><span class="rank">＋</span>策略原始推导长帖（延伸）</div>
+      <div class="pm">2025 · 连载更新</div>
+      <div class="pd">上述多个策略的原始推导过程都在这里连载更新，适合深挖单个模块。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 底层逻辑 -->
+<section>
+  <h2>这块肉从哪来</h2>
+  <div class="chartbox">
+    <svg viewBox="0 0 1000 200" style="width:100%;height:auto">
+      <defs><marker id="ar" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+        <polygon points="0 0, 9 3.5, 0 7" fill="#868e96"/></marker></defs>
+      <rect x="20" y="60" width="185" height="76" rx="7" fill="#e8eff8" stroke="#1b4f8f" stroke-width="1.2"/>
+      <text x="112" y="88" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1b4f8f">量化中性策略</text>
+      <text x="112" y="108" text-anchor="middle" font-size="11.5" fill="#4a5058">持续、刚性、大规模</text>
+      <text x="112" y="124" text-anchor="middle" font-size="11.5" fill="#4a5058">做空股指期货对冲</text>
+
+      <line x1="212" y1="98" x2="258" y2="98" stroke="#868e96" stroke-width="1.5" marker-end="url(#ar)"/>
+
+      <rect x="265" y="60" width="185" height="76" rx="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+      <text x="357" y="88" text-anchor="middle" font-size="13.5" font-weight="700" fill="#c0392b">期货价格被压低</text>
+      <text x="357" y="108" text-anchor="middle" font-size="11.5" fill="#4a5058">跌破现货指数</text>
+      <text x="357" y="124" text-anchor="middle" font-size="11.5" fill="#4a5058">形成负基差 = 贴水</text>
+
+      <line x1="457" y1="98" x2="503" y2="98" stroke="#868e96" stroke-width="1.5" marker-end="url(#ar)"/>
+
+      <rect x="510" y="60" width="185" height="76" rx="7" fill="#fdf4e7" stroke="#b5651d" stroke-width="1.2"/>
+      <text x="602" y="88" text-anchor="middle" font-size="13.5" font-weight="700" fill="#b5651d">A股禁止裸卖空</text>
+      <text x="602" y="108" text-anchor="middle" font-size="11.5" fill="#4a5058">套利盘无法做空现货</text>
+      <text x="602" y="124" text-anchor="middle" font-size="11.5" fill="#4a5058">价差修不回去</text>
+
+      <line x1="702" y1="98" x2="748" y2="98" stroke="#868e96" stroke-width="1.5" marker-end="url(#ar)"/>
+
+      <rect x="755" y="60" width="225" height="76" rx="7" fill="#e8f6ef" stroke="#0b6e4f" stroke-width="1.2"/>
+      <text x="867" y="88" text-anchor="middle" font-size="13.5" font-weight="700" fill="#0b6e4f">多头获得"补贴"</text>
+      <text x="867" y="108" text-anchor="middle" font-size="11.5" fill="#4a5058">贴水到期强制收敛至 0</text>
+      <text x="867" y="124" text-anchor="middle" font-size="11.5" fill="#4a5058">这就是可吃的那块肉</text>
+
+      <text x="500" y="172" text-anchor="middle" font-size="12.5" fill="#868e96">两个条件缺一不可 —— 有人持续付费做空 ＋ 卖空约束让价差修不回去</text>
+    </svg>
+  </div>
+  <div class="note" style="margin-top:14px">
+    <b>那贴水什么时候会消失？</b> 当中性策略规模萎缩，或多头需求（指增建仓 / 雪球对冲 / 被动基金期货替代）超过空头套保需求时。
+    <b>2026年1月就发生过</b>：IC2602、IM2602 一度转为<b>升水</b>，年化升水率 4.76% / 1.79%。这也解释了今年贴水系统性收窄的原因。
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 完整报告区域（MD 补充） ═══════════════════════════ -->
+
+<div class="rpt-sep"><span style="background:var(--bg);padding:0 16px;position:relative;font-size:14px;font-weight:700;color:var(--ink3);z-index:1">━━━ 完整研究报告 ━━━</span></div>
+
+<!-- 收益拆解 -->
+<section id="report">
+  <h2 id="compare">收益拆解：期指多头 vs 直接买 ETF</h2>
+  <div class="rpt-sec">
+    <table>
+      <thead><tr><th>项目</th><th>期指多头</th><th>指数ETF</th></tr></thead>
+      <tbody>
+        <tr><td>指数 Beta</td><td>✅ 相同</td><td>✅ 相同</td></tr>
+        <tr><td>贴水收敛收益</td><td>✅ <b>+5~8%/年</b>（当前）</td><td>❌</td></tr>
+        <tr><td>闲置资金收益</td><td>✅ 约 85% 资金可买货基/国债ETF</td><td>❌ 全额占用</td></tr>
+        <tr><td>成分股分红</td><td>❌ 拿不到（已隐含在基差里）</td><td>✅</td></tr>
+        <tr><td>打新收益</td><td>❌</td><td>✅（小规模指增有）</td></tr>
+        <tr><td>管理费</td><td>✅ 无</td><td>❌ 0.15–1.5%</td></tr>
+        <tr><td>摩擦成本</td><td>移仓滑点 + 手续费</td><td>申赎/佣金</td></tr>
+        <tr style="background:var(--danger-bg)"><td><b>爆仓风险</b></td><td>⚠️ <b>有</b></td><td>✅ 无</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 品种选择 -->
+<section id="selection">
+  <h2>品种选择与建议</h2>
+  <div class="rpt-sec">
+    <table>
+      <thead><tr><th>品种</th><th>当前最优年化</th><th>一手名义市值</th><th>波动性</th><th>建议</th></tr></thead>
+      <tbody>
+        <tr class="best"><td><b>IM</b>（中证1000）</td><td><b>8.44%</b></td><td>137.9万</td><td>最高</td><td>贴水最厚，但回撤也最狠。首选，仓位要小</td></tr>
+        <tr><td><b>IC</b>（中证500）</td><td>7.47%</td><td>145.1万</td><td>高</td><td>贴水略薄，波动小于 IM，稳健型首选</td></tr>
+        <tr><td><b>IF</b>（沪深300）</td><td>6.31%</td><td>132.6万</td><td>中</td><td>今年贴水异常走深，性价比意外不错</td></tr>
+        <tr><td><b>IH</b>（上证50）</td><td>4.34%</td><td>84.0万</td><td>最低</td><td>贴水最薄，但<b>门槛最低</b>，适合小资金练手或防守切换</td></tr>
+      </tbody>
+    </table>
+    <div class="note-blue" style="margin-top:14px">
+      <b>结论：</b>主力仓位 IM 或 IC；若资金不足以覆盖一手 IM 名义市值，<b>用 IH 是唯一"不加杠杆"的现实选择</b>，代价是贴水只有一半。
+    </div>
+  </div>
+</section>
+
+<!-- 单手持有到期收益 -->
+<section>
+  <h2>单手持有到期的绝对收益（静态外推）</h2>
+  <div class="rpt-sec">
+    <table>
+      <thead><tr><th>合约</th><th class="num">持有到期贴水收益</th><th class="num">天数</th><th class="num">年化</th></tr></thead>
+      <tbody>
+        <tr class="best"><td><b>IM2703</b></td><td class="num"><b>76,398 元</b></td><td class="num">227</td><td class="num"><b>8.44%</b></td></tr>
+        <tr><td>IM2612</td><td class="num">42,318 元</td><td class="num">136</td><td class="num">7.80%</td></tr>
+        <tr><td>IC2703</td><td class="num">70,698 元</td><td class="num">227</td><td class="num">7.47%</td></tr>
+        <tr><td>IC2612</td><td class="num">40,818 元</td><td class="num">136</td><td class="num">7.20%</td></tr>
+        <tr><td>IF2703</td><td class="num">54,159 元</td><td class="num">227</td><td class="num">6.31%</td></tr>
+        <tr><td>IH2703</td><td class="num">23,301 元</td><td class="num">227</td><td class="num">4.34%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 择时 -->
+<section id="timing">
+  <h2>择时：做还是不做</h2>
+  <div class="rpt-sec">
+    <h3>网络收录中的三派观点</h3>
+    <table>
+      <thead><tr><th>派别</th><th>主张</th><th>代表证据</th></tr></thead>
+      <tbody class="pit">
+        <tr><td><b>不择时派</b>（主流）</td><td>"只要有贴水就能干"，长期滚动普适性最好</td><td>一位持有者 4 年硬扛，最终 1 手盈利 87 万</td></tr>
+        <tr><td><b>择时派</b></td><td>低位进、高位出；IM 6000 以下才建仓</td><td>实盘记录：6400 进、8300 清，年化远超无脑滚</td></tr>
+        <tr><td><b>日历派</b></td><td>12月/1月/4月换防守仓，其余 9 个月吃贴水</td><td>回测年化 7%，贴水/回撤比显著改善；<b>但 2025 年机械执行失效</b></td></tr>
+      </tbody>
+    </table>
+    <h3 style="margin-top:18px">判断与建议（个人观点）</h3>
+    <p>以价值投资框架来看，"不择时"和体系冲突。建议采用<strong>弱择时</strong>——不做短期波段，但设定入场估值区间：</p>
+    <ul>
+      <li>中证1000 当前约 7493 点，处于近年偏高位置 → <b>不是好的建仓位</b></li>
+      <li>参考网络收录给出的锚：<code>IM 4700–5500 重仓，5500–6300 建仓，6300 以上轻仓，8100+ 减仓</code></li>
+      <li>当前 7493 点：<b>属于"轻仓或观望"区间</b></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 铁律 -->
+<section>
+  <h2>两条铁律（由 6 年实盘提炼）</h2>
+  <div class="rpt-sec">
+    <div class="note" style="margin-bottom:14px">
+      <b>铁律一：只做"一直都有贴水"的品种。</b><br>
+      不能是"价格高位有贴水、价格低了变升水"（大部分商品期货是这样），也不能是"有时有有时没有"。经验证长期稳定贴水的只有三个：<b>IC、IM、铁矿石</b>。
+    </div>
+    <div class="note">
+      <b>铁律二：必须在中等偏下的价格入场，绝不高位浮盈加仓。</b><br>
+      实盘帖原话："你 200% 仓位去吃单个品种的贴水，迟早要死的，22年、24年的 IC、IM 已经吃了多少教训了。"
+    </div>
+  </div>
+</section>
+
+<!-- 增强模块 -->
+<section id="enhance">
+  <h2>增强模块（可选，风险递增）</h2>
+  <div class="rpt-sec">
+    <table>
+      <thead><tr><th>模块</th><th>增厚收益</th><th>风险</th><th>建议</th></tr></thead>
+      <tbody>
+        <tr><td>闲置资金买货基/国债ETF</td><td>+1.5~2%/年</td><td>极低</td><td style="color:var(--down)">✅ 必做</td></tr>
+        <tr><td>卖深虚 MO 认沽</td><td>+5%/年（配2手，贴水 10%→15%）</td><td>⚠️ 急跌时保证金爆炸，曾单日补 80 万</td><td style="color:var(--warn)">❌ 熟练后再考虑</td></tr>
+        <tr><td>IM-IC 价差吃贴水</td><td>+4%/年</td><td>回撤极小但收益小；2026 年该价差处历史低位被套</td><td style="color:var(--accent)">🔶 对冲思路可参考</td></tr>
+        <tr><td>备兑卖虚值看涨</td><td>权利金缓冲</td><td>牺牲大涨收益</td><td style="color:var(--accent)">🔶 震荡市可用</td></tr>
+        <tr><td>铁矿石吃贴水</td><td>10~30%/年</td><td>与股指相关性极低，可分散</td><td style="color:var(--accent)">🔶 单独研究</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 摩擦成本 -->
+<section id="cost">
+  <h2>摩擦成本清单</h2>
+  <div class="rpt-sec">
+    <table>
+      <thead><tr><th>项目</th><th>标准</th><th>一手 IM 单次金额</th></tr></thead>
+      <tbody>
+        <tr><td>交易所保证金</td><td>12%</td><td>16.97 万</td></tr>
+        <tr><td>期货公司加收</td><td>+3%（可协商）</td><td>合计 15% = 21.2 万</td></tr>
+        <tr><td>开仓/隔夜平仓手续费</td><td>万分之 0.23</td><td>约 32.5 元</td></tr>
+        <tr style="background:var(--warn-bg)"><td><b>平今仓手续费</b></td><td><b>万分之 2.3（10倍）</b></td><td><b>约 325 元 ⚠️</b></td></tr>
+        <tr><td>交割手续费</td><td>2026 全年减半</td><td>—</td></tr>
+        <tr><td>移仓滑点</td><td>最小变动 0.2 点 = 40 元/手</td><td>按季滚动全年约 4 次</td></tr>
+        <tr class="best"><td><b>全年摩擦（按季滚动）</b></td><td>手续费 + 滑点</td><td><b>约 300–500 元/手/年</b></td></tr>
+      </tbody>
+    </table>
+    <div class="note-blue" style="margin-top:14px">
+      <b>结论：</b>摩擦成本对这个策略几乎可以忽略（占名义市值 0.03%），前提是<strong>按季滚动 + 绝不做日内</strong>。若改为按月滚动，成本翻 3 倍仍属可控；但若频繁 T0，平今仓费率会直接吃掉全部贴水收益。
+    </div>
+  </div>
+</section>
+
+<!-- 回撤准备 -->
+<section>
+  <h2>回撤心理准备</h2>
+  <div class="rpt-sec">
+    <table>
+      <thead><tr><th>时期</th><th>最大回撤</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td>2015 股灾</td><td>极端</td><td>无参考意义</td></tr>
+        <tr><td>2018 上轮高点</td><td>约 33%（无杠杆）</td><td>2 倍杠杆 = 68%</td></tr>
+        <tr><td>2022.3–4</td><td>单日 −13%（200%仓位）</td><td>戴维斯双杀：指数跌 + 贴水扩</td></tr>
+        <tr style="background:var(--danger-bg)"><td>2024.1–2</td><td>净值一度 0.2</td><td><b>集体至暗时刻</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 落地清单 -->
+<section id="checklist">
+  <h2>落地检查清单</h2>
+  <div class="rpt-sec">
+    <p style="margin-bottom:12px"><b>开仓前逐条打勾，有一条不满足就别做：</b></p>
+    <ul class="checklist">
+      <li>已开通金融期货交易权限（50 万验资 + 知识测试 + 10 笔仿真或实盘商品期货经历）</li>
+      <li>可用于本策略的资金 ≥ <b>1 手名义市值 × 1.0</b>（IM 需 141 万 / IH 需 84 万）</li>
+      <li>已与期货公司协商保证金加收比例和手续费（能省 1–2 个点）</li>
+      <li>追保资金已备好，且为 T+0 可变现资产（货基/国债ETF/银行T+0理财）</li>
+      <li>已在纸面上写下：跌到多少点我需要补多少钱，钱从哪来</li>
+      <li>已确认当前建仓点位处于自己认可的估值区间（<b>当前 IM 7493 点属偏高</b>）</li>
+      <li>已在日历上标记 2026-2027 全部交割日和移仓日</li>
+      <li>已接受"最大回撤可能 30–40%"这一事实，并想清楚届时不割肉</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 个人提醒 -->
+<section id="reminder">
+  <h2>针对价值投资框架的三点提醒</h2>
+  <div class="rpt-sec">
+    <div class="note-blue" style="margin-bottom:14px">
+      <b>① 这不是新增赌注，是仓位替代工具。</b><br>
+      吃贴水的本质是"用期货替代指数 ETF 仓位，多赚一份贴水"。如果你本来就不想持有中证1000/500 的宽基敞口，就不该为了 8% 的贴水去建这个仓。<b>先决定要不要这个 Beta，再决定用什么工具装它。</b>
+    </div>
+    <div class="note-blue" style="margin-bottom:14px">
+      <b>② 和存量服务赛道主线是两套体系。</b><br>
+      养老/殡葬/医疗主线是选股 Alpha，吃贴水是宽基 Beta + 结构性 Alpha。两者不冲突但会争夺资金。以目前持仓整体亏损的状态，<b>再拿出 141 万去开一个高波动仓位，需要非常谨慎</b>。
+    </div>
+    <div class="note">
+      <b>③ 当前时点不理想。</b><br>
+      指数位置：中证1000 三天涨 5.9%，7493 点属偏高区｜贴水水位：8.44% 看似不错，但含暴涨脉冲水分，且远低于历史 10–15%｜结构信号：近月贴水近乎归零，说明多头拥挤。<br><br>
+      <b>若一定要做，建议顺序：</b>先在纸上跟踪 3 个月（记录每周基差和自己会做的决策），确认自己扛得住每周 ±5 万的波动，再考虑用 IH（84 万/手）小仓位起步。
+    </div>
+  </div>
+</section>
+
+<div class="ft">
+  <b>风险提示：</b>股指期货属高杠杆衍生品。① 保证金不足会被强制平仓，损失可能超过初始保证金；② 贴水非固定收益，2023年 IC 全年仅 186 点，2026年1月一度转升水；③ 吃到 8% 贴水但指数跌 20%，净亏 12% —— <b>贴水只能减亏，不能防跌</b>；④ 远月合约流动性稀薄，极端行情可能无法按理想价格移仓；⑤ 交易所可临时上调保证金率、限制开仓（2015年有先例）；⑥ 本页数据基于 2026-08-07 结算价，基差每日变动，实盘前必须重新核算。<br><br>
+  <b>以上为数据整理，不构成投资建议，决策请自行判断。</b>
+</div>
+
+</div>
+
+<script>
+const SPOT={IF:4651.31,IC:7829.36,IM:7530.43,IH:2920.14};
+const MULT={IM:200,IC:200,IF:300,IH:300};
+const NAME={IM:"IM 中证1000",IC:"IC 中证500",IF:"IF 沪深300",IH:"IH 上证50"};
+const COLOR={IM:"#c0392b",IC:"#d9742b",IF:"#1b4f8f",IH:"#5a9bd4"};
+const DAYS={"2608":14,"2609":42,"2612":133,"2703":224};
+const EXPD={"2608":"2026-08-21","2609":"2026-09-18","2612":"2026-12-18","2703":"2027-03-19"};
+const FUT={ IF:{"2608":4674.2,"2609":4645.6,"2612":4565.6,"2703":4493.0}, IC:{"2608":7936.2,"2609":7877.8,"2612":7715.6,"2703":7558.0}, IM:{"2608":7655.6,"2609":7590.6,"2612":7400.0,"2703":7217.0}, IH:{"2608":2948.4,"2609":2930.0,"2612":2887.0,"2703":2859.6}
+};
+const MR=0.15;
+
+function calc(p,c){
+  const f=FUT[p][c], s=SPOT[p], d=DAYS[c], m=MULT[p];
+  const basis=f-s;
+  const ann=-basis/s*365/d*100;
+  const nominal=f*m;
+  const margin=nominal*MR;
+  const monthly=-basis/(d/30.4);
+  const gain=-basis*m;
+  return {f,s,d,m,basis,ann,nominal,margin,monthly,gain};
+}
+function wan(x){return (x/10000).toFixed(1)+"万";}
+function yuan(x){return x.toLocaleString('zh-CN',{maximumFractionDigits:0})+" 元";}
+
+// ---- bars ----
+let bh="";
+for(const p of ["IM","IC","IF","IH"]){
+  bh+=`<div class="bg-grp"><div class="ttl">${NAME[p]}</div><div class="stl">现货 ${SPOT[p].toFixed(2)} · 乘数 ${MULT[p]}元/点</div>`;
+  for(const c of ["2608","2609","2612","2703"]){
+    const r=calc(p,c);
+    const w=Math.min(r.ann/10*100,100);
+    bh+=`<div class="bar-row"><span class="bar-lb">${c}</span>
+      <span class="bar-tr"><span class="bar-fl" style="width:${w}%;background:${COLOR[p]}"></span></span>
+      <span class="bar-vl" style="color:${COLOR[p]}">${r.ann.toFixed(2)}%</span></div>`;
+  }
+  bh+=`</div>`;
+}
+document.getElementById("bars").innerHTML=bh;
+
+// ---- table ----
+let th="";
+let bestAnn=0,bestKey="";
+for(const p of ["IM","IC","IF","IH"])for(const c of ["2608","2609","2612","2703"]){
+  const r=calc(p,c); if(r.ann>bestAnn){bestAnn=r.ann;bestKey=p+c;}
+}
+for(const p of ["IM","IC","IF","IH"]){
+  for(const c of ["2608","2609","2612","2703"]){
+    const r=calc(p,c);
+    const isBest=(p+c)===bestKey;
+    th+=`<tr class="${isBest?'best':''}">
+      <td><b style="color:${COLOR[p]}">${p}</b></td><td>${c}</td>
+      <td class="num">${r.f.toFixed(1)}</td>
+      <td class="num" style="color:var(--down)">${r.basis.toFixed(1)}</td>
+      <td class="num">${r.d}</td>
+      <td class="num"><b style="color:var(--up)">${r.ann.toFixed(2)}%</b></td>
+      <td class="num">${r.monthly.toFixed(1)} 点</td>
+      <td class="num">${wan(r.nominal)}</td>
+      <td class="num">${wan(r.margin)}</td></tr>`;
+  }
+}
+document.getElementById("tbl").innerHTML=th;
+
+// ---- selector ----
+const sel=document.getElementById("sel");
+let so="";
+for(const p of ["IM","IC","IF","IH"])for(const c of ["2608","2609","2612","2703"]){
+  const r=calc(p,c);
+  so+=`<option value="${p}|${c}">${p}${c} · 年化${r.ann.toFixed(2)}% · ${wan(r.nominal)}</option>`;
+}
+sel.innerHTML=so;
+sel.value="IM|2703";
+
+function update(){
+  const [p,c]=sel.value.split("|");
+  const r=calc(p,c);
+  const lots=Math.max(1,parseInt(document.getElementById("lots").value)||1);
+  const cap=parseFloat(document.getElementById("cap").value)*10000;
+  const idle=parseFloat(document.getElementById("idle").value)/100;
+  const beta=parseFloat(document.getElementById("beta").value)/100;
+  document.getElementById("capv").textContent=(cap/10000).toFixed(0);
+  document.getElementById("idlev").textContent=(idle*100).toFixed(1);
+  document.getElementById("betav").textContent=(beta*100).toFixed(0);
+
+  const nominal=r.nominal*lots;
+  const margin=r.margin*lots;
+  const lev=nominal/cap;
+  const maxDrop=(cap-nominal*MR)/(nominal*(1-MR));
+  const gain=r.gain*lots;
+  const idleCash=Math.max(cap-margin,0);
+  const idleGain=idleCash*idle*(r.d/365);
+  const betaPnl=nominal*beta;
+  const total=gain+idleGain+betaPnl;
+  const roi=total/cap*100;
+
+  document.getElementById("o1").textContent=wan(nominal);
+  document.getElementById("o1s").textContent=`${lots} 手 × ${r.f.toFixed(1)} × ${r.m}元`;
+  document.getElementById("o2").textContent=lev.toFixed(2)+" 倍";
+  document.getElementById("o2").className="v "+(lev<=1.05?"v-dn":lev<=1.5?"":lev<=2?"v-up":"v-up");
+  document.getElementById("o2s").textContent=`保证金占用 ${wan(margin)}`;
+  document.getElementById("o3").textContent=(maxDrop*100).toFixed(1)+"%";
+  document.getElementById("o3").className="v "+(maxDrop>0.35?"v-dn":maxDrop>0.25?"":"v-up");
+  document.getElementById("o4").textContent=yuan(gain);
+  document.getElementById("o4s").textContent=`${r.d} 天 · 年化 ${r.ann.toFixed(2)}%`;
+  document.getElementById("o5").textContent=yuan(idleGain);
+  document.getElementById("o6").textContent=yuan(total);
+  document.getElementById("o6").className="v "+(total>=0?"v-up":"v-dn");
+  document.getElementById("o6s").textContent=`收益率 ${roi>=0?"+":""}${roi.toFixed(2)}%`;
+
+  const vd=document.getElementById("vd");
+  if(lev<=1.05){vd.className="verdict vd-ok";vd.textContent="✅ 1倍以内 —— 纯粹的吃贴水，理论上不会爆仓。老玩家公认最稳妥的做法。";}
+  else if(lev<=1.5){vd.className="verdict vd-ok";vd.textContent=`✅ ${lev.toFixed(2)}倍 —— 在实盘共识的 1.5 倍上限内。指数跌 ${(maxDrop*100).toFixed(0)}% 触及强平线，需备足追保金。`;}
+  else if(lev<=2){vd.className="verdict vd-wn";vd.textContent=`⚠️ ${lev.toFixed(2)}倍 —— 已到极限区。回测显示 2 倍杠杆会遭遇 68% 回撤，指数跌 ${(maxDrop*100).toFixed(0)}% 即强平。`;}
+  else {vd.className="verdict vd-dg";vd.textContent=`❌ ${lev.toFixed(2)}倍 —— 超过红线。实盘帖原话："凡是长期3倍杠杆以上的，基本上总是要爆仓的"。指数跌 ${(maxDrop*100).toFixed(0)}% 即强平。`;}
+
+  // stress
+  let sh="";
+  for(const d of [0.05,0.10,0.15,0.20,0.25,0.30,0.40]){
+    const loss=nominal*d;
+    const add=loss*(1-MR);
+    const blown=d>maxDrop;
+    const avail=cap-margin;
+    const w=Math.min(add/(cap*1.2)*100,100);
+    sh+=`<div class="st-row">
+      <span class="st-lb">−${(d*100).toFixed(0)}%</span>
+      <span class="st-tr"><span class="st-fl" style="width:${w}%"></span></span>
+      <span class="st-vl">${yuan(add)}</span>
+      <span class="st-st" style="color:${blown?'var(--danger)':add>avail?'var(--warn)':'var(--down)'}">${blown?'已强平':add>avail?'钱不够':'可扛'}</span>
+    </div>`;
+  }
+  document.getElementById("stress").innerHTML=sh;
+}
+["sel","lots","cap","idle","beta"].forEach(id=>{
+  document.getElementById(id).addEventListener("input",update);
+  document.getElementById(id).addEventListener("change",update);
+});
+update();
+</script>
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+</body>
+</html>
