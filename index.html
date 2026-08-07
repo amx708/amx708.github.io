@@ -191,6 +191,49 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
         <span class="card-tag tag-amber">子站导航</span>
       </div>
     </a>
+
+    <a class="card" href="./option-strategy-overview.html">
+      <span class="card-icon">📈</span>
+      <div class="card-title">期权策略体系总览</div>
+      <div class="card-desc">期权策略体系总览 + 今日择时日报合并版：方向/波动/区间/对冲四大策略矩阵、环境适配、今日择时信号与复盘，附 KPI 速览与人话解读。</div>
+      <div class="card-meta">
+        <span class="card-tag tag-blue">期权策略</span>
+        <span class="card-tag tag-red">择时日报</span>
+        <span class="card-tag tag-green">本地收录</span>
+      </div>
+    </a>
+
+    <a class="card" href="./discount-strategy.html">
+      <span class="card-icon">📉</span>
+      <div class="card-title">贴水策略 · 股指期货吃贴水</div>
+      <div class="card-desc">股指期货吃贴水完整方案：贴水/升水原理、滚贴水收益来源、实操建仓与移仓节奏、风险与对冲，附情景测算与人话解读。</div>
+      <div class="card-meta">
+        <span class="card-tag tag-purple">股指期货</span>
+        <span class="card-tag tag-blue">吃贴水</span>
+        <span class="card-tag tag-green">本地收录</span>
+      </div>
+    </a>
+
+    <a class="card" href="./smallcap/">
+      <span class="card-icon">🔎</span>
+      <div class="card-title">小市值策略 · 信号看板</div>
+      <div class="card-desc">小市值策略信号看板：选股因子、打分与排序、择时信号与回测概览，附信号状态与人话解读。</div>
+      <div class="card-meta">
+        <span class="card-tag tag-amber">小市值</span>
+        <span class="card-tag tag-blue">信号看板</span>
+        <span class="card-tag tag-green">本地收录</span>
+      </div>
+    </a>
+
+    <a class="card" id="fupan-card" href="#" onclick="return false;">
+      <span class="card-icon">🐉</span>
+      <div class="card-title">龙头复盘神器 · 涨停复盘</div>
+      <div class="card-desc">本地涨停/连板/题材复盘工具（13 标签页），点击自动探测并打开；未启动则一键拉起。</div>
+      <div class="card-meta">
+        <span class="card-tag tag-red">本地工具</span>
+        <span class="card-tag tag-blue" id="fupan-status">探测中…</span>
+      </div>
+    </a>
     </div><!-- /.local-only-cards -->
 
   </div>
@@ -244,6 +287,51 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
       });
     }
   </script>
+  <script>
+    // 首页「龙头复盘神器」卡片：仅本地 127.0.0.1/localhost 生效，公网静默
+    (function () {
+      if (location.hostname !== '127.0.0.1' && location.hostname !== 'localhost') return;
+      var card = document.getElementById('fupan-card');
+      var status = document.getElementById('fupan-status');
+      if (!card || !status) return;
+
+      function refresh() {
+        fetch('/api/fupan/status')
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (d.running) { status.textContent = '运行中'; status.className = 'card-tag tag-green'; }
+            else { status.textContent = '未启动'; status.className = 'card-tag tag-amber'; }
+          })
+          .catch(function () { status.textContent = '不可达'; status.className = 'card-tag tag-amber'; });
+      }
+      refresh();
+      setInterval(refresh, 15000);
+
+      card.addEventListener('click', function (e) {
+        e.preventDefault();
+        fetch('/api/fupan/status')
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (d.running) { window.open('http://127.0.0.1:8765/', '_blank'); return; }
+            status.textContent = '启动中…'; status.className = 'card-tag tag-amber';
+            fetch('/api/fupan/start', { method: 'POST' })
+              .then(function () {
+                var t = 0;
+                var iv = setInterval(function () {
+                  t++;
+                  fetch('/api/fupan/status')
+                    .then(function (r) { return r.json(); })
+                    .then(function (s) {
+                      if (s.running) { clearInterval(iv); window.open('http://127.0.0.1:8765/', '_blank'); }
+                      else if (t >= 16) { clearInterval(iv); status.textContent = '启动超时'; }
+                    });
+                }, 800);
+              });
+          });
+      });
+    })();
+  </script>
   <script src="/analytics.js"></script>
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
 </body>
 </html>

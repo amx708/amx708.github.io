@@ -29,17 +29,23 @@ def gh(method, path, data=None, jq=None, tries=4):
     if jq:
         cmd += ["--jq", jq]
     last = None
-    for _ in range(tries):
-        r = subprocess.run(cmd, capture_output=True, text=True)
+    # 修复(2026-08-06)：临时 input 文件必须在「所有重试结束后」才删除。
+    # 旧逻辑在循环内第一次尝试后就 unlink，第二次重试时 gh 找不到 --input 文件，
+    # 报 "The system cannot find the file specified"（不在 RETRY_KEYS 内）→ 直接退出，
+    # 把一次瞬时网络抖动放大成致命错误。
+    try:
+        for _ in range(tries):
+            r = subprocess.run(cmd, capture_output=True, text=True)
+            if r.returncode == 0:
+                return r.stdout
+            last = r.stderr.strip()[:300]
+            if not any(k in last for k in RETRY_KEYS):
+                raise RuntimeError(f"gh {method} {path} 失败: {last}")
+            time.sleep(3)
+    finally:
         if tf:
             try: os.unlink(tf.name)
             except: pass
-        if r.returncode == 0:
-            return r.stdout
-        last = r.stderr.strip()[:300]
-        if not any(k in last for k in RETRY_KEYS):
-            raise RuntimeError(f"gh {method} {path} 失败: {last}")
-        time.sleep(3)
     raise RuntimeError(f"gh {method} {path} 失败(重试耗尽): {last}")
 
 os.chdir(WD)
