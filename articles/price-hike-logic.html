@@ -7,7 +7,7 @@
 <style>
   :root{
     --bg:#f5f7fa; --card:#ffffff; --ink:#1f2933; --muted:#5b6770;
-    --line:#e3e8ee; --brand:#0f6e4f; --brand2:#0b8a5f;
+    --line:#e3e8ee; --brand:#2c3e50; --brand2:#3a4a5e;
     --up:#c0392b; --down:#1e8449; --warn:#b8860b; --info:#1f6feb;
     --soft:#eef3f0; --chip:#e8f0ec;
   }
@@ -16,14 +16,14 @@
     background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px}
   a{color:var(--brand2);text-decoration:none}
   .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
-header.hero{background:#fafaf5;color:var(--ink);padding:54px 0 40px;position:relative;border-bottom:2px solid #1a7a4a;overflow:hidden}
-header.hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:#1a7a4a}
-header.hero h1{font-size:30px;margin:0 0 10px;letter-spacing:.5px;color:#0f3d2a}
+header.hero{background:#fafaf5;color:var(--ink);padding:54px 0 40px;position:relative;border-bottom:2px solid #2c3e50;overflow:hidden}
+header.hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:#2c3e50}
+header.hero h1{font-size:30px;margin:0 0 10px;letter-spacing:.5px;color:#1f2733}
 header.hero p{margin:6px 0;opacity:.92;max-width:760px;color:#3a4554}
-.badge{display:inline-block;background:#eaf5ef;color:#0f6e4f;border:1px solid #b8dfc9;
+.badge{display:inline-block;background:#eef1f4;color:#1f2733;border:1px solid #cdd5de;
     padding:3px 10px;border-radius:20px;font-size:12px;margin-bottom:14px;font-weight:600}
-header.hero .home-link{position:absolute;top:18px;right:24px;display:inline-flex;align-items:center;gap:4px;background:#ffffff;color:#0f6e4f;border:1px solid #1a7a4a;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;text-decoration:none;transition:background .15s}
-header.hero .home-link:hover{background:#eaf5ef;color:#0f3d2a}
+header.hero .home-link{position:absolute;top:18px;right:24px;display:inline-flex;align-items:center;gap:4px;background:#ffffff;color:#1f2733;border:1px solid #cdd5de;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;text-decoration:none;transition:background .15s}
+header.hero .home-link:hover{background:#eef1f4;color:#1f2733}
   nav.toc{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);
     border-bottom:1px solid var(--line);padding:10px 0}
   nav.toc .wrap{display:flex;gap:14px;flex-wrap:wrap;font-size:13px}
@@ -68,8 +68,8 @@ header.hero .home-link:hover{background:#eaf5ef;color:#0f3d2a}
   .calc label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
   .calc input{width:160px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px}
   .calc .res{font-size:20px;font-weight:700;color:var(--brand);margin-top:6px}
-  .formula{background:#0b3d2e;color:#eafff4;padding:12px 16px;border-radius:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
-  footer{background:#0b3d2e;color:#cfe9df;padding:30px 0;margin-top:40px;font-size:13px}
+  .formula{background:#1f2733;color:#e8ecf1;padding:12px 16px;border-radius:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
+  footer{background:#1f2733;color:#dfe4ea;padding:30px 0;margin-top:40px;font-size:13px}
   footer .wrap{max-width:1080px}
   .kpi{font-size:26px;font-weight:800;color:var(--brand)}
   .small{font-size:12px;color:var(--muted)}
@@ -317,7 +317,7 @@ header.hero .home-link:hover{background:#eaf5ef;color:#0f3d2a}
   <h2>⑨ 如何搭建监测系统</h2>
   <div class="card">
     <p>把以上框架工程化，做成一个<strong>每日自动跑、自动推送</strong>的监测器。最小可用架构：</p>
-    <div class="formula" style="background:#0b3d2e">
+    <div class="formula" style="background:#1f2733">
       监测清单(watchlist) + 行情数据源(可插拔) → 信号引擎 → 看板(report.html) + 推送文本(alerts.txt)
     </div>
     <h3>信号引擎五类判定</h3>
@@ -339,7 +339,7 @@ header.hero .home-link:hover{background:#eaf5ef;color:#0f3d2a}
     </ul>
     <p class="small">工程化后可用定时任务每日收市后运行，把机会/风险摘要推送至邮箱或 IM。本页同源工程已包含 Python 信号引擎与可运行演示。</p>
   </div>
-  <div class="callout" style="margin-top:18px;background:#0b3d2e;border-left:4px solid #2e8b57">
+  <div class="callout" style="margin-top:18px;background:#1f2733;border-left:4px solid #2c3e50">
     <strong>📡 已有实盘版：</strong>上面的框架已工程化并<strong>每日自动运行</strong> —— 见 <a href="price-hike-monitor.html" style="color:#7fe3b0;font-weight:600">涨价逻辑实时监测看板</a>：纯碱 / 铜 / 碳酸锂 / 铝 / 黄金走期货主连、个股走日线，自动算月涨 / 周涨并触发错配 / 冲击 / 见顶 / 下行信号（维生素等无免费源品种标注「演示」）。
   </div>
 </div></section>
