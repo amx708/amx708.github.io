@@ -98,6 +98,22 @@ h3{font-size:14px;font-weight:650;margin-bottom:10px;color:var(--ink2)}
 .data-stamp{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--ink3);margin-left:14px;padding:3px 9px;background:#fbfbfa;border:1px solid var(--line);border-radius:11px}
 .data-stamp b{color:#c0392b;font-weight:700;font-variant-numeric:tabular-nums}
 .data-stamp::before{content:'';width:6px;height:6px;border-radius:50%;background:#2e8b57;box-shadow:0 0 0 2px rgba(46,139,87,0.18)}
+/* 换月提醒 banner（数据驱动）*/
+.roll-alert{margin:0 0 18px;padding:12px 16px;border-radius:8px;font-size:13px;line-height:1.6;border-left:4px solid #2e8b57;background:#f0f8f3}
+.roll-alert.warn{border-left-color:#d4af37;background:#fff8e6}
+.roll-alert .t{font-weight:700;margin-right:6px}
+.roll-alert b{font-weight:700}
+.roll-alert.warn b{color:#9a6b00}
+.roll-alert.ok b{color:#1f7a45}
+/* 换月时机详解块 */
+.ops-detail{margin-top:16px;padding:14px 18px;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.ops-detail h3{font-size:14px;font-weight:700;color:var(--ink2);margin:0 0 10px}
+.ops-detail ul{margin:0;padding-left:20px;line-height:1.75;font-size:13px;color:var(--ink2)}
+.ops-detail li{margin-bottom:7px}
+.ops-detail b{color:var(--ink1);font-weight:700}
+.ops-detail .tag{display:inline-block;padding:1px 7px;border-radius:3px;font-size:11px;font-weight:700;margin-right:2px}
+.ops-detail .tag-do{background:#2e8b57;color:#fff}
+.ops-detail .tag-no{background:#c0392b;color:#fff}
 
 /* table */
 table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13px}
@@ -421,11 +437,12 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <!-- 移仓规则 -->
 <section id="roll">
   <h2>移仓换月规则（2026 修正版）</h2>
+  <div id="roll-alert" class="roll-alert"></div>
   <table>
     <thead><tr><th>项目</th><th>规则</th><th>依据</th></tr></thead>
     <tbody class="pit">
       <tr><td>选合约</td><td>看<b>月均贴水差</b>最大者，不固守近月/远月</td><td>2026年曲线已倒挂，老结论失效</td></tr>
-      <tr><td>移仓时点</td><td>交割日<b>前 2–3 天</b>，绝不进交割月</td><td>个人不能进交割月，提前换从容</td></tr>
+      <tr><td>移仓时点</td><td>到期<b>前 5–10 个交易日</b>动手，最晚不晚于前 3 天</td><td>提前换避开最后几天流动性塌方；指数期货现金交割，不留过交割日</td></tr>
       <tr><td>移仓频率</td><td>按季滚动（03/06/09/12）优先</td><td>滑点手续费省 2/3</td></tr>
       <tr><td>换仓判据</td><td>看两合约<b>价差绝对值</b>，不看收益率</td><td>价差有强均值回复性（IC当月/次月历史均值约60点）</td></tr>
       <tr><td>分批执行</td><td>大仓位分 3–5 批换</td><td>一次换完常买在最差点位</td></tr>
@@ -433,6 +450,19 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <tr><td>出现升水</td><td>立即移到有贴水合约或暂换 ETF</td><td>2026年1月 IC2602/IM2602 曾转升水</td></tr>
     </tbody>
   </table>
+
+  <div class="ops-detail">
+    <h3>换月时机怎么挑（最关键的细节）</h3>
+    <ul>
+      <li><b>核心矛盾：</b>贴水（期货相对现货的折价）会随到期临近<b>自然收敛到 0</b>——你赚的就是"持有期间贴水收敛 + 展期"的钱。所以<b>近月贴水没吃完，就别急着换</b>。</li>
+      <li><span class="tag tag-do">看远月厚度</span>对照本页<b>期限结构图</b>：远月贴水比近月还厚 → <b>早点换</b>，把更厚的远月贴水锁下来；远月贴水变薄/接近平水 → 吃完近月最后这点贴水<b>再换</b>，不亏。</li>
+      <li><span class="tag tag-no">别太晚</span>成交量和盘口深度在到期前约 10 个交易日开始向次月迁移，<b>最后 2–3 天近月盘口变薄、买卖价差拉大</b>——太晚换 = 滑点吃掉部分贴水收益，还可能撞上到期日基差异动。</li>
+      <li><span class="tag tag-do">落地窗口</span>到期<b>前 5–10 个交易日（约日历 8–14 天）</b>动手，<b>最晚不晚于前 3 天</b>。顶部"近月移仓提醒"会按当前数据倒数提示具体日期。</li>
+      <li><span class="tag tag-do">分批换</span>大仓位分 <b>3–5 批</b>、隔 1–2 天换一批；换月当天<b>先开远月、后平近月</b>（或几乎同时），别留裸敞口过夜。</li>
+      <li><span class="tag tag-no">看价差别看收益率</span>换月隐形成本 = 两合约<b>价差（点）</b>。价差明显高于历史均值（如 IC 当月/次月约 60 点）时换 = 贵，等它回落再动手更划算。</li>
+      <li><span class="tag tag-no">分红季注意</span>5–8 月近月贴水含 40–60 点分红因素（假肉），剔除后再判断远月是否真的更划算。</li>
+    </ul>
+  </div>
 </section>
 
 <!-- 交割日历 -->
@@ -953,6 +983,28 @@ function update(){
   document.getElementById(id).addEventListener("input",update);
   document.getElementById(id).addEventListener("change",update);
 });
+// ---- 换月提醒 banner（数据驱动：找剩余天数最少的合约，给移仓窗口）----
+(function(){
+  let nearestC=null, minD=1e9;
+  for(const c of Object.keys(DAYS)){
+    if(DAYS[c] < minD){ minD=DAYS[c]; nearestC=c; }
+  }
+  const expd = EXPD[nearestC];
+  const el = document.getElementById("roll-alert");
+  if(!el) return;
+  const expDate = new Date(expd.replace(/-/g,'/'));
+  const fmt = d => (d.getMonth()+1)+'-'+String(d.getDate()).padStart(2,'0');
+  if(minD <= 15){
+    const cut = new Date(expDate); cut.setDate(cut.getDate()-3);
+    const start = new Date(expDate); start.setDate(start.getDate()-10);
+    el.className = "roll-alert warn";
+    el.innerHTML = `<span class="t">⏰ 近月移仓提醒</span>最近合约 <b>${nearestC}</b> 仅剩 <b>${minD}</b> 天（${expd} 到期）→ 建议在 <b>${fmt(start)} ~ ${fmt(cut)}</b> 间完成移仓，避开最后 2–3 天流动性塌方与基差异动。`;
+  } else {
+    el.className = "roll-alert ok";
+    el.innerHTML = `<span class="t">✅ 移仓状态</span>最近合约 <b>${nearestC}</b> 剩余 <b>${minD}</b> 天（${expd} 到期），暂无移仓压力，专注吃贴水即可。`;
+  }
+})();
+
 update();
 </script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
