@@ -221,6 +221,36 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 
 /* note */
 .note{background:var(--warn-bg);border:1px solid #e8d5b5;border-left:3px solid var(--warn);border-radius:6px;padding:14px 16px;font-size:13px;color:#6b4a1a;line-height:1.65}
+/* === endgame：持有到期 / 永续滚 / 退出 === */
+.eg-h{font-size:14px;font-weight:700;color:var(--ink2);margin:22px 0 10px;padding-left:10px;border-left:3px solid var(--up)}
+.eg-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:6px 0 4px}
+.eg-card{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--panel)}
+.eg-card .t{font-size:12px;color:var(--ink2);font-weight:600;margin-bottom:6px}
+.eg-card .v{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.eg-card .s{font-size:11px;color:var(--ink3);margin-top:4px;line-height:1.4}
+.eg-card.up{border-color:#2e8b57;background:#f4fbf6}
+.eg-card.up .v{color:#2e8b57}
+.eg-card.down{border-color:#c0392b;background:#fdf2f0}
+.eg-card.down .v{color:#c0392b}
+.eg-card.flat{border-color:#d4af37;background:#fff8e6}
+.eg-card.flat .v{color:#9a6b00}
+.eg-stress{margin:8px 0 4px}
+.eg-stress th,.eg-stress td{padding:8px 10px;font-size:12.5px}
+.eg-stress .num{text-align:right;font-variant-numeric:tabular-nums}
+.eg-stress tr.mc td{background:#fff8e6;font-weight:700}
+.eg-stress tr.blow td{color:#c0392b}
+.eg-stress .pill{display:inline-block;padding:1px 9px;border-radius:10px;font-size:11px;font-weight:700}
+.eg-stress .pill.ok{background:#e8f6ef;color:#0b6e4f}
+.eg-stress .pill.call{background:#fff3cd;color:#9a6b00}
+.eg-stress .pill.blow{background:#fdecea;color:#c0392b}
+.eg-exit{margin:6px 0 0;padding-left:20px;line-height:1.8;font-size:13px;color:var(--ink2)}
+.eg-exit b{color:var(--ink1)}
+.eg-roll{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0}
+.eg-roll .box{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--panel);font-size:12.5px;line-height:1.7}
+.eg-roll .box h4{margin:0 0 6px;font-size:13px}
+.eg-roll .box.good{border-color:#2e8b57;background:#f4fbf6}
+.eg-roll .box.bad{border-color:#c0392b;background:#fdf2f0}
+@media (max-width:780px){.eg-cards,.eg-roll{grid-template-columns:1fr}}
 .note b{color:var(--warn)}
 .note-blue{background:var(--accent-l);border:1px solid #c5d4ea;border-left:3px solid var(--accent);border-radius:6px;padding:14px 16px;font-size:13px;color:#1a3a6b;line-height:1.65}
 .note-blue b{color:var(--accent)}
@@ -581,6 +611,59 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     <b>图例：</b>🔴 红色卡片 = 当前最近月（需移仓）；🟢 绿色卡片 = 当前品种年化贴水最厚的合约（推荐换入）。<br>
     <b>换月铁律：</b> 跨品种、跨合约的"哪个换哪个"取决于 <b>「剩余年化贴水 × 剩余天数」最大者</b>，不固守近月/远月。
   </div>
+</section>
+
+<!-- ═══════════════════════════ 终局 / 永续滚 / 退出 ═══════════════════════════ -->
+<section id="endgame">
+  <h2>持有到期会怎样 · 永续滚 · 退出条件</h2>
+  <div class="note">
+    <b>一句话核心：</b>贴水不是"额外收益"，是期货比现货便宜的那段缺口。你的总收益 = <b>指数涨跌 + 贴水收敛</b>。
+    指数横盘时贴水才完整落袋；指数大跌时贴水只是缓冲（而且缓冲在进场那一刻就锁定了，不会随下跌变大）。
+  </div>
+
+  <h3 class="eg-h">① 持有到期会怎样（以 IM2703 为例，数据自动算）</h3>
+  <div class="eg-cards" id="eg-expire-cards"><!-- JS 填充 --></div>
+  <div class="note" style="margin-top:10px">
+    期货到期价<b>必然收敛到现货</b>（现金交割）。所以"持有到期"的盈亏 = 到期时现货相对进场价的涨跌 + 进场时锁定的贴水（基差收敛）。
+    <b>贴水在开仓那一刻就固定</b>，之后指数每跌 1% 你亏的是 <code>1% × 现货 × 乘数</code>，跟贴水无关——跌超缓冲线后全是纯 beta 亏损。
+  </div>
+
+  <h3 class="eg-h">② 永续滚的收益结构</h3>
+  <div class="eg-roll">
+    <div class="box good">
+      <h4>✅ 当前倒挂结构 → 滚动能吃到新贴水</h4>
+      近月贵（2608 升水 −43%）、远月便宜（2703 贴水 +6.78%）。2703 临到期时贴水已收敛到≈0（变公平价），
+      若新远月（2706/2709）<b>仍有贴水</b> → 你"低价平掉公平的 2703、低价买入带贴水的新远月" = 滚动对你有利。
+    </div>
+    <div class="box bad">
+      <h4>⚠️ 若曲线正常化（contango）→ 每次滚都亏</h4>
+      远月比近月贵时，滚近→远 = "卖便宜买贵"，每次滚动价差都啃掉贴水。
+      历史上 2023 年 IC 全年只吃到 186 点，就是贴水收窄 + 滚动损耗叠加的结果。
+    </div>
+  </div>
+  <div class="note" style="margin-top:0">
+    <b>滚动隐形成本 = 滚动时两个合约的价差</b>（不是你进场时的价差）。判断阈值：滚动价差明显高于历史均值（IC 当月/次月约 60 点）时，等回落再滚更划算。
+    这个策略没有终点——只要贴水还在就一直滚；触发下面的退出条件才离场。
+  </div>
+
+  <h3 class="eg-h">③ 滚到 2703 后 IM 下跌怎么办（压力测试，单手，自动算）</h3>
+  <table class="eg-stress">
+    <thead><tr><th>IM 跌幅</th><th class="num">指数盈亏/手</th><th class="num">+ 贴水缓冲</th><th class="num">净盈亏/手</th><th class="num">保证金余额</th><th>状态</th></tr></thead>
+    <tbody id="eg-stress"><!-- JS 填充 --></tbody>
+  </table>
+  <div class="note" style="margin-top:10px">
+    假设：初始保证金 = 15% × 名义市值（<span id="eg-margin"></span>）；维持保证金率按 <b>12%</b> 估算（经纪商或更高）；追保触发 = 余额 &lt; 维持保证金；强平 ≈ 余额 ≤ 0。
+    <b>15% 保证金 ≈ 6.7 倍杠杆</b>，指数跌 ~10% 触发追保、~13% 逼近强平线。多手持仓按比例放大。
+    <b>贴水只缓冲约 <span id="eg-cushion"></span> 的下跌</b>，超过即净亏——它救不了单边熊市，真跌起来该减仓/降杠杆而非指望贴水。
+  </div>
+
+  <h3 class="eg-h">④ 退出条件（策略的终局）</h3>
+  <ul class="eg-exit">
+    <li><b>贴水普遍消失 / 转升水</b>：全合约年化贴水转负（像现在 2608 那样 −43%）→ 边缘优势没了，按日历 banner 提示换 <b>159845 / 510500</b> ETF 兜底。</li>
+    <li><b>你需要用钱</b>：到期前平仓即可，但别在急用钱时被迫低位割肉——提前规划流动性。</li>
+    <li><b>指数暴跌触发保证金压力</b>：余额逼近维持保证金时，先补钱或减仓，<b>绝不留裸敞口过夜</b>（与前面移仓 SOP 一致）。</li>
+    <li><b>策略本质 = LONG 指数</b>：贴水只是给多头加的薄垫，不是对冲。怕下跌应降杠杆 / 减仓，而非指望贴水。</li>
+  </ul>
 </section>
 
 <!-- 踩坑 -->
@@ -1197,6 +1280,67 @@ function update(){
       <span class="why">持仓年化贴水 <b>+${heldR.ann.toFixed(2)}%</b>，无需换月，安心吃到 ${EXPD[held]}。</span>`;
   }
   sug.innerHTML = banner;
+})();
+
+// ---- endgame：持有到期情景 + 下跌压力测试（数据驱动，以 IM2703 为例）----
+(function(){
+  const p="IM", c="2703";
+  const r=calc(p,c);                 // {f,s,d,m,basis,ann,nominal,margin,monthly,gain}
+  const spot=SPOT[p], mult=r.m;
+  const basisGain=r.gain;            // 贴水缓冲（单手，固定）
+  const nominal=r.nominal, margin=r.margin;
+  const MMrate=0.12, MM=nominal*MMrate;   // 维持保证金估算
+  // ① 持有到期三情景：横盘 / 涨10% / 跌20%
+  const scenarios=[
+    {t:"指数横盘（到期现货≈进场）", drop:0,     cls:"flat"},
+    {t:"指数涨 10%",               drop:0.10,  cls:"up"},
+    {t:"指数跌 20%",               drop:-0.20, cls:"down"}
+  ];
+  let ch="";
+  for(const sc of scenarios){
+    const idxPnl = sc.drop*spot*mult;          // 指数涨跌带来的盈亏
+    const net = idxPnl + basisGain;            // 含贴水
+    const sign = net>=0?"+":"−";
+    const color = net>=0?"#2e8b57":"#c0392b";
+    ch+=`<div class="eg-card ${sc.cls}"><div class="t">${sc.t}</div>`+
+        `<div class="v" style="color:${color}">${sign}${Math.abs(net).toLocaleString('zh-CN',{maximumFractionDigits:0})} 元</div>`+
+        `<div class="s">指数 ${idxPnl>=0?"+":""}${idxPnl.toLocaleString('zh-CN',{maximumFractionDigits:0})} + 贴水 ${basisGain.toLocaleString('zh-CN',{maximumFractionDigits:0})}</div></div>`;
+  }
+  const ec=document.getElementById("eg-expire-cards");
+  if(ec) ec.innerHTML=ch;
+
+  // ③ 下跌压力测试（按跌幅从深到浅，插入持平点）
+  const breakeven = -basisGain/(spot*mult);    // 负数：贴水缓冲能扛的跌幅
+  const pts=[];
+  for(const d of [-0.20,-0.13,-0.10,-0.05,-0.03]) pts.push({d, special:false});
+  pts.push({d:breakeven, special:true});
+  pts.sort((a,b)=>a.d-b.d);
+  let sh="";
+  for(const pt of pts){
+    const d=pt.d;
+    const idxPnl=d*spot*mult;
+    const net=idxPnl+basisGain;
+    const balance=margin+net;
+    let cls="", pill="", pillTxt="";
+    if(balance<=0){ cls="blow"; pill="blow"; pillTxt="强平/穿仓"; }
+    else if(balance<MM){ cls="mc"; pill="call"; pillTxt="触发追保"; }
+    else { pill="ok"; pillTxt="可扛"; }
+    const label = pt.special ? `≈ ${(d*100).toFixed(1)}%（贴水吃完）` : `${(d*100).toFixed(0)}%`;
+    const netStr = pt.special ? "≈ 0" : `${net>=0?"+":""}${(net/10000).toFixed(2)}万`;
+    sh+=`<tr class="${cls}">`+
+      `<td>${label}</td>`+
+      `<td class="num" style="color:${idxPnl<0?'#c0392b':'#2e8b57'}">${idxPnl>=0?'+':''}${(idxPnl/10000).toFixed(2)}万</td>`+
+      `<td class="num">+${(basisGain/10000).toFixed(2)}万</td>`+
+      `<td class="num" style="color:${net<0?'#c0392b':'#2e8b57'};font-weight:700">${netStr}</td>`+
+      `<td class="num">${(balance/10000).toFixed(2)}万</td>`+
+      `<td><span class="pill ${pill}">${pillTxt}</span></td></tr>`;
+  }
+  const st=document.getElementById("eg-stress");
+  if(st) st.innerHTML=sh;
+
+  // 填充注脚数字
+  const em=document.getElementById("eg-margin"); if(em) em.textContent=wan(margin)+"（"+(margin/10000).toFixed(1)+"万/手）";
+  const ec2=document.getElementById("eg-cushion"); if(ec2) ec2.textContent=(Math.abs(breakeven)*100).toFixed(1)+"%";
 })();
 
 update();
