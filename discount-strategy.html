@@ -124,6 +124,13 @@ tbody tr:hover{background:#fafbfc}
 td.num{text-align:right}
 .best{background:#fffbe6 !important}
 .best td:first-child::after{content:" 最优";font-size:10px;color:var(--gold);font-weight:700}
+/* 表格内迷你双向条（对称显示月均贴水差：右=贴水赚/左=升水亏） */
+.tbl-bar{display:inline-block;width:90px;height:14px;position:relative;vertical-align:-2px;margin-right:6px}
+.tbl-bar::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--ink3);opacity:0.5}
+.tbl-bar .tbl-fl{position:absolute;top:0;height:100%;border-radius:2px;min-width:2px}
+.tbl-bar .tbl-fl.up{right:50%}     /* 贴水赚：向右展开 */
+.tbl-bar .tbl-fl.down{left:50%}    /* 升水亏：向左展开 */
+.tbl-th-tip{cursor:help;border-bottom:1px dotted var(--ink3)}
 
 /* calculator */
 .calc{display:grid;grid-template-columns:300px 1fr;gap:20px}
@@ -335,7 +342,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   <table>
     <thead><tr>
       <th>品种</th><th>合约</th><th class="num">期货价</th><th class="num">基差</th>
-      <th class="num">剩余天</th><th class="num">年化贴水</th><th class="num">月均贴水</th>
+      <th class="num">剩余天</th><th class="num">年化贴水</th><th class="num tbl-th-tip" title="月均贴水差 = 月度基差均值（点）。正值=贴水赚（右侧红条）/ 负值=升水亏（左侧绿条）。迷你条以 ±300 点为满格对称显示。">月均贴水差</th>
       <th class="num">名义市值</th><th class="num">保证金15%</th>
     </tr></thead>
     <tbody id="tbl"></tbody>
@@ -894,16 +901,32 @@ for(const p of ["IM","IC","IF","IH"])for(const c of ["2608","2609","2612","2703"
   const r=calc(p,c); if(r.ann>bestAnn){bestAnn=r.ann;bestKey=p+c;}
 }
 for(const p of ["IM","IC","IF","IH"]){
+  // 一次扫描：找当列最大 |monthly|（用于自适应满格）
+  let maxAbs=0;
+  for(const c of ["2608","2609","2612","2703"]){
+    const r=calc(p,c);
+    if(Math.abs(r.monthly)>maxAbs) maxAbs=Math.abs(r.monthly);
+  }
   for(const c of ["2608","2609","2612","2703"]){
     const r=calc(p,c);
     const isBest=(p+c)===bestKey;
+    const isUp=r.monthly>=0;
+    // 自适应满格：max(±150, maxAbs 的 1.1 倍) — 保证视觉对比稳定，IM 严重升水时也不要溢出
+    const FULL=Math.max(150, maxAbs*1.1);
+    const w=Math.min(Math.abs(r.monthly)/FULL*50, 50);
+    const pos=isUp ? `right:50%;width:${w.toFixed(2)}%` : `left:50%;width:${w.toFixed(2)}%`;
+    const clr=isUp ? 'var(--up)' : 'var(--down)';
+    const dir=isUp ? 'up':'down';
+    const sign=isUp ? '+' : '−';
+    const signWord=isUp ? '贴水赚' : '升水亏';
+    const numStr=`${sign}${Math.abs(r.monthly).toFixed(1)} 点`;
     th+=`<tr class="${isBest?'best':''}">
       <td><b style="color:${COLOR[p]}">${p}</b></td><td>${c}</td>
       <td class="num">${r.f.toFixed(1)}</td>
       <td class="num" style="color:var(--down)">${r.basis.toFixed(1)}</td>
       <td class="num">${r.d}</td>
       <td class="num"><b style="color:var(--up)">${r.ann.toFixed(2)}%</b></td>
-      <td class="num">${r.monthly.toFixed(1)} 点</td>
+      <td class="num" title="${NAME[p]} ${c} · 月均${signWord}${Math.abs(r.monthly).toFixed(1)}点（满格 ±${FULL.toFixed(0)} 点）"><span class="tbl-bar"><span class="tbl-fl ${dir}" style="${pos};background:${clr}"></span></span><span style="color:${clr};font-weight:650;font-size:12.5px">${numStr}</span></td>
       <td class="num">${wan(r.nominal)}</td>
       <td class="num">${wan(r.margin)}</td></tr>`;
   }
