@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>期权策略体系总览 + 今日择时日报（合并版）</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#ffffff; --ink:#1f2933; --sub:#5b6b7b;
+    --line:#e3e8ef; --brand:#2563eb; --brand-soft:#e8f0fe;
+    --up:#c0392b; --down:#1e8e5a;
+    --bull:#1e8e5a; --bear:#c0392b; --range:#7c5cff; --highv:#e67e22; --lowv:#0a8f8f; --hedge:#2563eb;
+    --warn:#c0392b; --warn-soft:#fdecea;
+    --shadow:0 1px 3px rgba(16,24,40,.08),0 4px 16px rgba(16,24,40,.06);
+    --blue:#1565c0; --green:#2e7d32; --yellow:#f9a825; --red:#c62828; --chip:#eef2f7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;padding-bottom:40px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+  header{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;padding:34px 0 28px;margin-bottom:22px}
+  header .wrap{padding:0 18px}
+  header h1{font-size:25px;font-weight:700;letter-spacing:.5px}
+  header p{font-size:13px;opacity:.85;margin-top:8px;max-width:820px}
+  .src{display:inline-block;margin-top:12px;font-size:12px;background:rgba(255,255,255,.15);padding:4px 10px;border-radius:20px}
+  nav{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:20;margin-bottom:22px}
+  nav .wrap{display:flex;gap:6px;flex-wrap:wrap;padding:10px 18px}
+  nav a{font-size:13px;color:var(--sub);text-decoration:none;padding:6px 12px;border-radius:8px}
+  nav a:hover{background:var(--brand-soft);color:var(--brand)}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+  .kpi .n{font-size:26px;font-weight:800;color:var(--brand)}
+  .kpi .l{font-size:12px;color:var(--sub);margin-top:4px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:22px;box-shadow:var(--shadow)}
+  h2{font-size:18px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  h2 .tag{font-size:11px;font-weight:600;color:#fff;background:var(--brand);padding:2px 9px;border-radius:20px}
+  .sec-sub{font-size:13px;color:var(--sub);margin-bottom:16px}
+  .matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .env{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fafbfc}
+  .env h3{font-size:14px;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+  .chip{display:block;width:100%;text-align:left;font-size:13px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:7px;cursor:pointer;transition:.15s}
+  .chip:hover{border-color:var(--brand);background:var(--brand-soft);transform:translateX(2px)}
+  #detail{margin-top:16px;border:1px dashed var(--brand);border-radius:12px;padding:16px;background:var(--brand-soft);display:none}
+  #detail h4{font-size:15px;margin-bottom:10px;color:var(--brand)}
+  #detail .row{display:grid;grid-template-columns:90px 1fr;gap:8px;font-size:13px;margin-bottom:7px}
+  #detail .row b{color:var(--sub);font-weight:600}
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .stage{flex:1;min-width:150px;border:1px solid var(--line);border-radius:12px;padding:14px;background:#fafbfc}
+  .stage .t{font-size:13px;font-weight:700;color:var(--brand);margin-bottom:8px}
+  .stage ul{list-style:none;font-size:12.5px;color:var(--sub)}
+  .stage ul li{padding:3px 0;border-bottom:1px dashed var(--line)}
+  .arrow{display:flex;align-items:center;justify-content:center;padding:0 6px;color:var(--brand);font-size:20px;font-weight:700}
+  .risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .risk{border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:12px 14px;background:#fff}
+  .risk .k{font-size:13px;font-weight:700;color:var(--warn)}
+  .risk .v{font-size:13px;color:var(--ink);margin-top:4px}
+  .bars{margin-top:8px}
+  .bar{margin-bottom:12px}
+  .bar .lab{display:flex;justify-content:space-between;font-size:12.5px;color:var(--sub);margin-bottom:4px}
+  .bar .track{height:9px;background:#eef1f5;border-radius:6px;overflow:hidden}
+  .bar .fill{height:100%;border-radius:6px}
+  .foot-warn{background:var(--warn-soft);border:1px solid #f5c6c0;border-radius:12px;padding:16px 18px;font-size:13px;color:#7a241c}
+  .foot-warn b{color:var(--warn)}
+  footer{text-align:center;font-size:12px;color:var(--sub);margin-top:26px}
+
+  /* ===== 今日择时日报（真实HV）样式 ===== */
+  .dnote{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:12px 14px;font-size:13px;color:#1b5e20;margin-bottom:14px}
+  .dnote b{color:#2e7d32}
+  .dwarn{background:#fff8e1;border:1px solid #ffe082;border-radius:10px;padding:12px 14px;font-size:12.5px;color:#5d4037;margin-bottom:14px}
+  .dcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .dnote-blue{background:#e3f2fd;border:1px solid #90caf9;border-radius:10px;padding:12px 14px;font-size:13px;color:#0d47a1;margin-bottom:14px}
+  .dov{display:flex;gap:10px;flex-wrap:wrap}
+  .dov .k{flex:1;min-width:140px;background:var(--chip);border-radius:10px;padding:12px;text-align:center}
+  .dov .k .n{font-size:26px;font-weight:700}
+  .dov .k .t{font-size:12px;color:var(--sub);margin-top:2px}
+  .g{color:var(--green)} .y{color:var(--yellow)} .r{color:var(--red)}
+  .monthbar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+  .toggle button{border:1px solid var(--line);background:#fff;color:var(--ink);padding:7px 14px;border-radius:8px;font-size:13px;cursor:pointer}
+  .toggle button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+  svg{width:100%;height:auto;display:block}
+  .gridline{stroke:var(--line);stroke-width:1}
+  .axis{font-size:11px;fill:var(--sub)}
+  .ptxt{font-size:10px;fill:#fff;font-weight:700}
+  .sectitle{font-size:15px;font-weight:700;margin-bottom:4px}
+  .dsub{font-size:12.5px;color:var(--sub);margin-bottom:10px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:8px 9px;text-align:left;border-bottom:1px solid var(--line)}
+  th{background:var(--chip);font-weight:600;color:var(--sub);font-size:12px}
+  td .score{font-weight:700}
+  .dtag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:600;color:#fff}
+  .bar-row{display:flex;align-items:center;gap:8px}
+  .bar-track{flex:1;background:var(--chip);border-radius:6px;height:18px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:6px}
+  .dfoot{font-size:11.5px;color:var(--sub);margin-top:8px;line-height:1.6}
+  .disclaim{margin-top:14px;background:#fdecea;border:1px solid #ef9a9a;border-radius:10px;padding:11px 14px;font-size:12px;color:#b71c1c}
+  details{margin-top:10px}
+  summary{cursor:pointer;color:var(--blue);font-size:13px}
+  ul.tips{margin:6px 0 0 18px;font-size:13px;color:#374151}
+  ul.tips li{margin:5px 0}
+  .oklist{font-size:13.5px}
+  .oklist li{margin:6px 0}
+  .muted{color:var(--sub);font-size:12px}
+  .tdxlink{color:var(--blue);text-decoration:underline;cursor:pointer}
+  .tdxlink:hover{opacity:.75}
+  .tdxbtn{display:inline-block;margin-top:8px;border:1px solid #90caf9;background:#e3f2fd;color:#0d47a1;padding:7px 14px;border-radius:8px;font-size:13px;cursor:pointer;font-weight:600}
+  .tdxbtn:hover{background:#bbdefb}
+  #toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#1f2a37;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99}
+  .tagbox{display:inline-block;padding:3px 10px;border-radius:8px;font-size:12.5px;font-weight:600;margin:3px 4px 3px 0}
+  .tg-no{background:#fdecea;color:#c62828;border:1px solid #ef9a9a}
+  .tg-yes{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7}
+  .tg-watch{background:#fff8e1;color:#e65100;border:1px solid #ffe082}
+  .tg-miss{background:#eceff1;color:#607d8b;border:1px solid #cfd8dc}
+
+  @media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}.matrix{grid-template-columns:1fr}.risk-grid{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>期权策略体系总览 + 今日择时日报（合并版）</h1>
+    <p>基于网络收录的期权实盘讨论与策略帖，提炼策略谱系、操作核心与风控红线；并嵌入本工作区「买方择时日报（真实 HV 版）」——策略框架与每日择时实操合一。已对具体论坛、域名及发帖人信息做脱敏处理。</p>
+    <span class="src">来源：网络收录（已脱敏）· 仅供研究参考，不构成投资建议</span>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#overview">总览</a>
+    <a href="#matrix">策略谱系</a>
+    <a href="#core">操作核心</a>
+    <a href="#risk">风控红线</a>
+    <a href="#daily">今日择时日报</a>
+    <a href="#warn">风险提示</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="kpis" id="overview">
+    <div class="kpi"><div class="n">10</div><div class="l">收录实盘 / 策略帖</div></div>
+    <div class="kpi"><div class="n">8+</div><div class="l">覆盖策略类型</div></div>
+    <div class="kpi"><div class="n">6</div><div class="l">市场环境分类</div></div>
+    <div class="kpi"><div class="n">10</div><div class="l">风控红线要点</div></div>
+  </div>
+
+  <section id="matrix">
+    <h2><span class="tag">谱系</span>策略谱系 · 按市场环境匹配</h2>
+    <div class="sec-sub">点击任一策略查看适用场景、建仓逻辑、触发 / 移仓与风控要点。核心原则：先判方向，再看 IV 分位，最后定策略。</div>
+    <div class="matrix" id="matrixGrid"></div>
+    <div id="detail"></div>
+  </section>
+
+  <section id="core">
+    <h2><span class="tag">核心</span>操作核心关系图</h2>
+    <div class="sec-sub">被反复验证的主线：偏多双卖 / 牛三腿 —— 卖实值沽接货 + 近月高波卖购备兑，配合移仓纪律与尾部保护。</div>
+    <div class="flow">
+      <div class="stage">
+        <div class="t">① 判市场环境</div>
+        <ul>
+          <li>方向：看多 / 看空 / 震荡</li>
+          <li>IV 分位：&gt;70% 高波 / &lt;40% 低波</li>
+          <li>风险承受：仓位上限</li>
+        </ul>
+      </div>
+      <div class="arrow">→</div>
+      <div class="stage">
+        <div class="t">② 选策略</div>
+        <ul>
+          <li>低位卖实值沽接货</li>
+          <li>高位 / 高波卖购备兑</li>
+          <li>震荡双卖 / 铁鹰 / 牛三腿</li>
+          <li>低波 / 事件双买</li>
+        </ul>
+      </div>
+      <div class="arrow">→</div>
+      <div class="stage">
+        <div class="t">③ 设触发与移仓</div>
+        <ul>
+          <li>顺势移仓、吃贴水</li>
+          <li>大跌不下移卖沽、准备接货</li>
+          <li>近月优先、到期前 7–10 天换月</li>
+        </ul>
+      </div>
+      <div class="arrow">→</div>
+      <div class="stage">
+        <div class="t">④ 配风控</div>
+        <ul>
+          <li>价差锁死最大亏损</li>
+          <li>常备 30% 闲置资金</li>
+          <li>废纸买权 / 保护性认沽</li>
+          <li>每日复盘三问</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="risk">
+    <h2><span class="tag">红线</span>风控与止损（生死线）</h2>
+    <div class="sec-sub">卖方胜率高但"小赚大亏"，仓位与尾部保护决定生死。</div>
+    <div class="risk-grid" id="riskGrid"></div>
+    <h3 style="font-size:14px;margin:18px 0 10px;color:var(--sub)">仓位阈值可视化（占账户比例）</h3>
+    <div class="bars" id="bars"></div>
+  </section>
+
+  <!-- ============ 今日择时日报（真实HV）合并区 ============ -->
+  <section id="daily" style="background:transparent;border:none;box-shadow:none;padding:0;margin-bottom:22px">
+    <h2 style="margin-bottom:14px"><span class="tag">实操</span>今日买权择时日报（真实 HV 版）</h2>
+
+    <div class="dnote-blue">
+      <b>📈 通达信直连已开启</b><br>
+      表中任意标的（名称 / 代码）均可点击 → 自动向通达信发送跳转指令，主图直接切到该标的。<br>
+      <b>首次使用必须先注册协议（任选其一）：</b><br>
+      方法 A：双击运行同目录下的 <code>注册通达信协议.reg</code> → 点<b>是</b> → 点<b>确定</b>（推荐，最稳）。<br>
+      方法 B：右键 <code>注册通达信协议.ps1</code> → 以<b>管理员身份</b>运行 PowerShell。<br>
+      注册后若仍弹 Microsoft Store 对话框，请<b>重启浏览器</b>再试。<br>
+      点击后浏览器可能弹出「是否允许打开 tdx 应用」，请点<b>允许</b>；若误点拒绝，浏览器地址栏左侧可重新允许。<br>
+      <span class="tdxbtn" onclick="gotoTdx('510050','50ETF','SH')">▶ 测试通达信连接（跳 50ETF）</span>
+    </div>
+
+    <div class="dnote">
+      <b>🟢 数据源升级：本次用真实数据</b><br>
+      通过 <b>westock-data CLI</b>（managed node）拉取 6 只 ETF 近 250 日真实 K 线，由 <code>compute_hv.py</code> 算出 HV20 / HV60 / 历史分位 / 量比（数据截止 2026-08-06）。<br>
+      <b>IV 代理说明</b>：期权链级隐含波动率(IV)绝对值该 CLI 取不到，故用<b>历史波动率 HV60 分位作 IV 代理</b>（已实现波动≠隐含波动但高度相关，卖方主流做法）。指数期权(IO/MO/IH)未纳入本真实版，其 HV 需另接数据源。
+    </div>
+
+    <div class="dwarn">
+      <b>⚠️ 数据口径</b>：HV 分位基于 westock-data 返回的近 250 日 K 线。当前 6 只 HV60 分位 96.8–99.5，极为一致地偏高，<b>可初步采信为"高波动环境"信号</b>。结论：高波动=权利金贵=买方回避区。
+    </div>
+
+    <!-- 今日总览 -->
+    <div class="dcard">
+      <div class="sectitle">今日总览（<span id="ovMonth">9月次近月</span> · 四因子）</div>
+      <div class="dov">
+        <div class="k"><div class="n g" id="cOk">0</div><div class="t">积极开仓区（≥70）</div></div>
+        <div class="k"><div class="n y" id="cMid">0</div><div class="t">中性/择优区（50–69）</div></div>
+        <div class="k"><div class="n r" id="cBad">0</div><div class="t">回避区（&lt;50）</div></div>
+        <div class="k"><div class="n" style="color:var(--blue)" id="cHv">—</div><div class="t">最低 HV60 分位标的</div></div>
+      </div>
+    </div>
+
+    <!-- 真实HV表 -->
+    <div class="dcard">
+      <div class="sectitle">一、今日真实波动率（HV，westock-data 拉取）</div>
+      <div class="dsub">HV60 分位越高=历史波动越极端=权利金越贵=买方越不合算。量比&lt;1 为缩量，无量异动。</div>
+      <table>
+        <thead><tr><th>标的</th><th>代码</th><th>HV20</th><th>HV60</th><th>HV60分位</th><th>量比(今日/20日均)</th></tr></thead>
+        <tbody id="hvTable"></tbody>
+      </table>
+    </div>
+
+    <!-- 四因子地图 -->
+    <div class="dcard">
+      <div class="monthbar">
+        <span class="lab">观察合约月份：</span>
+        <span class="toggle">
+          <button id="bNear" onclick="setMonth('near')">8月近月（≈20天）</button>
+          <button id="bFar" class="on" onclick="setMonth('far')">9月次近月（≈48天）</button>
+        </span>
+      </div>
+      <div class="sectitle">二、四因子地图：IV 分位（横轴）× 剩余天数（纵轴）</div>
+      <div class="dsub">横轴越往右 IV 分位越高（越贵，对买方越差）；纵轴越往下剩余天数越少（越耗时间）。点的颜色=买方时机分好坏。</div>
+      <svg id="scatter" viewBox="0 0 680 420" role="img" aria-label="IV分位与DTE四因子散点图"></svg>
+      <div class="dfoot">图例：<span class="g">●</span> 积极(≥70)　<span class="y">●</span> 中性(50–69)　<span class="r">●</span> 回避(&lt;50)。</div>
+    </div>
+
+    <!-- 综合分排序 -->
+    <div class="dcard">
+      <div class="sectitle">三、买方时机分排序（<span id="ovMonth2">9月次近月</span> · 四因子）</div>
+      <div class="dsub">总分 = (100−IV分位)×0.4 + DTE分×0.3 + 趋势分×0.2 + 事件分×0.1。趋势默认取"模糊/震荡"50、事件默认"无"60。</div>
+      <div id="scoreBars"></div>
+    </div>
+
+    <!-- 明细表 -->
+    <div class="dcard">
+      <div class="sectitle">四、逐标的明细（<span id="ovMonth3">9月次近月</span>）</div>
+      <table>
+        <thead><tr><th>标的</th><th>HV60分位<br>(IV代理)</th><th>DTE</th><th>买方时机分</th><th>区带</th><th>推荐买哪月</th><th>行权价档<br>(Delta)</th><th>示意合约<br>(非实时)</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <details>
+        <summary>四因子怎么算（点开看）</summary>
+        <div class="dfoot">
+          • <b>IV分</b> = 100 − IV历史分位（本版用 HV60 分位代理）。<br>
+          • <b>DTE分</b>：30–45天→100；21–30或45–60天→70；14–21或60–90天→40；&lt;14天→10；&gt;90天→30。<br>
+          • <b>趋势分</b>：明确顺势=100；模糊/震荡=50；逆势=20。<br>
+          • <b>事件分</b>：临近未兑现事件=100；无=60。<br>
+          • <b>总分</b> = IV分×0.4 + DTE分×0.3 + 趋势分×0.2 + 事件分×0.1。≥70 积极；50–69 中性；&lt;50 回避。<br>
+          • 推荐买哪月：近月 DTE&lt;21 必落加速损耗区，统一选 9 月次近月（DTE≈48）。行权价档：虚值一档 Δ0.20–0.30（现价×0.95–0.97），不买平值/实值。
+        </div>
+      </details>
+    </div>
+
+    <!-- 适合买清单 -->
+    <div class="dcard">
+      <div class="sectitle">五、✅ 今日「适合买」（买方时机分≥70）· 具体怎么下</div>
+      <div class="dsub">按本版四因子 + 真实 HV 自动筛选。今日高波动环境，预期无≥70标的。</div>
+      <ul class="oklist" id="okList"></ul>
+      <div class="muted" id="okNote"></div>
+    </div>
+
+    <!-- 关注标签 -->
+    <div class="dcard">
+      <div class="sectitle">六、每日关注标签（5 类触发情况）</div>
+      <div id="tagBox"></div>
+    </div>
+
+    <!-- 操作提示 -->
+    <div class="dcard">
+      <div class="sectitle">七、操作提示（人话版）</div>
+      <ul class="tips">
+        <li><b>买方：当前高波动=权利金贵、时间价值损耗快</b>，按四因子属「回避区」（~37分）。若要做多，优先用<b>牛市/熊市价差</b>替代裸买以补贴时间价值；或<b>等波动率从 99 分位向中位回落</b>后再买，届时才是「积极开仓区」。</li>
+        <li><b>卖方/双卖/铁鹰</b>：高 HV 提供厚安全垫，但须控仓位（裸卖≤10%、价差≤25%、常备30%闲置资金）并对冲尾部——急跌反弹后中小盘 Gamma 大，谨防反向升波。</li>
+        <li><b>中小盘反弹延续性</b>：科创50/1000/创业板 20 日深跌后今日反弹，关注是否企稳；若波动见顶回落，是未来买权性价比提升的信号，列入「持续关注」。</li>
+        <li><b>指标只是滤网</b>：IV低+DTE够+顺趋势=赔率好，但还得你自己判断有没有催化剂（财报/政策/事件）。</li>
+      </ul>
+    </div>
+
+    <div class="disclaim">
+      ⚠️ <b>数据说明与风险</b>：HV 来自 westock-data CLI 真实 K 线（2026-08-06）；HV 为已实现波动率，<b>不等于隐含波动率(IV)</b>，作 IV 代理使用。期权链级 IV/偏度/期限结构该源不可得，相关维度缺失。期权买方属高风险，时间价值损耗为刚性成本，<b>以上为数据整理，不构成投资建议，决策请自行判断。</b>
+    </div>
+  </section>
+  <!-- ============ /今日择时日报 ============ -->
+
+  <section id="warn">
+    <h2><span class="tag">提示</span>风险提示</h2>
+    <div class="foot-warn">
+      <p>本文仅为对网络收录期权实盘讨论的<b>整理与策略逻辑提炼，不构成任何投资建议</b>。期权属高杠杆、高风险衍生品：</p>
+      <p style="margin-top:8px">· 卖方存在理论上的<b>无限亏损与穿仓强平</b>风险；买方多数合约到期归零。</p>
+      <p>· 历史策略表现不代表未来，任何策略都有适配环境，环境切换可能导致大幅回撤。</p>
+      <p>· 请充分理解策略原理与风险情景，仅用可承受损失的资金交易，并自行对交易决策与账户负责。</p>
+      <p>· <b>投资有风险，入市需谨慎。</b></p>
+    </div>
+  </section>
+
+  <footer>网络收录整理 · 不构成投资建议</footer>
+</div>
+
+<script>
+/* ============ 策略体系总览脚本 ============ */
+const ENV = {
+  bull:{name:"看多 / 低位抄底", color:"var(--bull)"},
+  bear:{name:"看空 / 震荡偏弱", color:"var(--bear)"},
+  range:{name:"震荡 / 横盘", color:"var(--range)"},
+  highv:{name:"高波动率", color:"var(--highv)"},
+  lowv:{name:"低波 / 事件驱动", color:"var(--lowv)"},
+  hedge:{name:"对冲防护", color:"var(--hedge)"}
+};
+const STRATS = [
+  {env:"bull", name:"卖实值沽（接货）", scene:"指数低位抄底、替代现货 / ETF 权益仓位", build:"卖实值 1–2 档认沽，每月滚动移仓吃时间价值", trig:"横盘 / 下跌平移下月；上涨向上移仓保持实值卖沽", risk:"必须有现金支撑，禁止裸卖沽；大跌穿均线停止下移、准备接货"},
+  {env:"bull", name:"牛市看涨价差", scene:"温和看多、控制最大亏损", build:"买低行权价购 + 卖更高行权价虚值购", trig:"指数上行卖购端盈利，到期前移仓", risk:"最大亏损固定，胜率 80%+"},
+  {env:"bull", name:"现金担保卖沽", scene:"愿意低位接货的看多者", build:"预留足额现金 + 卖虚值沽", trig:"被行权则低位接货，否则收权利金", risk:"需要现金覆盖接货，非裸卖"},
+  {env:"bull", name:"备兑开仓", scene:"已持现货 / ETF，增厚收益", build:"持有标的 + 卖虚值认购（一档 / 二档，剩 25–40 天）", trig:"大涨最多被行权拿走筹码，大跌靠现货扛", risk:"零裸风险；胜率常态 78%–88%"},
+  {env:"bear", name:"卖购", scene:"高位、震荡偏弱、上方有压力", build:"卖虚值 / 平值认购收租", trig:"冲高卖购，降波回落平仓", risk:"均线之上不裸奔；浮亏用买实值购转牛市价差对冲"},
+  {env:"bear", name:"熊市认购价差", scene:"看空 / 中性、上方有压力", build:"卖近虚值购 + 买更高行权价深度虚值购", trig:"标的不涨或回落盈利", risk:"买购对冲尾部大涨，最大亏损固定"},
+  {env:"range", name:"双卖（跨式 / 宽跨）", scene:"明确震荡、横盘", build:"同时卖购 + 卖沽", trig:"横盘降波通吃，到期前 7–10 天换月", risk:"涨跌两头都亏；严禁重仓裸双卖，需保护"},
+  {env:"range", name:"铁鹰", scene:"窄幅震荡（卖方天花板）", build:"牛市认沽价差 + 熊市认购价差", trig:"上下都有保护，最大盈亏固定", risk:"胜率 85%–92%；极端行情折翼，单侧触界整组平仓"},
+  {env:"range", name:"牛三腿", scene:"整体看多、卖近月做降波", build:"卖购 + 卖沽 + 买购合成多头", trig:"宽幅震荡中移仓，高波到期归零", risk:"怕回调；用浅实值买购对冲构建日历牛市价差"},
+  {env:"range", name:"日历价差", scene:"高波横盘、降波环境", build:"卖近月 + 买远月同行权价", trig:"近月高波 decay 快，赚时间差", risk:"被视为最稳策略之一；关注 IV 期限结构"},
+  {env:"highv", name:"波动率卖方（做空 IV）", scene:"IV 历史分位 &gt; 80%，恐慌 / 狂热", build:"双卖 / 铁鹰，高波收租", trig:"IV 回落至 40% 分位以下止盈", risk:"高波提供安全垫；防单边逼空升波"},
+  {env:"lowv", name:"双买跨式", scene:"低波 / 事件驱动（财报、政策）", build:"同时买平值购 + 沽", trig:"IV &lt; 历史 30% 分位埋伏，跳空获利", risk:"多数归零；仅事件投机，轻仓"},
+  {env:"lowv", name:"末日轮", scene:"到期前 1–3 天博黑天鹅", build:"买深度虚值（单价 &lt; 30 元）", trig:"单日暴涨倍数兑现", risk:"胜率极低；仓位 ≤ 总资金 5%，亏光不疼"},
+  {env:"hedge", name:"废纸买权防身术", scene:"裸卖仓位尾部保护", build:"用卖方权利金买极小虚值买权", trig:"极端行情对冲无限风险", risk:"把无限风险变有限，成本极低"},
+  {env:"hedge", name:"保护性认沽（保险单）", scene:"吃过大亏后才重视的对冲", build:"持有标的 + 买认沽", trig:"大跌获赔，锁定下方", risk:"付出权利金，降低上行收益"}
+];
+
+const RISKS = [
+  {k:"深度虚值 put 策略", v:"9 倍止损（单笔极端亏损上限）"},
+  {k:"铁鹰 / 铁蝶", v:"任一侧触碰行权边界，整组立即平仓，不扛单"},
+  {k:"买方", v:"单笔亏损达 50% 无条件止损；7 天内末日轮不碰"},
+  {k:"希腊字母敞口", v:"Delta 敞口 ≤ 10%；Gamma 实时监控防跳空"},
+  {k:"每日开盘风控（小资金）", v:"净等价 Dollar Delta ±150 元；组合总 Vega ≤ 50"},
+  {k:"尾部风险", v:"裸卖无限风险；极端穿仓强平、流动性枯竭无法移仓"},
+  {k:"仓位红线", v:"裸卖 ≤ 总资金 10%；价差 / 铁鹰 / 备兑 ≤ 25%"},
+  {k:"保证金预留", v:"账户常备 30%+ 闲置资金应对跳空与 IV 飙升"},
+  {k:"分散", v:"同方向分 2–3 行权价、不同到期月分散"},
+  {k:"波动率开关", v:"IV &gt;70% 只卖；IV &lt;40% 轻买"}
+];
+
+const BARS = [
+  {lab:"裸卖单策略保证金（≤10%）", pct:10, c:"var(--warn)"},
+  {lab:"价差 / 铁鹰 / 备兑总仓位（≤25%）", pct:25, c:"var(--highv)"},
+  {lab:"闲置资金预留（≥30%）", pct:30, c:"var(--lowv)"},
+  {lab:"买方进攻权利金（≤10%）", pct:10, c:"var(--brand)"},
+  {lab:"末日轮仓位（≤5%）", pct:5, c:"var(--bear)"}
+];
+
+const grid = document.getElementById('matrixGrid');
+Object.keys(ENV).forEach(key=>{
+  const env = ENV[key];
+  const box = document.createElement('div');
+  box.className='env';
+  box.innerHTML = `<h3><span class="dot" style="background:${env.color}"></span>${env.name}</h3>`;
+  STRATS.filter(s=>s.env===key).forEach(s=>{
+    const b=document.createElement('button');
+    b.className='chip';
+    b.textContent=s.name;
+    b.onclick=()=>showDetail(s, env);
+    box.appendChild(b);
+  });
+  grid.appendChild(box);
+});
+
+function showDetail(s, env){
+  const d=document.getElementById('detail');
+  d.style.display='block';
+  d.innerHTML=`<h4 style="color:${env.color}">${s.name}　<span style="font-size:12px;color:var(--sub)">· ${env.name}</span></h4>
+    <div class="row"><b>适用场景</b><span>${s.scene}</span></div>
+    <div class="row"><b>建仓逻辑</b><span>${s.build}</span></div>
+    <div class="row"><b>触发 / 移仓</b><span>${s.trig}</span></div>
+    <div class="row"><b>风控要点</b><span>${s.risk}</span></div>`;
+  d.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+const rg=document.getElementById('riskGrid');
+RISKS.forEach(r=>{
+  const d=document.createElement('div');
+  d.className='risk';
+  d.innerHTML=`<div class="k">${r.k}</div><div class="v">${r.v}</div>`;
+  rg.appendChild(d);
+});
+
+const bars=document.getElementById('bars');
+BARS.forEach(b=>{
+  const d=document.createElement('div');
+  d.className='bar';
+  d.innerHTML=`<div class="lab"><span>${b.lab}</span><span>${b.pct}%</span></div><div class="track"><div class="fill" style="width:${b.pct*3}%;background:${b.c}"></div></div>`;
+  bars.appendChild(d);
+});
+
+/* ============ 今日择时日报（真实HV）脚本 ============ */
+const RAW = [
+  {name:'50ETF',      code:'510050', mkt:'SH', hv20:21.60, hv60:20.96, ivPct:99.5, vol:0.47},
+  {name:'300ETF',     code:'510300', mkt:'SH', hv20:26.76, hv60:23.94, ivPct:96.8, vol:0.49},
+  {name:'500ETF',     code:'510500', mkt:'SH', hv20:43.10, hv60:34.51, ivPct:98.9, vol:0.72},
+  {name:'1000ETF',    code:'512100', mkt:'SH', hv20:44.55, hv60:33.75, ivPct:98.9, vol:0.94},
+  {name:'创业板ETF',   code:'159915', mkt:'SZ', hv20:59.65, hv60:47.24, ivPct:98.4, vol:0.61},
+  {name:'科创50ETF',  code:'588000', mkt:'SH', hv20:73.67, hv60:63.39, ivPct:98.9, vol:0.57},
+];
+const DTE = {near:20, far:48};
+const TREND = 50, EVENT = 60; // 默认：模糊/震荡、无事件
+let month = 'far';
+
+function dteScore4(d){
+  if(d>=30 && d<=45) return 100;
+  if((d>=21&&d<30)||(d>45&&d<=60)) return 70;
+  if((d>=14&&d<21)||(d>60&&d<=90)) return 40;
+  if(d<14) return 10;
+  return 30;
+}
+function fourScore(ivPct, d){
+  const ivScore = 100 - ivPct;
+  return ivScore*0.4 + dteScore4(d)*0.3 + TREND*0.2 + EVENT*0.1;
+}
+function verdict(s){
+  if(s>=70) return {t:'积极开仓区', c:'#2e7d32'};
+  if(s>=50) return {t:'中性/择优区', c:'#f9a825'};
+  return {t:'回避区', c:'#c62828'};
+}
+
+// 通达信直连：点击标的 -> 复制代码 + 尝试 tdx:// 协议
+function copyText(txt){
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).catch(()=>fallbackCopy(txt));
+  } else { fallbackCopy(txt); }
+}
+function fallbackCopy(txt){
+  try{
+    const ta=document.createElement('textarea');
+    ta.value=txt; ta.style.position='fixed'; ta.style.top='-1000px'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+  }catch(e){}
+}
+let toastTimer=null;
+function showToast(msg){
+  const el=document.getElementById('toast');
+  if(!el) return;
+  el.textContent=msg; el.style.opacity='1';
+  if(toastTimer) clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>{ el.style.opacity='0'; }, 2600);
+}
+function gotoTdx(code, name, mkt){
+  const full=(mkt||'')+code;
+  copyText(code);
+  showToast('正在跳转到通达信：'+(name||'')+' '+code+' …');
+  try{
+    const a=document.createElement('a');
+    a.href='tdx://'+full;
+    a.style.display='none';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{ if(a.parentNode) a.parentNode.removeChild(a); }, 1000);
+  }catch(e){
+    showToast('已复制代码 '+code+'，请手动在通达信输入');
+  }
+}
+
+function setMonth(m){
+  month = m;
+  document.getElementById('bNear').className = (m==='near')?'on':'';
+  document.getElementById('bFar').className  = (m==='far')?'on':'';
+  const lbl = m==='near'?'8月近月':'9月次近月';
+  ['ovMonth','ovMonth2','ovMonth3'].forEach(id=>document.getElementById(id).textContent=lbl);
+  render();
+}
+
+function render(){
+  const d = DTE[month];
+  const rows = RAW.map(x=>({...x, score:fourScore(x.ivPct,d), v:verdict(fourScore(x.ivPct,d))}));
+  rows.sort((a,b)=>b.score-a.score);
+
+  const ok = rows.filter(r=>r.score>=70).length;
+  const mid= rows.filter(r=>r.score>=50 && r.score<70).length;
+  const bad= rows.filter(r=>r.score<50).length;
+  const lowHv = [...RAW].sort((a,b)=>a.ivPct-b.ivPct)[0];
+  document.getElementById('cOk').textContent = ok;
+  document.getElementById('cMid').textContent = mid;
+  document.getElementById('cBad').textContent = bad;
+  document.getElementById('cHv').textContent = lowHv.name+' '+lowHv.ivPct+'%';
+
+  // 散点图
+  const W=680,H=420, padL=46, padR=18, padT=18, padB=40;
+  const x0=padL, x1=W-padR, y0=H-padB, y1=padT;
+  const X = v => x0 + (v/100)*(x1-x0);
+  const Y = v => y0 - (v/90)*(y0-y1);
+  let svg = '';
+  svg += `<defs><linearGradient id="bg" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%" stop-color="#e8f5e9"/><stop offset="45%" stop-color="#fffde7"/>
+            <stop offset="100%" stop-color="#ffebee"/></linearGradient></defs>`;
+  svg += `<rect x="${x0}" y="${y1}" width="${x1-x0}" height="${y0-y1}" fill="url(#bg)"/>`;
+  for(let i=0;i<=100;i+=20){ const xx=X(i); svg+=`<line class="gridline" x1="${xx}" y1="${y1}" x2="${xx}" y2="${y0}"/>`;
+    svg+=`<text class="axis" x="${xx}" y="${y0+16}" text-anchor="middle">${i}</text>`; }
+  for(let j=0;j<=90;j+=30){ const yy=Y(j); svg+=`<line class="gridline" x1="${x0}" y1="${yy}" x2="${x1}" y2="${yy}"/>`;
+    svg+=`<text class="axis" x="${x0-8}" y="${yy+4}" text-anchor="end">${j}d</text>`; }
+  svg+=`<text class="axis" x="${(x0+x1)/2}" y="${H-6}" text-anchor="middle">IV 历史分位（左低右高 → 越贵）</text>`;
+  svg+=`<text class="axis" x="14" y="${(y0+y1)/2}" text-anchor="middle" transform="rotate(-90 14 ${(y0+y1)/2})">剩余天数 DTE（下短上长）</text>`;
+  rows.forEach(r=>{
+    const cx=X(r.ivPct), cy=Y(d);
+    svg+=`<circle cx="${cx}" cy="${cy}" r="15" fill="${r.v.c}" opacity="0.9"><title>${r.name}｜IV分位 ${r.ivPct}｜DTE ${d}｜买方时机分 ${r.score.toFixed(0)}｜${r.v.t}</title></circle>`;
+    svg+=`<text class="ptxt" x="${cx}" y="${cy+3.5}" text-anchor="middle">${r.score.toFixed(0)}</text>`;
+  });
+  document.getElementById('scatter').innerHTML = svg;
+
+  // 排序条（注意：id 用 scoreBars，避免与上方仓位条 id="bars" 冲突）
+  let sBars='';
+  rows.forEach(r=>{
+    const w = Math.max(4, r.score);
+    sBars += `<div class="bar-row" style="margin:7px 0">
+      <div style="width:120px;font-size:12.5px">${r.name}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${w}%;background:${r.v.c}"></div></div>
+      <div class="score" style="width:34px;text-align:right;color:${r.v.c}">${r.score.toFixed(0)}</div>
+      <div style="width:84px"><span class="dtag" style="background:${r.v.c}">${r.v.t}</span></div>
+    </div>`;
+  });
+  document.getElementById('scoreBars').innerHTML = sBars;
+
+  // 明细表
+  let tb='';
+  rows.forEach(r=>{
+    const recMonth = d<21 ? '次近月(9月,DTE≈48)' : '当前(9月)';
+    tb += `<tr>
+      <td><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')">${r.name}<br><span style="color:var(--sub);font-size:11px">${r.code}</span></span></td>
+      <td>${r.ivPct}</td>
+      <td>${d}天</td>
+      <td><span class="score" style="color:${r.v.c}">${r.score.toFixed(0)}</span></td>
+      <td><span class="dtag" style="background:${r.v.c}">${r.v.t}</span></td>
+      <td style="font-size:12px">${recMonth}</td>
+      <td style="font-size:12px">虚值一档 Δ0.20–0.30</td>
+      <td style="font-size:11.5px">${r.code}购9月@虚值一档</td>
+    </tr>`;
+  });
+  document.getElementById('tbody').innerHTML = tb;
+
+  // 适合买清单
+  const okRows = rows.filter(r=>r.score>=70);
+  const list = document.getElementById('okList');
+  const note = document.getElementById('okNote');
+  if(okRows.length>0){
+    list.innerHTML = okRows.map(r=>`<li><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')"><b>${r.name}（${r.code}）</b></span> — 买方时机分 ${r.score.toFixed(0)}，买购 Call / 9月次近月 / 虚值一档 Δ0.20–0.30（示意合约：${r.code}购9月@虚值一档，行权价按现价×0.95–0.97，非实时报价）</li>`).join('');
+    note.textContent = '示意合约行权价按现价×0.95–0.97推算，下单前核对真实代码与价格。';
+  } else {
+    const top = rows.slice(0,2);
+    list.innerHTML = top.map(r=>`<li><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')"><b>${r.name}（${r.code}）</b></span> — 买方时机分 ${r.score.toFixed(0)}（回避区），暂不适合买权。</li>`).join('');
+    note.innerHTML = '⚠️ 按真实 HV，今日<b>无买方时机分≥70的「适合买」标的</b>——6 只 ETF 的 HV60 分位全在 96.8–99.5（极高波动），权利金贵、时间损耗快。<b>建议「继续等，不宜追」</b>；待 HV 从高位回落（分位向 50 回归）才是积极开仓区。';
+  }
+}
+
+// 真实HV表
+document.getElementById('hvTable').innerHTML = RAW.map(r=>`<tr>
+  <td><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')" title="点击：跳转通达信该标的">${r.name}</span></td><td><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')" title="点击：跳转通达信该标的">${r.code}</span></td>
+  <td>${r.hv20}</td><td>${r.hv60}</td>
+  <td><b>${r.ivPct}</b></td><td>${r.vol}</td></tr>`).join('');
+
+// 关注标签
+const TAGS = [
+  {k:'① IV 跌至历史低位（买权机会）', s:'否', c:'tg-no', d:'HV60 分位 96.8–99.5，波动率处一年高位，权利金贵 → 反向（对买方不利）'},
+  {k:'② IV 单日骤升（事件/恐慌）', s:'观察', c:'tg-watch', d:'无单日 IV 数据；但 HV20≫HV60（近期波动急剧扩张），属周度级波动放大'},
+  {k:'③ 近远月倒挂/异常陡峭', s:'缺失', c:'tg-miss', d:'期权链期限结构 westock-data CLI 不可得，标注数据缺失'},
+  {k:'④ 放量异动', s:'否', c:'tg-no', d:'量比均 ≤1.18，无异常放量'},
+  {k:'⑤ 临近到期（末日轮）', s:'否', c:'tg-no', d:'DTE 20天（近月）/48天（次近月），未进入 ≤10 天窗口'},
+];
+document.getElementById('tagBox').innerHTML = TAGS.map(t=>`<div style="margin:8px 0"><span class="tagbox ${t.c}">${t.s}</span> <b style="font-size:13px">${t.k}</b><div class="muted" style="margin-top:3px">${t.d}</div></div>`).join('');
+
+render();
+</script>
+<div id="toast"></div>
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+</body>
+</html>
