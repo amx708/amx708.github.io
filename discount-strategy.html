@@ -66,9 +66,16 @@ h3{font-size:14px;font-weight:650;margin-bottom:10px;color:var(--ink2)}
 .bg-grp .stl{font-size:11px;color:var(--ink3);margin-bottom:12px}
 .bar-row{display:flex;align-items:center;gap:8px;margin-bottom:9px}
 .bar-lb{font-size:11px;color:var(--ink3);width:34px;flex-shrink:0;font-variant-numeric:tabular-nums}
-.bar-tr{flex:1;height:20px;background:var(--line2);border-radius:3px;overflow:hidden;position:relative}
-.bar-fl{height:100%;border-radius:3px;transition:width .6s cubic-bezier(.2,.8,.3,1)}
+.bar-tr{flex:1;height:22px;background:#fafafa;border:1px solid var(--line);border-radius:4px;overflow:hidden;position:relative}
+/* 零基准线（期限结构标准做法）*/
+.bar-tr::before{content:'';position:absolute;left:50%;top:2px;bottom:2px;width:1px;background:var(--ink3);opacity:0.45;z-index:1}
+.bar-fl{position:absolute;top:0;height:100%;border-radius:2px;transition:left .6s cubic-bezier(.2,.8,.3,1),width .6s cubic-bezier(.2,.8,.3,1),opacity .3s;min-width:2px;cursor:help}
 .bar-vl{font-size:11px;font-weight:650;width:42px;text-align:right;flex-shrink:0;font-variant-numeric:tabular-nums}
+.bars-note{font-size:11.5px;color:var(--ink3);margin-top:10px;line-height:1.55;padding:8px 12px;background:#fbfbfa;border-left:3px solid #d4af37;border-radius:3px}
+.bars-note b{color:var(--ink2);font-weight:650}
+.data-stamp{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--ink3);margin-left:14px;padding:3px 9px;background:#fbfbfa;border:1px solid var(--line);border-radius:11px}
+.data-stamp b{color:#c0392b;font-weight:700;font-variant-numeric:tabular-nums}
+.data-stamp::before{content:'';width:6px;height:6px;border-radius:50%;background:#2e8b57;box-shadow:0 0 0 2px rgba(46,139,87,0.18)}
 
 /* table */
 table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13px}
@@ -231,9 +238,17 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <span><i style="background:#d9742b"></i>IC 中证500</span>
       <span><i style="background:#1b4f8f"></i>IF 沪深300</span>
       <span><i style="background:#5a9bd4"></i>IH 上证50</span>
-      <span style="margin-left:auto;color:var(--ink3)">横轴 = 年化贴水率，满格 10%</span>
+      <span style="margin-left:auto;color:var(--ink3)">横轴 = 年化贴水率，<b>右</b>为贴水（赚），<b>左</b>为升水（亏）。满格 ±10%</span>
     </div>
+    <div class="data-stamp">数据截至 <b>2026-08-07</b> 结算价 · 每个交易日 16:00 自动更新</div>
     <div class="bars" id="bars"></div>
+    <div class="bars-note">
+      <b>怎么读这张图：</b><br>
+      ① <b>数字含义</b>：例如 <code>6.78%</code> 意思是「假设持有到期，这张合约相对现货能给你额外的 6.78% 年化收益」；数字前的 <code>−</code> 号代表<b>反过来</b>——你持有到期反而要亏这么多。<br>
+      ② <b>颜色含义</b>：每个品种固定一种颜色（IM=深红、IC=橙、IF=深蓝、IH=浅蓝）；<b>右半实色 = 贴水</b>，<b>左半降透明度（0.55）= 升水</b>，一眼区分多空状态。<br>
+      ③ <b>零基准线</b>：每条灰色条中间的竖线代表 0%，柱体离零线越远 = 偏离"无套利中性"越远。<br>
+      ④ <b>鼠标悬停</b>每根柱体可看完整数据：期货/现货点位、月均贴水、剩余天数、持有到期每手赚/亏金额。
+    </div>
   </div>
   <div class="note" style="margin-top:14px">
     <b>三个必须注意的异常信号：</b><br>
@@ -709,16 +724,44 @@ function calc(p,c){
 function wan(x){return (x/10000).toFixed(1)+"万";}
 function yuan(x){return x.toLocaleString('zh-CN',{maximumFractionDigits:0})+" 元";}
 
-// ---- bars ----
+// ---- bars (zero-center term structure) ----
+// 原理：track 宽 100%，中心 50% = 零基准线。
+//      贴水 (ann>0) → 从 50% 向右延伸；升水 (ann<0) → 从 50% 向左延伸。
+//      颜色：贴水=合约原色；升水=同色降透明度 0.55（仍可识别品种，但视觉弱化提示风险）。
 let bh="";
 for(const p of ["IM","IC","IF","IH"]){
   bh+=`<div class="bg-grp"><div class="ttl">${NAME[p]}</div><div class="stl">现货 ${SPOT[p].toFixed(2)} · 乘数 ${MULT[p]}元/点</div>`;
   for(const c of ["2608","2609","2612","2703"]){
     const r=calc(p,c);
-    const w=Math.min(r.ann/10*100,100);
-    bh+=`<div class="bar-row"><span class="bar-lb">${c}</span>
-      <span class="bar-tr"><span class="bar-fl" style="width:${w}%;background:${COLOR[p]}"></span></span>
-      <span class="bar-vl" style="color:${COLOR[p]}">${r.ann.toFixed(2)}%</span></div>`;
+    const isPremium=r.ann<0;
+    // 半边长度：|ann|/10 * 50%，上限 50%（即中心到边）。
+    const half=Math.min(Math.abs(r.ann)/10*50,50);
+    let posStyle;
+    if(isPremium){
+      // 升水：从 (50-half)% 起，宽 half%，向左延伸
+      posStyle=`left:${(50-half).toFixed(2)}%;width:${half.toFixed(2)}%`;
+    }else{
+      // 贴水：从 50% 起，宽 half%，向右延伸
+      posStyle=`left:50%;width:${half.toFixed(2)}%`;
+    }
+    const flStyle=isPremium
+      ? `${posStyle};background:${COLOR[p]};opacity:0.55`
+      : `${posStyle};background:${COLOR[p]};opacity:1`;
+    // tooltip 内容
+    const absAnn=Math.abs(r.ann);
+    const signWord=isPremium?"升水":"贴水";
+    const earnWord=isPremium?"亏":"收";
+    const tip=`${NAME[p]} ${c} 合约 · ${signWord}${absAnn.toFixed(2)}%/年化\n`+
+              `期货 ${r.f.toFixed(2)} · 现货 ${r.s.toFixed(2)}（基差 ${r.basis>=0?"+":""}${r.basis.toFixed(2)}点）\n`+
+              `剩余 ${r.d} 天到期 · 月均${signWord} ${Math.abs(r.monthly).toFixed(2)}点\n`+
+              `持有到期${earnWord} ${r.gain>=0?"":""}${yuan(r.gain)}/手`;
+    const signChar=isPremium?"−":"+";
+    const vlColor=isPremium?"#c0392b":COLOR[p];
+    bh+=`<div class="bar-row" title="${tip.replace(/\n/g," · ")}">`+
+      `<span class="bar-lb">${c}</span>`+
+      `<span class="bar-tr"><span class="bar-fl" style="${flStyle}"></span></span>`+
+      `<span class="bar-vl" style="color:${vlColor}">${signChar}${absAnn.toFixed(2)}%</span>`+
+      `</div>`;
   }
   bh+=`</div>`;
 }
