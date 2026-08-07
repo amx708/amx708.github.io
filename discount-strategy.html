@@ -114,6 +114,21 @@ h3{font-size:14px;font-weight:650;margin-bottom:10px;color:var(--ink2)}
 .ops-detail .tag{display:inline-block;padding:1px 7px;border-radius:3px;font-size:11px;font-weight:700;margin-right:2px}
 .ops-detail .tag-do{background:#2e8b57;color:#fff}
 .ops-detail .tag-no{background:#c0392b;color:#fff}
+/* 步骤块（具体怎么操作）*/
+.ops-step{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;font-size:13px;line-height:1.65;color:var(--ink2)}
+.ops-step .num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--ink3);color:#fff;font-weight:700;font-size:12px;line-height:22px;text-align:center;font-variant-numeric:tabular-nums}
+.ops-step .body{flex:1;min-width:0}
+.ops-step b{color:var(--ink1);font-weight:700}
+.ops-step code{font-family:Consolas,Menlo,monospace;font-size:12px;background:#faf8f2;padding:1px 5px;border-radius:3px;color:#9a6b00;border:1px solid #f0e8d0}
+.ops-tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0}
+.ops-tbl th,.ops-tbl td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+.ops-tbl th{background:#fbfbfa;font-weight:700;color:var(--ink2)}
+.ops-tbl td.num{text-align:right;font-variant-numeric:tabular-nums;font-family:Consolas,monospace;color:var(--ink1)}
+.ops-tbl tr.today{background:#fff8e6}
+.ops-tbl tr.today td:first-child::after{content:'← 今天';color:#9a6b00;font-weight:700;margin-left:6px;font-size:11px}
+.ops-callout{margin:10px 0;padding:10px 14px;background:#fbfbfa;border-left:3px solid #d4af37;border-radius:4px;font-size:12.5px;line-height:1.65;color:var(--ink2)}
+.ops-callout b{color:#9a6b00}
+.ops-detail+div{margin-top:14px}
 
 /* table */
 table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13px}
@@ -234,7 +249,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <!-- 导航 -->
 <nav class="nav">
   <a href="#core">核心指标</a><a href="#conclusion">结论</a><a href="#term">期限结构</a><a href="#full">全合约</a><a href="#calc">测算器</a><span class="sep">|</span>
-  <a href="#capital">资金管理</a><a href="#redline">风控红线</a><a href="#roll">移仓规则</a><a href="#calendar">交割日历</a><span class="sep">|</span>
+  <a href="#capital">资金管理</a><a href="#redline">风控红线</a><a href="#roll">移仓规则</a><a href="#roll-ops">操作步骤</a><a href="#calendar">交割日历</a><span class="sep">|</span>
   <a href="#report">完整报告</a><a href="#compare">收益拆解</a><a href="#selection">品种选择</a><a href="#timing">择时分析</a><span class="sep">|</span>
   <a href="#enhance">增强模块</a><a href="#cost">摩擦成本</a><a href="#checklist">落地清单</a><a href="#reminder">个人提醒</a>
 </nav>
@@ -469,6 +484,72 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <li><span class="tag tag-no">看价差别看收益率</span>换月隐形成本 = 两合约<b>价差（点）</b>。价差明显高于历史均值（如 IC 当月/次月约 60 点）时换 = 贵，等它回落再动手更划算。</li>
       <li><span class="tag tag-no">分红季注意</span>5–8 月近月贴水含 40–60 点分红因素（假肉），剔除后再判断远月是否真的更划算。</li>
     </ul>
+  </div>
+
+  <div class="ops-detail" id="roll-ops">
+    <h3>具体怎么操作（含日程范例）</h3>
+    <p style="font-size:12.5px;color:var(--ink2);margin:0 0 12px;line-height:1.65"><b>通用 SOP = 5 步走 + 每批检查。</b>下面以当前数据正在进行的 <b>IM2608 → IM2609</b> 窗口（剩 14 天）为例：30 手分 3 批，8-11 到 8-13 完成。移仓日期直接套用顶部 banner 提示的窗口即可。</p>
+
+    <div class="ops-step">
+      <div class="num">1</div>
+      <div class="body"><b>算账：</b>用页面"期限结构图/计算器"算两个数 ——①<b>远月贴水年化</b> <code>r.ann</code>（决定值不值得换）②<b>两合约价差</b> <code>|d(Far)-d(Near)|</code>（决定今天换贵不贵，IC 历史均值约 60 点，偏离均值 ±30 点以上就别硬换）。例：IM2608 现货 7530 → 期货 7655.6（升水 125 点），IM2609 期货 7590.6（升水 60 点）→ <b>等 2609 转为贴水（年化转向）</b>再执行更优；若贴水已可吃，则换。</div>
+    </div>
+
+    <div class="ops-step">
+      <div class="num">2</div>
+      <div class="body"><b>切资金：</b>把要开仓的远月保证金<b>提前 1 个交易日</b>转入期货账户（避免占用股票仓位）。公式 <code>保证 = 远月价 × 乘数 × 15%</code>，30 手 IM2609 ≈ <code>7590.6 × 300 × 15% × 30 = 1026 万</code>。这笔钱是从近月保证金平移过来的，不是新增。</div>
+    </div>
+
+    <div class="ops-step">
+      <div class="num">3</div>
+      <div class="body"><b>下单：</b>在通达信/期货交易端，<b>先开 远月合约（开仓）</b>，看到回报<b>已成</b>后，再<b>平 近月合约（平仓）</b>，同方向反向手数严格 1:1。下单用<b>"对手价"</b>（即买一/卖一）成交；若极端行情对手价深度差 5 点以上，改<b>"本方价 ±1 跳"</b>挂限价单。<b>绝对不要先平后开</b>，中途系统断线/手抖一下你就裸空了。</div>
+    </div>
+
+    <div class="ops-step">
+      <div class="num">4</div>
+      <div class="body"><b>逐批执行（看日历窗口）：</b>大仓位 30 手分 3 批，10 手/批；50 手分以上分 5 批；个位数仓位一次性换完。每批之间间隔 1–2 个交易日（不是 1–2 个小时）。下面是当前 IM2608 → IM2609 窗口的具体日程：</div>
+    </div>
+
+    <table class="ops-tbl">
+      <thead><tr><th>日期</th><th>批次</th><th>操作</th><th class="num">数量</th><th>触发条件</th></tr></thead>
+      <tbody>
+        <tr><td>08-11 (周一)</td><td>第 1 批</td><td>开 IM2609 → 平 IM2608</td><td class="num">10 手</td><td>开盘后 30 分钟内，两合约价差 ≤ 80 点</td></tr>
+        <tr class="today"><td>08-12 (周二)</td><td>第 2 批</td><td>同上</td><td class="num">10 手</td><td>价差回到 [40, 80] 区间</td></tr>
+        <tr><td>08-13 (周三)</td><td>第 3 批（末批）</td><td>同上</td><td class="num">10 手</td><td>午盘 11:30 前完成，收盘前保证账户零近月</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ops-step">
+      <div class="num">5</div>
+      <div class="body"><b>核对：</b>每批结束后 30 秒做以下 4 项检查，全部通过再走开。<b>任何一项不通过 → 暂停后续批次，等条件回来</b>。</div>
+    </div>
+
+    <table class="ops-tbl">
+      <thead><tr><th>#</th><th>检查项</th><th>怎么对</th><th class="num">通过标准</th></tr></thead>
+      <tbody>
+        <tr><td>①</td><td>开仓成交价 ≤ 期望限价 + 1 跳</td><td>期货端"当日成交"</td><td class="num">滑点 ≤ 0.5 点</td></tr>
+        <tr><td>②</td><td>平仓成交价 ≥ 期望限价 - 1 跳</td><td>同上</td><td class="num">滑点 ≤ 0.5 点</td></tr>
+        <tr><td>③</td><td>实际价差 = (远月开仓价 - 近月平仓价) ≤ 计算器值 +2 点</td><td>手动算或计算器重算</td><td class="num">偏差 ≤ 2 点</td></tr>
+        <tr><td>④</td><td>账户保证金净变化</td><td>看"资金账户"：释放近月 - 占用远月</td><td class="num">差额 = (近月价 - 远月价) × 乘数 × 15%</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:13px;font-weight:700;color:var(--ink2);margin:14px 0 6px">异常情况处理（3 种最常见的坑）</h3>
+    <div class="ops-callout">
+      <b>坑 1：价差突然拉大 (>100 点)</b>　立刻停止后续批次，<b>等 1-2 天</b>看均值是否回归；不回就把剩余批次数 ÷2（本来 3 批 → 拖成 5 批分摊滑点）。典型诱因：隔夜外盘冲击 / 政策消息 / 主力资金跨期套利。
+    </div>
+    <div class="ops-callout">
+      <b>坑 2：程序卡死 — 开了远月还没平近月</b>　<b>立刻市价补平</b>近月（哪怕滑点贵），不留裸敞口过夜。第二天再用均匀批次补回，别追一次性补完。<b>绝不要</b>"等等看会不会回来"——一笔裸敞口能吃掉 3 个批次的贴水收益。
+    </div>
+    <div class="ops-callout">
+      <b>坑 3：限价单挂出去一直未成交</b>　改用<b>"对手价"</b>市价成（手数小时滑点可控）；手数大时分 3-5 个限价单逐笔在买一价 ±1 跳分批挂，<b>始终挂一个未成交就撤单重挂</b>，避免单笔被闷在大单堆里。
+    </div>
+
+    <h3 style="font-size:13px;font-weight:700;color:var(--ink2);margin:14px 0 6px">捷径：差价过大 / 急用钱 → 换 ETF 兜底</h3>
+    <div class="ops-step">
+      <div class="num">⚡</div>
+      <div class="body">如果窗口期远月贴水始终没出来，或资金链紧张、3 天内必须平掉近月 —— <b>不要硬移</b>，把<b>整个仓位一次性换成对应 ETF</b>（如 <code>中证1000ETF(159845)</code> / <code>中证500ETF(510500)</code>）。优点：零移仓成本、不用管合约月份、占用保证金降一档；代价：<b>失去年化 5-10% 的贴水收益</b>。判断阈值：<b>如果移仓的预期收益（剩余贴水年化 × 仓位 × 剩余天数/365）&lt; 2000 元/手</b>，不如直接换 ETF。</div>
+    </div>
   </div>
 </section>
 
