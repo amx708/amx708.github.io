@@ -1,394 +1,490 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#ffffff">
-<title>周期股涨价逻辑攻略 · 通用方法论</title>
+<title>涨价逻辑监测看板</title>
 <style>
-  :root{
-    --bg:#f5f7fa; --card:#ffffff; --ink:#1f2933; --muted:#5b6770;
-    --line:#e3e8ee; --brand:#2c3e50; --brand2:#3a4a5e;
-    --up:#c0392b; --down:#1e8449; --warn:#b8860b; --info:#1f6feb;
-    --soft:#eef3f0; --chip:#e8f0ec;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
-    background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px}
-  a{color:var(--brand2);text-decoration:none}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
-header.hero{background:#ffffff;color:var(--ink);padding:54px 0 40px;position:relative;border-bottom:2px solid #2c3e50;overflow:hidden}
-header.hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:#2c3e50}
-header.hero h1{font-size:30px;margin:0 0 10px;letter-spacing:.5px;color:#1f2733}
-header.hero p{margin:6px 0;opacity:.92;max-width:760px;color:#3a4554}
-.badge{display:inline-block;background:#eef1f4;color:#1f2733;border:1px solid #cdd5de;
-    padding:3px 10px;border-radius:20px;font-size:12px;margin-bottom:14px;font-weight:600}
-header.hero .home-link{position:absolute;top:18px;right:24px;display:inline-flex;align-items:center;gap:4px;background:#ffffff;color:#1f2733;border:1px solid #cdd5de;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;text-decoration:none;transition:background .15s}
-header.hero .home-link:hover{background:#eef1f4;color:#1f2733}
-  nav.toc{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);padding:10px 0}
-  nav.toc .wrap{display:flex;gap:14px;flex-wrap:wrap;font-size:13px}
-  nav.toc a{color:var(--muted);padding:4px 8px;border-radius:6px}
-  nav.toc a:hover{background:var(--soft);color:var(--brand)}
-  section{padding:34px 0 8px}
-  h2{font-size:22px;border-left:5px solid var(--brand);padding-left:12px;margin:6px 0 16px}
-  h3{font-size:17px;color:var(--brand);margin:22px 0 8px}
-  p{margin:8px 0}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0;
-    box-shadow:0 1px 3px rgba(20,40,30,.04)}
-  .grid{display:grid;gap:14px}
-  .g3{grid-template-columns:repeat(3,1fr)}
-  .g2{grid-template-columns:repeat(2,1fr)}
-  @media(max-width:760px){.g3,.g2{grid-template-columns:1fr}}
-  .metric{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
-  .metric .n{font-size:13px;color:var(--muted)}
-  .metric .t{font-size:18px;font-weight:700;margin:4px 0}
-  .metric .d{font-size:13px;color:var(--muted)}
-  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;background:var(--card);
-    border:1px solid var(--line);border-radius:10px;overflow:hidden}
-  th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
-  th{background:var(--soft);color:var(--brand);font-weight:600}
-  tr:last-child td{border-bottom:none}
-  .pill{display:inline-block;font-size:12px;padding:2px 9px;border-radius:20px;font-weight:600}
-  .p-up{background:#fdecea;color:var(--up)}
-  .p-down{background:#eafaf1;color:var(--down)}
-  .p-warn{background:#fdf6e3;color:var(--warn)}
-  .p-info{background:#eaf2ff;color:var(--info)}
-  .p-ok{background:var(--chip);color:var(--brand)}
-  .callout{border-left:4px solid var(--warn);background:#fdfaf0;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
-  .callout.danger{border-color:var(--up);background:#fdf3f2}
-  .callout.tip{border-color:var(--info);background:#f1f7ff}
-  .steps{counter-reset:s;list-style:none;padding:0;margin:10px 0}
-  .steps li{position:relative;padding:14px 16px 14px 56px;background:var(--card);border:1px solid var(--line);
-    border-radius:10px;margin:10px 0}
-  .steps li:before{counter-increment:s;content:counter(s);position:absolute;left:14px;top:14px;
-    width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;display:flex;
-    align-items:center;justify-content:center;font-weight:700}
-  .calc{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:18px}
-  .calc .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin:8px 0}
-  .calc label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
-  .calc input{width:160px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px}
-  .calc .res{font-size:20px;font-weight:700;color:var(--brand);margin-top:6px}
-  .formula{background:#1f2733;color:#e8ecf1;padding:12px 16px;border-radius:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}
-  footer{background:#1f2733;color:#dfe4ea;padding:30px 0;margin-top:40px;font-size:13px}
-  footer .wrap{max-width:1080px}
-  .kpi{font-size:26px;font-weight:800;color:var(--brand)}
-  .small{font-size:12px;color:var(--muted)}
-  ul.tight{margin:8px 0;padding-left:20px}
-  ul.tight li{margin:5px 0}
-</style>
-</head>
-<body>
+ body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f6f8fa;color:#1f2733;margin:0;padding:24px}
+ .wrap{max-width:1100px;margin:0 auto}
+ header{background:#fff;color:#1f2733;border:1px solid #e6e9ef;border-top:3px solid #b8860b;border-radius:12px;padding:18px 22px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+ header h1{margin:0;font-size:20px} header p{margin:6px 0 0;color:#5b6776;font-size:13px}
+ .cards{display:flex;gap:12px;margin:14px 0}
+ .card{flex:1;background:#fff;border:1px solid #e6e9ef;border-radius:10px;padding:14px;text-align:center}
+ .card .n{font-size:26px;font-weight:700} .card .l{font-size:12px;color:#5b6776}
+ table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e6e9ef;border-radius:10px;overflow:hidden;font-size:13.5px}
+ th,td{border-bottom:1px solid #eef1f5;padding:9px 10px;vertical-align:top;text-align:left}
+ th{background:#f0f3f8;color:#5b6776;font-weight:600;font-size:12.5px}
+ .num{font-variant-numeric:tabular-nums}
+ .up{color:#c0392b;font-weight:600} .dn{color:#1a7a4a;font-weight:600}
+ .mut{color:#8a94a6;font-size:11.5px}
+ .pill{display:inline-block;padding:2px 8px;border-radius:6px;font-size:12px;margin:1px 2px;font-weight:600}
+ .tag-demo{display:inline-block;padding:1px 6px;border-radius:5px;background:#fdf2e9;color:#b9770e;font-size:11px;font-weight:600;margin-left:4px;vertical-align:middle}
+ .tag-cyc{display:inline-block;padding:2px 7px;border-radius:6px;font-size:11.5px;font-weight:600;line-height:1.4}
+ .tag-opp{display:inline-block;padding:2px 7px;border-radius:6px;font-size:11.5px;font-weight:600;line-height:1.4}
+ .oppbox{background:#fff;border:1px solid #e6e9ef;border-left:4px solid #b8860b;border-radius:10px;padding:12px 16px;margin:14px 0;font-size:13.5px}
+ .foot{font-size:12px;color:#8a94a6;margin-top:14px}
+ .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:10px;border:1px solid #e6e9ef}
+ table{min-width:980px}
 
-
-<header class="hero">
-  <div class="wrap">
-    <a class="home-link" href="../index.html">🏠 返回首页</a>
-    <span class="badge">通用方法论 · 非个股推荐</span>
-    <h1>周期股涨价逻辑攻略</h1>
-    <p>一套用于筛选"产品涨价→股价未反映"错配机会的通用研究框架。适用于化工、有色、建材、农产品等强周期行业，本质是<strong>用公开价格数据寻找信息差与安全边际</strong>。</p>
-    <p class="small">本页为方法论与历史案例整理，不构成任何投资建议；所有数据均标注来源与时间，过时数据请自行复核。</p>
-  </div>
-</header>
-
-<nav class="toc">
-  <div class="wrap">
-    <a href="#what">① 是什么</a>
-    <a href="#core">② 三大核心指标</a>
-    <a href="#factor">③ 四大决定因素</a>
-    <a href="#method">④ 五步法</a>
-    <a href="#chem">⑤ 化工实例</a>
-    <a href="#metal">⑥ 有色实例</a>
-    <a href="#law">⑦ 规律与陷阱</a>
-    <a href="#calc">⑧ 弹性计算器</a>
-    <a href="#system">⑨ 监测系统</a>
-    <a href="#risk">⑩ 风险与免责</a>
-  </div>
+ /* 移动端响应式：小屏切换为卡片 */
+ @media (max-width:768px){
+  body{padding:12px}
+  .wrap{max-width:100%}
+  header{padding:14px 16px}
+  header h1{font-size:18px}
+  header p{font-size:12px;line-height:1.5}
+  .cards{flex-direction:column;gap:8px}
+  .card{padding:12px;display:flex;align-items:center;justify-content:space-between}
+  .card .n{font-size:22px}
+  .card .l{font-size:12px;text-align:right}
+  .oppbox{padding:10px 12px;font-size:12.5px}
+  .table-wrap{border:none;overflow:visible}
+  table{display:block;width:100%;min-width:0;border:none;background:transparent}
+  thead{display:none}
+  tbody{display:block}
+  tr{display:block;background:#fff;border:1px solid #e6e9ef;border-radius:10px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  td{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid #eef1f5;font-size:13px}
+  td::before{content:attr(data-label);font-weight:600;color:#5b6776;flex-shrink:0;margin-right:12px}
+  td[data-label="逻辑"],td[data-label="弹性映射"],td[data-label="历史周期"],td[data-label="机会判定"]{display:block}
+  td[data-label="逻辑"]::before,td[data-label="弹性映射"]::before,td[data-label="历史周期"]::before,td[data-label="机会判定"]::before{display:block;margin-bottom:4px}
+  td[data-label="信号"]{display:block}
+  td[data-label="信号"]::before{display:block;margin-bottom:4px}
+  .pill{font-size:12px;padding:3px 8px}
+  .mut{font-size:11px}
+  .tag-cyc,.tag-opp{font-size:11px}
+  .foot{font-size:11px}
+  .navbar{padding:6px 8px;gap:6px}
+  .navbar a,.navbar button{font-size:12px;padding:6px 10px}
+  .navbar .navtitle{display:none}
+ }
+ .navbar{position:sticky;top:0;z-index:50;display:flex;gap:8px;align-items:center;background:#fff;border:1px solid #e6e9ef;border-radius:10px;padding:8px 10px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+ .navbar a,.navbar button{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:#2b3445;background:#f0f3f8;border:1px solid #e6e9ef;border-radius:8px;padding:7px 12px;cursor:pointer;text-decoration:none;transition:background .15s,color .15s}
+ .navbar a:hover,.navbar button:hover{background:#e4e9f2;color:#1a2233}
+ .navbar .nb-home{background:#1a7a4a;color:#fff;border-color:#1a7a4a}
+ .navbar .nb-home:hover{background:#155f3a;color:#fff}
+ .navbar .spacer{flex:1}
+ .navbar .navtitle{font-size:12px;color:#8a94a6;font-weight:500}
+</style></head><body>
+<div class="wrap">
+<nav class="navbar">
+ <a class="nb-home" href="../index.html">返回首页</a>
+ <a href="../berkshire-standalone.html">站点枢纽</a>
+ <button type="button" onclick="location.reload(true)">刷新</button>
+ <span class="spacer"></span>
+ <span class="navtitle">涨价逻辑监测看板</span>
 </nav>
-
-<!-- ① -->
-<section id="what"><div class="wrap">
-  <h2>① 涨价逻辑到底是什么</h2>
-  <div class="card">
-    <p><strong>一句话：</strong>当一家公司的<strong>主营产品价格持续上涨</strong>，而市场还没有把这份利润预期打进股价时，就出现了"错配"——这是周期股最核心的超额收益来源之一。</p>
-    <p>它赚的不是"长期价值成长"的钱，而是<strong>"价格周期反转 + 预期差"</strong>的钱。价格由供需决定，股价由预期决定；两者之间天然存在时间差，框架的作用就是捕捉这个时间差。</p>
-    <div class="grid g3">
-      <div class="metric"><div class="n">发动机</div><div class="t">产品价格</div><div class="d">没有价格动，一切免谈。价格是唯一因，利润与股价都是果。</div></div>
-      <div class="metric"><div class="n">机会本身</div><div class="t">价股错配</div><div class="d">价涨了、股没跟 = 预期未打满 = 安全边际。这是"买点"的本体。</div></div>
-      <div class="metric"><div class="n">可持续性</div><div class="t">供给硬约束</div><div class="d">事故/检修/环保/矿权造成的缺口，比情绪拉涨更暴利、更持久。</div></div>
-    </div>
-    <div class="callout tip">
-      <strong>适用边界：</strong>强周期、产品有公开报价、成本曲线清晰、供给端易出"黑天鹅缺口"的行业最有效（化工、有色、建材、农产品、航运等）。对消费、科技等弱周期或定价权在需求端的行业，框架需大幅打折使用。
-    </div>
-  </div>
-</div></section>
-
-<!-- ② -->
-<section id="core"><div class="wrap">
-  <h2>② 三大核心指标（仪表盘）</h2>
-  <p>把复杂框架浓缩成每天只需盯的<strong>三个数字</strong>。其中前两个是"机会窗口"，第三个决定"值不值得做"。</p>
-  <table>
-    <thead><tr><th>重要性</th><th>指标</th><th>看什么</th><th>经验阈值</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><span class="pill p-up">第一</span></td>
-        <td><strong>产品价格变化率</strong><br><span class="small">月涨% / 周涨%</span></td>
-        <td>涨价逻辑的发动机。月度看趋势，周度看"急涨冲击"。</td>
-        <td>月度门槛：化工 10–15%、有色 6–10%；周涨≥20% 视为供给冲击</td>
-      </tr>
-      <tr>
-        <td><span class="pill p-up">第一</span></td>
-        <td><strong>价股错配度</strong><br><span class="small">= 价月涨% − 股月涨%</span></td>
-        <td>价涨、股没跟 = 预期未打满 = 安全边际。这是"机会"本身。</td>
-        <td>价涨≥门槛 且 股月涨&lt;价的 60% → 错配买点</td>
-      </tr>
-      <tr>
-        <td><span class="pill p-ok">第二</span></td>
-        <td><strong>业绩弹性 ΔEPS</strong><br><span class="small">≈ 涨价额×年产量÷股本</span></td>
-        <td>决定"这波涨价值不值得做"，避免小题大做、被稀释。</td>
-        <td>弹性小（占比低/成本同涨）直接 Pass</td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="callout">
-    <strong>最简记忆：</strong>真正每天只需看一个核心数字 —— <strong>「产品价格月涨幅 − 代表标的股价月涨幅」</strong>。
-    它是正且够大 = 机会；它是负（价涨股跌）= 撤退信号。其余指标都是给这个数字做背书或排雷的。
-  </div>
-</div></section>
-
-<!-- ③ -->
-<section id="factor"><div class="wrap">
-  <h2>③ 四大决定因素（能不能做）</h2>
-  <p>指标告诉你"窗口出现了"，这四个因素判断"这个窗口能不能进、能进多大"。</p>
-  <div class="grid g2">
-    <div class="card">
-      <h3>🥇 确定性（第一原则）</h3>
-      <p>只在高确定性错配上下注，不确定就轻仓或旁观。确定性来自：价格已真实落地（非传闻）、供需缺口可验证、公司受益路径清晰。</p>
-      <p class="small">反面：赌情绪、赌题材、赌"可能要涨" —— 多半接盘。</p>
-    </div>
-    <div class="card">
-      <h3>🥈 信息差 / 数据源</h3>
-      <p>中游产品价格（维生素、纯碱、磷矿石）关注度远低于上游期货，每日盯<strong>百川盈孚、卓创、生意社</strong>等报价即拥有超额信息。</p>
-      <p class="small">反面：等新闻满天飞才看到 → 往往已是卖点。</p>
-    </div>
-    <div class="card">
-      <h3>🥉 供给端硬约束</h3>
-      <p>事故、检修、环保限产、矿权稀缺导致的供给缺口，才是最暴利且可持续的涨价（如装置爆炸致 VA 冲高）。</p>
-      <p class="small">反面：纯情绪/资金拉涨、无供给约束 → 不可持续、易回吐。</p>
-    </div>
-    <div class="card">
-      <h3>🥉 成本曲线位置</h3>
-      <p>低成本龙头（天然碱、自有矿山）弹性最大：价跌它最后亏、价涨它最先赚；价涨它吃满利润。</p>
-      <p class="small">反面：成本曲线右侧、纯冶炼加工 → 涨价也分不到多少利润。</p>
-    </div>
-  </div>
-  <div class="callout tip">
-    <strong>两个不能忽视的附加因子：</strong>
-    <ul class="tight">
-      <li><strong>产品占主营比重（exposure）：</strong>占比 &lt; 20% 时"价涨利不涨"，弹性被严重稀释，必须一票否决或下调权重。</li>
-      <li><strong>股价领先定价（最重要风险因子）：</strong>股价通常领先商品 6–12 个月见顶，所以"价还在涨、股已跌"= 派发警惕，而不是买点。</li>
-    </ul>
-  </div>
-</div></section>
-
-<!-- ④ -->
-<section id="method"><div class="wrap">
-  <h2>④ 五步法（落地流程）</h2>
-  <ol class="steps">
-    <li><strong>抓价格信号</strong>：每日跟踪"中游产品"报价（维生素/纯碱/钛白粉/磷化工/铜锂铝），优先选关注度低、信息差大的品种。</li>
-    <li><strong>算业绩弹性</strong>：ΔEPS ≈ 涨价金额 × 年产量 ÷ 总股本。先算弹性再决定是否值得研究。</li>
-    <li><strong>找错配</strong>：产品价格涨、股价未涨 = 安全边际。用"价股错配度"量化，正且够大才是真错配。</li>
-    <li><strong>择时</strong>：拐点 + 加速段买入；财报季（1/4/7/10 月）是预期兑现窗口，遵循"买预期、卖事实"。</li>
-    <li><strong>退出</strong>：周期下行即清仓，不赚最后一段；人声鼎沸、新闻刷屏时反而警惕。</li>
-  </ol>
-</div></section>
-
-<!-- ⑤ -->
-<section id="chem"><div class="wrap">
-  <h2>⑤ 化工实例（含硬数据）</h2>
-  <table>
-    <thead><tr><th>品种 / 标的</th><th>涨价逻辑</th><th>关键数据</th><th>类型</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><strong>维生素（新和成 / 浙江医药）</strong></td>
-        <td>海外大厂装置爆炸/不可抗力 → 供给缺口 → VA/VE 暴涨，国内龙头直接吃满利润。</td>
-        <td>VA 从约 75 元/kg 冲至 290–300 元/kg；新和成 2024 年净利 <strong>+117%</strong>。</td>
-        <td><span class="pill p-up">供给冲击型</span></td>
-      </tr>
-      <tr>
-        <td><strong>纯碱 / 天然碱（远兴能源）</strong></td>
-        <td>天然碱法成本远低于氨碱/联碱，处于成本曲线最左端，价格回暖时弹性最大。</td>
-        <td>低成本 + 大产能 = 周期反转首选弹性标的。</td>
-        <td><span class="pill p-ok">低成本龙头</span></td>
-      </tr>
-      <tr>
-        <td><strong>钛白粉（龙佰集团）</strong></td>
-        <td>成本传导型：看"量价齐升"还是"价涨量缩"。钛精矿成本是利润锚。</td>
-        <td>需同时跟踪钛精矿价格与出口订单，避免"价涨但成本同步涨"。</td>
-        <td><span class="pill p-info">成本传导</span></td>
-      </tr>
-      <tr>
-        <td><strong>磷化工（兴发 / 云天化）</strong></td>
-        <td>磷矿权稀缺 + 新能源（磷酸铁锂）需求增量，矿端供给硬约束。</td>
-        <td>矿自给率高的标的弹性显著优于外购矿企业。</td>
-        <td><span class="pill p-ok">资源约束</span></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="callout tip"><strong>化工要点：</strong>化工品的涨价多由"装置事故 / 检修 / 环保"触发，持续时间看缺口大小；优先选<strong>单品占比高 + 成本曲线左端</strong>的龙头。</div>
-</div></section>
-
-<!-- ⑥ -->
-<section id="metal"><div class="wrap">
-  <h2>⑥ 有色实例</h2>
-  <table>
-    <thead><tr><th>品种 / 标的</th><th>涨价逻辑</th><th>关键数据</th><th>类型</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><strong>铜（紫金矿业）</strong></td>
-        <td>铜价是估值"量尺"。只选<strong>高自给率矿山股</strong>，纯冶炼无弹性。</td>
-        <td>铜价每涨 1000 美元/吨 → 紫金净利约 <strong>+35~40 亿元</strong>。</td>
-        <td><span class="pill p-ok">资源弹性</span></td>
-      </tr>
-      <tr>
-        <td><strong>锂（天齐 / 赣锋）</strong></td>
-        <td>碳酸锂强周期，price 由供需缺口主导；<strong>最关键的规律：股价领先商品见顶</strong>。</td>
-        <td>碳酸锂 2021 初约 5 万 → 2022.11 最高约 60 万 → 2023 跌至约 10 万；天齐 2022 净利 241 亿(+1060%)；<strong>天齐股价 2021.09 即见顶，锂价 2022.11 才见顶</strong>。</td>
-        <td><span class="pill p-warn">领先见顶</span></td>
-      </tr>
-      <tr>
-        <td><strong>铝（神火 / 云铝）</strong></td>
-        <td>价格 × 电力成本双变量；水电铝成本低且减碳溢价。</td>
-        <td>需同时看铝价与电价/煤炭成本，成本端不失控才有弹性。</td>
-        <td><span class="pill p-info">双变量</span></td>
-      </tr>
-      <tr>
-        <td><strong>黄金（山东黄金）</strong></td>
-        <td>宏观对冲属性，与实际利率、避险需求负相关，与周期商品逻辑不同。</td>
-        <td>更多作为组合"防御垫"，而非弹性进攻品种。</td>
-        <td><span class="pill p-info">对冲垫</span></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="callout danger"><strong>锂的教训：</strong>商品还在新高、股价早已腰斩——这就是"股价领先商品 6–12 个月见顶"。看到"价涨股跌"千万别当错配买点，那是派发/撤退信号。</div>
-</div></section>
-
-<!-- ⑦ -->
-<section id="law"><div class="wrap">
-  <h2>⑦ 规律与陷阱（必须记牢）</h2>
-  <div class="grid g2">
-    <div class="card">
-      <h3>规律一：股价领先商品见顶</h3>
-      <p>周期股炒的是"未来预期"，不是"当前价格"。商品见顶前半年，股价往往已提前反应。所以<strong>商品新高 ≠ 还能买</strong>。</p>
-    </div>
-    <div class="card">
-      <h3>规律二：涨价 ≠ 利润涨</h3>
-      <p>占比小、成本同步涨、涨价时长短，都会稀释弹性。先算 ΔEPS，再谈机会。</p>
-    </div>
-    <div class="card">
-      <h3>规律三：信息差在"中游"</h3>
-      <p>上游期货人人看，超额收益薄；中游产品报价冷门，才是错配温床。建立自己的数据源 = 建立护城河。</p>
-    </div>
-    <div class="card">
-      <h3>规律四：不赚最后铜板</h3>
-      <p>人声鼎沸、新闻刷屏即警惕。周期品利润兑现最快，反转也最快，留一段给别人。</p>
-    </div>
-  </div>
-</div></section>
-
-<!-- ⑧ -->
-<section id="calc"><div class="wrap">
-  <h2>⑧ 业绩弹性计算器（自用）</h2>
-  <div class="calc">
-    <p class="small">公式：ΔEPS ≈ （涨价后单价 − 涨价前单价）× 年产量 ÷ 总股本。结果仅为毛弹性示意，未扣税费与成本变动。</p>
-    <div class="formula">ΔEPS = ΔPrice × AnnualOutput ÷ TotalShares</div>
-    <div class="row">
-      <div><label>涨价前单价（元/吨或元/kg）</label><input id="p0" type="number" value="5000"></div>
-      <div><label>涨价后单价</label><input id="p1" type="number" value="6500"></div>
-      <div><label>年产量（吨）</label><input id="q" type="number" value="1000000"></div>
-      <div><label>总股本（亿股）</label><input id="s" type="number" value="20"></div>
-    </div>
-    <div class="res" id="out">ΔEPS ≈ —</div>
-    <p class="small" id="note"></p>
-  </div>
-</div></section>
-
-<!-- ⑨ -->
-<section id="system"><div class="wrap">
-  <h2>⑨ 如何搭建监测系统</h2>
-  <div class="card">
-    <p>把以上框架工程化，做成一个<strong>每日自动跑、自动推送</strong>的监测器。最小可用架构：</p>
-    <div class="formula" style="background:#1f2733">
-      监测清单(watchlist) + 行情数据源(可插拔) → 信号引擎 → 看板(report.html) + 推送文本(alerts.txt)
-    </div>
-    <h3>信号引擎五类判定</h3>
-    <table>
-      <thead><tr><th>信号</th><th>触发逻辑</th><th>动作</th></tr></thead>
-      <tbody>
-        <tr><td><span class="pill p-up">供给冲击</span></td><td>周涨 ≥ 20%（事故/不可抗力型急涨）</td><td>重点跟踪</td></tr>
-        <tr><td><span class="pill p-down">错配买点</span></td><td>价月涨≥门槛 且 股月涨仅为价的 0~60%</td><td>研究建仓</td></tr>
-        <tr><td><span class="pill p-warn">价涨股跌·警惕</span></td><td>价月涨≥10% 但股价月跌（领先见顶）</td><td>减仓/勿追</td></tr>
-        <tr><td><span class="pill p-up">周期下行·退出</span></td><td>价月跌 ≥ -15%</td><td>考虑退出</td></tr>
-        <tr><td><span class="pill p-info">趋势中·已反映</span></td><td>价涨、股同步涨</td><td>持有观察</td></tr>
-      </tbody>
-    </table>
-    <h3>数据源可插拔</h3>
-    <ul class="tight">
-      <li><strong>期货/有色：</strong>akshare（免费，pip install akshare）可取铜、锂、铝、金等期货与个股行情。</li>
-      <li><strong>化工品：</strong>生意社 / 百川盈孚 等报价接口（低价位付费即可，符合小预算），覆盖维生素、纯碱、钛白粉、磷矿石。</li>
-      <li><strong>演示模式：</strong>先用静态 sample_data 跑通逻辑，再替换为实盘 Provider。</li>
-    </ul>
-    <p class="small">工程化后可用定时任务每日收市后运行，把机会/风险摘要推送至邮箱或 IM。本页同源工程已包含 Python 信号引擎与可运行演示。</p>
-  </div>
-  <div class="callout" style="margin-top:18px;background:#1f2733;border-left:4px solid #2c3e50">
-    <strong>📡 已有实盘版：</strong>上面的框架已工程化并<strong>每日自动运行</strong> —— 见 <a href="price-hike-monitor.html" style="color:#7fe3b0;font-weight:600">涨价逻辑实时监测看板</a>：纯碱 / 铜 / 碳酸锂 / 铝 / 黄金走期货主连、个股走日线，自动算月涨 / 周涨并触发错配 / 冲击 / 见顶 / 下行信号（维生素等无免费源品种标注「演示」）。
-  </div>
-</div></section>
-
-<!-- ⑩ -->
-<section id="risk"><div class="wrap">
-  <h2>⑩ 风险与免责</h2>
-  <div class="callout danger">
-    <strong>核心风险：</strong>
-    <ul class="tight">
-      <li>周期反转极快，商品见顶前股价已先行，追高易被埋。</li>
-      <li>涨价持续性难判断，短促脉冲型涨价弹性被稀释。</li>
-      <li>成本同步上涨会吞噬利润，需动态复核成本曲线。</li>
-      <li>框架是"研究/排雷工具"，不是下单机器；信号只提示错配，买卖仍须结合个人安全边际。</li>
-    </ul>
-  </div>
-  <p class="small"><strong>免责声明：</strong>本页所有内容为公开方法论与历史案例的整理，用于研究与学习，<strong>不构成任何投资建议</strong>。文中数据均标注时间与来源，可能存在滞后或偏差，请务必自行复核。投资决策与风险由使用者自行承担。</p>
-</div></section>
-
-<footer>
-  <div class="wrap">
-    <p><strong>周期股涨价逻辑攻略</strong> · 通用方法论整理（非个股推荐）</p>
-    <p class="small">数据与案例来源：公开财报、行业报价平台（百川盈孚/卓创/生意社）及历史行情，时间跨度为 2021–2024，请以最新数据为准。</p>
-    <p class="small">以上为方法论与历史案例整理，不构成投资建议，决策请自行判断。</p>
-    <p class="small" style="margin-top:10px"><a href="../berkshire-articles.html">← 返回文章中心</a> ｜ <a href="../index.html">站点首页</a></p>
-  </div>
-</footer>
-
-<script>
-  function calc(){
-    var p0=+document.getElementById('p0').value;
-    var p1=+document.getElementById('p1').value;
-    var q=+document.getElementById('q').value;
-    var s=+document.getElementById('s').value;
-    if(!p0||!p1||!q||!s){document.getElementById('out').textContent='ΔEPS ≈ —';return;}
-    var dP=p1-p0;
-    var delta=dP*q/(s*1e8); // 股本单位为亿股
-    var pct=(dP/p0*100);
-    document.getElementById('out').textContent='ΔEPS ≈ '+(delta>=0?'+':'')+delta.toFixed(3)+' 元/股';
-    var note='单价上涨 '+pct.toFixed(1)+'%，年化新增毛利约 '+(dP*q/1e8).toFixed(2)+' 亿元（未扣费税）。';
-    note+= delta<0.05?' 弹性偏小，谨慎。':(delta>=0.3?' 弹性显著，重点研究。':' 弹性中等。');
-    document.getElementById('note').textContent=note;
-  }
-  ['p0','p1','q','s'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
-  calc();
-</script>
-  <script src="/analytics.js"></script>
+<header><h1>涨价逻辑监测看板</h1>
+<p>生成时间 2026-08-01 07:57 ｜ 数据日期 2026-07-31 ｜ 模式 实盘(Live) ｜ 对应吾知讲乜「涨价逻辑」五步法</p></header>
+<div class="cards">
+ <div class="card"><div class="n" style="color:#1a7a4a">3</div><div class="l">机会信号(错配/冲击)</div></div>
+ <div class="card"><div class="n" style="color:#b8860b">4</div><div class="l">警惕/退出信号</div></div>
+ <div class="card"><div class="n">33</div><div class="l">监测品种数</div></div>
+</div>
+<div class='oppbox'><b>🎯 确定性机会速览</b>　<span class='mut' style='font-weight:400'>筛选标准：价涨(实盘确认) + 股价未跟 + 不在顶部，三条同时成立</span><div style='margin:4px 0'><b style='color:#1a7a4a'>B·次确定</b>：乙二醇（<a href="../berkshire-commodity-co-002648.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">卫星化学</a>、<a href="../berkshire-commodity-co-600426.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">华鲁恒升</a> 等）— 价月 +28.1% / 股月 +2.7%</div><div class='mut' style='margin-top:5px'>其余品种见下表「机会判定」列；演示品种需接付费源后判定。</div></div>
+<div class="table-wrap">
+<table><thead><tr>
+ <th>品种</th><th>现价</th><th>月涨</th><th>周涨</th><th>代表标的/股月涨</th><th>信号</th><th>历史周期</th><th>机会判定</th><th>逻辑</th><th>弹性映射</th>
+</tr></thead><tbody>
+        <tr>
+          <td data-label="品种"><b>维生素E</b><span class="tag-demo">演示</span><br><span class="mut">化工 · VE</span></td>
+          <td data-label="现价" class="num">110<br><span class="mut">元/kg</span></td>
+          <td data-label="月涨" class="up">+83.3%</td>
+          <td data-label="周涨" class="up">+34.1%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-002001.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">新和成</a><br><span class="mut">-0.7%</span></td>
+          <td data-label="信号" style="border-left:3px solid #c0392b"><span class="pill" style="background:#c0392b22;color:#c0392b">供给冲击(急涨)</span> <span class="pill" style="background:#b8860b22;color:#b8860b">价涨股跌·警惕见顶</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#7f8c8d1a;color:#7f8c8d;border:1px solid #7f8c8d55">演示·周期未知</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">（演示数据，历史周期不可考；待接入付费源后判定）</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#7f8c8d1a;color:#7f8c8d;border:1px solid #7f8c8d55">演示·待核实</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">演示数据，历史周期/机会不可考；接付费源后自动判定</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 周涨 34.1%（门槛 20%），疑似事故/不可抗力型急涨<br>· 产品月涨 83.3% 而股价月跌 -0.7% → 股价领先见顶/派发，勿追</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-002001.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">新和成</a> (002001) 占比~30%·低成本龙头<br><a href="../berkshire-commodity-co-600216.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">浙江医药</a> (600216) 占比~22%·低成本龙头<br><span class="mut" style="color:#7f8c8d">↳ 上述企业当前处于：演示·周期未知</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>维生素A</b><span class="tag-demo">演示</span><br><span class="mut">化工 · VA</span></td>
+          <td data-label="现价" class="num">280<br><span class="mut">元/kg</span></td>
+          <td data-label="月涨" class="up">+259.0%</td>
+          <td data-label="周涨" class="up">+194.7%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-002001.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">新和成</a><br><span class="mut">-0.7%</span></td>
+          <td data-label="信号" style="border-left:3px solid #c0392b"><span class="pill" style="background:#c0392b22;color:#c0392b">供给冲击(急涨)</span> <span class="pill" style="background:#b8860b22;color:#b8860b">价涨股跌·警惕见顶</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#7f8c8d1a;color:#7f8c8d;border:1px solid #7f8c8d55">演示·周期未知</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">（演示数据，历史周期不可考；待接入付费源后判定）</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#7f8c8d1a;color:#7f8c8d;border:1px solid #7f8c8d55">演示·待核实</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">演示数据，历史周期/机会不可考；接付费源后自动判定</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 周涨 194.7%（门槛 20%），疑似事故/不可抗力型急涨<br>· 产品月涨 259.0% 而股价月跌 -0.7% → 股价领先见顶/派发，勿追</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-002001.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">新和成</a> (002001) 占比~14%·低成本龙头<br><a href="../berkshire-commodity-co-600216.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">浙江医药</a> (600216) 占比~9%·低成本龙头<br><span class="mut" style="color:#7f8c8d">↳ 上述企业当前处于：演示·周期未知</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>乙二醇</b><br><span class="mut">化工 · EG</span></td>
+          <td data-label="现价" class="num">5,002<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+28.1%</td>
+          <td data-label="周涨" class="up">+0.9%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-002648.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">卫星化学</a><br><span class="mut">+2.7%</span></td>
+          <td data-label="信号" style="border-left:3px solid #1a7a4a"><span class="pill" style="background:#1a7a4a22;color:#1a7a4a">错配买点</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#1a7a4a1a;color:#1a7a4a;border:1px solid #1a7a4a55">上行周期·中后段</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 55%–80%，正从中部往上走——像涨价故事讲到一半，利润还没完全兑现到财报，还有肉吃但别指望从头吃到尾。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#1f6feb1a;color:#1f6feb;border:1px solid #1f6feb55">B·次确定</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">价涨股未跟，但商品已涨一段，安全边际略低，仍可留意</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 产品月涨 28.1% 但代表标的(卫星化学)仅涨 2.7% → 预期尚未打满，存在错配</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-002648.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">卫星化学</a> (002648) 占比~45%·低成本龙头<br><a href="../berkshire-commodity-co-600426.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">华鲁恒升</a> (600426) 占比~30%·低成本龙头<br><span class="mut" style="color:#1a7a4a">↳ 上述企业当前处于：上行周期·中后段</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>磷矿石</b><span class="tag-demo">演示</span><br><span class="mut">化工 · PHOS_ROCK</span></td>
+          <td data-label="现价" class="num">1,100<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+14.0%</td>
+          <td data-label="周涨" class="up">+4.8%</td>
+          <td data-label="代表标的"><a href="../berkshire-fluorosilicone-co-600141.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">兴发集团</a><br><span class="mut">-31.7%</span></td>
+          <td data-label="信号" style="border-left:3px solid #b8860b"><span class="pill" style="background:#b8860b22;color:#b8860b">价涨股跌·警惕见顶</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#7f8c8d1a;color:#7f8c8d;border:1px solid #7f8c8d55">演示·周期未知</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">（演示数据，历史周期不可考；待接入付费源后判定）</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#7f8c8d1a;color:#7f8c8d;border:1px solid #7f8c8d55">演示·待核实</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">演示数据，历史周期/机会不可考；接付费源后自动判定</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 产品月涨 14.0% 而股价月跌 -31.7% → 股价领先见顶/派发，勿追</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-fluorosilicone-co-600141.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">兴发集团</a> (600141) 占比~40%·低成本龙头<br><a href="../berkshire-agri-chem-co-600096.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">云天化</a> (600096) 占比~35%·低成本龙头<br><span class="mut" style="color:#7f8c8d">↳ 上述企业当前处于：演示·周期未知</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>甲醇</b><br><span class="mut">化工 · METHANOL</span></td>
+          <td data-label="现价" class="num">2,618<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+11.5%</td>
+          <td data-label="周涨" class="dn">-5.0%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-000683.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">远兴能源</a><br><span class="mut">-1.2%</span></td>
+          <td data-label="信号" style="border-left:3px solid #b8860b"><span class="pill" style="background:#b8860b22;color:#b8860b">价涨股跌·警惕见顶</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#1f6feb1a;color:#1f6feb;border:1px solid #1f6feb55">中低位·磨底回升</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35%–55% 中部偏下，不贵也没热——像商场换季打折刚开始，可以挑挑拣拣，但别指望马上暴涨。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#c0392b1a;color:#c0392b;border:1px solid #c0392b55">⚠️警惕</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">已在高位或转弱，追高/接飞刀风险大</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 产品月涨 11.5% 而股价月跌 -1.2% → 股价领先见顶/派发，勿追</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-000683.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">远兴能源</a> (000683) 占比~40%·低成本龙头<br><a href="../berkshire-commodity-co-600722.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">金牛化工</a> (600722) 占比~30%·低成本龙头<br><a href="../berkshire-gas-co-600803.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">新奥股份</a> (600803) 占比~30%·低成本龙头<br><span class="mut" style="color:#1f6feb">↳ 上述企业当前处于：中低位·磨底回升</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>纯碱</b><br><span class="mut">化工 · SODA_ASH</span></td>
+          <td data-label="现价" class="num">935<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="dn">-15.2%</td>
+          <td data-label="周涨" class="dn">-6.9%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-000683.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">远兴能源</a><br><span class="mut">-1.2%</span></td>
+          <td data-label="信号" style="border-left:3px solid #922b21"><span class="pill" style="background:#922b2122;color:#922b21">周期下行·退出</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#922b211a;color:#922b21;border:1px solid #922b2155">地板·探底回落</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35% 以下低位，且近一年还在往下掉——像石头落井还没听回声，别急着接飞刀，等它横住再说。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#c0392b1a;color:#c0392b;border:1px solid #c0392b55">⚠️警惕</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">已在高位或转弱，追高/接飞刀风险大</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 产品月跌 -15.2%（门槛 -15%），业绩驱动转弱</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-000683.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">远兴能源</a> (000683) 占比~55%·低成本龙头<br><span class="mut" style="color:#922b21">↳ 上述企业当前处于：地板·探底回落</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>碳酸锂</b><br><span class="mut">有色 · LITHIUM</span></td>
+          <td data-label="现价" class="num">137,760<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="dn">-16.0%</td>
+          <td data-label="周涨" class="dn">-4.5%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-002466.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">天齐锂业</a><br><span class="mut">-24.4%</span></td>
+          <td data-label="信号" style="border-left:3px solid #922b21"><span class="pill" style="background:#922b2122;color:#922b21">周期下行·退出</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#1f6feb1a;color:#1f6feb;border:1px solid #1f6feb55">中低位·磨底回升</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35%–55% 中部偏下，不贵也没热——像商场换季打折刚开始，可以挑挑拣拣，但别指望马上暴涨。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#c0392b1a;color:#c0392b;border:1px solid #c0392b55">⚠️警惕</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">已在高位或转弱，追高/接飞刀风险大</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 产品月跌 -16.0%（门槛 -15%），业绩驱动转弱</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-002466.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">天齐锂业</a> (002466) 占比~55%·低成本龙头<br><a href="../berkshire-commodity-co-002460.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">赣锋锂业</a> (002460) 占比~50%·低成本龙头<br><span class="mut" style="color:#1f6feb">↳ 上述企业当前处于：中低位·磨底回升</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>铜</b><br><span class="mut">有色 · CU</span></td>
+          <td data-label="现价" class="num">105,460<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+3.4%</td>
+          <td data-label="周涨" class="up">+0.7%</td>
+          <td data-label="代表标的"><a href="../berkshire-gold-mine-co-601899.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">紫金矿业</a><br><span class="mut">+25.3%</span></td>
+          <td data-label="信号" style="border-left:3px solid #1f6feb"><span class="pill" style="background:#1f6feb22;color:#1f6feb">趋势中·已反映</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#c0392b1a;color:#c0392b;border:1px solid #c0392b55">历史高位·接近顶部</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 80% 以上高位，且近一年明显上行——就像猪肉 2022 年底那波，涨到大家都觉得贵了，离顶部不远，追高风险大。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#c0392b1a;color:#c0392b;border:1px solid #c0392b55">⚠️警惕</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">已在高位或转弱，追高/接飞刀风险大</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 3.4%、股月涨 25.3%，股价已基本反映，无错配</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-gold-mine-co-601899.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">紫金矿业</a> (601899) 占比~50%·低成本龙头<br><a href="../berkshire-commodity-co-601168.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">西部矿业</a> (601168) 占比~45%·低成本龙头<br><a href="../berkshire-commodity-co-603993.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">洛阳钼业</a> (603993) 占比~40%·低成本龙头<br><span class="mut" style="color:#c0392b">↳ 上述企业当前处于：历史高位·接近顶部</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>铝</b><br><span class="mut">有色 · AL</span></td>
+          <td data-label="现价" class="num">23,630<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+5.5%</td>
+          <td data-label="周涨" class="up">+1.7%</td>
+          <td data-label="代表标的"><a href="../berkshire-copper-alu-co-000807.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">云铝股份</a><br><span class="mut">+22.3%</span></td>
+          <td data-label="信号" style="border-left:3px solid #1f6feb"><span class="pill" style="background:#1f6feb22;color:#1f6feb">趋势中·已反映</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#1a7a4a1a;color:#1a7a4a;border:1px solid #1a7a4a55">上行周期·中后段</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 55%–80%，正从中部往上走——像涨价故事讲到一半，利润还没完全兑现到财报，还有肉吃但别指望从头吃到尾。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 5.5%、股月涨 22.3%，股价已基本反映，无错配</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-copper-alu-co-000807.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">云铝股份</a> (000807) 占比~45%·低成本龙头<br><a href="../berkshire-commodity-co-000933.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">神火股份</a> (000933) 占比~40%·低成本龙头<br><span class="mut" style="color:#1a7a4a">↳ 上述企业当前处于：上行周期·中后段</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>PVC</b><br><span class="mut">化工 · PVC</span></td>
+          <td data-label="现价" class="num">4,480<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+2.5%</td>
+          <td data-label="周涨" class="dn">-3.8%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-002092.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">中泰化学</a><br><span class="mut">+6.8%</span></td>
+          <td data-label="信号" style="border-left:3px solid #1f6feb"><span class="pill" style="background:#1f6feb22;color:#1f6feb">趋势中·已反映</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#922b211a;color:#922b21;border:1px solid #922b2155">地板·探底回落</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35% 以下低位，且近一年还在往下掉——像石头落井还没听回声，别急着接飞刀，等它横住再说。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 2.5%、股月涨 6.8%，股价已基本反映，无错配</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-002092.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">中泰化学</a> (002092) 占比~45%·低成本龙头<br><a href="../berkshire-commodity-co-600075.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">新疆天业</a> (600075) 占比~35%·低成本龙头<br><a href="../berkshire-commodity-co-600618.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">氯碱化工</a> (600618) 占比~30%·低成本龙头<br><span class="mut" style="color:#922b21">↳ 上述企业当前处于：地板·探底回落</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>聚烯烃</b><br><span class="mut">化工 · POLYOLEFIN</span></td>
+          <td data-label="现价" class="num">8,310<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+16.6%</td>
+          <td data-label="周涨" class="dn">-1.9%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-600989.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">宝丰能源</a><br><span class="mut">+13.4%</span></td>
+          <td data-label="信号" style="border-left:3px solid #1f6feb"><span class="pill" style="background:#1f6feb22;color:#1f6feb">趋势中·已反映</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#1a7a4a1a;color:#1a7a4a;border:1px solid #1a7a4a55">上行周期·中后段</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 55%–80%，正从中部往上走——像涨价故事讲到一半，利润还没完全兑现到财报，还有肉吃但别指望从头吃到尾。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 16.6%、股月涨 13.4%，股价已基本反映，无错配</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-600989.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">宝丰能源</a> (600989) 占比~45%·低成本龙头<br><a href="../berkshire-commodity-co-002221.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">东华能源</a> (002221) 占比~30%·低成本龙头<br><span class="mut" style="color:#1a7a4a">↳ 上述企业当前处于：上行周期·中后段</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>菜油</b><br><span class="mut">农产 · RAPEOIL</span></td>
+          <td data-label="现价" class="num">9,894<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+3.4%</td>
+          <td data-label="周涨" class="dn">-3.8%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-002852.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">道道全</a><br><span class="mut">+4.8%</span></td>
+          <td data-label="信号" style="border-left:3px solid #1f6feb"><span class="pill" style="background:#1f6feb22;color:#1f6feb">趋势中·已反映</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#b9770e1a;color:#b9770e;border:1px solid #b9770e55">高位磨顶</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 80% 以上，但近一年没再往上冲、在原地晃——像在山顶搭帐篷，随时可能往下撤，别在山顶接盘。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#c0392b1a;color:#c0392b;border:1px solid #c0392b55">⚠️警惕</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">已在高位或转弱，追高/接飞刀风险大</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 3.4%、股月涨 4.8%，股价已基本反映，无错配</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-002852.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">道道全</a> (002852) 占比~45%·低成本龙头<br><span class="mut" style="color:#b9770e">↳ 上述企业当前处于：高位磨顶</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>棕榈油</b><br><span class="mut">农产 · PALMOIL</span></td>
+          <td data-label="现价" class="num">9,281<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+1.3%</td>
+          <td data-label="周涨" class="dn">-3.0%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-002852.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">道道全</a><br><span class="mut">+4.8%</span></td>
+          <td data-label="信号" style="border-left:3px solid #1f6feb"><span class="pill" style="background:#1f6feb22;color:#1f6feb">趋势中·已反映</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#1a7a4a1a;color:#1a7a4a;border:1px solid #1a7a4a55">上行周期·中后段</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 55%–80%，正从中部往上走——像涨价故事讲到一半，利润还没完全兑现到财报，还有肉吃但别指望从头吃到尾。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 1.3%、股月涨 4.8%，股价已基本反映，无错配</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-002852.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">道道全</a> (002852) 占比~35%·低成本龙头<br><a href="../berkshire-commodity-co-000505.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">京粮控股</a> (000505) 占比~30%·低成本龙头<br><span class="mut" style="color:#1a7a4a">↳ 上述企业当前处于：上行周期·中后段</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>钛白粉</b><span class="tag-demo">演示</span><br><span class="mut">化工 · TIO2</span></td>
+          <td data-label="现价" class="num">16,500<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+6.5%</td>
+          <td data-label="周涨" class="up">+1.9%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-002601.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">龙佰集团</a><br><span class="mut">-2.6%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#7f8c8d1a;color:#7f8c8d;border:1px solid #7f8c8d55">演示·周期未知</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">（演示数据，历史周期不可考；待接入付费源后判定）</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#7f8c8d1a;color:#7f8c8d;border:1px solid #7f8c8d55">演示·待核实</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">演示数据，历史周期/机会不可考；接付费源后自动判定</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 6.5%、股月涨 -2.6%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-002601.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">龙佰集团</a> (002601) 占比~60%·低成本龙头<br><span class="mut" style="color:#7f8c8d">↳ 上述企业当前处于：演示·周期未知</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>黄金</b><br><span class="mut">有色 · GOLD</span></td>
+          <td data-label="现价" class="num">888<br><span class="mut">元/克</span></td>
+          <td data-label="月涨" class="dn">-0.3%</td>
+          <td data-label="周涨" class="up">+0.5%</td>
+          <td data-label="代表标的"><a href="../berkshire-gold-mine-co-600547.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">山东黄金</a><br><span class="mut">+16.6%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#1f6feb1a;color:#1f6feb;border:1px solid #1f6feb55">中低位·磨底回升</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35%–55% 中部偏下，不贵也没热——像商场换季打折刚开始，可以挑挑拣拣，但别指望马上暴涨。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 -0.3%、股月涨 16.6%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-gold-mine-co-600547.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">山东黄金</a> (600547) 占比~50%·低成本龙头<br><a href="../berkshire-gold-mine-co-601899.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">紫金矿业</a> (601899) 占比~20%·低成本龙头<br><span class="mut" style="color:#1f6feb">↳ 上述企业当前处于：中低位·磨底回升</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>锌</b><br><span class="mut">有色 · ZINC</span></td>
+          <td data-label="现价" class="num">24,890<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+3.1%</td>
+          <td data-label="周涨" class="up">+0.4%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-000751.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">锌业股份</a><br><span class="mut">-23.9%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#b9770e1a;color:#b9770e;border:1px solid #b9770e55">高位磨顶</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 80% 以上，但近一年没再往上冲、在原地晃——像在山顶搭帐篷，随时可能往下撤，别在山顶接盘。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#c0392b1a;color:#c0392b;border:1px solid #c0392b55">⚠️警惕</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">已在高位或转弱，追高/接飞刀风险大</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 3.1%、股月涨 -23.9%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-000751.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">锌业股份</a> (000751) 占比~45%·低成本龙头<br><a href="../berkshire-commodity-co-000060.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">中金岭南</a> (000060) 占比~40%·低成本龙头<br><a href="../berkshire-commodity-co-600497.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">驰宏锌锗</a> (600497) 占比~30%·低成本龙头<br><span class="mut" style="color:#b9770e">↳ 上述企业当前处于：高位磨顶</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>铅</b><br><span class="mut">有色 · LEAD</span></td>
+          <td data-label="现价" class="num">15,550<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="dn">-1.4%</td>
+          <td data-label="周涨" class="dn">-1.1%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-600531.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">豫光金铅</a><br><span class="mut">-21.3%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">历史低位·筑底</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35% 以下低位，横了很久没动——像咸鱼躺平，没催化剂就一直趴着，只适合慢慢囤、等故事。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 -1.4%、股月涨 -21.3%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-600531.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">豫光金铅</a> (600531) 占比~45%·低成本龙头<br><a href="../berkshire-commodity-co-000060.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">中金岭南</a> (000060) 占比~35%·低成本龙头<br><span class="mut" style="color:#5b6776">↳ 上述企业当前处于：历史低位·筑底</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>镍</b><br><span class="mut">有色 · NICKEL</span></td>
+          <td data-label="现价" class="num">131,680<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+5.2%</td>
+          <td data-label="周涨" class="dn">-1.5%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-002340.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">格林美</a><br><span class="mut">+1.7%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#922b211a;color:#922b21;border:1px solid #922b2155">地板·探底回落</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35% 以下低位，且近一年还在往下掉——像石头落井还没听回声，别急着接飞刀，等它横住再说。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 5.2%、股月涨 1.7%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-002340.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">格林美</a> (002340) 占比~40%·低成本龙头<br><a href="../berkshire-commodity-co-600711.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">盛屯矿业</a> (600711) 占比~35%·低成本龙头<br><a href="../berkshire-commodity-co-300208.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">青岛中程</a> (300208) 占比~20%·低成本龙头<br><span class="mut" style="color:#922b21">↳ 上述企业当前处于：地板·探底回落</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>锡</b><br><span class="mut">有色 · TIN</span></td>
+          <td data-label="现价" class="num">425,570<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+8.2%</td>
+          <td data-label="周涨" class="up">+2.8%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-000960.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">锡业股份</a><br><span class="mut">-17.3%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#c0392b1a;color:#c0392b;border:1px solid #c0392b55">历史高位·接近顶部</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 80% 以上高位，且近一年明显上行——就像猪肉 2022 年底那波，涨到大家都觉得贵了，离顶部不远，追高风险大。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#c0392b1a;color:#c0392b;border:1px solid #c0392b55">⚠️警惕</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">已在高位或转弱，追高/接飞刀风险大</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 8.2%、股月涨 -17.3%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-000960.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">锡业股份</a> (000960) 占比~70%·低成本龙头<br><span class="mut" style="color:#c0392b">↳ 上述企业当前处于：历史高位·接近顶部</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>白银</b><br><span class="mut">有色 · SILVER</span></td>
+          <td data-label="现价" class="num">14,264<br><span class="mut">元/千克</span></td>
+          <td data-label="月涨" class="dn">-2.6%</td>
+          <td data-label="周涨" class="up">+0.8%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-000603.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">盛达资源</a><br><span class="mut">+2.8%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#922b211a;color:#922b21;border:1px solid #922b2155">地板·探底回落</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35% 以下低位，且近一年还在往下掉——像石头落井还没听回声，别急着接飞刀，等它横住再说。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 -2.6%、股月涨 2.8%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-000603.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">盛达资源</a> (000603) 占比~40%·低成本龙头<br><a href="../berkshire-commodity-co-000426.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">兴业银锡</a> (000426) 占比~30%·低成本龙头<br><a href="../berkshire-commodity-co-600531.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">豫光金铅</a> (600531) 占比~20%·低成本龙头<br><span class="mut" style="color:#922b21">↳ 上述企业当前处于：地板·探底回落</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>铁矿石</b><br><span class="mut">钢铁上游 · IRON_ORE</span></td>
+          <td data-label="现价" class="num">716<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="dn">-3.2%</td>
+          <td data-label="周涨" class="dn">-4.0%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-603969.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">海南矿业</a><br><span class="mut">-10.5%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#922b211a;color:#922b21;border:1px solid #922b2155">地板·探底回落</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35% 以下低位，且近一年还在往下掉——像石头落井还没听回声，别急着接飞刀，等它横住再说。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 -3.2%、股月涨 -10.5%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-603969.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">海南矿业</a> (603969) 占比~45%·低成本龙头<br><a href="../berkshire-commodity-co-000655.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">金岭矿业</a> (000655) 占比~35%·低成本龙头<br><a href="../berkshire-commodity-co-000923.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">河钢资源</a> (000923) 占比~20%·低成本龙头<br><span class="mut" style="color:#922b21">↳ 上述企业当前处于：地板·探底回落</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>焦炭</b><br><span class="mut">钢铁上游 · COKE</span></td>
+          <td data-label="现价" class="num">1,767<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="dn">-7.2%</td>
+          <td data-label="周涨" class="dn">-4.0%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-601088.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">中国神华</a><br><span class="mut">+12.1%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">历史低位·筑底</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35% 以下低位，横了很久没动——像咸鱼躺平，没催化剂就一直趴着，只适合慢慢囤、等故事。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 -7.2%、股月涨 12.1%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-601088.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">中国神华</a> (601088) 占比~40%·低成本龙头<br><a href="../berkshire-commodity-co-600188.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">兖矿能源</a> (600188) 占比~35%·低成本龙头<br><a href="../berkshire-commodity-co-600546.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">山煤国际</a> (600546) 占比~25%·低成本龙头<br><span class="mut" style="color:#5b6776">↳ 上述企业当前处于：历史低位·筑底</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>焦煤</b><br><span class="mut">钢铁上游 · COKING_COAL</span></td>
+          <td data-label="现价" class="num">1,181<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="dn">-6.8%</td>
+          <td data-label="周涨" class="dn">-8.1%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-000983.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">山西焦煤</a><br><span class="mut">+7.1%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">历史低位·筑底</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35% 以下低位，横了很久没动——像咸鱼躺平，没催化剂就一直趴着，只适合慢慢囤、等故事。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 -6.8%、股月涨 7.1%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-000983.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">山西焦煤</a> (000983) 占比~45%·低成本龙头<br><a href="../berkshire-commodity-co-601088.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">中国神华</a> (601088) 占比~30%·低成本龙头<br><a href="../berkshire-commodity-co-600546.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">山煤国际</a> (600546) 占比~25%·低成本龙头<br><span class="mut" style="color:#5b6776">↳ 上述企业当前处于：历史低位·筑底</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>PTA</b><br><span class="mut">化工 · PTA</span></td>
+          <td data-label="现价" class="num">5,782<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+8.5%</td>
+          <td data-label="周涨" class="dn">-1.3%</td>
+          <td data-label="代表标的"><a href="../berkshire-chemical-fiber-co-600346.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">恒力石化</a><br><span class="mut">-5.5%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#1a7a4a1a;color:#1a7a4a;border:1px solid #1a7a4a55">上行周期·中后段</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 55%–80%，正从中部往上走——像涨价故事讲到一半，利润还没完全兑现到财报，还有肉吃但别指望从头吃到尾。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 8.5%、股月涨 -5.5%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-chemical-fiber-co-600346.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">恒力石化</a> (600346) 占比~45%·低成本龙头<br><a href="../berkshire-chemical-fiber-co-002493.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">荣盛石化</a> (002493) 占比~40%·低成本龙头<br><a href="../berkshire-chemical-fiber-co-601233.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">桐昆股份</a> (601233) 占比~35%·低成本龙头<br><a href="../berkshire-chemical-fiber-co-000703.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">恒逸石化</a> (000703) 占比~30%·低成本龙头<br><span class="mut" style="color:#1a7a4a">↳ 上述企业当前处于：上行周期·中后段</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>尿素</b><br><span class="mut">化工 · UREA</span></td>
+          <td data-label="现价" class="num">1,734<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="up">+1.2%</td>
+          <td data-label="周涨" class="dn">-1.4%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-600426.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">华鲁恒升</a><br><span class="mut">-13.0%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#922b211a;color:#922b21;border:1px solid #922b2155">地板·探底回落</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35% 以下低位，且近一年还在往下掉——像石头落井还没听回声，别急着接飞刀，等它横住再说。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 1.2%、股月涨 -13.0%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-600426.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">华鲁恒升</a> (600426) 占比~45%·低成本龙头<br><a href="../berkshire-agri-chem-co-000422.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">湖北宜化</a> (000422) 占比~35%·低成本龙头<br><a href="../berkshire-commodity-co-600691.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">阳煤化工</a> (600691) 占比~25%·低成本龙头<br><span class="mut" style="color:#922b21">↳ 上述企业当前处于：地板·探底回落</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>玻璃</b><br><span class="mut">化工 · GLASS</span></td>
+          <td data-label="现价" class="num">875<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="dn">-9.4%</td>
+          <td data-label="周涨" class="dn">-3.6%</td>
+          <td data-label="代表标的"><a href="../berkshire-glass-co-601636.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">旗滨集团</a><br><span class="mut">-37.8%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#922b211a;color:#922b21;border:1px solid #922b2155">地板·探底回落</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35% 以下低位，且近一年还在往下掉——像石头落井还没听回声，别急着接飞刀，等它横住再说。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 -9.4%、股月涨 -37.8%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-glass-co-601636.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">旗滨集团</a> (601636) 占比~45%·低成本龙头<br><a href="../berkshire-glass-co-601865.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">福莱特</a> (601865) 占比~30%·低成本龙头<br><span class="mut" style="color:#922b21">↳ 上述企业当前处于：地板·探底回落</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>白糖</b><br><span class="mut">农产 · SUGAR</span></td>
+          <td data-label="现价" class="num">5,053<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="dn">-4.1%</td>
+          <td data-label="周涨" class="dn">-2.0%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-600737.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">中粮糖业</a><br><span class="mut">+5.7%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">历史低位·筑底</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35% 以下低位，横了很久没动——像咸鱼躺平，没催化剂就一直趴着，只适合慢慢囤、等故事。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 -4.1%、股月涨 5.7%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-600737.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">中粮糖业</a> (600737) 占比~45%·低成本龙头<br><a href="../berkshire-commodity-co-000911.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">南宁糖业</a> (000911) 占比~35%·低成本龙头<br><span class="mut" style="color:#5b6776">↳ 上述企业当前处于：历史低位·筑底</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>棉花</b><br><span class="mut">农产 · COTTON</span></td>
+          <td data-label="现价" class="num">15,745<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="dn">-2.4%</td>
+          <td data-label="周涨" class="dn">-1.6%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-600359.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">新农开发</a><br><span class="mut">+5.9%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#1a7a4a1a;color:#1a7a4a;border:1px solid #1a7a4a55">上行周期·中后段</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 55%–80%，正从中部往上走——像涨价故事讲到一半，利润还没完全兑现到财报，还有肉吃但别指望从头吃到尾。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 -2.4%、股月涨 5.9%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-600359.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">新农开发</a> (600359) 占比~40%·低成本龙头<br><a href="../berkshire-commodity-co-600540.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">新赛股份</a> (600540) 占比~35%·低成本龙头<br><span class="mut" style="color:#1a7a4a">↳ 上述企业当前处于：上行周期·中后段</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>豆油</b><br><span class="mut">农产 · SOYOIL</span></td>
+          <td data-label="现价" class="num">8,406<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="dn">-0.2%</td>
+          <td data-label="周涨" class="dn">-2.5%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-002852.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">道道全</a><br><span class="mut">+4.8%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#1a7a4a1a;color:#1a7a4a;border:1px solid #1a7a4a55">上行周期·中后段</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 55%–80%，正从中部往上走——像涨价故事讲到一半，利润还没完全兑现到财报，还有肉吃但别指望从头吃到尾。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 -0.2%、股月涨 4.8%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-002852.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">道道全</a> (002852) 占比~30%·低成本龙头<br><a href="../berkshire-commodity-co-000505.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">京粮控股</a> (000505) 占比~30%·低成本龙头<br><span class="mut" style="color:#1a7a4a">↳ 上述企业当前处于：上行周期·中后段</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>玉米</b><br><span class="mut">农产 · CORN</span></td>
+          <td data-label="现价" class="num">2,269<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="dn">-2.6%</td>
+          <td data-label="周涨" class="dn">-0.4%</td>
+          <td data-label="代表标的"><a href="../berkshire-seed-co-002041.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">登海种业</a><br><span class="mut">+8.9%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">历史低位·筑底</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35% 以下低位，横了很久没动——像咸鱼躺平，没催化剂就一直趴着，只适合慢慢囤、等故事。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 -2.6%、股月涨 8.9%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-seed-co-002041.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">登海种业</a> (002041) 占比~45%·低成本龙头<br><a href="../berkshire-seed-co-600371.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">万向德农</a> (600371) 占比~35%·低成本龙头<br><span class="mut" style="color:#5b6776">↳ 上述企业当前处于：历史低位·筑底</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>大豆</b><br><span class="mut">农产 · SOYBEAN1</span></td>
+          <td data-label="现价" class="num">4,704<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="dn">-1.3%</td>
+          <td data-label="周涨" class="dn">-1.5%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-600598.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">北大荒</a><br><span class="mut">+9.8%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#1a7a4a1a;color:#1a7a4a;border:1px solid #1a7a4a55">上行周期·中后段</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 55%–80%，正从中部往上走——像涨价故事讲到一半，利润还没完全兑现到财报，还有肉吃但别指望从头吃到尾。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 -1.3%、股月涨 9.8%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-600598.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">北大荒</a> (600598) 占比~50%·低成本龙头<br><a href="../berkshire-commodity-co-600359.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">新农开发</a> (600359) 占比~20%·低成本龙头<br><span class="mut" style="color:#1a7a4a">↳ 上述企业当前处于：上行周期·中后段</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>橡胶</b><br><span class="mut">农产 · RUBBER</span></td>
+          <td data-label="现价" class="num">16,375<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="dn">-1.2%</td>
+          <td data-label="周涨" class="dn">-2.3%</td>
+          <td data-label="代表标的"><a href="../berkshire-commodity-co-601118.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">海南橡胶</a><br><span class="mut">+1.4%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#1a7a4a1a;color:#1a7a4a;border:1px solid #1a7a4a55">上行周期·中后段</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 55%–80%，正从中部往上走——像涨价故事讲到一半，利润还没完全兑现到财报，还有肉吃但别指望从头吃到尾。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 -1.2%、股月涨 1.4%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-commodity-co-601118.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">海南橡胶</a> (601118) 占比~55%·低成本龙头<br><a href="../berkshire-commodity-co-600500.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">中化国际</a> (600500) 占比~30%·低成本龙头<br><span class="mut" style="color:#1a7a4a">↳ 上述企业当前处于：上行周期·中后段</span></td>
+        </tr>
+        <tr>
+          <td data-label="品种"><b>纸浆</b><br><span class="mut">其他 · PULP</span></td>
+          <td data-label="现价" class="num">4,672<br><span class="mut">元/吨</span></td>
+          <td data-label="月涨" class="dn">-1.4%</td>
+          <td data-label="周涨" class="dn">-2.7%</td>
+          <td data-label="代表标的"><a href="../berkshire-paper-co-000488.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">晨鸣纸业</a><br><span class="mut">+0.0%</span></td>
+          <td data-label="信号" style="border-left:3px solid #7f8c8d"><span class="pill" style="background:#7f8c8d22;color:#7f8c8d">波动小·观察</span></td>
+          <td data-label="历史周期" style="font-size:12px;min-width:150px"><span class="tag-cyc" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">历史低位·筑底</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">现价处在近三年区间 35% 以下低位，横了很久没动——像咸鱼躺平，没催化剂就一直趴着，只适合慢慢囤、等故事。</span></td>
+          <td data-label="机会判定" style="font-size:12px;min-width:165px"><span class="tag-opp" style="background:#5b67761a;color:#5b6776;border:1px solid #5b677655">⚪非时机</span><br><span class="mut" style="font-size:11px;display:block;margin-top:3px">暂不满足&#x27;价涨+股未跟+不在顶&#x27;，继续观察</span></td>
+          <td data-label="逻辑" style="font-size:12.5px">· 价月涨 -1.4%、股月涨 0.0%，波动小</td>
+          <td data-label="弹性映射" style="font-size:12px" class="mut"><a href="../berkshire-paper-co-000488.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">晨鸣纸业</a> (000488) 占比~35%·低成本龙头<br><a href="../berkshire-paper-co-002078.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">太阳纸业</a> (002078) 占比~30%·低成本龙头<br><a href="../berkshire-paper-co-600966.html" target="_blank" rel="noopener" style="color:#1f6feb;text-decoration:none;font-weight:500">博汇纸业</a> (600966) 占比~25%·低成本龙头<br><span class="mut" style="color:#5b6776">↳ 上述企业当前处于：历史低位·筑底</span></td>
+        </tr></tbody></table>
+</div>
+<p class="foot">信号含义：错配买点=价涨股未涨(安全边际)；供给冲击=周涨急涨(事故/不可抗力)；价涨股跌=见顶派发警惕；周期下行=考虑退出。
+本看板为方法论演示，不构成投资建议。实盘请接入真实行情并自行核对。 标注「演示」的 4 个品种(VE/VA/钛白粉/磷矿石)为生意社/百川盈孚付费源，暂无免费接口，暂用演示数据；接入付费源后自动转实盘。</p>
+</div>  <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
-</body>
-</html>
+</body></html>
