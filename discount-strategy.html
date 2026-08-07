@@ -657,6 +657,21 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     <b>贴水只缓冲约 <span id="eg-cushion"></span> 的下跌</b>，超过即净亏——它救不了单边熊市，真跌起来该减仓/降杠杆而非指望贴水。
   </div>
 
+  <h3 class="eg-h">③-续 下跌时"继续滚"的真实账（年化视角，自动算）</h3>
+  <div class="note" style="margin-top:0;margin-bottom:8px">
+    上面 ③ 是"持有到期一次"的账：贴水只在开仓那一刻锁 ~4.16%（224 天），跌超即净亏。<b>继续滚则每轮都重新吃一次贴水</b>——
+    IM2703 年化贴水 ≈ <span id="eg-ann"></span>，等于你<b>每年</b>能重新补这么厚的缓冲。
+    所以"继续滚"在下跌市里是<b>少亏、不是避险</b>：年跌幅 ≤ 年化贴水时整体仍赚；年跌幅 &gt; 年化贴水时净亏，但比裸持现货少亏这截贴水。
+  </div>
+  <table class="eg-stress">
+    <thead><tr><th>指数年化跌幅</th><th class="num">指数盈亏/年</th><th class="num">+ 年化贴水</th><th class="num">净盈亏/年</th><th class="num">比裸持少亏</th><th>结论</th></tr></thead>
+    <tbody id="eg-rolldown"><!-- JS 填充 --></tbody>
+  </table>
+  <div class="note" style="margin-top:10px">
+    ⚠️ 缓冲以进场名义市值（<span id="eg-ann-nominal"></span>）估算；实际每滚一轮名义随指数下降而递减，真实缓冲会略小于表中值。
+    结论不变：<b>滚贴水救不了单边熊市，它只是把 beta 亏损削掉一截年化贴水</b>——真遇深跌仍要按 ④ 退出条件降杠杆/减仓。
+  </div>
+
   <h3 class="eg-h">④ 退出条件（策略的终局）</h3>
   <ul class="eg-exit">
     <li><b>贴水普遍消失 / 转升水</b>：全合约年化贴水转负（像现在 2608 那样 −43%）→ 边缘优势没了，按日历 banner 提示换 <b>159845 / 510500</b> ETF 兜底。</li>
@@ -1341,6 +1356,35 @@ function update(){
   // 填充注脚数字
   const em=document.getElementById("eg-margin"); if(em) em.textContent=wan(margin)+"（"+(margin/10000).toFixed(1)+"万/手）";
   const ec2=document.getElementById("eg-cushion"); if(ec2) ec2.textContent=(Math.abs(breakeven)*100).toFixed(1)+"%";
+
+  // ③-续 下跌时"继续滚"的真实账（年化视角）
+  const annYield=r.ann/100;                 // 年化贴水收益率
+  const annAmt=annYield*nominal;            // 年化贴水绝对额（以进场名义计）
+  const ea=document.getElementById("eg-ann"); if(ea) ea.textContent=r.ann.toFixed(2)+"%";
+  const ean=document.getElementById("eg-ann-nominal"); if(ean) ean.textContent=wan(nominal)+"（"+(nominal/10000).toFixed(1)+"万/手）";
+  const rd=[{g:-0.05},{g:-annYield,special:true},{g:-0.10},{g:-0.20}];
+  rd.sort((a,b)=>a.g-b.g);
+  let rh="";
+  for(const x of rd){
+    const g=x.g;
+    const idxPnl=g*spot*mult;
+    const net=idxPnl+annAmt;
+    const isBE=!!x.special;
+    let cls="",concl="",pillCls="";
+    if(net>=0){ cls=""; concl="整体仍赚 ✅"; pillCls="ok"; }
+    else { cls="blow"; concl="净亏，但比裸持少亏贴水 ⚠️"; pillCls="blow"; }
+    if(isBE){ cls="mc"; concl="≈ 持平（贴水吃完）"; pillCls="call"; }
+    const gLabel=isBE?`≈ ${(g*100).toFixed(1)}%（年化贴水）`:`${(g*100).toFixed(0)}%`;
+    const netStr=isBE?"≈ 0":`${net>=0?"+":""}${(net/10000).toFixed(1)}万`;
+    rh+=`<tr class="${cls}">`+
+      `<td>${gLabel}</td>`+
+      `<td class="num" style="color:${idxPnl<0?'#c0392b':'#2e8b57'}">${idxPnl>=0?'+':''}${(idxPnl/10000).toFixed(1)}万</td>`+
+      `<td class="num">+${(annAmt/10000).toFixed(1)}万</td>`+
+      `<td class="num" style="color:${net<0?'#c0392b':'#2e8b57'};font-weight:700">${netStr}</td>`+
+      `<td class="num">+${(annAmt/10000).toFixed(1)}万</td>`+
+      `<td><span class="pill ${pillCls}">${concl}</span></td></tr>`;
+  }
+  const rdEl=document.getElementById("eg-rolldown"); if(rdEl) rdEl.innerHTML=rh;
 })();
 
 update();
