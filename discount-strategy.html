@@ -77,13 +77,16 @@ h3{font-size:14px;font-weight:650;margin-bottom:10px;color:var(--ink2)}
 .bg-grp .stl{font-size:11px;color:var(--ink3);margin-bottom:12px}
 .bar-row{display:flex;align-items:center;gap:8px;margin-bottom:9px}
 .bar-lb{font-size:11px;color:var(--ink3);width:34px;flex-shrink:0;font-variant-numeric:tabular-nums}
-.bar-tr{flex:1;height:22px;background:#fafafa;border:1px solid var(--line);border-radius:4px;overflow:hidden;position:relative}
+.bar-tr{flex:1;height:24px;background:#fafafa;border:1px solid var(--line);border-radius:4px;overflow:visible;position:relative}
 /* 刻度（0%/5%/10% 三档）*/
 .bar-tr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--ink3);opacity:0.4}
 .bar-tr::after{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line);opacity:0.6}
-.bar-fl{height:100%;border-radius:2px;transition:width .6s cubic-bezier(.2,.8,.3,1);min-width:2px;cursor:help}
+/* 关键：bar-fl 必须 position:absolute，否则 height:100% 在 inline <span> 上被忽略 → 柱体高度坍缩为 0、看不见 */
+.bar-fl{position:absolute;top:0;left:0;height:100%;border-radius:2px;display:flex;align-items:center;padding:0 6px;min-width:2px;cursor:help;transition:width .6s cubic-bezier(.2,.8,.3,1);overflow:visible}
 .bar-fl.discount{opacity:1}  /* 贴水：合约原色全色 */
-.bar-fl.premium{opacity:0.6;background-image:linear-gradient(135deg,rgba(255,255,255,.35) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.35) 50%,rgba(255,255,255,.35) 75%,transparent 75%);background-size:8px 8px}  /* 升水：半透明+斜纹提示风险 */
+.bar-fl.premium{opacity:0.82;background-image:linear-gradient(135deg,rgba(255,255,255,.30) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.30) 50%,rgba(255,255,255,.30) 75%,transparent 75%);background-size:9px 9px}  /* 升水：斜纹+提高透明度确保白字清晰 */
+/* 数字内嵌到柱上（白字+深阴影），即便柱很窄文字溢出到灰 track 上也靠阴影保证可读 */
+.bar-num{font-size:11px;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.7),0 0 1px rgba(0,0,0,.3);white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:-.3px}
 .bar-vl{font-size:11px;font-weight:650;width:42px;text-align:right;flex-shrink:0;font-variant-numeric:tabular-nums}
 .bar-tag{font-size:10px;font-weight:600;width:30px;text-align:center;flex-shrink:0;padding:2px 0;border-radius:3px;background:#fbfbfa}
 .bars-note{font-size:11.5px;color:var(--ink3);margin-top:10px;line-height:1.6;padding:10px 14px;background:#fbfbfa;border-left:3px solid #d4af37;border-radius:3px}
@@ -294,10 +297,10 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     <div class="bars-scale"><span>0%</span><span>5%</span><span>10%</span></div>
     <div class="bars-note">
       <b>入门版读法（最简单）：</b><br>
-      ① <b>柱子越长 = 偏离 0% 越远。</b> 长度只表示年化贴水率的<b>绝对值</b>，满格 10%。<br>
-      ② <b>颜色 = 方向（赚/亏）：</b>合约原色实色 = 贴水赚（持有到期多收）；红色斜纹半透明 = 升水亏（持有到期要亏）。<br>
+      ① <b>柱上白字 = 数值（数字直接印在条上，所见即所得）。</b> 柱长 = 年化贴水率<b>绝对值</b>，满格 10%。<br>
+      ② <b>颜色 = 方向（赚/亏）：</b>合约原色实色 = 贴水赚（持有到期多收）；红色斜纹 = 升水亏（持有到期要亏）。<br>
       ③ <b>数字前符号</b><code>+</code>= 贴水（赚），<code>−</code>= 升水（亏）。<br>
-      ④ <b>末端标签</b>"贴水"或"升水"再次明示，绝不混淆。<br>
+      ④ <b>右端标签</b>"贴水"或"升水"再次明示，绝不混淆。<br>
       ⑤ <b>鼠标悬停每根柱</b>可看完整数据：期货/现货点位、月均贴水、剩余天数、持有到期每手赚/亏金额。
     </div>
   </div>
@@ -819,11 +822,12 @@ for(const p of ["IM","IC","IF","IH"]){
 }
 document.getElementById("bars-pro").innerHTML=bhPro;
 
-// ---- bars (单轴版本：所有柱子统一从左往右长，方向用颜色+符号+标签明示) ----
+// ---- bars (入门版：所有柱子统一从左往右长 + 数字内嵌在条上) ----
 // 设计原则：非金融用户对"双向零基准"不直观。
 // 简化后：
 //   - 柱长 = |年化贴水率| / 10% * 100%（满格 10%）
-//   - 方向 = 颜色（贴水=全色/合约色；升水=半透明+斜纹/警示色）+ 数字前的 +/- 号 + 末端的"贴水/升水"文字标签
+//   - 方向 = 颜色（贴水=合约原色；升水=警示红+斜纹）+ 数字前的 +/- 号 + 末端的"贴水/升水"文字标签
+//   - 数字本身内嵌到柱上（白字+阴影），所见即所得——柱窄时溢出到灰 track 也靠阴影保证可读
 let bh="";
 for(const p of ["IM","IC","IF","IH"]){
   bh+=`<div class="bg-grp"><div class="ttl">${NAME[p]}</div><div class="stl">现货 ${SPOT[p].toFixed(2)} · 乘数 ${MULT[p]}元/点</div>`;
@@ -833,19 +837,19 @@ for(const p of ["IM","IC","IF","IH"]){
     const w=Math.min(Math.abs(r.ann)/10*100,100);
     const signChar=isPremium?"−":"+";
     const signWord=isPremium?"升水":"贴水";
-    const earnWord=isPremium?"亏":"收";
     const signColor=isPremium?"#c0392b":COLOR[p];
     const flClass=isPremium?"bar-fl premium":"bar-fl discount";
-    // 升水强制用警示红（不分品种），让"亏钱方向"一眼就能识别
+    // 升水强制警示红（不分品种），让"亏钱方向"一眼就能识别
     const flBg=isPremium?"#c0392b":COLOR[p];
     const tip=`${NAME[p]} ${c} 合约 · ${signWord}${Math.abs(r.ann).toFixed(2)}%/年化\n`+
               `期货 ${r.f.toFixed(2)} · 现货 ${r.s.toFixed(2)}（基差 ${r.basis>=0?"+":""}${r.basis.toFixed(2)}点）\n`+
               `剩余 ${r.d} 天到期 · 月均${signWord} ${Math.abs(r.monthly).toFixed(2)}点\n`+
-              `持有到期${earnWord} ${yuan(r.gain)}/手`;
+              `持有到期${isPremium?"亏":"收"} ${yuan(r.gain)}/手`;
+    const numText=`${signChar}${Math.abs(r.ann).toFixed(2)}%`;
+    // 用 background-color 而非 background:，避免内联 shorthand 把 class 的 background-image（升水斜纹）重置
     bh+=`<div class="bar-row" title="${tip.replace(/\n/g," · ")}">`+
       `<span class="bar-lb">${c}</span>`+
-      `<span class="bar-tr"><span class="${flClass}" style="width:${w.toFixed(2)}%;background:${flBg}"></span></span>`+
-      `<span class="bar-vl" style="color:${signColor}">${signChar}${Math.abs(r.ann).toFixed(2)}%</span>`+
+      `<span class="bar-tr"><span class="${flClass}" style="width:${w.toFixed(2)}%;background-color:${flBg}"><span class="bar-num">${numText}</span></span></span>`+
       `<span class="bar-tag" style="color:${signColor};border-color:${signColor}">${signWord}</span>`+
       `</div>`;
   }
