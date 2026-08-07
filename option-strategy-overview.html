@@ -17,11 +17,13 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;padding-bottom:40px}
   .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
-  header{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;padding:34px 0 28px;margin-bottom:22px}
+  header{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;padding:34px 0 28px;margin-bottom:22px;position:relative}
   header .wrap{padding:0 18px}
   header h1{font-size:25px;font-weight:700;letter-spacing:.5px}
   header p{font-size:13px;opacity:.85;margin-top:8px;max-width:820px}
   .src{display:inline-block;margin-top:12px;font-size:12px;background:rgba(255,255,255,.15);padding:4px 10px;border-radius:20px}
+  header .home-link{position:absolute;top:18px;right:24px;display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.45);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;text-decoration:none;transition:background .15s}
+  header .home-link:hover{background:rgba(255,255,255,.32);color:#fff}
   nav{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:20;margin-bottom:22px}
   nav .wrap{display:flex;gap:6px;flex-wrap:wrap;padding:10px 18px}
   nav a{font-size:13px;color:var(--sub);text-decoration:none;padding:6px 12px;border-radius:8px}
@@ -116,6 +118,7 @@
 </head>
 <body>
 <header>
+  <a class="home-link" href="index.html" title="返回主页">← 返回主页</a>
   <div class="wrap">
     <h1>期权策略体系总览 + 今日择时日报（合并版）</h1>
     <p>基于网络收录的期权实盘讨论与策略帖，提炼策略谱系、操作核心与风控红线；并嵌入本工作区「买方择时日报（真实 HV 版）」——策略框架与每日择时实操合一。已对具体论坛、域名及发帖人信息做脱敏处理。</p>
