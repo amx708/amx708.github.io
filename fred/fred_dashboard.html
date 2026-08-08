@@ -14,8 +14,6 @@
   button{background:#2563eb;color:#fff;border:0;padding:8px 14px;border-radius:6px;font-size:13px;cursor:pointer}
   button:hover{background:#1d4ed8}
   button:disabled{background:#94a3b8;cursor:not-allowed}
-  button.ghost{background:#fff;color:#2563eb;border:1px solid #cbd5e1}
-  button.ghost:hover{background:#eff6ff}
   .summary{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 18px;margin-bottom:18px}
   .summary h2{font-size:14px;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
   .summary ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:6px 18px}
@@ -23,8 +21,6 @@
   .summary li b{color:#0f172a;font-weight:600;margin-right:4px}
   .summary li .ts{color:#94a3b8;font-size:11px;margin-left:4px}
   .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;margin-left:6px}
-  .badge.up{background:#fee2e2;color:#b91c1c}
-  .badge.down{background:#dcfce7;color:#166534}
   .badge.warn{background:#fef3c7;color:#92400e}
   .badge.ok{background:#dcfce7;color:#166534}
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:14px}
@@ -32,7 +28,6 @@
   .card h3{font-size:14px;color:#0f172a;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
   .card .meta{font-size:11px;color:#64748b;font-weight:400}
   .card .val{font-size:26px;font-weight:700;color:#0f172a;margin:6px 0 4px;letter-spacing:-.5px}
-  .card .val small{font-size:12px;color:#64748b;font-weight:400;margin-left:4px}
   .card .date{font-size:11px;color:#94a3b8;margin-bottom:10px}
   .card canvas{height:130px!important;width:100%!important}
   .card .hint{font-size:11px;color:#64748b;margin-top:8px;padding-top:8px;border-top:1px dashed #e5e7eb}
@@ -40,17 +35,6 @@
   footer{margin-top:18px;font-size:11px;color:#94a3b8;text-align:center}
   .loading{color:#94a3b8;font-size:12px;padding:20px;text-align:center}
   .err{color:#b91c1c;font-size:12px;padding:8px}
-  /* key 弹窗 */
-  .modal-mask{position:fixed;inset:0;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;z-index:999;padding:16px}
-  .modal{background:#fff;border-radius:14px;max-width:420px;width:100%;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
-  .modal h3{font-size:17px;margin-bottom:10px}
-  .modal p{font-size:13px;color:#475569;line-height:1.6;margin-bottom:14px}
-  .modal input{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;margin-bottom:8px;font-family:monospace}
-  .modal input:focus{outline:none;border-color:#2563eb}
-  .modal .actions{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
-  .modal .actions a{font-size:12px;color:#2563eb;text-decoration:none}
-  .modal .actions a:hover{text-decoration:underline}
-  .keybar{font-size:11px;color:#64748b;margin-top:4px}
 </style>
 </head>
 <body>
@@ -58,17 +42,13 @@
 <header>
   <div>
     <h1>📊 FRED 宏观监测看板</h1>
-    <p class="sub">数据源：圣路易斯联储 FRED · 免费 API · 直连浏览器 · 个人非商业使用</p>
-    <p class="keybar" id="keybar">🔑 Key：未设置</p>
+    <p class="sub">数据源：圣路易斯联储 FRED · 每日自动更新 · 同域静态读取（无 CORS、Key 不暴露）</p>
   </div>
   <div class="actions">
     <span class="sub" id="update-time">--</span>
-    <button class="ghost" id="change-key">🔑 Key</button>
     <button id="refresh">🔄 刷新</button>
   </div>
 </header>
-
-<div id="protocol-warn" style="display:none;margin-bottom:14px;padding:14px 18px;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;color:#92400e;font-size:13px;line-height:1.7"></div>
 
 <div class="summary">
   <h2>📌 结论速览（最新值）</h2>
@@ -82,212 +62,106 @@
 </div>
 
 <footer>
-FRED 公开数据 · 速率限制 120 次/分钟 · 每日 6,000 次 · 数据可能修订 · Key 仅存于你浏览器本地
+FRED 公开数据 · 每日自动更新（GitHub Actions）· 数据可能修订
 </footer>
-
-<!-- Key 弹窗 -->
-<div id="key-modal" class="modal-mask">
-  <div class="modal">
-    <h3>🔑 填入 FRED API Key</h3>
-    <p>本看板直连圣路易斯联储 FRED 免费 API。Key 仅保存在你当前浏览器（localStorage），<b>不会上传任何服务器</b>。申请后免费、无限量个人使用。</p>
-    <input id="key-input" type="text" placeholder="粘贴你的 32 位 FRED API Key" autocomplete="off" spellcheck="false">
-    <div class="actions">
-      <a href="https://fredaccount.stlouisfed.org/apikeys" target="_blank" rel="noopener">如何免费申请？</a>
-      <button id="key-save">保存并加载</button>
-    </div>
-  </div>
-</div>
 
 <script src="chart.umd.min.js"></script>
 <script>
-// ========== 配置 ==========
-// 7 张图：5 个核心宏观 + 2 个周期信号
-const INDICATORS = [
-  {id:'FEDFUNDS',  name:'美联储利率',     unit:'',  freq:'月度', note:'联邦基金有效利率',  fmt:v=>v.toFixed(2)+' %'},
-  {id:'DEXCHUS',   name:'美元 / 人民币',  unit:'',  freq:'日度', note:'USDCNY 中间价',     fmt:v=>v.toFixed(4)+' 元', invert:true},
-  {id:'DCOILWTICO',name:'WTI 原油',       unit:'',  freq:'日度', note:'德州轻质原油现货',  fmt:v=>'$'+v.toFixed(2)},
-  {id:'DGS10',     name:'美债10年收益率', unit:'',  freq:'日度', note:'10年期国债',        fmt:v=>v.toFixed(2)+' %'},
-  {id:'CPIAUCSL',  name:'美国CPI同比',    unit:'',  freq:'月度', note:'YoY% (服务端计算)', fmt:v=>v.toFixed(2)+' %', transform:'pc1'},
-  {id:'T10Y2Y',    name:'10Y-2Y 利差',    unit:'',  freq:'日度', note:'衰退信号：负值=倒挂',fmt:v=>(v>=0?'+':'')+v.toFixed(2)+' pp'},
-  {id:'USREC',     name:'NBER 衰退标记',  unit:'',  freq:'月度', note:'1=衰退期 0=扩张期', fmt:v=>v===1?'衰退中':'扩张期', isBinary:true},
-];
-
-// ========== Key 管理（localStorage，不外露） ==========
-const KEY_STORE = 'fred_api_key_v1';
-function getKey(){ return localStorage.getItem(KEY_STORE) || ''; }
-function setKey(k){ localStorage.setItem(KEY_STORE, k.trim()); }
-function clearKey(){ localStorage.removeItem(KEY_STORE); }
-function maskKey(k){ return k ? k.slice(0,4)+'…'+k.slice(-4) : '未设置'; }
-
-function updateKeyBar(){
-  document.getElementById('keybar').textContent = '🔑 Key：' + maskKey(getKey());
-}
-
-// ========== 拉数据（直连 FRED API，CORS 支持） ==========
-async function fetchSeries(sid, transform){
-  const key = getKey();
-  const params = new URLSearchParams({
-    series_id: sid,
-    api_key: key,
-    file_type: 'json',
-    limit: '180',
-    sort_order: 'desc',
-  });
-  if (transform) params.set('units', transform);
-  const url = `https://api.stlouisfed.org/fred/series/observations?${params}`;
-  const r = await fetch(url);
-  let body = null;
-  try { body = await r.json(); } catch(_){}
-  if (!r.ok){
-    const msg = body?.error_message || `HTTP ${r.status}`;
-    throw new Error(msg);
+// ========== 格式化 ==========
+function fmtVal(fmt, v){
+  switch(fmt){
+    case 'pct2': return v.toFixed(2)+' %';
+    case 'num4': return v.toFixed(4)+' 元';
+    case 'usd2': return '$'+v.toFixed(2);
+    case 'pp2':  return (v>=0?'+':'')+v.toFixed(2)+' pp';
+    case 'binary': return v===1?'衰退中':'扩张期';
+    default: return v.toFixed(2);
   }
-  return (body?.observations||[])
-    .filter(o => o.value !== '.')
-    .map(o => ({date:o.date, value:parseFloat(o.value)}))
-    .reverse();
 }
+
+// 7 张图顺序（与 data.json 的 series 对应）
+const ORDER = ['FEDFUNDS','DEXCHUS','DCOILWTICO','DGS10','CPIAUCSL','T10Y2Y','USREC'];
 
 // ========== 渲染单卡 ==========
 const charts = {};
-function buildCard(ind, arr){
+function buildCard(sid, entry){
+  const arr = entry.data;
+  if (!arr.length) return;
   const latest = arr[arr.length-1];
   const prev   = arr.length>=2 ? arr[arr.length-2] : null;
-  const firstY = arr[0]?.date || '';
-  const lastY  = latest.date;
+  const firstY = arr[0].date, lastY = latest.date;
 
   const card = document.createElement('div');
   card.className='card';
 
   let extraBadge = '';
-  if (ind.id==='T10Y2Y'){
-    extraBadge = latest.value < 0
-      ? '<span class="badge warn">⚠ 倒挂</span>'
-      : '<span class="badge ok">正常</span>';
-  }
-  if (ind.id==='USREC'){
-    extraBadge = latest.value===1
-      ? '<span class="badge warn">衰退中</span>'
-      : '<span class="badge ok">扩张</span>';
-  }
+  if (sid==='T10Y2Y') extraBadge = latest.value<0?'<span class="badge warn">⚠ 倒挂</span>':'<span class="badge ok">正常</span>';
+  if (sid==='USREC')  extraBadge = latest.value===1?'<span class="badge warn">衰退中</span>':'<span class="badge ok">扩张</span>';
 
   card.innerHTML = `
-    <h3>${ind.name}${extraBadge} <span class="meta">${ind.freq}</span></h3>
-    <div class="val">${ind.fmt(latest.value)}</div>
+    <h3>${entry.name}${extraBadge} <span class="meta">${entry.freq}</span></h3>
+    <div class="val">${fmtVal(entry.fmt, latest.value)}</div>
     <div class="date">最新：${latest.date}${prev?` · 上期 ${prev.value.toFixed(2)}`:''}</div>
-    <canvas id="c-${ind.id}"></canvas>
-    <div class="hint">${ind.note} · 区间 ${firstY} → ${lastY}（${arr.length} 个观测点）</div>
+    <canvas id="c-${sid}"></canvas>
+    <div class="hint">${entry.note} · 区间 ${firstY} → ${lastY}（${arr.length} 个观测点）</div>
   `;
   document.getElementById('cards').appendChild(card);
 
-  const color = ind.id==='DEXCHUS' && ind.invert ? '#16a34a' : '#2563eb';
-  const bg    = ind.id==='DEXCHUS' && ind.invert ? 'rgba(22,163,74,.08)' : 'rgba(37,99,235,.08)';
+  const color = (sid==='DEXCHUS' && entry.invert) ? '#16a34a' : '#2563eb';
+  const bg    = (sid==='DEXCHUS' && entry.invert) ? 'rgba(22,163,74,.08)' : 'rgba(37,99,235,.08)';
 
-  const ctx = document.getElementById('c-'+ind.id).getContext('2d');
-  charts[ind.id] = new Chart(ctx, {
+  const ctx = document.getElementById('c-'+sid).getContext('2d');
+  charts[sid] = new Chart(ctx, {
     type:'line',
-    data:{
-      labels:arr.map(o=>o.date),
-      datasets:[{
-        data:arr.map(o=>o.value),
-        borderColor:color,
-        backgroundColor:bg,
-        fill:true,
-        tension:.25,
-        pointRadius:0,
-        borderWidth:1.5
-      }]
-    },
-    options:{
-      responsive:true,
-      maintainAspectRatio:false,
-      animation:false,
+    data:{ labels:arr.map(o=>o.date), datasets:[{ data:arr.map(o=>o.value), borderColor:color, backgroundColor:bg, fill:true, tension:.25, pointRadius:0, borderWidth:1.5 }] },
+    options:{ responsive:true, maintainAspectRatio:false, animation:false,
       plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>`${c.parsed.y}`}}},
-      scales:{
-        x:{display:false},
-        y:{ticks:{font:{size:10}, maxTicksLimit:5}, grid:{color:'#f1f5f9'}}
-      }
-    }
+      scales:{ x:{display:false}, y:{ticks:{font:{size:10}, maxTicksLimit:5}, grid:{color:'#f1f5f9'}} } }
   });
-
-  return latest;
 }
 
-function buildSummary(ind, latest){
+function buildSummary(sid, entry){
+  const arr = entry.data; if(!arr.length) return;
+  const latest = arr[arr.length-1];
   const li = document.createElement('li');
   let badge = '';
-  if (ind.id==='T10Y2Y') badge = latest.value<0?'<span class="badge warn">倒挂</span>':'<span class="badge ok">正常</span>';
-  if (ind.id==='USREC')  badge = latest.value===1?'<span class="badge warn">衰退中</span>':'<span class="badge ok">扩张</span>';
-  li.innerHTML = `<b>${ind.name}：</b>${ind.fmt(latest.value)}${badge}<span class="ts">(${latest.date})</span>`;
+  if (sid==='T10Y2Y') badge = latest.value<0?'<span class="badge warn">倒挂</span>':'<span class="badge ok">正常</span>';
+  if (sid==='USREC')  badge = latest.value===1?'<span class="badge warn">衰退中</span>':'<span class="badge ok">扩张</span>';
+  li.innerHTML = `<b>${entry.name}：</b>${fmtVal(entry.fmt, latest.value)}${badge}<span class="ts">(${latest.date})</span>`;
   document.getElementById('summary').appendChild(li);
 }
 
-// ========== 主流程 ==========
+// ========== 主流程：读同域 data.json ==========
 async function refresh(){
   document.getElementById('cards').innerHTML = '<div class="loading">拉取 FRED 数据中…</div>';
   document.getElementById('summary').innerHTML = '<li class="loading">加载中…</li>';
   Object.values(charts).forEach(c=>c.destroy());
   for(const k of Object.keys(charts)) delete charts[k];
 
-  let errs = [];
-  for (const ind of INDICATORS){
+  let db;
+  try{
+    const r = await fetch('fred/data.json?t='+Date.now());
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    db = await r.json();
+  } catch(e){
+    document.getElementById('cards').innerHTML = `<div class="err" style="padding:14px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px">
+      <b>⚠️ 数据加载失败</b><br>无法读取 fred/data.json（${e.message}）。<br>
+      可能是 GitHub Pages 尚未完成首次部署（约 1-3 分钟），请稍后刷新；或数据文件尚未生成（GitHub Actions 每日自动生成，也可手动触发）。
+    </div>` + document.getElementById('cards').innerHTML;
+    return;
+  }
+
+  if (db.updated) document.getElementById('update-time').textContent = '数据更新：' + db.updated;
+
+  for (const sid of ORDER){
+    const entry = db.series?.[sid];
+    if (!entry){ continue; }
     try{
-      const arr = await fetchSeries(ind.id, ind.transform);
-      if (!arr.length){ errs.push(ind.name+': 空数据'); continue; }
-      const latest = buildCard(ind, arr);
-      buildSummary(ind, latest);
-    } catch(e){
-      console.error(e);
-      errs.push(`${ind.name}: ${e.message}`);
-    }
-  }
-  document.getElementById('update-time').textContent = new Date().toLocaleString('zh-CN');
-  if (errs.length){
-    const c = document.getElementById('cards');
-    const isKeyIssue = errs.some(e => /api_key|not registered/i.test(e));
-    const isCors = errs.some(e => /Failed to fetch|NetworkError|CORS/i.test(e));
-    let hint;
-    if (isKeyIssue){
-      hint = `<div class="err" style="padding:14px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px">
-        <b>🔑 API Key 尚未激活</b><br>
-        FRED 新申请的 key 通常需要 <b>几分钟到半小时</b> 才在 API 端生效（属正常现象）。<br>
-        解决办法：点右上角「🔑 Key」→ 确认 key 正确 → 过 30 分钟再刷新即可。<br>
-        如果 24 小时后仍报这个错，请重新登录 <a href="https://fredaccount.stlouisfed.org/apikeys" target="_blank" rel="noopener">FRED API Keys 页面</a> 确认 key 状态。
-      </div>`;
-    } else if (isCors){
-      hint = `<div class="err" style="padding:14px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px">
-        <b>⚠️ 跨域请求被拦截（CORS）</b><br>
-        浏览器阻止了到 api.stlouisfed.org 的请求。可能原因：网络环境限制、浏览器插件拦截、或 FRED 临时调整。<br>
-        建议：换网络/关广告插件重试；或用本地版（走代理服务器）。
-      </div>`;
-    } else {
-      hint = `<div class="err">部分指标拉取失败：${errs.join('；')}</div>`;
-    }
-    c.innerHTML = hint + c.innerHTML;
+      buildCard(sid, entry);
+      buildSummary(sid, entry);
+    } catch(err){ console.error(sid, err); }
   }
 }
-
-// ========== Key 弹窗逻辑 ==========
-function openKeyModal(){
-  document.getElementById('key-input').value = getKey();
-  document.getElementById('key-modal').style.display = 'flex';
-  setTimeout(()=>document.getElementById('key-input').focus(), 50);
-}
-function closeKeyModal(){
-  document.getElementById('key-modal').style.display = 'none';
-}
-async function saveKeyAndReload(){
-  const v = document.getElementById('key-input').value.trim();
-  if (!v){ alert('请输入 FRED API Key'); return; }
-  setKey(v);
-  updateKeyBar();
-  closeKeyModal();
-  await refresh();
-}
-
-document.getElementById('key-save').addEventListener('click', saveKeyAndReload);
-document.getElementById('key-input').addEventListener('keydown', e=>{ if(e.key==='Enter') saveKeyAndReload(); });
-document.getElementById('change-key').addEventListener('click', openKeyModal);
 
 document.getElementById('refresh').addEventListener('click', async (e)=>{
   e.target.disabled = true; e.target.textContent = '⏳ 拉取中…';
@@ -295,14 +169,7 @@ document.getElementById('refresh').addEventListener('click', async (e)=>{
   e.target.disabled = false; e.target.textContent = '🔄 刷新';
 });
 
-// ========== 启动 ==========
-updateKeyBar();
-if (!getKey()){
-  // 首次访问，弹出 Key 输入
-  openKeyModal();
-} else {
-  refresh();
-}
+refresh();
 </script>
 </body>
 </html>
