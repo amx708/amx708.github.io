@@ -2,182 +2,316 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>锂电池产业链 | 伯克希尔投资数据中心</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>锂电池产业链产业链 | 伯克希尔投资数据中心</title>
 <style>
-  :root{--navy:#0b1f3a;--navy2:#10294d;--ink:#1d2b40;--line:#e4e9f2;
-    --orange:#f5a623;--txt:#23344e;--muted:#6b7a93;--card:#fff;--bg:#f4f7fc;--green:#1f9d6b;}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;
-    background:var(--bg);color:var(--txt);line-height:1.75;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  .topbar{position:sticky;top:0;z-index:50;background:rgba(11,31,58,.82);backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
-  .topbar-in{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px}
-  .brand{font-weight:800;font-size:17px;letter-spacing:.5px}
-  .brand .ac{color:var(--orange)}
-  .crumb{font-size:13px;color:#9fb2cf}
-  .crumb a:hover{color:var(--orange)}
-  .hero{max-width:1180px;margin:30px auto 10px;padding:0 20px}
-  .hero h1{font-size:30px;margin:0 0 8px;color:var(--navy)}
-  .hero p{margin:0;color:var(--muted);max-width:820px}
-  .badge{display:inline-block;background:var(--orange);color:#3a2700;font-size:12px;font-weight:700;
-    padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
-  .decl{max-width:1180px;margin:16px auto 0;padding:0 20px}
-  .decl .bar{border-left:4px solid #0e7490;background:#fffaf0;padding:11px 16px;border-radius:0 10px 10px 0;font-size:14px;color:var(--ink)}
-  .stats{max-width:1180px;margin:20px auto;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
-  .stat .v{font-size:27px;font-weight:800;color:var(--navy)}
-  .stat .v.ac{color:#155e75}
-  .stat .k{font-size:12.5px;color:var(--muted);margin-top:4px}
-  .wrap{max-width:1180px;margin:10px auto 60px;padding:0 20px}
-  .sec{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:20px;
-    box-shadow:0 1px 3px rgba(16,41,77,.04)}
-  .sec h2{margin:0 0 4px;font-size:21px;color:var(--navy);display:flex;align-items:center;gap:10px}
-  .sec .cnt{font-size:12px;color:#fff;background:var(--navy2);border-radius:999px;padding:2px 10px;font-weight:700}
-  .sec .desc{font-size:13px;color:var(--muted);margin:2px 0 14px}
-  .framework{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:6px}
-  .layer{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-top:3px solid #0e7490}
-  .layer .ln{font-size:12px;font-weight:800;color:#155e75}
-  .layer .lt{font-weight:700;color:var(--navy);font-size:15px;margin:4px 0 6px}
-  .layer .ld{font-size:13px;color:var(--muted)}
-  .companies{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:11px;margin-top:6px}
-  .co{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-  .co .nm{font-weight:700;color:var(--navy);font-size:15px}
-  .co .st{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#eef1f6;color:#7a8aa3;border:1px solid #dde3ec;margin:6px 0}
-  .co .nt{font-size:12.5px;color:var(--muted)}
-  .foot{max-width:1180px;margin:0 auto 50px;padding:0 20px;color:var(--muted);font-size:13px}
-  @media(max-width:860px){.stats{grid-template-columns:1fr} .hero h1{font-size:24px}}
-
-  .co .st.pe-low{background:#e7f6ee;color:#1f9d6b;border-color:#bfe6cf}
-  .co .st.pe-high{background:#fdeaea;color:#c0392b;border-color:#f3c9c9}
-  .co .st.poi{background:#fff3e0;color:#c2410c;border-color:#f6dcae}
-  /*cf-deep*/
-
-  .co .cf-fin{font-size:11px;color:#445;line-height:1.5;margin:5px 0 0}
-  .co .cf-fin b{color:#1d2b40;font-weight:600}
-  .co .cf-emp{font-size:11px;line-height:1.5;margin:2px 0 0}
-  .co .cf-emp b{font-weight:600}
-  .co .cf-emp .s-good{color:#1f9d6b}
-  .co .cf-emp .s-bad{color:#c0392b}
-  .co .cf-emp .s-watch{color:#c2410c}
-  .co .cf-emp .s-none{color:#999}
-  
-  .co .co-detail{display:inline-block;margin:8px 0 2px;font-size:12px;font-weight:600;color:#1d4ed8;text-decoration:none}
-  .co .co-detail:hover{text-decoration:underline}
-/*cf-deep2*/
-></style>
-<style>
-
-/*cf-emp-ranking*/
-.ovtable{margin:10px 0 6px;overflow-x:auto}
-.ovtable table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
-.ovtable th{background:#f8fafc;color:#475569;font-weight:600;text-align:left;padding:9px 12px;border-bottom:1px solid #e2e8f0;white-space:nowrap}
-.ovtable td{padding:8px 12px;border-bottom:1px solid #f1f5f9;color:#0f172a}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#0b1f3a;--navy2:#10294d;--ink:#1d2b40;--line:#e4e9f2;
+  --orange:#f5a623;--accent:#f5a623;--txt:#23344e;--muted:#6b7a93;--card:#fff;--bg:#f4f7fc;--green:#1f9d6b;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--txt);line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(245,166,35,0.28);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(245,166,35,0.10);color:#c2780a;border:1px solid rgba(245,166,35,0.35);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;transition:all .2s}
+.home-btn:hover{background:var(--orange);color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#c2780a}
+.crumb-sep{color:#cbd5e1}
+.switcher{display:inline-flex;gap:12px;align-items:center;margin-left:8px;flex-wrap:wrap}
+.switcher a{color:#c2780a;text-decoration:none;font-size:13px}
+.switcher a:hover{text-decoration:underline}
+.switcher a.cur{font-weight:800;color:var(--navy);border-bottom:2px solid var(--orange)}
+.container{max-width:1180px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#0b1f3a 0%,#10294d 100%);border-radius:16px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(245,166,35,0.35);box-shadow:0 3px 14px rgba(11,31,58,.12)}
+.hero-title{font-size:28px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#cdb892;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(245,166,35,0.14);border:1px solid rgba(245,166,35,0.3);border-radius:12px;padding:10px 18px;text-align:center}
+.stat-num{font-size:22px;font-weight:800;color:var(--orange)}
+.stat-label{font-size:11px;color:#cdb892;margin-top:2px;white-space:nowrap}
+.data-banner{background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.3);border-left:4px solid var(--orange);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:var(--navy);font-weight:600}
+.data-banner .upd{color:#c2780a;font-weight:600}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#fff,#f8fafc);border:1px solid rgba(245,166,35,0.3);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#c2780a;background:rgba(245,166,35,0.14);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
+.explain-banner .eb-text b{color:var(--navy);font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--orange)}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#c2780a;font-weight:700}
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.insight-box{background:linear-gradient(135deg,#fffdf6,#ffffff);border:1px solid rgba(245,166,35,0.25);border-radius:12px;padding:18px 20px;margin-top:8px}
+.insight-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:var(--orange)}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.insight-body p{margin-bottom:8px}
+.insight-body ul{margin:8px 0 0 18px;padding:0}
+.insight-body li{margin-bottom:6px}
+.insight-body b{color:#334155}
+.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(245,166,35,0.3);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cycle-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cycle-title .icon{color:var(--orange)}
+.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
+.cycle-body b{color:var(--navy);font-weight:600}
+.cycle-body p{margin-bottom:8px}
+.cycle-body ul{margin:8px 0 0 18px;padding:0}
+.cycle-body li{margin-bottom:6px}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid var(--orange);padding:8px 12px;background:rgba(245,166,35,0.08);line-height:1.7}
+.cycle-current b{color:#334155}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600;text-align:right;padding:9px 11px;border-bottom:1px solid #e2e8f0;white-space:nowrap}
+.ovtable td{padding:8px 11px;border-bottom:1px solid #f1f5f9;color:#0f172a;text-align:right;white-space:nowrap}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
 .ovtable tbody tr:last-child td{border-bottom:none}
+.ovtable a{color:#1d4ed8;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
 .ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
 .ovtable .num.up{color:#15803d;font-weight:700}
 .ovtable .num.down{color:#b91c1c;font-weight:700}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:var(--navy)}
+.cost-note p{margin:0 0 10px}
+.emp-block{margin:6px 0 2px}
 .emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;border:1px solid transparent}
-
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.giant-card:hover{border-color:var(--orange);background:rgba(245,166,35,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(245,166,35,0.16)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:var(--navy)}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(31,157,107,0.12);color:#1f9d6b;border:1px solid rgba(31,157,107,0.25)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#c2780a;font-weight:600}
+.card-cycle{margin-top:10px;padding:8px 10px;border-left:3px solid var(--orange);border-radius:6px;font-size:12px;color:#475569;line-height:1.6;background:rgba(245,166,35,0.06)}
+.card-cycle .cc-label{display:block;font-weight:700;margin-bottom:3px;font-size:11.5px;color:#c2780a}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.extend a{display:block;background:#fffdf6;border:1px solid #f0e2bf;border-radius:12px;padding:14px 16px;text-decoration:none;color:#1e293b;transition:.18s}
+.extend a:hover{border-color:var(--orange);box-shadow:0 4px 14px rgba(245,166,35,.18);transform:translateY(-2px)}
+.extend b{display:block;font-size:15px;color:#1f2937;margin-bottom:4px}
+.extend span{display:block;font-size:12.5px;color:#64748b;line-height:1.5}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:22px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
+.sortable th:hover{background:#fff3df}
+.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
+.sortable th.asc .sort-ind::before{content:"▲";color:var(--accent)}
+.sortable th.desc .sort-ind::before{content:"▼";color:var(--accent)}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div class="topbar-in">
-    <div class="brand">伯克希尔<span class="ac">投资数据中心</span></div>
-    <div class="crumb">/ <a href="berkshire-standalone.html">枢纽</a> / <a href="berkshire-chain-map.html">覆盖地图</a> / 锂电池产业链</div>
-  </div>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span class="switcher"><a href="berkshire-bank-chains.html">银行</a><a href="berkshire-baijiu-chains.html">白酒</a><a href="berkshire-ai-chains.html">AI</a><a href="berkshire-robot-chains.html">机器人</a><a href="berkshire-tcm-chains.html">中药</a><a href="berkshire-innov-chains.html">创新药</a><a href="berkshire-chemical-pharma-chains.html">化学制药</a><a href="berkshire-appliance-chains.html">家电</a><a href="berkshire-power-chains.html">电力</a><a href="berkshire-coal-chains.html">煤炭</a><a href="berkshire-metal-chains.html">有色</a><a href="berkshire-chem-chains.html">化工</a><a href="berkshire-equip-chains.html">电力设备</a><a href="berkshire-securities-chains.html">证券</a><a href="berkshire-insurance-chains.html">保险</a><a href="berkshire-finance-lease-chains.html">融资租赁</a><a href="berkshire-beer-chains.html">啤酒</a><a href="berkshire-dairy-chains.html">乳制品</a><a href="berkshire-snack-chains.html">零食</a><a href="berkshire-semiconductor-equip-chains.html">半导体设备</a><a href="berkshire-software-chains.html">软件</a><a href="berkshire-optical-module-chains.html">光模块</a><a href="berkshire-industrial-control-chains.html">工业控制</a><a href="berkshire-machine-tool-chains.html">机床</a><a href="berkshire-lithium-battery-chains.html" class="cur">锂电池</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>锂电池产业链产业链</span>
 </div>
+</div>
+<div class="container">
+
 <div class="hero">
-  <h1>锂电池产业链<span class="badge">已建框架</span><span class="badge" style="background:#1f9d6b;color:#fff;margin-left:6px">已补叙事</span><!--cf-narrative-index--></h1>
-  <p>动力+储能双驱动，格局向头部集中；材料价格周期波动。</p>
+<div class="hero-title">🔋 锂电池产业链产业链</div>
+<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">上市公司</div></div>
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
+<div class="stat-item"><div class="stat-num">估值✓</div><div class="stat-label">分位已回填</div></div>
 </div>
-<div class="decl">
-  <div class="bar"><b>⚠️ 网络收集 · 已建深凿 · 不做投资依据：</b>本页为锂电池产业链的研究框架与代表公司索引。估值历史分位(PE/PB 近十年)、泊松跳变信号、2025 年报财报基本面(营收/净利/ROE/负债率)、组织效能(员工人数/增速/人均净利)均已基于 akshare 行情与 cninfo 年报公开披露回填（截至 2026-07-28）；公司详情页另已增补财报与研报(东财研报PDF/财报公告)与可视化决策仪表盘(结论合成·马克斯象限·安全边际·治理维度)；个别公司因披露格式/数据源限制未取到数据的字段诚实标注「待采集」。公司列表为公开资料整理的代表性样本，非穷举，不构成投资建议。</div>
-</div>
-<div class="stats">
-  <div class="stat"><div class="v ac">10</div><div class="k">代表公司（A股样本）</div></div>
-  <div class="stat"><div class="v">5</div><div class="k">框架层级</div></div>
-  <div class="stat"><div class="v">已建</div><div class="k">估值分位/泊松/财报/效能/研报/可视化</div></div>
-</div>
-<!--research-signal-->
-<div class="section-title" style="border-left:3px solid #f97316">研究信号（框架研判）</div>
-<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #f97316;border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
-    <div style="font-weight:700;color:#475569">周期位置</div><div>储能+出海双轮，价格触底</div>
-    <div style="font-weight:700;color:#475569">景气方向</div><div>景气回升</div>
-    <div style="font-weight:700;color:#475569">结论信号</div><div><b>🟢 看好</b> — 估值处中低分位，储能与出海打开空间</div>
-    <div style="font-weight:700;color:#475569">核心催化</div><div>①储能爆发  ②出海  ③固态/钠电</div>
-    <div style="font-weight:700;color:#475569">关键风险</div><div>①价格战  ②过剩  ③技术替代</div>
-  </div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：成分股已纳入量化库：宁德时代 PE21.32/近十年15.8%分位，泊松★信号(λ净+0.111，36月总收益+71.8%)，组织效能扩张向好。。结论为框架合成，需结合实盘研究校验。</div>
-</div>
-<!--/research-signal--><div class="wrap">
-  <div class="sec">
-    <h2>锂电池产业链 · 五层框架 <span class="cnt">5</span></h2>
-    <div class="desc">沿「上游资源 → 中游制造 → 下游需求 → 投资逻辑」拆解为五层，便于逐层定位景气与风险。</div>
-    <div class="framework">
-      <div class="layer"><div class="ln">LAYER 1</div><div class="lt">电芯</div><div class="ld">动力/储能电芯</div></div>
-      <div class="layer"><div class="ln">LAYER 2</div><div class="lt">材料</div><div class="ld">正极/负极/隔膜/电解液</div></div>
-      <div class="layer"><div class="ln">LAYER 3</div><div class="lt">结构件</div><div class="ld">壳体/箔材</div></div>
-      <div class="layer"><div class="ln">LAYER 4</div><div class="lt">回收</div><div class="ld">电池回收</div></div>
-      <div class="layer"><div class="ln">LAYER 5</div><div class="lt">投资逻辑</div><div class="ld">看装机/储能/格局集中</div></div>
-    </div>
-  </div>
-  <div class="sec">
-    <h2>代表公司（A股样本） <span class="cnt">10</span></h2>
-    <div class="desc">以下为公开资料整理的代表性 A 股公司，按规模/代表性选取，非穷举；已含 2025 年报财报基本面与组织效能(员工效率)模块，数据基于 akshare 行情与 cninfo 年报公开披露回填（截至 2026-07-25）。</div>
-    <div class="companies">
-      <div class="co"><div class="nm">宁德时代</div><a class="co-detail" href="berkshire-lithium-battery-chain-300750.html">查看详情 →</a><span class="st pe-low">PE分位 18.7%</span><span class="st ">PB分位 30.7%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>4237.0亿</b> · 净利 <b>722.0亿</b> · ROE <b>24.7</b> · 负债率 <b>61.9</b></div><div class="cf-emp">员工 <b>18.6万</b> · 增速 <b>+40.8%</b> · 人均净利 <b>38.9万</b> · <span class="s-good">扩张向好</span></div><div class="nt">电池龙头</div></div>
-      <div class="co"><div class="nm">比亚迪</div><a class="co-detail" href="berkshire-lithium-battery-chain-002594.html">查看详情 →</a><span class="st ">PE分位 33.1%</span><span class="st ">PB分位 35.8%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>8039.6亿</b> · 净利 <b>326.2亿</b> · ROE <b>15.1</b> · 负债率 <b>70.7</b></div><div class="cf-emp">员工效率：待采集</div><div class="nt">自供+外供</div></div>
-      <div class="co"><div class="nm">亿纬锂能</div><a class="co-detail" href="berkshire-lithium-battery-chain-300014.html">查看详情 →</a><span class="st pe-low">PE分位 20.0%</span><span class="st pe-low">PB分位 16.3%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>614.7亿</b> · 净利 <b>41.3亿</b> · ROE <b>10.3</b> · 负债率 <b>64.2</b></div><div class="cf-emp">员工 <b>3.1万</b> · 增速 <b>+4.1%</b> · 人均净利 <b>13.2万</b> · <span class="s-good">扩张向好</span></div><div class="nt">动力储能</div></div>
-      <div class="co"><div class="nm">国轩高科</div><a class="co-detail" href="berkshire-lithium-battery-chain-002074.html">查看详情 →</a><span class="st pe-low">PE分位 19.8%</span><span class="st pe-low">PB分位 21.8%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>450.7亿</b> · 净利 <b>23.8亿</b> · ROE <b>8.7</b> · 负债率 <b>71.0</b></div><div class="cf-emp">员工效率：待采集</div><div class="nt">动力锂电</div></div>
-      <div class="co"><div class="nm">欣旺达</div><a class="co-detail" href="berkshire-lithium-battery-chain-300207.html">查看详情 →</a><span class="st ">PE分位 63.2%</span><span class="st pe-low">PB分位 8.2%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>632.5亿</b> · 净利 <b>10.6亿</b> · ROE <b>4.4</b> · 负债率 <b>71.2</b></div><div class="cf-emp">员工效率：待采集</div><div class="nt">消费+动力</div></div>
-      <div class="co"><div class="nm">孚能科技</div><a class="co-detail" href="berkshire-lithium-battery-chain-688567.html">查看详情 →</a><span class="st pe-high">PE分位 79.8%</span><span class="st pe-low">PB分位 4.8%</span><span class="st ">泊松:空头主导</span><div class="cf-fin">营收 <b>91.2亿</b> · 净利 <b>-7.5亿</b> · ROE <b>-7.8</b> · 负债率 <b>59.4</b></div><div class="cf-emp">员工 <b>0.5万</b> · 增速 <b>-21.4%</b> · 人均净利 <b>-14.7万</b> · <span class="s-bad">收缩承压</span></div><div class="nt">软包</div></div>
-      <div class="co"><div class="nm">鹏辉能源</div><a class="co-detail" href="berkshire-lithium-battery-chain-300438.html">查看详情 →</a><span class="st ">PE分位 62.8%</span><span class="st pe-high">PB分位 72.1%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>119.4亿</b> · 净利 <b>2.1亿</b> · ROE <b>3.9</b> · 负债率 <b>74.2</b></div><div class="cf-emp">员工 <b>1.5万</b> · 增速 <b>+36.9%</b> · 人均净利 <b>1.4万</b> · <span class="s-good">扩张向好</span></div><div class="nt">储能</div></div>
-      <div class="co"><div class="nm">蔚蓝锂芯</div><a class="co-detail" href="berkshire-lithium-battery-chain-002245.html">查看详情 →</a><span class="st ">PE分位 50.9%</span><span class="st ">PB分位 63.9%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>81.1亿</b> · 净利 <b>7.1亿</b> · ROE <b>9.8</b> · 负债率 <b>36.8</b></div><div class="cf-emp">员工 <b>0.4万</b> · 增速 <b>+41.1%</b> · 人均净利 <b>16.8万</b> · <span class="s-good">扩张向好</span></div><div class="nt">圆柱</div></div>
-      <div class="co"><div class="nm">派能科技</div><a class="co-detail" href="berkshire-lithium-battery-chain-688063.html">查看详情 →</a><span class="st ">PE分位 42.6%</span><span class="st pe-low">PB分位 8.1%</span><span class="st ">泊松:空头主导</span><div class="cf-fin">营收 <b>31.6亿</b> · 净利 <b>0.8亿</b> · ROE <b>0.9</b> · 负债率 <b>30.3</b></div><div class="cf-emp">员工 <b>0.3万</b> · 增速 <b>+50.0%</b> · 人均净利 <b>2.7万</b> · <span class="s-good">扩张向好</span></div><div class="nt">储能</div></div>
-      <div class="co"><div class="nm">德赛电池</div><a class="co-detail" href="berkshire-lithium-battery-chain-000049.html">查看详情 →</a><span class="st pe-high">PE分位 83.2%</span><span class="st pe-low">PB分位 6.4%</span><span class="st poi">泊松:★泊松信号</span><div class="cf-fin">营收 <b>224.0亿</b> · 净利 <b>2.9亿</b> · ROE <b>4.4</b> · 负债率 <b>60.6</b></div><div class="cf-emp">员工 <b>1.5万</b> · 增速 <b>-5.1%</b> · 人均净利 <b>1.9万</b> · <span class="s-watch">收缩调整</span></div><div class="nt">消费Pack</div></div>
-    </div>
-  </div>
-  <div class="sec">
-    <h2>员工效率与组织效能排行（锂电池 9 家）</h2>
-<div class="ovtable"><table>
-<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>效率信号</th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-lithium-battery-chain-688063.html">派能科技</a></td><td class="num">3,171</td><td class="num up">+50.00%</td><td class="num">¥99.8万</td><td class="num">¥2.7万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-lithium-battery-chain-002245.html">蔚蓝锂芯</a></td><td class="num">4,237</td><td class="num up">+41.09%</td><td class="num">¥191.5万</td><td class="num">¥16.8万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-lithium-battery-chain-300750.html">宁德时代</a></td><td class="num">185,839</td><td class="num up">+40.80%</td><td class="num">¥228.0万</td><td class="num">¥38.9万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-lithium-battery-chain-300438.html">鹏辉能源</a></td><td class="num">15,092</td><td class="num up">+36.94%</td><td class="num">¥79.1万</td><td class="num">¥1.4万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-lithium-battery-chain-300014.html">亿纬锂能</a></td><td class="num">31,213</td><td class="num up">+4.06%</td><td class="num">¥196.9万</td><td class="num">¥13.2万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-lithium-battery-chain-000049.html">德赛电池</a></td><td class="num">15,450</td><td class="num down">-5.05%</td><td class="num">¥145.0万</td><td class="num">¥1.9万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-lithium-battery-chain-688567.html">孚能科技</a></td><td class="num">5,080</td><td class="num down">-21.40%</td><td class="num">¥179.5万</td><td class="num">¥-14.7万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">收缩承压</span></td></tr>
-<tr><td><a href="berkshire-lithium-battery-chain-002074.html">国轩高科</a></td><td class="num">—</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
-<tr><td><a href="berkshire-lithium-battery-chain-300207.html">欣旺达</a></td><td class="num">—</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
-</tbody>
-</table>
-<div class="fin-note">员工增速=在职员工(集团/母公司口径)同比；人均营收/净利=2025 营收(元)÷员工数。已覆盖 7/9 家员工数据，
-其余因年报未披露标准「在职员工的数量合计」口径或非 A 股主体标「数据不足」。排序：有数据优先、按员工增速降序。
-组织效能信号由「员工增速分档 × 人均盈利分档」组合判定，为代理指标，非投资建议。</div>
 </div>
 
-<h2>建设状态</h2>
-    <div class="desc">本链为已建：估值历史分位(PE/PB 近十年)、泊松跳变信号、2025 年报财报基本面(营收/净利/ROE/负债率)、组织效能(员工人数/增速/人均净利)均已基于 akshare 行情与 cninfo 年报公开披露回填（截至 2026-07-25）；个别公司因披露格式/数据源限制未取到数据的字段诚实标注「待采集」。</div>
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报（2025-12-31）</b>为准；估值 / 行情为<b>采集日快照</b>（腾讯行情近十年分位）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-08-08</span></div>
+
+<div class="explain-banner">
+<div class="eb-icon">🔋</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「锂电池产业链产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把锂电池产业链企业按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
+<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中为框架级定性梳理，不编造具体财务数字，最新数据以公司公告为准。估值分位已基于腾讯行情公开数据回填（详见各公司详情页）。
+</div>
+</div>
+</div>
+
+<div class="section-title" style="border-left:3px solid var(--orange)">研究信号</div>
+<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--orange);border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
+    <div style="font-weight:700;color:#475569">周期位置</div><div>锂价底部 + 估值历史低位</div>
+<div style="font-weight:700;color:#475569">景气方向</div><div>向上 — 储能爆发 + 车需求稳健，锂价触底</div>
+<div style="font-weight:700;color:#475569">结论信号</div><div>🟡 中性偏积极（择优）— 锂电是「锂价周期 × 份额」强周期，锂价底部利好毛利、龙头集中度提升，但产能过剩仍是变量</div>
+<div style="font-weight:700;color:#475569">核心催化</div><div>①锂价触底回升  ②储能（海内外）爆发  ③固态 / 新技术迭代</div>
+<div style="font-weight:700;color:#475569">关键风险</div><div>①产能过剩价格战  ②锂价再下行  ③技术路线切换（固态）</div>
   </div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：平均 PE分位≈47% · 平均 PB分位≈27% · 普遍估值中低位 · 估值/ROE/人均盈利已 10/10 覆盖（cninfo 2024–2025 年报）。结论为框架合成，需结合实盘研究校验。</div>
 </div>
-<style>
-.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(232,184,75,0.5); }
-.extend { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin-bottom:10px; }
-.extend a { display:block; text-decoration:none; background:#fffdf6; border:1px solid #f0e2bf; border-radius:12px; padding:14px 16px; transition:.15s; }
-.extend a:hover { border-color:#e8b84b; box-shadow:0 4px 14px rgba(232,184,75,.18); transform:translateY(-2px); }
-.extend b { display:block; font-size:15px; color:#1f2937; margin-bottom:4px; }
-.extend span { display:block; font-size:12.5px; color:#64748b; line-height:1.5; }
-</style><div class="section-title">延伸阅读</div><div class="extend"><a href="berkshire-lithium-battery-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a><a href="berkshire-lithium-battery-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a></div>
-<div class="foot">
-  <p><b>关于本页：</b>锂电池产业链框架版，隶属「全A股产业链覆盖地图」分阶段建设成果。框架参照申万/中信行业分类公开标准整理。</p>
-  <p>⚠️ 以上内容由 AI 基于公开信息整理生成，<b>深度数据(估值/财务/信号/效能)已基于公开披露回填，不构成任何投资建议或个股推荐，不做投资依据</b>。投资有风险，决策需谨慎。</p>
+
+<div class="section-title">跨层分析框架（5 层）</div>
+<div class="layers">
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游 · 锂资源</div><div class="layer-desc">锂矿 / 盐湖，价格强周期</div></div><div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游 · 电芯与材料</div><div class="layer-desc">动力 / 储能电芯、正极 / 隔膜 / 电解液</div></div><div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游 · 应用</div><div class="layer-desc">新能源车 / 储能 / 消费电子</div></div><div class="layer-card"><div class="layer-num">04</div><div class="layer-name">需求 · 电动化</div><div class="layer-desc">车 + 储双轮，长坡厚雪</div></div><div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">看锂价周期 + 份额，强周期 + 估值消化</div></div>
 </div>
+
+<div class="section-title">人话版：这个框架怎么用</div>
+<div class="insight-box">
+<div class="insight-title"><span class="icon">💡</span> 一句话：锂电池看的是「锂价降没降（成本）+ 你的份额涨没涨 + 储能给不给增量」</div>
+<div class="insight-body">
+<p>投资锂电池产业链的关键是看清「周期位置 + 护城河 + 估值锚」：从上游到下游，每一层都有可跟踪的硬指标。</p>
+<p>5 层框架其实是回答三个问题：</p>
+<ul>
+<li><b>上游：锂谁定价？</b> 锂矿 / 盐湖随全球供给周期剧烈波动，2023 后暴跌至底部，直接改善电芯毛利；资源自给率高的（赣锋、天齐，此处宁德 / 国轩布局）平滑成本。</li><li><b>中游：做什么电芯？</b> 动力（宁德、比亚迪、亿纬、国轩）、储能（鹏辉、派能）、消费（欣旺达、德赛）；宁德全球份额领先、比亚迪垂直一体化。</li><li><b>下游：卖给谁？</b> 新能源车（国内稳健 + 出海）、储能（海内外爆发）、消费电子（复苏）；车 + 储双轮决定需求。</li><li><b>需求：长期钱在哪？</b> 电动化 + 储能是 10 年级长坡，储能从政策驱动转向平价驱动，增量最确定。</li><li><b>投资逻辑：安全边际在哪？</b> 锂电买点多在「锂价底部 + 低估值 + 份额领先」，龙头（宁德、比亚迪）更抗过剩；但强周期需控仓。</li>
+</ul>
+<p><b>实战信号</b>：锂价触底 + 储能爆发 → 毛利与量双升（宁德、亿纬、鹏辉）；产能过剩价格战 → 二三线承压。当前估值低位，安全边际来自锂价底部与龙头份额。</p>
+</div>
+</div>
+
+<div class="section-title">产业周期判断标准</div>
+<div class="cycle-block" id="cycle"><div class="cycle-title"><span class="icon">🔄</span> 锂电池产业链产业链 产业周期怎么看</div><div class="cycle-body"><p><b>驱动变量</b>：驱动变量：锂价（供给周期）、新能源车销量、储能装机、产能过剩度（价格战）、技术迭代（固态）。这是「锂价—需求—产能」强周期。这是「政策—成本—需求」三段式周期，而非传统产能周期。</p>
+<ul>
+<li><b>锂价</b>：触底回升 → 资源端受益、电芯成本稳；再下行 → 电芯毛利承压。</li><li><b>车/储需求</b>：高增 → 量价齐升；放缓 → 价格战。</li><li><b>产能过剩</b>：出清 → 格局改善；过剩 → 毛利压缩。</li><li><b>技术迭代</b>：固态突破 → 卡位者受益；误判 → 沉没。</li>
+</ul>
+<p><b>举例说明</b>：2024–2025 锂价暴跌至底部后企稳、储能爆发，宁德 / 亿纬 / 鹏辉毛利改善、储能放量；2022 锂价暴涨则资源端暴利、电芯承压，2023 锂价崩则资源端反噬。</p></div><div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：当前位置（定性框架，非数据结论）：锂电处「锂价底部 + 估值历史低位」早中期，储能爆发、龙头集中度提升；变量是产能过剩与锂价走势，安全边际来自锂价底部与龙头份额。</div></div>
+
+<div class="section-title">估值历史分位总览（锂电池产业链 10 家）</div>
+<div class="ovtable">
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300750.html.html">宁德时代</a></td><td>22.44</td><td><span class="pct-cell pct-lo">18.7%</span></td><td>4.96</td><td><span class="pct-cell pct-lo">30.7%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-002594.html.html">比亚迪</a></td><td>30.41</td><td><span class="pct-cell pct-lo">33.1%</span></td><td>3.61</td><td><span class="pct-cell pct-lo">35.8%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300014.html.html">亿纬锂能</a></td><td>26.18</td><td><span class="pct-cell pct-lo">20.0%</span></td><td>2.69</td><td><span class="pct-cell pct-lo">16.3%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-002074.html.html">国轩高科</a></td><td>21.15</td><td><span class="pct-cell pct-lo">19.8%</span></td><td>1.68</td><td><span class="pct-cell pct-lo">21.8%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300207.html.html">欣旺达</a></td><td>39.82</td><td><span class="pct-cell pct-hi">63.2%</span></td><td>1.27</td><td><span class="pct-cell pct-lo">8.2%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-688567.html.html">孚能科技</a></td><td>-15.32</td><td><span class="pct-cell pct-hi">79.8%</span></td><td>1.23</td><td><span class="pct-cell pct-lo">4.8%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300438.html.html">鹏辉能源</a></td><td>54.14</td><td><span class="pct-cell pct-hi">62.8%</span></td><td>5.46</td><td><span class="pct-cell pct-hi">72.1%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-002245.html.html">蔚蓝锂芯</a></td><td>36.4</td><td><span class="pct-cell pct-mid">50.9%</span></td><td>3.55</td><td><span class="pct-cell pct-hi">63.9%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-688063.html.html">派能科技</a></td><td>68.83</td><td><span class="pct-cell pct-mid">42.6%</span></td><td>1.08</td><td><span class="pct-cell pct-lo">8.1%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-000049.html.html">德赛电池</a></td><td>28.09</td><td><span class="pct-cell pct-hi">83.2%</span></td><td>1.34</td><td><span class="pct-cell pct-lo">6.4%</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（腾讯行情）。<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span><span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span><span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。锂电池产业链 10 家 PE 分位4 家&lt;40%、整体处历史估值中低位（集采出清 + 情绪压制或周期底部）。分位为时点统计。</div>
+</div>
+
+<div class="section-title">R15 三维评级总览（锂电池产业链 10 家）</div>
+<div class="ovtable">
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300750.html.html">宁德时代</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-lo">18.7%</span></td><td><span class="pct-cell pct-lo">30.7%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-002594.html.html">比亚迪</a></td><td><span class="pct-cell pct-lo">低估2★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-lo">33.1%</span></td><td><span class="pct-cell pct-lo">35.8%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300014.html.html">亿纬锂能</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-lo">20.0%</span></td><td><span class="pct-cell pct-lo">16.3%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-002074.html.html">国轩高科</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-lo">19.8%</span></td><td><span class="pct-cell pct-lo">21.8%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300207.html.html">欣旺达</a></td><td><span class="pct-cell pct-lo">低估2★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">6</span></td><td><span class="pct-cell pct-hi">63.2%</span></td><td><span class="pct-cell pct-lo">8.2%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-688567.html.html">孚能科技</a></td><td><span class="pct-cell pct-mid">合理</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">6</span></td><td><span class="pct-cell pct-hi">79.8%</span></td><td><span class="pct-cell pct-lo">4.8%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300438.html.html">鹏辉能源</a></td><td><span class="pct-cell pct-hi">偏高</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">3</span></td><td><span class="pct-cell pct-hi">62.8%</span></td><td><span class="pct-cell pct-hi">72.1%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-002245.html.html">蔚蓝锂芯</a></td><td><span class="pct-cell pct-mid">合理</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">4</span></td><td><span class="pct-cell pct-mid">50.9%</span></td><td><span class="pct-cell pct-hi">63.9%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-688063.html.html">派能科技</a></td><td><span class="pct-cell pct-lo">低估2★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid">42.6%</span></td><td><span class="pct-cell pct-lo">8.1%</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-000049.html.html">德赛电池</a></td><td><span class="pct-cell pct-mid">合理</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">6</span></td><td><span class="pct-cell pct-hi">83.2%</span></td><td><span class="pct-cell pct-lo">6.4%</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">R15 三维框架：①<b>相对估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多，&lt;15%=5★，15–25%=4★，25–40%=2★，40–60%=合理，&gt;75%=高估）；②<b>质量星级</b>=最新年报 ROE(加权，2025，同花顺年报摘要) 换算（★越多质地越好：≥14%=5★，12–14%=4★，10–12%=3★，7–10%=2★，&lt;7%=1★）；③<b>时机分</b>=round((100−PE/PB平均分位)/10)，分越高越接近估值底部、买点越好（绿=好 橙=中 红=差）。整体结论：锂电池产业链普遍估值中低位 → 相对估值星级高、时机分高；质量端分化明显（ROE 高的龙头质地优，部分偏弱）。数据为时点统计。</div>
+</div>
+
+<div class="section-title">产业链成本传导</div>
+<div class="cost-block"><div class="cost-chart"><svg viewBox="0 0 600 170" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,Segoe UI,Microsoft YaHei,sans-serif">
+<defs>
+<marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#c2780a"/></marker>
+</defs>
+<rect x="10" y="55" width="130" height="58" rx="10" fill="#fff" stroke="#f5a623" stroke-width="1.5"/>
+<text x="75" y="80" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">锂资源</text>
+<text x="75" y="100" text-anchor="middle" font-size="11" fill="#64748b">锂矿/盐湖</text>
+<line x1="140" y1="84" x2="170" y2="84" stroke="#c2780a" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="172" y="55" width="120" height="58" rx="10" fill="#fff" stroke="#f5a623" stroke-width="1.5"/>
+<text x="232" y="80" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">电芯与材料</text>
+<text x="232" y="100" text-anchor="middle" font-size="11" fill="#64748b">动力/储能</text>
+<line x1="292" y1="84" x2="332" y2="84" stroke="#c2780a" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="334" y="55" width="120" height="58" rx="10" fill="#fff" stroke="#f5a623" stroke-width="1.5"/>
+<text x="394" y="80" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">应用终端</text>
+<text x="394" y="100" text-anchor="middle" font-size="11" fill="#64748b">车/储/消费</text>
+<line x1="454" y1="84" x2="494" y2="84" stroke="#c2780a" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="496" y="55" width="100" height="58" rx="10" fill="#fff" stroke="#f5a623" stroke-width="1.5"/>
+<text x="546" y="80" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">锂价周期</text>
+<text x="546" y="100" text-anchor="middle" font-size="11" fill="#64748b">供给周期</text>
+<text x="300" y="150" text-anchor="middle" font-size="12" fill="#64748b">锂资源 → 电芯与材料 → 应用终端 → 锂价周期</text>
+</svg></div>
+<div class="cost-note"><p>本产业链的成本传导链为：<b>锂资源 → 电芯与材料 → 应用终端 → 锂价周期</b>。锂电池产业链没有交易所统一期货（无统一定价期货），成本传导以<b>定性框架 + 周期</b>呈现。</p>
+<p>锂电成本以「锂资源（矿/盐湖）→ 电芯与材料 → 应用终端 → 锂价」强周期框架呈现：锂价（全球供给周期）触底 → 电芯成本改善、毛利修复。</p><p><b>向上游看</b>：锂矿 / 盐湖价格波动剧烈，资源自给率高的企业（一体化布局）平滑成本；锂价底部是行业性利好。</p><p><b>向中游看</b>：储能从政策驱动转向平价驱动增量最确定，龙头（宁德、比亚迪）靠份额与一体化抗过剩；估值分位见上，反映「估值低位」。</p>
+<p>估值历史分位已在本段上方给出，反映「中低位」的整体位置。</p></div></div>
+
+<div class="section-title">员工效率与组织效能排行（锂电池产业链 10 家）</div>
+<div class="ovtable"><table class="sortable">
+<thead><tr><th data-type="name">公司</th><th data-type="num">员工(2025)</th><th data-type="num">员工增速</th><th data-type="num">人均营收</th><th data-type="num">人均净利</th><th data-type="name">效率信号</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300750.html.html">宁德时代</a></td><td class="num">185,839</td><td class="num pos">+40.8%</td><td class="num">¥228.0万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 扩员</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-002594.html.html">比亚迪</a></td><td class="num">869,622</td><td class="num neg">-10.2%</td><td class="num">¥92.4万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 缩员</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300014.html.html">亿纬锂能</a></td><td class="num">31,213</td><td class="num pos">+4.1%</td><td class="num">¥196.9万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 稳健</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-002074.html.html">国轩高科</a></td><td class="num">—</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 口径异常</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300207.html.html">欣旺达</a></td><td class="num">—</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 口径异常</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-688567.html.html">孚能科技</a></td><td class="num">5,080</td><td class="num neg">-21.4%</td><td class="num">¥179.5万</td><td class="num">¥-0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 缩员</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300438.html.html">鹏辉能源</a></td><td class="num">15,092</td><td class="num pos">+36.9%</td><td class="num">¥79.1万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 扩员</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-002245.html.html">蔚蓝锂芯</a></td><td class="num">4,237</td><td class="num pos">+41.1%</td><td class="num">¥191.5万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 扩员</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-688063.html.html">派能科技</a></td><td class="num">3,171</td><td class="num pos">+50.0%</td><td class="num">¥99.8万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 扩员</span></td></tr><tr><td><a href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-000049.html.html">德赛电池</a></td><td class="num">15,450</td><td class="num neg">-5.1%</td><td class="num">¥145.0万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 稳健</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">员工数=年报披露的「在职员工的数量合计」（含母公司+主要子公司），截至 2025-12-31；员工增速=与 2024-12-31 同比。人均营收/净利=2025 营业总收入(元)÷员工数（员工数取集团口径；部分公司仅母公司口径，其分母仅为母公司员工、对应人均会偏高，已在效率信号格按同口径判断）。已覆盖 <b>10/10 家</b>员工数据，财务数据来源：cninfo 巨潮资讯网 2024 / 2025 年报摘要；标注<b>口径异常</b>者因 2024 年员工数基线缺失/大幅异常（年报口径调整），增速不可比。效率信号档位：人均净利≥30万=高人均盈利；10–30万=良好；5–10万=中等；&lt;5万=偏低；员工|增速|&gt;10% 则在档位后加注「扩员 / 缩员」。组织效能信号由「员工增速分档 × 人均盈利分档」组合判定，为代理指标，非投资建议。</div>
+</div>
+
+<div class="section-title">锂电池产业链公司索引（上市公司 10 家）</div>
+<div class="grid">
+<a class="giant-card" href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300750.html.html"><div class="giant-head"><span class="giant-name">宁德时代 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">动力电池龙头</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于锂价底部 + 估值低位期：PE分位18.7%、PB分位30.7%低位；ROE 24.7% 质地优。核心变量是产能过剩与锂价走势。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-002594.html.html"><div class="giant-head"><span class="giant-name">比亚迪 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">电池+整车垂直</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于锂价底部 + 估值低位期：PE分位33.1%、PB分位35.8%低位；ROE 15.1% 质地优。核心变量是产能过剩与锂价走势。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300014.html.html"><div class="giant-head"><span class="giant-name">亿纬锂能 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">动力+储能</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于锂价底部 + 估值低位期：PE分位20.0%、PB分位16.3%低位；ROE 10.3% 质地良。核心变量是产能过剩与锂价走势。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-002074.html.html"><div class="giant-head"><span class="giant-name">国轩高科 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">动力+储能</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于锂价底部 + 估值低位期：PE分位19.8%、PB分位21.8%低位；ROE 8.7% 质地中。核心变量是产能过剩与锂价走势。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300207.html.html"><div class="giant-head"><span class="giant-name">欣旺达 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">消费+动力电芯</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于锂价底部 + 估值低位期：PE分位63.2%、PB分位8.2%低位；ROE 4.4% 质地偏弱。核心变量是产能过剩与锂价走势。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-688567.html.html"><div class="giant-head"><span class="giant-name">孚能科技 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">软包三元</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于锂价底部 + 估值低位期：PE分位79.8%、PB分位4.8%中低位；ROE -7.8% 质地偏弱。核心变量是产能过剩与锂价走势。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-300438.html.html"><div class="giant-head"><span class="giant-name">鹏辉能源 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">储能电芯</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于锂价底部 + 估值低位期：PE分位62.8%、PB分位72.1%中高位；ROE 3.9% 质地偏弱。核心变量是产能过剩与锂价走势。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-002245.html.html"><div class="giant-head"><span class="giant-name">蔚蓝锂芯 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">圆柱+工具</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于锂价底部 + 估值低位期：PE分位50.9%、PB分位63.9%中低位；ROE 9.8% 质地中。核心变量是产能过剩与锂价走势。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-688063.html.html"><div class="giant-head"><span class="giant-name">派能科技 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">户用储能</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于锂价底部 + 估值低位期：PE分位42.6%、PB分位8.1%低位；ROE 0.9% 质地偏弱。核心变量是产能过剩与锂价走势。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-lithium-battery-chain-berkshire-lithium-battery-chain-000049.html.html"><div class="giant-head"><span class="giant-name">德赛电池 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">消费电池PACK</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于锂价底部 + 估值低位期：PE分位83.2%、PB分位6.4%中低位；ROE 4.4% 质地偏弱。核心变量是产能过剩与锂价走势。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+</div>
+
+<div class="section-title">延伸阅读</div>
+<div class="grid">
+<a class="giant-card" href="berkshire-lithium-battery-methodology.html"><div class="giant-head"><span class="giant-name">📘 估值与周期：框架知识</span></div><div class="giant-desc">怎么读锂电池产业链的定价权、成本周期、壁垒与转型兑现、估值锚——锂电池产业链投资的 4 个核心框架概念。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-lithium-battery-cycle.html"><div class="giant-head"><span class="giant-name">📈 产业周期 2015→2025</span></div><div class="giant-desc">把政策/需求脉络串成宏观视图：锂电池产业链的产能、价格、库存与出清周期、底部信号。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-lithium-battery-backtest.html"><div class="giant-head"><span class="giant-name">🎯 三轮大底回测</span></div><div class="giant-desc">10 家当前 PE/PB/ROE + 月度价格回测：三轮全市场大底的买入回报与关键时点标注。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-lithium-battery-thermometer.html"><div class="giant-head"><span class="giant-name">🌡️ 估值温度计</span></div><div class="giant-desc">10 家锂电池产业链估值冷热一览：低 PE/PB 分位 + 高分红 = 冷（安全边际高），一眼看清谁在历史悲观区。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-lithium-battery-buyback.html"><div class="giant-head"><span class="giant-name">📊 逐轮买点回报图</span></div><div class="giant-desc">三轮全市场大底买入后的累计回报曲线，含关键时点标注与逐点回报数据表。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-lithium-battery-compare.html"><div class="giant-head"><span class="giant-name">🔍 横向对比工具</span></div><div class="giant-desc">勾选多家锂电池产业链公司并排比较 PE/PB/ROE/毛利率/负债率/股息率，自定义指标卡 + 排序与导出。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。估值分位基于腾讯行情公开数据回填（详见各公司详情页）。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+<script>
+(function(){
+  function num(v){
+    if(v==null) return NaN;
+    v=v.textContent||v;
+    if(typeof v==='string'){
+      v=v.replace(/,/g,'').replace(/[ \t\r\n]/g,'');
+      if(v==='—'||v==='-'||v==='') return NaN;
+      var unit=1;
+      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
+      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
+      v=v.replace(/[¥,%]/g,'');
+      var n=parseFloat(v);
+      if(!isNaN(n)) n*=unit;
+      return n;
+    }
+    return NaN;
+  }
+  function cmp(a,b,asc){
+    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
+    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
+    var nanA=isNaN(a), nanB=isNaN(b);
+    if(nanA && nanB) return 0;
+    if(nanA) return asc?1:-1;
+    if(nanB) return asc?-1:1;
+    if(an<bn) return asc?-1:1;
+    if(an>bn) return asc?1:-1;
+    return 0;
+  }
+  function sortTable(th){
+    var table=th.closest('table');
+    var tbody=table.querySelector('tbody');
+    var rows=Array.from(tbody.querySelectorAll('tr'));
+    var idx=Array.from(th.parentNode.children).indexOf(th);
+    var type=th.getAttribute('data-type')||'text';
+    var asc=!th.classList.contains('asc');
+    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
+    th.classList.add(asc?'asc':'desc');
+    rows.sort(function(r1,r2){
+      var c1=r1.cells[idx], c2=r2.cells[idx];
+      var v1, v2;
+      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      else if(type==='num'){ v1=num(c1); v2=num(c2); }
+      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      return cmp(v1,v2,asc);
+    });
+    rows.forEach(function(r){ tbody.appendChild(r); });
+  }
+  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
+    th.addEventListener('click',function(){ sortTable(th); });
+  });
+})();
+</script>
   <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
 </body>

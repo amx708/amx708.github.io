@@ -2,170 +2,316 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="initial-scale=1">
-<title>半导体设备产业链 · 价值投资视角</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>半导体设备产业链产业链 | 伯克希尔投资数据中心</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
-.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(99,102,241,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(99,102,241,0.10);color:#6366f1;border:1px solid rgba(99,102,241,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
-.home-btn:hover{background:#6366f1;color:#fff}
+:root{--navy:#0b1f3a;--navy2:#10294d;--ink:#1d2b40;--line:#e4e9f2;
+  --orange:#f5a623;--accent:#f5a623;--txt:#23344e;--muted:#6b7a93;--card:#fff;--bg:#f4f7fc;--green:#1f9d6b;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--txt);line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(245,166,35,0.28);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(245,166,35,0.10);color:#c2780a;border:1px solid rgba(245,166,35,0.35);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;transition:all .2s}
+.home-btn:hover{background:var(--orange);color:#fff}
 .breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
 .breadcrumb a{color:#64748b;text-decoration:none}
-.breadcrumb a:hover{color:#6366f1}
+.breadcrumb a:hover{color:#c2780a}
 .crumb-sep{color:#cbd5e1}
-.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
-.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(99,102,241,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
-.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
-.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
+.switcher{display:inline-flex;gap:12px;align-items:center;margin-left:8px;flex-wrap:wrap}
+.switcher a{color:#c2780a;text-decoration:none;font-size:13px}
+.switcher a:hover{text-decoration:underline}
+.switcher a.cur{font-weight:800;color:var(--navy);border-bottom:2px solid var(--orange)}
+.container{max-width:1180px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#0b1f3a 0%,#10294d 100%);border-radius:16px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(245,166,35,0.35);box-shadow:0 3px 14px rgba(11,31,58,.12)}
+.hero-title{font-size:28px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#cdb892;margin-bottom:18px}
 .hero-stats{display:flex;gap:12px;flex-wrap:wrap}
-.stat-item{background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.15);border-radius:10px;padding:10px 18px;text-align:center}
-.stat-num{font-size:20px;font-weight:800;color:#6366f1}
-.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
-.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(99,102,241,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.stat-item{background:rgba(245,166,35,0.14);border:1px solid rgba(245,166,35,0.3);border-radius:12px;padding:10px 18px;text-align:center}
+.stat-num{font-size:22px;font-weight:800;color:var(--orange)}
+.stat-label{font-size:11px;color:#cdb892;margin-top:2px;white-space:nowrap}
+.data-banner{background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.3);border-left:4px solid var(--orange);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:var(--navy);font-weight:600}
+.data-banner .upd{color:#c2780a;font-weight:600}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#fff,#f8fafc);border:1px solid rgba(245,166,35,0.3);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
 .explain-banner .eb-icon{font-size:24px;flex-shrink:0}
 .explain-banner .eb-body{flex:1;min-width:0}
-.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.explain-banner .eb-tag{font-size:11px;color:#6366f1;background:rgba(99,102,241,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#c2780a;background:rgba(245,166,35,0.14);padding:2px 9px;border-radius:10px}
 .explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
-.explain-banner .eb-text b{color:#0f172a;font-weight:600}
-.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #6366f1}
+.explain-banner .eb-text b{color:var(--navy);font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--orange)}
 .layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
-.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.layer-num{font-size:12px;color:#6366f1;font-weight:700}
-.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#c2780a;font-weight:700}
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
 .layer-desc{font-size:12px;color:#64748b;line-height:1.6}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.giant-card:hover{border-color:#6366f1;background:rgba(99,102,241,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(99,102,241,0.12)}
-.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.giant-name{font-size:16px;font-weight:700;color:#0f172a}
-.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
-.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
-.region-hk{background:rgba(234,179,8,0.14);color:#b45309;border:1px solid rgba(234,179,8,0.3)}
-.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
-.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
-.giant-link{color:#6366f1;font-weight:600}
-.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.source-note b{color:#475569}
-@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
-.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
-.overview{background:rgba(99,102,241,0.05);border:1px solid rgba(99,102,241,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
-.overview b{color:#0f172a;font-weight:600}
-.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #6366f1;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
-.layer-detail-body b{color:#334155}
-.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.info-table tr{border-bottom:1px solid #eef2f7}
-.info-table tr:last-child{border-bottom:none}
-.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
-.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
-.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
-.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.insight-title .icon{color:#6366f1}
+.insight-box{background:linear-gradient(135deg,#fffdf6,#ffffff);border:1px solid rgba(245,166,35,0.25);border-radius:12px;padding:18px 20px;margin-top:8px}
+.insight-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:var(--orange)}
 .insight-body{font-size:13.5px;color:#475569;line-height:1.8}
-.back-bar{margin-top:20px}
-.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(99,102,241,0.08);color:#6366f1;border:1px solid rgba(99,102,241,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
-.back-btn:hover{background:rgba(99,102,241,0.16)}
-.data-banner{background:rgba(99,102,241,0.07);border:1px solid rgba(99,102,241,0.22);border-left:4px solid #6366f1;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
-.data-banner b{color:#0f172a;font-weight:600}
-.data-banner .upd{color:#6366f1;font-weight:600}
-.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(99,102,241,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
-.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.cycle-title .icon{color:#6366f1}
+.insight-body p{margin-bottom:8px}
+.insight-body ul{margin:8px 0 0 18px;padding:0}
+.insight-body li{margin-bottom:6px}
+.insight-body b{color:#334155}
+.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(245,166,35,0.3);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cycle-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cycle-title .icon{color:var(--orange)}
 .cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
-.cycle-body b{color:#0f172a;font-weight:600}
+.cycle-body b{color:var(--navy);font-weight:600}
 .cycle-body p{margin-bottom:8px}
 .cycle-body ul{margin:8px 0 0 18px;padding:0}
 .cycle-body li{margin-bottom:6px}
-.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #6366f1;padding:8px 12px;background:rgba(99,102,241,0.06);line-height:1.7}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid var(--orange);padding:8px 12px;background:rgba(245,166,35,0.08);line-height:1.7}
 .cycle-current b{color:#334155}
-.cycle-current a{text-decoration:none}
-.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px}
-.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
-.fin-title .icon{color:#6366f1}
-.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px;white-space:nowrap}
-.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
-.fin-table tr{border-bottom:1px solid #eef2f7}
-.fin-table tr:last-child{border-bottom:none}
-.fin-table td{padding:9px 12px;font-size:13px;color:#334155}
-.fin-table td:first-child{width:130px;color:#64748b}
-.fin-table .val{color:#b45309;font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600;text-align:right;padding:9px 11px;border-bottom:1px solid #e2e8f0;white-space:nowrap}
+.ovtable td{padding:8px 11px;border-bottom:1px solid #f1f5f9;color:#0f172a;text-align:right;white-space:nowrap}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable tbody tr:last-child td{border-bottom:none}
+.ovtable a{color:#1d4ed8;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ovtable .num.up{color:#15803d;font-weight:700}
+.ovtable .num.down{color:#b91c1c;font-weight:700}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
 .fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
-.poisson-char{font-family:"Segoe UI","Microsoft YaHei",Arial,sans-serif;font-variant-emoji:text;-webkit-font-variant-emoji:text}
-.poisson-pill{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700}
-@media(max-width:640px){.fin-block{padding:10px 12px;margin-bottom:6px}.fin-head{flex-wrap:wrap;gap:6px;margin-bottom:8px}.fin-title{font-size:14px;gap:6px}.fin-tag{font-size:10px;padding:2px 7px}.fin-table td{padding:7px 10px;font-size:12px}.fin-table td:first-child{width:auto;min-width:90px}.fin-note{font-size:11px;line-height:1.55}}
-
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:var(--navy)}
+.cost-note p{margin:0 0 10px}
+.emp-block{margin:6px 0 2px}
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;border:1px solid transparent}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.giant-card:hover{border-color:var(--orange);background:rgba(245,166,35,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(245,166,35,0.16)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:var(--navy)}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(31,157,107,0.12);color:#1f9d6b;border:1px solid rgba(31,157,107,0.25)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#c2780a;font-weight:600}
+.card-cycle{margin-top:10px;padding:8px 10px;border-left:3px solid var(--orange);border-radius:6px;font-size:12px;color:#475569;line-height:1.6;background:rgba(245,166,35,0.06)}
+.card-cycle .cc-label{display:block;font-weight:700;margin-bottom:3px;font-size:11.5px;color:#c2780a}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.extend a{display:block;background:#fffdf6;border:1px solid #f0e2bf;border-radius:12px;padding:14px 16px;text-decoration:none;color:#1e293b;transition:.18s}
+.extend a:hover{border-color:var(--orange);box-shadow:0 4px 14px rgba(245,166,35,.18);transform:translateY(-2px)}
+.extend b{display:block;font-size:15px;color:#1f2937;margin-bottom:4px}
+.extend span{display:block;font-size:12.5px;color:#64748b;line-height:1.5}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:22px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
+.sortable th:hover{background:#fff3df}
+.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
+.sortable th.asc .sort-ind::before{content:"▲";color:var(--accent)}
+.sortable th.desc .sort-ind::before{content:"▼";color:var(--accent)}
 </style>
 </head>
 <body>
 <div class="top-bar">
 <a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
-<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:6366f1;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:6366f1;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:6366f1;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:6366f1;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:6366f1;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:6366f1;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:6366f1;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:6366f1;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:6366f1;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:6366f1;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:6366f1;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:6366f1;text-decoration:none;font-size:13px">电力设备</a></span>
+<span class="switcher"><a href="berkshire-bank-chains.html">银行</a><a href="berkshire-baijiu-chains.html">白酒</a><a href="berkshire-ai-chains.html">AI</a><a href="berkshire-robot-chains.html">机器人</a><a href="berkshire-tcm-chains.html">中药</a><a href="berkshire-innov-chains.html">创新药</a><a href="berkshire-chemical-pharma-chains.html">化学制药</a><a href="berkshire-appliance-chains.html">家电</a><a href="berkshire-power-chains.html">电力</a><a href="berkshire-coal-chains.html">煤炭</a><a href="berkshire-metal-chains.html">有色</a><a href="berkshire-chem-chains.html">化工</a><a href="berkshire-equip-chains.html">电力设备</a><a href="berkshire-securities-chains.html">证券</a><a href="berkshire-insurance-chains.html">保险</a><a href="berkshire-finance-lease-chains.html">融资租赁</a><a href="berkshire-beer-chains.html">啤酒</a><a href="berkshire-dairy-chains.html">乳制品</a><a href="berkshire-snack-chains.html">零食</a><a href="berkshire-semiconductor-equip-chains.html" class="cur">半导体设备</a><a href="berkshire-software-chains.html">软件</a><a href="berkshire-optical-module-chains.html">光模块</a><a href="berkshire-industrial-control-chains.html">工业控制</a><a href="berkshire-machine-tool-chains.html">机床</a><a href="berkshire-lithium-battery-chains.html">锂电池</a></span>
 <div class="breadcrumb">
-<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>半导体设备产业链</span>
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>半导体设备产业链产业链</span>
 </div>
 </div>
 <div class="container">
 
 <div class="hero">
-<div class="hero-title">半导体设备产业链</div>
-<div class="hero-sub">价值投资视角下的「国产替代」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
+<div class="hero-title">🔬 半导体设备产业链产业链</div>
+<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
 <div class="hero-stats">
-<div class="stat-item"><div class="stat-num">12</div><div class="stat-label">上市公司</div></div>
+<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">上市公司</div></div>
 <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
-<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+<div class="stat-item"><div class="stat-num">估值✓</div><div class="stat-label">分位已回填</div></div>
 </div>
 </div>
 
-<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报（2025-12-31）</b>为准；估值 / 行情为<b>采集日快照</b>（腾讯行情近十年分位）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-08-08</span></div>
 
 <div class="explain-banner">
 <div class="eb-icon">🔬</div>
 <div class="eb-body">
-<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「半导体设备产业链地图」是怎么来的</div>
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「半导体设备产业链产业链地图」是怎么来的</div>
 <div class="eb-text">
-本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把半导体设备龙头按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
-<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中为框架级定性梳理，不编造具体财务数字，最新数据以公司公告为准。
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把半导体设备产业链企业按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
+<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中为框架级定性梳理，不编造具体财务数字，最新数据以公司公告为准。估值分位已基于腾讯行情公开数据回填（详见各公司详情页）。
 </div>
 </div>
+</div>
+
+<div class="section-title" style="border-left:3px solid var(--orange)">研究信号</div>
+<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--orange);border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
+    <div style="font-weight:700;color:#475569">周期位置</div><div>国产替代加速 + 估值历史中高位</div>
+<div style="font-weight:700;color:#475569">景气方向</div><div>向上 — 晶圆厂扩产 + 设备国产化率提升</div>
+<div style="font-weight:700;color:#475569">结论信号</div><div>🟢 积极（高成长，控估值）— 半导体设备是「自主可控」长坡厚雪，订单高增但估值不便宜，宜选平台化与品类扩张者</div>
+<div style="font-weight:700;color:#475569">核心催化</div><div>①晶圆厂（中芯/长存/长鑫）扩产  ②设备国产化率提升  ③大基金与政策加码</div>
+<div style="font-weight:700;color:#475569">关键风险</div><div>①海外设备限制升级  ②晶圆厂capex不及预期  ③估值过高回撤</div>
+  </div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：平均 PE分位≈69% · 平均 PB分位≈90% · 普遍估值中高位 · 估值/ROE/人均盈利已 0/10 覆盖（cninfo 2024–2025 年报）。结论为框架合成，需结合实盘研究校验。</div>
 </div>
 
 <div class="section-title">跨层分析框架（5 层）</div>
 <div class="layers">
-<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游 · 设备零部件</div><div class="layer-desc">精密机械 / 真空 / 射频电源 / 光学 / 石英 / 高纯气体管路，是设备性能与良率的底层约束</div></div><div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游 · 核心工艺设备</div><div class="layer-desc">刻蚀 / 薄膜沉积 / 清洗 / CMP / 离子注入 / 涂胶显影，是制程推进的核心装备</div></div><div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游 · 晶圆制造产线</div><div class="layer-desc">逻辑 / 存储 / 功率等 fab 应用，设备需求由扩产与制程升级驱动</div></div><div class="layer-card"><div class="layer-num">04</div><div class="layer-name">应用场景</div><div class="layer-desc">国产替代 + 晶圆厂扩产 + 先进制程，是设备订单的根本来源</div></div><div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">平台化 + 品类突破 + 客户绑定；风险在周期、验证节奏与海外限制</div></div>
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游 · 零部件与材料</div><div class="layer-desc">真空 / 射频 / 光学部件、石英 / 陶瓷，国产化瓶颈</div></div><div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游 · 设备制造</div><div class="layer-desc">刻蚀 / 薄膜 / 清洗 / 光刻 / 量测，平台化突破</div></div><div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游 · 晶圆厂</div><div class="layer-desc">中芯 / 长存 / 长鑫等扩产，决定订单</div></div><div class="layer-card"><div class="layer-num">04</div><div class="layer-name">需求 · 国产替代</div><div class="layer-desc">逆全球化下自主可控，长坡厚雪</div></div><div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">看国产替代 + 晶圆厂扩产，高成长 + 高估值消化</div></div>
+</div>
+
+<div class="section-title">人话版：这个框架怎么用</div>
+<div class="insight-box">
+<div class="insight-title"><span class="icon">💡</span> 一句话：半导体设备看的是「国产替代率能提到多高 + 晶圆厂敢不敢扩产 + 估值贵不贵」</div>
+<div class="insight-body">
+<p>投资半导体设备产业链的关键是看清「周期位置 + 护城河 + 估值锚」：从上游到下游，每一层都有可跟踪的硬指标。</p>
+<p>5 层框架其实是回答三个问题：</p>
+<ul>
+<li><b>上游：零部件谁卡脖子？</b> 真空 / 射频 / 光学部件、石英 / 陶瓷等仍部分依赖进口，是国产化深层瓶颈；上游突破决定整机自主度。</li><li><b>中游：做什么设备？</b> 刻蚀（中微）、薄膜沉积（拓荆、微导）、清洗（盛美）、CMP（华海清科）、涂胶显影（芯源微）、量测（精测、中科飞测）、平台型（北方华创）；平台化企业空间更大。</li><li><b>下游：订单从哪来？</b> 中芯 / 长存 / 长鑫等晶圆厂扩产直接决定设备订单；逆全球化下国产线capex刚性。</li><li><b>需求：长期钱在哪？</b> 自主可控是 10 年级长坡厚雪，国产化率从低个位数向 30%+ 提升是核心增量。</li><li><b>投资逻辑：安全边际在哪？</b> 设备买点多在「订单高增兑现 + 估值回调至合理」，平台化与品类扩张者更抗波动；但高估值需时间消化。</li>
+</ul>
+<p><b>实战信号</b>：晶圆厂扩产 + 国产化率提升 → 订单高增（北方华创、中微、拓荆），关注平台化；海外限制升级或 capex 不及预期 → 回撤。当前估值中高，安全边际来自成长兑现而非低估值。</p>
+</div>
 </div>
 
 <div class="section-title">产业周期判断标准</div>
-<div class="cycle-block" id="cycle"><div class="cycle-title"><span class="icon">🔄</span> 半导体设备产业链 产业周期怎么看</div><div class="cycle-body"><p><b>驱动变量</b>：晶圆厂 capex 周期（扩产节奏）、国产替代政策与采购倾斜、先进制程推进（层数 / 结构复杂度提升设备用量）、设备验证与导入节奏、海外设备与零部件限制、下游需求（AI / 存储 / 汽车电子）。</p>
+<div class="cycle-block" id="cycle"><div class="cycle-title"><span class="icon">🔄</span> 半导体设备产业链产业链 产业周期怎么看</div><div class="cycle-body"><p><b>驱动变量</b>：驱动变量：晶圆厂 capex（扩产节奏）、设备国产化率（政策 + 验证进度）、海外限制（出口管制）、大基金周期。这是「政策—capex—国产化」三段式强成长周期。这是「政策—成本—需求」三段式周期，而非传统产能周期。</p>
 <ul>
-<li><b>晶圆厂扩产</b>：本土逻辑 / 存储 fab 扩产是设备订单根本来源，capex 周期决定景气。</li>
-<li><b>国产替代</b>：自主可控政策与采购倾斜，加速刻蚀 / 薄膜 / 清洗 / CMP / 量测等环节导入。</li>
-<li><b>先进制程</b>：制程推进与 3D 结构增加刻蚀 / 薄膜 / 量测等用量，单价与价值量提升。</li>
-<li><b>海外限制</b>：设备与零部件出口管制是最大外部变量，倒逼本土供应链，也压制部分需求。</li>
-<li><b>验证节奏</b>：设备从样机到量产导入周期长，验证通过与重复订单是兑现信号。</li>
-</ul></div><div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：半导体设备呈"国产替代 + 扩产周期 + 先进制程"三轮驱动：本土 fab 扩产与采购倾斜加速刻蚀 / 薄膜 / 清洗 / CMP / 量测全品类突破，先进制程层数提升推高设备价值量；最大变量是海外限制与下游 capex 周期，验证通过与重复订单是兑现信号。</div></div>
+<li><b>晶圆厂capex</b>：扩产 → 设备订单高增；放缓 → 订单递延。</li><li><b>国产化率</b>：验证通过 → 份额跃升；卡验证 → 放量慢。</li><li><b>海外限制</b>：升级 → 倒逼国产替代加速；缓和 → 竞争加剧。</li><li><b>大基金</b>：加码 → 资金与订单共振；退坡 → 估值承压。</li>
+</ul>
+<p><b>举例说明</b>：2023–2025 晶圆厂逆全球化扩产 + 大基金三期，北方华创 / 中微 / 拓荆订单与收入高增、国产化率快速提升；2019 前则国产设备几乎空白、依赖进口。</p></div><div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：当前位置（定性框架，非数据结论）：半导体设备处「国产替代加速 + 估值中高位」强成长期，订单高增、平台化突破；变量是晶圆厂 capex 与海外限制，安全边际来自成长兑现而非低估值。</div></div>
 
-<div class="section-title">半导体设备龙头索引（上市公司 12 家）</div>
+<div class="section-title">估值历史分位总览（半导体设备产业链 10 家）</div>
+<div class="ovtable">
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-bhhe.html.html">北方华创</a></td><td>98.52</td><td><span class="pct-cell pct-mid">41.7%</span></td><td>13.98</td><td><span class="pct-cell pct-hi">82.8%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-zwgs.html.html">中微公司</a></td><td>136.36</td><td><span class="pct-cell pct-hi">73.2%</span></td><td>15.31</td><td><span class="pct-cell pct-hi">75.4%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-tjkh.html.html">拓荆科技</a></td><td>139.84</td><td><span class="pct-cell pct-hi">85.3%</span></td><td>31.73</td><td><span class="pct-cell pct-hi">98.7%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-smsh.html.html">盛美上海</a></td><td>115.46</td><td><span class="pct-cell pct-hi">80.9%</span></td><td>10.61</td><td><span class="pct-cell pct-hi">89.4%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-hhqk.html.html">华海清科</a></td><td>118.95</td><td><span class="pct-cell pct-hi">95.8%</span></td><td>16.91</td><td><span class="pct-cell pct-hi">94.2%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-xymw.html.html">芯源微</a></td><td>978.03</td><td><span class="pct-cell pct-hi">99.0%</span></td><td>24.64</td><td><span class="pct-cell pct-hi">92.4%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-wyqy.html.html">万业企业</a></td><td>-234.92</td><td><span class="pct-cell pct-lo">7.0%</span></td><td>3.55</td><td><span class="pct-cell pct-hi">94.5%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-jcdz.html.html">精测电子</a></td><td>721.1</td><td><span class="pct-cell pct-hi">99.2%</span></td><td>15.04</td><td><span class="pct-cell pct-hi">95.2%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-zkfc.html.html">中科飞测</a></td><td>2.23</td><td><span class="pct-cell pct-lo">21.2%</span></td><td>24.81</td><td><span class="pct-cell pct-hi">86.2%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-wdnm.html.html">微导纳米</a></td><td>350.59</td><td><span class="pct-cell pct-hi">82.2%</span></td><td>18.67</td><td><span class="pct-cell pct-hi">95.4%</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（腾讯行情）。<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span><span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span><span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。半导体设备产业链 10 家 PE 分位2 家&lt;40%、整体处历史估值中高位（集采出清 + 情绪压制或周期底部）。分位为时点统计。</div>
+</div>
+
+<div class="section-title">R15 三维评级总览（半导体设备产业链 10 家）</div>
+<div class="ovtable">
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-bhhe.html.html">北方华创</a></td><td><span class="pct-cell pct-hi">偏高</span></td><td><span class="pct-cell pct-mid">—</span></td><td><span class="pct-cell pct-lo">4</span></td><td><span class="pct-cell pct-mid">41.7%</span></td><td><span class="pct-cell pct-hi">82.8%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-zwgs.html.html">中微公司</a></td><td><span class="pct-cell pct-hi">偏高</span></td><td><span class="pct-cell pct-mid">—</span></td><td><span class="pct-cell pct-lo">3</span></td><td><span class="pct-cell pct-hi">73.2%</span></td><td><span class="pct-cell pct-hi">75.4%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-tjkh.html.html">拓荆科技</a></td><td><span class="pct-cell pct-hi">高估</span></td><td><span class="pct-cell pct-mid">—</span></td><td><span class="pct-cell pct-lo">1</span></td><td><span class="pct-cell pct-hi">85.3%</span></td><td><span class="pct-cell pct-hi">98.7%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-smsh.html.html">盛美上海</a></td><td><span class="pct-cell pct-hi">高估</span></td><td><span class="pct-cell pct-mid">—</span></td><td><span class="pct-cell pct-lo">1</span></td><td><span class="pct-cell pct-hi">80.9%</span></td><td><span class="pct-cell pct-hi">89.4%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-hhqk.html.html">华海清科</a></td><td><span class="pct-cell pct-hi">高估</span></td><td><span class="pct-cell pct-mid">—</span></td><td><span class="pct-cell pct-lo">0</span></td><td><span class="pct-cell pct-hi">95.8%</span></td><td><span class="pct-cell pct-hi">94.2%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-xymw.html.html">芯源微</a></td><td><span class="pct-cell pct-hi">高估</span></td><td><span class="pct-cell pct-mid">—</span></td><td><span class="pct-cell pct-lo">0</span></td><td><span class="pct-cell pct-hi">99.0%</span></td><td><span class="pct-cell pct-hi">92.4%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-wyqy.html.html">万业企业</a></td><td><span class="pct-cell pct-mid">合理</span></td><td><span class="pct-cell pct-mid">—</span></td><td><span class="pct-cell pct-lo">5</span></td><td><span class="pct-cell pct-lo">7.0%</span></td><td><span class="pct-cell pct-hi">94.5%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-jcdz.html.html">精测电子</a></td><td><span class="pct-cell pct-hi">高估</span></td><td><span class="pct-cell pct-mid">—</span></td><td><span class="pct-cell pct-lo">0</span></td><td><span class="pct-cell pct-hi">99.2%</span></td><td><span class="pct-cell pct-hi">95.2%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-zkfc.html.html">中科飞测</a></td><td><span class="pct-cell pct-mid">合理</span></td><td><span class="pct-cell pct-mid">—</span></td><td><span class="pct-cell pct-lo">5</span></td><td><span class="pct-cell pct-lo">21.2%</span></td><td><span class="pct-cell pct-hi">86.2%</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-wdnm.html.html">微导纳米</a></td><td><span class="pct-cell pct-hi">高估</span></td><td><span class="pct-cell pct-mid">—</span></td><td><span class="pct-cell pct-lo">1</span></td><td><span class="pct-cell pct-hi">82.2%</span></td><td><span class="pct-cell pct-hi">95.4%</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">R15 三维框架：①<b>相对估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多，&lt;15%=5★，15–25%=4★，25–40%=2★，40–60%=合理，&gt;75%=高估）；②<b>质量星级</b>=最新年报 ROE(加权，2025，同花顺年报摘要) 换算（★越多质地越好：≥14%=5★，12–14%=4★，10–12%=3★，7–10%=2★，&lt;7%=1★）；③<b>时机分</b>=round((100−PE/PB平均分位)/10)，分越高越接近估值底部、买点越好（绿=好 橙=中 红=差）。整体结论：半导体设备产业链普遍估值中高位 → 相对估值星级高、时机分高；质量端分化明显（ROE 高的龙头质地优，部分偏弱）。数据为时点统计。</div>
+</div>
+
+<div class="section-title">产业链成本传导</div>
+<div class="cost-block"><div class="cost-chart"><svg viewBox="0 0 600 170" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,Segoe UI,Microsoft YaHei,sans-serif">
+<defs>
+<marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#c2780a"/></marker>
+</defs>
+<rect x="10" y="55" width="130" height="58" rx="10" fill="#fff" stroke="#f5a623" stroke-width="1.5"/>
+<text x="75" y="80" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">零部件/材料</text>
+<text x="75" y="100" text-anchor="middle" font-size="11" fill="#64748b">真空/光学</text>
+<line x1="140" y1="84" x2="170" y2="84" stroke="#c2780a" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="172" y="55" width="120" height="58" rx="10" fill="#fff" stroke="#f5a623" stroke-width="1.5"/>
+<text x="232" y="80" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">设备制造</text>
+<text x="232" y="100" text-anchor="middle" font-size="11" fill="#64748b">刻蚀/薄膜</text>
+<line x1="292" y1="84" x2="332" y2="84" stroke="#c2780a" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="334" y="55" width="120" height="58" rx="10" fill="#fff" stroke="#f5a623" stroke-width="1.5"/>
+<text x="394" y="80" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">晶圆厂扩产</text>
+<text x="394" y="100" text-anchor="middle" font-size="11" fill="#64748b">中芯/长存</text>
+<line x1="454" y1="84" x2="494" y2="84" stroke="#c2780a" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="496" y="55" width="100" height="58" rx="10" fill="#fff" stroke="#f5a623" stroke-width="1.5"/>
+<text x="546" y="80" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">国产替代率</text>
+<text x="546" y="100" text-anchor="middle" font-size="11" fill="#64748b">自主可控</text>
+<text x="300" y="150" text-anchor="middle" font-size="12" fill="#64748b">零部件/材料 → 设备制造 → 晶圆厂扩产 → 国产替代率</text>
+</svg></div>
+<div class="cost-note"><p>本产业链的成本传导链为：<b>零部件/材料 → 设备制造 → 晶圆厂扩产 → 国产替代率</b>。半导体设备产业链没有交易所统一期货（无统一定价期货），成本传导以<b>定性框架 + 周期</b>呈现。</p>
+<p>半导体设备无统一期货，成本传导以「零部件 → 整机 → 晶圆厂 → 国产化率」定性框架呈现：上游零部件突破 → 整机自主度与毛利提升。</p><p><b>向上游看</b>：真空 / 射频 / 光学等核心零部件仍部分进口，是国产化深层瓶颈，突破后整机成本与交付改善。</p><p><b>向中游看</b>：平台型企业（北方华创）品类扩张平滑单品周期，细分龙头靠验证放量；估值分位见上，反映「估值中高」。</p>
+<p>估值历史分位已在本段上方给出，反映「中高位」的整体位置。</p></div></div>
+
+<div class="section-title">员工效率与组织效能排行（半导体设备产业链 10 家）</div>
+<div class="ovtable"><table class="sortable">
+<thead><tr><th data-type="name">公司</th><th data-type="num">员工(2025)</th><th data-type="num">员工增速</th><th data-type="num">人均营收</th><th data-type="num">人均净利</th><th data-type="name">效率信号</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-bhhe.html.html">北方华创</a></td><td class="num">21,101</td><td class="num pos">+29.0%</td><td class="num">¥186.5万</td><td class="num">—</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 扩员</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-zwgs.html.html">中微公司</a></td><td class="num">52</td><td class="num ">—</td><td class="num">¥23817.3万</td><td class="num">—</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 口径异常</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-tjkh.html.html">拓荆科技</a></td><td class="num">1,696</td><td class="num pos">+10.7%</td><td class="num">¥384.4万</td><td class="num">—</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 扩员</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-smsh.html.html">盛美上海</a></td><td class="num">2,485</td><td class="num pos">+24.1%</td><td class="num">¥273.1万</td><td class="num">—</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 扩员</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-hhqk.html.html">华海清科</a></td><td class="num">2,654</td><td class="num pos">+38.4%</td><td class="num">¥175.1万</td><td class="num">—</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 扩员</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-xymw.html.html">芯源微</a></td><td class="num">1,794</td><td class="num pos">+31.3%</td><td class="num">¥108.6万</td><td class="num">—</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 扩员</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-wyqy.html.html">万业企业</a></td><td class="num">1,492</td><td class="num ">—</td><td class="num">¥124.1万</td><td class="num">—</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 口径异常</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-jcdz.html.html">精测电子</a></td><td class="num">50</td><td class="num ">—</td><td class="num">¥6696.0万</td><td class="num">—</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 口径异常</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-zkfc.html.html">中科飞测</a></td><td class="num">1,497</td><td class="num pos">+37.2%</td><td class="num">¥137.1万</td><td class="num">—</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 扩员</span></td></tr><tr><td><a href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-wdnm.html.html">微导纳米</a></td><td class="num">1,179</td><td class="num neg">-22.1%</td><td class="num">¥223.3万</td><td class="num">—</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 缩员</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">员工数=年报披露的「在职员工的数量合计」（含母公司+主要子公司），截至 2025-12-31；员工增速=与 2024-12-31 同比。人均营收/净利=2025 营业总收入(元)÷员工数（员工数取集团口径；部分公司仅母公司口径，其分母仅为母公司员工、对应人均会偏高，已在效率信号格按同口径判断）。已覆盖 <b>10/10 家</b>员工数据，财务数据来源：cninfo 巨潮资讯网 2024 / 2025 年报摘要；标注<b>口径异常</b>者因 2024 年员工数基线缺失/大幅异常（年报口径调整），增速不可比。效率信号档位：人均净利≥30万=高人均盈利；10–30万=良好；5–10万=中等；&lt;5万=偏低；员工|增速|&gt;10% 则在档位后加注「扩员 / 缩员」。组织效能信号由「员工增速分档 × 人均盈利分档」组合判定，为代理指标，非投资建议。</div>
+</div>
+
+<div class="section-title">半导体设备产业链公司索引（上市公司 10 家）</div>
 <div class="grid">
-<a class="giant-card" href="berkshire-semiconductor-equip-chain-bhhe.html"><div class="giant-head"><span class="giant-name">北方华创 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">平台型半导体设备龙头，多品类覆盖刻蚀 / 薄膜 / 清洗 / 炉管。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-zwgs.html"><div class="giant-head"><span class="giant-name">中微公司 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">介质刻蚀全球领先，MOCVD 设备龙头。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-tjkh.html"><div class="giant-head"><span class="giant-name">拓荆科技 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">薄膜沉积（PECVD）龙头，SACVD/PEALD 扩展。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-hhqk.html"><div class="giant-head"><span class="giant-name">华海清科 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">CMP 设备唯一 A股 龙头，减薄设备延展。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-smsh.html"><div class="giant-head"><span class="giant-name">盛美上海 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">清洗设备龙头，电镀 / 立式炉 / 先进封装扩展。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-zkfc.html"><div class="giant-head"><span class="giant-name">中科飞测 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">量测检测设备，填补国产空白。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-xymw.html"><div class="giant-head"><span class="giant-name">芯源微 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">涂胶显影设备，offline 向 inline 突破。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-wyqy.html"><div class="giant-head"><span class="giant-name">万业企业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">离子注入（凯世通），地产转型半导体。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-wdnm.html"><div class="giant-head"><span class="giant-name">微导纳米 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">ALD（原子层沉积）龙头，光伏 + 半导体双应用。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-fcjm.html"><div class="giant-head"><span class="giant-name">富创精密 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">半导体设备精密零部件平台。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-zfkj.html"><div class="giant-head"><span class="giant-name">正帆科技 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">高纯气体 / 流体系统，CAPEX + OPEX 双轮。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-jcdz.html"><div class="giant-head"><span class="giant-name">精测电子 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">半导体量测 + 显示检测，多产品线。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+<a class="giant-card" href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-bhhe.html.html"><div class="giant-head"><span class="giant-name">北方华创 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">平台型设备龙头</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于国产替代加速 + 估值中高期：PE分位41.7%、PB分位82.8%中高位；ROE None% 质地偏弱。核心变量是晶圆厂 capex 与海外限制。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-zwgs.html.html"><div class="giant-head"><span class="giant-name">中微公司 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">刻蚀+MOCVD</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于国产替代加速 + 估值中高期：PE分位73.2%、PB分位75.4%中高位；ROE None% 质地偏弱。核心变量是晶圆厂 capex 与海外限制。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-tjkh.html.html"><div class="giant-head"><span class="giant-name">拓荆科技 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">薄膜沉积PECVD</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于国产替代加速 + 估值中高期：PE分位85.3%、PB分位98.7%中高位；ROE None% 质地偏弱。核心变量是晶圆厂 capex 与海外限制。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-smsh.html.html"><div class="giant-head"><span class="giant-name">盛美上海 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">清洗+电镀</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于国产替代加速 + 估值中高期：PE分位80.9%、PB分位89.4%中高位；ROE None% 质地偏弱。核心变量是晶圆厂 capex 与海外限制。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-hhqk.html.html"><div class="giant-head"><span class="giant-name">华海清科 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">CMP抛光</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于国产替代加速 + 估值中高期：PE分位95.8%、PB分位94.2%中高位；ROE None% 质地偏弱。核心变量是晶圆厂 capex 与海外限制。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-xymw.html.html"><div class="giant-head"><span class="giant-name">芯源微 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">涂胶显影</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于国产替代加速 + 估值中高期：PE分位99.0%、PB分位92.4%中高位；ROE None% 质地偏弱。核心变量是晶圆厂 capex 与海外限制。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-wyqy.html.html"><div class="giant-head"><span class="giant-name">万业企业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">离子注入（凯世通）</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于国产替代加速 + 估值中高期：PE分位7.0%、PB分位94.5%中低位；ROE None% 质地偏弱。核心变量是晶圆厂 capex 与海外限制。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-jcdz.html.html"><div class="giant-head"><span class="giant-name">精测电子 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">检测量测</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于国产替代加速 + 估值中高期：PE分位99.2%、PB分位95.2%中高位；ROE None% 质地偏弱。核心变量是晶圆厂 capex 与海外限制。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-zkfc.html.html"><div class="giant-head"><span class="giant-name">中科飞测 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">检测量测</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于国产替代加速 + 估值中高期：PE分位21.2%、PB分位86.2%中低位；ROE None% 质地偏弱。核心变量是晶圆厂 capex 与海外限制。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-chain-berkshire-semiconductor-equip-chain-wdnm.html.html"><div class="giant-head"><span class="giant-name">微导纳米 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">ALD薄膜</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于国产替代加速 + 估值中高期：PE分位82.2%、PB分位95.4%中高位；ROE None% 质地偏弱。核心变量是晶圆厂 capex 与海外限制。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
 </div>
 
-<style>
-.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(232,184,75,0.5); }
-.extend { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin-bottom:10px; }
-.extend a { display:block; text-decoration:none; background:#fffdf6; border:1px solid #f0e2bf; border-radius:12px; padding:14px 16px; transition:.15s; }
-.extend a:hover { border-color:#e8b84b; box-shadow:0 4px 14px rgba(232,184,75,.18); transform:translateY(-2px); }
-.extend b { display:block; font-size:15px; color:#1f2937; margin-bottom:4px; }
-.extend span { display:block; font-size:12.5px; color:#64748b; line-height:1.5; }
-</style><div class="section-title">延伸阅读</div><div class="extend"><a href="berkshire-semiconductor-equip-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a><a href="berkshire-semiconductor-equip-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a></div>
+<div class="section-title">延伸阅读</div>
+<div class="grid">
+<a class="giant-card" href="berkshire-semiconductor-equip-methodology.html"><div class="giant-head"><span class="giant-name">📘 估值与周期：框架知识</span></div><div class="giant-desc">怎么读半导体设备产业链的定价权、成本周期、壁垒与转型兑现、估值锚——半导体设备产业链投资的 4 个核心框架概念。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-cycle.html"><div class="giant-head"><span class="giant-name">📈 产业周期 2015→2025</span></div><div class="giant-desc">把政策/需求脉络串成宏观视图：半导体设备产业链的产能、价格、库存与出清周期、底部信号。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-backtest.html"><div class="giant-head"><span class="giant-name">🎯 三轮大底回测</span></div><div class="giant-desc">10 家当前 PE/PB/ROE + 月度价格回测：三轮全市场大底的买入回报与关键时点标注。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-thermometer.html"><div class="giant-head"><span class="giant-name">🌡️ 估值温度计</span></div><div class="giant-desc">10 家半导体设备产业链估值冷热一览：低 PE/PB 分位 + 高分红 = 冷（安全边际高），一眼看清谁在历史悲观区。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-buyback.html"><div class="giant-head"><span class="giant-name">📊 逐轮买点回报图</span></div><div class="giant-desc">三轮全市场大底买入后的累计回报曲线，含关键时点标注与逐点回报数据表。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-equip-compare.html"><div class="giant-head"><span class="giant-name">🔍 横向对比工具</span></div><div class="giant-desc">勾选多家半导体设备产业链公司并排比较 PE/PB/ROE/毛利率/负债率/股息率，自定义指标卡 + 排序与导出。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a>
+</div>
+
 <div class="source-note">
-📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。估值分位基于腾讯行情公开数据回填（详见各公司详情页）。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
 </div>
 
 </div>
+<script>
+(function(){
+  function num(v){
+    if(v==null) return NaN;
+    v=v.textContent||v;
+    if(typeof v==='string'){
+      v=v.replace(/,/g,'').replace(/[ \t\r\n]/g,'');
+      if(v==='—'||v==='-'||v==='') return NaN;
+      var unit=1;
+      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
+      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
+      v=v.replace(/[¥,%]/g,'');
+      var n=parseFloat(v);
+      if(!isNaN(n)) n*=unit;
+      return n;
+    }
+    return NaN;
+  }
+  function cmp(a,b,asc){
+    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
+    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
+    var nanA=isNaN(a), nanB=isNaN(b);
+    if(nanA && nanB) return 0;
+    if(nanA) return asc?1:-1;
+    if(nanB) return asc?-1:1;
+    if(an<bn) return asc?-1:1;
+    if(an>bn) return asc?1:-1;
+    return 0;
+  }
+  function sortTable(th){
+    var table=th.closest('table');
+    var tbody=table.querySelector('tbody');
+    var rows=Array.from(tbody.querySelectorAll('tr'));
+    var idx=Array.from(th.parentNode.children).indexOf(th);
+    var type=th.getAttribute('data-type')||'text';
+    var asc=!th.classList.contains('asc');
+    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
+    th.classList.add(asc?'asc':'desc');
+    rows.sort(function(r1,r2){
+      var c1=r1.cells[idx], c2=r2.cells[idx];
+      var v1, v2;
+      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      else if(type==='num'){ v1=num(c1); v2=num(c2); }
+      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      return cmp(v1,v2,asc);
+    });
+    rows.forEach(function(r){ tbody.appendChild(r); });
+  }
+  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
+    th.addEventListener('click',function(){ sortTable(th); });
+  });
+})();
+</script>
   <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
 </body>

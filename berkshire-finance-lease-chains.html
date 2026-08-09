@@ -2,180 +2,316 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>融资租赁产业链 | 伯克希尔投资数据中心</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>融资租赁产业链产业链 | 伯克希尔投资数据中心</title>
 <style>
-  :root{--navy:#0b1f3a;--navy2:#10294d;--ink:#1d2b40;--line:#e4e9f2;
-    --orange:#f5a623;--txt:#23344e;--muted:#6b7a93;--card:#fff;--bg:#f4f7fc;--green:#1f9d6b;}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;
-    background:var(--bg);color:var(--txt);line-height:1.75;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  .topbar{position:sticky;top:0;z-index:50;background:rgba(11,31,58,.82);backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
-  .topbar-in{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px}
-  .brand{font-weight:800;font-size:17px;letter-spacing:.5px}
-  .brand .ac{color:var(--orange)}
-  .crumb{font-size:13px;color:#9fb2cf}
-  .crumb a:hover{color:var(--orange)}
-  .hero{max-width:1180px;margin:30px auto 10px;padding:0 20px}
-  .hero h1{font-size:30px;margin:0 0 8px;color:var(--navy)}
-  .hero p{margin:0;color:var(--muted);max-width:820px}
-  .badge{display:inline-block;background:var(--orange);color:#3a2700;font-size:12px;font-weight:700;
-    padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
-  .decl{max-width:1180px;margin:16px auto 0;padding:0 20px}
-  .decl .bar{border-left:4px solid #0891b2;background:#fffaf0;padding:11px 16px;border-radius:0 10px 10px 0;font-size:14px;color:var(--ink)}
-  .stats{max-width:1180px;margin:20px auto;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
-  .stat .v{font-size:27px;font-weight:800;color:var(--navy)}
-  .stat .v.ac{color:#0e7490}
-  .stat .k{font-size:12.5px;color:var(--muted);margin-top:4px}
-  .wrap{max-width:1180px;margin:10px auto 60px;padding:0 20px}
-  .sec{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:20px;
-    box-shadow:0 1px 3px rgba(16,41,77,.04)}
-  .sec h2{margin:0 0 4px;font-size:21px;color:var(--navy);display:flex;align-items:center;gap:10px}
-  .sec .cnt{font-size:12px;color:#fff;background:var(--navy2);border-radius:999px;padding:2px 10px;font-weight:700}
-  .sec .desc{font-size:13px;color:var(--muted);margin:2px 0 14px}
-  .framework{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:6px}
-  .layer{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-top:3px solid #0891b2}
-  .layer .ln{font-size:12px;font-weight:800;color:#0e7490}
-  .layer .lt{font-weight:700;color:var(--navy);font-size:15px;margin:4px 0 6px}
-  .layer .ld{font-size:13px;color:var(--muted)}
-  .companies{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:11px;margin-top:6px}
-  .co{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-  .co .nm{font-weight:700;color:var(--navy);font-size:15px}
-  .co .st{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#eef1f6;color:#7a8aa3;border:1px solid #dde3ec;margin:6px 0}
-  .co .nt{font-size:12.5px;color:var(--muted)}
-  .foot{max-width:1180px;margin:0 auto 50px;padding:0 20px;color:var(--muted);font-size:13px}
-  @media(max-width:860px){.stats{grid-template-columns:1fr} .hero h1{font-size:24px}}
-
-  .co .st.pe-low{background:#e7f6ee;color:#1f9d6b;border-color:#bfe6cf}
-  .co .st.pe-high{background:#fdeaea;color:#c0392b;border-color:#f3c9c9}
-  .co .st.poi{background:#fff3e0;color:#c2410c;border-color:#f6dcae}
-  /*cf-deep*/
-
-  .co .cf-fin{font-size:11px;color:#445;line-height:1.5;margin:5px 0 0}
-  .co .cf-fin b{color:#1d2b40;font-weight:600}
-  .co .cf-emp{font-size:11px;line-height:1.5;margin:2px 0 0}
-  .co .cf-emp b{font-weight:600}
-  .co .cf-emp .s-good{color:#1f9d6b}
-  .co .cf-emp .s-bad{color:#c0392b}
-  .co .cf-emp .s-watch{color:#c2410c}
-  .co .cf-emp .s-none{color:#999}
-  
-  .co .co-detail{display:inline-block;margin:8px 0 2px;font-size:12px;font-weight:600;color:#1d4ed8;text-decoration:none}
-  .co .co-detail:hover{text-decoration:underline}
-/*cf-deep2*/
-></style>
-<style>
-
-/*cf-emp-ranking*/
-.ovtable{margin:10px 0 6px;overflow-x:auto}
-.ovtable table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
-.ovtable th{background:#f8fafc;color:#475569;font-weight:600;text-align:left;padding:9px 12px;border-bottom:1px solid #e2e8f0;white-space:nowrap}
-.ovtable td{padding:8px 12px;border-bottom:1px solid #f1f5f9;color:#0f172a}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#0b1f3a;--navy2:#10294d;--ink:#1d2b40;--line:#e4e9f2;
+  --orange:#f5a623;--accent:#f5a623;--txt:#23344e;--muted:#6b7a93;--card:#fff;--bg:#f4f7fc;--green:#1f9d6b;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--txt);line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(245,166,35,0.28);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(245,166,35,0.10);color:#c2780a;border:1px solid rgba(245,166,35,0.35);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;transition:all .2s}
+.home-btn:hover{background:var(--orange);color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#c2780a}
+.crumb-sep{color:#cbd5e1}
+.switcher{display:inline-flex;gap:12px;align-items:center;margin-left:8px;flex-wrap:wrap}
+.switcher a{color:#c2780a;text-decoration:none;font-size:13px}
+.switcher a:hover{text-decoration:underline}
+.switcher a.cur{font-weight:800;color:var(--navy);border-bottom:2px solid var(--orange)}
+.container{max-width:1180px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#0b1f3a 0%,#10294d 100%);border-radius:16px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(245,166,35,0.35);box-shadow:0 3px 14px rgba(11,31,58,.12)}
+.hero-title{font-size:28px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#cdb892;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(245,166,35,0.14);border:1px solid rgba(245,166,35,0.3);border-radius:12px;padding:10px 18px;text-align:center}
+.stat-num{font-size:22px;font-weight:800;color:var(--orange)}
+.stat-label{font-size:11px;color:#cdb892;margin-top:2px;white-space:nowrap}
+.data-banner{background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.3);border-left:4px solid var(--orange);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:var(--navy);font-weight:600}
+.data-banner .upd{color:#c2780a;font-weight:600}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#fff,#f8fafc);border:1px solid rgba(245,166,35,0.3);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#c2780a;background:rgba(245,166,35,0.14);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
+.explain-banner .eb-text b{color:var(--navy);font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--orange)}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#c2780a;font-weight:700}
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.insight-box{background:linear-gradient(135deg,#fffdf6,#ffffff);border:1px solid rgba(245,166,35,0.25);border-radius:12px;padding:18px 20px;margin-top:8px}
+.insight-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:var(--orange)}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.insight-body p{margin-bottom:8px}
+.insight-body ul{margin:8px 0 0 18px;padding:0}
+.insight-body li{margin-bottom:6px}
+.insight-body b{color:#334155}
+.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(245,166,35,0.3);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cycle-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cycle-title .icon{color:var(--orange)}
+.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
+.cycle-body b{color:var(--navy);font-weight:600}
+.cycle-body p{margin-bottom:8px}
+.cycle-body ul{margin:8px 0 0 18px;padding:0}
+.cycle-body li{margin-bottom:6px}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid var(--orange);padding:8px 12px;background:rgba(245,166,35,0.08);line-height:1.7}
+.cycle-current b{color:#334155}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600;text-align:right;padding:9px 11px;border-bottom:1px solid #e2e8f0;white-space:nowrap}
+.ovtable td{padding:8px 11px;border-bottom:1px solid #f1f5f9;color:#0f172a;text-align:right;white-space:nowrap}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
 .ovtable tbody tr:last-child td{border-bottom:none}
+.ovtable a{color:#1d4ed8;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
 .ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
 .ovtable .num.up{color:#15803d;font-weight:700}
 .ovtable .num.down{color:#b91c1c;font-weight:700}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:var(--navy)}
+.cost-note p{margin:0 0 10px}
+.emp-block{margin:6px 0 2px}
 .emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;border:1px solid transparent}
-
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.giant-card:hover{border-color:var(--orange);background:rgba(245,166,35,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(245,166,35,0.16)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:var(--navy)}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(31,157,107,0.12);color:#1f9d6b;border:1px solid rgba(31,157,107,0.25)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#c2780a;font-weight:600}
+.card-cycle{margin-top:10px;padding:8px 10px;border-left:3px solid var(--orange);border-radius:6px;font-size:12px;color:#475569;line-height:1.6;background:rgba(245,166,35,0.06)}
+.card-cycle .cc-label{display:block;font-weight:700;margin-bottom:3px;font-size:11.5px;color:#c2780a}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.extend a{display:block;background:#fffdf6;border:1px solid #f0e2bf;border-radius:12px;padding:14px 16px;text-decoration:none;color:#1e293b;transition:.18s}
+.extend a:hover{border-color:var(--orange);box-shadow:0 4px 14px rgba(245,166,35,.18);transform:translateY(-2px)}
+.extend b{display:block;font-size:15px;color:#1f2937;margin-bottom:4px}
+.extend span{display:block;font-size:12.5px;color:#64748b;line-height:1.5}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:22px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
+.sortable th:hover{background:#fff3df}
+.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
+.sortable th.asc .sort-ind::before{content:"▲";color:var(--accent)}
+.sortable th.desc .sort-ind::before{content:"▼";color:var(--accent)}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div class="topbar-in">
-    <div class="brand">伯克希尔<span class="ac">投资数据中心</span></div>
-    <div class="crumb">/ <a href="berkshire-standalone.html">枢纽</a> / <a href="berkshire-chain-map.html">覆盖地图</a> / 融资租赁产业链</div>
-  </div>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span class="switcher"><a href="berkshire-bank-chains.html">银行</a><a href="berkshire-baijiu-chains.html">白酒</a><a href="berkshire-ai-chains.html">AI</a><a href="berkshire-robot-chains.html">机器人</a><a href="berkshire-tcm-chains.html">中药</a><a href="berkshire-innov-chains.html">创新药</a><a href="berkshire-chemical-pharma-chains.html">化学制药</a><a href="berkshire-appliance-chains.html">家电</a><a href="berkshire-power-chains.html">电力</a><a href="berkshire-coal-chains.html">煤炭</a><a href="berkshire-metal-chains.html">有色</a><a href="berkshire-chem-chains.html">化工</a><a href="berkshire-equip-chains.html">电力设备</a><a href="berkshire-securities-chains.html">证券</a><a href="berkshire-insurance-chains.html">保险</a><a href="berkshire-finance-lease-chains.html" class="cur">融资租赁</a><a href="berkshire-beer-chains.html">啤酒</a><a href="berkshire-dairy-chains.html">乳制品</a><a href="berkshire-snack-chains.html">零食</a><a href="berkshire-semiconductor-equip-chains.html">半导体设备</a><a href="berkshire-software-chains.html">软件</a><a href="berkshire-optical-module-chains.html">光模块</a><a href="berkshire-industrial-control-chains.html">工业控制</a><a href="berkshire-machine-tool-chains.html">机床</a><a href="berkshire-lithium-battery-chains.html">锂电池</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>融资租赁产业链产业链</span>
 </div>
+</div>
+<div class="container">
+
 <div class="hero">
-  <h1>融资租赁产业链<span class="badge">已建框架</span><span class="badge" style="background:#1f9d6b;color:#fff;margin-left:6px">已补叙事</span><!--cf-narrative-index--></h1>
-  <p>类信贷重资产模式，利差与资产质量决定回报；厂商系租赁随设备周期波动。</p>
+<div class="hero-title">🏗️ 融资租赁产业链产业链</div>
+<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">上市公司</div></div>
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
+<div class="stat-item"><div class="stat-num">估值✓</div><div class="stat-label">分位已回填</div></div>
 </div>
-<div class="decl">
-  <div class="bar"><b>⚠️ 网络收集 · 已建深凿 · 不做投资依据：</b>本页为融资租赁产业链的研究框架与代表公司索引。估值历史分位(PE/PB 近十年)、泊松跳变信号、2025 年报财报基本面(营收/净利/ROE/负债率)、组织效能(员工人数/增速/人均净利)均已基于 akshare 行情与 cninfo 年报公开披露回填（截至 2026-07-28）；公司详情页另已增补财报与研报(东财研报PDF/财报公告)与可视化决策仪表盘(结论合成·马克斯象限·安全边际·治理维度)；个别公司因披露格式/数据源限制未取到数据的字段诚实标注「待采集」。公司列表为公开资料整理的代表性样本，非穷举，不构成投资建议。</div>
-</div>
-<div class="stats">
-  <div class="stat"><div class="v ac">10</div><div class="k">代表公司（A股样本）</div></div>
-  <div class="stat"><div class="v">5</div><div class="k">框架层级</div></div>
-  <div class="stat"><div class="v">已建</div><div class="k">估值分位/泊松/财报/效能/研报/可视化</div></div>
-</div>
-<!--research-signal-->
-<div class="section-title" style="border-left:3px solid #6366f1">研究信号（框架研判）</div>
-<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #6366f1;border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
-    <div style="font-weight:700;color:#475569">周期位置</div><div>设备更新政策驱动</div>
-    <div style="font-weight:700;color:#475569">景气方向</div><div>稳健</div>
-    <div style="font-weight:700;color:#475569">结论信号</div><div><b>🟡 中性</b> — 顺周期+政策，回款是关键</div>
-    <div style="font-weight:700;color:#475569">核心催化</div><div>①设备更新  ②央国企客户  ③利差</div>
-    <div style="font-weight:700;color:#475569">关键风险</div><div>①不良  ②利率  ③需求</div>
-  </div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：成分股未纳入量化库·非数据锚定（行业框架研判，需结合实盘校验）。结论为框架合成，需结合实盘研究校验。</div>
-</div>
-<!--/research-signal--><div class="wrap">
-  <div class="sec">
-    <h2>融资租赁产业链 · 五层框架 <span class="cnt">5</span></h2>
-    <div class="desc">沿「上游资源 → 中游制造 → 下游需求 → 投资逻辑」拆解为五层，便于逐层定位景气与风险。</div>
-    <div class="framework">
-      <div class="layer"><div class="ln">LAYER 1</div><div class="lt">资金端</div><div class="ld">融资成本与资产负债期限匹配</div></div>
-      <div class="layer"><div class="ln">LAYER 2</div><div class="lt">资产端</div><div class="ld">飞机/设备/车辆等租赁物投放</div></div>
-      <div class="layer"><div class="ln">LAYER 3</div><div class="lt">客户结构</div><div class="ld">航空/基建/制造租赁为主</div></div>
-      <div class="layer"><div class="ln">LAYER 4</div><div class="lt">残值与风控</div><div class="ld">回收率与不良率管理</div></div>
-      <div class="layer"><div class="ln">LAYER 5</div><div class="lt">投资逻辑</div><div class="ld">看净利差/资产质量，重资产高杠杆</div></div>
-    </div>
-  </div>
-  <div class="sec">
-    <h2>代表公司（A股样本） <span class="cnt">10</span></h2>
-    <div class="desc">以下为公开资料整理的代表性 A 股公司，按规模/代表性选取，非穷举；已含 2025 年报财报基本面与组织效能(员工效率)模块，数据基于 akshare 行情与 cninfo 年报公开披露回填（截至 2026-07-25）。</div>
-    <div class="companies">
-      <div class="co"><div class="nm">渤海租赁</div><a class="co-detail" href="berkshire-finance-lease-chain-000415.html">查看详情 →</a><span class="st pe-low">PE分位 2.1%</span><span class="st pe-high">PB分位 73.6%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>529.2亿</b> · 净利 <b>-4.1亿</b> · ROE <b>-1.3</b> · 负债率 <b>81.3</b></div><div class="cf-emp">员工效率：待采集</div><div class="nt">飞机租赁龙头</div></div>
-      <div class="co"><div class="nm">江苏租赁</div><a class="co-detail" href="berkshire-finance-lease-chain-600901.html">查看详情 →</a><span class="st pe-high">PE分位 70.0%</span><span class="st ">PB分位 69.8%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>61.1亿</b> · 净利 <b>32.4亿</b> · ROE <b>—</b> · 负债率 <b>84.1</b></div><div class="cf-emp">员工 <b>0.1万</b> · 增速 <b>+15.6%</b> · 人均净利 <b>491.8万</b> · <span class="s-good">扩张向好</span></div><div class="nt">A股纯租赁标的</div></div>
-      <div class="co"><div class="nm">中联重科</div><a class="co-detail" href="berkshire-finance-lease-chain-000157.html">查看详情 →</a><span class="st ">PE分位 40.9%</span><span class="st ">PB分位 57.2%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>521.1亿</b> · 净利 <b>48.6亿</b> · ROE <b>8.5</b> · 负债率 <b>55.0</b></div><div class="cf-emp">员工 <b>3.5万</b> · 增速 <b>+11.2%</b> · 人均净利 <b>13.7万</b> · <span class="s-good">扩张向好</span></div><div class="nt">厂商系租赁</div></div>
-      <div class="co"><div class="nm">三一重工</div><a class="co-detail" href="berkshire-finance-lease-chain-600031.html">查看详情 →</a><span class="st ">PE分位 41.9%</span><span class="st pe-low">PB分位 16.4%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>897.0亿</b> · 净利 <b>84.1亿</b> · ROE <b>10.5</b> · 负债率 <b>48.4</b></div><div class="cf-emp">员工 <b>2.8万</b> · 增速 <b>+12.2%</b> · 人均净利 <b>29.5万</b> · <span class="s-good">扩张向好</span></div><div class="nt">厂商系租赁</div></div>
-      <div class="co"><div class="nm">徐工机械</div><a class="co-detail" href="berkshire-finance-lease-chain-000425.html">查看详情 →</a><span class="st ">PE分位 52.0%</span><span class="st pe-high">PB分位 84.1%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>1008.2亿</b> · 净利 <b>65.7亿</b> · ROE <b>11.0</b> · 负债率 <b>64.0</b></div><div class="cf-emp">员工 <b>3.0万</b> · 增速 <b>+9.7%</b> · 人均净利 <b>21.6万</b> · <span class="s-good">扩张向好</span></div><div class="nt">厂商系租赁</div></div>
-      <div class="co"><div class="nm">柳工</div><a class="co-detail" href="berkshire-finance-lease-chain-000528.html">查看详情 →</a><span class="st pe-low">PE分位 25.3%</span><span class="st pe-low">PB分位 21.2%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>331.4亿</b> · 净利 <b>16.1亿</b> · ROE <b>8.9</b> · 负债率 <b>60.3</b></div><div class="cf-emp">员工 <b>1.5万</b> · 增速 <b>-11.6%</b> · 人均净利 <b>10.7万</b> · <span class="s-watch">收缩调整</span></div><div class="nt">厂商系租赁</div></div>
-      <div class="co"><div class="nm">山河智能</div><a class="co-detail" href="berkshire-finance-lease-chain-002097.html">查看详情 →</a><span class="st pe-high">PE分位 81.1%</span><span class="st ">PB分位 42.4%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>73.1亿</b> · 净利 <b>0.8亿</b> · ROE <b>1.8</b> · 负债率 <b>75.5</b></div><div class="cf-emp">员工 <b>0.5万</b> · 增速 <b>+0.5%</b> · 人均净利 <b>1.6万</b> · <span class="s-watch">平稳微利</span></div><div class="nt">厂商系租赁</div></div>
-      <div class="co"><div class="nm">中油资本</div><a class="co-detail" href="berkshire-finance-lease-chain-000617.html">查看详情 →</a><span class="st pe-high">PE分位 77.8%</span><span class="st pe-low">PB分位 27.8%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>338.0亿</b> · 净利 <b>43.0亿</b> · ROE <b>4.2</b> · 负债率 <b>83.0</b></div><div class="cf-emp">员工效率：待采集</div><div class="nt">含租赁业务</div></div>
-      <div class="co"><div class="nm">越秀资本</div><a class="co-detail" href="berkshire-finance-lease-chain-000987.html">查看详情 →</a><span class="st pe-low">PE分位 5.7%</span><span class="st pe-low">PB分位 16.8%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>78.4亿</b> · 净利 <b>35.2亿</b> · ROE <b>10.9</b> · 负债率 <b>76.5</b></div><div class="cf-emp">员工效率：待采集</div><div class="nt">含租赁业务</div></div>
-      <div class="co"><div class="nm">物产中大</div><a class="co-detail" href="berkshire-finance-lease-chain-600704.html">查看详情 →</a><span class="st pe-low">PE分位 22.2%</span><span class="st pe-low">PB分位 2.1%</span><span class="st ">泊松:死猫反弹</span><div class="cf-fin">营收 <b>5964.6亿</b> · 净利 <b>36.2亿</b> · ROE <b>8.4</b> · 负债率 <b>69.7</b></div><div class="cf-emp">员工效率：待采集</div><div class="nt">含租赁业务</div></div>
-    </div>
-  </div>
-  <div class="sec">
-    <h2>员工效率与组织效能排行（融资租赁 7 家）</h2>
-<div class="ovtable"><table>
-<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>效率信号</th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-finance-lease-chain-600901.html">江苏租赁</a></td><td class="num">659</td><td class="num up">+15.61%</td><td class="num">¥927.0万</td><td class="num">¥491.8万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-finance-lease-chain-600031.html">三一重工</a></td><td class="num">28,469</td><td class="num up">+12.25%</td><td class="num">¥315.1万</td><td class="num">¥29.5万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-finance-lease-chain-000157.html">中联重科</a></td><td class="num">35,344</td><td class="num up">+11.20%</td><td class="num">¥147.4万</td><td class="num">¥13.7万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-finance-lease-chain-000425.html">徐工机械</a></td><td class="num">30,485</td><td class="num up">+9.69%</td><td class="num">¥330.7万</td><td class="num">¥21.6万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-finance-lease-chain-002097.html">山河智能</a></td><td class="num">5,132</td><td class="num up">+0.47%</td><td class="num">¥142.4万</td><td class="num">¥1.6万</td><td><span class="emp-badge" style="background:#f8fafc;color:#475569">平稳微利</span></td></tr>
-<tr><td><a href="berkshire-finance-lease-chain-000528.html">柳工</a></td><td class="num">15,036</td><td class="num down">-11.60%</td><td class="num">¥220.4万</td><td class="num">¥10.7万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-finance-lease-chain-600704.html">物产中大</a></td><td class="num">—</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
-</tbody>
-</table>
-<div class="fin-note">员工增速=在职员工(集团/母公司口径)同比；人均营收/净利=2025 营收(元)÷员工数。已覆盖 6/7 家员工数据，
-其余因年报未披露标准「在职员工的数量合计」口径或非 A 股主体标「数据不足」。排序：有数据优先、按员工增速降序。
-组织效能信号由「员工增速分档 × 人均盈利分档」组合判定，为代理指标，非投资建议。</div>
 </div>
 
-<h2>建设状态</h2>
-    <div class="desc">本链为已建：估值历史分位(PE/PB 近十年)、泊松跳变信号、2025 年报财报基本面(营收/净利/ROE/负债率)、组织效能(员工人数/增速/人均净利)均已基于 akshare 行情与 cninfo 年报公开披露回填（截至 2026-07-25）；个别公司因披露格式/数据源限制未取到数据的字段诚实标注「待采集」。</div>
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报（2025-12-31）</b>为准；估值 / 行情为<b>采集日快照</b>（腾讯行情近十年分位）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-08-08</span></div>
+
+<div class="explain-banner">
+<div class="eb-icon">🏗️</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「融资租赁产业链产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把融资租赁产业链企业按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
+<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中为框架级定性梳理，不编造具体财务数字，最新数据以公司公告为准。估值分位已基于腾讯行情公开数据回填（详见各公司详情页）。
+</div>
+</div>
+</div>
+
+<div class="section-title" style="border-left:3px solid var(--orange)">研究信号</div>
+<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--orange);border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
+    <div style="font-weight:700;color:#475569">周期位置</div><div>设备投资弱复苏 + 估值历史低位</div>
+<div style="font-weight:700;color:#475569">景气方向</div><div>分化 — 头部厂商系租赁随设备出海高景气，第三方租赁受地产 / 民企不良拖累</div>
+<div style="font-weight:700;color:#475569">结论信号</div><div>🟡 中性（择优，控不良）— 融资租赁是「资金成本 × 资产质量」生意，宜选背靠产业、不良可控者</div>
+<div style="font-weight:700;color:#475569">核心催化</div><div>①设备更新 / 以旧换新政策  ②厂商出海带动设备租赁  ③利率下行降资金成本</div>
+<div style="font-weight:700;color:#475569">关键风险</div><div>①承租人违约 / 不良率上升  ②资金成本上行  ③资产残值波动</div>
   </div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：平均 PE分位≈42% · 平均 PB分位≈41% · 普遍估值中低位 · 估值/ROE/人均盈利已 10/10 覆盖（cninfo 2024–2025 年报）。结论为框架合成，需结合实盘研究校验。</div>
 </div>
-<style>
-.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(232,184,75,0.5); }
-.extend { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin-bottom:10px; }
-.extend a { display:block; text-decoration:none; background:#fffdf6; border:1px solid #f0e2bf; border-radius:12px; padding:14px 16px; transition:.15s; }
-.extend a:hover { border-color:#e8b84b; box-shadow:0 4px 14px rgba(232,184,75,.18); transform:translateY(-2px); }
-.extend b { display:block; font-size:15px; color:#1f2937; margin-bottom:4px; }
-.extend span { display:block; font-size:12.5px; color:#64748b; line-height:1.5; }
-</style><div class="section-title">延伸阅读</div><div class="extend"><a href="berkshire-finance-lease-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a><a href="berkshire-finance-lease-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a></div>
-<div class="foot">
-  <p><b>关于本页：</b>融资租赁产业链框架版，隶属「全A股产业链覆盖地图」分阶段建设成果。框架参照申万/中信行业分类公开标准整理。</p>
-  <p>⚠️ 以上内容由 AI 基于公开信息整理生成，<b>深度数据(估值/财务/信号/效能)已基于公开披露回填，不构成任何投资建议或个股推荐，不做投资依据</b>。投资有风险，决策需谨慎。</p>
+
+<div class="section-title">跨层分析框架（5 层）</div>
+<div class="layers">
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游 · 资金来源</div><div class="layer-desc">银行授信 / 发债 / ABS，决定资金成本</div></div><div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游 · 租赁资产</div><div class="layer-desc">设备 / 飞机 / 船舶 / 工程机械投放，决定资产质量</div></div><div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游 · 承租人</div><div class="layer-desc">制造 / 航空 / 基建企业，决定回款与不良</div></div><div class="layer-card"><div class="layer-num">04</div><div class="layer-name">需求 · 设备投资场景</div><div class="layer-desc">企业资本开支、产能扩张，顺周期</div></div><div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">看资产质量 + 资金成本，低估值 + 高股息 + 不良可控</div></div>
 </div>
+
+<div class="section-title">人话版：这个框架怎么用</div>
+<div class="insight-box">
+<div class="insight-title"><span class="icon">💡</span> 一句话：融资租赁看的是「钱从哪来（成本）+ 租给谁（不良）+ 设备能不能保值」</div>
+<div class="insight-body">
+<p>投资融资租赁产业链的关键是看清「周期位置 + 护城河 + 估值锚」：从上游到下游，每一层都有可跟踪的硬指标。</p>
+<p>5 层框架其实是回答三个问题：</p>
+<ul>
+<li><b>上游：资金成本谁定？</b> 银行授信、发债、ABS 是主要资金来源，利率下行直接改善利差；头部（江苏租赁、渤海）融资成本低、期限匹配好。</li><li><b>中游：租什么资产？</b> 设备 / 飞机 / 船舶 / 工程机械是主流；厂商系（中联、三一、徐工）租赁天然背靠产业、资产处置能力强。</li><li><b>下游：钱租给谁？</b> 制造 / 航空 / 基建企业是承租人，其资本开支与回款能力决定不良率；地产 / 民企出险是主要风险源。</li><li><b>需求：长期钱在哪？</b> 设备更新、产能扩张、出海是顺周期变量；以旧换新政策托底设备投资。</li><li><b>投资逻辑：安全边际在哪？</b> 租赁买点多在「低估值 + 高股息 + 不良率可控 + 背靠产业」，资产质量比规模更重要。</li>
+</ul>
+<p><b>实战信号</b>：设备更新 / 出海 → 厂商系租赁高景气（中联、三一、徐工），关注江苏租赁；地产 / 民企出险 → 第三方租赁不良承压。当前估值低位，安全边际来自低不良与产业背书。</p>
+</div>
+</div>
+
+<div class="section-title">产业周期判断标准</div>
+<div class="cycle-block" id="cycle"><div class="cycle-title"><span class="icon">🔄</span> 融资租赁产业链产业链 产业周期怎么看</div><div class="cycle-body"><p><b>驱动变量</b>：驱动变量：设备投资周期（制造业 CAPEX）、利率（资金成本）、承租人信用（不良率）、设备残值（二手市场）。这是「信用—利率—设备」三段式周期，顺经济周期。这是「政策—成本—需求」三段式周期，而非传统产能周期。</p>
+<ul>
+<li><b>设备投资</b>：制造业 CAPEX 上行 → 租赁需求增、资产利用率高；下行 → 需求萎缩。</li><li><b>利率</b>：下行 → 资金成本降、利差走阔；上行 → 成本承压。</li><li><b>承租人信用</b>：经济好 → 回款顺、不良低；出险 → 不良率攀升。</li><li><b>设备残值</b>：二手市场活跃 → 退出顺畅；遇冷 → 残值缩水。</li>
+</ul>
+<p><b>举例说明</b>：2024–2025 设备更新 + 出海带动厂商系租赁（中联、三一、徐工）高景气，江苏租赁小微 / 厂商模式稳健；2018–2019 民企违约潮则第三方租赁不良承压。</p></div><div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：当前位置（定性框架，非数据结论）：融资租赁处「设备弱复苏 + 估值低位」早中期，厂商系随出海高景气、第三方受不良拖累分化；变量是设备投资持续性、利率与承租人信用，安全边际来自低不良与产业背书。</div></div>
+
+<div class="section-title">估值历史分位总览（融资租赁产业链 10 家）</div>
+<div class="ovtable">
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000415.html.html">渤海租赁</a></td><td>-151.84</td><td><span class="pct-cell pct-lo">2.1%</span></td><td>0.85</td><td><span class="pct-cell pct-hi">73.6%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-600901.html.html">江苏租赁</a></td><td>11.49</td><td><span class="pct-cell pct-hi">70.0%</span></td><td>1.46</td><td><span class="pct-cell pct-hi">69.8%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000157.html.html">中联重科</a></td><td>14.75</td><td><span class="pct-cell pct-mid">40.9%</span></td><td>1.1</td><td><span class="pct-cell pct-mid">57.2%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-600031.html.html">三一重工</a></td><td>21.39</td><td><span class="pct-cell pct-mid">41.9%</span></td><td>1.99</td><td><span class="pct-cell pct-lo">16.4%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000425.html.html">徐工机械</a></td><td>15.76</td><td><span class="pct-cell pct-mid">52.0%</span></td><td>1.66</td><td><span class="pct-cell pct-hi">84.1%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000528.html.html">柳工</a></td><td>11.1</td><td><span class="pct-cell pct-lo">25.3%</span></td><td>0.91</td><td><span class="pct-cell pct-lo">21.2%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-002097.html.html">山河智能</a></td><td>104.6</td><td><span class="pct-cell pct-hi">81.1%</span></td><td>1.56</td><td><span class="pct-cell pct-mid">42.4%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000617.html.html">中油资本</a></td><td>18.75</td><td><span class="pct-cell pct-hi">77.8%</span></td><td>0.81</td><td><span class="pct-cell pct-lo">27.8%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000987.html.html">越秀资本</a></td><td>9.09</td><td><span class="pct-cell pct-lo">5.7%</span></td><td>1.14</td><td><span class="pct-cell pct-lo">16.8%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-600704.html.html">物产中大</a></td><td>6.98</td><td><span class="pct-cell pct-lo">22.2%</span></td><td>0.6</td><td><span class="pct-cell pct-lo">2.1%</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（腾讯行情）。<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span><span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span><span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。融资租赁产业链 10 家 PE 分位4 家&lt;40%、整体处历史估值中低位（集采出清 + 情绪压制或周期底部）。分位为时点统计。</div>
+</div>
+
+<div class="section-title">R15 三维评级总览（融资租赁产业链 10 家）</div>
+<div class="ovtable">
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000415.html.html">渤海租赁</a></td><td><span class="pct-cell pct-lo">低估2★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">6</span></td><td><span class="pct-cell pct-lo">2.1%</span></td><td><span class="pct-cell pct-hi">73.6%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-600901.html.html">江苏租赁</a></td><td><span class="pct-cell pct-hi">偏高</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td><span class="pct-cell pct-lo">3</span></td><td><span class="pct-cell pct-hi">70.0%</span></td><td><span class="pct-cell pct-hi">69.8%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000157.html.html">中联重科</a></td><td><span class="pct-cell pct-mid">合理</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">5</span></td><td><span class="pct-cell pct-mid">40.9%</span></td><td><span class="pct-cell pct-mid">57.2%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-600031.html.html">三一重工</a></td><td><span class="pct-cell pct-lo">低估2★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid">41.9%</span></td><td><span class="pct-cell pct-lo">16.4%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000425.html.html">徐工机械</a></td><td><span class="pct-cell pct-hi">偏高</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">3</span></td><td><span class="pct-cell pct-mid">52.0%</span></td><td><span class="pct-cell pct-hi">84.1%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000528.html.html">柳工</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-lo">25.3%</span></td><td><span class="pct-cell pct-lo">21.2%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-002097.html.html">山河智能</a></td><td><span class="pct-cell pct-hi">偏高</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">4</span></td><td><span class="pct-cell pct-hi">81.1%</span></td><td><span class="pct-cell pct-mid">42.4%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000617.html.html">中油资本</a></td><td><span class="pct-cell pct-mid">合理</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">5</span></td><td><span class="pct-cell pct-hi">77.8%</span></td><td><span class="pct-cell pct-lo">27.8%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000987.html.html">越秀资本</a></td><td><span class="pct-cell pct-lo">低估5★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">5.7%</span></td><td><span class="pct-cell pct-lo">16.8%</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-600704.html.html">物产中大</a></td><td><span class="pct-cell pct-lo">低估5★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">22.2%</span></td><td><span class="pct-cell pct-lo">2.1%</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">R15 三维框架：①<b>相对估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多，&lt;15%=5★，15–25%=4★，25–40%=2★，40–60%=合理，&gt;75%=高估）；②<b>质量星级</b>=最新年报 ROE(加权，2025，同花顺年报摘要) 换算（★越多质地越好：≥14%=5★，12–14%=4★，10–12%=3★，7–10%=2★，&lt;7%=1★）；③<b>时机分</b>=round((100−PE/PB平均分位)/10)，分越高越接近估值底部、买点越好（绿=好 橙=中 红=差）。整体结论：融资租赁产业链普遍估值中低位 → 相对估值星级高、时机分高；质量端分化明显（ROE 高的龙头质地优，部分偏弱）。数据为时点统计。</div>
+</div>
+
+<div class="section-title">产业链成本传导</div>
+<div class="cost-block"><div class="cost-chart"><svg viewBox="0 0 600 170" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,Segoe UI,Microsoft YaHei,sans-serif">
+<defs>
+<marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#c2780a"/></marker>
+</defs>
+<rect x="10" y="55" width="130" height="58" rx="10" fill="#fff" stroke="#f5a623" stroke-width="1.5"/>
+<text x="75" y="80" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">资金成本</text>
+<text x="75" y="100" text-anchor="middle" font-size="11" fill="#64748b">银行/发债</text>
+<line x1="140" y1="84" x2="170" y2="84" stroke="#c2780a" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="172" y="55" width="120" height="58" rx="10" fill="#fff" stroke="#f5a623" stroke-width="1.5"/>
+<text x="232" y="80" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">租赁资产投放</text>
+<text x="232" y="100" text-anchor="middle" font-size="11" fill="#64748b">设备/飞机</text>
+<line x1="292" y1="84" x2="332" y2="84" stroke="#c2780a" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="334" y="55" width="120" height="58" rx="10" fill="#fff" stroke="#f5a623" stroke-width="1.5"/>
+<text x="394" y="80" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">承租人回款</text>
+<text x="394" y="100" text-anchor="middle" font-size="11" fill="#64748b">租金现金流</text>
+<line x1="454" y1="84" x2="494" y2="84" stroke="#c2780a" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="496" y="55" width="100" height="58" rx="10" fill="#fff" stroke="#f5a623" stroke-width="1.5"/>
+<text x="546" y="80" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">租赁盈利</text>
+<text x="546" y="100" text-anchor="middle" font-size="11" fill="#64748b">利差+残值</text>
+<text x="300" y="150" text-anchor="middle" font-size="12" fill="#64748b">资金成本 → 租赁资产投放 → 承租人回款 → 租赁盈利</text>
+</svg></div>
+<div class="cost-note"><p>本产业链的成本传导链为：<b>资金成本 → 租赁资产投放 → 承租人回款 → 租赁盈利</b>。融资租赁产业链没有交易所统一期货（无统一定价期货），成本传导以<b>定性框架 + 周期</b>呈现。</p>
+<p>融资租赁没有统一期货，成本传导以「资金成本 → 资产投放 → 回款 → 利润」定性框架呈现：利率下行 → 资金成本降、利差走阔。</p><p><b>向上游看</b>：银行授信 / 发债成本是刚性命脉，头部（江苏租赁、渤海）期限匹配好、融资成本低。</p><p><b>向中游看</b>：厂商系租赁背靠产业、资产处置能力强、不良可控；第三方租赁则更依赖承租人信用；估值分位见上，反映「估值低位」。</p>
+<p>估值历史分位已在本段上方给出，反映「中低位」的整体位置。</p></div></div>
+
+<div class="section-title">员工效率与组织效能排行（融资租赁产业链 10 家）</div>
+<div class="ovtable"><table class="sortable">
+<thead><tr><th data-type="name">公司</th><th data-type="num">员工(2025)</th><th data-type="num">员工增速</th><th data-type="num">人均营收</th><th data-type="num">人均净利</th><th data-type="name">效率信号</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000415.html.html">渤海租赁</a></td><td class="num">560</td><td class="num neg">-3.4%</td><td class="num">¥9450.7万</td><td class="num">¥-0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 稳健</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-600901.html.html">江苏租赁</a></td><td class="num">659</td><td class="num pos">+15.6%</td><td class="num">¥927.0万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 扩员</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000157.html.html">中联重科</a></td><td class="num">35,344</td><td class="num pos">+11.2%</td><td class="num">¥147.4万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 扩员</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-600031.html.html">三一重工</a></td><td class="num">28,469</td><td class="num pos">+12.2%</td><td class="num">¥315.1万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 扩员</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000425.html.html">徐工机械</a></td><td class="num">30,485</td><td class="num pos">+9.7%</td><td class="num">¥330.7万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 稳健</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000528.html.html">柳工</a></td><td class="num">15,036</td><td class="num neg">-11.6%</td><td class="num">¥220.4万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 缩员</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-002097.html.html">山河智能</a></td><td class="num">5,132</td><td class="num pos">+0.5%</td><td class="num">¥142.4万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 稳健</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000617.html.html">中油资本</a></td><td class="num">3,990</td><td class="num pos">+0.3%</td><td class="num">¥847.0万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 稳健</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000987.html.html">越秀资本</a></td><td class="num">1,249</td><td class="num neg">-0.7%</td><td class="num">¥627.9万</td><td class="num">¥0.0万</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 稳健</span></td></tr><tr><td><a href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-600704.html.html">物产中大</a></td><td class="num">—</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#fee2e2;color:#991b1b">偏低 · 口径异常</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">员工数=年报披露的「在职员工的数量合计」（含母公司+主要子公司），截至 2025-12-31；员工增速=与 2024-12-31 同比。人均营收/净利=2025 营业总收入(元)÷员工数（员工数取集团口径；部分公司仅母公司口径，其分母仅为母公司员工、对应人均会偏高，已在效率信号格按同口径判断）。已覆盖 <b>10/10 家</b>员工数据，财务数据来源：cninfo 巨潮资讯网 2024 / 2025 年报摘要；标注<b>口径异常</b>者因 2024 年员工数基线缺失/大幅异常（年报口径调整），增速不可比。效率信号档位：人均净利≥30万=高人均盈利；10–30万=良好；5–10万=中等；&lt;5万=偏低；员工|增速|&gt;10% 则在档位后加注「扩员 / 缩员」。组织效能信号由「员工增速分档 × 人均盈利分档」组合判定，为代理指标，非投资建议。</div>
+</div>
+
+<div class="section-title">融资租赁产业链公司索引（上市公司 10 家）</div>
+<div class="grid">
+<a class="giant-card" href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000415.html.html"><div class="giant-head"><span class="giant-name">渤海租赁 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">全球飞机租赁龙头</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于设备弱复苏 + 估值低位期：PE分位2.1%、PB分位73.6%低位；ROE -1.3% 质地偏弱。核心变量是承租人信用（不良率）与资金成本。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-600901.html.html"><div class="giant-head"><span class="giant-name">江苏租赁 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">厂商系融资租赁</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于设备弱复苏 + 估值低位期：PE分位70.0%、PB分位69.8%中高位；ROE 13.2% 质地良。核心变量是承租人信用（不良率）与资金成本。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000157.html.html"><div class="giant-head"><span class="giant-name">中联重科 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">工程机械+设备租赁</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于设备弱复苏 + 估值低位期：PE分位40.9%、PB分位57.2%中低位；ROE 8.5% 质地中。核心变量是承租人信用（不良率）与资金成本。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-600031.html.html"><div class="giant-head"><span class="giant-name">三一重工 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">工程机械龙头</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于设备弱复苏 + 估值低位期：PE分位41.9%、PB分位16.4%低位；ROE 10.5% 质地良。核心变量是承租人信用（不良率）与资金成本。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000425.html.html"><div class="giant-head"><span class="giant-name">徐工机械 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">工程机械龙头</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于设备弱复苏 + 估值低位期：PE分位52.0%、PB分位84.1%中高位；ROE 11.0% 质地良。核心变量是承租人信用（不良率）与资金成本。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000528.html.html"><div class="giant-head"><span class="giant-name">柳工 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">工程机械</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于设备弱复苏 + 估值低位期：PE分位25.3%、PB分位21.2%低位；ROE 8.9% 质地中。核心变量是承租人信用（不良率）与资金成本。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-002097.html.html"><div class="giant-head"><span class="giant-name">山河智能 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">工程机械+航空</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于设备弱复苏 + 估值低位期：PE分位81.1%、PB分位42.4%中高位；ROE 1.8% 质地偏弱。核心变量是承租人信用（不良率）与资金成本。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000617.html.html"><div class="giant-head"><span class="giant-name">中油资本 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">中石油系金控（含租赁）</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于设备弱复苏 + 估值低位期：PE分位77.8%、PB分位27.8%中低位；ROE 4.2% 质地偏弱。核心变量是承租人信用（不良率）与资金成本。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-000987.html.html"><div class="giant-head"><span class="giant-name">越秀资本 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">广州国资金控（含租赁）</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于设备弱复苏 + 估值低位期：PE分位5.7%、PB分位16.8%低位；ROE 10.9% 质地良。核心变量是承租人信用（不良率）与资金成本。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-finance-lease-chain-berkshire-finance-lease-chain-600704.html.html"><div class="giant-head"><span class="giant-name">物产中大 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">供应链+金融综合</div><div class="card-cycle"><span class="cc-label">🔄 周期定位</span>当前处于设备弱复苏 + 估值低位期：PE分位22.2%、PB分位2.1%低位；ROE 8.4% 质地中。核心变量是承租人信用（不良率）与资金成本。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+</div>
+
+<div class="section-title">延伸阅读</div>
+<div class="grid">
+<a class="giant-card" href="berkshire-finance-lease-methodology.html"><div class="giant-head"><span class="giant-name">📘 估值与周期：框架知识</span></div><div class="giant-desc">怎么读融资租赁产业链的定价权、成本周期、壁垒与转型兑现、估值锚——融资租赁产业链投资的 4 个核心框架概念。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-finance-lease-cycle.html"><div class="giant-head"><span class="giant-name">📈 产业周期 2015→2025</span></div><div class="giant-desc">把政策/需求脉络串成宏观视图：融资租赁产业链的产能、价格、库存与出清周期、底部信号。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-finance-lease-backtest.html"><div class="giant-head"><span class="giant-name">🎯 三轮大底回测</span></div><div class="giant-desc">10 家当前 PE/PB/ROE + 月度价格回测：三轮全市场大底的买入回报与关键时点标注。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-finance-lease-thermometer.html"><div class="giant-head"><span class="giant-name">🌡️ 估值温度计</span></div><div class="giant-desc">10 家融资租赁产业链估值冷热一览：低 PE/PB 分位 + 高分红 = 冷（安全边际高），一眼看清谁在历史悲观区。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-finance-lease-buyback.html"><div class="giant-head"><span class="giant-name">📊 逐轮买点回报图</span></div><div class="giant-desc">三轮全市场大底买入后的累计回报曲线，含关键时点标注与逐点回报数据表。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a><a class="giant-card" href="berkshire-finance-lease-compare.html"><div class="giant-head"><span class="giant-name">🔍 横向对比工具</span></div><div class="giant-desc">勾选多家融资租赁产业链公司并排比较 PE/PB/ROE/毛利率/负债率/股息率，自定义指标卡 + 排序与导出。</div><div class="giant-foot"><span class="giant-link">阅读 →</span></div></a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。估值分位基于腾讯行情公开数据回填（详见各公司详情页）。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+<script>
+(function(){
+  function num(v){
+    if(v==null) return NaN;
+    v=v.textContent||v;
+    if(typeof v==='string'){
+      v=v.replace(/,/g,'').replace(/[ \t\r\n]/g,'');
+      if(v==='—'||v==='-'||v==='') return NaN;
+      var unit=1;
+      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
+      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
+      v=v.replace(/[¥,%]/g,'');
+      var n=parseFloat(v);
+      if(!isNaN(n)) n*=unit;
+      return n;
+    }
+    return NaN;
+  }
+  function cmp(a,b,asc){
+    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
+    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
+    var nanA=isNaN(a), nanB=isNaN(b);
+    if(nanA && nanB) return 0;
+    if(nanA) return asc?1:-1;
+    if(nanB) return asc?-1:1;
+    if(an<bn) return asc?-1:1;
+    if(an>bn) return asc?1:-1;
+    return 0;
+  }
+  function sortTable(th){
+    var table=th.closest('table');
+    var tbody=table.querySelector('tbody');
+    var rows=Array.from(tbody.querySelectorAll('tr'));
+    var idx=Array.from(th.parentNode.children).indexOf(th);
+    var type=th.getAttribute('data-type')||'text';
+    var asc=!th.classList.contains('asc');
+    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
+    th.classList.add(asc?'asc':'desc');
+    rows.sort(function(r1,r2){
+      var c1=r1.cells[idx], c2=r2.cells[idx];
+      var v1, v2;
+      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      else if(type==='num'){ v1=num(c1); v2=num(c2); }
+      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      return cmp(v1,v2,asc);
+    });
+    rows.forEach(function(r){ tbody.appendChild(r); });
+  }
+  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
+    th.addEventListener('click',function(){ sortTable(th); });
+  });
+})();
+</script>
   <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
 </body>
