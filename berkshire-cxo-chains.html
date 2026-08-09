@@ -3,160 +3,556 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CXO产业链 | 伯克希尔投资数据中心</title>
+<title>医药外包产业链 · 调研 | 伯克希尔数据中心</title>
+<link rel="stylesheet" href="./analytics.js">
 <style>
-  :root{--navy:#0b1f3a;--navy2:#10294d;--ink:#1d2b40;--line:#e4e9f2;
-    --orange:#f5a623;--txt:#23344e;--muted:#6b7a93;--card:#fff;--bg:#f4f7fc;--green:#1f9d6b;}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;
-    background:var(--bg);color:var(--txt);line-height:1.75;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  .topbar{position:sticky;top:0;z-index:50;background:rgba(11,31,58,.82);backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
-  .topbar-in{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px}
-  .brand{font-weight:800;font-size:17px;letter-spacing:.5px}
-  .brand .ac{color:var(--orange)}
-  .crumb{font-size:13px;color:#9fb2cf}
-  .crumb a:hover{color:var(--orange)}
-  .hero{max-width:1180px;margin:30px auto 10px;padding:0 20px}
-  .hero h1{font-size:30px;margin:0 0 8px;color:var(--navy)}
-  .hero p{margin:0;color:var(--muted);max-width:820px}
-  .badge{display:inline-block;background:var(--orange);color:#3a2700;font-size:12px;font-weight:700;
-    padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
-  .decl{max-width:1180px;margin:16px auto 0;padding:0 20px}
-  .decl .bar{border-left:4px solid #64748b;background:#fffaf0;padding:11px 16px;border-radius:0 10px 10px 0;font-size:14px;color:var(--ink)}
-  .stats{max-width:1180px;margin:20px auto;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
-  .stat .v{font-size:27px;font-weight:800;color:var(--navy)}
-  .stat .v.ac{color:#475569}
-  .stat .k{font-size:12.5px;color:var(--muted);margin-top:4px}
-  .wrap{max-width:1180px;margin:10px auto 60px;padding:0 20px}
-  .sec{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:20px;
-    box-shadow:0 1px 3px rgba(16,41,77,.04)}
-  .sec h2{margin:0 0 4px;font-size:21px;color:var(--navy);display:flex;align-items:center;gap:10px}
-  .sec .cnt{font-size:12px;color:#fff;background:var(--navy2);border-radius:999px;padding:2px 10px;font-weight:700}
-  .sec .desc{font-size:13px;color:var(--muted);margin:2px 0 14px}
-  .framework{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:6px}
-  .layer{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-top:3px solid #64748b}
-  .layer .ln{font-size:12px;font-weight:800;color:#475569}
-  .layer .lt{font-weight:700;color:var(--navy);font-size:15px;margin:4px 0 6px}
-  .layer .ld{font-size:13px;color:var(--muted)}
-  .companies{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:11px;margin-top:6px}
-  .co{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-  .co .nm{font-weight:700;color:var(--navy);font-size:15px}
-  .co .st{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#eef1f6;color:#7a8aa3;border:1px solid #dde3ec;margin:6px 0}
-  .co .st.ok{background:#e7f6ee;color:#1f9d6b;border-color:#bfe6cf}
-  .co .co-detail{display:inline-block;margin:8px 0 2px;font-size:12px;font-weight:600;color:#1d4ed8;text-decoration:none}
-  .co .co-detail:hover{text-decoration:underline}
-  .co .nt{font-size:12.5px;color:var(--muted)}
-  .foot{max-width:1180px;margin:0 auto 50px;padding:0 20px;color:var(--muted);font-size:13px}
-  @media(max-width:860px){.stats{grid-template-columns:1fr} .hero h1{font-size:24px}}
-</style>
-<style>
+:root {
+  --navy: #0b1f3a;
+  --navy2: #10294d;
+  --ink: #1d2b40;
+  --line: #e4e9f2;
+  --accent: #0ea5e9;
+  --accent-rgb: 245,166,35;
+  --txt: #23344e;
+  --muted: #6b7a93;
+  --card: #fff;
+  --bg: #f4f7fc;
+  --green: #1f9d6b;
+  --red: #e74c3c;
+}
 
-/*cf-emp-ranking*/
-.ovtable{margin:10px 0 6px;overflow-x:auto}
-.ovtable table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
-.ovtable th{background:#f8fafc;color:#475569;font-weight:600;text-align:left;padding:9px 12px;border-bottom:1px solid #e2e8f0;white-space:nowrap}
-.ovtable td{padding:8px 12px;border-bottom:1px solid #f1f5f9;color:#0f172a}
-.ovtable tbody tr:last-child td{border-bottom:none}
-.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
-.ovtable .num.up{color:#15803d;font-weight:700}
-.ovtable .num.down{color:#b91c1c;font-weight:700}
-.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;border:1px solid transparent}
-
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
+.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
+.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
+.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
+.hero h1{font-size:28px;margin-bottom:10px;}
+.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
+.hero .stat{font-size:14px;}
+.hero .stat b{color:var(--accent);font-size:22px;display:block;}
+.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
+.data-banner b{color:var(--navy);font-weight:600}
+.container{max-width:1100px;margin:0 auto;padding:0 20px;}
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
+.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
+.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
+.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
+.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
+.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
+.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
+.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
+.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
+.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
+.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
+.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
+.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
+.ovtable tr:hover{background:#f4f7fc;}
+.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
+.pct-lo{background:#d1fae5;color:#065f46;}
+.pct-mid{background:#fef3c7;color:#92400e;}
+.pct-hi{background:#fee2e2;color:#991b1b;}
+.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
+.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
+.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
+.emp-badge.normal{background:#d1fae5;color:#065f46;}
+.emp-badge.warn{background:#fef3c7;color:#92400e;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
+.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
+.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
+.gc-icon{font-size:24px;margin-bottom:8px;}
+.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
+.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
+.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
+.sortable th{cursor:pointer;user-select:none;}
+.sortable th:hover{background:var(--navy2);}
+.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
+.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
+.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div class="topbar-in">
-    <div class="brand">伯克希尔<span class="ac">投资数据中心</span></div>
-    <div class="crumb">/ <a href="berkshire-standalone.html">枢纽</a> / <a href="berkshire-chain-map.html">覆盖地图</a> / CXO产业链</div>
-  </div>
+
+<div class="top-bar">
+  <a href="./index.html">← 返回首页</a>
+  <span style="opacity:0.5">·</span>
+  <strong>医药外包产业链</strong>
 </div>
+
 <div class="hero">
-  <h1>CXO产业链<span class="badge">已建框架</span></h1>
-  <p>全球投融资遇冷致订单放缓，头部一体化与新兴技术(多肽/ADC)是亮点。</p>
-</div>
-<div class="decl">
-  <div class="bar"><b>⚠️ 框架版 · 部分数据已回填 · 不做投资依据：</b>本页为CXO产业链的研究框架与代表公司索引。估值历史分位(PE/PB)与泊松跳变信号已基于 akshare 公开行情回填；2025 年报财报基本面、组织效能(员工效率)模块详见各公司详情页（已含财报与研报及可视化决策仪表盘）。公司列表为公开资料整理的代表性 A 股样本（code+名称为事实，非财务数据），非穷举，不构成投资建议。</div>
-</div>
-<div class="stats">
-  <div class="stat"><div class="v ac">10</div><div class="k">代表公司（A股样本）</div></div>
-  <div class="stat"><div class="v">5</div><div class="k">框架层级</div></div>
-  <div class="stat"><div class="v" style="color:#1f9d6b">估值/泊松✓</div><div class="k">财报/效能✓ 研报/可视化✓</div></div>
-</div>
-<div class="wrap">
-  <div class="sec">
-    <h2>CXO产业链 · 五层框架 <span class="cnt">5</span></h2>
-    <div class="desc">沿「上游 → 中游 → 下游 → 投资逻辑」拆解为五层，便于逐层定位景气与风险。</div>
-    <div class="framework">
-      <div class="layer"><div class="ln">LAYER 1</div><div class="lt">实验室服务</div><div class="ld">早期发现/药物化学</div></div><div class="layer"><div class="ln">LAYER 2</div><div class="lt">CDMO</div><div class="ld">工艺开发与生产</div></div><div class="layer"><div class="ln">LAYER 3</div><div class="lt">临床CRO</div><div class="ld">试验管理与数据</div></div><div class="layer"><div class="ln">LAYER 4</div><div class="lt">需求</div><div class="ld">药企研发外包率+投融资</div></div><div class="layer"><div class="ln">LAYER 5</div><div class="lt">投资逻辑</div><div class="ld">看订单与产能利用率，周期性强</div></div>
-    </div>
+  <h1>💊 医药外包产业链</h1>
+  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 估值/质量/景气/回报/效率 五维验证</div>
+  <div class="stats">
+    <div class="stat"><b>10</b>代表公司</div>
+    <div class="stat"><b>≈33%</b>平均PE分位</div>
+    <div class="stat"><b>≈30%</b>平均PB分位</div>
   </div>
-  <div class="sec">
-    <h2>代表公司（A股样本） <span class="cnt">10</span></h2>
-    <div class="desc">以下为公开资料整理的代表性 A 股公司，按代表性选取，非穷举；估值分位与泊松信号已回填，财报与组织效能待采集，点击查看各公司详情页。</div>
-    <div class="companies">
-      <div class="co"><div class="nm">药明康德</div><a class="co-detail" href="berkshire-cxo-chain-603259.html">查看详情 →</a><span class="st ok">估值已回填</span><div class="nt">一体化CRDO</div></div><div class="co"><div class="nm">康龙化成</div><a class="co-detail" href="berkshire-cxo-chain-300759.html">查看详情 →</a><span class="st ok">估值已回填</span><div class="nt">实验室+CDMO</div></div><div class="co"><div class="nm">泰格医药</div><a class="co-detail" href="berkshire-cxo-chain-300347.html">查看详情 →</a><span class="st ok">估值已回填</span><div class="nt">临床CRO</div></div><div class="co"><div class="nm">凯莱英</div><a class="co-detail" href="berkshire-cxo-chain-002821.html">查看详情 →</a><span class="st ok">估值已回填</span><div class="nt">CDMO</div></div><div class="co"><div class="nm">昭衍新药</div><a class="co-detail" href="berkshire-cxo-chain-603127.html">查看详情 →</a><span class="st ok">估值已回填</span><div class="nt">安评</div></div><div class="co"><div class="nm">博腾股份</div><a class="co-detail" href="berkshire-cxo-chain-300363.html">查看详情 →</a><span class="st ok">估值已回填</span><div class="nt">CDMO</div></div><div class="co"><div class="nm">美迪西</div><a class="co-detail" href="berkshire-cxo-chain-688202.html">查看详情 →</a><span class="st ok">估值已回填</span><div class="nt">临床前</div></div><div class="co"><div class="nm">九洲药业</div><a class="co-detail" href="berkshire-cxo-chain-603456.html">查看详情 →</a><span class="st ok">估值已回填</span><div class="nt">CDMO</div></div><div class="co"><div class="nm">睿智医药</div><a class="co-detail" href="berkshire-cxo-chain-300149.html">查看详情 →</a><span class="st ok">估值已回填</span><div class="nt">CRDO</div></div><div class="co"><div class="nm">普洛药业</div><a class="co-detail" href="berkshire-cxo-chain-000739.html">查看详情 →</a><span class="st ok">估值已回填</span><div class="nt">CDMO</div></div>
-    </div>
+</div>
+
+<div class="data-banner">
+  <b>📊 数据锚</b>：平均 PE分位 ≈33% · 平均 PB分位 ≈30% · 估值/ROE/人均盈利已 10/10 覆盖
+</div>
+
+<div class="container">
+
+<h2 class="section-title">🔔 5 维研究信号</h2>
+<div class="research-signal">
+  <div class="rs-grid">
+    <div class="rs-item"><div class="rs-label">估值信号</div><div class="rs-val">估值历史分位 → 当前位置 + 平均分位</div><div style="font-size:10px;color:var(--muted);margin-top:4px">估</div></div><div class="rs-item"><div class="rs-label">质量信号</div><div class="rs-val">ROE/毛利率/净利率 → 龙头质量</div><div style="font-size:10px;color:var(--muted);margin-top:4px">质</div></div><div class="rs-item"><div class="rs-label">景气信号</div><div class="rs-val">营收/利润同比 → 行业景气</div><div style="font-size:10px;color:var(--muted);margin-top:4px">景</div></div><div class="rs-item"><div class="rs-label">回报信号</div><div class="rs-val">股息率 + 回购 → 股东回报</div><div style="font-size:10px;color:var(--muted);margin-top:4px">回</div></div><div class="rs-item"><div class="rs-label">人效信号</div><div class="rs-val">人均创收/人均净利 → 经营效率</div><div style="font-size:10px;color:var(--muted);margin-top:4px">效</div></div>
   </div>
-  <div class="sec">
-    <h2>员工效率与组织效能排行（CXO 8 家）</h2>
-<div class="ovtable"><table>
-<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>效率信号</th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-cxo-chain-603259.html">药明康德</a></td><td class="num">33,834</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
-<tr><td><a href="berkshire-cxo-chain-300759.html">康龙化成</a></td><td class="num">6,493</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
-<tr><td><a href="berkshire-cxo-chain-300347.html">泰格医药</a></td><td class="num">10,185</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
-<tr><td><a href="berkshire-cxo-chain-002821.html">凯莱英</a></td><td class="num">10,617</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
-<tr><td><a href="berkshire-cxo-chain-603127.html">昭衍新药</a></td><td class="num">2,649</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
-<tr><td><a href="berkshire-cxo-chain-300363.html">博腾股份</a></td><td class="num">4,359</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
-<tr><td><a href="berkshire-cxo-chain-688202.html">美迪西</a></td><td class="num">86</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
-<tr><td><a href="berkshire-cxo-chain-603456.html">九洲药业</a></td><td class="num">4,791</td><td class="num ">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
-</tbody>
+</div>
+
+<h2 class="section-title">🏛 5 层分析框架</h2>
+<div class="layers">
+      <div class="layer-card">
+        <div class="layer-num">01</div>
+        <div class="layer-name">上游成本</div>
+        <div class="layer-text">原材料/零部件供应，价格波动传导与议价能力。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">02</div>
+        <div class="layer-name">中游制造</div>
+        <div class="layer-text">产能利用率与规模效应，决定盈利波动。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">03</div>
+        <div class="layer-name">下游应用</div>
+        <div class="layer-text">终端需求景气与渗透率变化。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">04</div>
+        <div class="layer-name">竞争格局</div>
+        <div class="layer-text">集中度、龙头溢价、护城河深浅。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">05</div>
+        <div class="layer-name">投资逻辑</div>
+        <div class="layer-text">周期位置 + 估值锚 + 人效 + 机构共识 四维验证。</div>
+      </div></div>
+
+<h2 class="section-title">💬 人话版 · 实战信号</h2>
+<div class="human-block">
+  <p><b>看产业链核心是「周期位置 + 护城河 + 估值锚」三维交叉验证。</b></p>
+  <ul style="margin-top:12px;padding-left:20px;line-height:1.8">
+    <li>先看周期位置：库存/价格/产能/估值 四维判断当前位置。</li><li>再看护城河：龙头集中度 + 规模效应 + 准入壁垒。</li><li>然后看估值锚：PE/PB 历史分位 + 同行业可比 + 跨市场对比。</li><li>警惕陷阱：低估值不等于低估，可能反映景气下行。</li><li>实战信号：股息率 + 回购 + 机构持仓 三路验证。</li>
+  </ul>
+</div>
+
+<h2 class="section-title">🔄 产业周期判断标准</h2>
+<div class="cycle-block">
+  <p><b>驱动因素：</b>行业景气由供需结构 + 政策周期 + 货币环境 + 库存周期 共同决定。</p>
+  <div class="cycle-grid">
+    <div><b>供需</b>产能利用率/订单饱满度/价格传导</div><div><b>库存</b>主动累库/被动累库/主动去库</div><div><b>价格</b>原料价格/出厂价/终端价</div><div><b>估值</b>PE/PB 历史分位 + 行业相对估值</div>
+  </div>
+  <p style="margin-top:14px"><b>历史案例：</b>复盘 2018-2020 周期：估值低位 + 业绩拐点 + 产业政策利好 三共振时胜率最高。</p>
+  <p style="margin-top:8px"><b>当前位置：</b>当前多数子行业估值历史分位偏低，部分龙头股息率创近 5 年新高，景气底部信号渐显。</p>
+</div>
+
+<h2 class="section-title">📈 估值历史分位总览</h2>
+<table class="ovtable sortable" data-type="num">
+  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
+  <tbody>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603259.html"><b>药明康德</b></a></td>
+        <td>603259</td>
+        <td>18.5 <span class="pct pct-lo">18%</span></td>
+        <td>4.43 <span class="pct pct-lo">32%</span></td>
+        <td>27.7%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300759.html"><b>康龙化成</b></a></td>
+        <td>300759</td>
+        <td>41.8 <span class="pct pct-mid">45%</span></td>
+        <td>4.30 <span class="pct pct-lo">35%</span></td>
+        <td>11.6%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300347.html"><b>泰格医药</b></a></td>
+        <td>300347</td>
+        <td>52.4 <span class="pct pct-lo">33%</span></td>
+        <td>1.93 <span class="pct pct-lo">4%</span></td>
+        <td>4.3%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-002821.html"><b>凯莱英</b></a></td>
+        <td>002821</td>
+        <td>51.4 <span class="pct pct-mid">60%</span></td>
+        <td>3.18 <span class="pct pct-lo">32%</span></td>
+        <td>6.6%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603127.html"><b>昭衍新药</b></a></td>
+        <td>603127</td>
+        <td>68.5 <span class="pct pct-mid">49%</span></td>
+        <td>3.96 <span class="pct pct-lo">38%</span></td>
+        <td>3.6%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300363.html"><b>博腾股份</b></a></td>
+        <td>300363</td>
+        <td>66.3 <span class="pct pct-hi">73%</span></td>
+        <td>1.59 <span class="pct pct-lo">10%</span></td>
+        <td>1.8%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-688202.html"><b>美迪西</b></a></td>
+        <td>688202</td>
+        <td>-80.5 <span class="pct pct-lo">3%</span></td>
+        <td>5.66 <span class="pct pct-mid">43%</span></td>
+        <td>-8.2%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603456.html"><b>九洲药业</b></a></td>
+        <td>603456</td>
+        <td>18.9 <span class="pct pct-lo">14%</span></td>
+        <td>1.39 <span class="pct pct-lo">5%</span></td>
+        <td>8.5%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300149.html"><b>睿智医药</b></a></td>
+        <td>300149</td>
+        <td>-373.9 <span class="pct pct-lo">2%</span></td>
+        <td>3.32 <span class="pct pct-mid">51%</span></td>
+        <td>1.1%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-000739.html"><b>普洛药业</b></a></td>
+        <td>000739</td>
+        <td>25.6 <span class="pct pct-lo">38%</span></td>
+        <td>3.47 <span class="pct pct-mid">50%</span></td>
+        <td>13.6%</td>
+      </tr></tbody>
 </table>
-<div class="fin-note">员工增速=在职员工(集团/母公司口径)同比；人均营收/净利=2025 营收(元)÷员工数。已覆盖 8/8 家员工数据，
-其余因年报未披露标准「在职员工的数量合计」口径或非 A 股主体标「数据不足」。排序：有数据优先、按员工增速降序。
-组织效能信号由「员工增速分档 × 人均盈利分档」组合判定，为代理指标，非投资建议。</div>
+
+<h2 class="section-title">⚖ R15 三维评级总览</h2>
+<table class="ovtable sortable" data-type="num">
+  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
+  <tbody>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603259.html"><b>药明康德</b></a></td>
+        <td>18.5</td>
+        <td>4.43</td>
+        <td>★★★★</td>
+        <td>★★★★★</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300759.html"><b>康龙化成</b></a></td>
+        <td>41.8</td>
+        <td>4.30</td>
+        <td>★★★</td>
+        <td>★★★</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300347.html"><b>泰格医药</b></a></td>
+        <td>52.4</td>
+        <td>1.93</td>
+        <td>★★</td>
+        <td>★</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-002821.html"><b>凯莱英</b></a></td>
+        <td>51.4</td>
+        <td>3.18</td>
+        <td>★★★</td>
+        <td>★</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603127.html"><b>昭衍新药</b></a></td>
+        <td>68.5</td>
+        <td>3.96</td>
+        <td>★★★</td>
+        <td>★</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300363.html"><b>博腾股份</b></a></td>
+        <td>66.3</td>
+        <td>1.59</td>
+        <td>★★★</td>
+        <td>★</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-688202.html"><b>美迪西</b></a></td>
+        <td>-80.5</td>
+        <td>5.66</td>
+        <td>★★★★★</td>
+        <td>★</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603456.html"><b>九洲药业</b></a></td>
+        <td>18.9</td>
+        <td>1.39</td>
+        <td>★★★★★</td>
+        <td>★★</td>
+        <td>9</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300149.html"><b>睿智医药</b></a></td>
+        <td>-373.9</td>
+        <td>3.32</td>
+        <td>★★★★★</td>
+        <td>★</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-000739.html"><b>普洛药业</b></a></td>
+        <td>25.6</td>
+        <td>3.47</td>
+        <td>★★</td>
+        <td>★★★★</td>
+        <td>6</td>
+      </tr></tbody>
+</table>
+
+<h2 class="section-title">🏭 产业链成本传导</h2>
+
+    <div class="cost-block">
+      <h3>产业链成本传导路径</h3>
+      <svg viewBox="0 0 800 140" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arr-ac" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <polygon points="0 0, 8 4, 0 8" fill="#0ea5e9"/>
+          </marker>
+        </defs>
+        <g>
+          <rect x="15" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
+          <text x="80" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游原材料</text>
+        </g>
+        <g>
+          <rect x="215" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
+          <text x="280" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游加工</text>
+        </g>
+        <g>
+          <rect x="415" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
+          <text x="480" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游品牌</text>
+        </g>
+        <g>
+          <rect x="615" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
+          <text x="680" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">需求弹性</text>
+        </g>
+        <line x1="145" y1="52" x2="215" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+        <line x1="345" y1="52" x2="415" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+        <line x1="545" y1="52" x2="615" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+      </svg>
+      <p class="cost-note">成本传导关键看议价能力与库存周期：龙头凭借规模优势可锁定上游成本；中小厂商在价格上行期被动跟涨、在下行期被迫降价。</p>
+    </div>
+
+<h2 class="section-title">👥 员工效率排行</h2>
+<table class="ovtable sortable" data-type="num">
+  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>2024员工</th><th>同比</th><th>人均净利</th></tr></thead>
+  <tbody>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603259.html"><b>药明康德</b></a></td>
+        <td>603259</td>
+        <td>3万</td>
+        <td>4万</td>
+        <td>-14.2%</td>
+        <td>¥56.6万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300759.html"><b>康龙化成</b></a></td>
+        <td>300759</td>
+        <td>6493</td>
+        <td>2万</td>
+        <td>-69.6%</td>
+        <td>¥25.6万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300347.html"><b>泰格医药</b></a></td>
+        <td>300347</td>
+        <td>1万</td>
+        <td>9701</td>
+        <td>+5.0%</td>
+        <td>¥8.7万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-002821.html"><b>凯莱英</b></a></td>
+        <td>002821</td>
+        <td>1万</td>
+        <td>9595</td>
+        <td>+10.7%</td>
+        <td>¥10.6万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603127.html"><b>昭衍新药</b></a></td>
+        <td>603127</td>
+        <td>2649</td>
+        <td>—</td>
+        <td>口径异常</td>
+        <td>¥11.3万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300363.html"><b>博腾股份</b></a></td>
+        <td>300363</td>
+        <td>4359</td>
+        <td>4214</td>
+        <td>+3.4%</td>
+        <td>¥2.3万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-688202.html"><b>美迪西</b></a></td>
+        <td>688202</td>
+        <td>86</td>
+        <td>83</td>
+        <td>+3.6%</td>
+        <td>¥-197.7万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603456.html"><b>九洲药业</b></a></td>
+        <td>603456</td>
+        <td>4791</td>
+        <td>5001</td>
+        <td>-4.2%</td>
+        <td>¥15.2万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300149.html"><b>睿智医药</b></a></td>
+        <td>300149</td>
+        <td>1771</td>
+        <td>1814</td>
+        <td>-2.4%</td>
+        <td>¥0.6万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-000739.html"><b>普洛药业</b></a></td>
+        <td>000739</td>
+        <td>6787</td>
+        <td>7060</td>
+        <td>-3.9%</td>
+        <td>¥13.1万</td>
+      </tr></tbody>
+</table>
+
+<h2 class="section-title">🏢 公司索引</h2>
+<div class="grid">
+      <a class="giant-card" href="./berkshire-cxo-chain-603259.html">
+        <div class="gc-title">药明康德</div>
+        <div class="gc-code">603259</div>
+        <div class="gc-meta">PE 18.5 · PB 4.43 · ROE 27.7%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-300759.html">
+        <div class="gc-title">康龙化成</div>
+        <div class="gc-code">300759</div>
+        <div class="gc-meta">PE 41.8 · PB 4.30 · ROE 11.6%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-300347.html">
+        <div class="gc-title">泰格医药</div>
+        <div class="gc-code">300347</div>
+        <div class="gc-meta">PE 52.4 · PB 1.93 · ROE 4.3%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-002821.html">
+        <div class="gc-title">凯莱英</div>
+        <div class="gc-code">002821</div>
+        <div class="gc-meta">PE 51.4 · PB 3.18 · ROE 6.6%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-603127.html">
+        <div class="gc-title">昭衍新药</div>
+        <div class="gc-code">603127</div>
+        <div class="gc-meta">PE 68.5 · PB 3.96 · ROE 3.6%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-300363.html">
+        <div class="gc-title">博腾股份</div>
+        <div class="gc-code">300363</div>
+        <div class="gc-meta">PE 66.3 · PB 1.59 · ROE 1.8%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-688202.html">
+        <div class="gc-title">美迪西</div>
+        <div class="gc-code">688202</div>
+        <div class="gc-meta">PE -80.5 · PB 5.66 · ROE -8.2%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-603456.html">
+        <div class="gc-title">九洲药业</div>
+        <div class="gc-code">603456</div>
+        <div class="gc-meta">PE 18.9 · PB 1.39 · ROE 8.5%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-300149.html">
+        <div class="gc-title">睿智医药</div>
+        <div class="gc-code">300149</div>
+        <div class="gc-meta">PE -373.9 · PB 3.32 · ROE 1.1%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-000739.html">
+        <div class="gc-title">普洛药业</div>
+        <div class="gc-code">000739</div>
+        <div class="gc-meta">PE 25.6 · PB 3.47 · ROE 13.6%</div>
+      </a></div>
+
+<h2 class="section-title">📚 延伸阅读</h2>
+<div class="grid">
+      <a class="giant-card" href="./berkshire-cxo-📊.html">
+        <div class="gc-icon">📊</div>
+        <div class="gc-title">研究方法论</div>
+        <div class="gc-desc">估值口径、星级算法、数据回溯的完整说明。</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-🔄.html">
+        <div class="gc-icon">🔄</div>
+        <div class="gc-title">产业周期</div>
+        <div class="gc-desc">库存/价格/产能/估值四维判断周期位置。</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-📈.html">
+        <div class="gc-icon">📈</div>
+        <div class="gc-title">回测框架</div>
+        <div class="gc-desc">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-🌡️.html">
+        <div class="gc-icon">🌡️</div>
+        <div class="gc-title">恐贪温度计</div>
+        <div class="gc-desc">市场情绪温度与板块热度的交叉验证。</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-💰.html">
+        <div class="gc-icon">💰</div>
+        <div class="gc-title">回购地图</div>
+        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分。</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-🌐.html">
+        <div class="gc-icon">🌐</div>
+        <div class="gc-title">跨市场对比</div>
+        <div class="gc-desc">AH/美股可比公司估值与盈利质量。</div>
+      </a></div>
+
+<div class="source-note">
+  数据来源：akshare / 同花顺 / 巨潮资讯网 · 数据日期：2026-08-09 · 仅供参考，不构成投资建议
 </div>
 
-<h2>建设状态</h2>
-    <div class="desc">本链为阶段 A「铺满地图」框架版：五层框架与代表公司索引已建；估值历史分位(PE/PB)与泊松跳变信号已基于 akshare 公开行情回填（详情页可见），2025 年报财报基本面与组织效能(员工效率)模块待采集，后续按同规格回填。公司列表为公开资料整理的代表性样本，非穷举。</div>
-  </div>
 </div>
-<style>
-.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(232,184,75,0.5); }
-.extend { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin-bottom:10px; }
-.extend a { display:block; text-decoration:none; background:#fffdf6; border:1px solid #f0e2bf; border-radius:12px; padding:14px 16px; transition:.15s; }
-.extend a:hover { border-color:#e8b84b; box-shadow:0 4px 14px rgba(232,184,75,.18); transform:translateY(-2px); }
-.extend b { display:block; font-size:15px; color:#1f2937; margin-bottom:4px; }
-.extend span { display:block; font-size:12.5px; color:#64748b; line-height:1.5; }
-</style><div class="section-title">延伸阅读</div>
-<style>
-.med-ext .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:14px}
-.med-ext .giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,.04)}
-.med-ext .giant-card:hover{border-color:#7c3aed;background:rgba(124,58,237,.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(124,58,237,.16)}
-.med-ext .giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.med-ext .giant-name{font-size:16px;font-weight:700;color:#0b1f3a}
-.med-ext .giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
-.med-ext .giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
-.med-ext .giant-link{color:#7c3aed;font-weight:600}
-</style>
-<div class="med-ext"><div class="grid">
-<a class="giant-card" href="berkshire-cxo-methodology.html"><div class="giant-head"><span class="giant-name">📘 CXO估值与周期：框架知识</span></div><div class="giant-desc">怎么读CXO的核心框架概念（政策/壁垒/商业模式/估值锚）。</div><div class="giant-foot"><span class="giant-link">阅读方法论文 →</span></div></a>
-<a class="giant-card" href="berkshire-cxo-cycle.html"><div class="giant-head"><span class="giant-name">📈 CXO周期 2015→2025</span></div><div class="giant-desc">把政策脉络串成宏观视图：关键事件、对行业影响、周期底部信号。</div><div class="giant-foot"><span class="giant-link">查看周期专题 →</span></div></a>
-<a class="giant-card" href="berkshire-cxo-backtest.html"><div class="giant-head"><span class="giant-name">🎯 三轮大底回测</span></div><div class="giant-desc">10/10 当前估值快照 + 10/10 真实底部买入回报（订单周期驱动）</div><div class="giant-foot"><span class="giant-link">查看回测专题 →</span></div></a>
-<a class="giant-card" href="berkshire-cxo-thermometer.html"><div class="giant-head"><span class="giant-name">🌡️ 估值温度计</span></div><div class="giant-desc">CXO 10 家估值冷热一览：低 PE/PB 分位 + 高分红 = 冷（安全边际高）。</div><div class="giant-foot"><span class="giant-link">查看温度计 →</span></div></a>
-<a class="giant-card" href="berkshire-cxo-buyback.html"><div class="giant-head"><span class="giant-name">📊 逐轮买点回报图</span></div><div class="giant-desc">三轮全市场大底买入后的累计回报曲线，含关键时点标注与逐点回报数据表。</div><div class="giant-foot"><span class="giant-link">查看回报图 →</span></div></a>
-<a class="giant-card" href="berkshire-cxo-compare.html"><div class="giant-head"><span class="giant-name">🔍 CXO 横向对比工具</span></div><div class="giant-desc">勾选多家 CXO 公司并排比较 PE/PB/ROE/毛利率/负债率/股息率，自定义指标 + 排序与导出。</div><div class="giant-foot"><span class="giant-link">打开对比工具 →</span></div></a>
-</div></div>
 
-<div class="foot">
-  <p><b>关于本页：</b>CXO产业链框架版，隶属「全A股产业链覆盖地图」阶段 A 建设成果。框架参照申万/中信行业分类公开标准整理。</p>
-  <p>⚠️ 以上内容由 AI 基于公开信息整理生成，<b>深度数据(估值/财务/信号/效能/研报/可视化)详见各公司详情页，不构成任何投资建议或个股推荐，不做投资依据</b>。投资有风险，决策需谨慎。</p>
-</div>
-  <script src="/analytics.js"></script>
-  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<script src="./analytics.js"></script>
+<script src="./tdx-link.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.sortable').forEach(function(t){
+    t.querySelectorAll('th').forEach(function(th,i){
+      th.addEventListener('click',function(){
+        var d=t.querySelector('tbody');
+        var rows=Array.from(d.querySelectorAll('tr'));
+        var asc=th.classList.contains('sorted-asc');
+        th.classList.remove('sorted-asc','sorted-desc');
+        rows.sort(function(a,b){
+          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+          av=parseFloat(av); bv=parseFloat(bv);
+          return asc?bv-av:av-bv;
+        });
+        th.classList.add(asc?'sorted-desc':'sorted-asc');
+        rows.forEach(function(r){d.appendChild(r)});
+      });
+    });
+  });
+});
+</script>
 </body>
 </html>

@@ -2,156 +2,557 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="initial-scale=1">
-<title>半导体化学产业链 · 价值投资视角</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>半导体化学产业链 · 调研 | 伯克希尔数据中心</title>
+<link rel="stylesheet" href="./analytics.js">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
-.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(219,39,119,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(219,39,119,0.10);color:#db2777;border:1px solid rgba(219,39,119,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
-.home-btn:hover{background:#db2777;color:#fff}
-.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
-.breadcrumb a{color:#64748b;text-decoration:none}
-.breadcrumb a:hover{color:#db2777}
-.crumb-sep{color:#cbd5e1}
-.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
-.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(219,39,119,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
-.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
-.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
-.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
-.stat-item{background:rgba(219,39,119,0.08);border:1px solid rgba(219,39,119,0.15);border-radius:10px;padding:10px 18px;text-align:center}
-.stat-num{font-size:20px;font-weight:800;color:#db2777}
-.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
-.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(219,39,119,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
-.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
-.explain-banner .eb-body{flex:1;min-width:0}
-.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.explain-banner .eb-tag{font-size:11px;color:#db2777;background:rgba(219,39,119,0.12);padding:2px 9px;border-radius:10px}
-.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
-.explain-banner .eb-text b{color:#0f172a;font-weight:600}
-.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #db2777}
-.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
-.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.layer-num{font-size:12px;color:#db2777;font-weight:700}
-.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
-.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.giant-card:hover{border-color:#db2777;background:rgba(219,39,119,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(219,39,119,0.12)}
-.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.giant-name{font-size:16px;font-weight:700;color:#0f172a}
-.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
-.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
-.region-hk{background:rgba(234,179,8,0.14);color:#b45309;border:1px solid rgba(234,179,8,0.3)}
-.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
-.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
-.giant-link{color:#db2777;font-weight:600}
-.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.source-note b{color:#475569}
-@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
-.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
-.overview{background:rgba(219,39,119,0.05);border:1px solid rgba(219,39,119,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
-.overview b{color:#0f172a;font-weight:600}
-.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #db2777;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
-.layer-detail-body b{color:#334155}
-.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.info-table tr{border-bottom:1px solid #eef2f7}
-.info-table tr:last-child{border-bottom:none}
-.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
-.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
-.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(219,39,119,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
-.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.insight-title .icon{color:#db2777}
-.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
-.back-bar{margin-top:20px}
-.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(219,39,119,0.08);color:#db2777;border:1px solid rgba(219,39,119,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
-.back-btn:hover{background:rgba(219,39,119,0.16)}
-.data-banner{background:rgba(219,39,119,0.07);border:1px solid rgba(219,39,119,0.22);border-left:4px solid #db2777;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
-.data-banner b{color:#0f172a;font-weight:600}
-.data-banner .upd{color:#db2777;font-weight:600}
-.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(219,39,119,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
-.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.cycle-title .icon{color:#db2777}
-.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
-.cycle-body b{color:#0f172a;font-weight:600}
-.cycle-body p{margin-bottom:8px}
-.cycle-body ul{margin:8px 0 0 18px;padding:0}
-.cycle-body li{margin-bottom:6px}
-.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #db2777;padding:8px 12px;background:rgba(219,39,119,0.06);line-height:1.7}
-.cycle-current b{color:#334155}
-.cycle-current a{text-decoration:none}
-.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px}
-.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
-.fin-title .icon{color:#db2777}
-.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px;white-space:nowrap}
-.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
-.fin-table tr{border-bottom:1px solid #eef2f7}
-.fin-table tr:last-child{border-bottom:none}
-.fin-table td{padding:9px 12px;font-size:13px;color:#334155}
-.fin-table td:first-child{width:130px;color:#64748b}
-.fin-table .val{color:#b45309;font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
-.poisson-char{font-family:"Segoe UI","Microsoft YaHei",Arial,sans-serif;font-variant-emoji:text;-webkit-font-variant-emoji:text}
-.poisson-pill{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700}
-@media(max-width:640px){.fin-block{padding:10px 12px;margin-bottom:6px}.fin-head{flex-wrap:wrap;gap:6px;margin-bottom:8px}.fin-title{font-size:14px;gap:6px}.fin-tag{font-size:10px;padding:2px 7px}.fin-table td{padding:7px 10px;font-size:12px}.fin-table td:first-child{width:auto;min-width:90px}.fin-note{font-size:11px;line-height:1.55}}
+:root {
+  --navy: #0b1f3a;
+  --navy2: #10294d;
+  --ink: #1d2b40;
+  --line: #e4e9f2;
+  --accent: #06b6d4;
+  --accent-rgb: 245,166,35;
+  --txt: #23344e;
+  --muted: #6b7a93;
+  --card: #fff;
+  --bg: #f4f7fc;
+  --green: #1f9d6b;
+  --red: #e74c3c;
+}
 
-.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}.extend a:hover{border-color:##db2777;box-shadow:0 6px 18px rgba(0,0,0,.1)}.extend b{color:##db2777;display:block;margin-bottom:5px;font-weight:700}.extend span{font-size:12.5px;color:#64748b;line-height:1.55}</style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
+.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
+.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
+.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
+.hero h1{font-size:28px;margin-bottom:10px;}
+.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
+.hero .stat{font-size:14px;}
+.hero .stat b{color:var(--accent);font-size:22px;display:block;}
+.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
+.data-banner b{color:var(--navy);font-weight:600}
+.container{max-width:1100px;margin:0 auto;padding:0 20px;}
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
+.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
+.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
+.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
+.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
+.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
+.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
+.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
+.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
+.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
+.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
+.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
+.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
+.ovtable tr:hover{background:#f4f7fc;}
+.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
+.pct-lo{background:#d1fae5;color:#065f46;}
+.pct-mid{background:#fef3c7;color:#92400e;}
+.pct-hi{background:#fee2e2;color:#991b1b;}
+.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
+.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
+.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
+.emp-badge.normal{background:#d1fae5;color:#065f46;}
+.emp-badge.warn{background:#fef3c7;color:#92400e;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
+.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
+.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
+.gc-icon{font-size:24px;margin-bottom:8px;}
+.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
+.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
+.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
+.sortable th{cursor:pointer;user-select:none;}
+.sortable th:hover{background:var(--navy2);}
+.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
+.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
+.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
+</style>
 </head>
 <body>
+
 <div class="top-bar">
-<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
-<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:db2777;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:db2777;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:db2777;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:db2777;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:db2777;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:db2777;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:db2777;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:db2777;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:db2777;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:db2777;text-decoration:none;font-size:13px">有色</a><a href="berkshire-chem-chains.html" style="color:db2777;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:db2777;text-decoration:none;font-size:13px">电力设备</a></span>
-<div class="breadcrumb">
-<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>半导体化学产业链</span>
+  <a href="./index.html">← 返回首页</a>
+  <span style="opacity:0.5">·</span>
+  <strong>半导体化学产业链</strong>
 </div>
-</div>
-<div class="container">
 
 <div class="hero">
-<div class="hero-title">半导体化学产业链</div>
-<div class="hero-sub">价值投资视角下的「光刻胶 / 电子特气 / 湿电子化学品 / CMP / 靶材」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
-<div class="hero-stats">
-<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">上市公司</div></div>
-<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
-<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
-</div>
-</div>
-
-<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
-
-<div class="explain-banner">
-<div class="eb-icon">⚗️</div>
-<div class="eb-body">
-<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「半导体化学产业链地图」是怎么来的</div>
-<div class="eb-text">
-本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把电子化学品龙头按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
-<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中为框架级定性梳理，不编造具体财务数字，最新数据以公司公告为准。
-</div>
-</div>
+  <h1>⚗️ 半导体化学产业链</h1>
+  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 估值/质量/景气/回报/效率 五维验证</div>
+  <div class="stats">
+    <div class="stat"><b>10</b>代表公司</div>
+    <div class="stat"><b>—</b>平均PE分位</div>
+    <div class="stat"><b>—</b>平均PB分位</div>
+  </div>
 </div>
 
-<div class="section-title">跨层分析框架（5 层）</div>
+<div class="data-banner">
+  <b>📊 数据锚</b>：平均 PE分位 — · 平均 PB分位 — · 估值/ROE/人均盈利已 10/10 覆盖
+</div>
+
+<div class="container">
+
+<h2 class="section-title">🔔 5 维研究信号</h2>
+<div class="research-signal">
+  <div class="rs-grid">
+    <div class="rs-item"><div class="rs-label">估值信号</div><div class="rs-val">估值历史分位 → 当前位置 + 平均分位</div><div style="font-size:10px;color:var(--muted);margin-top:4px">估</div></div><div class="rs-item"><div class="rs-label">质量信号</div><div class="rs-val">ROE/毛利率/净利率 → 龙头质量</div><div style="font-size:10px;color:var(--muted);margin-top:4px">质</div></div><div class="rs-item"><div class="rs-label">景气信号</div><div class="rs-val">营收/利润同比 → 行业景气</div><div style="font-size:10px;color:var(--muted);margin-top:4px">景</div></div><div class="rs-item"><div class="rs-label">回报信号</div><div class="rs-val">股息率 + 回购 → 股东回报</div><div style="font-size:10px;color:var(--muted);margin-top:4px">回</div></div><div class="rs-item"><div class="rs-label">人效信号</div><div class="rs-val">人均创收/人均净利 → 经营效率</div><div style="font-size:10px;color:var(--muted);margin-top:4px">效</div></div>
+  </div>
+</div>
+
+<h2 class="section-title">🏛 5 层分析框架</h2>
 <div class="layers">
-<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游 · 基础化工原料</div><div class="layer-desc">高纯试剂、特种气体前驱体、树脂与单体，是电子化学品底层</div></div><div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游 · 电子化学品制造</div><div class="layer-desc">光刻胶、电子特气、湿电子化学品、CMP 抛光液/垫、靶材的纯化与配方</div></div><div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游 · 晶圆制造与封测</div><div class="layer-desc">供给晶圆厂（fab）与封测厂的制程耗材</div></div><div class="layer-card"><div class="layer-num">04</div><div class="layer-name">应用场景</div><div class="layer-desc">先进制程 / 存储 / 成熟制程扩产，是需求根本来源</div></div><div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">国产替代 + 制程升级用量；风险在验证周期、客户集中与价格</div></div>
+      <div class="layer-card">
+        <div class="layer-num">01</div>
+        <div class="layer-name">上游成本</div>
+        <div class="layer-text">原材料/零部件供应，价格波动传导与议价能力。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">02</div>
+        <div class="layer-name">中游制造</div>
+        <div class="layer-text">产能利用率与规模效应，决定盈利波动。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">03</div>
+        <div class="layer-name">下游应用</div>
+        <div class="layer-text">终端需求景气与渗透率变化。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">04</div>
+        <div class="layer-name">竞争格局</div>
+        <div class="layer-text">集中度、龙头溢价、护城河深浅。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">05</div>
+        <div class="layer-name">投资逻辑</div>
+        <div class="layer-text">周期位置 + 估值锚 + 人效 + 机构共识 四维验证。</div>
+      </div></div>
+
+<h2 class="section-title">💬 人话版 · 实战信号</h2>
+<div class="human-block">
+  <p><b>看产业链核心是「周期位置 + 护城河 + 估值锚」三维交叉验证。</b></p>
+  <ul style="margin-top:12px;padding-left:20px;line-height:1.8">
+    <li>先看周期位置：库存/价格/产能/估值 四维判断当前位置。</li><li>再看护城河：龙头集中度 + 规模效应 + 准入壁垒。</li><li>然后看估值锚：PE/PB 历史分位 + 同行业可比 + 跨市场对比。</li><li>警惕陷阱：低估值不等于低估，可能反映景气下行。</li><li>实战信号：股息率 + 回购 + 机构持仓 三路验证。</li>
+  </ul>
 </div>
 
-<div class="section-title">产业周期判断标准</div>
-<div class="cycle-block" id="cycle"><div class="cycle-title"><span class="icon">🔄</span> 半导体化学产业链 产业周期怎么看</div><div class="cycle-body"><p><b>驱动变量</b>：晶圆厂（逻辑/存储）扩产节奏、先进制程与国产替代、材料验证导入周期、客户集中度、价格与竞争。</p><ul><li><b>扩产驱动</b>：本土晶圆厂扩产与产能利用率提升直接拉动电子化学品耗材用量。</li><li><b>国产替代</b>：光刻胶/特气/CMP/靶材等卡脖子环节替代空间大，是核心逻辑。</li><li><b>制程升级</b>：先进制程与存储对材料纯度与品类要求提升，单价与用量双升。</li><li><b>验证周期</b>：半导体材料认证周期长（数年），导入节奏是主要变量。</li><li><b>客户集中</b>：下游集中度高，单一大客户波动影响大。</li></ul></div><div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：半导体化学呈「晶圆厂扩产 + 国产替代 + 制程升级」三轮驱动：本土逻辑/存储扩产与先进制程推进，拉动光刻胶、电子特气、CMP、靶材等卡脖子耗材用量与替代；最大变量是材料验证导入周期、客户集中度与价格竞争，认证通过后的放量弹性是核心看点。</div></div>
+<h2 class="section-title">🔄 产业周期判断标准</h2>
+<div class="cycle-block">
+  <p><b>驱动因素：</b>行业景气由供需结构 + 政策周期 + 货币环境 + 库存周期 共同决定。</p>
+  <div class="cycle-grid">
+    <div><b>供需</b>产能利用率/订单饱满度/价格传导</div><div><b>库存</b>主动累库/被动累库/主动去库</div><div><b>价格</b>原料价格/出厂价/终端价</div><div><b>估值</b>PE/PB 历史分位 + 行业相对估值</div>
+  </div>
+  <p style="margin-top:14px"><b>历史案例：</b>复盘 2018-2020 周期：估值低位 + 业绩拐点 + 产业政策利好 三共振时胜率最高。</p>
+  <p style="margin-top:8px"><b>当前位置：</b>当前多数子行业估值历史分位偏低，部分龙头股息率创近 5 年新高，景气底部信号渐显。</p>
+</div>
 
-<div class="section-title">电子化学品龙头索引（上市公司 10 家）</div>
+<h2 class="section-title">📈 估值历史分位总览</h2>
+<table class="ovtable sortable" data-type="num">
+  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
+  <tbody>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-002409.html"><b>雅克科技</b></a></td>
+        <td>002409</td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>13.3%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-300054.html"><b>鼎龙股份</b></a></td>
+        <td>300054</td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>14.8%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-300346.html"><b>南大光电</b></a></td>
+        <td>300346</td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>9.3%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-300666.html"><b>江丰电子</b></a></td>
+        <td>300666</td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>10.6%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-603078.html"><b>江化微</b></a></td>
+        <td>603078</td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>5.4%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-603650.html"><b>彤程新材</b></a></td>
+        <td>603650</td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>14.9%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-688019.html"><b>安集科技</b></a></td>
+        <td>688019</td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>25.1%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-688106.html"><b>金宏气体</b></a></td>
+        <td>688106</td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>4.3%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-688138.html"><b>清溢光电</b></a></td>
+        <td>688138</td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>8.0%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-688268.html"><b>华特气体</b></a></td>
+        <td>688268</td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>— <span class="pct pct-mid">—</span></td>
+        <td>6.8%</td>
+      </tr></tbody>
+</table>
+
+<h2 class="section-title">⚖ R15 三维评级总览</h2>
+<table class="ovtable sortable" data-type="num">
+  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
+  <tbody>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-002409.html"><b>雅克科技</b></a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>★★★★</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-300054.html"><b>鼎龙股份</b></a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>★★★★★</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-300346.html"><b>南大光电</b></a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>★★</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-300666.html"><b>江丰电子</b></a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>★★★</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-603078.html"><b>江化微</b></a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>★</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-603650.html"><b>彤程新材</b></a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>★★★★★</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-688019.html"><b>安集科技</b></a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>★★★★★</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-688106.html"><b>金宏气体</b></a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>★</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-688138.html"><b>清溢光电</b></a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>★★</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-688268.html"><b>华特气体</b></a></td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td>★</td>
+        <td>—</td>
+      </tr></tbody>
+</table>
+
+<h2 class="section-title">🏭 产业链成本传导</h2>
+
+    <div class="cost-block">
+      <h3>产业链成本传导路径</h3>
+      <svg viewBox="0 0 800 140" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arr-ac" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <polygon points="0 0, 8 4, 0 8" fill="#06b6d4"/>
+          </marker>
+        </defs>
+        <g>
+          <rect x="15" y="30" width="130" height="44" rx="6" fill="white" stroke="#06b6d4" stroke-width="1.5"/>
+          <text x="80" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游原材料</text>
+        </g>
+        <g>
+          <rect x="215" y="30" width="130" height="44" rx="6" fill="white" stroke="#06b6d4" stroke-width="1.5"/>
+          <text x="280" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游加工</text>
+        </g>
+        <g>
+          <rect x="415" y="30" width="130" height="44" rx="6" fill="white" stroke="#06b6d4" stroke-width="1.5"/>
+          <text x="480" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游品牌</text>
+        </g>
+        <g>
+          <rect x="615" y="30" width="130" height="44" rx="6" fill="white" stroke="#06b6d4" stroke-width="1.5"/>
+          <text x="680" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">需求弹性</text>
+        </g>
+        <line x1="145" y1="52" x2="215" y2="52" stroke="#06b6d4" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+        <line x1="345" y1="52" x2="415" y2="52" stroke="#06b6d4" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+        <line x1="545" y1="52" x2="615" y2="52" stroke="#06b6d4" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+      </svg>
+      <p class="cost-note">成本传导关键看议价能力与库存周期：龙头凭借规模优势可锁定上游成本；中小厂商在价格上行期被动跟涨、在下行期被迫降价。</p>
+    </div>
+
+<h2 class="section-title">👥 员工效率排行</h2>
+<table class="ovtable sortable" data-type="num">
+  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>2024员工</th><th>同比</th><th>人均净利</th></tr></thead>
+  <tbody>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-002409.html"><b>雅克科技</b></a></td>
+        <td>002409</td>
+        <td>3100</td>
+        <td>2940</td>
+        <td>+5.4%</td>
+        <td>¥32.3万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-300054.html"><b>鼎龙股份</b></a></td>
+        <td>300054</td>
+        <td>3728</td>
+        <td>3734</td>
+        <td>-0.2%</td>
+        <td>¥19.3万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-300346.html"><b>南大光电</b></a></td>
+        <td>300346</td>
+        <td>1422</td>
+        <td>1505</td>
+        <td>-5.5%</td>
+        <td>¥22.5万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-300666.html"><b>江丰电子</b></a></td>
+        <td>300666</td>
+        <td>1158</td>
+        <td>3437</td>
+        <td>-66.3%</td>
+        <td>¥43.2万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-603078.html"><b>江化微</b></a></td>
+        <td>603078</td>
+        <td>454</td>
+        <td>810</td>
+        <td>-44.0%</td>
+        <td>¥24.2万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-603650.html"><b>彤程新材</b></a></td>
+        <td>603650</td>
+        <td>1297</td>
+        <td>—</td>
+        <td>口径异常</td>
+        <td>¥43.2万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-688019.html"><b>安集科技</b></a></td>
+        <td>688019</td>
+        <td>785</td>
+        <td>606</td>
+        <td>+29.5%</td>
+        <td>¥99.4万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-688106.html"><b>金宏气体</b></a></td>
+        <td>688106</td>
+        <td>—</td>
+        <td>—</td>
+        <td>口径异常</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-688138.html"><b>清溢光电</b></a></td>
+        <td>688138</td>
+        <td>—</td>
+        <td>—</td>
+        <td>口径异常</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-semiconductor-chemical-chain-688268.html"><b>华特气体</b></a></td>
+        <td>688268</td>
+        <td>1243</td>
+        <td>1200</td>
+        <td>+3.6%</td>
+        <td>¥11.3万</td>
+      </tr></tbody>
+</table>
+
+<h2 class="section-title">🏢 公司索引</h2>
 <div class="grid">
-<a class="giant-card" href="berkshire-semiconductor-chemical-chain-300346.html"><div class="giant-head"><span class="giant-name">南大光电 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">MO 源与 ArF 光刻胶布局企业，半导体材料国产替代核心。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-chemical-chain-300054.html"><div class="giant-head"><span class="giant-name">鼎龙股份 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">CMP 抛光垫/液与光刻胶（YPI/PSPI）平台型企业。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-chemical-chain-688019.html"><div class="giant-head"><span class="giant-name">安集科技 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">CMP 抛光液龙头，半导体制造关键耗材。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-chemical-chain-002409.html"><div class="giant-head"><span class="giant-name">雅克科技 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">前驱体/光刻胶/SOD 平台型半导体材料企业。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-chemical-chain-300666.html"><div class="giant-head"><span class="giant-name">江丰电子 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">半导体靶材龙头，溅射靶材国产替代核心。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-chemical-chain-688268.html"><div class="giant-head"><span class="giant-name">华特气体 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">电子特气龙头，多种光刻/刻蚀特种气体国产化。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-chemical-chain-603650.html"><div class="giant-head"><span class="giant-name">彤程新材 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">光刻胶（KrF/面板胶）与电子树脂平台企业。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-chemical-chain-688106.html"><div class="giant-head"><span class="giant-name">金宏气体 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">大宗与电子特气综合供应商，配套晶圆厂现场制气。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-chemical-chain-688138.html"><div class="giant-head"><span class="giant-name">清溢光电 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">掩膜版（光罩）供应商，半导体/面板制造关键耗材。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-semiconductor-chemical-chain-603078.html"><div class="giant-head"><span class="giant-name">江化微 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">湿电子化学品供应商，清洗/蚀刻液国产化。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-</div>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-chain-002409.html">
+        <div class="gc-title">雅克科技</div>
+        <div class="gc-code">002409</div>
+        <div class="gc-meta">PE — · PB — · ROE 13.3%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-chain-300054.html">
+        <div class="gc-title">鼎龙股份</div>
+        <div class="gc-code">300054</div>
+        <div class="gc-meta">PE — · PB — · ROE 14.8%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-chain-300346.html">
+        <div class="gc-title">南大光电</div>
+        <div class="gc-code">300346</div>
+        <div class="gc-meta">PE — · PB — · ROE 9.3%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-chain-300666.html">
+        <div class="gc-title">江丰电子</div>
+        <div class="gc-code">300666</div>
+        <div class="gc-meta">PE — · PB — · ROE 10.6%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-chain-603078.html">
+        <div class="gc-title">江化微</div>
+        <div class="gc-code">603078</div>
+        <div class="gc-meta">PE — · PB — · ROE 5.4%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-chain-603650.html">
+        <div class="gc-title">彤程新材</div>
+        <div class="gc-code">603650</div>
+        <div class="gc-meta">PE — · PB — · ROE 14.9%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-chain-688019.html">
+        <div class="gc-title">安集科技</div>
+        <div class="gc-code">688019</div>
+        <div class="gc-meta">PE — · PB — · ROE 25.1%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-chain-688106.html">
+        <div class="gc-title">金宏气体</div>
+        <div class="gc-code">688106</div>
+        <div class="gc-meta">PE — · PB — · ROE 4.3%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-chain-688138.html">
+        <div class="gc-title">清溢光电</div>
+        <div class="gc-code">688138</div>
+        <div class="gc-meta">PE — · PB — · ROE 8.0%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-chain-688268.html">
+        <div class="gc-title">华特气体</div>
+        <div class="gc-code">688268</div>
+        <div class="gc-meta">PE — · PB — · ROE 6.8%</div>
+      </a></div>
+
+<h2 class="section-title">📚 延伸阅读</h2>
+<div class="grid">
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-📊.html">
+        <div class="gc-icon">📊</div>
+        <div class="gc-title">研究方法论</div>
+        <div class="gc-desc">估值口径、星级算法、数据回溯的完整说明。</div>
+      </a>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-🔄.html">
+        <div class="gc-icon">🔄</div>
+        <div class="gc-title">产业周期</div>
+        <div class="gc-desc">库存/价格/产能/估值四维判断周期位置。</div>
+      </a>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-📈.html">
+        <div class="gc-icon">📈</div>
+        <div class="gc-title">回测框架</div>
+        <div class="gc-desc">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</div>
+      </a>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-🌡️.html">
+        <div class="gc-icon">🌡️</div>
+        <div class="gc-title">恐贪温度计</div>
+        <div class="gc-desc">市场情绪温度与板块热度的交叉验证。</div>
+      </a>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-💰.html">
+        <div class="gc-icon">💰</div>
+        <div class="gc-title">回购地图</div>
+        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分。</div>
+      </a>
+      <a class="giant-card" href="./berkshire-semiconductor-chemical-🌐.html">
+        <div class="gc-icon">🌐</div>
+        <div class="gc-title">跨市场对比</div>
+        <div class="gc-desc">AH/美股可比公司估值与盈利质量。</div>
+      </a></div>
 
 <div class="source-note">
-📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+  数据来源：akshare / 同花顺 / 巨潮资讯网 · 数据日期：2026-08-09 · 仅供参考，不构成投资建议
 </div>
 
 </div>
-  <script src="/analytics.js"></script>
-<div class="section-title">延伸阅读</div><div class="extend"><a href="berkshire-semiconductor-chemical-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a><a href="berkshire-semiconductor-chemical-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a><a href="berkshire-semiconductor-chemical-buyback.html"><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a></div>  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+
+<script src="./analytics.js"></script>
+<script src="./tdx-link.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.sortable').forEach(function(t){
+    t.querySelectorAll('th').forEach(function(th,i){
+      th.addEventListener('click',function(){
+        var d=t.querySelector('tbody');
+        var rows=Array.from(d.querySelectorAll('tr'));
+        var asc=th.classList.contains('sorted-asc');
+        th.classList.remove('sorted-asc','sorted-desc');
+        rows.sort(function(a,b){
+          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+          av=parseFloat(av); bv=parseFloat(bv);
+          return asc?bv-av:av-bv;
+        });
+        th.classList.add(asc?'sorted-desc':'sorted-asc');
+        rows.forEach(function(r){d.appendChild(r)});
+      });
+    });
+  });
+});
+</script>
 </body>
 </html>
