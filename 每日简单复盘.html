@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>每日简单复盘</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Helvetica,sans-serif;background:#0f172a;color:#e2e8f0}
+  a{color:#7dd3fc}
+  .topbar{display:flex;align-items:center;gap:10px;padding:10px 16px;background:#020617;border-bottom:1px solid #1e293b;font-size:13px;min-height:50px;flex-wrap:wrap}
+  .topbar b{color:#f8fafc;font-weight:600;font-size:14px}
+  .topbar .spacer{flex:1}
+  .topbar a.btn{background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;padding:6px 14px;border-radius:18px;text-decoration:none;font-size:12px;font-weight:600}
+  .topbar input[type=date]{background:#1e293b;color:#e2e8f0;border:1px solid #334155;border-radius:8px;padding:5px 8px;font-size:12px}
+  .topbar .qbtn{background:#1e293b;color:#cbd5e1;border:1px solid #334155;border-radius:8px;padding:5px 10px;font-size:12px;cursor:pointer}
+  .topbar .qbtn:hover{background:#334155;color:#fff}
+  .topbar a.refresh{background:#1e293b;color:#cbd5e1;border:1px solid #334155;border-radius:8px;padding:6px 12px;font-size:12px;text-decoration:none}
+  .topbar a.refresh:hover{background:#334155;color:#fff}
+  .tip{padding:8px 16px;background:#0b2545;color:#bfdbfe;font-size:12px;line-height:1.6;border-bottom:1px solid #1e293b}
+  .tip b{color:#fde68a}
+  .tabs{display:flex;gap:4px;padding:8px 16px;background:#0b1220;border-bottom:1px solid #1e293b;flex-wrap:wrap}
+  .tabs button{background:#1e293b;color:#cbd5e1;border:1px solid #334155;border-radius:8px 8px 0 0;padding:8px 16px;font-size:13px;cursor:pointer}
+  .tabs button.active{background:#7c3aed;color:#fff;border-color:#7c3aed;font-weight:600}
+  .panel{display:none;padding:16px}
+  .panel.active{display:block}
+  .summary{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .stat{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:10px 16px;min-width:90px;text-align:center}
+  .stat .v{font-size:20px;font-weight:700;color:#fbbf24}
+  .stat .k{font-size:11px;color:#94a3b8;margin-top:2px}
+  table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+  th,td{padding:7px 8px;text-align:left;border-bottom:1px solid #1e293b;white-space:nowrap}
+  th{color:#94a3b8;font-weight:600;background:#0b1220;position:sticky;top:0}
+  tbody tr:hover{background:#172033}
+  td.up{color:#ef4444;font-weight:600}
+  td.down{color:#22c55e;font-weight:600}
+  td code{pointer-events:none}
+  .lbc-badge{display:inline-block;background:#b45309;color:#fff;border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700}
+  tr.clickable{cursor:pointer}
+  .err{background:#3f1d1d;border:1px solid #7f1d1d;color:#fca5a5;padding:10px 14px;border-radius:10px;font-size:12px;line-height:1.6;margin-top:10px}
+  .ok-note{background:#0f2e1d;border:1px solid #14532d;color:#86efac;padding:8px 14px;border-radius:10px;font-size:12px;margin-top:10px}
+  .loading{color:#94a3b8;font-size:12px;padding:14px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:900px){.grid2{grid-template-columns:1fr}}
+  .sec-title{font-size:13px;color:#cbd5e1;font-weight:600;margin:6px 0 2px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="btn" href="./index.html">← 返回主页</a>
+  <b>📊 每日简单复盘</b>
+  <input type="date" id="dt" value="2026-08-07">
+  <button class="qbtn" id="btnToday">今日</button>
+  <button class="qbtn" id="btnYest">昨日</button>
+  <span class="spacer"></span>
+  <a class="refresh" href="javascript:location.reload()">🔄 刷新</a>
+</div>
+
+<div class="tip">
+  <b>零后端 · 直连东方财富</b>：本页在浏览器里直接拉公开行情数据，<b>不依赖任何本机服务</b>，在 8088 或 github.io 任何设备都能打开，从根上不可能弹窗。点击任意股票行→自动打开东方财富个股页。如某块显示跨域错误，是接口临时限流，刷新或换日即可。
+</div>
+
+<div class="tabs">
+  <button data-tab="zt" class="active">涨停池</button>
+  <button data-tab="ladder">涨停梯队</button>
+  <button data-tab="dt">跌停池</button>
+  <button data-tab="sector">板块强度</button>
+  <button data-tab="cap">资金流</button>
+  <button data-tab="index">指数</button>
+  <button data-tab="lhb">龙虎榜</button>
+  <button data-tab="sentiment">情绪面板</button>
+  <button data-tab="north">北向资金</button>
+</div>
+
+<div class="panel active" id="tab-zt">
+  <div class="summary" id="zt-summary"></div>
+  <div id="zt-body"><div class="loading">加载中…</div></div>
+</div>
+
+<div class="panel" id="tab-ladder">
+  <div id="ladder-body"><div class="loading">加载中…</div></div>
+</div>
+
+<div class="panel" id="tab-sector">
+  <div class="grid2">
+    <div><div class="sec-title">概念板块（按涨幅）</div><div id="sector-concept"><div class="loading">加载中…</div></div></div>
+    <div><div class="sec-title">行业板块（按涨幅）</div><div id="sector-industry"><div class="loading">加载中…</div></div></div>
+  </div>
+</div>
+
+<div class="panel" id="tab-index">
+  <div id="index-body"><div class="loading">加载中…</div></div>
+</div>
+
+<div class="panel" id="tab-lhb">
+  <div id="lhb-body"><div class="loading">加载中…</div></div>
+</div>
+
+<div class="panel" id="tab-dt">
+  <div class="summary" id="dt-summary"></div>
+  <div id="dt-body"><div class="loading">加载中…</div></div>
+</div>
+
+<div class="panel" id="tab-cap">
+  <div id="cap-body"><div class="loading">加载中…</div></div>
+</div>
+
+<div class="panel" id="tab-sentiment">
+  <div id="sentiment-body"><div class="loading">加载中…</div></div>
+</div>
+
+<div class="panel" id="tab-north">
+  <div id="north-body"><div class="loading">加载中…</div></div>
+</div>
+
+<script>
+const EM_UT = '7eea3edcaed734bea9cbfc24409ed989';
+
+function fmtDateInput(v){ // YYYY-MM-DD -> YYYYMMDD
+  return v ? v.replace(/-/g,'') : '';
+}
+function emWebUrl(code){
+  code = (code||'').trim();
+  if(!/^\d{6}$/.test(code)) return '';
+  const c = code[0];
+  const market = (c==='6'||c==='9') ? 'sh' : (c==='0'||c==='3') ? 'sz' : 'bj';
+  return 'https://quote.eastmoney.com/concept/'+market+code+'.html';
+}
+function fmtTime(t){ // int HHMMSS -> HH:MM:SS
+  if(t==null) return '-';
+  const s = ('000000'+t).slice(-6);
+  return s.slice(0,2)+':'+s.slice(2,4)+':'+s.slice(4,6);
+}
+function fmtMoney(v){ // 元 -> 万/亿
+  if(v==null) return '-';
+  const n = Number(v);
+  if(Math.abs(n)>=1e8) return (n/1e8).toFixed(2)+'亿';
+  if(Math.abs(n)>=1e4) return (n/1e4).toFixed(1)+'万';
+  return n.toFixed(0);
+}
+function pct(v){ return (v==null)?'-':(Number(v).toFixed(2)+'%'); }
+
+async function fetchJSON(url, timeout=12000){
+  const ctl = new AbortController();
+  const tid = setTimeout(()=>ctl.abort(), timeout);
+  try{
+    const r = await fetch(url, {signal:ctl.signal, mode:'cors'});
+    clearTimeout(tid);
+    if(!r.ok) return {ok:false, status:r.status, err:'HTTP '+r.status};
+    const d = await r.json();
+    return {ok:true, data:d};
+  }catch(e){
+    clearTimeout(tid);
+    return {ok:false, err:e.name==='AbortError'?'请求超时':(e.message||'网络错误')};
+  }
+}
+
+function showErr(boxId, msg){
+  const box = document.getElementById(boxId);
+  box.innerHTML = '<div class="err">⚠️ 加载失败：'+msg+'<br>多为浏览器跨域(CORS)被接口拦截或网络超时。可点右上「🔄 刷新」重试，或换一个交易日再试。</div>';
+}
+function showOk(boxId, msg){
+  const box = document.getElementById(boxId);
+  const old = box.querySelector('.ok-note');
+  if(!old){ const d=document.createElement('div'); d.className='ok-note'; d.textContent=msg; box.prepend(d); }
+}
+
+/* ---------- 涨停判定 & 涨停池 ---------- */
+function isLimitUp(code, name, f3){
+  const v = Number(f3); const nm = name||'';
+  if(/^[NC]/.test(nm)) return false;                // 新股(N/C前缀)首日/次新无涨跌幅限制
+  if(nm.indexOf('ST')>=0) return v >= 4.8;          // ST 5%
+  if(/^(30|688|689)/.test(code)) return v >= 19.8;  // 创业板/科创板 20%
+  if(/^(8|4|92|87)/.test(code)) return v >= 29.5;   // 北交所 30%
+  return v >= 9.9;                                  // 主板 10%
+}
+function boardType(code){
+  if(/^(30|688|689)/.test(code)) return '创业/科创(20%)';
+  if(/^(8|4|92|87)/.test(code)) return '北交所(30%)';
+  return '主板(10%)';
+}
+async function fetchLimitUpSet(){
+  const fs = 'm:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23';
+  const pool = [];
+  for(let pn=1; pn<=5; pn++){
+    const url = `https://push2delay.eastmoney.com/api/qt/clist/get?pn=${pn}&pz=100&po=1&np=1&fltt=2&invt=2&fid=f3&fs=${fs}&fields=f12,f14,f2,f3,f62&_=${Date.now()}_${pn}`;
+    const res = await fetchJSON(url);
+    if(!res.ok) break;
+    const list = (res.data && res.data.data && res.data.data.diff) || [];
+    if(list.length===0) break;
+    let minF3 = 999;
+    list.forEach(x=>{ const v=Number(x.f3); if(v<minF3) minF3=v; if(isLimitUp(x.f12, x.f14, x.f3)) pool.push({ c:x.f12, n:x.f14, p:x.f2, zdp:x.f3, f62:x.f62 }); });
+    if(minF3 < 9.5) break;   // 后续页不再可能出现涨停股，停止翻页
+  }
+  return pool;
+}
+async function loadZT(){
+  const pool = await fetchLimitUpSet();
+  if(pool===null){ showErr('zt-body','涨停池数据拉取失败（接口超时或被拦截）'); document.getElementById('zt-summary').innerHTML=''; return null; }
+  const sum = document.getElementById('zt-summary');
+  sum.innerHTML = `<div class="stat"><div class="v">${pool.length}</div><div class="k">涨停总数</div></div>`;
+  if(pool.length===0){
+    document.getElementById('zt-body').innerHTML='<div class="ok-note">今日无涨停（可能为非交易日或已收盘无数据）。</div>';
+    return pool;
+  }
+  let rows = pool.map(x=>`<tr class="clickable" data-code="${x.c}">
+      <td><code>${x.c}</code></td>
+      <td>${x.n||''}</td>
+      <td class="up">${x.p!=null?Number(x.p).toFixed(2):'-'}</td>
+      <td class="up">${pct(x.zdp)}</td>
+      <td class="${Number(x.f62)>=0?'up':'down'}">${fmtMoney(x.f62)}</td>
+    </tr>`).join('');
+  document.getElementById('zt-body').innerHTML = `
+    <table><thead><tr><th>代码</th><th>名称</th><th>现价</th><th>涨跌幅</th><th>主力净流入</th></tr></thead><tbody>${rows}</tbody></table>`;
+  bindRows('zt-body');
+  return pool;
+}
+
+/* ---------- 涨停梯队（按涨幅排序）---------- */
+function renderLadder(pool){
+  if(!pool || pool.length===0){ document.getElementById('ladder-body').innerHTML='<div class="ok-note">今日无涨停，暂无梯队。</div>'; return; }
+  const sorted = pool.slice().sort((a,b)=>Number(b.zdp)-Number(a.zdp));
+  let rows = sorted.map(x=>`<tr class="clickable" data-code="${x.c}">
+      <td><code>${x.c}</code></td>
+      <td>${x.n||''}</td>
+      <td class="up">${x.p!=null?Number(x.p).toFixed(2):'-'}</td>
+      <td class="up">${pct(x.zdp)}</td>
+      <td>${boardType(x.c)}</td></tr>`).join('');
+  document.getElementById('ladder-body').innerHTML = `<table><thead><tr><th>代码</th><th>名称</th><th>现价</th><th>涨跌幅</th><th>类别</th></tr></thead><tbody>${rows}</tbody></table>`;
+  bindRows('ladder-body');
+}
+
+/* ---------- 板块 ---------- */
+async function loadSectors(){
+  const conceptUrl = `https://push2delay.eastmoney.com/api/qt/clist/get?pn=1&pz=40&po=1&np=1&fltt=2&invt=2&fid=f3&fs=m:90+t:2&fields=f12,f14,f3,f62`;
+  const indUrl = `https://push2delay.eastmoney.com/api/qt/clist/get?pn=1&pz=40&po=1&np=1&fltt=2&invt=2&fid=f3&fs=m:90+t:3&fields=f12,f14,f3,f62`;
+  const [c, i] = await Promise.all([fetchJSON(conceptUrl), fetchJSON(indUrl)]);
+  if(!c.ok){ showErr('sector-concept', c.err); } else { renderSector('sector-concept', c.data, '概念'); }
+  if(!i.ok){ showErr('sector-industry', i.err); } else { renderSector('sector-industry', i.data, '行业'); }
+}
+function renderSector(boxId, data, label){
+  const list = (data && data.data && data.data.diff) || [];
+  if(list.length===0){ document.getElementById(boxId).innerHTML='<div class="ok-note">无数据</div>'; return; }
+  let rows = list.slice(0,30).map(x=>{
+    const up = Number(x.f3)>=0;
+    return `<tr class="clickable" data-code="${x.f12}">
+      <td><code>${x.f12}</code></td><td>${x.f14||''}</td>
+      <td class="${up?'up':'down'}">${pct(x.f3)}</td>
+      <td class="${Number(x.f62)>=0?'up':'down'}">${fmtMoney(x.f62)}</td></tr>`;
+  }).join('');
+  document.getElementById(boxId).innerHTML = `<table><thead><tr><th>代码</th><th>${label}</th><th>涨幅</th><th>主力净流入</th></tr></thead><tbody>${rows}</tbody></table>`;
+  bindRows(boxId);
+}
+
+/* ---------- 指数 ---------- */
+async function loadIndex(){
+  const url = `https://push2delay.eastmoney.com/api/qt/clist/get?pn=1&pz=30&po=1&np=1&fltt=2&invt=2&fid=f3&fs=m:1+t:2&fields=f12,f14,f3`;
+  const res = await fetchJSON(url);
+  if(!res.ok){ showErr('index-body', res.err); return; }
+  const list = (res.data && res.data.data && res.data.data.diff) || [];
+  if(list.length===0){ document.getElementById('index-body').innerHTML='<div class="ok-note">无数据</div>'; return; }
+  let rows = list.map(x=>{
+    const up = Number(x.f3)>=0;
+    return `<tr><td><code>${x.f12}</code></td><td>${x.f14||''}</td><td class="${up?'up':'down'}">${pct(x.f3)}</td></tr>`;
+  }).join('');
+  document.getElementById('index-body').innerHTML = `<table><thead><tr><th>代码</th><th>指数</th><th>涨跌幅</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+/* ---------- 龙虎榜 ---------- */
+async function loadLHB(date){
+  const iso = date.replace(/(\d{4})(\d{2})(\d{2})/,'$1-$2-$3');
+  const url = `https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_DAILYBILLBOARD_DETAILS&columns=SECURITY_CODE,SECURITY_NAME_ABBR,CHANGE_RATE,CLOSE_PRICE,EXPLAIN&date=${iso}&pagesize=40&sortColumns=CHANGE_RATE&sortTypes=-1&p=1`;
+  const res = await fetchJSON(url);
+  if(!res.ok){ showErr('lhb-body', res.err); return; }
+  const arr = (res.data && res.data.result && res.data.result.data) || [];
+  if(arr.length===0){ document.getElementById('lhb-body').innerHTML='<div class="ok-note">该日龙虎榜无数据（可能为非交易日）。</div>'; return; }
+  let rows = arr.slice(0,40).map(x=>{
+    const code = (x.SECURITY_CODE||'').replace(/\.(SZ|SH|BJ)$/,'');
+    const chg = Number(x.CHANGE_RATE)/100;
+    const up = chg>=0;
+    return `<tr class="clickable" data-code="${code}">
+      <td><code>${code}</code></td>
+      <td>${x.SECURITY_NAME_ABBR||''}</td>
+      <td class="${up?'up':'down'}">${pct(chg)}</td>
+      <td>${x.CLOSE_PRICE!=null?Number(x.CLOSE_PRICE).toFixed(2):'-'}</td>
+      <td style="white-space:normal;max-width:280px">${x.EXPLAIN||'-'}</td></tr>`;
+  }).join('');
+  document.getElementById('lhb-body').innerHTML = `<table><thead><tr><th>代码</th><th>名称</th><th>涨跌幅</th><th>收盘</th><th>上榜原因</th></tr></thead><tbody>${rows}</tbody></table>`;
+  bindRows('lhb-body');
+}
+
+function bindRows(boxId){
+  document.querySelectorAll('#'+boxId+' tr.clickable').forEach(tr=>{
+    tr.addEventListener('click', ()=>{
+      const code = tr.getAttribute('data-code');
+      const u = emWebUrl(code);
+      if(u) window.open(u,'_blank');
+    });
+  });
+}
+
+/* ---------- 跌停判定 & 跌停池 ---------- */
+function isLimitDown(code, name, f3){
+  const v = Number(f3); const nm = name||'';
+  if(/^[NC]/.test(nm)) return false;                // 新股(N/C前缀)首日/次新无涨跌幅限制
+  if(nm.indexOf('ST')>=0) return v <= -4.8;        // ST 5%
+  if(/^(30|688|689)/.test(code)) return v <= -19.8; // 创业板/科创板 20%
+  if(/^(8|4|92|87)/.test(code)) return v <= -29.5;  // 北交所 30%
+  return v <= -9.9;                                 // 主板 10%
+}
+async function fetchLimitDownSet(){
+  const fs = 'm:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23';
+  const pool = [];
+  for(let pn=1; pn<=5; pn++){
+    const url = `https://push2delay.eastmoney.com/api/qt/clist/get?pn=${pn}&pz=100&po=0&np=1&fltt=2&invt=2&fid=f3&fs=${fs}&fields=f12,f14,f2,f3,f62&_=${Date.now()}_${pn}`;
+    const res = await fetchJSON(url);
+    if(!res.ok) break;
+    const list = (res.data && res.data.data && res.data.data.diff) || [];
+    if(list.length===0) break;
+    let maxF3 = -999;
+    list.forEach(x=>{ const v=Number(x.f3); if(v>maxF3) maxF3=v; if(isLimitDown(x.f12, x.f14, x.f3)) pool.push({ c:x.f12, n:x.f14, p:x.f2, zdp:x.f3, f62:x.f62 }); });
+    if(maxF3 > -9.5) break;   // 本页最低已高于跌停阈值，后续不再有跌停股
+  }
+  return pool;
+}
+async function loadDT(){
+  const pool = await fetchLimitDownSet();
+  const box = document.getElementById('dt-body');
+  if(pool===null){ showErr('dt-body','跌停池数据拉取失败（接口超时或被拦截）'); document.getElementById('dt-summary').innerHTML=''; return; }
+  document.getElementById('dt-summary').innerHTML = `<div class="stat"><div class="v">${pool.length}</div><div class="k">跌停总数</div></div>`;
+  if(pool.length===0){ box.innerHTML='<div class="ok-note">今日无跌停（可能为非交易日或已收盘无数据）。</div>'; return; }
+  let rows = pool.map(x=>`<tr class="clickable" data-code="${x.c}">
+      <td><code>${x.c}</code></td>
+      <td>${x.n||''}</td>
+      <td class="down">${x.p!=null?Number(x.p).toFixed(2):'-'}</td>
+      <td class="down">${pct(x.zdp)}</td>
+      <td class="${Number(x.f62)>=0?'up':'down'}">${fmtMoney(x.f62)}</td></tr>`).join('');
+  box.innerHTML = `<table><thead><tr><th>代码</th><th>名称</th><th>现价</th><th>涨跌幅</th><th>主力净流入</th></tr></thead><tbody>${rows}</tbody></table>`;
+  bindRows('dt-body');
+}
+
+/* ---------- 资金流（板块 + 个股主力净流入）---------- */
+async function loadCapital(){
+  const conceptUrl = `https://push2delay.eastmoney.com/api/qt/clist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f62&fs=m:90+t:2&fields=f12,f14,f3,f62`;
+  const indUrl = `https://push2delay.eastmoney.com/api/qt/clist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f62&fs=m:90+t:3&fields=f12,f14,f3,f62`;
+  const stockUrl = `https://push2delay.eastmoney.com/api/qt/clist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f62&fs=m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23&fields=f12,f14,f3,f62`;
+  const [c,i,s] = await Promise.all([fetchJSON(conceptUrl), fetchJSON(indUrl), fetchJSON(stockUrl)]);
+  let html='';
+  if(c.ok){ html += `<div class="sec-title">概念板块 主力净流入 TOP20</div>`+renderCapRows(c.data,'概念'); }
+  else { html += `<div class="err">概念板块资金流加载失败：${c.err}</div>`; }
+  if(i.ok){ html += `<div class="sec-title">行业板块 主力净流入 TOP20</div>`+renderCapRows(i.data,'行业'); }
+  else { html += `<div class="err">行业板块资金流加载失败：${i.err}</div>`; }
+  if(s.ok){ html += `<div class="sec-title">个股 主力净流入 TOP20</div>`+renderCapRows(s.data,'个股'); }
+  else { html += `<div class="err">个股资金流加载失败：${s.err}</div>`; }
+  document.getElementById('cap-body').innerHTML = html;
+  bindRows('cap-body');
+}
+function renderCapRows(data, label){
+  const list = (data && data.data && data.data.diff) || [];
+  if(list.length===0) return '<div class="ok-note">无数据</div>';
+  let rows = list.slice(0,20).map(x=>{
+    const up = Number(x.f3)>=0;
+    return `<tr class="clickable" data-code="${x.f12}">
+      <td><code>${x.f12}</code></td><td>${x.f14||''}</td>
+      <td class="${up?'up':'down'}">${pct(x.f3)}</td>
+      <td class="${Number(x.f62)>=0?'up':'down'}">${fmtMoney(x.f62)}</td></tr>`;
+  }).join('');
+  return `<table><thead><tr><th>代码</th><th>${label}</th><th>涨幅</th><th>主力净流入</th></tr></thead><tbody>${rows}</tbody></table><br>`;
+}
+
+/* ---------- 情绪面板 ---------- */
+async function loadSentiment(){
+  const box = document.getElementById('sentiment-body');
+  const zt = currentPool ? currentPool.length : 0;
+  const dt = currentDown ? currentDown.length : 0;
+  let topZt = 0;
+  if(currentPool){ currentPool.forEach(x=>{ const v=Number(x.zdp); if(v>topZt) topZt=v; }); }
+  let heat = '数据不足';
+  if(zt>0){
+    if(zt>=80 && dt<=10) heat = '🔥 极强（涨停≥80 且跌停少）';
+    else if(zt>=50) heat = '强势';
+    else if(zt>=20) heat = '中性偏暖';
+    else if(zt>=5) heat = '偏弱';
+    else heat = '冰点';
+  }
+  box.innerHTML = `
+    <div class="summary">
+      <div class="stat"><div class="v">${zt}</div><div class="k">涨停家数</div></div>
+      <div class="stat"><div class="v">${dt}</div><div class="k">跌停家数</div></div>
+      <div class="stat"><div class="v">${topZt.toFixed(2)}%</div><div class="k">最高涨停(连板高度≈)</div></div>
+    </div>
+    <div class="ok-note">市场温度：<b>${heat}</b></div>
+    <div class="tip" style="border-radius:8px;margin-top:10px">说明：涨停 / 跌停为实时真实数据；「连板高度」因零后端无历史连板数据，以当日最高涨停涨幅近似。炸板率、全市场涨跌家数需全市场扫描 / 历史接口，零后端暂未纳入。</div>`;
+}
+
+/* ---------- 北向资金（参考）---------- */
+async function loadNorth(){
+  const box = document.getElementById('north-body');
+  const url = `https://push2delay.eastmoney.com/api/qt/kamt/get?fields1=f1,f3&fields2=f51,f52,f53,f54,f55,f56,f57,f58`;
+  const res = await fetchJSON(url);
+  if(!res.ok){ showErr('north-body', res.err); return; }
+  const d = (res.data && res.data.data) || {};
+  const fmtAmt = v => (v==null)?'-':(Number(v)/1e8).toFixed(2)+'亿';
+  let html = `<div class="ok-note">⚠️ 港交所自 2024-08-19 起不再披露沪深股通<b>实时净买额</b>，故「当日净买额」常为 0；以下为接口返回的额度 / 累计值，仅供参考。</div><br>`;
+  html += `<table><thead><tr><th>通道</th><th>当日净买额</th><th>额度余额</th><th>月度累计</th><th>年度累计</th><th>日期</th></tr></thead><tbody>`;
+  [['沪股通', d.hk2sh], ['深股通', d.hk2sz]].forEach(([name, o])=>{
+    if(!o){ html += `<tr><td>${name}</td><td colspan="5">无数据</td></tr>`; return; }
+    html += `<tr><td>${name}</td>
+      <td class="${Number(o.dayNetAmtIn)>=0?'up':'down'}">${fmtAmt(o.dayNetAmtIn)}</td>
+      <td>${fmtAmt(o.dayAmtRemain)}</td>
+      <td>${fmtAmt(o.monthNetAmtIn)}</td>
+      <td>${fmtAmt(o.yearNetAmtIn)}</td>
+      <td>${o.date2||o.date||'-'}</td></tr>`;
+  });
+  html += `</tbody></table>`;
+  box.innerHTML = html;
+}
+
+/* ---------- tab 切换 ---------- */
+document.querySelectorAll('.tabs button').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById('tab-'+b.dataset.tab).classList.add('active');
+  });
+});
+
+/* ---------- 日期 & 加载 ---------- */
+function isoDate(d){ return d.toISOString().slice(0,10); }
+function lastTradingDay(date){
+  const d = new Date(date);
+  while(d.getDay()===0 || d.getDay()===6){ d.setDate(d.getDate()-1); }
+  return d;
+}
+
+let currentPool = null;
+let currentDown = null;
+async function loadAll(){
+  const date = fmtDateInput(document.getElementById('dt').value);
+  currentPool = await loadZT();
+  renderLadder(currentPool);
+  loadSectors();
+  loadIndex();
+  loadLHB(date);
+  currentDown = await fetchLimitDownSet();
+  loadDT();
+  loadCapital();
+  loadSentiment();
+  loadNorth();
+}
+document.getElementById('dt').addEventListener('change', loadAll);
+document.querySelector('.topbar a.refresh').addEventListener('click', e=>{ e.preventDefault(); loadAll(); });
+document.getElementById('btnToday').addEventListener('click', ()=>{
+  document.getElementById('dt').value = isoDate(lastTradingDay(new Date()));
+  loadAll();
+});
+document.getElementById('btnYest').addEventListener('click', ()=>{
+  const d = new Date(); d.setDate(d.getDate()-1);
+  document.getElementById('dt').value = isoDate(lastTradingDay(d));
+  loadAll();
+});
+
+// 默认落到最近交易日（今天若为周末则取上周五），避免打开即空白
+document.getElementById('dt').value = isoDate(lastTradingDay(new Date()));
+loadAll();
+</script>
+</body>
+</html>
