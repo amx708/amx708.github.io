@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>CXO估值回测 · PE/PB/DY 三轮大底回测（10 家当前估值 + 10/0 历史价格）</title>
+<style>*{{margin:0;padding:0;box-sizing:border-box}}
+:root{{--navy:#0b1f3a;--accent:#7c3aed;--dark:#6d28d9}}
+body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f0f4fa;color:#1e293b;line-height:1.75}}
+.top-bar{{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(11,31,58,.2);padding:12px 20px;display:flex;align-items:center;gap:12px}}
+.home-btn{{display:inline-flex;align-items:center;gap:6px;background:rgba(11,31,58,.1);color:#0b1f3a;border:1px solid rgba(11,31,58,.25);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}}
+.home-btn:hover{{background:var(--accent);border-color:var(--accent);color:#fff}}
+.breadcrumb{{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}}
+.breadcrumb a{{color:#64748b;text-decoration:none}}
+.breadcrumb a:hover{{color:var(--accent)}}
+.crumb-sep{{color:#cbd5e1}}
+.container{{max-width:1000px;margin:0 auto;padding:24px 16px 48px}}
+.hero{{background:linear-gradient(135deg,#ffffff 0%,#f0f4fa 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(11,31,58,.2);border-left:4px solid var(--accent);box-shadow:0 2px 12px rgba(0,0,0,.06)}}
+.hero-title{{font-size:26px;font-weight:800;color:#0b1f3a;margin-bottom:6px;letter-spacing:.5px}}
+.hero-sub{{font-size:14px;color:#64748b;margin-bottom:18px}}
+.hero-stats{{display:flex;gap:12px;flex-wrap:wrap}}
+.stat-item{{background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.3);border-radius:10px;padding:10px 18px;text-align:center}}
+.stat-num{{font-size:18px;font-weight:800;color:var(--dark)}}
+.stat-label{{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}}
+.section-title{{font-size:18px;font-weight:700;color:#0b1f3a;margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}}
+.overview{{background:rgba(11,31,58,.04);border:1px solid rgba(11,31,58,.15);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}}
+.overview b{{color:#0b1f3a;font-weight:600}}
+.insight-box{{background:#fff;border:1px solid rgba(14,165,233,.18);border-radius:12px;padding:18px 20px;margin-top:16px}}
+.insight-title{{font-size:15px;font-weight:700;color:#0b1f3a;margin-bottom:10px;display:flex;align-items:center;gap:8px}}
+.insight-title .icon{{color:var(--accent)}}
+.insight-body{{font-size:13.5px;color:#475569;line-height:1.8}}
+.insight-body b{{color:#334155}}
+.source-note{{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,.04)}}
+.source-note b{{color:#475569}}
+.back-btn{{display:inline-flex;align-items:center;gap:6px;background:rgba(11,31,58,.08);color:#0b1f3a;border:1px solid rgba(11,31,58,.2);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}}
+.back-btn:hover{{background:var(--accent);color:#fff;border-color:var(--accent)}}
+.back-bar{{margin-top:20px}}
+.info-table{{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,.04);font-size:13px}}
+.info-table th{{padding:11px 14px;background:rgba(11,31,58,.05);color:#0b1f3a;font-size:12.5px;text-align:left;border-bottom:1px solid #e2e8f0;font-weight:700}}
+.info-table td{{padding:12px 14px;font-size:13px;color:#334155;border-bottom:1px solid #eef2f7;vertical-align:top}}
+.info-table tr:last-child td{{border-bottom:none}}
+.info-table td:first-child{{font-weight:600;background:#f8fafc;min-width:110px}}
+.num{{font-variant-numeric:tabular-nums;font-feature-settings:'tnum';font-family:'SF Mono',Consolas,monospace}}
+.tag{{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}}
+.tag-cheap{{background:#dcfce7;color:#15803d}}
+.tag-mid{{background:#fef3c7;color:#854d0e}}
+.tag-expensive{{background:#fee2e2;color:#991b1b}}
+.tag-na{{background:#f1f5f9;color:#64748b}}
+.warn-box{{background:linear-gradient(135deg,#fef3c7,#fffbeb);border:1px solid #fbbf24;border-radius:10px;padding:14px 16px;margin-top:14px;font-size:13px;color:#78350f;line-height:1.8}}
+.warn-box b{{color:#451a03}}
+.metric-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:6px}}
+.metric-card{{background:#fff;border:1px solid rgba(14,165,233,.2);border-radius:12px;padding:16px 18px}}
+.metric-num{{font-size:19px;font-weight:800;color:var(--dark)}}
+.metric-label{{font-size:12px;color:#64748b;margin-top:4px}}
+.metric-sub{{font-size:11.5px;color:#94a3b8;margin-top:8px;line-height:1.65}}
+.fn{{font-size:11px;color:#94a3b8}}
+.review{{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:8px}}
+.review-card{{background:#fff;border:1px solid #e2e8f0;border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px}}
+.review-name{{font-size:14px;font-weight:700;color:#0b1f3a;margin-bottom:8px}}
+.review-row{{display:flex;justify-content:space-between;font-size:12px;color:#64748b;padding:4px 0;border-bottom:1px solid #f1f5f9}}
+.review-row:last-child{{border-bottom:none}}
+.review-row .v{{font-weight:700;color:#334155;font-variant-numeric:tabular-nums}}
+.ret-pos{{color:#dc2626;font-weight:700}}
+@media(max-width:640px){{.hero{{padding:22px 16px}}.hero-title{{font-size:21px}}.info-table{{font-size:12px}}.info-table td{{padding:9px 10px}}}}</style>
+</head>
+<body>
+<div class='top-bar'>
+<a href='berkshire-standalone.html' class='home-btn'>← 数据中心</a>
+<div class='breadcrumb'>
+<a href='berkshire-standalone.html'>数据中心</a><span class='crumb-sep'>/</span><a href='berkshire-cxo-chains.html'>CXO产业链</a><span class='crumb-sep'>/</span><span>估值回测</span>
+</div>
+</div>
+<div class='container'>
+
+<div class='hero'>
+<div class='hero-title'>CXO估值回测</div>
+<div class='hero-sub'>10/10 公司当前估值快照 · 10/10 真实月度价格回测 · 外包赛道的买点框架</div>
+<div class='hero-stats'>
+<div class='stat-item'><div class='stat-num'>10</div><div class='stat-label'>当前估值样本</div></div><div class='stat-item'><div class='stat-num'>10</div><div class='stat-label'>有月度价格</div></div><div class='stat-item'><div class='stat-num'>0</div><div class='stat-label'>缺历史价格待采</div></div><div class='stat-item'><div class='stat-num'>多数 PE 19–62×</div><div class='stat-label'>当前 PE 区间</div></div>
+</div>
+</div>
+
+<div class='overview'>
+本页是<b>CXO 产业链</b>的估值回测专题。把 <b>10 家</b>代表公司的当前 <b>PE / PB / 股息率 / ROE</b> 摆在一起，其中 <b>10 家</b>（药明康德、凯莱英、睿智、泰格、博腾、康龙、昭衍、九洲、美迪西、普洛）均有真实月度收盘价，可复盘 2014 / 2018 / 2024-25 三轮大底的买入持有回报。
+</div>
+
+<div class='section-title'>一、买点框架：CXO的估值锚有什么不同</div>
+<div class='insight-box'>
+<div class='insight-title'><span class='icon'>🧭</span> CXO的特殊性</div>
+<div class='insight-body'>CXO 的买点框架与白酒/设备不同——它是<b>订单周期驱动</b>：盈利受 biotech 融资与地缘强影响，PE 在寒冬期「看似便宜实则订单在掉」。硬锚是<b>新增订单增速 + 产能利用率 + 北美敞口</b>，估值用 PE（订单可见时）/PS（波动大时）交叉验证。买点常在「订单触底 + 产能出清 + 地缘缓和」共振时。</div>
+</div>
+
+<div class='section-title'>二、10 家公司当前估值快照（2025-12-31）</div>
+<table class='info-table'>
+<thead><tr><th>公司</th><th>代码</th><th>当前 PE</th><th>当前 PB</th><th>股息率</th><th>ROE</th><th>当前估值档位</th></tr></thead>
+<tbody>
+<tr><td>药明康德</td><td>603259</td><td class='num'>19.1</td><td class='num'>4.55</td><td class='num'>1.23%</td><td class='num'>27.7%</td><td><span class='tag tag-cheap'>PE 便宜</span></td></tr>
+<tr><td>九洲药业</td><td>603456</td><td class='num'>19.9</td><td class='num'>1.46</td><td class='num'>0.69%</td><td class='num'>8.5%</td><td><span class='tag tag-cheap'>PE 便宜 · PB 极低</span></td></tr>
+<tr><td>普洛药业</td><td>000739</td><td class='num'>26.1</td><td class='num'>3.55</td><td class='num'>1.18%</td><td class='num'>13.6%</td><td><span class='tag tag-mid'>PE 中性</span></td></tr>
+<tr><td>康龙化成</td><td>300759</td><td class='num'>39.1</td><td class='num'>4.03</td><td class='num'>0.54%</td><td class='num'>11.6%</td><td><span class='tag tag-expensive'>PE 偏高</span></td></tr>
+<tr><td>凯莱英</td><td>002821</td><td class='num'>52.5</td><td class='num'>3.25</td><td class='num'>0.85%</td><td class='num'>6.6%</td><td><span class='tag tag-expensive'>PE 偏高</span></td></tr>
+<tr><td>泰格医药</td><td>300347</td><td class='num'>57.3</td><td class='num'>2.11</td><td class='num'>0.25%</td><td class='num'>4.3%</td><td><span class='tag tag-expensive'>PE 偏高</span></td></tr>
+<tr><td>昭衍新药</td><td>603127</td><td class='num'>62.1</td><td class='num'>3.59</td><td class='num'>0.29%</td><td class='num'>3.6%</td><td><span class='tag tag-expensive'>PE 偏高</span></td></tr>
+<tr><td>博腾股份</td><td>300363</td><td class='num'>75.0</td><td class='num'>1.80</td><td class='num'>0.58%</td><td class='num'>1.8%</td><td><span class='tag tag-expensive'>PE 偏高</span></td></tr>
+<tr><td>睿智医药</td><td>300149</td><td class='num'>亏损</td><td class='num'>3.70</td><td class='num'>0.78%</td><td class='num'>1.1%</td><td><span class='tag tag-na'>亏损 · 看 PB/DY</span></td></tr>
+<tr><td>美迪西</td><td>688202</td><td class='num'>亏损</td><td class='num'>4.73</td><td class='num'>0.53%</td><td class='num'>-8.2%</td><td><span class='tag tag-na'>亏损 · 看 PB/DY</span></td></tr>
+</tbody>
+</table>
+<div class='fn'>排序：按 PE 升序（亏损公司列于底部）。「当前估值档位」综合 PE/PB/股息率/ROE 给出，非投资建议。</div>
+
+
+<div class='section-title'>三、三轮大底估值锚点（10/10 有月度价格样本）</div>
+<div class='overview'>下表是 <b>有月度收盘价</b> 的 <b>10 家</b>的真实底部价格 + 当前估值。底部取窗口内最低月收盘价；2021 顶取窗口内最高月收盘价。回报倍数见下节。</div>
+<table class='info-table'>
+<thead><tr><th>公司</th><th>2014底</th><th>2018底</th><th>2024-25底</th><th>当前</th><th>PE/PB/DY(2025-12)</th></tr></thead>
+<tbody>
+<tr><td><b>普洛药业</b><br><span class='fn'>000739</span></td><td class='num'>2014-04<br>¥65.33</td><td class='num'>2018-02<br>¥61.99</td><td class='num'>2024-03<br>¥156.31</td><td class='num'>¥255.36</td><td class='num'>26.1 / 3.55 / 1.18%</td></tr><tr><td><b>凯莱英</b><br><span class='fn'>002821</span></td><td class='num'>—<br><span class='fn'>无数据</span></td><td class='num'>2018-02<br>¥111.52</td><td class='num'>2024-08<br>¥191.24</td><td class='num'>¥445.90</td><td class='num'>52.5 / 3.25 / 0.85%</td></tr><tr><td><b>睿智医药</b><br><span class='fn'>300149</span></td><td class='num'>2014-03<br>¥31.01</td><td class='num'>2018-02<br>¥89.85</td><td class='num'>2024-07<br>¥27.54</td><td class='num'>¥59.10</td><td class='num'>亏损 / 3.70 / 0.78%</td></tr><tr><td><b>泰格医药</b><br><span class='fn'>300347</span></td><td class='num'>2014-12<br>¥119.60</td><td class='num'>2018-01<br>¥301.60</td><td class='num'>2024-01<br>¥538.99</td><td class='num'>¥637.73</td><td class='num'>57.3 / 2.11 / 0.25%</td></tr><tr><td><b>博腾股份</b><br><span class='fn'>300363</span></td><td class='num'>2014-01<br>¥39.77</td><td class='num'>2018-10<br>¥30.27</td><td class='num'>2024-07<br>¥52.73</td><td class='num'>¥66.83</td><td class='num'>75.0 / 1.80 / 0.58%</td></tr><tr><td><b>康龙化成</b><br><span class='fn'>300759</span></td><td class='num'>—<br><span class='fn'>无数据</span></td><td class='num'>—<br><span class='fn'>无数据</span></td><td class='num'>2024-06<br>¥43.53</td><td class='num'>¥86.06</td><td class='num'>39.1 / 4.03 / 0.54%</td></tr><tr><td><b>昭衍新药</b><br><span class='fn'>603127</span></td><td class='num'>—<br><span class='fn'>无数据</span></td><td class='num'>2018-02<br>¥52.00</td><td class='num'>2024-06<br>¥107.38</td><td class='num'>¥317.67</td><td class='num'>62.1 / 3.59 / 0.29%</td></tr><tr><td><b>药明康德</b><br><span class='fn'>603259</span></td><td class='num'>—<br><span class='fn'>无数据</span></td><td class='num'>2018-12<br>¥74.69</td><td class='num'>2024-08<br>¥98.85</td><td class='num'>¥318.95</td><td class='num'>19.1 / 4.55 / 1.23%</td></tr><tr><td><b>九洲药业</b><br><span class='fn'>603456</span></td><td class='num'>2014-12<br>¥32.63</td><td class='num'>2018-10<br>¥22.56</td><td class='num'>2024-08<br>¥52.74</td><td class='num'>¥61.72</td><td class='num'>19.9 / 1.46 / 0.69%</td></tr><tr><td><b>美迪西</b><br><span class='fn'>688202</span></td><td class='num'>—<br><span class='fn'>无数据</span></td><td class='num'>—<br><span class='fn'>无数据</span></td><td class='num'>2024-08<br>¥50.76</td><td class='num'>¥145.57</td><td class='num'>亏损 / 4.73 / 0.53%</td></tr>
+</tbody>
+</table>
+<div class='fn'>* 月度收盘价，未做复权调整。底部/顶部取窗口内最低/最高月收盘价。</div>
+
+<div class='section-title'>四、历史回报复盘：底部买入的真实回报</div>
+<div class='review'>
+<div class='review-card'><div class='review-name'>普洛药业 (000739)</div><div class='review-row'><span>2014底→2021顶</span><span class='v ret-pos'>7.3×</span></div><div class='review-row'><span>2014底→当前</span><span class='v ret-pos'>3.9×</span></div><div class='review-row'><span>2018底→2021顶</span><span class='v ret-pos'>7.7×</span></div><div class='review-row'><span>2018底→当前</span><span class='v ret-pos'>4.1×</span></div><div class='review-row'><span>2024底→当前</span><span class='v ret-pos'>1.6×</span></div></div><div class='review-card'><div class='review-name'>凯莱英 (002821)</div><div class='review-row'><span>2018底→2021顶</span><span class='v ret-pos'>9.4×</span></div><div class='review-row'><span>2018底→当前</span><span class='v ret-pos'>4.0×</span></div><div class='review-row'><span>2024底→当前</span><span class='v ret-pos'>2.3×</span></div></div><div class='review-card'><div class='review-name'>睿智医药 (300149)</div><div class='review-row'><span>2014底→2021顶</span><span class='v ret-pos'>4.6×</span></div><div class='review-row'><span>2014底→当前</span><span class='v ret-pos'>1.9×</span></div><div class='review-row'><span>2018底→2021顶</span><span class='v ret-pos'>1.6×</span></div><div class='review-row'><span>2018底→当前</span><span class='v ret-pos'>0.7×</span></div><div class='review-row'><span>2024底→当前</span><span class='v ret-pos'>2.1×</span></div></div><div class='review-card'><div class='review-name'>泰格医药 (300347)</div><div class='review-row'><span>2014底→2021顶</span><span class='v ret-pos'>19.6×</span></div><div class='review-row'><span>2014底→当前</span><span class='v ret-pos'>5.3×</span></div><div class='review-row'><span>2018底→2021顶</span><span class='v ret-pos'>7.8×</span></div><div class='review-row'><span>2018底→当前</span><span class='v ret-pos'>2.1×</span></div><div class='review-row'><span>2024底→当前</span><span class='v ret-pos'>1.2×</span></div></div><div class='review-card'><div class='review-name'>博腾股份 (300363)</div><div class='review-row'><span>2014底→2021顶</span><span class='v ret-pos'>9.1×</span></div><div class='review-row'><span>2014底→当前</span><span class='v ret-pos'>1.7×</span></div><div class='review-row'><span>2018底→2021顶</span><span class='v ret-pos'>12.0×</span></div><div class='review-row'><span>2018底→当前</span><span class='v ret-pos'>2.2×</span></div><div class='review-row'><span>2024底→当前</span><span class='v ret-pos'>1.3×</span></div></div><div class='review-card'><div class='review-name'>康龙化成 (300759)</div><div class='review-row'><span>2024底→当前</span><span class='v ret-pos'>2.0×</span></div></div><div class='review-card'><div class='review-name'>昭衍新药 (603127)</div><div class='review-row'><span>2018底→2021顶</span><span class='v ret-pos'>11.6×</span></div><div class='review-row'><span>2018底→当前</span><span class='v ret-pos'>6.1×</span></div><div class='review-row'><span>2024底→当前</span><span class='v ret-pos'>3.0×</span></div></div><div class='review-card'><div class='review-name'>药明康德 (603259)</div><div class='review-row'><span>2018底→2021顶</span><span class='v ret-pos'>5.0×</span></div><div class='review-row'><span>2018底→当前</span><span class='v ret-pos'>4.3×</span></div><div class='review-row'><span>2024底→当前</span><span class='v ret-pos'>3.2×</span></div></div><div class='review-card'><div class='review-name'>九洲药业 (603456)</div><div class='review-row'><span>2014底→2021顶</span><span class='v ret-pos'>6.7×</span></div><div class='review-row'><span>2014底→当前</span><span class='v ret-pos'>1.9×</span></div><div class='review-row'><span>2018底→2021顶</span><span class='v ret-pos'>9.7×</span></div><div class='review-row'><span>2018底→当前</span><span class='v ret-pos'>2.7×</span></div><div class='review-row'><span>2024底→当前</span><span class='v ret-pos'>1.2×</span></div></div><div class='review-card'><div class='review-name'>美迪西 (688202)</div><div class='review-row'><span>2024底→当前</span><span class='v ret-pos'>2.9×</span></div></div>
+</div>
+<div class='insight-box' style='margin-top:16px'>
+<div class='insight-title'><span class='icon'>📊</span> 底部买入的回报特征</div>
+<div class='insight-body'>已接近历史极值的（订单弱复苏 + 估值低位）：药明康德 PE 19.0×/ROE 27.7%、九洲 PE 19.9×/PB 1.46×、普洛 PE 26.1×——头部一体化壁垒仍在、估值处历史低位；需小心的「估值陷阱」：泰格 PE 57.3×/ROE 仅 4.3%、凯莱英 52.5×/ROE 6.6%（高景气溢价未消化）、美迪西 PE 亏损/ROE -8.2%、睿智 PE 亏损（biotech 寒冬直接传导）。CXO 的买点是「订单反转」而非单纯低 PE。</div>
+</div>
+
+
+<div class='section-title'>五、回测结论：买点信号框架（CXO特化版）</div>
+<div class='metric-grid'>
+<div class='metric-card'><div class='metric-num'>订单触底回升</div><div class='metric-label'>第一道门 · 景气反转</div><div class='metric-sub'>药明康德、康龙等新增订单增速转正、产能利用率回升，是利润弹性的第一信号。</div></div><div class='metric-card'><div class='metric-num'>产能出清</div><div class='metric-label'>第二道门 · 利润弹性</div><div class='metric-sub'>新冠催化的过剩产能在寒冬期折旧压制，出清后单笔订单毛利显著改善。</div></div><div class='metric-card'><div class='metric-num'>地缘缓和 + 一体化</div><div class='metric-label'>催化剂确认</div><div class='metric-sub'>生物安全法案措辞缓和、一体化 CRDMO 客户粘性高，是估值从悲观修复的事件驱动。</div></div>
+</div>
+
+<div class='section-title'>六、当前位置（2026-07）：谁已接近历史极值</div>
+<div class='insight-box'>
+<div class='insight-title'><span class='icon'>📍</span> 本轮与历史底部的对比</div>
+<div class='insight-body'>已接近历史极值的（订单弱复苏 + 估值低位）：药明康德 PE 19.0×/ROE 27.7%、九洲 PE 19.9×/PB 1.46×、普洛 PE 26.1×——头部一体化壁垒仍在、估值处历史低位；需小心的「估值陷阱」：泰格 PE 57.3×/ROE 仅 4.3%、凯莱英 52.5×/ROE 6.6%（高景气溢价未消化）、美迪西 PE 亏损/ROE -8.2%、睿智 PE 亏损（biotech 寒冬直接传导）。CXO 的买点是「订单反转」而非单纯低 PE。</div>
+</div>
+
+<div class='insight-box'>
+<div class='insight-title'><span class='icon'>⚠️</span> 价值陷阱：便宜不等于立即反转</div>
+<div class='insight-body'>1）<b>PE 失真（亏损）</b>：美迪西、睿智等 biotech 寒冬下净利转负，PE 失效，需看 PS/订单；2）<b>订单假复苏</b>：单季订单回暖不代表趋势，需连续 2–3 季确认；3）<b>地缘政治</b>：生物安全法案最终落地仍是最大不确定性；4）<b>回测 ≠ 预测</b>：本轮（2024-25）回报待验证。用订单找「时机」、用估值找「价格安全边际」，分开看。</div>
+</div>
+
+<div class='section-title'>七、未采集的数据与下一步</div>
+<div class='warn-box'>📋 当前 PE/PB/股息率/ROE 来自本地缓存（<span class='fn'>_chain_fin_data.json</span>，2025-12-31 截面），10 家全覆盖，月度收盘价来自 <span class='fn'>_chain_price_data.json</span>（10/10 覆盖）。回报倍数为<b>近似口径</b>——不扣费用、不计分红再投、未做复权。底部/顶部取窗口内最低/最高月收盘价。历史 PE/股息率在 2014/2018 底部的精确值需 TTM EPS 历史序列（本地缓存不含）。</div>
+
+<div class='section-title'>八、下钻：买点的「机制层」</div>
+<div class='insight-box'>
+<div class='insight-body'>
+想看CXO买点背后的<b>商业逻辑</b>？详见<b>方法论文</b>与<b>价格/政策周期</b>。<br>
+<a class='back-btn' style='display:inline-block;margin-top:10px' href='berkshire-cxo-methodology.html'>→ 查看CXO方法论文</a>
+&nbsp;&nbsp;
+<a class='back-btn' style='display:inline-block;margin-top:10px' href='berkshire-cxo-cycle.html'>→ 查看CXO价格 / 政策周期</a>
+</div>
+</div>
+
+<div class='source-note'>
+📌 <b>资料与合规</b>：当前 PE/PB/股息率/ROE 来自本地缓存（<span class='fn'>_chain_fin_data.json</span>，2025-12-31 截面）。月度收盘价来自本地缓存（<span class='fn'>_chain_price_data.json</span>），10/10 覆盖，<b>未做复权调整</b>；回报倍数为<b>近似口径</b>——不扣费用、不计分红再投。底部/顶部取窗口内最低/最高月收盘价。历史 PE/股息率在 2014/2018 底部的精确值需 TTM EPS 历史序列（本地缓存不含）。所有内容由本站原创整理，不复制付费 / 闭源专享内容，仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+<div class='back-bar'>
+<a href='berkshire-cxo-chains.html' class='back-btn'>← 返回CXO产业链</a>
+</div>
+
+</div>
+  <script src='/analytics.js'></script>
+  <script src='/static/tdx-link.js' data-loader='tdx-link-loader'></script>
+</body>
+</html>

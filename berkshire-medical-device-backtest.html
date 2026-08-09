@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>医疗设备估值回测 · PE/PB/DY 三轮大底回测（10 家当前估值 + 0/10 历史价格）</title>
+<style>*{{margin:0;padding:0;box-sizing:border-box}}
+:root{{--navy:#0b1f3a;--accent:#0ea5e9;--dark:#0369a1}}
+body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f0f4fa;color:#1e293b;line-height:1.75}}
+.top-bar{{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(11,31,58,.2);padding:12px 20px;display:flex;align-items:center;gap:12px}}
+.home-btn{{display:inline-flex;align-items:center;gap:6px;background:rgba(11,31,58,.1);color:#0b1f3a;border:1px solid rgba(11,31,58,.25);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}}
+.home-btn:hover{{background:var(--accent);border-color:var(--accent);color:#fff}}
+.breadcrumb{{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}}
+.breadcrumb a{{color:#64748b;text-decoration:none}}
+.breadcrumb a:hover{{color:var(--accent)}}
+.crumb-sep{{color:#cbd5e1}}
+.container{{max-width:1000px;margin:0 auto;padding:24px 16px 48px}}
+.hero{{background:linear-gradient(135deg,#ffffff 0%,#f0f4fa 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(11,31,58,.2);border-left:4px solid var(--accent);box-shadow:0 2px 12px rgba(0,0,0,.06)}}
+.hero-title{{font-size:26px;font-weight:800;color:#0b1f3a;margin-bottom:6px;letter-spacing:.5px}}
+.hero-sub{{font-size:14px;color:#64748b;margin-bottom:18px}}
+.hero-stats{{display:flex;gap:12px;flex-wrap:wrap}}
+.stat-item{{background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.3);border-radius:10px;padding:10px 18px;text-align:center}}
+.stat-num{{font-size:18px;font-weight:800;color:var(--dark)}}
+.stat-label{{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}}
+.section-title{{font-size:18px;font-weight:700;color:#0b1f3a;margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}}
+.overview{{background:rgba(11,31,58,.04);border:1px solid rgba(11,31,58,.15);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}}
+.overview b{{color:#0b1f3a;font-weight:600}}
+.insight-box{{background:#fff;border:1px solid rgba(14,165,233,.18);border-radius:12px;padding:18px 20px;margin-top:16px}}
+.insight-title{{font-size:15px;font-weight:700;color:#0b1f3a;margin-bottom:10px;display:flex;align-items:center;gap:8px}}
+.insight-title .icon{{color:var(--accent)}}
+.insight-body{{font-size:13.5px;color:#475569;line-height:1.8}}
+.insight-body b{{color:#334155}}
+.source-note{{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,.04)}}
+.source-note b{{color:#475569}}
+.back-btn{{display:inline-flex;align-items:center;gap:6px;background:rgba(11,31,58,.08);color:#0b1f3a;border:1px solid rgba(11,31,58,.2);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}}
+.back-btn:hover{{background:var(--accent);color:#fff;border-color:var(--accent)}}
+.back-bar{{margin-top:20px}}
+.info-table{{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,.04);font-size:13px}}
+.info-table th{{padding:11px 14px;background:rgba(11,31,58,.05);color:#0b1f3a;font-size:12.5px;text-align:left;border-bottom:1px solid #e2e8f0;font-weight:700}}
+.info-table td{{padding:12px 14px;font-size:13px;color:#334155;border-bottom:1px solid #eef2f7;vertical-align:top}}
+.info-table tr:last-child td{{border-bottom:none}}
+.info-table td:first-child{{font-weight:600;background:#f8fafc;min-width:110px}}
+.num{{font-variant-numeric:tabular-nums;font-feature-settings:'tnum';font-family:'SF Mono',Consolas,monospace}}
+.tag{{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}}
+.tag-cheap{{background:#dcfce7;color:#15803d}}
+.tag-mid{{background:#fef3c7;color:#854d0e}}
+.tag-expensive{{background:#fee2e2;color:#991b1b}}
+.tag-na{{background:#f1f5f9;color:#64748b}}
+.warn-box{{background:linear-gradient(135deg,#fef3c7,#fffbeb);border:1px solid #fbbf24;border-radius:10px;padding:14px 16px;margin-top:14px;font-size:13px;color:#78350f;line-height:1.8}}
+.warn-box b{{color:#451a03}}
+.metric-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:6px}}
+.metric-card{{background:#fff;border:1px solid rgba(14,165,233,.2);border-radius:12px;padding:16px 18px}}
+.metric-num{{font-size:19px;font-weight:800;color:var(--dark)}}
+.metric-label{{font-size:12px;color:#64748b;margin-top:4px}}
+.metric-sub{{font-size:11.5px;color:#94a3b8;margin-top:8px;line-height:1.65}}
+.fn{{font-size:11px;color:#94a3b8}}
+.review{{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:8px}}
+.review-card{{background:#fff;border:1px solid #e2e8f0;border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px}}
+.review-name{{font-size:14px;font-weight:700;color:#0b1f3a;margin-bottom:8px}}
+.review-row{{display:flex;justify-content:space-between;font-size:12px;color:#64748b;padding:4px 0;border-bottom:1px solid #f1f5f9}}
+.review-row:last-child{{border-bottom:none}}
+.review-row .v{{font-weight:700;color:#334155;font-variant-numeric:tabular-nums}}
+.ret-pos{{color:#dc2626;font-weight:700}}
+@media(max-width:640px){{.hero{{padding:22px 16px}}.hero-title{{font-size:21px}}.info-table{{font-size:12px}}.info-table td{{padding:9px 10px}}}}</style>
+</head>
+<body>
+<div class='top-bar'>
+<a href='berkshire-standalone.html' class='home-btn'>← 数据中心</a>
+<div class='breadcrumb'>
+<a href='berkshire-standalone.html'>数据中心</a><span class='crumb-sep'>/</span><a href='berkshire-medical-device-chains.html'>医疗设备产业链</a><span class='crumb-sep'>/</span><span>估值回测</span>
+</div>
+</div>
+<div class='container'>
+
+<div class='hero'>
+<div class='hero-title'>医疗设备估值回测</div>
+<div class='hero-sub'>10/10 公司当前估值快照 · 0/10 历史月度价格 · 设备板块的「估值底部 + 股息率高点」双轨买点框架</div>
+<div class='hero-stats'>
+<div class='stat-item'><div class='stat-num'>10</div><div class='stat-label'>当前估值样本</div></div><div class='stat-item'><div class='stat-num'>0</div><div class='stat-label'>有月度价格</div></div><div class='stat-item'><div class='stat-num'>10</div><div class='stat-label'>缺历史价格待采</div></div><div class='stat-item'><div class='stat-num'>多数 PE 18–50×</div><div class='stat-label'>当前 PE 区间</div></div>
+</div>
+</div>
+
+<div class='overview'>
+本页是<b>医疗设备产业链</b>的估值回测专题。把 <b>10 家</b>代表公司的当前 <b>PE / PB / 股息率 / ROE</b> 摆在一起，受本地缓存限制，<b>10 家均无月度后复权收盘价</b>（与白酒/创新药不同），故无法给出真实历史底部买入回报倍数。改用<b>「估值底部 + 股息率高点」双轨框架</b>：用当前 PE/PB 分位与股息率定位安全边际，待补齐月度价格后再补真实回测。
+</div>
+
+<div class='section-title'>一、买点框架：医疗设备的估值锚有什么不同</div>
+<div class='insight-box'>
+<div class='insight-title'><span class='icon'>🧭</span> 医疗设备的特殊性</div>
+<div class='insight-body'>医疗设备盈利稳定、现金流可跟踪，买点框架与白酒更接近——<b>PE/PB 分位 + 股息率</b>是硬锚；但设备有「设备 + 耗材复购」的 recurring 属性与出海增量，反转比纯消费更快。关键是<b>估值低位（PE 不高、PB 不贵）+ 现金流稳健 + 政策出清（以旧换新/反腐缓和）</b>三者共振。</div>
+</div>
+
+<div class='section-title'>二、10 家公司当前估值快照（2025-12-31）</div>
+<table class='info-table'>
+<thead><tr><th>公司</th><th>代码</th><th>当前 PE</th><th>当前 PB</th><th>股息率</th><th>ROE</th><th>当前估值档位</th></tr></thead>
+<tbody>
+<tr><td>安图生物</td><td>603658</td><td class='num'>18.5</td><td class='num'>2.09</td><td class='num'>3.96%</td><td class='num'>12.2%</td><td><span class='tag tag-cheap'>PE 便宜 · 股息优</span></td></tr>
+<tr><td>心脉医疗</td><td>688016</td><td class='num'>19.6</td><td class='num'>2.73</td><td class='num'>1.07%</td><td class='num'>14.3%</td><td><span class='tag tag-cheap'>PE 便宜</span></td></tr>
+<tr><td>鱼跃医疗</td><td>002223</td><td class='num'>22.0</td><td class='num'>2.07</td><td class='num'>2.14%</td><td class='num'>11.5%</td><td><span class='tag tag-mid'>PE 中性</span></td></tr>
+<tr><td>新产业</td><td>300832</td><td class='num'>23.2</td><td class='num'>3.97</td><td class='num'>2.51%</td><td class='num'>18.3%</td><td><span class='tag tag-mid'>PE 中性 · 股息优</span></td></tr>
+<tr><td>迈瑞医疗</td><td>300760</td><td class='num'>23.9</td><td class='num'>4.66</td><td class='num'>0.79%</td><td class='num'>22.0%</td><td><span class='tag tag-mid'>PE 中性</span></td></tr>
+<tr><td>健帆生物</td><td>300529</td><td class='num'>26.2</td><td class='num'>4.12</td><td class='num'>2.80%</td><td class='num'>15.7%</td><td><span class='tag tag-mid'>PE 中性 · 股息优</span></td></tr>
+<tr><td>乐普医疗</td><td>300003</td><td class='num'>28.7</td><td class='num'>1.45</td><td class='num'>1.25%</td><td class='num'>6.1%</td><td><span class='tag tag-cheap'>PE 中性 · PB 极低</span></td></tr>
+<tr><td>惠泰医疗</td><td>688617</td><td class='num'>35.3</td><td class='num'>10.30</td><td class='num'>0.44%</td><td class='num'>29.3%</td><td><span class='tag tag-expensive'>PE 偏高</span></td></tr>
+<tr><td>开立医疗</td><td>300633</td><td class='num'>49.8</td><td class='num'>2.71</td><td class='num'>0.89%</td><td class='num'>6.2%</td><td><span class='tag tag-expensive'>PE 偏高</span></td></tr>
+<tr><td>联影医疗</td><td>688271</td><td class='num'>50.6</td><td class='num'>4.37</td><td class='num'>0.16%</td><td class='num'>9.0%</td><td><span class='tag tag-expensive'>PE 偏高</span></td></tr>
+</tbody>
+</table>
+<div class='fn'>排序：按 PE 升序（亏损公司列于底部）。「当前估值档位」综合 PE/PB/股息率/ROE 给出，非投资建议。</div>
+
+
+<div class='section-title'>三、估值底部锚定框架（无月度价格，改用估值 + 股息双轨）</div>
+<div class='overview'>受本地缓存限制，<b>本板块 10 家均无月度后复权收盘价</b>，无法给出真实历史底部买入回报倍数。改用<b>「估值底部 + 股息率高点」双轨框架</b>：用当前 PE/PB 分位与股息率定位安全边际（上表已给出当前快照），待补齐月度价格后补真实回测。</div>
+<table class='info-table'>
+<thead><tr><th>公司</th><th>当前 PE</th><th>当前 PB</th><th>股息率</th><th>ROE</th><th>双轨信号</th></tr></thead>
+<tbody>
+<tr><td>鱼跃医疗</td><td class='num'>22.0</td><td class='num'>2.07</td><td class='num'>2.14%</td><td class='num'>11.5%</td><td><span class='tag tag-mid'>股息优</span></td></tr>
+<tr><td>乐普医疗</td><td class='num'>28.7</td><td class='num'>1.45</td><td class='num'>1.25%</td><td class='num'>6.1%</td><td><span class='tag tag-cheap'>PB 极低</span></td></tr>
+<tr><td>健帆生物</td><td class='num'>26.2</td><td class='num'>4.12</td><td class='num'>2.80%</td><td class='num'>15.7%</td><td><span class='tag tag-mid'>股息优</span></td></tr>
+<tr><td>开立医疗</td><td class='num'>49.8</td><td class='num'>2.71</td><td class='num'>0.89%</td><td class='num'>6.2%</td><td><span class='tag tag-na'>中性</span></td></tr>
+<tr><td>迈瑞医疗</td><td class='num'>23.9</td><td class='num'>4.66</td><td class='num'>0.79%</td><td class='num'>22.0%</td><td><span class='tag tag-na'>中性</span></td></tr>
+<tr><td>新产业</td><td class='num'>23.2</td><td class='num'>3.97</td><td class='num'>2.51%</td><td class='num'>18.3%</td><td><span class='tag tag-mid'>股息优</span></td></tr>
+<tr><td>安图生物</td><td class='num'>18.5</td><td class='num'>2.09</td><td class='num'>3.96%</td><td class='num'>12.2%</td><td><span class='tag tag-cheap'>估值底部 · 股息高点</span></td></tr>
+<tr><td>心脉医疗</td><td class='num'>19.6</td><td class='num'>2.73</td><td class='num'>1.07%</td><td class='num'>14.3%</td><td><span class='tag tag-cheap'>估值底部</span></td></tr>
+<tr><td>联影医疗</td><td class='num'>50.6</td><td class='num'>4.37</td><td class='num'>0.16%</td><td class='num'>9.0%</td><td><span class='tag tag-na'>中性</span></td></tr>
+<tr><td>惠泰医疗</td><td class='num'>35.3</td><td class='num'>10.30</td><td class='num'>0.44%</td><td class='num'>29.3%</td><td><span class='tag tag-na'>中性</span></td></tr>
+</tbody>
+</table>
+<div class='fn'>双轨信号 = 低 PE/PB（估值底部）+ 高股息率（现金回报）综合判断，非投资建议。</div>
+
+<div class='section-title'>四、估值 + 股息双轨买点框架</div>
+<div class='insight-box'>
+<div class='insight-title'><span class='icon'>🧭</span> 没有真实回报倍数，怎么定买点？</div>
+<div class='insight-body'>
+<p>没有月度价格时，买点用<b>两条独立线索</b>交叉验证：</p>
+<p>① <b>估值底部线索</b>：PE/PB 处历史低位（参考<a href='berkshire-medical-device-thermometer.html' style='color:#0369a1'>估值温度计</a>的分位），且 ROE 稳定——说明「价格的安全边际」厚；</p>
+<p>② <b>股息率高点线索</b>：股息率处历史高位，且分红率可持续（OPCF/分红 >1）——说明「现金回报的锚」硬，比 PE 更不依赖盈利预测。</p>
+<p>两者共振 = 与白酒「低 PE + 高股息」同源的安全边际结构；反转催化剂看行业-specific 事件（见各板块方法论文与周期页）。</p>
+</div>
+</div>
+
+
+<div class='section-title'>五、回测结论：买点信号框架（医疗设备特化版）</div>
+<div class='metric-grid'>
+<div class='metric-card'><div class='metric-num'>PE 不贵 + ROE 厚</div><div class='metric-label'>第一道门 · 安全边际</div><div class='metric-sub'>迈瑞 PE 23.9×/ROE 22%、新产业 23.2×/18.3%、安图 18.5×/12.2%——低 PE + 高 ROE 是设备龙头的典型安全边际。</div></div><div class='metric-card'><div class='metric-num'>股息率抬升</div><div class='metric-label'>第二道门 · 最硬的锚</div><div class='metric-sub'>安图 3.96%、新产业 2.51%、健帆 2.8%——设备股利支付率提升，股息率比 PE 更不依赖盈利预测。</div></div><div class='metric-card'><div class='metric-num'>政策出清 + 出海</div><div class='metric-label'>催化剂确认</div><div class='metric-sub'>以旧换新资金落地、反腐缓和、联影/迈瑞出海兑现，是估值从「悲观」转向「修复」的事件驱动。</div></div>
+</div>
+
+<div class='section-title'>六、当前位置（2026-07）：谁已接近历史极值</div>
+<div class='insight-box'>
+<div class='insight-title'><span class='icon'>📍</span> 本轮与历史底部的对比</div>
+<div class='insight-body'>已接近历史悲观区的（PE 不贵 + 高 ROE/高股息）：安图 PE 18.5×/DY 3.96%、新产业 23.2×/2.51%、迈瑞 23.9×/ROE 22% 是<b>安全边际最厚</b>的标的；需小心的「估值陷阱」：联影 PE 50.6×/ROE 仅 9%（高研发摊销压制）、惠泰 PE 35.3×/PB 10.3×（高景气溢价）、开立 PE 49.8×/ROE 6.2%（成长未兑现阶段）。设备的买点是「估值杀到位 + 政策/出海催化」，而非单纯低 PE。</div>
+</div>
+
+<div class='insight-box'>
+<div class='insight-title'><span class='icon'>⚠️</span> 价值陷阱：便宜不等于立即反转</div>
+<div class='insight-body'>1）<b>高估值陷阱</b>：联影、惠泰、开立 PE 偏高但 ROE 偏低，需用 PB/PS 交叉验证；2）<b>研发/注册失败</b>：高端设备注册周期长，失败会二次杀估值；3）<b>汇率与出海</b>：海外收入占比高的标的受汇率与地缘扰动；4）<b>回测 ≠ 预测</b>：双轨框架给出的是「价格安全边际」，真实回报待月度价格补齐后验证。</div>
+</div>
+
+<div class='section-title'>七、未采集的数据与下一步</div>
+<div class='warn-box'>📋 <b>10/10 家样本的月度后复权收盘价历史数据未覆盖</b>：当前 PE/PB/股息率/ROE 已从本地缓存（<span class='fn'>_chain_fin_data.json</span>，2025-12-31 截面）取得并已展示；2014/2018/2024 底部的精确价格 + PE/股息率 → <b>待采集</b>。可执行清单：a) 月度后复权收盘价（akshare <code>stock_zh_a_hist</code>）；b) TTM EPS 历史（cninfo 年报抽取）；c) 历史股息率（<code>_dividend_truth.json</code> 已含 4532 家）。补齐后本页可与白酒同口径（10/10 价格 + 估值锚 + 真实回报）。</div>
+
+<div class='section-title'>八、下钻：买点的「机制层」</div>
+<div class='insight-box'>
+<div class='insight-body'>
+想看医疗设备买点背后的<b>商业逻辑</b>？详见<b>方法论文</b>与<b>价格/政策周期</b>。<br>
+<a class='back-btn' style='display:inline-block;margin-top:10px' href='berkshire-medical-device-methodology.html'>→ 查看医疗设备方法论文</a>
+&nbsp;&nbsp;
+<a class='back-btn' style='display:inline-block;margin-top:10px' href='berkshire-medical-device-cycle.html'>→ 查看医疗设备价格 / 政策周期</a>
+</div>
+</div>
+
+<div class='source-note'>
+📌 <b>资料与合规</b>：当前 PE/PB/股息率/ROE 来自本地缓存（<span class='fn'>_chain_fin_data.json</span>，2025-12-31 截面）。受本地缓存限制，<b>10/10 样本无月度后复权收盘价</b>，故历史底部买入回报倍数未展示，改用估值 + 股息双轨框架定位安全边际；待补齐月度价格后补真实回测。所有内容由本站原创整理，不复制付费 / 闭源专享内容，仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+<div class='back-bar'>
+<a href='berkshire-medical-device-chains.html' class='back-btn'>← 返回医疗设备产业链</a>
+</div>
+
+</div>
+  <script src='/analytics.js'></script>
+  <script src='/static/tdx-link.js' data-loader='tdx-link-loader'></script>
+</body>
+</html>

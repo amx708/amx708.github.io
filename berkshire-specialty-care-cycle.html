@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>专科医疗价格/政策周期 | 伯克希尔投资数据中心</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}
+:root{{--navy:#0b1f3a;--accent:#059669;--dark:#047857}}
+body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f4f7fc;color:#23344e;line-height:1.75;-webkit-font-smoothing:antialiased}}
+a{{color:inherit;text-decoration:none}}
+.top-bar{{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(11,31,58,.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}}
+.home-btn{{display:inline-flex;align-items:center;gap:6px;background:rgba(11,31,58,.08);color:#0b1f3a;border:1px solid rgba(11,31,58,.2);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;transition:all .2s}}
+.home-btn:hover{{background:var(--accent);border-color:var(--accent);color:#fff}}
+.breadcrumb{{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}}
+.breadcrumb a{{color:#64748b;text-decoration:none}}
+.breadcrumb a:hover{{color:var(--accent)}}
+.crumb-sep{{color:#cbd5e1}}
+.switcher{{display:inline-flex;gap:10px;align-items:center;margin-left:8px;flex-wrap:wrap}}
+.switcher a{{color:var(--dark);text-decoration:none;font-size:13px}}
+.switcher a:hover{{text-decoration:underline}}
+.switcher a.cur{{font-weight:800;color:var(--navy);border-bottom:2px solid var(--accent)}}
+.container{{max-width:1180px;margin:0 auto;padding:24px 16px 48px}}
+.hero{{background:linear-gradient(135deg,#0b1f3a 0%,#10294d 100%);border-radius:16px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(14,165,233,.0);box-shadow:0 3px 14px rgba(11,31,58,.12)}}
+.hero-title{{font-size:28px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.5px}}
+.hero-sub{{font-size:14px;color:#c7d6ea;margin-bottom:14px}}
+.data-banner{{background:rgba(14,165,233,.07);border:1px solid rgba(14,165,233,.25);border-left:4px solid var(--accent);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}}
+.data-banner b{{color:var(--navy);font-weight:600}}
+.section-title{{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}}
+.insight-box{{background:#fff;border:1px solid rgba(14,165,233,.18);border-radius:12px;padding:18px 20px;margin-top:8px}}
+.insight-title{{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}}
+.insight-title .icon{{color:var(--accent)}}
+.insight-body{{font-size:13.5px;color:#475569;line-height:1.8}}
+.insight-body p{{margin-bottom:8px}}
+.insight-body b{{color:#334155}}
+.tbl{{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}}
+.tbl th,.tbl td{{border-bottom:1px solid #e2e8f0;padding:10px 12px;text-align:left;vertical-align:top}}
+.tbl th{{background:#f8fafc;color:#475569;font-weight:600;border-bottom:2px solid #e2e8f0}}
+.tbl tr:hover td{{background:#f8fafc}}
+.tbl td.yr{{font-weight:800;color:var(--navy);white-space:nowrap;width:54px}}
+.tbl td.evt{{font-weight:600;color:#334155;width:200px}}
+.layers{{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:8px}}
+.layer-card{{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}}
+.layer-num{{font-size:12px;color:var(--dark);font-weight:700}}
+.layer-name{{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}}
+.layer-desc{{font-size:12px;color:#64748b;line-height:1.6}}
+.cycle-current{{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid var(--accent);padding:8px 12px;background:rgba(14,165,233,.07);line-height:1.7}}
+.cycle-current b{{color:#334155}}
+.note{{background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;margin-top:22px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}}
+.note b{{color:#475569}}
+.note a{{color:var(--dark);font-weight:600}}
+.extend{{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}}
+.extend a{{display:block;background:#fffdf6;border:1px solid #f0e2bf;border-radius:12px;padding:14px 16px;text-decoration:none;color:#1e293b;transition:.18s}}
+.extend a:hover{{border-color:var(--accent);box-shadow:0 4px 14px rgba(14,165,233,.18);transform:translateY(-2px)}}
+.extend b{{display:block;font-size:15px;color:#1f2937;margin-bottom:4px}}
+.extend span{{display:block;font-size:12.5px;color:#64748b;line-height:1.5}}
+.source-note{{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}}
+.source-note b{{color:#475569}}
+@media(max-width:640px){{.hero{{padding:22px 16px}}.hero-title{{font-size:22px}}.layers,.extend{{grid-template-columns:1fr}}.tbl{{font-size:12px}}}}</style>
+</head>
+<body>
+<div class='top-bar'>
+<a href='berkshire-standalone.html' class='home-btn'>← 数据中心</a>
+<span class="switcher"><a href="berkshire-chemical-pharma-chains.html">化学制药</a><a href="berkshire-innov-chains.html">创新药</a><a href="berkshire-tcm-chains.html">中药</a><a href="berkshire-medical-device-chains.html">医疗器械</a><a href="berkshire-cxo-chains.html">CXO</a><a href="berkshire-specialty-care-chains.html" class="cur">专科医疗</a><a href="berkshire-vaccine-chains.html">疫苗</a><a href="berkshire-pharma-retail-chains.html">医药商业</a></span>
+<div class='breadcrumb'>
+<a href='berkshire-standalone.html'>数据中心</a><span class='crumb-sep'>/</span><a href='berkshire-specialty-care-chains.html'>专科医疗产业链</a><span class='crumb-sep'>/</span><span>价格/政策周期</span>
+</div>
+</div>
+<div class='container'>
+
+<div class='hero'>
+<div class='hero-title'>专科医疗价格/政策周期（2015 → 2025）</div>
+<div class='hero-sub'>「政策—消费—扩张」三段式周期脉络 · 框架级原创整理，具体时点以官方公告为准</div>
+</div>
+
+<div class='data-banner'>📊 <b>数据口径</b>：下表为<b>框架级政策/价格周期梳理</b>，年份与事件为公开事实层，对行业影响为定性分析。具体降幅与股价表现以各公司公告及行情数据为准。本页<b>不构成投资建议</b>。最后更新：<b style='color:#047857'>2026-08-08</b></div>
+
+<div class='section-title'>周期脉络</div>
+<div class='insight-box'>
+<div class='insight-title'><span class='icon'>🔄</span> 一句话：专科医疗的「周期」是政策（社会办医、集采、反腐）与居民消费力的叠加。理解这张表，关键是看每一次控费/集采如何改变客单价，以及消费弱复苏下扩张质量如何分化。</div>
+<div class='insight-body'><p>专科医疗的「周期」是政策（社会办医、集采、反腐）与居民消费力的叠加。理解这张表，关键是看每一次控费/集采如何改变客单价，以及消费弱复苏下扩张质量如何分化。</p></div>
+</div>
+
+<table class='tbl'>
+<thead><tr><th>年份</th><th>主线事件</th><th>对行业影响</th></tr></thead>
+<tbody>
+<tr><td class='yr'>2015</td><td class='evt'>社会办医 + 多点执业</td><td>民营专科扩张政策友好，爱尔、通策、美年加速布点。</td></tr>
+<tr><td class='yr'>2016</td><td class='evt'>分级诊疗</td><td>基层首诊推动专科下沉，连锁化提速、门店数高增。</td></tr>
+<tr><td class='yr'>2017</td><td class='evt'>消费升级</td><td>眼科屈光/视光、牙科种植、体检消费升级，客单价提升。</td></tr>
+<tr><td class='yr'>2018</td><td class='evt'>耗材集采预期</td><td>人工晶体、种植体集采预期压制，但以服务为主影响有限。</td></tr>
+<tr><td class='yr'>2019</td><td class='evt'>集采扩围</td><td>人工晶体、种植体集采酝酿，专科服务价格承压预期升温。</td></tr>
+<tr><td class='yr'>2020</td><td class='evt'>疫情冲击可选消费医疗</td><td>眼科/牙科/体检停诊，业绩探底、估值下修。</td></tr>
+<tr><td class='yr'>2021</td><td class='evt'>消费医疗复苏</td><td>屈光/种植需求回补，客单价创新高，板块估值修复。</td></tr>
+<tr><td class='yr'>2022</td><td class='evt'>种植牙集采 + 正畸反垄断</td><td>耗材降价以价换量，服务费受控，客单价中枢下移。</td></tr>
+<tr><td class='yr'>2023</td><td class='evt'>医疗反腐</td><td>科室合作/渠道费用规范，短期情绪承压、估值下修。</td></tr>
+<tr><td class='yr'>2024</td><td class='evt'>消费弱复苏 + 门诊统筹</td><td>医保门诊统筹利好部分服务与药房，专科温和恢复。</td></tr>
+<tr><td class='yr'>2025</td><td class='evt'>出清 + 集中度提升</td><td>中小机构出清，龙头凭品牌/医生资源提升份额，估值历史低位。</td></tr>
+</tbody>
+</table>
+
+<div class='section-title'>关键指标与周期信号</div>
+<div class='layers'>
+<div class='layer-card'><div class='layer-num'>信号①</div><div class='layer-name'>单店同店增速</div><div class='layer-desc'>同店增速决定存量质量，是比门店数更硬的景气指标。</div></div><div class='layer-card'><div class='layer-num'>信号②</div><div class='layer-name'>客单价 / 服务价格</div><div class='layer-desc'>集采与反垄断压服务价格，以价换量能否兑现决定利润弹性。</div></div><div class='layer-card'><div class='layer-num'>信号③</div><div class='layer-name'>并购整合质量</div><div class='layer-desc'>跑马圈地后进入整合提效，商誉与 ROE 是风险观测点。</div></div><div class='layer-card'><div class='layer-num'>信号④</div><div class='layer-name'>居民消费力</div><div class='layer-desc'>屈光/种植/体检多为自费，弱宏观下可选消费属性凸显。</div></div>
+</div>
+
+<div class='cycle-current'><b>当前位置（定性框架，非数据结论）</b>：专科医疗处「消费弱复苏 + 集中度提升」阶段。龙头凭借品牌与医生资源逆势提份额，估值处历史低位；关注消费力回升、集采以价换量兑现与门诊统筹红利。</div>
+
+<div class='note'>实用框架：先判<b>周期位置</b>，再看<b>商业模式与壁垒信号</b>，最后用<b>估值分位 + 股息率</b>定买点。分析框架见<a href='berkshire-specialty-care-methodology.html' style='color:#047857'>方法论文</a>；行业内估值冷热见<a href='berkshire-specialty-care-thermometer.html' style='color:#047857'>估值温度计</a>；买点回测见<a href='berkshire-specialty-care-backtest.html' style='color:#047857'>三轮大底回测</a>。</div>
+
+<div class='section-title'>延伸阅读</div>
+<div class='extend'>
+<a href='berkshire-specialty-care-methodology.html'><b>方法论文</b><span>怎么读这个行业：核心指标框架</span></a>
+<a href='berkshire-specialty-care-thermometer.html'><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a>
+<a href='berkshire-specialty-care-compare.html'><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a>
+<a href='berkshire-specialty-care-buyback.html'><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a>
+<a href='berkshire-specialty-care-backtest.html'><b>三轮大底回测</b><span>当前估值快照 + 历史底部买入回报（真实/双轨）</span></a>
+<a href='berkshire-specialty-care-chains.html'><b>返回产业链图谱</b><span>10 家上市公司跨层全栈梳理与评级</span></a>
+</div>
+
+<div class='source-note'>
+📌 <b>资料与合规</b>：本页所有分析均基于<b>公开政策文件、年报与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+  <script src='/analytics.js'></script>
+  <script src='/static/tdx-link.js' data-loader='tdx-link-loader'></script>
+</body>
+</html>

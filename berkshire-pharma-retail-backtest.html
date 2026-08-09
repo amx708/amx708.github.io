@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>医药零售估值回测 · PE/PB/DY 三轮大底回测（10 家当前估值 + 0/10 历史价格）</title>
+<style>*{{margin:0;padding:0;box-sizing:border-box}}
+:root{{--navy:#0b1f3a;--accent:#ea580c;--dark:#c2410c}}
+body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f0f4fa;color:#1e293b;line-height:1.75}}
+.top-bar{{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(11,31,58,.2);padding:12px 20px;display:flex;align-items:center;gap:12px}}
+.home-btn{{display:inline-flex;align-items:center;gap:6px;background:rgba(11,31,58,.1);color:#0b1f3a;border:1px solid rgba(11,31,58,.25);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}}
+.home-btn:hover{{background:var(--accent);border-color:var(--accent);color:#fff}}
+.breadcrumb{{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}}
+.breadcrumb a{{color:#64748b;text-decoration:none}}
+.breadcrumb a:hover{{color:var(--accent)}}
+.crumb-sep{{color:#cbd5e1}}
+.container{{max-width:1000px;margin:0 auto;padding:24px 16px 48px}}
+.hero{{background:linear-gradient(135deg,#ffffff 0%,#f0f4fa 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(11,31,58,.2);border-left:4px solid var(--accent);box-shadow:0 2px 12px rgba(0,0,0,.06)}}
+.hero-title{{font-size:26px;font-weight:800;color:#0b1f3a;margin-bottom:6px;letter-spacing:.5px}}
+.hero-sub{{font-size:14px;color:#64748b;margin-bottom:18px}}
+.hero-stats{{display:flex;gap:12px;flex-wrap:wrap}}
+.stat-item{{background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.3);border-radius:10px;padding:10px 18px;text-align:center}}
+.stat-num{{font-size:18px;font-weight:800;color:var(--dark)}}
+.stat-label{{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}}
+.section-title{{font-size:18px;font-weight:700;color:#0b1f3a;margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}}
+.overview{{background:rgba(11,31,58,.04);border:1px solid rgba(11,31,58,.15);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}}
+.overview b{{color:#0b1f3a;font-weight:600}}
+.insight-box{{background:#fff;border:1px solid rgba(14,165,233,.18);border-radius:12px;padding:18px 20px;margin-top:16px}}
+.insight-title{{font-size:15px;font-weight:700;color:#0b1f3a;margin-bottom:10px;display:flex;align-items:center;gap:8px}}
+.insight-title .icon{{color:var(--accent)}}
+.insight-body{{font-size:13.5px;color:#475569;line-height:1.8}}
+.insight-body b{{color:#334155}}
+.source-note{{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,.04)}}
+.source-note b{{color:#475569}}
+.back-btn{{display:inline-flex;align-items:center;gap:6px;background:rgba(11,31,58,.08);color:#0b1f3a;border:1px solid rgba(11,31,58,.2);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}}
+.back-btn:hover{{background:var(--accent);color:#fff;border-color:var(--accent)}}
+.back-bar{{margin-top:20px}}
+.info-table{{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,.04);font-size:13px}}
+.info-table th{{padding:11px 14px;background:rgba(11,31,58,.05);color:#0b1f3a;font-size:12.5px;text-align:left;border-bottom:1px solid #e2e8f0;font-weight:700}}
+.info-table td{{padding:12px 14px;font-size:13px;color:#334155;border-bottom:1px solid #eef2f7;vertical-align:top}}
+.info-table tr:last-child td{{border-bottom:none}}
+.info-table td:first-child{{font-weight:600;background:#f8fafc;min-width:110px}}
+.num{{font-variant-numeric:tabular-nums;font-feature-settings:'tnum';font-family:'SF Mono',Consolas,monospace}}
+.tag{{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}}
+.tag-cheap{{background:#dcfce7;color:#15803d}}
+.tag-mid{{background:#fef3c7;color:#854d0e}}
+.tag-expensive{{background:#fee2e2;color:#991b1b}}
+.tag-na{{background:#f1f5f9;color:#64748b}}
+.warn-box{{background:linear-gradient(135deg,#fef3c7,#fffbeb);border:1px solid #fbbf24;border-radius:10px;padding:14px 16px;margin-top:14px;font-size:13px;color:#78350f;line-height:1.8}}
+.warn-box b{{color:#451a03}}
+.metric-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:6px}}
+.metric-card{{background:#fff;border:1px solid rgba(14,165,233,.2);border-radius:12px;padding:16px 18px}}
+.metric-num{{font-size:19px;font-weight:800;color:var(--dark)}}
+.metric-label{{font-size:12px;color:#64748b;margin-top:4px}}
+.metric-sub{{font-size:11.5px;color:#94a3b8;margin-top:8px;line-height:1.65}}
+.fn{{font-size:11px;color:#94a3b8}}
+.review{{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:8px}}
+.review-card{{background:#fff;border:1px solid #e2e8f0;border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px}}
+.review-name{{font-size:14px;font-weight:700;color:#0b1f3a;margin-bottom:8px}}
+.review-row{{display:flex;justify-content:space-between;font-size:12px;color:#64748b;padding:4px 0;border-bottom:1px solid #f1f5f9}}
+.review-row:last-child{{border-bottom:none}}
+.review-row .v{{font-weight:700;color:#334155;font-variant-numeric:tabular-nums}}
+.ret-pos{{color:#dc2626;font-weight:700}}
+@media(max-width:640px){{.hero{{padding:22px 16px}}.hero-title{{font-size:21px}}.info-table{{font-size:12px}}.info-table td{{padding:9px 10px}}}}</style>
+</head>
+<body>
+<div class='top-bar'>
+<a href='berkshire-standalone.html' class='home-btn'>← 数据中心</a>
+<div class='breadcrumb'>
+<a href='berkshire-standalone.html'>数据中心</a><span class='crumb-sep'>/</span><a href='berkshire-pharma-retail-chains.html'>医药零售产业链</a><span class='crumb-sep'>/</span><span>估值回测</span>
+</div>
+</div>
+<div class='container'>
+
+<div class='hero'>
+<div class='hero-title'>医药零售估值回测</div>
+<div class='hero-sub'>10/10 公司当前估值快照 · 0/10 历史月度价格 · 药房板块的「估值底部 + 股息率高点」双轨买点框架</div>
+<div class='hero-stats'>
+<div class='stat-item'><div class='stat-num'>10</div><div class='stat-label'>当前估值样本</div></div><div class='stat-item'><div class='stat-num'>0</div><div class='stat-label'>有月度价格</div></div><div class='stat-item'><div class='stat-num'>10</div><div class='stat-label'>缺历史价格待采</div></div><div class='stat-item'><div class='stat-num'>多数 PE 10–25×</div><div class='stat-label'>当前 PE 区间</div></div>
+</div>
+</div>
+
+<div class='overview'>
+本页是<b>医药零售产业链</b>的估值回测专题。把 <b>10 家</b>代表公司的当前 <b>PE / PB / 股息率 / ROE</b> 摆在一起，受本地缓存限制，<b>10 家均无月度后复权收盘价</b>，故无法给出真实历史底部买入回报倍数。改用<b>「估值底部 + 股息率高点」双轨框架</b>：药房是低 PE/PB + 高股息的「现金牛」，用估值分位 + 分红率定位安全边际，待补齐月度价格后再补真实回测。
+</div>
+
+<div class='section-title'>一、买点框架：医药零售的估值锚有什么不同</div>
+<div class='insight-box'>
+<div class='insight-title'><span class='icon'>🧭</span> 医药零售的特殊性</div>
+<div class='insight-body'>药房是低毛利、高周转的零售，买点框架与银行/高速更接近——<b>低 PE/PB + 高股息 + 分红率</b>是硬锚；成长来自同店增长与门店整合提效。关键是<b>估值低位（PE 不贵、PB 破净）+ 高股息 + 处方外流/门诊统筹红利</b>三者共振。</div>
+</div>
+
+<div class='section-title'>二、10 家公司当前估值快照（2025-12-31）</div>
+<table class='info-table'>
+<thead><tr><th>公司</th><th>代码</th><th>当前 PE</th><th>当前 PB</th><th>股息率</th><th>ROE</th><th>当前估值档位</th></tr></thead>
+<tbody>
+<tr><td>柳药股份</td><td>603368</td><td class='num'>9.6</td><td class='num'>0.79</td><td class='num'>4.31%</td><td class='num'>9.2%</td><td><span class='tag tag-cheap'>PE 便宜 · PB 极低 · 高股息</span></td></tr>
+<tr><td>上海医药</td><td>601607</td><td class='num'>10.6</td><td class='num'>0.80</td><td class='num'>—</td><td class='num'>7.8%</td><td><span class='tag tag-cheap'>PE 便宜 · PB 极低</span></td></tr>
+<tr><td>英特集团</td><td>000411</td><td class='num'>11.3</td><td class='num'>1.01</td><td class='num'>3.75%</td><td class='num'>10.3%</td><td><span class='tag tag-cheap'>PE 便宜 · PB 极低 · 股息优</span></td></tr>
+<tr><td>国药一致</td><td>000028</td><td class='num'>11.6</td><td class='num'>0.67</td><td class='num'>2.96%</td><td class='num'>6.3%</td><td><span class='tag tag-cheap'>PE 便宜 · PB 极低 · 股息优</span></td></tr>
+<tr><td>九州通</td><td>600998</td><td class='num'>12.9</td><td class='num'>0.94</td><td class='num'>3.88%</td><td class='num'>8.1%</td><td><span class='tag tag-cheap'>PE 便宜 · PB 极低 · 股息优</span></td></tr>
+<tr><td>益丰药房</td><td>603939</td><td class='num'>15.7</td><td class='num'>2.28</td><td class='num'>1.76%</td><td class='num'>15.0%</td><td><span class='tag tag-cheap'>PE 便宜</span></td></tr>
+<tr><td>大参林</td><td>603233</td><td class='num'>16.4</td><td class='num'>2.74</td><td class='num'>2.60%</td><td class='num'>17.3%</td><td><span class='tag tag-cheap'>PE 便宜 · 股息优</span></td></tr>
+<tr><td>健之佳</td><td>605266</td><td class='num'>17.0</td><td class='num'>0.94</td><td class='num'>7.59%</td><td class='num'>5.4%</td><td><span class='tag tag-cheap'>PE 便宜 · PB 极低 · 高股息</span></td></tr>
+<tr><td>老百姓</td><td>603883</td><td class='num'>24.3</td><td class='num'>1.41</td><td class='num'>2.11%</td><td class='num'>5.8%</td><td><span class='tag tag-cheap'>PE 中性 · PB 极低</span></td></tr>
+<tr><td>一心堂</td><td>002727</td><td class='num'>24.7</td><td class='num'>0.92</td><td class='num'>1.71%</td><td class='num'>3.6%</td><td><span class='tag tag-cheap'>PE 中性 · PB 极低</span></td></tr>
+</tbody>
+</table>
+<div class='fn'>排序：按 PE 升序（亏损公司列于底部）。「当前估值档位」综合 PE/PB/股息率/ROE 给出，非投资建议。</div>
+
+
+<div class='section-title'>三、估值底部锚定框架（无月度价格，改用估值 + 股息双轨）</div>
+<div class='overview'>受本地缓存限制，<b>本板块 10 家均无月度后复权收盘价</b>，无法给出真实历史底部买入回报倍数。改用<b>「估值底部 + 股息率高点」双轨框架</b>：用当前 PE/PB 分位与股息率定位安全边际（上表已给出当前快照），待补齐月度价格后补真实回测。</div>
+<table class='info-table'>
+<thead><tr><th>公司</th><th>当前 PE</th><th>当前 PB</th><th>股息率</th><th>ROE</th><th>双轨信号</th></tr></thead>
+<tbody>
+<tr><td>国药一致</td><td class='num'>11.6</td><td class='num'>0.67</td><td class='num'>2.96%</td><td class='num'>6.3%</td><td><span class='tag tag-cheap'>估值底部 · PB 极低 · 股息优</span></td></tr>
+<tr><td>英特集团</td><td class='num'>11.3</td><td class='num'>1.01</td><td class='num'>3.75%</td><td class='num'>10.3%</td><td><span class='tag tag-cheap'>估值底部 · PB 极低 · 股息高点</span></td></tr>
+<tr><td>一心堂</td><td class='num'>24.7</td><td class='num'>0.92</td><td class='num'>1.71%</td><td class='num'>3.6%</td><td><span class='tag tag-cheap'>PB 极低</span></td></tr>
+<tr><td>九州通</td><td class='num'>12.9</td><td class='num'>0.94</td><td class='num'>3.88%</td><td class='num'>8.1%</td><td><span class='tag tag-cheap'>估值底部 · PB 极低 · 股息高点</span></td></tr>
+<tr><td>上海医药</td><td class='num'>10.6</td><td class='num'>0.80</td><td class='num'>—</td><td class='num'>7.8%</td><td><span class='tag tag-cheap'>估值底部 · PB 极低</span></td></tr>
+<tr><td>大参林</td><td class='num'>16.4</td><td class='num'>2.74</td><td class='num'>2.60%</td><td class='num'>17.3%</td><td><span class='tag tag-cheap'>估值底部 · 股息优</span></td></tr>
+<tr><td>柳药股份</td><td class='num'>9.6</td><td class='num'>0.79</td><td class='num'>4.31%</td><td class='num'>9.2%</td><td><span class='tag tag-cheap'>估值底部 · PB 极低 · 股息高点</span></td></tr>
+<tr><td>老百姓</td><td class='num'>24.3</td><td class='num'>1.41</td><td class='num'>2.11%</td><td class='num'>5.8%</td><td><span class='tag tag-cheap'>PB 极低 · 股息优</span></td></tr>
+<tr><td>益丰药房</td><td class='num'>15.7</td><td class='num'>2.28</td><td class='num'>1.76%</td><td class='num'>15.0%</td><td><span class='tag tag-cheap'>估值底部</span></td></tr>
+<tr><td>健之佳</td><td class='num'>17.0</td><td class='num'>0.94</td><td class='num'>7.59%</td><td class='num'>5.4%</td><td><span class='tag tag-cheap'>估值底部 · PB 极低 · 股息高点</span></td></tr>
+</tbody>
+</table>
+<div class='fn'>双轨信号 = 低 PE/PB（估值底部）+ 高股息率（现金回报）综合判断，非投资建议。</div>
+
+<div class='section-title'>四、估值 + 股息双轨买点框架</div>
+<div class='insight-box'>
+<div class='insight-title'><span class='icon'>🧭</span> 没有真实回报倍数，怎么定买点？</div>
+<div class='insight-body'>
+<p>没有月度价格时，买点用<b>两条独立线索</b>交叉验证：</p>
+<p>① <b>估值底部线索</b>：PE/PB 处历史低位（参考<a href='berkshire-pharma-retail-thermometer.html' style='color:#c2410c'>估值温度计</a>的分位），且 ROE 稳定——说明「价格的安全边际」厚；</p>
+<p>② <b>股息率高点线索</b>：股息率处历史高位，且分红率可持续（OPCF/分红 >1）——说明「现金回报的锚」硬，比 PE 更不依赖盈利预测。</p>
+<p>两者共振 = 与白酒「低 PE + 高股息」同源的安全边际结构；反转催化剂看行业-specific 事件（见各板块方法论文与周期页）。</p>
+</div>
+</div>
+
+
+<div class='section-title'>五、回测结论：买点信号框架（医药零售特化版）</div>
+<div class='metric-grid'>
+<div class='metric-card'><div class='metric-num'>PE 不贵 + PB 破净</div><div class='metric-label'>第一道门 · 安全边际</div><div class='metric-sub'>柳药 PE 9.6×/PB 0.79×、上海医药 10.6×/0.8×、国药一致 11.6×/0.67×、九州通 12.9×/0.94×——多家破净，安全边际厚。</div></div><div class='metric-card'><div class='metric-num'>高股息率</div><div class='metric-label'>第二道门 · 最硬的锚</div><div class='metric-sub'>健之佳 7.59%、柳药 4.31%、九州通 3.88%、英特 3.75%、国药一致 2.96%——药房分红率提升，股息率比 PE 更不依赖盈利预测。</div></div><div class='metric-card'><div class='metric-num'>处方外流 + 整合</div><div class='metric-label'>催化剂确认</div><div class='metric-sub'>门诊统筹/双通道红利 + 并购后统采提效，是估值从「悲观」转向「修复」的事件驱动。</div></div>
+</div>
+
+<div class='section-title'>六、当前位置（2026-07）：谁已接近历史极值</div>
+<div class='insight-box'>
+<div class='insight-title'><span class='icon'>📍</span> 本轮与历史底部的对比</div>
+<div class='insight-body'>已接近历史极值的（PE 低 + 高股息）：柳药 PE 9.6×/DY 4.31%、健之佳 16.96×/DY 7.59%、九州通 12.9×/DY 3.88%、国药一致 11.6×/DY 2.96% 是<b>安全边际最厚</b>的标的，多家 PB 破净；需小心的「估值陷阱」：老百姓 PE 24.3×/PB 1.41×（整合期）、大参林 16.4×/PB 2.74×（高估值）、一心堂 24.7×/PB 0.92×（同店承压）。药房的买点是「低估值 + 高分红 + 整合提效」，而非成长想象。</div>
+</div>
+
+<div class='insight-box'>
+<div class='insight-title'><span class='icon'>⚠️</span> 价值陷阱：便宜不等于立即反转</div>
+<div class='insight-body'>1）<b>高股息可持续性</b>：健之佳 DY 7.59% 需看 OPCF/分红覆盖率，分红率 >100% 不可持续；2）<b>线上冲击</b>：比价系统 + O2O 压毛利；3）<b>处方外流不及预期</b>：统筹药店资质稀缺但推进慢；4）<b>并购商誉</b>：扩张型标的整合风险；5）<b>回测 ≠ 预测</b>：双轨框架给出价格安全边际，真实回报待月度价格补齐后验证。</div>
+</div>
+
+<div class='section-title'>七、未采集的数据与下一步</div>
+<div class='warn-box'>📋 <b>10/10 家样本的月度后复权收盘价历史数据未覆盖</b>：当前 PE/PB/股息率/ROE 已从本地缓存（<span class='fn'>_chain_fin_data.json</span>，2025-12-31 截面）取得并已展示；2014/2018/2024 底部的精确价格 + PE/股息率 → <b>待采集</b>。可执行清单：a) 月度后复权收盘价（akshare <code>stock_zh_a_hist</code>）；b) TTM EPS 历史（cninfo 年报抽取）；c) 历史股息率（<code>_dividend_truth.json</code> 已含 4532 家）。补齐后本页可与白酒同口径（10/10 价格 + 估值锚 + 真实回报）。</div>
+
+<div class='section-title'>八、下钻：买点的「机制层」</div>
+<div class='insight-box'>
+<div class='insight-body'>
+想看医药零售买点背后的<b>商业逻辑</b>？详见<b>方法论文</b>与<b>价格/政策周期</b>。<br>
+<a class='back-btn' style='display:inline-block;margin-top:10px' href='berkshire-pharma-retail-methodology.html'>→ 查看医药零售方法论文</a>
+&nbsp;&nbsp;
+<a class='back-btn' style='display:inline-block;margin-top:10px' href='berkshire-pharma-retail-cycle.html'>→ 查看医药零售价格 / 政策周期</a>
+</div>
+</div>
+
+<div class='source-note'>
+📌 <b>资料与合规</b>：当前 PE/PB/股息率/ROE 来自本地缓存（<span class='fn'>_chain_fin_data.json</span>，2025-12-31 截面）。受本地缓存限制，<b>10/10 样本无月度后复权收盘价</b>，故历史底部买入回报倍数未展示，改用估值 + 股息双轨框架定位安全边际；待补齐月度价格后补真实回测。所有内容由本站原创整理，不复制付费 / 闭源专享内容，仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+<div class='back-bar'>
+<a href='berkshire-pharma-retail-chains.html' class='back-btn'>← 返回医药零售产业链</a>
+</div>
+
+</div>
+  <script src='/analytics.js'></script>
+  <script src='/static/tdx-link.js' data-loader='tdx-link-loader'></script>
+</body>
+</html>
