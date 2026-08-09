@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>回测框架 · 全市场聚合 | 伯克希尔数据中心</title>
+<meta name="description" content="三轮大底回测：2014/2018/2024-25 估值+股息率双视角。">
+<style>:root{--bg:#f4f7fc;--card:#fff;--navy:#0b1f3a;--navy2:#10294d;--ink:#1d2b40;--line:#e4e9f2;--muted:#6b7a93;--accent:#f5a623;--txt:#23344e;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
+.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
+.top-bar a{color:#fff;text-decoration:none;margin-right:8px;}
+.top-bar strong{color:var(--accent);}
+.container{max-width:920px;margin:0 auto;padding:24px 20px 60px;}
+h1{font-size:26px;color:var(--navy);margin:12px 0 8px;}
+.intro{color:var(--muted);font-size:14px;margin-bottom:24px;border-left:3px solid var(--accent);padding-left:12px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:22px;margin:18px 0;box-shadow:0 2px 6px rgba(0,0,0,.03);}
+.card h2{font-size:16px;color:var(--navy);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0;}
+.stat{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
+.stat .v{font-size:22px;font-weight:700;color:var(--navy);display:block;}
+.stat .l{font-size:11px;color:var(--muted);}
+.chain-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px;}
+.chain-list a{color:var(--accent);text-decoration:none;font-size:13.5px;padding:6px 10px;border-radius:6px;display:block;background:#f4f7fc;}
+.chain-list a:hover{background:#fff5e0;color:var(--navy);}
+.placeholder{background:#fff8e6;border:1px dashed #f5a623;border-radius:8px;padding:20px;margin:18px 0;color:#7a5210;}
+.placeholder h2{color:#b6731a;font-size:16px;margin-bottom:8px;}
+.source-note{text-align:center;font-size:11px;color:var(--muted);margin-top:30px;padding-top:18px;border-top:1px solid var(--line);}
+</style>
+</head>
+<body>
+<div class="top-bar"><a href="./index.html">← 返回首页</a><span style="opacity:0.5">·</span><strong>回测框架 · 全市场聚合</strong></div><div class="container"><h1>📈 回测框架</h1><p class="intro">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</p><div class="card"><h2>覆盖情况</h2><div class="stat-grid"><div class="stat"><span class="v">9</span><span class="l">已建 per-chain</span></div><div class="stat"><span class="v">119</span><span class="l">全产业链数</span></div><div class="stat"><span class="v">110</span><span class="l">待建占位</span></div></div><p style="color:var(--muted);font-size:13px;margin-top:8px">9/119 已建独立深度页</p></div><div class="card"><h2>已建 per-chain 页面（9）</h2><div class="chain-list"><a href="./berkshire-baijiu-backtest.html">白酒产业链地图产业链</a><a href="./berkshire-bank-backtest.html">银行业投资图谱产业链</a><a href="./berkshire-chemical-pharma-backtest.html">化学制药产业链产业链</a><a href="./berkshire-cxo-backtest.html">医药外包产业链产业链</a><a href="./berkshire-innov-backtest.html">创新药产业链产业链</a><a href="./berkshire-medical-device-backtest.html">医疗器械产业链产业链</a><a href="./berkshire-pharma-retail-backtest.html">医药商业产业链 | 伯克希尔投资数据中心&lt;/title&gt;
+&lt;style&gt;
+  :root{--navy:#0b1f3a;--navy2:#10294d;--ink:#1d2b40;--line:#e4e9f2;
+    --orange:#f5a623;--txt:#23344e;--muted:#6b7a93;--card:#fff;--bg:#f4f7fc;--green:#1f9d6b;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,&quot;PingFang SC&quot;,&quot;Microsoft YaHei&quot;,Segoe UI,Roboto,sans-serif;
+    background:var(--bg);color:var(--txt);line-height:1.75;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(11,31,58,.82);backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
+  .topbar-in{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px}
+  .brand{font-weight:800;font-size:17px;letter-spacing:.5px}
+  .brand .ac{color:var(--orange)}
+  .crumb{font-size:13px;color:#9fb2cf}
+  .crumb a:hover{color:var(--orange)}
+  .hero{max-width:1180px;margin:30px auto 10px;padding:0 20px}
+  .hero h1{font-size:30px;margin:0 0 8px;color:var(--navy)}
+  .hero p{margin:0;color:var(--muted);max-width:820px}
+  .badge{display:inline-block;background:var(--orange);color:#3a2700;font-size:12px;font-weight:700;
+    padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
+  .decl{max-width:1180px;margin:16px auto 0;padding:0 20px}
+  .decl .bar{border-left:4px solid #16a34a;background:#fffaf0;padding:11px 16px;border-radius:0 10px 10px 0;font-size:14px;color:var(--ink)}
+  .stats{max-width:1180px;margin:20px auto;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+  .stat .v{font-size:27px;font-weight:800;color:var(--navy)}
+  .stat .v.ac{color:#15803d}
+  .stat .k{font-size:12.5px;color:var(--muted);margin-top:4px}
+  .wrap{max-width:1180px;margin:10px auto 60px;padding:0 20px}
+  .sec{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:20px;
+    box-shadow:0 1px 3px rgba(16,41,77,.04)}
+  .sec h2{margin:0 0 4px;font-size:21px;color:var(--navy);display:flex;align-items:center;gap:10px}
+  .sec .cnt{font-size:12px;color:#fff;background:var(--navy2);border-radius:999px;padding:2px 10px;font-weight:700}
+  .sec .desc{font-size:13px;color:var(--muted);margin:2px 0 14px}
+  .framework{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:6px}
+  .layer{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-top:3px solid #16a34a}
+  .layer .ln{font-size:12px;font-weight:800;color:#15803d}
+  .layer .lt{font-weight:700;color:var(--navy);font-size:15px;margin:4px 0 6px}
+  .layer .ld{font-size:13px;color:var(--muted)}
+  .companies{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:11px;margin-top:6px}
+  .co{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .co .nm{font-weight:700;color:var(--navy);font-size:15px}
+  .co .st{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#eef1f6;color:#7a8aa3;border:1px solid #dde3ec;margin:6px 0}
+  .co .nt{font-size:12.5px;color:var(--muted)}
+  .foot{max-width:1180px;margin:0 auto 50px;padding:0 20px;color:var(--muted);font-size:13px}
+  @media(max-width:860px){.stats{grid-template-columns:1fr} .hero h1{font-size:24px}}
+
+  .co .st.pe-low{background:#e7f6ee;color:#1f9d6b;border-color:#bfe6cf}
+  .co .st.pe-high{background:#fdeaea;color:#c0392b;border-color:#f3c9c9}
+  .co .st.poi{background:#fff3e0;color:#c2410c;border-color:#f6dcae}
+  /*ab-deep*/
+
+  .co .cf-fin{font-size:11px;color:#445;line-height:1.5;margin:5px 0 0}
+  .co .cf-fin b{color:#1d2b40;font-weight:600}
+  .co .cf-emp{font-size:11px;line-height:1.5;margin:2px 0 0}
+  .co .cf-emp b{font-weight:600}
+  .co .cf-emp .s-good{color:#1f9d6b}
+  .co .cf-emp .s-bad{color:#c0392b}
+  .co .cf-emp .s-watch{color:#c2410c}
+  .co .cf-emp .s-none{color:#999}
+  
+  .co .co-detail{display:inline-block;margin:8px 0 2px;font-size:12px;font-weight:600;color:#1d4ed8;text-decoration:none}
+  .co .co-detail:hover{text-decoration:underline}
+/*cf-deep2*/
+&gt;&lt;/style&gt;
+&lt;style&gt;
+
+/*cf-emp-ranking*/
+.ovtable{margin:10px 0 6px;overflow-x:auto}
+.ovtable table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600;text-align:left;padding:9px 12px;border-bottom:1px solid #e2e8f0;white-space:nowrap}
+.ovtable td{padding:8px 12px;border-bottom:1px solid #f1f5f9;color:#0f172a}
+.ovtable tbody tr:last-child td{border-bottom:none}
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ovtable .num.up{color:#15803d;font-weight:700}
+.ovtable .num.down{color:#b91c1c;font-weight:700}
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;border:1px solid transparent}
+
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;topbar&quot;&gt;
+  &lt;div class=&quot;topbar-in&quot;&gt;
+    &lt;div class=&quot;brand&quot;&gt;伯克希尔&lt;span class=&quot;ac&quot;&gt;投资数据中心&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;crumb&quot;&gt;/ &lt;a href=&quot;berkshire-standalone.html&quot;&gt;枢纽&lt;/a&gt; / &lt;a href=&quot;berkshire-chain-map.html&quot;&gt;覆盖地图&lt;/a&gt; / 医药商业产业链&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;hero&quot;&gt;
+  &lt;h1&gt;医药商业产业链&lt;span class=&quot;badge&quot;&gt;已建框架&lt;/span&gt;&lt;span class=&quot;badge&quot; style=&quot;background:#1f9d6b;color:#fff;margin-left:6px&quot;&gt;已补叙事&lt;/span&gt;&lt;!--cf-narrative-index--&gt;&lt;/h1&gt;
+  &lt;p&gt;药品流通与零售，承接集采配送、受益于处方外流，稳健分红属性。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;decl&quot;&gt;
+  &lt;div class=&quot;bar&quot;&gt;&lt;b&gt;⚠️ 网络收集产业链</a><a href="./berkshire-specialty-care-backtest.html">专科医疗产业链产业链</a><a href="./berkshire-vaccine-backtest.html">疫苗产业链产业链</a></div></div><div class="placeholder"><h2>未建占位（110 个产业链）</h2><p>其余 110 个产业链尚未建独立深度页。点击链索引页的「回测框架」卡片将进入本页，待数据源与排期确定后逐步补齐。</p><p style="margin-top:8px;font-size:12.5px;color:#9a6b1f">首批占位：ad, aero, agri-chem, agri-mach, ai, airport-aviation, animal-health, appliance 等 110 个。</p></div><p class="source-note">数据日期：2026-08-09 · 伯克希尔数据中心 · 仅供参考，不构成投资建议</p></div>
+</body>
+</html>
