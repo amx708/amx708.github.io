@@ -77,12 +77,25 @@
   .grpsep{border-left:2px solid rgba(57,230,255,.35)}
   .note{color:var(--sub);font-size:9.5px;margin-top:7px;line-height:1.55}
   svg text{fill:var(--sub);font-size:10px}
+  /* 顶部快捷工具条 */
+  .topbar{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+  .back-home{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;padding:6px 14px;border-radius:20px;text-decoration:none;font-size:12px;font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.18);transition:transform .2s}
+  .back-home:hover{transform:translateX(-2px);background:linear-gradient(135deg,#6d28d9,#1d4ed8)}
+  .toggle-charts{display:inline-flex;align-items:center;gap:4px;background:rgba(57,230,255,.10);color:var(--cyan);border:1px solid rgba(57,230,255,.40);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+  .toggle-charts:hover{background:rgba(57,230,255,.20)}
+  .charts-block{margin-bottom:14px}
+  .charts-block[hidden]{display:none}
 </style>
 </head>
 <body>
+<div class="topbar">
+  <a class="back-home" href="./index.html">← 返回首页</a>
+  <button class="toggle-charts" id="toggleCharts" type="button" aria-expanded="false">📊 展开 KPI + 6 图分布</button>
+</div>
 <h1>A股可转债 <span>全量总表</span></h1>
 <div class="sub">数据口径：东方财富数据中心（RPT_BOND_CB_LIST）· 收录起点 2007 年 · 共 <b id="s-total"></b> 只（已退市 <b id="s-ret"></b> 只）· 生成于 2026-08-10</div>
 
+<div class="charts-block" id="chartsBlock" hidden>
 <div class="kpis">
   <div class="kpi"><div class="v cyan" id="k-total"></div><div class="l">累计发行（只）</div></div>
   <div class="kpi"><div class="v red" id="k-ret"></div><div class="l">已退市（只）</div></div>
@@ -117,6 +130,7 @@
   <div id="chart-redeem"></div>
   <div class="note">说明：本表将“是否强赎触发”分为四类——<strong style="color:var(--red)">强赎退市</strong>、<strong style="color:var(--gold)">强赎中</strong>、<strong style="color:var(--purple)">到期/其他</strong>、<strong style="color:var(--green)">否</strong>。</div>
 </div>
+</div><!-- /charts-block -->
 
 <div class="panel">
   <h2>明细总表（集思录风格 · 可搜索 / 筛选 / 排序 / 显隐列）</h2>
@@ -407,6 +421,27 @@ document.getElementById('btn-showall').onclick=()=>{ visibleKeys=ALL_KEYS.slice(
 ['q','f-mkt','f-industry','f-rating','f-status','f-ryear','f-redeem','f-adj'].forEach(id=>document.getElementById(id).oninput=render);
 
 barYear(); barRating(); barStatus(); barMkt(); barRetiredYear(); barRedeem(); render();
+</script>
+
+<script>
+// 顶部"展开 KPI + 6 图"切换按钮
+(function(){
+  var btn=document.getElementById('toggleCharts');
+  var blk=document.getElementById('chartsBlock');
+  if(!btn||!blk) return;
+  btn.addEventListener('click', function(){
+    var hidden = blk.hasAttribute('hidden');
+    if(hidden){
+      blk.removeAttribute('hidden');
+      btn.textContent='📊 收起 KPI + 6 图分布';
+      btn.setAttribute('aria-expanded','true');
+    } else {
+      blk.setAttribute('hidden','');
+      btn.textContent='📊 展开 KPI + 6 图分布';
+      btn.setAttribute('aria-expanded','false');
+    }
+  });
+})();
 </script>
 </body>
 </html>
