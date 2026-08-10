@@ -41,6 +41,19 @@
 .back-home{position:fixed;top:12px;right:12px;z-index:9999;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;padding:7px 16px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;transition:transform .2s}
 .back-home:hover{transform:translateX(-2px)}
 </style>
+<style>
+  .history { margin-top:28px; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px; backdrop-filter:blur(8px); box-shadow:0 8px 30px rgba(0,0,0,.35); }
+  .history .hhead h2 { font-size:18px; }
+  .history .hsub { color:var(--muted); font-size:12.5px; margin-top:6px; }
+  .history .bridge { margin:14px 0 16px; padding:14px 16px; background:rgba(34,211,238,.07); border-left:3px solid var(--cyan); border-radius:10px; font-size:13px; color:var(--text); line-height:1.8; }
+  .history .bridge b { color:var(--cyan); }
+  .history .embed-wrap { border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#070b1a; }
+  .history iframe { width:100%; height:1080px; border:0; display:block; }
+  .history .fullink { margin-top:12px; text-align:center; }
+  .history .fullink a { color:var(--cyan); font-size:13px; text-decoration:none; font-weight:600; }
+  .history .fullink a:hover { text-decoration:underline; }
+  @media(max-width:680px){ .history iframe { height:760px; } }
+</style>
 </head>
 <body>
 <a class="back-home" href="../index.html">← 返回主页</a>
@@ -89,13 +102,25 @@
     </a>
   </div>
 
-  <a class="accompany" href="../cb_all_history.html">
-    <span class="ai">📚</span>
-    <div>
-      <div class="at">配套工具 · 可转债全量总表 2007–2026</div>
-      <div class="ad">A 股可转债全量总表：发行趋势、已退市专题、强赎触发分类，明细表可搜索 / 筛选 / 排序 / 显隐列（集思录风格）→</div>
+  <section class="history">
+    <div class="hhead">
+      <h2>📚 可转债全样本历史（2007–2026）· 嵌入视图</h2>
+      <p class="hsub">与双低轮动策略同页联动 —— 看策略的同时，随手抽查任意转债的「发行 → 强赎 / 到期」全轨迹</p>
     </div>
-  </a>
+    <div class="bridge">
+      <b>双低为何有效 · 历史样本证据</b><br>
+      双低轮动本质是押注转债「下有债底、上靠正股」的非对称收益：选「价格低 + 溢价低」的组合，等正股上涨把转债推过强赎线。
+      而下方全量总表给出了最硬的历史支撑——<b>绝大多数转债在到期前就因正股上涨触发强赎而退市</b>（总表内「已退市专题 / 强赎触发分类」可逐只核对），平均存续仅约 2–3 年。
+      这说明「低溢价 + 低价格」恰好卡在最主流的退出路径上：强赎率越高，双低策略「持有等待双击」的胜率逻辑越扎实。
+      顶部 KPI 的「累计发行 / 已退市 / 强赎退市只数」即为实时证据，点击表格可搜索任意转债验证策略假设。
+    </div>
+    <div class="embed-wrap">
+      <iframe src="../cb_all_history.html" title="可转债全量总表 2007–2026" loading="lazy"></iframe>
+    </div>
+    <div class="fullink">
+      <a href="../cb_all_history.html" target="_blank" rel="noopener">📖 在新标签打开完整交互版（可搜索 / 筛选 / 排序 / 显隐列）</a>
+    </div>
+  </section>
 
   <footer>
     数据来源：网络收集整理 · 全部页面离线可用、数据内联<br>
