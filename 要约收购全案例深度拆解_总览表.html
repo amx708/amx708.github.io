@@ -188,7 +188,7 @@ const CASES = [
   aMot:"产业整合+央企接盘复星退出资产;价格以公开报道为准(待核)。",_wait:true},
 
  {name:"嘉亨家化",code:"300955",year:2025,atype:"协议+部分要约",offerPrice:"33.21元",offerPct:"协议29.70%+要约21.10%",offerShares:"要约≤7.06亿",maxAmount:"约17亿",
-  structure:"协议+部分要约(50.80%)",announce:"2025-12-31",preaccept:"—",result:"进行中",confidence:"高",
+  structure:"协议+部分要约(50.80%)",announce:"2025-12-31",preaccept:"预受2356.93万股(23.38%,超预定110.8%)",result:"成功(控制权变更)",confidence:"高",
   tBG:"日化ODM代工;2024首亏2369万。",
   tAsset:"化妆品/日化塑料包装代工产能;2024由盈转亏。",
   tMot:"小市值日化代工壳,被快消平台选中买壳。",
@@ -206,7 +206,7 @@ const CASES = [
   aMot:"'协议+要约'拿壳上市,产业延伸/资本平台。",_wait:true},
 
  {name:"嘉美包装",code:"002969",year:2025,atype:"协议+部分要约",offerPrice:"4.45元",offerPct:"协议29.90%+要约25%",offerShares:"要约≤10.39亿",maxAmount:"约22.82亿",
-  structure:"协议+部分要约(54.90%)",announce:"2025-12-16",preaccept:"—",result:"进行中",confidence:"高",
+  structure:"协议+部分要约(54.90%)",announce:"2025-12-16",preaccept:"预受2.15亿股(19.59%,占预定92.17%)",result:"成功(控制权变更)",confidence:"高",
   tBG:"金属包装;民营企业。",
   tAsset:"三片罐/二片罐金属包装产能。",
   tMot:"消费包装壳,被追觅系资本入主。",
@@ -419,7 +419,7 @@ const resKey={ "成功":"s","成功(控股)":"s","成功(保上市)":"s","成功
 const resTxt={ "成功":"成功","成功(控股)":"成功","成功(保上市)":"成功(保上市)","成功(退市)":"成功(退市)","成功(巩固控制)":"成功","成功(控制权变更)":"成功(变控)",
   "失败":"失败","失败(遇冷)":"遇冷","无套利空间":"无空间","进行中":"进行中","部分成功/后续终止":"部分成功" };
 const safeD=x=>String(x).replace(/[\\/:*?"<>|]/g,"_");
-function linkHtml(c){return '<a class="dl" href="个案深度分析/个案_'+safeD(c.code)+'_'+safeD(c.name)+'.html">完整深度页 →</a>';}
+function linkHtml(c){if(c._nodetail)return '<span class="dl" style="background:#f0f0f3;color:#9aa3b2;border-color:#e6e6ea;cursor:default">深度页待生成</span>';return '<a class="dl" href="个案深度分析/个案_'+safeD(c.code)+'_'+safeD(c.name)+'.html">完整深度页 →</a>';}
 const ovb=document.getElementById("ovb");
 ovb.innerHTML=CASES.map(c=>{
   const rk=resKey[c.result]||"c";
