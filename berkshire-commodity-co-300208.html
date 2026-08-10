@@ -72,6 +72,19 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 .mv-check{margin:4px 0 0;padding-left:22px}
 .mv-check li{margin:6px 0}
 .mv-check b{color:var(--accent)}
+
+/*synth-cf-v1*/
+.synth-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px;margin:6px 0 14px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.synth-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.synth-tbl td{border-bottom:1px solid #f1f5f9;padding:7px 8px;vertical-align:top;color:#334155}
+.synth-tbl td.ax{color:#0f172a;font-weight:700;width:140px;white-space:nowrap}
+.synth-verdict{margin-top:10px;padding:9px 12px;background:#f8fafc;border-left:3px solid #a8a29e;border-radius:6px;font-size:13px;line-height:1.6;color:#1e293b}
+.synth-lines{font-size:13px;line-height:1.75;color:#334155}
+.synth-gov{font-size:13px;line-height:1.7;color:#334155}
+.synth-inv-title{font-size:13px;color:#0f172a;font-weight:600;margin-bottom:6px}
+.synth-inv{margin:0;padding-left:20px;font-size:13px;line-height:1.7;color:#334155}
+.synth-inv li{margin-bottom:3px}
+
 </style></head><body>
 <div class="topbar"><div class="topbar-in"><div class="brand">伯克希尔<span class="ac">投资数据中心</span></div><div class="crumb">/ <a href="berkshire-standalone.html">枢纽</a> / <a href="berkshire-chain-map.html">覆盖地图</a> / <a href="articles/price-hike-monitor.html">涨价逻辑监测</a> / 青岛中程</div><div class="top-actions"><a class="tret back" href="articles/price-hike-monitor.html">← 返回</a><a class="tret" href="berkshire-standalone.html">站点枢纽</a><a class="tret" href="index.html">首页</a></div></div></div>
 <div class="detail">
@@ -86,52 +99,44 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <div class="section-title"><span class="dot"></span>安全边际量化线（巴菲特式买点阈值）</div>
 <div class="mg-viz"><div class="mg-row"><div class="mg-label">PE分位<br><span class="mg-val">79.8%</span></div><div class="mg-track"><div class="mg-bar" style="width:79.8%"></div><div class="mg-thr" style="left:20.0%"></div></div><div class="mg-meta"><span class="mg-status mg-off">未触发</span><span class="mg-note">阈值 20.0%</span></div></div><div class="mg-row"><div class="mg-label">PB分位<br><span class="mg-val">49.6%</span></div><div class="mg-track"><div class="mg-bar" style="width:49.6%"></div><div class="mg-thr" style="left:20.0%"></div></div><div class="mg-meta"><span class="mg-status mg-off">未触发</span><span class="mg-note">阈值 20.0%</span></div></div><div class="mg-row"><div class="mg-label">股息率线<br><span class="mg-val">10.7%</span></div><div class="mg-track"><div class="mg-bar" style="width:10.7%"></div><div class="mg-thr" style="left:3.1%"></div></div><div class="mg-meta"><span class="mg-status mg-on">已触发</span><span class="mg-note">阈值 3.1%</span></div></div></div>
 <div class="note">安全边际 = 价格显著低于内在价值的缓冲。本线为<b>透明规则触发</b>，非 DCF 精算；现金牛看股息率与低 PB，成长看兑现与分位。不构成买卖建议。</div>
-<div class="section-title"><span class="dot"></span>结论合成 · 护城河 × 估值</div><div class="synth-card"><table class="synth-tbl"><tr><td class="ax">护城河质量</td><td>弱 / 中性（ROE<15%）　·　ROE 待采集%</td></tr><tr><td class="ax">估值便宜度</td><td>不便宜 / 中性　·　PE分位 79.80% / PB分位 49.60%</td></tr><tr><td class="ax">现金回报</td><td>股息率 10.71%</td></tr></table><div class="synth-verdict"><b>综合结论：</b>中性 / 数据不足（估值与护城河均未显优势）。　本段为<b>机械合成</b>（护城河×估值透明规则），<b>非研究结论、不构成投资建议</b>。</div></div>
-<div class="section-title"><span class="dot"></span>七位大师视角（思维透镜）</div>
-<div class="note">以下为七位价值投资大师的「思维透镜」。所有数字取自本页<b>财务快照</b>（事实层）；每位大师的「大师提示」需由你本人基于理解写定——本工具<b>不代下结论、不构成投资建议</b>。</div>
-
-<div class="mv-grid">
-<div class="mv-card"><div class="mv-h"><b>沃伦·巴菲特</b><span class="en">Buffett</span></div>
-<div class="mv-tag">护城河 · 所有者收益 · 安全边际</div>
-<div class="mv-read">ROE <b>待采集</b>　负债率 <b>102.92</b>　经营现金流 <b>3.30亿</b>　股息率 <b>0.0</b></div>
-<div class="mv-q"><span class="lab">透镜：</span>这是「好生意 × 好价格」的闭环吗？护城河能否抵御竞争、价格是否低于内在价值？</div></div>
-<div class="mv-card"><div class="mv-h"><b>查理·芒格</b><span class="en">Munger</span></div>
-<div class="mv-tag">逆向 · 多元模型 · 避免愚蠢</div>
-<div class="mv-read">负债率 <b>102.92</b>（杠杆脆弱性）　ROE <b>待采集</b>（盈利质量）</div>
-<div class="mv-q"><span class="lab">invert：</span>什么情景下会永久损失资本？别被近 12 个月走势锚定。</div></div>
-<div class="mv-card"><div class="mv-h"><b>段永平</b><span class="en">Duan</span></div>
-<div class="mv-tag">买公司 · 本分 · 治理诚信</div>
-<div class="mv-read">股息率 <b>0.0</b>（分红真实性代理）　负债率 <b>102.92</b>（财务稳健）　ROE <b>待采集</b></div>
-<div class="mv-q"><span class="lab">透镜：</span>这是不是一门你真看得懂的生意？大股东占款/关联交易/审计意见如何？</div></div>
-<div class="mv-card"><div class="mv-h"><b>李录</b><span class="en">Li Lu</span></div>
-<div class="mv-tag">结构性机会 · 长期复利</div>
-<div class="mv-read">ROE <b>待采集</b>（复利引擎）　股息率 <b>0.0</b>（再投基础）　毛利率 <b>74.21</b></div>
-<div class="mv-q"><span class="lab">透镜：</span>这条宏观结构性机会为何 specifically 落到这家公司、且可持续？</div></div>
-<div class="mv-card"><div class="mv-h"><b>霍华德·马克斯</b><span class="en">Marks</span></div>
-<div class="mv-tag">周期 · 风险≠波动 · 第二层思维</div>
-<div class="mv-read">PE <b>-0.67</b>　PB <b>2.43</b>　负债率 <b>102.92</b>（永久损失风险代理）</div>
-<div class="mv-q"><span class="lab">透镜：</span>估值分位高 ≠ 风险高；市场一致预期是 X，第二层思维的机会在 Y 吗？</div></div>
-<div class="mv-card"><div class="mv-h"><b>彼得·林奇</b><span class="en">Lynch</span></div>
-<div class="mv-tag">自下而上 · PEG · 公司分类</div>
-<div class="mv-read">PE <b>-0.67</b>　总市值 <b>2.10亿</b>（规模分类）　营收 <b>1.65亿</b></div>
-<div class="mv-q"><span class="lab">透镜：</span>PEG = PE ÷ 盈利增速（本页未取增速）；它是哪类公司（缓慢增长/周期/成长/困境/资产）？</div></div>
-<div class="mv-card"><div class="mv-h"><b>雷·达里奥</b><span class="en">Dalio</span></div>
-<div class="mv-tag">宏观机器 · 不相关分散 · 债务周期</div>
-<div class="mv-read">负债率 <b>102.92</b>（杠杆/债务周期信号）　毛利率 <b>74.21</b></div>
-<div class="mv-q"><span class="lab">透镜：</span>这家公司在「宏观机器」哪一环？与组合其他持仓的相关性如何？</div></div>
+<!-- synth-cf-start -->
+<div class="section-title"><span class="dot"></span>结论合成 · 护城河 × 估值 × 周期 × 信号</div>
+<div class="synth-card">
+  <table class="synth-tbl">
+    <tr><td class="ax">护城河质量</td><td>—（ROE 数据不足，待采集）</td></tr>
+    <tr><td class="ax">估值便宜度</td><td>PE分位 —% · PB分位 —% → 数据不足</td></tr>
+    <tr><td class="ax">周期位置</td><td>—（CF链未做链级时机量化）</td></tr>
+    <tr><td class="ax">价格信号</td><td>数据不足（待采集）</td></tr>
+  </table>
+  <div class="synth-verdict"><b>综合结论：</b>估值数据不足（待采集），无法做便宜/贵判定</div>
+  <div class="fin-note">本段为<b>机械合成</b>：将本页已呈现的护城河/分位/泊松按透明规则归并，<b>非研究结论、不构成投资建议</b>。规则：便宜+强护城河=便宜的好生意；贵+强护城河=贵的好生意；贵+弱护城河=回避；便宜+弱护城河=警惕价值陷阱。</div>
 </div>
 
-<!--masters-outro-->
-<div class="section-title"><span class="dot"></span>七大师 · 结话（草稿占位 · 待你补充）</div>
-<div class="mv-outro">
-  <p>七面透镜拼起来，背后其实是一句没吵架的共识：<b>先真懂这门生意，再用纪律性的价格去买，最后靠性情穿越周期</b>。他们争的只是「该看哪个指标」——巴菲特 / 芒格 / 段永平偏「质」（护城河、治理诚信、确定性），马克斯 / 达里奥偏「势」（周期位置、宏观机器、组合相关性），林奇 / 李录偏「匹配」（公司分类、结构性复利）。但没人会反驳「别让本金永久损失、别为故事付太贵的价格」。</p>
-  <p>所以把这节当成一张<b>体检表，不是诊断书</b>：任何一面亮红灯——杠杆过高（芒格 invert）、治理有瑕疵（段永平）、估值分位极端（马克斯第二层思维）、与持仓高度相关（达里奥）——都值得你停下来多想一步；但没有任何一面单独构成买卖信号。真正的「结话」得你自己写：<b>把七面信号收敛成一句话，一句你愿意用真金白银背书的话。</b>本页只负责把事实摆齐（财务 / 估值分位 / 安全边际线 / 机械结论合成），七位大师的「大师提示」留白给你——这也是本工具不代下结论的边界。</p>
-  <p class="mv-outro-h">收敛清单（写你自己的结话前，先过这三问）：</p>
-  <ol class="mv-check">
-    <li>它落在七面透镜的「共振区」还是「对冲区」？<b>共振</b>（质、势、匹配同时绿灯）才值重仓；<b>对冲</b>（比如质好但分位极端）只值观察仓。</li>
-    <li>最让你睡不着的那个红灯是什么？把它写下来——它就是你的<b>卖出触发</b>，不是别人的。</li>
-    <li>你能用一句话说清「为什么是这家、为什么是现在」吗？说不清，就还停在研究阶段。</li>
-  </ol>
+<div class="section-title"><span class="dot"></span>安全边际量化线（巴菲特式买点阈值）</div>
+<div class="synth-card">
+  <div class="synth-lines">• PB分位线：PB历史分位 < 20% 视为低PB安全边际区间 → 当前数据不足（待采集）<br>• PE分位线：PE历史分位 < 20% 视为低PE安全边际区间 → 当前数据不足（待采集）<br>• 现金牛安全边际线：股息率阈值≈3.1%（10Y国债~1.6%+1.5%风险溢价）；当前股息率数据不足（待采集），无法判定。</div>
+  <div class="fin-note">安全边际 = 价格显著低于内在价值的缓冲。本线为<b>透明规则触发</b>，非 DCF 精算；现金牛看股息率与低PB，成长看兑现与分位。不构成买卖建议。</div>
+</div>
+
+<div class="section-title"><span class="dot"></span>治理 / 诚信维度（段永平透镜）</div>
+<div class="synth-card">
+  <div class="synth-gov"><b>治理/诚信风险（混合所有制）</b>：该领域国资与头部民企并存，需分情况审视——民企重点警惕大股东占款、高比例股权质押、关联交易与审计意见风险；国资则审视政策任务与股东回报权衡、关联交易公允性。无论所有制，均应以经营性现金流与税费反推验证财报真实性，并关注审计意见类型。</div>
+</div>
+
+<div class="section-title"><span class="dot"></span>逆向压力测试 · 什么情景下永久损失资本（芒格 invert）</div>
+<div class="synth-card">
+  <div class="synth-inv-title">若以下情景同时或持续发生，青岛中程 的护城河与现金流将被实质性削弱：</div>
+  <ul class="synth-inv"><li>商品价格/景气跌破现金成本且长期低位</li><li>产能无序扩张致加工费与利润塌方</li><li>需求侧（地产/消费/出口）共振下行</li><li>库存减值与安全环保事故</li><li>政策/贸易壁垒冲击</li></ul>
+  <div class="fin-note">invert 思维：先想「怎么亏光」，再谈「怎么赚钱」。缓解因素通常已在护城河与财务板块体现（如低负债、长协、一体化）。</div>
+</div>
+
+<div class="section-title"><span class="dot"></span>两轴拆分 · 估值分位 ≠ 永久损失风险（霍华德·马克斯）</div>
+<div class="synth-card">
+  <table class="synth-tbl">
+    <tr><td class="ax">轴① 估值分位</td><td>PE —% / PB —% → 数据不足</td></tr>
+    <tr><td class="ax">轴② 永久损失风险</td><td>中（cyclical 链性质 + 护城河中（数据不足） 调整后）</td></tr>
+  </table>
+  <div class="synth-verdict"><b>读图：</b>马克斯警告「贵≠高风险」。两轴需结合护城河质量与信号综合判断，勿单看分位定买卖。</div>
 </div>
 
 </div>
