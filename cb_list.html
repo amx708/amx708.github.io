@@ -115,7 +115,7 @@
     <select id="f-status">
       <option value="">全部状态</option>
       <option value="1">已退市</option>
-      <option value="0">存续/待上市</option>
+      <option value="0" selected>存续/待上市</option>
     </select>
     <select id="f-ryear"><option value="">全部退市年份</option></select>
     <select id="f-redeem"><option value="">全部强赎分类</option><option value="强赎退市">强赎退市</option><option value="强赎中">强赎中</option><option value="到期/其他">到期/其他</option><option value="否">否（在市未触发）</option></select>
@@ -177,7 +177,7 @@ const GROUPS = [
 const COLW = {code:'58px', name:'82px'};
 
 let sortK='dbl_low', sortAsc=true;
-let visibleKeys = ['code','name','mkt','rating','industry','stkcode','stkname','price','cvtprice','risredeem','rdays','scale','list','pureval','bsvalue','rdist','dbl_low','rtrig'];
+let visibleKeys = ALL_KEYS.slice();   // 默认显示全部列，与截图一致
 const mktSet=new Set(), ratSet=new Set(), ryearSet=new Set(), indSet=new Set();
 DATA.forEach(r=>{if(r.mkt)mktSet.add(r.mkt);if(r.rating)ratSet.add(r.rating);if(r.ryear)ryearSet.add(r.ryear);if(r.industry)indSet.add(r.industry);});
 const ms=document.getElementById('f-mkt'), rs=document.getElementById('f-rating'), ry=document.getElementById('f-ryear'), fi=document.getElementById('f-industry');
