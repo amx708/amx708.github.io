@@ -128,7 +128,7 @@
       <tbody></tbody>
     </table>
   </div>
-  <div class="note">说明：数据来源于东方财富数据中心公开接口，为网络收录整理，<b>非投资建议</b>；价格与状态以收录时点为准，实时请以行情终端核对。<b>「退市回收价」= 强制赎回执行价（约 100 元 + 当期利息）。「强赎触发价 / 回售触发价」为按 转股价 ×130% / ×70% 的估算值（标准条款，个别券条款比例不同，实际以募集书为准）</b>。<b>「存续年限」= 退市日 − 上市日</b>；早期 1992–2006 年老转债未纳入。<br><b>操作提示</b>：鼠标移到任意列头上会出现右侧小「−」，点它隐藏该列；隐藏列会显示在上方“已隐藏列”里，点列名可恢复；也可点「列设置」批量勾选。代码/名称两列若都在最左侧，会自动冻结，横向滚动不丢失。<br><b>颜色图例</b>：<span class="s-red">红＝强赎中/强赎退市（退出信号）</span> · <span class="s-green">绿＝存续/未触发</span> · <span class="s-gold">金＝到期/其他</span>；行底色深浅交替便于横向读行。</div>
+  <div class="note">说明：数据来源于东方财富数据中心公开接口，为网络收录整理，<b>非投资建议</b>；价格与状态以收录时点为准，实时请以行情终端核对。<b>「退市回收价」= 强制赎回执行价（约 100 元 + 当期利息）。「强赎触发价 / 回售触发价」为按 转股价 ×130% / ×70% 的估算值（标准条款，个别券条款比例不同，实际以募集书为准）</b>。<b>「存续年限」= 退市日 − 上市日</b>；早期 1992–2006 年老转债未纳入。<br><b>操作提示</b>：鼠标移到任意列头上会出现右侧小「−」，点它隐藏该列；隐藏列会显示在上方“已隐藏列”里，点列名可恢复；也可点「列设置」批量勾选。代码/名称两列若都在最左侧，会自动冻结，横向滚动不丢失。<br><b>颜色图例</b>：<span class="s-red">红＝强赎中/强赎退市（退出信号）</span> · <span class="s-green">绿＝存续/未触发</span> · <span class="s-gold">金＝到期/其他</span>；行底色深浅交替便于横向读行。<br><b>双低值</b> ≈ 债现价 + 强赎距离(%)，越低越像"双低"理想买点（债现价低 + 距强赎远）；正股现价缺失，转股溢价率用强赎距离反向近似，仅作排序参考。</div>
 </div>
 
 <script>
@@ -147,10 +147,10 @@ const LABELS = {
   adj:'下修次数', adjdate:'最近下修生效日',
   yr:'发行年', scale:'规模(亿)', rate:'票面利率说明',
   bsvalue:'BS期权价值', vol:'正股年化波动率(120日)', retyield:'回售收益率', rdist:'强赎距离(%)',
-  pureval:'纯债价值', fhold:'基金持仓(前十大)'
+  pureval:'纯债价值', fhold:'基金持仓(前十大)', dbl_low:'双低值(近似)'
 };
-const ALL_KEYS = ['code','name','mkt','rating','industry','stkcode','stkname','price','cvtprice','rtrig','strig','retprice','rstatus','risredeem','rprice','rdays','value','list','delist','cease','expire','term','cterm','life','ryear','adj','adjdate','yr','scale','rate','bsvalue','vol','retyield','rdist','pureval','fhold'];
-const NUM_KEYS = new Set(['scale','yr','term','cterm','cvtprice','retprice','ryear','life','rtrig','strig','adj','price','rprice','rdays']);
+const ALL_KEYS = ['code','name','mkt','rating','industry','stkcode','stkname','price','cvtprice','rtrig','strig','retprice','rstatus','risredeem','rprice','rdays','value','list','delist','cease','expire','term','cterm','life','ryear','adj','adjdate','yr','scale','rate','bsvalue','vol','retyield','rdist','pureval','fhold','dbl_low'];
+const NUM_KEYS = new Set(['scale','yr','term','cterm','cvtprice','retprice','ryear','life','rtrig','strig','adj','price','rprice','rdays','dbl_low']);
 const GROUPS = [
   {name:'基本', keys:['code','name','mkt','rating','industry']},
   {name:'正股', keys:['stkcode','stkname']},
@@ -159,14 +159,14 @@ const GROUPS = [
   {name:'时间', keys:['value','list','delist','cease','expire','term','cterm','life','ryear']},
   {name:'下修', keys:['adj','adjdate']},
   {name:'发行', keys:['yr','scale','rate']},
-  {name:'衍生分析(派生)', keys:['bsvalue','vol','retyield','rdist','pureval','fhold']}
+  {name:'衍生分析(派生)', keys:['bsvalue','vol','retyield','rdist','pureval','fhold','dbl_low']}
 ];
 // 所有列均可隐藏/显示
 // 固定布局下列宽：代码/名称给固定像素（供左侧冻结对齐），其余按容器宽度等比分配
 const COLW = {code:'58px', name:'82px'};
 
-let sortK='list', sortAsc=false;
-let visibleKeys = ALL_KEYS.slice();
+let sortK='dbl_low', sortAsc=true;
+let visibleKeys = ['code','name','mkt','rating','industry','stkcode','stkname','price','cvtprice','risredeem','rdays','scale','list','pureval','bsvalue','rdist','dbl_low','rtrig'];
 const mktSet=new Set(), ratSet=new Set(), ryearSet=new Set(), indSet=new Set();
 DATA.forEach(r=>{if(r.mkt)mktSet.add(r.mkt);if(r.rating)ratSet.add(r.rating);if(r.ryear)ryearSet.add(r.ryear);if(r.industry)indSet.add(r.industry);});
 const ms=document.getElementById('f-mkt'), rs=document.getElementById('f-rating'), ry=document.getElementById('f-ryear'), fi=document.getElementById('f-industry');
@@ -251,7 +251,11 @@ function render(){
   });
   rows.sort((a,b)=>{
     let va=a[sortK], vb=b[sortK];
-    if(NUM_KEYS.has(sortK)){va=parseFloat(va)||0;vb=parseFloat(vb)||0;}
+    if(sortK==='dbl_low'){
+      va=parseFloat(a.price)+parseFloat(a.rdist);
+      vb=parseFloat(b.price)+parseFloat(b.rdist);
+      if(isNaN(va))va=1e9; if(isNaN(vb))vb=1e9;  // 缺数据排到末尾
+    } else if(NUM_KEYS.has(sortK)){va=parseFloat(va)||0;vb=parseFloat(vb)||0;}
     if(va<vb)return sortAsc?-1:1; if(va>vb)return sortAsc?1:-1; return 0;
   });
   const tb=document.querySelector('#tbl tbody'); tb.innerHTML='';
@@ -259,19 +263,25 @@ function render(){
     const pill=r.retired?'<span class="pill p-ret">已退市</span>':'<span class="pill p-act">存续</span>';
     let tds='';
     visibleKeys.forEach((k,i)=>{
-      let cls=[]; let v=r[k];
+      let cls=[]; let v=r[k]; let raw=r[k];
       if(i===0 && visibleKeys[0]==='code') cls.push('f1');
       if(i===1 && visibleKeys[0]==='code' && visibleKeys[1]==='name') cls.push('f2');
       if(NUM_KEYS.has(k)) cls.push('num');
       if(isGroupStart(k,i)) cls.push('grpsep');
       if(k==='rate') cls.push('rate');
       if(k==='name') v = v + ' ' + pill;
+      // 派生列：双低值 = 债现价 + 强赎距离(%)；负值越大越远离触发，越像"双低"
+      if(k==='dbl_low'){
+        const p=parseFloat(r.price), d=parseFloat(r.rdist);
+        if(!isNaN(p)&&!isNaN(d)){ v=(p+d).toFixed(2); raw=`双低值=${p.toFixed(2)}+(${d.toFixed(2)})=${v}`; }
+        else { v='—'; raw='缺数据'; }
+      }
       // 状态列条件着色：强赎=红，未触发=绿，到期/其他=金
       if(k==='risredeem'||k==='rstatus'){
         const sc = v.indexOf('强赎')>=0?'s-red':(v.indexOf('否')>=0?'s-green':(v.indexOf('到期')>=0?'s-gold':''));
         if(sc) v = `<span class="${sc}">${v}</span>`;
       }
-      tds+=`<td class="${cls.join(' ')}" title="${String(r[k]).replace(/"/g,'&quot;')}">${v}</td>`;
+      tds+=`<td class="${cls.join(' ')}" title="${String(raw).replace(/"/g,'&quot;')}">${v}</td>`;
     });
     tb.insertAdjacentHTML('beforeend',`<tr>${tds}</tr>`);
   });
