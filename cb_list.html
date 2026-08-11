@@ -6,14 +6,14 @@
 <title>A股可转债明细总表 · 独立浏览</title>
 <style>
   :root{
-    --bg0:#070b1a; --bg1:#0d1530; --bg2:#0b1228; --glass:rgba(20,30,60,.55);
-    --line:rgba(120,160,255,.16); --cyan:#39e6ff; --purple:#9d7bff;
-    --gold:#ffcf5c; --green:#3ee6a0; --red:#ff6b8a; --txt:#e7ecff; --sub:#9bb0d8;
-    --grp:rgba(57,230,255,.85);
+    --bg0:#eef1f8; --bg1:#e3e9f5; --bg2:#ffffff; --glass:rgba(255,255,255,.85);
+    --line:rgba(30,55,110,.14); --cyan:#0a6cff; --purple:#6d3bff;
+    --gold:#9a6b00; --green:#0a8f4a; --red:#d6336c; --txt:#1b2236; --sub:#5d6b8a;
+    --grp:rgba(10,108,255,.9); --zebra:#f5f8fd; --hover:#e3edff;
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
-    background:radial-gradient(1200px 700px at 20% -10%,#15224d 0%,var(--bg1) 40%,var(--bg0) 100%);
+    background:radial-gradient(1200px 700px at 20% -10%,#dde6f7 0%,var(--bg1) 40%,var(--bg0) 100%);
     color:var(--txt);min-height:100vh;padding:16px 10px 60px}
   h1{font-size:21px;margin:0 0 3px;letter-spacing:1px}
   h1 span{background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -23,12 +23,12 @@
   .kpi .v{font-size:20px;font-weight:700}
   .kpi .l{color:var(--sub);font-size:10.5px;margin-top:3px}
   .cyan{color:var(--cyan)} .purple{color:var(--purple)} .gold{color:var(--gold)} .green{color:var(--green)} .red{color:var(--red)}
-  .panel{background:var(--glass);border:1px solid var(--line);border-radius:15px;padding:10px 12px;margin-bottom:14px;backdrop-filter:blur(8px)}
+  .panel{background:var(--glass);border:1px solid var(--line);border-radius:15px;padding:10px 12px;margin-bottom:14px;box-shadow:0 1px 3px rgba(20,40,90,.06)}
   .panel h2{font-size:11px;margin:0 0 7px;color:var(--cyan);letter-spacing:.5px}
   .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:13px}
 
   .controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;align-items:center}
-  input,select,button{background:#0c1430;border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:6px 9px;font-size:11.5px;outline:none}
+  input,select,button{background:#ffffff;border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:6px 9px;font-size:11.5px;outline:none}
   input:focus,select:focus{border-color:var(--cyan)}
   input{width:210px}
   button{cursor:pointer;background:rgba(57,230,255,.12)}
@@ -48,12 +48,12 @@
 
   .tbl-wrap{max-height:660px;overflow:auto;border-radius:11px;border:1px solid var(--line);background:var(--bg2)}
   table{border-collapse:separate;border-spacing:0;font-size:10px;width:100%;table-layout:fixed}
-  thead th{position:sticky;background:var(--bg2);color:var(--cyan);font-weight:600;z-index:4;
+  thead th{position:sticky;background:#eef3fb;color:#243b66;font-weight:700;z-index:4;
            border-bottom:1px solid var(--line);white-space:normal;line-height:1.15;padding:4px 4px;text-align:left;font-size:9.5px}
   thead tr.grp th{top:0;height:21px;font-size:10px;letter-spacing:.5px;color:var(--grp);
-                 background:linear-gradient(180deg,#10204a,#0b1228);border-bottom:1px solid rgba(57,230,255,.25)}
+                 background:linear-gradient(180deg,#dbe6fb,#eef3fb);border-bottom:1px solid rgba(10,108,255,.25)}
   thead tr.col th{top:21px;height:22px;cursor:pointer;user-select:none;padding-right:14px}
-  thead tr.col th:hover{color:#fff;background:#16264f}
+  thead tr.col th:hover{color:var(--cyan);background:#dbe6fb}
   /* 列头里的隐藏小按钮 */
   .hide-col{position:absolute;right:2px;top:50%;transform:translateY(-50%);width:14px;height:14px;line-height:14px;text-align:center;
             border-radius:3px;font-size:11px;color:var(--sub);opacity:0;pointer-events:auto;cursor:pointer}
@@ -65,16 +65,21 @@
   .f1,.f2{position:sticky;z-index:5}
   .f1{left:0;background:var(--bg2)}
   .f2{left:58px;background:var(--bg2)}
-  thead .f1,thead .f2{background:#0b1228;z-index:6}
-  tbody td{padding:3px 5px;border-bottom:1px solid rgba(120,160,255,.07);white-space:nowrap;color:var(--txt);overflow:hidden;text-overflow:ellipsis}
-  tbody tr:hover td{background:rgba(120,160,255,.09)}
-  tbody tr:hover .f1,tbody tr:hover .f2{background:#15224d}
+  thead .f1,thead .f2{background:#eef3fb;z-index:6}
+  tbody td{padding:3px 5px;border-bottom:1px solid rgba(30,55,110,.06);white-space:nowrap;color:var(--txt);overflow:hidden;text-overflow:ellipsis}
+  tbody tr:nth-child(even) td{background:var(--zebra)}
+  tbody tr:nth-child(even) td.f1,tbody tr:nth-child(even) td.f2{background:var(--zebra)}
+  tbody tr:hover td{background:var(--hover)}
+  tbody tr:hover .f1,tbody tr:hover .f2{background:var(--hover)}
   td.num{text-align:right;font-variant-numeric:tabular-nums}
   .pill{display:inline-block;padding:1px 7px;border-radius:20px;font-size:10px}
-  .p-ret{background:rgba(255,107,138,.16);color:var(--red)}
-  .p-act{background:rgba(62,230,160,.16);color:var(--green)}
+  .p-ret{background:rgba(214,51,108,.12);color:#c01e54}
+  .p-act{background:rgba(10,143,74,.12);color:#0a8f4a}
   .rate{color:var(--sub);font-size:10.5px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .grpsep{border-left:2px solid rgba(57,230,255,.35)}
+  .grpsep{border-left:2px solid rgba(10,108,255,.4)}
+  .s-red{color:var(--red);font-weight:600}
+  .s-green{color:var(--green);font-weight:600}
+  .s-gold{color:var(--gold);font-weight:600}
   .note{color:var(--sub);font-size:9.5px;margin-top:7px;line-height:1.55}
   svg text{fill:var(--sub);font-size:10px}
 </style>
@@ -123,7 +128,7 @@
       <tbody></tbody>
     </table>
   </div>
-  <div class="note">说明：数据来源于东方财富数据中心公开接口，为网络收录整理，<b>非投资建议</b>；价格与状态以收录时点为准，实时请以行情终端核对。<b>「退市回收价」= 强制赎回执行价（约 100 元 + 当期利息）。「强赎触发价 / 回售触发价」为按 转股价 ×130% / ×70% 的估算值（标准条款，个别券条款比例不同，实际以募集书为准）</b>。<b>「存续年限」= 退市日 − 上市日</b>；早期 1992–2006 年老转债未纳入。<br><b>操作提示</b>：鼠标移到任意列头上会出现右侧小「−」，点它隐藏该列；隐藏列会显示在上方“已隐藏列”里，点列名可恢复；也可点「列设置」批量勾选。代码/名称两列若都在最左侧，会自动冻结，横向滚动不丢失。</div>
+  <div class="note">说明：数据来源于东方财富数据中心公开接口，为网络收录整理，<b>非投资建议</b>；价格与状态以收录时点为准，实时请以行情终端核对。<b>「退市回收价」= 强制赎回执行价（约 100 元 + 当期利息）。「强赎触发价 / 回售触发价」为按 转股价 ×130% / ×70% 的估算值（标准条款，个别券条款比例不同，实际以募集书为准）</b>。<b>「存续年限」= 退市日 − 上市日</b>；早期 1992–2006 年老转债未纳入。<br><b>操作提示</b>：鼠标移到任意列头上会出现右侧小「−」，点它隐藏该列；隐藏列会显示在上方“已隐藏列”里，点列名可恢复；也可点「列设置」批量勾选。代码/名称两列若都在最左侧，会自动冻结，横向滚动不丢失。<br><b>颜色图例</b>：<span class="s-red">红＝强赎中/强赎退市（退出信号）</span> · <span class="s-green">绿＝存续/未触发</span> · <span class="s-gold">金＝到期/其他</span>；行底色深浅交替便于横向读行。</div>
 </div>
 
 <script>
@@ -136,7 +141,7 @@ document.getElementById('s-ret').textContent = STATS.retired;
 const LABELS = {
   code:'代码', name:'转债简称', mkt:'市场', rating:'评级', industry:'行业',
   stkcode:'正股代码', stkname:'正股名称',
-  price:'初始转股价', cvtprice:'当前转股价', rtrig:'强赎触发价', strig:'回售触发价', retprice:'退市回收价',
+  price:'债现价', cvtprice:'当前转股价', rtrig:'强赎触发价', strig:'回售触发价', retprice:'退市回收价',
   rstatus:'强赎状态', risredeem:'是否强赎', rprice:'强赎价', rdays:'强赎进度',
   value:'起息日', list:'上市日', delist:'退市日', cease:'停止交易日', expire:'到期日', term:'实际期限', cterm:'合同期限', life:'存续年限', ryear:'退市年份',
   adj:'下修次数', adjdate:'最近下修生效日',
@@ -261,6 +266,11 @@ function render(){
       if(isGroupStart(k,i)) cls.push('grpsep');
       if(k==='rate') cls.push('rate');
       if(k==='name') v = v + ' ' + pill;
+      // 状态列条件着色：强赎=红，未触发=绿，到期/其他=金
+      if(k==='risredeem'||k==='rstatus'){
+        const sc = v.indexOf('强赎')>=0?'s-red':(v.indexOf('否')>=0?'s-green':(v.indexOf('到期')>=0?'s-gold':''));
+        if(sc) v = `<span class="${sc}">${v}</span>`;
+      }
       tds+=`<td class="${cls.join(' ')}" title="${String(r[k]).replace(/"/g,'&quot;')}">${v}</td>`;
     });
     tb.insertAdjacentHTML('beforeend',`<tr>${tds}</tr>`);
