@@ -280,8 +280,14 @@ input[type=range]{width:100%;accent-color:var(--accent)}
  .nav{display:none}
 }
 </style>
+<style>
+.back-home{position:fixed;top:12px;right:12px;z-index:9999;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;padding:7px 16px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;transition:transform .2s}
+.back-home:hover{transform:translateX(-2px)}
+</style>
 </head>
 <body>
+<a class="back-home" href="./index.html">← 返回主页</a>
+
 <div class="wrap">
 
 <div class="hd">
@@ -310,8 +316,8 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   <div class="cards">
     <div class="card">
       <div class="k">当前最厚贴水</div>
-      <div class="v v-up">6.78%</div>
-      <div class="d">IM2703（中证1000 · 2027年3月）年化<br>持有到期单手可收 <b>62,685 元</b></div>
+      <div class="v v-up">34.43%</div>
+      <div class="d">IC2608（中证500 · 2026年8月）年化<br>持有到期单手可收 <b>15,150 元</b></div>
     </div>
     <div class="card">
       <div class="k">一手 IM 名义市值</div>
@@ -379,7 +385,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <span><i style="background:#5a9bd4"></i>IH 上证50</span>
       <span style="margin-left:auto;color:var(--ink3)">柱长 = <b>年化贴水率绝对值</b>（满格 10%）· 红色斜纹 = 升水（亏）· 合约原色 = 贴水（赚）</span>
     </div>
-    <div class="data-stamp">数据截至 <b>2026-08-07</b> 结算价 · 每个交易日 16:00 自动更新</div>
+    <div class="data-stamp">数据截至 <b>2026-08-11</b> 结算价 · 每个交易日 16:00 自动更新</div>
     <div class="bars" id="bars"></div>
     <div class="bars-scale"><span>0%</span><span>5%</span><span>10%</span></div>
     <div class="bars-note">
@@ -989,20 +995,20 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 </section>
 
 <div class="ft">
-  <b>风险提示：</b>股指期货属高杠杆衍生品。① 保证金不足会被强制平仓，损失可能超过初始保证金；② 贴水非固定收益，2023年 IC 全年仅 186 点，2026年1月一度转升水；③ 吃到 8% 贴水但指数跌 20%，净亏 12% —— <b>贴水只能减亏，不能防跌</b>；④ 远月合约流动性稀薄，极端行情可能无法按理想价格移仓；⑤ 交易所可临时上调保证金率、限制开仓（2015年有先例）；⑥ 本页数据基于 2026-08-07 结算价，基差每日变动，实盘前必须重新核算。<br><br>
+  <b>风险提示：</b>股指期货属高杠杆衍生品。① 保证金不足会被强制平仓，损失可能超过初始保证金；② 贴水非固定收益，2023年 IC 全年仅 186 点，2026年1月一度转升水；③ 吃到 8% 贴水但指数跌 20%，净亏 12% —— <b>贴水只能减亏，不能防跌</b>；④ 远月合约流动性稀薄，极端行情可能无法按理想价格移仓；⑤ 交易所可临时上调保证金率、限制开仓（2015年有先例）；⑥ 本页数据基于 2026-08-11 结算价，基差每日变动，实盘前必须重新核算。<br><br>
   <b>以上为数据整理，不构成投资建议，决策请自行判断。</b>
 </div>
 
 </div>
 
 <script>
-const SPOT={IF:4651.31,IC:7829.36,IM:7530.43,IH:2920.14};
+const SPOT={IF:4702.02,IC:8030.95,IM:7733.90,IH:2967.73};
 const MULT={IM:200,IC:200,IF:300,IH:300};
 const NAME={IM:"IM 中证1000",IC:"IC 中证500",IF:"IF 沪深300",IH:"IH 上证50"};
 const COLOR={IM:"#c0392b",IC:"#d9742b",IF:"#1b4f8f",IH:"#5a9bd4"};
-const DAYS={"2608":14,"2609":42,"2612":133,"2703":224};
+const DAYS={"2608":10,"2609":38,"2612":129,"2703":220};
 const EXPD={"2608":"2026-08-21","2609":"2026-09-18","2612":"2026-12-18","2703":"2027-03-19"};
-const FUT={ IF:{"2608":4674.2,"2609":4645.6,"2612":4565.6,"2703":4493.0}, IC:{"2608":7936.2,"2609":7877.8,"2612":7715.6,"2703":7558.0}, IM:{"2608":7655.6,"2609":7590.6,"2612":7400.0,"2703":7217.0}, IH:{"2608":2948.4,"2609":2930.0,"2612":2887.0,"2703":2859.6}
+const FUT={ IF:{"2608":4675.2,"2609":4644.6,"2612":4565.2,"2703":4489.0}, IC:{"2608":7955.2,"2609":7881.4,"2612":7707.6,"2703":7539.2}, IM:{"2608":7682.8,"2609":7607.2,"2612":7413.2,"2703":7220.0}, IH:{"2608":2956.0,"2609":2936.0,"2612":2893.2,"2703":2865.8}
 };
 const MR=0.15;
 
