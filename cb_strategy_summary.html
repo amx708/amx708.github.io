@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>可转债策略全景汇总</title>
+<style>
+  :root {
+    --bg:#0a0e1a; --card:rgba(20,28,48,.72); --line:rgba(120,160,255,.18);
+    --cyan:#22d3ee; --green:#34d399; --yellow:#fbbf24; --red:#f87171;
+    --blue:#60a5fa; --purple:#a78bfa; --text:#e2e8f0; --muted:#94a3b8;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:radial-gradient(1200px 600px at 80% -10%,rgba(34,211,238,.08),transparent),var(--bg);
+    color:var(--text); font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;
+    line-height:1.6; padding-bottom:60px; }
+  .topbar { position:sticky; top:0; z-index:50; backdrop-filter:blur(12px);
+    background:rgba(10,14,26,.85); border-bottom:1px solid var(--line);
+    display:flex; align-items:center; gap:16px; padding:12px 20px; flex-wrap:wrap; }
+  .brand { font-size:18px; font-weight:700; letter-spacing:.5px; color:#a5f3fc; }
+  .brand small { color:var(--muted); font-weight:400; font-size:12px; margin-left:8px; }
+  .wrap { max-width:1180px; margin:22px auto 0; padding:0 18px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:22px; margin-bottom:18px; backdrop-filter:blur(8px); box-shadow:0 8px 30px rgba(0,0,0,.35); }
+  .card h2 { font-size:18px; margin-bottom:6px; display:flex; align-items:center; gap:9px; }
+  .dot { width:9px; height:9px; border-radius:50%; background:var(--cyan); box-shadow:0 0 10px var(--cyan); }
+  .desc { color:var(--muted); font-size:13px; margin-bottom:14px; }
+  /* 结论条 */
+  .verdict { padding:14px 18px; border-radius:12px; font-size:14px; line-height:1.8;
+    background:linear-gradient(90deg,rgba(34,211,238,.12),rgba(167,139,250,.1));
+    border:1px solid rgba(34,211,238,.3); color:#cdeffb; }
+  .verdict b { color:#a5f3fc; }
+  /* KPI */
+  .kpi { display:flex; gap:12px; flex-wrap:wrap; margin:14px 0 4px; }
+  .kpi .b { flex:1; min-width:120px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+    border-radius:12px; padding:14px; text-align:center; }
+  .kpi .n { font-size:26px; font-weight:700; color:#a5f3fc; }
+  .kpi .l { font-size:12px; color:var(--muted); }
+  /* 过滤条 */
+  .bar { position:sticky; top:56px; z-index:40; display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    background:rgba(10,14,26,.8); backdrop-filter:blur(10px); padding:12px 0; margin-bottom:6px; }
+  nav { display:flex; gap:7px; flex-wrap:wrap; }
+  nav button { background:rgba(255,255,255,.05); border:1px; border:1px solid var(--line); color:var(--muted);
+    padding:6px 14px; border-radius:20px; cursor:pointer; font-size:13px; transition:.2s; }
+  nav button:hover { color:var(--text); border-color:var(--cyan); }
+  nav button.on { background:rgba(34,211,238,.16); color:#a5f3fc; border-color:var(--cyan);
+    box-shadow:0 0 12px rgba(34,211,238,.3); }
+  .rig { margin-left:auto; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  select, input { background:rgba(255,255,255,.05); border:1px solid var(--line); color:var(--text);
+    border-radius:10px; padding:7px 11px; font-size:13px; outline:none; }
+  input::placeholder { color:var(--muted); }
+  /* 策略网格 */
+  #grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  .strat { background:rgba(255,255,255,.035); border:1px solid var(--line); border-radius:14px;
+    padding:16px 17px; position:relative; overflow:hidden; transition:.2s; }
+  .strat:hover { border-color:var(--cyan); box-shadow:0 0 18px rgba(34,211,238,.18); transform:translateY(-2px); }
+  .strat .hd { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+  .strat .nm { font-size:15.5px; font-weight:700; color:var(--text); }
+  .tag { font-size:11px; padding:3px 9px; border-radius:20px; font-weight:600; white-space:nowrap; }
+  .t-cat { background:rgba(96,165,250,.15); color:var(--blue); border:1px solid rgba(96,165,250,.35); }
+  .r-低 { background:rgba(52,211,153,.15); color:var(--green); border:1px solid rgba(52,211,153,.35); }
+  .r-中 { background:rgba(251,191,36,.15); color:var(--yellow); border:1px solid rgba(251,191,36,.35); }
+  .r-高 { background:rgba(248,113,113,.15); color:var(--red); border:1px solid rgba(248,113,113,.35); }
+  .strat .logic { font-size:13px; color:#cbd5e1; margin-bottom:10px; }
+  .strat dl { display:grid; grid-template-columns:auto 1fr; gap:4px 10px; font-size:12.5px; }
+  .strat dt { color:var(--cyan); font-weight:600; white-space:nowrap; }
+  .strat dd { color:var(--muted); }
+  .strat dd b { color:#e2e8f0; font-weight:600; }
+  /* 表格 */
+  table { width:100%; border-collapse:collapse; font-size:13px; margin-top:6px; }
+  th,td { padding:9px 10px; text-align:left; border-bottom:1px solid rgba(255,255,255,.07); vertical-align:top; }
+  th { color:var(--cyan); font-weight:600; font-size:12.5px; background:rgba(34,211,238,.05); }
+  td b { color:#e2e8f0; }
+  .hl { color:var(--yellow); font-weight:600; }
+  /* 折叠 */
+  details { margin-top:6px; }
+  summary { cursor:pointer; color:var(--cyan); font-size:13px; padding:6px 0; user-select:none; }
+  summary:hover { text-decoration:underline dotted; }
+  footer { text-align:center; color:var(--muted); font-size:12px; margin-top:30px; line-height:1.9;
+    border-top:1px solid var(--line); padding-top:18px; }
+  .src { color:#64748b; }
+  @media(max-width:780px){ #grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">可转债策略全景汇总<small>防御 · 平衡 · 进攻 · 条款博弈 · 打新 · 组合 · 特殊</small></div>
+</div>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2><span class="dot"></span>核心结论（先看这个）</h2>
+    <div class="verdict">
+      可转债策略的本质，是围绕 <b>「债底保护 · 股性弹性 · 条款博弈」</b> 三维做组合。所有策略都可按风险偏好归位：<br>
+      · <b>守</b>：靠债底和到期收益求「不亏」（低价 / YTM / 回售 / 到期兑付 / 大盘底仓）；<br>
+      · <b>衡</b>：用「双低 / 三低」在价格与溢价率之间找攻守平衡点，最适散户长期摊大饼；<br>
+      · <b>攻</b>：吃股性与条款脉冲（低溢价 / 折价套利 / 强赎末日 / 题材动量）；<br>
+      · <b>事</b>：博弈下修、强赎、回售、到期的事件收益；<br>
+      · <b>新</b>：一级市场打新与配债，近乎无风险但收益薄；<br>
+      · <b>术</b>：摊大饼、分批建仓、网格、哑铃、指数化等执行方法。<br>
+      没有「最好」的策略，只有「与当前行情和自身风险承受力最匹配」的策略——下表按维度拆解，可点分类标签或搜索筛选。
+    </div>
+    <div class="kpi" id="kpi"></div>
+  </div>
+
+  <div class="bar">
+    <nav id="nav"></nav>
+    <div class="rig">
+      <select id="riskSel">
+        <option value="all">全部风险</option>
+        <option value="低">低风险</option>
+        <option value="中">中风险</option>
+        <option value="高">高风险</option>
+      </select>
+      <input id="search" placeholder="搜索策略 / 关键词…" size="18">
+    </div>
+  </div>
+
+  <div id="grid"></div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--purple);box-shadow:0 0 10px var(--purple)"></span>关键指标速查表</h2>
+    <div class="desc">所有策略都建立在以下指标之上，先搞懂这些再看策略。</div>
+    <table>
+      <thead><tr><th>指标</th><th>含义</th><th>策略用法 / 阈值参考</th></tr></thead>
+      <tbody>
+        <tr><td><b>转债价格</b></td><td>市场交易价（面值100）</td><td>&lt;100 债底区；100~115 安全区；&gt;130 偏贵、临近强赎</td></tr>
+        <tr><td><b>转股溢价率</b></td><td>(转债价÷转股价值−1)×100%</td><td>&lt;0 折价套利；&lt;10% 强股性；20%~30% 平衡；&gt;30% 偏债</td></tr>
+        <tr><td><b>双低值</b></td><td>价格 + 转股溢价率×100</td><td>越低越优，经典阈值 &lt;120~130 优选（需剔除高价/低评级）</td></tr>
+        <tr><td><b>纯债价值</b></td><td>仅当债券时的理论估值</td><td>价格 &lt; 纯债价值 = 有债底保护，下跌有限</td></tr>
+        <tr><td><b>到期收益率 YTM</b></td><td>持有到期年化收益</td><td>&gt;0 为正收益（纯债替代）；越高越防守</td></tr>
+        <tr><td><b>余额 / 规模</b></td><td>未转股金额（亿元）</td><td>&lt;3亿 易被炒作；&gt;20亿 稳健流动性好</td></tr>
+        <tr><td><b>强赎天计数</b></td><td>已满足强赎天数 / 阈值</td><td>接近阈值警惕「杀溢价」；触发后须及时卖出</td></tr>
+        <tr><td><b>回售触发价</b></td><td>触发回售的股价线</td><td>价格 &lt; 回售触发价 且进回售期 → 博弈回售</td></tr>
+        <tr><td><b>下修触发价</b></td><td>触发下修的股价线</td><td>价格 &lt; 下修触发价 → 观察是否下修（破净 PB&lt;1 难下修）</td></tr>
+        <tr><td><b>PB（市净率）</b></td><td>股价 ÷ 每股净资产</td><td>&lt;1 破净，受「转股价≥净资产」限制难下修到底</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background:var(--yellow);box-shadow:0 0 10px var(--yellow)"></span>行情环境 → 策略映射</h2>
+    <div class="desc">不知道用什么策略时，先判断当下处于哪种行情。</div>
+    <table>
+      <thead><tr><th>行情环境</th><th>推荐策略（由守到攻）</th></tr></thead>
+      <tbody>
+        <tr><td><b>熊市 / 历史底部</b></td><td>低价债 · YTM · 回售博弈 · 分批建仓线 · 三低 · 大盘国企底仓</td></tr>
+        <tr><td><b>震荡市</b></td><td>双低轮动 · 摊大饼 · 网格交易 · 黄金象限 · 哑铃策略</td></tr>
+        <tr><td><b>牛市初期 / 反弹</b></td><td>黄金象限 · 双低 · 低溢价率 · 下修到底双击</td></tr>
+        <tr><td><b>牛市主升 / 题材热</b></td><td>低溢价率 · 正股动量题材 · 强赎末日轮（激进）</td></tr>
+        <tr><td><b>临近强赎</b></td><td>强赎前博弈（激进）/ 回避高价转债（稳健）</td></tr>
+        <tr><td><b>新债密集发行期</b></td><td>可转债打新 · 抢权配售（配债）</td></tr>
+        <tr><td><b>单边下跌 / 避险</b></td><td>哑铃防守端 · YTM · 等到期兑付 · 指数化（ETF）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <div class="src">方法框架与指标口径整理自：网络收集整理（多源公开资料交叉汇总，已脱敏处理）。</div>
+    <div>⚠️ 风险提示：以上仅为策略方法论汇总，所有策略均存在本金亏损风险（含违约、强赎杀溢价、流动性、监管等）。</div>
+    <div>历史表现不代表未来收益，内容不构成任何投资建议。投资需结合自身风险承受能力，独立判断、自负盈亏。</div>
+  </footer>
+
+</div>
+
+<script>
+const CATS = [
+  {k:'all',n:'全部'},{k:'防御',n:'防御型'},{k:'平衡',n:'平衡型'},{k:'进攻',n:'进攻型'},
+  {k:'条款',n:'条款博弈'},{k:'打新',n:'打新型'},{k:'组合',n:'组合技术'},{k:'特殊',n:'特殊/高风险'}
+];
+
+const STRATS = [
+  // ===== 防御型 =====
+  {cat:'防御',risk:'低',name:'低价债策略',logic:'买入价格低于或接近面值（<100）的转债，依靠债底与到期兑付兜底，下跌空间有限，等下修/强赎/到期兑现。',
+    metrics:['转债价格','纯债价值','YTM','信用评级'],signal:'价格<100 且评级稳健；优先选有下修/到期预期的标的',market:'熊市、底部区域、求「不亏」',risk_note:'低评级违约、下修不及预期、时间成本高'},
+  {cat:'防御',risk:'低',name:'到期收益率(YTM)策略',logic:'选 YTM 最高的转债当作高息债持有到期，吃票息+到期赎回价，本质是「纯债替代」。',
+    metrics:['YTM','剩余期限','到期赎回价','评级'],signal:'YTM > 同期限国债+信用利差，且评级可靠',market:'利率下行、债市慢牛',risk_note:'违约、流动性差、机会成本'},
+  {cat:'防御',risk:'中',name:'回售博弈',logic:'临近回售期且价格低于回售价时，博弈公司通过下修或拉正股避免回售，或直接回售拿钱离场。',
+    metrics:['回售触发价','回售起始日','当前价 vs 回售价'],signal:'价格<回售价 且进入回售前窗口',market:'震荡偏弱、临近回售期',risk_note:'公司不行动、正股续跌'},
+  {cat:'防御',risk:'低',name:'到期兑付博弈',logic:'临近到期（剩<1年）且价格低于到期赎回价，买入吃确定性兑付收益，近乎「固定收益」。',
+    metrics:['到期赎回价','剩余年限','价格'],signal:'价格<到期价 且剩余<1年、评级可靠',market:'临近到期、避险',risk_note:'低评级违约、兑付延迟'},
+  {cat:'防御',risk:'低',name:'大盘/国企底仓',logic:'以大市值、国企、高评级（AA+以上）转债作底仓，流动性好、违约概率低，牺牲弹性换稳健。',
+    metrics:['余额','评级','主体性质','价格'],signal:'选高评级、大体量、价格合理的作基础仓位',market:'任何行情（底仓）',risk_note:'收益平庸、弹性不足'},
+
+  // ===== 平衡型 =====
+  {cat:'平衡',risk:'中',name:'双低策略（经典）',logic:'双低值 = 价格 + 转股溢价率×100，选数值最小的摊大饼，攻守兼备，是可转债最经典流派。',
+    metrics:['双低值','价格','转股溢价率'],signal:'双低值<120~130；剔除高价/低评级/临近强赎',market:'震荡市、结构性行情',risk_note:'均值回归慢、踩雷、强赎'},
+  {cat:'平衡',risk:'中',name:'双低轮动',logic:'在双低基础上定期（月/季）调仓，卖出涨出的、买入新低的，吃轮动与均值回归收益。',
+    metrics:['双低值','调仓频率','持仓数'],signal:'调仓日重算排名，换入前 N 名',market:'震荡、板块轮动',risk_note:'交易成本、踏错节奏'},
+  {cat:'平衡',risk:'中',name:'三低策略',logic:'低价 + 低溢价 + 低余额（规模小），小盘更易被资金关注和炒作，弹性与赔率更好。',
+    metrics:['价格','溢价率','余额(亿)'],signal:'三低且余额<3亿',market:'震荡偏强、主题活跃',risk_note:'流动性、妖债波动、监管'},
+  {cat:'平衡',risk:'中',name:'三低一高',logic:'在三低基础上叠加「高 YTM（到期收益为正）」，三重保护：跌有债底、涨有弹性、持有有息。',
+    metrics:['价格低','溢价低','余额低','YTM高'],signal:'同时满足四条件，稀缺时优先',market:'底部布局',risk_note:'四条件同时满足较稀缺'},
+  {cat:'平衡',risk:'中',name:'黄金象限',logic:'价格<115 且 溢价率<20% 的优质区，进可攻（跟正股）退可守（债底），是性价比最高的「甜点区」。',
+    metrics:['价格','转股溢价率'],signal:'价格<115 且 溢价率<20%',market:'牛市初期、反弹',risk_note:'标的稀缺、易快速变贵'},
+
+  // ===== 进攻型 =====
+  {cat:'进攻',risk:'中',name:'低溢价率策略',logic:'选转股溢价率极低（<5%~10%）的转债，股性最强，几乎「类正股」跟随上涨，吃弹性。',
+    metrics:['溢价率','价格','正股动量'],signal:'溢价率低 + 正股走强',market:'牛市、题材行情',risk_note:'正股下跌跟跌、强赎杀溢价'},
+  {cat:'进攻',risk:'高',name:'折价转股套利',logic:'溢价率为负时，买入转债转股后卖出（或持有正股对冲），赚确定折价；属短线与机构的「搬砖」。',
+    metrics:['转股溢价率(负)','转股价值','T+1约束'],signal:'溢价率<-1% 且正股次日不跌',market:'溢价率为负的个券窗口',risk_note:'T+1 正股波动、流动性、强赎'},
+  {cat:'进攻',risk:'高',name:'强赎末日轮',logic:'临近强赎倒计时，博弈最后交易日前因「强赎预期+资金涌入」的脉冲行情，极致短线。',
+    metrics:['强赎天计数','公告','溢价率'],signal:'强赎触发在即、溢价率已收敛',market:'强赎公告前后',risk_note:'极高波动、杀溢价、末日归零'},
+  {cat:'进攻',risk:'高',name:'正股动量/题材',logic:'跟随强势正股或热点题材的转债，借转债「T+0+无涨跌幅限制」特性吃弹性与情绪。',
+    metrics:['正股涨幅','题材强度','余额'],signal:'正股突破 + 题材催化',market:'牛市、题材炒作',risk_note:'题材退潮、追高被套'},
+
+  // ===== 条款博弈 =====
+  {cat:'条款',risk:'中',name:'下修博弈',logic:'预期公司下修转股价（促转股），下修后溢价率下降、转债价值重估，提前埋伏赚重估收益。',
+    metrics:['下修触发价','PB','大股东持有比','剩余年限'],signal:'高PB + 临近回售/到期 + 促转股诉求强 → 下修概率高',market:'熊市后期、促转股诉求强',risk_note:'不下修、下修不到底、时间成本'},
+  {cat:'条款',risk:'中',name:'下修到底双击',logic:'下修到底后溢价率骤降，转债从「偏债」变「类正股」，正股上涨时弹性倍增，是下修后的主升段。',
+    metrics:['下修幅度','新溢价率','正股趋势'],signal:'下修到底 + 正股转强',market:'下修落地后',risk_note:'下修幅度不及预期'},
+  {cat:'条款',risk:'中',name:'强赎前博弈',logic:'强赎触发前持有低价转债，博弈正股被拉至强赎价「抬轿」，触发前后及时卖出避免被低价强赎。',
+    metrics:['强赎天计数','价格','溢价率'],signal:'满足天数接近阈值、价格未过热',market:'接近强赎阈值',risk_note:'未触发回落、强赎后杀溢价'},
+  {cat:'条款',risk:'低',name:'赎回/到期事件博弈',logic:'针对「到期赎回价显著高于市价」或「赎回条款」的确定性事件，买入吃条款价差，偏防守。',
+    metrics:['到期赎回价','剩余年限','价格'],signal:'价格 vs 赎回价存在确定价差',market:'临近到期/赎回',risk_note:'违约、时间占用'},
+
+  // ===== 打新型 =====
+  {cat:'打新',risk:'低',name:'可转债打新',logic:'申购新发行转债，上市首日卖出，历史破发少、近乎无风险，是散户最易参与的「羊毛」。',
+    metrics:['中签率','评级','正股质地','转股价值'],signal:'顶格申购 → 上市首日卖',market:'任何行情（新债发行期）',risk_note:'熊市破发、资金占用'},
+  {cat:'打新',risk:'中',name:'抢权配售（配债）',logic:'为获配转债而提前买入正股（含权埋伏），赚「配债收益 + 正股」双重收益，需算安全垫。',
+    metrics:['百元含权','安全垫','股权登记日'],signal:'百元含权高、安全垫厚（>配债风险）',market:'新债发行前',risk_note:'正股下跌吞噬、除权回落'},
+  {cat:'打新',risk:'中',name:'股东优先配售',logic:'原股东按比例优先配售，计算配售比例后埋伏或参与，本质与抢权配售同源，偏套利。',
+    metrics:['配售比例','含权','正股波动'],signal:'高配售比 + 正股稳健',market:'股权登记日前',risk_note:'正股波动、套利空间薄'},
+
+  // ===== 组合技术 =====
+  {cat:'组合',risk:'低',name:'摊大饼',logic:'等权分散持有 20~30 只低价/双低转债，个股风险被摊薄，靠组合均值回归与轮动获利。',
+    metrics:['持仓数','等权','分散度'],signal:'低价/双低池中等权买入并再平衡',market:'长期、震荡',risk_note:'收益平庸、需资金体量'},
+  {cat:'组合',risk:'中',name:'分批建仓线（三线）',logic:'设定建仓线、加仓线、重仓线（按价格或到期收益），越跌越买，纪律化抄底、平滑成本。',
+    metrics:['建仓价','加仓价','重仓价','YTM'],signal:'触及各线按纪律加仓，不一次性满仓',market:'下跌/底部',risk_note:'越跌越买需现金流、长熊套牢'},
+  {cat:'组合',risk:'中',name:'网格交易',logic:'在震荡区间内低买高卖自动赚差价，适合高波动、无明确趋势的转债，赚「波动的钱」。',
+    metrics:['震荡区间','网格间距','波动率'],signal:'区间内设多档挂单，突破区间暂停',market:'震荡、高波动',risk_note:'单边市亏损、强赎终止'},
+  {cat:'组合',risk:'中',name:'哑铃策略',logic:'一端配低价债底（防守），一端配低溢价弹性（进攻），兼顾两端，避免中段踏空或回撤。',
+    metrics:['防守端价格/YTM','进攻端溢价率'],signal:'两端按风险预算配比，定期再平衡',market:'不确定、过渡期',risk_note:'中间段可能踏空'},
+  {cat:'组合',risk:'低',name:'指数化（ETF/基金）',logic:'买入可转债 ETF 或转债基金，不择券、不择时，赚市场 β，适合无暇研究或厌恶个券风险者。',
+    metrics:['费率','跟踪误差','持仓透明度'],signal:'定投或一次性买入持有',market:'任何行情（懒人/底仓）',risk_note:'费率、跟踪误差、均值回归弱'},
+
+  // ===== 特殊/高风险 =====
+  {cat:'特殊',risk:'高',name:'妖债/小盘炒作',logic:'余额极小（如<1亿）的转债被游资短期爆炒，暴涨暴跌，纯情绪博弈，与基本面无关。',
+    metrics:['余额','换手率','情绪热度'],signal:'极小余额 + 突然放量',market:'游资活跃、题材乱战',risk_note:'极高、监管打压、归零风险'},
+  {cat:'特殊',risk:'高',name:'转债+正股对冲（delta中性）',logic:'专业机构用正股/期权对冲转债持仓，剥离方向性风险，赚取波动率与定价偏差，门槛极高。',
+    metrics:['Delta','波动率','对冲成本'],signal:'机构化对冲套利，散户难复制',market:'机构对冲、做市',risk_note:'高门槛、模型与交易成本'}
+];
+
+// KPI
+const total = STRATS.length;
+const catN = new Set(STRATS.map(s=>s.cat)).size;
+const riskCnt = {低:0,中:0,高:0}; STRATS.forEach(s=>riskCnt[s.risk]++);
+document.getElementById('kpi').innerHTML = `
+  <div class="b"><div class="n">${total}</div><div class="l">策略总数</div></div>
+  <div class="b"><div class="n">${catN}</div><div class="l">策略大类</div></div>
+  <div class="b"><div class="n" style="color:var(--green)">${riskCnt['低']}</div><div class="l">低风险</div></div>
+  <div class="b"><div class="n" style="color:var(--yellow)">${riskCnt['中']}</div><div class="l">中风险</div></div>
+  <div class="b"><div class="n" style="color:var(--red)">${riskCnt['高']}</div><div class="l">高风险</div></div>`;
+
+// 导航
+const nav = document.getElementById('nav');
+CATS.forEach((c,i)=>{
+  const b = document.createElement('button');
+  b.textContent = c.n; if(i===0) b.className='on';
+  b.onclick = ()=>{ document.querySelectorAll('#nav button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); state.cat=c.k; render(); };
+  nav.appendChild(b);
+});
+
+const state = { cat:'all', risk:'all', q:'' };
+document.getElementById('riskSel').onchange = e=>{ state.risk=e.target.value; render(); };
+document.getElementById('search').oninput = e=>{ state.q=e.target.value.trim().toLowerCase(); render(); };
+
+function render(){
+  const grid = document.getElementById('grid');
+  const list = STRATS.filter(s=>{
+    if(state.cat!=='all' && s.cat!==state.cat) return false;
+    if(state.risk!=='all' && s.risk!==state.risk) return false;
+    if(state.q){
+      const hay = (s.name+s.logic+s.market+s.cat+s.metrics.join('')+s.risk_note).toLowerCase();
+      if(!hay.includes(state.q)) return false;
+    }
+    return true;
+  });
+  if(!list.length){ grid.innerHTML = '<div class="card" style="grid-column:1/-1;text-align:center;color:var(--muted)">未匹配到策略，试试其他关键词。</div>'; return; }
+  grid.innerHTML = list.map(s=>`
+    <div class="strat">
+      <div class="hd">
+        <span class="nm">${s.name}</span>
+        <span class="tag t-cat">${s.cat}</span>
+        <span class="tag r-${s.risk}">${s.risk}风险</span>
+      </div>
+      <div class="logic">${s.logic}</div>
+      <dl>
+        <dt>关键指标</dt><dd>${s.metrics.map(m=>'<b>'+m+'</b>').join('、')}</dd>
+        <dt>买卖信号</dt><dd>${s.signal}</dd>
+        <dt>适用行情</dt><dd>${s.market}</dd>
+        <dt>主要风险</dt><dd>${s.risk_note}</dd>
+      </dl>
+    </div>`).join('');
+}
+render();
+</script>
+</body>
+</html>
