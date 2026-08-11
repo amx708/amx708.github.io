@@ -81,13 +81,16 @@
   .s-green{color:var(--green);font-weight:600}
   .s-gold{color:var(--gold);font-weight:600}
   /* 价值标的：行底色浅金高亮 + 名称前彩色徽标，让价值债在宽表中一眼跳出 */
-  tbody tr.row-val td{background:#fff6e0}
-  tbody tr.row-val td.f1,tbody tr.row-val td.f2{background:#fff6e0}
-  tbody tr.row-val:hover td,tbody tr.row-val:hover td.f1,tbody tr.row-val:hover td.f2{background:#ffeec2}
+  tbody tr.row-val td{background:#fffaf3}
+  tbody tr.row-val td.f1,tbody tr.row-val td.f2{background:#fffaf3}
+  tbody tr.row-val:hover td,tbody tr.row-val:hover td.f1,tbody tr.row-val:hover td.f2{background:#fff5e6}
   .vbadge{display:inline-block;font-size:9px;line-height:1.4;padding:0 5px;border-radius:8px;margin-right:3px;font-weight:700;vertical-align:middle;white-space:nowrap}
   .v-break{background:#e6f4ea;color:#1e7e34}   /* 破面：现价<100，债底安全边际 */
   .v-dl{background:#fff3cd;color:#9a6b00}        /* 双低：双低值<120，双低策略优选 */
   .v-bottom{background:#e3f0ff;color:#0a6cff}    /* 债底：现价≤纯债价值×1.05 */
+  .v-ytm{background:#f3e8fd;color:#7c3aed}       /* 高YTM：回售收益率>2.5%，债底收益厚 */
+  .v-small{background:#e0f7f4;color:#0d9488}     /* 小盘：规模<3亿，博弈弹性 */
+  .v-adj{background:#ffeede;color:#c2410c}       /* 下修：下修次数>0，让利信号 */
   .note{color:var(--sub);font-size:9.5px;margin-top:7px;line-height:1.55}
   svg text{fill:var(--sub);font-size:10px}
 </style>
@@ -136,7 +139,7 @@
       <tbody></tbody>
     </table>
   </div>
-  <div class="note">说明：数据来源于东方财富数据中心公开接口，为网络收录整理，<b>非投资建议</b>；价格与状态以收录时点为准，实时请以行情终端核对。<b>「退市回收价」= 强制赎回执行价（约 100 元 + 当期利息）。「强赎触发价 / 回售触发价」为按 转股价 ×130% / ×70% 的估算值（标准条款，个别券条款比例不同，实际以募集书为准）</b>。<b>「存续年限」= 退市日 − 上市日</b>；早期 1992–2006 年老转债未纳入。<br><b>操作提示</b>：鼠标移到任意列头上会出现右侧小「−」，点它隐藏该列；隐藏列会显示在上方“已隐藏列”里，点列名可恢复；也可点「列设置」批量勾选。代码/名称两列若都在最左侧，会自动冻结，横向滚动不丢失。<br><b>颜色图例</b>：<span class="s-red">红＝强赎中/强赎退市（退出信号）</span> · <span class="s-green">绿＝存续/未触发</span> · <span class="s-gold">金＝到期/其他</span>；行底色深浅交替便于横向读行。<br><b>双低值</b> ≈ 债现价 + 强赎距离(%)，越低越像"双低"理想买点（债现价低 + 距强赎远）；正股现价缺失，转股溢价率用强赎距离反向近似，仅作排序参考。<br><b>价值标的高亮</b>：满足以下任一条件的转债，整行浅金底色高亮、名称前加彩色徽标 —— <span class="vbadge v-break">破面</span> 债现价＜100（到期还本底线，安全边际） · <span class="vbadge v-dl">双低</span> 双低值＜120（双低策略优选买点） · <span class="vbadge v-bottom">债底</span> 债现价≤纯债价值×1.05（下行有债底托底）。</div>
+  <div class="note">说明：数据来源于东方财富数据中心公开接口，为网络收录整理，<b>非投资建议</b>；价格与状态以收录时点为准，实时请以行情终端核对。<b>「退市回收价」= 强制赎回执行价（约 100 元 + 当期利息）。「强赎触发价 / 回售触发价」为按 转股价 ×130% / ×70% 的估算值（标准条款，个别券条款比例不同，实际以募集书为准）</b>。<b>「存续年限」= 退市日 − 上市日</b>；早期 1992–2006 年老转债未纳入。<br><b>操作提示</b>：鼠标移到任意列头上会出现右侧小「−」，点它隐藏该列；隐藏列会显示在上方“已隐藏列”里，点列名可恢复；也可点「列设置」批量勾选。代码/名称两列若都在最左侧，会自动冻结，横向滚动不丢失。<br><b>颜色图例</b>：<span class="s-red">红＝强赎中/强赎退市（退出信号）</span> · <span class="s-green">绿＝存续/未触发</span> · <span class="s-gold">金＝到期/其他</span>；行底色深浅交替便于横向读行。<br><b>双低值</b> ≈ 债现价 + 强赎距离(%)，越低越像"双低"理想买点（债现价低 + 距强赎远）；正股现价缺失，转股溢价率用强赎距离反向近似，仅作排序参考。<br><b>价值标的高亮</b>：满足以下任一条件的转债，整行浅金底色高亮、名称前加彩色徽标 —— <span class="vbadge v-break">破面</span> 债现价＜100（到期还本底线，安全边际） · <span class="vbadge v-dl">双低</span> 双低值＜120（双低策略优选买点） · <span class="vbadge v-bottom">债底</span> 债现价≤纯债价值×1.05（下行有债底托底） · <span class="vbadge v-ytm">高YTM</span> 回售收益率>2.5%（债底收益厚） · <span class="vbadge v-small">小盘</span> 规模<3亿（博弈弹性） · <span class="vbadge v-adj">下修</span> 下修次数>0（让利信号）。</div>
 </div>
 
 <script>
@@ -249,6 +252,13 @@ function valueInfo(r){
   if(!isNaN(p) && p<100) tags.push(['破面','v-break']);
   if(!isNaN(p) && !isNaN(d) && (p+d)<120) tags.push(['双低','v-dl']);
   if(!isNaN(p) && !isNaN(pv) && pv>0 && p<=pv*1.05) tags.push(['债底','v-bottom']);
+  // 新增价值信号
+  const ytm=parseFloat(String(r.retyield).replace(/[^0-9.\-]/g,''));
+  if(!isNaN(ytm) && ytm>2.5) tags.push(['高YTM','v-ytm']);
+  const sc=parseFloat(r.scale);
+  if(!isNaN(sc) && sc<3) tags.push(['小盘','v-small']);
+  const ad=parseFloat(r.adj);
+  if(!isNaN(ad) && ad>0) tags.push(['下修','v-adj']);
   return tags;
 }
 function render(){
