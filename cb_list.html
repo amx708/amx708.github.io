@@ -184,7 +184,7 @@ const GROUPS = [
 const COLW = {code:'58px', name:'82px'};
 
 let sortK='dbl_low', sortAsc=true;
-let visibleKeys = ALL_KEYS.slice();   // 默认显示全部列（约39列）；点「重点」按钮可切到19列重点视图
+let visibleKeys = KEY_KEYS.slice();   // 默认显示“重点”视图（约19列：⭐⭐⭐核心+⭐次要）；其余列折叠，点「显示全部」或「重点」按钮切换，隐藏列也可在隐藏条单独加回
 const mktSet=new Set(), ratSet=new Set(), ryearSet=new Set(), indSet=new Set();
 DATA.forEach(r=>{if(r.mkt)mktSet.add(r.mkt);if(r.rating)ratSet.add(r.rating);if(r.ryear)ryearSet.add(r.ryear);if(r.industry)indSet.add(r.industry);});
 const ms=document.getElementById('f-mkt'), rs=document.getElementById('f-rating'), ry=document.getElementById('f-ryear'), fi=document.getElementById('f-industry');
