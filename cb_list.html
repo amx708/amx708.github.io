@@ -332,6 +332,19 @@ function render(){
         const sc = v.indexOf('强赎')>=0?'s-red':(v.indexOf('否')>=0?'s-green':(v.indexOf('到期')>=0?'s-gold':''));
         if(sc) v = `<span class="${sc}">${v}</span>`;
       }
+      // 存续年限：数据源按 退市日−上市日，存续债退市日为空→补算"到期剩余年限"
+      if(k==='life'){
+        if(!v || v==='—'){
+          if(r.expire){
+            const e=new Date(r.expire), now=new Date();
+            if(!isNaN(e.getTime())){
+              const yrs=(e.getTime()-now.getTime())/(365.25*24*3600*1000);
+              if(yrs>0){ v=yrs.toFixed(2); raw='剩余 '+yrs.toFixed(2)+' 年（到期 '+r.expire+'）'; }
+              else { v='已到期'; raw='已到期'; }
+            } else { v='—'; }
+          } else { v='—'; }
+        }
+      }
       tds+=`<td class="${cls.join(' ')}" title="${String(raw).replace(/"/g,'&quot;')}">${v}</td>`;
     });
     tb.insertAdjacentHTML('beforeend',`<tr class="${rowCls}">${tds}</tr>`);
