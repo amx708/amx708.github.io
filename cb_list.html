@@ -124,6 +124,7 @@
     <select id="f-ryear"><option value="">全部退市年份</option></select>
     <select id="f-redeem"><option value="">全部强赎分类</option><option value="强赎退市">强赎退市</option><option value="强赎中">强赎中</option><option value="到期/其他">到期/其他</option><option value="否">否（在市未触发）</option></select>
     <select id="f-adj"><option value="">全部下修</option><option value="1">有下修</option><option value="0">无下修</option></select>
+    <button id="btn-key">重点</button>
     <button id="btn-colset">列设置</button>
     <span class="sub" id="count"></span>
   </div>
@@ -165,6 +166,8 @@ const LABELS = {
   pureval:'纯债价值', fhold:'基金持仓(前十大)', dbl_low:'双低值(近似)'
 };
 const ALL_KEYS = ['code','name','mkt','rating','industry','stkcode','stkname','price','zdf','chg','cvtprice','rtrig','strig','retprice','rstatus','risredeem','rprice','rdays','value','list','delist','cease','expire','term','cterm','life','ryear','adj','adjdate','yr','scale','rate','bsvalue','vol','retyield','rdist','pureval','fhold','dbl_low'];
+// 重点视图（默认）：核心信号 + 次要，约 19 列；其余列折叠，可点“显示全部”一键展开
+const KEY_KEYS = ['code','name','stkname','rating','industry','price','zdf','chg','cvtprice','retprice','risredeem','rdist','bsvalue','retyield','life','scale','fhold','adj','dbl_low'];
 const NUM_KEYS = new Set(['scale','yr','term','cterm','cvtprice','retprice','ryear','life','rtrig','strig','adj','price','rprice','rdays','dbl_low','zdf','chg']);
 const GROUPS = [
   {name:'基本', keys:['code','name','mkt','rating','industry']},
@@ -181,7 +184,7 @@ const GROUPS = [
 const COLW = {code:'58px', name:'82px'};
 
 let sortK='dbl_low', sortAsc=true;
-let visibleKeys = ALL_KEYS.slice();   // 默认显示全部列，与截图一致
+let visibleKeys = KEY_KEYS.slice();   // 默认显示“重点”视图（约19列），其余列折叠；点“显示全部”可一键展开
 const mktSet=new Set(), ratSet=new Set(), ryearSet=new Set(), indSet=new Set();
 DATA.forEach(r=>{if(r.mkt)mktSet.add(r.mkt);if(r.rating)ratSet.add(r.rating);if(r.ryear)ryearSet.add(r.ryear);if(r.industry)indSet.add(r.industry);});
 const ms=document.getElementById('f-mkt'), rs=document.getElementById('f-rating'), ry=document.getElementById('f-ryear'), fi=document.getElementById('f-industry');
@@ -344,6 +347,7 @@ document.getElementById('btn-colset').onclick=()=>{
   if(p.classList.contains('open')) renderColsetPanel();
 };
 document.getElementById('btn-showall').onclick=()=>{ visibleKeys=ALL_KEYS.slice(); render(); };
+document.getElementById('btn-key').onclick=()=>{ visibleKeys=KEY_KEYS.slice(); render(); };
 ['q','f-mkt','f-industry','f-rating','f-status','f-ryear','f-redeem','f-adj'].forEach(id=>document.getElementById(id).oninput=render);
 
 
