@@ -310,7 +310,7 @@ function render(){
       if(k==='rate') cls.push('rate');
       if(k==='name'){
         const badges = vi.map(t=>`<span class="vbadge ${t[1]}">${t[0]}</span>`).join(' ');
-        v = (badges?badges+' ':'') + v + ' ' + pill;
+        v = v + (badges?' '+badges:'') + ' ' + pill;
       }
       // 派生列：双低值 = 债现价 + 强赎距离(%)；负值越大越远离触发，越像"双低"
       if(k==='dbl_low'){
