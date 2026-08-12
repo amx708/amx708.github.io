@@ -52,16 +52,13 @@
            border-bottom:1px solid var(--line);white-space:normal;line-height:1.15;padding:4px 4px;text-align:left;font-size:9.5px}
   thead tr.grp th{top:0;height:21px;font-size:10px;letter-spacing:.5px;color:var(--grp);
                  background:linear-gradient(180deg,#dbe6fb,#eef3fb);border-bottom:1px solid rgba(10,108,255,.25)}
-  thead tr.col th{top:21px;height:22px;cursor:pointer;user-select:none;padding-right:14px;position:relative}
+  thead tr.col th{top:21px;height:22px;cursor:pointer;user-select:none;padding-right:14px}
   thead tr.col th:hover{color:var(--cyan);background:#dbe6fb}
   /* 列头里的隐藏小按钮 */
-  .hide-col{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:14px;height:14px;line-height:14px;text-align:center;
-            border-radius:3px;font-size:11px;color:var(--sub);opacity:0;pointer-events:auto;cursor:pointer;z-index:3}
+  .hide-col{position:absolute;right:2px;top:50%;transform:translateY(-50%);width:14px;height:14px;line-height:14px;text-align:center;
+            border-radius:3px;font-size:11px;color:var(--sub);opacity:0;pointer-events:auto;cursor:pointer}
   .col th:hover .hide-col{opacity:1}
   .hide-col:hover{color:#fff;background:rgba(255,107,138,.45)}
-  /* 列宽拖拽柄：置于每列右侧，拖动改 <col> 宽度并存 localStorage */
-  .rz{position:absolute;right:0;top:0;width:6px;height:100%;cursor:col-resize;z-index:2}
-  .rz:hover,.rz.drag{background:rgba(10,108,255,.3)}
   .sort-asc::after{content:' ▲';font-size:8px;color:var(--gold)}
   .sort-desc::after{content:' ▼';font-size:8px;color:var(--gold)}
   /* 冻结前两列 */
@@ -75,7 +72,7 @@
   tbody tr:hover td{background:var(--hover)}
   tbody tr:hover .f1,tbody tr:hover .f2{background:var(--hover)}
   td.num{text-align:right;font-variant-numeric:tabular-nums}
-  .pill{display:inline-block;padding:0 4px;border-radius:20px;font-size:10px}
+  .pill{display:inline-block;padding:1px 7px;border-radius:20px;font-size:10px}
   .p-ret{background:rgba(214,51,108,.12);color:#c01e54}
   .p-act{background:rgba(10,143,74,.12);color:#0a8f4a}
   .rate{color:var(--sub);font-size:10.5px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -91,7 +88,7 @@
   tbody tr.row-val td{background:#fffaf3}
   tbody tr.row-val td.f1,tbody tr.row-val td.f2{background:#fffaf3}
   tbody tr.row-val:hover td,tbody tr.row-val:hover td.f1,tbody tr.row-val:hover td.f2{background:#fff5e6}
-  .vbadge{display:inline-block;font-size:9px;line-height:1.4;padding:0 3px;border-radius:8px;margin-right:2px;font-weight:700;vertical-align:middle;white-space:nowrap}
+  .vbadge{display:inline-block;font-size:9px;line-height:1.4;padding:0 5px;border-radius:8px;margin-right:3px;font-weight:700;vertical-align:middle;white-space:nowrap}
   .v-break{background:#e6f4ea;color:#1e7e34}   /* 破面：现价<100，债底安全边际 */
   .v-dl{background:#fff3cd;color:#9a6b00}        /* 双低：双低值<120，双低策略优选 */
   .v-bottom{background:#e3f0ff;color:#0a6cff}    /* 债底：现价≤纯债价值×1.05 */
@@ -184,12 +181,10 @@ const GROUPS = [
 ];
 // 所有列均可隐藏/显示
 // 固定布局下列宽：代码/名称给固定像素（供左侧冻结对齐），其余按容器宽度等比分配
-const COLW = {code:'58px', name:'130px'};
-// 还原上次记忆的列宽（拖拽后存 localStorage，刷新后保持）
-try{ const _w=JSON.parse(localStorage.getItem('cb_colw')||'{}'); if(_w&&typeof _w==='object'){ for(const k in _w){ if(typeof _w[k]==='string'&&/^\d+(\.\d+)?px$/.test(_w[k])) COLW[k]=_w[k]; } } }catch(_){}
+const COLW = {code:'58px', name:'82px'};
 
 let sortK='dbl_low', sortAsc=true;
-let visibleKeys = KEY_KEYS.slice();   // 默认显示“重点”视图（约19列），其余列折叠；点“显示全部”可一键展开
+let visibleKeys = ALL_KEYS.slice();   // 默认显示全部列（约39列）；点「重点」按钮可切到19列重点视图
 const mktSet=new Set(), ratSet=new Set(), ryearSet=new Set(), indSet=new Set();
 DATA.forEach(r=>{if(r.mkt)mktSet.add(r.mkt);if(r.rating)ratSet.add(r.rating);if(r.ryear)ryearSet.add(r.ryear);if(r.industry)indSet.add(r.industry);});
 const ms=document.getElementById('f-mkt'), rs=document.getElementById('f-rating'), ry=document.getElementById('f-ryear'), fi=document.getElementById('f-industry');
@@ -218,8 +213,7 @@ function renderHeader(){
       if(isGroupStart(k,i)) cls.push('grpsep');
       if(sortK===k) cls.push(sortAsc?'sort-asc':'sort-desc');
     const hideIcon = `<span class="hide-col" data-k="${k}" title="隐藏此列">−</span>`;
-    const rzHandle = `<span class="rz" data-k="${k}" title="拖动调整列宽"></span>`;
-    col+=`<th class="${cls.join(' ')}" data-k="${k}">${LABELS[k]}${hideIcon}${rzHandle}</th>`;
+    col+=`<th class="${cls.join(' ')}" data-k="${k}">${LABELS[k]}${hideIcon}</th>`;
   });
   col+='</tr>';
   thead.innerHTML=grp+col;
@@ -229,31 +223,7 @@ function renderHeader(){
   // bind sort + hide
   thead.querySelectorAll('tr.col th').forEach(th=>th.addEventListener('click',e=>{
     if(e.target.classList.contains('hide-col')){ e.stopPropagation(); hideCol(th.dataset.k); }
-    else if(e.target.classList.contains('rz')){ e.stopPropagation(); return; }
     else{ const k=th.dataset.k; if(sortK===k) sortAsc=!sortAsc; else{sortK=k;sortAsc=false;} render(); }
-  }));
-  // bind column resize (drag handle)
-  thead.querySelectorAll('tr.col th .rz').forEach(rz=>rz.addEventListener('mousedown',e=>{
-    e.preventDefault(); e.stopPropagation();
-    const th=rz.closest('th'); const k=th.dataset.k;
-    const startX=e.clientX;
-    const startW=parseFloat(COLW[k]||(th.getBoundingClientRect().width+'px'))||60;
-    rz.classList.add('drag'); document.body.style.cursor='col-resize'; document.body.style.userSelect='none';
-    function onMove(ev){
-      const nw=Math.max(40, startW + (ev.clientX-startX));
-      COLW[k]=nw+'px';
-      const idx=visibleKeys.indexOf(k);
-      const colEl=document.querySelector('#cg col:nth-child('+(idx+1)+')');
-      if(colEl) colEl.style.width=COLW[k];
-    }
-    function onUp(){
-      document.removeEventListener('mousemove',onMove);
-      document.removeEventListener('mouseup',onUp);
-      rz.classList.remove('drag'); document.body.style.cursor=''; document.body.style.userSelect='';
-      try{ localStorage.setItem('cb_colw', JSON.stringify(COLW)); }catch(_){}
-    }
-    document.addEventListener('mousemove',onMove);
-    document.addEventListener('mouseup',onUp);
   }));
 }
 function hideCol(k){ if(!visibleKeys.includes(k)) return; visibleKeys=visibleKeys.filter(x=>x!==k); render(); }
