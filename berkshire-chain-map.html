@@ -108,14 +108,8 @@
   <div class="stat"><div class="v">5000+</div><div class="k">目标覆盖上市公司</div></div>
 </div>
 
-<div class="view-toggle">
-  <span class="lab">视图切换：</span>
-  <button id="btn-theme" class="on" onclick="showView('theme')">价值链条（现有）</button>
-  <button id="btn-sw1" onclick="showView('sw1')">申万一级（SW1）</button>
-</div>
-
 <div class="wrap">
-<div id="view-theme">
+<div id="view-theme" style="display:none">
 
   <div class="sec">
     <h2>金融 <span class="cnt">6</span></h2>
@@ -384,7 +378,7 @@
   </div>
 
 </div>
-<div id="view-sw1" style="display:none">
+<div id="view-sw1">
   <div class="sec"><div class="desc">按 <b>申万一级行业分类（2021 版）</b> 重排全部产业链。点上方 chip 跳到对应分类。估值聚合（平均 PE/PB 分位、平均 ROE、龙头公司）为后续 self-heal 增强项，当前仅展示链数与深凿进度。</div></div>
   <div class="chips"><a class="chip" href="#sw1-农林牧渔">农林牧渔 <b>5</b></a>
       <a class="chip" href="#sw1-基础化工">基础化工 <b>6</b></a>
@@ -711,14 +705,5 @@
 </div>
 
 
-<script>
-function showView(v){
-  var t=document.getElementById('view-theme'), s=document.getElementById('view-sw1');
-  var bt=document.getElementById('btn-theme'), bs=document.getElementById('btn-sw1');
-  if(v==='sw1'){ t.style.display='none'; s.style.display=''; bt.className=''; bs.className='on'; }
-  else { t.style.display=''; s.style.display='none'; bt.className='on'; bs.className=''; }
-  window.scrollTo({top:document.querySelector('.view-toggle').offsetTop-70, behavior:'smooth'});
-}
-</script>
 </body>
 </html>
