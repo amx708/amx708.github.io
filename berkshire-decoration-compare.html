@@ -42,7 +42,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .extend b{color:#e8b84b;display:block;margin-bottom:5px;font-weight:700}
 .extend span{font-size:12.5px;color:#64748b;line-height:1.55}
 footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
-@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}</style></head><body>
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style></head><body>
 <div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
 <span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">bank</a>
 <a href="berkshire-baijiu-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">baijiu</a>
@@ -64,8 +77,9 @@ footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font
 <div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div>
 <table class="tbl"><thead><tr><th style="text-align:left">公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收(亿)</th><th>净利(亿)</th><th>市值(亿)</th><th>经营现金流(亿)</th></tr></thead><tbody id="tbody"></tbody></table>
 <div class="note">数据：各公司公开年报与行情快照（akshare / 腾讯行情 / 百度分位），框架级原创整理，<b>不构成投资建议</b>。绿色=同行该列最优，红色=同行该列最弱（按指标方向：PE/PB/负债率越低越好，其余越高越好）。字段缺失者诚实留空。</div>
-<div class="extend"><a href="berkshire-decoration-chains.html"><b>返回decoration产业链</b><span>查看完整跨层分析与各公司详情页</span></a>
-<a href="berkshire-decoration-thermometer.html"><b>估值温度计</b><span>行业内 PB 相对位置一览</span></a></div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-decoration-compare.html"><b>🥇 估值分位</b><span>装饰装修（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-decoration-thermometer.html"><b>🌡️ 估值温度计</b><span>装饰装修（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-decoration-buyback.html"><b>💰 回购监测</b><span>装饰装修（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-decoration-repomap.html"><b>🗺️ 板块图谱</b><span>装饰装修（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-decoration-backtest.html"><b>📈 五年回测</b><span>装饰装修（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-decoration-cycle.html"><b>🔄 周期演进</b><span>装饰装修（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-decoration-methodology.html"><b>📘 方法论说明</b><span>装饰装修（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
 </div>
 <footer>数据来源：akshare / 腾讯行情 / 百度股市通 · 框架级整理，非投资建议</footer>
 <script>var DATA=[{"name": "宝鹰股份", "code": "002047", "cat": "decoration", "pe": 70.3, "pb": 114.36, "dy": 0.33, "roe": 265.1, "gross": 22.6, "debt": 96.5, "rev": 6.6, "np": 0.6, "mcap": 46.55, "opcf": 0.2, "pe_pct": 95.1, "pb_pct": 95.1}, {"name": "金螳螂", "code": "002081", "cat": "decoration", "pe": 24.41, "pb": 0.71, "dy": 3.49, "roe": 3.2, "gross": 12.7, "debt": 58.1, "rev": 173.1, "np": 4.4, "mcap": 99.04, "opcf": 4.8, "pe_pct": 97.5, "pb_pct": 18.9}, {"name": "洪涛股份", "code": "002325", "cat": "decoration", "pe": 0.48, "pb": 0.44, "dy": 5.26, "roe": 68.5, "gross": 13.0, "debt": 93.6, "rev": 0.5, "np": 4.6, "mcap": 6.67, "opcf": 0.1, "pe_pct": 64.4, "pb_pct": 1.6}, {"name": "亚厦股份", "code": "002375", "cat": "decoration", "pe": 14.34, "pb": 0.57, "dy": 3.64, "roe": 4.0, "gross": 15.6, "debt": 61.2, "rev": 91.2, "np": 3.3, "mcap": 47.17, "opcf": 2.4, "pe_pct": 11.1, "pb_pct": 3.8}, {"name": "广田集团", "code": "002482", "cat": "decoration", "pe": 40.13, "pb": 10.62, "dy": 0.95, "roe": 24.8, "gross": 6.7, "debt": 83.5, "rev": 16.0, "np": 1.3, "mcap": 47.26, "opcf": 0.8, "pe_pct": 10.5, "pb_pct": 77.4}, {"name": "瑞和股份", "code": "002620", "cat": "decoration", "pe": 18.55, "pb": 22.95, "dy": 1.79, "roe": 1162.4, "gross": 20.1, "debt": 94.3, "rev": 4.0, "np": 0.9, "mcap": 16.91, "opcf": 0.6, "pe_pct": 11.2, "pb_pct": 7.4}, {"name": "东易日盛", "code": "002713", "cat": "decoration", "pe": 230.19, "pb": 10.16, "dy": 9.49, "roe": 33.0, "gross": 38.1, "debt": 59.9, "rev": 6.9, "np": 0.4, "mcap": 88.2, "opcf": 0.6, "pe_pct": 97.5, "pb_pct": 87.4}, {"name": "建艺集团", "code": "002789", "cat": "decoration", "pe": 1.97, "pb": 10.05, "dy": 0.54, "roe": 251.9, "gross": 5.1, "debt": 94.1, "rev": 35.9, "np": 7.5, "mcap": 15.28, "opcf": 3.2, "pe_pct": 39.5, "pb_pct": 70.3}, {"name": "郑中设计", "code": "002811", "cat": "decoration", "pe": 18.86, "pb": 2.14, "dy": 0.99, "roe": 12.1, "gross": 33.4, "debt": 47.4, "rev": 13.8, "np": 1.5, "mcap": 31.14, "opcf": 3.1, "pe_pct": 20.4, "pb_pct": 58.1}, {"name": "名雕股份", "code": "002830", "cat": "decoration", "pe": 52.23, "pb": 3.31, "dy": 1.64, "roe": 6.3, "gross": 30.8, "debt": 50.6, "rev": 7.0, "np": 0.4, "mcap": 22.6, "opcf": 1.0, "pe_pct": 43.8, "pb_pct": 63.1}];
@@ -83,4 +97,8 @@ renderList();renderTbl();
 </script>
   <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
 </body></html>
