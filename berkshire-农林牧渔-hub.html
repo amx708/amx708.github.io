@@ -1,533 +1,1065 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>农林牧渔产业链地图 · 价值投资视角</title>
-<style>* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f2f5; color:#1e293b; line-height:1.75; }
-.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(34,197,94,0.2); padding:12px 20px; display:flex; align-items:center; gap:12px; }
-.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(34,197,94,0.12); color:#15803d; border:1px solid rgba(34,197,94,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
-.home-btn:hover { background:#15803d; color:#fff; }
-.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
-.breadcrumb a { color:#64748b; text-decoration:none; }
-.breadcrumb a:hover { color:#15803d; }
-.crumb-sep { color:#cbd5e1; }
-.container { max-width:1080px; margin:0 auto; padding:24px 16px 48px; }
-.hero { background:linear-gradient(135deg,#ffffff 0%,#f0fdf4 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(34,197,94,0.25); box-shadow:0 2px 12px rgba(0,0,0,0.06); }
-.hero-title { font-size:26px; font-weight:800; color:#0f172a; margin-bottom:6px; letter-spacing:.5px; }
-.hero-sub { font-size:14px; color:#64748b; margin-bottom:18px; }
-.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
-.stat-item { background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
-.stat-num { font-size:22px; font-weight:800; color:#15803d; }
-.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
-.explain-banner { display:flex; gap:16px; align-items:flex-start; background:linear-gradient(135deg,#f0fdf4,#ffffff); border:1px solid rgba(34,197,94,0.25); border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
-.explain-banner .eb-icon { font-size:24px; flex-shrink:0; }
-.explain-banner .eb-body { flex:1; min-width:0; }
-.explain-banner .eb-title { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-.explain-banner .eb-tag { font-size:11px; color:#15803d; background:rgba(34,197,94,0.12); padding:2px 9px; border-radius:10px; }
-.explain-banner .eb-text { font-size:13px; color:#475569; line-height:1.8; }
-.explain-banner .eb-text b { color:#0f172a; font-weight:600; }
-.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(34,197,94,0.5); }
-.layers { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin-bottom:8px; }
-.layer-card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-.layer-num { font-size:12px; color:#15803d; font-weight:700; }
-.layer-name { font-size:14px; color:#0f172a; font-weight:600; margin:4px 0; }
-.layer-desc { font-size:12px; color:#64748b; line-height:1.6; }
-.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
-.giant-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; transition:all .2s; text-decoration:none; display:block; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-.giant-card:hover { border-color:#15803d; background:rgba(34,197,94,0.06); transform:translateY(-2px); box-shadow:0 4px 14px rgba(34,197,94,0.2); }
-.giant-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
-.giant-name { font-size:16px; font-weight:700; color:#0f172a; }
-.region-tag { font-size:11px; padding:2px 9px; border-radius:10px; font-weight:600; }
-.region-cn { background:rgba(220,38,38,0.12); color:#dc2626; border:1px solid rgba(220,38,38,0.25); }
-.giant-desc { font-size:12.5px; color:#64748b; line-height:1.65; margin-bottom:10px; }
-.giant-foot { font-size:12px; display:flex; align-items:center; justify-content:space-between; }
-.giant-link { color:#15803d; font-weight:600; }
-.note-line { font-size:12.5px; color:#64748b; margin-top:14px; line-height:1.7; }
-.note-line b { color:#475569; }
-.source-note { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; margin-top:24px; font-size:12.5px; color:#64748b; line-height:1.7; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-.source-note b { color:#475569; }
-.fin-note { font-size:12px; color:#64748b; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:10px 12px; margin:8px 0; line-height:1.7; }
-.fin-note b { color:#475569; }
-.extend{margin:14px 0 8px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.extend a{display:flex;flex-direction:column;background:#fff;border:1px solid #e2e8f0;border-left:3px solid rgba(34,197,94,0.5);border-radius:8px;padding:10px 12px;text-decoration:none;transition:.2s}
-.extend a:hover{border-left-color:#15803d;transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,.06)}
-.extend a b{font-size:13px;color:#0f172a;font-weight:700;margin-bottom:3px}
-.extend a span{font-size:11.5px;color:#64748b;line-height:1.55}
-@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .grid{grid-template-columns:1fr} .explain-banner{flex-direction:column;padding:16px} }
-</style>
-
-<style>
-/* P0 估值历史分位 + R15 + 成本传导（扩展链） */
-.valband{margin:6px 0 2px}
-.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
-.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
-.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
-.vfill{height:100%;border-radius:6px}
-.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
-.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
-.vval b{color:#0f172a}
-.vtag{font-weight:700;margin-left:4px}
-.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
-.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
-.ovtable{overflow-x:auto;margin:6px 0}
-.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
-.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
-.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
-.ovtable td:first-child,.ovtable th:first-child{text-align:left}
-.ovtable a{color:#0f766e;text-decoration:none}
-.ovtable a:hover{text-decoration:underline}
-.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
-.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
-.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
-.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
-.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
-.cost-chart{flex:1;min-width:300px}
-.cost-chart svg{width:100%;height:auto;display:block}
-.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
-.cost-note b{color:#0f172a}
-.cost-note p{margin:0 0 10px}
-
-</style>
-<style>
-/* 员工效率与组织效能 */
-.emp-block{margin:6px 0 2px}
-.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
-.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
-.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
-.emp-val{font-size:18px;font-weight:700;color:#0f172a}
-.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
-.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
-.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
-.emp-signal b{font-weight:700}
-.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
-.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
-.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
-
-</style>
-<style>
-/* chain-sort */
-.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
-.sortable th:hover{background:#e0f2fe}
-.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
-.sortable th.asc .sort-ind::before{content:"▲";color:#15803d}
-.sortable th.desc .sort-ind::before{content:"▼";color:#15803d}
-</style>
-</head>
-<body>
-<div class="top-bar">
-<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
-<div class="breadcrumb">
-<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
-<a href="berkshire-chain-map.html">产业链地图</a><span class="crumb-sep">/</span>
-<span>农林牧渔</span>
-</div>
-</div>
-<div class="container">
-
-<div class="hero">
-<div class="hero-title">🌾 农林牧渔产业链地图</div>
-<div class="hero-sub">生猪 · 禽 · 饲料 · 种业 · 动保 5 子链统一视角 · PB 分位中位数仅 7%(历史底),左侧布局等周期拐点</div>
-<div class="hero-stats">
-<div class="stat-item"><div class="stat-num">50</div><div class="stat-label">上市公司</div></div>
-<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">子链</div></div>
-<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
-<div class="stat-item"><div class="stat-num">7%</div><div class="stat-label">PB 分位中位数</div></div>
-</div>
-</div>
-
-<div class="explain-banner">
-<div class="eb-icon">🌾</div>
-<div class="eb-body">
-<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「农林牧渔产业链地图」是怎么来的</div>
-<div class="eb-text">
-本页把 <b>生猪养殖 / 禽养殖 / 饲料 / 种业 / 动保</b>5 条子链按「<b>上中下游 + 周期</b>」统一框架梳理，便于从投资视角理解农牧产业链的<b>周期位置 + 估值锚 + 成本传导</b>三大核心问题。<br>
-<b>50 家数据</b>来自各子链 HUB 的公开年报 / 估值分位 / 员工效率表(均为已公开事实层);本页<b>仅搬运重排,未新增任何编造数据</b>。<br>
-<b>周期股框架</b>:农林牧渔是典型的强周期板块,PE 在周期低点会因利润压缩而失真,<b>看 PB 分位才是估值锚</b>——本分类下 <b>PB 分位中位数仅 7%、41/50 家 PB 分位 &lt; 40%</b>,意味着几乎全板块处于历史低估区。
-</div>
-</div>
-</div>
-
-<!--research-signal-->
-<div class="section-title" style="border-left:3px solid #22c55e">研究信号</div>
-<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #22c55e;border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
-    <div style="font-weight:700;color:#475569">周期位置</div><div>多链筑底(生猪产能去化中、禽链价格底部、动保刚需稳健)</div>
-    <div style="font-weight:700;color:#475569">景气方向</div><div>PB 历史底部(中位数 <b>7%</b>)但 PE 失真(中位数 55%,因周期低点利润压缩)</div>
-    <div style="font-weight:700;color:#475569">结论信号</div><div><b>🟢 中性偏左侧(布局但不追高)</b> — PB 锚定估值,等景气拐点(猪价/禽价反弹)确认再加</div>
-    <div style="font-weight:700;color:#475569">核心催化</div><div>①猪价/禽价反弹  ②产能去化兑现  ③种业振兴政策落地  ④动保新品放量</div>
-    <div style="font-weight:700;color:#475569">关键风险</div><div>①非洲猪瘟/禽流感  ②饲料原料价格(玉米/豆粕)  ③政策落地节奏  ④消费需求弱</div>
-  </div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚:PB 分位中位数 7% · 41/50 家 PB 分位 &lt; 40%(全板块低估) · PE 分位中位数 55%(失真,需 PB 锚替代)。结论为框架合成,需结合实盘研究校验。</div>
-</div>
-<!--/research-signal-->
-
-<div class="section-title">跨层分析框架(5 层 · 农牧专属)</div>
-<div class="layers">
-  <div class="layer-card"><div class="layer-num">01</div><div class="layer-name">原料端</div><div class="layer-desc">玉米/豆粕/鱼粉/添加剂 — 大宗原料,价格波动直接传导下游。</div></div>
-  <div class="layer-card"><div class="layer-num">02</div><div class="layer-name">种源 + 动保</div><div class="layer-desc">种猪/种禽/杂交种子 + 兽药/疫苗 — 生物资产与技术密集环节。</div></div>
-  <div class="layer-card"><div class="layer-num">03</div><div class="layer-name">饲料加工</div><div class="layer-desc">配方/预混料/浓缩料 — 配方壁垒与渠道下沉,海大集团式范式。</div></div>
-  <div class="layer-card"><div class="layer-num">04</div><div class="layer-name">养殖生产</div><div class="layer-desc">生猪/家禽 — 强周期中游,产能利用率与 PSY(母猪年产仔数)为关键。</div></div>
-  <div class="layer-card"><div class="layer-num">05</div><div class="layer-name">终端与周期</div><div class="layer-desc">屠宰/肉价/消费/政策 — 价格周期 + 猪粮比 + 政策窗口三重共振。</div></div>
-</div>
-
-<div class="section-title">估值历史分位总览(50 家 · 按子链)</div>
-<div class="ovtable">
-<table class="sortable">
-<thead><tr><th data-type="name">公司 / 子链<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th><th data-type="num">ROE<span class="sort-ind"></span></th></tr></thead>
-<tbody>
-<tr><td><a href="./berkshire-hog-chain-002714.html">牧原股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">22.8</td><td><span class="pct-cell pct-hi">71%</span></td><td class="num">2.59</td><td><span class="pct-cell pct-lo">2%</span></td><td class="num">20.7%</td></tr>
-<tr><td><a href="./berkshire-hog-chain-300498.html">温氏股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">41.6</td><td><span class="pct-cell pct-hi">87%</span></td><td class="num">2.31</td><td><span class="pct-cell pct-lo">7%</span></td><td class="num">12.7%</td></tr>
-<tr><td><a href="./berkshire-hog-chain-000876.html">新希望</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-9.7  23%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.61</td><td><span class="pct-cell pct-lo">19%</span></td><td class="num">-7.5%</td></tr>
-<tr><td><a href="./berkshire-hog-chain-002157.html">正邦科技</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-23.1  11%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.50</td><td><span class="pct-cell pct-mid">59%</span></td><td class="num">-4.9%</td></tr>
-<tr><td><a href="./berkshire-hog-chain-605296.html">神农集团</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-29.4  21%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">3.70</td><td><span class="pct-cell pct-hi">86%</span></td><td class="num">7.0%</td></tr>
-<tr><td><a href="./berkshire-hog-chain-603477.html">巨星农牧</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-16.7  30%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">3.00</td><td><span class="pct-cell pct-lo">34%</span></td><td class="num">0.9%</td></tr>
-<tr><td><a href="./berkshire-hog-chain-002124.html">天邦食品</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-2.2  39%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.85</td><td><span class="pct-cell pct-hi">62%</span></td><td class="num">-43.4%</td></tr>
-<tr><td><a href="./berkshire-hog-chain-002567.html">唐人神</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-2.9  42%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.20</td><td><span class="pct-cell pct-lo">19%</span></td><td class="num">-22.4%</td></tr>
-<tr><td><a href="./berkshire-hog-chain-600975.html">新五丰</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-4.6  50%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">3.31</td><td><span class="pct-cell pct-mid">43%</span></td><td class="num">-33.8%</td></tr>
-<tr><td><a href="./berkshire-hog-chain-001201.html">东瑞股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-8.2  61%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">0.93</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">-4.9%</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002299.html">圣农发展</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">13.3</td><td><span class="pct-cell pct-lo">18%</span></td><td class="num">1.72</td><td><span class="pct-cell pct-lo">7%</span></td><td class="num">12.8%</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002746.html">仙坛股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">19.5</td><td><span class="pct-cell pct-lo">38%</span></td><td class="num">1.09</td><td><span class="pct-cell pct-lo">7%</span></td><td class="num">5.2%</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002458.html">益生股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">25.6</td><td><span class="pct-cell pct-mid">55%</span></td><td class="num">2.57</td><td><span class="pct-cell pct-lo">20%</span></td><td class="num">3.8%</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002234.html">民和股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">-8.9  46%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.38</td><td><span class="pct-cell pct-lo">5%</span></td><td class="num">-14.1%</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-300761.html">立华股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">28.7</td><td><span class="pct-cell pct-hi">87%</span></td><td class="num">1.59</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">6.3%</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002982.html">湘佳股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">161.4</td><td><span class="pct-cell pct-hi">90%</span></td><td class="num">1.40</td><td><span class="pct-cell pct-lo">4%</span></td><td class="num">1.9%</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-605567.html">春雪食品</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">41.5</td><td><span class="pct-cell pct-lo">38%</span></td><td class="num">1.38</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">3.6%</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002321.html">华英农业</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">-61.2  19%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">4.19</td><td><span class="pct-cell pct-hi">64%</span></td><td class="num">-6.3%</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-301116.html">益客食品</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">-20.5  47%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.32</td><td><span class="pct-cell pct-lo">6%</span></td><td class="num">-17.0%</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-603609.html">禾丰股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">-98.1  4%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">0.87</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">0.8%</td></tr>
-<tr><td><a href="./berkshire-feed-chain-000876.html">新希望</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-9.7  23%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.61</td><td><span class="pct-cell pct-lo">19%</span></td><td class="num">-7.5%</td></tr>
-<tr><td><a href="./berkshire-feed-chain-002311.html">海大集团</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">20.6</td><td><span class="pct-cell pct-lo">18%</span></td><td class="num">3.14</td><td><span class="pct-cell pct-lo">3%</span></td><td class="num">17.8%</td></tr>
-<tr><td><a href="./berkshire-feed-chain-002385.html">大北农</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-13.2  27%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.70</td><td><span class="pct-cell pct-lo">7%</span></td><td class="num">-7.9%</td></tr>
-<tr><td><a href="./berkshire-feed-chain-603609.html">禾丰股份</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-98.1  4%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">0.87</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">0.8%</td></tr>
-<tr><td><a href="./berkshire-feed-chain-002567.html">唐人神</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-2.9  42%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.20</td><td><span class="pct-cell pct-lo">19%</span></td><td class="num">-22.4%</td></tr>
-<tr><td><a href="./berkshire-feed-chain-002157.html">正邦科技</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-23.1  11%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.50</td><td><span class="pct-cell pct-mid">59%</span></td><td class="num">-4.9%</td></tr>
-<tr><td><a href="./berkshire-feed-chain-002100.html">天康生物</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-94.5  3%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.39</td><td><span class="pct-cell pct-lo">25%</span></td><td class="num">3.0%</td></tr>
-<tr><td><a href="./berkshire-feed-chain-002548.html">金新农</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-6.9  41%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.97</td><td><span class="pct-cell pct-hi">74%</span></td><td class="num">-21.4%</td></tr>
-<tr><td><a href="./berkshire-feed-chain-603363.html">傲农生物</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-47.4  3%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.35</td><td><span class="pct-cell pct-lo">15%</span></td><td class="num">2.7%</td></tr>
-<tr><td><a href="./berkshire-feed-chain-600438.html">通威股份</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-5.3  19%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.43</td><td><span class="pct-cell pct-lo">2%</span></td><td class="num">-21.9%</td></tr>
-<tr><td><a href="./berkshire-seed-chain-000998.html">隆平高科</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">320.9</td><td><span class="pct-cell pct-hi">95%</span></td><td class="num">1.76</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">2.9%</td></tr>
-<tr><td><a href="./berkshire-seed-chain-002041.html">登海种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">72.5</td><td><span class="pct-cell pct-mid">45%</span></td><td class="num">1.98</td><td><span class="pct-cell pct-lo">7%</span></td><td class="num">2.5%</td></tr>
-<tr><td><a href="./berkshire-seed-chain-300087.html">荃银高科</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">-23.2  2%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.76</td><td><span class="pct-cell pct-lo">0%</span></td><td class="num">-11.7%</td></tr>
-<tr><td><a href="./berkshire-seed-chain-000713.html">丰乐种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">73.9</td><td><span class="pct-cell pct-mid">47%</span></td><td class="num">1.41</td><td><span class="pct-cell pct-lo">8%</span></td><td class="num">2.6%</td></tr>
-<tr><td><a href="./berkshire-seed-chain-600371.html">万向德农</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">-113.8  2%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">3.41</td><td><span class="pct-cell pct-lo">6%</span></td><td class="num">1.0%</td></tr>
-<tr><td><a href="./berkshire-seed-chain-600354.html">敦煌种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">99.8</td><td><span class="pct-cell pct-hi">84%</span></td><td class="num">4.08</td><td><span class="pct-cell pct-lo">33%</span></td><td class="num">7.0%</td></tr>
-<tr><td><a href="./berkshire-seed-chain-300189.html">神农科技</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">37.1</td><td><span class="pct-cell pct-hi">79%</span></td><td class="num">6.10</td><td><span class="pct-cell pct-hi">84%</span></td><td class="num">15.1%</td></tr>
-<tr><td><a href="./berkshire-seed-chain-600313.html">农发种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">123.6</td><td><span class="pct-cell pct-mid">54%</span></td><td class="num">2.61</td><td><span class="pct-cell pct-lo">25%</span></td><td class="num">4.3%</td></tr>
-<tr><td><a href="./berkshire-seed-chain-601952.html">苏垦农发</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">23.1</td><td><span class="pct-cell pct-hi">71%</span></td><td class="num">1.56</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">7.9%</td></tr>
-<tr><td><a href="./berkshire-seed-chain-920087.html">秋乐种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">161.3</td><td><span class="pct-cell pct-hi">89%</span></td><td class="num">2.70</td><td><span class="pct-cell pct-lo">31%</span></td><td class="num">2.3%</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-600201.html">生物股份</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">119.0</td><td><span class="pct-cell pct-hi">85%</span></td><td class="num">2.27</td><td><span class="pct-cell pct-lo">33%</span></td><td class="num">1.9%</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-603566.html">普莱柯</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">19.9</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">1.30</td><td><span class="pct-cell pct-lo">0%</span></td><td class="num">7.1%</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-600195.html">中牧股份</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">48.7</td><td><span class="pct-cell pct-hi">87%</span></td><td class="num">1.13</td><td><span class="pct-cell pct-lo">2%</span></td><td class="num">3.1%</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-300119.html">瑞普生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">18.4</td><td><span class="pct-cell pct-lo">9%</span></td><td class="num">1.50</td><td><span class="pct-cell pct-lo">6%</span></td><td class="num">8.7%</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-688526.html">科前生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">14.7</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">1.33</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">10.2%</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-688098.html">申联生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">-170.0  8%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.35</td><td><span class="pct-cell pct-mid">48%</span></td><td class="num">-1.5%</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-300871.html">回盛生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">14.2</td><td><span class="pct-cell pct-lo">17%</span></td><td class="num">1.80</td><td><span class="pct-cell pct-lo">23%</span></td><td class="num">13.9%</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-002688.html">金河生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">95.3</td><td><span class="pct-cell pct-hi">98%</span></td><td class="num">1.62</td><td><span class="pct-cell pct-lo">17%</span></td><td class="num">1.2%</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-603739.html">蔚蓝生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">35.0</td><td><span class="pct-cell pct-lo">19%</span></td><td class="num">1.52</td><td><span class="pct-cell pct-lo">2%</span></td><td class="num">4.0%</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-603718.html">海利生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">-5.4  15%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.92</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">-25.5%</td></tr>
-</tbody>
-</table>
-<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位(百度股市通)。
-<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
-<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
-<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
-亏损企业 PE 为负、PE 分位不适用,仅看 PB;农牧板块典型周期,PE 在低点失真,PB 才是估值锚。分位为时点统计。</div>
-</div>
-
-
-
-<div class="section-title">R15 三维评级总览(50 家)</div>
-<div class="ovtable">
-<table class="sortable">
-<thead><tr><th data-type="name">公司 / 子链<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
-<tbody>
-<tr><td><a href="./berkshire-hog-chain-002714.html">牧原股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-hi">★★★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-hi">71%</span></td><td><span class="pct-cell pct-lo">2%</span></td></tr>
-<tr><td><a href="./berkshire-hog-chain-300498.html">温氏股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-hi">87%</span></td><td><span class="pct-cell pct-lo">7%</span></td></tr>
-<tr><td><a href="./berkshire-hog-chain-000876.html">新希望</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">19%</span></td></tr>
-<tr><td><a href="./berkshire-hog-chain-002157.html">正邦科技</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-mid">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-mid">59%</span></td></tr>
-<tr><td><a href="./berkshire-hog-chain-605296.html">神农集团</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td><span class="pct-cell pct-hi">★★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-hi">86%</span></td></tr>
-<tr><td><a href="./berkshire-hog-chain-603477.html">巨星农牧</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">34%</span></td></tr>
-<tr><td><a href="./berkshire-hog-chain-002124.html">天邦食品</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-hi">62%</span></td></tr>
-<tr><td><a href="./berkshire-hog-chain-002567.html">唐人神</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">19%</span></td></tr>
-<tr><td><a href="./berkshire-hog-chain-600975.html">新五丰</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-mid">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-mid">43%</span></td></tr>
-<tr><td><a href="./berkshire-hog-chain-001201.html">东瑞股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002299.html">圣农发展</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">18%</span></td><td><span class="pct-cell pct-lo">7%</span></td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002746.html">仙坛股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-lo">★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-lo">38%</span></td><td><span class="pct-cell pct-lo">7%</span></td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002458.html">益生股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-mid">55%</span></td><td><span class="pct-cell pct-lo">20%</span></td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002234.html">民和股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">5%</span></td></tr>
-<tr><td><a href="./berkshire-poultry-chain-300761.html">立华股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-hi">87%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002982.html">湘佳股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-hi">90%</span></td><td><span class="pct-cell pct-lo">4%</span></td></tr>
-<tr><td><a href="./berkshire-poultry-chain-605567.html">春雪食品</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-lo">★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-lo">38%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002321.html">华英农业</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-hi">64%</span></td></tr>
-<tr><td><a href="./berkshire-poultry-chain-301116.html">益客食品</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">6%</span></td></tr>
-<tr><td><a href="./berkshire-poultry-chain-603609.html">禾丰股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-<tr><td><a href="./berkshire-feed-chain-000876.html">新希望</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">19%</span></td></tr>
-<tr><td><a href="./berkshire-feed-chain-002311.html">海大集团</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">18%</span></td><td><span class="pct-cell pct-lo">3%</span></td></tr>
-<tr><td><a href="./berkshire-feed-chain-002385.html">大北农</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">7%</span></td></tr>
-<tr><td><a href="./berkshire-feed-chain-603609.html">禾丰股份</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-<tr><td><a href="./berkshire-feed-chain-002567.html">唐人神</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">19%</span></td></tr>
-<tr><td><a href="./berkshire-feed-chain-002157.html">正邦科技</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-mid">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-mid">59%</span></td></tr>
-<tr><td><a href="./berkshire-feed-chain-002100.html">天康生物</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">25%</span></td></tr>
-<tr><td><a href="./berkshire-feed-chain-002548.html">金新农</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-hi">4</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-hi">74%</span></td></tr>
-<tr><td><a href="./berkshire-feed-chain-603363.html">傲农生物</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">15%</span></td></tr>
-<tr><td><a href="./berkshire-feed-chain-600438.html">通威股份</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">2%</span></td></tr>
-<tr><td><a href="./berkshire-seed-chain-000998.html">隆平高科</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-hi">95%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-<tr><td><a href="./berkshire-seed-chain-002041.html">登海种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid">45%</span></td><td><span class="pct-cell pct-lo">7%</span></td></tr>
-<tr><td><a href="./berkshire-seed-chain-300087.html">荃银高科</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
-<tr><td><a href="./berkshire-seed-chain-000713.html">丰乐种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid">47%</span></td><td><span class="pct-cell pct-lo">8%</span></td></tr>
-<tr><td><a href="./berkshire-seed-chain-600371.html">万向德农</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">6%</span></td></tr>
-<tr><td><a href="./berkshire-seed-chain-600354.html">敦煌种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★★</span></td><td><span class="pct-cell pct-hi">4</span></td><td><span class="pct-cell pct-hi">84%</span></td><td><span class="pct-cell pct-lo">33%</span></td></tr>
-<tr><td><a href="./berkshire-seed-chain-300189.html">神农科技</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-hi">★★★★★</span></td><td><span class="pct-cell pct-hi">2</span></td><td><span class="pct-cell pct-hi">79%</span></td><td><span class="pct-cell pct-hi">84%</span></td></tr>
-<tr><td><a href="./berkshire-seed-chain-600313.html">农发种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-mid">54%</span></td><td><span class="pct-cell pct-lo">25%</span></td></tr>
-<tr><td><a href="./berkshire-seed-chain-601952.html">苏垦农发</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-hi">★★★</span></td><td><span class="pct-cell pct-lo">★★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-hi">71%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-<tr><td><a href="./berkshire-seed-chain-920087.html">秋乐种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-hi">4</span></td><td><span class="pct-cell pct-hi">89%</span></td><td><span class="pct-cell pct-lo">31%</span></td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-600201.html">生物股份</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-hi">4</span></td><td><span class="pct-cell pct-hi">85%</span></td><td><span class="pct-cell pct-lo">33%</span></td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-603566.html">普莱柯</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">1%</span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-600195.html">中牧股份</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-hi">87%</span></td><td><span class="pct-cell pct-lo">2%</span></td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-300119.html">瑞普生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">9%</span></td><td><span class="pct-cell pct-lo">6%</span></td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-688526.html">科前生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">1%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-688098.html">申联生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-mid">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-mid">48%</span></td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-300871.html">回盛生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-lo">17%</span></td><td><span class="pct-cell pct-lo">23%</span></td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-002688.html">金河生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-hi">4</span></td><td><span class="pct-cell pct-hi">98%</span></td><td><span class="pct-cell pct-lo">17%</span></td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-603739.html">蔚蓝生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">19%</span></td><td><span class="pct-cell pct-lo">2%</span></td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-603718.html">海利生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-</tbody>
-</table>
-<div class="fin-note">R15 三维框架:①<b>相对估值星级</b>=PE/PB 历史分位均值换算;②<b>质量星级</b>=近 10 年 ROE 均值;③<b>时机分</b>=链周期指数百分位换算(分越高越接近周期底部)。<b>本分类下 PB 分位普遍极低,质量星级参考性受周期利润压缩影响</b>,左侧布局时建议交叉看时机分与 PB 双指标。
-<span class="vleg"><i style="background:#15803d"></i>绿=好</span>
-<span class="vleg"><i style="background:#b45309"></i>橙=中</span>
-<span class="vleg"><i style="background:#b91c1c"></i>红=差/贵</span>。数据为时点统计。</div>
-</div>
-
-<div class="section-title">产业链成本传导</div>
-<div class="cost-block">
-<div class="cost-chart">
-<svg viewBox="0 0 680 200" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <marker id="ar" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#15803d"/>
-    </marker>
-  </defs>
-  <!-- 5 boxes + 4 arrows -->
-  <g font-family="-apple-system,sans-serif" font-size="13">
-    <rect x="10" y="60" width="110" height="80" rx="10" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
-    <text x="65" y="92" text-anchor="middle" font-weight="700" fill="#0f172a">原料端</text>
-    <text x="65" y="112" text-anchor="middle" fill="#475569">玉米/豆粕/鱼粉</text>
-    <text x="65" y="128" text-anchor="middle" font-size="11" fill="#94a3b8">大宗期货定价</text>
-
-    <rect x="160" y="60" width="110" height="80" rx="10" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
-    <text x="215" y="92" text-anchor="middle" font-weight="700" fill="#0f172a">种源 + 动保</text>
-    <text x="215" y="112" text-anchor="middle" fill="#475569">种猪/疫苗</text>
-    <text x="215" y="128" text-anchor="middle" font-size="11" fill="#94a3b8">生物资产</text>
-
-    <rect x="310" y="60" width="110" height="80" rx="10" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
-    <text x="365" y="92" text-anchor="middle" font-weight="700" fill="#0f172a">饲料加工</text>
-    <text x="365" y="112" text-anchor="middle" fill="#475569">配方/预混料</text>
-    <text x="365" y="128" text-anchor="middle" font-size="11" fill="#94a3b8">海大集团式范式</text>
-
-    <rect x="460" y="60" width="110" height="80" rx="10" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5"/>
-    <text x="515" y="92" text-anchor="middle" font-weight="700" fill="#0f172a">养殖生产</text>
-    <text x="515" y="112" text-anchor="middle" fill="#475569">生猪/家禽</text>
-    <text x="515" y="128" text-anchor="middle" font-size="11" fill="#94a3b8">产能/PSY</text>
-
-    <rect x="610" y="60" width="50" height="80" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
-    <text x="635" y="92" text-anchor="middle" font-weight="700" fill="#0f172a">终端</text>
-    <text x="635" y="112" text-anchor="middle" font-size="11" fill="#475569">肉价</text>
-    <text x="635" y="128" text-anchor="middle" font-size="11" fill="#94a3b8">消费</text>
-
-    <!-- arrows -->
-    <line x1="120" y1="100" x2="155" y2="100" stroke="#15803d" stroke-width="2" marker-end="url(#ar)"/>
-    <line x1="270" y1="100" x2="305" y2="100" stroke="#15803d" stroke-width="2" marker-end="url(#ar)"/>
-    <line x1="420" y1="100" x2="455" y2="100" stroke="#15803d" stroke-width="2" marker-end="url(#ar)"/>
-    <line x1="570" y1="100" x2="605" y2="100" stroke="#15803d" stroke-width="2" marker-end="url(#ar)"/>
-
-    <!-- 反馈环(终端 → 原料 虚线) -->
-    <path d="M 635 145 Q 635 175 340 175 Q 65 175 65 145" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
-    <text x="340" y="190" text-anchor="middle" font-size="11" fill="#64748b">终端肉价 → 反向调节上游产能(猪粮比/鸡料比)</text>
-  </g>
-</svg>
-</div>
-<div class="cost-note">
-<p><b>传导方向</b>:原料价格(玉米/豆粕)→ 饲料成本 → 养殖盈亏平衡点 → 终端肉价 → 反向调节上游产能。</p>
-<p><b>关键指标</b>:①<b>猪粮比</b>(猪价/玉米价格,6:1 为盈亏平衡线)<b>鸡料比</b>(鸡价/饲料价格);②<b>能繁母猪存栏</b>(领先猪价 10–12 个月);③<b>玉米/豆粕期货价格</b>(直接关联饲料成本)。</p>
-<p><b>周期逻辑</b>:产能去化 → 供给收缩 → 价格上涨 → 利润修复 → 产能扩张 → 供给过剩 → 价格回落(典型 3–4 年一轮)。<b>左侧布局</b>看产能去化是否兑现、<b>右侧确认</b>看价格反弹是否持续。</p>
-<p><b>期货可观测</b>:玉米、豆粕、豆油(大商所)→ 原料端定价可跟踪;生猪/鸡蛋(大商所)→ 终端定价可跟踪。<b>种业/动保</b>无直接期货,以公司财报与季度批签发数据跟踪。</p>
-</div>
-</div>
-
-<div class="section-title">员工效率与组织效能排行(50 家 · 按人均净利降序)</div>
-<div class="ovtable"><table>
-<thead><tr><th>公司 / 子链</th><th>2025 员工</th><th>同比</th><th>人均净利</th></tr></thead>
-<tbody>
-<tr><td><a href="./berkshire-feed-chain-002100.html">天康生物</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">64</td><td class="num down">口径异常</td><td class="num">¥328.1万</td></tr>
-<tr><td><a href="./berkshire-seed-chain-300189.html">神农科技</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">220</td><td class="num down">-0.9%</td><td class="num">¥50.0万</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-688526.html">科前生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">950</td><td class="num up">+2.8%</td><td class="num">¥44.2万</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-300871.html">回盛生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">1133</td><td class="num up">+10.2%</td><td class="num">¥22.1万</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-603566.html">普莱柯</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">1519</td><td class="num down">-2.1%</td><td class="num">¥12.5万</td></tr>
-<tr><td><a href="./berkshire-hog-chain-002714.html">牧原股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">13万</td><td class="num down">-4.6%</td><td class="num">¥12.1万</td></tr>
-<tr><td><a href="./berkshire-seed-chain-002041.html">登海种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">803</td><td class="num down">-2.3%</td><td class="num">¥11.2万</td></tr>
-<tr><td><a href="./berkshire-feed-chain-002311.html">海大集团</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">4万</td><td class="num up">+5.6%</td><td class="num">¥9.7万</td></tr>
-<tr><td><a href="./berkshire-hog-chain-605296.html">神农集团</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">3615</td><td class="num up">+8.4%</td><td class="num">¥9.4万</td></tr>
-<tr><td><a href="./berkshire-seed-chain-600354.html">敦煌种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">574</td><td class="num down">-3.7%</td><td class="num">¥8.7万</td></tr>
-<tr><td><a href="./berkshire-seed-chain-601952.html">苏垦农发</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">7611</td><td class="num down">-7.7%</td><td class="num">¥7.2万</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-300761.html">立华股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">8387</td><td class="num down">口径异常</td><td class="num">¥6.9万</td></tr>
-<tr><td><a href="./berkshire-seed-chain-600313.html">农发种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">1293</td><td class="num up">+8.2%</td><td class="num">¥6.2万</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-600201.html">生物股份</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">1881</td><td class="num up">+8.1%</td><td class="num">¥5.3万</td></tr>
-<tr><td><a href="./berkshire-seed-chain-600371.html">万向德农</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">192</td><td class="num down">-1.0%</td><td class="num">¥5.2万</td></tr>
-<tr><td><a href="./berkshire-seed-chain-000713.html">丰乐种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">1491</td><td class="num up">+2.1%</td><td class="num">¥4.7万</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-603739.html">蔚蓝生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">1522</td><td class="num down">-0.8%</td><td class="num">¥4.6万</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-600195.html">中牧股份</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">3996</td><td class="num down">-7.0%</td><td class="num">¥4.3万</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002299.html">圣农发展</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">3万</td><td class="num up">+19.4%</td><td class="num">¥4.1万</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002746.html">仙坛股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">9681</td><td class="num up">+8.2%</td><td class="num">¥2.5万</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002458.html">益生股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">6769</td><td class="num up">+1.0%</td><td class="num">¥2.4万</td></tr>
-<tr><td><a href="./berkshire-feed-chain-603363.html">傲农生物</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">5126</td><td class="num down">-1.8%</td><td class="num">¥1.6万</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-002688.html">金河生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">2713</td><td class="num up">+108.9%</td><td class="num">¥1.1万</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-605567.html">春雪食品</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">4368</td><td class="num up">+4.2%</td><td class="num">¥0.9万</td></tr>
-<tr><td><a href="./berkshire-hog-chain-603477.html">巨星农牧</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">4455</td><td class="num up">+0.6%</td><td class="num">¥0.7万</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002982.html">湘佳股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">6546</td><td class="num up">+4.1%</td><td class="num">¥0.5万</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-603609.html">禾丰股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">1万</td><td class="num up">+28.3%</td><td class="num">¥0.4万</td></tr>
-<tr><td><a href="./berkshire-feed-chain-603609.html">禾丰股份</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">1万</td><td class="num up">+28.3%</td><td class="num">¥0.4万</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-301116.html">益客食品</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">2万</td><td class="num up">+1.0%</td><td class="num">¥-1.4万</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002321.html">华英农业</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">3959</td><td class="num up">+2.3%</td><td class="num">¥-1.5万</td></tr>
-<tr><td><a href="./berkshire-hog-chain-000876.html">新希望</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">4万</td><td class="num up">+5.9%</td><td class="num">¥-4.1万</td></tr>
-<tr><td><a href="./berkshire-feed-chain-000876.html">新希望</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">4万</td><td class="num up">+5.9%</td><td class="num">¥-4.1万</td></tr>
-<tr><td><a href="./berkshire-poultry-chain-002234.html">民和股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">5370</td><td class="num up">+1.0%</td><td class="num">¥-5.0万</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-688098.html">申联生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">375</td><td class="num down">-4.1%</td><td class="num">¥-5.3万</td></tr>
-<tr><td><a href="./berkshire-hog-chain-001201.html">东瑞股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">2328</td><td class="num up">+11.3%</td><td class="num">¥-6.9万</td></tr>
-<tr><td><a href="./berkshire-hog-chain-002157.html">正邦科技</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">7440</td><td class="num down">-4.4%</td><td class="num">¥-7.4万</td></tr>
-<tr><td><a href="./berkshire-feed-chain-002157.html">正邦科技</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">7440</td><td class="num down">-4.4%</td><td class="num">¥-7.4万</td></tr>
-<tr><td><a href="./berkshire-feed-chain-002548.html">金新农</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">2970</td><td class="num up">+9.7%</td><td class="num">¥-9.8万</td></tr>
-<tr><td><a href="./berkshire-hog-chain-002567.html">唐人神</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">1万</td><td class="num down">-5.5%</td><td class="num">¥-10.7万</td></tr>
-<tr><td><a href="./berkshire-feed-chain-002567.html">唐人神</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">1万</td><td class="num down">-5.5%</td><td class="num">¥-10.7万</td></tr>
-<tr><td><a href="./berkshire-seed-chain-300087.html">荃银高科</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">1902</td><td class="num up">+4.0%</td><td class="num">¥-11.0万</td></tr>
-<tr><td><a href="./berkshire-hog-chain-600975.html">新五丰</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">5310</td><td class="num down">-1.2%</td><td class="num">¥-16.6万</td></tr>
-<tr><td><a href="./berkshire-hog-chain-002124.html">天邦食品</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">6302</td><td class="num down">-4.3%</td><td class="num">¥-20.8万</td></tr>
-<tr><td><a href="./berkshire-feed-chain-600438.html">通威股份</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">4万</td><td class="num down">-19.6%</td><td class="num">¥-21.3万</td></tr>
-<tr><td><a href="./berkshire-animal-health-chain-603718.html">海利生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">340</td><td class="num down">-7.1%</td><td class="num">¥-91.2万</td></tr>
-<tr><td><a href="./berkshire-feed-chain-002385.html">大北农</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">534</td><td class="num down">口径异常</td><td class="num">¥-119.9万</td></tr>
-</tbody>
-</table>
-<div class="fin-note">员工增速=在职员工同比;人均净利=2025 净利润(元)÷员工数。各子链口径基本一致(均为农牧上市主体),部分公司年报未单独披露员工数,标「—」;亏损企业人均净利不展示。排序按人均净利降序,反映「人效 × 周期阶段」组合 — 周期低点高人效 = 真护城河。</div>
-</div>
-
-<div class="section-title">主要玩家索引(每子链 PB 分位 TOP 3)</div>
-<div class="grid">
-<a class="giant-card" href="./berkshire-hog-chain-001201.html"><div class="giant-head"><span class="giant-name">🐖 东瑞股份 · 生猪养殖</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE -8.2  61% · PE分位  · PB分位 1% · ROE -4.9%。生猪板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="./berkshire-hog-chain-002714.html"><div class="giant-head"><span class="giant-name">🐖 牧原股份 · 生猪养殖</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 22.8 · PE分位 71% · PB分位 2% · ROE 20.7%。生猪板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="./berkshire-hog-chain-300498.html"><div class="giant-head"><span class="giant-name">🐖 温氏股份 · 生猪养殖</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 41.6 · PE分位 87% · PB分位 7% · ROE 12.7%。生猪板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="./berkshire-poultry-chain-300761.html"><div class="giant-head"><span class="giant-name">🐔 立华股份 · 禽养殖</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 28.7 · PE分位 87% · PB分位 1% · ROE 6.3%。禽板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="./berkshire-poultry-chain-605567.html"><div class="giant-head"><span class="giant-name">🐔 春雪食品 · 禽养殖</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 41.5 · PE分位 38% · PB分位 1% · ROE 3.6%。禽板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="./berkshire-poultry-chain-603609.html"><div class="giant-head"><span class="giant-name">🐔 禾丰股份 · 禽养殖</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE -98.1  4% · PE分位  · PB分位 1% · ROE 0.8%。禽板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="./berkshire-feed-chain-603609.html"><div class="giant-head"><span class="giant-name">🌾 禾丰股份 · 饲料</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE -98.1  4% · PE分位  · PB分位 1% · ROE 0.8%。饲料板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="./berkshire-feed-chain-600438.html"><div class="giant-head"><span class="giant-name">🌾 通威股份 · 饲料</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE -5.3  19% · PE分位  · PB分位 2% · ROE -21.9%。饲料板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="./berkshire-feed-chain-002311.html"><div class="giant-head"><span class="giant-name">🌾 海大集团 · 饲料</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 20.6 · PE分位 18% · PB分位 3% · ROE 17.8%。饲料板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="./berkshire-seed-chain-300087.html"><div class="giant-head"><span class="giant-name">🌱 荃银高科 · 种业</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE -23.2  2% · PE分位  · PB分位 0% · ROE -11.7%。种业板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="./berkshire-seed-chain-000998.html"><div class="giant-head"><span class="giant-name">🌱 隆平高科 · 种业</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 320.9 · PE分位 95% · PB分位 1% · ROE 2.9%。种业板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="./berkshire-seed-chain-601952.html"><div class="giant-head"><span class="giant-name">🌱 苏垦农发 · 种业</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 23.1 · PE分位 71% · PB分位 1% · ROE 7.9%。种业板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="./berkshire-animal-health-chain-603566.html"><div class="giant-head"><span class="giant-name">💊 普莱柯 · 动保</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 19.9 · PE分位 1% · PB分位 0% · ROE 7.1%。动保板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="./berkshire-animal-health-chain-688526.html"><div class="giant-head"><span class="giant-name">💊 科前生物 · 动保</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 14.7 · PE分位 1% · PB分位 1% · ROE 10.2%。动保板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="./berkshire-animal-health-chain-603718.html"><div class="giant-head"><span class="giant-name">💊 海利生物 · 动保</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE -5.4  15% · PE分位  · PB分位 1% · ROE -25.5%。动保板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-</div>
-
-<div class="section-title">延伸阅读</div>
-<div class="extend">
-<a href="berkshire-hog-chains.html"><b>🐖 生猪养殖 链 HUB</b><span>该子链 8 段金标全栈分析</span></a>
-<a href="berkshire-hog-cycle.html"><b>🔄 生猪养殖 周期</b><span>框架级梳理周期脉络与关键信号</span></a>
-<a href="berkshire-hog-backtest.html"><b>🎯 生猪养殖 估值回测</b><span>三轮大底买点复盘历史回报</span></a>
-<a href="berkshire-hog-thermometer.html"><b>🌡️ 生猪养殖 估值温度计</b><span>行业内 PE/PB 相对位置</span></a>
-<a href="berkshire-hog-buyback.html"><b>📊 生猪养殖 逐轮买点回报图</b><span>三轮买点累计回报曲线</span></a>
-<a href="berkshire-poultry-chains.html"><b>🐔 禽养殖 链 HUB</b><span>该子链 8 段金标全栈分析</span></a>
-<a href="berkshire-poultry-cycle.html"><b>🔄 禽养殖 周期</b><span>框架级梳理周期脉络与关键信号</span></a>
-<a href="berkshire-poultry-backtest.html"><b>🎯 禽养殖 估值回测</b><span>三轮大底买点复盘历史回报</span></a>
-<a href="berkshire-poultry-thermometer.html"><b>🌡️ 禽养殖 估值温度计</b><span>行业内 PE/PB 相对位置</span></a>
-<a href="berkshire-poultry-buyback.html"><b>📊 禽养殖 逐轮买点回报图</b><span>三轮买点累计回报曲线</span></a>
-<a href="berkshire-feed-chains.html"><b>🌾 饲料 链 HUB</b><span>该子链 8 段金标全栈分析</span></a>
-<a href="berkshire-feed-cycle.html"><b>🔄 饲料 周期</b><span>框架级梳理周期脉络与关键信号</span></a>
-<a href="berkshire-feed-backtest.html"><b>🎯 饲料 估值回测</b><span>三轮大底买点复盘历史回报</span></a>
-<a href="berkshire-feed-thermometer.html"><b>🌡️ 饲料 估值温度计</b><span>行业内 PE/PB 相对位置</span></a>
-<a href="berkshire-feed-buyback.html"><b>📊 饲料 逐轮买点回报图</b><span>三轮买点累计回报曲线</span></a>
-<a href="berkshire-seed-chains.html"><b>🌱 种业 链 HUB</b><span>该子链 8 段金标全栈分析</span></a>
-<a href="berkshire-seed-cycle.html"><b>🔄 种业 周期</b><span>框架级梳理周期脉络与关键信号</span></a>
-<a href="berkshire-seed-backtest.html"><b>🎯 种业 估值回测</b><span>三轮大底买点复盘历史回报</span></a>
-<a href="berkshire-seed-thermometer.html"><b>🌡️ 种业 估值温度计</b><span>行业内 PE/PB 相对位置</span></a>
-<a href="berkshire-seed-buyback.html"><b>📊 种业 逐轮买点回报图</b><span>三轮买点累计回报曲线</span></a>
-<a href="berkshire-animal-health-chains.html"><b>💊 动保 链 HUB</b><span>该子链 8 段金标全栈分析</span></a>
-<a href="berkshire-animal-health-cycle.html"><b>🔄 动保 周期</b><span>框架级梳理周期脉络与关键信号</span></a>
-<a href="berkshire-animal-health-backtest.html"><b>🎯 动保 估值回测</b><span>三轮大底买点复盘历史回报</span></a>
-<a href="berkshire-animal-health-thermometer.html"><b>🌡️ 动保 估值温度计</b><span>行业内 PE/PB 相对位置</span></a>
-<a href="berkshire-animal-health-buyback.html"><b>📊 动保 逐轮买点回报图</b><span>三轮买点累计回报曲线</span></a>
-</div>
-
-<div class="note-line">
-📌 <b>4 家跨链标的</b>:新希望(000876)、唐人神(002567)、正邦科技(002157)、禾丰股份(603609) — 同时出现在「生猪」与「饲料」或「禽」与「饲料」链,体现农牧一体化范式(养殖 + 饲料自给)。
-</div>
-<div class="note-line">
-📌 <b>周期股投资纪律</b>:农林牧渔是 A 股最典型的周期板块,PE 在周期低点失真(因利润压缩甚至亏损),<b>PB 才是核心估值锚</b>。建议左侧布局看「<b>PB 分位 &lt; 30% + 产能去化兑现</b>」双信号,右侧确认看「<b>猪价/禽价连续反弹 3 个月</b>」。
-</div>
-
-<div class="source-note">
-📌 <b>资料与合规</b>:本页所有数据均从各子链 HUB(<code>berkshire-hog-chains.html</code> / <code>poultry</code> / <code>feed</code> / <code>seed</code> / <code>animal-health</code>)的现有 val/R15/emp 表<b>搬运重排</b>,原始来源为各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息,由本站原创整理与重写;不复制、不转载任何付费 / 闭源专享内容。<b>本页 5 层框架 + 研究信号 + 跨链成本传导为原创写作</b>,但所有具体数字均回链至各子链 HUB 实时数据(链 HUB 由 self-heal 自动刷新)。文中对具体公司的判断仅作研究框架示例,<b>不构成投资建议</b>。
-</div>
-
-</div>
-
-<script>
-(function(){
-  function num(v){
-    if(v==null) return NaN;
-    v=v.textContent||v;
-    if(typeof v==='string'){
-      v=v.replace(/,/g,'').replace(/[ \t\r\n]/g,'');
-      if(v==='—'||v==='-'||v==='') return NaN;
-      var unit=1;
-      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
-      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
-      v=v.replace(/[¥,%]/g,'');
-      var n=parseFloat(v);
-      if(!isNaN(n)) n*=unit;
-      return n;
-    }
-    return NaN;
-  }
-  function cmp(a,b,asc){
-    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
-    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
-    var nanA=isNaN(a), nanB=isNaN(b);
-    if(nanA && nanB) return 0;
-    if(nanA) return asc?1:-1;
-    if(nanB) return asc?-1:1;
-    if(an<bn) return asc?-1:1;
-    if(an>bn) return asc?1:-1;
-    return 0;
-  }
-  function sortTable(th){
-    var table=th.closest('table');
-    var tbody=table.querySelector('tbody');
-    var rows=Array.from(tbody.querySelectorAll('tr'));
-    var idx=Array.from(th.parentNode.children).indexOf(th);
-    var type=th.getAttribute('data-type')||'text';
-    var asc=!th.classList.contains('asc');
-    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
-    th.classList.add(asc?'asc':'desc');
-    rows.sort(function(r1,r2){
-      var c1=r1.cells[idx], c2=r2.cells[idx];
-      var v1, v2;
-      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
-      else if(type==='num'){ v1=num(c1); v2=num(c2); }
-      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
-      return cmp(v1,v2,asc);
-    });
-    rows.forEach(function(r){ tbody.appendChild(r); });
-  }
-  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
-    th.addEventListener('click',function(){ sortTable(th); });
-  });
-})();
-</script>
-
-  <script src="/analytics.js"></script>
-  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
-</body>
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>农林牧渔产业链地图 · 价值投资视角</title>
+
+<style>* { margin:0; padding:0; box-sizing:border-box; }
+
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f2f5; color:#1e293b; line-height:1.75; }
+
+.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(232,184,75,0.2); padding:12px 20px; display:flex; align-items:center; gap:12px; }
+
+.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(232,184,75,0.12); color:#b45309; border:1px solid rgba(232,184,75,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
+
+.home-btn:hover { background:#b45309; color:#fff; }
+
+.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
+
+.breadcrumb a { color:#64748b; text-decoration:none; }
+
+.breadcrumb a:hover { color:#b45309; }
+
+.crumb-sep { color:#cbd5e1; }
+
+.container { max-width:1080px; margin:0 auto; padding:24px 16px 48px; }
+
+.hero { background:linear-gradient(135deg,#ffffff 0%,#fdfaf0 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(232,184,75,0.25); box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+
+.hero-title { font-size:26px; font-weight:800; color:#0f172a; margin-bottom:6px; letter-spacing:.5px; }
+
+.hero-sub { font-size:14px; color:#64748b; margin-bottom:18px; }
+
+.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+
+.stat-item { background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
+
+.stat-num { font-size:22px; font-weight:800; color:#b45309; }
+
+.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
+
+.explain-banner { display:flex; gap:16px; align-items:flex-start; background:linear-gradient(135deg,#fdfaf0,#ffffff); border:1px solid rgba(232,184,75,0.25); border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+
+.explain-banner .eb-icon { font-size:24px; flex-shrink:0; }
+
+.explain-banner .eb-body { flex:1; min-width:0; }
+
+.explain-banner .eb-title { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+
+.explain-banner .eb-tag { font-size:11px; color:#b45309; background:rgba(232,184,75,0.12); padding:2px 9px; border-radius:10px; }
+
+.explain-banner .eb-text { font-size:13px; color:#475569; line-height:1.8; }
+
+.explain-banner .eb-text b { color:#0f172a; font-weight:600; }
+
+.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(232,184,75,0.5); }
+
+.layers { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin-bottom:8px; }
+
+.layer-card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+
+.layer-num { font-size:12px; color:#b45309; font-weight:700; }
+
+.layer-name { font-size:14px; color:#0f172a; font-weight:600; margin:4px 0; }
+
+.layer-desc { font-size:12px; color:#64748b; line-height:1.6; }
+
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
+
+.giant-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; transition:all .2s; text-decoration:none; display:block; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+
+.giant-card:hover { border-color:#b45309; background:rgba(232,184,75,0.06); transform:translateY(-2px); box-shadow:0 4px 14px rgba(232,184,75,0.2); }
+
+.giant-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+
+.giant-name { font-size:16px; font-weight:700; color:#0f172a; }
+
+.region-tag { font-size:11px; padding:2px 9px; border-radius:10px; font-weight:600; }
+
+.region-cn { background:rgba(220,38,38,0.12); color:#dc2626; border:1px solid rgba(220,38,38,0.25); }
+
+.giant-desc { font-size:12.5px; color:#64748b; line-height:1.65; margin-bottom:10px; }
+
+.giant-foot { font-size:12px; display:flex; align-items:center; justify-content:space-between; }
+
+.giant-link { color:#b45309; font-weight:600; }
+
+.note-line { font-size:12.5px; color:#64748b; margin-top:14px; line-height:1.7; }
+
+.note-line b { color:#475569; }
+
+.source-note { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; margin-top:24px; font-size:12.5px; color:#64748b; line-height:1.7; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+
+.source-note b { color:#475569; }
+
+.fin-note { font-size:12px; color:#64748b; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:10px 12px; margin:8px 0; line-height:1.7; }
+
+.fin-note b { color:#475569; }
+
+.extend{margin:14px 0 8px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+
+.extend a{display:flex;flex-direction:column;background:#fff;border:1px solid #e2e8f0;border-left:3px solid rgba(232,184,75,0.5);border-radius:8px;padding:10px 12px;text-decoration:none;transition:.2s}
+
+.extend a:hover{border-left-color:#b45309;transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,.06)}
+
+.extend a b{font-size:13px;color:#0f172a;font-weight:700;margin-bottom:3px}
+
+.extend a span{font-size:11.5px;color:#64748b;line-height:1.55}
+
+@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .grid{grid-template-columns:1fr} .explain-banner{flex-direction:column;padding:16px} }
+
+</style>
+
+
+
+<style>
+
+/* P0 估值历史分位 + R15 + 成本传导（扩展链） */
+
+.valband{margin:6px 0 2px}
+
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+
+.vfill{height:100%;border-radius:6px}
+
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+
+.vval b{color:#0f172a}
+
+.vtag{font-weight:700;margin-left:4px}
+
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+.ovtable{overflow-x:auto;margin:6px 0}
+
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+
+.ovtable a{color:#b45309;text-decoration:none}
+
+.ovtable a:hover{text-decoration:underline}
+
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+
+.cost-chart{flex:1;min-width:300px}
+
+.cost-chart svg{width:100%;height:auto;display:block}
+
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+
+.cost-note b{color:#0f172a}
+
+.cost-note p{margin:0 0 10px}
+
+
+
+</style>
+
+<style>
+
+/* 员工效率与组织效能 */
+
+.emp-block{margin:6px 0 2px}
+
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
+
+.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+
+.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
+
+.emp-val{font-size:18px;font-weight:700;color:#0f172a}
+
+.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
+
+.emp-val.up{color:#b45309}.emp-val.down{color:#b91c1c}
+
+.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
+
+.emp-signal b{font-weight:700}
+
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+
+.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+
+
+
+</style>
+
+<style>
+
+/* chain-sort */
+
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
+
+.sortable th:hover{background:#e0f2fe}
+
+.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
+
+.sortable th.asc .sort-ind::before{content:"▲";color:#b45309}
+
+.sortable th.desc .sort-ind::before{content:"▼";color:#b45309}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="top-bar">
+
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+
+<div class="breadcrumb">
+
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+
+<a href="berkshire-chain-map.html">产业链地图</a><span class="crumb-sep">/</span>
+
+<span>农林牧渔</span>
+
+</div>
+
+</div>
+
+<div class="container">
+
+
+
+<div class="hero">
+
+<div class="hero-title">🌾 农林牧渔产业链地图</div>
+
+<div class="hero-sub">生猪 · 禽 · 饲料 · 种业 · 动保 5 子链统一视角 · PB 分位中位数仅 7%(历史底),左侧布局等周期拐点</div>
+
+<div class="hero-stats">
+
+<div class="stat-item"><div class="stat-num">50</div><div class="stat-label">上市公司</div></div>
+
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">子链</div></div>
+
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
+
+<div class="stat-item"><div class="stat-num">7%</div><div class="stat-label">PB 分位中位数</div></div>
+
+</div>
+
+</div>
+
+
+
+<div class="explain-banner">
+
+<div class="eb-icon">🌾</div>
+
+<div class="eb-body">
+
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「农林牧渔产业链地图」是怎么来的</div>
+
+<div class="eb-text">
+
+本页把 <b>生猪养殖 / 禽养殖 / 饲料 / 种业 / 动保</b>5 条子链按「<b>上中下游 + 周期</b>」统一框架梳理，便于从投资视角理解农牧产业链的<b>周期位置 + 估值锚 + 成本传导</b>三大核心问题。<br>
+
+<b>50 家数据</b>来自各子链 HUB 的公开年报 / 估值分位 / 员工效率表(均为已公开事实层);本页<b>仅搬运重排,未新增任何编造数据</b>。<br>
+
+<b>周期股框架</b>:农林牧渔是典型的强周期板块,PE 在周期低点会因利润压缩而失真,<b>看 PB 分位才是估值锚</b>——本分类下 <b>PB 分位中位数仅 7%、41/50 家 PB 分位 &lt; 40%</b>,意味着几乎全板块处于历史低估区。
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!--research-signal-->
+
+<div class="section-title" style="border-left:3px solid #e8b84b">研究信号</div>
+
+<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #e8b84b;border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+
+  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
+
+    <div style="font-weight:700;color:#475569">周期位置</div><div>多链筑底(生猪产能去化中、禽链价格底部、动保刚需稳健)</div>
+
+    <div style="font-weight:700;color:#475569">景气方向</div><div>PB 历史底部(中位数 <b>7%</b>)但 PE 失真(中位数 55%,因周期低点利润压缩)</div>
+
+    <div style="font-weight:700;color:#475569">结论信号</div><div><b>🟢 中性偏左侧(布局但不追高)</b> — PB 锚定估值,等景气拐点(猪价/禽价反弹)确认再加</div>
+
+    <div style="font-weight:700;color:#475569">核心催化</div><div>①猪价/禽价反弹  ②产能去化兑现  ③种业振兴政策落地  ④动保新品放量</div>
+
+    <div style="font-weight:700;color:#475569">关键风险</div><div>①非洲猪瘟/禽流感  ②饲料原料价格(玉米/豆粕)  ③政策落地节奏  ④消费需求弱</div>
+
+  </div>
+
+  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚:PB 分位中位数 7% · 41/50 家 PB 分位 &lt; 40%(全板块低估) · PE 分位中位数 55%(失真,需 PB 锚替代)。结论为框架合成,需结合实盘研究校验。</div>
+
+</div>
+
+<!--/research-signal-->
+
+
+
+<div class="section-title">跨层分析框架(5 层 · 农牧专属)</div>
+
+<div class="layers">
+
+  <div class="layer-card"><div class="layer-num">01</div><div class="layer-name">原料端</div><div class="layer-desc">玉米/豆粕/鱼粉/添加剂 — 大宗原料,价格波动直接传导下游。</div></div>
+
+  <div class="layer-card"><div class="layer-num">02</div><div class="layer-name">种源 + 动保</div><div class="layer-desc">种猪/种禽/杂交种子 + 兽药/疫苗 — 生物资产与技术密集环节。</div></div>
+
+  <div class="layer-card"><div class="layer-num">03</div><div class="layer-name">饲料加工</div><div class="layer-desc">配方/预混料/浓缩料 — 配方壁垒与渠道下沉,海大集团式范式。</div></div>
+
+  <div class="layer-card"><div class="layer-num">04</div><div class="layer-name">养殖生产</div><div class="layer-desc">生猪/家禽 — 强周期中游,产能利用率与 PSY(母猪年产仔数)为关键。</div></div>
+
+  <div class="layer-card"><div class="layer-num">05</div><div class="layer-name">终端与周期</div><div class="layer-desc">屠宰/肉价/消费/政策 — 价格周期 + 猪粮比 + 政策窗口三重共振。</div></div>
+
+</div>
+
+
+
+<div class="section-title">估值历史分位总览(50 家 · 按子链)</div>
+
+<div class="ovtable">
+
+<table class="sortable">
+
+<thead><tr><th data-type="name">公司 / 子链<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th><th data-type="num">ROE<span class="sort-ind"></span></th></tr></thead>
+
+<tbody>
+
+<tr><td><a href="./berkshire-hog-chain-002714.html">牧原股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">22.8</td><td><span class="pct-cell pct-hi">71%</span></td><td class="num">2.59</td><td><span class="pct-cell pct-lo">2%</span></td><td class="num">20.7%</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-300498.html">温氏股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">41.6</td><td><span class="pct-cell pct-hi">87%</span></td><td class="num">2.31</td><td><span class="pct-cell pct-lo">7%</span></td><td class="num">12.7%</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-000876.html">新希望</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-9.7  23%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.61</td><td><span class="pct-cell pct-lo">19%</span></td><td class="num">-7.5%</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-002157.html">正邦科技</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-23.1  11%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.50</td><td><span class="pct-cell pct-mid">59%</span></td><td class="num">-4.9%</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-605296.html">神农集团</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-29.4  21%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">3.70</td><td><span class="pct-cell pct-hi">86%</span></td><td class="num">7.0%</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-603477.html">巨星农牧</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-16.7  30%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">3.00</td><td><span class="pct-cell pct-lo">34%</span></td><td class="num">0.9%</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-002124.html">天邦食品</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-2.2  39%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.85</td><td><span class="pct-cell pct-hi">62%</span></td><td class="num">-43.4%</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-002567.html">唐人神</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-2.9  42%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.20</td><td><span class="pct-cell pct-lo">19%</span></td><td class="num">-22.4%</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-600975.html">新五丰</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-4.6  50%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">3.31</td><td><span class="pct-cell pct-mid">43%</span></td><td class="num">-33.8%</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-001201.html">东瑞股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">-8.2  61%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">0.93</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">-4.9%</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002299.html">圣农发展</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">13.3</td><td><span class="pct-cell pct-lo">18%</span></td><td class="num">1.72</td><td><span class="pct-cell pct-lo">7%</span></td><td class="num">12.8%</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002746.html">仙坛股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">19.5</td><td><span class="pct-cell pct-lo">38%</span></td><td class="num">1.09</td><td><span class="pct-cell pct-lo">7%</span></td><td class="num">5.2%</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002458.html">益生股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">25.6</td><td><span class="pct-cell pct-mid">55%</span></td><td class="num">2.57</td><td><span class="pct-cell pct-lo">20%</span></td><td class="num">3.8%</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002234.html">民和股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">-8.9  46%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.38</td><td><span class="pct-cell pct-lo">5%</span></td><td class="num">-14.1%</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-300761.html">立华股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">28.7</td><td><span class="pct-cell pct-hi">87%</span></td><td class="num">1.59</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">6.3%</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002982.html">湘佳股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">161.4</td><td><span class="pct-cell pct-hi">90%</span></td><td class="num">1.40</td><td><span class="pct-cell pct-lo">4%</span></td><td class="num">1.9%</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-605567.html">春雪食品</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">41.5</td><td><span class="pct-cell pct-lo">38%</span></td><td class="num">1.38</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">3.6%</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002321.html">华英农业</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">-61.2  19%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">4.19</td><td><span class="pct-cell pct-hi">64%</span></td><td class="num">-6.3%</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-301116.html">益客食品</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">-20.5  47%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.32</td><td><span class="pct-cell pct-lo">6%</span></td><td class="num">-17.0%</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-603609.html">禾丰股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">-98.1  4%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">0.87</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">0.8%</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-000876.html">新希望</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-9.7  23%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.61</td><td><span class="pct-cell pct-lo">19%</span></td><td class="num">-7.5%</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002311.html">海大集团</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">20.6</td><td><span class="pct-cell pct-lo">18%</span></td><td class="num">3.14</td><td><span class="pct-cell pct-lo">3%</span></td><td class="num">17.8%</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002385.html">大北农</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-13.2  27%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.70</td><td><span class="pct-cell pct-lo">7%</span></td><td class="num">-7.9%</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-603609.html">禾丰股份</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-98.1  4%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">0.87</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">0.8%</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002567.html">唐人神</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-2.9  42%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.20</td><td><span class="pct-cell pct-lo">19%</span></td><td class="num">-22.4%</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002157.html">正邦科技</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-23.1  11%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.50</td><td><span class="pct-cell pct-mid">59%</span></td><td class="num">-4.9%</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002100.html">天康生物</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-94.5  3%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.39</td><td><span class="pct-cell pct-lo">25%</span></td><td class="num">3.0%</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002548.html">金新农</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-6.9  41%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.97</td><td><span class="pct-cell pct-hi">74%</span></td><td class="num">-21.4%</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-603363.html">傲农生物</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-47.4  3%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.35</td><td><span class="pct-cell pct-lo">15%</span></td><td class="num">2.7%</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-600438.html">通威股份</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">-5.3  19%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.43</td><td><span class="pct-cell pct-lo">2%</span></td><td class="num">-21.9%</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-000998.html">隆平高科</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">320.9</td><td><span class="pct-cell pct-hi">95%</span></td><td class="num">1.76</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">2.9%</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-002041.html">登海种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">72.5</td><td><span class="pct-cell pct-mid">45%</span></td><td class="num">1.98</td><td><span class="pct-cell pct-lo">7%</span></td><td class="num">2.5%</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-300087.html">荃银高科</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">-23.2  2%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.76</td><td><span class="pct-cell pct-lo">0%</span></td><td class="num">-11.7%</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-000713.html">丰乐种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">73.9</td><td><span class="pct-cell pct-mid">47%</span></td><td class="num">1.41</td><td><span class="pct-cell pct-lo">8%</span></td><td class="num">2.6%</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-600371.html">万向德农</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">-113.8  2%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">3.41</td><td><span class="pct-cell pct-lo">6%</span></td><td class="num">1.0%</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-600354.html">敦煌种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">99.8</td><td><span class="pct-cell pct-hi">84%</span></td><td class="num">4.08</td><td><span class="pct-cell pct-lo">33%</span></td><td class="num">7.0%</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-300189.html">神农科技</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">37.1</td><td><span class="pct-cell pct-hi">79%</span></td><td class="num">6.10</td><td><span class="pct-cell pct-hi">84%</span></td><td class="num">15.1%</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-600313.html">农发种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">123.6</td><td><span class="pct-cell pct-mid">54%</span></td><td class="num">2.61</td><td><span class="pct-cell pct-lo">25%</span></td><td class="num">4.3%</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-601952.html">苏垦农发</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">23.1</td><td><span class="pct-cell pct-hi">71%</span></td><td class="num">1.56</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">7.9%</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-920087.html">秋乐种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">161.3</td><td><span class="pct-cell pct-hi">89%</span></td><td class="num">2.70</td><td><span class="pct-cell pct-lo">31%</span></td><td class="num">2.3%</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-600201.html">生物股份</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">119.0</td><td><span class="pct-cell pct-hi">85%</span></td><td class="num">2.27</td><td><span class="pct-cell pct-lo">33%</span></td><td class="num">1.9%</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-603566.html">普莱柯</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">19.9</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">1.30</td><td><span class="pct-cell pct-lo">0%</span></td><td class="num">7.1%</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-600195.html">中牧股份</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">48.7</td><td><span class="pct-cell pct-hi">87%</span></td><td class="num">1.13</td><td><span class="pct-cell pct-lo">2%</span></td><td class="num">3.1%</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-300119.html">瑞普生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">18.4</td><td><span class="pct-cell pct-lo">9%</span></td><td class="num">1.50</td><td><span class="pct-cell pct-lo">6%</span></td><td class="num">8.7%</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-688526.html">科前生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">14.7</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">1.33</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">10.2%</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-688098.html">申联生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">-170.0  8%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">2.35</td><td><span class="pct-cell pct-mid">48%</span></td><td class="num">-1.5%</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-300871.html">回盛生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">14.2</td><td><span class="pct-cell pct-lo">17%</span></td><td class="num">1.80</td><td><span class="pct-cell pct-lo">23%</span></td><td class="num">13.9%</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-002688.html">金河生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">95.3</td><td><span class="pct-cell pct-hi">98%</span></td><td class="num">1.62</td><td><span class="pct-cell pct-lo">17%</span></td><td class="num">1.2%</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-603739.html">蔚蓝生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">35.0</td><td><span class="pct-cell pct-lo">19%</span></td><td class="num">1.52</td><td><span class="pct-cell pct-lo">2%</span></td><td class="num">4.0%</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-603718.html">海利生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">-5.4  15%</td><td><span class="pct-cell pct-mid"></span></td><td class="num">1.92</td><td><span class="pct-cell pct-lo">1%</span></td><td class="num">-25.5%</td></tr>
+
+</tbody>
+
+</table>
+
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位(百度股市通)。
+
+<span class="vleg"><i style="background:#b45309"></i>&lt;40% 偏低/便宜</span>
+
+<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+
+<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+
+亏损企业 PE 为负、PE 分位不适用,仅看 PB;农牧板块典型周期,PE 在低点失真,PB 才是估值锚。分位为时点统计。</div>
+
+</div>
+
+
+
+
+
+
+
+<div class="section-title">R15 三维评级总览(50 家)</div>
+
+<div class="ovtable">
+
+<table class="sortable">
+
+<thead><tr><th data-type="name">公司 / 子链<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
+
+<tbody>
+
+<tr><td><a href="./berkshire-hog-chain-002714.html">牧原股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-hi">★★★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-hi">71%</span></td><td><span class="pct-cell pct-lo">2%</span></td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-300498.html">温氏股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-hi">87%</span></td><td><span class="pct-cell pct-lo">7%</span></td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-000876.html">新希望</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">19%</span></td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-002157.html">正邦科技</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-mid">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-mid">59%</span></td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-605296.html">神农集团</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td><span class="pct-cell pct-hi">★★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-hi">86%</span></td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-603477.html">巨星农牧</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">34%</span></td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-002124.html">天邦食品</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-hi">62%</span></td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-002567.html">唐人神</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">19%</span></td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-600975.html">新五丰</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-mid">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-mid">43%</span></td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-001201.html">东瑞股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002299.html">圣农发展</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">18%</span></td><td><span class="pct-cell pct-lo">7%</span></td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002746.html">仙坛股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-lo">★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-lo">38%</span></td><td><span class="pct-cell pct-lo">7%</span></td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002458.html">益生股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-mid">55%</span></td><td><span class="pct-cell pct-lo">20%</span></td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002234.html">民和股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">5%</span></td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-300761.html">立华股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-hi">87%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002982.html">湘佳股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-hi">90%</span></td><td><span class="pct-cell pct-lo">4%</span></td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-605567.html">春雪食品</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-lo">★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-lo">38%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002321.html">华英农业</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-hi">64%</span></td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-301116.html">益客食品</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">6%</span></td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-603609.html">禾丰股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-000876.html">新希望</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">19%</span></td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002311.html">海大集团</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">18%</span></td><td><span class="pct-cell pct-lo">3%</span></td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002385.html">大北农</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">7%</span></td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-603609.html">禾丰股份</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002567.html">唐人神</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">19%</span></td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002157.html">正邦科技</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-mid">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-mid">59%</span></td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002100.html">天康生物</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">25%</span></td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002548.html">金新农</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-hi">4</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-hi">74%</span></td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-603363.html">傲农生物</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">15%</span></td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-600438.html">通威股份</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">2%</span></td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-000998.html">隆平高科</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-hi">95%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-002041.html">登海种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid">45%</span></td><td><span class="pct-cell pct-lo">7%</span></td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-300087.html">荃银高科</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-000713.html">丰乐种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid">47%</span></td><td><span class="pct-cell pct-lo">8%</span></td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-600371.html">万向德农</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">6%</span></td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-600354.html">敦煌种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★★</span></td><td><span class="pct-cell pct-hi">4</span></td><td><span class="pct-cell pct-hi">84%</span></td><td><span class="pct-cell pct-lo">33%</span></td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-300189.html">神农科技</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-hi">★★★★★</span></td><td><span class="pct-cell pct-hi">2</span></td><td><span class="pct-cell pct-hi">79%</span></td><td><span class="pct-cell pct-hi">84%</span></td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-600313.html">农发种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-mid">54%</span></td><td><span class="pct-cell pct-lo">25%</span></td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-601952.html">苏垦农发</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-hi">★★★</span></td><td><span class="pct-cell pct-lo">★★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-hi">71%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-920087.html">秋乐种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-hi">4</span></td><td><span class="pct-cell pct-hi">89%</span></td><td><span class="pct-cell pct-lo">31%</span></td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-600201.html">生物股份</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-hi">4</span></td><td><span class="pct-cell pct-hi">85%</span></td><td><span class="pct-cell pct-lo">33%</span></td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-603566.html">普莱柯</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">1%</span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-600195.html">中牧股份</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-hi">87%</span></td><td><span class="pct-cell pct-lo">2%</span></td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-300119.html">瑞普生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">9%</span></td><td><span class="pct-cell pct-lo">6%</span></td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-688526.html">科前生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">1%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-688098.html">申联生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td><span class="pct-cell pct-mid">★</span></td><td><span class="pct-cell pct-lo">7</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-mid">48%</span></td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-300871.html">回盛生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-lo">17%</span></td><td><span class="pct-cell pct-lo">23%</span></td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-002688.html">金河生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-hi">4</span></td><td><span class="pct-cell pct-hi">98%</span></td><td><span class="pct-cell pct-lo">17%</span></td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-603739.html">蔚蓝生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">19%</span></td><td><span class="pct-cell pct-lo">2%</span></td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-603718.html">海利生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-mid"></span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+
+</tbody>
+
+</table>
+
+<div class="fin-note">R15 三维框架:①<b>相对估值星级</b>=PE/PB 历史分位均值换算;②<b>质量星级</b>=近 10 年 ROE 均值;③<b>时机分</b>=链周期指数百分位换算(分越高越接近周期底部)。<b>本分类下 PB 分位普遍极低,质量星级参考性受周期利润压缩影响</b>,左侧布局时建议交叉看时机分与 PB 双指标。
+
+<span class="vleg"><i style="background:#b45309"></i>绿=好</span>
+
+<span class="vleg"><i style="background:#b45309"></i>橙=中</span>
+
+<span class="vleg"><i style="background:#b91c1c"></i>红=差/贵</span>。数据为时点统计。</div>
+
+</div>
+
+
+
+<div class="section-title">产业链成本传导</div>
+
+<div class="cost-block">
+
+<div class="cost-chart">
+
+<svg viewBox="0 0 680 200" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+
+      <path d="M0,0 L0,6 L9,3 z" fill="#b45309"/>
+
+    </marker>
+
+  </defs>
+
+  <!-- 5 boxes + 4 arrows -->
+
+  <g font-family="-apple-system,sans-serif" font-size="13">
+
+    <rect x="10" y="60" width="110" height="80" rx="10" fill="#fdfaf0" stroke="#b45309" stroke-width="1.5"/>
+
+    <text x="65" y="92" text-anchor="middle" font-weight="700" fill="#0f172a">原料端</text>
+
+    <text x="65" y="112" text-anchor="middle" fill="#475569">玉米/豆粕/鱼粉</text>
+
+    <text x="65" y="128" text-anchor="middle" font-size="11" fill="#94a3b8">大宗期货定价</text>
+
+
+
+    <rect x="160" y="60" width="110" height="80" rx="10" fill="#fdfaf0" stroke="#b45309" stroke-width="1.5"/>
+
+    <text x="215" y="92" text-anchor="middle" font-weight="700" fill="#0f172a">种源 + 动保</text>
+
+    <text x="215" y="112" text-anchor="middle" fill="#475569">种猪/疫苗</text>
+
+    <text x="215" y="128" text-anchor="middle" font-size="11" fill="#94a3b8">生物资产</text>
+
+
+
+    <rect x="310" y="60" width="110" height="80" rx="10" fill="#fdfaf0" stroke="#b45309" stroke-width="1.5"/>
+
+    <text x="365" y="92" text-anchor="middle" font-weight="700" fill="#0f172a">饲料加工</text>
+
+    <text x="365" y="112" text-anchor="middle" fill="#475569">配方/预混料</text>
+
+    <text x="365" y="128" text-anchor="middle" font-size="11" fill="#94a3b8">海大集团式范式</text>
+
+
+
+    <rect x="460" y="60" width="110" height="80" rx="10" fill="#fdfaf0" stroke="#b45309" stroke-width="1.5"/>
+
+    <text x="515" y="92" text-anchor="middle" font-weight="700" fill="#0f172a">养殖生产</text>
+
+    <text x="515" y="112" text-anchor="middle" fill="#475569">生猪/家禽</text>
+
+    <text x="515" y="128" text-anchor="middle" font-size="11" fill="#94a3b8">产能/PSY</text>
+
+
+
+    <rect x="610" y="60" width="50" height="80" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+
+    <text x="635" y="92" text-anchor="middle" font-weight="700" fill="#0f172a">终端</text>
+
+    <text x="635" y="112" text-anchor="middle" font-size="11" fill="#475569">肉价</text>
+
+    <text x="635" y="128" text-anchor="middle" font-size="11" fill="#94a3b8">消费</text>
+
+
+
+    <!-- arrows -->
+
+    <line x1="120" y1="100" x2="155" y2="100" stroke="#b45309" stroke-width="2" marker-end="url(#ar)"/>
+
+    <line x1="270" y1="100" x2="305" y2="100" stroke="#b45309" stroke-width="2" marker-end="url(#ar)"/>
+
+    <line x1="420" y1="100" x2="455" y2="100" stroke="#b45309" stroke-width="2" marker-end="url(#ar)"/>
+
+    <line x1="570" y1="100" x2="605" y2="100" stroke="#b45309" stroke-width="2" marker-end="url(#ar)"/>
+
+
+
+    <!-- 反馈环(终端 → 原料 虚线) -->
+
+    <path d="M 635 145 Q 635 175 340 175 Q 65 175 65 145" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+
+    <text x="340" y="190" text-anchor="middle" font-size="11" fill="#64748b">终端肉价 → 反向调节上游产能(猪粮比/鸡料比)</text>
+
+  </g>
+
+</svg>
+
+</div>
+
+<div class="cost-note">
+
+<p><b>传导方向</b>:原料价格(玉米/豆粕)→ 饲料成本 → 养殖盈亏平衡点 → 终端肉价 → 反向调节上游产能。</p>
+
+<p><b>关键指标</b>:①<b>猪粮比</b>(猪价/玉米价格,6:1 为盈亏平衡线)<b>鸡料比</b>(鸡价/饲料价格);②<b>能繁母猪存栏</b>(领先猪价 10–12 个月);③<b>玉米/豆粕期货价格</b>(直接关联饲料成本)。</p>
+
+<p><b>周期逻辑</b>:产能去化 → 供给收缩 → 价格上涨 → 利润修复 → 产能扩张 → 供给过剩 → 价格回落(典型 3–4 年一轮)。<b>左侧布局</b>看产能去化是否兑现、<b>右侧确认</b>看价格反弹是否持续。</p>
+
+<p><b>期货可观测</b>:玉米、豆粕、豆油(大商所)→ 原料端定价可跟踪;生猪/鸡蛋(大商所)→ 终端定价可跟踪。<b>种业/动保</b>无直接期货,以公司财报与季度批签发数据跟踪。</p>
+
+</div>
+
+</div>
+
+
+
+<div class="section-title">员工效率与组织效能排行(50 家 · 按人均净利降序)</div>
+
+<div class="ovtable"><table>
+
+<thead><tr><th>公司 / 子链</th><th>2025 员工</th><th>同比</th><th>人均净利</th></tr></thead>
+
+<tbody>
+
+<tr><td><a href="./berkshire-feed-chain-002100.html">天康生物</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">64</td><td class="num down">口径异常</td><td class="num">¥328.1万</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-300189.html">神农科技</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">220</td><td class="num down">-0.9%</td><td class="num">¥50.0万</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-688526.html">科前生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">950</td><td class="num up">+2.8%</td><td class="num">¥44.2万</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-300871.html">回盛生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">1133</td><td class="num up">+10.2%</td><td class="num">¥22.1万</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-603566.html">普莱柯</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">1519</td><td class="num down">-2.1%</td><td class="num">¥12.5万</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-002714.html">牧原股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">13万</td><td class="num down">-4.6%</td><td class="num">¥12.1万</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-002041.html">登海种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">803</td><td class="num down">-2.3%</td><td class="num">¥11.2万</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002311.html">海大集团</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">4万</td><td class="num up">+5.6%</td><td class="num">¥9.7万</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-605296.html">神农集团</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">3615</td><td class="num up">+8.4%</td><td class="num">¥9.4万</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-600354.html">敦煌种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">574</td><td class="num down">-3.7%</td><td class="num">¥8.7万</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-601952.html">苏垦农发</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">7611</td><td class="num down">-7.7%</td><td class="num">¥7.2万</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-300761.html">立华股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">8387</td><td class="num down">口径异常</td><td class="num">¥6.9万</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-600313.html">农发种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">1293</td><td class="num up">+8.2%</td><td class="num">¥6.2万</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-600201.html">生物股份</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">1881</td><td class="num up">+8.1%</td><td class="num">¥5.3万</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-600371.html">万向德农</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">192</td><td class="num down">-1.0%</td><td class="num">¥5.2万</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-000713.html">丰乐种业</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">1491</td><td class="num up">+2.1%</td><td class="num">¥4.7万</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-603739.html">蔚蓝生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">1522</td><td class="num down">-0.8%</td><td class="num">¥4.6万</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-600195.html">中牧股份</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">3996</td><td class="num down">-7.0%</td><td class="num">¥4.3万</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002299.html">圣农发展</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">3万</td><td class="num up">+19.4%</td><td class="num">¥4.1万</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002746.html">仙坛股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">9681</td><td class="num up">+8.2%</td><td class="num">¥2.5万</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002458.html">益生股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">6769</td><td class="num up">+1.0%</td><td class="num">¥2.4万</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-603363.html">傲农生物</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">5126</td><td class="num down">-1.8%</td><td class="num">¥1.6万</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-002688.html">金河生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">2713</td><td class="num up">+108.9%</td><td class="num">¥1.1万</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-605567.html">春雪食品</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">4368</td><td class="num up">+4.2%</td><td class="num">¥0.9万</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-603477.html">巨星农牧</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">4455</td><td class="num up">+0.6%</td><td class="num">¥0.7万</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002982.html">湘佳股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">6546</td><td class="num up">+4.1%</td><td class="num">¥0.5万</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-603609.html">禾丰股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">1万</td><td class="num up">+28.3%</td><td class="num">¥0.4万</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-603609.html">禾丰股份</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">1万</td><td class="num up">+28.3%</td><td class="num">¥0.4万</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-301116.html">益客食品</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">2万</td><td class="num up">+1.0%</td><td class="num">¥-1.4万</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002321.html">华英农业</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">3959</td><td class="num up">+2.3%</td><td class="num">¥-1.5万</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-000876.html">新希望</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">4万</td><td class="num up">+5.9%</td><td class="num">¥-4.1万</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-000876.html">新希望</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">4万</td><td class="num up">+5.9%</td><td class="num">¥-4.1万</td></tr>
+
+<tr><td><a href="./berkshire-poultry-chain-002234.html">民和股份</a><br><span style="font-size:11px;color:#94a3b8">禽</span></td><td class="num">5370</td><td class="num up">+1.0%</td><td class="num">¥-5.0万</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-688098.html">申联生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">375</td><td class="num down">-4.1%</td><td class="num">¥-5.3万</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-001201.html">东瑞股份</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">2328</td><td class="num up">+11.3%</td><td class="num">¥-6.9万</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-002157.html">正邦科技</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">7440</td><td class="num down">-4.4%</td><td class="num">¥-7.4万</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002157.html">正邦科技</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">7440</td><td class="num down">-4.4%</td><td class="num">¥-7.4万</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002548.html">金新农</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">2970</td><td class="num up">+9.7%</td><td class="num">¥-9.8万</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-002567.html">唐人神</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">1万</td><td class="num down">-5.5%</td><td class="num">¥-10.7万</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002567.html">唐人神</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">1万</td><td class="num down">-5.5%</td><td class="num">¥-10.7万</td></tr>
+
+<tr><td><a href="./berkshire-seed-chain-300087.html">荃银高科</a><br><span style="font-size:11px;color:#94a3b8">种业</span></td><td class="num">1902</td><td class="num up">+4.0%</td><td class="num">¥-11.0万</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-600975.html">新五丰</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">5310</td><td class="num down">-1.2%</td><td class="num">¥-16.6万</td></tr>
+
+<tr><td><a href="./berkshire-hog-chain-002124.html">天邦食品</a><br><span style="font-size:11px;color:#94a3b8">生猪</span></td><td class="num">6302</td><td class="num down">-4.3%</td><td class="num">¥-20.8万</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-600438.html">通威股份</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">4万</td><td class="num down">-19.6%</td><td class="num">¥-21.3万</td></tr>
+
+<tr><td><a href="./berkshire-animal-health-chain-603718.html">海利生物</a><br><span style="font-size:11px;color:#94a3b8">动保</span></td><td class="num">340</td><td class="num down">-7.1%</td><td class="num">¥-91.2万</td></tr>
+
+<tr><td><a href="./berkshire-feed-chain-002385.html">大北农</a><br><span style="font-size:11px;color:#94a3b8">饲料</span></td><td class="num">534</td><td class="num down">口径异常</td><td class="num">¥-119.9万</td></tr>
+
+</tbody>
+
+</table>
+
+<div class="fin-note">员工增速=在职员工同比;人均净利=2025 净利润(元)÷员工数。各子链口径基本一致(均为农牧上市主体),部分公司年报未单独披露员工数,标「—」;亏损企业人均净利不展示。排序按人均净利降序,反映「人效 × 周期阶段」组合 — 周期低点高人效 = 真护城河。</div>
+
+</div>
+
+
+
+<div class="section-title">主要玩家索引(每子链 PB 分位 TOP 3)</div>
+
+<div class="grid">
+
+<a class="giant-card" href="./berkshire-hog-chain-001201.html"><div class="giant-head"><span class="giant-name">🐖 东瑞股份 · 生猪养殖</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE -8.2  61% · PE分位  · PB分位 1% · ROE -4.9%。生猪板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="./berkshire-hog-chain-002714.html"><div class="giant-head"><span class="giant-name">🐖 牧原股份 · 生猪养殖</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 22.8 · PE分位 71% · PB分位 2% · ROE 20.7%。生猪板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="./berkshire-hog-chain-300498.html"><div class="giant-head"><span class="giant-name">🐖 温氏股份 · 生猪养殖</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 41.6 · PE分位 87% · PB分位 7% · ROE 12.7%。生猪板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="./berkshire-poultry-chain-300761.html"><div class="giant-head"><span class="giant-name">🐔 立华股份 · 禽养殖</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 28.7 · PE分位 87% · PB分位 1% · ROE 6.3%。禽板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="./berkshire-poultry-chain-605567.html"><div class="giant-head"><span class="giant-name">🐔 春雪食品 · 禽养殖</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 41.5 · PE分位 38% · PB分位 1% · ROE 3.6%。禽板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="./berkshire-poultry-chain-603609.html"><div class="giant-head"><span class="giant-name">🐔 禾丰股份 · 禽养殖</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE -98.1  4% · PE分位  · PB分位 1% · ROE 0.8%。禽板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="./berkshire-feed-chain-603609.html"><div class="giant-head"><span class="giant-name">🌾 禾丰股份 · 饲料</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE -98.1  4% · PE分位  · PB分位 1% · ROE 0.8%。饲料板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="./berkshire-feed-chain-600438.html"><div class="giant-head"><span class="giant-name">🌾 通威股份 · 饲料</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE -5.3  19% · PE分位  · PB分位 2% · ROE -21.9%。饲料板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="./berkshire-feed-chain-002311.html"><div class="giant-head"><span class="giant-name">🌾 海大集团 · 饲料</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 20.6 · PE分位 18% · PB分位 3% · ROE 17.8%。饲料板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="./berkshire-seed-chain-300087.html"><div class="giant-head"><span class="giant-name">🌱 荃银高科 · 种业</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE -23.2  2% · PE分位  · PB分位 0% · ROE -11.7%。种业板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="./berkshire-seed-chain-000998.html"><div class="giant-head"><span class="giant-name">🌱 隆平高科 · 种业</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 320.9 · PE分位 95% · PB分位 1% · ROE 2.9%。种业板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="./berkshire-seed-chain-601952.html"><div class="giant-head"><span class="giant-name">🌱 苏垦农发 · 种业</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 23.1 · PE分位 71% · PB分位 1% · ROE 7.9%。种业板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="./berkshire-animal-health-chain-603566.html"><div class="giant-head"><span class="giant-name">💊 普莱柯 · 动保</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 19.9 · PE分位 1% · PB分位 0% · ROE 7.1%。动保板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="./berkshire-animal-health-chain-688526.html"><div class="giant-head"><span class="giant-name">💊 科前生物 · 动保</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE 14.7 · PE分位 1% · PB分位 1% · ROE 10.2%。动保板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="./berkshire-animal-health-chain-603718.html"><div class="giant-head"><span class="giant-name">💊 海利生物 · 动保</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">PE -5.4  15% · PE分位  · PB分位 1% · ROE -25.5%。动保板块核心标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+</div>
+
+
+
+<div class="section-title">延伸阅读</div>
+
+<div class="extend">
+
+<a href="berkshire-hog-chains.html"><b>🐖 生猪养殖 链 HUB</b><span>该子链 8 段金标全栈分析</span></a>
+
+<a href="berkshire-hog-cycle.html"><b>🔄 生猪养殖 周期</b><span>框架级梳理周期脉络与关键信号</span></a>
+
+<a href="berkshire-hog-backtest.html"><b>🎯 生猪养殖 估值回测</b><span>三轮大底买点复盘历史回报</span></a>
+
+<a href="berkshire-hog-thermometer.html"><b>🌡️ 生猪养殖 估值温度计</b><span>行业内 PE/PB 相对位置</span></a>
+
+<a href="berkshire-hog-buyback.html"><b>📊 生猪养殖 逐轮买点回报图</b><span>三轮买点累计回报曲线</span></a>
+
+<a href="berkshire-poultry-chains.html"><b>🐔 禽养殖 链 HUB</b><span>该子链 8 段金标全栈分析</span></a>
+
+<a href="berkshire-poultry-cycle.html"><b>🔄 禽养殖 周期</b><span>框架级梳理周期脉络与关键信号</span></a>
+
+<a href="berkshire-poultry-backtest.html"><b>🎯 禽养殖 估值回测</b><span>三轮大底买点复盘历史回报</span></a>
+
+<a href="berkshire-poultry-thermometer.html"><b>🌡️ 禽养殖 估值温度计</b><span>行业内 PE/PB 相对位置</span></a>
+
+<a href="berkshire-poultry-buyback.html"><b>📊 禽养殖 逐轮买点回报图</b><span>三轮买点累计回报曲线</span></a>
+
+<a href="berkshire-feed-chains.html"><b>🌾 饲料 链 HUB</b><span>该子链 8 段金标全栈分析</span></a>
+
+<a href="berkshire-feed-cycle.html"><b>🔄 饲料 周期</b><span>框架级梳理周期脉络与关键信号</span></a>
+
+<a href="berkshire-feed-backtest.html"><b>🎯 饲料 估值回测</b><span>三轮大底买点复盘历史回报</span></a>
+
+<a href="berkshire-feed-thermometer.html"><b>🌡️ 饲料 估值温度计</b><span>行业内 PE/PB 相对位置</span></a>
+
+<a href="berkshire-feed-buyback.html"><b>📊 饲料 逐轮买点回报图</b><span>三轮买点累计回报曲线</span></a>
+
+<a href="berkshire-seed-chains.html"><b>🌱 种业 链 HUB</b><span>该子链 8 段金标全栈分析</span></a>
+
+<a href="berkshire-seed-cycle.html"><b>🔄 种业 周期</b><span>框架级梳理周期脉络与关键信号</span></a>
+
+<a href="berkshire-seed-backtest.html"><b>🎯 种业 估值回测</b><span>三轮大底买点复盘历史回报</span></a>
+
+<a href="berkshire-seed-thermometer.html"><b>🌡️ 种业 估值温度计</b><span>行业内 PE/PB 相对位置</span></a>
+
+<a href="berkshire-seed-buyback.html"><b>📊 种业 逐轮买点回报图</b><span>三轮买点累计回报曲线</span></a>
+
+<a href="berkshire-animal-health-chains.html"><b>💊 动保 链 HUB</b><span>该子链 8 段金标全栈分析</span></a>
+
+<a href="berkshire-animal-health-cycle.html"><b>🔄 动保 周期</b><span>框架级梳理周期脉络与关键信号</span></a>
+
+<a href="berkshire-animal-health-backtest.html"><b>🎯 动保 估值回测</b><span>三轮大底买点复盘历史回报</span></a>
+
+<a href="berkshire-animal-health-thermometer.html"><b>🌡️ 动保 估值温度计</b><span>行业内 PE/PB 相对位置</span></a>
+
+<a href="berkshire-animal-health-buyback.html"><b>📊 动保 逐轮买点回报图</b><span>三轮买点累计回报曲线</span></a>
+
+</div>
+
+
+
+<div class="note-line">
+
+📌 <b>4 家跨链标的</b>:新希望(000876)、唐人神(002567)、正邦科技(002157)、禾丰股份(603609) — 同时出现在「生猪」与「饲料」或「禽」与「饲料」链,体现农牧一体化范式(养殖 + 饲料自给)。
+
+</div>
+
+<div class="note-line">
+
+📌 <b>周期股投资纪律</b>:农林牧渔是 A 股最典型的周期板块,PE 在周期低点失真(因利润压缩甚至亏损),<b>PB 才是核心估值锚</b>。建议左侧布局看「<b>PB 分位 &lt; 30% + 产能去化兑现</b>」双信号,右侧确认看「<b>猪价/禽价连续反弹 3 个月</b>」。
+
+</div>
+
+
+
+<div class="source-note">
+
+📌 <b>资料与合规</b>:本页所有数据均从各子链 HUB(<code>berkshire-hog-chains.html</code> / <code>poultry</code> / <code>feed</code> / <code>seed</code> / <code>animal-health</code>)的现有 val/R15/emp 表<b>搬运重排</b>,原始来源为各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息,由本站原创整理与重写;不复制、不转载任何付费 / 闭源专享内容。<b>本页 5 层框架 + 研究信号 + 跨链成本传导为原创写作</b>,但所有具体数字均回链至各子链 HUB 实时数据(链 HUB 由 self-heal 自动刷新)。文中对具体公司的判断仅作研究框架示例,<b>不构成投资建议</b>。
+
+</div>
+
+
+
+</div>
+
+
+
+<script>
+
+(function(){
+
+  function num(v){
+
+    if(v==null) return NaN;
+
+    v=v.textContent||v;
+
+    if(typeof v==='string'){
+
+      v=v.replace(/,/g,'').replace(/[ \t\r\n]/g,'');
+
+      if(v==='—'||v==='-'||v==='') return NaN;
+
+      var unit=1;
+
+      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
+
+      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
+
+      v=v.replace(/[¥,%]/g,'');
+
+      var n=parseFloat(v);
+
+      if(!isNaN(n)) n*=unit;
+
+      return n;
+
+    }
+
+    return NaN;
+
+  }
+
+  function cmp(a,b,asc){
+
+    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
+
+    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
+
+    var nanA=isNaN(a), nanB=isNaN(b);
+
+    if(nanA && nanB) return 0;
+
+    if(nanA) return asc?1:-1;
+
+    if(nanB) return asc?-1:1;
+
+    if(an<bn) return asc?-1:1;
+
+    if(an>bn) return asc?1:-1;
+
+    return 0;
+
+  }
+
+  function sortTable(th){
+
+    var table=th.closest('table');
+
+    var tbody=table.querySelector('tbody');
+
+    var rows=Array.from(tbody.querySelectorAll('tr'));
+
+    var idx=Array.from(th.parentNode.children).indexOf(th);
+
+    var type=th.getAttribute('data-type')||'text';
+
+    var asc=!th.classList.contains('asc');
+
+    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
+
+    th.classList.add(asc?'asc':'desc');
+
+    rows.sort(function(r1,r2){
+
+      var c1=r1.cells[idx], c2=r2.cells[idx];
+
+      var v1, v2;
+
+      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+
+      else if(type==='num'){ v1=num(c1); v2=num(c2); }
+
+      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+
+      return cmp(v1,v2,asc);
+
+    });
+
+    rows.forEach(function(r){ tbody.appendChild(r); });
+
+  }
+
+  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
+
+    th.addEventListener('click',function(){ sortTable(th); });
+
+  });
+
+})();
+
+</script>
+
+
+
+  <script src="/analytics.js"></script>
+
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+
+</body>
+
 </html>
