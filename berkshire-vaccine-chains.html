@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>疫苗产业链 · 调研 | 伯克希尔数据中心</title>
+<title>疫苗产业链 · 调研 | 价值投资初级阶段</title>
 <link rel="stylesheet" href="./analytics.js">
 <style>
 :root {
@@ -11,8 +11,8 @@
   --navy2: #10294d;
   --ink: #1d2b40;
   --line: #e4e9f2;
-  --accent: #0ea5e9;
-  --accent-rgb: 245,166,35;
+  --accent: #e8b84b;
+  --accent-rgb: 232,184,75;
   --txt: #23344e;
   --muted: #6b7a93;
   --card: #fff;
@@ -78,6 +78,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 .sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
 .sortable th.sorted-asc::after{content:' ↑';opacity:1;}
 .sortable th.sorted-desc::after{content:' ↓';opacity:1;}
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
 </style>
 </head>
 <body>
@@ -87,6 +100,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
   <span style="opacity:0.5">·</span>
   <strong>疫苗产业链</strong>
 </div>
+<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>疫苗/生物制品</b></div>
 
 <div class="hero">
   <h1>💉 疫苗产业链</h1>
@@ -493,11 +507,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 
 <h2 class="section-title">📚 延伸阅读</h2>
 <div class="grid">
-      <a class="giant-card" href="./berkshire-vaccine-methodology.html">
-        <div class="gc-icon">📊</div>
-        <div class="gc-title">研究方法论</div>
-        <div class="gc-desc">估值口径、星级算法、数据回溯的完整说明。</div>
-      </a>
+
       <a class="giant-card" href="./berkshire-vaccine-cycle.html">
         <div class="gc-icon">🔄</div>
         <div class="gc-title">产业周期</div>
@@ -508,20 +518,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
         <div class="gc-title">回测框架</div>
         <div class="gc-desc">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</div>
       </a>
-      <a class="giant-card" href="./berkshire-fear-greed.html">
-        <div class="gc-icon">🌡️</div>
-        <div class="gc-title">恐贪温度计</div>
-        <div class="gc-desc">市场情绪温度与板块热度的交叉验证。</div>
-      </a>
       <a class="giant-card" href="./berkshire-vaccine-buyback.html">
         <div class="gc-icon">💰</div>
+        <div class="gc-title">逐轮买点回报图</div>
+        <div class="gc-desc">三轮全市场大底买入并持有的后复权累计回报。</div>
+      </a>      <a class="giant-card" href="berkshire-vaccine-repomap.html">
+        <div class="gc-icon">🗺️</div>
         <div class="gc-title">回购地图</div>
-        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分。</div>
-      </a>
-      <a class="giant-card" href="./berkshire-cross-market.html">
-        <div class="gc-icon">🌐</div>
-        <div class="gc-title">跨市场对比</div>
-        <div class="gc-desc">AH/美股可比公司估值与盈利质量。</div>
+        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分，逐家拆解。</div>
       </a></div>
 
 <div class="source-note">
@@ -554,5 +558,13 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 </script>
+<div class="section-title">延伸阅读 · 疫苗/生物制品 7 兄弟页</div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-vaccine-compare.html"><b>🥇 估值分位</b><span>疫苗/生物制品（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-vaccine-thermometer.html"><b>🌡️ 估值温度计</b><span>疫苗/生物制品（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-vaccine-buyback.html"><b>💰 回购监测</b><span>疫苗/生物制品（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-vaccine-repomap.html"><b>🗺️ 板块图谱</b><span>疫苗/生物制品（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-vaccine-backtest.html"><b>📈 五年回测</b><span>疫苗/生物制品（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-vaccine-cycle.html"><b>🔄 周期演进</b><span>疫苗/生物制品（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-vaccine-methodology.html"><b>📘 方法论说明</b><span>疫苗/生物制品（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
 </body>
 </html>
