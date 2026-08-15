@@ -2,557 +2,459 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>调味品产业链 · 调研 | 伯克希尔数据中心</title>
-<link rel="stylesheet" href="./analytics.js">
-<style>
-:root {
-  --navy: #0b1f3a;
-  --navy2: #10294d;
-  --ink: #1d2b40;
-  --line: #e4e9f2;
-  --accent: #f59e0b;
-  --accent-rgb: 245,166,35;
-  --txt: #23344e;
-  --muted: #6b7a93;
-  --card: #fff;
-  --bg: #f4f7fc;
-  --green: #1f9d6b;
-  --red: #e74c3c;
-}
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>调味品产业链地图 · 价值投资视角</title>
+<style>* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f2f5; color:#1e293b; line-height:1.75; }
+.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(232,184,75,0.2); padding:12px 20px; display:flex; align-items:center; gap:12px; }
+.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(232,184,75,0.12); color:#b45309; border:1px solid rgba(232,184,75,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
+.home-btn:hover { background:#b45309; color:#fff; }
+.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
+.breadcrumb a { color:#64748b; text-decoration:none; }
+.breadcrumb a:hover { color:#b45309; }
+.crumb-sep { color:#cbd5e1; }
+.container { max-width:980px; margin:0 auto; padding:24px 16px 48px; }
+.hero { background:linear-gradient(135deg,#ffffff 0%,#fbf7ee 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(232,184,75,0.25); box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+.hero-title { font-size:26px; font-weight:800; color:#0f172a; margin-bottom:6px; letter-spacing:.5px; }
+.hero-sub { font-size:14px; color:#64748b; margin-bottom:18px; }
+.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+.stat-item { background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
+.stat-num { font-size:22px; font-weight:800; color:#b45309; }
+.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
+.explain-banner { display:flex; gap:16px; align-items:flex-start; background:linear-gradient(135deg,#fbf7ee,#ffffff); border:1px solid rgba(232,184,75,0.25); border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+.explain-banner .eb-icon { font-size:24px; flex-shrink:0; }
+.explain-banner .eb-body { flex:1; min-width:0; }
+.explain-banner .eb-title { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.explain-banner .eb-tag { font-size:11px; color:#b45309; background:rgba(232,184,75,0.12); padding:2px 9px; border-radius:10px; }
+.explain-banner .eb-text { font-size:13px; color:#475569; line-height:1.8; }
+.explain-banner .eb-text b { color:#0f172a; font-weight:600; }
+.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(232,184,75,0.5); }
+.layers { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:8px; }
+.layer-card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.layer-num { font-size:12px; color:#b45309; font-weight:700; }
+.layer-name { font-size:14px; color:#0f172a; font-weight:600; margin:4px 0; }
+.layer-desc { font-size:12px; color:#64748b; line-height:1.6; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
+.giant-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; transition:all .2s; text-decoration:none; display:block; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.giant-card:hover { border-color:#b45309; background:rgba(232,184,75,0.06); transform:translateY(-2px); box-shadow:0 4px 14px rgba(232,184,75,0.2); }
+.giant-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.giant-name { font-size:16px; font-weight:700; color:#0f172a; }
+.region-tag { font-size:11px; padding:2px 9px; border-radius:10px; font-weight:600; }
+.region-cn { background:rgba(220,38,38,0.12); color:#dc2626; border:1px solid rgba(220,38,38,0.25); }
+.region-up { background:rgba(37,99,235,0.12); color:#2563eb; border:1px solid rgba(37,99,235,0.25); }
+.giant-desc { font-size:12.5px; color:#64748b; line-height:1.65; margin-bottom:10px; }
+.giant-foot { font-size:12px; display:flex; align-items:center; justify-content:space-between; }
+.giant-link { color:#b45309; font-weight:600; }
+.extend { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px; margin:6px 0 14px; }
+.extend a { display:block; background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:11px 14px; text-decoration:none; transition:all .2s; box-shadow:0 1px 4px rgba(0,0,0,0.03); }
+.extend a:hover { border-color:#b45309; background:rgba(232,184,75,0.06); }
+.extend a b { color:#0f172a; font-size:13.5px; }
+.extend a span { display:block; color:#64748b; font-size:12px; margin-top:3px; line-height:1.6; }
+.note-line { font-size:12.5px; color:#64748b; margin-top:14px; line-height:1.7; }
+.note-line b { color:#475569; }
+.source-note { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; margin-top:24px; font-size:12.5px; color:#64748b; line-height:1.7; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.source-note b { color:#475569; }
+@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .grid{grid-template-columns:1fr} .extend{grid-template-columns:1fr} .explain-banner{flex-direction:column;padding:16px} }
+</style>
 
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
-.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
-.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
-.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
-.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
-.hero h1{font-size:28px;margin-bottom:10px;}
-.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
-.hero .stat{font-size:14px;}
-.hero .stat b{color:var(--accent);font-size:22px;display:block;}
-.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
-.data-banner b{color:var(--navy);font-weight:600}
-.container{max-width:1100px;margin:0 auto;padding:0 20px;}
-.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
-.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
-.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
-.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
-.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
-.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
-.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
-.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
-.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
-.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
-.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
-.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
-.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
-.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
-.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
-.ovtable tr:hover{background:#f4f7fc;}
-.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
-.pct-lo{background:#d1fae5;color:#065f46;}
-.pct-mid{background:#fef3c7;color:#92400e;}
-.pct-hi{background:#fee2e2;color:#991b1b;}
-.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
-.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
-.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
-.emp-badge.normal{background:#d1fae5;color:#065f46;}
-.emp-badge.warn{background:#fef3c7;color:#92400e;}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
-.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
-.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
-.gc-icon{font-size:24px;margin-bottom:8px;}
-.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
-.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
-.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
-.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
-.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
-.sortable th{cursor:pointer;user-select:none;}
-.sortable th:hover{background:var(--navy2);}
-.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
-.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
-.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
+<style>
+/* P0 估值历史分位 + 成本传导（扩展链） */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0f766e;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
+</style>
+
+<style>
+/* 员工效率与组织效能 */
+.emp-block{margin:6px 0 2px}
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
+.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
+.emp-val{font-size:18px;font-weight:700;color:#0f172a}
+.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
+.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
+.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
+.emp-signal b{font-weight:700}
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+</style>
+
+<style>
+/* chain-sort */
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
+.sortable th:hover{background:#e0f2fe}
+.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
+.sortable th.asc .sort-ind::before{content:"▲";color:#b45309}
+.sortable th.desc .sort-ind::before{content:"▼";color:#b45309}
 </style>
 </head>
 <body>
-
 <div class="top-bar">
-  <a href="./index.html">← 返回首页</a>
-  <span style="opacity:0.5">·</span>
-  <strong>调味品产业链</strong>
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<span>调味品产业链</span>
 </div>
-
-<div class="hero">
-  <h1>🧂 调味品产业链</h1>
-  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 估值/质量/景气/回报/效率 五维验证</div>
-  <div class="stats">
-    <div class="stat"><b>10</b>代表公司</div>
-    <div class="stat"><b>≈20%</b>平均PE分位</div>
-    <div class="stat"><b>≈21%</b>平均PB分位</div>
-  </div>
 </div>
-
-<div class="data-banner">
-  <b>📊 数据锚</b>：平均 PE分位 ≈20% · 平均 PB分位 ≈21% · 估值/ROE/人均盈利已 10/10 覆盖
-</div>
-
 <div class="container">
 
-<h2 class="section-title">🔔 5 维研究信号</h2>
-<div class="research-signal">
-  <div class="rs-grid">
-    <div class="rs-item"><div class="rs-label">估值信号</div><div class="rs-val">估值历史分位 → 当前位置 + 平均分位</div><div style="font-size:10px;color:var(--muted);margin-top:4px">估</div></div><div class="rs-item"><div class="rs-label">质量信号</div><div class="rs-val">ROE/毛利率/净利率 → 龙头质量</div><div style="font-size:10px;color:var(--muted);margin-top:4px">质</div></div><div class="rs-item"><div class="rs-label">景气信号</div><div class="rs-val">营收/利润同比 → 行业景气</div><div style="font-size:10px;color:var(--muted);margin-top:4px">景</div></div><div class="rs-item"><div class="rs-label">回报信号</div><div class="rs-val">股息率 + 回购 → 股东回报</div><div style="font-size:10px;color:var(--muted);margin-top:4px">回</div></div><div class="rs-item"><div class="rs-label">人效信号</div><div class="rs-val">人均创收/人均净利 → 经营效率</div><div style="font-size:10px;color:var(--muted);margin-top:4px">效</div></div>
-  </div>
+<div class="hero">
+<div class="hero-title">调味品产业链地图</div>
+<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">上市公司</div></div>
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
+<div class="stat-item"><div class="stat-num">4</div><div class="stat-label">主流品类</div></div>
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+</div>
 </div>
 
-<h2 class="section-title">🏛 5 层分析框架</h2>
+<div class="explain-banner">
+<div class="eb-icon">🧂</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「调味品产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把调味品上市公司按「层级」拆解，便于从投资视角理解其护城河与周期风险。调味品是消费「慢变量」——刚需高频、品牌忠诚、现金牛属性强，但增长慢于白酒，不能用白酒的尺子量调味品。
+<br><b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中数字为近年财报四舍五入值，最新以公司公告为准。
+</div>
+</div>
+</div>
+
+<!--research-signal-->
+<div class="section-title" style="border-left:3px solid #e8b84b">研究信号</div>
+<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #e8b84b;border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
+    <div style="font-weight:700;color:#475569">周期位置</div><div>消费筑底、需求疲软（左侧）</div>
+    <div style="font-weight:700;color:#475569">景气方向</div><div>估值历史便宜（海天 PE 2%/PB 2% 极端），但需求疲软、零添加红利退潮；成本下行（大豆/白糖/包材）部分对冲</div>
+    <div style="font-weight:700;color:#475569">结论信号</div><div><b>🟡 中性（左侧布局，不追）</b> — 估值已反映极度悲观，等消费复苏与结构升级确认再加</div>
+    <div style="font-weight:700;color:#475569">核心催化</div><div>①消费复苏预期升温  ②大豆/白糖/包材成本下行  ③零添加/结构升级  ④股东回报（分红/回购）</div>
+    <div style="font-weight:700;color:#475569">关键风险</div><div>①需求持续疲弱  ②食品安全黑天鹅  ③渠道库存积压  ④区域价格战</div>
+  </div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：PE分位≈20% PB分位≈21% · 海天ROE 19.5% / 人均¥76.9万 · 莲花PB 8.05 60%偏贵 · 加加PB 3.57 76%。结论为框架合成，需结合实盘研究校验。</div>
+</div>
+<!--/research-signal-->
+
+<div class="section-title">跨层分析框架（5 层）</div>
 <div class="layers">
-      <div class="layer-card">
-        <div class="layer-num">01</div>
-        <div class="layer-name">上游成本</div>
-        <div class="layer-text">原材料/零部件供应，价格波动传导与议价能力。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">02</div>
-        <div class="layer-name">中游制造</div>
-        <div class="layer-text">产能利用率与规模效应，决定盈利波动。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">03</div>
-        <div class="layer-name">下游应用</div>
-        <div class="layer-text">终端需求景气与渗透率变化。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">04</div>
-        <div class="layer-name">竞争格局</div>
-        <div class="layer-text">集中度、龙头溢价、护城河深浅。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">05</div>
-        <div class="layer-name">投资逻辑</div>
-        <div class="layer-text">周期位置 + 估值锚 + 人效 + 机构共识 四维验证。</div>
-      </div></div>
-
-<h2 class="section-title">💬 人话版 · 实战信号</h2>
-<div class="human-block">
-  <p><b>看产业链核心是「周期位置 + 护城河 + 估值锚」三维交叉验证。</b></p>
-  <ul style="margin-top:12px;padding-left:20px;line-height:1.8">
-    <li>先看周期位置：库存/价格/产能/估值 四维判断当前位置。</li><li>再看护城河：龙头集中度 + 规模效应 + 准入壁垒。</li><li>然后看估值锚：PE/PB 历史分位 + 同行业可比 + 跨市场对比。</li><li>警惕陷阱：低估值不等于低估，可能反映景气下行。</li><li>实战信号：股息率 + 回购 + 机构持仓 三路验证。</li>
-  </ul>
-</div>
-
-<h2 class="section-title">🔄 产业周期判断标准</h2>
-<div class="cycle-block">
-  <p><b>驱动因素：</b>行业景气由供需结构 + 政策周期 + 货币环境 + 库存周期 共同决定。</p>
-  <div class="cycle-grid">
-    <div><b>供需</b>产能利用率/订单饱满度/价格传导</div><div><b>库存</b>主动累库/被动累库/主动去库</div><div><b>价格</b>原料价格/出厂价/终端价</div><div><b>估值</b>PE/PB 历史分位 + 行业相对估值</div>
+  <div class="layer-card">
+    <div class="layer-num">01</div>
+    <div class="layer-name">上游原材料</div>
+    <div class="layer-desc">大豆、白糖、盐、包材等农产品与包装，价格波动主导成本。</div>
   </div>
-  <p style="margin-top:14px"><b>历史案例：</b>复盘 2018-2020 周期：估值低位 + 业绩拐点 + 产业政策利好 三共振时胜率最高。</p>
-  <p style="margin-top:8px"><b>当前位置：</b>当前多数子行业估值历史分位偏低，部分龙头股息率创近 5 年新高，景气底部信号渐显。</p>
+  <div class="layer-card">
+    <div class="layer-num">02</div>
+    <div class="layer-name">中游制造</div>
+    <div class="layer-desc">发酵/酿造、灌装、灭菌，产能利用率与规模效应决定盈利。</div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-num">03</div>
+    <div class="layer-name">下游品牌</div>
+    <div class="layer-desc">餐饮/商超/电商渠道与终端，需求对消费景气敏感。</div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-num">04</div>
+    <div class="layer-name">竞争格局</div>
+    <div class="layer-desc">龙头集中度（海天一家独大）+ 区域品牌，护城河深浅。</div>
+  </div>
+  <div class="layer-card">
+    <div class="layer-num">05</div>
+    <div class="layer-name">投资逻辑</div>
+    <div class="layer-desc">周期位置 + 估值锚 + 人效 + 股东回报 四维验证。</div>
+  </div>
 </div>
 
-<h2 class="section-title">📈 估值历史分位总览</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603288.html"><b>海天味业</b></a></td>
-        <td>603288</td>
-        <td>28.8 <span class="pct pct-lo">2%</span></td>
-        <td>4.99 <span class="pct pct-lo">2%</span></td>
-        <td>19.5%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-600872.html"><b>中炬高新</b></a></td>
-        <td>600872</td>
-        <td>23.0 <span class="pct pct-lo">32%</span></td>
-        <td>2.39 <span class="pct pct-lo">2%</span></td>
-        <td>9.4%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603027.html"><b>千禾味业</b></a></td>
-        <td>603027</td>
-        <td>28.0 <span class="pct pct-lo">20%</span></td>
-        <td>2.67 <span class="pct pct-lo">0%</span></td>
-        <td>9.9%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-600305.html"><b>恒顺醋业</b></a></td>
-        <td>600305</td>
-        <td>47.6 <span class="pct pct-lo">34%</span></td>
-        <td>2.13 <span class="pct pct-lo">1%</span></td>
-        <td>4.3%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-002507.html"><b>涪陵榨菜</b></a></td>
-        <td>002507</td>
-        <td>17.1 <span class="pct pct-lo">3%</span></td>
-        <td>1.45 <span class="pct pct-lo">1%</span></td>
-        <td>8.8%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603317.html"><b>天味食品</b></a></td>
-        <td>603317</td>
-        <td>19.4 <span class="pct pct-lo">1%</span></td>
-        <td>3.03 <span class="pct pct-lo">13%</span></td>
-        <td>12.5%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603696.html"><b>安记食品</b></a></td>
-        <td>603696</td>
-        <td>73.5 <span class="pct pct-mid">47%</span></td>
-        <td>4.21 <span class="pct pct-mid">51%</span></td>
-        <td>4.9%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-002650.html"><b>加加食品</b></a></td>
-        <td>002650</td>
-        <td>-48.3 <span class="pct pct-lo">16%</span></td>
-        <td>3.57 <span class="pct pct-hi">76%</span></td>
-        <td>-8.2%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-600186.html"><b>莲花健康</b></a></td>
-        <td>600186</td>
-        <td>43.2 <span class="pct pct-mid">44%</span></td>
-        <td>8.05 <span class="pct pct-hi">60%</span></td>
-        <td>16.9%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603755.html"><b>日辰股份</b></a></td>
-        <td>603755</td>
-        <td>23.4 <span class="pct pct-lo">0%</span></td>
-        <td>2.61 <span class="pct pct-lo">1%</span></td>
-        <td>11.2%</td>
-      </tr></tbody>
+<div class="section-title">估值历史分位总览（调味品 10 家）</div>
+<div class="ovtable">
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-condiment-chain-603288.html">海天味业</a></td><td>28.8</td><td><span class="pct-cell pct-lo">2%</span></td><td>4.99</td><td><span class="pct-cell pct-lo">2%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-600872.html">中炬高新</a></td><td>23.0</td><td><span class="pct-cell pct-lo">32%</span></td><td>2.39</td><td><span class="pct-cell pct-lo">2%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-603027.html">千禾味业</a></td><td>28.0</td><td><span class="pct-cell pct-lo">20%</span></td><td>2.67</td><td><span class="pct-cell pct-lo">0%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-600305.html">恒顺醋业</a></td><td>47.6</td><td><span class="pct-cell pct-mid">34%</span></td><td>2.13</td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-002507.html">涪陵榨菜</a></td><td>17.1</td><td><span class="pct-cell pct-lo">3%</span></td><td>1.45</td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-603317.html">天味食品</a></td><td>19.4</td><td><span class="pct-cell pct-lo">1%</span></td><td>3.03</td><td><span class="pct-cell pct-lo">13%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-603696.html">安记食品</a></td><td>73.5</td><td><span class="pct-cell pct-mid">47%</span></td><td>4.21</td><td><span class="pct-cell pct-mid">51%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-002650.html">加加食品</a></td><td>-48.3</td><td><span class="pct-cell pct-lo">16%</span></td><td>3.57</td><td><span class="pct-cell pct-hi">76%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-600186.html">莲花健康</a></td><td>43.2</td><td><span class="pct-cell pct-mid">44%</span></td><td>8.05</td><td><span class="pct-cell pct-hi">60%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-603755.html">日辰股份</a></td><td>23.4</td><td><span class="pct-cell pct-lo">0%</span></td><td>2.61</td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+</tbody>
 </table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
+<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+亏损企业 PE 为负、PE 分位不适用，仅看 PB。<b>海天</b>PE 2%/PB 2% 看似估值低，但源于 60–70 倍泡沫回落后、当前仍 28.8 倍（并不绝对便宜）；<b>莲花</b>PB 8.05 60% 偏贵、<b>加加</b>PB 3.57 76% 偏贵需谨慎。分位为时点统计。</div>
+</div>
 
-<h2 class="section-title">⚖ R15 三维评级总览</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603288.html"><b>海天味业</b></a></td>
-        <td>28.8</td>
-        <td>4.99</td>
-        <td>★★★★★</td>
-        <td>★★★★★</td>
-        <td>10</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-600872.html"><b>中炬高新</b></a></td>
-        <td>23.0</td>
-        <td>2.39</td>
-        <td>★★</td>
-        <td>★★</td>
-        <td>8</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603027.html"><b>千禾味业</b></a></td>
-        <td>28.0</td>
-        <td>2.67</td>
-        <td>★★★★</td>
-        <td>★★</td>
-        <td>9</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-600305.html"><b>恒顺醋业</b></a></td>
-        <td>47.6</td>
-        <td>2.13</td>
-        <td>★★</td>
-        <td>★</td>
-        <td>8</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-002507.html"><b>涪陵榨菜</b></a></td>
-        <td>17.1</td>
-        <td>1.45</td>
-        <td>★★★★★</td>
-        <td>★★</td>
-        <td>10</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603317.html"><b>天味食品</b></a></td>
-        <td>19.4</td>
-        <td>3.03</td>
-        <td>★★★★★</td>
-        <td>★★★★</td>
-        <td>9</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603696.html"><b>安记食品</b></a></td>
-        <td>73.5</td>
-        <td>4.21</td>
-        <td>★★★</td>
-        <td>★</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-002650.html"><b>加加食品</b></a></td>
-        <td>-48.3</td>
-        <td>3.57</td>
-        <td>★★★★</td>
-        <td>★</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-600186.html"><b>莲花健康</b></a></td>
-        <td>43.2</td>
-        <td>8.05</td>
-        <td>★★★</td>
-        <td>★★★★★</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603755.html"><b>日辰股份</b></a></td>
-        <td>23.4</td>
-        <td>2.61</td>
-        <td>★★★★★</td>
-        <td>★★★</td>
-        <td>10</td>
-      </tr></tbody>
+<div class="section-title">R15 三维评级总览（调味品 10 家）</div>
+<div class="ovtable">
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-condiment-chain-603288.html">海天味业</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">2%</span></td><td><span class="pct-cell pct-lo">2%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-600872.html">中炬高新</a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-lo">32%</span></td><td><span class="pct-cell pct-lo">2%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-603027.html">千禾味业</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">20%</span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-600305.html">恒顺醋业</a></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-mid">34%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-002507.html">涪陵榨菜</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">3%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-603317.html">天味食品</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">1%</span></td><td><span class="pct-cell pct-lo">13%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-603696.html">安记食品</a></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-mid">47%</span></td><td><span class="pct-cell pct-mid">51%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-002650.html">加加食品</a></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-hi">4</span></td><td><span class="pct-cell pct-lo">16%</span></td><td><span class="pct-cell pct-hi">76%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-600186.html">莲花健康</a></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-mid">44%</span></td><td><span class="pct-cell pct-hi">60%</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-603755.html">日辰股份</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">0%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+</tbody>
 </table>
+<div class="fin-note">R15 三维框架：①<b>估值星级</b>=PE/PB 历史分位综合（绿=便宜/高位，红=贵/低位）；
+②<b>质量星级</b>=近10年ROE均值（绿=质地好，红=亏损/失真）；
+③<b>时机分</b>=链周期指数百分位换算（越高越接近周期底部、买点越好）。
+<span class="vleg"><i style="background:#15803d"></i>绿=好</span>
+<span class="vleg"><i style="background:#b45309"></i>橙=中</span>
+<span class="vleg"><i style="background:#b91c1c"></i>红=差/贵</span>。
+<b>海天</b>估值 5★ / 质量 5★ 但 28.8 倍 PE 仍不绝对便宜，须结合 60–70 倍泡沫回落背景；<b>莲花</b>质量 5★（ROE 16.9%）但 PB 8.05 偏贵、且含转型算力概念扰动；<b>加加</b>亏损 + PB 76% 须谨慎。数据为时点统计。</div>
+</div>
 
-<h2 class="section-title">🏭 产业链成本传导</h2>
+<div class="section-title">产业链成本传导</div>
+<div class="cost-block">
+<div class="cost-chart">
+<svg viewBox="0 0 800 140" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-cond" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#b45309"/>
+    </marker>
+  </defs>
+  <g>
+    <rect x="15" y="30" width="130" height="44" rx="6" fill="white" stroke="#e8b84b" stroke-width="1.5"/>
+    <text x="80" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">上游：大豆+白糖+包材</text>
+  </g>
+  <g>
+    <rect x="215" y="30" width="130" height="44" rx="6" fill="white" stroke="#e8b84b" stroke-width="1.5"/>
+    <text x="280" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">中游：发酵+灌装</text>
+  </g>
+  <g>
+    <rect x="415" y="30" width="130" height="44" rx="6" fill="white" stroke="#e8b84b" stroke-width="1.5"/>
+    <text x="480" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">下游：品牌+渠道</text>
+  </g>
+  <g>
+    <rect x="615" y="30" width="130" height="44" rx="6" fill="white" stroke="#e8b84b" stroke-width="1.5"/>
+    <text x="680" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">终端：餐饮零售</text>
+  </g>
+  <line x1="145" y1="52" x2="215" y2="52" stroke="#e8b84b" stroke-width="1.5" marker-end="url(#arr-cond)"/>
+  <line x1="345" y1="52" x2="415" y2="52" stroke="#e8b84b" stroke-width="1.5" marker-end="url(#arr-cond)"/>
+  <line x1="545" y1="52" x2="615" y2="52" stroke="#e8b84b" stroke-width="1.5" marker-end="url(#arr-cond)"/>
+</svg>
+</div>
+<div class="cost-note">
+  <p>调味品成本传导 <b>相对温和</b>：大豆（CBOT/连豆）、白糖（郑商所）、玻璃瓶/PET 包材等农产品与包装价格波动，经规模采购与配方调整部分吸收。</p>
+  <p>成本下行周期（大豆/白糖降价）→ 毛利率弹性释放，是利润改善的主因；成本上行则吞噬利润、压缩净利率，但龙头企业可通过<b>提价 + 结构升级</b>转嫁。</p>
+  <p>龙头（海天/涪陵）凭借 <b>规模采购 + 长期合约 + 定价权</b> 锁定成本优势；中小厂商在价格波动期被动承受，利润率更不稳定。</p>
+</div>
+</div>
 
-    <div class="cost-block">
-      <h3>产业链成本传导路径</h3>
-      <svg viewBox="0 0 800 140" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="arr-ac" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-            <polygon points="0 0, 8 4, 0 8" fill="#f59e0b"/>
-          </marker>
-        </defs>
-        <g>
-          <rect x="15" y="30" width="130" height="44" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/>
-          <text x="80" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游原材料</text>
-        </g>
-        <g>
-          <rect x="215" y="30" width="130" height="44" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/>
-          <text x="280" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游加工</text>
-        </g>
-        <g>
-          <rect x="415" y="30" width="130" height="44" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/>
-          <text x="480" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游品牌</text>
-        </g>
-        <g>
-          <rect x="615" y="30" width="130" height="44" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/>
-          <text x="680" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">需求弹性</text>
-        </g>
-        <line x1="145" y1="52" x2="215" y2="52" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-        <line x1="345" y1="52" x2="415" y2="52" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-        <line x1="545" y1="52" x2="615" y2="52" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-      </svg>
-      <p class="cost-note">成本传导关键看议价能力与库存周期：龙头凭借规模优势可锁定上游成本；中小厂商在价格上行期被动跟涨、在下行期被迫降价。</p>
-    </div>
-
-<h2 class="section-title">👥 员工效率排行</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>2024员工</th><th>同比</th><th>人均净利</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603288.html"><b>海天味业</b></a></td>
-        <td>603288</td>
-        <td>9160</td>
-        <td>9010</td>
-        <td>+1.7%</td>
-        <td>¥76.9万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-600872.html"><b>中炬高新</b></a></td>
-        <td>600872</td>
-        <td>3746</td>
-        <td>3910</td>
-        <td>-4.2%</td>
-        <td>¥14.4万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603027.html"><b>千禾味业</b></a></td>
-        <td>603027</td>
-        <td>2600</td>
-        <td>2782</td>
-        <td>-6.5%</td>
-        <td>¥13.5万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-600305.html"><b>恒顺醋业</b></a></td>
-        <td>600305</td>
-        <td>1875</td>
-        <td>2020</td>
-        <td>-7.2%</td>
-        <td>¥7.5万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-002507.html"><b>涪陵榨菜</b></a></td>
-        <td>002507</td>
-        <td>2777</td>
-        <td>2768</td>
-        <td>+0.3%</td>
-        <td>¥27.7万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603317.html"><b>天味食品</b></a></td>
-        <td>603317</td>
-        <td>3289</td>
-        <td>2988</td>
-        <td>+10.1%</td>
-        <td>¥17.3万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603696.html"><b>安记食品</b></a></td>
-        <td>603696</td>
-        <td>329</td>
-        <td>—</td>
-        <td>口径异常</td>
-        <td>¥9.1万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-002650.html"><b>加加食品</b></a></td>
-        <td>002650</td>
-        <td>1274</td>
-        <td>1513</td>
-        <td>-15.8%</td>
-        <td>¥-11.8万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-600186.html"><b>莲花健康</b></a></td>
-        <td>600186</td>
-        <td>1201</td>
-        <td>1226</td>
-        <td>-2.0%</td>
-        <td>¥25.8万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-condiment-chain-603755.html"><b>日辰股份</b></a></td>
-        <td>603755</td>
-        <td>490</td>
-        <td>429</td>
-        <td>+14.2%</td>
-        <td>¥16.3万</td>
-      </tr></tbody>
+<div class="section-title">员工效率与组织效能排行（调味品 10 家）</div>
+<div class="ovtable"><table>
+<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>效率信号</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-condiment-chain-603288.html">海天味业</a></td><td>9,160</td><td class="num up">+1.7%</td><td class="num">—</td><td class="num">¥76.9万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-002507.html">涪陵榨菜</a></td><td>2,777</td><td class="num up">+0.3%</td><td class="num">—</td><td class="num">¥27.7万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-600186.html">莲花健康</a></td><td>1,201</td><td class="num down">-2.0%</td><td class="num">—</td><td class="num">¥25.8万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-603317.html">天味食品</a></td><td>3,289</td><td class="num up">+10.1%</td><td class="num">—</td><td class="num">¥17.3万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-603755.html">日辰股份</a></td><td>490</td><td class="num up">+14.2%</td><td class="num">—</td><td class="num">¥16.3万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-600872.html">中炬高新</a></td><td>3,746</td><td class="num down">-4.2%</td><td class="num">—</td><td class="num">¥14.4万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-603027.html">千禾味业</a></td><td>2,600</td><td class="num down">-6.5%</td><td class="num">—</td><td class="num">¥13.5万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-603696.html">安记食品</a></td><td>329</td><td class="num">—</td><td class="num">—</td><td class="num">¥9.1万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">口径异常</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-600305.html">恒顺醋业</a></td><td>1,875</td><td class="num down">-7.2%</td><td class="num">—</td><td class="num">¥7.5万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-condiment-chain-002650.html">加加食品</a></td><td>1,274</td><td class="num down">-15.8%</td><td class="num">—</td><td class="num">¥-11.8万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">亏损承压</span></td></tr>
+</tbody>
 </table>
+<div class="fin-note">员工增速=在职员工同比；人均营收/净利=2025 营收(元)÷员工数。已覆盖 10/10 家员工数据。
+排序：有数据优先、按人均净利降序。
+<b>海天</b>人均净利 ¥76.9 万为行业最强（规模 + 定价权），<b>涪陵</b>榨菜单品现金牛人均 ¥27.7 万次高；<b>安记</b> 员工数口径异常（329 人）须谨慎，<b>加加</b> 亏损人均 ¥-11.8 万。
+组织效能信号由「员工增速分档 × 人均盈利分档 × 人均营收趋势」组合判定，为代理指标，非投资建议。</div>
+</div>
 
-<h2 class="section-title">🏢 公司索引</h2>
+<div class="section-title">主要玩家索引（上市公司 10 家）</div>
 <div class="grid">
-      <a class="giant-card" href="./berkshire-condiment-chain-603288.html">
-        <div class="gc-title">海天味业</div>
-        <div class="gc-code">603288</div>
-        <div class="gc-meta">PE 28.8 · PB 4.99 · ROE 19.5%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-condiment-chain-600872.html">
-        <div class="gc-title">中炬高新</div>
-        <div class="gc-code">600872</div>
-        <div class="gc-meta">PE 23.0 · PB 2.39 · ROE 9.4%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-condiment-chain-603027.html">
-        <div class="gc-title">千禾味业</div>
-        <div class="gc-code">603027</div>
-        <div class="gc-meta">PE 28.0 · PB 2.67 · ROE 9.9%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-condiment-chain-600305.html">
-        <div class="gc-title">恒顺醋业</div>
-        <div class="gc-code">600305</div>
-        <div class="gc-meta">PE 47.6 · PB 2.13 · ROE 4.3%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-condiment-chain-002507.html">
-        <div class="gc-title">涪陵榨菜</div>
-        <div class="gc-code">002507</div>
-        <div class="gc-meta">PE 17.1 · PB 1.45 · ROE 8.8%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-condiment-chain-603317.html">
-        <div class="gc-title">天味食品</div>
-        <div class="gc-code">603317</div>
-        <div class="gc-meta">PE 19.4 · PB 3.03 · ROE 12.5%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-condiment-chain-603696.html">
-        <div class="gc-title">安记食品</div>
-        <div class="gc-code">603696</div>
-        <div class="gc-meta">PE 73.5 · PB 4.21 · ROE 4.9%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-condiment-chain-002650.html">
-        <div class="gc-title">加加食品</div>
-        <div class="gc-code">002650</div>
-        <div class="gc-meta">PE -48.3 · PB 3.57 · ROE -8.2%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-condiment-chain-600186.html">
-        <div class="gc-title">莲花健康</div>
-        <div class="gc-code">600186</div>
-        <div class="gc-meta">PE 43.2 · PB 8.05 · ROE 16.9%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-condiment-chain-603755.html">
-        <div class="gc-title">日辰股份</div>
-        <div class="gc-code">603755</div>
-        <div class="gc-meta">PE 23.4 · PB 2.61 · ROE 11.2%</div>
-      </a></div>
+<a class="giant-card" href="berkshire-condiment-chain-603288.html">
+<div class="giant-head"><span class="giant-name">海天味业 链</span><span class="region-tag region-cn">广东</span></div>
+<div class="giant-desc">酱油醋绝对龙头，全国化渠道 + 规模成本优势，PE 2% / PB 2% 极度便宜，ROE 19.5% 质量优。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-condiment-chain-600872.html">
+<div class="giant-head"><span class="giant-name">中炬高新 链</span><span class="region-tag region-cn">广东</span></div>
+<div class="giant-desc">厨邦/美味鲜，广东酱油第二极，混改推进，PB 2% 便宜。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-condiment-chain-603027.html">
+<div class="giant-head"><span class="giant-name">千禾味业 链</span><span class="region-tag region-cn">四川</span></div>
+<div class="giant-desc">零添加赛道开创者，四川眉山，高端化 + 全国化，PB 0% 便宜。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-condiment-chain-600305.html">
+<div class="giant-head"><span class="giant-name">恒顺醋业 链</span><span class="region-tag region-cn">江苏</span></div>
+<div class="giant-desc">镇江香醋龙头，食醋细分冠军，ROE 偏低（4.3%）。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-condiment-chain-002507.html">
+<div class="giant-head"><span class="giant-name">涪陵榨菜 链</span><span class="region-tag region-cn">重庆</span></div>
+<div class="giant-desc">榨菜绝对龙头（乌江），重庆，PE 3% / PB 1% 极度便宜，现金牛。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-condiment-chain-603317.html">
+<div class="giant-head"><span class="giant-name">天味食品 链</span><span class="region-tag region-cn">四川</span></div>
+<div class="giant-desc">复合调味料（好人家/大红袍），川味火锅底料，成长 + 估值便宜。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-condiment-chain-603696.html">
+<div class="giant-head"><span class="giant-name">安记食品 链</span><span class="region-tag region-cn">福建</span></div>
+<div class="giant-desc">复合调味粉（排骨味王），福建，规模小、PE 偏高（73.5）、口径异常。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-condiment-chain-002650.html">
+<div class="giant-head"><span class="giant-name">加加食品 链</span><span class="region-tag region-cn">湖南</span></div>
+<div class="giant-desc">湖南酱油，ST 风险/亏损（ROE -8.2%），PB 76% 偏贵，谨慎。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-condiment-chain-600186.html">
+<div class="giant-head"><span class="giant-name">莲花健康 链</span><span class="region-tag region-cn">河南</span></div>
+<div class="giant-desc">味精/鸡精龙头，河南，PB 8.05 60% 偏贵，转型算力概念扰动。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-condiment-chain-603755.html">
+<div class="giant-head"><span class="giant-name">日辰股份 链</span><span class="region-tag region-cn">山东</span></div>
+<div class="giant-desc">餐饮定制调味品（B 端），山东青岛，小而美，PE 0% / PB 1% 便宜。</div>
+<div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div>
+</a>
+</div>
 
-<h2 class="section-title">📚 延伸阅读</h2>
+<div class="section-title">延伸阅读</div>
+<div class="extend">
+<a href="berkshire-condiment-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a>
+<a href="berkshire-condiment-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a>
+<a href="berkshire-condiment-buyback.html"><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a>
+<a href="berkshire-condiment-repomap.html"><b>回购地图</b><span>回购金额/估值锚/管理层信号三维评分，逐家拆解</span></a>
+<a href="berkshire-condiment-backtest.html"><b>三轮大底回测</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a>
+<a href="berkshire-condiment-cycle.html"><b>价格/库存周期</b><span>框架级梳理行业周期脉络与关键信号</span></a>
+<a href="berkshire-condiment-methodology.html"><b>方法论文</b><span>怎么读这个行业：核心指标与分析框架</span></a>
+</div>
 <div class="grid">
-      <a class="giant-card" href="./berkshire-methodology.html">
-        <div class="gc-icon">📊</div>
-        <div class="gc-title">研究方法论</div>
-        <div class="gc-desc">估值口径、星级算法、数据回溯的完整说明。</div>
-      </a>
-      <a class="giant-card" href="./berkshire-cycle.html">
-        <div class="gc-icon">🔄</div>
-        <div class="gc-title">产业周期</div>
-        <div class="gc-desc">库存/价格/产能/估值四维判断周期位置。</div>
-      </a>
-      <a class="giant-card" href="./berkshire-backtest.html">
-        <div class="gc-icon">📈</div>
-        <div class="gc-title">回测框架</div>
-        <div class="gc-desc">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</div>
-      </a>
-      <a class="giant-card" href="./berkshire-fear-greed.html">
-        <div class="gc-icon">🌡️</div>
-        <div class="gc-title">恐贪温度计</div>
-        <div class="gc-desc">市场情绪温度与板块热度的交叉验证。</div>
-      </a>
-      <a class="giant-card" href="./berkshire-condiment-buyback.html">
-        <div class="gc-icon">💰</div>
-        <div class="gc-title">回购地图</div>
-        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分。</div>
-      </a>
-      <a class="giant-card" href="./berkshire-cross-market.html">
-        <div class="gc-icon">🌐</div>
-        <div class="gc-title">跨市场对比</div>
-        <div class="gc-desc">AH/美股可比公司估值与盈利质量。</div>
-      </a></div>
+
+<a class="giant-card" href="berkshire-condiment-methodology.html">
+<div class="giant-head"><span class="giant-name">📘 调味品估值与周期：框架知识</span></div>
+<div class="giant-desc">为什么调味品是消费「慢变量」、PE 为何会失真、渠道库存周期怎么看、零添加与集中度如何定价——调味品投资的 4 个核心框架概念。</div>
+<div class="giant-foot"><span class="giant-link">阅读方法论文 →</span></div>
+</a>
+
+<a class="giant-card" href="berkshire-condiment-cycle.html">
+<div class="giant-head"><span class="giant-name">📈 调味品周期 2014→2025</span></div>
+<div class="giant-desc">把 10 家调味品企数据串成产业视图：消费升级、估值泡沫、杀估值与本轮筑底的全部周期节奏。</div>
+<div class="giant-foot"><span class="giant-link">查看周期专题 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-condiment-backtest.html">
+<div class="giant-head"><span class="giant-name">🎯 调味品估值回测</span></div>
+<div class="giant-desc">用「低 PE + 高股息率」买点复盘 2014 / 2018 / 2024–25 三轮大底的历史回报，提炼可复用的买点信号框架。</div>
+<div class="giant-foot"><span class="giant-link">查看回测专题 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-condiment-thermometer.html">
+<div class="giant-head"><span class="giant-name">🌡️ 调味品估值温度计</span></div>
+<div class="giant-desc">10 家调味品上市公司估值冷热一览：低 PE + 高股息 = 冷（安全边际高），高 PE + 低股息 = 热（溢价区），一眼看清谁在历史悲观区。</div>
+<div class="giant-foot"><span class="giant-link">查看温度计 →</span></div>
+</a>
+<a class="giant-card" href="berkshire-condiment-buyback.html">
+<div class="giant-head"><span class="giant-name">📊 逐轮买点回报图</span></div>
+<div class="giant-desc">全部 10 家调味品上市公司，三轮大底买入后的累计回报曲线，含峰值标注与逐点回报数据表。</div>
+<div class="giant-foot"><span class="giant-link">查看回报图 →</span></div>
+</a>
+</div>
+
+<div class="note-line">
+📌 <b>未在 A 股上市巨头</b>：调味品赛道以海天为绝对龙头，其余多为区域品牌；部分外资/港股调味品企业（如阜丰集团、颐海国际等）规模亦居行业前列，但因主体不在 A 股，估值/财务数据口径与本表不直接可比，未单列详情页。
+</div>
 
 <div class="source-note">
-  数据来源：akshare / 同花顺 / 巨潮资讯网 · 数据日期：2026-08-09 · 仅供参考，不构成投资建议
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
 </div>
 
 </div>
-
-<script src="./analytics.js"></script>
-<script src="./tdx-link.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.sortable').forEach(function(t){
-    t.querySelectorAll('th').forEach(function(th,i){
-      th.addEventListener('click',function(){
-        var d=t.querySelector('tbody');
-        var rows=Array.from(d.querySelectorAll('tr'));
-        var asc=th.classList.contains('sorted-asc');
-        th.classList.remove('sorted-asc','sorted-desc');
-        rows.sort(function(a,b){
-          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          av=parseFloat(av); bv=parseFloat(bv);
-          return asc?bv-av:av-bv;
-        });
-        th.classList.add(asc?'sorted-desc':'sorted-asc');
-        rows.forEach(function(r){d.appendChild(r)});
-      });
+(function(){
+  function num(v){
+    if(v==null) return NaN;
+    v=v.textContent||v;
+    if(typeof v==='string'){
+      v=v.replace(/,/g,'').replace(/[ \t\r\n]/g,'');
+      if(v==='—'||v==='-'||v==='') return NaN;
+      var unit=1;
+      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
+      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
+      v=v.replace(/[¥,%]/g,'');
+      var n=parseFloat(v);
+      if(!isNaN(n)) n*=unit;
+      return n;
+    }
+    return NaN;
+  }
+  function cmp(a,b,asc){
+    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
+    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
+    var nanA=isNaN(a), nanB=isNaN(b);
+    if(nanA && nanB) return 0;
+    if(nanA) return asc?1:-1;
+    if(nanB) return asc?-1:1;
+    if(an<bn) return asc?-1:1;
+    if(an>bn) return asc?1:-1;
+    return 0;
+  }
+  function sortTable(th){
+    var table=th.closest('table');
+    var tbody=table.querySelector('tbody');
+    var rows=Array.from(tbody.querySelectorAll('tr'));
+    var idx=Array.from(th.parentNode.children).indexOf(th);
+    var type=th.getAttribute('data-type')||'text';
+    var asc=!th.classList.contains('asc');
+    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
+    th.classList.add(asc?'asc':'desc');
+    rows.sort(function(r1,r2){
+      var c1=r1.cells[idx], c2=r2.cells[idx];
+      var v1, v2;
+      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      else if(type==='num'){ v1=num(c1); v2=num(c2); }
+      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      return cmp(v1,v2,asc);
     });
+    rows.forEach(function(r){ tbody.appendChild(r); });
+  }
+  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
+    th.addEventListener('click',function(){ sortTable(th); });
   });
-});
+})();
 </script>
+<script src="/analytics.js"></script>
+<script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
 </body>
 </html>
