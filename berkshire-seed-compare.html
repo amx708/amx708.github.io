@@ -42,7 +42,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .extend b{color:#e8b84b;display:block;margin-bottom:5px;font-weight:700}
 .extend span{font-size:12.5px;color:#64748b;line-height:1.55}
 footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
-@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}</style></head><body>
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style></head><body>
 <div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
 <span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">bank</a>
 <a href="berkshire-baijiu-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">baijiu</a>
@@ -64,8 +77,9 @@ footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font
 <div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div>
 <table class="tbl"><thead><tr><th style="text-align:left">公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收(亿)</th><th>净利(亿)</th><th>市值(亿)</th><th>经营现金流(亿)</th></tr></thead><tbody id="tbody"></tbody></table>
 <div class="note">数据：各公司公开年报与行情快照（akshare / 腾讯行情 / 百度分位），框架级原创整理，<b>不构成投资建议</b>。绿色=同行该列最优，红色=同行该列最弱（按指标方向：PE/PB/负债率越低越好，其余越高越好）。字段缺失者诚实留空。</div>
-<div class="extend"><a href="berkshire-seed-chains.html"><b>返回seed产业链</b><span>查看完整跨层分析与各公司详情页</span></a>
-<a href="berkshire-seed-thermometer.html"><b>估值温度计</b><span>行业内 PB 相对位置一览</span></a></div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-seed-compare.html"><b>🥇 估值分位</b><span>种业（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-seed-thermometer.html"><b>🌡️ 估值温度计</b><span>种业（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-seed-buyback.html"><b>💰 回购监测</b><span>种业（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-seed-repomap.html"><b>🗺️ 板块图谱</b><span>种业（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-seed-backtest.html"><b>📈 五年回测</b><span>种业（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-seed-cycle.html"><b>🔄 周期演进</b><span>种业（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-seed-methodology.html"><b>📘 方法论说明</b><span>种业（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
 </div>
 <footer>数据来源：akshare / 腾讯行情 / 百度股市通 · 框架级整理，非投资建议</footer>
 <script>var DATA=[{"name": "丰乐种业", "code": "000713", "cat": "seed", "pe": 76.68, "pb": 1.47, "dy": 0.52, "roe": 2.6, "gross": 16.5, "debt": 29.7, "rev": 29.0, "np": 0.7, "mcap": 45.9, "opcf": 2.9, "pe_pct": 48.0, "pb_pct": 9.6}, {"name": "隆平高科", "code": "000998", "cat": "seed", "pe": 332.81, "pb": 1.82, "dy": 0.5, "roe": 2.9, "gross": 39.3, "debt": 59.5, "rev": 84.8, "np": 1.7, "mcap": 123.43, "opcf": 7.5, "pe_pct": 95.1, "pb_pct": 1.5}, {"name": "登海种业", "code": "002041", "cat": "seed", "pe": 76.57, "pb": 2.09, "dy": 0.33, "roe": 2.5, "gross": 29.6, "debt": 18.7, "rev": 11.0, "np": 0.9, "mcap": 77.18, "opcf": 2.5, "pe_pct": 49.9, "pb_pct": 10.5}, {"name": "荃银高科", "code": "300087", "cat": "seed", "pe": 23.96, "pb": 2.86, "dy": 0.98, "roe": 11.7, "gross": 21.5, "debt": 69.0, "rev": 45.0, "np": 2.1, "mcap": 48.5, "opcf": 2.0, "pe_pct": 2.1, "pb_pct": 1.0}, {"name": "神农科技", "code": "300189", "cat": "seed", "pe": 40.04, "pb": 6.59, "dy": 0.11, "roe": 15.1, "gross": 35.4, "debt": 38.9, "rev": 2.5, "np": 1.1, "mcap": 45.36, "opcf": 0.2, "pe_pct": 79.5, "pb_pct": 89.9}, {"name": "农发种业", "code": "600313", "cat": "seed", "pe": 128.59, "pb": 2.71, "dy": 0.16, "roe": 4.3, "gross": 7.5, "debt": 43.3, "rev": 66.5, "np": 0.8, "mcap": 65.5, "opcf": 3.0, "pe_pct": 58.8, "pb_pct": 27.5}, {"name": "敦煌种业", "code": "600354", "cat": "seed", "pe": 101.7, "pb": 4.16, "dy": 0.68, "roe": 7.0, "gross": 36.5, "debt": 57.3, "rev": 11.6, "np": 0.5, "mcap": 31.14, "opcf": 4.2, "pe_pct": 84.0, "pb_pct": 36.7}, {"name": "万向德农", "code": "600371", "cat": "seed", "pe": 123.28, "pb": 3.7, "dy": 1.47, "roe": 1.0, "gross": 27.4, "debt": 21.0, "rev": 2.0, "np": 0.1, "mcap": 19.84, "opcf": 0.4, "pe_pct": 1.6, "pb_pct": 9.8}, {"name": "苏垦农发", "code": "601952", "cat": "seed", "pe": 23.7, "pb": 1.6, "dy": 1.83, "roe": 7.9, "gross": 13.2, "debt": 48.9, "rev": 100.7, "np": 5.5, "mcap": 113.0, "opcf": 22.6, "pe_pct": 73.7, "pb_pct": 2.4}, {"name": "秋乐种业", "code": "920087", "cat": "seed", "pe": 173.33, "pb": 2.9, "dy": null, "roe": 2.3, "gross": 26.5, "debt": 23.4, "rev": 3.3, "np": 0.1, "mcap": 15.69, "opcf": 0.2, "pe_pct": 89.7, "pb_pct": 34.1}];
@@ -83,4 +97,8 @@ renderList();renderTbl();
 </script>
   <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
 </body></html>
