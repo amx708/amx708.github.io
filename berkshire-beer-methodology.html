@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>啤酒估值与周期：框架知识 · 价值投资视角</title>
+<style>
+:root {
+  --navy: #0b1f3a;
+  --navy2: #10294d;
+  --ink: #1d2b40;
+  --line: #e4e9f2;
+  --accent: #f5a623;
+  --accent-rgb: 245,166,35;
+  --txt: #23344e;
+  --muted: #6b7a93;
+  --card: #fff;
+  --bg: #f4f7fc;
+  --green: #1f9d6b;
+  --red: #e74c3c;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;}
+.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
+.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
+.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
+.container{max-width:1100px;margin:0 auto;padding:0 20px 40px;}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;margin-bottom:22px;}
+.hero h1{font-size:26px;margin-bottom:8px;}
+.hero-sub{opacity:0.85;font-size:14px;margin-top:6px;max-width:760px;margin-left:auto;margin-right:auto;}
+.hero-stats{display:flex;justify-content:center;gap:26px;margin-top:18px;flex-wrap:wrap;}
+.hero-stats .stat{font-size:13px;}
+.hero-stats .stat b{color:var(--accent);font-size:22px;display:block;}
+.explain-banner{display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:8px;padding:16px 20px;margin:0 0 8px;border-left:4px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04);}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0;}
+.explain-banner .eb-body{flex:1;min-width:0;}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.explain-banner .eb-tag{font-size:11px;color:#fff;background:var(--accent);border-radius:10px;padding:2px 9px;}
+.explain-banner .eb-text{font-size:13px;color:var(--muted);line-height:1.8;}
+.explain-banner .eb-text b{color:var(--ink);font-weight:600;}
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
+.para{font-size:14px;color:var(--txt);line-height:1.85;margin:8px 0 4px;}
+.para b{color:var(--ink);font-weight:600;}
+.ulist{margin:8px 0 4px 4px;padding-left:20px;}
+.ulist li{font-size:13.5px;color:var(--txt);line-height:1.85;margin:5px 0;}
+.ulist li b{color:var(--ink);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:14px 0;}
+.concept-card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px 18px;border-left:4px solid var(--accent);box-shadow:0 1px 6px rgba(0,0,0,.04);}
+.concept-card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(245,166,35,.18);}
+.concept-head{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+.concept-num{font-size:12px;font-weight:800;color:#fff;background:var(--accent);border-radius:8px;padding:2px 8px;}
+.concept-desc{font-size:12.5px;color:var(--muted);line-height:1.7;}
+.concept-desc b{color:var(--ink);}
+.ovtable{overflow-x:auto;margin:10px 0;}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04);}
+.ovtable th,.ovtable td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;}
+.ovtable th{background:var(--navy);color:#fff;font-weight:600;white-space:nowrap;}
+.ovtable tr:hover{background:#f4f7fc;}
+.ovtable td b{color:var(--ink);}
+.ovtable .acc{color:#b45309;font-weight:700;}
+.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
+.pct-lo{background:#d1fae5;color:#065f46;}
+.pct-mid{background:#fef3c7;color:#92400e;}
+.pct-hi{background:#fee2e2;color:#991b1b;}
+.fin-note{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.7;}
+.signal-box{background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:13.5px;color:var(--txt);line-height:1.85;box-shadow:0 1px 6px rgba(0,0,0,.04);}
+.signal-box b{color:var(--ink);}
+.warn-box{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #c2410c;border-radius:8px;padding:14px 18px;margin:10px 0;font-size:13px;color:#7c2d12;line-height:1.8;}
+.warn-box b{color:#9a3412;}
+.linkrow{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:10px 0;}
+.linkcard{display:block;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px;text-decoration:none;box-shadow:0 1px 6px rgba(0,0,0,.04);transition:all .2s;}
+.linkcard:hover{border-color:var(--accent);background:rgba(245,166,35,.06);transform:translateY(-2px);}
+.linkcard b{color:var(--navy);font-size:14px;}
+.linkcard span{display:block;color:var(--muted);font-size:12px;margin-top:4px;line-height:1.6;}
+.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line);}
+.source-note b{color:var(--ink);}
+@media(max-width:640px){ .hero{padding:22px 16px} .hero h1{font-size:21px} .grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a href="./berkshire-beer-chains.html">← 返回啤酒产业链</a>
+  <span style="opacity:0.5">·</span>
+  <strong>啤酒 · 框架知识</strong>
+</div>
+
+<div class="container">
+
+<div class="hero">
+  <h1>📘 啤酒估值与周期：框架知识</h1>
+  <div class="hero-sub">读啤酒财报与行业时，最容易踩的认知坑，以及一套可复用的「量价 + 成本 + 高端化」分析框架</div>
+  <div class="hero-stats">
+    <div class="stat"><b>4</b>核心框架概念</div>
+    <div class="stat"><b>10</b>上市啤酒企覆盖</div>
+    <div class="stat"><b>4</b>行业演进阶段</div>
+    <div class="stat"><b>原创</b>公开源整理</div>
+  </div>
+</div>
+
+<div class="explain-banner">
+  <div class="eb-icon">🍺</div>
+  <div class="eb-body">
+    <div class="eb-title"><span class="eb-tag">资料说明</span> 这是一篇「怎么读」的方法论文</div>
+    <div class="eb-text">
+      本页不推荐任何标的，只讲<b>分析啤酒的框架</b>：为什么它和白酒是两类资产、PE/ROE 为何会失真、高端化率（ASP）怎么看、成本周期如何主导毛利、以及当前行业处在周期的哪个位置。
+      所有数字均来自各公司<b>公开年报、官网、产品发布与新闻</b>等事实层，由本站原创整理；文中时点数以「啤酒产业链地图」页最新披露为准。
+    </div>
+  </div>
+</div>
+
+<div class="section-title">一、为什么啤酒是价值投资的「特殊样本」</div>
+<p class="para">啤酒与白酒同属「酒」，但底层资产逻辑完全不同。用白酒的尺子去量啤酒，会踩坑：</p>
+<ul class="ulist">
+<li><b>这是一场「价」的游戏，不是「量」</b>：行业总产量在 2013 年见顶后长期横盘/小幅下滑，增长几乎全部来自吨酒价格（ASP）提升——即<b>高端化/结构升级</b>，而非销量扩张。</li>
+<li><b>库存不升值，反是负担</b>：啤酒有保质期，渠道库存过期即报废，与白酒「基酒越陈越值钱」正好相反，因此啤酒没有「囤货升值」的护城河。</li>
+<li><b>成本高度敏感</b>：大麦（麦芽）/包材（铝罐、玻璃瓶）占成本大头，<b>成本周期</b>主导毛利率波动，是利润弹性最大的变量。</li>
+<li><b>区域割据 + 高端化双主线</b>：青啤/华润/燕京/重啤（嘉士伯）/珠啤 各据强势区域；高端化（乌苏、1664、青岛纯生、奥古特）由重啤与青啤引领。</li>
+<li><b>股东回报在改善</b>：行业自由现金流好，重啤高 ROE、青啤稳健分红，回购/分红整体抬升，是 owner earnings 视角下的「股东友好型」资产。</li>
+</ul>
+
+<div class="section-title">二、估值框架：4 个必须先搞清的概念</div>
+<div class="grid">
+<div class="concept-card">
+<div class="concept-head"><span class="concept-num">01</span> PE / ROE 为何会失真</div>
+<div class="concept-desc">重啤 ROE 高达 <b>96.1%</b> 看似神话，但源于<b>资产轻（合资/品牌授权模式）</b>，对应的 PB 也高达 <b>11.51 倍</b>（分位 23%）。单看 ROE 会误判；须结合 PE/PB 历史分位与资产模式。燕京 PB 分位达 <b>86%</b> 反而偏贵。估值须多维交叉验证。</div>
+</div>
+<div class="concept-card">
+<div class="concept-head"><span class="concept-num">02</span> 高端化率（ASP）</div>
+<div class="concept-desc">吨酒价格（ASP）是衡量结构升级的核心指标，<b>比营收增速更能反映盈利质量</b>。高端化提速 → 毛利率与净利率双击；高端化放缓则量价逻辑松动。看啤酒，先看 ASP 同比。</div>
+</div>
+<div class="concept-card">
+<div class="concept-head"><span class="concept-num">03</span> 成本周期（大麦/包材）</div>
+<div class="concept-desc">大麦、铝、玻璃降价时毛利率弹性大（2024–25 年成本下行是利润主因）；成本上行则吞噬利润。<b>成本顺风 + 估值低位</b>常构成双击买点，须跟踪上游价格。</div>
+</div>
+<div class="concept-card">
+<div class="concept-head"><span class="concept-num">04</span> 区域集中度与产能利用率</div>
+<div class="concept-desc">2016–2020 年行业「关厂提效」淘汰低效产能，<b>产能利用率与区域市占率</b>决定利润率。区域王者（如珠啤在广东、重啤在西部）享有定价与费用优势。</div>
+</div>
+</div>
+
+<div class="section-title">三、怎么把估值「读」对：当前行业锚</div>
+<p class="para">以「啤酒产业链地图」页最新时点数据为例（<b>时点数，非投资建议</b>），行业整体处于历史偏低区间，但内部分化极大：</p>
+<div class="ovtable">
+<table>
+<thead><tr><th>观察维度</th><th>当前信号（时点）</th><th>怎么读</th></tr></thead>
+<tbody>
+<tr><td><b>PE 历史分位（行业均值）</b></td><td>约 27% 分位</td><td>整体不贵；青岛 <span class="pct pct-lo">0%</span>、重啤 <span class="pct pct-lo">4%</span> 极便宜，惠泉/莫高为负 PE 失真</td></tr>
+<tr><td><b>PB 历史分位（行业均值）</b></td><td>约 29% 分位</td><td>历史偏低；但燕京 PB <span class="pct pct-hi">86%</span> 偏贵，兰州 <span class="pct pct-hi">90%</span> 更贵</td></tr>
+<tr><td><b>ROE 质量星级</b></td><td>重啤 96.1% / 青啤 15.4% / 燕京 11.2%</td><td>重啤高 ROE 含「资产轻」水分须辨；其余多中低，惠泉/兰州/莫高为负</td></tr>
+<tr><td><b>人均净利</b></td><td>永顺泰 ¥33万 / 重啤 ¥29.1万 / 青啤 ¥15.7万 领先</td><td>但燕京/珠江/西藏「口径异常」，员工数不可比，须谨慎</td></tr>
+<tr><td><b>股息率</b></td><td>部分龙头抬升</td><td>低 PE + 高分红 = 历史底部常见组合，是安全边际的现金流背书</td></tr>
+</tbody>
+</table>
+</div>
+<div class="fin-note">以上为框架举例，具体数值随财报与行情变动，请以「啤酒产业链地图」各数据表实时披露为准。分位 = 当前 PE/PB 在近十年日度序列中的百分位（百度股市通口径）。</div>
+
+<div class="section-title">四、周期分析框架：行业演进与当前定位</div>
+<p class="para">啤酒近十年经历四个阶段，买点信号高度相似——<b>成本下行 + 估值低位 + 高端化率提升</b>共振时，往往对应长周期赔率高点：</p>
+<div class="ovtable">
+<table>
+<thead><tr><th>阶段</th><th>行业背景</th><th>盈利特征</th></tr></thead>
+<tbody>
+<tr><td><b>2013 产量见顶</b></td><td>总产量触顶，行业从增量转入存量博弈</td><td>价格战/费用战压制利润，估值承压</td></tr>
+<tr><td><b>2016–2020 关厂提效</b></td><td>淘汰低效产能、集中度提升</td><td>产能利用率与利润率改善，结构升级启动</td></tr>
+<tr><td><b>2020–2023 高端化加速</b></td><td>乌苏爆发、1664/奥古特放量，ASP 快速提升</td><td>毛利率与净利率双击，估值重估</td></tr>
+<tr><td><b>2024–25 筑底 + 成本下行</b></td><td>消费疲软、需求平淡，但大麦/包材降价</td><td>成本红利对冲需求弱，高端化增速放缓（左侧）</td></tr>
+</tbody>
+</table>
+</div>
+<div class="signal-box">
+<b>当前定位（时点判断，框架合成）</b>：成本下行红利 + 估值历史低位（青岛 PE <b>0%</b> 分位、PB <b>1%</b> 分位）的<b>左侧</b>区间。需求尚未反转、高端化增速放缓，结论信号为<b>🟡 中性（左侧布局，不追）</b>，等消费复苏与高端化率再确认后，才接近右侧。
+</div>
+
+<div class="section-title">五、可复用的「买点信号」框架</div>
+<p class="para">把上面四节串成一套可操作的 checklist（任一项单独出现都不构成买点，须多因子共振）：</p>
+<ul class="ulist">
+<li><b>估值锚</b>：PE/PB 历史分位低位（青岛 PE 0% / PB 1% 属极端便宜区间）</li>
+<li><b>成本顺风</b>：大麦、铝、玻璃降价 → 毛利率弹性释放</li>
+<li><b>高端化率</b>：ASP 同比提升、结构升级持续（中高档占比走高）</li>
+<li><b>股东回报</b>：分红率/回购提升，自由现金流充沛</li>
+<li><b>区域稳固</b>：核心市场市占率不丢、产能利用率维持高位</li>
+</ul>
+<div class="warn-box">
+<b>风险提示</b>：① 需求持续疲弱会延长左侧时间，估值便宜可以更便宜；② 高端化不及预期将击穿结构升级逻辑；③ 包材/大麦成本反弹吞噬毛利；④ 区域竞争价格战压缩利润。以上为研究框架示例，<b>不构成投资建议</b>，须结合实盘与最新公告校验。
+</div>
+
+<div class="section-title">六、回链：用本站工具落地这套框架</div>
+<div class="linkrow">
+<a class="linkcard" href="./berkshire-beer-chains.html"><b>啤酒产业链地图</b><span>10 家玩家、估值分位、R15 三维、员工效率全表</span></a>
+<a class="linkcard" href="./berkshire-beer-cycle.html"><b>价格/库存周期</b><span>行业周期脉络与关键信号框架级梳理</span></a>
+<a class="linkcard" href="./berkshire-beer-backtest.html"><b>三轮大底回测</b><span>低 PE + 高股息买点历史回报</span></a>
+<a class="linkcard" href="./berkshire-beer-buyback.html"><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a>
+<a class="linkcard" href="./berkshire-beer-repomap.html"><b>回购地图</b><span>回购金额/估值锚/管理层信号三维评分</span></a>
+<a class="linkcard" href="./berkshire-beer-compare.html"><b>横向对比工具</b><span>勾选多家并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a>
+<a class="linkcard" href="./berkshire-beer-thermometer.html"><b>估值温度计</b><span>10 家估值冷热一览，谁在历史悲观区</span></a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+<script src="./analytics.js"></script>
+<script src="./tdx-link.js"></script>
+</body>
+</html>
