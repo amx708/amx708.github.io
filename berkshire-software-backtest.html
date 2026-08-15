@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>软件/信创估值回测 | 价值投资初级阶段</title>
+<style>* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f4fa; color:#1e293b; line-height:1.75; }
+.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(45,212,191,.2); padding:12px 20px; display:flex; align-items:center; gap:12px; flex-wrap:wrap }
+.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(45,212,191,.1); color:#187469; border:1px solid rgba(45,212,191,.25); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
+.home-btn:hover { background:var(--accent); border-color:var(--accent); color:#fff; }
+.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
+.breadcrumb a { color:#64748b; text-decoration:none; }
+.breadcrumb a:hover { color:#187469; }
+.crumb-sep { color:#cbd5e1; }
+.container { max-width:1000px; margin:0 auto; padding:24px 16px 48px; }
+.hero { background:linear-gradient(135deg,#ffffff 0%,#f0f4fa 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(45,212,191,.2); border-left:4px solid var(--accent); box-shadow:0 2px 12px rgba(0,0,0,.06); }
+.hero-title { font-size:26px; font-weight:800; color:#0b1f3a; margin-bottom:6px; letter-spacing:.5px; }
+.hero-sub { font-size:14px; color:#64748b; margin-bottom:18px; }
+.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+.stat-item { background:rgba(45,212,191,.1); border:1px solid rgba(45,212,191,.3); border-radius:10px; padding:10px 18px; text-align:center; }
+.stat-num { font-size:18px; font-weight:800; color:#187469; }
+.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
+.section-title { font-size:18px; font-weight:700; color:#0b1f3a; margin:28px 0 14px; padding-left:12px; border-left:3px solid var(--accent); }
+.overview { background:rgba(45,212,191,.04); border:1px solid rgba(45,212,191,.15); border-radius:12px; padding:18px 20px; margin-bottom:8px; font-size:14px; color:#334155; line-height:1.85; }
+.overview b { color:#0b1f3a; font-weight:600; }
+.info-table { width:100%; border-collapse:collapse; background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; margin-top:8px; box-shadow:0 1px 6px rgba(0,0,0,.04); font-size:13px; }
+.info-table th { padding:11px 14px; background:rgba(45,212,191,.05); color:#0b1f3a; font-size:12.5px; text-align:left; border-bottom:1px solid #e2e8f0; font-weight:700; }
+.info-table td { padding:12px 14px; font-size:13px; color:#334155; border-bottom:1px solid #eef2f7; vertical-align:top; }
+.info-table tr:last-child td { border-bottom:none; }
+.info-table td:first-child { font-weight:600; background:#f8fafc; min-width:110px; }
+.num { font-variant-numeric:tabular-nums; font-feature-settings:"tnum"; font-family:"SF Mono",Consolas,monospace; }
+.tag { display:inline-block; padding:2px 8px; border-radius:10px; font-size:11px; font-weight:600; }
+.tag-cheap { background:#dcfce7; color:#15803d; }
+.tag-mid { background:#fef3c7; color:#854d0e; }
+.tag-expensive { background:#fee2e2; color:#991b1b; }
+.tag-na { background:#f1f5f9; color:#64748b; }
+.warn-box { background:linear-gradient(135deg,#fef3c7,#fffbeb); border:1px solid #fbbf24; border-radius:10px; padding:14px 16px; margin-top:14px; font-size:13px; color:#78350f; line-height:1.8; }
+.warn-box b { color:#451a03; }
+.fn { font-size:11px; color:#94a3b8; }
+.back-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(45,212,191,.08); color:#187469; border:1px solid rgba(45,212,191,.25); border-radius:20px; padding:8px 16px; font-size:13px; text-decoration:none; transition:all .2s; }
+.back-btn:hover { background:var(--accent); color:#fff; border-color:var(--accent); }
+.back-bar { margin-top:20px; }
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.extend a{display:block;background:#fffdf6;border:1px solid #f0e2bf;border-radius:12px;padding:14px 16px;text-decoration:none;color:#1e293b;transition:.18s}
+.extend a:hover{border-color:var(--accent);box-shadow:0 4px 14px rgba(45,212,191,.18);transform:translateY(-2px)}
+.extend b{display:block;font-size:15px;color:#1f2937;margin-bottom:4px}
+.extend span{display:block;font-size:12.5px;color:#64748b;line-height:1.5}
+@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .info-table{font-size:12px} .info-table td{padding:9px 10px} }
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span class="switcher"><a href="berkshire-bank-chains.html">银行</a><a href="berkshire-baijiu-chains.html">白酒</a><a href="berkshire-ai-chains.html">AI</a><a href="berkshire-robot-chains.html">机器人</a><a href="berkshire-tcm-chains.html">中药</a><a href="berkshire-innov-chains.html">创新药</a><a href="berkshire-chemical-pharma-chains.html">化学制药</a><a href="berkshire-appliance-chains.html">家电</a><a href="berkshire-power-chains.html">电力</a><a href="berkshire-coal-chains.html">煤炭</a><a href="berkshire-metal-chains.html">有色</a><a href="berkshire-chem-chains.html">化工</a><a href="berkshire-equip-chains.html">电力设备</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<a href="berkshire-software-chains.html">软件/信创产业链</a><span class="crumb-sep">/</span>
+<span>估值回测</span>
+</div>
+</div>
+<div class="container">
+<div class="hero">
+<div class="hero-title">软件/信创估值回测</div>
+<div class="hero-sub">当前估值快照 · 三轮大底锚点 · 行业买点框架</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">样本总数</div></div>
+<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">有月度价格</div></div>
+<div class="stat-item"><div class="stat-num">0</div><div class="stat-label">缺历史价格</div></div>
+</div>
+</div>
+<div class="overview">
+本页是<b>软件/信创产业链</b>的估值回测专题。把 <b>10 家</b>代表公司的当前 <b>PE / PB / 股息率 / ROE</b> 摆在一起。当前估值快照来自本地缓存（<span class="fn">_chain_fin_data.json</span>，2025-12-31 截面）；价格样本来自 <span class="fn">_chain_price_data.json</span>。<b>未做复权调整</b>，回报倍数近似（不扣费用、不计分红再投）。
+</div>
+<div class="section-title">一、当前估值快照（2025-12-31）</div>
+<table class="info-table">
+<thead><tr><th>公司</th><th>代码</th><th>当前 PE</th><th>当前 PB</th><th>股息率</th><th>ROE</th><th>当前估值档位</th></tr></thead>
+<tbody><tr><td>科大讯飞</td><td><code>002230</code></td><td class="num">119.2</td><td class="num">5.5</td><td class="num">0.2%</td><td class="num">4.6%</td><td><span class="tag tag-expensive">PE 区间</span></td></tr><tr><td>太极股份</td><td><code>002368</code></td><td class="num">-10.5</td><td class="num">2.3</td><td class="num">0.6%</td><td class="num">-16.9%</td><td><span class="tag tag-cheap">PE 区间</span></td></tr><tr><td>广联达</td><td><code>002410</code></td><td class="num">39.2</td><td class="num">2.6</td><td class="num">2.5%</td><td class="num">6.8%</td><td><span class="tag tag-mid">PE 区间</span></td></tr><tr><td>中国软件</td><td><code>600536</code></td><td class="num">-888.5</td><td class="num">8.7</td><td class="num">0.1%</td><td class="num">-1.5%</td><td><span class="tag tag-cheap">PE 区间</span></td></tr><tr><td>恒生电子</td><td><code>600570</code></td><td class="num">32.6</td><td class="num">4.4</td><td class="num">0.9%</td><td class="num">13.3%</td><td><span class="tag tag-mid">PE 区间</span></td></tr><tr><td>用友网络</td><td><code>600588</code></td><td class="num">-27.8</td><td class="num">5.5</td><td class="num">0.5%</td><td class="num">-17.5%</td><td><span class="tag tag-cheap">PE 区间</span></td></tr><tr><td>宝信软件</td><td><code>600845</code></td><td class="num">43.8</td><td class="num">4.8</td><td class="num">1.2%</td><td class="num">11.6%</td><td><span class="tag tag-expensive">PE 区间</span></td></tr><tr><td>泛微网络</td><td><code>603039</code></td><td class="num">39.3</td><td class="num">4.8</td><td class="num">0.2%</td><td class="num">12.6%</td><td><span class="tag tag-mid">PE 区间</span></td></tr><tr><td>中望软件</td><td><code>688083</code></td><td class="num">275.9</td><td class="num">3.2</td><td class="num">0.7%</td><td class="num">0.8%</td><td><span class="tag tag-expensive">PE 区间</span></td></tr><tr><td>金山办公</td><td><code>688111</code></td><td class="num">35.0</td><td class="num">8.4</td><td class="num">0.5%</td><td class="num">15.2%</td><td><span class="tag tag-mid">PE 区间</span></td></tr></tbody>
+</table>
+<div class="fn">排序：按代码升序。「当前估值档位」按 PE 区间（&lt;15 便宜 / 15-40 中 / &gt;40 贵）粗标。详细分子分母见末段数据源。</div>
+<div class="warn-box">
+<b>⚠️ 数据透明度声明</b>：当前 PE/PB/股息率/ROE 来自本地缓存；价格样本 10 家。三轮大底价格若有完整月度数据，会在「延伸阅读」里给出，没有则用双轨框架（估值+股息）替代。<b>不编造回报数字</b>。
+</div>
+<div class="section-title">二、买点框架</div>
+<div class="overview">
+本行业的买点框架：<b>低估值（PE/PB 历史分位低）+ 高股息率（&gt;5%）+ 周期拐点（政策/价格/需求三周期叠加底部）</b>。回测以「历史大底买入持有到当前」测算回报；当前样本完整度以本地缓存为准，缺数据字段标「未采集」。
+</div>
+<div class="section-title">延伸阅读</div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-software-compare.html"><b>🥇 估值分位</b><span>软件/信创（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-software-thermometer.html"><b>🌡️ 估值温度计</b><span>软件/信创（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-software-buyback.html"><b>💰 回购监测</b><span>软件/信创（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-software-repomap.html"><b>🗺️ 板块图谱</b><span>软件/信创（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-software-backtest.html"><b>📈 五年回测</b><span>软件/信创（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-software-cycle.html"><b>🔄 周期演进</b><span>软件/信创（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-software-methodology.html"><b>📘 方法论说明</b><span>软件/信创（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+<div class="back-bar"><a href="berkshire-software-chains.html" class="back-btn">← 返回软件/信创产业链</a></div>
+</div>
+  <script src="/analytics.js"></script>
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+</body>
+</html>

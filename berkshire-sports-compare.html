@@ -42,7 +42,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .extend b{color:#e8b84b;display:block;margin-bottom:5px;font-weight:700}
 .extend span{font-size:12.5px;color:#64748b;line-height:1.55}
 footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
-@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}</style></head><body>
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style></head><body>
 <div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
 <span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">bank</a>
 <a href="berkshire-baijiu-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">baijiu</a>
@@ -64,8 +77,9 @@ footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font
 <div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div>
 <table class="tbl"><thead><tr><th style="text-align:left">公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收(亿)</th><th>净利(亿)</th><th>市值(亿)</th><th>经营现金流(亿)</th></tr></thead><tbody id="tbody"></tbody></table>
 <div class="note">数据：各公司公开年报与行情快照（akshare / 腾讯行情 / 百度分位），框架级原创整理，<b>不构成投资建议</b>。绿色=同行该列最优，红色=同行该列最弱（按指标方向：PE/PB/负债率越低越好，其余越高越好）。字段缺失者诚实留空。</div>
-<div class="extend"><a href="berkshire-sports-chains.html"><b>返回sports产业链</b><span>查看完整跨层分析与各公司详情页</span></a>
-<a href="berkshire-sports-thermometer.html"><b>估值温度计</b><span>行业内 PB 相对位置一览</span></a></div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-sports-compare.html"><b>🥇 估值分位</b><span>体育（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-sports-thermometer.html"><b>🌡️ 估值温度计</b><span>体育（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-sports-buyback.html"><b>💰 回购监测</b><span>体育（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-sports-repomap.html"><b>🗺️ 板块图谱</b><span>体育（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-sports-backtest.html"><b>📈 五年回测</b><span>体育（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-sports-cycle.html"><b>🔄 周期演进</b><span>体育（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-sports-methodology.html"><b>📘 方法论说明</b><span>体育（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
 </div>
 <footer>数据来源：akshare / 腾讯行情 / 百度股市通 · 框架级整理，非投资建议</footer>
 <script>var DATA=[{"name": "莱茵体育", "code": "000558", "cat": "sports", "pe": 98.89, "pb": 4.18, "dy": 7.3, "roe": 2.0, "gross": 18.1, "debt": 54.1, "rev": 5.3, "np": 0.2, "mcap": 43.96, "opcf": 2.7, "pe_pct": 17.5, "pb_pct": 67.7}, {"name": "双象股份", "code": "002395", "cat": "sports", "pe": 19.45, "pb": 2.06, "dy": 1.68, "roe": 14.0, "gross": 14.8, "debt": 37.3, "rev": 25.8, "np": 2.0, "mcap": 31.94, "opcf": 2.1, "pe_pct": 20.7, "pb_pct": 1.0}, {"name": "凯文教育", "code": "002659", "cat": "sports", "pe": 159.64, "pb": 1.29, "dy": 0.09, "roe": 0.8, "gross": 26.8, "debt": 27.5, "rev": 3.5, "np": 0.2, "mcap": 27.64, "opcf": 1.2, "pe_pct": 14.4, "pb_pct": 41.0}, {"name": "力盛体育", "code": "002858", "cat": "sports", "pe": 299.41, "pb": 4.05, "dy": 0.27, "roe": 1.3, "gross": 18.7, "debt": 30.4, "rev": 5.0, "np": 0.1, "mcap": 21.13, "opcf": 1.1, "pe_pct": 1.9, "pb_pct": 42.8}, {"name": "探路者", "code": "300005", "cat": "sports", "pe": 94.52, "pb": 3.76, "dy": 0.11, "roe": 4.0, "gross": 47.4, "debt": 26.8, "rev": 13.8, "np": 0.8, "mcap": 81.39, "opcf": 0.4, "pe_pct": 77.8, "pb_pct": 84.4}, {"name": "金陵体育", "code": "300651", "cat": "sports", "pe": 37.71, "pb": 2.17, "dy": 0.59, "roe": 6.3, "gross": 31.6, "debt": 18.5, "rev": 4.2, "np": 0.6, "mcap": 23.79, "opcf": 0.9, "pe_pct": 13.5, "pb_pct": 6.7}, {"name": "中体产业", "code": "600158", "cat": "sports", "pe": 35.68, "pb": 2.85, "dy": 0.28, "roe": 8.5, "gross": 22.0, "debt": 43.0, "rev": 21.4, "np": 2.1, "mcap": 68.41, "opcf": 1.4, "pe_pct": 1.6, "pb_pct": 4.9}, {"name": "大丰实业", "code": "603081", "cat": "sports", "pe": 62.61, "pb": 1.15, "dy": 0.69, "roe": 2.9, "gross": 25.0, "debt": 58.4, "rev": 23.8, "np": 0.9, "mcap": 36.84, "opcf": 4.7, "pe_pct": 87.2, "pb_pct": 1.0}, {"name": "共创草坪", "code": "605099", "cat": "sports", "pe": 18.55, "pb": 3.96, "dy": 2.53, "roe": 22.6, "gross": 34.2, "debt": 24.8, "rev": 32.9, "np": 6.7, "mcap": 132.17, "opcf": 7.4, "pe_pct": 24.5, "pb_pct": 36.7}, {"name": "舒华体育", "code": "605299", "cat": "sports", "pe": 44.33, "pb": 3.65, "dy": 1.74, "roe": 7.0, "gross": 30.7, "debt": 37.4, "rev": 15.7, "np": 0.9, "mcap": 46.88, "opcf": 1.1, "pe_pct": 57.7, "pb_pct": 53.0}];
@@ -83,4 +97,8 @@ renderList();renderTbl();
 </script>
   <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
 </body></html>

@@ -42,7 +42,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .extend b{color:#e8b84b;display:block;margin-bottom:5px;font-weight:700}
 .extend span{font-size:12.5px;color:#64748b;line-height:1.55}
 footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
-@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}</style></head><body>
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style></head><body>
 <div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
 <span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">bank</a>
 <a href="berkshire-baijiu-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">baijiu</a>
@@ -64,8 +77,9 @@ footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font
 <div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div>
 <table class="tbl"><thead><tr><th style="text-align:left">公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收(亿)</th><th>净利(亿)</th><th>市值(亿)</th><th>经营现金流(亿)</th></tr></thead><tbody id="tbody"></tbody></table>
 <div class="note">数据：各公司公开年报与行情快照（akshare / 腾讯行情 / 百度分位），框架级原创整理，<b>不构成投资建议</b>。绿色=同行该列最优，红色=同行该列最弱（按指标方向：PE/PB/负债率越低越好，其余越高越好）。字段缺失者诚实留空。</div>
-<div class="extend"><a href="berkshire-software-chains.html"><b>返回software产业链</b><span>查看完整跨层分析与各公司详情页</span></a>
-<a href="berkshire-software-thermometer.html"><b>估值温度计</b><span>行业内 PB 相对位置一览</span></a></div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-software-compare.html"><b>🥇 估值分位</b><span>软件/信创（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-software-thermometer.html"><b>🌡️ 估值温度计</b><span>软件/信创（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-software-buyback.html"><b>💰 回购监测</b><span>软件/信创（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-software-repomap.html"><b>🗺️ 板块图谱</b><span>软件/信创（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-software-backtest.html"><b>📈 五年回测</b><span>软件/信创（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-software-cycle.html"><b>🔄 周期演进</b><span>软件/信创（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-software-methodology.html"><b>📘 方法论说明</b><span>软件/信创（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
 </div>
 <footer>数据来源：akshare / 腾讯行情 / 百度股市通 · 框架级整理，非投资建议</footer>
 <script>var DATA=[{"name": "科大讯飞", "code": "002230", "cat": "软件/信创", "pe": 117.53, "pb": 5.38, "dy": 0.24, "roe": 4.6, "gross": 42.4, "debt": 55.7, "rev": 271.1, "np": 8.4, "mcap": 1014.16, "opcf": 32.1, "pe_pct": 45.1, "pb_pct": 9.7}, {"name": "太极股份", "code": "002368", "cat": "软件/信创", "pe": 10.38, "pb": 2.31, "dy": 0.63, "roe": 16.9, "gross": 21.7, "debt": 70.3, "rev": 77.9, "np": 7.6, "mcap": 91.93, "opcf": 0.8, "pe_pct": 1.8, "pb_pct": 3.3}, {"name": "广联达", "code": "002410", "cat": "软件/信创", "pe": 37.92, "pb": 2.56, "dy": 2.45, "roe": 6.8, "gross": 86.0, "debt": 39.0, "rev": 61.0, "np": 4.0, "mcap": 155.28, "opcf": 10.6, "pe_pct": 3.0, "pb_pct": 1.9}, {"name": "中国软件", "code": "600536", "cat": "软件/信创", "pe": 891.17, "pb": 8.75, "dy": 0.06, "roe": 1.5, "gross": 42.4, "debt": 44.4, "rev": 51.0, "np": 0.4, "mcap": 307.5, "opcf": 6.8, "pe_pct": 2.1, "pb_pct": 28.6}, {"name": "恒生电子", "code": "600570", "cat": "软件/信创", "pe": 32.42, "pb": 4.35, "dy": 0.87, "roe": 13.3, "gross": 71.1, "debt": 32.5, "rev": 57.8, "np": 12.3, "mcap": 434.02, "opcf": 10.7, "pe_pct": 12.0, "pb_pct": 4.1}, {"name": "用友网络", "code": "600588", "cat": "软件/信创", "pe": 27.51, "pb": 5.49, "dy": 0.54, "roe": 17.5, "gross": 49.6, "debt": 57.2, "rev": 91.8, "np": 13.9, "mcap": 378.6, "opcf": 8.1, "pe_pct": 16.3, "pb_pct": 20.4}, {"name": "宝信软件", "code": "600845", "cat": "软件/信创", "pe": 42.79, "pb": 4.65, "dy": 1.24, "roe": 11.6, "gross": 31.7, "debt": 46.5, "rev": 109.7, "np": 13.1, "mcap": 531.28, "opcf": 21.5, "pe_pct": 45.8, "pb_pct": 26.4}, {"name": "泛微网络", "code": "603039", "cat": "软件/信创", "pe": 35.45, "pb": 4.35, "dy": 0.2, "roe": 12.6, "gross": 93.8, "debt": 42.4, "rev": 22.9, "np": 2.9, "mcap": 115.12, "opcf": 2.8, "pe_pct": 5.7, "pb_pct": 5.2}, {"name": "中望软件", "code": "688083", "cat": "软件/信创", "pe": 268.33, "pb": 3.09, "dy": 0.73, "roe": 0.8, "gross": 96.0, "debt": 14.6, "rev": 8.9, "np": 0.2, "mcap": 81.6, "opcf": 1.2, "pe_pct": 53.4, "pb_pct": 3.9}, {"name": "金山办公", "code": "688111", "cat": "软件/信创", "pe": 34.47, "pb": 8.27, "dy": 0.46, "roe": 15.2, "gross": 86.0, "debt": 29.2, "rev": 59.3, "np": 18.4, "mcap": 1250.89, "opcf": 25.0, "pe_pct": 3.9, "pb_pct": 5.4}];
@@ -83,4 +97,8 @@ renderList();renderTbl();
 </script>
   <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
 </body></html>
