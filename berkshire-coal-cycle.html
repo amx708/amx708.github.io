@@ -1,36 +1,128 @@
-<style>
-:root{--bg:#f0f2f5;--soft:#f8fafc;--card:#ffffff;--ink:#1e293b;--mut:#64748b;--line:rgba(0,0,0,.09);--red:#dc2626;--green:#16a34a;--accent:#a8a29e;}
-*{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased}
-.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.nav-in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.nav .brand{color:var(--ink);font-weight:600;font-size:15px;letter-spacing:.3px}
-.nav .crumb{color:var(--mut);font-size:12.5px}
-.nav a{color:var(--mut);text-decoration:none;font-size:13px;padding:4px 9px;border-radius:6px;transition:.15s}
-.nav a:hover{color:var(--accent);background:var(--soft)}
-.detail{max-width:920px;margin:0 auto;padding:28px 20px 70px}
-.detail .back{color:var(--accent);text-decoration:none;font-size:13px}
-.detail>h1{font-weight:700;letter-spacing:-.5px;color:var(--ink)}
-.section-title{font-size:18px;font-weight:700;margin:34px 0 16px;padding-left:12px;border-left:3px solid var(--accent);letter-spacing:-.2px;color:var(--ink)}
-.layer{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:10px 0}
-.layer h4{margin:0 0 4px;font-size:14px;color:var(--accent);font-weight:600}
-.layer p{margin:0;font-size:13.5px;color:var(--mut);line-height:1.65}
-.guide{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0}
-.guide h4{margin:0 0 8px;color:var(--accent);font-weight:600}
-.guide p,.guide li{font-size:13.5px;color:var(--ink);line-height:1.7}
-.note{background:var(--soft);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:13px;color:var(--mut);line-height:1.65}
-.note a{color:var(--accent)}
-.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:center}
-.tbl th{background:var(--soft);color:var(--ink);font-weight:600;border-bottom:2px solid var(--line)}
-.tbl tr:hover td{background:var(--soft)}
-footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid var(--line)}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>煤炭价格/政策周期 | 价值投资初级阶段</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#e8b84b;--primary-dark:#b45309;--navy:#0b1f3a;--navy2:#10294d;--ink:#1d2b40;--line:#e4e9f2;
+  --accent:#e8b84b;--txt:#23344e;--muted:#6b7a93;--card:#fff;--bg:#f4f7fc;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--txt);line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(168,162,158,0.28);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(168,162,158,0.10);color:#5c5956;border:1px solid rgba(168,162,158,0.35);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;transition:all .2s}
+.home-btn:hover{background:var(--accent);color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#5c5956}
+.crumb-sep{color:#cbd5e1}
+.switcher{display:inline-flex;gap:12px;align-items:center;margin-left:8px;flex-wrap:wrap}
+.switcher a{color:#5c5956;text-decoration:none;font-size:13px}
+.switcher a:hover{text-decoration:underline}
+.switcher a.cur{font-weight:800;color:var(--navy);border-bottom:2px solid var(--accent)}
+.container{max-width:1180px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#0b1f3a 0%,#10294d 100%);border-radius:16px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(168,162,158,0.35);box-shadow:0 3px 14px rgba(11,31,58,.12)}
+.hero-title{font-size:28px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#cdb892;margin-bottom:14px}
+.data-banner{background:rgba(168,162,158,0.08);border:1px solid rgba(168,162,158,0.3);border-left:4px solid var(--accent);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:var(--navy);font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
+.insight-box{background:linear-gradient(135deg,#fffdf6,#ffffff);border:1px solid rgba(168,162,158,0.25);border-radius:12px;padding:18px 20px;margin-top:8px}
+.insight-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:var(--accent)}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.insight-body p{margin-bottom:8px}
+.insight-body b{color:#334155}
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.tbl th,.tbl td{border-bottom:1px solid #e2e8f0;padding:10px 12px;text-align:left;vertical-align:top}
+.tbl th{background:#f8fafc;color:#475569;font-weight:600;border-bottom:2px solid #e2e8f0}
+.tbl tr:hover td{background:#f8fafc}
+.tbl td.yr{font-weight:800;color:var(--navy);white-space:nowrap;width:54px}
+.tbl td.evt{font-weight:600;color:#334155;width:200px}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#5c5956;font-weight:700}
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid var(--accent);padding:8px 12px;background:rgba(168,162,158,0.08);line-height:1.7}
+.cycle-current b{color:#334155}
+.note{background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;margin-top:22px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.note b{color:#475569}
+.note a{color:#5c5956;font-weight:600}
 .extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
-.extend a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;text-decoration:none;color:var(--ink);transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}
-.extend a:hover{border-color:var(--accent);box-shadow:0 6px 18px rgba(168,162,158,.14)}
-.extend b{color:var(--accent);display:block;margin-bottom:5px;font-weight:600}
-.extend span{font-size:12.5px;color:var(--mut);line-height:1.55}
-@media(max-width:600px){.detail>h1{font-size:23px}}
-</style><div class="nav"><div class="nav-in"><div class="brand">伯克希尔数据中心</div><div class="crumb">首页 / 投资数据中心 / 煤炭图谱 / 产能/政策周期</div><a href="berkshire-standalone.html">数据中心</a><a href="berkshire-coal-chains.html">煤炭</a><a href="berkshire-bank-chains.html">银行</a><a href="berkshire-baijiu-chains.html">白酒</a><a href="berkshire-ai-chains.html">AI</a><a href="berkshire-robot-chains.html">机器人</a></div></div><div class="detail"><a class="back" href="berkshire-coal-chains.html">← 返回煤炭图谱</a><h1 style="margin:10px 0">煤炭 · 产能/政策周期（框架级）</h1><p style="color:var(--mut)">煤炭十年是「去产能→紧平衡→煤价暴涨→保供→高分红」的经典产能周期：2016 去产能开启紧平衡，2021 煤价暴涨，2022 后保供稳价，高股息成核心吸引力。</p><table class="tbl"><tr><th>年份</th><th>主线/事件</th><th>对行业的影响</th></tr><tr><td>2016</td><td style='text-align:left'>供给侧改革去产能</td><td style='text-align:left'>产能出清，煤价触底回升，行业扭亏</td></tr><tr><td>2017</td><td style='text-align:left'>煤价修复，盈利改善</td><td style='text-align:left'>长协价机制完善，盈利稳定</td></tr><tr><td>2018</td><td style='text-align:left'>进口受限，价格中高位</td><td style='text-align:left'>供给刚性显现，煤企现金流改善</td></tr><tr><td>2020</td><td style='text-align:left'>疫情扰动，先抑后扬</td><td style='text-align:left'>需求回补，煤价重回上行</td></tr><tr><td>2021</td><td style='text-align:left'>煤价暴涨，历史高位</td><td style='text-align:left'>保供压力剧增，火电亏损</td></tr><tr><td>2022</td><td style='text-align:left'>保供稳价，长协加码</td><td style='text-align:left'>煤价回落但仍在高位，煤企高利润</td></tr><tr><td>2023</td><td style='text-align:left'>进口恢复，价格中枢下移</td><td style='text-align:left'>煤价回归理性，高分红凸显</td></tr><tr><td>2024</td><td style='text-align:left'>高股息行情</td><td style='text-align:left'>煤企高分红受追捧，估值锚转向股息率</td></tr><tr><td>2025</td><td style='text-align:left'>紧平衡延续</td><td style='text-align:left'>供给约束+需求韧性，煤价中位震荡</td></tr></table><h3 class="section-title">关键指标与周期信号</h3><div class="layer"><h4>现货煤价</h4><p>周期高点的利润弹性来源，长协占比低的公司弹性更大。</p></div><div class="layer"><h4>长协价/供给约束</h4><p>年度长协锁定大部分销量平抑波动；安监限产使供给刚性，是底部支撑。</p></div><div class="layer"><h4>股息率</h4><p>成熟煤企资本开支低、分红高，煤价高位时股息率与可持续性决定估值。</p></div><h3 class="section-title">行业基本面价格（真实序列）</h3><p style="color:var(--mut);font-size:13px">以下为煤炭的<b>真实行业基本面价格</b>——焦煤（归一至起点=100），直接反映行业景气/成本/利率，而非股票价格。这是「关键指标」从板块价格扩展而来的核心。</p><svg viewBox="0 0 720 260" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg"><line x1="46.0" y1="18" x2="46.0" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="46.0" y="248" font-size="10" fill="#94a3b8">2013</text><line x1="87.2" y1="18" x2="87.2" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="87.2" y="248" font-size="10" fill="#94a3b8">2014</text><line x1="136.8" y1="18" x2="136.8" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="136.8" y="248" font-size="10" fill="#94a3b8">2015</text><line x1="186.2" y1="18" x2="186.2" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="186.2" y="248" font-size="10" fill="#94a3b8">2016</text><line x1="235.7" y1="18" x2="235.7" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="235.7" y="248" font-size="10" fill="#94a3b8">2017</text><line x1="285.2" y1="18" x2="285.2" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="285.2" y="248" font-size="10" fill="#94a3b8">2018</text><line x1="334.8" y1="18" x2="334.8" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="334.8" y="248" font-size="10" fill="#94a3b8">2019</text><line x1="384.2" y1="18" x2="384.2" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="384.2" y="248" font-size="10" fill="#94a3b8">2020</text><line x1="433.8" y1="18" x2="433.8" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="433.8" y="248" font-size="10" fill="#94a3b8">2021</text><line x1="483.2" y1="18" x2="483.2" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="483.2" y="248" font-size="10" fill="#94a3b8">2022</text><line x1="532.8" y1="18" x2="532.8" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="532.8" y="248" font-size="10" fill="#94a3b8">2023</text><line x1="582.2" y1="18" x2="582.2" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="582.2" y="248" font-size="10" fill="#94a3b8">2024</text><line x1="631.8" y1="18" x2="631.8" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="631.8" y="248" font-size="10" fill="#94a3b8">2025</text><line x1="681.2" y1="18" x2="681.2" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="681.2" y="248" font-size="10" fill="#94a3b8">2026</text><line x1="186.2" y1="18" x2="186.2" y2="230" stroke="#a8a29e" stroke-width="1" stroke-dasharray="4 3" opacity="0.55"/><text x="186.2" y="29" font-size="9.5" fill="#a8a29e">熔断底</text><line x1="334.8" y1="18" x2="334.8" y2="230" stroke="#a8a29e" stroke-width="1" stroke-dasharray="4 3" opacity="0.55"/><text x="334.8" y="29" font-size="9.5" fill="#a8a29e">贸易战底</text><line x1="615.2" y1="18" x2="615.2" y2="230" stroke="#a8a29e" stroke-width="1" stroke-dasharray="4 3" opacity="0.55"/><text x="615.2" y="29" font-size="9.5" fill="#a8a29e">政策底</text><path d="M46.0,230.0 L46.0,167.3 L50.1,174.1 L54.2,176.9 L58.4,179.7 L62.5,179.2 L66.6,174.3 L70.8,174.1 L74.9,178.6 L79.0,175.7 L83.1,182.8 L87.2,187.8 L91.4,188.7 L95.5,193.9 L99.6,194.9 L103.8,194.9 L107.9,195.9 L112.0,197.2 L116.1,196.8 L120.2,197.8 L124.4,198.4 L128.5,199.2 L132.6,200.2 L136.8,201.1 L140.9,201.1 L145.0,204.1 L149.1,205.0 L153.2,203.6 L157.4,204.3 L161.5,208.5 L165.6,211.5 L169.8,211.3 L173.9,212.4 L178.0,215.4 L182.1,211.7 L186.2,212.4 L190.4,208.6 L194.5,206.6 L198.6,198.0 L202.8,203.9 L206.9,201.6 L211.0,198.7 L215.1,192.4 L219.2,182.4 L223.4,163.0 L227.5,163.8 L231.6,171.5 L235.7,166.0 L239.9,166.7 L244.0,167.7 L248.1,174.8 L252.2,186.5 L256.4,175.2 L260.5,160.5 L264.6,155.6 L268.8,174.3 L272.9,178.9 L277.0,159.4 L281.1,162.6 L285.2,163.8 L289.4,156.0 L293.5,164.6 L297.6,172.8 L301.8,167.4 L305.9,169.9 L310.0,170.1 L314.1,166.8 L318.2,165.2 L322.4,157.3 L326.5,161.4 L330.6,171.3 L334.8,165.4 L338.9,163.7 L343.0,167.9 L347.1,160.1 L351.2,157.8 L355.4,157.3 L359.5,156.9 L363.6,162.9 L367.8,167.1 L371.9,167.6 L376.0,168.2 L380.1,172.3 L384.2,169.1 L388.4,167.2 L392.5,166.0 L396.6,178.6 L400.8,172.5 L404.9,171.3 L409.0,168.7 L413.1,167.4 L417.2,165.3 L421.4,162.0 L425.5,155.3 L429.6,141.8 L433.8,149.6 L437.9,152.0 L442.0,139.8 L446.1,132.3 L450.3,132.7 L454.4,121.1 L458.5,96.6 L462.6,87.2 L466.7,32.6 L470.9,99.8 L475.0,124.8 L479.1,102.4 L483.2,98.9 L487.4,77.0 L491.5,39.5 L495.6,61.4 L499.8,71.7 L503.9,94.8 L508.0,108.6 L512.1,126.0 L516.2,110.4 L520.4,126.3 L524.5,102.1 L528.6,126.3 L532.8,128.4 L536.9,116.5 L541.0,126.6 L545.1,157.8 L549.2,168.2 L553.4,160.1 L557.5,152.8 L561.6,147.9 L565.8,127.3 L569.9,129.6 L574.0,111.5 L578.1,124.8 L582.2,136.9 L586.4,131.1 L590.5,151.1 L594.6,130.2 L598.8,139.1 L602.9,145.4 L607.0,152.8 L611.1,158.8 L615.2,147.2 L619.4,159.3 L623.5,167.0 L627.6,172.6 L631.8,174.3 L635.9,177.0 L640.0,183.9 L644.1,187.7 L648.2,201.1 L652.4,194.6 L656.5,174.3 L660.6,173.2 L664.8,174.8 L668.9,164.3 L673.0,178.7 L677.1,175.6 L681.2,172.9 L685.4,177.0 L689.5,173.4 L693.6,164.3 L697.8,164.4 L701.9,164.7 L706.0,167.4 L706.0,230.0 Z" fill="#a8a29e" opacity="0.10"/><polyline points="46.0,167.3 50.1,174.1 54.2,176.9 58.4,179.7 62.5,179.2 66.6,174.3 70.8,174.1 74.9,178.6 79.0,175.7 83.1,182.8 87.2,187.8 91.4,188.7 95.5,193.9 99.6,194.9 103.8,194.9 107.9,195.9 112.0,197.2 116.1,196.8 120.2,197.8 124.4,198.4 128.5,199.2 132.6,200.2 136.8,201.1 140.9,201.1 145.0,204.1 149.1,205.0 153.2,203.6 157.4,204.3 161.5,208.5 165.6,211.5 169.8,211.3 173.9,212.4 178.0,215.4 182.1,211.7 186.2,212.4 190.4,208.6 194.5,206.6 198.6,198.0 202.8,203.9 206.9,201.6 211.0,198.7 215.1,192.4 219.2,182.4 223.4,163.0 227.5,163.8 231.6,171.5 235.7,166.0 239.9,166.7 244.0,167.7 248.1,174.8 252.2,186.5 256.4,175.2 260.5,160.5 264.6,155.6 268.8,174.3 272.9,178.9 277.0,159.4 281.1,162.6 285.2,163.8 289.4,156.0 293.5,164.6 297.6,172.8 301.8,167.4 305.9,169.9 310.0,170.1 314.1,166.8 318.2,165.2 322.4,157.3 326.5,161.4 330.6,171.3 334.8,165.4 338.9,163.7 343.0,167.9 347.1,160.1 351.2,157.8 355.4,157.3 359.5,156.9 363.6,162.9 367.8,167.1 371.9,167.6 376.0,168.2 380.1,172.3 384.2,169.1 388.4,167.2 392.5,166.0 396.6,178.6 400.8,172.5 404.9,171.3 409.0,168.7 413.1,167.4 417.2,165.3 421.4,162.0 425.5,155.3 429.6,141.8 433.8,149.6 437.9,152.0 442.0,139.8 446.1,132.3 450.3,132.7 454.4,121.1 458.5,96.6 462.6,87.2 466.7,32.6 470.9,99.8 475.0,124.8 479.1,102.4 483.2,98.9 487.4,77.0 491.5,39.5 495.6,61.4 499.8,71.7 503.9,94.8 508.0,108.6 512.1,126.0 516.2,110.4 520.4,126.3 524.5,102.1 528.6,126.3 532.8,128.4 536.9,116.5 541.0,126.6 545.1,157.8 549.2,168.2 553.4,160.1 557.5,152.8 561.6,147.9 565.8,127.3 569.9,129.6 574.0,111.5 578.1,124.8 582.2,136.9 586.4,131.1 590.5,151.1 594.6,130.2 598.8,139.1 602.9,145.4 607.0,152.8 611.1,158.8 615.2,147.2 619.4,159.3 623.5,167.0 627.6,172.6 631.8,174.3 635.9,177.0 640.0,183.9 644.1,187.7 648.2,201.1 652.4,194.6 656.5,174.3 660.6,173.2 664.8,174.8 668.9,164.3 673.0,178.7 677.1,175.6 681.2,172.9 685.4,177.0 689.5,173.4 693.6,164.3 697.8,164.4 701.9,164.7 706.0,167.4" fill="none" stroke="#a8a29e" stroke-width="2"/><circle cx="706.0" cy="167.4" r="3.5" fill="#a8a29e"/><text x="700.0" y="161.4" font-size="10" fill="#a8a29e" text-anchor="end">100</text><text x="42" y="18.0" font-size="9.5" fill="#94a3b8" text-anchor="end">283</text><text x="42" y="230.0" font-size="9.5" fill="#94a3b8" text-anchor="end">23</text></svg><table class="tbl"><tr><th>指标</th><th>数值</th></tr><tr><td>代表品种</td><td>焦煤（jm0）</td></tr><tr><td>起点（2013-03）</td><td>100.0（归一100）</td></tr><tr><td>当前（2026-07）</td><td>99.9</td></tr><tr><td>近一年</td><td style="color:#16a34a">+9.2%</td></tr><tr><td>历史分位</td><td>49.7%（越低越便宜）</td></tr><tr><td>距高点回撤</td><td style="color:#dc2626">-62.3%</td></tr></table><div class="note">数据：新浪期货主力连续 (akshare futures_zh_daily_sina)，归一至起点=100。采集日 2026-07；月线为历史快照非实时行情，不构成投资建议。竖虚线为三轮全市场大底，用于对照商品/利率所处位置。</div><h3 class="section-title">板块价格周期（权益映射）</h3><p style="color:var(--mut);font-size:13px">以下为「煤炭」成分股等权月线（起点=100），反映<b>股票价格</b>层面的位置，与上方「行业基本面价格（真实序列）」互为对照——前者是权益、后者是现货/成本/利率。</p><svg viewBox="0 0 720 260" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg"><line x1="46.0" y1="18" x2="46.0" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="46.0" y="248" font-size="10" fill="#94a3b8">2013</text><line x1="58.9" y1="18" x2="58.9" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="58.9" y="248" font-size="10" fill="#94a3b8">2014</text><line x1="110.7" y1="18" x2="110.7" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="110.7" y="248" font-size="10" fill="#94a3b8">2015</text><line x1="162.5" y1="18" x2="162.5" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="162.5" y="248" font-size="10" fill="#94a3b8">2016</text><line x1="214.2" y1="18" x2="214.2" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="214.2" y="248" font-size="10" fill="#94a3b8">2017</text><line x1="266.0" y1="18" x2="266.0" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="266.0" y="248" font-size="10" fill="#94a3b8">2018</text><line x1="317.8" y1="18" x2="317.8" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="317.8" y="248" font-size="10" fill="#94a3b8">2019</text><line x1="369.5" y1="18" x2="369.5" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="369.5" y="248" font-size="10" fill="#94a3b8">2020</text><line x1="421.3" y1="18" x2="421.3" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="421.3" y="248" font-size="10" fill="#94a3b8">2021</text><line x1="473.1" y1="18" x2="473.1" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="473.1" y="248" font-size="10" fill="#94a3b8">2022</text><line x1="524.8" y1="18" x2="524.8" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="524.8" y="248" font-size="10" fill="#94a3b8">2023</text><line x1="576.6" y1="18" x2="576.6" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="576.6" y="248" font-size="10" fill="#94a3b8">2024</text><line x1="628.4" y1="18" x2="628.4" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="628.4" y="248" font-size="10" fill="#94a3b8">2025</text><line x1="680.1" y1="18" x2="680.1" y2="230" stroke="#e2e8f0" stroke-width="1"/><text x="680.1" y="248" font-size="10" fill="#94a3b8">2026</text><line x1="162.5" y1="18" x2="162.5" y2="230" stroke="#a8a29e" stroke-width="1" stroke-dasharray="4 3" opacity="0.55"/><text x="162.5" y="29" font-size="9.5" fill="#a8a29e">熔断底</text><line x1="317.8" y1="18" x2="317.8" y2="230" stroke="#a8a29e" stroke-width="1" stroke-dasharray="4 3" opacity="0.55"/><text x="317.8" y="29" font-size="9.5" fill="#a8a29e">贸易战底</text><line x1="611.1" y1="18" x2="611.1" y2="230" stroke="#a8a29e" stroke-width="1" stroke-dasharray="4 3" opacity="0.55"/><text x="611.1" y="29" font-size="9.5" fill="#a8a29e">政策底</text><path d="M46.0,230.0 L46.0,212.7 L50.3,209.0 L54.6,213.2 L58.9,209.0 L63.3,213.5 L67.6,213.9 L71.9,215.4 L76.2,213.1 L80.5,213.0 L84.8,207.9 L89.1,206.5 L93.5,198.3 L97.8,200.0 L102.1,192.6 L106.4,186.1 L110.7,187.6 L115.0,188.7 L119.3,174.1 L123.6,160.5 L128.0,162.3 L132.3,171.9 L136.6,192.7 L140.9,199.5 L145.2,204.4 L149.5,198.0 L153.8,198.8 L158.2,196.1 L162.5,204.8 L166.8,199.2 L171.1,198.2 L175.4,195.4 L179.7,204.3 L184.0,197.5 L188.4,192.3 L192.7,187.5 L197.0,187.8 L201.3,179.6 L205.6,177.8 L209.9,187.4 L214.2,185.6 L218.5,184.3 L222.9,181.8 L227.2,184.3 L231.5,188.8 L235.8,183.4 L240.1,174.7 L244.4,167.5 L248.7,170.8 L253.1,179.8 L257.4,171.7 L261.7,169.9 L266.0,156.0 L270.3,162.9 L274.6,175.8 L278.9,176.7 L283.3,179.2 L287.6,183.0 L291.9,181.0 L296.2,185.3 L300.5,183.5 L304.8,186.3 L309.1,191.2 L313.5,193.6 L317.8,191.1 L322.1,181.0 L326.4,185.0 L330.7,181.6 L335.0,184.5 L339.3,181.7 L343.6,182.1 L348.0,186.1 L352.3,186.0 L356.6,188.2 L360.9,189.5 L365.2,185.3 L369.5,188.0 L373.8,194.0 L378.2,197.0 L382.5,198.4 L386.8,196.8 L391.1,197.6 L395.4,189.4 L399.7,188.0 L404.0,187.0 L408.4,185.8 L412.7,174.0 L417.0,177.9 L421.3,178.2 L425.6,175.9 L429.9,169.4 L434.2,164.1 L438.5,161.6 L442.9,158.6 L447.2,155.4 L451.5,135.8 L455.8,116.4 L460.1,137.7 L464.4,147.2 L468.7,144.1 L473.1,143.6 L477.4,128.8 L481.7,108.1 L486.0,103.5 L490.3,93.0 L494.6,89.0 L498.9,93.0 L503.3,74.5 L507.6,68.7 L511.9,88.5 L516.2,88.9 L520.5,103.0 L524.8,99.4 L529.1,92.6 L533.5,98.4 L537.8,102.1 L542.1,109.6 L546.4,108.6 L550.7,102.9 L555.0,106.5 L559.3,90.9 L563.6,98.4 L568.0,86.3 L572.3,85.3 L576.6,68.7 L580.9,54.5 L585.2,67.8 L589.5,66.0 L593.8,52.6 L598.2,61.9 L602.5,76.6 L606.8,71.1 L611.1,52.9 L615.4,64.7 L619.7,69.4 L624.0,69.8 L628.4,79.4 L632.7,88.0 L637.0,86.4 L641.3,90.9 L645.6,85.0 L649.9,85.4 L654.2,76.2 L658.5,78.4 L662.9,78.3 L667.2,62.1 L671.5,66.7 L675.8,75.1 L680.1,64.4 L684.4,56.8 L688.7,39.4 L693.1,32.6 L697.4,46.3 L701.7,65.9 L706.0,60.9 L706.0,230.0 Z" fill="#a8a29e" opacity="0.10"/><polyline points="46.0,212.7 50.3,209.0 54.6,213.2 58.9,209.0 63.3,213.5 67.6,213.9 71.9,215.4 76.2,213.1 80.5,213.0 84.8,207.9 89.1,206.5 93.5,198.3 97.8,200.0 102.1,192.6 106.4,186.1 110.7,187.6 115.0,188.7 119.3,174.1 123.6,160.5 128.0,162.3 132.3,171.9 136.6,192.7 140.9,199.5 145.2,204.4 149.5,198.0 153.8,198.8 158.2,196.1 162.5,204.8 166.8,199.2 171.1,198.2 175.4,195.4 179.7,204.3 184.0,197.5 188.4,192.3 192.7,187.5 197.0,187.8 201.3,179.6 205.6,177.8 209.9,187.4 214.2,185.6 218.5,184.3 222.9,181.8 227.2,184.3 231.5,188.8 235.8,183.4 240.1,174.7 244.4,167.5 248.7,170.8 253.1,179.8 257.4,171.7 261.7,169.9 266.0,156.0 270.3,162.9 274.6,175.8 278.9,176.7 283.3,179.2 287.6,183.0 291.9,181.0 296.2,185.3 300.5,183.5 304.8,186.3 309.1,191.2 313.5,193.6 317.8,191.1 322.1,181.0 326.4,185.0 330.7,181.6 335.0,184.5 339.3,181.7 343.6,182.1 348.0,186.1 352.3,186.0 356.6,188.2 360.9,189.5 365.2,185.3 369.5,188.0 373.8,194.0 378.2,197.0 382.5,198.4 386.8,196.8 391.1,197.6 395.4,189.4 399.7,188.0 404.0,187.0 408.4,185.8 412.7,174.0 417.0,177.9 421.3,178.2 425.6,175.9 429.9,169.4 434.2,164.1 438.5,161.6 442.9,158.6 447.2,155.4 451.5,135.8 455.8,116.4 460.1,137.7 464.4,147.2 468.7,144.1 473.1,143.6 477.4,128.8 481.7,108.1 486.0,103.5 490.3,93.0 494.6,89.0 498.9,93.0 503.3,74.5 507.6,68.7 511.9,88.5 516.2,88.9 520.5,103.0 524.8,99.4 529.1,92.6 533.5,98.4 537.8,102.1 542.1,109.6 546.4,108.6 550.7,102.9 555.0,106.5 559.3,90.9 563.6,98.4 568.0,86.3 572.3,85.3 576.6,68.7 580.9,54.5 585.2,67.8 589.5,66.0 593.8,52.6 598.2,61.9 602.5,76.6 606.8,71.1 611.1,52.9 615.4,64.7 619.7,69.4 624.0,69.8 628.4,79.4 632.7,88.0 637.0,86.4 641.3,90.9 645.6,85.0 649.9,85.4 654.2,76.2 658.5,78.4 662.9,78.3 667.2,62.1 671.5,66.7 675.8,75.1 680.1,64.4 684.4,56.8 688.7,39.4 693.1,32.6 697.4,46.3 701.7,65.9 706.0,60.9" fill="none" stroke="#a8a29e" stroke-width="2"/><circle cx="706.0" cy="60.9" r="3.5" fill="#a8a29e"/><text x="700.0" y="54.9" font-size="10" fill="#a8a29e" text-anchor="end">346</text><text x="42" y="18.0" font-size="9.5" fill="#94a3b8" text-anchor="end">415</text><text x="42" y="230.0" font-size="9.5" fill="#94a3b8" text-anchor="end">72</text></svg><table class="tbl"><tr><th>指标</th><th>数值</th></tr><tr><td>起点（2013-10）</td><td>100.0（归一100）</td></tr><tr><td>当前（2026-07）</td><td>345.91</td></tr><tr><td>近一年</td><td style="color:#16a34a">+7.7%</td></tr><tr><td>历史分位</td><td>84.5%（越低越便宜）</td></tr><tr><td>距高点回撤</td><td style="color:#dc2626">-11.7%</td></tr></table><div class="note">数据：本链 A 股成分股等权指数（各股首月归一100），腾讯月线。采集日 2026-07；月线为历史快照非实时行情，不构成投资建议。竖虚线为三轮全市场大底（熔断底/贸易战底/政策底），用于对照板块所处位置。</div><div class="note">周期启示：煤炭周期由「产能约束 + 供需缺口」决定，高分红是穿越周期的锚。买点常在「煤价筑底+高股息+供给刚性」时，警惕新能源替代与产能释放。 详见<a href="berkshire-coal-buyback.html" style="color:var(--accent)">逐轮买点回报图</a>与<a href="berkshire-coal-methodology.html" style="color:var(--accent)">方法论文</a>。</div></div><footer>伯克希尔数据中心 · 煤炭产业投资图谱 ｜ 内容定位：框架级原创整理，非精确历史数据，不构成投资建议 ｜ 数据口径：财务=最新可得年报，估值/行情=采集日快照；实时行情接口当前环境不可用  <script src="/analytics.js"></script>
+.extend a{display:block;background:#fffdf6;border:1px solid #f0e2bf;border-radius:12px;padding:14px 16px;text-decoration:none;color:#1e293b;transition:.18s}
+.extend a:hover{border-color:var(--accent);box-shadow:0 4px 14px rgba(168,162,158,.18);transform:translateY(-2px)}
+.extend b{display:block;font-size:15px;color:#1f2937;margin-bottom:4px}
+.extend span{display:block;font-size:12.5px;color:#64748b;line-height:1.5}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:22px}.layers,.extend{grid-template-columns:1fr}.tbl{font-size:12px}}
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span class="switcher"><a href="berkshire-bank-chains.html">银行</a><a href="berkshire-baijiu-chains.html">白酒</a><a href="berkshire-ai-chains.html">AI</a><a href="berkshire-robot-chains.html">机器人</a><a href="berkshire-tcm-chains.html">中药</a><a href="berkshire-innov-chains.html">创新药</a><a href="berkshire-chemical-pharma-chains.html">化学制药</a><a href="berkshire-appliance-chains.html">家电</a><a href="berkshire-power-chains.html">电力</a><a href="berkshire-coal-chains.html" class="cur">煤炭</a><a href="berkshire-metal-chains.html">有色</a><a href="berkshire-chem-chains.html">化工</a><a href="berkshire-equip-chains.html">电力设备</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<a href="berkshire-coal-chains.html">煤炭产业链</a><span class="crumb-sep">/</span>
+<span>价格/政策周期</span>
+</div>
+</div>
+<div class="container">
+<div class="hero">
+<div class="hero-title">煤炭价格/政策周期（2015 → 2025）</div>
+<div class="hero-sub">行业十年脉络 · 框架级原创整理，具体时点以官方公告为准</div>
+</div>
+<div class="data-banner">📊 <b>数据口径</b>：下表为<b>框架级政策/价格周期梳理</b>，年份与事件为公开事实层。具体降幅与股价表现以各公司公告及行情数据为准。本页<b>不构成投资建议</b>。最后更新：<b style="color:#5c5956">2026-08-12</b></div>
+<div class="section-title">周期脉络：十年一图</div>
+<div class="insight-box">
+<div class="insight-title"><span class="icon">🔄</span> 一句话：煤炭的「周期」是政策周期+价格周期+需求周期叠加</div>
+<div class="insight-body"><p>理解这张表，关键是看<b>每一轮周期对行业利润和估值的影响</b>。政策松绑 = 估值修复；供给收缩 = 景气向上；需求拐点 = 业绩弹性显现。</p></div></div>
+<table class="tbl">
+<thead><tr><th>年份</th><th>主线事件</th><th>对行业影响</th></tr></thead>
+<tbody><tr><td class="yr">2015</td><td class="evt">供给侧改革启动</td><td>煤炭去产能启动，&quot;去产能&quot;成为行业主线；煤价触底回升。</td></tr>
+<tr><td class="yr">2016</td><td class="evt">276 个工作日</td><td>煤炭执行 276 天工作日制度，供给收缩；煤价大幅上涨。</td></tr>
+<tr><td class="yr">2017</td><td class="evt">长协机制</td><td>煤电长协合同机制建立（基准价+浮动价），行业利润稳定。</td></tr>
+<tr><td class="yr">2018</td><td class="evt">煤价高位</td><td>动力煤价突破 800 元/吨，行业利润创历史新高；高分红预期强化。</td></tr>
+<tr><td class="yr">2019</td><td class="evt">保供稳价</td><td>保供稳价政策导向，煤价回归合理区间；估值修复。</td></tr>
+<tr><td class="yr">2020</td><td class="evt">疫情冲击</td><td>需求短期承压，煤价阶段性下行；但龙头分红+回购支撑估值。</td></tr>
+<tr><td class="yr">2021</td><td class="evt">煤荒+电价改革</td><td>9-10 月煤荒推动电价市场化改革；煤电交易价上浮空间打开。</td></tr>
+<tr><td class="yr">2022</td><td class="evt">俄乌冲突</td><td>国际能源价格暴涨，国内煤价高企；煤企盈利+现金流创新高。</td></tr>
+<tr><td class="yr">2023</td><td class="evt">煤价回落</td><td>煤价回归正常区间，但长协占比高的龙头仍稳健；高分红成主线。</td></tr>
+<tr><td class="yr">2024</td><td class="evt">碳达峰临近</td><td>碳达峰政策导向下，新建产能审批趋严；存量博弈属性强化。</td></tr>
+<tr><td class="yr">2025</td><td class="evt">高股息主战场</td><td>煤炭成为 A 股高股息主战场之一；股息率 5-8% 区间成为估值锚。</td></tr></tbody>
+</table>
+<div class="section-title">关键指标与周期信号</div>
+<div class="layers"><div class="layer-card"><div class="layer-num">信号①</div><div class="layer-name">价格/政策周期</div><div class="layer-desc">价格/政策位置决定行业景气节奏。指标从历史高位回落、降幅收窄=利空出尽、底部信号</div></div>
+<div class="layer-card"><div class="layer-num">信号②</div><div class="layer-name">供需平衡</div><div class="layer-desc">产能利用率/开工率反映供需。{SIGNAL_2_DESC}</div></div>
+<div class="layer-card"><div class="layer-num">信号③</div><div class="layer-name">集中度与护城河</div><div class="layer-desc">CR3/CR5 抬升 = 龙头议价权强化；技术/品牌/渠道壁垒决定可持续性</div></div>
+<div class="layer-card"><div class="layer-num">信号④</div><div class="layer-name">ROE 与分红</div><div class="layer-desc">ROE 稳定性+分红比例是长期价值锚。ROE>10% 且 DY>4% = 安全边际厚</div></div></div>
+<div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：煤炭处<b>估值历史低位 + 行业整合期</b>。龙头集中度提升，政策/价格/需求三周期叠加；安全边际来自低估值与稳健现金流，关注后续政策松绑节奏。</div>
+<div class="note">实用框架：先判<b>周期位置</b>（政策/价格/需求），再看<b>供需与结构</b>，最后用<b>估值分位+股息率</b>定买点。分析框架见；行业内估值冷热见<a href="berkshire-coal-thermometer.html" style="color:#5c5956">估值温度计</a>；买点回测见<a href="berkshire-coal-backtest.html" style="color:#5c5956">估值回测</a>。</div>
+<div class="section-title">延伸阅读</div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-coal-compare.html"><b>🥇 估值分位</b><span>煤炭（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-coal-thermometer.html"><b>🌡️ 估值温度计</b><span>煤炭（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-coal-buyback.html"><b>💰 回购监测</b><span>煤炭（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-coal-repomap.html"><b>🗺️ 板块图谱</b><span>煤炭（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-coal-backtest.html"><b>📈 五年回测</b><span>煤炭（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-coal-cycle.html"><b>🔄 周期演进</b><span>煤炭（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-coal-methodology.html"><b>📘 方法论说明</b><span>煤炭（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+</div>
+  <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
-</footer>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
+</body>
+</html>

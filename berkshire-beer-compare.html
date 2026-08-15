@@ -42,7 +42,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .extend b{color:#e8b84b;display:block;margin-bottom:5px;font-weight:700}
 .extend span{font-size:12.5px;color:#64748b;line-height:1.55}
 footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
-@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}</style></head><body>
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style></head><body>
 <div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
 <span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">bank</a>
 <a href="berkshire-baijiu-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">baijiu</a>
@@ -64,8 +77,9 @@ footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font
 <div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div>
 <table class="tbl"><thead><tr><th style="text-align:left">公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收(亿)</th><th>净利(亿)</th><th>市值(亿)</th><th>经营现金流(亿)</th></tr></thead><tbody id="tbody"></tbody></table>
 <div class="note">数据：各公司公开年报与行情快照（akshare / 腾讯行情 / 百度分位），框架级原创整理，<b>不构成投资建议</b>。绿色=同行该列最优，红色=同行该列最弱（按指标方向：PE/PB/负债率越低越好，其余越高越好）。字段缺失者诚实留空。</div>
-<div class="extend"><a href="berkshire-beer-chains.html"><b>返回beer产业链</b><span>查看完整跨层分析与各公司详情页</span></a>
-<a href="berkshire-beer-thermometer.html"><b>估值温度计</b><span>行业内 PB 相对位置一览</span></a></div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-beer-compare.html"><b>🥇 估值分位</b><span>啤酒（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-beer-thermometer.html"><b>🌡️ 估值温度计</b><span>啤酒（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-beer-buyback.html"><b>💰 回购监测</b><span>啤酒（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-beer-repomap.html"><b>🗺️ 板块图谱</b><span>啤酒（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-beer-backtest.html"><b>📈 五年回测</b><span>啤酒（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-beer-cycle.html"><b>🔄 周期演进</b><span>啤酒（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-beer-methodology.html"><b>📘 方法论说明</b><span>啤酒（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
 </div>
 <footer>数据来源：akshare / 腾讯行情 / 百度股市通 · 框架级整理，非投资建议</footer>
 <script>var DATA=[{"name": "燕京啤酒", "code": "000729", "cat": "beer", "pe": 20.47, "pb": 2.31, "dy": 1.55, "roe": 11.2, "gross": 43.6, "debt": 29.5, "rev": 153.3, "np": 16.8, "mcap": 364.16, "opcf": 27.2, "pe_pct": 7.4, "pb_pct": 89.7}, {"name": "西藏发展", "code": "000752", "cat": "beer", "pe": 14.74, "pb": 3.43, "dy": 0.12, "roe": 38.3, "gross": 42.1, "debt": 18.7, "rev": 4.3, "np": 1.4, "mcap": 21.31, "opcf": 1.3, "pe_pct": 45.4, "pb_pct": 38.2}, {"name": "兰州黄河", "code": "000929", "cat": "beer", "pe": 13.73, "pb": 4.52, "dy": 0.78, "roe": 21.4, "gross": 22.4, "debt": 38.3, "rev": 3.7, "np": 0.9, "mcap": 15.77, "opcf": 2.3, "pe_pct": 70.7, "pb_pct": 94.1}, {"name": "永顺泰", "code": "001338", "cat": "beer", "pe": 22.12, "pb": 1.18, "dy": 2.74, "roe": 6.5, "gross": 12.1, "debt": 10.0, "rev": 39.3, "np": 2.4, "mcap": 44.0, "opcf": 15.6, "pe_pct": 48.0, "pb_pct": 2.6}, {"name": "珠江啤酒", "code": "002461", "cat": "beer", "pe": 21.54, "pb": 1.78, "dy": 2.11, "roe": 8.4, "gross": 48.3, "debt": 30.9, "rev": 58.8, "np": 9.0, "mcap": 199.42, "opcf": 11.2, "pe_pct": 1.5, "pb_pct": 33.2}, {"name": "重庆啤酒", "code": "600132", "cat": "beer", "pe": 18.83, "pb": 12.31, "dy": 2.58, "roe": 96.1, "gross": 50.9, "debt": 73.2, "rev": 147.2, "np": 12.3, "mcap": 225.14, "opcf": 26.2, "pe_pct": 4.5, "pb_pct": 24.8}, {"name": "莫高股份", "code": "600543", "cat": "beer", "pe": 11.33, "pb": 1.74, "dy": 0.69, "roe": 14.2, "gross": 10.9, "debt": 27.9, "rev": 2.0, "np": 1.1, "mcap": 12.04, "opcf": 1.1, "pe_pct": 48.8, "pb_pct": 17.2}, {"name": "惠泉啤酒", "code": "600573", "cat": "beer", "pe": 29.64, "pb": 1.78, "dy": 1.03, "roe": 6.0, "gross": 34.9, "debt": 21.7, "rev": 6.4, "np": 0.8, "mcap": 24.28, "opcf": 1.0, "pe_pct": 7.7, "pb_pct": 27.6}, {"name": "青岛啤酒", "code": "600600", "cat": "beer", "pe": 16.33, "pb": 2.35, "dy": 4.2, "roe": 15.4, "gross": 41.8, "debt": 39.5, "rev": 324.7, "np": 45.9, "mcap": 763.95, "opcf": 45.9, "pe_pct": 1.4, "pb_pct": 3.6}, {"name": "乐惠国际", "code": "603076", "cat": "beer", "pe": 92.83, "pb": 1.85, "dy": 1.01, "roe": 2.0, "gross": 22.0, "debt": 61.6, "rev": 15.8, "np": 0.3, "mcap": 23.87, "opcf": 4.8, "pe_pct": 46.4, "pb_pct": 5.0}];
@@ -83,4 +97,8 @@ renderList();renderTbl();
 </script>
   <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
 </body></html>
