@@ -42,7 +42,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .extend b{color:#e8b84b;display:block;margin-bottom:5px;font-weight:700}
 .extend span{font-size:12.5px;color:#64748b;line-height:1.55}
 footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
-@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}</style></head><body>
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style></head><body>
 <div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
 <span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">bank</a>
 <a href="berkshire-baijiu-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">baijiu</a>
@@ -64,8 +77,9 @@ footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font
 <div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div>
 <table class="tbl"><thead><tr><th style="text-align:left">公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收(亿)</th><th>净利(亿)</th><th>市值(亿)</th><th>经营现金流(亿)</th></tr></thead><tbody id="tbody"></tbody></table>
 <div class="note">数据：各公司公开年报与行情快照（akshare / 腾讯行情 / 百度分位），框架级原创整理，<b>不构成投资建议</b>。绿色=同行该列最优，红色=同行该列最弱（按指标方向：PE/PB/负债率越低越好，其余越高越好）。字段缺失者诚实留空。</div>
-<div class="extend"><a href="berkshire-glass-chains.html"><b>返回glass产业链</b><span>查看完整跨层分析与各公司详情页</span></a>
-<a href="berkshire-glass-thermometer.html"><b>估值温度计</b><span>行业内 PB 相对位置一览</span></a></div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-glass-compare.html"><b>🥇 估值分位</b><span>玻璃（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-glass-thermometer.html"><b>🌡️ 估值温度计</b><span>玻璃（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-glass-buyback.html"><b>💰 回购监测</b><span>玻璃（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-glass-repomap.html"><b>🗺️ 板块图谱</b><span>玻璃（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-glass-backtest.html"><b>📈 五年回测</b><span>玻璃（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-glass-cycle.html"><b>🔄 周期演进</b><span>玻璃（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-glass-methodology.html"><b>📘 方法论说明</b><span>玻璃（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
 </div>
 <footer>数据来源：akshare / 腾讯行情 / 百度股市通 · 框架级整理，非投资建议</footer>
 <script>var DATA=[{"name": "南玻A", "code": "000012", "cat": "glass", "pe": 1071.86, "pb": 0.92, "dy": 1.78, "roe": 0.9, "gross": 14.6, "debt": 56.7, "rev": 137.2, "np": 1.3, "mcap": 119.57, "opcf": 11.5, "pe_pct": 98.2, "pb_pct": 1.0}, {"name": "亚玛顿", "code": "002623", "cat": "glass", "pe": 18.94, "pb": 1.05, "dy": 2.69, "roe": 3.7, "gross": 6.7, "debt": 50.5, "rev": 20.4, "np": 1.1, "mcap": 28.69, "opcf": 0.8, "pe_pct": 38.0, "pb_pct": 13.1}, {"name": "三峡新材", "code": "600293", "cat": "glass", "pe": 47.45, "pb": 1.83, "dy": 3.87, "roe": 1.8, "gross": 3.0, "debt": 51.1, "rev": 11.9, "np": 0.3, "mcap": 31.21, "opcf": 2.1, "pe_pct": 19.4, "pb_pct": 43.4}, {"name": "山东药玻", "code": "600529", "cat": "glass", "pe": 19.85, "pb": 1.58, "dy": 0.9, "roe": 8.5, "gross": 33.3, "debt": 17.4, "rev": 44.7, "np": 6.9, "mcap": 132.46, "opcf": 5.8, "pe_pct": 19.8, "pb_pct": 4.1}, {"name": "金晶科技", "code": "600586", "cat": "glass", "pe": 8.04, "pb": 1.2, "dy": 0.35, "roe": 10.6, "gross": 0.9, "debt": 42.3, "rev": 45.2, "np": 5.8, "mcap": 60.24, "opcf": 3.0, "pe_pct": 18.6, "pb_pct": 24.6}, {"name": "福耀玻璃", "code": "600660", "cat": "glass", "pe": 17.32, "pb": 3.98, "dy": 2.01, "roe": 25.4, "gross": 37.3, "debt": 46.4, "rev": 457.9, "np": 93.1, "mcap": 1558.02, "opcf": 120.5, "pe_pct": 24.5, "pb_pct": 70.2}, {"name": "耀皮玻璃", "code": "600819", "cat": "glass", "pe": 44.36, "pb": 1.34, "dy": 0.28, "roe": 3.7, "gross": 18.3, "debt": 43.2, "rev": 56.4, "np": 1.4, "mcap": 51.96, "opcf": 6.9, "pe_pct": 70.9, "pb_pct": 29.4}, {"name": "洛阳玻璃", "code": "600876", "cat": "glass", "pe": 3.85, "pb": 1.6, "dy": 0.54, "roe": 25.7, "gross": 12.3, "debt": 73.3, "rev": 32.4, "np": 9.1, "mcap": 44.04, "opcf": 7.4, "pe_pct": 22.7, "pb_pct": 11.2}, {"name": "旗滨集团", "code": "601636", "cat": "glass", "pe": 103.32, "pb": 1.12, "dy": 1.94, "roe": 4.4, "gross": 13.1, "debt": 53.5, "rev": 157.4, "np": 6.2, "mcap": 167.46, "opcf": 17.6, "pe_pct": 97.4, "pb_pct": 4.7}, {"name": "福莱特", "code": "601865", "cat": "glass", "pe": 25.88, "pb": 1.07, "dy": 1.49, "roe": 4.4, "gross": 16.9, "debt": 46.6, "rev": 155.7, "np": 9.8, "mcap": 236.16, "opcf": 29.1, "pe_pct": 21.5, "pb_pct": 1.1}];
@@ -83,4 +97,8 @@ renderList();renderTbl();
 </script>
   <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
 </body></html>

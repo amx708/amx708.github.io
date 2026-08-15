@@ -42,7 +42,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .extend b{color:#e8b84b;display:block;margin-bottom:5px;font-weight:700}
 .extend span{font-size:12.5px;color:#64748b;line-height:1.55}
 footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
-@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}</style></head><body>
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style></head><body>
 <div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
 <span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">bank</a>
 <a href="berkshire-baijiu-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">baijiu</a>
@@ -64,8 +77,9 @@ footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font
 <div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div>
 <table class="tbl"><thead><tr><th style="text-align:left">公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收(亿)</th><th>净利(亿)</th><th>市值(亿)</th><th>经营现金流(亿)</th></tr></thead><tbody id="tbody"></tbody></table>
 <div class="note">数据：各公司公开年报与行情快照（akshare / 腾讯行情 / 百度分位），框架级原创整理，<b>不构成投资建议</b>。绿色=同行该列最优，红色=同行该列最弱（按指标方向：PE/PB/负债率越低越好，其余越高越好）。字段缺失者诚实留空。</div>
-<div class="extend"><a href="berkshire-fluorosilicone-chains.html"><b>返回fluorosilicone产业链</b><span>查看完整跨层分析与各公司详情页</span></a>
-<a href="berkshire-fluorosilicone-thermometer.html"><b>估值温度计</b><span>行业内 PB 相对位置一览</span></a></div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-fluorosilicone-compare.html"><b>🥇 估值分位</b><span>氟/硅材料（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-fluorosilicone-thermometer.html"><b>🌡️ 估值温度计</b><span>氟/硅材料（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-fluorosilicone-buyback.html"><b>💰 回购监测</b><span>氟/硅材料（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-fluorosilicone-repomap.html"><b>🗺️ 板块图谱</b><span>氟/硅材料（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-fluorosilicone-backtest.html"><b>📈 五年回测</b><span>氟/硅材料（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-fluorosilicone-cycle.html"><b>🔄 周期演进</b><span>氟/硅材料（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-fluorosilicone-methodology.html"><b>📘 方法论说明</b><span>氟/硅材料（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
 </div>
 <footer>数据来源：akshare / 腾讯行情 / 百度股市通 · 框架级整理，非投资建议</footer>
 <script>var DATA=[{"name": "永太科技", "code": "002326", "cat": "fluorosilicone", "pe": 351.84, "pb": 6.07, "dy": 0.55, "roe": 1.7, "gross": 17.8, "debt": 74.4, "rev": 52.1, "np": 0.5, "mcap": 168.84, "opcf": 0.7, "pe_pct": 97.1, "pb_pct": 75.5}, {"name": "兴发集团", "code": "600141", "cat": "fluorosilicone", "pe": 24.13, "pb": 1.39, "dy": 1.73, "roe": 6.9, "gross": 18.0, "debt": 53.1, "rev": 293.0, "np": 14.9, "mcap": 346.94, "opcf": 16.1, "pe_pct": 56.4, "pb_pct": 47.1}, {"name": "巨化股份", "code": "600160", "cat": "fluorosilicone", "pe": 25.73, "pb": 4.94, "dy": 0.96, "roe": 19.8, "gross": 28.2, "debt": 38.5, "rev": 269.9, "np": 37.8, "mcap": 1066.94, "opcf": 62.6, "pe_pct": 39.5, "pb_pct": 95.1}, {"name": "昊华科技", "code": "600378", "cat": "fluorosilicone", "pe": 32.79, "pb": 2.77, "dy": 0.98, "roe": 8.2, "gross": 25.2, "debt": 40.6, "rev": 166.9, "np": 14.4, "mcap": 514.06, "opcf": 19.2, "pe_pct": 42.3, "pb_pct": 20.8}, {"name": "新安股份", "code": "600596", "cat": "fluorosilicone", "pe": 66.39, "pb": 1.11, "dy": 0.97, "roe": 1.2, "gross": 11.7, "debt": 38.2, "rev": 146.2, "np": 1.5, "mcap": 139.41, "opcf": 9.0, "pe_pct": 84.0, "pb_pct": 27.5}, {"name": "合盛硅业", "code": "603260", "cat": "fluorosilicone", "pe": 12.5, "pb": 1.35, "dy": 1.34, "roe": 9.6, "gross": 7.3, "debt": 65.0, "rev": 205.0, "np": 29.9, "mcap": 396.51, "opcf": 40.1, "pe_pct": 8.4, "pb_pct": 0.5}, {"name": "三美股份", "code": "603379", "cat": "fluorosilicone", "pe": 16.99, "pb": 4.27, "dy": 1.99, "roe": 28.4, "gross": 50.6, "debt": 16.5, "rev": 58.5, "np": 20.6, "mcap": 368.12, "opcf": 21.6, "pe_pct": 6.7, "pb_pct": 81.7}, {"name": "金石资源", "code": "603505", "cat": "fluorosilicone", "pe": 42.17, "pb": 7.12, "dy": 0.31, "roe": 19.0, "gross": 17.8, "debt": 68.0, "rev": 38.9, "np": 3.3, "mcap": 135.0, "opcf": 1.3, "pe_pct": 42.0, "pb_pct": 37.3}, {"name": "三孚股份", "code": "603938", "cat": "fluorosilicone", "pe": 148.03, "pb": 5.37, "dy": 0.06, "roe": 3.3, "gross": 13.3, "debt": 23.5, "rev": 21.0, "np": 0.8, "mcap": 136.41, "opcf": 0.8, "pe_pct": 97.0, "pb_pct": 80.7}, {"name": "永和股份", "code": "605020", "cat": "fluorosilicone", "pe": 19.99, "pb": 2.71, "dy": 1.43, "roe": 13.1, "gross": 25.1, "debt": 27.7, "rev": 52.1, "np": 5.6, "mcap": 160.55, "opcf": 6.8, "pe_pct": 2.6, "pb_pct": 25.8}];
@@ -83,4 +97,8 @@ renderList();renderTbl();
 </script>
   <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
 </body></html>
