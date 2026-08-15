@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>保险价格/政策周期 | 价值投资初级阶段</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#e8b84b;--primary-dark:#b45309;--navy:#0b1f3a;--navy2:#10294d;--ink:#1d2b40;--line:#e4e9f2;
+  --accent:#e8b84b;--txt:#23344e;--muted:#6b7a93;--card:#fff;--bg:#f4f7fc;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--txt);line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(167,139,250,0.28);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(167,139,250,0.10);color:#5b4c89;border:1px solid rgba(167,139,250,0.35);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;transition:all .2s}
+.home-btn:hover{background:var(--accent);color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#5b4c89}
+.crumb-sep{color:#cbd5e1}
+.switcher{display:inline-flex;gap:12px;align-items:center;margin-left:8px;flex-wrap:wrap}
+.switcher a{color:#5b4c89;text-decoration:none;font-size:13px}
+.switcher a:hover{text-decoration:underline}
+.switcher a.cur{font-weight:800;color:var(--navy);border-bottom:2px solid var(--accent)}
+.container{max-width:1180px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#0b1f3a 0%,#10294d 100%);border-radius:16px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(167,139,250,0.35);box-shadow:0 3px 14px rgba(11,31,58,.12)}
+.hero-title{font-size:28px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#cdb892;margin-bottom:14px}
+.data-banner{background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.3);border-left:4px solid var(--accent);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:var(--navy);font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
+.insight-box{background:linear-gradient(135deg,#fffdf6,#ffffff);border:1px solid rgba(167,139,250,0.25);border-radius:12px;padding:18px 20px;margin-top:8px}
+.insight-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:var(--accent)}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.insight-body p{margin-bottom:8px}
+.insight-body b{color:#334155}
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.tbl th,.tbl td{border-bottom:1px solid #e2e8f0;padding:10px 12px;text-align:left;vertical-align:top}
+.tbl th{background:#f8fafc;color:#475569;font-weight:600;border-bottom:2px solid #e2e8f0}
+.tbl tr:hover td{background:#f8fafc}
+.tbl td.yr{font-weight:800;color:var(--navy);white-space:nowrap;width:54px}
+.tbl td.evt{font-weight:600;color:#334155;width:200px}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#5b4c89;font-weight:700}
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid var(--accent);padding:8px 12px;background:rgba(167,139,250,0.08);line-height:1.7}
+.cycle-current b{color:#334155}
+.note{background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;margin-top:22px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.note b{color:#475569}
+.note a{color:#5b4c89;font-weight:600}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.extend a{display:block;background:#fffdf6;border:1px solid #f0e2bf;border-radius:12px;padding:14px 16px;text-decoration:none;color:#1e293b;transition:.18s}
+.extend a:hover{border-color:var(--accent);box-shadow:0 4px 14px rgba(167,139,250,.18);transform:translateY(-2px)}
+.extend b{display:block;font-size:15px;color:#1f2937;margin-bottom:4px}
+.extend span{display:block;font-size:12.5px;color:#64748b;line-height:1.5}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:22px}.layers,.extend{grid-template-columns:1fr}.tbl{font-size:12px}}
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span class="switcher"><a href="berkshire-bank-chains.html">银行</a><a href="berkshire-baijiu-chains.html">白酒</a><a href="berkshire-ai-chains.html">AI</a><a href="berkshire-robot-chains.html">机器人</a><a href="berkshire-tcm-chains.html">中药</a><a href="berkshire-innov-chains.html">创新药</a><a href="berkshire-chemical-pharma-chains.html">化学制药</a><a href="berkshire-appliance-chains.html">家电</a><a href="berkshire-power-chains.html">电力</a><a href="berkshire-coal-chains.html">煤炭</a><a href="berkshire-metal-chains.html">有色</a><a href="berkshire-chem-chains.html">化工</a><a href="berkshire-equip-chains.html">电力设备</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<a href="berkshire-insurance-chains.html">保险产业链</a><span class="crumb-sep">/</span>
+<span>价格/政策周期</span>
+</div>
+</div>
+<div class="container">
+<div class="hero">
+<div class="hero-title">保险价格/政策周期（2015 → 2025）</div>
+<div class="hero-sub">行业十年脉络 · 框架级原创整理，具体时点以官方公告为准</div>
+</div>
+<div class="data-banner">📊 <b>数据口径</b>：下表为<b>框架级政策/价格周期梳理</b>，年份与事件为公开事实层。具体降幅与股价表现以各公司公告及行情数据为准。本页<b>不构成投资建议</b>。最后更新：<b style="color:#5b4c89">2026-08-12</b></div>
+<div class="section-title">周期脉络：十年一图</div>
+<div class="insight-box">
+<div class="insight-title"><span class="icon">🔄</span> 一句话：保险的「周期」是政策周期+价格周期+需求周期叠加</div>
+<div class="insight-body"><p>理解这张表，关键是看<b>每一轮周期对行业利润和估值的影响</b>。政策松绑 = 估值修复；供给收缩 = 景气向上；需求拐点 = 业绩弹性显现。</p></div></div>
+<table class="tbl">
+<thead><tr><th>年份</th><th>主线事件</th><th>对行业影响</th></tr></thead>
+<tbody><tr><td class="yr">2015</td><td class="evt">供给侧改革启动</td><td>行业去产能+环保趋严，龙头议价权提升。</td></tr>
+<tr><td class="yr">2016</td><td class="evt">景气复苏</td><td>需求回升+成本端传导，行业进入景气周期。</td></tr>
+<tr><td class="yr">2017</td><td class="evt">龙头崛起</td><td>行业集中度提升，龙头估值溢价扩大。</td></tr>
+<tr><td class="yr">2018</td><td class="evt">贸易摩擦</td><td>中美贸易摩擦影响出口，行业景气分化。</td></tr>
+<tr><td class="yr">2019</td><td class="evt">产能释放</td><td>前期投产项目集中释放，供给端压力显现。</td></tr>
+<tr><td class="yr">2020</td><td class="evt">疫情冲击</td><td>需求短期承压，行业景气阶段性下行。</td></tr>
+<tr><td class="yr">2021</td><td class="evt">景气高点</td><td>需求复苏+成本传导，行业景气创阶段性高点。</td></tr>
+<tr><td class="yr">2022</td><td class="evt">政策刺激</td><td>稳增长政策+地产松绑预期，行业估值修复。</td></tr>
+<tr><td class="yr">2023</td><td class="evt">结构调整</td><td>行业进入结构调整期，分化加剧。</td></tr>
+<tr><td class="yr">2024</td><td class="evt">底部探明</td><td>多数行业进入估值底部区间，安全边际抬升。</td></tr>
+<tr><td class="yr">2025</td><td class="evt">高质量发展</td><td>行业从规模扩张转向高质量发展；龙头集中度进一步提升。</td></tr></tbody>
+</table>
+<div class="section-title">关键指标与周期信号</div>
+<div class="layers"><div class="layer-card"><div class="layer-num">信号①</div><div class="layer-name">价格/政策周期</div><div class="layer-desc">价格/政策位置决定行业景气节奏。指标从历史高位回落、降幅收窄=利空出尽、底部信号</div></div>
+<div class="layer-card"><div class="layer-num">信号②</div><div class="layer-name">供需平衡</div><div class="layer-desc">产能利用率/开工率反映供需。{SIGNAL_2_DESC}</div></div>
+<div class="layer-card"><div class="layer-num">信号③</div><div class="layer-name">集中度与护城河</div><div class="layer-desc">CR3/CR5 抬升 = 龙头议价权强化；技术/品牌/渠道壁垒决定可持续性</div></div>
+<div class="layer-card"><div class="layer-num">信号④</div><div class="layer-name">ROE 与分红</div><div class="layer-desc">ROE 稳定性+分红比例是长期价值锚。ROE>10% 且 DY>4% = 安全边际厚</div></div></div>
+<div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：保险处<b>估值历史低位 + 行业整合期</b>。龙头集中度提升，政策/价格/需求三周期叠加；安全边际来自低估值与稳健现金流，关注后续政策松绑节奏。</div>
+<div class="note">实用框架：先判<b>周期位置</b>（政策/价格/需求），再看<b>供需与结构</b>，最后用<b>估值分位+股息率</b>定买点。分析框架见；行业内估值冷热见<a href="berkshire-insurance-thermometer.html" style="color:#5b4c89">估值温度计</a>；买点回测见<a href="berkshire-insurance-backtest.html" style="color:#5b4c89">估值回测</a>。</div>
+<div class="section-title">延伸阅读</div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-insurance-compare.html"><b>🥇 估值分位</b><span>保险（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-insurance-thermometer.html"><b>🌡️ 估值温度计</b><span>保险（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-insurance-buyback.html"><b>💰 回购监测</b><span>保险（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-insurance-repomap.html"><b>🗺️ 板块图谱</b><span>保险（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-insurance-backtest.html"><b>📈 五年回测</b><span>保险（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-insurance-cycle.html"><b>🔄 周期演进</b><span>保险（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-insurance-methodology.html"><b>📘 方法论说明</b><span>保险（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+</div>
+  <script src="/analytics.js"></script>
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
+</body>
+</html>
