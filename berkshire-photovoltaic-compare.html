@@ -42,7 +42,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .extend b{color:#e8b84b;display:block;margin-bottom:5px;font-weight:700}
 .extend span{font-size:12.5px;color:#64748b;line-height:1.55}
 footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
-@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}</style></head><body>
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style></head><body>
 <div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
 <span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">bank</a>
 <a href="berkshire-baijiu-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">baijiu</a>
@@ -64,8 +77,9 @@ footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font
 <div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div>
 <table class="tbl"><thead><tr><th style="text-align:left">公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收(亿)</th><th>净利(亿)</th><th>市值(亿)</th><th>经营现金流(亿)</th></tr></thead><tbody id="tbody"></tbody></table>
 <div class="note">数据：各公司公开年报与行情快照（akshare / 腾讯行情 / 百度分位），框架级原创整理，<b>不构成投资建议</b>。绿色=同行该列最优，红色=同行该列最弱（按指标方向：PE/PB/负债率越低越好，其余越高越好）。字段缺失者诚实留空。</div>
-<div class="extend"><a href="berkshire-photovoltaic-chains.html"><b>返回photovoltaic产业链</b><span>查看完整跨层分析与各公司详情页</span></a>
-<a href="berkshire-photovoltaic-thermometer.html"><b>估值温度计</b><span>行业内 PB 相对位置一览</span></a></div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-photovoltaic-compare.html"><b>🥇 估值分位</b><span>光伏（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-photovoltaic-thermometer.html"><b>🌡️ 估值温度计</b><span>光伏（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-photovoltaic-buyback.html"><b>💰 回购监测</b><span>光伏（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-photovoltaic-repomap.html"><b>🗺️ 板块图谱</b><span>光伏（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-photovoltaic-backtest.html"><b>📈 五年回测</b><span>光伏（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-photovoltaic-cycle.html"><b>🔄 周期演进</b><span>光伏（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-photovoltaic-methodology.html"><b>📘 方法论说明</b><span>光伏（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
 </div>
 <footer>数据来源：akshare / 腾讯行情 / 百度股市通 · 框架级整理，非投资建议</footer>
 <script>var DATA=[{"name": "TCL中环", "code": "002129", "cat": "photovoltaic", "pe": 3.96, "pb": 1.78, "dy": 2.94, "roe": 35.0, "gross": 6.4, "debt": 66.6, "rev": 290.5, "np": 92.6, "mcap": 357.01, "opcf": 11.4, "pe_pct": 10.5, "pb_pct": 29.0}, {"name": "晶澳科技", "code": "002459", "cat": "photovoltaic", "pe": 6.16, "pb": 1.2, "dy": 7.5, "roe": 18.3, "gross": 2.1, "debt": 78.6, "rev": 491.3, "np": 46.1, "mcap": 248.56, "opcf": 42.8, "pe_pct": 22.6, "pb_pct": 4.7}, {"name": "阳光电源", "code": "300274", "cat": "photovoltaic", "pe": 17.97, "pb": 4.4, "dy": 0.67, "roe": 32.2, "gross": 31.8, "debt": 58.1, "rev": 891.8, "np": 134.6, "mcap": 2143.08, "opcf": 169.2, "pe_pct": 27.1, "pb_pct": 47.1}, {"name": "迈为股份", "code": "300751", "cat": "photovoltaic", "pe": 61.28, "pb": 5.16, "dy": 0.34, "roe": 9.3, "gross": 38.6, "debt": 63.4, "rev": 81.5, "np": 7.2, "mcap": 415.17, "opcf": 7.0, "pe_pct": 59.1, "pb_pct": 28.9}, {"name": "通威股份", "code": "600438", "cat": "photovoltaic", "pe": 5.59, "pb": 1.5, "dy": 7.75, "roe": 21.9, "gross": 2.7, "debt": 72.6, "rev": 841.3, "np": 95.5, "mcap": 525.83, "opcf": 13.8, "pe_pct": 18.6, "pb_pct": 2.9}, {"name": "隆基绿能", "code": "601012", "cat": "photovoltaic", "pe": 14.26, "pb": 1.95, "dy": 1.31, "roe": 11.2, "gross": 0.8, "debt": 64.4, "rev": 703.5, "np": 64.2, "mcap": 984.39, "opcf": 43.6, "pe_pct": 17.4, "pb_pct": 8.5}, {"name": "福莱特", "code": "601865", "cat": "photovoltaic", "pe": 25.88, "pb": 1.07, "dy": 1.49, "roe": 4.4, "gross": 16.9, "debt": 46.6, "rev": 155.7, "np": 9.8, "mcap": 236.16, "opcf": 29.1, "pe_pct": 21.5, "pb_pct": 1.1}, {"name": "福斯特", "code": "603806", "cat": "photovoltaic", "pe": 56.25, "pb": 2.36, "dy": 1.02, "roe": 4.7, "gross": 11.0, "debt": 19.5, "rev": 154.9, "np": 7.7, "mcap": 382.7, "opcf": 14.6, "pe_pct": 88.6, "pb_pct": 10.5}, {"name": "晶科能源", "code": "688223", "cat": "photovoltaic", "pe": 6.51, "pb": 1.79, "dy": 5.16, "roe": 23.9, "gross": 0.6, "debt": 77.2, "rev": 654.9, "np": 68.8, "mcap": 445.69, "opcf": 20.0, "pe_pct": 26.7, "pb_pct": 5.8}, {"name": "天合光能", "code": "688599", "cat": "photovoltaic", "pe": 5.3, "pb": 1.56, "dy": 4.66, "roe": 29.4, "gross": 5.2, "debt": 76.9, "rev": 669.8, "np": 70.3, "mcap": 317.89, "opcf": 69.0, "pe_pct": 26.0, "pb_pct": 19.8}];
@@ -83,4 +97,8 @@ renderList();renderTbl();
 </script>
   <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
 </body></html>
