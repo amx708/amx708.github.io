@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>软饮料估值与周期：框架知识 · 价值投资视角</title>
+<style>* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f2f5; color:#1e293b; line-height:1.75; }
+.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(232,184,75,0.2); padding:12px 20px; display:flex; align-items:center; gap:12px; }
+.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(232,184,75,0.12); color:#b45309; border:1px solid rgba(232,184,75,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
+.home-btn:hover { background:#b45309; color:#fff; }
+.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
+.breadcrumb a { color:#64748b; text-decoration:none; }
+.breadcrumb a:hover { color:#b45309; }
+.crumb-sep { color:#cbd5e1; }
+.container { max-width:980px; margin:0 auto; padding:24px 16px 48px; }
+.hero { background:linear-gradient(135deg,#ffffff 0%,#fbf7ee 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(232,184,75,0.25); box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+.hero-title { font-size:26px; font-weight:800; color:#0f172a; margin-bottom:6px; letter-spacing:.5px; }
+.hero-sub { font-size:14px; color:#64748b; margin-bottom:18px; }
+.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+.stat-item { background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
+.stat-num { font-size:22px; font-weight:800; color:#b45309; }
+.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
+.explain-banner { display:flex; gap:16px; align-items:flex-start; background:linear-gradient(135deg,#fbf7ee,#ffffff); border:1px solid rgba(232,184,75,0.25); border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+.explain-banner .eb-icon { font-size:24px; flex-shrink:0; }
+.explain-banner .eb-body { flex:1; min-width:0; }
+.explain-banner .eb-title { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.explain-banner .eb-tag { font-size:11px; color:#b45309; background:rgba(232,184,75,0.12); padding:2px 9px; border-radius:10px; }
+.explain-banner .eb-text { font-size:13px; color:#475569; line-height:1.8; }
+.explain-banner .eb-text b { color:#0f172a; font-weight:600; }
+.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(232,184,75,0.5); }
+.para { font-size:14px; color:#334155; line-height:1.9; margin:8px 0 4px; }
+.para b { color:#0f172a; font-weight:600; }
+.ulist { margin:8px 0 4px 4px; padding-left:20px; }
+.ulist li { font-size:13.5px; color:#334155; line-height:1.85; margin:5px 0; }
+.ulist li b { color:#0f172a; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
+.concept-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; border-left:4px solid #e8b84b; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.concept-card:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(232,184,75,0.18); }
+.concept-head { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+.concept-num { font-size:12px; font-weight:800; color:#b45309; background:rgba(232,184,75,0.14); border-radius:8px; padding:2px 8px; }
+.concept-desc { font-size:12.5px; color:#64748b; line-height:1.7; }
+.concept-desc b { color:#0f172a; }
+.ovtable { overflow-x:auto; margin:10px 0; }
+.ovtable table { width:100%; border-collapse:collapse; font-size:12.5px; }
+.ovtable th,.ovtable td { padding:8px 10px; border-bottom:1px solid #e2e8f0; text-align:left; vertical-align:top; }
+.ovtable th { background:#f8fafc; color:#475569; font-weight:600; white-space:nowrap; }
+.ovtable td b { color:#0f172a; }
+.ovtable .acc { color:#b45309; font-weight:700; }
+.fin-note { font-size:12px; color:#64748b; margin-top:8px; line-height:1.7; }
+.signal-box { background:#fff; border:1px solid #e2e8f0; border-left:4px solid #e8b84b; border-radius:10px; padding:14px 18px; margin:10px 0; font-size:13.5px; color:#334155; line-height:1.85; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.signal-box b { color:#0f172a; }
+.warn-box { background:#fff7ed; border:1px solid #fed7aa; border-left:4px solid #c2410c; border-radius:10px; padding:14px 18px; margin:10px 0; font-size:13px; color:#7c2d12; line-height:1.8; }
+.warn-box b { color:#9a3412; }
+.linkrow { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; margin:10px 0; }
+.linkcard { display:block; background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px; text-decoration:none; box-shadow:0 1px 6px rgba(0,0,0,0.04); transition:all .2s; }
+.linkcard:hover { border-color:#b45309; background:rgba(232,184,75,0.06); transform:translateY(-2px); }
+.linkcard b { color:#0f172a; font-size:14px; }
+.linkcard span { display:block; color:#64748b; font-size:12px; margin-top:4px; line-height:1.6; }
+.source-note { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; margin-top:24px; font-size:12.5px; color:#64748b; line-height:1.7; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.source-note b { color:#475569; }
+@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .grid{grid-template-columns:1fr} .explain-banner{flex-direction:column;padding:16px} }
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-beverage-chains.html" class="home-btn">← 软饮料产业链</a>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<a href="berkshire-beverage-chains.html">软饮料产业链</a><span class="crumb-sep">/</span>
+<span>框架知识</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">📘 软饮料估值与周期：框架知识</div>
+<div class="hero-sub">读软饮料财报与行业时，最容易踩的认知坑，以及一套可复用的「渠道 + 估值 + 品类景气」分析框架</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">4</div><div class="stat-label">核心框架概念</div></div>
+<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">上市软饮料企覆盖</div></div>
+<div class="stat-item"><div class="stat-num">4</div><div class="stat-label">行业演进阶段</div></div>
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+</div>
+</div>
+
+<div class="explain-banner">
+<div class="eb-icon">🥤</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这是一篇「怎么读」的方法论文</div>
+<div class="eb-text">
+本页不推荐任何标的，只讲<b>分析软饮料的框架</b>：为什么软饮料是「刚需 + 高频 + 品牌驱动」的生意、PE 为何会失真、糖/PET 成本周期怎么看、功能饮料高景气怎么理解、以及当前行业处在周期的哪个位置。
+所有数字均来自各公司<b>公开年报、官网、产品发布与新闻</b>等事实层，由本站原创整理；文中时点数以「软饮料产业链地图」页最新披露为准。
+</div>
+</div>
+</div>
+
+<div class="section-title">一、为什么软饮料是「刚需 + 高频 + 品牌驱动」</div>
+<p class="para">软饮料的需求属性与休闲食品、白酒、调味品都不同，理解这点才不会用错误尺子去量它：</p>
+<ul class="ulist">
+<li><b>刚需 + 高频</b>：相比休闲零食的「嘴馋消费」，饮料是高频复购的即饮需求，需求价格弹性低，经济下行时韧性更强，更像「快消必需品」。</li>
+<li><b>品牌与渠道壁垒显著</b>：东鹏特饮、农夫/怡宝（港股）靠「大单品 + 下沉渠道 + 心智占位」建立护城河，品牌溢价远高于休闲零食；但品类迭代快，网红新品易抢份额。</li>
+<li><b>渠道结构决定命运</b>：传统经销 → 现代商超 → 电商/即饮三次演进，每次重排格局；功能饮料靠「高频复购 + 即饮场景」兑现人效，冲泡（香飘飘）受即饮化冲击增长见顶。</li>
+<li><b>品类景气分化大</b>：功能饮料（东鹏）、无糖茶处高景气；传统植物蛋白（养元六个核桃）、冲泡（香飘飘）增长见顶——赛道内部冰火两重天。</li>
+<li><b>集中度分化，存在上游玩家</b>：功能饮料/包装水集中度高，植物蛋白/冲泡分散；PET 瓶坯/包装供应商（如珠海中富）属最上游，盈利随 PET 价格与下游资本开支剧烈波动，<b>与品牌商不可直接横比</b>。</li>
+</ul>
+
+<div class="section-title">二、估值框架：4 个必须先搞清的概念</div>
+<div class="grid">
+<div class="concept-card">
+<div class="concept-head"><span class="concept-num">01</span> PE 为何会失真</div>
+<div class="concept-desc">东鹏饮料 PE 仅 <b>19.7 倍（分位 2%）</b> 看似便宜——但这是<b>高成长（ROE 51.6%）的合理低估</b>，而非价值陷阱；反观养元 PE 32.5 倍（分位 <span class="acc">97%</span>）看似不贵，实则是<b>核桃乳见顶后的高估</b>。亏损企业（均瑶/珠海中富）PE 为负，完全失效，须看 PB 与现金流。</div>
+</div>
+<div class="concept-card">
+<div class="concept-head"><span class="concept-num">02</span> 糖 / PET 成本周期</div>
+<div class="concept-desc">糖、PET 瓶坯、浓缩果汁等原料价格有周期，直接决定毛利率。龙头靠<b>规模采购 + 长协锁价 + 配方优化</b>平抑波动；上游包装商（珠海中富）则被 PET 价格与下游资本开支双向挤压，ROE 可跌至 <span class="acc">-69%</span> 巨亏。</div>
+</div>
+<div class="concept-card">
+<div class="concept-head"><span class="concept-num">03</span> 功能饮料高景气</div>
+<div class="concept-desc">功能饮料（东鹏特饮）凭<b>高频复购 + 即饮场景 + 下沉渠道</b>走出独立 α，ROE 51.6% 全表独一档；无糖茶/电解质水为新增长极。这是近年行业最强景气主线，须区分「真成长」与「传统品类见顶」。</div>
+</div>
+<div class="concept-card">
+<div class="concept-head"><span class="concept-num">04</span> 集中度与护城河</div>
+<div class="concept-desc">功能饮料/包装水呈<b>双寡头 + 龙头溢价</b>，护城河深；植物蛋白/冲泡则分散、诸侯混战。高集中度 = 龙头定价权强，但也意味着<b>价格战（功能饮料/包装水）压缩利润</b>是常态风险。</div>
+</div>
+</div>
+
+<div class="section-title">三、怎么把估值「读」对：当前行业锚</div>
+<p class="para">以「软饮料产业链地图」页最新时点数据为例（<b>时点数，非投资建议</b>），行业 PE/PB 处中位偏低，但内部分化极端：</p>
+<div class="ovtable">
+<table>
+<thead><tr><th>观察维度</th><th>当前信号（时点）</th><th>怎么读</th></tr></thead>
+<tbody>
+<tr><td><b>PE 历史分位（行业均值）</b></td><td>约 36% 分位（中位偏低）</td><td>养元 <span class="acc">97%</span>、泉阳泉 <span class="acc">81%</span>、深深宝A <span class="acc">86%</span> 极贵；东鹏 <span class="acc">2%</span>、承德 <span class="acc">2%</span>、李子园 <span class="acc">7%</span>、维维 <span class="acc">6%</span> 极便宜</td></tr>
+<tr><td><b>PB 历史分位（行业均值）</b></td><td>约 27% 分位（中位偏低）</td><td>养元 <span class="acc">95%</span>、珠海中富 <span class="acc">96%</span>、泉阳泉 <span class="acc">66%</span> 偏贵；承德 <span class="acc">1%</span>、李子园 <span class="acc">0%</span>、香飘飘 <span class="acc">0%</span>、维维 <span class="acc">4%</span> 极便宜</td></tr>
+<tr><td><b>ROE 质量</b></td><td>东鹏 51.6% 顶级 / 承德 18.1% / 养元 13.2%</td><td>东鹏 是高成长兑现的真护城河；香飘飘 2.7% / 均瑶 -11.5% / 珠海中富 -69.2% 巨亏须警惕</td></tr>
+<tr><td><b>人均净利</b></td><td>养元 ¥68.6万 / 承德·东鹏 ¥35万+ 领先</td><td>养元高毛利兑现；均瑶/珠海中富 人均净利为负，困境承压</td></tr>
+<tr><td><b>股息率</b></td><td>承德/东鹏/养元稳定分红</td><td>低 PB + 高分红 = 历史底部常见组合，是安全边际的现金流背书</td></tr>
+</tbody>
+</table>
+</div>
+<div class="fin-note">以上为框架举例，具体数值随财报与行情变动，请以「软饮料产业链地图」各数据表实时披露为准。分位 = 当前 PE/PB 在近十年日度序列中的百分位（百度股市通口径）。珠海中富属上游包装，PB 33.41（96%）极贵且 ROE 巨亏，不能与品牌商直接横比。</div>
+
+<div class="section-title">四、周期分析框架：行业演进与当前定位</div>
+<p class="para">软饮料近十年经历四个阶段，买点信号高度相似——<b>低估值 + 渠道放量 + 品类景气</b>共振时，往往对应长周期赔率高点：</p>
+<div class="ovtable">
+<table>
+<thead><tr><th>阶段</th><th>行业背景</th><th>盈利特征</th></tr></thead>
+<tbody>
+<tr><td><b>2014–2018 消费升级 + 品类扩张</b></td><td>植物蛋白（养元六个核桃、承德露露）高增；功能饮料（东鹏）起步，渠道下沉</td><td>营收高增，大单品红利驱动估值</td></tr>
+<tr><td><b>2018–2021 高估值抱团</b></td><td>消费白马行情，饮料龙头被给予成长溢价</td><td>估值透支，股价与基本面脱节</td></tr>
+<tr><td><b>2021–2023 杀估值 + 传统品类见顶</b></td><td>植物蛋白（养元）/ 冲泡（香飘飘）增长见顶，估值体系重构</td><td>从成长股跌回周期/价值估值</td></tr>
+<tr><td><b>2023–25 筑底 + 功能饮料崛起</b></td><td>无糖茶/功能饮料/电解质水高景气，东鹏独立行情；行业 PB 分位中位偏低（27%）</td><td>便宜但景气分化（左侧），传统品类未见反转</td></tr>
+</tbody>
+</table>
+</div>
+<div class="signal-box">
+<b>当前定位（时点判断，框架合成）</b>：估值中位偏低（PE 分位 <b>36%</b> / PB 分位 <b>27%</b>）+ 结构分化的<b>左侧</b>区间。功能饮料（东鹏）已走出独立行情，但植物蛋白/冲泡等传统品类需求尚未反转，结论信号为<b>🟡 中性偏左侧（精选个股，不追指数）</b>，等消费复苏 + 渠道放量 + 新品（无糖茶/功能）兑现后再向右侧移动。
+</div>
+
+<div class="section-title">五、可复用的「买点信号」框架</div>
+<p class="para">把上面四节串成一套可操作的 checklist（任一项单独出现都不构成买点，须多因子共振）：</p>
+<ul class="ulist">
+<li><b>估值锚</b>：PB 历史分位低位（承德 1% / 李子园 0% / 香飘飘 0% / 维维 4% 属极端便宜区间）</li>
+<li><b>渠道信号</b>：下沉 + 即饮场景放量，东鹏式「大单品 + 高频复购」模式被验证可复制</li>
+<li><b>品类景气</b>：无糖茶 / 功能饮料 / 电解质水等高景气品类占比提升，ASP 同比上行</li>
+<li><b>原料成本</b>：糖 / PET 价格下行或长协锁价，毛利率环比改善</li>
+<li><b>股东回报</b>：分红率 / 回购提升，自由现金流充沛（承德 / 东鹏 / 养元）</li>
+</ul>
+<div class="warn-box">
+<b>风险提示</b>：① 需求持续疲弱会延长左侧时间，估值便宜可以更便宜；② <b>糖/PET 原料价格上行</b>压缩毛利率，尤伤上游包装商（珠海中富式巨亏）；③ 渠道库存去化慢于预期将推迟拐点；④ <b>价格战</b>（功能饮料/包装水）压缩龙头利润；⑤ 食品安全事件（异物、添加剂）是行业特有黑天鹅；⑥ 上游包装商（珠海中富）ROE 巨亏不可与品牌商直接横比。以上为研究框架示例，<b>不构成投资建议</b>，须结合实盘与最新公告校验。
+</div>
+
+<div class="section-title">六、回链：用本站工具落地这套框架</div>
+<div class="linkrow">
+<a class="linkcard" href="./berkshire-beverage-chains.html"><b>软饮料产业链地图</b><span>10 家玩家、估值分位、R15 三维、员工效率全表</span></a>
+<a class="linkcard" href="./berkshire-beverage-cycle.html"><b>价格/库存周期</b><span>行业周期脉络与关键信号框架级梳理</span></a>
+<a class="linkcard" href="./berkshire-beverage-backtest.html"><b>三轮大底回测</b><span>2014/2018/2024–25 低 PE + 高股息买点历史回报</span></a>
+<a class="linkcard" href="./berkshire-beverage-buyback.html"><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a>
+<a class="linkcard" href="./berkshire-beverage-repomap.html"><b>回购地图</b><span>回购金额/估值锚/管理层信号三维评分</span></a>
+<a class="linkcard" href="./berkshire-beverage-compare.html"><b>横向对比工具</b><span>勾选多家并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a>
+<a class="linkcard" href="./berkshire-beverage-thermometer.html"><b>估值温度计</b><span>10 家估值冷热一览，谁在历史悲观区</span></a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+<script src="/analytics.js"></script>
+<script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+</body>
+</html>
