@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>食品加工估值与周期：框架知识 · 价值投资视角</title>
+<style>* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f2f5; color:#1e293b; line-height:1.75; }
+.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(232,184,75,0.2); padding:12px 20px; display:flex; align-items:center; gap:12px; }
+.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(232,184,75,0.12); color:#b45309; border:1px solid rgba(232,184,75,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
+.home-btn:hover { background:#b45309; color:#fff; }
+.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
+.breadcrumb a { color:#64748b; text-decoration:none; }
+.breadcrumb a:hover { color:#b45309; }
+.crumb-sep { color:#cbd5e1; }
+.container { max-width:980px; margin:0 auto; padding:24px 16px 48px; }
+.hero { background:linear-gradient(135deg,#ffffff 0%,#fbf7ee 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(232,184,75,0.25); box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+.hero-title { font-size:26px; font-weight:800; color:#0f172a; margin-bottom:6px; letter-spacing:.5px; }
+.hero-sub { font-size:14px; color:#64748b; margin-bottom:18px; }
+.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+.stat-item { background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
+.stat-num { font-size:22px; font-weight:800; color:#b45309; }
+.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
+.explain-banner { display:flex; gap:16px; align-items:flex-start; background:linear-gradient(135deg,#fbf7ee,#ffffff); border:1px solid rgba(232,184,75,0.25); border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+.explain-banner .eb-icon { font-size:24px; flex-shrink:0; }
+.explain-banner .eb-body { flex:1; min-width:0; }
+.explain-banner .eb-title { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.explain-banner .eb-tag { font-size:11px; color:#b45309; background:rgba(232,184,75,0.12); padding:2px 9px; border-radius:10px; }
+.explain-banner .eb-text { font-size:13px; color:#475569; line-height:1.8; }
+.explain-banner .eb-text b { color:#0f172a; font-weight:600; }
+.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(232,184,75,0.5); }
+.para { font-size:14px; color:#334155; line-height:1.9; margin:8px 0 4px; }
+.para b { color:#0f172a; font-weight:600; }
+.ulist { margin:8px 0 4px 4px; padding-left:20px; }
+.ulist li { font-size:13.5px; color:#334155; line-height:1.85; margin:5px 0; }
+.ulist li b { color:#0f172a; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
+.concept-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; border-left:4px solid #e8b84b; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.concept-card:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(232,184,75,0.18); }
+.concept-head { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+.concept-num { font-size:12px; font-weight:800; color:#b45309; background:rgba(232,184,75,0.14); border-radius:8px; padding:2px 8px; }
+.concept-desc { font-size:12.5px; color:#64748b; line-height:1.7; }
+.concept-desc b { color:#0f172a; }
+.ovtable { overflow-x:auto; margin:10px 0; }
+.ovtable table { width:100%; border-collapse:collapse; font-size:12.5px; }
+.ovtable th,.ovtable td { padding:8px 10px; border-bottom:1px solid #e2e8f0; text-align:left; vertical-align:top; }
+.ovtable th { background:#f8fafc; color:#475569; font-weight:600; white-space:nowrap; }
+.ovtable td b { color:#0f172a; }
+.ovtable .acc { color:#b45309; font-weight:700; }
+.fin-note { font-size:12px; color:#64748b; margin-top:8px; line-height:1.7; }
+.signal-box { background:#fff; border:1px solid #e2e8f0; border-left:4px solid #e8b84b; border-radius:10px; padding:14px 18px; margin:10px 0; font-size:13.5px; color:#334155; line-height:1.85; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.signal-box b { color:#0f172a; }
+.warn-box { background:#fff7ed; border:1px solid #fed7aa; border-left:4px solid #c2410c; border-radius:10px; padding:14px 18px; margin:10px 0; font-size:13px; color:#7c2d12; line-height:1.8; }
+.warn-box b { color:#9a3412; }
+.linkrow { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; margin:10px 0; }
+.linkcard { display:block; background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px; text-decoration:none; box-shadow:0 1px 6px rgba(0,0,0,0.04); transition:all .2s; }
+.linkcard:hover { border-color:#b45309; background:rgba(232,184,75,0.06); transform:translateY(-2px); }
+.linkcard b { color:#0f172a; font-size:14px; }
+.linkcard span { display:block; color:#64748b; font-size:12px; margin-top:4px; line-height:1.6; }
+.source-note { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; margin-top:24px; font-size:12.5px; color:#64748b; line-height:1.7; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.source-note b { color:#475569; }
+@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .grid{grid-template-columns:1fr} .explain-banner{flex-direction:column;padding:16px} }
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-food-process-chains.html" class="home-btn">← 食品加工产业链</a>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<a href="berkshire-food-process-chains.html">食品加工产业链</a><span class="crumb-sep">/</span>
+<span>框架知识</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">📘 食品加工估值与周期：框架知识</div>
+<div class="hero-sub">读食品加工财报与行业时，最容易踩的认知坑，以及一套可复用的「成本周期 + 估值 + 预制菜景气」分析框架</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">4</div><div class="stat-label">核心框架概念</div></div>
+<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">上市食品加工企覆盖</div></div>
+<div class="stat-item"><div class="stat-num">4</div><div class="stat-label">行业演进阶段</div></div>
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+</div>
+</div>
+
+<div class="explain-banner">
+<div class="eb-icon">🍜</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这是一篇「怎么读」的方法论文</div>
+<div class="eb-text">
+本页不推荐任何标的，只讲<b>分析食品加工的框架</b>：为什么食品加工是「刚需 + 高频 + 成本周期敏感」的生意、PE 为何会失真、猪/鸡价格周期怎么看、预制菜高景气怎么理解、以及当前行业处在周期的哪个位置。
+所有数字均来自各公司<b>公开年报、官网、产品发布与新闻</b>等事实层，由本站原创整理；文中时点数以「食品加工产业链地图」页最新披露为准。
+</div>
+</div>
+</div>
+
+<div class="section-title">一、为什么食品加工是「刚需 + 高频 + 成本周期敏感」</div>
+<p class="para">食品加工的需求属性与休闲零食、白酒都不同，理解这点才不会用错误尺子去量它：</p>
+<ul class="ulist">
+<li><b>刚需 + 高频</b>：速冻（安井/三全）、肉制品（双汇）、预制菜是日常消费必需品，比休闲零食的「嘴馋消费」韧性更强，更贴近「快消必需品」。</li>
+<li><b>成本周期高度敏感</b>：猪价决定双汇/龙大利润，鸡价决定圣农/仙坛/春雪毛利——<b>原料成本是最大利润弹性来源</b>，与休闲零食的「渠道定价权」逻辑完全不同。</li>
+<li><b>渠道结构：B 端 + C 端双轮</b>：餐饮供应链（千味央厨/安井 B 端）+ 零售终端（双汇/三全 C 端），预制菜正重构 B 端餐饮食材采购，是近年最强结构性变化。</li>
+<li><b>品类生命周期分化</b>：传统速冻（汤圆水饺）是<b>成熟品类</b>（低速、格局稳）；<b>预制菜</b>是新兴高景气，尚处跑马圈地期，增速远高于成熟品类。</li>
+<li><b>集中度分化，无绝对寡头</b>：肉制品（双汇）一家独大，禽养殖（圣农/仙坛/春雪）分散混战，预制菜诸侯混战——不同子行业护城河厚度天差地别。</li>
+</ul>
+
+<div class="section-title">二、估值框架：4 个必须先搞清的概念</div>
+<div class="grid">
+<div class="concept-card">
+<div class="concept-head"><span class="concept-num">01</span> PE 为何会失真</div>
+<div class="concept-desc">双汇 PE 仅 <b>16.4 倍（分位 26%）</b> 看似中等——但这是<b>高 ROE（24.0%）的合理低估</b>，而非价值陷阱；反观味知香 PE 33 倍（分位 <span class="acc">16%</span>）看似不贵，实则是<b>ROE 仅 5.6% 的「便宜但质地差」</b>。亏损企业（龙大 PE -3.9、得利斯 PE -207）PE 完全失效，须看 PB 与现金流。</div>
+</div>
+<div class="concept-card">
+<div class="concept-head"><span class="concept-num">02</span> 猪 / 鸡价格周期</div>
+<div class="concept-desc">猪价决定双汇/龙大利润，鸡价决定圣农/仙坛/春雪毛利。龙头靠<b>规模采购 + 冻品储备 + 产业链一体化</b>平抑波动；成本下行 → 毛利率环比改善是行业核心弹性，<b>成本上行则直接吞噬利润</b>。</div>
+</div>
+<div class="concept-card">
+<div class="concept-head"><span class="concept-num">03</span> 预制菜高景气</div>
+<div class="concept-desc">安井/千味央厨/味知香凭<b>餐饮供应链 + 居家便捷</b>走出独立 α，是近年最强景气主线。但竞争格局未定、价格战隐现，须区分「真成长」与「概念炒作」。</div>
+</div>
+<div class="concept-card">
+<div class="concept-head"><span class="concept-num">04</span> 集中度与护城河</div>
+<div class="concept-desc">肉制品呈<b>双汇独大 + 强定价权</b>，护城河深；禽养殖分散、同质化严重，护城河薄；预制菜诸侯混战。高集中度 = 龙头吃肉，低集中度 = <b>份额互抢与价格战是常态</b>。</div>
+</div>
+</div>
+
+<div class="section-title">三、怎么把估值「读」对：当前行业锚</div>
+<p class="para">以「食品加工产业链地图」页最新时点数据为例（<b>时点数，非投资建议</b>），行业 PB 已处历史极低，但内部分化极端：</p>
+<div class="ovtable">
+<table>
+<thead><tr><th>观察维度</th><th>当前信号（时点）</th><th>怎么读</th></tr></thead>
+<tbody>
+<tr><td><b>PE 历史分位（行业均值）</b></td><td>约 27% 分位（中位偏低）</td><td>安井 <span class="acc">19%</span>、圣农 <span class="acc">18%</span>、双汇 <span class="acc">26%</span>、三全 <span class="acc">26%</span> 偏便宜；千味 <span class="acc">50%</span>、春雪 <span class="acc">38%</span>、仙坛 <span class="acc">38%</span> 偏高；龙大/得利斯为负失效</td></tr>
+<tr><td><b>PB 历史分位（行业均值）</b></td><td>约 14% 分位（历史极低）</td><td>味知香 <span class="acc">0%</span>、春雪 <span class="acc">1%</span>、得利斯 <span class="acc">2%</span>、安井 <span class="acc">8%</span>、双汇/圣农/仙坛 <span class="acc">7%</span>、三全 <span class="acc">14%</span> 极便宜；龙大 <span class="acc">80%</span> 偏贵</td></tr>
+<tr><td><b>ROE 质量</b></td><td>双汇 24.0% 顶级 / 圣农 12.8% / 三全 12.0%</td><td>双汇 是高分红 + 真护城河；味知香/得利斯 ROE 仅 5.6%/-0.5%，「便宜但质地差」陷阱；龙大 <span class="acc">-72.3%</span> 巨亏须警惕</td></tr>
+<tr><td><b>人均净利</b></td><td>味知香 ¥15.3万 / 双汇 ¥11.0万 / 三全 ¥9.2万 领先</td><td>味知香高附加值作坊式溢价；双汇规模人效兑现；龙大 <span class="acc">-¥12.9万</span>、得利斯 <span class="acc">-¥0.5万</span> 人均亏损</td></tr>
+<tr><td><b>股息率</b></td><td>双汇稳定高分红</td><td>低 PB + 高分红 = 历史底部常见组合，是安全边际的现金流背书</td></tr>
+</tbody>
+</table>
+</div>
+<div class="fin-note">以上为框架举例，具体数值随财报与行情变动，请以「食品加工产业链地图」各数据表实时披露为准。分位 = 当前 PE/PB 在近十年日度序列中的百分位（百度股市通口径）。龙大美食 PB 4.58（80%）偏贵且 ROE -72.3% 巨亏，属「贵且差」需回避；味知香/得利斯 PB 极低但 ROE 弱，属「便宜但质地差」陷阱。</div>
+
+<div class="section-title">四、周期分析框架：行业演进与当前定位</div>
+<p class="para">食品加工近十年经历四个阶段，买点信号高度相似——<b>低估值 + 成本下行 + 预制菜景气</b>共振时，往往对应长周期赔率高点：</p>
+<div class="ovtable">
+<table>
+<thead><tr><th>阶段</th><th>行业背景</th><th>盈利特征</th></tr></thead>
+<tbody>
+<tr><td><b>2014–2018 消费升级 + 品类扩张</b></td><td>速冻（安井/三全）高增；肉制品稳健；预制菜萌芽</td><td>营收高增，大单品红利驱动估值</td></tr>
+<tr><td><b>2018–2021 高估值抱团</b></td><td>消费白马行情，双汇/安井被给予成长溢价</td><td>估值透支，股价与基本面脱节</td></tr>
+<tr><td><b>2021–2023 杀估值 + 猪价拖累</b></td><td>猪价高位 → 成本压制肉制品/禽养殖利润；估值体系重构</td><td>从成长股跌回周期/价值估值</td></tr>
+<tr><td><b>2023–25 筑底 + 预制菜崛起</b></td><td>预制菜高景气（安井/千味/味知香）；PB 分位跌至 14% 历史极低</td><td>便宜但景气分化（左侧），传统品类未见反转</td></tr>
+</tbody>
+</table>
+</div>
+<div class="signal-box">
+<b>当前定位（时点判断，框架合成）</b>：估值历史极低（PB 分位 <b>14%</b> / PE 分位 <b>27%</b>）+ 结构分化的<b>左侧</b>区间。预制菜（安井/千味/味知香）已走出独立行情，但传统速冻/肉制品需求尚未反转，结论信号为<b>🟡 中性偏左侧（精选个股，不追指数）</b>，等成本下行兑现 + 预制菜持续放量 + 消费复苏后再向右侧移动。
+</div>
+
+<div class="section-title">五、可复用的「买点信号」框架</div>
+<p class="para">把上面四节串成一套可操作的 checklist（任一项单独出现都不构成买点，须多因子共振）：</p>
+<ul class="ulist">
+<li><b>估值锚</b>：PB 历史分位低位（味知香 0% / 春雪 1% / 得利斯 2% / 安井 8% / 双汇 7% 属极端便宜区间）</li>
+<li><b>成本信号</b>：猪 / 鸡价格下行或长协锁价，毛利率环比改善（双汇/圣农/仙坛弹性最大）</li>
+<li><b>品类景气</b>：预制菜占比提升，B 端餐饮供应链订单饱满（安井/千味/味知香模式验证）</li>
+<li><b>库存去化</b>：冻品 / 肉制品渠道库存见底，屠宰 / 养殖产能出清</li>
+<li><b>股东回报</b>：分红率 / 回购提升，自由现金流充沛（双汇）</li>
+</ul>
+<div class="warn-box">
+<b>风险提示</b>：① 需求持续疲弱会延长左侧时间，估值便宜可以更便宜；② <b>猪/鸡价格上行</b>压缩毛利率，尤伤龙大式高成本企业（ROE -72% 巨亏前车之鉴）；③ 预制菜<b>价格战</b>压缩代工利润，竞争格局未定；④ 食品安全事件（猪瘟/禽流感/添加剂）是行业特有黑天鹅；⑤ <b>「便宜但质地差」陷阱</b>：味知香/得利斯 PB 极低但 ROE 弱，不可见便宜就买；⑥ 龙大式「贵且差」（PB 80% + ROE -72%）须坚决回避。以上为研究框架示例，<b>不构成投资建议</b>，须结合实盘与最新公告校验。
+</div>
+
+<div class="section-title">六、回链：用本站工具落地这套框架</div>
+<div class="linkrow">
+<a class="linkcard" href="./berkshire-food-process-chains.html"><b>食品加工产业链地图</b><span>10 家玩家、估值分位、R15 三维、员工效率全表</span></a>
+<a class="linkcard" href="./berkshire-food-process-cycle.html"><b>价格/库存周期</b><span>行业周期脉络与关键信号框架级梳理</span></a>
+<a class="linkcard" href="./berkshire-food-process-backtest.html"><b>三轮大底回测</b><span>2014/2018/2024–25 低 PE + 高股息买点历史回报</span></a>
+<a class="linkcard" href="./berkshire-food-process-buyback.html"><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a>
+<a class="linkcard" href="./berkshire-food-process-repomap.html"><b>回购地图</b><span>回购金额/估值锚/管理层信号三维评分</span></a>
+<a class="linkcard" href="./berkshire-food-process-compare.html"><b>横向对比工具</b><span>勾选多家并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a>
+<a class="linkcard" href="./berkshire-food-process-thermometer.html"><b>估值温度计</b><span>10 家估值冷热一览，谁在历史悲观区</span></a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+<script src="/analytics.js"></script>
+<script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+</body>
+</html>
