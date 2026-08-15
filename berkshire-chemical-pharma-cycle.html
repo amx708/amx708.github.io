@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>化学制药价格/政策周期 | 价值投资初级阶段</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#e8b84b;--primary-dark:#b45309;--navy:#0b1f3a;--navy2:#10294d;--ink:#1d2b40;--line:#e4e9f2;
+  --orange:#f5a623;--accent:#e8b84b;--txt:#23344e;--muted:#6b7a93;--card:#fff;--bg:#f4f7fc;--green:#1f9d6b;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--txt);line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(245,166,35,0.28);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(245,166,35,0.10);color:#c2780a;border:1px solid rgba(245,166,35,0.35);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;transition:all .2s}
+.home-btn:hover{background:var(--orange);color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#c2780a}
+.crumb-sep{color:#cbd5e1}
+.switcher{display:inline-flex;gap:12px;align-items:center;margin-left:8px;flex-wrap:wrap}
+.switcher a{color:#c2780a;text-decoration:none;font-size:13px}
+.switcher a:hover{text-decoration:underline}
+.switcher a.cur{font-weight:800;color:var(--navy);border-bottom:2px solid var(--orange)}
+.container{max-width:1180px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#0b1f3a 0%,#10294d 100%);border-radius:16px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(245,166,35,0.35);box-shadow:0 3px 14px rgba(11,31,58,.12)}
+.hero-title{font-size:28px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#cdb892;margin-bottom:14px}
+.data-banner{background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.3);border-left:4px solid var(--orange);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:var(--navy);font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--orange)}
+.insight-box{background:linear-gradient(135deg,#fffdf6,#ffffff);border:1px solid rgba(245,166,35,0.25);border-radius:12px;padding:18px 20px;margin-top:8px}
+.insight-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:var(--orange)}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.insight-body p{margin-bottom:8px}
+.insight-body b{color:#334155}
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.tbl th,.tbl td{border-bottom:1px solid #e2e8f0;padding:10px 12px;text-align:left;vertical-align:top}
+.tbl th{background:#f8fafc;color:#475569;font-weight:600;border-bottom:2px solid #e2e8f0}
+.tbl tr:hover td{background:#f8fafc}
+.tbl td.yr{font-weight:800;color:var(--navy);white-space:nowrap;width:54px}
+.tbl td.evt{font-weight:600;color:#334155;width:200px}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#c2780a;font-weight:700}
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid var(--orange);padding:8px 12px;background:rgba(245,166,35,0.08);line-height:1.7}
+.cycle-current b{color:#334155}
+.note{background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--orange);border-radius:10px;padding:14px 16px;margin-top:22px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.note b{color:#475569}
+.note a{color:#c2780a;font-weight:600}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.extend a{display:block;background:#fffdf6;border:1px solid #f0e2bf;border-radius:12px;padding:14px 16px;text-decoration:none;color:#1e293b;transition:.18s}
+.extend a:hover{border-color:var(--orange);box-shadow:0 4px 14px rgba(245,166,35,.18);transform:translateY(-2px)}
+.extend b{display:block;font-size:15px;color:#1f2937;margin-bottom:4px}
+.extend span{display:block;font-size:12.5px;color:#64748b;line-height:1.5}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:22px}.layers,.extend{grid-template-columns:1fr}.tbl{font-size:12px}}
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span class="switcher"><a href="berkshire-bank-chains.html">银行</a><a href="berkshire-baijiu-chains.html">白酒</a><a href="berkshire-ai-chains.html">AI</a><a href="berkshire-robot-chains.html">机器人</a><a href="berkshire-tcm-chains.html">中药</a><a href="berkshire-innov-chains.html">创新药</a><a href="berkshire-chemical-pharma-chains.html" class="cur">化学制药</a><a href="berkshire-appliance-chains.html">家电</a><a href="berkshire-power-chains.html">电力</a><a href="berkshire-coal-chains.html">煤炭</a><a href="berkshire-metal-chains.html">有色</a><a href="berkshire-chem-chains.html">化工</a><a href="berkshire-equip-chains.html">电力设备</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><a href="berkshire-chemical-pharma-chains.html">化学制药产业链</a><span class="crumb-sep">/</span><span>价格/政策周期</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">化学制药价格/政策周期（2015 → 2025）</div>
+<div class="hero-sub">「政策—成本—需求」三段式周期脉络 · 框架级原创整理，具体时点以官方公告为准</div>
+</div>
+
+<div class="data-banner">📊 <b>数据口径</b>：下表为<b>框架级政策/价格周期梳理</b>，年份与事件为公开事实层（集采批次、一致性评价时点等），对行业影响为定性分析。具体降幅与股价表现以各公司公告及行情数据为准。本页<b>不构成投资建议</b>。最后更新：<b style="color:#c2780a">2026-08-08</b></div>
+
+<div class="section-title">周期脉络：集采十年</div>
+<div class="insight-box">
+<div class="insight-title"><span class="icon">🔄</span> 一句话：化学制药的「周期」是政策周期，不是产能周期</div>
+<div class="insight-body">
+<p>传统周期行业看产能投放与库存；化学制药的周期性主要来自<b>集采政策节奏、原料药价格、专利悬崖与汇率</b>。2015 年以来的主线，就是从「招标竞价」走向「带量采购常态化」，把仿制药利润系统性压薄、倒逼企业转型。理解这张表，关键是看<b>每一轮集采对「降幅」与「续约价格」的信号</b>——降幅收窄 = 利空出尽，降幅扩大 = 估值下修。</p>
+</div>
+</div>
+
+<table class="tbl">
+<thead><tr><th>年份</th><th>主线事件</th><th>对行业影响</th></tr></thead>
+<tbody>
+<tr><td class="yr">2015</td><td class="evt">7 号文 + 招标新规</td><td>药品集中采购顶层设计转向「分类采购、带量」方向，仿制药降价预期升温，行业开始消化政策不确定性。</td></tr>
+<tr><td class="yr">2016</td><td class="evt">一致性评价全面推开</td><td>仿制药质量门槛大幅提高，未过评品种逐步退出；头部率先过评、构筑首仿/难仿护城河，低端产能出清启动。</td></tr>
+<tr><td class="yr">2018</td><td class="evt">「4+7」带量采购试点</td><td>11 城 25 个品种「以量换价」，中标价平均降幅约 50%+，仿制药单价系统性下台阶；市场首次直面集采冲击。</td></tr>
+<tr><td class="yr">2019</td><td class="evt">集采扩围（25 省）</td><td>试点扩至全国，原研替代加速；中标企业以价换量、份额提升，未中标者丢失院内市场，分化开始显现。</td></tr>
+<tr><td class="yr">2020</td><td class="evt">集采常态化 + 注射剂一致性评价</td><td>集采步入常态化，注射剂等大品种纳入；疫情扰动下原料药（API）价格阶段性波动，一体化企业毛利弹性显现。</td></tr>
+<tr><td class="yr">2021</td><td class="evt">第五批集采（大品种密集）</td><td>注射剂、抗肿瘤等大品种密集中标，降幅趋稳；部分企业靠成本优势+难仿壁垒以价换量，行业集中度进一步提升。</td></tr>
+<tr><td class="yr">2022</td><td class="evt">第七批集采</td><td>集采规则优化（引入备供、价差约束），降幅更可预期；原料药（维生素、抗生素中间体）价格处上行周期，华海/普洛/科伦（川宁）受益。</td></tr>
+<tr><td class="yr">2023</td><td class="evt">第八批集采 + 医疗反腐</td><td>集采继续扩面，医疗反腐压制短期情绪与销售费用预期；估值整体下修，龙头估值进入历史低位区间。</td></tr>
+<tr><td class="yr">2024</td><td class="evt">第九/十批集采 + 续约趋温和</td><td>续约降幅边际收窄、规则更友好，部分品种「利空出尽」；创新药收入占比提升（恒瑞等）成为估值切换关键变量。</td></tr>
+<tr><td class="yr">2025</td><td class="evt">集采出清 + 转型兑现</td><td>集采利空大面积出尽，行业处估值历史低位；原料药价格弹性、创新/改良药转型兑现与高分红，成为主要安全边际来源。</td></tr>
+</tbody>
+</table>
+
+<div class="section-title">关键指标与周期信号</div>
+<div class="layers">
+<div class="layer-card"><div class="layer-num">信号①</div><div class="layer-name">集采降幅 / 续约价</div><div class="layer-desc">降幅温和、续约价企稳 = 以价换量、利空出尽；降幅超预期 = 利润承压、估值下修。这是化学制药最硬的景气信号。</div></div>
+<div class="layer-card"><div class="layer-num">信号②</div><div class="layer-name">原料药（API）景气</div><div class="layer-desc">维生素、抗生素中间体涨价 → 华海/普洛/科伦（川宁）毛利改善；跌价 → 库存减值、弹性消失。关注 2–4 年价格周期位置。</div></div>
+<div class="layer-card"><div class="layer-num">信号③</div><div class="layer-name">创新药 / 转型占比</div><div class="layer-desc">恒瑞等创新药收入占比提升、BD 出海首付款兑现，估值从「仿制现金牛」转向「创新+出海」双轮，脱离纯集采周期。</div></div>
+<div class="layer-card"><div class="layer-num">信号④</div><div class="layer-name">ROE 分化</div><div class="layer-desc">质量端剧烈分化：恒瑞/华东/丽珠 ROE&gt;14% 优质，华海仅约 2.9% 偏弱。ROE 稳定性比单季增速更能反映护城河。</div></div>
+</div>
+
+<div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：化学制药处<b>集采出清后期 + 估值历史低位</b>（10 家 PE 分位全部 &lt;40%、PB 分位除科伦外均 &lt;25%）。龙头集中度提升，原料药价格弹性与转型兑现是主要变量；安全边际来自低估值与稳健现金流，关注集采续约降幅与汇率扰动。</div>
+
+<div class="note">实用框架：先判<b>集采周期位置</b>（出清进度），再看<b>成本与转型信号</b>（原料药价格、创新占比、ROE 分化），最后用<b>估值分位+股息率</b>定买点。分析框架见；行业内估值冷热见<a href="berkshire-chemical-pharma-thermometer.html" style="color:#c2780a">估值温度计</a>；买点回测待历史数据补齐后见<a href="berkshire-chemical-pharma-backtest.html" style="color:#c2780a">三轮大底回测</a>。</div>
+
+<div class="section-title">延伸阅读</div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-chemical-pharma-compare.html"><b>🥇 估值分位</b><span>化学制药（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-chemical-pharma-thermometer.html"><b>🌡️ 估值温度计</b><span>化学制药（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-chemical-pharma-buyback.html"><b>💰 回购监测</b><span>化学制药（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-chemical-pharma-repomap.html"><b>🗺️ 板块图谱</b><span>化学制药（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-chemical-pharma-backtest.html"><b>📈 五年回测</b><span>化学制药（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-chemical-pharma-cycle.html"><b>🔄 周期演进</b><span>化学制药（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-chemical-pharma-methodology.html"><b>📘 方法论说明</b><span>化学制药（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于<b>公开政策文件、年报与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+  <script src="/analytics.js"></script>
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
+</body>
+</html>
