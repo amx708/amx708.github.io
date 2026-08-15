@@ -1,113 +1,63 @@
 <!DOCTYPE html>
-<html lang='zh-CN'>
+<html lang="zh-CN">
 <head>
-<meta charset='UTF-8'>
-<meta name='viewport' content='width=device-width,initial-scale=1'>
-<title>医药零售方法论文 | 伯克希尔投资数据中心</title>
-<style>*{margin:0;padding:0;box-sizing:border-box}
-:root{{--navy:#0b1f3a;--accent:#ea580c;--dark:#c2410c}}
-body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f4f7fc;color:#23344e;line-height:1.75;-webkit-font-smoothing:antialiased}}
-a{{color:inherit;text-decoration:none}}
-.top-bar{{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(11,31,58,.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}}
-.home-btn{{display:inline-flex;align-items:center;gap:6px;background:rgba(11,31,58,.08);color:#0b1f3a;border:1px solid rgba(11,31,58,.2);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;transition:all .2s}}
-.home-btn:hover{{background:var(--accent);border-color:var(--accent);color:#fff}}
-.breadcrumb{{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}}
-.breadcrumb a{{color:#64748b;text-decoration:none}}
-.breadcrumb a:hover{{color:var(--accent)}}
-.crumb-sep{{color:#cbd5e1}}
-.switcher{{display:inline-flex;gap:10px;align-items:center;margin-left:8px;flex-wrap:wrap}}
-.switcher a{{color:var(--dark);text-decoration:none;font-size:13px}}
-.switcher a:hover{{text-decoration:underline}}
-.switcher a.cur{{font-weight:800;color:var(--navy);border-bottom:2px solid var(--accent)}}
-.container{{max-width:1180px;margin:0 auto;padding:24px 16px 48px}}
-.hero{{background:linear-gradient(135deg,#0b1f3a 0%,#10294d 100%);border-radius:16px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(14,165,233,.0);box-shadow:0 3px 14px rgba(11,31,58,.12)}}
-.hero-title{{font-size:28px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:.5px}}
-.hero-sub{{font-size:14px;color:#c7d6ea;margin-bottom:14px}}
-.data-banner{{background:rgba(14,165,233,.07);border:1px solid rgba(14,165,233,.25);border-left:4px solid var(--accent);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}}
-.data-banner b{{color:var(--navy);font-weight:600}}
-.section-title{{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}}
-.insight-box{{background:#fff;border:1px solid rgba(14,165,233,.18);border-radius:12px;padding:18px 20px;margin-top:8px}}
-.insight-title{{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}}
-.insight-title .icon{{color:var(--accent)}}
-.insight-body{{font-size:13.5px;color:#475569;line-height:1.8}}
-.insight-body p{{margin-bottom:8px}}
-.insight-body b{{color:#334155}}
-.tbl{{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}}
-.tbl th,.tbl td{{border-bottom:1px solid #e2e8f0;padding:10px 12px;text-align:left;vertical-align:top}}
-.tbl th{{background:#f8fafc;color:#475569;font-weight:600;border-bottom:2px solid #e2e8f0}}
-.tbl tr:hover td{{background:#f8fafc}}
-.tbl td.yr{{font-weight:800;color:var(--navy);white-space:nowrap;width:54px}}
-.tbl td.evt{{font-weight:600;color:#334155;width:200px}}
-.layers{{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:8px}}
-.layer-card{{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}}
-.layer-num{{font-size:12px;color:var(--dark);font-weight:700}}
-.layer-name{{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}}
-.layer-desc{{font-size:12px;color:#64748b;line-height:1.6}}
-.cycle-current{{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid var(--accent);padding:8px 12px;background:rgba(14,165,233,.07);line-height:1.7}}
-.cycle-current b{{color:#334155}}
-.note{{background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;margin-top:22px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}}
-.note b{{color:#475569}}
-.note a{{color:var(--dark);font-weight:600}}
-.extend{{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}}
-.extend a{{display:block;background:#fffdf6;border:1px solid #f0e2bf;border-radius:12px;padding:14px 16px;text-decoration:none;color:#1e293b;transition:.18s}}
-.extend a:hover{{border-color:var(--accent);box-shadow:0 4px 14px rgba(14,165,233,.18);transform:translateY(-2px)}}
-.extend b{{display:block;font-size:15px;color:#1f2937;margin-bottom:4px}}
-.extend span{{display:block;font-size:12.5px;color:#64748b;line-height:1.5}}
-.source-note{{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}}
-.source-note b{{color:#475569}}
-@media(max-width:640px){{.hero{{padding:22px 16px}}.hero-title{{font-size:22px}}.layers,.extend{{grid-template-columns:1fr}}.tbl{{font-size:12px}}}}</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>医药商业产业链 · 方法论说明</title>
+<style>
+:root{--primary:#e8b84b;--primary-dark:#b45309;--bg:#f0f2f5;--text:#0f172a;--muted:#64748b}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);margin:0;padding:0 16px}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 0}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309);color:#fff;padding:14px 32px;display:flex;align-items:center;justify-content:space-between}
+.top-title{font-size:16px;font-weight:600}
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:24px 0 12px;padding-left:14px;border-left:5px solid var(--primary)}
+.layer-card{background:#fff;border-radius:10px;padding:18px 22px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.04);border-left:4px solid var(--primary)}
+.layer-card h3{margin:0 0 8px;font-size:16px;color:var(--primary-dark)}
+.layer-card p{margin:0;color:var(--muted);line-height:1.7;font-size:14px}
+.note-line{font-size:12px;color:var(--muted);font-style:italic;margin:18px 0;padding:10px 14px;background:#fef9e7;border-radius:6px;border-left:3px solid var(--primary)}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b}
+</style>
 </head>
 <body>
-<div class='top-bar'>
-<a href='berkshire-standalone.html' class='home-btn'>← 数据中心</a>
-<span class="switcher"><a href="berkshire-chemical-pharma-chains.html">化学制药</a><a href="berkshire-innov-chains.html">创新药</a><a href="berkshire-tcm-chains.html">中药</a><a href="berkshire-medical-device-chains.html">医疗器械</a><a href="berkshire-cxo-chains.html">CXO</a><a href="berkshire-specialty-care-chains.html">专科医疗</a><a href="berkshire-vaccine-chains.html">疫苗</a><a href="berkshire-pharma-retail-chains.html" class="cur">医药商业</a></span>
-<div class='breadcrumb'>
-<a href='berkshire-standalone.html'>数据中心</a><span class='crumb-sep'>/</span><a href='berkshire-pharma-retail-chains.html'>医药零售产业链</a><span class='crumb-sep'>/</span><span>方法论文</span>
-</div>
-</div>
-<div class='container'>
+<div class="top-bar"><div class="top-title">📘 医药商业产业链 · 方法论说明</div></div>
+<div class="wrap">
+<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>医药商业</b></div>
 
-<div class='hero'>
-<div class='hero-title'>医药零售怎么读：核心指标框架</div>
-<div class='hero-sub'>零售药房的「门店—集中度—处方外流」三段式 · 框架级原创整理，不复制任何付费内容</div>
-</div>
+<div class="section-title">一、行业特殊性与估值锚</div>
+<div class="layer-card"><h3>医药商业的四层能力栈</h3><p>医药商业产业链的价值并非均匀分布，需沿价值链拆解各环节的定价权与现金流质量。本链覆盖的代表公司包括：关于本页：。</p></div>
 
-<div class='data-banner'>📊 <b>数据口径</b>：本文为<b>框架级定性梳理</b>，具体数值以各公司<b>最新可得年报（2025-12-31）</b>及公开新闻为准；估值分位见<a href='berkshire-pharma-retail-thermometer.html' style='color:#c2410c'>估值温度计</a>。本页<b>不构成投资建议</b>。最后更新：<b style='color:#c2410c'>2026-08-08</b></div>
+<div class="section-title">二、产业链层级拆解</div>
+<div class="layer-card"><h3>产业链层级</h3><p>详见上方产业链全景图。</p></div>
 
-<div class='section-title'>为什么医药零售不能用普通框架？</div>
-<div class='insight-box'>
-<div class='insight-title'><span class='icon'>💡</span> 一句话：药房是低毛利、高周转的零售生意，不能用高毛利消费框架——利润来自同店增长、门店扩张与统采效率，核心长逻辑是「处方外流 + 行业集中度提升」。</div>
-<div class='insight-body'><p>药房是低毛利、高周转的零售生意，不能用高毛利消费框架——利润来自同店增长、门店扩张与统采效率，核心长逻辑是「处方外流 + 行业集中度提升」。</p></div>
-</div>
+<div class="section-title">三、估值四象限</div>
+<div class="layer-card"><h3>PE / PB / PS / 股息率</h3><p>① PE 看盈利周期位置（周期底部 PE 虚高、顶部虚低）；② PB 看资产重置成本与 ROE 持续性；③ PS 用于未盈利成长阶段；④ 股息率看股东回报意愿与自由现金流覆盖。分位为时点统计，随行情每日变动。</p></div>
 
-<div class='section-title'>1. 门店与同店</div>
-<div class='layers'><div class='layer-card'><div class='layer-num'>1.1</div><div class='layer-name'>门店数 / 坪效 / 同店增速</div><div class='layer-desc'>四大连锁（老百姓/益丰/大参林/一心堂）靠并购 + 自建扩张；同店增速决定存量质量。</div></div><div class='layer-card'><div class='layer-num'>1.2</div><div class='layer-name'>并购整合</div><div class='layer-desc'>行业从「跑马圈地」进入「整合提效」，并购后的统采与会员复用决定 ROE。</div></div></div>
-<div class='section-title'>2. 处方外流与政策</div>
-<div class='layers'><div class='layer-card'><div class='layer-num'>2.1</div><div class='layer-name'>双通道 / 门诊统筹</div><div class='layer-desc'>统筹药店资质稀缺且引流，处方外流加速直接利好头部；门诊统筹是近年最核心的增量逻辑。</div></div><div class='layer-card'><div class='layer-num'>2.2</div><div class='layer-name'>集采与医保控费</div><div class='layer-desc'>集采品种零差价、价格透明，毛利受压但带来客流；比价系统倒逼效率。</div></div></div>
-<div class='section-title'>3. 供应链与效率</div>
-<div class='layers'><div class='layer-card'><div class='layer-num'>3.1</div><div class='layer-name'>统采比例 / 毛利率</div><div class='layer-desc'>统采提升毛利、数字化降低费用；龙头凭借规模与供应链优势持续挤压中小。</div></div><div class='layer-card'><div class='layer-num'>3.2</div><div class='layer-name'>数字化与私域</div><div class='layer-desc'>O2O、会员私域提升复购与客单价，对冲线上比价冲击。</div></div></div>
-<div class='section-title'>4. 估值锚与风险框架</div>
-<div class='layers'><div class='layer-card'><div class='layer-num'>4.1</div><div class='layer-name'>估值方法</div><div class='layer-desc'>零售看低 PE/PB + 高股息 + 分红率；估值锚在「安全边际 + 现金流」，而非成长想象。</div></div><div class='layer-card'><div class='layer-num'>4.2</div><div class='layer-name'>风险框架</div><div class='layer-desc'>①线上冲击 ②处方外流不及预期 ③合规/医保控费 ④并购商誉。买点常在「估值低位 + 高分红 + 整合提效」时。</div></div></div>
+<div class="section-title">四、当前行业锚（2026 快照）</div>
+<div class="layer-card"><h3>中性偏谨慎</h3><p>结合 Capex 强度、产能周期、监管与地缘因素综合判断；具体买卖决策需结合个股估值分位与现金流验证，本页不构成投资建议。</p></div>
 
+<div class="section-title">五、买点清单与风险</div>
+<div class="layer-card"><h3>买点框架</h3><p>估值分位进入历史低位 + 回购/分红加码 + 自由现金流转正 + 管理层增持，四者共振更可靠。风险：供需错配、价格战、技术替代、政策与地缘扰动。</p></div>
 
-<div class='note'>实用框架：先判<b>行业周期位置</b>，再看<b>商业模式与壁垒信号</b>，最后用<b>估值分位 + 股息率</b>定买点。分析框架见<a href='berkshire-pharma-retail-methodology.html' style='color:#c2410c'>方法论文</a>；行业周期脉络见<a href='berkshire-pharma-retail-cycle.html' style='color:#c2410c'>价格/政策周期</a>；行业内估值冷热见<a href='berkshire-pharma-retail-thermometer.html' style='color:#c2410c'>估值温度计</a>；买点回测见<a href='berkshire-pharma-retail-backtest.html' style='color:#c2410c'>三轮大底回测</a>。</div>
-
-<div class='section-title'>延伸阅读</div>
-<div class='extend'>
-<a href='berkshire-pharma-retail-cycle.html'><b>价格/政策周期</b><span>2015→2025 政策与行业脉络，关键信号梳理</span></a>
-<a href='berkshire-pharma-retail-thermometer.html'><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a>
-<a href='berkshire-pharma-retail-compare.html'><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/毛利率/负债率/股息率</span></a>
-<a href='berkshire-pharma-retail-buyback.html'><b>逐轮买点回报图</b><span>三轮全市场大底买入并持有的后复权累计回报</span></a>
-<a href='berkshire-pharma-retail-backtest.html'><b>三轮大底回测</b><span>当前估值快照 + 历史底部买入回报（真实/双轨）</span></a>
-<a href='berkshire-pharma-retail-chains.html'><b>返回产业链图谱</b><span>10 家上市公司跨层全栈梳理与评级</span></a>
+<div class="section-title">六、7 兄弟阅读顺序</div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-pharma-retail-compare.html"><b>🥇 估值分位</b><span>医药商业（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-pharma-retail-thermometer.html"><b>🌡️ 估值温度计</b><span>医药商业（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-pharma-retail-buyback.html"><b>💰 回购监测</b><span>医药商业（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-pharma-retail-repomap.html"><b>🗺️ 板块图谱</b><span>医药商业（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-pharma-retail-backtest.html"><b>📈 五年回测</b><span>医药商业（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-pharma-retail-cycle.html"><b>🔄 周期演进</b><span>医药商业（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-pharma-retail-methodology.html"><b>📘 方法论说明</b><span>医药商业（估值/回购/周期研究的取值口径与可信区间）</span></a>
+<a class="extend-card" href="./berkshire-pharma-retail-chains.html"><b>🧭 产业链全景</b><span>医药商业（返回主索引）</span></a>
 </div>
 
-<div class='source-note'>
-📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中判断仅作研究框架示例，<b>不构成投资建议</b>。
+<div class="note-line">注：本页方法论为公开研究框架合集，不构成对任何标的的买卖建议；估值分位随行情每日变动，请以最新采集为准。</div>
+<div class="back-bar">
+<a href="./berkshire-pharma-retail-chains.html">← 医药商业产业链</a>
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
 </div>
-
 </div>
-  <script src='/analytics.js'></script>
-  <script src='/static/tdx-link.js' data-loader='tdx-link-loader'></script>
 </body>
 </html>
