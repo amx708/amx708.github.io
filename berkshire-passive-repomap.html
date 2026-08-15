@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1"><title>被动元件回购地图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Segoe UI','Microsoft YaHei',sans-serif;background:#f1f5f9;color:#1e293b}
+.top-bar{background:#0f172a;color:#fff;padding:10px 18px;display:flex;gap:14px;align-items:center;font-size:14px}
+.top-bar a{color:#93c5fd;text-decoration:none}
+.breadcrumb a{color:#93c5fd}.crumb-sep{color:#64748b;margin:0 6px}
+.container{max-width:1100px;margin:22px auto;padding:0 16px}
+.hero{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 1px 6px rgba(0,0,0,.05);border-left:4px solid #db2777}
+.hero h1{font-size:20px;margin-bottom:6px}
+.hero p{color:#64748b;font-size:13.5px;line-height:1.6}
+.guide{background:#fff;border-radius:12px;padding:16px 20px;margin-top:16px;font-size:13.5px;color:#475569;line-height:1.7}
+.guide b{color:#db2777}
+.tbl{width:100%;border-collapse:collapse;margin-top:16px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.05);font-size:13px}
+.tbl th{background:#db2777;color:#fff;padding:10px 8px;text-align:left;font-weight:600}
+.tbl td{padding:9px 8px;border-bottom:1px solid #eef2f7}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover{background:#fdf2f8}
+code{background:#f1f5f9;padding:1px 6px;border-radius:5px;font-size:12px;color:#be185d}
+.pill{padding:2px 9px;border-radius:20px;font-size:12px;font-weight:700;color:#fff}
+.s5{background:#16a34a}.s4{background:#65a30d}.s3{background:#ca8a04}.s2{background:#ea580c}.s1{background:#dc2626}
+.sub{color:#94a3b8;font-size:11.5px;line-height:1.5;margin-top:2px}
+.note{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px 18px;margin-top:16px;font-size:13px;color:#9a3412;line-height:1.7}
+.note b{color:#c2410c}
+.section-title{font-size:16px;font-weight:700;margin:22px 0 4px;color:#0f172a}
+footer{text-align:center;color:#94a3b8;font-size:12px;padding:24px 0}
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style></head><body>
+<div class="top-bar"><a href="index.html">← 首页</a>
+<div class="breadcrumb"><a href="index.html">首页</a><span class="crumb-sep">/</span>
+<a href="berkshire-standalone.html">价值投资初级阶段</a><span class="crumb-sep">/</span>
+<a href="berkshire-passive-chains.html">被动元件</a></div></div>
+<div class="container">
+<div class="hero"><h1>被动元件回购地图</h1>
+<p>逐家拆解回购：回购金额（力度）+ 估值锚（占总股本/计划上限溢价）+ 管理层信号（进度/完成率）三维评分。数据来源 akshare / 巨潮资讯网，采集批次 2026-08-13。</p></div>
+<div class="guide"><h4>三维评分说明</h4>
+<p><b>①回购金额</b>：实际已回购金额（优先）或计划上限，按绝对额分档（≥50亿=5…&lt;0.1亿=1）。<br>
+<b>②估值锚</b>：回购占总股本比例（力度）+ 计划回购价上限相对当前价溢价（管理层认为低估多少）。<br>
+<b>③管理层信号</b>：实施进度（董事会预案→股东大会通过→实施中→已完成，诚意递增）+ 已回购/计划下限完成率（执行诚意）。</p></div>
+<table class="tbl"><thead><tr>
+<th>代码</th><th>名称</th><th>回购金额</th><th>占总股本</th>
+<th>①回购金额</th><th>②估值锚</th><th>③管理层信号</th><th>综合</th><th>最新公告</th>
+</tr></thead><tbody><tr>
+<td><code>002138</code></td>
+<td><b>顺络电子</b></td>
+<td>2.20亿（已回购）</td>
+<td>1.24%</td>
+<td><span class="pill s3">3</span><div class="sub">回购1–10亿（2.2亿）</div></td>
+<td><span class="pill s2">2</span><div class="sub">占总股本1.24%，计划上限溢价0%</div></td>
+<td><span class="pill s5">5</span><div class="sub">完成实施·完成率100%</div></td>
+<td><b style="font-size:15px;color:#db2777">3.3</b></td>
+<td>2025-02-12</td>
+</tr><tr>
+<td><code>000636</code></td>
+<td><b>风华高科</b></td>
+<td>1.50亿（已回购）</td>
+<td>0.97%</td>
+<td><span class="pill s3">3</span><div class="sub">回购1–10亿（1.5亿）</div></td>
+<td><span class="pill s1">1</span><div class="sub">占总股本0.97%，计划上限溢价0%</div></td>
+<td><span class="pill s5">5</span><div class="sub">完成实施·完成率100%</div></td>
+<td><b style="font-size:15px;color:#db2777">3.0</b></td>
+<td>2023-08-19</td>
+</tr><tr>
+<td><code>002859</code></td>
+<td><b>洁美科技</b></td>
+<td>1.01亿（已回购）</td>
+<td>0.65%</td>
+<td><span class="pill s3">3</span><div class="sub">回购1–10亿（1.0亿）</div></td>
+<td><span class="pill s1">1</span><div class="sub">占总股本0.65%，计划上限溢价0%</div></td>
+<td><span class="pill s5">5</span><div class="sub">完成实施·完成率100%</div></td>
+<td><b style="font-size:15px;color:#db2777">3.0</b></td>
+<td>2021-09-17</td>
+</tr><tr>
+<td><code>300408</code></td>
+<td><b>三环集团</b></td>
+<td>8.95亿（已回购）</td>
+<td>0.34%</td>
+<td><span class="pill s3">3</span><div class="sub">回购1–10亿（8.9亿）</div></td>
+<td><span class="pill s1">1</span><div class="sub">占总股本0.34%，计划上限溢价0%</div></td>
+<td><span class="pill s5">5</span><div class="sub">完成实施·完成率100%</div></td>
+<td><b style="font-size:15px;color:#db2777">3.0</b></td>
+<td>2026-07-30</td>
+</tr><tr>
+<td><code>002484</code></td>
+<td><b>江海股份</b></td>
+<td>1.00亿（已回购）</td>
+<td>0.59%</td>
+<td><span class="pill s2">2</span><div class="sub">回购0.1–1亿（10.0千万）</div></td>
+<td><span class="pill s1">1</span><div class="sub">占总股本0.59%，计划上限溢价0%</div></td>
+<td><span class="pill s5">5</span><div class="sub">完成实施·完成率100%</div></td>
+<td><b style="font-size:15px;color:#db2777">2.7</b></td>
+<td>2024-06-05</td>
+</tr><tr>
+<td><code>603267</code></td>
+<td><b>鸿远电子</b></td>
+<td>0.53亿（已回购）</td>
+<td>0.26%</td>
+<td><span class="pill s2">2</span><div class="sub">回购0.1–1亿（5.3千万）</div></td>
+<td><span class="pill s1">1</span><div class="sub">占总股本0.26%，计划上限溢价0%</div></td>
+<td><span class="pill s5">5</span><div class="sub">完成实施·完成率100%</div></td>
+<td><b style="font-size:15px;color:#db2777">2.7</b></td>
+<td>2024-09-11</td>
+</tr><tr>
+<td><code>603678</code></td>
+<td><b>火炬电子</b></td>
+<td>0.50亿（已回购）</td>
+<td>0.22%</td>
+<td><span class="pill s2">2</span><div class="sub">回购0.1–1亿（5.0千万）</div></td>
+<td><span class="pill s1">1</span><div class="sub">占总股本0.22%，计划上限溢价0%</div></td>
+<td><span class="pill s5">5</span><div class="sub">完成实施·完成率100%</div></td>
+<td><b style="font-size:15px;color:#db2777">2.7</b></td>
+<td>2025-09-05</td>
+</tr><tr>
+<td><code>603989</code></td>
+<td><b>艾华集团</b></td>
+<td>0.76亿（已回购）</td>
+<td>0.63%</td>
+<td><span class="pill s2">2</span><div class="sub">回购0.1–1亿（7.6千万）</div></td>
+<td><span class="pill s1">1</span><div class="sub">占总股本0.63%，计划上限溢价0%</div></td>
+<td><span class="pill s5">5</span><div class="sub">完成实施·完成率100%</div></td>
+<td><b style="font-size:15px;color:#db2777">2.7</b></td>
+<td>2025-09-17</td>
+</tr></tbody></table>
+<div class="note">三维评分均为<b>客观数据分档</b>（1–5），非主观推荐：①回购金额按绝对额；②估值锚=回购占总股本比例+计划上限溢价；③管理层信号=实施进度+完成率。综合=三维均值。<b>不构成投资建议</b>。</div>
+<div class="section-title">延伸阅读</div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-passive-compare.html"><b>🥇 估值分位</b><span>被动元件（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-passive-thermometer.html"><b>🌡️ 估值温度计</b><span>被动元件（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-passive-buyback.html"><b>💰 回购监测</b><span>被动元件（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-passive-repomap.html"><b>🗺️ 板块图谱</b><span>被动元件（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-passive-backtest.html"><b>📈 五年回测</b><span>被动元件（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-passive-cycle.html"><b>🔄 周期演进</b><span>被动元件（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-passive-methodology.html"><b>📘 方法论说明</b><span>被动元件（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
+<footer>价值投资初级阶段 · 被动元件产业链 ｜ 回购数据来自公开披露，仅供研究参考，不构成投资建议</footer>
+</div><div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
+</body></html>

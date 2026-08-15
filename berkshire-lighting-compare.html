@@ -42,7 +42,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .extend b{color:#e8b84b;display:block;margin-bottom:5px;font-weight:700}
 .extend span{font-size:12.5px;color:#64748b;line-height:1.55}
 footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
-@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}</style></head><body>
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style></head><body>
 <div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
 <span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">bank</a>
 <a href="berkshire-baijiu-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">baijiu</a>
@@ -64,8 +77,9 @@ footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font
 <div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div>
 <table class="tbl"><thead><tr><th style="text-align:left">公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收(亿)</th><th>净利(亿)</th><th>市值(亿)</th><th>经营现金流(亿)</th></tr></thead><tbody id="tbody"></tbody></table>
 <div class="note">数据：各公司公开年报与行情快照（akshare / 腾讯行情 / 百度分位），框架级原创整理，<b>不构成投资建议</b>。绿色=同行该列最优，红色=同行该列最弱（按指标方向：PE/PB/负债率越低越好，其余越高越好）。字段缺失者诚实留空。</div>
-<div class="extend"><a href="berkshire-lighting-chains.html"><b>返回lighting产业链</b><span>查看完整跨层分析与各公司详情页</span></a>
-<a href="berkshire-lighting-thermometer.html"><b>估值温度计</b><span>行业内 PB 相对位置一览</span></a></div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-lighting-compare.html"><b>🥇 估值分位</b><span>照明（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-lighting-thermometer.html"><b>🌡️ 估值温度计</b><span>照明（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-lighting-buyback.html"><b>💰 回购监测</b><span>照明（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-lighting-repomap.html"><b>🗺️ 板块图谱</b><span>照明（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-lighting-backtest.html"><b>📈 五年回测</b><span>照明（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-lighting-cycle.html"><b>🔄 周期演进</b><span>照明（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-lighting-methodology.html"><b>📘 方法论说明</b><span>照明（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
 </div>
 <footer>数据来源：akshare / 腾讯行情 / 百度股市通 · 框架级整理，非投资建议</footer>
 <script>var DATA=[{"name": "佛山照明", "code": "000541", "cat": "lighting", "pe": 43.75, "pb": 1.12, "dy": 1.0, "roe": 3.2, "gross": 17.7, "debt": 39.2, "rev": 88.0, "np": 2.1, "mcap": 77.1, "opcf": 3.0, "pe_pct": 93.4, "pb_pct": 3.1}, {"name": "木林森", "code": "002745", "cat": "lighting", "pe": 12.58, "pb": 1.27, "dy": 0.49, "roe": 12.2, "gross": 26.0, "debt": 49.0, "rev": 174.4, "np": 14.8, "mcap": 151.09, "opcf": 9.4, "pe_pct": 1.6, "pb_pct": 41.5}, {"name": "三雄极光", "code": "300625", "cat": "lighting", "pe": 47.32, "pb": 1.32, "dy": 2.74, "roe": 2.2, "gross": 29.2, "debt": 33.7, "rev": 18.1, "np": 0.4, "mcap": 25.53, "opcf": 0.9, "pe_pct": 13.0, "pb_pct": 2.9}, {"name": "阳光照明", "code": "600261", "cat": "lighting", "pe": 29.84, "pb": 1.15, "dy": 4.28, "roe": 5.3, "gross": 33.2, "debt": 30.6, "rev": 26.7, "np": 1.9, "mcap": 40.59, "opcf": 2.3, "pe_pct": 88.4, "pb_pct": 6.4}, {"name": "联创光电", "code": "600363", "cat": "lighting", "pe": 25.96, "pb": 2.56, "dy": 0.21, "roe": 11.2, "gross": 20.9, "debt": 41.9, "rev": 33.4, "np": 4.8, "mcap": 115.97, "opcf": 1.8, "pe_pct": 12.6, "pb_pct": 24.9}, {"name": "公牛集团", "code": "603195", "cat": "lighting", "pe": 18.12, "pb": 4.22, "dy": 4.55, "roe": 24.9, "gross": 43.1, "debt": 25.5, "rev": 160.3, "np": 40.7, "mcap": 752.58, "opcf": 47.4, "pe_pct": 2.5, "pb_pct": 2.5}, {"name": "得邦照明", "code": "603303", "cat": "lighting", "pe": 36.73, "pb": 2.81, "dy": 1.63, "roe": 7.8, "gross": 16.9, "debt": 44.6, "rev": 43.2, "np": 2.6, "mcap": 90.62, "opcf": 5.8, "pe_pct": 97.7, "pb_pct": 88.6}, {"name": "欧普照明", "code": "603515", "cat": "lighting", "pe": 14.15, "pb": 1.8, "dy": 4.9, "roe": 13.4, "gross": 39.3, "debt": 27.1, "rev": 69.7, "np": 9.2, "mcap": 128.86, "opcf": 6.9, "pe_pct": 12.0, "pb_pct": 3.4}, {"name": "晨丰科技", "code": "603685", "cat": "lighting", "pe": 181.37, "pb": 3.23, "dy": 0.12, "roe": 1.4, "gross": 15.5, "debt": 46.5, "rev": 11.3, "np": 0.2, "mcap": 64.53, "opcf": 3.7, "pe_pct": 86.4, "pb_pct": 87.3}, {"name": "立达信", "code": "605365", "cat": "lighting", "pe": 41.44, "pb": 1.74, "dy": 1.59, "roe": 5.5, "gross": 26.0, "debt": 44.3, "rev": 68.7, "np": 2.1, "mcap": 66.17, "opcf": 0.1, "pe_pct": 92.8, "pb_pct": 1.2}];
@@ -83,4 +97,8 @@ renderList();renderTbl();
 </script>
   <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
 </body></html>
