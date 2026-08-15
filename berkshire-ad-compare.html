@@ -42,7 +42,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .extend b{color:#e8b84b;display:block;margin-bottom:5px;font-weight:700}
 .extend span{font-size:12.5px;color:#64748b;line-height:1.55}
 footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
-@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}</style></head><body>
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style></head><body>
 <div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
 <span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">bank</a>
 <a href="berkshire-baijiu-chains.html" style="color:#e8b84b;text-decoration:none;font-size:13px">baijiu</a>
@@ -64,8 +77,9 @@ footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font
 <div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div>
 <table class="tbl"><thead><tr><th style="text-align:left">公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收(亿)</th><th>净利(亿)</th><th>市值(亿)</th><th>经营现金流(亿)</th></tr></thead><tbody id="tbody"></tbody></table>
 <div class="note">数据：各公司公开年报与行情快照（akshare / 腾讯行情 / 百度分位），框架级原创整理，<b>不构成投资建议</b>。绿色=同行该列最优，红色=同行该列最弱（按指标方向：PE/PB/负债率越低越好，其余越高越好）。字段缺失者诚实留空。</div>
-<div class="extend"><a href="berkshire-ad-chains.html"><b>返回ad产业链</b><span>查看完整跨层分析与各公司详情页</span></a>
-<a href="berkshire-ad-thermometer.html"><b>估值温度计</b><span>行业内 PB 相对位置一览</span></a></div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-ad-compare.html"><b>🥇 估值分位</b><span>广告营销（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-ad-thermometer.html"><b>🌡️ 估值温度计</b><span>广告营销（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-ad-buyback.html"><b>💰 回购监测</b><span>广告营销（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-ad-repomap.html"><b>🗺️ 板块图谱</b><span>广告营销（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-ad-backtest.html"><b>📈 五年回测</b><span>广告营销（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-ad-cycle.html"><b>🔄 周期演进</b><span>广告营销（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-ad-methodology.html"><b>📘 方法论说明</b><span>广告营销（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
 </div>
 <footer>数据来源：akshare / 腾讯行情 / 百度股市通 · 框架级整理，非投资建议</footer>
 <script>var DATA=[{"name": "分众传媒", "code": "002027", "cat": "ad", "pe": 22.54, "pb": 5.25, "dy": 3.38, "roe": 18.8, "gross": 70.5, "debt": 27.7, "rev": 127.6, "np": 29.5, "mcap": 811.65, "opcf": 72.1, "pe_pct": 53.5, "pb_pct": 19.0}, {"name": "利欧股份", "code": "002131", "cat": "ad", "pe": 733.5, "pb": 2.45, "dy": 0.64, "roe": 0.3, "gross": 8.8, "debt": 40.8, "rev": 200.5, "np": 0.3, "mcap": 315.56, "opcf": 4.5, "pe_pct": 1.9, "pb_pct": 74.4}, {"name": "省广集团", "code": "002400", "cat": "ad", "pe": 148.95, "pb": 2.37, "dy": 0.07, "roe": 1.8, "gross": 5.8, "debt": 61.5, "rev": 213.5, "np": 0.9, "mcap": 118.55, "opcf": 4.3, "pe_pct": 93.8, "pb_pct": 70.6}, {"name": "思美传媒", "code": "002712", "cat": "ad", "pe": 51.48, "pb": 1.85, "dy": 0.18, "roe": 4.2, "gross": 2.9, "debt": 48.0, "rev": 76.8, "np": 0.6, "mcap": 25.58, "opcf": 0.1, "pe_pct": 16.0, "pb_pct": 54.9}, {"name": "元隆雅图", "code": "002878", "cat": "ad", "pe": 86.0, "pb": 2.55, "dy": 0.41, "roe": 2.4, "gross": 12.4, "debt": 46.0, "rev": 30.1, "np": 0.3, "mcap": 31.91, "opcf": 2.4, "pe_pct": 1.9, "pb_pct": 9.0}, {"name": "天地在线", "code": "002995", "cat": "ad", "pe": 27.75, "pb": 3.84, "dy": 0.58, "roe": 14.8, "gross": 7.4, "debt": 25.8, "rev": 11.3, "np": 1.3, "mcap": 30.81, "opcf": 0.1, "pe_pct": 56.0, "pb_pct": 71.1}, {"name": "蓝色光标", "code": "300058", "cat": "ad", "pe": 201.83, "pb": 6.47, "dy": 0.07, "roe": 2.9, "gross": 2.6, "debt": 68.6, "rev": 686.9, "np": 2.2, "mcap": 515.2, "opcf": 6.3, "pe_pct": 88.2, "pb_pct": 95.6}, {"name": "宣亚国际", "code": "300612", "cat": "ad", "pe": 24.88, "pb": 5.12, "dy": 4.17, "roe": 15.7, "gross": 35.0, "debt": 29.4, "rev": 3.5, "np": 0.7, "mcap": 21.94, "opcf": 1.1, "pe_pct": 31.9, "pb_pct": 7.7}, {"name": "因赛集团", "code": "300781", "cat": "ad", "pe": 50.54, "pb": 8.23, "dy": 0.18, "roe": 15.6, "gross": 37.4, "debt": 28.9, "rev": 6.3, "np": 0.9, "mcap": 45.3, "opcf": 0.4, "pe_pct": 17.1, "pb_pct": 70.8}, {"name": "天下秀", "code": "600556", "cat": "ad", "pe": 407.57, "pb": 2.21, "dy": 0.11, "roe": 0.8, "gross": 18.9, "debt": 30.8, "rev": 39.0, "np": 0.3, "mcap": 84.6, "opcf": 1.5, "pe_pct": 87.7, "pb_pct": 14.2}];
@@ -83,4 +97,8 @@ renderList();renderTbl();
 </script>
   <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
 </body></html>
