@@ -6,35 +6,35 @@
 <title>NVIDIA 链 · 跨层深凿分析</title>
 <style>*{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.8}
-.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(34,211,238,0.2);padding:12px 20px;display:flex;align-items:center;gap:12px}
-.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(34,211,238,0.12);color:#0e7490;border:1px solid rgba(34,211,238,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
-.home-btn:hover{background:#0e7490;color:#fff}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(232,184,75,0.2);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(232,184,75,0.12);color:#92560e;border:1px solid rgba(232,184,75,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#92560e;color:#fff}
 .breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center;flex-wrap:wrap}
 .breadcrumb a{color:#64748b;text-decoration:none}
-.breadcrumb a:hover{color:#0e7490}
+.breadcrumb a:hover{color:#92560e}
 .crumb-sep{color:#cbd5e1}
 .container{max-width:880px;margin:0 auto;padding:24px 16px 48px}
-.hero{background:linear-gradient(135deg,#ffffff,#ecfeff);border-radius:14px;padding:28px;margin-bottom:20px;border:1px solid rgba(34,211,238,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero{background:linear-gradient(135deg,#ffffff,#fef9e7);border-radius:14px;padding:28px;margin-bottom:20px;border:1px solid rgba(232,184,75,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
 .hero-name{font-size:24px;font-weight:800;color:#0f172a}
-.hero-tag{display:inline-block;font-size:12px;color:#0e7490;background:rgba(34,211,238,0.12);padding:3px 10px;border-radius:10px;margin-top:8px}
+.hero-tag{display:inline-block;font-size:12px;color:#92560e;background:rgba(232,184,75,0.12);padding:3px 10px;border-radius:10px;margin-top:8px}
 .hero-sub{font-size:13px;color:#64748b;margin-top:10px}
 .hero-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.hstat{background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);border-radius:10px;padding:8px 14px;text-align:center;min-width:84px}
-.hstat .hs-num{font-size:19px;font-weight:800;color:#0e7490}
+.hstat{background:rgba(232,184,75,0.08);border:1px solid rgba(232,184,75,0.15);border-radius:10px;padding:8px 14px;text-align:center;min-width:84px}
+.hstat .hs-num{font-size:19px;font-weight:800;color:#92560e}
 .hstat .hs-lab{font-size:10.5px;color:#64748b;margin-top:2px}
-.section-title{font-size:17px;font-weight:700;color:#0f172a;margin:28px 0 12px;padding-left:12px;border-left:3px solid rgba(34,211,238,0.5)}
-.oneliner{background:rgba(34,211,238,0.06);border:1px solid rgba(34,211,238,0.2);border-radius:12px;padding:16px 18px;font-size:14.5px;color:#334155;line-height:1.8}
+.section-title{font-size:17px;font-weight:700;color:#0f172a;margin:28px 0 12px;padding-left:12px;border-left:3px solid rgba(232,184,75,0.5)}
+.oneliner{background:rgba(232,184,75,0.06);border:1px solid rgba(232,184,75,0.2);border-radius:12px;padding:16px 18px;font-size:14.5px;color:#334155;line-height:1.8}
 .oneliner b{color:#0f172a}
 .layer-block{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
 .layer-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.layer-num{width:26px;height:26px;border-radius:50%;background:#0e7490;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.layer-num{width:26px;height:26px;border-radius:50%;background:#92560e;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .layer-title{font-size:16px;font-weight:700;color:#0f172a}
 .layer-body{font-size:14px;color:#475569;line-height:1.85}
 .layer-body b{color:#1e293b}
-.layer-body .node{display:inline-block;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.22);color:#0e7490;font-size:12.5px;padding:2px 9px;border-radius:8px;margin:3px 4px 3px 0}
+.layer-body .node{display:inline-block;background:rgba(232,184,75,0.1);border:1px solid rgba(232,184,75,0.22);color:#92560e;font-size:12.5px;padding:2px 9px;border-radius:8px;margin:3px 4px 3px 0}
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .kpi{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.kpi .k-num{font-size:18px;font-weight:800;color:#0e7490}
+.kpi .k-num{font-size:18px;font-weight:800;color:#92560e}
 .kpi .k-lab{font-size:11.5px;color:#64748b;margin-top:2px}
 .kpi .k-sub{font-size:11px;color:#94a3b8;margin-top:1px}
 .table-wrap{overflow-x:auto;margin-top:6px}
@@ -44,21 +44,21 @@ th:first-child,td:first-child{text-align:left;color:#0f172a;font-weight:600}
 th{color:#64748b;font-weight:600;background:#f8fafc}
 td .pos{color:#16a34a}
 td .neg{color:#dc2626}
-.invest-box{background:linear-gradient(135deg,#ecfeff,#ffffff);border:1px solid rgba(34,211,238,0.25);border-radius:12px;padding:18px 20px;margin-top:8px}
-.invest-box .ib-title{font-size:16px;font-weight:700;color:#0e7490;margin-bottom:10px}
+.invest-box{background:linear-gradient(135deg,#fef9e7,#ffffff);border:1px solid rgba(232,184,75,0.25);border-radius:12px;padding:18px 20px;margin-top:8px}
+.invest-box .ib-title{font-size:16px;font-weight:700;color:#92560e;margin-bottom:10px}
 .invest-row{margin-bottom:12px}
 .invest-row .ir-label{font-size:13px;font-weight:700;color:#0f172a;margin-bottom:3px}
 .invest-row .ir-text{font-size:13.5px;color:#475569;line-height:1.75}
 .invest-row .ir-text b{color:#1e293b}
 .timeline{position:relative;padding-left:22px;margin-top:4px}
-.timeline::before{content:"";position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:rgba(34,211,238,0.4)}
+.timeline::before{content:"";position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:rgba(232,184,75,0.4)}
 .tl-item{position:relative;margin-bottom:16px}
-.tl-item::before{content:"";position:absolute;left:-19px;top:6px;width:10px;height:10px;border-radius:50%;background:#0e7490;box-shadow:0 0 0 3px rgba(34,211,238,0.15)}
-.tl-date{font-size:12px;color:#0e7490;font-weight:700}
+.tl-item::before{content:"";position:absolute;left:-19px;top:6px;width:10px;height:10px;border-radius:50%;background:#92560e;box-shadow:0 0 0 3px rgba(232,184,75,0.15)}
+.tl-date{font-size:12px;color:#92560e;font-weight:700}
 .tl-text{font-size:13.5px;color:#475569;line-height:1.75;margin-top:2px}
 .tl-text b{color:#1e293b}
 .src-links{font-size:12.5px;color:#64748b;margin-top:10px}
-.src-links a{color:#0e7490;text-decoration:none}
+.src-links a{color:#92560e;text-decoration:none}
 .src-links a:hover{text-decoration:underline}
 .source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:20px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
 .source-note b{color:#475569}
@@ -137,7 +137,7 @@ td .neg{color:#dc2626}
 .mg-bar{height:100%;background:#94a3b8;border-radius:5px;position:relative}
 .mg-thr{position:absolute;top:-4px;width:2px;height:18px;background:#0f172a}
 .mg-row.mg-on .mg-bar{background:#22c55e}
-.mg-row.mg-off .mg-bar{background:#f59e0b}
+.mg-row.mg-off .mg-bar{background:#e8b84b}
 .mg-row.mg-na .mg-bar{background:#cbd5e1}
 .mg-meta{display:flex;flex-direction:column;gap:3px;align-items:flex-end}
 .mg-status{font-size:12px;font-weight:600;padding:2px 8px;border-radius:6px}
@@ -216,7 +216,7 @@ td .neg{color:#dc2626}
 <body>
 <div class="top-bar">
 <a href="berkshire-ai-chains.html" class="home-btn">← 产业链地图</a>
-<span style="display:inline-flex;gap:14px;align-items:center;margin-left:10px"><a href="berkshire-bank-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px;font-weight:700">AI</a><a href="berkshire-robot-chains.html" style="color:#0e7490;text-decoration:none;font-size:13px">机器人</a></span>
+<span style="display:inline-flex;gap:14px;align-items:center;margin-left:10px"><a href="berkshire-bank-chains.html" style="color:#92560e;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:#92560e;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:#92560e;text-decoration:none;font-size:13px;font-weight:700">AI</a><a href="berkshire-robot-chains.html" style="color:#92560e;text-decoration:none;font-size:13px">机器人</a></span>
 <div class="breadcrumb">
 <a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
 <a href="berkshire-ai-chains.html">AI 巨头产业链</a><span class="crumb-sep">/</span>
