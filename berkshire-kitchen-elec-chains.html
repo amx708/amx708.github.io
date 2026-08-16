@@ -1,180 +1,180 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>厨电产业链 · 价值投资视角</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
-.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(245,158,11,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,0.10);color:#f59e0b;border:1px solid rgba(245,158,11,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
-.home-btn:hover{background:#f59e0b;color:#fff}
-.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
-.breadcrumb a{color:#64748b;text-decoration:none}
-.breadcrumb a:hover{color:#f59e0b}
-.crumb-sep{color:#cbd5e1}
-.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
-.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(245,158,11,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
-.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
-.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
-.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
-.stat-item{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);border-radius:10px;padding:10px 18px;text-align:center}
-.stat-num{font-size:20px;font-weight:800;color:#f59e0b}
-.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
-.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
-.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
-.explain-banner .eb-body{flex:1;min-width:0}
-.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.explain-banner .eb-tag{font-size:11px;color:#f59e0b;background:rgba(245,158,11,0.12);padding:2px 9px;border-radius:10px}
-.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
-.explain-banner .eb-text b{color:#0f172a;font-weight:600}
-.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #f59e0b}
-.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
-.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.layer-num{font-size:12px;color:#f59e0b;font-weight:700}
-.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
-.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.giant-card:hover{border-color:#f59e0b;background:rgba(245,158,11,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(245,158,11,0.12)}
-.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.giant-name{font-size:16px;font-weight:700;color:#0f172a}
-.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
-.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
-.region-hk{background:rgba(234,179,8,0.14);color:#b45309;border:1px solid rgba(234,179,8,0.3)}
-.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
-.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
-.giant-link{color:#f59e0b;font-weight:600}
-.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.source-note b{color:#475569}
-@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
-.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
-.overview{background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
-.overview b{color:#0f172a;font-weight:600}
-.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #f59e0b;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
-.layer-detail-body b{color:#334155}
-.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.info-table tr{border-bottom:1px solid #eef2f7}
-.info-table tr:last-child{border-bottom:none}
-.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
-.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
-.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(245,158,11,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
-.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.insight-title .icon{color:#f59e0b}
-.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
-.back-bar{margin-top:20px}
-.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,0.08);color:#f59e0b;border:1px solid rgba(245,158,11,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
-.back-btn:hover{background:rgba(245,158,11,0.16)}
-.data-banner{background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.22);border-left:4px solid #f59e0b;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
-.data-banner b{color:#0f172a;font-weight:600}
-.data-banner .upd{color:#f59e0b;font-weight:600}
-.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(245,158,11,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
-.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.cycle-title .icon{color:#f59e0b}
-.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
-.cycle-body b{color:#0f172a;font-weight:600}
-.cycle-body p{margin-bottom:8px}
-.cycle-body ul{margin:8px 0 0 18px;padding:0}
-.cycle-body li{margin-bottom:6px}
-.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #f59e0b;padding:8px 12px;background:rgba(245,158,11,0.06);line-height:1.7}
-.cycle-current b{color:#334155}
-.cycle-current a{text-decoration:none}
-.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
-.fin-title .icon{color:#f59e0b}
-.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px}
-.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
-.fin-table tr{border-bottom:1px solid #eef2f7}
-.fin-table tr:last-child{border-bottom:none}
-.fin-table td{padding:10px 14px;font-size:13px;color:#334155}
-.fin-table td:first-child{width:130px;color:#64748b}
-.fin-table .val{color:#b45309;font-weight:600}
-.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
-.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
-.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}
-.extend a:hover{border-color:#f59e0b;box-shadow:0 6px 18px rgba(0,0,0,.1)}
-.extend b{color:#f59e0b;display:block;margin-bottom:5px;font-weight:700}
-.extend span{font-size:12.5px;color:#64748b;line-height:1.55}
-.card-cycle{margin-top:10px;padding:8px 10px;border-left:3px solid #ccc;border-radius:6px;font-size:12px;color:#475569;line-height:1.6}
-.card-cycle .cc-label{display:block;font-weight:700;margin-bottom:3px;font-size:11.5px}
-
-
-.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
-.breadcrumb a{color:var(--primary-dark);text-decoration:none}
-.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
-.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
-.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
-.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
-.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
-.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
-.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
-.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
-.back-bar a:hover{background:#e8b84b;color:#fff}
-
-</style>
-<style>
-
-/* P0 估值历史分位 + 成本传导 */
-.valband{margin:6px 0 2px}
-.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
-.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
-.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
-.vfill{height:100%;border-radius:6px}
-.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
-.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
-.vval b{color:#0f172a}
-.vtag{font-weight:700;margin-left:4px}
-.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
-.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
-.ovtable{overflow-x:auto;margin:6px 0}
-.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
-.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
-.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
-.ovtable td:first-child,.ovtable th:first-child{text-align:left}
-.ovtable a{color:#0f766e;text-decoration:none}
-.ovtable a:hover{text-decoration:underline}
-.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
-.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
-.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
-.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
-.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
-.cost-chart{flex:1;min-width:300px}
-.cost-chart svg{width:100%;height:auto;display:block}
-.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
-.cost-note b{color:#0f172a}
-.cost-note p{margin:0 0 10px}
-
-</style>
-<style>
-
-/* 员工效率与组织效能 */
-.emp-block{margin:6px 0 2px}
-.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
-.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
-.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
-.emp-val{font-size:18px;font-weight:700;color:#0f172a}
-.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
-.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
-.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
-.emp-signal b{font-weight:700}
-.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
-.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
-.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
-
-</style>
-<style>
-/* chain-sort */
-.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
-.sortable th:hover{background:#e0f2fe}
-.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
-.sortable th.asc .sort-ind::before{content:"▲";color:var(--accent)}
-.sortable th.desc .sort-ind::before{content:"▼";color:var(--accent)}
-</style>
-<!-- chain-sort -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>厨电产业链 · 价值投资视角</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(245,158,11,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,0.10);color:#f59e0b;border:1px solid rgba(245,158,11,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#f59e0b;color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#f59e0b}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(245,158,11,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#f59e0b}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#f59e0b;background:rgba(245,158,11,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
+.explain-banner .eb-text b{color:#0f172a;font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #f59e0b}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#f59e0b;font-weight:700}
+.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.giant-card:hover{border-color:#f59e0b;background:rgba(245,158,11,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(245,158,11,0.12)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:#0f172a}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
+.region-hk{background:rgba(234,179,8,0.14);color:#b45309;border:1px solid rgba(234,179,8,0.3)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#f59e0b;font-weight:600}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
+.overview{background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
+.overview b{color:#0f172a;font-weight:600}
+.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #f59e0b;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
+.layer-detail-body b{color:#334155}
+.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.info-table tr{border-bottom:1px solid #eef2f7}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
+.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
+.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(245,158,11,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#f59e0b}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.back-bar{margin-top:20px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,0.08);color:#f59e0b;border:1px solid rgba(245,158,11,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(245,158,11,0.16)}
+.data-banner{background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.22);border-left:4px solid #f59e0b;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:#0f172a;font-weight:600}
+.data-banner .upd{color:#f59e0b;font-weight:600}
+.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(245,158,11,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cycle-title .icon{color:#f59e0b}
+.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
+.cycle-body b{color:#0f172a;font-weight:600}
+.cycle-body p{margin-bottom:8px}
+.cycle-body ul{margin:8px 0 0 18px;padding:0}
+.cycle-body li{margin-bottom:6px}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #f59e0b;padding:8px 12px;background:rgba(245,158,11,0.06);line-height:1.7}
+.cycle-current b{color:#334155}
+.cycle-current a{text-decoration:none}
+.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.fin-title .icon{color:#f59e0b}
+.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px}
+.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.fin-table tr{border-bottom:1px solid #eef2f7}
+.fin-table tr:last-child{border-bottom:none}
+.fin-table td{padding:10px 14px;font-size:13px;color:#334155}
+.fin-table td:first-child{width:130px;color:#64748b}
+.fin-table .val{color:#b45309;font-weight:600}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.extend a:hover{border-color:#f59e0b;box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.extend b{color:#f59e0b;display:block;margin-bottom:5px;font-weight:700}
+.extend span{font-size:12.5px;color:#64748b;line-height:1.55}
+.card-cycle{margin-top:10px;padding:8px 10px;border-left:3px solid #ccc;border-radius:6px;font-size:12px;color:#475569;line-height:1.6}
+.card-cycle .cc-label{display:block;font-weight:700;margin-bottom:3px;font-size:11.5px}
+
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style>
+<style>
+
+/* P0 估值历史分位 + 成本传导 */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0f766e;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
+
+</style>
+<style>
+
+/* 员工效率与组织效能 */
+.emp-block{margin:6px 0 2px}
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
+.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
+.emp-val{font-size:18px;font-weight:700;color:#0f172a}
+.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
+.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
+.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
+.emp-signal b{font-weight:700}
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+
+</style>
+<style>
+/* chain-sort */
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
+.sortable th:hover{background:#e0f2fe}
+.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
+.sortable th.asc .sort-ind::before{content:"▲";color:var(--accent)}
+.sortable th.desc .sort-ind::before{content:"▼";color:var(--accent)}
+</style>
+<!-- chain-sort -->
 
 <style>
 /* v2 white-spirit template additions */
@@ -212,301 +212,283 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .ws2-frame-placeholder li{margin:2px 0}
 </style>
 
-</head>
-<body>
-<style>
-.explain-banner{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:16px 20px;margin:18px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.explain-banner .eb-icon{font-size:22px;flex-shrink:0;line-height:1.4}
-.explain-banner .eb-body{flex:1;min-width:0}
-.explain-banner .eb-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
-.explain-banner .eb-tag{display:inline-block;font-size:11px;color:#b45309;background:rgba(232,184,75,.14);padding:2px 9px;border-radius:10px;margin-right:6px}
-.explain-banner .eb-text{font-size:13px;color:var(--muted);line-height:1.8}
-.explain-banner .eb-text b{color:var(--navy);font-weight:600}
-</style>
-<div class="top-bar">
-  <a href="./index.html">← 返回首页</a>
-  <span style="opacity:0.5">·</span>
-  <strong>厨电产业链</strong>
-</div>
-<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>厨电产业链</b></div>
+</head>
+<body>
+<style>
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:16px 20px;margin:18px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.explain-banner .eb-icon{font-size:22px;flex-shrink:0;line-height:1.4}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.explain-banner .eb-tag{display:inline-block;font-size:11px;color:#b45309;background:rgba(232,184,75,.14);padding:2px 9px;border-radius:10px;margin-right:6px}
+.explain-banner .eb-text{font-size:13px;color:var(--muted);line-height:1.8}
+.explain-banner .eb-text b{color:var(--navy);font-weight:600}
+</style>
+<div class="top-bar">
+  <a href="./index.html">← 返回首页</a>
+  <span style="opacity:0.5">·</span>
+  <strong>厨电产业链</strong>
+</div>
+<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>厨电产业链</b></div>
+
+<div class="hero">
+  <h1>厨电产业链</h1>
+  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 地产后周期 × 品牌/渠道壁垒 × 集成灶困境 · 价值投资视角原创梳理</div>
+  <div class="stats">
+<div class="stat"><b>10</b>代表公司</div>
+<div class="stat"><b>≈12x</b>老板PE(最低)</div>
+<div class="stat"><b>3/10</b>集成灶亏损·困境</div>
+<div class="stat"><b>原创</b>公开源整理</div>
+  </div>
+</div>
+
+<div class="data-banner" style="border-left-color:var(--accent)">
+📊 数据锚：老板 PE≈12.2x/PB≈1.27x、华帝 PE≈13.9x/PB≈1.07x（烟机双雄处历史极低）；万和 PB≈1.08x、日出东方 PB≈1.32x（厨卫低 PB）；苏泊尔 PE≈16.2x/PB≈4.82x（高 ROE 溢价）；集成灶集体困境——火星人/亿田/帅丰转亏损(TTM PE 为负)、浙江美大盈利近零(PE 失真)；九阳 PE≈70x(盈利薄)。板块整体处地产后周期底部，估值分位数据暂无（数据源受限）。
+</div>
+
+<div class="container">
+
+<div class="explain-banner">
+<div class="eb-icon">🛡️</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「厨电产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把 A 股厨电（厨房电器）按「层级」拆解，便于从价值投资视角理解其地产后周期属性、品牌壁垒与当前估值。<br><b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中 PE/PB 为通过 akshare(东方财富) 抓取的最新 TTM/MRQ 值，估值历史分位因数据源网络受限未能取得，统一标注「分位暂无」。厨电属<b>地产后周期 + 制造 + 品牌渠道</b>行业，需求由新房竣工、二手房装修与存量换新共同驱动，分析时须区分「高端品牌定价权」与「集成灶价格内战」两条主线。
+</div>
+</div>
+</div>
+
+<h2 class="section-title">🔔 研究信号</h2>
 
-<div class="hero">
-  <h1>厨电产业链</h1>
-  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 地产后周期 × 品牌/渠道壁垒 × 集成灶困境 · 价值投资视角原创梳理</div>
-  <div class="stats">
-<div class="stat"><b>10</b>代表公司</div>
-<div class="stat"><b>≈12x</b>老板PE(最低)</div>
-<div class="stat"><b>3/10</b>集成灶亏损·困境</div>
-<div class="stat"><b>原创</b>公开源整理</div>
-  </div>
-</div>
-
-<div class="data-banner" style="border-left-color:var(--accent)">
-📊 数据锚：老板 PE≈12.2x/PB≈1.27x、华帝 PE≈13.9x/PB≈1.07x（烟机双雄处历史极低）；万和 PB≈1.08x、日出东方 PB≈1.32x（厨卫低 PB）；苏泊尔 PE≈16.2x/PB≈4.82x（高 ROE 溢价）；集成灶集体困境——火星人/亿田/帅丰转亏损(TTM PE 为负)、浙江美大盈利近零(PE 失真)；九阳 PE≈70x(盈利薄)。板块整体处地产后周期底部，估值分位数据暂无（数据源受限）。
-</div>
-
-<div class="container">
-
-<div class="explain-banner">
-<div class="eb-icon">🛡️</div>
-<div class="eb-body">
-<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「厨电产业链地图」是怎么来的</div>
-<div class="eb-text">
-本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把 A 股厨电（厨房电器）按「层级」拆解，便于从价值投资视角理解其地产后周期属性、品牌壁垒与当前估值。<br><b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中 PE/PB 为通过 akshare(东方财富) 抓取的最新 TTM/MRQ 值，估值历史分位因数据源网络受限未能取得，统一标注「分位暂无」。厨电属<b>地产后周期 + 制造 + 品牌渠道</b>行业，需求由新房竣工、二手房装修与存量换新共同驱动，分析时须区分「高端品牌定价权」与「集成灶价格内战」两条主线。
-</div>
-</div>
-</div>
-
-<h2 class="section-title">🔔 研究信号</h2>
-<div class="research-signal">
-  <div class="rs-grid">
-<div class="rs-item"><div class="rs-label">周期位置</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">强地产后周期板块，β 于新房竣工与商品房销售；2021 后地产下行，厨电经历长周期戴维斯双杀——烟机灶具稳健龙头估值跌至 12–14x，而集成灶（曾经高成长赛道）在 2024–2025 集体盈利塌陷（火星人/亿田/帅丰转亏、美大盈利近零），当前整体处于历史底部区域但基本面拐点未现。</div></div>
-<div class="rs-item"><div class="rs-label">景气方向</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">量价承压。新房交付下滑拖累首套厨电，存量换新（以旧换新补贴）托底；集成灶从高速成长转为份额内卷与价格战、盈利塌方；洗碗机/嵌入式仍结构性增长；出海（东南亚/中东/北美 ODM）是少数增量。小厨电（九阳/苏泊尔）则受消费降级与需求透支双重压制。</div></div>
-<div class="rs-item"><div class="rs-label">结论信号</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)"><b>🟡 谨慎（左侧布局）</b> — 烟机双雄（老板/华帝）低 PE 提供安全边际但需地产企稳确认；集成灶集体困境宜甄别出清与 ST 风险；苏泊尔凭 SEB 绑定与高 ROE 最具确定性；整体宜分批、重分红、避亏损与价值陷阱。</div></div>
-<div class="rs-item"><div class="rs-label">核心催化</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">①地产政策加码+保交楼带动竣工回升　②以旧换新/消费补贴放量激活存量换新　③存量房厨电（2009–2013 家电下乡）老化换新周期　④出海（ODM/自主品牌）突破　⑤龙头高分红+回购增厚防御。</div></div>
-<div class="rs-item"><div class="rs-label">关键风险</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">①地产持续低迷、新房交付不及预期　②价格战吞噬毛利（尤集成灶）　③集成灶需求塌方、ST/持续经营风险　④原材料（钢/铜/铝）涨价挤压毛利　⑤工程渠道坏账与回款风险。</div></div>
-  </div>
-  <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:13px;line-height:1.8">
-<div style="font-weight:700;color:var(--navy)">周期位置</div><div>强地产后周期板块，β 于新房竣工与商品房销售；2021 后地产下行，厨电经历长周期戴维斯双杀——烟机灶具稳健龙头估值跌至 12–14x，而集成灶（曾经高成长赛道）在 2024–2025 集体盈利塌陷（火星人/亿田/帅丰转亏、美大盈利近零），当前整体处于历史底部区域但基本面拐点未现。</div>
-<div style="font-weight:700;color:var(--navy)">景气方向</div><div>量价承压。新房交付下滑拖累首套厨电，存量换新（以旧换新补贴）托底；集成灶从高速成长转为份额内卷与价格战、盈利塌方；洗碗机/嵌入式仍结构性增长；出海（东南亚/中东/北美 ODM）是少数增量。小厨电（九阳/苏泊尔）则受消费降级与需求透支双重压制。</div>
-<div style="font-weight:700;color:var(--navy)">结论信号</div><div><b>🟡 谨慎（左侧布局）</b> — 烟机双雄（老板/华帝）低 PE 提供安全边际但需地产企稳确认；集成灶集体困境宜甄别出清与 ST 风险；苏泊尔凭 SEB 绑定与高 ROE 最具确定性；整体宜分批、重分红、避亏损与价值陷阱。</div>
-<div style="font-weight:700;color:var(--navy)">核心催化</div><div>①地产政策加码+保交楼带动竣工回升　②以旧换新/消费补贴放量激活存量换新　③存量房厨电（2009–2013 家电下乡）老化换新周期　④出海（ODM/自主品牌）突破　⑤龙头高分红+回购增厚防御。</div>
-<div style="font-weight:700;color:var(--navy)">关键风险</div><div>①地产持续低迷、新房交付不及预期　②价格战吞噬毛利（尤集成灶）　③集成灶需求塌方、ST/持续经营风险　④原材料（钢/铜/铝）涨价挤压毛利　⑤工程渠道坏账与回款风险。</div>
-  </div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:12px;color:var(--muted)">数据锚：老板 PE≈12.2x/PB≈1.27x、华帝 PE≈13.9x/PB≈1.07x 处历史极低；集成灶(火星人/亿田/帅丰)集体亏损、浙江美大盈利近零(PE 失真)；苏泊尔 PE≈16.2x/PB≈4.82x 高 ROE 溢价；万和/日出东方低 PB。估值历史分位暂无（数据源受限）。结论为框架合成，需结合实盘研究校验。</div>
-</div>
-
-<h2 class="section-title">🏛 5 层分析框架（厨电产业链专属）</h2>
-<div class="layers">
-<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游原材料/零部件</div><div class="layer-text">钢材、铜、铝、塑料、玻璃、电机、控制器与芯片。钢/铜/铝占整机原材料成本约 60–70%，电机与电控次之；原料受大宗商品与汇率影响，龙头可通过年降与规模采购平抑，中小企业议价弱。</div></div>
-<div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游整机制造/研发</div><div class="layer-text">吸油烟机、燃气灶、消毒柜、集成灶、洗碗机、蒸烤一体机等整机产线，叠加研发设计（大吸力/变频/智能）。规模效应+工艺+模具壁垒为核心，集成灶因结构集成对装配与供应链要求更高，产能投放曾过度致内卷。</div></div>
-<div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游渠道/地产</div><div class="layer-text">零售（KA 卖场/电商/专卖店）+工程精装（房企集采）+下沉与换新。工程渠道占比提升使回款与坏账成为利润变量；以旧换新补贴与二手房装修驱动存量换新，是新周期关键。</div></div>
-<div class="layer-card"><div class="layer-num">04</div><div class="layer-name">竞争格局</div><div class="layer-text">烟机灶具「双寡头」老板+方太（高端），华帝中端追赶；集成灶「四小龙」美大/火星人/亿田/帅丰（2024 集体困境）；洗碗机由老板/方太/西门子主导；小厨电美的/苏泊尔/九阳三分。品牌+渠道+研发决定定价权，集成灶集中度因困境重排。</div></div>
-<div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-text">看「品牌定价权(毛利) × 地产β × 估值 × 治理/持续经营」；龙头低 PE 具安全边际但需地产拐点，集成灶宜避亏损与 ST，苏泊尔凭 SEB 绑定与高 ROE 最稳；分红/回购是防御锚，增量看出海与换新。</div></div>
-</div>
-
-<h2 class="section-title">📈 估值历史分位总览</h2>
-<div class="ovtable">
-<div class="ovtable"><table class="sortable">
-<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-kitchen-elec-chain-002508.html">老板电器</a></td><td>11.8</td><td><span class="pct-cell pct-lo">5%</span></td><td>1.22</td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002035.html">华帝股份</a></td><td>13.1</td><td><span class="pct-cell pct-lo">29%</span></td><td>1.01</td><td><span class="pct-cell pct-lo">0%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-300894.html">火星人</a></td><td>-12.2</td><td><span class="pct-cell pct-lo">22%</span></td><td>3.71</td><td><span class="pct-cell pct-lo">10%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002677.html">浙江美大</a></td><td>589.9</td><td><span class="pct-cell pct-hi">98%</span></td><td>2.67</td><td><span class="pct-cell pct-lo">4%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-300911.html">亿田智能</a></td><td>-20.2</td><td><span class="pct-cell pct-lo">31%</span></td><td>3.07</td><td><span class="pct-cell pct-lo">30%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-605336.html">帅丰电器</a></td><td>-27.2</td><td><span class="pct-cell pct-lo">4%</span></td><td>0.94</td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002543.html">万和电气</a></td><td>40.1</td><td><span class="pct-cell pct-hi">98%</span></td><td>0.96</td><td><span class="pct-cell pct-lo">0%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-603366.html">日出东方</a></td><td>28.5</td><td><span class="pct-cell pct-mid">54%</span></td><td>1.21</td><td><span class="pct-cell pct-mid">41%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002242.html">九阳股份</a></td><td>62.2</td><td><span class="pct-cell pct-hi">90%</span></td><td>1.77</td><td><span class="pct-cell pct-lo">0%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002032.html">苏泊尔</a></td><td>17.0</td><td><span class="pct-cell pct-lo">4%</span></td><td>5.06</td><td><span class="pct-cell pct-lo">4%</span></td></tr>
-
-</tbody>
-</table></div>
-</div>
-<div class="source-note" style="margin-top:10px">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。<span class="pct pct-lo">绿</span>偏低/便宜　<span class="pct pct-mid">橙</span>中位　<span class="pct pct-hi">红</span>偏高/贵。亏损企业 PE 为负、PE 分位不适用，仅看 PB；分位为时点统计。</div>
-
-<h2 class="section-title">⚖ R15 三维评级总览</h2>
-<div class="ovtable">
-<div class="ovtable"><table class="sortable">
-<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-kitchen-elec-chain-002508.html">老板电器</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">5%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002035.html">华帝股份</a></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">29%</span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-300894.html">火星人</a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-lo">22%</span></td><td><span class="pct-cell pct-lo">10%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002677.html">浙江美大</a></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-hi">98%</span></td><td><span class="pct-cell pct-lo">4%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-300911.html">亿田智能</a></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">7</span></td><td><span class="pct-cell pct-lo">31%</span></td><td><span class="pct-cell pct-lo">30%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-605336.html">帅丰电器</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">4%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002543.html">万和电气</a></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-hi">98%</span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-603366.html">日出东方</a></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-mid">54%</span></td><td><span class="pct-cell pct-mid">41%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002242.html">九阳股份</a></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-hi">90%</span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002032.html">苏泊尔</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">4%</span></td><td><span class="pct-cell pct-lo">4%</span></td></tr>
-
-</tbody>
-</table></div>
-</div>
-<div class="source-note" style="margin-top:10px">R15 三维：①<b>估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；②<b>质量星级</b>=近10年ROE均值（★越多质地越好）；③<b>时机分</b>=链周期指数百分位（分越高越接近周期底部）。数据为时点统计。</div>
-
-<h2 class="section-title">🏭 产业链成本传导</h2>
-<div class="cost-block">
-
-    <svg viewBox="0 0 800 150" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
-      <defs><marker id="arr-kitchen-elec" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0 0, 8 4, 0 8" fill="#f59e0b"/></marker></defs>
-      <g><rect x="15" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="100" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游·原材料/零部件</text></g>
-      <g><rect x="225" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="310" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游·整机制造</text></g>
-      <g><rect x="435" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="520" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游·渠道/地产</text></g>
-      <g><rect x="645" y="40" width="140" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="715" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">利润</text></g>
-      <line x1="185" y1="64" x2="225" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-kitchen-elec)"/>
-      <line x1="395" y1="64" x2="435" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-kitchen-elec)"/>
-      <line x1="605" y1="64" x2="645" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-kitchen-elec)"/>
-      <g><rect x="280" y="105" width="240" height="34" rx="6" fill="#fbf7ee" stroke="#f59e0b" stroke-width="1.5"/><text x="400" y="127" text-anchor="middle" font-size="12" font-weight="700" fill="#0b1f3a">核心变量=护城河</text></g>
-    </svg>
-  <p class="cost-note" style="font-style:normal;text-align:left"><p>厨电<b>成本传导=钢/铜/铝/塑料成本→毛利→利润</b>。原材料（尤其钢与铜）占整机成本六成以上：原料上行直接挤压毛利，龙头可借年降、提价与套保部分传导，中小厂被动承受。<b>工程精装渠道</b>占比提升后，回款周期与房企坏账成为利润的另一变量——老板曾因工程减值冲击利润。</p><p>集成灶因 2023–2025 价格内战，出厂价与终端价同步下杀，<b>成本下降未能转化为利润、反而被价格战吞噬</b>。因此厨电盈利 ≈ f(原料↓、提价/年降能力↑、地产交付↑、价格战强度↓)，<b>品牌定价权（高毛利）是熨平原料与地产周期、构筑护城河的核心变量</b>——这也是老板（50%+ 毛利）区别于集成灶困境企业的根本。</p></p>
-</div>
-
-<h2 class="section-title">👥 员工效率排行</h2>
-<div class="ovtable">
-<div class="ovtable"><table>
-<thead><tr><th>公司</th><th>员工(2025)</th><th>员工同比</th><th>人均净利</th><th>效率信号</th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-kitchen-elec-chain-002508.html">老板电器</a></td><td>4980</td><td class="num down">-3.6%</td><td class="num">¥25.3万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002035.html">华帝股份</a></td><td>4936</td><td class="num down">-5.2%</td><td class="num">¥6.1万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-300894.html">火星人</a></td><td>1468</td><td class="num down">-20.3%</td><td class="num">¥-20.4万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002677.html">浙江美大</a></td><td>571</td><td class="num down">-23.1%</td><td class="num">¥1.8万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-300911.html">亿田智能</a></td><td>490</td><td class="num down">-53.8%</td><td class="num">¥-34.7万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-605336.html">帅丰电器</a></td><td>576</td><td class="num down">-27.0%</td><td class="num">¥-10.4万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002543.html">万和电气</a></td><td>5782</td><td class="num up">+1.8%</td><td class="num">¥3.8万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-603366.html">日出东方</a></td><td>4454</td><td class="num down">-11.7%</td><td class="num">¥4.0万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002242.html">九阳股份</a></td><td>2100</td><td class="num down">-10.3%</td><td class="num">¥5.7万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-kitchen-elec-chain-002032.html">苏泊尔</a></td><td>1万</td><td class="num down">-4.9%</td><td class="num">¥19.5万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-
-</tbody>
-</table></div>
-</div>
-<div class="source-note" style="margin-top:10px">员工增速=在职员工同比；人均净利=2025 归母净利÷员工数。组织效能信号为代理指标，非投资建议。</div>
-
-<h2 class="section-title">🏢 主要玩家索引（上市公司 10 家）</h2>
-<div class="grid">
-<a class="giant-card" href="./berkshire-kitchen-elec-chain-002508.html"><div class="gc-title">老板电器</div><div class="gc-code">002508</div><div class="gc-meta">烟机灶具绝对龙头</div><div class="gc-desc">吸油烟机/燃气灶高端双料龙头，品牌+渠道+工程壁垒最强，PE≈12.2x/PB≈1.27x 处历史极低，地产后周期典型资产。</div></a>
-<a class="giant-card" href="./berkshire-kitchen-elec-chain-002035.html"><div class="gc-title">华帝股份</div><div class="gc-code">002035</div><div class="gc-meta">烟机灶具老二</div><div class="gc-desc">烟机灶具老二，治理理顺后重回正轨，PE≈13.9x/PB≈1.07x 深度便宜，弹性大于老板。</div></a>
-<a class="giant-card" href="./berkshire-kitchen-elec-chain-002677.html"><div class="gc-title">浙江美大</div><div class="gc-code">002677</div><div class="gc-meta">集成灶开创者</div><div class="gc-desc">集成灶品类开创者（侧吸下排专利），但行业需求塌方致盈利近零，PB≈3.12x 偏高、TTM PE 失真，困境观察。</div></a>
-<a class="giant-card" href="./berkshire-kitchen-elec-chain-300894.html"><div class="gc-title">火星人</div><div class="gc-code">300894</div><div class="gc-meta">集成灶线上龙头</div><div class="gc-desc">集成灶线上销量龙头（电商打法凶猛），但行业下行转亏损（TTM PE 为负），PB≈4.84x 仍高，典型成长证伪。</div></a>
-<a class="giant-card" href="./berkshire-kitchen-elec-chain-300911.html"><div class="gc-title">亿田智能</div><div class="gc-code">300911</div><div class="gc-meta">集成灶头部</div><div class="gc-desc">集成灶头部之一（集成灶+集成烹饪中心），行业下行转亏损（TTM PE 负），PB≈3.75x，困境博弈。</div></a>
-<a class="giant-card" href="./berkshire-kitchen-elec-chain-605336.html"><div class="gc-title">帅丰电器</div><div class="gc-code">605336</div><div class="gc-meta">集成灶(ST)</div><div class="gc-desc">集成灶老牌（帅丰），行业下行叠加重组/风险被 ST（*ST帅电），PB≈1.10x 低但基本面脆弱，高危困境。</div></a>
-<a class="giant-card" href="./berkshire-kitchen-elec-chain-002543.html"><div class="gc-title">万和电气</div><div class="gc-code">002543</div><div class="gc-meta">厨卫电器</div><div class="gc-desc">燃气灶/燃气热水器老牌（厨卫双线），出口代工强，PB≈1.08x 低、TTM PE≈44.8x 偏高（一次性）。</div></a>
-<a class="giant-card" href="./berkshire-kitchen-elec-chain-603366.html"><div class="gc-title">日出东方</div><div class="gc-code">603366</div><div class="gc-meta">厨卫+热水器</div><div class="gc-desc">太阳能/空气能热水器龙头，控股帅康切入厨电，PE≈31.2x/PB≈1.32x，业务多元、厨电纯度有限。</div></a>
-<a class="giant-card" href="./berkshire-kitchen-elec-chain-002242.html"><div class="gc-title">九阳股份</div><div class="gc-code">002242</div><div class="gc-meta">厨房小家电</div><div class="gc-desc">豆浆机发明者、厨房小家电龙头（破壁/饭煲/清洁），增长承压 PE≈70x 偏高、PB≈1.99x，存量博弈。</div></a>
-<a class="giant-card" href="./berkshire-kitchen-elec-chain-002032.html"><div class="gc-title">苏泊尔</div><div class="gc-code">002032</div><div class="gc-meta">厨房炊具小家电</div><div class="gc-desc">炊具+小家电龙头（SEB 控股、出口+内销），稳健高 ROE，PE≈16.2x/PB≈4.82x，板块最稳现金牛。</div></a>
-</div>
-
-<div class="source-note">
-  📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
-</div>
-
-</div>
-
-<script src="./analytics.js"></script>
-<script src="./tdx-link.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.sortable').forEach(function(t){
-    t.querySelectorAll('th').forEach(function(th,i){
-      th.addEventListener('click',function(){
-        var d=t.querySelector('tbody');
-        var rows=Array.from(d.querySelectorAll('tr'));
-        var asc=th.classList.contains('sorted-asc');
-        th.classList.remove('sorted-asc','sorted-desc');
-        rows.sort(function(a,b){
-          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          av=parseFloat(av); bv=parseFloat(bv);
-          return asc?bv-av:av-bv;
-        });
-        th.classList.add(asc?'sorted-desc':'sorted-asc');
-        rows.forEach(function(r){d.appendChild(r)});
-      });
-    });
-  });
-});
-</script>
-<div class="section-title">延伸阅读 · 厨电产业链 7 兄弟页</div>
-<div class="extend-grid"><a class="extend-card" href="./berkshire-kitchen-elec-compare.html"><b>🥇 估值分位</b><span>厨电产业链（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-kitchen-elec-thermometer.html"><b>🌡️ 估值温度计</b><span>厨电产业链（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-kitchen-elec-buyback.html"><b>💰 回购监测</b><span>厨电产业链（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-kitchen-elec-repomap.html"><b>🗺️ 板块图谱</b><span>厨电产业链（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-kitchen-elec-backtest.html"><b>📈 五年回测</b><span>厨电产业链（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-kitchen-elec-cycle.html"><b>🔄 周期演进</b><span>厨电产业链（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-kitchen-elec-methodology.html"><b>📘 方法论说明</b><span>厨电产业链（估值/回购/周期研究的取值口径与可信区间）</span></a></div>
-
-<!-- ===== 白酒原版 v2 (per 老板截屏) START ===== -->
+<!-- ===== v2 body (per 老板截屏) START ===== -->
 <div class="ws2-counter-wrap">
   
 <div class="ws2-counter">
   <div class="card"><div class="num">10</div><div class="lbl">家上市公司</div></div>
-  <div class="card"><div class="num">4</div><div class="lbl">核心环节</div></div>
+  <div class="card"><div class="num">10</div><div class="lbl">核心环节 / 子链</div></div>
   <div class="card"><div class="num">6</div><div class="lbl">延伸阅读</div></div>
 </div>
 <div class="ws2-tip"><b>纪律声明：</b>本面板只用公开财报与估值数据可验证的事实。<b>不含</b>任何编造叙事——投资逻辑、产品定位、竞争格局、产能周期均以<b>占位框架</b>呈现，待人工补充。</div>
 
 </div>
-
 <section class="ws2-section">
   <h3>🎯 投资逻辑（8 条 · 占位框架，待人工填实）</h3>
   <div class='ws2-logic8'><div class="item empty"><b>1️⃣ 商业模式与护城河来源</b>（占位 · 待人工填实）</div><div class="item empty"><b>2️⃣ 行业集中度与玩家分层</b>（占位 · 待人工填实）</div><div class="item empty"><b>3️⃣ 产业链上下游关系</b>（占位 · 待人工填实）</div><div class="item empty"><b>4️⃣ 周期性与价格话语权</b>（占位 · 待人工填实）</div><div class="item empty"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>（占位 · 待人工填实）</div><div class="item empty"><b>6️⃣ 估值水位与历史分位</b>（占位 · 待人工填实）</div><div class="item empty"><b>7️⃣ 主要风险事件清单</b>（占位 · 待人工填实）</div><div class="item empty"><b>8️⃣ 投资跟踪指标与反向信号</b>（占位 · 待人工填实）</div></div>
 </section>
-
 <section class="ws2-section">
-  <h3><span class="tag">DATA</span> 历史分位图 · 5 张</h3>
-  <div class='ws2-charts'><div class="chart"><div class="ti">毛利率分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">毛利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=8 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">57.1%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">48.2%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">39.2%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">30.3%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">21.4%</text><path d="M 60.0,45.9 L 120.0,43.5 L 180.0,48.6 L 240.0,53.1 L 300.0,49.0 L 360.0,50.9 L 420.0,56.0 L 480.0,74.0 L 540.0,66.9 L 600.0,77.2 L 660.0,87.8 L 660.0,162.5 L 600.0,158.2 L 540.0,155.6 L 480.0,149.2 L 420.0,162.2 L 360.0,143.1 L 300.0,128.8 L 240.0,135.1 L 180.0,136.8 L 120.0,128.4 L 60.0,136.3 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,73.0 L 120.0,74.5 L 180.0,60.8 L 240.0,57.5 L 300.0,58.8 L 360.0,58.8 L 420.0,76.8 L 480.0,78.3 L 540.0,73.6 L 600.0,90.9 L 660.0,109.8 L 660.0,153.6 L 600.0,152.2 L 540.0,145.0 L 480.0,140.4 L 420.0,144.4 L 360.0,131.9 L 300.0,125.6 L 240.0,129.2 L 180.0,122.9 L 120.0,120.2 L 60.0,131.4 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,106.1 L 120.0,95.9 L 180.0,89.1 L 240.0,89.9 L 300.0,78.8 L 360.0,83.8 L 420.0,89.8 L 480.0,93.3 L 540.0,85.2 L 600.0,99.4 L 660.0,129.8" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,97.8 L 120.0,91.9 L 180.0,92.2 L 240.0,93.1 L 300.0,88.9 L 360.0,93.7 L 420.0,105.5 L 480.0,106.5 L 540.0,104.7 L 600.0,114.6 L 660.0,130.5" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.4</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">41.1</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">43.0</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">42.7</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">45.7</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">44.4</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">42.8</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">41.8</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">44.0</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">40.2</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">32.1</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">净利率分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">净利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=8 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">29.6%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">11.8%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">-6.1%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-23.9%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-41.7%</text><path d="M 60.0,50.6 L 120.0,50.6 L 180.0,45.8 L 240.0,46.3 L 300.0,44.3 L 360.0,39.8 L 420.0,43.1 L 480.0,48.6 L 540.0,47.7 L 600.0,65.2 L 660.0,73.7 L 660.0,166.2 L 600.0,89.1 L 540.0,83.6 L 480.0,82.3 L 420.0,82.8 L 360.0,76.5 L 300.0,76.2 L 240.0,82.5 L 180.0,80.5 L 120.0,75.5 L 60.0,78.4 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,68.4 L 120.0,62.4 L 180.0,48.9 L 240.0,57.8 L 300.0,54.2 L 360.0,53.3 L 420.0,59.9 L 480.0,61.2 L 540.0,62.9 L 600.0,69.1 L 660.0,82.1 L 660.0,126.0 L 600.0,84.3 L 540.0,77.1 L 480.0,78.3 L 420.0,81.1 L 360.0,73.8 L 300.0,73.5 L 240.0,74.2 L 180.0,74.8 L 120.0,74.4 L 60.0,76.5 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,74.9 L 120.0,71.5 L 180.0,72.8 L 240.0,72.1 L 300.0,65.2 L 360.0,66.2 L 420.0,70.8 L 480.0,69.0 L 540.0,71.1 L 600.0,76.0 L 660.0,86.4" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,68.6 L 120.0,65.6 L 180.0,64.5 L 240.0,70.2 L 300.0,63.5 L 360.0,61.9 L 420.0,66.8 L 480.0,68.0 L 540.0,67.7 L 600.0,77.0 L 660.0,105.9" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">8.9</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">10.7</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">10.0</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">10.4</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">14.0</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.5</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.1</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.0</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">10.9</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">8.3</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.8</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">ROE 分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">ROE 分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=8 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">62.3%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">42.3%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">22.3%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">2.2%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-17.8%</text><path d="M 60.0,71.3 L 120.0,73.5 L 180.0,39.3 L 240.0,90.1 L 300.0,81.6 L 360.0,96.3 L 420.0,96.1 L 480.0,100.7 L 540.0,100.0 L 600.0,113.1 L 660.0,118.2 L 660.0,166.7 L 600.0,137.2 L 540.0,124.9 L 480.0,129.1 L 420.0,129.6 L 360.0,122.1 L 300.0,115.7 L 240.0,120.5 L 180.0,119.3 L 120.0,116.9 L 60.0,123.3 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,104.0 L 120.0,79.3 L 180.0,84.3 L 240.0,93.7 L 300.0,90.5 L 360.0,104.1 L 420.0,101.0 L 480.0,109.5 L 540.0,113.3 L 600.0,117.5 L 660.0,128.5 L 660.0,143.8 L 600.0,134.8 L 540.0,121.2 L 480.0,120.9 L 420.0,123.5 L 360.0,118.2 L 300.0,103.0 L 240.0,105.9 L 180.0,106.3 L 120.0,110.2 L 60.0,118.4 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,111.9 L 120.0,103.4 L 180.0,100.2 L 240.0,98.0 L 300.0,99.0 L 360.0,110.5 L 420.0,112.7 L 480.0,113.8 L 540.0,119.5 L 600.0,130.3 L 660.0,134.0" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,100.8 L 120.0,97.3 L 180.0,90.2 L 240.0,103.3 L 300.0,98.9 L 360.0,110.3 L 420.0,111.8 L 480.0,114.4 L 540.0,114.9 L 600.0,124.0 L 660.0,136.8" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">16.9</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">22.0</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">23.9</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">25.2</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">24.6</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.8</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">16.5</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">15.8</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.4</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.9</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.7</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">营收同比分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">营收同比分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 10 年窗 ｜ N=8 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">61.2%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">33.2%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">5.3%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-22.7%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-50.6%</text><path d="M 60.0,55.6 L 126.7,38.4 L 193.3,65.6 L 260.0,82.8 L 326.7,85.1 L 393.3,53.6 L 460.0,104.8 L 526.7,96.6 L 593.3,101.2 L 660.0,110.8 L 660.0,167.6 L 593.3,166.4 L 526.7,120.3 L 460.0,124.0 L 393.3,92.7 L 326.7,119.0 L 260.0,116.7 L 193.3,102.3 L 126.7,89.6 L 60.0,109.7 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,76.0 L 126.7,57.8 L 193.3,77.1 L 260.0,92.9 L 326.7,99.3 L 393.3,67.7 L 460.0,108.8 L 526.7,101.2 L 593.3,104.3 L 660.0,118.8 L 660.0,165.0 L 593.3,158.4 L 526.7,118.2 L 460.0,117.9 L 393.3,86.5 L 326.7,107.9 L 260.0,103.5 L 193.3,100.1 L 126.7,83.8 L 60.0,99.7 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,87.5 L 126.7,72.1 L 193.3,93.2 L 260.0,99.0 L 326.7,103.4 L 393.3,81.1 L 460.0,113.3 L 526.7,114.9 L 593.3,114.0 L 660.0,127.8" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,82.5 L 126.7,65.7 L 193.3,87.7 L 260.0,97.7 L 326.7,104.7 L 393.3,76.2 L 460.0,114.2 L 526.7,109.1 L 593.3,127.2 L 660.0,138.0" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">18.2</text><text x="126.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="126.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">31.1</text><text x="193.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="193.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.4</text><text x="260.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="260.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">8.6</text><text x="326.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="326.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.9</text><text x="393.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="393.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">23.5</text><text x="460.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="460.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-3.3</text><text x="526.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="526.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-4.7</text><text x="593.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="593.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-3.9</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-15.4</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">PE 横截面 TTM · 13 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 192" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="192" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PE 横截面（TTM，13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">6 家公司 · 取自估值快照</text><text x="102" y="49.7" fill="#1a2540" font-size="11" text-anchor="end">老板电器</text><rect x="110" y="40.0" width="89.8" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="204.8" y="49.7" fill="#1a2540" font-size="11">12.2x</text><text x="102" y="71.0" fill="#1a2540" font-size="11" text-anchor="end">华帝股份</text><rect x="110" y="61.3" width="102.2" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="217.2" y="71.0" fill="#1a2540" font-size="11">13.9x</text><text x="102" y="92.3" fill="#1a2540" font-size="11" text-anchor="end">苏泊尔</text><rect x="110" y="82.7" width="118.7" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="233.7" y="92.3" fill="#1a2540" font-size="11">16.1x</text><text x="102" y="113.7" fill="#1a2540" font-size="11" text-anchor="end">日出东方</text><rect x="110" y="104.0" width="229.1" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="344.1" y="113.7" fill="#1a2540" font-size="11">31.2x</text><text x="102" y="135.0" fill="#1a2540" font-size="11" text-anchor="end">万和电气</text><rect x="110" y="125.3" width="329.4" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="444.4" y="135.0" fill="#1a2540" font-size="11">44.8x</text><text x="102" y="156.3" fill="#1a2540" font-size="11" text-anchor="end">九阳股份</text><rect x="110" y="146.7" width="514.3" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="629.3" y="156.3" fill="#1a2540" font-size="11">70.0x</text></svg></div><div class="chart"><div class="ti">PB 横截面 · 13 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="280" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PB 横截面（13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">10 家公司 · 取自估值快照</text><text x="102" y="49.8" fill="#1a2540" font-size="11" text-anchor="end">华帝股份</text><rect x="110" y="40.0" width="86.5" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="201.5" y="49.8" fill="#1a2540" font-size="11">1.1x</text><text x="102" y="71.4" fill="#1a2540" font-size="11" text-anchor="end">帅丰电器</text><rect x="110" y="61.6" width="87.3" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="202.3" y="71.4" fill="#1a2540" font-size="11">1.1x</text><text x="102" y="93.0" fill="#1a2540" font-size="11" text-anchor="end">万和电气</text><rect x="110" y="83.2" width="88.9" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="203.9" y="93.0" fill="#1a2540" font-size="11">1.1x</text><text x="102" y="114.6" fill="#1a2540" font-size="11" text-anchor="end">老板电器</text><rect x="110" y="104.8" width="104.8" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="219.8" y="114.6" fill="#1a2540" font-size="11">1.3x</text><text x="102" y="136.2" fill="#1a2540" font-size="11" text-anchor="end">日出东方</text><rect x="110" y="126.4" width="105.6" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="220.6" y="136.2" fill="#1a2540" font-size="11">1.3x</text><text x="102" y="157.8" fill="#1a2540" font-size="11" text-anchor="end">九阳股份</text><rect x="110" y="148.0" width="163.5" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="278.5" y="157.8" fill="#1a2540" font-size="11">2.1x</text><text x="102" y="179.4" fill="#1a2540" font-size="11" text-anchor="end">浙江美大</text><rect x="110" y="169.6" width="249.2" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="364.2" y="179.4" fill="#1a2540" font-size="11">3.1x</text><text x="102" y="201.0" fill="#1a2540" font-size="11" text-anchor="end">亿田智能</text><rect x="110" y="191.2" width="296.8" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="411.8" y="201.0" fill="#1a2540" font-size="11">3.7x</text><text x="102" y="222.6" fill="#1a2540" font-size="11" text-anchor="end">火星人</text><rect x="110" y="212.8" width="390.5" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="505.5" y="222.6" fill="#1a2540" font-size="11">4.9x</text><text x="102" y="244.2" fill="#1a2540" font-size="11" text-anchor="end">苏泊尔</text><rect x="110" y="234.4" width="514.3" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="629.3" y="244.2" fill="#1a2540" font-size="11">6.5x</text></svg></div></div>
+  <h3><span class="tag">DATA</span> 历史分位图 · 6 张</h3>
+  <div class='ws2-charts'><div class="chart"><div class="ti">毛利率分位带（厨电产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">毛利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=8 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">57.1%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">48.2%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">39.2%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">30.3%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">21.4%</text><path d="M 60.0,45.9 L 120.0,43.5 L 180.0,48.6 L 240.0,53.1 L 300.0,49.0 L 360.0,50.9 L 420.0,56.0 L 480.0,74.0 L 540.0,66.9 L 600.0,77.2 L 660.0,87.8 L 660.0,162.5 L 600.0,158.2 L 540.0,155.6 L 480.0,149.2 L 420.0,162.2 L 360.0,143.1 L 300.0,128.8 L 240.0,135.1 L 180.0,136.8 L 120.0,128.4 L 60.0,136.3 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,73.0 L 120.0,74.5 L 180.0,60.8 L 240.0,57.5 L 300.0,58.8 L 360.0,58.8 L 420.0,76.8 L 480.0,78.3 L 540.0,73.6 L 600.0,90.9 L 660.0,109.8 L 660.0,153.6 L 600.0,152.2 L 540.0,145.0 L 480.0,140.4 L 420.0,144.4 L 360.0,131.9 L 300.0,125.6 L 240.0,129.2 L 180.0,122.9 L 120.0,120.2 L 60.0,131.4 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,106.1 L 120.0,95.9 L 180.0,89.1 L 240.0,89.9 L 300.0,78.8 L 360.0,83.8 L 420.0,89.8 L 480.0,93.3 L 540.0,85.2 L 600.0,99.4 L 660.0,129.8" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,97.8 L 120.0,91.9 L 180.0,92.2 L 240.0,93.1 L 300.0,88.9 L 360.0,93.7 L 420.0,105.5 L 480.0,106.5 L 540.0,104.7 L 600.0,114.6 L 660.0,130.5" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.4</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">41.1</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">43.0</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">42.7</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">45.7</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">44.4</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">42.8</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">41.8</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">44.0</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">40.2</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">32.1</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">净利率分位带（厨电产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">净利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=8 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">29.6%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">11.8%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">-6.1%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-23.9%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-41.7%</text><path d="M 60.0,50.6 L 120.0,50.6 L 180.0,45.8 L 240.0,46.3 L 300.0,44.3 L 360.0,39.8 L 420.0,43.1 L 480.0,48.6 L 540.0,47.7 L 600.0,65.2 L 660.0,73.7 L 660.0,166.2 L 600.0,89.1 L 540.0,83.6 L 480.0,82.3 L 420.0,82.8 L 360.0,76.5 L 300.0,76.2 L 240.0,82.5 L 180.0,80.5 L 120.0,75.5 L 60.0,78.4 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,68.4 L 120.0,62.4 L 180.0,48.9 L 240.0,57.8 L 300.0,54.2 L 360.0,53.3 L 420.0,59.9 L 480.0,61.2 L 540.0,62.9 L 600.0,69.1 L 660.0,82.1 L 660.0,126.0 L 600.0,84.3 L 540.0,77.1 L 480.0,78.3 L 420.0,81.1 L 360.0,73.8 L 300.0,73.5 L 240.0,74.2 L 180.0,74.8 L 120.0,74.4 L 60.0,76.5 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,74.9 L 120.0,71.5 L 180.0,72.8 L 240.0,72.1 L 300.0,65.2 L 360.0,66.2 L 420.0,70.8 L 480.0,69.0 L 540.0,71.1 L 600.0,76.0 L 660.0,86.4" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,68.6 L 120.0,65.6 L 180.0,64.5 L 240.0,70.2 L 300.0,63.5 L 360.0,61.9 L 420.0,66.8 L 480.0,68.0 L 540.0,67.7 L 600.0,77.0 L 660.0,105.9" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">8.9</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">10.7</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">10.0</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">10.4</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">14.0</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.5</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.1</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.0</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">10.9</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">8.3</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.8</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">ROE 分位带（厨电产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">ROE 分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=8 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">62.3%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">42.3%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">22.3%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">2.2%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-17.8%</text><path d="M 60.0,71.3 L 120.0,73.5 L 180.0,39.3 L 240.0,90.1 L 300.0,81.6 L 360.0,96.3 L 420.0,96.1 L 480.0,100.7 L 540.0,100.0 L 600.0,113.1 L 660.0,118.2 L 660.0,166.7 L 600.0,137.2 L 540.0,124.9 L 480.0,129.1 L 420.0,129.6 L 360.0,122.1 L 300.0,115.7 L 240.0,120.5 L 180.0,119.3 L 120.0,116.9 L 60.0,123.3 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,104.0 L 120.0,79.3 L 180.0,84.3 L 240.0,93.7 L 300.0,90.5 L 360.0,104.1 L 420.0,101.0 L 480.0,109.5 L 540.0,113.3 L 600.0,117.5 L 660.0,128.5 L 660.0,143.8 L 600.0,134.8 L 540.0,121.2 L 480.0,120.9 L 420.0,123.5 L 360.0,118.2 L 300.0,103.0 L 240.0,105.9 L 180.0,106.3 L 120.0,110.2 L 60.0,118.4 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,111.9 L 120.0,103.4 L 180.0,100.2 L 240.0,98.0 L 300.0,99.0 L 360.0,110.5 L 420.0,112.7 L 480.0,113.8 L 540.0,119.5 L 600.0,130.3 L 660.0,134.0" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,100.8 L 120.0,97.3 L 180.0,90.2 L 240.0,103.3 L 300.0,98.9 L 360.0,110.3 L 420.0,111.8 L 480.0,114.4 L 540.0,114.9 L 600.0,124.0 L 660.0,136.8" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">16.9</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">22.0</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">23.9</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">25.2</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">24.6</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.8</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">16.5</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">15.8</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.4</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.9</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.7</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">营收同比分位带（厨电产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">营收同比分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 10 年窗 ｜ N=8 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">61.2%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">33.2%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">5.3%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-22.7%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-50.6%</text><path d="M 60.0,55.6 L 126.7,38.4 L 193.3,65.6 L 260.0,82.8 L 326.7,85.1 L 393.3,53.6 L 460.0,104.8 L 526.7,96.6 L 593.3,101.2 L 660.0,110.8 L 660.0,167.6 L 593.3,166.4 L 526.7,120.3 L 460.0,124.0 L 393.3,92.7 L 326.7,119.0 L 260.0,116.7 L 193.3,102.3 L 126.7,89.6 L 60.0,109.7 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,76.0 L 126.7,57.8 L 193.3,77.1 L 260.0,92.9 L 326.7,99.3 L 393.3,67.7 L 460.0,108.8 L 526.7,101.2 L 593.3,104.3 L 660.0,118.8 L 660.0,165.0 L 593.3,158.4 L 526.7,118.2 L 460.0,117.9 L 393.3,86.5 L 326.7,107.9 L 260.0,103.5 L 193.3,100.1 L 126.7,83.8 L 60.0,99.7 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,87.5 L 126.7,72.1 L 193.3,93.2 L 260.0,99.0 L 326.7,103.4 L 393.3,81.1 L 460.0,113.3 L 526.7,114.9 L 593.3,114.0 L 660.0,127.8" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,82.5 L 126.7,65.7 L 193.3,87.7 L 260.0,97.7 L 326.7,104.7 L 393.3,76.2 L 460.0,114.2 L 526.7,109.1 L 593.3,127.2 L 660.0,138.0" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">18.2</text><text x="126.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="126.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">31.1</text><text x="193.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="193.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.4</text><text x="260.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="260.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">8.6</text><text x="326.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="326.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.9</text><text x="393.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="393.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">23.5</text><text x="460.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="460.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-3.3</text><text x="526.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="526.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-4.7</text><text x="593.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="593.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-3.9</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-15.4</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">PE 横截面 TTM · 10 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 192" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="192" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PE 横截面（TTM，13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">6 家公司 · 取自估值快照</text><text x="102" y="49.7" fill="#1a2540" font-size="11" text-anchor="end">老板电器</text><rect x="110" y="40.0" width="89.8" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="204.8" y="49.7" fill="#1a2540" font-size="11">12.2x</text><text x="102" y="71.0" fill="#1a2540" font-size="11" text-anchor="end">华帝股份</text><rect x="110" y="61.3" width="102.2" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="217.2" y="71.0" fill="#1a2540" font-size="11">13.9x</text><text x="102" y="92.3" fill="#1a2540" font-size="11" text-anchor="end">苏泊尔</text><rect x="110" y="82.7" width="118.7" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="233.7" y="92.3" fill="#1a2540" font-size="11">16.1x</text><text x="102" y="113.7" fill="#1a2540" font-size="11" text-anchor="end">日出东方</text><rect x="110" y="104.0" width="229.1" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="344.1" y="113.7" fill="#1a2540" font-size="11">31.2x</text><text x="102" y="135.0" fill="#1a2540" font-size="11" text-anchor="end">万和电气</text><rect x="110" y="125.3" width="329.4" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="444.4" y="135.0" fill="#1a2540" font-size="11">44.8x</text><text x="102" y="156.3" fill="#1a2540" font-size="11" text-anchor="end">九阳股份</text><rect x="110" y="146.7" width="514.3" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="629.3" y="156.3" fill="#1a2540" font-size="11">70.0x</text></svg></div><div class="chart"><div class="ti">PB 横截面 · 10 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="280" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PB 横截面（13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">10 家公司 · 取自估值快照</text><text x="102" y="49.8" fill="#1a2540" font-size="11" text-anchor="end">华帝股份</text><rect x="110" y="40.0" width="86.5" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="201.5" y="49.8" fill="#1a2540" font-size="11">1.1x</text><text x="102" y="71.4" fill="#1a2540" font-size="11" text-anchor="end">帅丰电器</text><rect x="110" y="61.6" width="87.3" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="202.3" y="71.4" fill="#1a2540" font-size="11">1.1x</text><text x="102" y="93.0" fill="#1a2540" font-size="11" text-anchor="end">万和电气</text><rect x="110" y="83.2" width="88.9" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="203.9" y="93.0" fill="#1a2540" font-size="11">1.1x</text><text x="102" y="114.6" fill="#1a2540" font-size="11" text-anchor="end">老板电器</text><rect x="110" y="104.8" width="104.8" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="219.8" y="114.6" fill="#1a2540" font-size="11">1.3x</text><text x="102" y="136.2" fill="#1a2540" font-size="11" text-anchor="end">日出东方</text><rect x="110" y="126.4" width="105.6" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="220.6" y="136.2" fill="#1a2540" font-size="11">1.3x</text><text x="102" y="157.8" fill="#1a2540" font-size="11" text-anchor="end">九阳股份</text><rect x="110" y="148.0" width="163.5" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="278.5" y="157.8" fill="#1a2540" font-size="11">2.1x</text><text x="102" y="179.4" fill="#1a2540" font-size="11" text-anchor="end">浙江美大</text><rect x="110" y="169.6" width="249.2" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="364.2" y="179.4" fill="#1a2540" font-size="11">3.1x</text><text x="102" y="201.0" fill="#1a2540" font-size="11" text-anchor="end">亿田智能</text><rect x="110" y="191.2" width="296.8" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="411.8" y="201.0" fill="#1a2540" font-size="11">3.7x</text><text x="102" y="222.6" fill="#1a2540" font-size="11" text-anchor="end">火星人</text><rect x="110" y="212.8" width="390.5" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="505.5" y="222.6" fill="#1a2540" font-size="11">4.9x</text><text x="102" y="244.2" fill="#1a2540" font-size="11" text-anchor="end">苏泊尔</text><rect x="110" y="234.4" width="514.3" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="629.3" y="244.2" fill="#1a2540" font-size="11">6.5x</text></svg></div></div>
 </section>
-
 <section class="ws2-section">
-  <h3>📊 可比公司估值大表（13 家 · 当前截面）</h3>
+  <h3>📊 可比公司估值大表（10 家 · 当前截面）</h3>
   
 <div class="ws2-table-wrap">
 <table>
-<thead><tr>
-  <th>公司</th><th>代码</th><th>PE-TTM</th><th>PB</th>
-  <th>营收(亿)</th><th>净利(亿)</th>
-  <th>毛利率</th><th>净利率</th><th>ROE</th>
-  <th>营收YoY</th>
-</tr></thead>
+<thead><tr><th>公司</th><th>代码</th><th>PE-TTM</th><th>PB</th><th>营收(亿)</th><th>净利(亿)</th><th>毛利率</th><th>净利率</th><th>ROE</th><th>营收YoY</th></tr></thead>
 <tbody><tr><td>苏泊尔</td><td>002032</td><td>16.1</td><td>6.5</td><td>227.7</td><td>21.0</td><td>24.9%</td><td>9.2%</td><td>33.4%</td><td>1.5%</td></tr><tr><td>华帝股份</td><td>002035</td><td>13.9</td><td>1.1</td><td>56.5</td><td>3.0</td><td>42.5%</td><td>5.3%</td><td>7.9%</td><td>-11.4%</td></tr><tr><td>九阳股份</td><td>002242</td><td>70.0</td><td>2.1</td><td>82.1</td><td>1.2</td><td>26.8%</td><td>1.4%</td><td>3.4%</td><td>-7.2%</td></tr><tr><td>老板电器</td><td>002508</td><td>12.2</td><td>1.3</td><td>101.2</td><td>12.6</td><td>50.2%</td><td>12.4%</td><td>10.9%</td><td>-9.8%</td></tr><tr><td>万和电气</td><td>002543</td><td>44.8</td><td>1.1</td><td>72.3</td><td>2.2</td><td>25.4%</td><td>3.0%</td><td>4.5%</td><td>-1.5%</td></tr><tr><td>浙江美大</td><td>002677</td><td>—</td><td>3.1</td><td>4.5</td><td>0.1</td><td>37.4%</td><td>2.5%</td><td>0.8%</td><td>-48.2%</td></tr><tr><td>火星人</td><td>300894</td><td>—</td><td>4.9</td><td>7.7</td><td>-3.0</td><td>37.5%</td><td>-38.4%</td><td>-26.8%</td><td>-44.0%</td></tr><tr><td>亿田智能</td><td>300911</td><td>—</td><td>3.7</td><td>3.4</td><td>-1.7</td><td>10.3%</td><td>-50.9%</td><td>-14.6%</td><td>-51.9%</td></tr><tr><td>日出东方</td><td>603366</td><td>31.2</td><td>1.3</td><td>40.9</td><td>1.7</td><td>27.0%</td><td>4.3%</td><td>4.0%</td><td>-19.5%</td></tr><tr><td>帅丰电器</td><td>605336</td><td>—</td><td>1.1</td><td>2.3</td><td>-0.6</td><td>37.2%</td><td>-24.9%</td><td>-3.1%</td><td>-47.2%</td></tr></tbody>
 </table>
 </div>
 
 </section>
-
 <section class="ws2-section">
   <h3>📦 投资逻辑附加：产品定位 / 竞争格局 / 产能周期（占位）</h3>
   
 <div class="ws2-frame-placeholder">
   <h4>📦 产品定位与投资信号</h4>
   此处待人工填实：每家公司主打产品价格带、渠道结构、品牌力定位、批价走势等定性内容（取自年报/公开渠道）。
-  <br>可用结构：①高端品牌矩阵（茅台/五粮液/泸州老窖等） ②次高端与区域龙头（汾酒/古井贡/今世缘/口子窖等） ③大众价位（顺鑫农业/迎驾贡酒等）。
+  <br>可用结构：①高端品牌矩阵 ②次高端与区域龙头 ③大众价位。
 </div>
 <div class="ws2-frame-placeholder">
   <h4>🏛 竞争格局分析</h4>
   此处待人工填实：CR3/CR5 集中度、行业份额变迁、价格战历史、经销商生态、跨区域挤压。
-  <br>可用指标：①销量 CR3/CR5（公开数据） ②次高端价格带定价权 ③经销商话语权变化。
+  <br>可用指标：①销量集中度（公开数据） ②价格带定价权 ③经销商话语权变化。
 </div>
 <div class="ws2-frame-placeholder">
   <h4>🔄 产能周期与库存周期</h4>
-  此处待人工填实：基酒产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
-  <br>可用结构：①基酒半成品库存月数 ②终端动销与渠道库存 ③批价倒挂信号。
+  此处待人工填实：产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
+  <br>可用结构：①半成品库存月数 ②终端动销与渠道库存 ③价格倒挂信号。
 </div>
 
 </section>
-
 <section class="ws2-section">
   <h3>🐴 白马型 vs 周期型一览（基于 10 年财报自动分类）</h3>
   <p style="color:#5d6a82;font-size:12.5px;margin:0 0 10px 0">分类口径：ROE 中位&gt;18% 且净利率波动 σ&lt;5pp 且营收YoY σ&lt;15pp → 白马型；营收YoY σ&gt;30pp 或净利率 σ&gt;10pp → 周期型；其余 → 平衡型。</p>
   
 <div class="ws2-table-wrap ws2-classify">
 <table>
-<thead><tr>
-  <th>公司</th><th>代码</th><th>分类</th>
-  <th>ROE 中位</th><th>净利率波动 σ</th><th>营收YoY波动 σ</th>
-</tr></thead>
+<thead><tr><th>公司</th><th>代码</th><th>分类</th><th>ROE 中位</th><th>净利率波动 σ</th><th>营收YoY波动 σ</th></tr></thead>
 <tbody><tr><td>苏泊尔</td><td>002032</td><td class="tag tag-白马">白马型</td><td>28.1%</td><td>0.6</td><td>10.3</td></tr><tr><td>华帝股份</td><td>002035</td><td class="tag tag-中性">平衡型</td><td>12.9%</td><td>3.1</td><td>17.0</td></tr><tr><td>九阳股份</td><td>002242</td><td class="tag tag-白马">白马型</td><td>18.9%</td><td>3.2</td><td>10.2</td></tr><tr><td>老板电器</td><td>002508</td><td class="tag tag-白马">白马型</td><td>20.6%</td><td>3.3</td><td>11.9</td></tr><tr><td>万和电气</td><td>002543</td><td class="tag tag-中性">平衡型</td><td>13.7%</td><td>2.2</td><td>15.2</td></tr><tr><td>浙江美大</td><td>002677</td><td class="tag tag-周期">周期型</td><td>23.0%</td><td>9.0</td><td>34.5</td></tr><tr><td>火星人</td><td>300894</td><td class="tag tag-周期">周期型</td><td>22.7%</td><td>16.7</td><td>47.5</td></tr><tr><td>亿田智能</td><td>300911</td><td class="tag tag-周期">周期型</td><td>16.6%</td><td>20.8</td><td>38.9</td></tr><tr><td>日出东方</td><td>603366</td><td class="tag tag-中性">平衡型</td><td>5.1%</td><td>6.9</td><td>14.1</td></tr><tr><td>帅丰电器</td><td>605336</td><td class="tag tag-周期">周期型</td><td>12.2%</td><td>15.5</td><td>31.3</td></tr></tbody>
 </table>
 </div>
 
 </section>
-
 <section class="ws2-section">
   <h3>🏆 产业链地位 + 11 年累计复合增长（按营收 CAGR 排序）</h3>
   
 <div class="ws2-table-wrap">
 <table>
-<thead><tr>
-  <th>公司</th><th>代码</th>
-  <th>营收 CAGR (10Y)</th><th>净利 CAGR (10Y)</th>
-  <th>ROE 中位</th><th>最新营收(亿)</th>
-</tr></thead>
+<thead><tr><th>公司</th><th>代码</th><th>营收 CAGR (10Y)</th><th>净利 CAGR (10Y)</th><th>ROE 中位</th><th>最新营收(亿)</th></tr></thead>
 <tbody><tr><td>火星人</td><td>300894</td><td>15.2%</td><td>0%</td><td>22.7%</td><td>7.7</td></tr><tr><td>老板电器</td><td>002508</td><td>8.3%</td><td>4.2%</td><td>20.6%</td><td>101.2</td></tr><tr><td>苏泊尔</td><td>002032</td><td>7.6%</td><td>9.0%</td><td>28.1%</td><td>227.7</td></tr><tr><td>万和电气</td><td>002543</td><td>5.6%</td><td>-3.8%</td><td>13.7%</td><td>72.3</td></tr><tr><td>日出东方</td><td>603366</td><td>4.6%</td><td>-4.2%</td><td>5.1%</td><td>40.9</td></tr><tr><td>华帝股份</td><td>002035</td><td>4.3%</td><td>3.8%</td><td>12.9%</td><td>56.5</td></tr><tr><td>九阳股份</td><td>002242</td><td>1.5%</td><td>-15.3%</td><td>18.9%</td><td>82.1</td></tr><tr><td>亿田智能</td><td>300911</td><td>0.2%</td><td>0%</td><td>16.6%</td><td>3.4</td></tr><tr><td>浙江美大</td><td>002677</td><td>-1.3%</td><td>-22.9%</td><td>23.0%</td><td>4.5</td></tr><tr><td>帅丰电器</td><td>605336</td><td>-6.3%</td><td>0%</td><td>12.2%</td><td>2.3</td></tr></tbody>
 </table>
 </div>
 
 </section>
-<!-- ===== 白酒原版 v2 END ===== -->
+<!-- ===== v2 body END ===== -->
 
-<div class="back-bar">
-<a href="./berkshire-chain-map.html">← 全链索引</a>
-<a href="./berkshire-standalone.html">← 数据中心首页</a>
-</div>
-</body>
+<div class="research-signal">
+  <div class="rs-grid">
+<div class="rs-item"><div class="rs-label">周期位置</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">强地产后周期板块，β 于新房竣工与商品房销售；2021 后地产下行，厨电经历长周期戴维斯双杀——烟机灶具稳健龙头估值跌至 12–14x，而集成灶（曾经高成长赛道）在 2024–2025 集体盈利塌陷（火星人/亿田/帅丰转亏、美大盈利近零），当前整体处于历史底部区域但基本面拐点未现。</div></div>
+<div class="rs-item"><div class="rs-label">景气方向</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">量价承压。新房交付下滑拖累首套厨电，存量换新（以旧换新补贴）托底；集成灶从高速成长转为份额内卷与价格战、盈利塌方；洗碗机/嵌入式仍结构性增长；出海（东南亚/中东/北美 ODM）是少数增量。小厨电（九阳/苏泊尔）则受消费降级与需求透支双重压制。</div></div>
+<div class="rs-item"><div class="rs-label">结论信号</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)"><b>🟡 谨慎（左侧布局）</b> — 烟机双雄（老板/华帝）低 PE 提供安全边际但需地产企稳确认；集成灶集体困境宜甄别出清与 ST 风险；苏泊尔凭 SEB 绑定与高 ROE 最具确定性；整体宜分批、重分红、避亏损与价值陷阱。</div></div>
+<div class="rs-item"><div class="rs-label">核心催化</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">①地产政策加码+保交楼带动竣工回升　②以旧换新/消费补贴放量激活存量换新　③存量房厨电（2009–2013 家电下乡）老化换新周期　④出海（ODM/自主品牌）突破　⑤龙头高分红+回购增厚防御。</div></div>
+<div class="rs-item"><div class="rs-label">关键风险</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">①地产持续低迷、新房交付不及预期　②价格战吞噬毛利（尤集成灶）　③集成灶需求塌方、ST/持续经营风险　④原材料（钢/铜/铝）涨价挤压毛利　⑤工程渠道坏账与回款风险。</div></div>
+  </div>
+  <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:13px;line-height:1.8">
+<div style="font-weight:700;color:var(--navy)">周期位置</div><div>强地产后周期板块，β 于新房竣工与商品房销售；2021 后地产下行，厨电经历长周期戴维斯双杀——烟机灶具稳健龙头估值跌至 12–14x，而集成灶（曾经高成长赛道）在 2024–2025 集体盈利塌陷（火星人/亿田/帅丰转亏、美大盈利近零），当前整体处于历史底部区域但基本面拐点未现。</div>
+<div style="font-weight:700;color:var(--navy)">景气方向</div><div>量价承压。新房交付下滑拖累首套厨电，存量换新（以旧换新补贴）托底；集成灶从高速成长转为份额内卷与价格战、盈利塌方；洗碗机/嵌入式仍结构性增长；出海（东南亚/中东/北美 ODM）是少数增量。小厨电（九阳/苏泊尔）则受消费降级与需求透支双重压制。</div>
+<div style="font-weight:700;color:var(--navy)">结论信号</div><div><b>🟡 谨慎（左侧布局）</b> — 烟机双雄（老板/华帝）低 PE 提供安全边际但需地产企稳确认；集成灶集体困境宜甄别出清与 ST 风险；苏泊尔凭 SEB 绑定与高 ROE 最具确定性；整体宜分批、重分红、避亏损与价值陷阱。</div>
+<div style="font-weight:700;color:var(--navy)">核心催化</div><div>①地产政策加码+保交楼带动竣工回升　②以旧换新/消费补贴放量激活存量换新　③存量房厨电（2009–2013 家电下乡）老化换新周期　④出海（ODM/自主品牌）突破　⑤龙头高分红+回购增厚防御。</div>
+<div style="font-weight:700;color:var(--navy)">关键风险</div><div>①地产持续低迷、新房交付不及预期　②价格战吞噬毛利（尤集成灶）　③集成灶需求塌方、ST/持续经营风险　④原材料（钢/铜/铝）涨价挤压毛利　⑤工程渠道坏账与回款风险。</div>
+  </div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:12px;color:var(--muted)">数据锚：老板 PE≈12.2x/PB≈1.27x、华帝 PE≈13.9x/PB≈1.07x 处历史极低；集成灶(火星人/亿田/帅丰)集体亏损、浙江美大盈利近零(PE 失真)；苏泊尔 PE≈16.2x/PB≈4.82x 高 ROE 溢价；万和/日出东方低 PB。估值历史分位暂无（数据源受限）。结论为框架合成，需结合实盘研究校验。</div>
+</div>
+
+<h2 class="section-title">🏛 5 层分析框架（厨电产业链专属）</h2>
+<div class="layers">
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游原材料/零部件</div><div class="layer-text">钢材、铜、铝、塑料、玻璃、电机、控制器与芯片。钢/铜/铝占整机原材料成本约 60–70%，电机与电控次之；原料受大宗商品与汇率影响，龙头可通过年降与规模采购平抑，中小企业议价弱。</div></div>
+<div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游整机制造/研发</div><div class="layer-text">吸油烟机、燃气灶、消毒柜、集成灶、洗碗机、蒸烤一体机等整机产线，叠加研发设计（大吸力/变频/智能）。规模效应+工艺+模具壁垒为核心，集成灶因结构集成对装配与供应链要求更高，产能投放曾过度致内卷。</div></div>
+<div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游渠道/地产</div><div class="layer-text">零售（KA 卖场/电商/专卖店）+工程精装（房企集采）+下沉与换新。工程渠道占比提升使回款与坏账成为利润变量；以旧换新补贴与二手房装修驱动存量换新，是新周期关键。</div></div>
+<div class="layer-card"><div class="layer-num">04</div><div class="layer-name">竞争格局</div><div class="layer-text">烟机灶具「双寡头」老板+方太（高端），华帝中端追赶；集成灶「四小龙」美大/火星人/亿田/帅丰（2024 集体困境）；洗碗机由老板/方太/西门子主导；小厨电美的/苏泊尔/九阳三分。品牌+渠道+研发决定定价权，集成灶集中度因困境重排。</div></div>
+<div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-text">看「品牌定价权(毛利) × 地产β × 估值 × 治理/持续经营」；龙头低 PE 具安全边际但需地产拐点，集成灶宜避亏损与 ST，苏泊尔凭 SEB 绑定与高 ROE 最稳；分红/回购是防御锚，增量看出海与换新。</div></div>
+</div>
+
+<h2 class="section-title">📈 估值历史分位总览</h2>
+<div class="ovtable">
+<div class="ovtable"><table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-kitchen-elec-chain-002508.html">老板电器</a></td><td>11.8</td><td><span class="pct-cell pct-lo">5%</span></td><td>1.22</td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002035.html">华帝股份</a></td><td>13.1</td><td><span class="pct-cell pct-lo">29%</span></td><td>1.01</td><td><span class="pct-cell pct-lo">0%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-300894.html">火星人</a></td><td>-12.2</td><td><span class="pct-cell pct-lo">22%</span></td><td>3.71</td><td><span class="pct-cell pct-lo">10%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002677.html">浙江美大</a></td><td>589.9</td><td><span class="pct-cell pct-hi">98%</span></td><td>2.67</td><td><span class="pct-cell pct-lo">4%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-300911.html">亿田智能</a></td><td>-20.2</td><td><span class="pct-cell pct-lo">31%</span></td><td>3.07</td><td><span class="pct-cell pct-lo">30%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-605336.html">帅丰电器</a></td><td>-27.2</td><td><span class="pct-cell pct-lo">4%</span></td><td>0.94</td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002543.html">万和电气</a></td><td>40.1</td><td><span class="pct-cell pct-hi">98%</span></td><td>0.96</td><td><span class="pct-cell pct-lo">0%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-603366.html">日出东方</a></td><td>28.5</td><td><span class="pct-cell pct-mid">54%</span></td><td>1.21</td><td><span class="pct-cell pct-mid">41%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002242.html">九阳股份</a></td><td>62.2</td><td><span class="pct-cell pct-hi">90%</span></td><td>1.77</td><td><span class="pct-cell pct-lo">0%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002032.html">苏泊尔</a></td><td>17.0</td><td><span class="pct-cell pct-lo">4%</span></td><td>5.06</td><td><span class="pct-cell pct-lo">4%</span></td></tr>
+
+</tbody>
+</table></div>
+</div>
+<div class="source-note" style="margin-top:10px">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。<span class="pct pct-lo">绿</span>偏低/便宜　<span class="pct pct-mid">橙</span>中位　<span class="pct pct-hi">红</span>偏高/贵。亏损企业 PE 为负、PE 分位不适用，仅看 PB；分位为时点统计。</div>
+
+<h2 class="section-title">⚖ R15 三维评级总览</h2>
+<div class="ovtable">
+<div class="ovtable"><table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-kitchen-elec-chain-002508.html">老板电器</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">5%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002035.html">华帝股份</a></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">29%</span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-300894.html">火星人</a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">8</span></td><td><span class="pct-cell pct-lo">22%</span></td><td><span class="pct-cell pct-lo">10%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002677.html">浙江美大</a></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-hi">98%</span></td><td><span class="pct-cell pct-lo">4%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-300911.html">亿田智能</a></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">7</span></td><td><span class="pct-cell pct-lo">31%</span></td><td><span class="pct-cell pct-lo">30%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-605336.html">帅丰电器</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">4%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002543.html">万和电气</a></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-hi">98%</span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-603366.html">日出东方</a></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-mid">54%</span></td><td><span class="pct-cell pct-mid">41%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002242.html">九阳股份</a></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-hi">90%</span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002032.html">苏泊尔</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">4%</span></td><td><span class="pct-cell pct-lo">4%</span></td></tr>
+
+</tbody>
+</table></div>
+</div>
+<div class="source-note" style="margin-top:10px">R15 三维：①<b>估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；②<b>质量星级</b>=近10年ROE均值（★越多质地越好）；③<b>时机分</b>=链周期指数百分位（分越高越接近周期底部）。数据为时点统计。</div>
+
+<h2 class="section-title">🏭 产业链成本传导</h2>
+<div class="cost-block">
+
+    <svg viewBox="0 0 800 150" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="arr-kitchen-elec" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0 0, 8 4, 0 8" fill="#f59e0b"/></marker></defs>
+      <g><rect x="15" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="100" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游·原材料/零部件</text></g>
+      <g><rect x="225" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="310" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游·整机制造</text></g>
+      <g><rect x="435" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="520" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游·渠道/地产</text></g>
+      <g><rect x="645" y="40" width="140" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="715" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">利润</text></g>
+      <line x1="185" y1="64" x2="225" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-kitchen-elec)"/>
+      <line x1="395" y1="64" x2="435" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-kitchen-elec)"/>
+      <line x1="605" y1="64" x2="645" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-kitchen-elec)"/>
+      <g><rect x="280" y="105" width="240" height="34" rx="6" fill="#fbf7ee" stroke="#f59e0b" stroke-width="1.5"/><text x="400" y="127" text-anchor="middle" font-size="12" font-weight="700" fill="#0b1f3a">核心变量=护城河</text></g>
+    </svg>
+  <p class="cost-note" style="font-style:normal;text-align:left"><p>厨电<b>成本传导=钢/铜/铝/塑料成本→毛利→利润</b>。原材料（尤其钢与铜）占整机成本六成以上：原料上行直接挤压毛利，龙头可借年降、提价与套保部分传导，中小厂被动承受。<b>工程精装渠道</b>占比提升后，回款周期与房企坏账成为利润的另一变量——老板曾因工程减值冲击利润。</p><p>集成灶因 2023–2025 价格内战，出厂价与终端价同步下杀，<b>成本下降未能转化为利润、反而被价格战吞噬</b>。因此厨电盈利 ≈ f(原料↓、提价/年降能力↑、地产交付↑、价格战强度↓)，<b>品牌定价权（高毛利）是熨平原料与地产周期、构筑护城河的核心变量</b>——这也是老板（50%+ 毛利）区别于集成灶困境企业的根本。</p></p>
+</div>
+
+<h2 class="section-title">👥 员工效率排行</h2>
+<div class="ovtable">
+<div class="ovtable"><table>
+<thead><tr><th>公司</th><th>员工(2025)</th><th>员工同比</th><th>人均净利</th><th>效率信号</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-kitchen-elec-chain-002508.html">老板电器</a></td><td>4980</td><td class="num down">-3.6%</td><td class="num">¥25.3万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002035.html">华帝股份</a></td><td>4936</td><td class="num down">-5.2%</td><td class="num">¥6.1万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-300894.html">火星人</a></td><td>1468</td><td class="num down">-20.3%</td><td class="num">¥-20.4万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002677.html">浙江美大</a></td><td>571</td><td class="num down">-23.1%</td><td class="num">¥1.8万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-300911.html">亿田智能</a></td><td>490</td><td class="num down">-53.8%</td><td class="num">¥-34.7万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-605336.html">帅丰电器</a></td><td>576</td><td class="num down">-27.0%</td><td class="num">¥-10.4万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002543.html">万和电气</a></td><td>5782</td><td class="num up">+1.8%</td><td class="num">¥3.8万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-603366.html">日出东方</a></td><td>4454</td><td class="num down">-11.7%</td><td class="num">¥4.0万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002242.html">九阳股份</a></td><td>2100</td><td class="num down">-10.3%</td><td class="num">¥5.7万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-kitchen-elec-chain-002032.html">苏泊尔</a></td><td>1万</td><td class="num down">-4.9%</td><td class="num">¥19.5万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+
+</tbody>
+</table></div>
+</div>
+<div class="source-note" style="margin-top:10px">员工增速=在职员工同比；人均净利=2025 归母净利÷员工数。组织效能信号为代理指标，非投资建议。</div>
+
+<h2 class="section-title">🏢 主要玩家索引（上市公司 10 家）</h2>
+<div class="grid">
+<a class="giant-card" href="./berkshire-kitchen-elec-chain-002508.html"><div class="gc-title">老板电器</div><div class="gc-code">002508</div><div class="gc-meta">烟机灶具绝对龙头</div><div class="gc-desc">吸油烟机/燃气灶高端双料龙头，品牌+渠道+工程壁垒最强，PE≈12.2x/PB≈1.27x 处历史极低，地产后周期典型资产。</div></a>
+<a class="giant-card" href="./berkshire-kitchen-elec-chain-002035.html"><div class="gc-title">华帝股份</div><div class="gc-code">002035</div><div class="gc-meta">烟机灶具老二</div><div class="gc-desc">烟机灶具老二，治理理顺后重回正轨，PE≈13.9x/PB≈1.07x 深度便宜，弹性大于老板。</div></a>
+<a class="giant-card" href="./berkshire-kitchen-elec-chain-002677.html"><div class="gc-title">浙江美大</div><div class="gc-code">002677</div><div class="gc-meta">集成灶开创者</div><div class="gc-desc">集成灶品类开创者（侧吸下排专利），但行业需求塌方致盈利近零，PB≈3.12x 偏高、TTM PE 失真，困境观察。</div></a>
+<a class="giant-card" href="./berkshire-kitchen-elec-chain-300894.html"><div class="gc-title">火星人</div><div class="gc-code">300894</div><div class="gc-meta">集成灶线上龙头</div><div class="gc-desc">集成灶线上销量龙头（电商打法凶猛），但行业下行转亏损（TTM PE 为负），PB≈4.84x 仍高，典型成长证伪。</div></a>
+<a class="giant-card" href="./berkshire-kitchen-elec-chain-300911.html"><div class="gc-title">亿田智能</div><div class="gc-code">300911</div><div class="gc-meta">集成灶头部</div><div class="gc-desc">集成灶头部之一（集成灶+集成烹饪中心），行业下行转亏损（TTM PE 负），PB≈3.75x，困境博弈。</div></a>
+<a class="giant-card" href="./berkshire-kitchen-elec-chain-605336.html"><div class="gc-title">帅丰电器</div><div class="gc-code">605336</div><div class="gc-meta">集成灶(ST)</div><div class="gc-desc">集成灶老牌（帅丰），行业下行叠加重组/风险被 ST（*ST帅电），PB≈1.10x 低但基本面脆弱，高危困境。</div></a>
+<a class="giant-card" href="./berkshire-kitchen-elec-chain-002543.html"><div class="gc-title">万和电气</div><div class="gc-code">002543</div><div class="gc-meta">厨卫电器</div><div class="gc-desc">燃气灶/燃气热水器老牌（厨卫双线），出口代工强，PB≈1.08x 低、TTM PE≈44.8x 偏高（一次性）。</div></a>
+<a class="giant-card" href="./berkshire-kitchen-elec-chain-603366.html"><div class="gc-title">日出东方</div><div class="gc-code">603366</div><div class="gc-meta">厨卫+热水器</div><div class="gc-desc">太阳能/空气能热水器龙头，控股帅康切入厨电，PE≈31.2x/PB≈1.32x，业务多元、厨电纯度有限。</div></a>
+<a class="giant-card" href="./berkshire-kitchen-elec-chain-002242.html"><div class="gc-title">九阳股份</div><div class="gc-code">002242</div><div class="gc-meta">厨房小家电</div><div class="gc-desc">豆浆机发明者、厨房小家电龙头（破壁/饭煲/清洁），增长承压 PE≈70x 偏高、PB≈1.99x，存量博弈。</div></a>
+<a class="giant-card" href="./berkshire-kitchen-elec-chain-002032.html"><div class="gc-title">苏泊尔</div><div class="gc-code">002032</div><div class="gc-meta">厨房炊具小家电</div><div class="gc-desc">炊具+小家电龙头（SEB 控股、出口+内销），稳健高 ROE，PE≈16.2x/PB≈4.82x，板块最稳现金牛。</div></a>
+</div>
+
+<div class="source-note">
+  📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+
+<script src="./analytics.js"></script>
+<script src="./tdx-link.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.sortable').forEach(function(t){
+    t.querySelectorAll('th').forEach(function(th,i){
+      th.addEventListener('click',function(){
+        var d=t.querySelector('tbody');
+        var rows=Array.from(d.querySelectorAll('tr'));
+        var asc=th.classList.contains('sorted-asc');
+        th.classList.remove('sorted-asc','sorted-desc');
+        rows.sort(function(a,b){
+          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+          av=parseFloat(av); bv=parseFloat(bv);
+          return asc?bv-av:av-bv;
+        });
+        th.classList.add(asc?'sorted-desc':'sorted-asc');
+        rows.forEach(function(r){d.appendChild(r)});
+      });
+    });
+  });
+});
+</script>
+<div class="section-title">延伸阅读 · 厨电产业链 7 兄弟页</div>
+<div class="extend-grid"><a class="extend-card" href="./berkshire-kitchen-elec-compare.html"><b>🥇 估值分位</b><span>厨电产业链（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-kitchen-elec-thermometer.html"><b>🌡️ 估值温度计</b><span>厨电产业链（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-kitchen-elec-buyback.html"><b>💰 回购监测</b><span>厨电产业链（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-kitchen-elec-repomap.html"><b>🗺️ 板块图谱</b><span>厨电产业链（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-kitchen-elec-backtest.html"><b>📈 五年回测</b><span>厨电产业链（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-kitchen-elec-cycle.html"><b>🔄 周期演进</b><span>厨电产业链（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-kitchen-elec-methodology.html"><b>📘 方法论说明</b><span>厨电产业链（估值/回购/周期研究的取值口径与可信区间）</span></a></div>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
+</body>
