@@ -1,97 +1,97 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>医药外包产业链 · 调研 | 价值投资初级阶段</title>
-<link rel="stylesheet" href="./analytics.js">
-<style>
-:root {
-  --navy: #0b1f3a;
-  --navy2: #10294d;
-  --ink: #1d2b40;
-  --line: #e4e9f2;
-  --accent: #e8b84b;
-  --accent-rgb: 232,184,75;
-  --txt: #23344e;
-  --muted: #6b7a93;
-  --card: #fff;
-  --bg: #f4f7fc;
-  --green: #1f9d6b;
-  --red: #e74c3c;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
-.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
-.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
-.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
-.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
-.hero h1{font-size:28px;margin-bottom:10px;}
-.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
-.hero .stat{font-size:14px;}
-.hero .stat b{color:var(--accent);font-size:22px;display:block;}
-.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
-.data-banner b{color:var(--navy);font-weight:600}
-.container{max-width:1100px;margin:0 auto;padding:0 20px;}
-.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
-.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
-.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
-.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
-.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
-.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
-.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
-.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
-.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
-.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
-.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
-.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
-.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
-.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
-.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
-.ovtable tr:hover{background:#f4f7fc;}
-.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
-.pct-lo{background:#d1fae5;color:#065f46;}
-.pct-mid{background:#fef3c7;color:#92400e;}
-.pct-hi{background:#fee2e2;color:#991b1b;}
-.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
-.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
-.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
-.emp-badge.normal{background:#d1fae5;color:#065f46;}
-.emp-badge.warn{background:#fef3c7;color:#92400e;}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
-.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
-.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
-.gc-icon{font-size:24px;margin-bottom:8px;}
-.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
-.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
-.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
-.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
-.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
-.sortable th{cursor:pointer;user-select:none;}
-.sortable th:hover{background:var(--navy2);}
-.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
-.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
-.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
-
-.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
-.breadcrumb a{color:var(--primary-dark);text-decoration:none}
-.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
-.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
-.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
-.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
-.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
-.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
-.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
-.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
-.back-bar a:hover{background:#e8b84b;color:#fff}
-
-</style>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>医药外包产业链 · 调研 | 价值投资初级阶段</title>
+<link rel="stylesheet" href="./analytics.js">
+<style>
+:root {
+  --navy: #0b1f3a;
+  --navy2: #10294d;
+  --ink: #1d2b40;
+  --line: #e4e9f2;
+  --accent: #e8b84b;
+  --accent-rgb: 232,184,75;
+  --txt: #23344e;
+  --muted: #6b7a93;
+  --card: #fff;
+  --bg: #f4f7fc;
+  --green: #1f9d6b;
+  --red: #e74c3c;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
+.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
+.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
+.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
+.hero h1{font-size:28px;margin-bottom:10px;}
+.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
+.hero .stat{font-size:14px;}
+.hero .stat b{color:var(--accent);font-size:22px;display:block;}
+.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
+.data-banner b{color:var(--navy);font-weight:600}
+.container{max-width:1100px;margin:0 auto;padding:0 20px;}
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
+.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
+.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
+.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
+.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
+.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
+.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
+.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
+.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
+.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
+.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
+.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
+.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
+.ovtable tr:hover{background:#f4f7fc;}
+.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
+.pct-lo{background:#d1fae5;color:#065f46;}
+.pct-mid{background:#fef3c7;color:#92400e;}
+.pct-hi{background:#fee2e2;color:#991b1b;}
+.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
+.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
+.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
+.emp-badge.normal{background:#d1fae5;color:#065f46;}
+.emp-badge.warn{background:#fef3c7;color:#92400e;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
+.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
+.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
+.gc-icon{font-size:24px;margin-bottom:8px;}
+.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
+.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
+.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
+.sortable th{cursor:pointer;user-select:none;}
+.sortable th:hover{background:var(--navy2);}
+.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
+.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
+.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style>
 
 <style>
 /* v2 white-spirit template additions */
@@ -129,573 +129,555 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 .ws2-frame-placeholder li{margin:2px 0}
 </style>
 
-</head>
-<body>
+</head>
+<body>
+
+<div class="top-bar">
+  <a href="./index.html">← 返回首页</a>
+  <span style="opacity:0.5">·</span>
+  <strong>医药外包产业链</strong>
+</div>
+<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>医药外包</b></div>
+
+<div class="hero">
+  <h1>💊 医药外包产业链</h1>
+  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 估值/质量/景气/回报/效率 五维验证</div>
+  <div class="stats">
+    <div class="stat"><b>10</b>代表公司</div>
+    <div class="stat"><b>≈33%</b>平均PE分位</div>
+    <div class="stat"><b>≈30%</b>平均PB分位</div>
+  </div>
+</div>
+
+<div class="data-banner">
+  <b>📊 数据锚</b>：平均 PE分位 ≈33% · 平均 PB分位 ≈30% · 估值/ROE/人均盈利已 10/10 覆盖
+</div>
+
+<div class="container">
+
+<h2 class="section-title">🔔 5 维研究信号</h2>
 
-<div class="top-bar">
-  <a href="./index.html">← 返回首页</a>
-  <span style="opacity:0.5">·</span>
-  <strong>医药外包产业链</strong>
-</div>
-<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>医药外包</b></div>
-
-<div class="hero">
-  <h1>💊 医药外包产业链</h1>
-  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 估值/质量/景气/回报/效率 五维验证</div>
-  <div class="stats">
-    <div class="stat"><b>10</b>代表公司</div>
-    <div class="stat"><b>≈33%</b>平均PE分位</div>
-    <div class="stat"><b>≈30%</b>平均PB分位</div>
-  </div>
-</div>
-
-<div class="data-banner">
-  <b>📊 数据锚</b>：平均 PE分位 ≈33% · 平均 PB分位 ≈30% · 估值/ROE/人均盈利已 10/10 覆盖
-</div>
-
-<div class="container">
-
-<h2 class="section-title">🔔 5 维研究信号</h2>
-<div class="research-signal">
-  <div class="rs-grid">
-    <div class="rs-item"><div class="rs-label">估值信号</div><div class="rs-val">估值历史分位 → 当前位置 + 平均分位</div><div style="font-size:10px;color:var(--muted);margin-top:4px">估</div></div><div class="rs-item"><div class="rs-label">质量信号</div><div class="rs-val">ROE/毛利率/净利率 → 龙头质量</div><div style="font-size:10px;color:var(--muted);margin-top:4px">质</div></div><div class="rs-item"><div class="rs-label">景气信号</div><div class="rs-val">营收/利润同比 → 行业景气</div><div style="font-size:10px;color:var(--muted);margin-top:4px">景</div></div><div class="rs-item"><div class="rs-label">回报信号</div><div class="rs-val">股息率 + 回购 → 股东回报</div><div style="font-size:10px;color:var(--muted);margin-top:4px">回</div></div><div class="rs-item"><div class="rs-label">人效信号</div><div class="rs-val">人均创收/人均净利 → 经营效率</div><div style="font-size:10px;color:var(--muted);margin-top:4px">效</div></div>
-  </div>
-</div>
-
-<h2 class="section-title">🏛 5 层分析框架</h2>
-<div class="layers">
-      <div class="layer-card">
-        <div class="layer-num">01</div>
-        <div class="layer-name">上游成本</div>
-        <div class="layer-text">原材料/零部件供应，价格波动传导与议价能力。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">02</div>
-        <div class="layer-name">中游制造</div>
-        <div class="layer-text">产能利用率与规模效应，决定盈利波动。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">03</div>
-        <div class="layer-name">下游应用</div>
-        <div class="layer-text">终端需求景气与渗透率变化。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">04</div>
-        <div class="layer-name">竞争格局</div>
-        <div class="layer-text">集中度、龙头溢价、护城河深浅。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">05</div>
-        <div class="layer-name">投资逻辑</div>
-        <div class="layer-text">周期位置 + 估值锚 + 人效 + 机构共识 四维验证。</div>
-      </div></div>
-
-<h2 class="section-title">💬 人话版 · 实战信号</h2>
-<div class="human-block">
-  <p><b>看产业链核心是「周期位置 + 护城河 + 估值锚」三维交叉验证。</b></p>
-  <ul style="margin-top:12px;padding-left:20px;line-height:1.8">
-    <li>先看周期位置：库存/价格/产能/估值 四维判断当前位置。</li><li>再看护城河：龙头集中度 + 规模效应 + 准入壁垒。</li><li>然后看估值锚：PE/PB 历史分位 + 同行业可比 + 跨市场对比。</li><li>警惕陷阱：低估值不等于低估，可能反映景气下行。</li><li>实战信号：股息率 + 回购 + 机构持仓 三路验证。</li>
-  </ul>
-</div>
-
-<h2 class="section-title">🔄 产业周期判断标准</h2>
-<div class="cycle-block">
-  <p><b>驱动因素：</b>行业景气由供需结构 + 政策周期 + 货币环境 + 库存周期 共同决定。</p>
-  <div class="cycle-grid">
-    <div><b>供需</b>产能利用率/订单饱满度/价格传导</div><div><b>库存</b>主动累库/被动累库/主动去库</div><div><b>价格</b>原料价格/出厂价/终端价</div><div><b>估值</b>PE/PB 历史分位 + 行业相对估值</div>
-  </div>
-  <p style="margin-top:14px"><b>历史案例：</b>复盘 2018-2020 周期：估值低位 + 业绩拐点 + 产业政策利好 三共振时胜率最高。</p>
-  <p style="margin-top:8px"><b>当前位置：</b>当前多数子行业估值历史分位偏低，部分龙头股息率创近 5 年新高，景气底部信号渐显。</p>
-</div>
-
-<h2 class="section-title">📈 估值历史分位总览</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-603259.html"><b>药明康德</b></a></td>
-        <td>603259</td>
-        <td>18.5 <span class="pct pct-lo">18%</span></td>
-        <td>4.43 <span class="pct pct-lo">32%</span></td>
-        <td>27.7%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-300759.html"><b>康龙化成</b></a></td>
-        <td>300759</td>
-        <td>41.8 <span class="pct pct-mid">45%</span></td>
-        <td>4.30 <span class="pct pct-lo">35%</span></td>
-        <td>11.6%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-300347.html"><b>泰格医药</b></a></td>
-        <td>300347</td>
-        <td>52.4 <span class="pct pct-lo">33%</span></td>
-        <td>1.93 <span class="pct pct-lo">4%</span></td>
-        <td>4.3%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-002821.html"><b>凯莱英</b></a></td>
-        <td>002821</td>
-        <td>51.4 <span class="pct pct-mid">60%</span></td>
-        <td>3.18 <span class="pct pct-lo">32%</span></td>
-        <td>6.6%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-603127.html"><b>昭衍新药</b></a></td>
-        <td>603127</td>
-        <td>68.5 <span class="pct pct-mid">49%</span></td>
-        <td>3.96 <span class="pct pct-lo">38%</span></td>
-        <td>3.6%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-300363.html"><b>博腾股份</b></a></td>
-        <td>300363</td>
-        <td>66.3 <span class="pct pct-hi">73%</span></td>
-        <td>1.59 <span class="pct pct-lo">10%</span></td>
-        <td>1.8%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-688202.html"><b>美迪西</b></a></td>
-        <td>688202</td>
-        <td>-80.5 <span class="pct pct-lo">3%</span></td>
-        <td>5.66 <span class="pct pct-mid">43%</span></td>
-        <td>-8.2%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-603456.html"><b>九洲药业</b></a></td>
-        <td>603456</td>
-        <td>18.9 <span class="pct pct-lo">14%</span></td>
-        <td>1.39 <span class="pct pct-lo">5%</span></td>
-        <td>8.5%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-300149.html"><b>睿智医药</b></a></td>
-        <td>300149</td>
-        <td>-373.9 <span class="pct pct-lo">2%</span></td>
-        <td>3.32 <span class="pct pct-mid">51%</span></td>
-        <td>1.1%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-000739.html"><b>普洛药业</b></a></td>
-        <td>000739</td>
-        <td>25.6 <span class="pct pct-lo">38%</span></td>
-        <td>3.47 <span class="pct pct-mid">50%</span></td>
-        <td>13.6%</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">⚖ R15 三维评级总览</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-603259.html"><b>药明康德</b></a></td>
-        <td>18.5</td>
-        <td>4.43</td>
-        <td>★★★★</td>
-        <td>★★★★★</td>
-        <td>7</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-300759.html"><b>康龙化成</b></a></td>
-        <td>41.8</td>
-        <td>4.30</td>
-        <td>★★★</td>
-        <td>★★★</td>
-        <td>6</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-300347.html"><b>泰格医药</b></a></td>
-        <td>52.4</td>
-        <td>1.93</td>
-        <td>★★</td>
-        <td>★</td>
-        <td>8</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-002821.html"><b>凯莱英</b></a></td>
-        <td>51.4</td>
-        <td>3.18</td>
-        <td>★★★</td>
-        <td>★</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-603127.html"><b>昭衍新药</b></a></td>
-        <td>68.5</td>
-        <td>3.96</td>
-        <td>★★★</td>
-        <td>★</td>
-        <td>6</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-300363.html"><b>博腾股份</b></a></td>
-        <td>66.3</td>
-        <td>1.59</td>
-        <td>★★★</td>
-        <td>★</td>
-        <td>6</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-688202.html"><b>美迪西</b></a></td>
-        <td>-80.5</td>
-        <td>5.66</td>
-        <td>★★★★★</td>
-        <td>★</td>
-        <td>8</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-603456.html"><b>九洲药业</b></a></td>
-        <td>18.9</td>
-        <td>1.39</td>
-        <td>★★★★★</td>
-        <td>★★</td>
-        <td>9</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-300149.html"><b>睿智医药</b></a></td>
-        <td>-373.9</td>
-        <td>3.32</td>
-        <td>★★★★★</td>
-        <td>★</td>
-        <td>7</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-000739.html"><b>普洛药业</b></a></td>
-        <td>25.6</td>
-        <td>3.47</td>
-        <td>★★</td>
-        <td>★★★★</td>
-        <td>6</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">🏭 产业链成本传导</h2>
-
-    <div class="cost-block">
-      <h3>产业链成本传导路径</h3>
-      <svg viewBox="0 0 800 140" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="arr-ac" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-            <polygon points="0 0, 8 4, 0 8" fill="#0ea5e9"/>
-          </marker>
-        </defs>
-        <g>
-          <rect x="15" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
-          <text x="80" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游原材料</text>
-        </g>
-        <g>
-          <rect x="215" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
-          <text x="280" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游加工</text>
-        </g>
-        <g>
-          <rect x="415" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
-          <text x="480" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游品牌</text>
-        </g>
-        <g>
-          <rect x="615" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
-          <text x="680" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">需求弹性</text>
-        </g>
-        <line x1="145" y1="52" x2="215" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-        <line x1="345" y1="52" x2="415" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-        <line x1="545" y1="52" x2="615" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-      </svg>
-      <p class="cost-note">成本传导关键看议价能力与库存周期：龙头凭借规模优势可锁定上游成本；中小厂商在价格上行期被动跟涨、在下行期被迫降价。</p>
-    </div>
-
-<h2 class="section-title">👥 员工效率排行</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>2024员工</th><th>同比</th><th>人均净利</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-603259.html"><b>药明康德</b></a></td>
-        <td>603259</td>
-        <td>3万</td>
-        <td>4万</td>
-        <td>-14.2%</td>
-        <td>¥56.6万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-300759.html"><b>康龙化成</b></a></td>
-        <td>300759</td>
-        <td>6493</td>
-        <td>2万</td>
-        <td>-69.6%</td>
-        <td>¥25.6万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-300347.html"><b>泰格医药</b></a></td>
-        <td>300347</td>
-        <td>1万</td>
-        <td>9701</td>
-        <td>+5.0%</td>
-        <td>¥8.7万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-002821.html"><b>凯莱英</b></a></td>
-        <td>002821</td>
-        <td>1万</td>
-        <td>9595</td>
-        <td>+10.7%</td>
-        <td>¥10.6万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-603127.html"><b>昭衍新药</b></a></td>
-        <td>603127</td>
-        <td>2649</td>
-        <td>—</td>
-        <td>口径异常</td>
-        <td>¥11.3万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-300363.html"><b>博腾股份</b></a></td>
-        <td>300363</td>
-        <td>4359</td>
-        <td>4214</td>
-        <td>+3.4%</td>
-        <td>¥2.3万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-688202.html"><b>美迪西</b></a></td>
-        <td>688202</td>
-        <td>86</td>
-        <td>83</td>
-        <td>+3.6%</td>
-        <td>¥-197.7万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-603456.html"><b>九洲药业</b></a></td>
-        <td>603456</td>
-        <td>4791</td>
-        <td>5001</td>
-        <td>-4.2%</td>
-        <td>¥15.2万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-300149.html"><b>睿智医药</b></a></td>
-        <td>300149</td>
-        <td>1771</td>
-        <td>1814</td>
-        <td>-2.4%</td>
-        <td>¥0.6万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-cxo-chain-000739.html"><b>普洛药业</b></a></td>
-        <td>000739</td>
-        <td>6787</td>
-        <td>7060</td>
-        <td>-3.9%</td>
-        <td>¥13.1万</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">🏢 公司索引</h2>
-<div class="grid">
-      <a class="giant-card" href="./berkshire-cxo-chain-603259.html">
-        <div class="gc-title">药明康德</div>
-        <div class="gc-code">603259</div>
-        <div class="gc-meta">PE 18.5 · PB 4.43 · ROE 27.7%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-cxo-chain-300759.html">
-        <div class="gc-title">康龙化成</div>
-        <div class="gc-code">300759</div>
-        <div class="gc-meta">PE 41.8 · PB 4.30 · ROE 11.6%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-cxo-chain-300347.html">
-        <div class="gc-title">泰格医药</div>
-        <div class="gc-code">300347</div>
-        <div class="gc-meta">PE 52.4 · PB 1.93 · ROE 4.3%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-cxo-chain-002821.html">
-        <div class="gc-title">凯莱英</div>
-        <div class="gc-code">002821</div>
-        <div class="gc-meta">PE 51.4 · PB 3.18 · ROE 6.6%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-cxo-chain-603127.html">
-        <div class="gc-title">昭衍新药</div>
-        <div class="gc-code">603127</div>
-        <div class="gc-meta">PE 68.5 · PB 3.96 · ROE 3.6%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-cxo-chain-300363.html">
-        <div class="gc-title">博腾股份</div>
-        <div class="gc-code">300363</div>
-        <div class="gc-meta">PE 66.3 · PB 1.59 · ROE 1.8%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-cxo-chain-688202.html">
-        <div class="gc-title">美迪西</div>
-        <div class="gc-code">688202</div>
-        <div class="gc-meta">PE -80.5 · PB 5.66 · ROE -8.2%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-cxo-chain-603456.html">
-        <div class="gc-title">九洲药业</div>
-        <div class="gc-code">603456</div>
-        <div class="gc-meta">PE 18.9 · PB 1.39 · ROE 8.5%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-cxo-chain-300149.html">
-        <div class="gc-title">睿智医药</div>
-        <div class="gc-code">300149</div>
-        <div class="gc-meta">PE -373.9 · PB 3.32 · ROE 1.1%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-cxo-chain-000739.html">
-        <div class="gc-title">普洛药业</div>
-        <div class="gc-code">000739</div>
-        <div class="gc-meta">PE 25.6 · PB 3.47 · ROE 13.6%</div>
-      </a></div>
-
-<h2 class="section-title">📚 延伸阅读</h2>
-<div class="grid">
-
-      <a class="giant-card" href="./berkshire-cxo-cycle.html">
-        <div class="gc-icon">🔄</div>
-        <div class="gc-title">产业周期</div>
-        <div class="gc-desc">库存/价格/产能/估值四维判断周期位置。</div>
-      </a>
-      <a class="giant-card" href="./berkshire-cxo-backtest.html">
-        <div class="gc-icon">📈</div>
-        <div class="gc-title">回测框架</div>
-        <div class="gc-desc">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</div>
-      </a>
-      <a class="giant-card" href="./berkshire-cxo-buyback.html">
-        <div class="gc-icon">💰</div>
-        <div class="gc-title">逐轮买点回报图</div>
-        <div class="gc-desc">三轮全市场大底买入并持有的后复权累计回报。</div>
-      </a>      <a class="giant-card" href="berkshire-cxo-repomap.html">
-        <div class="gc-icon">🗺️</div>
-        <div class="gc-title">回购地图</div>
-        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分，逐家拆解。</div>
-      </a></div>
-
-<div class="source-note">
-  数据来源：akshare / 同花顺 / 巨潮资讯网 · 数据日期：2026-08-09 · 仅供参考，不构成投资建议
-</div>
-
-</div>
-
-<script src="./analytics.js"></script>
-<script src="./tdx-link.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.sortable').forEach(function(t){
-    t.querySelectorAll('th').forEach(function(th,i){
-      th.addEventListener('click',function(){
-        var d=t.querySelector('tbody');
-        var rows=Array.from(d.querySelectorAll('tr'));
-        var asc=th.classList.contains('sorted-asc');
-        th.classList.remove('sorted-asc','sorted-desc');
-        rows.sort(function(a,b){
-          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          av=parseFloat(av); bv=parseFloat(bv);
-          return asc?bv-av:av-bv;
-        });
-        th.classList.add(asc?'sorted-desc':'sorted-asc');
-        rows.forEach(function(r){d.appendChild(r)});
-      });
-    });
-  });
-});
-</script>
-<div class="section-title">延伸阅读 · 医药外包 7 兄弟页</div>
-<div class="extend-grid">
-<a class="extend-card" href="./berkshire-cxo-compare.html"><b>🥇 估值分位</b><span>医药外包（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-cxo-thermometer.html"><b>🌡️ 估值温度计</b><span>医药外包（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-cxo-buyback.html"><b>💰 回购监测</b><span>医药外包（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-cxo-repomap.html"><b>🗺️ 板块图谱</b><span>医药外包（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-cxo-backtest.html"><b>📈 五年回测</b><span>医药外包（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-cxo-cycle.html"><b>🔄 周期演进</b><span>医药外包（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-cxo-methodology.html"><b>📘 方法论说明</b><span>医药外包（估值/回购/周期研究的取值口径与可信区间）</span></a>
-</div>
-
-<!-- ===== 白酒原版 v2 (per 老板截屏) START ===== -->
+<!-- ===== v2 body (per 老板截屏) START ===== -->
 <div class="ws2-counter-wrap">
   
 <div class="ws2-counter">
   <div class="card"><div class="num">10</div><div class="lbl">家上市公司</div></div>
-  <div class="card"><div class="num">4</div><div class="lbl">核心环节</div></div>
+  <div class="card"><div class="num">10</div><div class="lbl">核心环节 / 子链</div></div>
   <div class="card"><div class="num">6</div><div class="lbl">延伸阅读</div></div>
 </div>
 <div class="ws2-tip"><b>纪律声明：</b>本面板只用公开财报与估值数据可验证的事实。<b>不含</b>任何编造叙事——投资逻辑、产品定位、竞争格局、产能周期均以<b>占位框架</b>呈现，待人工补充。</div>
 
 </div>
-
 <section class="ws2-section">
   <h3>🎯 投资逻辑（8 条 · 占位框架，待人工填实）</h3>
   <div class='ws2-logic8'><div class="item empty"><b>1️⃣ 商业模式与护城河来源</b>（占位 · 待人工填实）</div><div class="item empty"><b>2️⃣ 行业集中度与玩家分层</b>（占位 · 待人工填实）</div><div class="item empty"><b>3️⃣ 产业链上下游关系</b>（占位 · 待人工填实）</div><div class="item empty"><b>4️⃣ 周期性与价格话语权</b>（占位 · 待人工填实）</div><div class="item empty"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>（占位 · 待人工填实）</div><div class="item empty"><b>6️⃣ 估值水位与历史分位</b>（占位 · 待人工填实）</div><div class="item empty"><b>7️⃣ 主要风险事件清单</b>（占位 · 待人工填实）</div><div class="item empty"><b>8️⃣ 投资跟踪指标与反向信号</b>（占位 · 待人工填实）</div></div>
 </section>
-
 <section class="ws2-section">
-  <h3><span class="tag">DATA</span> 历史分位图 · 5 张</h3>
-  <div class='ws2-charts'><div class="chart"><div class="ti">毛利率分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">毛利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">54.2%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">45.2%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">36.2%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">27.2%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">18.2%</text><path d="M 60.0,54.5 L 120.0,49.3 L 180.0,43.5 L 240.0,62.2 L 300.0,62.7 L 360.0,59.7 L 420.0,67.7 L 480.0,57.9 L 540.0,76.0 L 600.0,83.1 L 660.0,79.4 L 660.0,162.1 L 600.0,162.5 L 540.0,143.1 L 480.0,143.8 L 420.0,121.8 L 360.0,101.9 L 300.0,109.1 L 240.0,116.4 L 180.0,122.0 L 120.0,135.1 L 60.0,135.5 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,62.1 L 120.0,58.9 L 180.0,70.5 L 240.0,77.6 L 300.0,74.5 L 360.0,69.0 L 420.0,73.5 L 480.0,67.6 L 540.0,85.0 L 600.0,110.6 L 660.0,102.6 L 660.0,138.8 L 600.0,148.4 L 540.0,132.2 L 480.0,106.9 L 420.0,111.3 L 360.0,97.7 L 300.0,105.2 L 240.0,113.7 L 180.0,111.8 L 120.0,123.2 L 60.0,116.7 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,106.2 L 120.0,93.2 L 180.0,91.6 L 240.0,96.1 L 300.0,96.3 L 360.0,90.0 L 420.0,93.3 L 480.0,94.6 L 540.0,95.9 L 600.0,122.1 L 660.0,128.9" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,95.0 L 120.0,92.8 L 180.0,87.0 L 240.0,91.5 L 300.0,89.8 L 360.0,86.1 L 420.0,93.6 L 480.0,94.3 L 540.0,102.7 L 600.0,129.6 L 660.0,121.8" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">35.4</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.9</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">39.3</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.1</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.0</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">39.7</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.8</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.5</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.1</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">31.1</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">29.3</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">净利率分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">净利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">40.6%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">23.9%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">7.2%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-9.5%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-26.2%</text><path d="M 60.0,79.0 L 120.0,71.0 L 180.0,69.1 L 240.0,69.7 L 300.0,58.7 L 360.0,53.6 L 420.0,40.0 L 480.0,49.8 L 540.0,62.1 L 600.0,83.1 L 660.0,76.5 L 660.0,118.2 L 600.0,166.0 L 540.0,138.0 L 480.0,91.4 L 420.0,102.9 L 360.0,96.5 L 300.0,97.0 L 240.0,101.0 L 180.0,101.0 L 120.0,104.2 L 60.0,104.7 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,81.4 L 120.0,75.9 L 180.0,76.9 L 240.0,72.1 L 300.0,76.1 L 360.0,71.5 L 420.0,69.5 L 480.0,60.4 L 540.0,72.3 L 600.0,89.6 L 660.0,85.3 L 660.0,108.6 L 600.0,130.0 L 540.0,101.9 L 480.0,81.8 L 420.0,85.5 L 360.0,88.0 L 300.0,93.7 L 240.0,95.9 L 180.0,98.8 L 120.0,95.1 L 60.0,101.3 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,87.6 L 120.0,88.5 L 180.0,84.9 L 240.0,82.5 L 300.0,88.4 L 360.0,80.0 L 420.0,72.8 L 480.0,67.6 L 540.0,86.8 L 600.0,102.7 L 660.0,92.6" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,90.1 L 120.0,87.0 L 180.0,86.8 L 240.0,84.4 L 300.0,83.9 L 360.0,73.7 L 420.0,76.7 L 480.0,68.1 L 540.0,104.8 L 600.0,113.4 L 660.0,94.6" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">14.9</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">14.4</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">16.2</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.4</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">14.5</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">18.7</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">22.3</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">24.9</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">15.3</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">7.4</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.4</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">ROE 分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">ROE 分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">46.3%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">30.3%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">14.3%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-1.8%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-17.8%</text><path d="M 60.0,40.2 L 120.0,95.4 L 180.0,97.6 L 240.0,96.3 L 300.0,90.8 L 360.0,92.5 L 420.0,92.9 L 480.0,86.2 L 540.0,97.3 L 600.0,100.7 L 660.0,101.4 L 660.0,132.7 L 600.0,165.8 L 540.0,148.7 L 480.0,106.2 L 420.0,122.4 L 360.0,114.4 L 300.0,120.2 L 240.0,121.3 L 180.0,118.3 L 120.0,116.1 L 60.0,115.7 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,86.7 L 120.0,97.9 L 180.0,102.9 L 240.0,97.4 L 300.0,96.7 L 360.0,105.7 L 420.0,98.8 L 480.0,89.9 L 540.0,105.8 L 600.0,108.5 L 660.0,111.1 L 660.0,128.2 L 600.0,141.1 L 540.0,123.1 L 480.0,104.2 L 420.0,112.7 L 360.0,112.2 L 300.0,118.6 L 240.0,115.5 L 180.0,116.2 L 120.0,114.0 L 60.0,114.2 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,105.7 L 120.0,108.4 L 180.0,108.1 L 240.0,104.4 L 300.0,112.9 L 360.0,108.2 L 420.0,104.5 L 480.0,95.9 L 540.0,110.0 L 600.0,124.9 L 660.0,121.7" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,92.2 L 120.0,106.8 L 180.0,108.5 L 240.0,106.8 L 300.0,107.8 L 360.0,105.8 L 420.0,110.2 L 480.0,94.9 L 540.0,127.4 L 600.0,128.6 L 660.0,119.1" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.0</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.7</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.8</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.6</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">9.5</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.8</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.6</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.7</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">10.9</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.8</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.3</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">营收同比分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">营收同比分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 10 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">123.6%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">85.7%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">47.8%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">9.8%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-28.1%</text><path d="M 60.0,108.1 L 126.7,109.2 L 193.3,93.1 L 260.0,109.8 L 326.7,100.8 L 393.3,88.2 L 460.0,37.8 L 526.7,137.1 L 593.3,140.8 L 660.0,131.1 L 660.0,161.0 L 593.3,166.5 L 526.7,168.2 L 460.0,132.8 L 393.3,132.8 L 326.7,135.2 L 260.0,134.0 L 193.3,138.5 L 126.7,143.0 L 60.0,138.9 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,116.8 L 126.7,120.0 L 193.3,114.8 L 260.0,115.1 L 326.7,113.5 L 393.3,98.7 L 460.0,86.7 L 526.7,141.1 L 593.3,148.4 L 660.0,132.0 L 660.0,141.4 L 593.3,160.3 L 526.7,160.0 L 460.0,114.7 L 393.3,110.6 L 326.7,129.8 L 260.0,124.3 L 193.3,130.1 L 126.7,139.3 L 60.0,131.8 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,124.0 L 126.7,127.1 L 193.3,120.6 L 260.0,116.9 L 326.7,118.8 L 393.3,104.4 L 460.0,109.8 L 526.7,143.4 L 593.3,156.4 L 660.0,133.9" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,125.8 L 126.7,128.6 L 193.3,103.9 L 260.0,118.8 L 326.7,117.9 L 393.3,106.2 L 460.0,99.7 L 526.7,151.3 L 593.3,154.6 L 660.0,139.7" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">24.0</text><text x="126.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="126.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">20.5</text><text x="193.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="193.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">27.9</text><text x="260.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="260.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">32.1</text><text x="326.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="326.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">29.9</text><text x="393.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="393.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">46.1</text><text x="460.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="460.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">40.0</text><text x="526.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="526.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.0</text><text x="593.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="593.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-12.7</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.8</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">PE 横截面 TTM · 13 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 236" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="236" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PE 横截面（TTM，13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">8 家公司 · 取自估值快照</text><text x="102" y="49.8" fill="#1a2540" font-size="11" text-anchor="end">药明康德</text><rect x="110" y="40.0" width="121.9" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="236.9" y="49.8" fill="#1a2540" font-size="11">21.9x</text><text x="102" y="71.2" fill="#1a2540" font-size="11" text-anchor="end">九洲药业</text><rect x="110" y="61.5" width="145.2" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="260.2" y="71.2" fill="#1a2540" font-size="11">26.1x</text><text x="102" y="92.8" fill="#1a2540" font-size="11" text-anchor="end">普洛药业</text><rect x="110" y="83.0" width="163.0" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="278.0" y="92.8" fill="#1a2540" font-size="11">29.3x</text><text x="102" y="114.2" fill="#1a2540" font-size="11" text-anchor="end">康龙化成</text><rect x="110" y="104.5" width="296.2" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="411.2" y="114.2" fill="#1a2540" font-size="11">53.3x</text><text x="102" y="135.8" fill="#1a2540" font-size="11" text-anchor="end">凯莱英</text><rect x="110" y="126.0" width="309.3" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="424.3" y="135.8" fill="#1a2540" font-size="11">55.6x</text><text x="102" y="157.2" fill="#1a2540" font-size="11" text-anchor="end">泰格医药</text><rect x="110" y="147.5" width="347.6" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="462.6" y="157.2" fill="#1a2540" font-size="11">62.5x</text><text x="102" y="178.8" fill="#1a2540" font-size="11" text-anchor="end">昭衍新药</text><rect x="110" y="169.0" width="431.7" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="546.7" y="178.8" fill="#1a2540" font-size="11">77.7x</text><text x="102" y="200.2" fill="#1a2540" font-size="11" text-anchor="end">博腾股份</text><rect x="110" y="190.5" width="514.3" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="629.3" y="200.2" fill="#1a2540" font-size="11">92.5x</text></svg></div><div class="chart"><div class="ti">PB 横截面 · 13 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="280" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PB 横截面（13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">10 家公司 · 取自估值快照</text><text x="102" y="49.8" fill="#1a2540" font-size="11" text-anchor="end">九洲药业</text><rect x="110" y="40.0" width="121.3" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="236.3" y="49.8" fill="#1a2540" font-size="11">1.8x</text><text x="102" y="71.4" fill="#1a2540" font-size="11" text-anchor="end">博腾股份</text><rect x="110" y="61.6" width="154.4" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="269.4" y="71.4" fill="#1a2540" font-size="11">2.2x</text><text x="102" y="93.0" fill="#1a2540" font-size="11" text-anchor="end">泰格医药</text><rect x="110" y="83.2" width="159.9" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="274.9" y="93.0" fill="#1a2540" font-size="11">2.3x</text><text x="102" y="114.6" fill="#1a2540" font-size="11" text-anchor="end">凯莱英</text><rect x="110" y="104.8" width="243.4" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="358.4" y="114.6" fill="#1a2540" font-size="11">3.5x</text><text x="102" y="136.2" fill="#1a2540" font-size="11" text-anchor="end">普洛药业</text><rect x="110" y="126.4" width="286.1" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="401.1" y="136.2" fill="#1a2540" font-size="11">4.2x</text><text x="102" y="157.8" fill="#1a2540" font-size="11" text-anchor="end">睿智医药</text><rect x="110" y="148.0" width="299.2" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="414.2" y="157.8" fill="#1a2540" font-size="11">4.3x</text><text x="102" y="179.4" fill="#1a2540" font-size="11" text-anchor="end">昭衍新药</text><rect x="110" y="169.6" width="313.0" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="428.0" y="179.4" fill="#1a2540" font-size="11">4.5x</text><text x="102" y="201.0" fill="#1a2540" font-size="11" text-anchor="end">康龙化成</text><rect x="110" y="191.2" width="386.7" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="501.7" y="201.0" fill="#1a2540" font-size="11">5.6x</text><text x="102" y="222.6" fill="#1a2540" font-size="11" text-anchor="end">药明康德</text><rect x="110" y="212.8" width="393.0" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="508.0" y="222.6" fill="#1a2540" font-size="11">5.7x</text><text x="102" y="244.2" fill="#1a2540" font-size="11" text-anchor="end">美迪西</text><rect x="110" y="234.4" width="514.3" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="629.3" y="244.2" fill="#1a2540" font-size="11">7.5x</text></svg></div></div>
+  <h3><span class="tag">DATA</span> 历史分位图 · 6 张</h3>
+  <div class='ws2-charts'><div class="chart"><div class="ti">毛利率分位带（医药外包产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">毛利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">54.2%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">45.2%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">36.2%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">27.2%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">18.2%</text><path d="M 60.0,54.5 L 120.0,49.3 L 180.0,43.5 L 240.0,62.2 L 300.0,62.7 L 360.0,59.7 L 420.0,67.7 L 480.0,57.9 L 540.0,76.0 L 600.0,83.1 L 660.0,79.4 L 660.0,162.1 L 600.0,162.5 L 540.0,143.1 L 480.0,143.8 L 420.0,121.8 L 360.0,101.9 L 300.0,109.1 L 240.0,116.4 L 180.0,122.0 L 120.0,135.1 L 60.0,135.5 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,62.1 L 120.0,58.9 L 180.0,70.5 L 240.0,77.6 L 300.0,74.5 L 360.0,69.0 L 420.0,73.5 L 480.0,67.6 L 540.0,85.0 L 600.0,110.6 L 660.0,102.6 L 660.0,138.8 L 600.0,148.4 L 540.0,132.2 L 480.0,106.9 L 420.0,111.3 L 360.0,97.7 L 300.0,105.2 L 240.0,113.7 L 180.0,111.8 L 120.0,123.2 L 60.0,116.7 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,106.2 L 120.0,93.2 L 180.0,91.6 L 240.0,96.1 L 300.0,96.3 L 360.0,90.0 L 420.0,93.3 L 480.0,94.6 L 540.0,95.9 L 600.0,122.1 L 660.0,128.9" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,95.0 L 120.0,92.8 L 180.0,87.0 L 240.0,91.5 L 300.0,89.8 L 360.0,86.1 L 420.0,93.6 L 480.0,94.3 L 540.0,102.7 L 600.0,129.6 L 660.0,121.8" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">35.4</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.9</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">39.3</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.1</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.0</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">39.7</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.8</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.5</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.1</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">31.1</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">29.3</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">净利率分位带（医药外包产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">净利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">40.6%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">23.9%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">7.2%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-9.5%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-26.2%</text><path d="M 60.0,79.0 L 120.0,71.0 L 180.0,69.1 L 240.0,69.7 L 300.0,58.7 L 360.0,53.6 L 420.0,40.0 L 480.0,49.8 L 540.0,62.1 L 600.0,83.1 L 660.0,76.5 L 660.0,118.2 L 600.0,166.0 L 540.0,138.0 L 480.0,91.4 L 420.0,102.9 L 360.0,96.5 L 300.0,97.0 L 240.0,101.0 L 180.0,101.0 L 120.0,104.2 L 60.0,104.7 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,81.4 L 120.0,75.9 L 180.0,76.9 L 240.0,72.1 L 300.0,76.1 L 360.0,71.5 L 420.0,69.5 L 480.0,60.4 L 540.0,72.3 L 600.0,89.6 L 660.0,85.3 L 660.0,108.6 L 600.0,130.0 L 540.0,101.9 L 480.0,81.8 L 420.0,85.5 L 360.0,88.0 L 300.0,93.7 L 240.0,95.9 L 180.0,98.8 L 120.0,95.1 L 60.0,101.3 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,87.6 L 120.0,88.5 L 180.0,84.9 L 240.0,82.5 L 300.0,88.4 L 360.0,80.0 L 420.0,72.8 L 480.0,67.6 L 540.0,86.8 L 600.0,102.7 L 660.0,92.6" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,90.1 L 120.0,87.0 L 180.0,86.8 L 240.0,84.4 L 300.0,83.9 L 360.0,73.7 L 420.0,76.7 L 480.0,68.1 L 540.0,104.8 L 600.0,113.4 L 660.0,94.6" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">14.9</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">14.4</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">16.2</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.4</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">14.5</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">18.7</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">22.3</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">24.9</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">15.3</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">7.4</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.4</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">ROE 分位带（医药外包产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">ROE 分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">46.3%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">30.3%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">14.3%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-1.8%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-17.8%</text><path d="M 60.0,40.2 L 120.0,95.4 L 180.0,97.6 L 240.0,96.3 L 300.0,90.8 L 360.0,92.5 L 420.0,92.9 L 480.0,86.2 L 540.0,97.3 L 600.0,100.7 L 660.0,101.4 L 660.0,132.7 L 600.0,165.8 L 540.0,148.7 L 480.0,106.2 L 420.0,122.4 L 360.0,114.4 L 300.0,120.2 L 240.0,121.3 L 180.0,118.3 L 120.0,116.1 L 60.0,115.7 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,86.7 L 120.0,97.9 L 180.0,102.9 L 240.0,97.4 L 300.0,96.7 L 360.0,105.7 L 420.0,98.8 L 480.0,89.9 L 540.0,105.8 L 600.0,108.5 L 660.0,111.1 L 660.0,128.2 L 600.0,141.1 L 540.0,123.1 L 480.0,104.2 L 420.0,112.7 L 360.0,112.2 L 300.0,118.6 L 240.0,115.5 L 180.0,116.2 L 120.0,114.0 L 60.0,114.2 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,105.7 L 120.0,108.4 L 180.0,108.1 L 240.0,104.4 L 300.0,112.9 L 360.0,108.2 L 420.0,104.5 L 480.0,95.9 L 540.0,110.0 L 600.0,124.9 L 660.0,121.7" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,92.2 L 120.0,106.8 L 180.0,108.5 L 240.0,106.8 L 300.0,107.8 L 360.0,105.8 L 420.0,110.2 L 480.0,94.9 L 540.0,127.4 L 600.0,128.6 L 660.0,119.1" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.0</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.7</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.8</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.6</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">9.5</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.8</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.6</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.7</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">10.9</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.8</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.3</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">营收同比分位带（医药外包产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">营收同比分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 10 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">123.6%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">85.7%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">47.8%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">9.8%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-28.1%</text><path d="M 60.0,108.1 L 126.7,109.2 L 193.3,93.1 L 260.0,109.8 L 326.7,100.8 L 393.3,88.2 L 460.0,37.8 L 526.7,137.1 L 593.3,140.8 L 660.0,131.1 L 660.0,161.0 L 593.3,166.5 L 526.7,168.2 L 460.0,132.8 L 393.3,132.8 L 326.7,135.2 L 260.0,134.0 L 193.3,138.5 L 126.7,143.0 L 60.0,138.9 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,116.8 L 126.7,120.0 L 193.3,114.8 L 260.0,115.1 L 326.7,113.5 L 393.3,98.7 L 460.0,86.7 L 526.7,141.1 L 593.3,148.4 L 660.0,132.0 L 660.0,141.4 L 593.3,160.3 L 526.7,160.0 L 460.0,114.7 L 393.3,110.6 L 326.7,129.8 L 260.0,124.3 L 193.3,130.1 L 126.7,139.3 L 60.0,131.8 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,124.0 L 126.7,127.1 L 193.3,120.6 L 260.0,116.9 L 326.7,118.8 L 393.3,104.4 L 460.0,109.8 L 526.7,143.4 L 593.3,156.4 L 660.0,133.9" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,125.8 L 126.7,128.6 L 193.3,103.9 L 260.0,118.8 L 326.7,117.9 L 393.3,106.2 L 460.0,99.7 L 526.7,151.3 L 593.3,154.6 L 660.0,139.7" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">24.0</text><text x="126.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="126.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">20.5</text><text x="193.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="193.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">27.9</text><text x="260.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="260.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">32.1</text><text x="326.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="326.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">29.9</text><text x="393.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="393.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">46.1</text><text x="460.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="460.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">40.0</text><text x="526.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="526.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.0</text><text x="593.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="593.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-12.7</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.8</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">PE 横截面 TTM · 10 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 236" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="236" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PE 横截面（TTM，13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">8 家公司 · 取自估值快照</text><text x="102" y="49.8" fill="#1a2540" font-size="11" text-anchor="end">药明康德</text><rect x="110" y="40.0" width="121.9" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="236.9" y="49.8" fill="#1a2540" font-size="11">21.9x</text><text x="102" y="71.2" fill="#1a2540" font-size="11" text-anchor="end">九洲药业</text><rect x="110" y="61.5" width="145.2" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="260.2" y="71.2" fill="#1a2540" font-size="11">26.1x</text><text x="102" y="92.8" fill="#1a2540" font-size="11" text-anchor="end">普洛药业</text><rect x="110" y="83.0" width="163.0" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="278.0" y="92.8" fill="#1a2540" font-size="11">29.3x</text><text x="102" y="114.2" fill="#1a2540" font-size="11" text-anchor="end">康龙化成</text><rect x="110" y="104.5" width="296.2" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="411.2" y="114.2" fill="#1a2540" font-size="11">53.3x</text><text x="102" y="135.8" fill="#1a2540" font-size="11" text-anchor="end">凯莱英</text><rect x="110" y="126.0" width="309.3" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="424.3" y="135.8" fill="#1a2540" font-size="11">55.6x</text><text x="102" y="157.2" fill="#1a2540" font-size="11" text-anchor="end">泰格医药</text><rect x="110" y="147.5" width="347.6" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="462.6" y="157.2" fill="#1a2540" font-size="11">62.5x</text><text x="102" y="178.8" fill="#1a2540" font-size="11" text-anchor="end">昭衍新药</text><rect x="110" y="169.0" width="431.7" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="546.7" y="178.8" fill="#1a2540" font-size="11">77.7x</text><text x="102" y="200.2" fill="#1a2540" font-size="11" text-anchor="end">博腾股份</text><rect x="110" y="190.5" width="514.3" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="629.3" y="200.2" fill="#1a2540" font-size="11">92.5x</text></svg></div><div class="chart"><div class="ti">PB 横截面 · 10 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="280" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PB 横截面（13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">10 家公司 · 取自估值快照</text><text x="102" y="49.8" fill="#1a2540" font-size="11" text-anchor="end">九洲药业</text><rect x="110" y="40.0" width="121.3" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="236.3" y="49.8" fill="#1a2540" font-size="11">1.8x</text><text x="102" y="71.4" fill="#1a2540" font-size="11" text-anchor="end">博腾股份</text><rect x="110" y="61.6" width="154.4" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="269.4" y="71.4" fill="#1a2540" font-size="11">2.2x</text><text x="102" y="93.0" fill="#1a2540" font-size="11" text-anchor="end">泰格医药</text><rect x="110" y="83.2" width="159.9" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="274.9" y="93.0" fill="#1a2540" font-size="11">2.3x</text><text x="102" y="114.6" fill="#1a2540" font-size="11" text-anchor="end">凯莱英</text><rect x="110" y="104.8" width="243.4" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="358.4" y="114.6" fill="#1a2540" font-size="11">3.5x</text><text x="102" y="136.2" fill="#1a2540" font-size="11" text-anchor="end">普洛药业</text><rect x="110" y="126.4" width="286.1" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="401.1" y="136.2" fill="#1a2540" font-size="11">4.2x</text><text x="102" y="157.8" fill="#1a2540" font-size="11" text-anchor="end">睿智医药</text><rect x="110" y="148.0" width="299.2" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="414.2" y="157.8" fill="#1a2540" font-size="11">4.3x</text><text x="102" y="179.4" fill="#1a2540" font-size="11" text-anchor="end">昭衍新药</text><rect x="110" y="169.6" width="313.0" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="428.0" y="179.4" fill="#1a2540" font-size="11">4.5x</text><text x="102" y="201.0" fill="#1a2540" font-size="11" text-anchor="end">康龙化成</text><rect x="110" y="191.2" width="386.7" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="501.7" y="201.0" fill="#1a2540" font-size="11">5.6x</text><text x="102" y="222.6" fill="#1a2540" font-size="11" text-anchor="end">药明康德</text><rect x="110" y="212.8" width="393.0" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="508.0" y="222.6" fill="#1a2540" font-size="11">5.7x</text><text x="102" y="244.2" fill="#1a2540" font-size="11" text-anchor="end">美迪西</text><rect x="110" y="234.4" width="514.3" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="629.3" y="244.2" fill="#1a2540" font-size="11">7.5x</text></svg></div></div>
 </section>
-
 <section class="ws2-section">
-  <h3>📊 可比公司估值大表（13 家 · 当前截面）</h3>
+  <h3>📊 可比公司估值大表（10 家 · 当前截面）</h3>
   
 <div class="ws2-table-wrap">
 <table>
-<thead><tr>
-  <th>公司</th><th>代码</th><th>PE-TTM</th><th>PB</th>
-  <th>营收(亿)</th><th>净利(亿)</th>
-  <th>毛利率</th><th>净利率</th><th>ROE</th>
-  <th>营收YoY</th>
-</tr></thead>
+<thead><tr><th>公司</th><th>代码</th><th>PE-TTM</th><th>PB</th><th>营收(亿)</th><th>净利(亿)</th><th>毛利率</th><th>净利率</th><th>ROE</th><th>营收YoY</th></tr></thead>
 <tbody><tr><td>普洛药业</td><td>000739</td><td>29.3</td><td>4.2</td><td>97.8</td><td>8.9</td><td>26.4%</td><td>9.1%</td><td>14.1%</td><td>-18.6%</td></tr><tr><td>凯莱英</td><td>002821</td><td>55.6</td><td>3.5</td><td>66.7</td><td>11.3</td><td>42.0%</td><td>17.0%</td><td>6.4%</td><td>14.9%</td></tr><tr><td>睿智医药</td><td>300149</td><td>—</td><td>4.3</td><td>11.3</td><td>0.1</td><td>28.6%</td><td>1.2%</td><td>1.1%</td><td>17.0%</td></tr><tr><td>泰格医药</td><td>300347</td><td>62.5</td><td>2.3</td><td>68.3</td><td>8.9</td><td>27.4%</td><td>13.0%</td><td>4.2%</td><td>3.5%</td></tr><tr><td>博腾股份</td><td>300363</td><td>92.5</td><td>2.2</td><td>34.2</td><td>1.0</td><td>29.9%</td><td>2.8%</td><td>1.8%</td><td>13.5%</td></tr><tr><td>康龙化成</td><td>300759</td><td>53.3</td><td>5.6</td><td>141.0</td><td>16.6</td><td>34.8%</td><td>11.8%</td><td>11.1%</td><td>14.8%</td></tr><tr><td>昭衍新药</td><td>603127</td><td>77.7</td><td>4.5</td><td>16.6</td><td>3.0</td><td>20.7%</td><td>18.0%</td><td>3.6%</td><td>-17.9%</td></tr><tr><td>药明康德</td><td>603259</td><td>21.9</td><td>5.7</td><td>454.6</td><td>191.5</td><td>47.6%</td><td>42.1%</td><td>24.0%</td><td>15.8%</td></tr><tr><td>九洲药业</td><td>603456</td><td>26.1</td><td>1.8</td><td>55.1</td><td>7.3</td><td>36.9%</td><td>13.2%</td><td>8.4%</td><td>6.7%</td></tr><tr><td>美迪西</td><td>688202</td><td>—</td><td>7.5</td><td>11.6</td><td>-1.7</td><td>17.4%</td><td>-14.4%</td><td>-8.7%</td><td>12.1%</td></tr></tbody>
 </table>
 </div>
 
 </section>
-
 <section class="ws2-section">
   <h3>📦 投资逻辑附加：产品定位 / 竞争格局 / 产能周期（占位）</h3>
   
 <div class="ws2-frame-placeholder">
   <h4>📦 产品定位与投资信号</h4>
   此处待人工填实：每家公司主打产品价格带、渠道结构、品牌力定位、批价走势等定性内容（取自年报/公开渠道）。
-  <br>可用结构：①高端品牌矩阵（茅台/五粮液/泸州老窖等） ②次高端与区域龙头（汾酒/古井贡/今世缘/口子窖等） ③大众价位（顺鑫农业/迎驾贡酒等）。
+  <br>可用结构：①高端品牌矩阵 ②次高端与区域龙头 ③大众价位。
 </div>
 <div class="ws2-frame-placeholder">
   <h4>🏛 竞争格局分析</h4>
   此处待人工填实：CR3/CR5 集中度、行业份额变迁、价格战历史、经销商生态、跨区域挤压。
-  <br>可用指标：①销量 CR3/CR5（公开数据） ②次高端价格带定价权 ③经销商话语权变化。
+  <br>可用指标：①销量集中度（公开数据） ②价格带定价权 ③经销商话语权变化。
 </div>
 <div class="ws2-frame-placeholder">
   <h4>🔄 产能周期与库存周期</h4>
-  此处待人工填实：基酒产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
-  <br>可用结构：①基酒半成品库存月数 ②终端动销与渠道库存 ③批价倒挂信号。
+  此处待人工填实：产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
+  <br>可用结构：①半成品库存月数 ②终端动销与渠道库存 ③价格倒挂信号。
 </div>
 
 </section>
-
 <section class="ws2-section">
   <h3>🐴 白马型 vs 周期型一览（基于 10 年财报自动分类）</h3>
   <p style="color:#5d6a82;font-size:12.5px;margin:0 0 10px 0">分类口径：ROE 中位&gt;18% 且净利率波动 σ&lt;5pp 且营收YoY σ&lt;15pp → 白马型；营收YoY σ&gt;30pp 或净利率 σ&gt;10pp → 周期型；其余 → 平衡型。</p>
   
 <div class="ws2-table-wrap ws2-classify">
 <table>
-<thead><tr>
-  <th>公司</th><th>代码</th><th>分类</th>
-  <th>ROE 中位</th><th>净利率波动 σ</th><th>营收YoY波动 σ</th>
-</tr></thead>
+<thead><tr><th>公司</th><th>代码</th><th>分类</th><th>ROE 中位</th><th>净利率波动 σ</th><th>营收YoY波动 σ</th></tr></thead>
 <tbody><tr><td>普洛药业</td><td>000739</td><td class="tag tag-中性">平衡型</td><td>14.7%</td><td>2.2</td><td>10.5</td></tr><tr><td>凯莱英</td><td>002821</td><td class="tag tag-周期">周期型</td><td>14.4%</td><td>4.7</td><td>40.6</td></tr><tr><td>睿智医药</td><td>300149</td><td class="tag tag-周期">周期型</td><td>6.4%</td><td>32.0</td><td>84.4</td></tr><tr><td>泰格医药</td><td>300347</td><td class="tag tag-周期">周期型</td><td>10.9%</td><td>16.3</td><td>22.0</td></tr><tr><td>博腾股份</td><td>300363</td><td class="tag tag-周期">周期型</td><td>7.8%</td><td>9.3</td><td>47.2</td></tr><tr><td>康龙化成</td><td>300759</td><td class="tag tag-中性">平衡型</td><td>13.0%</td><td>4.9</td><td>14.0</td></tr><tr><td>昭衍新药</td><td>603127</td><td class="tag tag-周期">周期型</td><td>13.7%</td><td>11.2</td><td>29.3</td></tr><tr><td>药明康德</td><td>603259</td><td class="tag tag-中性">平衡型</td><td>16.1%</td><td>8.8</td><td>20.6</td></tr><tr><td>九洲药业</td><td>603456</td><td class="tag tag-中性">平衡型</td><td>8.3%</td><td>3.7</td><td>18.4</td></tr><tr><td>美迪西</td><td>688202</td><td class="tag tag-周期">周期型</td><td>14.5%</td><td>17.7</td><td>30.8</td></tr></tbody>
 </table>
 </div>
 
 </section>
-
 <section class="ws2-section">
   <h3>🏆 产业链地位 + 11 年累计复合增长（按营收 CAGR 排序）</h3>
   
 <div class="ws2-table-wrap">
 <table>
-<thead><tr>
-  <th>公司</th><th>代码</th>
-  <th>营收 CAGR (10Y)</th><th>净利 CAGR (10Y)</th>
-  <th>ROE 中位</th><th>最新营收(亿)</th>
-</tr></thead>
+<thead><tr><th>公司</th><th>代码</th><th>营收 CAGR (10Y)</th><th>净利 CAGR (10Y)</th><th>ROE 中位</th><th>最新营收(亿)</th></tr></thead>
 <tbody><tr><td>康龙化成</td><td>300759</td><td>28.7%</td><td>36.5%</td><td>13.0%</td><td>141.0</td></tr><tr><td>药明康德</td><td>603259</td><td>25.0%</td><td>49.3%</td><td>16.1%</td><td>454.6</td></tr><tr><td>凯莱英</td><td>002821</td><td>23.2%</td><td>22.1%</td><td>14.4%</td><td>66.7</td></tr><tr><td>昭衍新药</td><td>603127</td><td>23.1%</td><td>19.7%</td><td>13.7%</td><td>16.6</td></tr><tr><td>泰格医药</td><td>300347</td><td>21.7%</td><td>19.0%</td><td>10.9%</td><td>68.3</td></tr><tr><td>美迪西</td><td>688202</td><td>21.6%</td><td>0%</td><td>14.5%</td><td>11.6</td></tr><tr><td>九洲药业</td><td>603456</td><td>14.3%</td><td>13.8%</td><td>8.3%</td><td>55.1</td></tr><tr><td>睿智医药</td><td>300149</td><td>13.5%</td><td>-13.8%</td><td>6.4%</td><td>11.3</td></tr><tr><td>博腾股份</td><td>300363</td><td>12.8%</td><td>-1.4%</td><td>7.8%</td><td>34.2</td></tr><tr><td>普洛药业</td><td>000739</td><td>8.5%</td><td>15.6%</td><td>14.7%</td><td>97.8</td></tr></tbody>
 </table>
 </div>
 
 </section>
-<!-- ===== 白酒原版 v2 END ===== -->
+<!-- ===== v2 body END ===== -->
 
-<div class="back-bar">
-<a href="./berkshire-chain-map.html">← 全链索引</a>
-<a href="./berkshire-standalone.html">← 数据中心首页</a>
-</div>
-</body>
+<div class="research-signal">
+  <div class="rs-grid">
+    <div class="rs-item"><div class="rs-label">估值信号</div><div class="rs-val">估值历史分位 → 当前位置 + 平均分位</div><div style="font-size:10px;color:var(--muted);margin-top:4px">估</div></div><div class="rs-item"><div class="rs-label">质量信号</div><div class="rs-val">ROE/毛利率/净利率 → 龙头质量</div><div style="font-size:10px;color:var(--muted);margin-top:4px">质</div></div><div class="rs-item"><div class="rs-label">景气信号</div><div class="rs-val">营收/利润同比 → 行业景气</div><div style="font-size:10px;color:var(--muted);margin-top:4px">景</div></div><div class="rs-item"><div class="rs-label">回报信号</div><div class="rs-val">股息率 + 回购 → 股东回报</div><div style="font-size:10px;color:var(--muted);margin-top:4px">回</div></div><div class="rs-item"><div class="rs-label">人效信号</div><div class="rs-val">人均创收/人均净利 → 经营效率</div><div style="font-size:10px;color:var(--muted);margin-top:4px">效</div></div>
+  </div>
+</div>
+
+<h2 class="section-title">🏛 5 层分析框架</h2>
+<div class="layers">
+      <div class="layer-card">
+        <div class="layer-num">01</div>
+        <div class="layer-name">上游成本</div>
+        <div class="layer-text">原材料/零部件供应，价格波动传导与议价能力。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">02</div>
+        <div class="layer-name">中游制造</div>
+        <div class="layer-text">产能利用率与规模效应，决定盈利波动。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">03</div>
+        <div class="layer-name">下游应用</div>
+        <div class="layer-text">终端需求景气与渗透率变化。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">04</div>
+        <div class="layer-name">竞争格局</div>
+        <div class="layer-text">集中度、龙头溢价、护城河深浅。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">05</div>
+        <div class="layer-name">投资逻辑</div>
+        <div class="layer-text">周期位置 + 估值锚 + 人效 + 机构共识 四维验证。</div>
+      </div></div>
+
+<h2 class="section-title">💬 人话版 · 实战信号</h2>
+<div class="human-block">
+  <p><b>看产业链核心是「周期位置 + 护城河 + 估值锚」三维交叉验证。</b></p>
+  <ul style="margin-top:12px;padding-left:20px;line-height:1.8">
+    <li>先看周期位置：库存/价格/产能/估值 四维判断当前位置。</li><li>再看护城河：龙头集中度 + 规模效应 + 准入壁垒。</li><li>然后看估值锚：PE/PB 历史分位 + 同行业可比 + 跨市场对比。</li><li>警惕陷阱：低估值不等于低估，可能反映景气下行。</li><li>实战信号：股息率 + 回购 + 机构持仓 三路验证。</li>
+  </ul>
+</div>
+
+<h2 class="section-title">🔄 产业周期判断标准</h2>
+<div class="cycle-block">
+  <p><b>驱动因素：</b>行业景气由供需结构 + 政策周期 + 货币环境 + 库存周期 共同决定。</p>
+  <div class="cycle-grid">
+    <div><b>供需</b>产能利用率/订单饱满度/价格传导</div><div><b>库存</b>主动累库/被动累库/主动去库</div><div><b>价格</b>原料价格/出厂价/终端价</div><div><b>估值</b>PE/PB 历史分位 + 行业相对估值</div>
+  </div>
+  <p style="margin-top:14px"><b>历史案例：</b>复盘 2018-2020 周期：估值低位 + 业绩拐点 + 产业政策利好 三共振时胜率最高。</p>
+  <p style="margin-top:8px"><b>当前位置：</b>当前多数子行业估值历史分位偏低，部分龙头股息率创近 5 年新高，景气底部信号渐显。</p>
+</div>
+
+<h2 class="section-title">📈 估值历史分位总览</h2>
+<table class="ovtable sortable" data-type="num">
+  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
+  <tbody>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603259.html"><b>药明康德</b></a></td>
+        <td>603259</td>
+        <td>18.5 <span class="pct pct-lo">18%</span></td>
+        <td>4.43 <span class="pct pct-lo">32%</span></td>
+        <td>27.7%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300759.html"><b>康龙化成</b></a></td>
+        <td>300759</td>
+        <td>41.8 <span class="pct pct-mid">45%</span></td>
+        <td>4.30 <span class="pct pct-lo">35%</span></td>
+        <td>11.6%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300347.html"><b>泰格医药</b></a></td>
+        <td>300347</td>
+        <td>52.4 <span class="pct pct-lo">33%</span></td>
+        <td>1.93 <span class="pct pct-lo">4%</span></td>
+        <td>4.3%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-002821.html"><b>凯莱英</b></a></td>
+        <td>002821</td>
+        <td>51.4 <span class="pct pct-mid">60%</span></td>
+        <td>3.18 <span class="pct pct-lo">32%</span></td>
+        <td>6.6%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603127.html"><b>昭衍新药</b></a></td>
+        <td>603127</td>
+        <td>68.5 <span class="pct pct-mid">49%</span></td>
+        <td>3.96 <span class="pct pct-lo">38%</span></td>
+        <td>3.6%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300363.html"><b>博腾股份</b></a></td>
+        <td>300363</td>
+        <td>66.3 <span class="pct pct-hi">73%</span></td>
+        <td>1.59 <span class="pct pct-lo">10%</span></td>
+        <td>1.8%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-688202.html"><b>美迪西</b></a></td>
+        <td>688202</td>
+        <td>-80.5 <span class="pct pct-lo">3%</span></td>
+        <td>5.66 <span class="pct pct-mid">43%</span></td>
+        <td>-8.2%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603456.html"><b>九洲药业</b></a></td>
+        <td>603456</td>
+        <td>18.9 <span class="pct pct-lo">14%</span></td>
+        <td>1.39 <span class="pct pct-lo">5%</span></td>
+        <td>8.5%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300149.html"><b>睿智医药</b></a></td>
+        <td>300149</td>
+        <td>-373.9 <span class="pct pct-lo">2%</span></td>
+        <td>3.32 <span class="pct pct-mid">51%</span></td>
+        <td>1.1%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-000739.html"><b>普洛药业</b></a></td>
+        <td>000739</td>
+        <td>25.6 <span class="pct pct-lo">38%</span></td>
+        <td>3.47 <span class="pct pct-mid">50%</span></td>
+        <td>13.6%</td>
+      </tr></tbody>
+</table>
+
+<h2 class="section-title">⚖ R15 三维评级总览</h2>
+<table class="ovtable sortable" data-type="num">
+  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
+  <tbody>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603259.html"><b>药明康德</b></a></td>
+        <td>18.5</td>
+        <td>4.43</td>
+        <td>★★★★</td>
+        <td>★★★★★</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300759.html"><b>康龙化成</b></a></td>
+        <td>41.8</td>
+        <td>4.30</td>
+        <td>★★★</td>
+        <td>★★★</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300347.html"><b>泰格医药</b></a></td>
+        <td>52.4</td>
+        <td>1.93</td>
+        <td>★★</td>
+        <td>★</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-002821.html"><b>凯莱英</b></a></td>
+        <td>51.4</td>
+        <td>3.18</td>
+        <td>★★★</td>
+        <td>★</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603127.html"><b>昭衍新药</b></a></td>
+        <td>68.5</td>
+        <td>3.96</td>
+        <td>★★★</td>
+        <td>★</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300363.html"><b>博腾股份</b></a></td>
+        <td>66.3</td>
+        <td>1.59</td>
+        <td>★★★</td>
+        <td>★</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-688202.html"><b>美迪西</b></a></td>
+        <td>-80.5</td>
+        <td>5.66</td>
+        <td>★★★★★</td>
+        <td>★</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603456.html"><b>九洲药业</b></a></td>
+        <td>18.9</td>
+        <td>1.39</td>
+        <td>★★★★★</td>
+        <td>★★</td>
+        <td>9</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300149.html"><b>睿智医药</b></a></td>
+        <td>-373.9</td>
+        <td>3.32</td>
+        <td>★★★★★</td>
+        <td>★</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-000739.html"><b>普洛药业</b></a></td>
+        <td>25.6</td>
+        <td>3.47</td>
+        <td>★★</td>
+        <td>★★★★</td>
+        <td>6</td>
+      </tr></tbody>
+</table>
+
+<h2 class="section-title">🏭 产业链成本传导</h2>
+
+    <div class="cost-block">
+      <h3>产业链成本传导路径</h3>
+      <svg viewBox="0 0 800 140" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arr-ac" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <polygon points="0 0, 8 4, 0 8" fill="#0ea5e9"/>
+          </marker>
+        </defs>
+        <g>
+          <rect x="15" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
+          <text x="80" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游原材料</text>
+        </g>
+        <g>
+          <rect x="215" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
+          <text x="280" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游加工</text>
+        </g>
+        <g>
+          <rect x="415" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
+          <text x="480" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游品牌</text>
+        </g>
+        <g>
+          <rect x="615" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
+          <text x="680" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">需求弹性</text>
+        </g>
+        <line x1="145" y1="52" x2="215" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+        <line x1="345" y1="52" x2="415" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+        <line x1="545" y1="52" x2="615" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+      </svg>
+      <p class="cost-note">成本传导关键看议价能力与库存周期：龙头凭借规模优势可锁定上游成本；中小厂商在价格上行期被动跟涨、在下行期被迫降价。</p>
+    </div>
+
+<h2 class="section-title">👥 员工效率排行</h2>
+<table class="ovtable sortable" data-type="num">
+  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>2024员工</th><th>同比</th><th>人均净利</th></tr></thead>
+  <tbody>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603259.html"><b>药明康德</b></a></td>
+        <td>603259</td>
+        <td>3万</td>
+        <td>4万</td>
+        <td>-14.2%</td>
+        <td>¥56.6万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300759.html"><b>康龙化成</b></a></td>
+        <td>300759</td>
+        <td>6493</td>
+        <td>2万</td>
+        <td>-69.6%</td>
+        <td>¥25.6万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300347.html"><b>泰格医药</b></a></td>
+        <td>300347</td>
+        <td>1万</td>
+        <td>9701</td>
+        <td>+5.0%</td>
+        <td>¥8.7万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-002821.html"><b>凯莱英</b></a></td>
+        <td>002821</td>
+        <td>1万</td>
+        <td>9595</td>
+        <td>+10.7%</td>
+        <td>¥10.6万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603127.html"><b>昭衍新药</b></a></td>
+        <td>603127</td>
+        <td>2649</td>
+        <td>—</td>
+        <td>口径异常</td>
+        <td>¥11.3万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300363.html"><b>博腾股份</b></a></td>
+        <td>300363</td>
+        <td>4359</td>
+        <td>4214</td>
+        <td>+3.4%</td>
+        <td>¥2.3万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-688202.html"><b>美迪西</b></a></td>
+        <td>688202</td>
+        <td>86</td>
+        <td>83</td>
+        <td>+3.6%</td>
+        <td>¥-197.7万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-603456.html"><b>九洲药业</b></a></td>
+        <td>603456</td>
+        <td>4791</td>
+        <td>5001</td>
+        <td>-4.2%</td>
+        <td>¥15.2万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-300149.html"><b>睿智医药</b></a></td>
+        <td>300149</td>
+        <td>1771</td>
+        <td>1814</td>
+        <td>-2.4%</td>
+        <td>¥0.6万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-cxo-chain-000739.html"><b>普洛药业</b></a></td>
+        <td>000739</td>
+        <td>6787</td>
+        <td>7060</td>
+        <td>-3.9%</td>
+        <td>¥13.1万</td>
+      </tr></tbody>
+</table>
+
+<h2 class="section-title">🏢 公司索引</h2>
+<div class="grid">
+      <a class="giant-card" href="./berkshire-cxo-chain-603259.html">
+        <div class="gc-title">药明康德</div>
+        <div class="gc-code">603259</div>
+        <div class="gc-meta">PE 18.5 · PB 4.43 · ROE 27.7%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-300759.html">
+        <div class="gc-title">康龙化成</div>
+        <div class="gc-code">300759</div>
+        <div class="gc-meta">PE 41.8 · PB 4.30 · ROE 11.6%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-300347.html">
+        <div class="gc-title">泰格医药</div>
+        <div class="gc-code">300347</div>
+        <div class="gc-meta">PE 52.4 · PB 1.93 · ROE 4.3%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-002821.html">
+        <div class="gc-title">凯莱英</div>
+        <div class="gc-code">002821</div>
+        <div class="gc-meta">PE 51.4 · PB 3.18 · ROE 6.6%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-603127.html">
+        <div class="gc-title">昭衍新药</div>
+        <div class="gc-code">603127</div>
+        <div class="gc-meta">PE 68.5 · PB 3.96 · ROE 3.6%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-300363.html">
+        <div class="gc-title">博腾股份</div>
+        <div class="gc-code">300363</div>
+        <div class="gc-meta">PE 66.3 · PB 1.59 · ROE 1.8%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-688202.html">
+        <div class="gc-title">美迪西</div>
+        <div class="gc-code">688202</div>
+        <div class="gc-meta">PE -80.5 · PB 5.66 · ROE -8.2%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-603456.html">
+        <div class="gc-title">九洲药业</div>
+        <div class="gc-code">603456</div>
+        <div class="gc-meta">PE 18.9 · PB 1.39 · ROE 8.5%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-300149.html">
+        <div class="gc-title">睿智医药</div>
+        <div class="gc-code">300149</div>
+        <div class="gc-meta">PE -373.9 · PB 3.32 · ROE 1.1%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-chain-000739.html">
+        <div class="gc-title">普洛药业</div>
+        <div class="gc-code">000739</div>
+        <div class="gc-meta">PE 25.6 · PB 3.47 · ROE 13.6%</div>
+      </a></div>
+
+<h2 class="section-title">📚 延伸阅读</h2>
+<div class="grid">
+
+      <a class="giant-card" href="./berkshire-cxo-cycle.html">
+        <div class="gc-icon">🔄</div>
+        <div class="gc-title">产业周期</div>
+        <div class="gc-desc">库存/价格/产能/估值四维判断周期位置。</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-backtest.html">
+        <div class="gc-icon">📈</div>
+        <div class="gc-title">回测框架</div>
+        <div class="gc-desc">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</div>
+      </a>
+      <a class="giant-card" href="./berkshire-cxo-buyback.html">
+        <div class="gc-icon">💰</div>
+        <div class="gc-title">逐轮买点回报图</div>
+        <div class="gc-desc">三轮全市场大底买入并持有的后复权累计回报。</div>
+      </a>      <a class="giant-card" href="berkshire-cxo-repomap.html">
+        <div class="gc-icon">🗺️</div>
+        <div class="gc-title">回购地图</div>
+        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分，逐家拆解。</div>
+      </a></div>
+
+<div class="source-note">
+  数据来源：akshare / 同花顺 / 巨潮资讯网 · 数据日期：2026-08-09 · 仅供参考，不构成投资建议
+</div>
+
+</div>
+
+<script src="./analytics.js"></script>
+<script src="./tdx-link.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.sortable').forEach(function(t){
+    t.querySelectorAll('th').forEach(function(th,i){
+      th.addEventListener('click',function(){
+        var d=t.querySelector('tbody');
+        var rows=Array.from(d.querySelectorAll('tr'));
+        var asc=th.classList.contains('sorted-asc');
+        th.classList.remove('sorted-asc','sorted-desc');
+        rows.sort(function(a,b){
+          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+          av=parseFloat(av); bv=parseFloat(bv);
+          return asc?bv-av:av-bv;
+        });
+        th.classList.add(asc?'sorted-desc':'sorted-asc');
+        rows.forEach(function(r){d.appendChild(r)});
+      });
+    });
+  });
+});
+</script>
+<div class="section-title">延伸阅读 · 医药外包 7 兄弟页</div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-cxo-compare.html"><b>🥇 估值分位</b><span>医药外包（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-cxo-thermometer.html"><b>🌡️ 估值温度计</b><span>医药外包（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-cxo-buyback.html"><b>💰 回购监测</b><span>医药外包（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-cxo-repomap.html"><b>🗺️ 板块图谱</b><span>医药外包（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-cxo-backtest.html"><b>📈 五年回测</b><span>医药外包（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-cxo-cycle.html"><b>🔄 周期演进</b><span>医药外包（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-cxo-methodology.html"><b>📘 方法论说明</b><span>医药外包（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
+</body>
 </html>
