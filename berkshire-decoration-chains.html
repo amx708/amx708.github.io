@@ -1,97 +1,97 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>装饰产业链 · 调研 | 价值投资初级阶段</title>
-<link rel="stylesheet" href="./analytics.js">
-<style>
-:root {
-  --navy: #0b1f3a;
-  --navy2: #10294d;
-  --ink: #1d2b40;
-  --line: #e4e9f2;
-  --accent: #e8b84b;
-  --accent-rgb: 232,184,75;
-  --txt: #23344e;
-  --muted: #6b7a93;
-  --card: #fff;
-  --bg: #f4f7fc;
-  --green: #1f9d6b;
-  --red: #e74c3c;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
-.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
-.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
-.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
-.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
-.hero h1{font-size:28px;margin-bottom:10px;}
-.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
-.hero .stat{font-size:14px;}
-.hero .stat b{color:var(--accent);font-size:22px;display:block;}
-.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
-.data-banner b{color:var(--navy);font-weight:600}
-.container{max-width:1100px;margin:0 auto;padding:0 20px;}
-.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
-.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
-.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
-.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
-.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
-.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
-.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
-.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
-.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
-.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
-.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
-.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
-.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
-.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
-.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
-.ovtable tr:hover{background:#f4f7fc;}
-.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
-.pct-lo{background:#d1fae5;color:#065f46;}
-.pct-mid{background:#fef3c7;color:#92400e;}
-.pct-hi{background:#fee2e2;color:#991b1b;}
-.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
-.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
-.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
-.emp-badge.normal{background:#d1fae5;color:#065f46;}
-.emp-badge.warn{background:#fef3c7;color:#92400e;}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
-.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
-.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
-.gc-icon{font-size:24px;margin-bottom:8px;}
-.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
-.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
-.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
-.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
-.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
-.sortable th{cursor:pointer;user-select:none;}
-.sortable th:hover{background:var(--navy2);}
-.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
-.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
-.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
-
-.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
-.breadcrumb a{color:var(--primary-dark);text-decoration:none}
-.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
-.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
-.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
-.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
-.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
-.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
-.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
-.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
-.back-bar a:hover{background:#e8b84b;color:#fff}
-
-</style>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>装饰产业链 · 调研 | 价值投资初级阶段</title>
+<link rel="stylesheet" href="./analytics.js">
+<style>
+:root {
+  --navy: #0b1f3a;
+  --navy2: #10294d;
+  --ink: #1d2b40;
+  --line: #e4e9f2;
+  --accent: #e8b84b;
+  --accent-rgb: 232,184,75;
+  --txt: #23344e;
+  --muted: #6b7a93;
+  --card: #fff;
+  --bg: #f4f7fc;
+  --green: #1f9d6b;
+  --red: #e74c3c;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
+.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
+.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
+.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
+.hero h1{font-size:28px;margin-bottom:10px;}
+.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
+.hero .stat{font-size:14px;}
+.hero .stat b{color:var(--accent);font-size:22px;display:block;}
+.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
+.data-banner b{color:var(--navy);font-weight:600}
+.container{max-width:1100px;margin:0 auto;padding:0 20px;}
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
+.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
+.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
+.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
+.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
+.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
+.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
+.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
+.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
+.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
+.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
+.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
+.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
+.ovtable tr:hover{background:#f4f7fc;}
+.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
+.pct-lo{background:#d1fae5;color:#065f46;}
+.pct-mid{background:#fef3c7;color:#92400e;}
+.pct-hi{background:#fee2e2;color:#991b1b;}
+.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
+.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
+.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
+.emp-badge.normal{background:#d1fae5;color:#065f46;}
+.emp-badge.warn{background:#fef3c7;color:#92400e;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
+.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
+.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
+.gc-icon{font-size:24px;margin-bottom:8px;}
+.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
+.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
+.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
+.sortable th{cursor:pointer;user-select:none;}
+.sortable th:hover{background:var(--navy2);}
+.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
+.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
+.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style>
 
 <style>
 /* v2 white-spirit template additions */
@@ -129,573 +129,555 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 .ws2-frame-placeholder li{margin:2px 0}
 </style>
 
-</head>
-<body>
+</head>
+<body>
+
+<div class="top-bar">
+  <a href="./index.html">← 返回首页</a>
+  <span style="opacity:0.5">·</span>
+  <strong>装饰产业链</strong>
+</div>
+<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>装饰装修</b></div>
+
+<div class="hero">
+  <h1>🎨 装饰产业链</h1>
+  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 估值/质量/景气/回报/效率 五维验证</div>
+  <div class="stats">
+    <div class="stat"><b>10</b>代表公司</div>
+    <div class="stat"><b>≈49%</b>平均PE分位</div>
+    <div class="stat"><b>≈46%</b>平均PB分位</div>
+  </div>
+</div>
+
+<div class="data-banner">
+  <b>📊 数据锚</b>：平均 PE分位 ≈49% · 平均 PB分位 ≈46% · 估值/ROE/人均盈利已 10/10 覆盖
+</div>
+
+<div class="container">
+
+<h2 class="section-title">🔔 5 维研究信号</h2>
 
-<div class="top-bar">
-  <a href="./index.html">← 返回首页</a>
-  <span style="opacity:0.5">·</span>
-  <strong>装饰产业链</strong>
-</div>
-<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>装饰装修</b></div>
-
-<div class="hero">
-  <h1>🎨 装饰产业链</h1>
-  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 估值/质量/景气/回报/效率 五维验证</div>
-  <div class="stats">
-    <div class="stat"><b>10</b>代表公司</div>
-    <div class="stat"><b>≈49%</b>平均PE分位</div>
-    <div class="stat"><b>≈46%</b>平均PB分位</div>
-  </div>
-</div>
-
-<div class="data-banner">
-  <b>📊 数据锚</b>：平均 PE分位 ≈49% · 平均 PB分位 ≈46% · 估值/ROE/人均盈利已 10/10 覆盖
-</div>
-
-<div class="container">
-
-<h2 class="section-title">🔔 5 维研究信号</h2>
-<div class="research-signal">
-  <div class="rs-grid">
-    <div class="rs-item"><div class="rs-label">估值信号</div><div class="rs-val">估值历史分位 → 当前位置 + 平均分位</div><div style="font-size:10px;color:var(--muted);margin-top:4px">估</div></div><div class="rs-item"><div class="rs-label">质量信号</div><div class="rs-val">ROE/毛利率/净利率 → 龙头质量</div><div style="font-size:10px;color:var(--muted);margin-top:4px">质</div></div><div class="rs-item"><div class="rs-label">景气信号</div><div class="rs-val">营收/利润同比 → 行业景气</div><div style="font-size:10px;color:var(--muted);margin-top:4px">景</div></div><div class="rs-item"><div class="rs-label">回报信号</div><div class="rs-val">股息率 + 回购 → 股东回报</div><div style="font-size:10px;color:var(--muted);margin-top:4px">回</div></div><div class="rs-item"><div class="rs-label">人效信号</div><div class="rs-val">人均创收/人均净利 → 经营效率</div><div style="font-size:10px;color:var(--muted);margin-top:4px">效</div></div>
-  </div>
-</div>
-
-<h2 class="section-title">🏛 5 层分析框架</h2>
-<div class="layers">
-      <div class="layer-card">
-        <div class="layer-num">01</div>
-        <div class="layer-name">上游成本</div>
-        <div class="layer-text">原材料/零部件供应，价格波动传导与议价能力。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">02</div>
-        <div class="layer-name">中游制造</div>
-        <div class="layer-text">产能利用率与规模效应，决定盈利波动。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">03</div>
-        <div class="layer-name">下游应用</div>
-        <div class="layer-text">终端需求景气与渗透率变化。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">04</div>
-        <div class="layer-name">竞争格局</div>
-        <div class="layer-text">集中度、龙头溢价、护城河深浅。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">05</div>
-        <div class="layer-name">投资逻辑</div>
-        <div class="layer-text">周期位置 + 估值锚 + 人效 + 机构共识 四维验证。</div>
-      </div></div>
-
-<h2 class="section-title">💬 人话版 · 实战信号</h2>
-<div class="human-block">
-  <p><b>看产业链核心是「周期位置 + 护城河 + 估值锚」三维交叉验证。</b></p>
-  <ul style="margin-top:12px;padding-left:20px;line-height:1.8">
-    <li>先看周期位置：库存/价格/产能/估值 四维判断当前位置。</li><li>再看护城河：龙头集中度 + 规模效应 + 准入壁垒。</li><li>然后看估值锚：PE/PB 历史分位 + 同行业可比 + 跨市场对比。</li><li>警惕陷阱：低估值不等于低估，可能反映景气下行。</li><li>实战信号：股息率 + 回购 + 机构持仓 三路验证。</li>
-  </ul>
-</div>
-
-<h2 class="section-title">🔄 产业周期判断标准</h2>
-<div class="cycle-block">
-  <p><b>驱动因素：</b>行业景气由供需结构 + 政策周期 + 货币环境 + 库存周期 共同决定。</p>
-  <div class="cycle-grid">
-    <div><b>供需</b>产能利用率/订单饱满度/价格传导</div><div><b>库存</b>主动累库/被动累库/主动去库</div><div><b>价格</b>原料价格/出厂价/终端价</div><div><b>估值</b>PE/PB 历史分位 + 行业相对估值</div>
-  </div>
-  <p style="margin-top:14px"><b>历史案例：</b>复盘 2018-2020 周期：估值低位 + 业绩拐点 + 产业政策利好 三共振时胜率最高。</p>
-  <p style="margin-top:8px"><b>当前位置：</b>当前多数子行业估值历史分位偏低，部分龙头股息率创近 5 年新高，景气底部信号渐显。</p>
-</div>
-
-<h2 class="section-title">📈 估值历史分位总览</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002081.html"><b>金螳螂</b></a></td>
-        <td>002081</td>
-        <td>23.2 <span class="pct pct-hi">97%</span></td>
-        <td>0.68 <span class="pct pct-lo">12%</span></td>
-        <td>3.2%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002375.html"><b>亚厦股份</b></a></td>
-        <td>002375</td>
-        <td>13.7 <span class="pct pct-lo">10%</span></td>
-        <td>0.54 <span class="pct pct-lo">2%</span></td>
-        <td>4.0%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002482.html"><b>广田集团</b></a></td>
-        <td>002482</td>
-        <td>-38.2 <span class="pct pct-lo">11%</span></td>
-        <td>10.12 <span class="pct pct-hi">76%</span></td>
-        <td>-24.8%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002325.html"><b>洪涛股份</b></a></td>
-        <td>002325</td>
-        <td>-0.5 <span class="pct pct-hi">64%</span></td>
-        <td>0.44 <span class="pct pct-lo">2%</span></td>
-        <td>-68.5%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002047.html"><b>宝鹰股份</b></a></td>
-        <td>002047</td>
-        <td>71.7 <span class="pct pct-hi">95%</span></td>
-        <td>116.60 <span class="pct pct-hi">95%</span></td>
-        <td>265.1%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002620.html"><b>瑞和股份</b></a></td>
-        <td>002620</td>
-        <td>-17.4 <span class="pct pct-lo">13%</span></td>
-        <td>-21.56 <span class="pct pct-lo">7%</span></td>
-        <td>1162.4%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002713.html"><b>东易日盛</b></a></td>
-        <td>002713</td>
-        <td>232.4 <span class="pct pct-hi">98%</span></td>
-        <td>10.25 <span class="pct pct-hi">88%</span></td>
-        <td>-33.0%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002830.html"><b>名雕股份</b></a></td>
-        <td>002830</td>
-        <td>49.0 <span class="pct pct-lo">38%</span></td>
-        <td>3.10 <span class="pct pct-mid">59%</span></td>
-        <td>6.3%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002789.html"><b>建艺集团</b></a></td>
-        <td>002789</td>
-        <td>-1.8 <span class="pct pct-mid">40%</span></td>
-        <td>9.16 <span class="pct pct-hi">70%</span></td>
-        <td>251.9%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002811.html"><b>郑中设计</b></a></td>
-        <td>002811</td>
-        <td>17.4 <span class="pct pct-lo">18%</span></td>
-        <td>1.97 <span class="pct pct-mid">50%</span></td>
-        <td>12.1%</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">⚖ R15 三维评级总览</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002081.html"><b>金螳螂</b></a></td>
-        <td>23.2</td>
-        <td>0.68</td>
-        <td>★</td>
-        <td>★</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002375.html"><b>亚厦股份</b></a></td>
-        <td>13.7</td>
-        <td>0.54</td>
-        <td>★★★★★</td>
-        <td>★</td>
-        <td>9</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002482.html"><b>广田集团</b></a></td>
-        <td>-38.2</td>
-        <td>10.12</td>
-        <td>★★★★★</td>
-        <td>★</td>
-        <td>6</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002325.html"><b>洪涛股份</b></a></td>
-        <td>-0.5</td>
-        <td>0.44</td>
-        <td>★★★</td>
-        <td>★</td>
-        <td>7</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002047.html"><b>宝鹰股份</b></a></td>
-        <td>71.7</td>
-        <td>116.60</td>
-        <td>★</td>
-        <td>★★★★★</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002620.html"><b>瑞和股份</b></a></td>
-        <td>-17.4</td>
-        <td>-21.56</td>
-        <td>★★★★★</td>
-        <td>★★★★★</td>
-        <td>9</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002713.html"><b>东易日盛</b></a></td>
-        <td>232.4</td>
-        <td>10.25</td>
-        <td>★</td>
-        <td>★</td>
-        <td>1</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002830.html"><b>名雕股份</b></a></td>
-        <td>49.0</td>
-        <td>3.10</td>
-        <td>★★</td>
-        <td>★</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002789.html"><b>建艺集团</b></a></td>
-        <td>-1.8</td>
-        <td>9.16</td>
-        <td>★★★</td>
-        <td>★★★★★</td>
-        <td>4</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002811.html"><b>郑中设计</b></a></td>
-        <td>17.4</td>
-        <td>1.97</td>
-        <td>★★★★</td>
-        <td>★★★★</td>
-        <td>7</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">🏭 产业链成本传导</h2>
-
-    <div class="cost-block">
-      <h3>产业链成本传导路径</h3>
-      <svg viewBox="0 0 800 140" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="arr-ac" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-            <polygon points="0 0, 8 4, 0 8" fill="#f59e0b"/>
-          </marker>
-        </defs>
-        <g>
-          <rect x="15" y="30" width="130" height="44" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/>
-          <text x="80" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游原材料</text>
-        </g>
-        <g>
-          <rect x="215" y="30" width="130" height="44" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/>
-          <text x="280" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游加工</text>
-        </g>
-        <g>
-          <rect x="415" y="30" width="130" height="44" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/>
-          <text x="480" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游品牌</text>
-        </g>
-        <g>
-          <rect x="615" y="30" width="130" height="44" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/>
-          <text x="680" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">需求弹性</text>
-        </g>
-        <line x1="145" y1="52" x2="215" y2="52" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-        <line x1="345" y1="52" x2="415" y2="52" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-        <line x1="545" y1="52" x2="615" y2="52" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-      </svg>
-      <p class="cost-note">成本传导关键看议价能力与库存周期：龙头凭借规模优势可锁定上游成本；中小厂商在价格上行期被动跟涨、在下行期被迫降价。</p>
-    </div>
-
-<h2 class="section-title">👥 员工效率排行</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>2024员工</th><th>同比</th><th>人均净利</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002081.html"><b>金螳螂</b></a></td>
-        <td>002081</td>
-        <td>5566</td>
-        <td>1万</td>
-        <td>-44.7%</td>
-        <td>¥7.9万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002375.html"><b>亚厦股份</b></a></td>
-        <td>002375</td>
-        <td>3992</td>
-        <td>4211</td>
-        <td>-5.2%</td>
-        <td>¥8.3万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002482.html"><b>广田集团</b></a></td>
-        <td>002482</td>
-        <td>677</td>
-        <td>858</td>
-        <td>-21.1%</td>
-        <td>¥-19.2万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002325.html"><b>洪涛股份</b></a></td>
-        <td>002325</td>
-        <td>—</td>
-        <td>—</td>
-        <td>口径异常</td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002047.html"><b>宝鹰股份</b></a></td>
-        <td>002047</td>
-        <td>209</td>
-        <td>187</td>
-        <td>+11.8%</td>
-        <td>¥28.7万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002620.html"><b>瑞和股份</b></a></td>
-        <td>002620</td>
-        <td>307</td>
-        <td>390</td>
-        <td>-21.3%</td>
-        <td>¥-29.3万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002713.html"><b>东易日盛</b></a></td>
-        <td>002713</td>
-        <td>735</td>
-        <td>780</td>
-        <td>-5.8%</td>
-        <td>¥5.4万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002830.html"><b>名雕股份</b></a></td>
-        <td>002830</td>
-        <td>749</td>
-        <td>773</td>
-        <td>-3.1%</td>
-        <td>¥5.3万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002789.html"><b>建艺集团</b></a></td>
-        <td>002789</td>
-        <td>1413</td>
-        <td>1846</td>
-        <td>-23.5%</td>
-        <td>¥-53.1万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-decoration-chain-002811.html"><b>郑中设计</b></a></td>
-        <td>002811</td>
-        <td>2119</td>
-        <td>1771</td>
-        <td>+19.6%</td>
-        <td>¥7.1万</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">🏢 公司索引</h2>
-<div class="grid">
-      <a class="giant-card" href="./berkshire-decoration-chain-002081.html">
-        <div class="gc-title">金螳螂</div>
-        <div class="gc-code">002081</div>
-        <div class="gc-meta">PE 23.2 · PB 0.68 · ROE 3.2%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-decoration-chain-002375.html">
-        <div class="gc-title">亚厦股份</div>
-        <div class="gc-code">002375</div>
-        <div class="gc-meta">PE 13.7 · PB 0.54 · ROE 4.0%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-decoration-chain-002482.html">
-        <div class="gc-title">广田集团</div>
-        <div class="gc-code">002482</div>
-        <div class="gc-meta">PE -38.2 · PB 10.12 · ROE -24.8%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-decoration-chain-002325.html">
-        <div class="gc-title">洪涛股份</div>
-        <div class="gc-code">002325</div>
-        <div class="gc-meta">PE -0.5 · PB 0.44 · ROE -68.5%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-decoration-chain-002047.html">
-        <div class="gc-title">宝鹰股份</div>
-        <div class="gc-code">002047</div>
-        <div class="gc-meta">PE 71.7 · PB 116.60 · ROE 265.1%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-decoration-chain-002620.html">
-        <div class="gc-title">瑞和股份</div>
-        <div class="gc-code">002620</div>
-        <div class="gc-meta">PE -17.4 · PB -21.56 · ROE 1162.4%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-decoration-chain-002713.html">
-        <div class="gc-title">东易日盛</div>
-        <div class="gc-code">002713</div>
-        <div class="gc-meta">PE 232.4 · PB 10.25 · ROE -33.0%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-decoration-chain-002830.html">
-        <div class="gc-title">名雕股份</div>
-        <div class="gc-code">002830</div>
-        <div class="gc-meta">PE 49.0 · PB 3.10 · ROE 6.3%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-decoration-chain-002789.html">
-        <div class="gc-title">建艺集团</div>
-        <div class="gc-code">002789</div>
-        <div class="gc-meta">PE -1.8 · PB 9.16 · ROE 251.9%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-decoration-chain-002811.html">
-        <div class="gc-title">郑中设计</div>
-        <div class="gc-code">002811</div>
-        <div class="gc-meta">PE 17.4 · PB 1.97 · ROE 12.1%</div>
-      </a></div>
-
-<h2 class="section-title">📚 延伸阅读</h2>
-<div class="grid">
-
-      <a class="giant-card" href="berkshire-decoration-cycle.html">
-        <div class="gc-icon">🔄</div>
-        <div class="gc-title">产业周期</div>
-        <div class="gc-desc">库存/价格/产能/估值四维判断周期位置。</div>
-      </a>
-      <a class="giant-card" href="berkshire-decoration-backtest.html">
-        <div class="gc-icon">📈</div>
-        <div class="gc-title">回测框架</div>
-        <div class="gc-desc">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</div>
-      </a>
-      <a class="giant-card" href="./berkshire-decoration-buyback.html">
-        <div class="gc-icon">💰</div>
-        <div class="gc-title">逐轮买点回报图</div>
-        <div class="gc-desc">三轮全市场大底买入并持有的后复权累计回报。</div>
-      </a>      <a class="giant-card" href="berkshire-decoration-repomap.html">
-        <div class="gc-icon">🗺️</div>
-        <div class="gc-title">回购地图</div>
-        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分，逐家拆解。</div>
-      </a></div>
-
-<div class="source-note">
-  数据来源：akshare / 同花顺 / 巨潮资讯网 · 数据日期：2026-08-09 · 仅供参考，不构成投资建议
-</div>
-
-</div>
-
-<script src="./analytics.js"></script>
-<script src="./tdx-link.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.sortable').forEach(function(t){
-    t.querySelectorAll('th').forEach(function(th,i){
-      th.addEventListener('click',function(){
-        var d=t.querySelector('tbody');
-        var rows=Array.from(d.querySelectorAll('tr'));
-        var asc=th.classList.contains('sorted-asc');
-        th.classList.remove('sorted-asc','sorted-desc');
-        rows.sort(function(a,b){
-          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          av=parseFloat(av); bv=parseFloat(bv);
-          return asc?bv-av:av-bv;
-        });
-        th.classList.add(asc?'sorted-desc':'sorted-asc');
-        rows.forEach(function(r){d.appendChild(r)});
-      });
-    });
-  });
-});
-</script>
-<div class="section-title">延伸阅读 · 装饰装修 7 兄弟页</div>
-<div class="extend-grid">
-<a class="extend-card" href="./berkshire-decoration-compare.html"><b>🥇 估值分位</b><span>装饰装修（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-decoration-thermometer.html"><b>🌡️ 估值温度计</b><span>装饰装修（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-decoration-buyback.html"><b>💰 回购监测</b><span>装饰装修（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-decoration-repomap.html"><b>🗺️ 板块图谱</b><span>装饰装修（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-decoration-backtest.html"><b>📈 五年回测</b><span>装饰装修（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-decoration-cycle.html"><b>🔄 周期演进</b><span>装饰装修（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-decoration-methodology.html"><b>📘 方法论说明</b><span>装饰装修（估值/回购/周期研究的取值口径与可信区间）</span></a>
-</div>
-
-<!-- ===== 白酒原版 v2 (per 老板截屏) START ===== -->
+<!-- ===== v2 body (per 老板截屏) START ===== -->
 <div class="ws2-counter-wrap">
   
 <div class="ws2-counter">
   <div class="card"><div class="num">10</div><div class="lbl">家上市公司</div></div>
-  <div class="card"><div class="num">4</div><div class="lbl">核心环节</div></div>
+  <div class="card"><div class="num">10</div><div class="lbl">核心环节 / 子链</div></div>
   <div class="card"><div class="num">6</div><div class="lbl">延伸阅读</div></div>
 </div>
 <div class="ws2-tip"><b>纪律声明：</b>本面板只用公开财报与估值数据可验证的事实。<b>不含</b>任何编造叙事——投资逻辑、产品定位、竞争格局、产能周期均以<b>占位框架</b>呈现，待人工补充。</div>
 
 </div>
-
 <section class="ws2-section">
   <h3>🎯 投资逻辑（8 条 · 占位框架，待人工填实）</h3>
   <div class='ws2-logic8'><div class="item empty"><b>1️⃣ 商业模式与护城河来源</b>（占位 · 待人工填实）</div><div class="item empty"><b>2️⃣ 行业集中度与玩家分层</b>（占位 · 待人工填实）</div><div class="item empty"><b>3️⃣ 产业链上下游关系</b>（占位 · 待人工填实）</div><div class="item empty"><b>4️⃣ 周期性与价格话语权</b>（占位 · 待人工填实）</div><div class="item empty"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>（占位 · 待人工填实）</div><div class="item empty"><b>6️⃣ 估值水位与历史分位</b>（占位 · 待人工填实）</div><div class="item empty"><b>7️⃣ 主要风险事件清单</b>（占位 · 待人工填实）</div><div class="item empty"><b>8️⃣ 投资跟踪指标与反向信号</b>（占位 · 待人工填实）</div></div>
 </section>
-
 <section class="ws2-section">
-  <h3><span class="tag">DATA</span> 历史分位图 · 5 张</h3>
-  <div class='ws2-charts'><div class="chart"><div class="ti">毛利率分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">毛利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">36.2%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">25.9%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">15.7%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">5.4%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-4.9%</text><path d="M 60.0,42.5 L 120.0,47.5 L 180.0,50.7 L 240.0,47.5 L 300.0,58.4 L 360.0,62.2 L 420.0,55.0 L 480.0,57.8 L 540.0,52.9 L 600.0,57.4 L 660.0,43.4 L 660.0,132.8 L 600.0,163.5 L 540.0,150.8 L 480.0,152.3 L 420.0,130.8 L 360.0,108.0 L 300.0,107.6 L 240.0,106.6 L 180.0,105.5 L 120.0,114.7 L 60.0,106.9 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,74.7 L 120.0,78.4 L 180.0,81.4 L 240.0,83.8 L 300.0,90.1 L 360.0,89.1 L 420.0,85.9 L 480.0,85.3 L 540.0,89.8 L 600.0,73.1 L 660.0,60.3 L 660.0,112.4 L 600.0,129.3 L 540.0,127.7 L 480.0,125.3 L 420.0,115.6 L 360.0,104.2 L 300.0,103.3 L 240.0,103.3 L 180.0,103.0 L 120.0,111.8 L 60.0,99.5 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,96.7 L 120.0,99.2 L 180.0,94.4 L 240.0,94.2 L 300.0,97.3 L 360.0,100.7 L 420.0,112.9 L 480.0,106.7 L 540.0,113.8 L 600.0,110.5 L 660.0,95.9" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,83.9 L 120.0,90.4 L 180.0,86.4 L 240.0,86.4 L 300.0,90.1 L 360.0,91.5 L 420.0,99.9 L 480.0,118.1 L 540.0,116.4 L 600.0,128.8 L 660.0,89.4" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.6</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">16.8</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">18.3</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">18.4</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.4</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">16.4</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.6</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">14.5</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.3</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.4</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.8</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">净利率分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">净利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">27.8%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">-15.0%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">-57.8%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-100.6%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-143.5%</text><path d="M 60.0,50.8 L 120.0,51.9 L 180.0,52.1 L 240.0,52.8 L 300.0,53.4 L 360.0,53.5 L 420.0,56.2 L 480.0,55.7 L 540.0,37.6 L 600.0,52.9 L 660.0,50.5 L 660.0,146.5 L 600.0,168.4 L 540.0,89.5 L 480.0,110.7 L 420.0,100.1 L 360.0,63.0 L 300.0,57.7 L 240.0,56.9 L 180.0,54.6 L 120.0,54.7 L 60.0,55.0 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,52.3 L 120.0,53.4 L 180.0,53.1 L 240.0,53.2 L 300.0,54.6 L 360.0,54.9 L 420.0,58.6 L 480.0,56.7 L 540.0,54.4 L 600.0,55.5 L 660.0,53.1 L 660.0,71.7 L 600.0,83.6 L 540.0,73.4 L 480.0,94.8 L 420.0,94.2 L 360.0,58.1 L 300.0,57.0 L 240.0,55.1 L 180.0,54.5 L 120.0,54.7 L 60.0,54.4 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,53.5 L 120.0,54.1 L 180.0,53.7 L 240.0,54.5 L 300.0,55.5 L 360.0,56.0 L 420.0,68.7 L 480.0,63.8 L 540.0,62.2 L 600.0,72.2 L 660.0,55.3" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,53.0 L 120.0,53.7 L 180.0,53.5 L 240.0,55.2 L 300.0,55.9 L 360.0,57.1 L 420.0,76.3 L 480.0,80.9 L 540.0,60.4 L 600.0,118.1 L 660.0,131.7" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.5</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.7</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.1</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.1</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.9</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.2</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-14.0</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-7.8</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-5.8</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-18.5</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.1</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">ROE 分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">ROE 分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">1308.7%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">695.8%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">83.0%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-529.8%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-1142.6%</text><path d="M 60.0,106.5 L 120.0,106.6 L 180.0,106.6 L 240.0,106.6 L 300.0,107.0 L 360.0,106.7 L 420.0,107.3 L 480.0,106.4 L 540.0,105.7 L 600.0,36.1 L 660.0,100.9 L 660.0,114.6 L 600.0,113.9 L 540.0,169.9 L 480.0,119.7 L 420.0,146.7 L 360.0,108.2 L 300.0,107.7 L 240.0,107.4 L 180.0,107.3 L 120.0,107.3 L 60.0,107.2 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,106.7 L 120.0,106.9 L 180.0,107.0 L 240.0,107.1 L 300.0,107.2 L 360.0,107.2 L 420.0,107.6 L 480.0,107.2 L 540.0,107.3 L 600.0,103.2 L 660.0,107.0 L 660.0,108.7 L 600.0,108.9 L 540.0,122.9 L 480.0,108.7 L 420.0,120.5 L 360.0,107.6 L 300.0,107.4 L 240.0,107.2 L 180.0,107.2 L 120.0,107.3 L 60.0,107.1 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,106.9 L 120.0,107.2 L 180.0,107.1 L 240.0,107.1 L 300.0,107.3 L 360.0,107.4 L 420.0,109.1 L 480.0,107.4 L 540.0,110.0 L 600.0,107.3 L 660.0,107.3" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,106.9 L 120.0,107.1 L 180.0,107.0 L 240.0,107.2 L 300.0,107.5 L 360.0,107.4 L 420.0,119.3 L 480.0,110.1 L 540.0,124.7 L 600.0,43.2 L 660.0,108.6" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.3</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">7.1</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">8.4</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">7.2</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.5</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.1</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-28.3</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.0</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-45.3</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.0</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.1</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">营收同比分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">营收同比分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 10 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">35.3%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">11.1%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">-13.0%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-37.2%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-61.3%</text><path d="M 60.0,39.2 L 126.7,52.4 L 193.3,54.8 L 260.0,59.8 L 326.7,84.7 L 393.3,66.6 L 460.0,83.0 L 526.7,38.8 L 593.3,82.8 L 660.0,49.3 L 660.0,167.2 L 593.3,166.3 L 526.7,150.3 L 460.0,153.4 L 393.3,123.9 L 326.7,119.1 L 260.0,98.0 L 193.3,83.7 L 126.7,78.3 L 60.0,91.4 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,52.5 L 126.7,58.2 L 193.3,57.1 L 260.0,63.8 L 326.7,87.6 L 393.3,82.6 L 460.0,96.4 L 526.7,72.1 L 593.3,94.1 L 660.0,82.0 L 660.0,152.5 L 593.3,153.4 L 526.7,116.5 L 460.0,143.4 L 393.3,113.9 L 326.7,100.6 L 260.0,87.1 L 193.3,77.0 L 126.7,74.8 L 60.0,85.6 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,79.6 L 126.7,67.8 L 193.3,61.2 L 260.0,79.2 L 326.7,95.6 L 393.3,99.3 L 460.0,125.9 L 526.7,88.8 L 593.3,111.6 L 660.0,131.7" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,70.7 L 126.7,67.0 L 193.3,66.1 L 260.0,77.3 L 326.7,97.5 L 393.3,96.6 L 460.0,120.4 L 526.7,76.3 L 593.3,124.1 L 660.0,107.7" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.8</text><text x="126.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="126.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.3</text><text x="193.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="193.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.1</text><text x="260.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="260.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.2</text><text x="326.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="326.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-7.7</text><text x="393.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="393.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-10.4</text><text x="460.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="460.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-29.5</text><text x="526.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="526.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-2.8</text><text x="593.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="593.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-19.2</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-33.7</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">PE 横截面 TTM · 13 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 192" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="192" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PE 横截面（TTM，13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">6 家公司 · 取自估值快照</text><text x="102" y="49.7" fill="#1a2540" font-size="11" text-anchor="end">亚厦股份</text><rect x="110" y="40.0" width="29.7" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="144.7" y="49.7" fill="#1a2540" font-size="11">14.8x</text><text x="102" y="71.0" fill="#1a2540" font-size="11" text-anchor="end">郑中设计</text><rect x="110" y="61.3" width="42.4" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="157.4" y="71.0" fill="#1a2540" font-size="11">21.1x</text><text x="102" y="92.3" fill="#1a2540" font-size="11" text-anchor="end">金螳螂</text><rect x="110" y="82.7" width="69.6" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="184.6" y="92.3" fill="#1a2540" font-size="11">34.6x</text><text x="102" y="113.7" fill="#1a2540" font-size="11" text-anchor="end">名雕股份</text><rect x="110" y="104.0" width="119.0" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="234.0" y="113.7" fill="#1a2540" font-size="11">59.2x</text><text x="102" y="135.0" fill="#1a2540" font-size="11" text-anchor="end">宝鹰股份</text><rect x="110" y="125.3" width="174.1" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="289.1" y="135.0" fill="#1a2540" font-size="11">86.6x</text><text x="102" y="156.3" fill="#1a2540" font-size="11" text-anchor="end">东易日盛</text><rect x="110" y="146.7" width="514.3" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="629.3" y="156.3" fill="#1a2540" font-size="11">255.8x</text></svg></div><div class="chart"><div class="ti">PB 横截面 · 13 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 236" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="236" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PB 横截面（13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">8 家公司 · 取自估值快照</text><text x="102" y="49.8" fill="#1a2540" font-size="11" text-anchor="end">洪涛股份</text><rect x="110" y="40.0" width="20.1" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="135.1" y="49.8" fill="#1a2540" font-size="11">0.4x</text><text x="102" y="71.2" fill="#1a2540" font-size="11" text-anchor="end">亚厦股份</text><rect x="110" y="61.5" width="26.9" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="141.9" y="71.2" fill="#1a2540" font-size="11">0.6x</text><text x="102" y="92.8" fill="#1a2540" font-size="11" text-anchor="end">金螳螂</text><rect x="110" y="83.0" width="47.0" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="162.0" y="92.8" fill="#1a2540" font-size="11">1.0x</text><text x="102" y="114.2" fill="#1a2540" font-size="11" text-anchor="end">郑中设计</text><rect x="110" y="104.5" width="111.7" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="226.7" y="114.2" fill="#1a2540" font-size="11">2.5x</text><text x="102" y="135.8" fill="#1a2540" font-size="11" text-anchor="end">名雕股份</text><rect x="110" y="126.0" width="177.8" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="292.8" y="135.8" fill="#1a2540" font-size="11">3.9x</text><text x="102" y="157.2" fill="#1a2540" font-size="11" text-anchor="end">建艺集团</text><rect x="110" y="147.5" width="485.6" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="600.6" y="157.2" fill="#1a2540" font-size="11">10.7x</text><text x="102" y="178.8" fill="#1a2540" font-size="11" text-anchor="end">广田集团</text><rect x="110" y="169.0" width="488.3" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="603.3" y="178.8" fill="#1a2540" font-size="11">10.7x</text><text x="102" y="200.2" fill="#1a2540" font-size="11" text-anchor="end">东易日盛</text><rect x="110" y="190.5" width="514.3" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="629.3" y="200.2" fill="#1a2540" font-size="11">11.3x</text></svg></div></div>
+  <h3><span class="tag">DATA</span> 历史分位图 · 6 张</h3>
+  <div class='ws2-charts'><div class="chart"><div class="ti">毛利率分位带（装饰产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">毛利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">36.2%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">25.9%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">15.7%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">5.4%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-4.9%</text><path d="M 60.0,42.5 L 120.0,47.5 L 180.0,50.7 L 240.0,47.5 L 300.0,58.4 L 360.0,62.2 L 420.0,55.0 L 480.0,57.8 L 540.0,52.9 L 600.0,57.4 L 660.0,43.4 L 660.0,132.8 L 600.0,163.5 L 540.0,150.8 L 480.0,152.3 L 420.0,130.8 L 360.0,108.0 L 300.0,107.6 L 240.0,106.6 L 180.0,105.5 L 120.0,114.7 L 60.0,106.9 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,74.7 L 120.0,78.4 L 180.0,81.4 L 240.0,83.8 L 300.0,90.1 L 360.0,89.1 L 420.0,85.9 L 480.0,85.3 L 540.0,89.8 L 600.0,73.1 L 660.0,60.3 L 660.0,112.4 L 600.0,129.3 L 540.0,127.7 L 480.0,125.3 L 420.0,115.6 L 360.0,104.2 L 300.0,103.3 L 240.0,103.3 L 180.0,103.0 L 120.0,111.8 L 60.0,99.5 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,96.7 L 120.0,99.2 L 180.0,94.4 L 240.0,94.2 L 300.0,97.3 L 360.0,100.7 L 420.0,112.9 L 480.0,106.7 L 540.0,113.8 L 600.0,110.5 L 660.0,95.9" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,83.9 L 120.0,90.4 L 180.0,86.4 L 240.0,86.4 L 300.0,90.1 L 360.0,91.5 L 420.0,99.9 L 480.0,118.1 L 540.0,116.4 L 600.0,128.8 L 660.0,89.4" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.6</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">16.8</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">18.3</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">18.4</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.4</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">16.4</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.6</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">14.5</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.3</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.4</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.8</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">净利率分位带（装饰产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">净利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">27.8%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">-15.0%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">-57.8%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-100.6%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-143.5%</text><path d="M 60.0,50.8 L 120.0,51.9 L 180.0,52.1 L 240.0,52.8 L 300.0,53.4 L 360.0,53.5 L 420.0,56.2 L 480.0,55.7 L 540.0,37.6 L 600.0,52.9 L 660.0,50.5 L 660.0,146.5 L 600.0,168.4 L 540.0,89.5 L 480.0,110.7 L 420.0,100.1 L 360.0,63.0 L 300.0,57.7 L 240.0,56.9 L 180.0,54.6 L 120.0,54.7 L 60.0,55.0 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,52.3 L 120.0,53.4 L 180.0,53.1 L 240.0,53.2 L 300.0,54.6 L 360.0,54.9 L 420.0,58.6 L 480.0,56.7 L 540.0,54.4 L 600.0,55.5 L 660.0,53.1 L 660.0,71.7 L 600.0,83.6 L 540.0,73.4 L 480.0,94.8 L 420.0,94.2 L 360.0,58.1 L 300.0,57.0 L 240.0,55.1 L 180.0,54.5 L 120.0,54.7 L 60.0,54.4 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,53.5 L 120.0,54.1 L 180.0,53.7 L 240.0,54.5 L 300.0,55.5 L 360.0,56.0 L 420.0,68.7 L 480.0,63.8 L 540.0,62.2 L 600.0,72.2 L 660.0,55.3" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,53.0 L 120.0,53.7 L 180.0,53.5 L 240.0,55.2 L 300.0,55.9 L 360.0,57.1 L 420.0,76.3 L 480.0,80.9 L 540.0,60.4 L 600.0,118.1 L 660.0,131.7" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.5</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.7</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.1</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.1</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.9</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.2</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-14.0</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-7.8</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-5.8</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-18.5</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.1</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">ROE 分位带（装饰产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">ROE 分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">1308.7%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">695.8%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">83.0%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-529.8%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-1142.6%</text><path d="M 60.0,106.5 L 120.0,106.6 L 180.0,106.6 L 240.0,106.6 L 300.0,107.0 L 360.0,106.7 L 420.0,107.3 L 480.0,106.4 L 540.0,105.7 L 600.0,36.1 L 660.0,100.9 L 660.0,114.6 L 600.0,113.9 L 540.0,169.9 L 480.0,119.7 L 420.0,146.7 L 360.0,108.2 L 300.0,107.7 L 240.0,107.4 L 180.0,107.3 L 120.0,107.3 L 60.0,107.2 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,106.7 L 120.0,106.9 L 180.0,107.0 L 240.0,107.1 L 300.0,107.2 L 360.0,107.2 L 420.0,107.6 L 480.0,107.2 L 540.0,107.3 L 600.0,103.2 L 660.0,107.0 L 660.0,108.7 L 600.0,108.9 L 540.0,122.9 L 480.0,108.7 L 420.0,120.5 L 360.0,107.6 L 300.0,107.4 L 240.0,107.2 L 180.0,107.2 L 120.0,107.3 L 60.0,107.1 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,106.9 L 120.0,107.2 L 180.0,107.1 L 240.0,107.1 L 300.0,107.3 L 360.0,107.4 L 420.0,109.1 L 480.0,107.4 L 540.0,110.0 L 600.0,107.3 L 660.0,107.3" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,106.9 L 120.0,107.1 L 180.0,107.0 L 240.0,107.2 L 300.0,107.5 L 360.0,107.4 L 420.0,119.3 L 480.0,110.1 L 540.0,124.7 L 600.0,43.2 L 660.0,108.6" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.3</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">7.1</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">8.4</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">7.2</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.5</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.1</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-28.3</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.0</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-45.3</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.0</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.1</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">营收同比分位带（装饰产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">营收同比分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 10 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">35.3%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">11.1%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">-13.0%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-37.2%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-61.3%</text><path d="M 60.0,39.2 L 126.7,52.4 L 193.3,54.8 L 260.0,59.8 L 326.7,84.7 L 393.3,66.6 L 460.0,83.0 L 526.7,38.8 L 593.3,82.8 L 660.0,49.3 L 660.0,167.2 L 593.3,166.3 L 526.7,150.3 L 460.0,153.4 L 393.3,123.9 L 326.7,119.1 L 260.0,98.0 L 193.3,83.7 L 126.7,78.3 L 60.0,91.4 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,52.5 L 126.7,58.2 L 193.3,57.1 L 260.0,63.8 L 326.7,87.6 L 393.3,82.6 L 460.0,96.4 L 526.7,72.1 L 593.3,94.1 L 660.0,82.0 L 660.0,152.5 L 593.3,153.4 L 526.7,116.5 L 460.0,143.4 L 393.3,113.9 L 326.7,100.6 L 260.0,87.1 L 193.3,77.0 L 126.7,74.8 L 60.0,85.6 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,79.6 L 126.7,67.8 L 193.3,61.2 L 260.0,79.2 L 326.7,95.6 L 393.3,99.3 L 460.0,125.9 L 526.7,88.8 L 593.3,111.6 L 660.0,131.7" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,70.7 L 126.7,67.0 L 193.3,66.1 L 260.0,77.3 L 326.7,97.5 L 393.3,96.6 L 460.0,120.4 L 526.7,76.3 L 593.3,124.1 L 660.0,107.7" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.8</text><text x="126.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="126.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.3</text><text x="193.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="193.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.1</text><text x="260.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="260.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.2</text><text x="326.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="326.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-7.7</text><text x="393.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="393.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-10.4</text><text x="460.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="460.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-29.5</text><text x="526.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="526.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-2.8</text><text x="593.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="593.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-19.2</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-33.7</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">PE 横截面 TTM · 10 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 192" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="192" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PE 横截面（TTM，13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">6 家公司 · 取自估值快照</text><text x="102" y="49.7" fill="#1a2540" font-size="11" text-anchor="end">亚厦股份</text><rect x="110" y="40.0" width="29.7" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="144.7" y="49.7" fill="#1a2540" font-size="11">14.8x</text><text x="102" y="71.0" fill="#1a2540" font-size="11" text-anchor="end">郑中设计</text><rect x="110" y="61.3" width="42.4" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="157.4" y="71.0" fill="#1a2540" font-size="11">21.1x</text><text x="102" y="92.3" fill="#1a2540" font-size="11" text-anchor="end">金螳螂</text><rect x="110" y="82.7" width="69.6" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="184.6" y="92.3" fill="#1a2540" font-size="11">34.6x</text><text x="102" y="113.7" fill="#1a2540" font-size="11" text-anchor="end">名雕股份</text><rect x="110" y="104.0" width="119.0" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="234.0" y="113.7" fill="#1a2540" font-size="11">59.2x</text><text x="102" y="135.0" fill="#1a2540" font-size="11" text-anchor="end">宝鹰股份</text><rect x="110" y="125.3" width="174.1" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="289.1" y="135.0" fill="#1a2540" font-size="11">86.6x</text><text x="102" y="156.3" fill="#1a2540" font-size="11" text-anchor="end">东易日盛</text><rect x="110" y="146.7" width="514.3" height="13.3" fill="#3854cc" fill-opacity="0.8"/><text x="629.3" y="156.3" fill="#1a2540" font-size="11">255.8x</text></svg></div><div class="chart"><div class="ti">PB 横截面 · 10 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 236" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="236" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PB 横截面（13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">8 家公司 · 取自估值快照</text><text x="102" y="49.8" fill="#1a2540" font-size="11" text-anchor="end">洪涛股份</text><rect x="110" y="40.0" width="20.1" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="135.1" y="49.8" fill="#1a2540" font-size="11">0.4x</text><text x="102" y="71.2" fill="#1a2540" font-size="11" text-anchor="end">亚厦股份</text><rect x="110" y="61.5" width="26.9" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="141.9" y="71.2" fill="#1a2540" font-size="11">0.6x</text><text x="102" y="92.8" fill="#1a2540" font-size="11" text-anchor="end">金螳螂</text><rect x="110" y="83.0" width="47.0" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="162.0" y="92.8" fill="#1a2540" font-size="11">1.0x</text><text x="102" y="114.2" fill="#1a2540" font-size="11" text-anchor="end">郑中设计</text><rect x="110" y="104.5" width="111.7" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="226.7" y="114.2" fill="#1a2540" font-size="11">2.5x</text><text x="102" y="135.8" fill="#1a2540" font-size="11" text-anchor="end">名雕股份</text><rect x="110" y="126.0" width="177.8" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="292.8" y="135.8" fill="#1a2540" font-size="11">3.9x</text><text x="102" y="157.2" fill="#1a2540" font-size="11" text-anchor="end">建艺集团</text><rect x="110" y="147.5" width="485.6" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="600.6" y="157.2" fill="#1a2540" font-size="11">10.7x</text><text x="102" y="178.8" fill="#1a2540" font-size="11" text-anchor="end">广田集团</text><rect x="110" y="169.0" width="488.3" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="603.3" y="178.8" fill="#1a2540" font-size="11">10.7x</text><text x="102" y="200.2" fill="#1a2540" font-size="11" text-anchor="end">东易日盛</text><rect x="110" y="190.5" width="514.3" height="13.5" fill="#0dab6a" fill-opacity="0.8"/><text x="629.3" y="200.2" fill="#1a2540" font-size="11">11.3x</text></svg></div></div>
 </section>
-
 <section class="ws2-section">
-  <h3>📊 可比公司估值大表（13 家 · 当前截面）</h3>
+  <h3>📊 可比公司估值大表（10 家 · 当前截面）</h3>
   
 <div class="ws2-table-wrap">
 <table>
-<thead><tr>
-  <th>公司</th><th>代码</th><th>PE-TTM</th><th>PB</th>
-  <th>营收(亿)</th><th>净利(亿)</th>
-  <th>毛利率</th><th>净利率</th><th>ROE</th>
-  <th>营收YoY</th>
-</tr></thead>
+<thead><tr><th>公司</th><th>代码</th><th>PE-TTM</th><th>PB</th><th>营收(亿)</th><th>净利(亿)</th><th>毛利率</th><th>净利率</th><th>ROE</th><th>营收YoY</th></tr></thead>
 <tbody><tr><td>宝鹰股份</td><td>002047</td><td>86.6</td><td>—</td><td>6.6</td><td>0.6</td><td>22.6%</td><td>9.0%</td><td>116.6%</td><td>-68.8%</td></tr><tr><td>金螳螂</td><td>002081</td><td>34.6</td><td>1.0</td><td>173.1</td><td>4.4</td><td>12.7%</td><td>2.6%</td><td>3.2%</td><td>-5.6%</td></tr><tr><td>洪涛股份</td><td>002325</td><td>—</td><td>0.4</td><td>0.5</td><td>-4.6</td><td>13.0%</td><td>-931.0%</td><td>-103.9%</td><td>-58.3%</td></tr><tr><td>亚厦股份</td><td>002375</td><td>14.8</td><td>0.6</td><td>91.2</td><td>3.3</td><td>15.6%</td><td>3.6%</td><td>4.0%</td><td>-24.9%</td></tr><tr><td>广田集团</td><td>002482</td><td>—</td><td>10.7</td><td>16.0</td><td>-1.3</td><td>6.7%</td><td>-8.3%</td><td>-28.4%</td><td>111.2%</td></tr><tr><td>瑞和股份</td><td>002620</td><td>—</td><td>—</td><td>4.0</td><td>-0.9</td><td>20.1%</td><td>-22.6%</td><td>159.5%</td><td>-49.4%</td></tr><tr><td>东易日盛</td><td>002713</td><td>255.8</td><td>11.3</td><td>6.9</td><td>0.4</td><td>38.1%</td><td>5.3%</td><td>4.1%</td><td>-46.7%</td></tr><tr><td>建艺集团</td><td>002789</td><td>—</td><td>10.7</td><td>35.9</td><td>-7.5</td><td>5.1%</td><td>-20.9%</td><td>-365.5%</td><td>-42.5%</td></tr><tr><td>郑中设计</td><td>002811</td><td>21.1</td><td>2.5</td><td>13.8</td><td>1.5</td><td>33.4%</td><td>11.2%</td><td>10.8%</td><td>16.2%</td></tr><tr><td>名雕股份</td><td>002830</td><td>59.2</td><td>3.9</td><td>7.1</td><td>0.4</td><td>30.8%</td><td>6.1%</td><td>6.3%</td><td>4.7%</td></tr></tbody>
 </table>
 </div>
 
 </section>
-
 <section class="ws2-section">
   <h3>📦 投资逻辑附加：产品定位 / 竞争格局 / 产能周期（占位）</h3>
   
 <div class="ws2-frame-placeholder">
   <h4>📦 产品定位与投资信号</h4>
   此处待人工填实：每家公司主打产品价格带、渠道结构、品牌力定位、批价走势等定性内容（取自年报/公开渠道）。
-  <br>可用结构：①高端品牌矩阵（茅台/五粮液/泸州老窖等） ②次高端与区域龙头（汾酒/古井贡/今世缘/口子窖等） ③大众价位（顺鑫农业/迎驾贡酒等）。
+  <br>可用结构：①高端品牌矩阵 ②次高端与区域龙头 ③大众价位。
 </div>
 <div class="ws2-frame-placeholder">
   <h4>🏛 竞争格局分析</h4>
   此处待人工填实：CR3/CR5 集中度、行业份额变迁、价格战历史、经销商生态、跨区域挤压。
-  <br>可用指标：①销量 CR3/CR5（公开数据） ②次高端价格带定价权 ③经销商话语权变化。
+  <br>可用指标：①销量集中度（公开数据） ②价格带定价权 ③经销商话语权变化。
 </div>
 <div class="ws2-frame-placeholder">
   <h4>🔄 产能周期与库存周期</h4>
-  此处待人工填实：基酒产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
-  <br>可用结构：①基酒半成品库存月数 ②终端动销与渠道库存 ③批价倒挂信号。
+  此处待人工填实：产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
+  <br>可用结构：①半成品库存月数 ②终端动销与渠道库存 ③价格倒挂信号。
 </div>
 
 </section>
-
 <section class="ws2-section">
   <h3>🐴 白马型 vs 周期型一览（基于 10 年财报自动分类）</h3>
   <p style="color:#5d6a82;font-size:12.5px;margin:0 0 10px 0">分类口径：ROE 中位&gt;18% 且净利率波动 σ&lt;5pp 且营收YoY σ&lt;15pp → 白马型；营收YoY σ&gt;30pp 或净利率 σ&gt;10pp → 周期型；其余 → 平衡型。</p>
   
 <div class="ws2-table-wrap ws2-classify">
 <table>
-<thead><tr>
-  <th>公司</th><th>代码</th><th>分类</th>
-  <th>ROE 中位</th><th>净利率波动 σ</th><th>营收YoY波动 σ</th>
-</tr></thead>
+<thead><tr><th>公司</th><th>代码</th><th>分类</th><th>ROE 中位</th><th>净利率波动 σ</th><th>营收YoY波动 σ</th></tr></thead>
 <tbody><tr><td>宝鹰股份</td><td>002047</td><td class="tag tag-周期">周期型</td><td>7.2%</td><td>23.2</td><td>25.0</td></tr><tr><td>金螳螂</td><td>002081</td><td class="tag tag-中性">平衡型</td><td>14.0%</td><td>8.2</td><td>13.8</td></tr><tr><td>洪涛股份</td><td>002325</td><td class="tag tag-周期">周期型</td><td>-12.6%</td><td>312.8</td><td>34.0</td></tr><tr><td>亚厦股份</td><td>002375</td><td class="tag tag-中性">平衡型</td><td>4.0%</td><td>3.5</td><td>11.2</td></tr><tr><td>广田集团</td><td>002482</td><td class="tag tag-周期">周期型</td><td>4.8%</td><td>85.3</td><td>51.6</td></tr><tr><td>瑞和股份</td><td>002620</td><td class="tag tag-周期">周期型</td><td>5.9%</td><td>19.0</td><td>30.8</td></tr><tr><td>东易日盛</td><td>002713</td><td class="tag tag-周期">周期型</td><td>10.3%</td><td>29.0</td><td>32.5</td></tr><tr><td>建艺集团</td><td>002789</td><td class="tag tag-周期">周期型</td><td>6.6%</td><td>16.5</td><td>62.8</td></tr><tr><td>郑中设计</td><td>002811</td><td class="tag tag-中性">平衡型</td><td>8.2%</td><td>7.4</td><td>20.2</td></tr><tr><td>名雕股份</td><td>002830</td><td class="tag tag-中性">平衡型</td><td>6.1%</td><td>2.0</td><td>8.7</td></tr></tbody>
 </table>
 </div>
 
 </section>
-
 <section class="ws2-section">
   <h3>🏆 产业链地位 + 11 年累计复合增长（按营收 CAGR 排序）</h3>
   
 <div class="ws2-table-wrap">
 <table>
-<thead><tr>
-  <th>公司</th><th>代码</th>
-  <th>营收 CAGR (10Y)</th><th>净利 CAGR (10Y)</th>
-  <th>ROE 中位</th><th>最新营收(亿)</th>
-</tr></thead>
+<thead><tr><th>公司</th><th>代码</th><th>营收 CAGR (10Y)</th><th>净利 CAGR (10Y)</th><th>ROE 中位</th><th>最新营收(亿)</th></tr></thead>
 <tbody><tr><td>建艺集团</td><td>002789</td><td>6.8%</td><td>0%</td><td>6.6%</td><td>35.9</td></tr><tr><td>名雕股份</td><td>002830</td><td>0.5%</td><td>-1.2%</td><td>6.1%</td><td>7.1</td></tr><tr><td>亚厦股份</td><td>002375</td><td>0.2%</td><td>-5.4%</td><td>4.0%</td><td>91.2</td></tr><tr><td>金螳螂</td><td>002081</td><td>-0.7%</td><td>-12.1%</td><td>14.0%</td><td>173.1</td></tr><tr><td>郑中设计</td><td>002811</td><td>-2.7%</td><td>3.5%</td><td>8.2%</td><td>13.8</td></tr><tr><td>东易日盛</td><td>002713</td><td>-11.2%</td><td>-9.5%</td><td>10.3%</td><td>6.9</td></tr><tr><td>瑞和股份</td><td>002620</td><td>-14.1%</td><td>0%</td><td>5.9%</td><td>4.0</td></tr><tr><td>广田集团</td><td>002482</td><td>-14.9%</td><td>0%</td><td>4.8%</td><td>16.0</td></tr><tr><td>宝鹰股份</td><td>002047</td><td>-20.9%</td><td>-15.9%</td><td>7.2%</td><td>6.6</td></tr><tr><td>洪涛股份</td><td>002325</td><td>-33.7%</td><td>0%</td><td>-12.6%</td><td>0.5</td></tr></tbody>
 </table>
 </div>
 
 </section>
-<!-- ===== 白酒原版 v2 END ===== -->
+<!-- ===== v2 body END ===== -->
 
-<div class="back-bar">
-<a href="./berkshire-chain-map.html">← 全链索引</a>
-<a href="./berkshire-standalone.html">← 数据中心首页</a>
-</div>
-</body>
+<div class="research-signal">
+  <div class="rs-grid">
+    <div class="rs-item"><div class="rs-label">估值信号</div><div class="rs-val">估值历史分位 → 当前位置 + 平均分位</div><div style="font-size:10px;color:var(--muted);margin-top:4px">估</div></div><div class="rs-item"><div class="rs-label">质量信号</div><div class="rs-val">ROE/毛利率/净利率 → 龙头质量</div><div style="font-size:10px;color:var(--muted);margin-top:4px">质</div></div><div class="rs-item"><div class="rs-label">景气信号</div><div class="rs-val">营收/利润同比 → 行业景气</div><div style="font-size:10px;color:var(--muted);margin-top:4px">景</div></div><div class="rs-item"><div class="rs-label">回报信号</div><div class="rs-val">股息率 + 回购 → 股东回报</div><div style="font-size:10px;color:var(--muted);margin-top:4px">回</div></div><div class="rs-item"><div class="rs-label">人效信号</div><div class="rs-val">人均创收/人均净利 → 经营效率</div><div style="font-size:10px;color:var(--muted);margin-top:4px">效</div></div>
+  </div>
+</div>
+
+<h2 class="section-title">🏛 5 层分析框架</h2>
+<div class="layers">
+      <div class="layer-card">
+        <div class="layer-num">01</div>
+        <div class="layer-name">上游成本</div>
+        <div class="layer-text">原材料/零部件供应，价格波动传导与议价能力。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">02</div>
+        <div class="layer-name">中游制造</div>
+        <div class="layer-text">产能利用率与规模效应，决定盈利波动。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">03</div>
+        <div class="layer-name">下游应用</div>
+        <div class="layer-text">终端需求景气与渗透率变化。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">04</div>
+        <div class="layer-name">竞争格局</div>
+        <div class="layer-text">集中度、龙头溢价、护城河深浅。</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">05</div>
+        <div class="layer-name">投资逻辑</div>
+        <div class="layer-text">周期位置 + 估值锚 + 人效 + 机构共识 四维验证。</div>
+      </div></div>
+
+<h2 class="section-title">💬 人话版 · 实战信号</h2>
+<div class="human-block">
+  <p><b>看产业链核心是「周期位置 + 护城河 + 估值锚」三维交叉验证。</b></p>
+  <ul style="margin-top:12px;padding-left:20px;line-height:1.8">
+    <li>先看周期位置：库存/价格/产能/估值 四维判断当前位置。</li><li>再看护城河：龙头集中度 + 规模效应 + 准入壁垒。</li><li>然后看估值锚：PE/PB 历史分位 + 同行业可比 + 跨市场对比。</li><li>警惕陷阱：低估值不等于低估，可能反映景气下行。</li><li>实战信号：股息率 + 回购 + 机构持仓 三路验证。</li>
+  </ul>
+</div>
+
+<h2 class="section-title">🔄 产业周期判断标准</h2>
+<div class="cycle-block">
+  <p><b>驱动因素：</b>行业景气由供需结构 + 政策周期 + 货币环境 + 库存周期 共同决定。</p>
+  <div class="cycle-grid">
+    <div><b>供需</b>产能利用率/订单饱满度/价格传导</div><div><b>库存</b>主动累库/被动累库/主动去库</div><div><b>价格</b>原料价格/出厂价/终端价</div><div><b>估值</b>PE/PB 历史分位 + 行业相对估值</div>
+  </div>
+  <p style="margin-top:14px"><b>历史案例：</b>复盘 2018-2020 周期：估值低位 + 业绩拐点 + 产业政策利好 三共振时胜率最高。</p>
+  <p style="margin-top:8px"><b>当前位置：</b>当前多数子行业估值历史分位偏低，部分龙头股息率创近 5 年新高，景气底部信号渐显。</p>
+</div>
+
+<h2 class="section-title">📈 估值历史分位总览</h2>
+<table class="ovtable sortable" data-type="num">
+  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
+  <tbody>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002081.html"><b>金螳螂</b></a></td>
+        <td>002081</td>
+        <td>23.2 <span class="pct pct-hi">97%</span></td>
+        <td>0.68 <span class="pct pct-lo">12%</span></td>
+        <td>3.2%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002375.html"><b>亚厦股份</b></a></td>
+        <td>002375</td>
+        <td>13.7 <span class="pct pct-lo">10%</span></td>
+        <td>0.54 <span class="pct pct-lo">2%</span></td>
+        <td>4.0%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002482.html"><b>广田集团</b></a></td>
+        <td>002482</td>
+        <td>-38.2 <span class="pct pct-lo">11%</span></td>
+        <td>10.12 <span class="pct pct-hi">76%</span></td>
+        <td>-24.8%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002325.html"><b>洪涛股份</b></a></td>
+        <td>002325</td>
+        <td>-0.5 <span class="pct pct-hi">64%</span></td>
+        <td>0.44 <span class="pct pct-lo">2%</span></td>
+        <td>-68.5%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002047.html"><b>宝鹰股份</b></a></td>
+        <td>002047</td>
+        <td>71.7 <span class="pct pct-hi">95%</span></td>
+        <td>116.60 <span class="pct pct-hi">95%</span></td>
+        <td>265.1%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002620.html"><b>瑞和股份</b></a></td>
+        <td>002620</td>
+        <td>-17.4 <span class="pct pct-lo">13%</span></td>
+        <td>-21.56 <span class="pct pct-lo">7%</span></td>
+        <td>1162.4%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002713.html"><b>东易日盛</b></a></td>
+        <td>002713</td>
+        <td>232.4 <span class="pct pct-hi">98%</span></td>
+        <td>10.25 <span class="pct pct-hi">88%</span></td>
+        <td>-33.0%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002830.html"><b>名雕股份</b></a></td>
+        <td>002830</td>
+        <td>49.0 <span class="pct pct-lo">38%</span></td>
+        <td>3.10 <span class="pct pct-mid">59%</span></td>
+        <td>6.3%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002789.html"><b>建艺集团</b></a></td>
+        <td>002789</td>
+        <td>-1.8 <span class="pct pct-mid">40%</span></td>
+        <td>9.16 <span class="pct pct-hi">70%</span></td>
+        <td>251.9%</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002811.html"><b>郑中设计</b></a></td>
+        <td>002811</td>
+        <td>17.4 <span class="pct pct-lo">18%</span></td>
+        <td>1.97 <span class="pct pct-mid">50%</span></td>
+        <td>12.1%</td>
+      </tr></tbody>
+</table>
+
+<h2 class="section-title">⚖ R15 三维评级总览</h2>
+<table class="ovtable sortable" data-type="num">
+  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
+  <tbody>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002081.html"><b>金螳螂</b></a></td>
+        <td>23.2</td>
+        <td>0.68</td>
+        <td>★</td>
+        <td>★</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002375.html"><b>亚厦股份</b></a></td>
+        <td>13.7</td>
+        <td>0.54</td>
+        <td>★★★★★</td>
+        <td>★</td>
+        <td>9</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002482.html"><b>广田集团</b></a></td>
+        <td>-38.2</td>
+        <td>10.12</td>
+        <td>★★★★★</td>
+        <td>★</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002325.html"><b>洪涛股份</b></a></td>
+        <td>-0.5</td>
+        <td>0.44</td>
+        <td>★★★</td>
+        <td>★</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002047.html"><b>宝鹰股份</b></a></td>
+        <td>71.7</td>
+        <td>116.60</td>
+        <td>★</td>
+        <td>★★★★★</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002620.html"><b>瑞和股份</b></a></td>
+        <td>-17.4</td>
+        <td>-21.56</td>
+        <td>★★★★★</td>
+        <td>★★★★★</td>
+        <td>9</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002713.html"><b>东易日盛</b></a></td>
+        <td>232.4</td>
+        <td>10.25</td>
+        <td>★</td>
+        <td>★</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002830.html"><b>名雕股份</b></a></td>
+        <td>49.0</td>
+        <td>3.10</td>
+        <td>★★</td>
+        <td>★</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002789.html"><b>建艺集团</b></a></td>
+        <td>-1.8</td>
+        <td>9.16</td>
+        <td>★★★</td>
+        <td>★★★★★</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002811.html"><b>郑中设计</b></a></td>
+        <td>17.4</td>
+        <td>1.97</td>
+        <td>★★★★</td>
+        <td>★★★★</td>
+        <td>7</td>
+      </tr></tbody>
+</table>
+
+<h2 class="section-title">🏭 产业链成本传导</h2>
+
+    <div class="cost-block">
+      <h3>产业链成本传导路径</h3>
+      <svg viewBox="0 0 800 140" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arr-ac" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <polygon points="0 0, 8 4, 0 8" fill="#f59e0b"/>
+          </marker>
+        </defs>
+        <g>
+          <rect x="15" y="30" width="130" height="44" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="80" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游原材料</text>
+        </g>
+        <g>
+          <rect x="215" y="30" width="130" height="44" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="280" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游加工</text>
+        </g>
+        <g>
+          <rect x="415" y="30" width="130" height="44" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="480" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游品牌</text>
+        </g>
+        <g>
+          <rect x="615" y="30" width="130" height="44" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="680" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">需求弹性</text>
+        </g>
+        <line x1="145" y1="52" x2="215" y2="52" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+        <line x1="345" y1="52" x2="415" y2="52" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+        <line x1="545" y1="52" x2="615" y2="52" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+      </svg>
+      <p class="cost-note">成本传导关键看议价能力与库存周期：龙头凭借规模优势可锁定上游成本；中小厂商在价格上行期被动跟涨、在下行期被迫降价。</p>
+    </div>
+
+<h2 class="section-title">👥 员工效率排行</h2>
+<table class="ovtable sortable" data-type="num">
+  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>2024员工</th><th>同比</th><th>人均净利</th></tr></thead>
+  <tbody>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002081.html"><b>金螳螂</b></a></td>
+        <td>002081</td>
+        <td>5566</td>
+        <td>1万</td>
+        <td>-44.7%</td>
+        <td>¥7.9万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002375.html"><b>亚厦股份</b></a></td>
+        <td>002375</td>
+        <td>3992</td>
+        <td>4211</td>
+        <td>-5.2%</td>
+        <td>¥8.3万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002482.html"><b>广田集团</b></a></td>
+        <td>002482</td>
+        <td>677</td>
+        <td>858</td>
+        <td>-21.1%</td>
+        <td>¥-19.2万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002325.html"><b>洪涛股份</b></a></td>
+        <td>002325</td>
+        <td>—</td>
+        <td>—</td>
+        <td>口径异常</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002047.html"><b>宝鹰股份</b></a></td>
+        <td>002047</td>
+        <td>209</td>
+        <td>187</td>
+        <td>+11.8%</td>
+        <td>¥28.7万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002620.html"><b>瑞和股份</b></a></td>
+        <td>002620</td>
+        <td>307</td>
+        <td>390</td>
+        <td>-21.3%</td>
+        <td>¥-29.3万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002713.html"><b>东易日盛</b></a></td>
+        <td>002713</td>
+        <td>735</td>
+        <td>780</td>
+        <td>-5.8%</td>
+        <td>¥5.4万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002830.html"><b>名雕股份</b></a></td>
+        <td>002830</td>
+        <td>749</td>
+        <td>773</td>
+        <td>-3.1%</td>
+        <td>¥5.3万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002789.html"><b>建艺集团</b></a></td>
+        <td>002789</td>
+        <td>1413</td>
+        <td>1846</td>
+        <td>-23.5%</td>
+        <td>¥-53.1万</td>
+      </tr>
+      <tr>
+        <td><a href="./berkshire-decoration-chain-002811.html"><b>郑中设计</b></a></td>
+        <td>002811</td>
+        <td>2119</td>
+        <td>1771</td>
+        <td>+19.6%</td>
+        <td>¥7.1万</td>
+      </tr></tbody>
+</table>
+
+<h2 class="section-title">🏢 公司索引</h2>
+<div class="grid">
+      <a class="giant-card" href="./berkshire-decoration-chain-002081.html">
+        <div class="gc-title">金螳螂</div>
+        <div class="gc-code">002081</div>
+        <div class="gc-meta">PE 23.2 · PB 0.68 · ROE 3.2%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-decoration-chain-002375.html">
+        <div class="gc-title">亚厦股份</div>
+        <div class="gc-code">002375</div>
+        <div class="gc-meta">PE 13.7 · PB 0.54 · ROE 4.0%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-decoration-chain-002482.html">
+        <div class="gc-title">广田集团</div>
+        <div class="gc-code">002482</div>
+        <div class="gc-meta">PE -38.2 · PB 10.12 · ROE -24.8%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-decoration-chain-002325.html">
+        <div class="gc-title">洪涛股份</div>
+        <div class="gc-code">002325</div>
+        <div class="gc-meta">PE -0.5 · PB 0.44 · ROE -68.5%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-decoration-chain-002047.html">
+        <div class="gc-title">宝鹰股份</div>
+        <div class="gc-code">002047</div>
+        <div class="gc-meta">PE 71.7 · PB 116.60 · ROE 265.1%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-decoration-chain-002620.html">
+        <div class="gc-title">瑞和股份</div>
+        <div class="gc-code">002620</div>
+        <div class="gc-meta">PE -17.4 · PB -21.56 · ROE 1162.4%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-decoration-chain-002713.html">
+        <div class="gc-title">东易日盛</div>
+        <div class="gc-code">002713</div>
+        <div class="gc-meta">PE 232.4 · PB 10.25 · ROE -33.0%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-decoration-chain-002830.html">
+        <div class="gc-title">名雕股份</div>
+        <div class="gc-code">002830</div>
+        <div class="gc-meta">PE 49.0 · PB 3.10 · ROE 6.3%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-decoration-chain-002789.html">
+        <div class="gc-title">建艺集团</div>
+        <div class="gc-code">002789</div>
+        <div class="gc-meta">PE -1.8 · PB 9.16 · ROE 251.9%</div>
+      </a>
+      <a class="giant-card" href="./berkshire-decoration-chain-002811.html">
+        <div class="gc-title">郑中设计</div>
+        <div class="gc-code">002811</div>
+        <div class="gc-meta">PE 17.4 · PB 1.97 · ROE 12.1%</div>
+      </a></div>
+
+<h2 class="section-title">📚 延伸阅读</h2>
+<div class="grid">
+
+      <a class="giant-card" href="berkshire-decoration-cycle.html">
+        <div class="gc-icon">🔄</div>
+        <div class="gc-title">产业周期</div>
+        <div class="gc-desc">库存/价格/产能/估值四维判断周期位置。</div>
+      </a>
+      <a class="giant-card" href="berkshire-decoration-backtest.html">
+        <div class="gc-icon">📈</div>
+        <div class="gc-title">回测框架</div>
+        <div class="gc-desc">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</div>
+      </a>
+      <a class="giant-card" href="./berkshire-decoration-buyback.html">
+        <div class="gc-icon">💰</div>
+        <div class="gc-title">逐轮买点回报图</div>
+        <div class="gc-desc">三轮全市场大底买入并持有的后复权累计回报。</div>
+      </a>      <a class="giant-card" href="berkshire-decoration-repomap.html">
+        <div class="gc-icon">🗺️</div>
+        <div class="gc-title">回购地图</div>
+        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分，逐家拆解。</div>
+      </a></div>
+
+<div class="source-note">
+  数据来源：akshare / 同花顺 / 巨潮资讯网 · 数据日期：2026-08-09 · 仅供参考，不构成投资建议
+</div>
+
+</div>
+
+<script src="./analytics.js"></script>
+<script src="./tdx-link.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.sortable').forEach(function(t){
+    t.querySelectorAll('th').forEach(function(th,i){
+      th.addEventListener('click',function(){
+        var d=t.querySelector('tbody');
+        var rows=Array.from(d.querySelectorAll('tr'));
+        var asc=th.classList.contains('sorted-asc');
+        th.classList.remove('sorted-asc','sorted-desc');
+        rows.sort(function(a,b){
+          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+          av=parseFloat(av); bv=parseFloat(bv);
+          return asc?bv-av:av-bv;
+        });
+        th.classList.add(asc?'sorted-desc':'sorted-asc');
+        rows.forEach(function(r){d.appendChild(r)});
+      });
+    });
+  });
+});
+</script>
+<div class="section-title">延伸阅读 · 装饰装修 7 兄弟页</div>
+<div class="extend-grid">
+<a class="extend-card" href="./berkshire-decoration-compare.html"><b>🥇 估值分位</b><span>装饰装修（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-decoration-thermometer.html"><b>🌡️ 估值温度计</b><span>装饰装修（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-decoration-buyback.html"><b>💰 回购监测</b><span>装饰装修（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-decoration-repomap.html"><b>🗺️ 板块图谱</b><span>装饰装修（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-decoration-backtest.html"><b>📈 五年回测</b><span>装饰装修（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-decoration-cycle.html"><b>🔄 周期演进</b><span>装饰装修（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-decoration-methodology.html"><b>📘 方法论说明</b><span>装饰装修（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
+</body>
 </html>
