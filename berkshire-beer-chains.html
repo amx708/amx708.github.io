@@ -1,131 +1,131 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>啤酒产业链地图 · 价值投资视角</title>
-<style>* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f2f5; color:#1e293b; line-height:1.75; }
-.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(232,184,75,0.2); padding:12px 20px; display:flex; align-items:center; gap:12px; }
-.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(232,184,75,0.12); color:#b45309; border:1px solid rgba(232,184,75,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
-.home-btn:hover { background:#b45309; color:#fff; }
-.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
-.breadcrumb a { color:#64748b; text-decoration:none; }
-.breadcrumb a:hover { color:#b45309; }
-.crumb-sep { color:#cbd5e1; }
-.container { max-width:980px; margin:0 auto; padding:24px 16px 48px; }
-.hero { background:linear-gradient(135deg,#ffffff 0%,#fbf7ee 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(232,184,75,0.25); box-shadow:0 2px 12px rgba(0,0,0,0.06); }
-.hero-title { font-size:26px; font-weight:800; color:#0f172a; margin-bottom:6px; letter-spacing:.5px; }
-.hero-sub { font-size:14px; color:#64748b; margin-bottom:18px; }
-.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
-.stat-item { background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
-.stat-num { font-size:22px; font-weight:800; color:#b45309; }
-.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
-.explain-banner { display:flex; gap:16px; align-items:flex-start; background:linear-gradient(135deg,#fbf7ee,#ffffff); border:1px solid rgba(232,184,75,0.25); border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
-.explain-banner .eb-icon { font-size:24px; flex-shrink:0; }
-.explain-banner .eb-body { flex:1; min-width:0; }
-.explain-banner .eb-title { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-.explain-banner .eb-tag { font-size:11px; color:#b45309; background:rgba(232,184,75,0.12); padding:2px 9px; border-radius:10px; }
-.explain-banner .eb-text { font-size:13px; color:#475569; line-height:1.8; }
-.explain-banner .eb-text b { color:#0f172a; font-weight:600; }
-.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(232,184,75,0.5); }
-.layers { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:8px; }
-.layer-card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-.layer-num { font-size:12px; color:#b45309; font-weight:700; }
-.layer-name { font-size:14px; color:#0f172a; font-weight:600; margin:4px 0; }
-.layer-desc { font-size:12px; color:#64748b; line-height:1.6; }
-.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
-.giant-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; transition:all .2s; text-decoration:none; display:block; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-.giant-card:hover { border-color:#b45309; background:rgba(232,184,75,0.06); transform:translateY(-2px); box-shadow:0 4px 14px rgba(232,184,75,0.2); }
-.giant-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
-.giant-name { font-size:16px; font-weight:700; color:#0f172a; }
-.region-tag { font-size:11px; padding:2px 9px; border-radius:10px; font-weight:600; }
-.region-cn { background:rgba(220,38,38,0.12); color:#dc2626; border:1px solid rgba(220,38,38,0.25); }
-.region-up { background:rgba(37,99,235,0.12); color:#2563eb; border:1px solid rgba(37,99,235,0.25); }
-.giant-desc { font-size:12.5px; color:#64748b; line-height:1.65; margin-bottom:10px; }
-.giant-foot { font-size:12px; display:flex; align-items:center; justify-content:space-between; }
-.giant-link { color:#b45309; font-weight:600; }
-.extend { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px; margin:6px 0 14px; }
-.extend a { display:block; background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:11px 14px; text-decoration:none; transition:all .2s; box-shadow:0 1px 4px rgba(0,0,0,0.03); }
-.extend a:hover { border-color:#b45309; background:rgba(232,184,75,0.06); }
-.extend a b { color:#0f172a; font-size:13.5px; }
-.extend a span { display:block; color:#64748b; font-size:12px; margin-top:3px; line-height:1.6; }
-.note-line { font-size:12.5px; color:#64748b; margin-top:14px; line-height:1.7; }
-.note-line b { color:#475569; }
-.source-note { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; margin-top:24px; font-size:12.5px; color:#64748b; line-height:1.7; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-.source-note b { color:#475569; }
-@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .grid{grid-template-columns:1fr} .extend{grid-template-columns:1fr} .explain-banner{flex-direction:column;padding:16px} }
-
-.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
-.breadcrumb a{color:var(--primary-dark);text-decoration:none}
-.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
-.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
-.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
-.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
-.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
-.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
-.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
-.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
-.back-bar a:hover{background:#e8b84b;color:#fff}
-
-</style>
-
-<style>
-/* P0 估值历史分位 + 成本传导（扩展链） */
-.valband{margin:6px 0 2px}
-.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
-.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
-.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
-.vfill{height:100%;border-radius:6px}
-.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
-.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
-.vval b{color:#0f172a}
-.vtag{font-weight:700;margin-left:4px}
-.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
-.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
-.ovtable{overflow-x:auto;margin:6px 0}
-.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
-.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
-.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
-.ovtable td:first-child,.ovtable th:first-child{text-align:left}
-.ovtable a{color:#0f766e;text-decoration:none}
-.ovtable a:hover{text-decoration:underline}
-.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
-.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
-.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
-.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
-.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
-.cost-chart{flex:1;min-width:300px}
-.cost-chart svg{width:100%;height:auto;display:block}
-.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
-.cost-note b{color:#0f172a}
-.cost-note p{margin:0 0 10px}
-</style>
-
-<style>
-/* 员工效率与组织效能 */
-.emp-block{margin:6px 0 2px}
-.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
-.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
-.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
-.emp-val{font-size:18px;font-weight:700;color:#0f172a}
-.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
-.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
-.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
-.emp-signal b{font-weight:700}
-.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
-.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
-.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
-</style>
-
-<style>
-/* chain-sort */
-.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
-.sortable th:hover{background:#e0f2fe}
-.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
-.sortable th.asc .sort-ind::before{content:"▲";color:#b45309}
-.sortable th.desc .sort-ind::before{content:"▼";color:#b45309}
-</style>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>啤酒产业链地图 · 价值投资视角</title>
+<style>* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f2f5; color:#1e293b; line-height:1.75; }
+.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(232,184,75,0.2); padding:12px 20px; display:flex; align-items:center; gap:12px; }
+.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(232,184,75,0.12); color:#b45309; border:1px solid rgba(232,184,75,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
+.home-btn:hover { background:#b45309; color:#fff; }
+.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
+.breadcrumb a { color:#64748b; text-decoration:none; }
+.breadcrumb a:hover { color:#b45309; }
+.crumb-sep { color:#cbd5e1; }
+.container { max-width:980px; margin:0 auto; padding:24px 16px 48px; }
+.hero { background:linear-gradient(135deg,#ffffff 0%,#fbf7ee 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(232,184,75,0.25); box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+.hero-title { font-size:26px; font-weight:800; color:#0f172a; margin-bottom:6px; letter-spacing:.5px; }
+.hero-sub { font-size:14px; color:#64748b; margin-bottom:18px; }
+.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+.stat-item { background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
+.stat-num { font-size:22px; font-weight:800; color:#b45309; }
+.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
+.explain-banner { display:flex; gap:16px; align-items:flex-start; background:linear-gradient(135deg,#fbf7ee,#ffffff); border:1px solid rgba(232,184,75,0.25); border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+.explain-banner .eb-icon { font-size:24px; flex-shrink:0; }
+.explain-banner .eb-body { flex:1; min-width:0; }
+.explain-banner .eb-title { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.explain-banner .eb-tag { font-size:11px; color:#b45309; background:rgba(232,184,75,0.12); padding:2px 9px; border-radius:10px; }
+.explain-banner .eb-text { font-size:13px; color:#475569; line-height:1.8; }
+.explain-banner .eb-text b { color:#0f172a; font-weight:600; }
+.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(232,184,75,0.5); }
+.layers { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:8px; }
+.layer-card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.layer-num { font-size:12px; color:#b45309; font-weight:700; }
+.layer-name { font-size:14px; color:#0f172a; font-weight:600; margin:4px 0; }
+.layer-desc { font-size:12px; color:#64748b; line-height:1.6; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
+.giant-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; transition:all .2s; text-decoration:none; display:block; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.giant-card:hover { border-color:#b45309; background:rgba(232,184,75,0.06); transform:translateY(-2px); box-shadow:0 4px 14px rgba(232,184,75,0.2); }
+.giant-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.giant-name { font-size:16px; font-weight:700; color:#0f172a; }
+.region-tag { font-size:11px; padding:2px 9px; border-radius:10px; font-weight:600; }
+.region-cn { background:rgba(220,38,38,0.12); color:#dc2626; border:1px solid rgba(220,38,38,0.25); }
+.region-up { background:rgba(37,99,235,0.12); color:#2563eb; border:1px solid rgba(37,99,235,0.25); }
+.giant-desc { font-size:12.5px; color:#64748b; line-height:1.65; margin-bottom:10px; }
+.giant-foot { font-size:12px; display:flex; align-items:center; justify-content:space-between; }
+.giant-link { color:#b45309; font-weight:600; }
+.extend { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px; margin:6px 0 14px; }
+.extend a { display:block; background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:11px 14px; text-decoration:none; transition:all .2s; box-shadow:0 1px 4px rgba(0,0,0,0.03); }
+.extend a:hover { border-color:#b45309; background:rgba(232,184,75,0.06); }
+.extend a b { color:#0f172a; font-size:13.5px; }
+.extend a span { display:block; color:#64748b; font-size:12px; margin-top:3px; line-height:1.6; }
+.note-line { font-size:12.5px; color:#64748b; margin-top:14px; line-height:1.7; }
+.note-line b { color:#475569; }
+.source-note { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; margin-top:24px; font-size:12.5px; color:#64748b; line-height:1.7; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+.source-note b { color:#475569; }
+@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .grid{grid-template-columns:1fr} .extend{grid-template-columns:1fr} .explain-banner{flex-direction:column;padding:16px} }
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style>
+
+<style>
+/* P0 估值历史分位 + 成本传导（扩展链） */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0f766e;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
+</style>
+
+<style>
+/* 员工效率与组织效能 */
+.emp-block{margin:6px 0 2px}
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
+.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
+.emp-val{font-size:18px;font-weight:700;color:#0f172a}
+.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
+.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
+.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
+.emp-signal b{font-weight:700}
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+</style>
+
+<style>
+/* chain-sort */
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
+.sortable th:hover{background:#e0f2fe}
+.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
+.sortable th.asc .sort-ind::before{content:"▲";color:#b45309}
+.sortable th.desc .sort-ind::before{content:"▼";color:#b45309}
+</style>
 
 <style>
 /* v2 white-spirit template additions */
@@ -163,298 +163,280 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 .ws2-frame-placeholder li{margin:2px 0}
 </style>
 
-</head>
-<body>
-<style>
-.explain-banner{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:16px 20px;margin:18px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.explain-banner .eb-icon{font-size:22px;flex-shrink:0;line-height:1.4}
-.explain-banner .eb-body{flex:1;min-width:0}
-.explain-banner .eb-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
-.explain-banner .eb-tag{display:inline-block;font-size:11px;color:#b45309;background:rgba(232,184,75,.14);padding:2px 9px;border-radius:10px;margin-right:6px}
-.explain-banner .eb-text{font-size:13px;color:var(--muted);line-height:1.8}
-.explain-banner .eb-text b{color:var(--navy);font-weight:600}
-</style>
-<div class="top-bar">
-  <a href="./index.html">← 返回首页</a>
-  <span style="opacity:0.5">·</span>
-  <strong>啤酒产业链</strong>
-</div>
-<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>啤酒产业链</b></div>
+</head>
+<body>
+<style>
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:16px 20px;margin:18px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.explain-banner .eb-icon{font-size:22px;flex-shrink:0;line-height:1.4}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.explain-banner .eb-tag{display:inline-block;font-size:11px;color:#b45309;background:rgba(232,184,75,.14);padding:2px 9px;border-radius:10px;margin-right:6px}
+.explain-banner .eb-text{font-size:13px;color:var(--muted);line-height:1.8}
+.explain-banner .eb-text b{color:var(--navy);font-weight:600}
+</style>
+<div class="top-bar">
+  <a href="./index.html">← 返回首页</a>
+  <span style="opacity:0.5">·</span>
+  <strong>啤酒产业链</strong>
+</div>
+<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>啤酒产业链</b></div>
+
+<div class="hero">
+  <h1>啤酒产业链</h1>
+  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 可选消费 × 量见顶价未尽 × 品牌/产能/渠道壁垒 · 价值投资视角原创梳理</div>
+  <div class="stats">
+<div class="stat"><b>10</b>代表公司</div>
+<div class="stat"><b>≈27%</b>平均PE分位</div>
+<div class="stat"><b>≈29%</b>平均PB分位</div>
+<div class="stat"><b>2/10</b>亏损企业</div>
+  </div>
+</div>
+
+<div class="data-banner" style="border-left-color:var(--accent)">
+📊 数据锚：平均 PE分位 ≈27% · 平均 PB分位 ≈29% · 青岛啤酒 PE分位 0%、PB分位 1%（本链最极端便宜）· 乐惠/永顺泰 PB分位 0%（上游，非品牌商可比）· 燕京 PB分位 86%、兰州黄河 PB分位 90%（偏贵）· 兰州黄河、莫高 2 家亏损且经营现金流为负 · 重啤 ROE 96.1% 源于嘉士伯授权的资产轻口径，<b>不可当作护城河深度读</b>。
+</div>
+
+<div class="container">
+
+<div class="explain-banner">
+<div class="eb-icon">🛡️</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「啤酒产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把 A 股啤酒按「层级」拆解，便于从价值投资视角理解其量价结构、成本周期与当前的估值分位。<br><b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中数字为 2025 年报四舍五入值与 2026-07 估值时点值，最新以公司公告为准。啤酒属<b>可选消费 + 重资产 + 强成本周期</b>行业：<b>不能用白酒的尺子量啤酒</b>——白酒库存升值、靠提价；啤酒库存不升值、总产量 2013 年已见顶，增长只能来自<b>ASP（高端化）与关厂提效</b>，而毛利率被大麦/铝罐/玻璃瓶三大宗直接左右。
+</div>
+</div>
+</div>
+
+<h2 class="section-title">🔔 研究信号</h2>
 
-<div class="hero">
-  <h1>啤酒产业链</h1>
-  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 可选消费 × 量见顶价未尽 × 品牌/产能/渠道壁垒 · 价值投资视角原创梳理</div>
-  <div class="stats">
-<div class="stat"><b>10</b>代表公司</div>
-<div class="stat"><b>≈27%</b>平均PE分位</div>
-<div class="stat"><b>≈29%</b>平均PB分位</div>
-<div class="stat"><b>2/10</b>亏损企业</div>
-  </div>
-</div>
-
-<div class="data-banner" style="border-left-color:var(--accent)">
-📊 数据锚：平均 PE分位 ≈27% · 平均 PB分位 ≈29% · 青岛啤酒 PE分位 0%、PB分位 1%（本链最极端便宜）· 乐惠/永顺泰 PB分位 0%（上游，非品牌商可比）· 燕京 PB分位 86%、兰州黄河 PB分位 90%（偏贵）· 兰州黄河、莫高 2 家亏损且经营现金流为负 · 重啤 ROE 96.1% 源于嘉士伯授权的资产轻口径，<b>不可当作护城河深度读</b>。
-</div>
-
-<div class="container">
-
-<div class="explain-banner">
-<div class="eb-icon">🛡️</div>
-<div class="eb-body">
-<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「啤酒产业链地图」是怎么来的</div>
-<div class="eb-text">
-本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把 A 股啤酒按「层级」拆解，便于从价值投资视角理解其量价结构、成本周期与当前的估值分位。<br><b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中数字为 2025 年报四舍五入值与 2026-07 估值时点值，最新以公司公告为准。啤酒属<b>可选消费 + 重资产 + 强成本周期</b>行业：<b>不能用白酒的尺子量啤酒</b>——白酒库存升值、靠提价；啤酒库存不升值、总产量 2013 年已见顶，增长只能来自<b>ASP（高端化）与关厂提效</b>，而毛利率被大麦/铝罐/玻璃瓶三大宗直接左右。
-</div>
-</div>
-</div>
-
-<h2 class="section-title">🔔 研究信号</h2>
-<div class="research-signal">
-  <div class="rs-grid">
-<div class="rs-item"><div class="rs-label">周期位置</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">消费筑底、需求疲软的左侧位置。行业量的顶部早在 2013 年出现，此后靠关厂提效+结构升级维持利润增长；2024–2026 现饮场景（餐饮/夜场）疲弱使高端化增速放缓，估值先行杀到历史极端——青岛 PE 分位 0%、PB 分位 1%，是十年序列的地板区。</div></div>
-<div class="rs-item"><div class="rs-label">景气方向</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">利润端好于收入端。成本侧（大麦、铝罐、玻璃瓶）下行释放毛利弹性，龙头凭规模采购与长期合约锁价；但销量增长近零、现饮渠道恢复慢、区域价格战抬头，收入端缺乏向上动能。上游麦芽（永顺泰）赚的是价差与开工率，与品牌商景气不同步。</div></div>
-<div class="rs-item"><div class="rs-label">结论信号</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)"><b>🟡 中性（左侧布局，不追）</b> — 估值已按「永久零增长」定价，但需求与高端化尚未确认转向。价值投资视角只认三类资产：①真护城河+极低分位（青岛）；②高股息+低PE分位（重啤，须辨资产轻口径）；③硬资产+低负债+高现金流（永顺泰）。其余多为「便宜有理」，须严防把亏损与净资产缩水读成低估。</div></div>
-<div class="rs-item"><div class="rs-label">核心催化</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">①现饮场景（餐饮/夜场）复苏带动销量与 ASP　②大麦/铝/玻璃成本继续下行修复毛利　③高端化率提升拉动均价　④分红率与回购提升（青岛 4.4%、重啤 5.7% 股息率）　⑤关厂提效与人效改善（青岛员工同比 -2.1%、重啤 -1.9%）。</div></div>
-<div class="rs-item"><div class="rs-label">关键风险</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">①需求持续疲弱、销量负增长　②高端化不及预期、结构升级停滞　③包材/大麦反转涨价吞噬毛利　④区域价格战（中低端价位带）　⑤重资产企业的产能减值与关厂费用　⑥小市值区域酒厂持续亏损侵蚀净资产（兰州黄河、莫高）。</div></div>
-  </div>
-  <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:13px;line-height:1.8">
-<div style="font-weight:700;color:var(--navy)">周期位置</div><div>消费筑底、需求疲软的左侧位置。行业量的顶部早在 2013 年出现，此后靠关厂提效+结构升级维持利润增长；2024–2026 现饮场景（餐饮/夜场）疲弱使高端化增速放缓，估值先行杀到历史极端——青岛 PE 分位 0%、PB 分位 1%，是十年序列的地板区。</div>
-<div style="font-weight:700;color:var(--navy)">景气方向</div><div>利润端好于收入端。成本侧（大麦、铝罐、玻璃瓶）下行释放毛利弹性，龙头凭规模采购与长期合约锁价；但销量增长近零、现饮渠道恢复慢、区域价格战抬头，收入端缺乏向上动能。上游麦芽（永顺泰）赚的是价差与开工率，与品牌商景气不同步。</div>
-<div style="font-weight:700;color:var(--navy)">结论信号</div><div><b>🟡 中性（左侧布局，不追）</b> — 估值已按「永久零增长」定价，但需求与高端化尚未确认转向。价值投资视角只认三类资产：①真护城河+极低分位（青岛）；②高股息+低PE分位（重啤，须辨资产轻口径）；③硬资产+低负债+高现金流（永顺泰）。其余多为「便宜有理」，须严防把亏损与净资产缩水读成低估。</div>
-<div style="font-weight:700;color:var(--navy)">核心催化</div><div>①现饮场景（餐饮/夜场）复苏带动销量与 ASP　②大麦/铝/玻璃成本继续下行修复毛利　③高端化率提升拉动均价　④分红率与回购提升（青岛 4.4%、重啤 5.7% 股息率）　⑤关厂提效与人效改善（青岛员工同比 -2.1%、重啤 -1.9%）。</div>
-<div style="font-weight:700;color:var(--navy)">关键风险</div><div>①需求持续疲弱、销量负增长　②高端化不及预期、结构升级停滞　③包材/大麦反转涨价吞噬毛利　④区域价格战（中低端价位带）　⑤重资产企业的产能减值与关厂费用　⑥小市值区域酒厂持续亏损侵蚀净资产（兰州黄河、莫高）。</div>
-  </div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:12px;color:var(--muted)">数据锚：平均 PE分位 ≈27%、PB分位 ≈29%；青岛 PE分位 0.4% / PB分位 1%（R15 时机分 10，本链最高）；燕京 PB分位 86%、兰州黄河 PB分位 90%（偏贵）；青岛 ROE 15.4%、重啤 ROE 96.1%（资产轻须辨）、珠江 ROE 8.4%；2/10 亏损（兰州黄河 -21.4%、莫高 -14.2%，且经营现金流为负）。结论为框架合成，需结合实盘研究校验。</div>
-</div>
-
-<h2 class="section-title">🏛 5 层分析框架（啤酒产业链专属）</h2>
-<div class="layers">
-<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游原材料</div><div class="layer-text">大麦（麦芽）、铝罐、玻璃瓶、纸箱等包材，三大宗价格直接主导毛利率。啤酒无「库存升值」缓冲，成本上行当期即压毛利；龙头靠规模采购与长期合约锁价，中小厂被动承受。永顺泰即处此环节，赚大麦—麦芽价差与开工率。</div></div>
-<div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游酿造/灌装</div><div class="layer-text">重资产环节：糖化-发酵-过滤-灌装产线，产能利用率与规模效应决定单位成本。行业总产量 2013 见顶后，利润增长主要来自<b>关厂提效</b>（关小厂、并线、减员）而非扩产；纯生（不经巴氏杀菌）对冷链与工艺要求更高，是高毛利产品的产能门槛。乐惠国际是这一环节的装备供应商。</div></div>
-<div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游品牌/渠道</div><div class="layer-text">现饮（餐饮/夜场/大排档，高价高毛利）与非现饮（商超/便利/电商，低价高周转）双轨。啤酒运输半径短、单位价值低，形成天然的<b>区域割据</b>；现饮渠道掌控力（终端买断、堆头、冰柜）决定高端产品能否放量，也是本链最真实的壁垒之一。</div></div>
-<div class="layer-card"><div class="layer-num">04</div><div class="layer-name">竞争格局</div><div class="layer-text">全国五强（华润、青岛、百威亚太、燕京、嘉士伯/重啤）已完成瓜分，CR5 高、增量博弈从抢量转为抢价位带。A 股内：青岛全国化，重啤靠嘉士伯品牌矩阵打高端，燕京/珠江据守北京/广东基本盘，惠泉/兰州黄河/西藏发展是被动区域盘。区域独占（如高原运输壁垒）能撑毛利，但撑不起成长。</div></div>
-<div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-text">看「ASP高端化 × 成本周期位置 × 估值分位 × 现金流质量」四维。量已见顶，所以估值不能给成长溢价，安全边际必须来自<b>低分位 + 高股息 + 现金流含量</b>；同时严防三类伪低估：净资产缩水抬高的低 PE、亏损企业的低 PB、以及重资产加工业天生的低 ROE。</div></div>
-</div>
-
-<h2 class="section-title">📈 估值历史分位总览</h2>
-<div class="ovtable">
-<div class="ovtable"><table class="sortable">
-<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-beer-chain-600600.html">青岛啤酒</a></td><td>15.4</td><td><span class="pct-cell pct-lo">0%</span></td><td>2.22</td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-600132.html">重庆啤酒</a></td><td>17.6</td><td><span class="pct-cell pct-lo">4%</span></td><td>11.51</td><td><span class="pct-cell pct-lo">23%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-000729.html">燕京啤酒</a></td><td>19.7</td><td><span class="pct-cell pct-lo">7%</span></td><td>2.22</td><td><span class="pct-cell pct-hi">86%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-002461.html">珠江啤酒</a></td><td>20.0</td><td><span class="pct-cell pct-lo">1%</span></td><td>1.65</td><td><span class="pct-cell pct-lo">19%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-600573.html">惠泉啤酒</a></td><td>28.2</td><td><span class="pct-cell pct-lo">7%</span></td><td>1.69</td><td><span class="pct-cell pct-lo">22%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-000929.html">兰州黄河</a></td><td>-12.3</td><td><span class="pct-cell pct-hi">73%</span></td><td>4.04</td><td><span class="pct-cell pct-hi">90%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-000752.html">西藏发展</a></td><td>14.6</td><td><span class="pct-cell pct-mid">45%</span></td><td>3.41</td><td><span class="pct-cell pct-lo">38%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-600543.html">莫高股份</a></td><td>-10.5</td><td><span class="pct-cell pct-mid">49%</span></td><td>1.61</td><td><span class="pct-cell pct-lo">10%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-603076.html">乐惠国际</a></td><td>85.0</td><td><span class="pct-cell pct-mid">46%</span></td><td>1.69</td><td><span class="pct-cell pct-lo">0%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-001338.html">永顺泰</a></td><td>20.5</td><td><span class="pct-cell pct-lo">35%</span></td><td>1.09</td><td><span class="pct-cell pct-lo">0%</span></td></tr>
-</tbody>
-</table></div>
-</div>
-<div class="source-note" style="margin-top:10px">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。<span class="pct pct-lo">绿</span>偏低/便宜　<span class="pct pct-mid">橙</span>中位　<span class="pct pct-hi">红</span>偏高/贵。亏损企业 PE 为负、PE 分位不适用，仅看 PB；分位为时点统计。</div>
-
-<h2 class="section-title">⚖ R15 三维评级总览</h2>
-<div class="ovtable">
-<div class="ovtable"><table class="sortable">
-<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-beer-chain-600600.html">青岛啤酒</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">0%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-600132.html">重庆啤酒</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">4%</span></td><td><span class="pct-cell pct-lo">23%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-000729.html">燕京啤酒</a></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-lo">7%</span></td><td><span class="pct-cell pct-hi">86%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-002461.html">珠江啤酒</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">1%</span></td><td><span class="pct-cell pct-lo">19%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-600573.html">惠泉啤酒</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">7%</span></td><td><span class="pct-cell pct-lo">22%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-000929.html">兰州黄河</a></td><td><span class="pct-cell pct-hi">★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-hi">2</span></td><td><span class="pct-cell pct-hi">73%</span></td><td><span class="pct-cell pct-hi">90%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-000752.html">西藏发展</a></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-mid">45%</span></td><td><span class="pct-cell pct-lo">38%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-600543.html">莫高股份</a></td><td><span class="pct-cell pct-hi">★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">7</span></td><td><span class="pct-cell pct-mid">49%</span></td><td><span class="pct-cell pct-lo">10%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-603076.html">乐惠国际</a></td><td><span class="pct-cell pct-hi">★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">8</span></td><td><span class="pct-cell pct-mid">46%</span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-001338.html">永顺泰</a></td><td><span class="pct-cell pct-hi">★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">8</span></td><td><span class="pct-cell pct-lo">35%</span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
-</tbody>
-</table></div>
-</div>
-<div class="source-note" style="margin-top:10px">R15 三维：①<b>估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；②<b>质量星级</b>=近10年ROE均值（★越多质地越好）；③<b>时机分</b>=链周期指数百分位（分越高越接近周期底部）。数据为时点统计。</div>
-
-<h2 class="section-title">🏭 产业链成本传导</h2>
-<div class="cost-block">
-
-    <svg viewBox="0 0 800 150" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
-      <defs><marker id="arr-beer" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0 0, 8 4, 0 8" fill="#f59e0b"/></marker></defs>
-      <g><rect x="15" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="100" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游·大麦/包材</text></g>
-      <g><rect x="225" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="310" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游·酿造灌装</text></g>
-      <g><rect x="435" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="520" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游·品牌渠道</text></g>
-      <g><rect x="645" y="40" width="140" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="715" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">终端·餐饮零售</text></g>
-      <line x1="185" y1="64" x2="225" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-beer)"/>
-      <line x1="395" y1="64" x2="435" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-beer)"/>
-      <line x1="605" y1="64" x2="645" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-beer)"/>
-      <g><rect x="280" y="105" width="240" height="34" rx="6" fill="#fbf7ee" stroke="#f59e0b" stroke-width="1.5"/><text x="400" y="127" text-anchor="middle" font-size="12" font-weight="700" fill="#0b1f3a">核心变量=护城河</text></g>
-    </svg>
-  <p class="cost-note" style="font-style:normal;text-align:left"><p>啤酒的成本传导 <b>高度敏感且当期反映</b>：大麦（进口定价）、铝罐（LME/SHFE）、玻璃瓶与纸箱合计占成本大头，价格波动直接落到毛利率上。与白酒最大的差别是——啤酒<b>没有存货增值的缓冲垫</b>，成本上行无法靠陈年库存消化，只能靠提价或结构升级对冲。</p><p>因此啤酒股盈利 ≈ f(大麦/铝/玻璃价格↓、ASP↑、产能利用率↑、关厂减员)。成本下行周期是毛利弹性最大的窗口（本轮即处此段），但<b>能否留住这份弹性取决于竞争格局</b>：价位带打价格战时，成本红利会被促销费用抹掉。龙头（青岛、重啤）凭规模采购+长期合约拿到成本优势，中小区域厂在波动期利润率更不稳定；上游麦芽厂（永顺泰）则与品牌商站在价差的两端，赚的是加工费而非品牌溢价。</p></p>
-</div>
-
-<h2 class="section-title">👥 员工效率排行</h2>
-<div class="ovtable">
-<div class="ovtable"><table>
-<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>效率信号</th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-beer-chain-001338.html">永顺泰</a></td><td>727</td><td class="num down">-2.4%</td><td class="num">—</td><td class="num">¥33.0万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-600132.html">重庆啤酒</a></td><td>4,229</td><td class="num down">-1.9%</td><td class="num">—</td><td class="num">¥29.1万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-002461.html">珠江啤酒</a></td><td>4,564</td><td class="num">—</td><td class="num">—</td><td class="num">¥19.7万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">口径异常</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-600600.html">青岛啤酒</a></td><td>3万</td><td class="num down">-2.1%</td><td class="num">—</td><td class="num">¥15.7万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-000729.html">燕京啤酒</a></td><td>2万</td><td class="num">—</td><td class="num">—</td><td class="num">¥8.7万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">口径异常</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-600573.html">惠泉啤酒</a></td><td>1,263</td><td class="num up">+1.0%</td><td class="num">—</td><td class="num">¥6.3万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-603076.html">乐惠国际</a></td><td>1,302</td><td class="num up">+4.2%</td><td class="num">—</td><td class="num">¥2.3万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-600543.html">莫高股份</a></td><td>579</td><td class="num up">+2.8%</td><td class="num">—</td><td class="num">¥-19.0万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">亏损承压</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-000929.html">兰州黄河</a></td><td>818</td><td class="num up">+1.1%</td><td class="num">—</td><td class="num">¥-11.0万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">亏损承压</span></td></tr>
-<tr><td><a href="berkshire-beer-chain-000752.html">西藏发展</a></td><td>—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">口径异常</span></td></tr>
-</tbody>
-</table></div>
-</div>
-<div class="source-note" style="margin-top:10px">员工增速=在职员工同比；人均净利=2025 归母净利÷员工数。组织效能信号为代理指标，非投资建议。</div>
-
-<h2 class="section-title">🏢 主要玩家索引（上市公司 10 家）</h2>
-<div class="grid">
-<a class="giant-card" href="./berkshire-beer-chain-600600.html"><div class="gc-title">青岛啤酒</div><div class="gc-code">600600</div><div class="gc-meta">全国龙头</div><div class="gc-desc">国产啤酒全国龙头，纯生/奥古特高端矩阵领先，PE分位 0%、PB分位 1% 的高股息现金牛。</div></a>
-<a class="giant-card" href="./berkshire-beer-chain-600132.html"><div class="gc-title">重庆啤酒</div><div class="gc-code">600132</div><div class="gc-meta">高端化标杆</div><div class="gc-desc">嘉士伯中国旗舰，乌苏/1664 高端矩阵，毛利 50.9%、股息率 5.7% 最高，但 ROE 96.1% 是资产轻口径。</div></a>
-<a class="giant-card" href="./berkshire-beer-chain-000729.html"><div class="gc-title">燕京啤酒</div><div class="gc-code">000729</div><div class="gc-meta">改革提速</div><div class="gc-desc">北京地方龙头，U8 大单品+国企改革驱动盈利修复，PE分位 7% 但 PB分位 86%，预期已先行。</div></a>
-<a class="giant-card" href="./berkshire-beer-chain-002461.html"><div class="gc-title">珠江啤酒</div><div class="gc-code">002461</div><div class="gc-meta">区域龙头</div><div class="gc-desc">广东省龙头，纯生占比高、毛利 48.3%，但 ROE 仅 8.4%——高毛利低回报的重资产样本。</div></a>
-<a class="giant-card" href="./berkshire-beer-chain-600573.html"><div class="gc-title">惠泉啤酒</div><div class="gc-code">600573</div><div class="gc-meta">燕京系</div><div class="gc-desc">福建闽南区域盘，燕京系子公司，规模小、ROE 6.0%，低 PE分位来自薄利而非便宜。</div></a>
-<a class="giant-card" href="./berkshire-beer-chain-000929.html"><div class="gc-title">兰州黄河</div><div class="gc-code">000929</div><div class="gc-meta">区域</div><div class="gc-desc">甘肃区域酒厂，主业亏损、经营现金流为负，PB分位 90%——本链最典型的价值陷阱。</div></a>
-<a class="giant-card" href="./berkshire-beer-chain-000752.html"><div class="gc-title">西藏发展</div><div class="gc-code">000752</div><div class="gc-meta">区域</div><div class="gc-desc">拉萨啤酒，高原运输壁垒撑起 42.1% 毛利与 38.3% ROE，但零分红、体量小、披露弱。</div></a>
-<a class="giant-card" href="./berkshire-beer-chain-600543.html"><div class="gc-title">莫高股份</div><div class="gc-code">600543</div><div class="gc-meta">葡萄酒+啤酒</div><div class="gc-desc">甘肃莫高葡萄酒为主、啤酒占比小，毛利仅 10.9% 且亏损，PB分位 10% 是便宜有理。</div></a>
-<a class="giant-card" href="./berkshire-beer-chain-603076.html"><div class="gc-title">乐惠国际</div><div class="gc-code">603076</div><div class="gc-meta">精酿设备</div><div class="gc-desc">啤酒酿造装备制造商+鲜啤新业务，PB分位 0% 但 ROE 2.0%、负债率 61.6%，非消费品逻辑。</div></a>
-<a class="giant-card" href="./berkshire-beer-chain-001338.html"><div class="gc-title">永顺泰</div><div class="gc-code">001338</div><div class="gc-meta">麦芽供应商</div><div class="gc-desc">麦芽龙头（粤海控股旗下），负债率 10.0%、经营现金流 15.6 亿、PB 1.09 的硬资产型标的。</div></a>
-</div>
-
-<div class="source-note">
-  📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
-</div>
-
-</div>
-
-<script src="./analytics.js"></script>
-<script src="./tdx-link.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.sortable').forEach(function(t){
-    t.querySelectorAll('th').forEach(function(th,i){
-      th.addEventListener('click',function(){
-        var d=t.querySelector('tbody');
-        var rows=Array.from(d.querySelectorAll('tr'));
-        var asc=th.classList.contains('sorted-asc');
-        th.classList.remove('sorted-asc','sorted-desc');
-        rows.sort(function(a,b){
-          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          av=parseFloat(av); bv=parseFloat(bv);
-          return asc?bv-av:av-bv;
-        });
-        th.classList.add(asc?'sorted-desc':'sorted-asc');
-        rows.forEach(function(r){d.appendChild(r)});
-      });
-    });
-  });
-});
-</script>
-<div class="section-title">延伸阅读 · 啤酒产业链 7 兄弟页</div>
-<div class="extend-grid"><a class="extend-card" href="./berkshire-beer-compare.html"><b>🥇 估值分位</b><span>啤酒产业链（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-beer-thermometer.html"><b>🌡️ 估值温度计</b><span>啤酒产业链（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-beer-buyback.html"><b>💰 回购监测</b><span>啤酒产业链（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-beer-repomap.html"><b>🗺️ 板块图谱</b><span>啤酒产业链（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-beer-backtest.html"><b>📈 五年回测</b><span>啤酒产业链（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-beer-cycle.html"><b>🔄 周期演进</b><span>啤酒产业链（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-beer-methodology.html"><b>📘 方法论说明</b><span>啤酒产业链（估值/回购/周期研究的取值口径与可信区间）</span></a></div>
-
-<!-- ===== 白酒原版 v2 (per 老板截屏) START ===== -->
+<!-- ===== v2 body (per 老板截屏) START ===== -->
 <div class="ws2-counter-wrap">
   
 <div class="ws2-counter">
   <div class="card"><div class="num">10</div><div class="lbl">家上市公司</div></div>
-  <div class="card"><div class="num">4</div><div class="lbl">核心环节</div></div>
+  <div class="card"><div class="num">10</div><div class="lbl">核心环节 / 子链</div></div>
   <div class="card"><div class="num">6</div><div class="lbl">延伸阅读</div></div>
 </div>
 <div class="ws2-tip"><b>纪律声明：</b>本面板只用公开财报与估值数据可验证的事实。<b>不含</b>任何编造叙事——投资逻辑、产品定位、竞争格局、产能周期均以<b>占位框架</b>呈现，待人工补充。</div>
 
 </div>
-
 <section class="ws2-section">
   <h3>🎯 投资逻辑（8 条 · 占位框架，待人工填实）</h3>
   <div class='ws2-logic8'><div class="item empty"><b>1️⃣ 商业模式与护城河来源</b>（占位 · 待人工填实）</div><div class="item empty"><b>2️⃣ 行业集中度与玩家分层</b>（占位 · 待人工填实）</div><div class="item empty"><b>3️⃣ 产业链上下游关系</b>（占位 · 待人工填实）</div><div class="item empty"><b>4️⃣ 周期性与价格话语权</b>（占位 · 待人工填实）</div><div class="item empty"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>（占位 · 待人工填实）</div><div class="item empty"><b>6️⃣ 估值水位与历史分位</b>（占位 · 待人工填实）</div><div class="item empty"><b>7️⃣ 主要风险事件清单</b>（占位 · 待人工填实）</div><div class="item empty"><b>8️⃣ 投资跟踪指标与反向信号</b>（占位 · 待人工填实）</div></div>
 </section>
-
 <section class="ws2-section">
-  <h3><span class="tag">DATA</span> 历史分位图 · 5 张</h3>
-  <div class='ws2-charts'><div class="chart"><div class="ti">毛利率分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">毛利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=9 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">54.2%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">43.0%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">31.9%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">20.7%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">9.5%</text><path d="M 60.0,64.1 L 120.0,62.5 L 180.0,64.6 L 240.0,70.7 L 300.0,42.0 L 360.0,52.0 L 420.0,61.9 L 480.0,68.9 L 540.0,68.2 L 600.0,59.0 L 660.0,52.8 L 660.0,162.7 L 600.0,164.0 L 540.0,155.1 L 480.0,156.8 L 420.0,145.4 L 360.0,151.6 L 300.0,123.9 L 240.0,124.2 L 180.0,126.1 L 120.0,124.4 L 60.0,113.2 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,78.8 L 120.0,77.7 L 180.0,80.5 L 240.0,79.9 L 300.0,63.9 L 360.0,61.9 L 420.0,84.6 L 480.0,86.7 L 540.0,83.4 L 600.0,76.8 L 660.0,69.1 L 660.0,132.4 L 600.0,147.4 L 540.0,127.6 L 480.0,153.1 L 420.0,127.7 L 360.0,126.0 L 300.0,117.6 L 240.0,121.0 L 180.0,115.0 L 120.0,114.6 L 60.0,94.9 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,87.8 L 120.0,80.7 L 180.0,89.6 L 240.0,95.4 L 300.0,97.2 L 360.0,100.4 L 420.0,122.3 L 480.0,123.5 L 540.0,105.8 L 600.0,93.6 L 660.0,83.5" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,84.8 L 120.0,87.9 L 180.0,92.4 L 240.0,95.1 L 300.0,89.2 L 360.0,100.6 L 420.0,109.3 L 480.0,117.1 L 540.0,107.1 L 600.0,107.2 L 660.0,99.9" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">36.9</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">39.3</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">36.3</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">34.4</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">33.8</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">32.7</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">25.4</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">25.0</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">30.9</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">35.0</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.4</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">净利率分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">净利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=9 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">19.2%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">4.9%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">-9.4%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-23.7%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-37.9%</text><path d="M 60.0,59.7 L 120.0,61.3 L 180.0,56.5 L 240.0,53.6 L 300.0,52.6 L 360.0,51.6 L 420.0,55.7 L 480.0,53.8 L 540.0,53.5 L 600.0,49.1 L 660.0,40.7 L 660.0,145.4 L 600.0,125.6 L 540.0,126.8 L 480.0,165.3 L 420.0,106.4 L 360.0,80.3 L 300.0,112.6 L 240.0,139.5 L 180.0,76.3 L 120.0,82.2 L 60.0,77.5 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,62.8 L 120.0,67.7 L 180.0,62.0 L 240.0,61.1 L 300.0,59.1 L 360.0,59.0 L 420.0,61.7 L 480.0,61.3 L 540.0,60.5 L 600.0,58.9 L 660.0,48.8 L 660.0,74.5 L 600.0,74.8 L 540.0,93.7 L 480.0,99.2 L 420.0,74.9 L 360.0,76.2 L 300.0,75.4 L 240.0,76.2 L 180.0,74.6 L 120.0,75.7 L 60.0,73.8 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,70.0 L 120.0,73.4 L 180.0,69.7 L 240.0,70.0 L 300.0,71.1 L 360.0,69.9 L 420.0,68.9 L 480.0,73.5 L 540.0,71.4 L 600.0,64.3 L 660.0,58.3" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,69.2 L 120.0,72.6 L 180.0,68.1 L 240.0,102.0 L 300.0,92.8 L 360.0,69.4 L 420.0,85.4 L 480.0,103.2 L 540.0,80.4 L 600.0,80.1 L 660.0,75.1" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.7</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.2</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.8</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.7</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.2</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.7</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.1</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.2</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.1</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">7.1</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">9.7</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">ROE 分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">ROE 分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=9 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">72.4%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">26.9%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">-18.5%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-64.0%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-109.4%</text><path d="M 60.0,80.0 L 120.0,77.7 L 180.0,80.0 L 240.0,80.6 L 300.0,79.8 L 360.0,58.8 L 420.0,75.3 L 480.0,37.5 L 540.0,74.4 L 600.0,69.8 L 660.0,67.2 L 660.0,101.3 L 600.0,95.1 L 540.0,96.3 L 480.0,93.2 L 420.0,100.0 L 360.0,89.6 L 300.0,168.5 L 240.0,104.5 L 180.0,88.5 L 120.0,89.8 L 60.0,89.1 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,82.6 L 120.0,84.6 L 180.0,83.9 L 240.0,84.1 L 300.0,84.5 L 360.0,80.6 L 420.0,84.5 L 480.0,80.2 L 540.0,84.9 L 600.0,79.6 L 660.0,79.1 L 660.0,87.1 L 600.0,87.5 L 540.0,91.7 L 480.0,87.9 L 420.0,87.9 L 360.0,88.1 L 300.0,88.1 L 240.0,88.3 L 180.0,87.8 L 120.0,88.6 L 60.0,87.8 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,87.5 L 120.0,87.5 L 180.0,87.7 L 240.0,86.8 L 300.0,87.6 L 360.0,84.7 L 420.0,87.0 L 480.0,86.4 L 540.0,86.2 L 600.0,83.8 L 660.0,84.0" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,85.4 L 120.0,85.5 L 180.0,84.8 L 240.0,93.6 L 300.0,161.2 L 360.0,71.3 L 420.0,86.9 L 480.0,72.5 L 540.0,84.7 L 600.0,79.7 L 660.0,80.4" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.5</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.4</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.2</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.4</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.3</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">6.4</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.2</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.1</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.3</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">7.5</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">7.3</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">营收同比分位带（白酒 13 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">营收同比分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 10 年窗 ｜ N=9 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">43.8%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">25.9%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">8.0%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-9.8%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-27.7%</text><path d="M 60.0,105.2 L 126.7,106.3 L 193.3,98.0 L 260.0,46.5 L 326.7,90.9 L 393.3,87.2 L 460.0,74.2 L 526.7,39.7 L 593.3,63.4 L 660.0,94.2 L 660.0,139.2 L 593.3,139.9 L 526.7,119.8 L 460.0,162.1 L 393.3,124.2 L 326.7,166.3 L 260.0,160.1 L 193.3,139.5 L 126.7,140.8 L 60.0,146.9 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,124.6 L 126.7,115.9 L 193.3,104.3 L 260.0,108.2 L 326.7,102.0 L 393.3,100.7 L 460.0,99.4 L 526.7,80.4 L 593.3,106.3 L 660.0,110.3 L 660.0,119.3 L 593.3,134.3 L 526.7,107.7 L 460.0,134.7 L 393.3,114.6 L 326.7,126.5 L 260.0,133.4 L 193.3,123.8 L 126.7,132.8 L 60.0,134.1 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,128.4 L 126.7,119.2 L 193.3,115.6 L 260.0,115.0 L 326.7,118.7 L 393.3,105.1 L 460.0,105.2 L 526.7,102.3 L 593.3,116.1 L 660.0,114.7" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,124.2 L 126.7,122.6 L 193.3,116.0 L 260.0,85.9 L 326.7,120.0 L 393.3,105.7 L 460.0,112.0 L 526.7,85.1 L 593.3,105.8 L 660.0,109.6" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-5.5</text><text x="126.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="126.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-0.6</text><text x="193.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="193.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">1.3</text><text x="260.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="260.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">1.6</text><text x="326.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="326.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-0.3</text><text x="393.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="393.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">6.9</text><text x="460.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="460.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">6.8</text><text x="526.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="526.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">8.4</text><text x="593.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="593.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">1.0</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">1.8</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">PE 横截面 TTM · 13 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 236" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="236" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PE 横截面（TTM，13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">8 家公司 · 取自估值快照</text><text x="102" y="49.8" fill="#1a2540" font-size="11" text-anchor="end">青岛啤酒</text><rect x="110" y="40.0" width="78.0" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="193.0" y="49.8" fill="#1a2540" font-size="11">15.3x</text><text x="102" y="71.2" fill="#1a2540" font-size="11" text-anchor="end">西藏发展</text><rect x="110" y="61.5" width="84.8" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="199.8" y="71.2" fill="#1a2540" font-size="11">16.7x</text><text x="102" y="92.8" fill="#1a2540" font-size="11" text-anchor="end">重庆啤酒</text><rect x="110" y="83.0" width="88.3" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="203.3" y="92.8" fill="#1a2540" font-size="11">17.3x</text><text x="102" y="114.2" fill="#1a2540" font-size="11" text-anchor="end">燕京啤酒</text><rect x="110" y="104.5" width="102.4" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="217.4" y="114.2" fill="#1a2540" font-size="11">20.1x</text><text x="102" y="135.8" fill="#1a2540" font-size="11" text-anchor="end">珠江啤酒</text><rect x="110" y="126.0" width="104.1" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="219.1" y="135.8" fill="#1a2540" font-size="11">20.5x</text><text x="102" y="157.2" fill="#1a2540" font-size="11" text-anchor="end">永顺泰</text><rect x="110" y="147.5" width="109.3" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="224.3" y="157.2" fill="#1a2540" font-size="11">21.5x</text><text x="102" y="178.8" fill="#1a2540" font-size="11" text-anchor="end">惠泉啤酒</text><rect x="110" y="169.0" width="150.4" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="265.4" y="178.8" fill="#1a2540" font-size="11">29.6x</text><text x="102" y="200.2" fill="#1a2540" font-size="11" text-anchor="end">乐惠国际</text><rect x="110" y="190.5" width="514.3" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="629.3" y="200.2" fill="#1a2540" font-size="11">101.0x</text></svg></div><div class="chart"><div class="ti">PB 横截面 · 13 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="280" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PB 横截面（13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">10 家公司 · 取自估值快照</text><text x="102" y="49.8" fill="#1a2540" font-size="11" text-anchor="end">永顺泰</text><rect x="110" y="40.0" width="36.5" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="151.5" y="49.8" fill="#1a2540" font-size="11">1.2x</text><text x="102" y="71.4" fill="#1a2540" font-size="11" text-anchor="end">珠江啤酒</text><rect x="110" y="61.6" width="54.5" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="169.5" y="71.4" fill="#1a2540" font-size="11">1.8x</text><text x="102" y="93.0" fill="#1a2540" font-size="11" text-anchor="end">惠泉啤酒</text><rect x="110" y="83.2" width="55.7" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="170.7" y="93.0" fill="#1a2540" font-size="11">1.8x</text><text x="102" y="114.6" fill="#1a2540" font-size="11" text-anchor="end">莫高股份</text><rect x="110" y="104.8" width="57.2" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="172.2" y="114.6" fill="#1a2540" font-size="11">1.9x</text><text x="102" y="136.2" fill="#1a2540" font-size="11" text-anchor="end">乐惠国际</text><rect x="110" y="126.4" width="63.4" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="178.4" y="136.2" fill="#1a2540" font-size="11">2.0x</text><text x="102" y="157.8" fill="#1a2540" font-size="11" text-anchor="end">燕京啤酒</text><rect x="110" y="148.0" width="73.0" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="188.0" y="157.8" fill="#1a2540" font-size="11">2.4x</text><text x="102" y="179.4" fill="#1a2540" font-size="11" text-anchor="end">青岛啤酒</text><rect x="110" y="169.6" width="75.8" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="190.8" y="179.4" fill="#1a2540" font-size="11">2.5x</text><text x="102" y="201.0" fill="#1a2540" font-size="11" text-anchor="end">西藏发展</text><rect x="110" y="191.2" width="120.1" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="235.1" y="201.0" fill="#1a2540" font-size="11">3.9x</text><text x="102" y="222.6" fill="#1a2540" font-size="11" text-anchor="end">兰州黄河</text><rect x="110" y="212.8" width="146.1" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="261.1" y="222.6" fill="#1a2540" font-size="11">4.7x</text><text x="102" y="244.2" fill="#1a2540" font-size="11" text-anchor="end">重庆啤酒</text><rect x="110" y="234.4" width="514.3" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="629.3" y="244.2" fill="#1a2540" font-size="11">16.6x</text></svg></div></div>
+  <h3><span class="tag">DATA</span> 历史分位图 · 6 张</h3>
+  <div class='ws2-charts'><div class="chart"><div class="ti">毛利率分位带（啤酒产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">毛利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=9 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">54.2%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">43.0%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">31.9%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">20.7%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">9.5%</text><path d="M 60.0,64.1 L 120.0,62.5 L 180.0,64.6 L 240.0,70.7 L 300.0,42.0 L 360.0,52.0 L 420.0,61.9 L 480.0,68.9 L 540.0,68.2 L 600.0,59.0 L 660.0,52.8 L 660.0,162.7 L 600.0,164.0 L 540.0,155.1 L 480.0,156.8 L 420.0,145.4 L 360.0,151.6 L 300.0,123.9 L 240.0,124.2 L 180.0,126.1 L 120.0,124.4 L 60.0,113.2 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,78.8 L 120.0,77.7 L 180.0,80.5 L 240.0,79.9 L 300.0,63.9 L 360.0,61.9 L 420.0,84.6 L 480.0,86.7 L 540.0,83.4 L 600.0,76.8 L 660.0,69.1 L 660.0,132.4 L 600.0,147.4 L 540.0,127.6 L 480.0,153.1 L 420.0,127.7 L 360.0,126.0 L 300.0,117.6 L 240.0,121.0 L 180.0,115.0 L 120.0,114.6 L 60.0,94.9 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,87.8 L 120.0,80.7 L 180.0,89.6 L 240.0,95.4 L 300.0,97.2 L 360.0,100.4 L 420.0,122.3 L 480.0,123.5 L 540.0,105.8 L 600.0,93.6 L 660.0,83.5" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,84.8 L 120.0,87.9 L 180.0,92.4 L 240.0,95.1 L 300.0,89.2 L 360.0,100.6 L 420.0,109.3 L 480.0,117.1 L 540.0,107.1 L 600.0,107.2 L 660.0,99.9" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">36.9</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">39.3</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">36.3</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">34.4</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">33.8</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">32.7</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">25.4</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">25.0</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">30.9</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">35.0</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">38.4</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">净利率分位带（啤酒产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">净利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=9 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">19.2%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">4.9%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">-9.4%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-23.7%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-37.9%</text><path d="M 60.0,59.7 L 120.0,61.3 L 180.0,56.5 L 240.0,53.6 L 300.0,52.6 L 360.0,51.6 L 420.0,55.7 L 480.0,53.8 L 540.0,53.5 L 600.0,49.1 L 660.0,40.7 L 660.0,145.4 L 600.0,125.6 L 540.0,126.8 L 480.0,165.3 L 420.0,106.4 L 360.0,80.3 L 300.0,112.6 L 240.0,139.5 L 180.0,76.3 L 120.0,82.2 L 60.0,77.5 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,62.8 L 120.0,67.7 L 180.0,62.0 L 240.0,61.1 L 300.0,59.1 L 360.0,59.0 L 420.0,61.7 L 480.0,61.3 L 540.0,60.5 L 600.0,58.9 L 660.0,48.8 L 660.0,74.5 L 600.0,74.8 L 540.0,93.7 L 480.0,99.2 L 420.0,74.9 L 360.0,76.2 L 300.0,75.4 L 240.0,76.2 L 180.0,74.6 L 120.0,75.7 L 60.0,73.8 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,70.0 L 120.0,73.4 L 180.0,69.7 L 240.0,70.0 L 300.0,71.1 L 360.0,69.9 L 420.0,68.9 L 480.0,73.5 L 540.0,71.4 L 600.0,64.3 L 660.0,58.3" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,69.2 L 120.0,72.6 L 180.0,68.1 L 240.0,102.0 L 300.0,92.8 L 360.0,69.4 L 420.0,85.4 L 480.0,103.2 L 540.0,80.4 L 600.0,80.1 L 660.0,75.1" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.7</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.2</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.8</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.7</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.2</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.7</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.1</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.2</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.1</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">7.1</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">9.7</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">ROE 分位带（啤酒产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">ROE 分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=9 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">72.4%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">26.9%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">-18.5%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-64.0%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-109.4%</text><path d="M 60.0,80.0 L 120.0,77.7 L 180.0,80.0 L 240.0,80.6 L 300.0,79.8 L 360.0,58.8 L 420.0,75.3 L 480.0,37.5 L 540.0,74.4 L 600.0,69.8 L 660.0,67.2 L 660.0,101.3 L 600.0,95.1 L 540.0,96.3 L 480.0,93.2 L 420.0,100.0 L 360.0,89.6 L 300.0,168.5 L 240.0,104.5 L 180.0,88.5 L 120.0,89.8 L 60.0,89.1 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,82.6 L 120.0,84.6 L 180.0,83.9 L 240.0,84.1 L 300.0,84.5 L 360.0,80.6 L 420.0,84.5 L 480.0,80.2 L 540.0,84.9 L 600.0,79.6 L 660.0,79.1 L 660.0,87.1 L 600.0,87.5 L 540.0,91.7 L 480.0,87.9 L 420.0,87.9 L 360.0,88.1 L 300.0,88.1 L 240.0,88.3 L 180.0,87.8 L 120.0,88.6 L 60.0,87.8 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,87.5 L 120.0,87.5 L 180.0,87.7 L 240.0,86.8 L 300.0,87.6 L 360.0,84.7 L 420.0,87.0 L 480.0,86.4 L 540.0,86.2 L 600.0,83.8 L 660.0,84.0" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,85.4 L 120.0,85.5 L 180.0,84.8 L 240.0,93.6 L 300.0,161.2 L 360.0,71.3 L 420.0,86.9 L 480.0,72.5 L 540.0,84.7 L 600.0,79.7 L 660.0,80.4" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.5</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.4</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.2</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.4</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.3</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">6.4</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.2</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.1</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.3</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">7.5</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">7.3</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">营收同比分位带（啤酒产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">营收同比分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 10 年窗 ｜ N=9 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">43.8%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">25.9%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">8.0%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-9.8%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-27.7%</text><path d="M 60.0,105.2 L 126.7,106.3 L 193.3,98.0 L 260.0,46.5 L 326.7,90.9 L 393.3,87.2 L 460.0,74.2 L 526.7,39.7 L 593.3,63.4 L 660.0,94.2 L 660.0,139.2 L 593.3,139.9 L 526.7,119.8 L 460.0,162.1 L 393.3,124.2 L 326.7,166.3 L 260.0,160.1 L 193.3,139.5 L 126.7,140.8 L 60.0,146.9 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,124.6 L 126.7,115.9 L 193.3,104.3 L 260.0,108.2 L 326.7,102.0 L 393.3,100.7 L 460.0,99.4 L 526.7,80.4 L 593.3,106.3 L 660.0,110.3 L 660.0,119.3 L 593.3,134.3 L 526.7,107.7 L 460.0,134.7 L 393.3,114.6 L 326.7,126.5 L 260.0,133.4 L 193.3,123.8 L 126.7,132.8 L 60.0,134.1 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,128.4 L 126.7,119.2 L 193.3,115.6 L 260.0,115.0 L 326.7,118.7 L 393.3,105.1 L 460.0,105.2 L 526.7,102.3 L 593.3,116.1 L 660.0,114.7" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,124.2 L 126.7,122.6 L 193.3,116.0 L 260.0,85.9 L 326.7,120.0 L 393.3,105.7 L 460.0,112.0 L 526.7,85.1 L 593.3,105.8 L 660.0,109.6" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-5.5</text><text x="126.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="126.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-0.6</text><text x="193.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="193.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">1.3</text><text x="260.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="260.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">1.6</text><text x="326.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="326.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-0.3</text><text x="393.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="393.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">6.9</text><text x="460.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="460.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">6.8</text><text x="526.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="526.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">8.4</text><text x="593.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="593.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">1.0</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">1.8</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">PE 横截面 TTM · 10 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 236" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="236" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PE 横截面（TTM，13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">8 家公司 · 取自估值快照</text><text x="102" y="49.8" fill="#1a2540" font-size="11" text-anchor="end">青岛啤酒</text><rect x="110" y="40.0" width="78.0" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="193.0" y="49.8" fill="#1a2540" font-size="11">15.3x</text><text x="102" y="71.2" fill="#1a2540" font-size="11" text-anchor="end">西藏发展</text><rect x="110" y="61.5" width="84.8" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="199.8" y="71.2" fill="#1a2540" font-size="11">16.7x</text><text x="102" y="92.8" fill="#1a2540" font-size="11" text-anchor="end">重庆啤酒</text><rect x="110" y="83.0" width="88.3" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="203.3" y="92.8" fill="#1a2540" font-size="11">17.3x</text><text x="102" y="114.2" fill="#1a2540" font-size="11" text-anchor="end">燕京啤酒</text><rect x="110" y="104.5" width="102.4" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="217.4" y="114.2" fill="#1a2540" font-size="11">20.1x</text><text x="102" y="135.8" fill="#1a2540" font-size="11" text-anchor="end">珠江啤酒</text><rect x="110" y="126.0" width="104.1" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="219.1" y="135.8" fill="#1a2540" font-size="11">20.5x</text><text x="102" y="157.2" fill="#1a2540" font-size="11" text-anchor="end">永顺泰</text><rect x="110" y="147.5" width="109.3" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="224.3" y="157.2" fill="#1a2540" font-size="11">21.5x</text><text x="102" y="178.8" fill="#1a2540" font-size="11" text-anchor="end">惠泉啤酒</text><rect x="110" y="169.0" width="150.4" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="265.4" y="178.8" fill="#1a2540" font-size="11">29.6x</text><text x="102" y="200.2" fill="#1a2540" font-size="11" text-anchor="end">乐惠国际</text><rect x="110" y="190.5" width="514.3" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="629.3" y="200.2" fill="#1a2540" font-size="11">101.0x</text></svg></div><div class="chart"><div class="ti">PB 横截面 · 10 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="280" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PB 横截面（13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">10 家公司 · 取自估值快照</text><text x="102" y="49.8" fill="#1a2540" font-size="11" text-anchor="end">永顺泰</text><rect x="110" y="40.0" width="36.5" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="151.5" y="49.8" fill="#1a2540" font-size="11">1.2x</text><text x="102" y="71.4" fill="#1a2540" font-size="11" text-anchor="end">珠江啤酒</text><rect x="110" y="61.6" width="54.5" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="169.5" y="71.4" fill="#1a2540" font-size="11">1.8x</text><text x="102" y="93.0" fill="#1a2540" font-size="11" text-anchor="end">惠泉啤酒</text><rect x="110" y="83.2" width="55.7" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="170.7" y="93.0" fill="#1a2540" font-size="11">1.8x</text><text x="102" y="114.6" fill="#1a2540" font-size="11" text-anchor="end">莫高股份</text><rect x="110" y="104.8" width="57.2" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="172.2" y="114.6" fill="#1a2540" font-size="11">1.9x</text><text x="102" y="136.2" fill="#1a2540" font-size="11" text-anchor="end">乐惠国际</text><rect x="110" y="126.4" width="63.4" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="178.4" y="136.2" fill="#1a2540" font-size="11">2.0x</text><text x="102" y="157.8" fill="#1a2540" font-size="11" text-anchor="end">燕京啤酒</text><rect x="110" y="148.0" width="73.0" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="188.0" y="157.8" fill="#1a2540" font-size="11">2.4x</text><text x="102" y="179.4" fill="#1a2540" font-size="11" text-anchor="end">青岛啤酒</text><rect x="110" y="169.6" width="75.8" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="190.8" y="179.4" fill="#1a2540" font-size="11">2.5x</text><text x="102" y="201.0" fill="#1a2540" font-size="11" text-anchor="end">西藏发展</text><rect x="110" y="191.2" width="120.1" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="235.1" y="201.0" fill="#1a2540" font-size="11">3.9x</text><text x="102" y="222.6" fill="#1a2540" font-size="11" text-anchor="end">兰州黄河</text><rect x="110" y="212.8" width="146.1" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="261.1" y="222.6" fill="#1a2540" font-size="11">4.7x</text><text x="102" y="244.2" fill="#1a2540" font-size="11" text-anchor="end">重庆啤酒</text><rect x="110" y="234.4" width="514.3" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="629.3" y="244.2" fill="#1a2540" font-size="11">16.6x</text></svg></div></div>
 </section>
-
 <section class="ws2-section">
-  <h3>📊 可比公司估值大表（13 家 · 当前截面）</h3>
+  <h3>📊 可比公司估值大表（10 家 · 当前截面）</h3>
   
 <div class="ws2-table-wrap">
 <table>
-<thead><tr>
-  <th>公司</th><th>代码</th><th>PE-TTM</th><th>PB</th>
-  <th>营收(亿)</th><th>净利(亿)</th>
-  <th>毛利率</th><th>净利率</th><th>ROE</th>
-  <th>营收YoY</th>
-</tr></thead>
+<thead><tr><th>公司</th><th>代码</th><th>PE-TTM</th><th>PB</th><th>营收(亿)</th><th>净利(亿)</th><th>毛利率</th><th>净利率</th><th>ROE</th><th>营收YoY</th></tr></thead>
 <tbody><tr><td>燕京啤酒</td><td>000729</td><td>20.1</td><td>2.4</td><td>153.3</td><td>16.8</td><td>43.6%</td><td>10.9%</td><td>10.8%</td><td>4.5%</td></tr><tr><td>西藏发展</td><td>000752</td><td>16.7</td><td>3.9</td><td>4.3</td><td>1.4</td><td>42.1%</td><td>33.2%</td><td>23.5%</td><td>2.8%</td></tr><tr><td>兰州黄河</td><td>000929</td><td>—</td><td>4.7</td><td>3.7</td><td>-0.9</td><td>22.4%</td><td>-24.6%</td><td>-24.9%</td><td>75.3%</td></tr><tr><td>永顺泰</td><td>001338</td><td>21.5</td><td>1.2</td><td>39.3</td><td>2.4</td><td>12.1%</td><td>6.0%</td><td>6.4%</td><td>-8.3%</td></tr><tr><td>珠江啤酒</td><td>002461</td><td>20.5</td><td>1.8</td><td>58.8</td><td>9.0</td><td>48.3%</td><td>15.4%</td><td>8.2%</td><td>2.6%</td></tr><tr><td>重庆啤酒</td><td>600132</td><td>17.3</td><td>16.6</td><td>147.2</td><td>12.3</td><td>50.9%</td><td>8.4%</td><td>89.4%</td><td>0.5%</td></tr><tr><td>莫高股份</td><td>600543</td><td>—</td><td>1.9</td><td>2.0</td><td>-1.1</td><td>10.9%</td><td>-52.8%</td><td>-15.3%</td><td>-38.0%</td></tr><tr><td>惠泉啤酒</td><td>600573</td><td>29.6</td><td>1.8</td><td>6.4</td><td>0.8</td><td>34.9%</td><td>12.5%</td><td>5.9%</td><td>-1.0%</td></tr><tr><td>青岛啤酒</td><td>600600</td><td>15.3</td><td>2.5</td><td>324.7</td><td>45.9</td><td>41.8%</td><td>14.1%</td><td>15.0%</td><td>1.0%</td></tr><tr><td>乐惠国际</td><td>603076</td><td>101.0</td><td>2.0</td><td>15.8</td><td>0.3</td><td>22.0%</td><td>1.7%</td><td>2.1%</td><td>5.8%</td></tr></tbody>
 </table>
 </div>
 
 </section>
-
 <section class="ws2-section">
   <h3>📦 投资逻辑附加：产品定位 / 竞争格局 / 产能周期（占位）</h3>
   
 <div class="ws2-frame-placeholder">
   <h4>📦 产品定位与投资信号</h4>
   此处待人工填实：每家公司主打产品价格带、渠道结构、品牌力定位、批价走势等定性内容（取自年报/公开渠道）。
-  <br>可用结构：①高端品牌矩阵（茅台/五粮液/泸州老窖等） ②次高端与区域龙头（汾酒/古井贡/今世缘/口子窖等） ③大众价位（顺鑫农业/迎驾贡酒等）。
+  <br>可用结构：①高端品牌矩阵 ②次高端与区域龙头 ③大众价位。
 </div>
 <div class="ws2-frame-placeholder">
   <h4>🏛 竞争格局分析</h4>
   此处待人工填实：CR3/CR5 集中度、行业份额变迁、价格战历史、经销商生态、跨区域挤压。
-  <br>可用指标：①销量 CR3/CR5（公开数据） ②次高端价格带定价权 ③经销商话语权变化。
+  <br>可用指标：①销量集中度（公开数据） ②价格带定价权 ③经销商话语权变化。
 </div>
 <div class="ws2-frame-placeholder">
   <h4>🔄 产能周期与库存周期</h4>
-  此处待人工填实：基酒产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
-  <br>可用结构：①基酒半成品库存月数 ②终端动销与渠道库存 ③批价倒挂信号。
+  此处待人工填实：产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
+  <br>可用结构：①半成品库存月数 ②终端动销与渠道库存 ③价格倒挂信号。
 </div>
 
 </section>
-
 <section class="ws2-section">
   <h3>🐴 白马型 vs 周期型一览（基于 10 年财报自动分类）</h3>
   <p style="color:#5d6a82;font-size:12.5px;margin:0 0 10px 0">分类口径：ROE 中位&gt;18% 且净利率波动 σ&lt;5pp 且营收YoY σ&lt;15pp → 白马型；营收YoY σ&gt;30pp 或净利率 σ&gt;10pp → 周期型；其余 → 平衡型。</p>
   
 <div class="ws2-table-wrap ws2-classify">
 <table>
-<thead><tr>
-  <th>公司</th><th>代码</th><th>分类</th>
-  <th>ROE 中位</th><th>净利率波动 σ</th><th>营收YoY波动 σ</th>
-</tr></thead>
+<thead><tr><th>公司</th><th>代码</th><th>分类</th><th>ROE 中位</th><th>净利率波动 σ</th><th>营收YoY波动 σ</th></tr></thead>
 <tbody><tr><td>燕京啤酒</td><td>000729</td><td class="tag tag-中性">平衡型</td><td>2.4%</td><td>3.0</td><td>6.1</td></tr><tr><td>西藏发展</td><td>000752</td><td class="tag tag-周期">周期型</td><td>1.0%</td><td>50.4</td><td>17.8</td></tr><tr><td>兰州黄河</td><td>000929</td><td class="tag tag-周期">周期型</td><td>-4.6%</td><td>16.6</td><td>28.9</td></tr><tr><td>永顺泰</td><td>001338</td><td class="tag tag-中性">平衡型</td><td>6.5%</td><td>1.3</td><td>18.0</td></tr><tr><td>珠江啤酒</td><td>002461</td><td class="tag tag-中性">平衡型</td><td>6.2%</td><td>4.6</td><td>3.2</td></tr><tr><td>重庆啤酒</td><td>600132</td><td class="tag tag-周期">周期型</td><td>61.5%</td><td>3.7</td><td>60.4</td></tr><tr><td>莫高股份</td><td>600543</td><td class="tag tag-周期">周期型</td><td>0.2%</td><td>39.7</td><td>40.1</td></tr><tr><td>惠泉啤酒</td><td>600573</td><td class="tag tag-中性">平衡型</td><td>2.5%</td><td>3.5</td><td>7.8</td></tr><tr><td>青岛啤酒</td><td>600600</td><td class="tag tag-中性">平衡型</td><td>10.7%</td><td>3.7</td><td>4.8</td></tr><tr><td>乐惠国际</td><td>603076</td><td class="tag tag-中性">平衡型</td><td>3.6%</td><td>4.5</td><td>19.4</td></tr></tbody>
 </table>
 </div>
 
 </section>
-
 <section class="ws2-section">
   <h3>🏆 产业链地位 + 11 年累计复合增长（按营收 CAGR 排序）</h3>
   
 <div class="ws2-table-wrap">
 <table>
-<thead><tr>
-  <th>公司</th><th>代码</th>
-  <th>营收 CAGR (10Y)</th><th>净利 CAGR (10Y)</th>
-  <th>ROE 中位</th><th>最新营收(亿)</th>
-</tr></thead>
+<thead><tr><th>公司</th><th>代码</th><th>营收 CAGR (10Y)</th><th>净利 CAGR (10Y)</th><th>ROE 中位</th><th>最新营收(亿)</th></tr></thead>
 <tbody><tr><td>重庆啤酒</td><td>600132</td><td>16.0%</td><td>0.0%</td><td>61.5%</td><td>147.2</td></tr><tr><td>乐惠国际</td><td>603076</td><td>8.1%</td><td>-8.5%</td><td>3.6%</td><td>15.8</td></tr><tr><td>永顺泰</td><td>001338</td><td>7.1%</td><td>5.7%</td><td>6.5%</td><td>39.3</td></tr><tr><td>珠江啤酒</td><td>002461</td><td>5.3%</td><td>26.9%</td><td>6.2%</td><td>58.8</td></tr><tr><td>燕京啤酒</td><td>000729</td><td>2.0%</td><td>11.1%</td><td>2.4%</td><td>153.3</td></tr><tr><td>青岛啤酒</td><td>600600</td><td>1.6%</td><td>10.4%</td><td>10.7%</td><td>324.7</td></tr><tr><td>西藏发展</td><td>000752</td><td>1.0%</td><td>24.2%</td><td>1.0%</td><td>4.3</td></tr><tr><td>惠泉啤酒</td><td>600573</td><td>-1.6%</td><td>13.3%</td><td>2.5%</td><td>6.4</td></tr><tr><td>莫高股份</td><td>600543</td><td>-2.0%</td><td>0%</td><td>0.2%</td><td>2.0</td></tr><tr><td>兰州黄河</td><td>000929</td><td>-6.2%</td><td>0%</td><td>-4.6%</td><td>3.7</td></tr></tbody>
 </table>
 </div>
 
 </section>
-<!-- ===== 白酒原版 v2 END ===== -->
+<!-- ===== v2 body END ===== -->
 
-<div class="back-bar">
-<a href="./berkshire-chain-map.html">← 全链索引</a>
-<a href="./berkshire-standalone.html">← 数据中心首页</a>
-</div>
-</body>
+<div class="research-signal">
+  <div class="rs-grid">
+<div class="rs-item"><div class="rs-label">周期位置</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">消费筑底、需求疲软的左侧位置。行业量的顶部早在 2013 年出现，此后靠关厂提效+结构升级维持利润增长；2024–2026 现饮场景（餐饮/夜场）疲弱使高端化增速放缓，估值先行杀到历史极端——青岛 PE 分位 0%、PB 分位 1%，是十年序列的地板区。</div></div>
+<div class="rs-item"><div class="rs-label">景气方向</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">利润端好于收入端。成本侧（大麦、铝罐、玻璃瓶）下行释放毛利弹性，龙头凭规模采购与长期合约锁价；但销量增长近零、现饮渠道恢复慢、区域价格战抬头，收入端缺乏向上动能。上游麦芽（永顺泰）赚的是价差与开工率，与品牌商景气不同步。</div></div>
+<div class="rs-item"><div class="rs-label">结论信号</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)"><b>🟡 中性（左侧布局，不追）</b> — 估值已按「永久零增长」定价，但需求与高端化尚未确认转向。价值投资视角只认三类资产：①真护城河+极低分位（青岛）；②高股息+低PE分位（重啤，须辨资产轻口径）；③硬资产+低负债+高现金流（永顺泰）。其余多为「便宜有理」，须严防把亏损与净资产缩水读成低估。</div></div>
+<div class="rs-item"><div class="rs-label">核心催化</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">①现饮场景（餐饮/夜场）复苏带动销量与 ASP　②大麦/铝/玻璃成本继续下行修复毛利　③高端化率提升拉动均价　④分红率与回购提升（青岛 4.4%、重啤 5.7% 股息率）　⑤关厂提效与人效改善（青岛员工同比 -2.1%、重啤 -1.9%）。</div></div>
+<div class="rs-item"><div class="rs-label">关键风险</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">①需求持续疲弱、销量负增长　②高端化不及预期、结构升级停滞　③包材/大麦反转涨价吞噬毛利　④区域价格战（中低端价位带）　⑤重资产企业的产能减值与关厂费用　⑥小市值区域酒厂持续亏损侵蚀净资产（兰州黄河、莫高）。</div></div>
+  </div>
+  <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:13px;line-height:1.8">
+<div style="font-weight:700;color:var(--navy)">周期位置</div><div>消费筑底、需求疲软的左侧位置。行业量的顶部早在 2013 年出现，此后靠关厂提效+结构升级维持利润增长；2024–2026 现饮场景（餐饮/夜场）疲弱使高端化增速放缓，估值先行杀到历史极端——青岛 PE 分位 0%、PB 分位 1%，是十年序列的地板区。</div>
+<div style="font-weight:700;color:var(--navy)">景气方向</div><div>利润端好于收入端。成本侧（大麦、铝罐、玻璃瓶）下行释放毛利弹性，龙头凭规模采购与长期合约锁价；但销量增长近零、现饮渠道恢复慢、区域价格战抬头，收入端缺乏向上动能。上游麦芽（永顺泰）赚的是价差与开工率，与品牌商景气不同步。</div>
+<div style="font-weight:700;color:var(--navy)">结论信号</div><div><b>🟡 中性（左侧布局，不追）</b> — 估值已按「永久零增长」定价，但需求与高端化尚未确认转向。价值投资视角只认三类资产：①真护城河+极低分位（青岛）；②高股息+低PE分位（重啤，须辨资产轻口径）；③硬资产+低负债+高现金流（永顺泰）。其余多为「便宜有理」，须严防把亏损与净资产缩水读成低估。</div>
+<div style="font-weight:700;color:var(--navy)">核心催化</div><div>①现饮场景（餐饮/夜场）复苏带动销量与 ASP　②大麦/铝/玻璃成本继续下行修复毛利　③高端化率提升拉动均价　④分红率与回购提升（青岛 4.4%、重啤 5.7% 股息率）　⑤关厂提效与人效改善（青岛员工同比 -2.1%、重啤 -1.9%）。</div>
+<div style="font-weight:700;color:var(--navy)">关键风险</div><div>①需求持续疲弱、销量负增长　②高端化不及预期、结构升级停滞　③包材/大麦反转涨价吞噬毛利　④区域价格战（中低端价位带）　⑤重资产企业的产能减值与关厂费用　⑥小市值区域酒厂持续亏损侵蚀净资产（兰州黄河、莫高）。</div>
+  </div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:12px;color:var(--muted)">数据锚：平均 PE分位 ≈27%、PB分位 ≈29%；青岛 PE分位 0.4% / PB分位 1%（R15 时机分 10，本链最高）；燕京 PB分位 86%、兰州黄河 PB分位 90%（偏贵）；青岛 ROE 15.4%、重啤 ROE 96.1%（资产轻须辨）、珠江 ROE 8.4%；2/10 亏损（兰州黄河 -21.4%、莫高 -14.2%，且经营现金流为负）。结论为框架合成，需结合实盘研究校验。</div>
+</div>
+
+<h2 class="section-title">🏛 5 层分析框架（啤酒产业链专属）</h2>
+<div class="layers">
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游原材料</div><div class="layer-text">大麦（麦芽）、铝罐、玻璃瓶、纸箱等包材，三大宗价格直接主导毛利率。啤酒无「库存升值」缓冲，成本上行当期即压毛利；龙头靠规模采购与长期合约锁价，中小厂被动承受。永顺泰即处此环节，赚大麦—麦芽价差与开工率。</div></div>
+<div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游酿造/灌装</div><div class="layer-text">重资产环节：糖化-发酵-过滤-灌装产线，产能利用率与规模效应决定单位成本。行业总产量 2013 见顶后，利润增长主要来自<b>关厂提效</b>（关小厂、并线、减员）而非扩产；纯生（不经巴氏杀菌）对冷链与工艺要求更高，是高毛利产品的产能门槛。乐惠国际是这一环节的装备供应商。</div></div>
+<div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游品牌/渠道</div><div class="layer-text">现饮（餐饮/夜场/大排档，高价高毛利）与非现饮（商超/便利/电商，低价高周转）双轨。啤酒运输半径短、单位价值低，形成天然的<b>区域割据</b>；现饮渠道掌控力（终端买断、堆头、冰柜）决定高端产品能否放量，也是本链最真实的壁垒之一。</div></div>
+<div class="layer-card"><div class="layer-num">04</div><div class="layer-name">竞争格局</div><div class="layer-text">全国五强（华润、青岛、百威亚太、燕京、嘉士伯/重啤）已完成瓜分，CR5 高、增量博弈从抢量转为抢价位带。A 股内：青岛全国化，重啤靠嘉士伯品牌矩阵打高端，燕京/珠江据守北京/广东基本盘，惠泉/兰州黄河/西藏发展是被动区域盘。区域独占（如高原运输壁垒）能撑毛利，但撑不起成长。</div></div>
+<div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-text">看「ASP高端化 × 成本周期位置 × 估值分位 × 现金流质量」四维。量已见顶，所以估值不能给成长溢价，安全边际必须来自<b>低分位 + 高股息 + 现金流含量</b>；同时严防三类伪低估：净资产缩水抬高的低 PE、亏损企业的低 PB、以及重资产加工业天生的低 ROE。</div></div>
+</div>
+
+<h2 class="section-title">📈 估值历史分位总览</h2>
+<div class="ovtable">
+<div class="ovtable"><table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-beer-chain-600600.html">青岛啤酒</a></td><td>15.4</td><td><span class="pct-cell pct-lo">0%</span></td><td>2.22</td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-600132.html">重庆啤酒</a></td><td>17.6</td><td><span class="pct-cell pct-lo">4%</span></td><td>11.51</td><td><span class="pct-cell pct-lo">23%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-000729.html">燕京啤酒</a></td><td>19.7</td><td><span class="pct-cell pct-lo">7%</span></td><td>2.22</td><td><span class="pct-cell pct-hi">86%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-002461.html">珠江啤酒</a></td><td>20.0</td><td><span class="pct-cell pct-lo">1%</span></td><td>1.65</td><td><span class="pct-cell pct-lo">19%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-600573.html">惠泉啤酒</a></td><td>28.2</td><td><span class="pct-cell pct-lo">7%</span></td><td>1.69</td><td><span class="pct-cell pct-lo">22%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-000929.html">兰州黄河</a></td><td>-12.3</td><td><span class="pct-cell pct-hi">73%</span></td><td>4.04</td><td><span class="pct-cell pct-hi">90%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-000752.html">西藏发展</a></td><td>14.6</td><td><span class="pct-cell pct-mid">45%</span></td><td>3.41</td><td><span class="pct-cell pct-lo">38%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-600543.html">莫高股份</a></td><td>-10.5</td><td><span class="pct-cell pct-mid">49%</span></td><td>1.61</td><td><span class="pct-cell pct-lo">10%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-603076.html">乐惠国际</a></td><td>85.0</td><td><span class="pct-cell pct-mid">46%</span></td><td>1.69</td><td><span class="pct-cell pct-lo">0%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-001338.html">永顺泰</a></td><td>20.5</td><td><span class="pct-cell pct-lo">35%</span></td><td>1.09</td><td><span class="pct-cell pct-lo">0%</span></td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="source-note" style="margin-top:10px">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。<span class="pct pct-lo">绿</span>偏低/便宜　<span class="pct pct-mid">橙</span>中位　<span class="pct pct-hi">红</span>偏高/贵。亏损企业 PE 为负、PE 分位不适用，仅看 PB；分位为时点统计。</div>
+
+<h2 class="section-title">⚖ R15 三维评级总览</h2>
+<div class="ovtable">
+<div class="ovtable"><table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-beer-chain-600600.html">青岛啤酒</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">10</span></td><td><span class="pct-cell pct-lo">0%</span></td><td><span class="pct-cell pct-lo">1%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-600132.html">重庆啤酒</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">4%</span></td><td><span class="pct-cell pct-lo">23%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-000729.html">燕京啤酒</a></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-mid">5</span></td><td><span class="pct-cell pct-lo">7%</span></td><td><span class="pct-cell pct-hi">86%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-002461.html">珠江啤酒</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">1%</span></td><td><span class="pct-cell pct-lo">19%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-600573.html">惠泉啤酒</a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-lo">9</span></td><td><span class="pct-cell pct-lo">7%</span></td><td><span class="pct-cell pct-lo">22%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-000929.html">兰州黄河</a></td><td><span class="pct-cell pct-hi">★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-hi">2</span></td><td><span class="pct-cell pct-hi">73%</span></td><td><span class="pct-cell pct-hi">90%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-000752.html">西藏发展</a></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-mid">6</span></td><td><span class="pct-cell pct-mid">45%</span></td><td><span class="pct-cell pct-lo">38%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-600543.html">莫高股份</a></td><td><span class="pct-cell pct-hi">★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">7</span></td><td><span class="pct-cell pct-mid">49%</span></td><td><span class="pct-cell pct-lo">10%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-603076.html">乐惠国际</a></td><td><span class="pct-cell pct-hi">★★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">8</span></td><td><span class="pct-cell pct-mid">46%</span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-001338.html">永顺泰</a></td><td><span class="pct-cell pct-hi">★★</span></td><td><span class="pct-cell pct-hi">★</span></td><td><span class="pct-cell pct-mid">8</span></td><td><span class="pct-cell pct-lo">35%</span></td><td><span class="pct-cell pct-lo">0%</span></td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="source-note" style="margin-top:10px">R15 三维：①<b>估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；②<b>质量星级</b>=近10年ROE均值（★越多质地越好）；③<b>时机分</b>=链周期指数百分位（分越高越接近周期底部）。数据为时点统计。</div>
+
+<h2 class="section-title">🏭 产业链成本传导</h2>
+<div class="cost-block">
+
+    <svg viewBox="0 0 800 150" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="arr-beer" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0 0, 8 4, 0 8" fill="#f59e0b"/></marker></defs>
+      <g><rect x="15" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="100" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游·大麦/包材</text></g>
+      <g><rect x="225" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="310" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游·酿造灌装</text></g>
+      <g><rect x="435" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="520" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游·品牌渠道</text></g>
+      <g><rect x="645" y="40" width="140" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="715" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">终端·餐饮零售</text></g>
+      <line x1="185" y1="64" x2="225" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-beer)"/>
+      <line x1="395" y1="64" x2="435" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-beer)"/>
+      <line x1="605" y1="64" x2="645" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-beer)"/>
+      <g><rect x="280" y="105" width="240" height="34" rx="6" fill="#fbf7ee" stroke="#f59e0b" stroke-width="1.5"/><text x="400" y="127" text-anchor="middle" font-size="12" font-weight="700" fill="#0b1f3a">核心变量=护城河</text></g>
+    </svg>
+  <p class="cost-note" style="font-style:normal;text-align:left"><p>啤酒的成本传导 <b>高度敏感且当期反映</b>：大麦（进口定价）、铝罐（LME/SHFE）、玻璃瓶与纸箱合计占成本大头，价格波动直接落到毛利率上。与白酒最大的差别是——啤酒<b>没有存货增值的缓冲垫</b>，成本上行无法靠陈年库存消化，只能靠提价或结构升级对冲。</p><p>因此啤酒股盈利 ≈ f(大麦/铝/玻璃价格↓、ASP↑、产能利用率↑、关厂减员)。成本下行周期是毛利弹性最大的窗口（本轮即处此段），但<b>能否留住这份弹性取决于竞争格局</b>：价位带打价格战时，成本红利会被促销费用抹掉。龙头（青岛、重啤）凭规模采购+长期合约拿到成本优势，中小区域厂在波动期利润率更不稳定；上游麦芽厂（永顺泰）则与品牌商站在价差的两端，赚的是加工费而非品牌溢价。</p></p>
+</div>
+
+<h2 class="section-title">👥 员工效率排行</h2>
+<div class="ovtable">
+<div class="ovtable"><table>
+<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>效率信号</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-beer-chain-001338.html">永顺泰</a></td><td>727</td><td class="num down">-2.4%</td><td class="num">—</td><td class="num">¥33.0万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-600132.html">重庆啤酒</a></td><td>4,229</td><td class="num down">-1.9%</td><td class="num">—</td><td class="num">¥29.1万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-002461.html">珠江啤酒</a></td><td>4,564</td><td class="num">—</td><td class="num">—</td><td class="num">¥19.7万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">口径异常</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-600600.html">青岛啤酒</a></td><td>3万</td><td class="num down">-2.1%</td><td class="num">—</td><td class="num">¥15.7万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-000729.html">燕京啤酒</a></td><td>2万</td><td class="num">—</td><td class="num">—</td><td class="num">¥8.7万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">口径异常</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-600573.html">惠泉啤酒</a></td><td>1,263</td><td class="num up">+1.0%</td><td class="num">—</td><td class="num">¥6.3万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-603076.html">乐惠国际</a></td><td>1,302</td><td class="num up">+4.2%</td><td class="num">—</td><td class="num">¥2.3万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-600543.html">莫高股份</a></td><td>579</td><td class="num up">+2.8%</td><td class="num">—</td><td class="num">¥-19.0万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">亏损承压</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-000929.html">兰州黄河</a></td><td>818</td><td class="num up">+1.1%</td><td class="num">—</td><td class="num">¥-11.0万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">亏损承压</span></td></tr>
+<tr><td><a href="berkshire-beer-chain-000752.html">西藏发展</a></td><td>—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">口径异常</span></td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="source-note" style="margin-top:10px">员工增速=在职员工同比；人均净利=2025 归母净利÷员工数。组织效能信号为代理指标，非投资建议。</div>
+
+<h2 class="section-title">🏢 主要玩家索引（上市公司 10 家）</h2>
+<div class="grid">
+<a class="giant-card" href="./berkshire-beer-chain-600600.html"><div class="gc-title">青岛啤酒</div><div class="gc-code">600600</div><div class="gc-meta">全国龙头</div><div class="gc-desc">国产啤酒全国龙头，纯生/奥古特高端矩阵领先，PE分位 0%、PB分位 1% 的高股息现金牛。</div></a>
+<a class="giant-card" href="./berkshire-beer-chain-600132.html"><div class="gc-title">重庆啤酒</div><div class="gc-code">600132</div><div class="gc-meta">高端化标杆</div><div class="gc-desc">嘉士伯中国旗舰，乌苏/1664 高端矩阵，毛利 50.9%、股息率 5.7% 最高，但 ROE 96.1% 是资产轻口径。</div></a>
+<a class="giant-card" href="./berkshire-beer-chain-000729.html"><div class="gc-title">燕京啤酒</div><div class="gc-code">000729</div><div class="gc-meta">改革提速</div><div class="gc-desc">北京地方龙头，U8 大单品+国企改革驱动盈利修复，PE分位 7% 但 PB分位 86%，预期已先行。</div></a>
+<a class="giant-card" href="./berkshire-beer-chain-002461.html"><div class="gc-title">珠江啤酒</div><div class="gc-code">002461</div><div class="gc-meta">区域龙头</div><div class="gc-desc">广东省龙头，纯生占比高、毛利 48.3%，但 ROE 仅 8.4%——高毛利低回报的重资产样本。</div></a>
+<a class="giant-card" href="./berkshire-beer-chain-600573.html"><div class="gc-title">惠泉啤酒</div><div class="gc-code">600573</div><div class="gc-meta">燕京系</div><div class="gc-desc">福建闽南区域盘，燕京系子公司，规模小、ROE 6.0%，低 PE分位来自薄利而非便宜。</div></a>
+<a class="giant-card" href="./berkshire-beer-chain-000929.html"><div class="gc-title">兰州黄河</div><div class="gc-code">000929</div><div class="gc-meta">区域</div><div class="gc-desc">甘肃区域酒厂，主业亏损、经营现金流为负，PB分位 90%——本链最典型的价值陷阱。</div></a>
+<a class="giant-card" href="./berkshire-beer-chain-000752.html"><div class="gc-title">西藏发展</div><div class="gc-code">000752</div><div class="gc-meta">区域</div><div class="gc-desc">拉萨啤酒，高原运输壁垒撑起 42.1% 毛利与 38.3% ROE，但零分红、体量小、披露弱。</div></a>
+<a class="giant-card" href="./berkshire-beer-chain-600543.html"><div class="gc-title">莫高股份</div><div class="gc-code">600543</div><div class="gc-meta">葡萄酒+啤酒</div><div class="gc-desc">甘肃莫高葡萄酒为主、啤酒占比小，毛利仅 10.9% 且亏损，PB分位 10% 是便宜有理。</div></a>
+<a class="giant-card" href="./berkshire-beer-chain-603076.html"><div class="gc-title">乐惠国际</div><div class="gc-code">603076</div><div class="gc-meta">精酿设备</div><div class="gc-desc">啤酒酿造装备制造商+鲜啤新业务，PB分位 0% 但 ROE 2.0%、负债率 61.6%，非消费品逻辑。</div></a>
+<a class="giant-card" href="./berkshire-beer-chain-001338.html"><div class="gc-title">永顺泰</div><div class="gc-code">001338</div><div class="gc-meta">麦芽供应商</div><div class="gc-desc">麦芽龙头（粤海控股旗下），负债率 10.0%、经营现金流 15.6 亿、PB 1.09 的硬资产型标的。</div></a>
+</div>
+
+<div class="source-note">
+  📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+
+<script src="./analytics.js"></script>
+<script src="./tdx-link.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.sortable').forEach(function(t){
+    t.querySelectorAll('th').forEach(function(th,i){
+      th.addEventListener('click',function(){
+        var d=t.querySelector('tbody');
+        var rows=Array.from(d.querySelectorAll('tr'));
+        var asc=th.classList.contains('sorted-asc');
+        th.classList.remove('sorted-asc','sorted-desc');
+        rows.sort(function(a,b){
+          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+          av=parseFloat(av); bv=parseFloat(bv);
+          return asc?bv-av:av-bv;
+        });
+        th.classList.add(asc?'sorted-desc':'sorted-asc');
+        rows.forEach(function(r){d.appendChild(r)});
+      });
+    });
+  });
+});
+</script>
+<div class="section-title">延伸阅读 · 啤酒产业链 7 兄弟页</div>
+<div class="extend-grid"><a class="extend-card" href="./berkshire-beer-compare.html"><b>🥇 估值分位</b><span>啤酒产业链（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-beer-thermometer.html"><b>🌡️ 估值温度计</b><span>啤酒产业链（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-beer-buyback.html"><b>💰 回购监测</b><span>啤酒产业链（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-beer-repomap.html"><b>🗺️ 板块图谱</b><span>啤酒产业链（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-beer-backtest.html"><b>📈 五年回测</b><span>啤酒产业链（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-beer-cycle.html"><b>🔄 周期演进</b><span>啤酒产业链（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-beer-methodology.html"><b>📘 方法论说明</b><span>啤酒产业链（估值/回购/周期研究的取值口径与可信区间）</span></a></div>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
+</body>
