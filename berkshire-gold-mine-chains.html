@@ -1,124 +1,245 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="initial-scale=1">
-<title>黄金产业链地图 · 价值投资视角</title>
-<style>* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f2f5; color:#1e293b; line-height:1.75; }
-.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(232,184,75,0.2); padding:12px 20px; display:flex; align-items:center; gap:12px; }
-.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(232,184,75,0.12); color:#a16207; border:1px solid rgba(232,184,75,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
-.home-btn:hover { background:#e8b84b; color:#fff; }
-.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
-.breadcrumb a { color:#64748b; text-decoration:none; }
-.breadcrumb a:hover { color:#e8b84b; }
-.crumb-sep { color:#cbd5e1; }
-.container { max-width:980px; margin:0 auto; padding:24px 16px 48px; }
-.hero { background:linear-gradient(135deg,#ffffff 0%,#fefce8 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(232,184,75,0.25); box-shadow:0 2px 12px rgba(0,0,0,0.06); }
-.hero-title { font-size:26px; font-weight:800; color:#0f172a; margin-bottom:6px; letter-spacing:.5px; }
-.hero-sub { font-size:14px; color:#64748b; margin-bottom:18px; }
-.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
-.stat-item { background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
-.stat-num { font-size:22px; font-weight:800; color:#a16207; }
-.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
-.explain-banner { display:flex; gap:16px; align-items:flex-start; background:linear-gradient(135deg,#fefce8,#ffffff); border:1px solid rgba(232,184,75,0.25); border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
-.explain-banner .eb-icon { font-size:24px; flex-shrink:0; }
-.explain-banner .eb-body { flex:1; min-width:0; }
-.explain-banner .eb-title { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-.explain-banner .eb-tag { font-size:11px; color:#a16207; background:rgba(232,184,75,0.12); padding:2px 9px; border-radius:10px; }
-.explain-banner .eb-text { font-size:13px; color:#475569; line-height:1.8; }
-.explain-banner .eb-text b { color:#0f172a; font-weight:600; }
-.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(232,184,75,0.5); }
-.layers { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:8px; }
-.layer-card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-.layer-num { font-size:12px; color:#a16207; font-weight:700; }
-.layer-name { font-size:14px; color:#0f172a; font-weight:600; margin:4px 0; }
-.layer-desc { font-size:12px; color:#64748b; line-height:1.6; }
-.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
-.giant-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; transition:all .2s; text-decoration:none; display:block; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-.giant-card:hover { border-color:#e8b84b; background:rgba(232,184,75,0.06); transform:translateY(-2px); box-shadow:0 4px 14px rgba(232,184,75,0.2); }
-.giant-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
-.giant-name { font-size:16px; font-weight:700; color:#0f172a; }
-.region-tag { font-size:11px; padding:2px 9px; border-radius:10px; font-weight:600; }
-.region-cn { background:rgba(220,38,38,0.12); color:#dc2626; border:1px solid rgba(220,38,38,0.25); }
-.giant-desc { font-size:12.5px; color:#64748b; line-height:1.65; margin-bottom:10px; }
-.giant-foot { font-size:12px; display:flex; align-items:center; justify-content:space-between; }
-.giant-link { color:#a16207; font-weight:600; }
-.note-line { font-size:12.5px; color:#64748b; margin-top:14px; line-height:1.7; }
-.note-line b { color:#475569; }
-.source-note { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; margin-top:24px; font-size:12.5px; color:#64748b; line-height:1.7; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-.source-note b { color:#475569; }
-@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .grid{grid-template-columns:1fr} .explain-banner{flex-direction:column;padding:16px} }
-
-.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
-.breadcrumb a{color:var(--primary-dark);text-decoration:none}
-.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
-.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
-.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
-.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
-.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
-.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
-.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
-.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
-.back-bar a:hover{background:#e8b84b;color:#fff}
-
-</style>
-<style>
-/* P0 估值历史分位 + 成本传导（扩展链） */
-.valband{margin:6px 0 2px}
-.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
-.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
-.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
-.vfill{height:100%;border-radius:6px}
-.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
-.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
-.vval b{color:#0f172a}
-.vtag{font-weight:700;margin-left:4px}
-.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
-.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
-.ovtable{overflow-x:auto;margin:6px 0}
-.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
-.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
-.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
-.ovtable td:first-child,.ovtable th:first-child{text-align:left}
-.ovtable a{color:#0f766e;text-decoration:none}
-.ovtable a:hover{text-decoration:underline}
-.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
-.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
-.pct-mid{color:#c2410c;background:rgba(249,115,22,0.14)}
-.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
-.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
-.cost-chart{flex:1;min-width:300px}
-.cost-chart svg{width:100%;height:auto;display:block}
-.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
-.cost-note b{color:#0f172a}
-.cost-note p{margin:0 0 10px}
-</style>
-<style>
-/* 员工效率与组织效能 */
-.emp-block{margin:6px 0 2px}
-.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
-.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
-.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
-.emp-val{font-size:18px;font-weight:700;color:#0f172a}
-.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
-.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
-.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
-.emp-signal b{font-weight:700}
-.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
-.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
-.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
-</style>
-<style>
-/* chain-sort */
-.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
-.sortable th:hover{background:#e0f2fe}
-.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
-.sortable th.asc .sort-ind::before{content:"\25B2";color:#e8b84b}
-.sortable th.desc .sort-ind::before{content:"\25BC";color:#e8b84b}
-:root{--primary:#e8b84b;--primary-dark:#b45309;--accent:#e8b84b}
-</style>
-<!-- chain-sort -->
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="initial-scale=1">
+
+<title>黄金产业链地图 · 价值投资视角</title>
+
+<style>* { margin:0; padding:0; box-sizing:border-box; }
+
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f2f5; color:#1e293b; line-height:1.75; }
+
+.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(232,184,75,0.2); padding:12px 20px; display:flex; align-items:center; gap:12px; }
+
+.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(232,184,75,0.12); color:#a16207; border:1px solid rgba(232,184,75,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
+
+.home-btn:hover { background:#e8b84b; color:#fff; }
+
+.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
+
+.breadcrumb a { color:#64748b; text-decoration:none; }
+
+.breadcrumb a:hover { color:#e8b84b; }
+
+.crumb-sep { color:#cbd5e1; }
+
+.container { max-width:980px; margin:0 auto; padding:24px 16px 48px; }
+
+.hero { background:linear-gradient(135deg,#ffffff 0%,#fefce8 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(232,184,75,0.25); box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+
+.hero-title { font-size:26px; font-weight:800; color:#0f172a; margin-bottom:6px; letter-spacing:.5px; }
+
+.hero-sub { font-size:14px; color:#64748b; margin-bottom:18px; }
+
+.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+
+.stat-item { background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
+
+.stat-num { font-size:22px; font-weight:800; color:#a16207; }
+
+.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
+
+.explain-banner { display:flex; gap:16px; align-items:flex-start; background:linear-gradient(135deg,#fefce8,#ffffff); border:1px solid rgba(232,184,75,0.25); border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+
+.explain-banner .eb-icon { font-size:24px; flex-shrink:0; }
+
+.explain-banner .eb-body { flex:1; min-width:0; }
+
+.explain-banner .eb-title { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+
+.explain-banner .eb-tag { font-size:11px; color:#a16207; background:rgba(232,184,75,0.12); padding:2px 9px; border-radius:10px; }
+
+.explain-banner .eb-text { font-size:13px; color:#475569; line-height:1.8; }
+
+.explain-banner .eb-text b { color:#0f172a; font-weight:600; }
+
+.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(232,184,75,0.5); }
+
+.layers { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:8px; }
+
+.layer-card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+
+.layer-num { font-size:12px; color:#a16207; font-weight:700; }
+
+.layer-name { font-size:14px; color:#0f172a; font-weight:600; margin:4px 0; }
+
+.layer-desc { font-size:12px; color:#64748b; line-height:1.6; }
+
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
+
+.giant-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; transition:all .2s; text-decoration:none; display:block; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+
+.giant-card:hover { border-color:#e8b84b; background:rgba(232,184,75,0.06); transform:translateY(-2px); box-shadow:0 4px 14px rgba(232,184,75,0.2); }
+
+.giant-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+
+.giant-name { font-size:16px; font-weight:700; color:#0f172a; }
+
+.region-tag { font-size:11px; padding:2px 9px; border-radius:10px; font-weight:600; }
+
+.region-cn { background:rgba(220,38,38,0.12); color:#dc2626; border:1px solid rgba(220,38,38,0.25); }
+
+.giant-desc { font-size:12.5px; color:#64748b; line-height:1.65; margin-bottom:10px; }
+
+.giant-foot { font-size:12px; display:flex; align-items:center; justify-content:space-between; }
+
+.giant-link { color:#a16207; font-weight:600; }
+
+.note-line { font-size:12.5px; color:#64748b; margin-top:14px; line-height:1.7; }
+
+.note-line b { color:#475569; }
+
+.source-note { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; margin-top:24px; font-size:12.5px; color:#64748b; line-height:1.7; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+
+.source-note b { color:#475569; }
+
+@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .grid{grid-template-columns:1fr} .explain-banner{flex-direction:column;padding:16px} }
+
+
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+
+
+</style>
+
+<style>
+
+/* P0 估值历史分位 + 成本传导（扩展链） */
+
+.valband{margin:6px 0 2px}
+
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+
+.vfill{height:100%;border-radius:6px}
+
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+
+.vval b{color:#0f172a}
+
+.vtag{font-weight:700;margin-left:4px}
+
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+.ovtable{overflow-x:auto;margin:6px 0}
+
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+
+.ovtable a{color:#0f766e;text-decoration:none}
+
+.ovtable a:hover{text-decoration:underline}
+
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+
+.pct-mid{color:#c2410c;background:rgba(249,115,22,0.14)}
+
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+
+.cost-chart{flex:1;min-width:300px}
+
+.cost-chart svg{width:100%;height:auto;display:block}
+
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+
+.cost-note b{color:#0f172a}
+
+.cost-note p{margin:0 0 10px}
+
+</style>
+
+<style>
+
+/* 员工效率与组织效能 */
+
+.emp-block{margin:6px 0 2px}
+
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
+
+.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+
+.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
+
+.emp-val{font-size:18px;font-weight:700;color:#0f172a}
+
+.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
+
+.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
+
+.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
+
+.emp-signal b{font-weight:700}
+
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+
+.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+
+</style>
+
+<style>
+
+/* chain-sort */
+
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
+
+.sortable th:hover{background:#e0f2fe}
+
+.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
+
+.sortable th.asc .sort-ind::before{content:"\25B2";color:#e8b84b}
+
+.sortable th.desc .sort-ind::before{content:"\25BC";color:#e8b84b}
+
+:root{--primary:#e8b84b;--primary-dark:#b45309;--accent:#e8b84b}
+
+</style>
+
+<!-- chain-sort -->
+
 
 <style>
 /* v2 white-spirit template additions */
@@ -159,38 +280,70 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 .ws2-frame b{color:#3854cc}
 </style>
 
-</head>
-<body>
-<div class="top-bar">
-<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
-<div class="breadcrumb">
-<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
-<span>黄金矿产业链</span>
-</div>
-</div>
-<div class="container">
-
-<div class="hero">
-<div class="hero-title">黄金产业链地图</div>
-<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
-<div class="hero-stats">
-<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">上市公司</div></div>
-<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">层框架</div></div>
-<div class="stat-item"><div class="stat-num">7</div><div class="stat-label">PE分位&lt;20%</div></div>
-<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
-</div>
-</div>
-
-<div class="explain-banner">
-<div class="eb-icon">🛡️</div>
-<div class="eb-body">
-<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「黄金产业链地图」是怎么来的</div>
-<div class="eb-text">
-本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的黄金矿（黄金产业链上游）行业知识框架，把 A 股 10 家代表性黄金矿企按「层框架」拆解，便于从价值投资视角理解其资源壁垒、成本结构与金价周期风险。<br><b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中数字为近年财报四舍五入值，最新以公司公告为准。黄金矿企的利润来自「<b>金价 × 产量 − 克金成本（AISC）</b>」，是典型的<b>资源驱动 + 价格弹性</b>模型，分析时须区分「纯矿产金龙头」与「冶炼加工型」两类盈利质量。
-</div>
-</div>
-</div>
-
+</head>
+
+<body>
+
+<div class="top-bar">
+
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+
+<div class="breadcrumb">
+
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+
+<span>黄金矿产业链</span>
+
+</div>
+
+</div>
+
+<div class="container">
+
+
+
+<div class="hero">
+
+<div class="hero-title">黄金产业链地图</div>
+
+<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
+
+<div class="hero-stats">
+
+<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">上市公司</div></div>
+
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">层框架</div></div>
+
+<div class="stat-item"><div class="stat-num">7</div><div class="stat-label">PE分位&lt;20%</div></div>
+
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+
+</div>
+
+</div>
+
+
+
+<div class="explain-banner">
+
+<div class="eb-icon">🛡️</div>
+
+<div class="eb-body">
+
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「黄金产业链地图」是怎么来的</div>
+
+<div class="eb-text">
+
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的黄金矿（黄金产业链上游）行业知识框架，把 A 股 10 家代表性黄金矿企按「层框架」拆解，便于从价值投资视角理解其资源壁垒、成本结构与金价周期风险。<br><b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中数字为近年财报四舍五入值，最新以公司公告为准。黄金矿企的利润来自「<b>金价 × 产量 − 克金成本（AISC）</b>」，是典型的<b>资源驱动 + 价格弹性</b>模型，分析时须区分「纯矿产金龙头」与「冶炼加工型」两类盈利质量。
+
+</div>
+
+</div>
+
+</div>
+
+
+
 
 <!-- ===== v2 body (per 老板截屏) START ===== -->
 <div class="ws2-counter-wrap">
@@ -204,8 +357,8 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 
 </div>
 <section class="ws2-section">
-  <h3>🎯 投资逻辑（8 条 · 占位框架，待人工填实）</h3>
-  <div class='ws2-logic8'><div class="item empty"><b>1️⃣ 商业模式与护城河来源</b>（占位 · 待人工填实）</div><div class="item empty"><b>2️⃣ 行业集中度与玩家分层</b>（占位 · 待人工填实）</div><div class="item empty"><b>3️⃣ 产业链上下游关系</b>（占位 · 待人工填实）</div><div class="item empty"><b>4️⃣ 周期性与价格话语权</b>（占位 · 待人工填实）</div><div class="item empty"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>（占位 · 待人工填实）</div><div class="item empty"><b>6️⃣ 估值水位与历史分位</b>（占位 · 待人工填实）</div><div class="item empty"><b>7️⃣ 主要风险事件清单</b>（占位 · 待人工填实）</div><div class="item empty"><b>8️⃣ 投资跟踪指标与反向信号</b>（占位 · 待人工填实）</div></div>
+  <h3>🎯 投资逻辑（8 条 · AI 填实（基于 10 年财报））</h3>
+  <div class='ws2-logic8'><div class="item"><b>1️⃣ 商业模式与护城河来源</b>黄金矿企"探矿—采选—冶炼—销售"赚资源价差，护城河=资源储量（矿石量×品位）+低成本开采+扩产能力。紫金矿业靠全球并购+低品位大规模开采技术成世界级巨头（2025 净利 518 亿）；赤峰/银泰/四川黄金靠高品位（四川 gpm 62.8%）享超高毛利。恒邦股份为冶炼加工（薄利 gpm 2%）无资源壁垒。荣华实业僵尸化。</div><div class="item"><b>2️⃣ 行业集中度与玩家分层</b>全球 CR5（纽蒙特/巴里克等）占约 30%；国内紫金（3491 亿营收）、山东黄金（1043 亿）、中金黄金（791 亿）为三大龙头；赤峰（30.8 亿）、银泰（29.7 亿）、湖南黄金（14.9 亿）、西部黄金（4.7 亿）为中型；四川黄金（4.7 亿净利，小而美高品位）；恒邦（冶炼）、荣华（亏损）分层尾部。</div><div class="item"><b>3️⃣ 产业链上下游关系</b>上游自有矿山（资源端），中游采选冶，下游上海金交所/国际金价销售。金价是全球定价（美元实际利率反向），矿企是价格接受者，利润弹性=产量×（金价-现金成本）。副产品铜（紫金）提供第二增长曲线。</div><div class="item"><b>4️⃣ 周期性与价格话语权</b>强金融周期属性——金价随美元走弱/避险/央行购金上行，2024–2025 金价创历史新高直接驱动全行业净利大增（紫金 320→518 亿、中金 34→49 亿、山东黄金 30→47 亿）。矿企无定价权，盈利完全跟随金价+产量。成本端（采掘成本）相对刚性。</div><div class="item"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>高金价下全员高 ROE——紫金 27.9%、赤峰 23.0%、银泰 19.9%、四川 25.5%、湖南黄金 18.3%、中金 16.3%。分红随业绩提升（紫金/山东黄金常年 30%–50%）。需看"克金成本+储量寿命"而非仅净利。冶炼型（恒邦 npm 0.6%）与僵尸（荣华）质量差。</div><div class="item"><b>6️⃣ 估值水位与历史分位</b>黄金股估值锚=金价×产量，历史 PE 8–20x，金价上行期戴维斯双击。当前金价高位，板块 PB 多数 2–4x。紫金因铜金双轮享溢价；纯金高品位（四川/赤峰）弹性大但储量小需警惕资源枯竭。</div><div class="item"><b>7️⃣ 主要风险事件清单</b>①金价见顶回落（美元走强/降息预期反转）；②矿山安全事故/环保处罚停产；③资源储量不实/品位下修；④并购整合失败（紫金海外资产地缘风险）；⑤汇率（海外收入占比高）；⑥高资本开支拖累自由现金流。</div><div class="item"><b>8️⃣ 投资跟踪指标与反向信号</b>跟踪——国际金价（伦敦金/沪金）、美元指数/实际利率、全球央行购金量、重点矿企产量指引、克金现金成本、储量报告。反向信号——金价跌破关键支撑（如 2500 美元）、央行转净卖出、主力矿山品位下修/停产。</div></div>
 </section>
 <section class="ws2-section">
   <h3><span class="tag">DATA</span> 历史分位图 · 6 张</h3>
@@ -224,23 +377,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 </section>
 <section class="ws2-section">
   <h3>📦 投资逻辑附加：产品定位 / 竞争格局 / 产能周期（占位）</h3>
-  
-<div class="ws2-frame-placeholder">
-  <h4>📦 产品定位与投资信号</h4>
-  此处待人工填实：每家公司主打产品价格带、渠道结构、品牌力定位、批价走势等定性内容（取自年报/公开渠道）。
-  <br>可用结构：①高端品牌矩阵 ②次高端与区域龙头 ③大众价位。
-</div>
-<div class="ws2-frame-placeholder">
-  <h4>🏛 竞争格局分析</h4>
-  此处待人工填实：CR3/CR5 集中度、行业份额变迁、价格战历史、经销商生态、跨区域挤压。
-  <br>可用指标：①销量集中度（公开数据） ②价格带定价权 ③经销商话语权变化。
-</div>
-<div class="ws2-frame-placeholder">
-  <h4>🔄 产能周期与库存周期</h4>
-  此处待人工填实：产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
-  <br>可用结构：①半成品库存月数 ②终端动销与渠道库存 ③价格倒挂信号。
-</div>
-
+  <div class="ws2-frame"><h4>📦 产品定位与投资信号</h4>产品定位：①综合矿业巨头（紫金：金+铜+锌，多金属对冲）；②纯金高品位（赤峰/银泰/四川，弹性最大）；③中大型金企（山东黄金/中金黄金，稳健扩产）；④冶炼加工（恒邦，赚加工费无资源溢价）；⑤僵尸（荣华）。信号：金价上行期选"高品位+产量增长"组合，金价高位警惕估值透支。</div><div class="ws2-frame"><h4>🏛 竞争格局分析</h4>竞争格局：全球由纽蒙特/巴里克等西方巨头主导，国内紫金凭低成本大规模开发+逆周期并购跻身一流。国内三巨头（紫金/山金/中金）占 A 股黄金产量大部；中型（赤峰/银泰）靠高品位差异化。资源端壁垒极高（探矿权+采权稀缺）。</div><div class="ws2-frame"><h4>🔄 产能周期与库存周期</h4>产能周期：矿山建设周期 3–5 年，新产能释放慢；现有矿山产量基本平稳（自然衰减需补勘探）。库存=在产矿山储量，非产成品。金价高位刺激勘探/并购但供给释放滞后，形成"价先涨、量后跟"。关注资本开支/产量指引匹配度。</div>
 </section>
 <section class="ws2-section">
   <h3>🐴 白马型 vs 周期型一览（基于 10 年财报自动分类）</h3>
@@ -267,212 +404,421 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 </section>
 <!-- ===== v2 body END ===== -->
 
-<!--research-signal-->
-<div class="section-title" style="border-left:3px solid #e8b84b">研究信号</div>
-<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #e8b84b;border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
-    <div style="font-weight:700;color:#475569">周期位置</div><div>黄金处长牛通道——央行购金（去美元化）+ 实际利率下行 + 地缘避险三重驱动，矿企利润对金价高度敏感。当前金价高位运行，板块估值分化明显：多数 PE 处历史低位（分位<20%）、但 PB 普遍偏高（资源 / 成长溢价），纯粹「资源溢价」已不便宜。</div>
-<div style="font-weight:700;color:#475569">景气方向</div><div>2024–25 金价中枢上移带动矿企业绩高增（紫金 / 山金 / 赤峰净利大增），产量高增的赤峰、银泰弹性最强；但 PB 多居历史中高位，安全边际要看产量兑现与克金成本，而非单纯金价。</div>
-<div style="font-weight:700;color:#475569">结论信号</div><div><b>🟢 资源 + 低成本 + 产量增长 三角</b> — 优先「低 PE + 高资源储量 + 强现金流 + 低负债」的纯矿产金龙头（紫金 / 赤峰 / 山金 / 中金 / 银泰），规避「高负债 + 低质量 + 负现金流」的加工 / 困境型（恒邦 / 西部 / 荣华）。</div>
-<div style="font-weight:700;color:#475569">核心催化</div><div>①央行持续购金 / 去美元化　②实际利率下行（降息周期）　③地缘避险升温　④矿企产量增产兑现　⑤资源增储 / 海外并购。</div>
-<div style="font-weight:700;color:#475569">关键风险</div><div>①实际利率上行 / 美元走强压制金价　②金价高位回落　③高负债矿企财务压力　④单一矿山 / 品位下降　⑤海外地缘与汇率波动。</div>
-  </div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：10 家平均 PE 分位 ≈22% · 平均 PB 分位 ≈62% · 紫金/山金/中金/湖南黄金/银泰/赤峰/四川 PE 分位均<15% 处历史低位 · 赤峰/银泰 ROE>21% 质量顶尖 · 荣华实业已退市（数据失真）。结论为框架合成，需结合实盘研究校验。</div>
-</div>
-<!--/research-signal--><div class="section-title">跨层分析框架（5 层）</div>
-<div class="layers">
-<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">资源储量</div><div class="layer-desc">矿山探明+控制资源储量是矿企价值的根本，储量增长靠自主勘探+并购；品位与地理位置决定长期克金成本。</div></div>
-<div class="layer-card"><div class="layer-num">02</div><div class="layer-name">采选冶</div><div class="layer-desc">采矿+选矿+冶炼，克金现金成本（AISC）与回收率是核心竞争力；低成本矿（紫金/山金/银泰）抗金价波动更强。</div></div>
-<div class="layer-card"><div class="layer-num">03</div><div class="layer-name">产量释放</div><div class="layer-desc">矿产金年产量及增速，新矿投产/技改扩产驱动；产量兑现决定营收弹性与规模效应。</div></div>
-<div class="layer-card"><div class="layer-num">04</div><div class="layer-name">金价</div><div class="layer-desc">黄金价格由避险需求+央行购金+实际利率（美债实际收益率↓利好金价）共同决定，是矿企利润的核心变量。</div></div>
-<div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">看「资源储量+低成本+产量增长」三角，金价上行放大利润；低 PE+高资源储量=安全边际，警惕高负债/单一矿山/品位下降。</div></div>
-</div>
-
-<div class="section-title">估值历史分位总览（黄金 10 家）</div>
-<div class="ovtable">
-<table class="sortable">
-<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th><th data-type="num">ROE<span class="sort-ind"></span></th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-gold-mine-chain-000975.html"><b>银泰黄金</b></a></td><td class="num">19.11</td><td><span class="pct-cell pct-lo">7.4%</span></td><td class="num">4.32</td><td><span class="pct-cell pct-hi">84.7%</span></td><td class="num">21.3%</td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-001337.html"><b>四川黄金</b></a></td><td class="num">30.11</td><td><span class="pct-cell pct-lo">11.4%</span></td><td class="num">9.10</td><td><span class="pct-cell pct-hi">65.9%</span></td><td class="num">28.3%</td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-002155.html"><b>湖南黄金</b></a></td><td class="num">22.07</td><td><span class="pct-cell pct-lo">1.5%</span></td><td class="num">4.44</td><td><span class="pct-cell pct-hi">93.3%</span></td><td class="num">19.8%</td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-002237.html"><b>恒邦股份</b></a></td><td class="num">29.58</td><td><span class="pct-cell pct-mid">56.4%</span></td><td class="num">1.46</td><td><span class="pct-cell pct-lo">20.9%</span></td><td class="num">5.5%</td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-600311.html"><b>荣华实业</b></a></td><td class="num">亏损</td><td><span class="pct-cell pct-mid">—</span></td><td class="num">2.23</td><td><span class="pct-cell pct-lo">13.8%</span></td><td class="num">—</td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-600489.html"><b>中金黄金</b></a></td><td class="num">18.78</td><td><span class="pct-cell pct-lo">11.2%</span></td><td class="num">3.59</td><td><span class="pct-cell pct-hi">93.4%</span></td><td class="num">17.1%</td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-600547.html"><b>山东黄金</b></a></td><td class="num">26.36</td><td><span class="pct-cell pct-lo">8.5%</span></td><td class="num">4.25</td><td><span class="pct-cell pct-mid">50.1%</span></td><td class="num">11.5%</td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-600988.html"><b>赤峰黄金</b></a></td><td class="num">20.48</td><td><span class="pct-cell pct-lo">14.5%</span></td><td class="num">5.14</td><td><span class="pct-cell pct-hi">61.3%</span></td><td class="num">28.9%</td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-601069.html"><b>西部黄金</b></a></td><td class="num">26.17</td><td><span class="pct-cell pct-lo">20.4%</span></td><td class="num">4.77</td><td><span class="pct-cell pct-mid">41.7%</span></td><td class="num">8.8%</td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-601899.html"><b>紫金矿业</b></a></td><td class="num">13.88</td><td><span class="pct-cell pct-lo">11.2%</span></td><td class="num">4.34</td><td><span class="pct-cell pct-hi">82.2%</span></td><td class="num">31.8%</td></tr>
-</tbody>
-</table>
-<div class="note-line">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span><span class="vleg"><i style="background:#a16207"></i>40–60% 中位</span><span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。黄金矿盈利强周期（金价驱动）、重资产属性强，分位为时点统计、仅供参考。</div>
-</div>
-
-<div class="section-title">R15 三维评级总览（黄金 10 家）</div>
-<div class="ovtable">
-<table class="sortable">
-<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-gold-mine-chain-000975.html"><b>银泰黄金</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-hi">★★★★★</span></td><td class="num">7</td><td><span class="pct-cell pct-lo">7.4%</span></td><td><span class="pct-cell pct-hi">84.7%</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-001337.html"><b>四川黄金</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-hi">★★★★</span></td><td class="num">4</td><td><span class="pct-cell pct-lo">11.4%</span></td><td><span class="pct-cell pct-hi">65.9%</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-002155.html"><b>湖南黄金</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-hi">★★★</span></td><td class="num">5</td><td><span class="pct-cell pct-lo">1.5%</span></td><td><span class="pct-cell pct-hi">93.3%</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-002237.html"><b>恒邦股份</b></a></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td class="num">3</td><td><span class="pct-cell pct-mid">56.4%</span></td><td><span class="pct-cell pct-lo">20.9%</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-600311.html"><b>荣华实业</b></a></td><td><span class="pct-cell pct-mid">—</span></td><td><span class="pct-cell pct-lo">—</span></td><td class="num">0</td><td><span class="pct-cell pct-mid">—</span></td><td><span class="pct-cell pct-lo">13.8%</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-600489.html"><b>中金黄金</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-hi">★★★★</span></td><td class="num">8</td><td><span class="pct-cell pct-lo">11.2%</span></td><td><span class="pct-cell pct-hi">93.4%</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-600547.html"><b>山东黄金</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td class="num">8</td><td><span class="pct-cell pct-lo">8.5%</span></td><td><span class="pct-cell pct-mid">50.1%</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-600988.html"><b>赤峰黄金</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-hi">★★★★★</span></td><td class="num">7</td><td><span class="pct-cell pct-lo">14.5%</span></td><td><span class="pct-cell pct-hi">61.3%</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-601069.html"><b>西部黄金</b></a></td><td><span class="pct-cell pct-lo">★★★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td class="num">4</td><td><span class="pct-cell pct-lo">20.4%</span></td><td><span class="pct-cell pct-mid">41.7%</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-601899.html"><b>紫金矿业</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-hi">★★★★★</span></td><td class="num">10</td><td><span class="pct-cell pct-lo">11.2%</span></td><td><span class="pct-cell pct-hi">82.2%</span></td></tr>
-</tbody>
-</table>
-<div class="note-line">R15 三维框架：①<b>相对估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；②<b>质量星级</b>=近10年ROE均值（★越多质地越好）；③<b>时机分</b>=链周期底部程度换算（分越高越接近周期底部、买点越好）。<span class="vleg"><i style="background:#15803d"></i>绿=好</span><span class="vleg"><i style="background:#a16207"></i>橙=中</span><span class="vleg"><i style="background:#b91c1c"></i>红=差/贵</span>。数据为时点统计。</div>
-</div>
-
-<div class="section-title">产业链成本传导（市场变量传导）</div>
-<div class="cost-block">
-<div class="cost-chart"><svg viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg">
-  <defs><marker id="arr-gm" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0 0, 8 4, 0 8" fill="#a16207"/></marker></defs>
-  <g><rect x="15" y="30" width="150" height="48" rx="6" fill="white" stroke="#a16207" stroke-width="1.5"/><text x="90" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">金价(价格)</text><text x="90" y="68" text-anchor="middle" font-size="10" fill="#64748b">避险/央行购金</text></g>
-  <g><rect x="225" y="30" width="150" height="48" rx="6" fill="white" stroke="#a16207" stroke-width="1.5"/><text x="300" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">矿企收入</text><text x="300" y="68" text-anchor="middle" font-size="10" fill="#64748b">量×价</text></g>
-  <g><rect x="435" y="30" width="150" height="48" rx="6" fill="white" stroke="#a16207" stroke-width="1.5"/><text x="510" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">采选冶成本</text><text x="510" y="68" text-anchor="middle" font-size="10" fill="#64748b">克金 AISC</text></g>
-  <g><rect x="635" y="30" width="150" height="48" rx="6" fill="white" stroke="#a16207" stroke-width="1.5"/><text x="710" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">自由现金流</text><text x="710" y="68" text-anchor="middle" font-size="10" fill="#64748b">→分红/再勘探</text></g>
-  <line x1="165" y1="54" x2="225" y2="54" stroke="#a16207" stroke-width="1.5" marker-end="url(#arr-gm)"/>
-  <line x1="375" y1="54" x2="435" y2="54" stroke="#a16207" stroke-width="1.5" marker-end="url(#arr-gm)"/>
-  <line x1="585" y1="54" x2="635" y2="54" stroke="#a16207" stroke-width="1.5" marker-end="url(#arr-gm)"/>
-  <g><rect x="230" y="100" width="340" height="44" rx="6" fill="#fefce8" stroke="#a16207" stroke-width="1.5"/><text x="400" y="118" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">估值锚：实际利率↓ 抬升黄金估值</text><text x="400" y="136" text-anchor="middle" font-size="10" fill="#64748b">央行购金支撑长期需求 · 低成本矿抗跌</text></g>
-  <line x1="710" y1="78" x2="570" y2="100" stroke="#a16207" stroke-width="1.5" marker-end="url(#arr-gm)"/>
-</svg></div>
-<div class="cost-note">
-<p>黄金矿企的<b>「成本传导」本质是金价→利润的杠杆放大</b>：①<b>金价（价格）</b> → 矿企收入（量×价），是利润的核心变量，避险+央行购金+实际利率下行共驱；②<b>采选冶成本（AISC）</b> → 克金现金成本，低成本矿在金价下行时仍盈利；③<b>产量</b> → 放大收入弹性，增产兑现增厚利润；④三者共同决定<b>自由现金流 → 分红 / 再勘探</b>。</p><p>护城河 = <b>资源储量 + 低成本 + 产量增长</b>；低 PE + 高资源储量 = 周期底部的安全边际信号，但须警惕高负债、单一矿山与品位下降形成的「资源陷阱」。</p>
-</div>
-</div>
-
-<div class="section-title">员工效率与组织效能排行（黄金 10 家）</div>
-<div class="ovtable"><table>
-<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均净利</th><th>效率信号</th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-gold-mine-chain-000975.html"><b>银泰黄金</b></a></td><td class="num">2,085</td><td class="num up">+15.0%</td><td class="num">¥142.5万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-001337.html"><b>四川黄金</b></a></td><td class="num">414</td><td class="num up">+31.4%</td><td class="num">¥112.6万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-002155.html"><b>湖南黄金</b></a></td><td class="num">4,976</td><td class="num up">+1.5%</td><td class="num">¥29.9万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-002237.html"><b>恒邦股份</b></a></td><td class="num">6,294</td><td class="num up">+12.1%</td><td class="num">¥10.1万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-600311.html"><b>荣华实业</b></a></td><td class="num">—</td><td class="num flat">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#64748b">—</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-600489.html"><b>中金黄金</b></a></td><td class="num">24,607</td><td class="num up">+7.9%</td><td class="num">¥20.1万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-600547.html"><b>山东黄金</b></a></td><td class="num">29,282</td><td class="num up">+67.9%</td><td class="num">¥16.2万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-600988.html"><b>赤峰黄金</b></a></td><td class="num">6,738</td><td class="num down">-2.5%</td><td class="num">¥45.7万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">收缩</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-601069.html"><b>西部黄金</b></a></td><td class="num">2,137</td><td class="num up">+18.5%</td><td class="num">¥22.1万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
-<tr><td><a href="berkshire-gold-mine-chain-601899.html"><b>紫金矿业</b></a></td><td class="num">66,708</td><td class="num flat">—</td><td class="num">¥77.6万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#64748b">—</span></td></tr>
-</tbody>
-</table>
-<div class="note-line">员工增速=在职员工同比；人均净利=2025 归母净利÷员工数。各矿企口径基本一致（均为矿山运营上市主体），可直接横向比较。银泰黄金人均净利 ¥142.5 万为板块最高（高品位+低成本），紫金矿业规模居首但人均居中。组织效能信号为代理指标，非投资建议。</div>
-</div>
-
-<div class="section-title">主要玩家索引（上市公司 10 家）</div>
-<div class="grid">
-<a class="giant-card" href="berkshire-gold-mine-chain-000975.html"><div class="giant-head"><span class="giant-name">银泰黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">控股玉龙矿业、黑河银泰、吉林板庙等高品位金银矿，毛利率31.8%、负债率仅18.6%（全板块最低），盈利质量与现金流极其干净，是黄金板块「优等生」。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="berkshire-gold-mine-chain-001337.html"><div class="giant-head"><span class="giant-name">四川黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">核心资产为梭罗沟金矿（国内少有的大型露天金矿），毛利率62.8%为板块最高、ROE28.3%，但体量小(营收10.3亿)、员工仅414人，属「小而美」单一矿山标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="berkshire-gold-mine-chain-002155.html"><div class="giant-head"><span class="giant-name">湖南黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">兼具黄金采选与锑金属（战略小金属）双主业，负债率仅13.5%（板块最低之一），PE 分位1.5%处历史极低位；但毛利率6.2%偏低（含冶炼）、PB 分位93.3%偏高。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="berkshire-gold-mine-chain-002237.html"><div class="giant-head"><span class="giant-name">恒邦股份 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">以金银电解/冶炼加工为主（非矿山），营收1123.9亿规模最大但毛利率仅2.0%、ROE5.5%弱、经营现金流-20.1亿，赚加工费模式质量弱；PB 1.46（分位20.9%）低提供边际。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="berkshire-gold-mine-chain-600311.html"><div class="giant-head"><span class="giant-name">荣华实业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">荣华实业（原*ST荣华）已触及退市，财务数据失真（营收2.6亿、净利-0.8亿、负债率370%），不具黄金矿企代表性；仅作「风险反面教材」保留。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="berkshire-gold-mine-chain-600489.html"><div class="giant-head"><span class="giant-name">中金黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">中国黄金集团旗下上市平台，央企背景、资源储量雄厚（控股内蒙古矿业等），2025 营收790.8亿、净利49.3亿、ROE17.1%、负债41.8%；PE分位11.2%低但PB分位93.4%偏高。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="berkshire-gold-mine-chain-600547.html"><div class="giant-head"><span class="giant-name">山东黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">山东黄金集团旗下，国内矿产金产量领先（焦家/玲珑等胶东金矿），2025 营收1042.9亿、净利47.4亿、经营现金流214.9亿（板块最强）；但负债率62.2%高、ROE11.5%一般，PE分位8.5%低。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="berkshire-gold-mine-chain-600988.html"><div class="giant-head"><span class="giant-name">赤峰黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">国内（吉隆/五龙）+海外（万象/加纳）金矿布局，毛利率52.5%、ROE28.9%均板块最高，负债率33.9%低、现金流55.6亿，盈利质量与成长性俱佳；PB 5.14（分位61.3%）偏贵但成长溢价。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="berkshire-gold-mine-chain-601069.html"><div class="giant-head"><span class="giant-name">西部黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">新疆地区黄金采选（哈图/阿希等），2025 营收135.7亿、净利4.7亿、ROE8.8%偏弱、负债率67.1%高、经营现金流-2.9亿，盈利与现金流质量一般；PE分位20.4%中性。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-<a class="giant-card" href="berkshire-gold-mine-chain-601899.html"><div class="giant-head"><span class="giant-name">紫金矿业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">全球化金铜矿企（自主勘探+海外并购），2025 矿产金/铜产量全球第一梯队，营收3490.8亿、净利517.8亿、ROE31.8%、经营现金流754.3亿（全板块最强），是「央行购金+铜电气化」双主线最直接卖铲人；PE分位11.2%低但PB分位82.2%偏贵。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-</div>
-
-<div class="note-line">
-📌 <b>两类主体</b>：①<b>纯黄金矿产龙头</b>——紫金矿业/山东黄金/中金黄金/赤峰黄金/银泰黄金/湖南黄金/西部黄金/四川黄金，以矿产金为主，利润对金价高敏感、资源储量与克金成本为王；②<b>冶炼/加工型</b>——恒邦股份，以金银冶炼加工为主，赚加工费、毛利薄（约2%）、对金价不敏感、规模大但质量弱；荣华实业已退市、财务失真，仅作风险反面教材。两类盈利驱动差异极大，须分开看待。</div>
-
-<div class="section-title">延伸阅读</div><div class="extend-grid">
-<a class="extend-card" href="./berkshire-gold-mine-compare.html"><b>🥇 估值分位</b><span>黄金矿（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-gold-mine-thermometer.html"><b>🌡️ 估值温度计</b><span>黄金矿（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-gold-mine-buyback.html"><b>💰 回购监测</b><span>黄金矿（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-gold-mine-repomap.html"><b>🗺️ 板块图谱</b><span>黄金矿（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-gold-mine-backtest.html"><b>📈 五年回测</b><span>黄金矿（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-gold-mine-cycle.html"><b>🔄 周期演进</b><span>黄金矿（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-gold-mine-methodology.html"><b>📘 方法论说明</b><span>黄金矿（估值/回购/周期研究的取值口径与可信区间）</span></a>
-</div>
-<div class="grid">
-
-<a class="giant-card" href="berkshire-gold-mine-cycle.html">
-<div class="giant-head"><span class="giant-name">🔄 黄金周期 2016→2025</span></div>
-<div class="giant-desc">把 10 家矿企数据串成宏观视图：金价、AISC 成本、产量释放与周期底部信号。</div>
-<div class="giant-foot"><span class="giant-link">查看周期专题 →</span></div>
-</a>
-<a class="giant-card" href="berkshire-gold-mine-backtest.html">
-<div class="giant-head"><span class="giant-name">🎯 黄金估值回测</span></div>
-<div class="giant-desc">用「低 PB + 高股息率」买点复盘 2014 / 2018 / 2024–25 三轮大底的历史回报，提炼可复用的买点信号框架。</div>
-<div class="giant-foot"><span class="giant-link">查看回测专题 →</span></div>
-</a>
-<a class="giant-card" href="berkshire-gold-mine-thermometer.html">
-<div class="giant-head"><span class="giant-name">🌡️ 黄金估值温度计</div>
-<div class="giant-desc">10 家矿企估值冷热一览：低 PB + 高股息 = 冷（安全边际高），高 PE + 低股息 = 热（溢价区）。</div>
-<div class="giant-foot"><span class="giant-link">查看温度计 →</span></div>
-</a>
-<a class="giant-card" href="berkshire-gold-mine-buyback.html">
-<div class="giant-head"><span class="giant-name">📊 逐轮买点回报图</span></div>
-<div class="giant-desc">10 家矿企，2014 / 2018 / 2025 三轮大底买入后的累计回报曲线，含峰值标注与逐点回报数据表。</div>
-<div class="giant-foot"><span class="giant-link">查看回报图 →</span></div>
-</a>
-</div>
-
-<div class="source-note">
-📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。数据日期：2026-08-13。
-</div>
-
-</div>
-<script>
-(function(){
-  function num(v){
-    if(v==null) return NaN;
-    v=v.textContent||v;
-    if(typeof v==='string'){
-      v=v.replace(/,/g,'').replace(/[ \t\r\n]/g,'');
-      if(v==='—'||v==='-'||v==='') return NaN;
-      var unit=1;
-      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
-      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
-      v=v.replace(/[¥,%]/g,'');
-      var n=parseFloat(v);
-      if(!isNaN(n)) n*=unit;
-      return n;
-    }
-    return NaN;
-  }
-  function cmp(a,b,asc){
-    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
-    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
-    var nanA=isNaN(a), nanB=isNaN(b);
-    if(nanA && nanB) return 0;
-    if(nanA) return asc?1:-1;
-    if(nanB) return asc?-1:1;
-    if(an<bn) return asc?-1:1;
-    if(an>bn) return asc?1:-1;
-    return 0;
-  }
-  function sortTable(th){
-    var table=th.closest('table');
-    var tbody=table.querySelector('tbody');
-    var rows=Array.from(tbody.querySelectorAll('tr'));
-    var idx=Array.from(th.parentNode.children).indexOf(th);
-    var type=th.getAttribute('data-type')||'text';
-    var asc=!th.classList.contains('asc');
-    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
-    th.classList.add(asc?'asc':'desc');
-    rows.sort(function(r1,r2){
-      var c1=r1.cells[idx], c2=r2.cells[idx];
-      var v1, v2;
-      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
-      else if(type==='num'){ v1=num(c1); v2=num(c2); }
-      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
-      return cmp(v1,v2,asc);
-    });
-    rows.forEach(function(r){ tbody.appendChild(r); });
-  }
-  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
-    th.addEventListener('click',function(){ sortTable(th); });
-  });
-})();
-</script>
-  <script src="/analytics.js"></script>
-  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
-<div class="back-bar">
-<a href="./berkshire-chain-map.html">← 全链索引</a>
-<a href="./berkshire-standalone.html">← 数据中心首页</a>
-</div>
-</body>
-</html>
+<!--research-signal-->
+
+<div class="section-title" style="border-left:3px solid #e8b84b">研究信号</div>
+
+<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #e8b84b;border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+
+  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
+
+    <div style="font-weight:700;color:#475569">周期位置</div><div>黄金处长牛通道——央行购金（去美元化）+ 实际利率下行 + 地缘避险三重驱动，矿企利润对金价高度敏感。当前金价高位运行，板块估值分化明显：多数 PE 处历史低位（分位<20%）、但 PB 普遍偏高（资源 / 成长溢价），纯粹「资源溢价」已不便宜。</div>
+
+<div style="font-weight:700;color:#475569">景气方向</div><div>2024–25 金价中枢上移带动矿企业绩高增（紫金 / 山金 / 赤峰净利大增），产量高增的赤峰、银泰弹性最强；但 PB 多居历史中高位，安全边际要看产量兑现与克金成本，而非单纯金价。</div>
+
+<div style="font-weight:700;color:#475569">结论信号</div><div><b>🟢 资源 + 低成本 + 产量增长 三角</b> — 优先「低 PE + 高资源储量 + 强现金流 + 低负债」的纯矿产金龙头（紫金 / 赤峰 / 山金 / 中金 / 银泰），规避「高负债 + 低质量 + 负现金流」的加工 / 困境型（恒邦 / 西部 / 荣华）。</div>
+
+<div style="font-weight:700;color:#475569">核心催化</div><div>①央行持续购金 / 去美元化　②实际利率下行（降息周期）　③地缘避险升温　④矿企产量增产兑现　⑤资源增储 / 海外并购。</div>
+
+<div style="font-weight:700;color:#475569">关键风险</div><div>①实际利率上行 / 美元走强压制金价　②金价高位回落　③高负债矿企财务压力　④单一矿山 / 品位下降　⑤海外地缘与汇率波动。</div>
+
+  </div>
+
+  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：10 家平均 PE 分位 ≈22% · 平均 PB 分位 ≈62% · 紫金/山金/中金/湖南黄金/银泰/赤峰/四川 PE 分位均<15% 处历史低位 · 赤峰/银泰 ROE>21% 质量顶尖 · 荣华实业已退市（数据失真）。结论为框架合成，需结合实盘研究校验。</div>
+
+</div>
+
+<!--/research-signal--><div class="section-title">跨层分析框架（5 层）</div>
+
+<div class="layers">
+
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">资源储量</div><div class="layer-desc">矿山探明+控制资源储量是矿企价值的根本，储量增长靠自主勘探+并购；品位与地理位置决定长期克金成本。</div></div>
+
+<div class="layer-card"><div class="layer-num">02</div><div class="layer-name">采选冶</div><div class="layer-desc">采矿+选矿+冶炼，克金现金成本（AISC）与回收率是核心竞争力；低成本矿（紫金/山金/银泰）抗金价波动更强。</div></div>
+
+<div class="layer-card"><div class="layer-num">03</div><div class="layer-name">产量释放</div><div class="layer-desc">矿产金年产量及增速，新矿投产/技改扩产驱动；产量兑现决定营收弹性与规模效应。</div></div>
+
+<div class="layer-card"><div class="layer-num">04</div><div class="layer-name">金价</div><div class="layer-desc">黄金价格由避险需求+央行购金+实际利率（美债实际收益率↓利好金价）共同决定，是矿企利润的核心变量。</div></div>
+
+<div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">看「资源储量+低成本+产量增长」三角，金价上行放大利润；低 PE+高资源储量=安全边际，警惕高负债/单一矿山/品位下降。</div></div>
+
+</div>
+
+
+
+<div class="section-title">估值历史分位总览（黄金 10 家）</div>
+
+<div class="ovtable">
+
+<table class="sortable">
+
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th><th data-type="num">ROE<span class="sort-ind"></span></th></tr></thead>
+
+<tbody>
+
+<tr><td><a href="berkshire-gold-mine-chain-000975.html"><b>银泰黄金</b></a></td><td class="num">19.11</td><td><span class="pct-cell pct-lo">7.4%</span></td><td class="num">4.32</td><td><span class="pct-cell pct-hi">84.7%</span></td><td class="num">21.3%</td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-001337.html"><b>四川黄金</b></a></td><td class="num">30.11</td><td><span class="pct-cell pct-lo">11.4%</span></td><td class="num">9.10</td><td><span class="pct-cell pct-hi">65.9%</span></td><td class="num">28.3%</td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-002155.html"><b>湖南黄金</b></a></td><td class="num">22.07</td><td><span class="pct-cell pct-lo">1.5%</span></td><td class="num">4.44</td><td><span class="pct-cell pct-hi">93.3%</span></td><td class="num">19.8%</td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-002237.html"><b>恒邦股份</b></a></td><td class="num">29.58</td><td><span class="pct-cell pct-mid">56.4%</span></td><td class="num">1.46</td><td><span class="pct-cell pct-lo">20.9%</span></td><td class="num">5.5%</td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-600311.html"><b>荣华实业</b></a></td><td class="num">亏损</td><td><span class="pct-cell pct-mid">—</span></td><td class="num">2.23</td><td><span class="pct-cell pct-lo">13.8%</span></td><td class="num">—</td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-600489.html"><b>中金黄金</b></a></td><td class="num">18.78</td><td><span class="pct-cell pct-lo">11.2%</span></td><td class="num">3.59</td><td><span class="pct-cell pct-hi">93.4%</span></td><td class="num">17.1%</td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-600547.html"><b>山东黄金</b></a></td><td class="num">26.36</td><td><span class="pct-cell pct-lo">8.5%</span></td><td class="num">4.25</td><td><span class="pct-cell pct-mid">50.1%</span></td><td class="num">11.5%</td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-600988.html"><b>赤峰黄金</b></a></td><td class="num">20.48</td><td><span class="pct-cell pct-lo">14.5%</span></td><td class="num">5.14</td><td><span class="pct-cell pct-hi">61.3%</span></td><td class="num">28.9%</td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-601069.html"><b>西部黄金</b></a></td><td class="num">26.17</td><td><span class="pct-cell pct-lo">20.4%</span></td><td class="num">4.77</td><td><span class="pct-cell pct-mid">41.7%</span></td><td class="num">8.8%</td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-601899.html"><b>紫金矿业</b></a></td><td class="num">13.88</td><td><span class="pct-cell pct-lo">11.2%</span></td><td class="num">4.34</td><td><span class="pct-cell pct-hi">82.2%</span></td><td class="num">31.8%</td></tr>
+
+</tbody>
+
+</table>
+
+<div class="note-line">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span><span class="vleg"><i style="background:#a16207"></i>40–60% 中位</span><span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。黄金矿盈利强周期（金价驱动）、重资产属性强，分位为时点统计、仅供参考。</div>
+
+</div>
+
+
+
+<div class="section-title">R15 三维评级总览（黄金 10 家）</div>
+
+<div class="ovtable">
+
+<table class="sortable">
+
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
+
+<tbody>
+
+<tr><td><a href="berkshire-gold-mine-chain-000975.html"><b>银泰黄金</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-hi">★★★★★</span></td><td class="num">7</td><td><span class="pct-cell pct-lo">7.4%</span></td><td><span class="pct-cell pct-hi">84.7%</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-001337.html"><b>四川黄金</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-hi">★★★★</span></td><td class="num">4</td><td><span class="pct-cell pct-lo">11.4%</span></td><td><span class="pct-cell pct-hi">65.9%</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-002155.html"><b>湖南黄金</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-hi">★★★</span></td><td class="num">5</td><td><span class="pct-cell pct-lo">1.5%</span></td><td><span class="pct-cell pct-hi">93.3%</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-002237.html"><b>恒邦股份</b></a></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td class="num">3</td><td><span class="pct-cell pct-mid">56.4%</span></td><td><span class="pct-cell pct-lo">20.9%</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-600311.html"><b>荣华实业</b></a></td><td><span class="pct-cell pct-mid">—</span></td><td><span class="pct-cell pct-lo">—</span></td><td class="num">0</td><td><span class="pct-cell pct-mid">—</span></td><td><span class="pct-cell pct-lo">13.8%</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-600489.html"><b>中金黄金</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-hi">★★★★</span></td><td class="num">8</td><td><span class="pct-cell pct-lo">11.2%</span></td><td><span class="pct-cell pct-hi">93.4%</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-600547.html"><b>山东黄金</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td class="num">8</td><td><span class="pct-cell pct-lo">8.5%</span></td><td><span class="pct-cell pct-mid">50.1%</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-600988.html"><b>赤峰黄金</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-hi">★★★★★</span></td><td class="num">7</td><td><span class="pct-cell pct-lo">14.5%</span></td><td><span class="pct-cell pct-hi">61.3%</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-601069.html"><b>西部黄金</b></a></td><td><span class="pct-cell pct-lo">★★★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td class="num">4</td><td><span class="pct-cell pct-lo">20.4%</span></td><td><span class="pct-cell pct-mid">41.7%</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-601899.html"><b>紫金矿业</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-hi">★★★★★</span></td><td class="num">10</td><td><span class="pct-cell pct-lo">11.2%</span></td><td><span class="pct-cell pct-hi">82.2%</span></td></tr>
+
+</tbody>
+
+</table>
+
+<div class="note-line">R15 三维框架：①<b>相对估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；②<b>质量星级</b>=近10年ROE均值（★越多质地越好）；③<b>时机分</b>=链周期底部程度换算（分越高越接近周期底部、买点越好）。<span class="vleg"><i style="background:#15803d"></i>绿=好</span><span class="vleg"><i style="background:#a16207"></i>橙=中</span><span class="vleg"><i style="background:#b91c1c"></i>红=差/贵</span>。数据为时点统计。</div>
+
+</div>
+
+
+
+<div class="section-title">产业链成本传导（市场变量传导）</div>
+
+<div class="cost-block">
+
+<div class="cost-chart"><svg viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg">
+
+  <defs><marker id="arr-gm" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0 0, 8 4, 0 8" fill="#a16207"/></marker></defs>
+
+  <g><rect x="15" y="30" width="150" height="48" rx="6" fill="white" stroke="#a16207" stroke-width="1.5"/><text x="90" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">金价(价格)</text><text x="90" y="68" text-anchor="middle" font-size="10" fill="#64748b">避险/央行购金</text></g>
+
+  <g><rect x="225" y="30" width="150" height="48" rx="6" fill="white" stroke="#a16207" stroke-width="1.5"/><text x="300" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">矿企收入</text><text x="300" y="68" text-anchor="middle" font-size="10" fill="#64748b">量×价</text></g>
+
+  <g><rect x="435" y="30" width="150" height="48" rx="6" fill="white" stroke="#a16207" stroke-width="1.5"/><text x="510" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">采选冶成本</text><text x="510" y="68" text-anchor="middle" font-size="10" fill="#64748b">克金 AISC</text></g>
+
+  <g><rect x="635" y="30" width="150" height="48" rx="6" fill="white" stroke="#a16207" stroke-width="1.5"/><text x="710" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">自由现金流</text><text x="710" y="68" text-anchor="middle" font-size="10" fill="#64748b">→分红/再勘探</text></g>
+
+  <line x1="165" y1="54" x2="225" y2="54" stroke="#a16207" stroke-width="1.5" marker-end="url(#arr-gm)"/>
+
+  <line x1="375" y1="54" x2="435" y2="54" stroke="#a16207" stroke-width="1.5" marker-end="url(#arr-gm)"/>
+
+  <line x1="585" y1="54" x2="635" y2="54" stroke="#a16207" stroke-width="1.5" marker-end="url(#arr-gm)"/>
+
+  <g><rect x="230" y="100" width="340" height="44" rx="6" fill="#fefce8" stroke="#a16207" stroke-width="1.5"/><text x="400" y="118" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">估值锚：实际利率↓ 抬升黄金估值</text><text x="400" y="136" text-anchor="middle" font-size="10" fill="#64748b">央行购金支撑长期需求 · 低成本矿抗跌</text></g>
+
+  <line x1="710" y1="78" x2="570" y2="100" stroke="#a16207" stroke-width="1.5" marker-end="url(#arr-gm)"/>
+
+</svg></div>
+
+<div class="cost-note">
+
+<p>黄金矿企的<b>「成本传导」本质是金价→利润的杠杆放大</b>：①<b>金价（价格）</b> → 矿企收入（量×价），是利润的核心变量，避险+央行购金+实际利率下行共驱；②<b>采选冶成本（AISC）</b> → 克金现金成本，低成本矿在金价下行时仍盈利；③<b>产量</b> → 放大收入弹性，增产兑现增厚利润；④三者共同决定<b>自由现金流 → 分红 / 再勘探</b>。</p><p>护城河 = <b>资源储量 + 低成本 + 产量增长</b>；低 PE + 高资源储量 = 周期底部的安全边际信号，但须警惕高负债、单一矿山与品位下降形成的「资源陷阱」。</p>
+
+</div>
+
+</div>
+
+
+
+<div class="section-title">员工效率与组织效能排行（黄金 10 家）</div>
+
+<div class="ovtable"><table>
+
+<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均净利</th><th>效率信号</th></tr></thead>
+
+<tbody>
+
+<tr><td><a href="berkshire-gold-mine-chain-000975.html"><b>银泰黄金</b></a></td><td class="num">2,085</td><td class="num up">+15.0%</td><td class="num">¥142.5万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-001337.html"><b>四川黄金</b></a></td><td class="num">414</td><td class="num up">+31.4%</td><td class="num">¥112.6万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-002155.html"><b>湖南黄金</b></a></td><td class="num">4,976</td><td class="num up">+1.5%</td><td class="num">¥29.9万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-002237.html"><b>恒邦股份</b></a></td><td class="num">6,294</td><td class="num up">+12.1%</td><td class="num">¥10.1万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-600311.html"><b>荣华实业</b></a></td><td class="num">—</td><td class="num flat">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#64748b">—</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-600489.html"><b>中金黄金</b></a></td><td class="num">24,607</td><td class="num up">+7.9%</td><td class="num">¥20.1万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-600547.html"><b>山东黄金</b></a></td><td class="num">29,282</td><td class="num up">+67.9%</td><td class="num">¥16.2万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-600988.html"><b>赤峰黄金</b></a></td><td class="num">6,738</td><td class="num down">-2.5%</td><td class="num">¥45.7万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">收缩</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-601069.html"><b>西部黄金</b></a></td><td class="num">2,137</td><td class="num up">+18.5%</td><td class="num">¥22.1万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
+
+<tr><td><a href="berkshire-gold-mine-chain-601899.html"><b>紫金矿业</b></a></td><td class="num">66,708</td><td class="num flat">—</td><td class="num">¥77.6万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#64748b">—</span></td></tr>
+
+</tbody>
+
+</table>
+
+<div class="note-line">员工增速=在职员工同比；人均净利=2025 归母净利÷员工数。各矿企口径基本一致（均为矿山运营上市主体），可直接横向比较。银泰黄金人均净利 ¥142.5 万为板块最高（高品位+低成本），紫金矿业规模居首但人均居中。组织效能信号为代理指标，非投资建议。</div>
+
+</div>
+
+
+
+<div class="section-title">主要玩家索引（上市公司 10 家）</div>
+
+<div class="grid">
+
+<a class="giant-card" href="berkshire-gold-mine-chain-000975.html"><div class="giant-head"><span class="giant-name">银泰黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">控股玉龙矿业、黑河银泰、吉林板庙等高品位金银矿，毛利率31.8%、负债率仅18.6%（全板块最低），盈利质量与现金流极其干净，是黄金板块「优等生」。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="berkshire-gold-mine-chain-001337.html"><div class="giant-head"><span class="giant-name">四川黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">核心资产为梭罗沟金矿（国内少有的大型露天金矿），毛利率62.8%为板块最高、ROE28.3%，但体量小(营收10.3亿)、员工仅414人，属「小而美」单一矿山标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="berkshire-gold-mine-chain-002155.html"><div class="giant-head"><span class="giant-name">湖南黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">兼具黄金采选与锑金属（战略小金属）双主业，负债率仅13.5%（板块最低之一），PE 分位1.5%处历史极低位；但毛利率6.2%偏低（含冶炼）、PB 分位93.3%偏高。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="berkshire-gold-mine-chain-002237.html"><div class="giant-head"><span class="giant-name">恒邦股份 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">以金银电解/冶炼加工为主（非矿山），营收1123.9亿规模最大但毛利率仅2.0%、ROE5.5%弱、经营现金流-20.1亿，赚加工费模式质量弱；PB 1.46（分位20.9%）低提供边际。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="berkshire-gold-mine-chain-600311.html"><div class="giant-head"><span class="giant-name">荣华实业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">荣华实业（原*ST荣华）已触及退市，财务数据失真（营收2.6亿、净利-0.8亿、负债率370%），不具黄金矿企代表性；仅作「风险反面教材」保留。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="berkshire-gold-mine-chain-600489.html"><div class="giant-head"><span class="giant-name">中金黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">中国黄金集团旗下上市平台，央企背景、资源储量雄厚（控股内蒙古矿业等），2025 营收790.8亿、净利49.3亿、ROE17.1%、负债41.8%；PE分位11.2%低但PB分位93.4%偏高。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="berkshire-gold-mine-chain-600547.html"><div class="giant-head"><span class="giant-name">山东黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">山东黄金集团旗下，国内矿产金产量领先（焦家/玲珑等胶东金矿），2025 营收1042.9亿、净利47.4亿、经营现金流214.9亿（板块最强）；但负债率62.2%高、ROE11.5%一般，PE分位8.5%低。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="berkshire-gold-mine-chain-600988.html"><div class="giant-head"><span class="giant-name">赤峰黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">国内（吉隆/五龙）+海外（万象/加纳）金矿布局，毛利率52.5%、ROE28.9%均板块最高，负债率33.9%低、现金流55.6亿，盈利质量与成长性俱佳；PB 5.14（分位61.3%）偏贵但成长溢价。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="berkshire-gold-mine-chain-601069.html"><div class="giant-head"><span class="giant-name">西部黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">新疆地区黄金采选（哈图/阿希等），2025 营收135.7亿、净利4.7亿、ROE8.8%偏弱、负债率67.1%高、经营现金流-2.9亿，盈利与现金流质量一般；PE分位20.4%中性。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+<a class="giant-card" href="berkshire-gold-mine-chain-601899.html"><div class="giant-head"><span class="giant-name">紫金矿业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">全球化金铜矿企（自主勘探+海外并购），2025 矿产金/铜产量全球第一梯队，营收3490.8亿、净利517.8亿、ROE31.8%、经营现金流754.3亿（全板块最强），是「央行购金+铜电气化」双主线最直接卖铲人；PE分位11.2%低但PB分位82.2%偏贵。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+</div>
+
+
+
+<div class="note-line">
+
+📌 <b>两类主体</b>：①<b>纯黄金矿产龙头</b>——紫金矿业/山东黄金/中金黄金/赤峰黄金/银泰黄金/湖南黄金/西部黄金/四川黄金，以矿产金为主，利润对金价高敏感、资源储量与克金成本为王；②<b>冶炼/加工型</b>——恒邦股份，以金银冶炼加工为主，赚加工费、毛利薄（约2%）、对金价不敏感、规模大但质量弱；荣华实业已退市、财务失真，仅作风险反面教材。两类盈利驱动差异极大，须分开看待。</div>
+
+
+
+<div class="section-title">延伸阅读</div><div class="extend-grid">
+
+<a class="extend-card" href="./berkshire-gold-mine-compare.html"><b>🥇 估值分位</b><span>黄金矿（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-gold-mine-thermometer.html"><b>🌡️ 估值温度计</b><span>黄金矿（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-gold-mine-buyback.html"><b>💰 回购监测</b><span>黄金矿（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-gold-mine-repomap.html"><b>🗺️ 板块图谱</b><span>黄金矿（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-gold-mine-backtest.html"><b>📈 五年回测</b><span>黄金矿（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-gold-mine-cycle.html"><b>🔄 周期演进</b><span>黄金矿（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-gold-mine-methodology.html"><b>📘 方法论说明</b><span>黄金矿（估值/回购/周期研究的取值口径与可信区间）</span></a>
+
+</div>
+
+<div class="grid">
+
+
+
+<a class="giant-card" href="berkshire-gold-mine-cycle.html">
+
+<div class="giant-head"><span class="giant-name">🔄 黄金周期 2016→2025</span></div>
+
+<div class="giant-desc">把 10 家矿企数据串成宏观视图：金价、AISC 成本、产量释放与周期底部信号。</div>
+
+<div class="giant-foot"><span class="giant-link">查看周期专题 →</span></div>
+
+</a>
+
+<a class="giant-card" href="berkshire-gold-mine-backtest.html">
+
+<div class="giant-head"><span class="giant-name">🎯 黄金估值回测</span></div>
+
+<div class="giant-desc">用「低 PB + 高股息率」买点复盘 2014 / 2018 / 2024–25 三轮大底的历史回报，提炼可复用的买点信号框架。</div>
+
+<div class="giant-foot"><span class="giant-link">查看回测专题 →</span></div>
+
+</a>
+
+<a class="giant-card" href="berkshire-gold-mine-thermometer.html">
+
+<div class="giant-head"><span class="giant-name">🌡️ 黄金估值温度计</div>
+
+<div class="giant-desc">10 家矿企估值冷热一览：低 PB + 高股息 = 冷（安全边际高），高 PE + 低股息 = 热（溢价区）。</div>
+
+<div class="giant-foot"><span class="giant-link">查看温度计 →</span></div>
+
+</a>
+
+<a class="giant-card" href="berkshire-gold-mine-buyback.html">
+
+<div class="giant-head"><span class="giant-name">📊 逐轮买点回报图</span></div>
+
+<div class="giant-desc">10 家矿企，2014 / 2018 / 2025 三轮大底买入后的累计回报曲线，含峰值标注与逐点回报数据表。</div>
+
+<div class="giant-foot"><span class="giant-link">查看回报图 →</span></div>
+
+</a>
+
+</div>
+
+
+
+<div class="source-note">
+
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。数据日期：2026-08-13。
+
+</div>
+
+
+
+</div>
+
+<script>
+
+(function(){
+
+  function num(v){
+
+    if(v==null) return NaN;
+
+    v=v.textContent||v;
+
+    if(typeof v==='string'){
+
+      v=v.replace(/,/g,'').replace(/[ \t\r\n]/g,'');
+
+      if(v==='—'||v==='-'||v==='') return NaN;
+
+      var unit=1;
+
+      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
+
+      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
+
+      v=v.replace(/[¥,%]/g,'');
+
+      var n=parseFloat(v);
+
+      if(!isNaN(n)) n*=unit;
+
+      return n;
+
+    }
+
+    return NaN;
+
+  }
+
+  function cmp(a,b,asc){
+
+    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
+
+    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
+
+    var nanA=isNaN(a), nanB=isNaN(b);
+
+    if(nanA && nanB) return 0;
+
+    if(nanA) return asc?1:-1;
+
+    if(nanB) return asc?-1:1;
+
+    if(an<bn) return asc?-1:1;
+
+    if(an>bn) return asc?1:-1;
+
+    return 0;
+
+  }
+
+  function sortTable(th){
+
+    var table=th.closest('table');
+
+    var tbody=table.querySelector('tbody');
+
+    var rows=Array.from(tbody.querySelectorAll('tr'));
+
+    var idx=Array.from(th.parentNode.children).indexOf(th);
+
+    var type=th.getAttribute('data-type')||'text';
+
+    var asc=!th.classList.contains('asc');
+
+    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
+
+    th.classList.add(asc?'asc':'desc');
+
+    rows.sort(function(r1,r2){
+
+      var c1=r1.cells[idx], c2=r2.cells[idx];
+
+      var v1, v2;
+
+      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+
+      else if(type==='num'){ v1=num(c1); v2=num(c2); }
+
+      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+
+      return cmp(v1,v2,asc);
+
+    });
+
+    rows.forEach(function(r){ tbody.appendChild(r); });
+
+  }
+
+  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
+
+    th.addEventListener('click',function(){ sortTable(th); });
+
+  });
+
+})();
+
+</script>
+
+  <script src="/analytics.js"></script>
+
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+
+<div class="back-bar">
+
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+
+</div>
+
+</body>
+
+</html>
+
