@@ -1,97 +1,191 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>激光设备产业链 · 调研 | 价值投资初级阶段</title>
-<link rel="stylesheet" href="./analytics.js">
-<style>
-:root {
-  --navy: #0b1f3a;
-  --navy2: #10294d;
-  --ink: #1d2b40;
-  --line: #e4e9f2;
-  --accent: #e8b84b;
-  --accent-rgb: 232,184,75;
-  --txt: #23344e;
-  --muted: #6b7a93;
-  --card: #fff;
-  --bg: #f4f7fc;
-  --green: #1f9d6b;
-  --red: #e74c3c;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
-.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
-.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
-.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
-.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
-.hero h1{font-size:28px;margin-bottom:10px;}
-.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
-.hero .stat{font-size:14px;}
-.hero .stat b{color:var(--accent);font-size:22px;display:block;}
-.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
-.data-banner b{color:var(--navy);font-weight:600}
-.container{max-width:1100px;margin:0 auto;padding:0 20px;}
-.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
-.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
-.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
-.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
-.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
-.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
-.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
-.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
-.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
-.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
-.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
-.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
-.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
-.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
-.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
-.ovtable tr:hover{background:#f4f7fc;}
-.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
-.pct-lo{background:#d1fae5;color:#065f46;}
-.pct-mid{background:#fef3c7;color:#92400e;}
-.pct-hi{background:#fee2e2;color:#991b1b;}
-.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
-.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
-.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
-.emp-badge.normal{background:#d1fae5;color:#065f46;}
-.emp-badge.warn{background:#fef3c7;color:#92400e;}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
-.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
-.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
-.gc-icon{font-size:24px;margin-bottom:8px;}
-.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
-.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
-.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
-.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
-.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
-.sortable th{cursor:pointer;user-select:none;}
-.sortable th:hover{background:var(--navy2);}
-.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
-.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
-.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
-
-.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
-.breadcrumb a{color:var(--primary-dark);text-decoration:none}
-.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
-.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
-.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
-.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
-.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
-.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
-.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
-.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
-.back-bar a:hover{background:#e8b84b;color:#fff}
-
-</style>
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>激光设备产业链 · 调研 | 价值投资初级阶段</title>
+
+<link rel="stylesheet" href="./analytics.js">
+
+<style>
+
+:root {
+
+  --navy: #0b1f3a;
+
+  --navy2: #10294d;
+
+  --ink: #1d2b40;
+
+  --line: #e4e9f2;
+
+  --accent: #e8b84b;
+
+  --accent-rgb: 232,184,75;
+
+  --txt: #23344e;
+
+  --muted: #6b7a93;
+
+  --card: #fff;
+
+  --bg: #f4f7fc;
+
+  --green: #1f9d6b;
+
+  --red: #e74c3c;
+
+}
+
+
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
+
+.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
+
+.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
+
+.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
+
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
+
+.hero h1{font-size:28px;margin-bottom:10px;}
+
+.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
+
+.hero .stat{font-size:14px;}
+
+.hero .stat b{color:var(--accent);font-size:22px;display:block;}
+
+.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
+
+.data-banner b{color:var(--navy);font-weight:600}
+
+.container{max-width:1100px;margin:0 auto;padding:0 20px;}
+
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
+
+.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+
+.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
+
+.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
+
+.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+
+.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
+
+.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
+
+.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
+
+.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
+
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
+
+.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
+
+.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
+
+.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+
+.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
+
+.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
+
+.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
+
+.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+
+.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
+
+.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
+
+.ovtable tr:hover{background:#f4f7fc;}
+
+.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
+
+.pct-lo{background:#d1fae5;color:#065f46;}
+
+.pct-mid{background:#fef3c7;color:#92400e;}
+
+.pct-hi{background:#fee2e2;color:#991b1b;}
+
+.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+
+.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
+
+.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
+
+.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
+
+.emp-badge.normal{background:#d1fae5;color:#065f46;}
+
+.emp-badge.warn{background:#fef3c7;color:#92400e;}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
+
+.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
+
+.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
+
+.gc-icon{font-size:24px;margin-bottom:8px;}
+
+.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+
+.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
+
+.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
+
+.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
+
+.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
+
+.sortable th{cursor:pointer;user-select:none;}
+
+.sortable th:hover{background:var(--navy2);}
+
+.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
+
+.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
+
+.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
+
+
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+
+
+</style>
+
 
 <style>
 /* v2 white-spirit template additions */
@@ -132,33 +226,60 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 .ws2-frame b{color:#3854cc}
 </style>
 
-</head>
-<body>
-
-<div class="top-bar">
-  <a href="./index.html">← 返回首页</a>
-  <span style="opacity:0.5">·</span>
-  <strong>激光设备产业链</strong>
-</div>
-<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>激光设备</b></div>
-
-<div class="hero">
-  <h1>🔦 激光设备产业链</h1>
-  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 估值/质量/景气/回报/效率 五维验证</div>
-  <div class="stats">
-    <div class="stat"><b>10</b>代表公司</div>
-    <div class="stat"><b>≈55%</b>平均PE分位</div>
-    <div class="stat"><b>≈67%</b>平均PB分位</div>
-  </div>
-</div>
-
-<div class="data-banner">
-  <b>📊 数据锚</b>：平均 PE分位 ≈55% · 平均 PB分位 ≈67% · 估值/ROE/人均盈利已 10/10 覆盖
-</div>
-
-<div class="container">
-
-<h2 class="section-title">🔔 5 维研究信号</h2>
+</head>
+
+<body>
+
+
+
+<div class="top-bar">
+
+  <a href="./index.html">← 返回首页</a>
+
+  <span style="opacity:0.5">·</span>
+
+  <strong>激光设备产业链</strong>
+
+</div>
+
+<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>激光设备</b></div>
+
+
+
+<div class="hero">
+
+  <h1>🔦 激光设备产业链</h1>
+
+  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 估值/质量/景气/回报/效率 五维验证</div>
+
+  <div class="stats">
+
+    <div class="stat"><b>10</b>代表公司</div>
+
+    <div class="stat"><b>≈55%</b>平均PE分位</div>
+
+    <div class="stat"><b>≈67%</b>平均PB分位</div>
+
+  </div>
+
+</div>
+
+
+
+<div class="data-banner">
+
+  <b>📊 数据锚</b>：平均 PE分位 ≈55% · 平均 PB分位 ≈67% · 估值/ROE/人均盈利已 10/10 覆盖
+
+</div>
+
+
+
+<div class="container">
+
+
+
+<h2 class="section-title">🔔 5 维研究信号</h2>
+
 
 <!-- ===== v2 body (per 老板截屏) START ===== -->
 <div class="ws2-counter-wrap">
@@ -235,448 +356,892 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 </section>
 <!-- ===== v2 body END ===== -->
 
-<div class="research-signal">
-  <div class="rs-grid">
-    <div class="rs-item"><div class="rs-label">估值信号</div><div class="rs-val">估值历史分位 → 当前位置 + 平均分位</div><div style="font-size:10px;color:var(--muted);margin-top:4px">估</div></div><div class="rs-item"><div class="rs-label">质量信号</div><div class="rs-val">ROE/毛利率/净利率 → 龙头质量</div><div style="font-size:10px;color:var(--muted);margin-top:4px">质</div></div><div class="rs-item"><div class="rs-label">景气信号</div><div class="rs-val">营收/利润同比 → 行业景气</div><div style="font-size:10px;color:var(--muted);margin-top:4px">景</div></div><div class="rs-item"><div class="rs-label">回报信号</div><div class="rs-val">股息率 + 回购 → 股东回报</div><div style="font-size:10px;color:var(--muted);margin-top:4px">回</div></div><div class="rs-item"><div class="rs-label">人效信号</div><div class="rs-val">人均创收/人均净利 → 经营效率</div><div style="font-size:10px;color:var(--muted);margin-top:4px">效</div></div>
-  </div>
-</div>
-
-<h2 class="section-title">🏛 5 层分析框架</h2>
-<div class="layers">
-      <div class="layer-card">
-        <div class="layer-num">01</div>
-        <div class="layer-name">上游成本</div>
-        <div class="layer-text">原材料/零部件供应，价格波动传导与议价能力。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">02</div>
-        <div class="layer-name">中游制造</div>
-        <div class="layer-text">产能利用率与规模效应，决定盈利波动。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">03</div>
-        <div class="layer-name">下游应用</div>
-        <div class="layer-text">终端需求景气与渗透率变化。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">04</div>
-        <div class="layer-name">竞争格局</div>
-        <div class="layer-text">集中度、龙头溢价、护城河深浅。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">05</div>
-        <div class="layer-name">投资逻辑</div>
-        <div class="layer-text">周期位置 + 估值锚 + 人效 + 机构共识 四维验证。</div>
-      </div></div>
-
-<h2 class="section-title">💬 人话版 · 实战信号</h2>
-<div class="human-block">
-  <p><b>看产业链核心是「周期位置 + 护城河 + 估值锚」三维交叉验证。</b></p>
-  <ul style="margin-top:12px;padding-left:20px;line-height:1.8">
-    <li>先看周期位置：库存/价格/产能/估值 四维判断当前位置。</li><li>再看护城河：龙头集中度 + 规模效应 + 准入壁垒。</li><li>然后看估值锚：PE/PB 历史分位 + 同行业可比 + 跨市场对比。</li><li>警惕陷阱：低估值不等于低估，可能反映景气下行。</li><li>实战信号：股息率 + 回购 + 机构持仓 三路验证。</li>
-  </ul>
-</div>
-
-<h2 class="section-title">🔄 产业周期判断标准</h2>
-<div class="cycle-block">
-  <p><b>驱动因素：</b>行业景气由供需结构 + 政策周期 + 货币环境 + 库存周期 共同决定。</p>
-  <div class="cycle-grid">
-    <div><b>供需</b>产能利用率/订单饱满度/价格传导</div><div><b>库存</b>主动累库/被动累库/主动去库</div><div><b>价格</b>原料价格/出厂价/终端价</div><div><b>估值</b>PE/PB 历史分位 + 行业相对估值</div>
-  </div>
-  <p style="margin-top:14px"><b>历史案例：</b>复盘 2018-2020 周期：估值低位 + 业绩拐点 + 产业政策利好 三共振时胜率最高。</p>
-  <p style="margin-top:8px"><b>当前位置：</b>当前多数子行业估值历史分位偏低，部分龙头股息率创近 5 年新高，景气底部信号渐显。</p>
-</div>
-
-<h2 class="section-title">📈 估值历史分位总览</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-002008.html"><b>大族激光</b></a></td>
-        <td>002008</td>
-        <td>52.7 <span class="pct pct-hi">90%</span></td>
-        <td>5.07 <span class="pct pct-hi">74%</span></td>
-        <td>7.1%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-000988.html"><b>华工科技</b></a></td>
-        <td>000988</td>
-        <td>64.0 <span class="pct pct-hi">90%</span></td>
-        <td>9.31 <span class="pct pct-hi">96%</span></td>
-        <td>13.8%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300747.html"><b>锐科激光</b></a></td>
-        <td>300747</td>
-        <td>75.4 <span class="pct pct-mid">56%</span></td>
-        <td>5.42 <span class="pct pct-mid">46%</span></td>
-        <td>4.8%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300776.html"><b>帝尔激光</b></a></td>
-        <td>300776</td>
-        <td>60.7 <span class="pct pct-hi">88%</span></td>
-        <td>8.01 <span class="pct pct-hi">66%</span></td>
-        <td>14.1%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-688518.html"><b>联赢激光</b></a></td>
-        <td>688518</td>
-        <td>35.7 <span class="pct pct-lo">30%</span></td>
-        <td>1.80 <span class="pct pct-lo">16%</span></td>
-        <td>5.2%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-688559.html"><b>海目星</b></a></td>
-        <td>688559</td>
-        <td>-15.6 <span class="pct pct-lo">14%</span></td>
-        <td>4.28 <span class="pct pct-mid">49%</span></td>
-        <td>-31.4%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-688025.html"><b>杰普特</b></a></td>
-        <td>688025</td>
-        <td>91.1 <span class="pct pct-hi">86%</span></td>
-        <td>12.90 <span class="pct pct-hi">97%</span></td>
-        <td>12.9%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300227.html"><b>光韵达</b></a></td>
-        <td>300227</td>
-        <td>-16.0 <span class="pct pct-lo">18%</span></td>
-        <td>3.56 <span class="pct pct-mid">59%</span></td>
-        <td>-19.0%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300220.html"><b>金运激光</b></a></td>
-        <td>300220</td>
-        <td>-349.9 <span class="pct pct-lo">7%</span></td>
-        <td>22.67 <span class="pct pct-hi">80%</span></td>
-        <td>2.4%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300410.html"><b>正业科技</b></a></td>
-        <td>300410</td>
-        <td>62.7 <span class="pct pct-hi">72%</span></td>
-        <td>9.10 <span class="pct pct-hi">87%</span></td>
-        <td>15.3%</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">⚖ R15 三维评级总览</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-002008.html"><b>大族激光</b></a></td>
-        <td>52.7</td>
-        <td>5.07</td>
-        <td>★</td>
-        <td>★★</td>
-        <td>2</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-000988.html"><b>华工科技</b></a></td>
-        <td>64.0</td>
-        <td>9.31</td>
-        <td>★</td>
-        <td>★★★★</td>
-        <td>1</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300747.html"><b>锐科激光</b></a></td>
-        <td>75.4</td>
-        <td>5.42</td>
-        <td>★★★</td>
-        <td>★</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300776.html"><b>帝尔激光</b></a></td>
-        <td>60.7</td>
-        <td>8.01</td>
-        <td>★</td>
-        <td>★★★★★</td>
-        <td>2</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-688518.html"><b>联赢激光</b></a></td>
-        <td>35.7</td>
-        <td>1.80</td>
-        <td>★★</td>
-        <td>★</td>
-        <td>8</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-688559.html"><b>海目星</b></a></td>
-        <td>-15.6</td>
-        <td>4.28</td>
-        <td>★★★★★</td>
-        <td>★</td>
-        <td>7</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-688025.html"><b>杰普特</b></a></td>
-        <td>91.1</td>
-        <td>12.90</td>
-        <td>★</td>
-        <td>★★★★</td>
-        <td>1</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300227.html"><b>光韵达</b></a></td>
-        <td>-16.0</td>
-        <td>3.56</td>
-        <td>★★★★</td>
-        <td>★</td>
-        <td>6</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300220.html"><b>金运激光</b></a></td>
-        <td>-349.9</td>
-        <td>22.67</td>
-        <td>★★★★★</td>
-        <td>★</td>
-        <td>6</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300410.html"><b>正业科技</b></a></td>
-        <td>62.7</td>
-        <td>9.10</td>
-        <td>★★★</td>
-        <td>★★★★★</td>
-        <td>2</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">🏭 产业链成本传导</h2>
-
-    <div class="cost-block">
-      <h3>产业链成本传导路径</h3>
-      <svg viewBox="0 0 800 140" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="arr-ac" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-            <polygon points="0 0, 8 4, 0 8" fill="#06b6d4"/>
-          </marker>
-        </defs>
-        <g>
-          <rect x="15" y="30" width="130" height="44" rx="6" fill="white" stroke="#06b6d4" stroke-width="1.5"/>
-          <text x="80" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游原材料</text>
-        </g>
-        <g>
-          <rect x="215" y="30" width="130" height="44" rx="6" fill="white" stroke="#06b6d4" stroke-width="1.5"/>
-          <text x="280" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游加工</text>
-        </g>
-        <g>
-          <rect x="415" y="30" width="130" height="44" rx="6" fill="white" stroke="#06b6d4" stroke-width="1.5"/>
-          <text x="480" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游品牌</text>
-        </g>
-        <g>
-          <rect x="615" y="30" width="130" height="44" rx="6" fill="white" stroke="#06b6d4" stroke-width="1.5"/>
-          <text x="680" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">需求弹性</text>
-        </g>
-        <line x1="145" y1="52" x2="215" y2="52" stroke="#06b6d4" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-        <line x1="345" y1="52" x2="415" y2="52" stroke="#06b6d4" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-        <line x1="545" y1="52" x2="615" y2="52" stroke="#06b6d4" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-      </svg>
-      <p class="cost-note">成本传导关键看议价能力与库存周期：龙头凭借规模优势可锁定上游成本；中小厂商在价格上行期被动跟涨、在下行期被迫降价。</p>
-    </div>
-
-<h2 class="section-title">👥 员工效率排行</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>2024员工</th><th>同比</th><th>人均净利</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-002008.html"><b>大族激光</b></a></td>
-        <td>002008</td>
-        <td>2万</td>
-        <td>2万</td>
-        <td>+24.3%</td>
-        <td>¥5.7万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-000988.html"><b>华工科技</b></a></td>
-        <td>000988</td>
-        <td>9462</td>
-        <td>8823</td>
-        <td>+7.2%</td>
-        <td>¥15.5万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300747.html"><b>锐科激光</b></a></td>
-        <td>300747</td>
-        <td>3264</td>
-        <td>3449</td>
-        <td>-5.4%</td>
-        <td>¥4.9万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300776.html"><b>帝尔激光</b></a></td>
-        <td>300776</td>
-        <td>1354</td>
-        <td>1525</td>
-        <td>-11.2%</td>
-        <td>¥38.4万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-688518.html"><b>联赢激光</b></a></td>
-        <td>688518</td>
-        <td>5614</td>
-        <td>4350</td>
-        <td>+29.1%</td>
-        <td>¥3.0万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-688559.html"><b>海目星</b></a></td>
-        <td>688559</td>
-        <td>6716</td>
-        <td>—</td>
-        <td>口径异常</td>
-        <td>¥-13.1万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-688025.html"><b>杰普特</b></a></td>
-        <td>688025</td>
-        <td>2375</td>
-        <td>1691</td>
-        <td>+40.4%</td>
-        <td>¥11.8万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300227.html"><b>光韵达</b></a></td>
-        <td>300227</td>
-        <td>2568</td>
-        <td>1760</td>
-        <td>+45.9%</td>
-        <td>¥-10.9万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300220.html"><b>金运激光</b></a></td>
-        <td>300220</td>
-        <td>294</td>
-        <td>282</td>
-        <td>+4.3%</td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-laser-equip-chain-300410.html"><b>正业科技</b></a></td>
-        <td>300410</td>
-        <td>1019</td>
-        <td>1183</td>
-        <td>-13.9%</td>
-        <td>¥3.9万</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">🏢 公司索引</h2>
-<div class="grid">
-      <a class="giant-card" href="./berkshire-laser-equip-chain-002008.html">
-        <div class="gc-title">大族激光</div>
-        <div class="gc-code">002008</div>
-        <div class="gc-meta">PE 52.7 · PB 5.07 · ROE 7.1%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-laser-equip-chain-000988.html">
-        <div class="gc-title">华工科技</div>
-        <div class="gc-code">000988</div>
-        <div class="gc-meta">PE 64.0 · PB 9.31 · ROE 13.8%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-laser-equip-chain-300747.html">
-        <div class="gc-title">锐科激光</div>
-        <div class="gc-code">300747</div>
-        <div class="gc-meta">PE 75.4 · PB 5.42 · ROE 4.8%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-laser-equip-chain-300776.html">
-        <div class="gc-title">帝尔激光</div>
-        <div class="gc-code">300776</div>
-        <div class="gc-meta">PE 60.7 · PB 8.01 · ROE 14.1%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-laser-equip-chain-688518.html">
-        <div class="gc-title">联赢激光</div>
-        <div class="gc-code">688518</div>
-        <div class="gc-meta">PE 35.7 · PB 1.80 · ROE 5.2%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-laser-equip-chain-688559.html">
-        <div class="gc-title">海目星</div>
-        <div class="gc-code">688559</div>
-        <div class="gc-meta">PE -15.6 · PB 4.28 · ROE -31.4%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-laser-equip-chain-688025.html">
-        <div class="gc-title">杰普特</div>
-        <div class="gc-code">688025</div>
-        <div class="gc-meta">PE 91.1 · PB 12.90 · ROE 12.9%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-laser-equip-chain-300227.html">
-        <div class="gc-title">光韵达</div>
-        <div class="gc-code">300227</div>
-        <div class="gc-meta">PE -16.0 · PB 3.56 · ROE -19.0%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-laser-equip-chain-300220.html">
-        <div class="gc-title">金运激光</div>
-        <div class="gc-code">300220</div>
-        <div class="gc-meta">PE -349.9 · PB 22.67 · ROE 2.4%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-laser-equip-chain-300410.html">
-        <div class="gc-title">正业科技</div>
-        <div class="gc-code">300410</div>
-        <div class="gc-meta">PE 62.7 · PB 9.10 · ROE 15.3%</div>
-      </a></div>
-
-<h2 class="section-title">📚 延伸阅读</h2>
-<div class="grid">
-
-      <a class="giant-card" href="berkshire-laser-equip-cycle.html">
-        <div class="gc-icon">🔄</div>
-        <div class="gc-title">产业周期</div>
-        <div class="gc-desc">库存/价格/产能/估值四维判断周期位置。</div>
-      </a>
-      <a class="giant-card" href="berkshire-laser-equip-backtest.html">
-        <div class="gc-icon">📈</div>
-        <div class="gc-title">回测框架</div>
-        <div class="gc-desc">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</div>
-      </a>
-      <a class="giant-card" href="berkshire-laser-equip-repomap.html">
-        <div class="gc-icon">🗺️</div>
-        <div class="gc-title">回购地图</div>
-        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分，逐家拆解。</div>
-      </a></div>
-
-<div class="source-note">
-  数据来源：akshare / 同花顺 / 巨潮资讯网 · 数据日期：2026-08-09 · 仅供参考，不构成投资建议
-</div>
-
-</div>
-
-<script src="./analytics.js"></script>
-<script src="./tdx-link.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.sortable').forEach(function(t){
-    t.querySelectorAll('th').forEach(function(th,i){
-      th.addEventListener('click',function(){
-        var d=t.querySelector('tbody');
-        var rows=Array.from(d.querySelectorAll('tr'));
-        var asc=th.classList.contains('sorted-asc');
-        th.classList.remove('sorted-asc','sorted-desc');
-        rows.sort(function(a,b){
-          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          av=parseFloat(av); bv=parseFloat(bv);
-          return asc?bv-av:av-bv;
-        });
-        th.classList.add(asc?'sorted-desc':'sorted-asc');
-        rows.forEach(function(r){d.appendChild(r)});
-      });
-    });
-  });
-});
-</script>
-<div class="section-title">延伸阅读 · 激光设备 7 兄弟页</div>
-<div class="extend-grid">
-<a class="extend-card" href="./berkshire-laser-equip-compare.html"><b>🥇 估值分位</b><span>激光设备（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-laser-equip-thermometer.html"><b>🌡️ 估值温度计</b><span>激光设备（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-laser-equip-buyback.html"><b>💰 回购监测</b><span>激光设备（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-laser-equip-repomap.html"><b>🗺️ 板块图谱</b><span>激光设备（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-laser-equip-backtest.html"><b>📈 五年回测</b><span>激光设备（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-laser-equip-cycle.html"><b>🔄 周期演进</b><span>激光设备（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-laser-equip-methodology.html"><b>📘 方法论说明</b><span>激光设备（估值/回购/周期研究的取值口径与可信区间）</span></a>
-</div>
-<div class="back-bar">
-<a href="./berkshire-chain-map.html">← 全链索引</a>
-<a href="./berkshire-standalone.html">← 数据中心首页</a>
-</div>
-</body>
+<div class="research-signal">
+
+  <div class="rs-grid">
+
+    <div class="rs-item"><div class="rs-label">估值信号</div><div class="rs-val">估值历史分位 → 当前位置 + 平均分位</div><div style="font-size:10px;color:var(--muted);margin-top:4px">估</div></div><div class="rs-item"><div class="rs-label">质量信号</div><div class="rs-val">ROE/毛利率/净利率 → 龙头质量</div><div style="font-size:10px;color:var(--muted);margin-top:4px">质</div></div><div class="rs-item"><div class="rs-label">景气信号</div><div class="rs-val">营收/利润同比 → 行业景气</div><div style="font-size:10px;color:var(--muted);margin-top:4px">景</div></div><div class="rs-item"><div class="rs-label">回报信号</div><div class="rs-val">股息率 + 回购 → 股东回报</div><div style="font-size:10px;color:var(--muted);margin-top:4px">回</div></div><div class="rs-item"><div class="rs-label">人效信号</div><div class="rs-val">人均创收/人均净利 → 经营效率</div><div style="font-size:10px;color:var(--muted);margin-top:4px">效</div></div>
+
+  </div>
+
+</div>
+
+
+
+<h2 class="section-title">🏛 5 层分析框架</h2>
+
+<div class="layers">
+
+      <div class="layer-card">
+
+        <div class="layer-num">01</div>
+
+        <div class="layer-name">上游成本</div>
+
+        <div class="layer-text">原材料/零部件供应，价格波动传导与议价能力。</div>
+
+      </div>
+
+      <div class="layer-card">
+
+        <div class="layer-num">02</div>
+
+        <div class="layer-name">中游制造</div>
+
+        <div class="layer-text">产能利用率与规模效应，决定盈利波动。</div>
+
+      </div>
+
+      <div class="layer-card">
+
+        <div class="layer-num">03</div>
+
+        <div class="layer-name">下游应用</div>
+
+        <div class="layer-text">终端需求景气与渗透率变化。</div>
+
+      </div>
+
+      <div class="layer-card">
+
+        <div class="layer-num">04</div>
+
+        <div class="layer-name">竞争格局</div>
+
+        <div class="layer-text">集中度、龙头溢价、护城河深浅。</div>
+
+      </div>
+
+      <div class="layer-card">
+
+        <div class="layer-num">05</div>
+
+        <div class="layer-name">投资逻辑</div>
+
+        <div class="layer-text">周期位置 + 估值锚 + 人效 + 机构共识 四维验证。</div>
+
+      </div></div>
+
+
+
+<h2 class="section-title">💬 人话版 · 实战信号</h2>
+
+<div class="human-block">
+
+  <p><b>看产业链核心是「周期位置 + 护城河 + 估值锚」三维交叉验证。</b></p>
+
+  <ul style="margin-top:12px;padding-left:20px;line-height:1.8">
+
+    <li>先看周期位置：库存/价格/产能/估值 四维判断当前位置。</li><li>再看护城河：龙头集中度 + 规模效应 + 准入壁垒。</li><li>然后看估值锚：PE/PB 历史分位 + 同行业可比 + 跨市场对比。</li><li>警惕陷阱：低估值不等于低估，可能反映景气下行。</li><li>实战信号：股息率 + 回购 + 机构持仓 三路验证。</li>
+
+  </ul>
+
+</div>
+
+
+
+<h2 class="section-title">🔄 产业周期判断标准</h2>
+
+<div class="cycle-block">
+
+  <p><b>驱动因素：</b>行业景气由供需结构 + 政策周期 + 货币环境 + 库存周期 共同决定。</p>
+
+  <div class="cycle-grid">
+
+    <div><b>供需</b>产能利用率/订单饱满度/价格传导</div><div><b>库存</b>主动累库/被动累库/主动去库</div><div><b>价格</b>原料价格/出厂价/终端价</div><div><b>估值</b>PE/PB 历史分位 + 行业相对估值</div>
+
+  </div>
+
+  <p style="margin-top:14px"><b>历史案例：</b>复盘 2018-2020 周期：估值低位 + 业绩拐点 + 产业政策利好 三共振时胜率最高。</p>
+
+  <p style="margin-top:8px"><b>当前位置：</b>当前多数子行业估值历史分位偏低，部分龙头股息率创近 5 年新高，景气底部信号渐显。</p>
+
+</div>
+
+
+
+<h2 class="section-title">📈 估值历史分位总览</h2>
+
+<table class="ovtable sortable" data-type="num">
+
+  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
+
+  <tbody>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-002008.html"><b>大族激光</b></a></td>
+
+        <td>002008</td>
+
+        <td>52.7 <span class="pct pct-hi">90%</span></td>
+
+        <td>5.07 <span class="pct pct-hi">74%</span></td>
+
+        <td>7.1%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-000988.html"><b>华工科技</b></a></td>
+
+        <td>000988</td>
+
+        <td>64.0 <span class="pct pct-hi">90%</span></td>
+
+        <td>9.31 <span class="pct pct-hi">96%</span></td>
+
+        <td>13.8%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300747.html"><b>锐科激光</b></a></td>
+
+        <td>300747</td>
+
+        <td>75.4 <span class="pct pct-mid">56%</span></td>
+
+        <td>5.42 <span class="pct pct-mid">46%</span></td>
+
+        <td>4.8%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300776.html"><b>帝尔激光</b></a></td>
+
+        <td>300776</td>
+
+        <td>60.7 <span class="pct pct-hi">88%</span></td>
+
+        <td>8.01 <span class="pct pct-hi">66%</span></td>
+
+        <td>14.1%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-688518.html"><b>联赢激光</b></a></td>
+
+        <td>688518</td>
+
+        <td>35.7 <span class="pct pct-lo">30%</span></td>
+
+        <td>1.80 <span class="pct pct-lo">16%</span></td>
+
+        <td>5.2%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-688559.html"><b>海目星</b></a></td>
+
+        <td>688559</td>
+
+        <td>-15.6 <span class="pct pct-lo">14%</span></td>
+
+        <td>4.28 <span class="pct pct-mid">49%</span></td>
+
+        <td>-31.4%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-688025.html"><b>杰普特</b></a></td>
+
+        <td>688025</td>
+
+        <td>91.1 <span class="pct pct-hi">86%</span></td>
+
+        <td>12.90 <span class="pct pct-hi">97%</span></td>
+
+        <td>12.9%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300227.html"><b>光韵达</b></a></td>
+
+        <td>300227</td>
+
+        <td>-16.0 <span class="pct pct-lo">18%</span></td>
+
+        <td>3.56 <span class="pct pct-mid">59%</span></td>
+
+        <td>-19.0%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300220.html"><b>金运激光</b></a></td>
+
+        <td>300220</td>
+
+        <td>-349.9 <span class="pct pct-lo">7%</span></td>
+
+        <td>22.67 <span class="pct pct-hi">80%</span></td>
+
+        <td>2.4%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300410.html"><b>正业科技</b></a></td>
+
+        <td>300410</td>
+
+        <td>62.7 <span class="pct pct-hi">72%</span></td>
+
+        <td>9.10 <span class="pct pct-hi">87%</span></td>
+
+        <td>15.3%</td>
+
+      </tr></tbody>
+
+</table>
+
+
+
+<h2 class="section-title">⚖ R15 三维评级总览</h2>
+
+<table class="ovtable sortable" data-type="num">
+
+  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
+
+  <tbody>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-002008.html"><b>大族激光</b></a></td>
+
+        <td>52.7</td>
+
+        <td>5.07</td>
+
+        <td>★</td>
+
+        <td>★★</td>
+
+        <td>2</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-000988.html"><b>华工科技</b></a></td>
+
+        <td>64.0</td>
+
+        <td>9.31</td>
+
+        <td>★</td>
+
+        <td>★★★★</td>
+
+        <td>1</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300747.html"><b>锐科激光</b></a></td>
+
+        <td>75.4</td>
+
+        <td>5.42</td>
+
+        <td>★★★</td>
+
+        <td>★</td>
+
+        <td>5</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300776.html"><b>帝尔激光</b></a></td>
+
+        <td>60.7</td>
+
+        <td>8.01</td>
+
+        <td>★</td>
+
+        <td>★★★★★</td>
+
+        <td>2</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-688518.html"><b>联赢激光</b></a></td>
+
+        <td>35.7</td>
+
+        <td>1.80</td>
+
+        <td>★★</td>
+
+        <td>★</td>
+
+        <td>8</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-688559.html"><b>海目星</b></a></td>
+
+        <td>-15.6</td>
+
+        <td>4.28</td>
+
+        <td>★★★★★</td>
+
+        <td>★</td>
+
+        <td>7</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-688025.html"><b>杰普特</b></a></td>
+
+        <td>91.1</td>
+
+        <td>12.90</td>
+
+        <td>★</td>
+
+        <td>★★★★</td>
+
+        <td>1</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300227.html"><b>光韵达</b></a></td>
+
+        <td>-16.0</td>
+
+        <td>3.56</td>
+
+        <td>★★★★</td>
+
+        <td>★</td>
+
+        <td>6</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300220.html"><b>金运激光</b></a></td>
+
+        <td>-349.9</td>
+
+        <td>22.67</td>
+
+        <td>★★★★★</td>
+
+        <td>★</td>
+
+        <td>6</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300410.html"><b>正业科技</b></a></td>
+
+        <td>62.7</td>
+
+        <td>9.10</td>
+
+        <td>★★★</td>
+
+        <td>★★★★★</td>
+
+        <td>2</td>
+
+      </tr></tbody>
+
+</table>
+
+
+
+<h2 class="section-title">🏭 产业链成本传导</h2>
+
+
+
+    <div class="cost-block">
+
+      <h3>产业链成本传导路径</h3>
+
+      <svg viewBox="0 0 800 140" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
+
+        <defs>
+
+          <marker id="arr-ac" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+
+            <polygon points="0 0, 8 4, 0 8" fill="#06b6d4"/>
+
+          </marker>
+
+        </defs>
+
+        <g>
+
+          <rect x="15" y="30" width="130" height="44" rx="6" fill="white" stroke="#06b6d4" stroke-width="1.5"/>
+
+          <text x="80" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游原材料</text>
+
+        </g>
+
+        <g>
+
+          <rect x="215" y="30" width="130" height="44" rx="6" fill="white" stroke="#06b6d4" stroke-width="1.5"/>
+
+          <text x="280" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游加工</text>
+
+        </g>
+
+        <g>
+
+          <rect x="415" y="30" width="130" height="44" rx="6" fill="white" stroke="#06b6d4" stroke-width="1.5"/>
+
+          <text x="480" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游品牌</text>
+
+        </g>
+
+        <g>
+
+          <rect x="615" y="30" width="130" height="44" rx="6" fill="white" stroke="#06b6d4" stroke-width="1.5"/>
+
+          <text x="680" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">需求弹性</text>
+
+        </g>
+
+        <line x1="145" y1="52" x2="215" y2="52" stroke="#06b6d4" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+
+        <line x1="345" y1="52" x2="415" y2="52" stroke="#06b6d4" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+
+        <line x1="545" y1="52" x2="615" y2="52" stroke="#06b6d4" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+
+      </svg>
+
+      <p class="cost-note">成本传导关键看议价能力与库存周期：龙头凭借规模优势可锁定上游成本；中小厂商在价格上行期被动跟涨、在下行期被迫降价。</p>
+
+    </div>
+
+
+
+<h2 class="section-title">👥 员工效率排行</h2>
+
+<table class="ovtable sortable" data-type="num">
+
+  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>2024员工</th><th>同比</th><th>人均净利</th></tr></thead>
+
+  <tbody>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-002008.html"><b>大族激光</b></a></td>
+
+        <td>002008</td>
+
+        <td>2万</td>
+
+        <td>2万</td>
+
+        <td>+24.3%</td>
+
+        <td>¥5.7万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-000988.html"><b>华工科技</b></a></td>
+
+        <td>000988</td>
+
+        <td>9462</td>
+
+        <td>8823</td>
+
+        <td>+7.2%</td>
+
+        <td>¥15.5万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300747.html"><b>锐科激光</b></a></td>
+
+        <td>300747</td>
+
+        <td>3264</td>
+
+        <td>3449</td>
+
+        <td>-5.4%</td>
+
+        <td>¥4.9万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300776.html"><b>帝尔激光</b></a></td>
+
+        <td>300776</td>
+
+        <td>1354</td>
+
+        <td>1525</td>
+
+        <td>-11.2%</td>
+
+        <td>¥38.4万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-688518.html"><b>联赢激光</b></a></td>
+
+        <td>688518</td>
+
+        <td>5614</td>
+
+        <td>4350</td>
+
+        <td>+29.1%</td>
+
+        <td>¥3.0万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-688559.html"><b>海目星</b></a></td>
+
+        <td>688559</td>
+
+        <td>6716</td>
+
+        <td>—</td>
+
+        <td>口径异常</td>
+
+        <td>¥-13.1万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-688025.html"><b>杰普特</b></a></td>
+
+        <td>688025</td>
+
+        <td>2375</td>
+
+        <td>1691</td>
+
+        <td>+40.4%</td>
+
+        <td>¥11.8万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300227.html"><b>光韵达</b></a></td>
+
+        <td>300227</td>
+
+        <td>2568</td>
+
+        <td>1760</td>
+
+        <td>+45.9%</td>
+
+        <td>¥-10.9万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300220.html"><b>金运激光</b></a></td>
+
+        <td>300220</td>
+
+        <td>294</td>
+
+        <td>282</td>
+
+        <td>+4.3%</td>
+
+        <td>—</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-laser-equip-chain-300410.html"><b>正业科技</b></a></td>
+
+        <td>300410</td>
+
+        <td>1019</td>
+
+        <td>1183</td>
+
+        <td>-13.9%</td>
+
+        <td>¥3.9万</td>
+
+      </tr></tbody>
+
+</table>
+
+
+
+<h2 class="section-title">🏢 公司索引</h2>
+
+<div class="grid">
+
+      <a class="giant-card" href="./berkshire-laser-equip-chain-002008.html">
+
+        <div class="gc-title">大族激光</div>
+
+        <div class="gc-code">002008</div>
+
+        <div class="gc-meta">PE 52.7 · PB 5.07 · ROE 7.1%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-laser-equip-chain-000988.html">
+
+        <div class="gc-title">华工科技</div>
+
+        <div class="gc-code">000988</div>
+
+        <div class="gc-meta">PE 64.0 · PB 9.31 · ROE 13.8%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-laser-equip-chain-300747.html">
+
+        <div class="gc-title">锐科激光</div>
+
+        <div class="gc-code">300747</div>
+
+        <div class="gc-meta">PE 75.4 · PB 5.42 · ROE 4.8%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-laser-equip-chain-300776.html">
+
+        <div class="gc-title">帝尔激光</div>
+
+        <div class="gc-code">300776</div>
+
+        <div class="gc-meta">PE 60.7 · PB 8.01 · ROE 14.1%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-laser-equip-chain-688518.html">
+
+        <div class="gc-title">联赢激光</div>
+
+        <div class="gc-code">688518</div>
+
+        <div class="gc-meta">PE 35.7 · PB 1.80 · ROE 5.2%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-laser-equip-chain-688559.html">
+
+        <div class="gc-title">海目星</div>
+
+        <div class="gc-code">688559</div>
+
+        <div class="gc-meta">PE -15.6 · PB 4.28 · ROE -31.4%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-laser-equip-chain-688025.html">
+
+        <div class="gc-title">杰普特</div>
+
+        <div class="gc-code">688025</div>
+
+        <div class="gc-meta">PE 91.1 · PB 12.90 · ROE 12.9%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-laser-equip-chain-300227.html">
+
+        <div class="gc-title">光韵达</div>
+
+        <div class="gc-code">300227</div>
+
+        <div class="gc-meta">PE -16.0 · PB 3.56 · ROE -19.0%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-laser-equip-chain-300220.html">
+
+        <div class="gc-title">金运激光</div>
+
+        <div class="gc-code">300220</div>
+
+        <div class="gc-meta">PE -349.9 · PB 22.67 · ROE 2.4%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-laser-equip-chain-300410.html">
+
+        <div class="gc-title">正业科技</div>
+
+        <div class="gc-code">300410</div>
+
+        <div class="gc-meta">PE 62.7 · PB 9.10 · ROE 15.3%</div>
+
+      </a></div>
+
+
+
+<h2 class="section-title">📚 延伸阅读</h2>
+
+<div class="grid">
+
+
+
+      <a class="giant-card" href="berkshire-laser-equip-cycle.html">
+
+        <div class="gc-icon">🔄</div>
+
+        <div class="gc-title">产业周期</div>
+
+        <div class="gc-desc">库存/价格/产能/估值四维判断周期位置。</div>
+
+      </a>
+
+      <a class="giant-card" href="berkshire-laser-equip-backtest.html">
+
+        <div class="gc-icon">📈</div>
+
+        <div class="gc-title">回测框架</div>
+
+        <div class="gc-desc">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</div>
+
+      </a>
+
+      <a class="giant-card" href="berkshire-laser-equip-repomap.html">
+
+        <div class="gc-icon">🗺️</div>
+
+        <div class="gc-title">回购地图</div>
+
+        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分，逐家拆解。</div>
+
+      </a></div>
+
+
+
+<div class="source-note">
+
+  数据来源：akshare / 同花顺 / 巨潮资讯网 · 数据日期：2026-08-09 · 仅供参考，不构成投资建议
+
+</div>
+
+
+
+</div>
+
+
+
+<script src="./analytics.js"></script>
+
+<script src="./tdx-link.js"></script>
+
+<script>
+
+document.addEventListener('DOMContentLoaded',function(){
+
+  document.querySelectorAll('.sortable').forEach(function(t){
+
+    t.querySelectorAll('th').forEach(function(th,i){
+
+      th.addEventListener('click',function(){
+
+        var d=t.querySelector('tbody');
+
+        var rows=Array.from(d.querySelectorAll('tr'));
+
+        var asc=th.classList.contains('sorted-asc');
+
+        th.classList.remove('sorted-asc','sorted-desc');
+
+        rows.sort(function(a,b){
+
+          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+
+          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+
+          av=parseFloat(av); bv=parseFloat(bv);
+
+          return asc?bv-av:av-bv;
+
+        });
+
+        th.classList.add(asc?'sorted-desc':'sorted-asc');
+
+        rows.forEach(function(r){d.appendChild(r)});
+
+      });
+
+    });
+
+  });
+
+});
+
+</script>
+
+<div class="section-title">延伸阅读 · 激光设备 7 兄弟页</div>
+
+<div class="extend-grid">
+
+<a class="extend-card" href="./berkshire-laser-equip-compare.html"><b>🥇 估值分位</b><span>激光设备（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-laser-equip-thermometer.html"><b>🌡️ 估值温度计</b><span>激光设备（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-laser-equip-buyback.html"><b>💰 回购监测</b><span>激光设备（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-laser-equip-repomap.html"><b>🗺️ 板块图谱</b><span>激光设备（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-laser-equip-backtest.html"><b>📈 五年回测</b><span>激光设备（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-laser-equip-cycle.html"><b>🔄 周期演进</b><span>激光设备（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-laser-equip-methodology.html"><b>📘 方法论说明</b><span>激光设备（估值/回购/周期研究的取值口径与可信区间）</span></a>
+
+</div>
+
+<div class="back-bar">
+
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+
+</div>
+
+</body>
+
 </html>
