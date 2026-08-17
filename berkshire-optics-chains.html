@@ -1,97 +1,191 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>光学产业链 · 调研 | 价值投资初级阶段</title>
-<link rel="stylesheet" href="./analytics.js">
-<style>
-:root {
-  --navy: #0b1f3a;
-  --navy2: #10294d;
-  --ink: #1d2b40;
-  --line: #e4e9f2;
-  --accent: #e8b84b;
-  --accent-rgb: 232,184,75;
-  --txt: #23344e;
-  --muted: #6b7a93;
-  --card: #fff;
-  --bg: #f4f7fc;
-  --green: #1f9d6b;
-  --red: #e74c3c;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
-.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
-.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
-.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
-.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
-.hero h1{font-size:28px;margin-bottom:10px;}
-.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
-.hero .stat{font-size:14px;}
-.hero .stat b{color:var(--accent);font-size:22px;display:block;}
-.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
-.data-banner b{color:var(--navy);font-weight:600}
-.container{max-width:1100px;margin:0 auto;padding:0 20px;}
-.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
-.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
-.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
-.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
-.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
-.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
-.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
-.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
-.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
-.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
-.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
-.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
-.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
-.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
-.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
-.ovtable tr:hover{background:#f4f7fc;}
-.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
-.pct-lo{background:#d1fae5;color:#065f46;}
-.pct-mid{background:#fef3c7;color:#92400e;}
-.pct-hi{background:#fee2e2;color:#991b1b;}
-.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
-.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
-.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
-.emp-badge.normal{background:#d1fae5;color:#065f46;}
-.emp-badge.warn{background:#fef3c7;color:#92400e;}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
-.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
-.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
-.gc-icon{font-size:24px;margin-bottom:8px;}
-.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
-.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
-.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
-.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
-.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
-.sortable th{cursor:pointer;user-select:none;}
-.sortable th:hover{background:var(--navy2);}
-.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
-.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
-.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
-
-.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
-.breadcrumb a{color:var(--primary-dark);text-decoration:none}
-.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
-.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
-.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
-.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
-.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
-.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
-.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
-.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
-.back-bar a:hover{background:#e8b84b;color:#fff}
-
-</style>
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>光学产业链 · 调研 | 价值投资初级阶段</title>
+
+<link rel="stylesheet" href="./analytics.js">
+
+<style>
+
+:root {
+
+  --navy: #0b1f3a;
+
+  --navy2: #10294d;
+
+  --ink: #1d2b40;
+
+  --line: #e4e9f2;
+
+  --accent: #e8b84b;
+
+  --accent-rgb: 232,184,75;
+
+  --txt: #23344e;
+
+  --muted: #6b7a93;
+
+  --card: #fff;
+
+  --bg: #f4f7fc;
+
+  --green: #1f9d6b;
+
+  --red: #e74c3c;
+
+}
+
+
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
+
+.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
+
+.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
+
+.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
+
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
+
+.hero h1{font-size:28px;margin-bottom:10px;}
+
+.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
+
+.hero .stat{font-size:14px;}
+
+.hero .stat b{color:var(--accent);font-size:22px;display:block;}
+
+.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
+
+.data-banner b{color:var(--navy);font-weight:600}
+
+.container{max-width:1100px;margin:0 auto;padding:0 20px;}
+
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
+
+.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+
+.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
+
+.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
+
+.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+
+.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
+
+.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
+
+.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
+
+.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
+
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
+
+.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
+
+.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
+
+.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+
+.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
+
+.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
+
+.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
+
+.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+
+.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
+
+.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
+
+.ovtable tr:hover{background:#f4f7fc;}
+
+.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
+
+.pct-lo{background:#d1fae5;color:#065f46;}
+
+.pct-mid{background:#fef3c7;color:#92400e;}
+
+.pct-hi{background:#fee2e2;color:#991b1b;}
+
+.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+
+.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
+
+.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
+
+.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
+
+.emp-badge.normal{background:#d1fae5;color:#065f46;}
+
+.emp-badge.warn{background:#fef3c7;color:#92400e;}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
+
+.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
+
+.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
+
+.gc-icon{font-size:24px;margin-bottom:8px;}
+
+.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+
+.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
+
+.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
+
+.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
+
+.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
+
+.sortable th{cursor:pointer;user-select:none;}
+
+.sortable th:hover{background:var(--navy2);}
+
+.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
+
+.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
+
+.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
+
+
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+
+
+</style>
+
 
 <style>
 /* v2 white-spirit template additions */
@@ -132,33 +226,60 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 .ws2-frame b{color:#3854cc}
 </style>
 
-</head>
-<body>
-
-<div class="top-bar">
-  <a href="./index.html">← 返回首页</a>
-  <span style="opacity:0.5">·</span>
-  <strong>光学产业链</strong>
-</div>
-<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>光学元件</b></div>
-
-<div class="hero">
-  <h1>🔭 光学产业链</h1>
-  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 估值/质量/景气/回报/效率 五维验证</div>
-  <div class="stats">
-    <div class="stat"><b>10</b>代表公司</div>
-    <div class="stat"><b>≈52%</b>平均PE分位</div>
-    <div class="stat"><b>≈54%</b>平均PB分位</div>
-  </div>
-</div>
-
-<div class="data-banner">
-  <b>📊 数据锚</b>：平均 PE分位 ≈52% · 平均 PB分位 ≈54% · 估值/ROE/人均盈利已 10/10 覆盖
-</div>
-
-<div class="container">
-
-<h2 class="section-title">🔔 5 维研究信号</h2>
+</head>
+
+<body>
+
+
+
+<div class="top-bar">
+
+  <a href="./index.html">← 返回首页</a>
+
+  <span style="opacity:0.5">·</span>
+
+  <strong>光学产业链</strong>
+
+</div>
+
+<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>光学元件</b></div>
+
+
+
+<div class="hero">
+
+  <h1>🔭 光学产业链</h1>
+
+  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 估值/质量/景气/回报/效率 五维验证</div>
+
+  <div class="stats">
+
+    <div class="stat"><b>10</b>代表公司</div>
+
+    <div class="stat"><b>≈52%</b>平均PE分位</div>
+
+    <div class="stat"><b>≈54%</b>平均PB分位</div>
+
+  </div>
+
+</div>
+
+
+
+<div class="data-banner">
+
+  <b>📊 数据锚</b>：平均 PE分位 ≈52% · 平均 PB分位 ≈54% · 估值/ROE/人均盈利已 10/10 覆盖
+
+</div>
+
+
+
+<div class="container">
+
+
+
+<h2 class="section-title">🔔 5 维研究信号</h2>
+
 
 <!-- ===== v2 body (per 老板截屏) START ===== -->
 <div class="ws2-counter-wrap">
@@ -172,8 +293,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 
 </div>
 <section class="ws2-section">
-  <h3>🎯 投资逻辑（8 条 · 占位框架，待人工填实）</h3>
-  <div class='ws2-logic8'><div class="item empty"><b>1️⃣ 商业模式与护城河来源</b>（占位 · 待人工填实）</div><div class="item empty"><b>2️⃣ 行业集中度与玩家分层</b>（占位 · 待人工填实）</div><div class="item empty"><b>3️⃣ 产业链上下游关系</b>（占位 · 待人工填实）</div><div class="item empty"><b>4️⃣ 周期性与价格话语权</b>（占位 · 待人工填实）</div><div class="item empty"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>（占位 · 待人工填实）</div><div class="item empty"><b>6️⃣ 估值水位与历史分位</b>（占位 · 待人工填实）</div><div class="item empty"><b>7️⃣ 主要风险事件清单</b>（占位 · 待人工填实）</div><div class="item empty"><b>8️⃣ 投资跟踪指标与反向信号</b>（占位 · 待人工填实）</div></div>
+  <h3>🎯 投资逻辑（8 条 · AI 填实（基于 10 年财报））</h3>
+  <div class='ws2-logic8'><div class="item"><b>1️⃣ 商业模式与护城河来源</b>光学元件是「机器之眼」的底层硬件，下游横跨智能手机、安防监控、车载 ADAS、VR/AR、显微镜与工业检测。本家族呈现典型的「高端精密 + 消费电子代工」双轨分化：永新光学（显微镜/条码扫描，gpm 约 39%、roe 约 10.7%）、力鼎光电（gpm 约 49%、roe 约 16.9%）、蓝特光学（棱镜，2025 营收 15.4 亿、净利 3.9 亿、roe 17.8%）凭借高精度镀膜与专利壁垒维持 35%–55% 的高毛利，属稳健现金牛；而联创电子 2023–2025 连续三年巨亏（2025 营收 82.6 亿、净利 -10.1 亿、roe -96.5%）、欧菲光曾因被苹果链剔除 2022 年单年亏 -51.8 亿、2025 净利仅 0.42 亿，说明消费电子光学环节议价权弱、客户集中风险极高。</div><div class="item"><b>2️⃣ 行业集中度与玩家分层</b>行业格局是「技术分层、赢家通吃」：高端显微镜、条码镜头、车载光学棱镜由少数专精特新企业把持，客户认证周期 2–3 年、切换成本高，形成隐形护城河；中低端手机镜头则陷入舜宇/丘钛/大立光等巨头的价格战，本家族内联合光电（2025 净利仅 927 万、roe 0.56%）、宇瞳光学（安防镜头，roe 9.3%）、凤凰光学（2025 净利 0.34 亿）均体现微利特征。车载与 AI 端侧摄像头是增量主战场，但进入 Tier1 供应链门槛陡增。</div><div class="item"><b>3️⃣ 产业链上下游关系</b>产业链位置：上游为光学玻璃、蓝宝石、塑料粒子与镀膜设备（日本 HOYA、德国肖特主导高端材料）；中游为镜片/镜头模组（本家族所在）；下游为手机整机厂、安防海康大华、车企与 VR 头显厂。本家族多处于「卖铲子给矿工」的中游，定价权取决于是否掌握非球面模压、自由曲面、晶圆级光学等独门工艺——掌握者（永新、力鼎、蓝特）享受溢价，纯组装者（欧菲光、联合光电）被上下游挤压。</div><div class="item"><b>4️⃣ 周期性与价格话语权</b>周期属性明显但非强周期：需求跟随消费电子换机周期（约 2–3 年）、汽车智能化渗透率、安防财政开支波动。2022–2023 是行业低谷（手机去库存 + 苹果链重组），2024–2025 随华为回归、车载摄像头放量、AI 眼镜预热而温和复苏。联创电子、欧菲光的亏损正是周期底部 + 客户黑天鹅叠加的结果，需警惕单一大客户依赖。</div><div class="item"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>财务质量分化极大：优质标的现金含量健康（永新 gpm 约 39%、净利率约 23%；力鼎净利率约 31%；蓝特 2025 净利率约 25%），几乎无有息负债；而联创电子 2025 净资产已缩水至 10.5 亿（较 2020 年 36 亿大幅蒸发）、roe 转负，资产负债表脆弱；欧菲光净利率长期 <1%、靠规模苦撑。投资须严格区分「高毛利精密派」与「低毛利组装派」，后者自由现金流常年为负。</div><div class="item"><b>6️⃣ 估值水位与历史分位</b>估值方法论：用 PE/PB 历史分位 + 股息率买点回测。高毛利精密龙头（永新、力鼎、蓝特）可享受溢价，但需在其roe 与 gpm 未恶化时介入；低毛利组装类（欧菲光、联合光电、凤凰光学）不具备价值投资安全边际，仅适合事件驱动博弈。当前全家族 PB 分位普遍偏低（周期下行+亏损压制），但「便宜」不等于「有安全边际」——对持续亏损标的应要求账面净现金覆盖市值。</div><div class="item"><b>7️⃣ 主要风险事件清单</b>核心风险：①单一大客户（苹果/华为/车企）订单与认证突变，欧菲光、联创即前车之鉴；②车载与 AI 端侧落地不及预期，资本开支打水漂；③上游高端光学材料（尤其是光刻级玻璃）卡脖子；④消费电子换机周期拉长导致产能利用率不足、折旧吞噬利润；⑤行业价格战向高端蔓延。</div><div class="item"><b>8️⃣ 投资跟踪指标与反向信号</b>跟踪清单：①每月手机出货量与安防招投标（影响宇瞳/联合）；②车载摄像头渗透率与 tier1 定点公告（影响联创/蓝特）；③华为/苹果新机光学规格升级（影响水晶/欧菲）；④联创电子、欧菲光是否止血扭亏、净资产是否继续缩水；⑤VR/AR 头显销量（影响蓝特/水晶）；⑥高端光学材料进口替代进展。</div></div>
 </section>
 <section class="ws2-section">
   <h3><span class="tag">DATA</span> 历史分位图 · 6 张</h3>
@@ -192,23 +313,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 </section>
 <section class="ws2-section">
   <h3>📦 投资逻辑附加：产品定位 / 竞争格局 / 产能周期（占位）</h3>
-  
-<div class="ws2-frame-placeholder">
-  <h4>📦 产品定位与投资信号</h4>
-  此处待人工填实：每家公司主打产品价格带、渠道结构、品牌力定位、批价走势等定性内容（取自年报/公开渠道）。
-  <br>可用结构：①高端品牌矩阵 ②次高端与区域龙头 ③大众价位。
-</div>
-<div class="ws2-frame-placeholder">
-  <h4>🏛 竞争格局分析</h4>
-  此处待人工填实：CR3/CR5 集中度、行业份额变迁、价格战历史、经销商生态、跨区域挤压。
-  <br>可用指标：①销量集中度（公开数据） ②价格带定价权 ③经销商话语权变化。
-</div>
-<div class="ws2-frame-placeholder">
-  <h4>🔄 产能周期与库存周期</h4>
-  此处待人工填实：产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
-  <br>可用结构：①半成品库存月数 ②终端动销与渠道库存 ③价格倒挂信号。
-</div>
-
+  <div class="ws2-frame"><h4>📦 产品定位与投资信号</h4>主营覆盖光学镜片/镜头模组（手机、安防、车载、VR）、显微镜及条码扫描光学、光学棱镜/窗片。技术分水岭在于非球面模压、自由曲面、多层镀膜与晶圆级光学工艺——永新光学（显微镜+条码，gpm≈39%）、力鼎光电（gpm≈49%）、蓝特光学（棱镜，2025 营收 15.4 亿/净利 3.9 亿）凭独门工艺守高毛利；联创电子、欧菲光、联合光电以规模组装为主，毛利率仅 10%–25%。</div><div class="ws2-frame"><h4>🏛 竞争格局分析</h4>高端精密光学呈「专精特新隐形冠军」格局（永新、力鼎、蓝特、水晶光电），客户认证壁垒 2–3 年；中低端手机镜头由舜宇/丘钛/大立光等巨头主导，本家族内联合光电、宇瞳光学、凤凰光学处于红海微利层。水晶光电（2025 营收 69.3 亿/净利 11.7 亿）薄膜光学龙头横跨多赛道，是家族内最均衡的标的。</div><div class="ws2-frame"><h4>🔄 产能周期与库存周期</h4>本家族产能跟随消费电子与车载需求扩产，2022–2023 低谷期产能利用率低、折旧压力陡增（联创、欧菲光的亏损主因之一）。车载光学与 AI 端侧摄像头是新增产能投向，蓝特、水晶、联创均有扩产计划；但高端光学产能（如自由曲面模压线）建设周期长、良率是核心壁垒，低端产能则易过剩。</div>
 </section>
 <section class="ws2-section">
   <h3>🐴 白马型 vs 周期型一览（基于 10 年财报自动分类）</h3>
@@ -235,452 +340,900 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 </section>
 <!-- ===== v2 body END ===== -->
 
-<div class="research-signal">
-  <div class="rs-grid">
-    <div class="rs-item"><div class="rs-label">估值信号</div><div class="rs-val">估值历史分位 → 当前位置 + 平均分位</div><div style="font-size:10px;color:var(--muted);margin-top:4px">估</div></div><div class="rs-item"><div class="rs-label">质量信号</div><div class="rs-val">ROE/毛利率/净利率 → 龙头质量</div><div style="font-size:10px;color:var(--muted);margin-top:4px">质</div></div><div class="rs-item"><div class="rs-label">景气信号</div><div class="rs-val">营收/利润同比 → 行业景气</div><div style="font-size:10px;color:var(--muted);margin-top:4px">景</div></div><div class="rs-item"><div class="rs-label">回报信号</div><div class="rs-val">股息率 + 回购 → 股东回报</div><div style="font-size:10px;color:var(--muted);margin-top:4px">回</div></div><div class="rs-item"><div class="rs-label">人效信号</div><div class="rs-val">人均创收/人均净利 → 经营效率</div><div style="font-size:10px;color:var(--muted);margin-top:4px">效</div></div>
-  </div>
-</div>
-
-<h2 class="section-title">🏛 5 层分析框架</h2>
-<div class="layers">
-      <div class="layer-card">
-        <div class="layer-num">01</div>
-        <div class="layer-name">上游成本</div>
-        <div class="layer-text">原材料/零部件供应，价格波动传导与议价能力。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">02</div>
-        <div class="layer-name">中游制造</div>
-        <div class="layer-text">产能利用率与规模效应，决定盈利波动。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">03</div>
-        <div class="layer-name">下游应用</div>
-        <div class="layer-text">终端需求景气与渗透率变化。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">04</div>
-        <div class="layer-name">竞争格局</div>
-        <div class="layer-text">集中度、龙头溢价、护城河深浅。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">05</div>
-        <div class="layer-name">投资逻辑</div>
-        <div class="layer-text">周期位置 + 估值锚 + 人效 + 机构共识 四维验证。</div>
-      </div></div>
-
-<h2 class="section-title">💬 人话版 · 实战信号</h2>
-<div class="human-block">
-  <p><b>看产业链核心是「周期位置 + 护城河 + 估值锚」三维交叉验证。</b></p>
-  <ul style="margin-top:12px;padding-left:20px;line-height:1.8">
-    <li>先看周期位置：库存/价格/产能/估值 四维判断当前位置。</li><li>再看护城河：龙头集中度 + 规模效应 + 准入壁垒。</li><li>然后看估值锚：PE/PB 历史分位 + 同行业可比 + 跨市场对比。</li><li>警惕陷阱：低估值不等于低估，可能反映景气下行。</li><li>实战信号：股息率 + 回购 + 机构持仓 三路验证。</li>
-  </ul>
-</div>
-
-<h2 class="section-title">🔄 产业周期判断标准</h2>
-<div class="cycle-block">
-  <p><b>驱动因素：</b>行业景气由供需结构 + 政策周期 + 货币环境 + 库存周期 共同决定。</p>
-  <div class="cycle-grid">
-    <div><b>供需</b>产能利用率/订单饱满度/价格传导</div><div><b>库存</b>主动累库/被动累库/主动去库</div><div><b>价格</b>原料价格/出厂价/终端价</div><div><b>估值</b>PE/PB 历史分位 + 行业相对估值</div>
-  </div>
-  <p style="margin-top:14px"><b>历史案例：</b>复盘 2018-2020 周期：估值低位 + 业绩拐点 + 产业政策利好 三共振时胜率最高。</p>
-  <p style="margin-top:8px"><b>当前位置：</b>当前多数子行业估值历史分位偏低，部分龙头股息率创近 5 年新高，景气底部信号渐显。</p>
-</div>
-
-<h2 class="section-title">📈 估值历史分位总览</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-optics-chain-002456.html"><b>欧菲光</b></a></td>
-        <td>002456</td>
-        <td>-158.8 <span class="pct pct-lo">12%</span></td>
-        <td>6.19 <span class="pct pct-hi">64%</span></td>
-        <td>1.1%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-002036.html"><b>联创电子</b></a></td>
-        <td>002036</td>
-        <td>-6.9 <span class="pct pct-lo">32%</span></td>
-        <td>7.92 <span class="pct pct-hi">94%</span></td>
-        <td>-62.6%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-002273.html"><b>水晶光电</b></a></td>
-        <td>002273</td>
-        <td>31.7 <span class="pct pct-mid">40%</span></td>
-        <td>3.73 <span class="pct pct-hi">67%</span></td>
-        <td>12.5%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-688127.html"><b>蓝特光学</b></a></td>
-        <td>688127</td>
-        <td>52.7 <span class="pct pct-mid">45%</span></td>
-        <td>10.67 <span class="pct pct-hi">91%</span></td>
-        <td>19.4%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-688010.html"><b>福光股份</b></a></td>
-        <td>688010</td>
-        <td>276.9 <span class="pct pct-hi">80%</span></td>
-        <td>2.34 <span class="pct pct-mid">43%</span></td>
-        <td>0.7%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-300790.html"><b>宇瞳光学</b></a></td>
-        <td>300790</td>
-        <td>32.7 <span class="pct pct-lo">13%</span></td>
-        <td>3.06 <span class="pct pct-lo">27%</span></td>
-        <td>9.7%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-603297.html"><b>永新光学</b></a></td>
-        <td>603297</td>
-        <td>47.5 <span class="pct pct-hi">78%</span></td>
-        <td>4.75 <span class="pct pct-mid">45%</span></td>
-        <td>11.0%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-605118.html"><b>力鼎光电</b></a></td>
-        <td>605118</td>
-        <td>41.6 <span class="pct pct-mid">47%</span></td>
-        <td>7.03 <span class="pct pct-hi">78%</span></td>
-        <td>17.1%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-600071.html"><b>凤凰光学</b></a></td>
-        <td>600071</td>
-        <td>138.3 <span class="pct pct-hi">77%</span></td>
-        <td>7.84 <span class="pct pct-lo">29%</span></td>
-        <td>7.0%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-300691.html"><b>联合光电</b></a></td>
-        <td>300691</td>
-        <td>110.0 <span class="pct pct-hi">90%</span></td>
-        <td>1.96 <span class="pct pct-lo">1%</span></td>
-        <td>0.6%</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">⚖ R15 三维评级总览</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-optics-chain-002456.html"><b>欧菲光</b></a></td>
-        <td>-158.8</td>
-        <td>6.19</td>
-        <td>★★★★★</td>
-        <td>★</td>
-        <td>6</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-002036.html"><b>联创电子</b></a></td>
-        <td>-6.9</td>
-        <td>7.92</td>
-        <td>★★</td>
-        <td>★</td>
-        <td>4</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-002273.html"><b>水晶光电</b></a></td>
-        <td>31.7</td>
-        <td>3.73</td>
-        <td>★★★</td>
-        <td>★★★★</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-688127.html"><b>蓝特光学</b></a></td>
-        <td>52.7</td>
-        <td>10.67</td>
-        <td>★★★</td>
-        <td>★★★★★</td>
-        <td>3</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-688010.html"><b>福光股份</b></a></td>
-        <td>276.9</td>
-        <td>2.34</td>
-        <td>★</td>
-        <td>★</td>
-        <td>4</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-300790.html"><b>宇瞳光学</b></a></td>
-        <td>32.7</td>
-        <td>3.06</td>
-        <td>★★★★★</td>
-        <td>★★</td>
-        <td>8</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-603297.html"><b>永新光学</b></a></td>
-        <td>47.5</td>
-        <td>4.75</td>
-        <td>★</td>
-        <td>★★★</td>
-        <td>4</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-605118.html"><b>力鼎光电</b></a></td>
-        <td>41.6</td>
-        <td>7.03</td>
-        <td>★★★</td>
-        <td>★★★★★</td>
-        <td>4</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-600071.html"><b>凤凰光学</b></a></td>
-        <td>138.3</td>
-        <td>7.84</td>
-        <td>★</td>
-        <td>★★</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-300691.html"><b>联合光电</b></a></td>
-        <td>110.0</td>
-        <td>1.96</td>
-        <td>★</td>
-        <td>★</td>
-        <td>5</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">🏭 产业链成本传导</h2>
-
-    <div class="cost-block">
-      <h3>产业链成本传导路径</h3>
-      <svg viewBox="0 0 800 140" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="arr-ac" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-            <polygon points="0 0, 8 4, 0 8" fill="#0ea5e9"/>
-          </marker>
-        </defs>
-        <g>
-          <rect x="15" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
-          <text x="80" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游原材料</text>
-        </g>
-        <g>
-          <rect x="215" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
-          <text x="280" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游加工</text>
-        </g>
-        <g>
-          <rect x="415" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
-          <text x="480" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游品牌</text>
-        </g>
-        <g>
-          <rect x="615" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
-          <text x="680" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">需求弹性</text>
-        </g>
-        <line x1="145" y1="52" x2="215" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-        <line x1="345" y1="52" x2="415" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-        <line x1="545" y1="52" x2="615" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-      </svg>
-      <p class="cost-note">成本传导关键看议价能力与库存周期：龙头凭借规模优势可锁定上游成本；中小厂商在价格上行期被动跟涨、在下行期被迫降价。</p>
-    </div>
-
-<h2 class="section-title">👥 员工效率排行</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>2024员工</th><th>同比</th><th>人均净利</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-optics-chain-002456.html"><b>欧菲光</b></a></td>
-        <td>002456</td>
-        <td>1万</td>
-        <td>1万</td>
-        <td>+2.5%</td>
-        <td>¥0.4万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-002036.html"><b>联创电子</b></a></td>
-        <td>002036</td>
-        <td>1万</td>
-        <td>1万</td>
-        <td>+3.7%</td>
-        <td>¥-7.5万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-002273.html"><b>水晶光电</b></a></td>
-        <td>002273</td>
-        <td>8721</td>
-        <td>8180</td>
-        <td>+6.6%</td>
-        <td>¥13.4万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-688127.html"><b>蓝特光学</b></a></td>
-        <td>688127</td>
-        <td>2991</td>
-        <td>2333</td>
-        <td>+28.2%</td>
-        <td>¥13.0万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-688010.html"><b>福光股份</b></a></td>
-        <td>688010</td>
-        <td>1855</td>
-        <td>1815</td>
-        <td>+2.2%</td>
-        <td>¥0.5万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-300790.html"><b>宇瞳光学</b></a></td>
-        <td>300790</td>
-        <td>3432</td>
-        <td>3087</td>
-        <td>+11.2%</td>
-        <td>¥7.3万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-603297.html"><b>永新光学</b></a></td>
-        <td>603297</td>
-        <td>1365</td>
-        <td>1334</td>
-        <td>+2.3%</td>
-        <td>¥16.1万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-605118.html"><b>力鼎光电</b></a></td>
-        <td>605118</td>
-        <td>1334</td>
-        <td>1468</td>
-        <td>-9.1%</td>
-        <td>¥19.5万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-600071.html"><b>凤凰光学</b></a></td>
-        <td>600071</td>
-        <td>2266</td>
-        <td>2878</td>
-        <td>-21.3%</td>
-        <td>¥1.3万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-optics-chain-300691.html"><b>联合光电</b></a></td>
-        <td>300691</td>
-        <td>2414</td>
-        <td>—</td>
-        <td>口径异常</td>
-        <td>¥0.4万</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">🏢 公司索引</h2>
-<div class="grid">
-      <a class="giant-card" href="./berkshire-optics-chain-002456.html">
-        <div class="gc-title">欧菲光</div>
-        <div class="gc-code">002456</div>
-        <div class="gc-meta">PE -158.8 · PB 6.19 · ROE 1.1%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-optics-chain-002036.html">
-        <div class="gc-title">联创电子</div>
-        <div class="gc-code">002036</div>
-        <div class="gc-meta">PE -6.9 · PB 7.92 · ROE -62.6%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-optics-chain-002273.html">
-        <div class="gc-title">水晶光电</div>
-        <div class="gc-code">002273</div>
-        <div class="gc-meta">PE 31.7 · PB 3.73 · ROE 12.5%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-optics-chain-688127.html">
-        <div class="gc-title">蓝特光学</div>
-        <div class="gc-code">688127</div>
-        <div class="gc-meta">PE 52.7 · PB 10.67 · ROE 19.4%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-optics-chain-688010.html">
-        <div class="gc-title">福光股份</div>
-        <div class="gc-code">688010</div>
-        <div class="gc-meta">PE 276.9 · PB 2.34 · ROE 0.7%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-optics-chain-300790.html">
-        <div class="gc-title">宇瞳光学</div>
-        <div class="gc-code">300790</div>
-        <div class="gc-meta">PE 32.7 · PB 3.06 · ROE 9.7%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-optics-chain-603297.html">
-        <div class="gc-title">永新光学</div>
-        <div class="gc-code">603297</div>
-        <div class="gc-meta">PE 47.5 · PB 4.75 · ROE 11.0%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-optics-chain-605118.html">
-        <div class="gc-title">力鼎光电</div>
-        <div class="gc-code">605118</div>
-        <div class="gc-meta">PE 41.6 · PB 7.03 · ROE 17.1%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-optics-chain-600071.html">
-        <div class="gc-title">凤凰光学</div>
-        <div class="gc-code">600071</div>
-        <div class="gc-meta">PE 138.3 · PB 7.84 · ROE 7.0%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-optics-chain-300691.html">
-        <div class="gc-title">联合光电</div>
-        <div class="gc-code">300691</div>
-        <div class="gc-meta">PE 110.0 · PB 1.96 · ROE 0.6%</div>
-      </a></div>
-
-<h2 class="section-title">📚 延伸阅读</h2>
-<div class="grid">
-
-      <a class="giant-card" href="berkshire-optics-cycle.html">
-        <div class="gc-icon">🔄</div>
-        <div class="gc-title">产业周期</div>
-        <div class="gc-desc">库存/价格/产能/估值四维判断周期位置。</div>
-      </a>
-      <a class="giant-card" href="berkshire-optics-backtest.html">
-        <div class="gc-icon">📈</div>
-        <div class="gc-title">回测框架</div>
-        <div class="gc-desc">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</div>
-      </a>
-      <a class="giant-card" href="./berkshire-optics-buyback.html">
-        <div class="gc-icon">💰</div>
-        <div class="gc-title">逐轮买点回报图</div>
-        <div class="gc-desc">三轮全市场大底买入并持有的后复权累计回报。</div>
-      </a>      <a class="giant-card" href="berkshire-optics-repomap.html">
-        <div class="gc-icon">🗺️</div>
-        <div class="gc-title">回购地图</div>
-        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分，逐家拆解。</div>
-      </a></div>
-
-<div class="source-note">
-  数据来源：akshare / 同花顺 / 巨潮资讯网 · 数据日期：2026-08-09 · 仅供参考，不构成投资建议
-</div>
-
-</div>
-
-<script src="./analytics.js"></script>
-<script src="./tdx-link.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.sortable').forEach(function(t){
-    t.querySelectorAll('th').forEach(function(th,i){
-      th.addEventListener('click',function(){
-        var d=t.querySelector('tbody');
-        var rows=Array.from(d.querySelectorAll('tr'));
-        var asc=th.classList.contains('sorted-asc');
-        th.classList.remove('sorted-asc','sorted-desc');
-        rows.sort(function(a,b){
-          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          av=parseFloat(av); bv=parseFloat(bv);
-          return asc?bv-av:av-bv;
-        });
-        th.classList.add(asc?'sorted-desc':'sorted-asc');
-        rows.forEach(function(r){d.appendChild(r)});
-      });
-    });
-  });
-});
-</script>
-<div class="section-title">延伸阅读 · 光学元件 7 兄弟页</div>
-<div class="extend-grid">
-<a class="extend-card" href="./berkshire-optics-compare.html"><b>🥇 估值分位</b><span>光学元件（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-optics-thermometer.html"><b>🌡️ 估值温度计</b><span>光学元件（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-optics-buyback.html"><b>💰 回购监测</b><span>光学元件（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-optics-repomap.html"><b>🗺️ 板块图谱</b><span>光学元件（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-optics-backtest.html"><b>📈 五年回测</b><span>光学元件（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-optics-cycle.html"><b>🔄 周期演进</b><span>光学元件（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-optics-methodology.html"><b>📘 方法论说明</b><span>光学元件（估值/回购/周期研究的取值口径与可信区间）</span></a>
-</div>
-<div class="back-bar">
-<a href="./berkshire-chain-map.html">← 全链索引</a>
-<a href="./berkshire-standalone.html">← 数据中心首页</a>
-</div>
-</body>
+<div class="research-signal">
+
+  <div class="rs-grid">
+
+    <div class="rs-item"><div class="rs-label">估值信号</div><div class="rs-val">估值历史分位 → 当前位置 + 平均分位</div><div style="font-size:10px;color:var(--muted);margin-top:4px">估</div></div><div class="rs-item"><div class="rs-label">质量信号</div><div class="rs-val">ROE/毛利率/净利率 → 龙头质量</div><div style="font-size:10px;color:var(--muted);margin-top:4px">质</div></div><div class="rs-item"><div class="rs-label">景气信号</div><div class="rs-val">营收/利润同比 → 行业景气</div><div style="font-size:10px;color:var(--muted);margin-top:4px">景</div></div><div class="rs-item"><div class="rs-label">回报信号</div><div class="rs-val">股息率 + 回购 → 股东回报</div><div style="font-size:10px;color:var(--muted);margin-top:4px">回</div></div><div class="rs-item"><div class="rs-label">人效信号</div><div class="rs-val">人均创收/人均净利 → 经营效率</div><div style="font-size:10px;color:var(--muted);margin-top:4px">效</div></div>
+
+  </div>
+
+</div>
+
+
+
+<h2 class="section-title">🏛 5 层分析框架</h2>
+
+<div class="layers">
+
+      <div class="layer-card">
+
+        <div class="layer-num">01</div>
+
+        <div class="layer-name">上游成本</div>
+
+        <div class="layer-text">原材料/零部件供应，价格波动传导与议价能力。</div>
+
+      </div>
+
+      <div class="layer-card">
+
+        <div class="layer-num">02</div>
+
+        <div class="layer-name">中游制造</div>
+
+        <div class="layer-text">产能利用率与规模效应，决定盈利波动。</div>
+
+      </div>
+
+      <div class="layer-card">
+
+        <div class="layer-num">03</div>
+
+        <div class="layer-name">下游应用</div>
+
+        <div class="layer-text">终端需求景气与渗透率变化。</div>
+
+      </div>
+
+      <div class="layer-card">
+
+        <div class="layer-num">04</div>
+
+        <div class="layer-name">竞争格局</div>
+
+        <div class="layer-text">集中度、龙头溢价、护城河深浅。</div>
+
+      </div>
+
+      <div class="layer-card">
+
+        <div class="layer-num">05</div>
+
+        <div class="layer-name">投资逻辑</div>
+
+        <div class="layer-text">周期位置 + 估值锚 + 人效 + 机构共识 四维验证。</div>
+
+      </div></div>
+
+
+
+<h2 class="section-title">💬 人话版 · 实战信号</h2>
+
+<div class="human-block">
+
+  <p><b>看产业链核心是「周期位置 + 护城河 + 估值锚」三维交叉验证。</b></p>
+
+  <ul style="margin-top:12px;padding-left:20px;line-height:1.8">
+
+    <li>先看周期位置：库存/价格/产能/估值 四维判断当前位置。</li><li>再看护城河：龙头集中度 + 规模效应 + 准入壁垒。</li><li>然后看估值锚：PE/PB 历史分位 + 同行业可比 + 跨市场对比。</li><li>警惕陷阱：低估值不等于低估，可能反映景气下行。</li><li>实战信号：股息率 + 回购 + 机构持仓 三路验证。</li>
+
+  </ul>
+
+</div>
+
+
+
+<h2 class="section-title">🔄 产业周期判断标准</h2>
+
+<div class="cycle-block">
+
+  <p><b>驱动因素：</b>行业景气由供需结构 + 政策周期 + 货币环境 + 库存周期 共同决定。</p>
+
+  <div class="cycle-grid">
+
+    <div><b>供需</b>产能利用率/订单饱满度/价格传导</div><div><b>库存</b>主动累库/被动累库/主动去库</div><div><b>价格</b>原料价格/出厂价/终端价</div><div><b>估值</b>PE/PB 历史分位 + 行业相对估值</div>
+
+  </div>
+
+  <p style="margin-top:14px"><b>历史案例：</b>复盘 2018-2020 周期：估值低位 + 业绩拐点 + 产业政策利好 三共振时胜率最高。</p>
+
+  <p style="margin-top:8px"><b>当前位置：</b>当前多数子行业估值历史分位偏低，部分龙头股息率创近 5 年新高，景气底部信号渐显。</p>
+
+</div>
+
+
+
+<h2 class="section-title">📈 估值历史分位总览</h2>
+
+<table class="ovtable sortable" data-type="num">
+
+  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
+
+  <tbody>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-002456.html"><b>欧菲光</b></a></td>
+
+        <td>002456</td>
+
+        <td>-158.8 <span class="pct pct-lo">12%</span></td>
+
+        <td>6.19 <span class="pct pct-hi">64%</span></td>
+
+        <td>1.1%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-002036.html"><b>联创电子</b></a></td>
+
+        <td>002036</td>
+
+        <td>-6.9 <span class="pct pct-lo">32%</span></td>
+
+        <td>7.92 <span class="pct pct-hi">94%</span></td>
+
+        <td>-62.6%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-002273.html"><b>水晶光电</b></a></td>
+
+        <td>002273</td>
+
+        <td>31.7 <span class="pct pct-mid">40%</span></td>
+
+        <td>3.73 <span class="pct pct-hi">67%</span></td>
+
+        <td>12.5%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-688127.html"><b>蓝特光学</b></a></td>
+
+        <td>688127</td>
+
+        <td>52.7 <span class="pct pct-mid">45%</span></td>
+
+        <td>10.67 <span class="pct pct-hi">91%</span></td>
+
+        <td>19.4%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-688010.html"><b>福光股份</b></a></td>
+
+        <td>688010</td>
+
+        <td>276.9 <span class="pct pct-hi">80%</span></td>
+
+        <td>2.34 <span class="pct pct-mid">43%</span></td>
+
+        <td>0.7%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-300790.html"><b>宇瞳光学</b></a></td>
+
+        <td>300790</td>
+
+        <td>32.7 <span class="pct pct-lo">13%</span></td>
+
+        <td>3.06 <span class="pct pct-lo">27%</span></td>
+
+        <td>9.7%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-603297.html"><b>永新光学</b></a></td>
+
+        <td>603297</td>
+
+        <td>47.5 <span class="pct pct-hi">78%</span></td>
+
+        <td>4.75 <span class="pct pct-mid">45%</span></td>
+
+        <td>11.0%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-605118.html"><b>力鼎光电</b></a></td>
+
+        <td>605118</td>
+
+        <td>41.6 <span class="pct pct-mid">47%</span></td>
+
+        <td>7.03 <span class="pct pct-hi">78%</span></td>
+
+        <td>17.1%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-600071.html"><b>凤凰光学</b></a></td>
+
+        <td>600071</td>
+
+        <td>138.3 <span class="pct pct-hi">77%</span></td>
+
+        <td>7.84 <span class="pct pct-lo">29%</span></td>
+
+        <td>7.0%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-300691.html"><b>联合光电</b></a></td>
+
+        <td>300691</td>
+
+        <td>110.0 <span class="pct pct-hi">90%</span></td>
+
+        <td>1.96 <span class="pct pct-lo">1%</span></td>
+
+        <td>0.6%</td>
+
+      </tr></tbody>
+
+</table>
+
+
+
+<h2 class="section-title">⚖ R15 三维评级总览</h2>
+
+<table class="ovtable sortable" data-type="num">
+
+  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
+
+  <tbody>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-002456.html"><b>欧菲光</b></a></td>
+
+        <td>-158.8</td>
+
+        <td>6.19</td>
+
+        <td>★★★★★</td>
+
+        <td>★</td>
+
+        <td>6</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-002036.html"><b>联创电子</b></a></td>
+
+        <td>-6.9</td>
+
+        <td>7.92</td>
+
+        <td>★★</td>
+
+        <td>★</td>
+
+        <td>4</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-002273.html"><b>水晶光电</b></a></td>
+
+        <td>31.7</td>
+
+        <td>3.73</td>
+
+        <td>★★★</td>
+
+        <td>★★★★</td>
+
+        <td>5</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-688127.html"><b>蓝特光学</b></a></td>
+
+        <td>52.7</td>
+
+        <td>10.67</td>
+
+        <td>★★★</td>
+
+        <td>★★★★★</td>
+
+        <td>3</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-688010.html"><b>福光股份</b></a></td>
+
+        <td>276.9</td>
+
+        <td>2.34</td>
+
+        <td>★</td>
+
+        <td>★</td>
+
+        <td>4</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-300790.html"><b>宇瞳光学</b></a></td>
+
+        <td>32.7</td>
+
+        <td>3.06</td>
+
+        <td>★★★★★</td>
+
+        <td>★★</td>
+
+        <td>8</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-603297.html"><b>永新光学</b></a></td>
+
+        <td>47.5</td>
+
+        <td>4.75</td>
+
+        <td>★</td>
+
+        <td>★★★</td>
+
+        <td>4</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-605118.html"><b>力鼎光电</b></a></td>
+
+        <td>41.6</td>
+
+        <td>7.03</td>
+
+        <td>★★★</td>
+
+        <td>★★★★★</td>
+
+        <td>4</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-600071.html"><b>凤凰光学</b></a></td>
+
+        <td>138.3</td>
+
+        <td>7.84</td>
+
+        <td>★</td>
+
+        <td>★★</td>
+
+        <td>5</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-300691.html"><b>联合光电</b></a></td>
+
+        <td>110.0</td>
+
+        <td>1.96</td>
+
+        <td>★</td>
+
+        <td>★</td>
+
+        <td>5</td>
+
+      </tr></tbody>
+
+</table>
+
+
+
+<h2 class="section-title">🏭 产业链成本传导</h2>
+
+
+
+    <div class="cost-block">
+
+      <h3>产业链成本传导路径</h3>
+
+      <svg viewBox="0 0 800 140" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
+
+        <defs>
+
+          <marker id="arr-ac" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+
+            <polygon points="0 0, 8 4, 0 8" fill="#0ea5e9"/>
+
+          </marker>
+
+        </defs>
+
+        <g>
+
+          <rect x="15" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
+
+          <text x="80" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游原材料</text>
+
+        </g>
+
+        <g>
+
+          <rect x="215" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
+
+          <text x="280" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游加工</text>
+
+        </g>
+
+        <g>
+
+          <rect x="415" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
+
+          <text x="480" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游品牌</text>
+
+        </g>
+
+        <g>
+
+          <rect x="615" y="30" width="130" height="44" rx="6" fill="white" stroke="#0ea5e9" stroke-width="1.5"/>
+
+          <text x="680" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">需求弹性</text>
+
+        </g>
+
+        <line x1="145" y1="52" x2="215" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+
+        <line x1="345" y1="52" x2="415" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+
+        <line x1="545" y1="52" x2="615" y2="52" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+
+      </svg>
+
+      <p class="cost-note">成本传导关键看议价能力与库存周期：龙头凭借规模优势可锁定上游成本；中小厂商在价格上行期被动跟涨、在下行期被迫降价。</p>
+
+    </div>
+
+
+
+<h2 class="section-title">👥 员工效率排行</h2>
+
+<table class="ovtable sortable" data-type="num">
+
+  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>2024员工</th><th>同比</th><th>人均净利</th></tr></thead>
+
+  <tbody>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-002456.html"><b>欧菲光</b></a></td>
+
+        <td>002456</td>
+
+        <td>1万</td>
+
+        <td>1万</td>
+
+        <td>+2.5%</td>
+
+        <td>¥0.4万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-002036.html"><b>联创电子</b></a></td>
+
+        <td>002036</td>
+
+        <td>1万</td>
+
+        <td>1万</td>
+
+        <td>+3.7%</td>
+
+        <td>¥-7.5万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-002273.html"><b>水晶光电</b></a></td>
+
+        <td>002273</td>
+
+        <td>8721</td>
+
+        <td>8180</td>
+
+        <td>+6.6%</td>
+
+        <td>¥13.4万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-688127.html"><b>蓝特光学</b></a></td>
+
+        <td>688127</td>
+
+        <td>2991</td>
+
+        <td>2333</td>
+
+        <td>+28.2%</td>
+
+        <td>¥13.0万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-688010.html"><b>福光股份</b></a></td>
+
+        <td>688010</td>
+
+        <td>1855</td>
+
+        <td>1815</td>
+
+        <td>+2.2%</td>
+
+        <td>¥0.5万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-300790.html"><b>宇瞳光学</b></a></td>
+
+        <td>300790</td>
+
+        <td>3432</td>
+
+        <td>3087</td>
+
+        <td>+11.2%</td>
+
+        <td>¥7.3万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-603297.html"><b>永新光学</b></a></td>
+
+        <td>603297</td>
+
+        <td>1365</td>
+
+        <td>1334</td>
+
+        <td>+2.3%</td>
+
+        <td>¥16.1万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-605118.html"><b>力鼎光电</b></a></td>
+
+        <td>605118</td>
+
+        <td>1334</td>
+
+        <td>1468</td>
+
+        <td>-9.1%</td>
+
+        <td>¥19.5万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-600071.html"><b>凤凰光学</b></a></td>
+
+        <td>600071</td>
+
+        <td>2266</td>
+
+        <td>2878</td>
+
+        <td>-21.3%</td>
+
+        <td>¥1.3万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-optics-chain-300691.html"><b>联合光电</b></a></td>
+
+        <td>300691</td>
+
+        <td>2414</td>
+
+        <td>—</td>
+
+        <td>口径异常</td>
+
+        <td>¥0.4万</td>
+
+      </tr></tbody>
+
+</table>
+
+
+
+<h2 class="section-title">🏢 公司索引</h2>
+
+<div class="grid">
+
+      <a class="giant-card" href="./berkshire-optics-chain-002456.html">
+
+        <div class="gc-title">欧菲光</div>
+
+        <div class="gc-code">002456</div>
+
+        <div class="gc-meta">PE -158.8 · PB 6.19 · ROE 1.1%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-optics-chain-002036.html">
+
+        <div class="gc-title">联创电子</div>
+
+        <div class="gc-code">002036</div>
+
+        <div class="gc-meta">PE -6.9 · PB 7.92 · ROE -62.6%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-optics-chain-002273.html">
+
+        <div class="gc-title">水晶光电</div>
+
+        <div class="gc-code">002273</div>
+
+        <div class="gc-meta">PE 31.7 · PB 3.73 · ROE 12.5%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-optics-chain-688127.html">
+
+        <div class="gc-title">蓝特光学</div>
+
+        <div class="gc-code">688127</div>
+
+        <div class="gc-meta">PE 52.7 · PB 10.67 · ROE 19.4%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-optics-chain-688010.html">
+
+        <div class="gc-title">福光股份</div>
+
+        <div class="gc-code">688010</div>
+
+        <div class="gc-meta">PE 276.9 · PB 2.34 · ROE 0.7%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-optics-chain-300790.html">
+
+        <div class="gc-title">宇瞳光学</div>
+
+        <div class="gc-code">300790</div>
+
+        <div class="gc-meta">PE 32.7 · PB 3.06 · ROE 9.7%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-optics-chain-603297.html">
+
+        <div class="gc-title">永新光学</div>
+
+        <div class="gc-code">603297</div>
+
+        <div class="gc-meta">PE 47.5 · PB 4.75 · ROE 11.0%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-optics-chain-605118.html">
+
+        <div class="gc-title">力鼎光电</div>
+
+        <div class="gc-code">605118</div>
+
+        <div class="gc-meta">PE 41.6 · PB 7.03 · ROE 17.1%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-optics-chain-600071.html">
+
+        <div class="gc-title">凤凰光学</div>
+
+        <div class="gc-code">600071</div>
+
+        <div class="gc-meta">PE 138.3 · PB 7.84 · ROE 7.0%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-optics-chain-300691.html">
+
+        <div class="gc-title">联合光电</div>
+
+        <div class="gc-code">300691</div>
+
+        <div class="gc-meta">PE 110.0 · PB 1.96 · ROE 0.6%</div>
+
+      </a></div>
+
+
+
+<h2 class="section-title">📚 延伸阅读</h2>
+
+<div class="grid">
+
+
+
+      <a class="giant-card" href="berkshire-optics-cycle.html">
+
+        <div class="gc-icon">🔄</div>
+
+        <div class="gc-title">产业周期</div>
+
+        <div class="gc-desc">库存/价格/产能/估值四维判断周期位置。</div>
+
+      </a>
+
+      <a class="giant-card" href="berkshire-optics-backtest.html">
+
+        <div class="gc-icon">📈</div>
+
+        <div class="gc-title">回测框架</div>
+
+        <div class="gc-desc">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-optics-buyback.html">
+
+        <div class="gc-icon">💰</div>
+
+        <div class="gc-title">逐轮买点回报图</div>
+
+        <div class="gc-desc">三轮全市场大底买入并持有的后复权累计回报。</div>
+
+      </a>      <a class="giant-card" href="berkshire-optics-repomap.html">
+
+        <div class="gc-icon">🗺️</div>
+
+        <div class="gc-title">回购地图</div>
+
+        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分，逐家拆解。</div>
+
+      </a></div>
+
+
+
+<div class="source-note">
+
+  数据来源：akshare / 同花顺 / 巨潮资讯网 · 数据日期：2026-08-09 · 仅供参考，不构成投资建议
+
+</div>
+
+
+
+</div>
+
+
+
+<script src="./analytics.js"></script>
+
+<script src="./tdx-link.js"></script>
+
+<script>
+
+document.addEventListener('DOMContentLoaded',function(){
+
+  document.querySelectorAll('.sortable').forEach(function(t){
+
+    t.querySelectorAll('th').forEach(function(th,i){
+
+      th.addEventListener('click',function(){
+
+        var d=t.querySelector('tbody');
+
+        var rows=Array.from(d.querySelectorAll('tr'));
+
+        var asc=th.classList.contains('sorted-asc');
+
+        th.classList.remove('sorted-asc','sorted-desc');
+
+        rows.sort(function(a,b){
+
+          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+
+          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+
+          av=parseFloat(av); bv=parseFloat(bv);
+
+          return asc?bv-av:av-bv;
+
+        });
+
+        th.classList.add(asc?'sorted-desc':'sorted-asc');
+
+        rows.forEach(function(r){d.appendChild(r)});
+
+      });
+
+    });
+
+  });
+
+});
+
+</script>
+
+<div class="section-title">延伸阅读 · 光学元件 7 兄弟页</div>
+
+<div class="extend-grid">
+
+<a class="extend-card" href="./berkshire-optics-compare.html"><b>🥇 估值分位</b><span>光学元件（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-optics-thermometer.html"><b>🌡️ 估值温度计</b><span>光学元件（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-optics-buyback.html"><b>💰 回购监测</b><span>光学元件（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-optics-repomap.html"><b>🗺️ 板块图谱</b><span>光学元件（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-optics-backtest.html"><b>📈 五年回测</b><span>光学元件（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-optics-cycle.html"><b>🔄 周期演进</b><span>光学元件（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-optics-methodology.html"><b>📘 方法论说明</b><span>光学元件（估值/回购/周期研究的取值口径与可信区间）</span></a>
+
+</div>
+
+<div class="back-bar">
+
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+
+</div>
+
+</body>
+
 </html>
