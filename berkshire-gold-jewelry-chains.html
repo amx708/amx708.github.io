@@ -1,253 +1,369 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>黄金珠宝产业链 · 调研 | 价值投资初级阶段</title>
-<link rel="stylesheet" href="./analytics.js">
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黄金珠宝产业链 · 调研 | 价值投资初级阶段</title>
+<link rel="stylesheet" href="./analytics.js">
+<style>
+:root {
+  --navy: #0b1f3a;
+  --navy2: #10294d;
+  --ink: #1d2b40;
+  --line: #e4e9f2;
+  --accent: #e8b84b;
+  --accent-rgb: 232,184,75;
+  --txt: #23344e;
+  --muted: #6b7a93;
+  --card: #fff;
+  --bg: #f4f7fc;
+  --green: #1f9d6b;
+  --red: #e74c3c;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
+.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
+.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
+.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
+.hero h1{font-size:28px;margin-bottom:10px;}
+.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
+.hero .stat{font-size:14px;}
+.hero .stat b{color:var(--accent);font-size:22px;display:block;}
+.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
+.data-banner b{color:var(--navy);font-weight:600}
+.container{max-width:1100px;margin:0 auto;padding:0 20px;}
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
+.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
+.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
+.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
+.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
+.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
+.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
+.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
+.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
+.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
+.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
+.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
+.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
+.ovtable tr:hover{background:#f4f7fc;}
+.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
+.pct-lo{background:#d1fae5;color:#065f46;}
+.pct-mid{background:#fef3c7;color:#92400e;}
+.pct-hi{background:#fee2e2;color:#991b1b;}
+.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
+.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
+.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
+.emp-badge.normal{background:#d1fae5;color:#065f46;}
+.emp-badge.warn{background:#fef3c7;color:#92400e;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
+.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
+.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
+.gc-icon{font-size:24px;margin-bottom:8px;}
+.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
+.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
+.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
+.sortable th{cursor:pointer;user-select:none;}
+.sortable th:hover{background:var(--navy2);}
+.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
+.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
+.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style>
+
 <style>
-:root {
-  --navy: #0b1f3a;
-  --navy2: #10294d;
-  --ink: #1d2b40;
-  --line: #e4e9f2;
-  --accent: #e8b84b;
-  --accent-rgb: 232,184,75;
-  --txt: #23344e;
-  --muted: #6b7a93;
-  --card: #fff;
-  --bg: #f4f7fc;
-  --green: #1f9d6b;
-  --red: #e74c3c;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
-.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
-.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
-.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
-.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
-.hero h1{font-size:28px;margin-bottom:10px;}
-.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
-.hero .stat{font-size:14px;}
-.hero .stat b{color:var(--accent);font-size:22px;display:block;}
-.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
-.data-banner b{color:var(--navy);font-weight:600}
-.container{max-width:1100px;margin:0 auto;padding:0 20px;}
-.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
-.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
-.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
-.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
-.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
-.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
-.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
-.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
-.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
-.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
-.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
-.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
-.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
-.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
-.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
-.ovtable tr:hover{background:#f4f7fc;}
-.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
-.pct-lo{background:#d1fae5;color:#065f46;}
-.pct-mid{background:#fef3c7;color:#92400e;}
-.pct-hi{background:#fee2e2;color:#991b1b;}
-.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
-.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
-.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
-.emp-badge.normal{background:#d1fae5;color:#065f46;}
-.emp-badge.warn{background:#fef3c7;color:#92400e;}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
-.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
-.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
-.gc-icon{font-size:24px;margin-bottom:8px;}
-.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
-.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
-.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
-.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
-.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
-.sortable th{cursor:pointer;user-select:none;}
-.sortable th:hover{background:var(--navy2);}
-.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
-.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
-.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
-
-.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
-.breadcrumb a{color:var(--primary-dark);text-decoration:none}
-.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
-.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
-.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
-.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
-.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
-.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
-.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
-.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
-.back-bar a:hover{background:#e8b84b;color:#fff}
-
+/* v2 white-spirit template additions */
+.ws2-counter{display:flex;gap:20px;margin:18px 0 8px 0;justify-content:center;flex-wrap:wrap}
+.ws2-counter .card{background:#f4f6fa;border:1px solid #dfe4ec;border-radius:10px;padding:14px 28px;text-align:center;min-width:140px}
+.ws2-counter .num{font-size:28px;font-weight:700;color:#1a2540;line-height:1.1}
+.ws2-counter .lbl{font-size:13px;color:#5d6a82;margin-top:4px}
+.ws2-tip{background:#fff8e1;border:1px solid #f3d585;color:#7a5d1a;border-radius:8px;padding:12px 18px;margin:14px 0;font-size:13.5px;line-height:1.6}
+.ws2-tip b{color:#b37800}
+.ws2-section{background:#fff;border:1px solid #e7ebf3;border-radius:10px;padding:22px 26px;margin:18px 0}
+.ws2-section h3{font-size:17px;color:#1a2540;margin:0 0 12px 0;display:flex;align-items:center;gap:8px}
+.ws2-section h3 .tag{background:#3854cc;color:#fff;border-radius:4px;font-size:11px;padding:2px 8px;font-weight:500}
+.ws2-logic8{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ws2-logic8 .item{border:1px dashed #c9d1e0;border-radius:8px;padding:12px 14px;background:#fafbfd;color:#6b7891;font-size:12.5px}
+.ws2-logic8 .item b{color:#1a2540;display:block;margin-bottom:4px;font-size:13.5px}
+.ws2-logic8 .item.empty::before{content:"⚠ ";color:#d9722c}
+.ws2-charts{display:grid;gap:18px}
+.ws2-charts .chart{background:#fff;border:1px solid #e7ebf3;border-radius:10px;padding:14px 18px}
+.ws2-charts .chart .ti{font-size:14px;color:#1a2540;font-weight:600;margin-bottom:8px}
+.ws2-charts svg{max-width:100%;height:auto;display:block;margin:0 auto}
+.ws2-table-wrap{overflow-x:auto;border:1px solid #e7ebf3;border-radius:10px}
+.ws2-table-wrap table{width:100%;border-collapse:collapse;font-size:13px}
+.ws2-table-wrap thead th{background:#f4f6fa;color:#1a2540;padding:10px 12px;text-align:right;font-weight:600;border-bottom:1px solid #e1e6ef;white-space:nowrap}
+.ws2-table-wrap thead th:first-child{text-align:left}
+.ws2-table-wrap tbody td{padding:9px 12px;text-align:right;border-bottom:1px solid #f0f2f6;color:#2a3548;white-space:nowrap}
+.ws2-table-wrap tbody td:first-child{text-align:left;color:#1a2540;font-weight:500}
+.ws2-table-wrap tbody tr:nth-child(odd){background:#fbfcfe}
+.ws2-classify td.tag{font-weight:600}
+.ws2-classify .tag-白马{color:#0dab6a}
+.ws2-classify .tag-周期{color:#d63b3b}
+.ws2-classify .tag-中性{color:#5d6a82}
+.ws2-frame-placeholder{border:1px dashed #c9d1e0;border-radius:10px;padding:18px 22px;background:#fafbfd;color:#6b7891;font-size:13px;line-height:1.8}
+.ws2-frame-placeholder h4{font-size:13.5px;color:#1a2540;margin:0 0 8px 0;font-weight:600}
+.ws2-frame-placeholder ul{margin:6px 0 0 0;padding-left:22px;color:#5d6a82;font-size:12.5px}
+.ws2-frame-placeholder li{margin:2px 0}
+.ws2-frame{border:1px solid #d8dee9;border-radius:10px;padding:18px 22px;background:#fff;color:#2a3548;font-size:13px;line-height:1.85;margin-bottom:12px}
+.ws2-frame h4{font-size:13.5px;color:#1a2540;margin:0 0 8px 0;font-weight:600}
+.ws2-frame b{color:#3854cc}
 </style>
-</head>
-<body>
-<style>
-.explain-banner{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:16px 20px;margin:18px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.explain-banner .eb-icon{font-size:22px;flex-shrink:0;line-height:1.4}
-.explain-banner .eb-body{flex:1;min-width:0}
-.explain-banner .eb-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
-.explain-banner .eb-tag{display:inline-block;font-size:11px;color:#b45309;background:rgba(232,184,75,.14);padding:2px 9px;border-radius:10px;margin-right:6px}
-.explain-banner .eb-text{font-size:13px;color:var(--muted);line-height:1.8}
-.explain-banner .eb-text b{color:var(--navy);font-weight:600}
-</style>
-<div class="top-bar">
-  <a href="./index.html">← 返回首页</a>
-  <span style="opacity:0.5">·</span>
-  <strong>黄金珠宝产业链</strong>
-</div>
-<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>黄金珠宝产业链</b></div>
 
-<div class="hero">
-  <h1>黄金珠宝产业链</h1>
-  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 黄金消费 × 金价β × 品牌/渠道壁垒 · 价值投资视角原创梳理</div>
-  <div class="stats">
-<div class="stat"><b>10</b>代表公司</div>
-<div class="stat"><b>≈18%</b>平均PB分位</div>
-<div class="stat"><b>3/10</b>破净(明牌/萃华/豫园)</div>
-<div class="stat"><b>原创</b>公开源整理</div>
-  </div>
-</div>
+</head>
+<body>
+<style>
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:16px 20px;margin:18px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.explain-banner .eb-icon{font-size:22px;flex-shrink:0;line-height:1.4}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.explain-banner .eb-tag{display:inline-block;font-size:11px;color:#b45309;background:rgba(232,184,75,.14);padding:2px 9px;border-radius:10px;margin-right:6px}
+.explain-banner .eb-text{font-size:13px;color:var(--muted);line-height:1.8}
+.explain-banner .eb-text b{color:var(--navy);font-weight:600}
+</style>
+<div class="top-bar">
+  <a href="./index.html">← 返回首页</a>
+  <span style="opacity:0.5">·</span>
+  <strong>黄金珠宝产业链</strong>
+</div>
+<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>黄金珠宝产业链</b></div>
+
+<div class="hero">
+  <h1>黄金珠宝产业链</h1>
+  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 黄金消费 × 金价β × 品牌/渠道壁垒 · 价值投资视角原创梳理</div>
+  <div class="stats">
+<div class="stat"><b>10</b>代表公司</div>
+<div class="stat"><b>≈18%</b>平均PB分位</div>
+<div class="stat"><b>3/10</b>破净(明牌/萃华/豫园)</div>
+<div class="stat"><b>原创</b>公开源整理</div>
+  </div>
+</div>
+
+<div class="data-banner" style="border-left-color:var(--accent)">
+📊 数据锚：平均 PB分位 ≈18% · 老凤祥/周大生/菜百/曼卡龙/中国黄金/迪阿 PE分位均<15%（深度便宜）；中国黄金 PE分位92%（偏贵）；明牌/豫园 PE为负（亏损）、萃华 PE读数异常低(疑似失真)。破净 3/10（明牌0.89/萃华0.22/豫园0.59）。板块强金价β、低估值、高分红特征突出。
+</div>
+
+<div class="container">
+
+<div class="explain-banner">
+<div class="eb-icon">🛡️</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「黄金珠宝产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把 A 股黄金珠宝按「层级」拆解，便于从价值投资视角理解其金价β属性、品牌/渠道壁垒与当前估值分位。<br><b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中 PE/PB 与近十年分位取自百度股市通估值数据（截至 2026-08），为近似值，最新以行情终端为准。黄金珠宝属<b>黄金消费 + 强金价β + 品牌/渠道驱动</b>行业，需求受金价、婚恋/悦己消费与渠道扩张共同影响，分析时须区分「金价红利」与「品牌定价权」两条主线。
+</div>
+</div>
+</div>
+
+<h2 class="section-title">🔔 研究信号</h2>
 
-<div class="data-banner" style="border-left-color:var(--accent)">
-📊 数据锚：平均 PB分位 ≈18% · 老凤祥/周大生/菜百/曼卡龙/中国黄金/迪阿 PE分位均<15%（深度便宜）；中国黄金 PE分位92%（偏贵）；明牌/豫园 PE为负（亏损）、萃华 PE读数异常低(疑似失真)。破净 3/10（明牌0.89/萃华0.22/豫园0.59）。板块强金价β、低估值、高分红特征突出。
+<!-- ===== v2 body (per 老板截屏) START ===== -->
+<div class="ws2-counter-wrap">
+  
+<div class="ws2-counter">
+  <div class="card"><div class="num">10</div><div class="lbl">家上市公司</div></div>
+  <div class="card"><div class="num">10</div><div class="lbl">核心环节 / 子链</div></div>
+  <div class="card"><div class="num">6</div><div class="lbl">延伸阅读</div></div>
 </div>
-
-<div class="container">
-
-<div class="explain-banner">
-<div class="eb-icon">🛡️</div>
-<div class="eb-body">
-<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「黄金珠宝产业链地图」是怎么来的</div>
-<div class="eb-text">
-本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把 A 股黄金珠宝按「层级」拆解，便于从价值投资视角理解其金价β属性、品牌/渠道壁垒与当前估值分位。<br><b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中 PE/PB 与近十年分位取自百度股市通估值数据（截至 2026-08），为近似值，最新以行情终端为准。黄金珠宝属<b>黄金消费 + 强金价β + 品牌/渠道驱动</b>行业，需求受金价、婚恋/悦己消费与渠道扩张共同影响，分析时须区分「金价红利」与「品牌定价权」两条主线。
-</div>
-</div>
-</div>
-
-<h2 class="section-title">🔔 研究信号</h2>
-<div class="research-signal">
-  <div class="rs-grid">
-<div class="rs-item"><div class="rs-label">周期位置</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">黄金珠宝处金价长牛驱动的景气上行中段——2022 年起国际金价持续走高，黄金首饰消费与「存金/悦己」需求共振，板块收入与毛利受益；但估值层面已分化：老凤祥/周大生/菜百等龙头 PE分位<5%（历史极低位），中国黄金 PE分位92%（成长预期透支），呈「龙头深度便宜、题材偏贵」格局。</div></div>
-<div class="rs-item"><div class="rs-label">景气方向</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">结构性向好。金价高位震荡支撑黄金消费与回收场景；婚恋钻石走弱、悦己轻黄金走强是主线；加盟渠道下沉与黄金回购成新增长点。风险在金价回落与消费降级。</div></div>
-<div class="rs-item"><div class="rs-label">结论信号</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)"><b>🟢 积极（龙头左侧）</b> — 老凤祥/周大生/菜百等龙头 PE/PB 分位处近十年极低区（多数<5%），叠加高分红与金价β，提供罕见安全边际；须甄别「破净价值陷阱」（明牌/豫园盈利弱）与「高PE透支」（中国黄金/迪阿），优选真实现金流龙头。</div></div>
-<div class="rs-item"><div class="rs-label">核心催化</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">①金价维持高位/再上行带动黄金消费与库存重估　②加盟下沉+黄金回购场景扩张（中国黄金/周大生）　③龙头高分红+回购升温（老凤祥/菜百/周大生）　④悦己轻黄金、国潮设计渗透率提升　⑤婚恋需求边际回暖。</div></div>
-<div class="rs-item"><div class="rs-label">关键风险</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">①金价大幅回落压制需求与库存价值　②钻石/镶嵌需求持续走弱（迪阿/周大生）　③加盟扩张质量下滑、关店与库存风险　④破净公司盈利羸弱（明牌/豫园）　⑤高PE标的估值回归（中国黄金/迪阿）。</div></div>
-  </div>
-  <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:13px;line-height:1.8">
-<div style="font-weight:700;color:var(--navy)">周期位置</div><div>黄金珠宝处金价长牛驱动的景气上行中段——2022 年起国际金价持续走高，黄金首饰消费与「存金/悦己」需求共振，板块收入与毛利受益；但估值层面已分化：老凤祥/周大生/菜百等龙头 PE分位<5%（历史极低位），中国黄金 PE分位92%（成长预期透支），呈「龙头深度便宜、题材偏贵」格局。</div>
-<div style="font-weight:700;color:var(--navy)">景气方向</div><div>结构性向好。金价高位震荡支撑黄金消费与回收场景；婚恋钻石走弱、悦己轻黄金走强是主线；加盟渠道下沉与黄金回购成新增长点。风险在金价回落与消费降级。</div>
-<div style="font-weight:700;color:var(--navy)">结论信号</div><div><b>🟢 积极（龙头左侧）</b> — 老凤祥/周大生/菜百等龙头 PE/PB 分位处近十年极低区（多数<5%），叠加高分红与金价β，提供罕见安全边际；须甄别「破净价值陷阱」（明牌/豫园盈利弱）与「高PE透支」（中国黄金/迪阿），优选真实现金流龙头。</div>
-<div style="font-weight:700;color:var(--navy)">核心催化</div><div>①金价维持高位/再上行带动黄金消费与库存重估　②加盟下沉+黄金回购场景扩张（中国黄金/周大生）　③龙头高分红+回购升温（老凤祥/菜百/周大生）　④悦己轻黄金、国潮设计渗透率提升　⑤婚恋需求边际回暖。</div>
-<div style="font-weight:700;color:var(--navy)">关键风险</div><div>①金价大幅回落压制需求与库存价值　②钻石/镶嵌需求持续走弱（迪阿/周大生）　③加盟扩张质量下滑、关店与库存风险　④破净公司盈利羸弱（明牌/豫园）　⑤高PE标的估值回归（中国黄金/迪阿）。</div>
-  </div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:12px;color:var(--muted)">数据锚：平均 PB分位≈18%（老凤祥/周大生/菜百/曼卡龙/中国黄金 PE分位<15%；中国黄金 PE分位92%）；破净 3/10（明牌0.89/萃华0.22/豫园0.59）；老凤祥 PE分位0.4%、PB分位0.3%。结论为框架合成，需结合实盘研究校验。</div>
-</div>
-
-<h2 class="section-title">🏛 5 层分析框架（黄金珠宝产业链专属）</h2>
-<div class="layers">
-<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游黄金原料</div><div class="layer-text">上海金交所标准金条/金料，价格锚定国际现货金价（美元+汇率），由央行与大型金企主导供应；原料成本占黄金首饰售价 80%+，是整条链的成本主轴与最大变量。</div></div>
-<div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游加工/制造</div><div class="layer-text">黄金首饰倒模、CNC/古法金、镶嵌与花丝工艺；委外+自有产能并存，老凤祥/中国黄金具规模与工艺优势，设计/工艺溢价决定非金部分毛利。</div></div>
-<div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游品牌/渠道零售</div><div class="layer-text">加盟（周大生/中国黄金）、自营+区域专营（老凤祥/菜百）、时尚直营（潮宏基/曼卡龙/迪阿）；渠道密度、品牌心智与金价预期共同驱动终端动销。</div></div>
-<div class="layer-card"><div class="layer-num">04</div><div class="layer-name">竞争格局</div><div class="layer-text">「一超多强」：老凤祥绝对领先，中国黄金（央企全链）、周大生（加盟）、豫园（老庙/亚一）、菜百（区域专营）错位；迪阿占情感钻戒细分；中小品牌（潮宏基/曼卡龙/明牌/萃华）差异化竞争。</div></div>
-<div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-text">看「金价β × 品牌/渠道壁垒 × 估值分位 × 分红质量」；龙头 PE/PB 分位<5% 且高分红具安全边际，但须避开破净价值陷阱与高PE透支；核心变量是金价方向与渠道质量。</div></div>
-</div>
-
-<h2 class="section-title">📈 估值历史分位总览</h2>
-<div class="ovtable">
-<div class="ovtable"><table class="sortable"><tbody><tr><td>（暂无数据）</td></tr></tbody></table></div>
-</div>
-<div class="source-note" style="margin-top:10px">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。<span class="pct pct-lo">绿</span>偏低/便宜　<span class="pct pct-mid">橙</span>中位　<span class="pct pct-hi">红</span>偏高/贵。亏损企业 PE 为负、PE 分位不适用，仅看 PB；分位为时点统计。</div>
-
-<h2 class="section-title">⚖ R15 三维评级总览</h2>
-<div class="ovtable">
-<div class="ovtable"><table class="sortable"><tbody><tr><td>（暂无数据）</td></tr></tbody></table></div>
-</div>
-<div class="source-note" style="margin-top:10px">R15 三维：①<b>估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；②<b>质量星级</b>=近10年ROE均值（★越多质地越好）；③<b>时机分</b>=链周期指数百分位（分越高越接近周期底部）。数据为时点统计。</div>
-
-<h2 class="section-title">🏭 产业链成本传导</h2>
-<div class="cost-block">
-
-    <svg viewBox="0 0 800 150" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
-      <defs><marker id="arr-gold-jewelry" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0 0, 8 4, 0 8" fill="#f59e0b"/></marker></defs>
-      <g><rect x="15" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="100" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游·黄金原料</text></g>
-      <g><rect x="225" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="310" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游·加工制造</text></g>
-      <g><rect x="435" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="520" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游·品牌渠道</text></g>
-      <g><rect x="645" y="40" width="140" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="715" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">利润</text></g>
-      <line x1="185" y1="64" x2="225" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-gold-jewelry)"/>
-      <line x1="395" y1="64" x2="435" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-gold-jewelry)"/>
-      <line x1="605" y1="64" x2="645" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-gold-jewelry)"/>
-      <g><rect x="280" y="105" width="240" height="34" rx="6" fill="#fbf7ee" stroke="#f59e0b" stroke-width="1.5"/><text x="400" y="127" text-anchor="middle" font-size="12" font-weight="700" fill="#0b1f3a">核心变量=护城河</text></g>
-    </svg>
-  <p class="cost-note" style="font-style:normal;text-align:left"><p>黄金珠宝<b>成本传导=金价→黄金料成本→毛利→利润</b>。黄金原料占首饰售价 80%+，<b>终端价随金价实时/准实时调整（金价+工费）</b>——与调味等成本滞后传导不同，金价上行时存货与在途金料升值、毛利扩张（量价齐受益），金价回落则反之。<b>original</b>：因此黄金珠宝股本质是「金价β资产」：盈利≈f(金价↑、工费溢价↑、渠道扩张↑、套保能力)，金价是最强驱动变量。</p><p>非金部分（设计/工艺/品牌工费）才是品牌定价权来源——老凤祥/菜百靠品牌心智收「工费溢价」，迪阿靠情感收高毛利，而纯金条/投资金业务毛利极薄（中国黄金/豫园）。故<b>「金价红利」易得、「品牌定价权」难求</b>——这是区分便宜龙头与流量标的的核心。</p></p>
-</div>
-
-<h2 class="section-title">👥 员工效率排行</h2>
-<div class="ovtable">
-<div class="ovtable"><table class="sortable"><tbody><tr><td>（暂无数据）</td></tr></tbody></table></div>
-</div>
-<div class="source-note" style="margin-top:10px">员工增速=在职员工同比；人均净利=2025 归母净利÷员工数。组织效能信号为代理指标，非投资建议。</div>
-
-<h2 class="section-title">🏢 主要玩家索引（上市公司 10 家）</h2>
-<div class="grid">
-<a class="giant-card" href="./berkshire-gold-jewelry-chain-002345.html"><div class="gc-title">潮宏基</div><div class="gc-code">002345</div><div class="gc-meta">时尚珠宝加盟扩张</div><div class="gc-desc">时尚珠宝（K金+黄金）品牌，加盟快速扩张，金价上行受益但镶嵌承压，PB分位70%偏高。</div></a>
-<a class="giant-card" href="./berkshire-gold-jewelry-chain-002574.html"><div class="gc-title">明牌珠宝</div><div class="gc-code">002574</div><div class="gc-meta">黄金珠宝老牌困境</div><div class="gc-desc">浙系黄金珠宝老牌，主业平淡叠加投资亏损致PE为负，PB破净(0.89)但基本面偏弱。</div></a>
-<a class="giant-card" href="./berkshire-gold-jewelry-chain-002731.html"><div class="gc-title">萃华珠宝</div><div class="gc-code">002731</div><div class="gc-meta">辽宁老牌黄金珠宝</div><div class="gc-desc">辽宁百年老字号黄金珠宝，小市值，PE(TTM)显示极值(1.5,疑似失真)且PB分位0%极便宜。</div></a>
-<a class="giant-card" href="./berkshire-gold-jewelry-chain-002867.html"><div class="gc-title">周大生</div><div class="gc-code">002867</div><div class="gc-meta">加盟龙头·黄金发力</div><div class="gc-desc">以镶嵌起家转攻黄金的加盟龙头，高分红，PE分位8%、PB分位4%深度便宜。</div></a>
-<a class="giant-card" href="./berkshire-gold-jewelry-chain-300945.html"><div class="gc-title">曼卡龙</div><div class="gc-code">300945</div><div class="gc-meta">年轻时尚珠宝</div><div class="gc-desc">主打年轻客群的时尚珠宝（轻金+钻石），杭州区域强，PE分位3%极便宜但体量小。</div></a>
-<a class="giant-card" href="./berkshire-gold-jewelry-chain-301177.html"><div class="gc-title">迪阿股份</div><div class="gc-code">301177</div><div class="gc-meta">DR钻戒·求婚品牌</div><div class="gc-desc">DR钻戒（唯一真爱）品牌，钻石需求下滑致高PE(59,分位46%)，护城河受挑战。</div></a>
-<a class="giant-card" href="./berkshire-gold-jewelry-chain-600612.html"><div class="gc-title">老凤祥</div><div class="gc-code">600612</div><div class="gc-meta">黄金珠宝百年龙头</div><div class="gc-desc">百年黄金珠宝绝对龙头，加盟+品牌双强，PE分位0.4%、PB分位0.3%历史极低位。</div></a>
-<a class="giant-card" href="./berkshire-gold-jewelry-chain-600655.html"><div class="gc-title">豫园股份</div><div class="gc-code">600655</div><div class="gc-meta">老庙/亚一+多元</div><div class="gc-desc">复星旗下，老庙黄金/亚一珠宝+地产消费多元，PE亏损(-3.7)、PB破净0.59(分位6%)。</div></a>
-<a class="giant-card" href="./berkshire-gold-jewelry-chain-600916.html"><div class="gc-title">中国黄金</div><div class="gc-code">600916</div><div class="gc-meta">央企黄金全链</div><div class="gc-desc">央企背景黄金珠宝+回收全链，渠道高速扩张，PE分位92%偏贵但PB分位2%便宜。</div></a>
-<a class="giant-card" href="./berkshire-gold-jewelry-chain-605599.html"><div class="gc-title">菜百股份</div><div class="gc-code">605599</div><div class="gc-meta">菜百首饰·京圈专营</div><div class="gc-desc">北京菜市口百货黄金珠宝专营，高分红区域强势，PE分位3%、PB分位25%便宜。</div></a>
-</div>
-
-<div class="source-note">
-  📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
-</div>
+<div class="ws2-tip"><b>纪律声明：</b>本面板只用公开财报与估值数据可验证的事实。<b>不含</b>任何编造叙事——投资逻辑、产品定位、竞争格局、产能周期均以<b>占位框架</b>呈现，待人工补充。</div>
 
 </div>
-
-<script src="./analytics.js"></script>
-<script src="./tdx-link.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.sortable').forEach(function(t){
-    t.querySelectorAll('th').forEach(function(th,i){
-      th.addEventListener('click',function(){
-        var d=t.querySelector('tbody');
-        var rows=Array.from(d.querySelectorAll('tr'));
-        var asc=th.classList.contains('sorted-asc');
-        th.classList.remove('sorted-asc','sorted-desc');
-        rows.sort(function(a,b){
-          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          av=parseFloat(av); bv=parseFloat(bv);
-          return asc?bv-av:av-bv;
-        });
-        th.classList.add(asc?'sorted-desc':'sorted-asc');
-        rows.forEach(function(r){d.appendChild(r)});
-      });
-    });
-  });
-});
-</script>
-<div class="section-title">延伸阅读 · 黄金珠宝产业链 7 兄弟页</div>
-<div class="extend-grid"><a class="extend-card" href="./berkshire-gold-jewelry-compare.html"><b>🥇 估值分位</b><span>黄金珠宝产业链（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-gold-jewelry-thermometer.html"><b>🌡️ 估值温度计</b><span>黄金珠宝产业链（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-gold-jewelry-buyback.html"><b>💰 回购监测</b><span>黄金珠宝产业链（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-gold-jewelry-repomap.html"><b>🗺️ 板块图谱</b><span>黄金珠宝产业链（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-gold-jewelry-backtest.html"><b>📈 五年回测</b><span>黄金珠宝产业链（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-gold-jewelry-cycle.html"><b>🔄 周期演进</b><span>黄金珠宝产业链（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-gold-jewelry-methodology.html"><b>📘 方法论说明</b><span>黄金珠宝产业链（估值/回购/周期研究的取值口径与可信区间）</span></a></div>
-<div class="back-bar">
-<a href="./berkshire-chain-map.html">← 全链索引</a>
-<a href="./berkshire-standalone.html">← 数据中心首页</a>
+<section class="ws2-section">
+  <h3>🎯 投资逻辑（8 条 · 占位框架，待人工填实）</h3>
+  <div class='ws2-logic8'><div class="item empty"><b>1️⃣ 商业模式与护城河来源</b>（占位 · 待人工填实）</div><div class="item empty"><b>2️⃣ 行业集中度与玩家分层</b>（占位 · 待人工填实）</div><div class="item empty"><b>3️⃣ 产业链上下游关系</b>（占位 · 待人工填实）</div><div class="item empty"><b>4️⃣ 周期性与价格话语权</b>（占位 · 待人工填实）</div><div class="item empty"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>（占位 · 待人工填实）</div><div class="item empty"><b>6️⃣ 估值水位与历史分位</b>（占位 · 待人工填实）</div><div class="item empty"><b>7️⃣ 主要风险事件清单</b>（占位 · 待人工填实）</div><div class="item empty"><b>8️⃣ 投资跟踪指标与反向信号</b>（占位 · 待人工填实）</div></div>
+</section>
+<section class="ws2-section">
+  <h3><span class="tag">DATA</span> 历史分位图 · 6 张</h3>
+  <div class='ws2-charts'><div class="chart"><div class="ti">毛利率分位带（黄金珠宝产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">毛利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 12 年窗 ｜ N=1 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">45.9%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">35.2%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">24.5%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">13.8%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">3.1%</text><path d="M 60.0,154.8 L 114.5,73.3 L 169.1,68.8 L 223.6,52.5 L 278.2,46.9 L 332.7,51.5 L 387.3,42.3 L 441.8,63.6 L 496.4,72.8 L 550.9,84.7 L 605.5,92.7 L 660.0,59.9 L 660.0,163.7 L 605.5,161.0 L 550.9,155.2 L 496.4,162.9 L 441.8,159.0 L 387.3,155.4 L 332.7,154.3 L 278.2,155.8 L 223.6,155.3 L 169.1,157.0 L 114.5,156.9 L 60.0,154.8 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,154.8 L 114.5,96.4 L 169.1,90.3 L 223.6,83.6 L 278.2,79.6 L 332.7,73.7 L 387.3,73.5 L 441.8,96.9 L 496.4,117.1 L 550.9,125.7 L 605.5,120.3 L 660.0,110.7 L 660.0,153.8 L 605.5,151.9 L 550.9,151.5 L 496.4,153.2 L 441.8,152.7 L 387.3,138.2 L 332.7,140.4 L 278.2,151.7 L 223.6,150.3 L 169.1,148.7 L 114.5,154.8 L 60.0,154.8 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,154.8 L 114.5,143.7 L 169.1,137.4 L 223.6,123.8 L 278.2,121.7 L 332.7,113.1 L 387.3,119.4 L 441.8,130.3 L 496.4,136.2 L 550.9,138.2 L 605.5,142.8 L 660.0,138.0" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,154.8 L 114.5,124.0 L 169.1,121.6 L 223.6,107.1 L 278.2,105.9 L 332.7,100.4 L 387.3,100.6 L 441.8,112.3 L 496.4,118.8 L 550.9,121.6 L 605.5,124.8 L 660.0,119.3" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2014</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">8.0</text><text x="114.5" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="114.5" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.5</text><text x="169.1" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="169.1" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.5</text><text x="223.6" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="223.6" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.9</text><text x="278.2" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="278.2" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">18.5</text><text x="332.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="332.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">21.3</text><text x="387.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="387.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">19.3</text><text x="441.8" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="441.8" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">15.8</text><text x="496.4" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="496.4" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.9</text><text x="550.9" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="550.9" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.3</text><text x="605.5" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="605.5" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.8</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.3</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">净利率分位带（黄金珠宝产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">净利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 12 年窗 ｜ N=1 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">22.2%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">13.3%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">4.4%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-4.5%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-13.5%</text><path d="M 60.0,108.3 L 114.5,78.6 L 169.1,83.3 L 223.6,58.4 L 278.2,56.7 L 332.7,59.0 L 387.3,43.5 L 441.8,63.6 L 496.4,78.9 L 550.9,97.3 L 605.5,100.2 L 660.0,82.6 L 660.0,162.5 L 605.5,117.8 L 550.9,108.3 L 496.4,117.4 L 441.8,113.8 L 387.3,118.7 L 332.7,113.4 L 278.2,115.4 L 223.6,111.3 L 169.1,115.3 L 114.5,113.2 L 60.0,108.3 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,108.3 L 114.5,92.6 L 169.1,92.1 L 223.6,84.9 L 278.2,88.7 L 332.7,92.1 L 387.3,89.7 L 441.8,91.4 L 496.4,94.5 L 550.9,103.5 L 605.5,104.6 L 660.0,99.4 L 660.0,118.0 L 605.5,112.9 L 550.9,107.3 L 496.4,112.4 L 441.8,107.2 L 387.3,112.4 L 332.7,112.5 L 278.2,111.2 L 223.6,110.1 L 169.1,110.8 L 114.5,109.8 L 60.0,108.3 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,108.3 L 114.5,106.7 L 169.1,108.0 L 223.6,101.9 L 278.2,106.2 L 332.7,105.1 L 387.3,101.7 L 441.8,101.8 L 496.4,105.3 L 550.9,104.8 L 605.5,106.3 L 660.0,104.7" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,108.3 L 114.5,99.6 L 169.1,100.7 L 223.6,91.5 L 278.2,95.8 L 332.7,95.8 L 387.3,95.5 L 441.8,91.3 L 496.4,100.7 L 550.9,103.9 L 605.5,107.5 L 660.0,113.4" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2014</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.0</text><text x="114.5" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="114.5" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.4</text><text x="169.1" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="169.1" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.0</text><text x="223.6" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="223.6" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.7</text><text x="278.2" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="278.2" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.5</text><text x="332.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="332.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.8</text><text x="387.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="387.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.7</text><text x="441.8" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="441.8" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.7</text><text x="496.4" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="496.4" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.8</text><text x="550.9" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="550.9" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.9</text><text x="605.5" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="605.5" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.5</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.9</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">ROE 分位带（黄金珠宝产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">ROE 分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 12 年窗 ｜ N=1 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">27.2%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">16.4%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">5.7%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-5.1%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-15.9%</text><path d="M 60.0,90.9 L 114.5,44.0 L 169.1,50.5 L 223.6,42.2 L 278.2,46.1 L 332.7,49.5 L 387.3,49.3 L 441.8,56.9 L 496.4,68.0 L 550.9,60.7 L 605.5,70.5 L 660.0,63.2 L 660.0,163.8 L 605.5,118.9 L 550.9,105.9 L 496.4,112.5 L 441.8,107.4 L 387.3,116.9 L 332.7,113.3 L 278.2,113.0 L 223.6,104.9 L 169.1,109.4 L 114.5,107.7 L 60.0,90.9 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,90.9 L 114.5,66.8 L 169.1,67.5 L 223.6,65.3 L 278.2,60.3 L 332.7,59.2 L 387.3,63.6 L 441.8,67.0 L 496.4,80.6 L 550.9,66.9 L 605.5,74.4 L 660.0,79.2 L 660.0,113.7 L 605.5,114.4 L 550.9,104.3 L 496.4,102.3 L 441.8,91.4 L 387.3,103.6 L 332.7,106.1 L 278.2,107.3 L 223.6,96.2 L 169.1,105.1 L 114.5,97.3 L 60.0,90.9 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,90.9 L 114.5,90.3 L 169.1,91.6 L 223.6,82.7 L 278.2,83.4 L 332.7,84.0 L 387.3,86.3 L 441.8,85.9 L 496.4,88.1 L 550.9,88.7 L 605.5,94.3 L 660.0,99.4" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,90.9 L 114.5,82.4 L 169.1,84.5 L 223.6,66.5 L 278.2,72.5 L 332.7,77.2 L 387.3,78.5 L 441.8,82.9 L 496.4,92.5 L 550.9,86.7 L 605.5,93.8 L 660.0,103.0" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2014</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">9.6</text><text x="114.5" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="114.5" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">9.8</text><text x="169.1" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="169.1" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">9.3</text><text x="223.6" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="223.6" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.2</text><text x="278.2" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="278.2" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.0</text><text x="332.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="332.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.8</text><text x="387.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="387.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.0</text><text x="441.8" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="441.8" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.2</text><text x="496.4" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="496.4" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">10.5</text><text x="550.9" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="550.9" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">10.3</text><text x="605.5" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="605.5" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">8.5</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">6.8</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">营收同比分位带（黄金珠宝产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">营收同比分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=1 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">82.8%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">54.1%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">25.4%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-3.3%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-32.1%</text><path d="M 60.0,143.5 L 120.0,128.4 L 180.0,71.7 L 240.0,91.4 L 300.0,115.2 L 360.0,122.6 L 420.0,38.3 L 480.0,106.8 L 540.0,77.9 L 600.0,106.6 L 660.0,83.0 L 660.0,162.1 L 600.0,157.9 L 540.0,128.4 L 480.0,142.5 L 420.0,116.2 L 360.0,152.4 L 300.0,150.8 L 240.0,127.3 L 180.0,122.4 L 120.0,167.7 L 60.0,143.5 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,143.5 L 120.0,132.8 L 180.0,102.7 L 240.0,104.9 L 300.0,119.2 L 360.0,131.3 L 420.0,51.5 L 480.0,118.0 L 540.0,97.5 L 600.0,121.3 L 660.0,113.7 L 660.0,152.0 L 600.0,153.8 L 540.0,117.0 L 480.0,137.7 L 420.0,82.3 L 360.0,145.7 L 300.0,139.0 L 240.0,123.6 L 180.0,119.4 L 120.0,157.4 L 60.0,143.5 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,143.5 L 120.0,145.3 L 180.0,117.1 L 240.0,121.1 L 300.0,128.8 L 360.0,142.2 L 420.0,75.8 L 480.0,131.1 L 540.0,112.0 L 600.0,134.3 L 660.0,129.6" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,143.5 L 120.0,146.5 L 180.0,101.9 L 240.0,114.3 L 300.0,129.0 L 360.0,136.3 L 420.0,73.2 L 480.0,128.1 L 540.0,111.6 L 600.0,135.7 L 660.0,127.8" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-9.3</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-10.9</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.3</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">9.9</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.3</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-8.2</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">48.7</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">1.3</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.6</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">-1.4</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.5</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">PE 横截面 TTM · 10 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 236" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="236" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PE 横截面（TTM，13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">8 家公司 · 取自估值快照</text><text x="102" y="49.8" fill="#1a2540" font-size="11" text-anchor="end">萃华珠宝</text><rect x="110" y="40.0" width="12.9" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="127.9" y="49.8" fill="#1a2540" font-size="11">1.5x</text><text x="102" y="71.2" fill="#1a2540" font-size="11" text-anchor="end">菜百股份</text><rect x="110" y="61.5" width="86.9" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="201.9" y="71.2" fill="#1a2540" font-size="11">10.1x</text><text x="102" y="92.8" fill="#1a2540" font-size="11" text-anchor="end">老凤祥</text><rect x="110" y="83.0" width="90.7" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="205.7" y="92.8" fill="#1a2540" font-size="11">10.6x</text><text x="102" y="114.2" fill="#1a2540" font-size="11" text-anchor="end">周大生</text><rect x="110" y="104.5" width="101.5" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="216.5" y="114.2" fill="#1a2540" font-size="11">11.8x</text><text x="102" y="135.8" fill="#1a2540" font-size="11" text-anchor="end">潮宏基</text><rect x="110" y="126.0" width="136.6" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="251.6" y="135.8" fill="#1a2540" font-size="11">15.9x</text><text x="102" y="157.2" fill="#1a2540" font-size="11" text-anchor="end">曼卡龙</text><rect x="110" y="147.5" width="216.7" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="331.7" y="157.2" fill="#1a2540" font-size="11">25.2x</text><text x="102" y="178.8" fill="#1a2540" font-size="11" text-anchor="end">中国黄金</text><rect x="110" y="169.0" width="361.5" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="476.5" y="178.8" fill="#1a2540" font-size="11">42.1x</text><text x="102" y="200.2" fill="#1a2540" font-size="11" text-anchor="end">迪阿股份</text><rect x="110" y="190.5" width="514.3" height="13.5" fill="#3854cc" fill-opacity="0.8"/><text x="629.3" y="200.2" fill="#1a2540" font-size="11">59.9x</text></svg></div><div class="chart"><div class="ti">PB 横截面 · 10 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="280" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PB 横截面（13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">10 家公司 · 取自估值快照</text><text x="102" y="49.8" fill="#1a2540" font-size="11" text-anchor="end">萃华珠宝</text><rect x="110" y="40.0" width="41.0" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="156.0" y="49.8" fill="#1a2540" font-size="11">0.2x</text><text x="102" y="71.4" fill="#1a2540" font-size="11" text-anchor="end">豫园股份</text><rect x="110" y="61.6" width="111.8" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="226.8" y="71.4" fill="#1a2540" font-size="11">0.6x</text><text x="102" y="93.0" fill="#1a2540" font-size="11" text-anchor="end">明牌珠宝</text><rect x="110" y="83.2" width="167.7" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="282.7" y="93.0" fill="#1a2540" font-size="11">0.9x</text><text x="102" y="114.6" fill="#1a2540" font-size="11" text-anchor="end">老凤祥</text><rect x="110" y="104.8" width="255.3" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="370.3" y="114.6" fill="#1a2540" font-size="11">1.4x</text><text x="102" y="136.2" fill="#1a2540" font-size="11" text-anchor="end">迪阿股份</text><rect x="110" y="126.4" width="285.1" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="400.1" y="136.2" fill="#1a2540" font-size="11">1.5x</text><text x="102" y="157.8" fill="#1a2540" font-size="11" text-anchor="end">中国黄金</text><rect x="110" y="148.0" width="339.1" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="454.1" y="157.8" fill="#1a2540" font-size="11">1.8x</text><text x="102" y="179.4" fill="#1a2540" font-size="11" text-anchor="end">曼卡龙</text><rect x="110" y="169.6" width="354.0" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="469.0" y="179.4" fill="#1a2540" font-size="11">1.9x</text><text x="102" y="201.0" fill="#1a2540" font-size="11" text-anchor="end">周大生</text><rect x="110" y="191.2" width="415.5" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="530.5" y="201.0" fill="#1a2540" font-size="11">2.2x</text><text x="102" y="222.6" fill="#1a2540" font-size="11" text-anchor="end">潮宏基</text><rect x="110" y="212.8" width="456.5" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="571.5" y="222.6" fill="#1a2540" font-size="11">2.5x</text><text x="102" y="244.2" fill="#1a2540" font-size="11" text-anchor="end">菜百股份</text><rect x="110" y="234.4" width="514.3" height="13.6" fill="#0dab6a" fill-opacity="0.8"/><text x="629.3" y="244.2" fill="#1a2540" font-size="11">2.8x</text></svg></div></div>
+</section>
+<section class="ws2-section">
+  <h3>📊 可比公司估值大表（10 家 · 当前截面）</h3>
+  
+<div class="ws2-table-wrap">
+<table>
+<thead><tr><th>公司</th><th>代码</th><th>PE-TTM</th><th>PB</th><th>营收(亿)</th><th>净利(亿)</th><th>毛利率</th><th>净利率</th><th>ROE</th><th>营收YoY</th></tr></thead>
+<tbody><tr><td>潮宏基</td><td>002345</td><td>15.9</td><td>2.5</td><td>93.2</td><td>5.0</td><td>22.1%</td><td>5.3%</td><td>13.2%</td><td>43.0%</td></tr><tr><td>明牌珠宝</td><td>002574</td><td>—</td><td>0.9</td><td>32.8</td><td>-3.6</td><td>5.6%</td><td>-11.0%</td><td>-13.3%</td><td>-16.6%</td></tr><tr><td>萃华珠宝</td><td>002731</td><td>1.5</td><td>0.2</td><td>44.4</td><td>2.2</td><td>10.3%</td><td>4.9%</td><td>12.7%</td><td>-2.8%</td></tr><tr><td>周大生</td><td>002867</td><td>11.8</td><td>2.2</td><td>88.2</td><td>11.0</td><td>31.4%</td><td>12.5%</td><td>17.0%</td><td>-36.5%</td></tr><tr><td>曼卡龙</td><td>300945</td><td>25.2</td><td>1.9</td><td>27.4</td><td>1.1</td><td>15.0%</td><td>4.2%</td><td>6.8%</td><td>16.2%</td></tr><tr><td>迪阿股份</td><td>301177</td><td>59.9</td><td>1.5</td><td>15.2</td><td>1.4</td><td>65.8%</td><td>9.2%</td><td>2.2%</td><td>2.5%</td></tr><tr><td>老凤祥</td><td>600612</td><td>10.6</td><td>1.4</td><td>528.2</td><td>17.5</td><td>9.1%</td><td>3.3%</td><td>13.3%</td><td>-7.0%</td></tr><tr><td>豫园股份</td><td>600655</td><td>—</td><td>0.6</td><td>363.7</td><td>-49.0</td><td>13.3%</td><td>-13.5%</td><td>-16.3%</td><td>-22.5%</td></tr><tr><td>中国黄金</td><td>600916</td><td>42.1</td><td>1.8</td><td>698.2</td><td>2.8</td><td>3.3%</td><td>0.4%</td><td>3.9%</td><td>15.5%</td></tr><tr><td>菜百股份</td><td>605599</td><td>10.1</td><td>2.8</td><td>288.2</td><td>11.3</td><td>8.3%</td><td>3.9%</td><td>24.2%</td><td>42.4%</td></tr></tbody>
+</table>
 </div>
-</body>
+
+</section>
+<section class="ws2-section">
+  <h3>📦 投资逻辑附加：产品定位 / 竞争格局 / 产能周期（占位）</h3>
+  
+<div class="ws2-frame-placeholder">
+  <h4>📦 产品定位与投资信号</h4>
+  此处待人工填实：每家公司主打产品价格带、渠道结构、品牌力定位、批价走势等定性内容（取自年报/公开渠道）。
+  <br>可用结构：①高端品牌矩阵 ②次高端与区域龙头 ③大众价位。
+</div>
+<div class="ws2-frame-placeholder">
+  <h4>🏛 竞争格局分析</h4>
+  此处待人工填实：CR3/CR5 集中度、行业份额变迁、价格战历史、经销商生态、跨区域挤压。
+  <br>可用指标：①销量集中度（公开数据） ②价格带定价权 ③经销商话语权变化。
+</div>
+<div class="ws2-frame-placeholder">
+  <h4>🔄 产能周期与库存周期</h4>
+  此处待人工填实：产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
+  <br>可用结构：①半成品库存月数 ②终端动销与渠道库存 ③价格倒挂信号。
+</div>
+
+</section>
+<section class="ws2-section">
+  <h3>🐴 白马型 vs 周期型一览（基于 10 年财报自动分类）</h3>
+  <p style="color:#5d6a82;font-size:12.5px;margin:0 0 10px 0">分类口径：ROE 中位&gt;18% 且净利率波动 σ&lt;5pp 且营收YoY σ&lt;15pp → 白马型；营收YoY σ&gt;30pp 或净利率 σ&gt;10pp → 周期型；其余 → 平衡型。</p>
+  
+<div class="ws2-table-wrap ws2-classify">
+<table>
+<thead><tr><th>公司</th><th>代码</th><th>分类</th><th>ROE 中位</th><th>净利率波动 σ</th><th>营收YoY波动 σ</th></tr></thead>
+<tbody><tr><td>潮宏基</td><td>002345</td><td class="tag tag-中性">平衡型</td><td>7.3%</td><td>2.6</td><td>19.1</td></tr><tr><td>明牌珠宝</td><td>002574</td><td class="tag tag-中性">平衡型</td><td>1.8%</td><td>5.4</td><td>23.0</td></tr><tr><td>萃华珠宝</td><td>002731</td><td class="tag tag-中性">平衡型</td><td>5.2%</td><td>1.2</td><td>28.1</td></tr><tr><td>周大生</td><td>002867</td><td class="tag tag-周期">周期型</td><td>20.4%</td><td>4.0</td><td>32.9</td></tr><tr><td>曼卡龙</td><td>300945</td><td class="tag tag-中性">平衡型</td><td>9.4%</td><td>1.6</td><td>20.5</td></tr><tr><td>迪阿股份</td><td>301177</td><td class="tag tag-周期">周期型</td><td>19.0%</td><td>8.8</td><td>43.7</td></tr><tr><td>老凤祥</td><td>600612</td><td class="tag tag-白马">白马型</td><td>19.9%</td><td>0.2</td><td>11.4</td></tr><tr><td>豫园股份</td><td>600655</td><td class="tag tag-周期">周期型</td><td>9.9%</td><td>6.5</td><td>35.5</td></tr><tr><td>中国黄金</td><td>600916</td><td class="tag tag-中性">平衡型</td><td>10.3%</td><td>0.4</td><td>22.2</td></tr><tr><td>菜百股份</td><td>605599</td><td class="tag tag-中性">平衡型</td><td>18.1%</td><td>0.5</td><td>24.9</td></tr></tbody>
+</table>
+</div>
+
+</section>
+<section class="ws2-section">
+  <h3>🏆 产业链地位 + 11 年累计复合增长（按营收 CAGR 排序）</h3>
+  
+<div class="ws2-table-wrap">
+<table>
+<thead><tr><th>公司</th><th>代码</th><th>营收 CAGR (10Y)</th><th>净利 CAGR (10Y)</th><th>ROE 中位</th><th>最新营收(亿)</th></tr></thead>
+<tbody><tr><td>菜百股份</td><td>605599</td><td>17.4%</td><td>16.7%</td><td>18.1%</td><td>288.2</td></tr><tr><td>潮宏基</td><td>002345</td><td>13.2%</td><td>6.9%</td><td>7.3%</td><td>93.2</td></tr><tr><td>周大生</td><td>002867</td><td>12.4%</td><td>12.1%</td><td>20.4%</td><td>88.2</td></tr><tr><td>曼卡龙</td><td>300945</td><td>11.8%</td><td>14.2%</td><td>9.4%</td><td>27.4</td></tr><tr><td>中国黄金</td><td>600916</td><td>11.3%</td><td>4.8%</td><td>10.3%</td><td>698.2</td></tr><tr><td>豫园股份</td><td>600655</td><td>7.6%</td><td>0.0%</td><td>9.9%</td><td>363.7</td></tr><tr><td>老凤祥</td><td>600612</td><td>4.0%</td><td>4.6%</td><td>19.9%</td><td>528.2</td></tr><tr><td>迪阿股份</td><td>301177</td><td>3.9%</td><td>-7.1%</td><td>19.0%</td><td>15.2</td></tr><tr><td>萃华珠宝</td><td>002731</td><td>3.0%</td><td>8.2%</td><td>5.2%</td><td>44.4</td></tr><tr><td>明牌珠宝</td><td>002574</td><td>-4.6%</td><td>0.0%</td><td>1.8%</td><td>32.8</td></tr></tbody>
+</table>
+</div>
+
+</section>
+<!-- ===== v2 body END ===== -->
+
+<div class="research-signal">
+  <div class="rs-grid">
+<div class="rs-item"><div class="rs-label">周期位置</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">黄金珠宝处金价长牛驱动的景气上行中段——2022 年起国际金价持续走高，黄金首饰消费与「存金/悦己」需求共振，板块收入与毛利受益；但估值层面已分化：老凤祥/周大生/菜百等龙头 PE分位<5%（历史极低位），中国黄金 PE分位92%（成长预期透支），呈「龙头深度便宜、题材偏贵」格局。</div></div>
+<div class="rs-item"><div class="rs-label">景气方向</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">结构性向好。金价高位震荡支撑黄金消费与回收场景；婚恋钻石走弱、悦己轻黄金走强是主线；加盟渠道下沉与黄金回购成新增长点。风险在金价回落与消费降级。</div></div>
+<div class="rs-item"><div class="rs-label">结论信号</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)"><b>🟢 积极（龙头左侧）</b> — 老凤祥/周大生/菜百等龙头 PE/PB 分位处近十年极低区（多数<5%），叠加高分红与金价β，提供罕见安全边际；须甄别「破净价值陷阱」（明牌/豫园盈利弱）与「高PE透支」（中国黄金/迪阿），优选真实现金流龙头。</div></div>
+<div class="rs-item"><div class="rs-label">核心催化</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">①金价维持高位/再上行带动黄金消费与库存重估　②加盟下沉+黄金回购场景扩张（中国黄金/周大生）　③龙头高分红+回购升温（老凤祥/菜百/周大生）　④悦己轻黄金、国潮设计渗透率提升　⑤婚恋需求边际回暖。</div></div>
+<div class="rs-item"><div class="rs-label">关键风险</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">①金价大幅回落压制需求与库存价值　②钻石/镶嵌需求持续走弱（迪阿/周大生）　③加盟扩张质量下滑、关店与库存风险　④破净公司盈利羸弱（明牌/豫园）　⑤高PE标的估值回归（中国黄金/迪阿）。</div></div>
+  </div>
+  <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:13px;line-height:1.8">
+<div style="font-weight:700;color:var(--navy)">周期位置</div><div>黄金珠宝处金价长牛驱动的景气上行中段——2022 年起国际金价持续走高，黄金首饰消费与「存金/悦己」需求共振，板块收入与毛利受益；但估值层面已分化：老凤祥/周大生/菜百等龙头 PE分位<5%（历史极低位），中国黄金 PE分位92%（成长预期透支），呈「龙头深度便宜、题材偏贵」格局。</div>
+<div style="font-weight:700;color:var(--navy)">景气方向</div><div>结构性向好。金价高位震荡支撑黄金消费与回收场景；婚恋钻石走弱、悦己轻黄金走强是主线；加盟渠道下沉与黄金回购成新增长点。风险在金价回落与消费降级。</div>
+<div style="font-weight:700;color:var(--navy)">结论信号</div><div><b>🟢 积极（龙头左侧）</b> — 老凤祥/周大生/菜百等龙头 PE/PB 分位处近十年极低区（多数<5%），叠加高分红与金价β，提供罕见安全边际；须甄别「破净价值陷阱」（明牌/豫园盈利弱）与「高PE透支」（中国黄金/迪阿），优选真实现金流龙头。</div>
+<div style="font-weight:700;color:var(--navy)">核心催化</div><div>①金价维持高位/再上行带动黄金消费与库存重估　②加盟下沉+黄金回购场景扩张（中国黄金/周大生）　③龙头高分红+回购升温（老凤祥/菜百/周大生）　④悦己轻黄金、国潮设计渗透率提升　⑤婚恋需求边际回暖。</div>
+<div style="font-weight:700;color:var(--navy)">关键风险</div><div>①金价大幅回落压制需求与库存价值　②钻石/镶嵌需求持续走弱（迪阿/周大生）　③加盟扩张质量下滑、关店与库存风险　④破净公司盈利羸弱（明牌/豫园）　⑤高PE标的估值回归（中国黄金/迪阿）。</div>
+  </div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:12px;color:var(--muted)">数据锚：平均 PB分位≈18%（老凤祥/周大生/菜百/曼卡龙/中国黄金 PE分位<15%；中国黄金 PE分位92%）；破净 3/10（明牌0.89/萃华0.22/豫园0.59）；老凤祥 PE分位0.4%、PB分位0.3%。结论为框架合成，需结合实盘研究校验。</div>
+</div>
+
+<h2 class="section-title">🏛 5 层分析框架（黄金珠宝产业链专属）</h2>
+<div class="layers">
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游黄金原料</div><div class="layer-text">上海金交所标准金条/金料，价格锚定国际现货金价（美元+汇率），由央行与大型金企主导供应；原料成本占黄金首饰售价 80%+，是整条链的成本主轴与最大变量。</div></div>
+<div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游加工/制造</div><div class="layer-text">黄金首饰倒模、CNC/古法金、镶嵌与花丝工艺；委外+自有产能并存，老凤祥/中国黄金具规模与工艺优势，设计/工艺溢价决定非金部分毛利。</div></div>
+<div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游品牌/渠道零售</div><div class="layer-text">加盟（周大生/中国黄金）、自营+区域专营（老凤祥/菜百）、时尚直营（潮宏基/曼卡龙/迪阿）；渠道密度、品牌心智与金价预期共同驱动终端动销。</div></div>
+<div class="layer-card"><div class="layer-num">04</div><div class="layer-name">竞争格局</div><div class="layer-text">「一超多强」：老凤祥绝对领先，中国黄金（央企全链）、周大生（加盟）、豫园（老庙/亚一）、菜百（区域专营）错位；迪阿占情感钻戒细分；中小品牌（潮宏基/曼卡龙/明牌/萃华）差异化竞争。</div></div>
+<div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-text">看「金价β × 品牌/渠道壁垒 × 估值分位 × 分红质量」；龙头 PE/PB 分位<5% 且高分红具安全边际，但须避开破净价值陷阱与高PE透支；核心变量是金价方向与渠道质量。</div></div>
+</div>
+
+<h2 class="section-title">📈 估值历史分位总览</h2>
+<div class="ovtable">
+<div class="ovtable"><table class="sortable"><tbody><tr><td>（暂无数据）</td></tr></tbody></table></div>
+</div>
+<div class="source-note" style="margin-top:10px">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。<span class="pct pct-lo">绿</span>偏低/便宜　<span class="pct pct-mid">橙</span>中位　<span class="pct pct-hi">红</span>偏高/贵。亏损企业 PE 为负、PE 分位不适用，仅看 PB；分位为时点统计。</div>
+
+<h2 class="section-title">⚖ R15 三维评级总览</h2>
+<div class="ovtable">
+<div class="ovtable"><table class="sortable"><tbody><tr><td>（暂无数据）</td></tr></tbody></table></div>
+</div>
+<div class="source-note" style="margin-top:10px">R15 三维：①<b>估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；②<b>质量星级</b>=近10年ROE均值（★越多质地越好）；③<b>时机分</b>=链周期指数百分位（分越高越接近周期底部）。数据为时点统计。</div>
+
+<h2 class="section-title">🏭 产业链成本传导</h2>
+<div class="cost-block">
+
+    <svg viewBox="0 0 800 150" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="arr-gold-jewelry" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0 0, 8 4, 0 8" fill="#f59e0b"/></marker></defs>
+      <g><rect x="15" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="100" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游·黄金原料</text></g>
+      <g><rect x="225" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="310" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游·加工制造</text></g>
+      <g><rect x="435" y="40" width="170" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="520" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游·品牌渠道</text></g>
+      <g><rect x="645" y="40" width="140" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="715" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">利润</text></g>
+      <line x1="185" y1="64" x2="225" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-gold-jewelry)"/>
+      <line x1="395" y1="64" x2="435" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-gold-jewelry)"/>
+      <line x1="605" y1="64" x2="645" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-gold-jewelry)"/>
+      <g><rect x="280" y="105" width="240" height="34" rx="6" fill="#fbf7ee" stroke="#f59e0b" stroke-width="1.5"/><text x="400" y="127" text-anchor="middle" font-size="12" font-weight="700" fill="#0b1f3a">核心变量=护城河</text></g>
+    </svg>
+  <p class="cost-note" style="font-style:normal;text-align:left"><p>黄金珠宝<b>成本传导=金价→黄金料成本→毛利→利润</b>。黄金原料占首饰售价 80%+，<b>终端价随金价实时/准实时调整（金价+工费）</b>——与调味等成本滞后传导不同，金价上行时存货与在途金料升值、毛利扩张（量价齐受益），金价回落则反之。<b>original</b>：因此黄金珠宝股本质是「金价β资产」：盈利≈f(金价↑、工费溢价↑、渠道扩张↑、套保能力)，金价是最强驱动变量。</p><p>非金部分（设计/工艺/品牌工费）才是品牌定价权来源——老凤祥/菜百靠品牌心智收「工费溢价」，迪阿靠情感收高毛利，而纯金条/投资金业务毛利极薄（中国黄金/豫园）。故<b>「金价红利」易得、「品牌定价权」难求</b>——这是区分便宜龙头与流量标的的核心。</p></p>
+</div>
+
+<h2 class="section-title">👥 员工效率排行</h2>
+<div class="ovtable">
+<div class="ovtable"><table class="sortable"><tbody><tr><td>（暂无数据）</td></tr></tbody></table></div>
+</div>
+<div class="source-note" style="margin-top:10px">员工增速=在职员工同比；人均净利=2025 归母净利÷员工数。组织效能信号为代理指标，非投资建议。</div>
+
+<h2 class="section-title">🏢 主要玩家索引（上市公司 10 家）</h2>
+<div class="grid">
+<a class="giant-card" href="./berkshire-gold-jewelry-chain-002345.html"><div class="gc-title">潮宏基</div><div class="gc-code">002345</div><div class="gc-meta">时尚珠宝加盟扩张</div><div class="gc-desc">时尚珠宝（K金+黄金）品牌，加盟快速扩张，金价上行受益但镶嵌承压，PB分位70%偏高。</div></a>
+<a class="giant-card" href="./berkshire-gold-jewelry-chain-002574.html"><div class="gc-title">明牌珠宝</div><div class="gc-code">002574</div><div class="gc-meta">黄金珠宝老牌困境</div><div class="gc-desc">浙系黄金珠宝老牌，主业平淡叠加投资亏损致PE为负，PB破净(0.89)但基本面偏弱。</div></a>
+<a class="giant-card" href="./berkshire-gold-jewelry-chain-002731.html"><div class="gc-title">萃华珠宝</div><div class="gc-code">002731</div><div class="gc-meta">辽宁老牌黄金珠宝</div><div class="gc-desc">辽宁百年老字号黄金珠宝，小市值，PE(TTM)显示极值(1.5,疑似失真)且PB分位0%极便宜。</div></a>
+<a class="giant-card" href="./berkshire-gold-jewelry-chain-002867.html"><div class="gc-title">周大生</div><div class="gc-code">002867</div><div class="gc-meta">加盟龙头·黄金发力</div><div class="gc-desc">以镶嵌起家转攻黄金的加盟龙头，高分红，PE分位8%、PB分位4%深度便宜。</div></a>
+<a class="giant-card" href="./berkshire-gold-jewelry-chain-300945.html"><div class="gc-title">曼卡龙</div><div class="gc-code">300945</div><div class="gc-meta">年轻时尚珠宝</div><div class="gc-desc">主打年轻客群的时尚珠宝（轻金+钻石），杭州区域强，PE分位3%极便宜但体量小。</div></a>
+<a class="giant-card" href="./berkshire-gold-jewelry-chain-301177.html"><div class="gc-title">迪阿股份</div><div class="gc-code">301177</div><div class="gc-meta">DR钻戒·求婚品牌</div><div class="gc-desc">DR钻戒（唯一真爱）品牌，钻石需求下滑致高PE(59,分位46%)，护城河受挑战。</div></a>
+<a class="giant-card" href="./berkshire-gold-jewelry-chain-600612.html"><div class="gc-title">老凤祥</div><div class="gc-code">600612</div><div class="gc-meta">黄金珠宝百年龙头</div><div class="gc-desc">百年黄金珠宝绝对龙头，加盟+品牌双强，PE分位0.4%、PB分位0.3%历史极低位。</div></a>
+<a class="giant-card" href="./berkshire-gold-jewelry-chain-600655.html"><div class="gc-title">豫园股份</div><div class="gc-code">600655</div><div class="gc-meta">老庙/亚一+多元</div><div class="gc-desc">复星旗下，老庙黄金/亚一珠宝+地产消费多元，PE亏损(-3.7)、PB破净0.59(分位6%)。</div></a>
+<a class="giant-card" href="./berkshire-gold-jewelry-chain-600916.html"><div class="gc-title">中国黄金</div><div class="gc-code">600916</div><div class="gc-meta">央企黄金全链</div><div class="gc-desc">央企背景黄金珠宝+回收全链，渠道高速扩张，PE分位92%偏贵但PB分位2%便宜。</div></a>
+<a class="giant-card" href="./berkshire-gold-jewelry-chain-605599.html"><div class="gc-title">菜百股份</div><div class="gc-code">605599</div><div class="gc-meta">菜百首饰·京圈专营</div><div class="gc-desc">北京菜市口百货黄金珠宝专营，高分红区域强势，PE分位3%、PB分位25%便宜。</div></a>
+</div>
+
+<div class="source-note">
+  📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+
+<script src="./analytics.js"></script>
+<script src="./tdx-link.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.sortable').forEach(function(t){
+    t.querySelectorAll('th').forEach(function(th,i){
+      th.addEventListener('click',function(){
+        var d=t.querySelector('tbody');
+        var rows=Array.from(d.querySelectorAll('tr'));
+        var asc=th.classList.contains('sorted-asc');
+        th.classList.remove('sorted-asc','sorted-desc');
+        rows.sort(function(a,b){
+          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+          av=parseFloat(av); bv=parseFloat(bv);
+          return asc?bv-av:av-bv;
+        });
+        th.classList.add(asc?'sorted-desc':'sorted-asc');
+        rows.forEach(function(r){d.appendChild(r)});
+      });
+    });
+  });
+});
+</script>
+<div class="section-title">延伸阅读 · 黄金珠宝产业链 7 兄弟页</div>
+<div class="extend-grid"><a class="extend-card" href="./berkshire-gold-jewelry-compare.html"><b>🥇 估值分位</b><span>黄金珠宝产业链（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-gold-jewelry-thermometer.html"><b>🌡️ 估值温度计</b><span>黄金珠宝产业链（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-gold-jewelry-buyback.html"><b>💰 回购监测</b><span>黄金珠宝产业链（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-gold-jewelry-repomap.html"><b>🗺️ 板块图谱</b><span>黄金珠宝产业链（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-gold-jewelry-backtest.html"><b>📈 五年回测</b><span>黄金珠宝产业链（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-gold-jewelry-cycle.html"><b>🔄 周期演进</b><span>黄金珠宝产业链（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-gold-jewelry-methodology.html"><b>📘 方法论说明</b><span>黄金珠宝产业链（估值/回购/周期研究的取值口径与可信区间）</span></a></div>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
+</body>
