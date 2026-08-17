@@ -1,232 +1,461 @@
-<!DOCTYPE html>
-
-<html lang="zh-CN">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="initial-scale=1">
-
-<title>港口产业链地图 · 价值投资视角</title>
-
-<style>* { margin:0; padding:0; box-sizing:border-box; }
-
-body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f2f5; color:#1e293b; line-height:1.75; }
-
-.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(3,105,161,0.2); padding:12px 20px; display:flex; align-items:center; gap:12px; }
-
-.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(3,105,161,0.12); color:#075985; border:1px solid rgba(3,105,161,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
-
-.home-btn:hover { background:#0369a1; color:#fff; }
-
-.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
-
-.breadcrumb a { color:#64748b; text-decoration:none; }
-
-.breadcrumb a:hover { color:#0369a1; }
-
-.crumb-sep { color:#cbd5e1; }
-
-.container { max-width:980px; margin:0 auto; padding:24px 16px 48px; }
-
-.hero { background:linear-gradient(135deg,#ffffff 0%,#f0f9ff 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(3,105,161,0.25); box-shadow:0 2px 12px rgba(0,0,0,0.06); }
-
-.hero-title { font-size:26px; font-weight:800; color:#0f172a; margin-bottom:6px; letter-spacing:.5px; }
-
-.hero-sub { font-size:14px; color:#64748b; margin-bottom:18px; }
-
-.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
-
-.stat-item { background:rgba(3,105,161,0.08); border:1px solid rgba(3,105,161,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
-
-.stat-num { font-size:22px; font-weight:800; color:#075985; }
-
-.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
-
-.explain-banner { display:flex; gap:16px; align-items:flex-start; background:linear-gradient(135deg,#f0f9ff,#ffffff); border:1px solid rgba(3,105,161,0.25); border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
-
-.explain-banner .eb-icon { font-size:24px; flex-shrink:0; }
-
-.explain-banner .eb-body { flex:1; min-width:0; }
-
-.explain-banner .eb-title { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-
-.explain-banner .eb-tag { font-size:11px; color:#075985; background:rgba(3,105,161,0.12); padding:2px 9px; border-radius:10px; }
-
-.explain-banner .eb-text { font-size:13px; color:#475569; line-height:1.8; }
-
-.explain-banner .eb-text b { color:#0f172a; font-weight:600; }
-
-.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(3,105,161,0.5); }
-
-.layers { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:8px; }
-
-.layer-card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-
-.layer-num { font-size:12px; color:#075985; font-weight:700; }
-
-.layer-name { font-size:14px; color:#0f172a; font-weight:600; margin:4px 0; }
-
-.layer-desc { font-size:12px; color:#64748b; line-height:1.6; }
-
-.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
-
-.giant-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; transition:all .2s; text-decoration:none; display:block; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-
-.giant-card:hover { border-color:#0369a1; background:rgba(3,105,161,0.06); transform:translateY(-2px); box-shadow:0 4px 14px rgba(3,105,161,0.2); }
-
-.giant-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
-
-.giant-name { font-size:16px; font-weight:700; color:#0f172a; }
-
-.region-tag { font-size:11px; padding:2px 9px; border-radius:10px; font-weight:600; }
-
-.region-cn { background:rgba(220,38,38,0.12); color:#dc2626; border:1px solid rgba(220,38,38,0.25); }
-
-.giant-desc { font-size:12.5px; color:#64748b; line-height:1.65; margin-bottom:10px; }
-
-.giant-foot { font-size:12px; display:flex; align-items:center; justify-content:space-between; }
-
-.giant-link { color:#075985; font-weight:600; }
-
-.note-line { font-size:12.5px; color:#64748b; margin-top:14px; line-height:1.7; }
-
-.note-line b { color:#475569; }
-
-.source-note { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; margin-top:24px; font-size:12.5px; color:#64748b; line-height:1.7; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-
-.source-note b { color:#475569; }
-
-@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .grid{grid-template-columns:1fr} .explain-banner{flex-direction:column;padding:16px} }
-
-
-.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
-.breadcrumb a{color:var(--primary-dark);text-decoration:none}
-.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
-.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
-.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
-.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
-.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
-.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
-.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
-.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
-.back-bar a:hover{background:#e8b84b;color:#fff}
-
-</style>
-
-<style>
-
-/* P0 估值历史分位 + 成本传导（扩展链） */
-
-.valband{margin:6px 0 2px}
-
-.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
-
-.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
-
-.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
-
-.vfill{height:100%;border-radius:6px}
-
-.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
-
-.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
-
-.vval b{color:#0f172a}
-
-.vtag{font-weight:700;margin-left:4px}
-
-.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
-
-.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
-
-.ovtable{overflow-x:auto;margin:6px 0}
-
-.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
-
-.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
-
-.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
-
-.ovtable td:first-child,.ovtable th:first-child{text-align:left}
-
-.ovtable a{color:#0f766e;text-decoration:none}
-
-.ovtable a:hover{text-decoration:underline}
-
-.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
-
-.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
-
-.pct-mid{color:#c2410c;background:rgba(249,115,22,0.14)}
-
-.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
-
-.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
-
-.cost-chart{flex:1;min-width:300px}
-
-.cost-chart svg{width:100%;height:auto;display:block}
-
-.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
-
-.cost-note b{color:#0f172a}
-
-.cost-note p{margin:0 0 10px}
-
-</style>
-
-<style>
-
-/* 员工效率与组织效能 */
-
-.emp-block{margin:6px 0 2px}
-
-.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
-
-.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
-
-.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
-
-.emp-val{font-size:18px;font-weight:700;color:#0f172a}
-
-.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
-
-.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
-
-.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
-
-.emp-signal b{font-weight:700}
-
-.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
-
-.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
-
-.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
-
-</style>
-
-<style>
-
-/* chain-sort */
-
-.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
-
-.sortable th:hover{background:#e0f2fe}
-
-.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
-
-.sortable th.asc .sort-ind::before{content:"\25B2";color:#0369a1}
-
-.sortable th.desc .sort-ind::before{content:"\25BC";color:#0369a1}
-
-:root{--primary:#e8b84b;--primary-dark:#b45309;--accent:#e8b84b}
-
-</style>
-
-<!-- chain-sort -->
-
+<!DOCTYPE html>
+
+
+
+<html lang="zh-CN">
+
+
+
+<head>
+
+
+
+<meta charset="UTF-8">
+
+
+
+<meta name="viewport" content="initial-scale=1">
+
+
+
+<title>港口产业链地图 · 价值投资视角</title>
+
+
+
+<style>* { margin:0; padding:0; box-sizing:border-box; }
+
+
+
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f2f5; color:#1e293b; line-height:1.75; }
+
+
+
+.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(3,105,161,0.2); padding:12px 20px; display:flex; align-items:center; gap:12px; }
+
+
+
+.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(3,105,161,0.12); color:#075985; border:1px solid rgba(3,105,161,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; transition:all .2s; }
+
+
+
+.home-btn:hover { background:#0369a1; color:#fff; }
+
+
+
+.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
+
+
+
+.breadcrumb a { color:#64748b; text-decoration:none; }
+
+
+
+.breadcrumb a:hover { color:#0369a1; }
+
+
+
+.crumb-sep { color:#cbd5e1; }
+
+
+
+.container { max-width:980px; margin:0 auto; padding:24px 16px 48px; }
+
+
+
+.hero { background:linear-gradient(135deg,#ffffff 0%,#f0f9ff 100%); border-radius:14px; padding:32px 28px; margin-bottom:20px; border:1px solid rgba(3,105,161,0.25); box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+
+
+
+.hero-title { font-size:26px; font-weight:800; color:#0f172a; margin-bottom:6px; letter-spacing:.5px; }
+
+
+
+.hero-sub { font-size:14px; color:#64748b; margin-bottom:18px; }
+
+
+
+.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+
+
+
+.stat-item { background:rgba(3,105,161,0.08); border:1px solid rgba(3,105,161,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
+
+
+
+.stat-num { font-size:22px; font-weight:800; color:#075985; }
+
+
+
+.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
+
+
+
+.explain-banner { display:flex; gap:16px; align-items:flex-start; background:linear-gradient(135deg,#f0f9ff,#ffffff); border:1px solid rgba(3,105,161,0.25); border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+
+
+
+.explain-banner .eb-icon { font-size:24px; flex-shrink:0; }
+
+
+
+.explain-banner .eb-body { flex:1; min-width:0; }
+
+
+
+.explain-banner .eb-title { font-size:15px; font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+
+
+
+.explain-banner .eb-tag { font-size:11px; color:#075985; background:rgba(3,105,161,0.12); padding:2px 9px; border-radius:10px; }
+
+
+
+.explain-banner .eb-text { font-size:13px; color:#475569; line-height:1.8; }
+
+
+
+.explain-banner .eb-text b { color:#0f172a; font-weight:600; }
+
+
+
+.section-title { font-size:18px; font-weight:700; color:#0f172a; margin:28px 0 14px; padding-left:12px; border-left:3px solid rgba(3,105,161,0.5); }
+
+
+
+.layers { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:8px; }
+
+
+
+.layer-card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+
+
+
+.layer-num { font-size:12px; color:#075985; font-weight:700; }
+
+
+
+.layer-name { font-size:14px; color:#0f172a; font-weight:600; margin:4px 0; }
+
+
+
+.layer-desc { font-size:12px; color:#64748b; line-height:1.6; }
+
+
+
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
+
+
+
+.giant-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; transition:all .2s; text-decoration:none; display:block; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+
+
+
+.giant-card:hover { border-color:#0369a1; background:rgba(3,105,161,0.06); transform:translateY(-2px); box-shadow:0 4px 14px rgba(3,105,161,0.2); }
+
+
+
+.giant-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+
+
+
+.giant-name { font-size:16px; font-weight:700; color:#0f172a; }
+
+
+
+.region-tag { font-size:11px; padding:2px 9px; border-radius:10px; font-weight:600; }
+
+
+
+.region-cn { background:rgba(220,38,38,0.12); color:#dc2626; border:1px solid rgba(220,38,38,0.25); }
+
+
+
+.giant-desc { font-size:12.5px; color:#64748b; line-height:1.65; margin-bottom:10px; }
+
+
+
+.giant-foot { font-size:12px; display:flex; align-items:center; justify-content:space-between; }
+
+
+
+.giant-link { color:#075985; font-weight:600; }
+
+
+
+.note-line { font-size:12.5px; color:#64748b; margin-top:14px; line-height:1.7; }
+
+
+
+.note-line b { color:#475569; }
+
+
+
+.source-note { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; margin-top:24px; font-size:12.5px; color:#64748b; line-height:1.7; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+
+
+
+.source-note b { color:#475569; }
+
+
+
+@media(max-width:640px){ .hero{padding:22px 16px} .hero-title{font-size:21px} .grid{grid-template-columns:1fr} .explain-banner{flex-direction:column;padding:16px} }
+
+
+
+
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+
+
+</style>
+
+
+
+<style>
+
+
+
+/* P0 估值历史分位 + 成本传导（扩展链） */
+
+
+
+.valband{margin:6px 0 2px}
+
+
+
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+
+
+
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+
+
+
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+
+
+
+.vfill{height:100%;border-radius:6px}
+
+
+
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+
+
+
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+
+
+
+.vval b{color:#0f172a}
+
+
+
+.vtag{font-weight:700;margin-left:4px}
+
+
+
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+
+
+
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+
+
+.ovtable{overflow-x:auto;margin:6px 0}
+
+
+
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+
+
+
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+
+
+
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+
+
+
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+
+
+
+.ovtable a{color:#0f766e;text-decoration:none}
+
+
+
+.ovtable a:hover{text-decoration:underline}
+
+
+
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+
+
+
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+
+
+
+.pct-mid{color:#c2410c;background:rgba(249,115,22,0.14)}
+
+
+
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+
+
+
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+
+
+
+.cost-chart{flex:1;min-width:300px}
+
+
+
+.cost-chart svg{width:100%;height:auto;display:block}
+
+
+
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+
+
+
+.cost-note b{color:#0f172a}
+
+
+
+.cost-note p{margin:0 0 10px}
+
+
+
+</style>
+
+
+
+<style>
+
+
+
+/* 员工效率与组织效能 */
+
+
+
+.emp-block{margin:6px 0 2px}
+
+
+
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
+
+
+
+.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+
+
+
+.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
+
+
+
+.emp-val{font-size:18px;font-weight:700;color:#0f172a}
+
+
+
+.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
+
+
+
+.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
+
+
+
+.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
+
+
+
+.emp-signal b{font-weight:700}
+
+
+
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+
+
+
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+
+
+
+.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+
+
+
+</style>
+
+
+
+<style>
+
+
+
+/* chain-sort */
+
+
+
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
+
+
+
+.sortable th:hover{background:#e0f2fe}
+
+
+
+.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
+
+
+
+.sortable th.asc .sort-ind::before{content:"\25B2";color:#0369a1}
+
+
+
+.sortable th.desc .sort-ind::before{content:"\25BC";color:#0369a1}
+
+
+
+:root{--primary:#e8b84b;--primary-dark:#b45309;--accent:#e8b84b}
+
+
+
+</style>
+
+
+
+<!-- chain-sort -->
+
+
+
 
 <style>
 /* v2 white-spirit template additions */
@@ -267,70 +496,134 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 .ws2-frame b{color:#3854cc}
 </style>
 
-</head>
-
-<body>
-
-<div class="top-bar">
-
-<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
-
-<div class="breadcrumb">
-
-<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
-
-<span>港口产业链</span>
-
-</div>
-
-</div>
-
-<div class="container">
-
-
-
-<div class="hero">
-
-<div class="hero-title">港口产业链地图</div>
-
-<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
-
-<div class="hero-stats">
-
-<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">上市公司</div></div>
-
-<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">层框架</div></div>
-
-<div class="stat-item"><div class="stat-num">7</div><div class="stat-label">破净 / 10</div></div>
-
-<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
-
-</div>
-
-</div>
-
-
-
-<div class="explain-banner">
-
-<div class="eb-icon">🛡️</div>
-
-<div class="eb-body">
-
-<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「港口产业链地图」是怎么来的</div>
-
-<div class="eb-text">
-
-本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的港口行业知识框架，把 A 股 10 家代表性港口按「五层框架」拆解，便于从价值投资视角理解其区位壁垒、吞吐结构与分红属性。<br><b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中数字为近年财报四舍五入值，最新以公司公告为准。港口是<b>重资产、弱周期、高分红</b>的基础设施：利润来自「<b>吞吐量 × 费率 − 折旧/人工</b>」，经营杠杆高、现金流稳，分析时须区分「集装箱枢纽港」与「大宗散货专业港」两类盈利质量。
-
-</div>
-
-</div>
-
-</div>
-
-
-
+</head>
+
+
+
+<body>
+
+
+
+<div class="top-bar">
+
+
+
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+
+
+
+<div class="breadcrumb">
+
+
+
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+
+
+
+<span>港口产业链</span>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+<div class="container">
+
+
+
+
+
+
+
+<div class="hero">
+
+
+
+<div class="hero-title">港口产业链地图</div>
+
+
+
+<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
+
+
+
+<div class="hero-stats">
+
+
+
+<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">上市公司</div></div>
+
+
+
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">层框架</div></div>
+
+
+
+<div class="stat-item"><div class="stat-num">7</div><div class="stat-label">破净 / 10</div></div>
+
+
+
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="explain-banner">
+
+
+
+<div class="eb-icon">🛡️</div>
+
+
+
+<div class="eb-body">
+
+
+
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「港口产业链地图」是怎么来的</div>
+
+
+
+<div class="eb-text">
+
+
+
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的港口行业知识框架，把 A 股 10 家代表性港口按「五层框架」拆解，便于从价值投资视角理解其区位壁垒、吞吐结构与分红属性。<br><b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中数字为近年财报四舍五入值，最新以公司公告为准。港口是<b>重资产、弱周期、高分红</b>的基础设施：利润来自「<b>吞吐量 × 费率 − 折旧/人工</b>」，经营杠杆高、现金流稳，分析时须区分「集装箱枢纽港」与「大宗散货专业港」两类盈利质量。
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
 
 <!-- ===== v2 body (per 老板截屏) START ===== -->
 <div class="ws2-counter-wrap">
@@ -344,8 +637,8 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 
 </div>
 <section class="ws2-section">
-  <h3>🎯 投资逻辑（8 条 · 占位框架，待人工填实）</h3>
-  <div class='ws2-logic8'><div class="item empty"><b>1️⃣ 商业模式与护城河来源</b>（占位 · 待人工填实）</div><div class="item empty"><b>2️⃣ 行业集中度与玩家分层</b>（占位 · 待人工填实）</div><div class="item empty"><b>3️⃣ 产业链上下游关系</b>（占位 · 待人工填实）</div><div class="item empty"><b>4️⃣ 周期性与价格话语权</b>（占位 · 待人工填实）</div><div class="item empty"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>（占位 · 待人工填实）</div><div class="item empty"><b>6️⃣ 估值水位与历史分位</b>（占位 · 待人工填实）</div><div class="item empty"><b>7️⃣ 主要风险事件清单</b>（占位 · 待人工填实）</div><div class="item empty"><b>8️⃣ 投资跟踪指标与反向信号</b>（占位 · 待人工填实）</div></div>
+  <h3>🎯 投资逻辑（8 条 · AI 填实（基于 10 年财报））</h3>
+  <div class='ws2-logic8'><div class="item"><b>1️⃣ 商业模式与护城河来源</b>港口护城河=自然区位垄断+重资产岸线壁垒+腹地经济绑定，几乎不可复制。枢纽港（上港/宁波/青岛/天津/广州/招商港口）凭深水岸线+航线网络+腹地外贸享定价权；唐山港/秦港凭大宗（煤炭/矿石）专用泊位获稳定量。上港集团 2025 净利 135.7亿、青岛港 52.7亿（ROE 11.5%）为盈利标杆。</div><div class="item"><b>2️⃣ 行业集中度与玩家分层</b>高度区域垄断、弱竞争。10 家中上港（135.7亿）、宁波港（51.7亿）、青岛港（52.7亿）、招商港口（46.1亿）盈利最强；唐山港（20亿，gpm 48.6%）、秦港（16.1亿，gpm 41.7%）高毛利；天津港（9.8亿）、辽港（13.1亿）、广州港（8.2亿）、日照港（4.95亿）中等。各港腹地不同、错位竞争，无价格战。</div><div class="item"><b>3️⃣ 产业链上下游关系</b>上游=码头建设/港机；中游=装卸仓储/中转；下游=外贸进出口（集装箱/干散货/液体散货）、航运公司、腹地制造与资源企业。盈利核心=吞吐量×单吨费率，费率受港口收费政策管制，量随外贸与大宗景气摆动。</div><div class="item"><b>4️⃣ 周期性与价格话语权</b>弱周期（类公用事业）。需求随全球贸易+我国进出口波动，无强商品价格周期；盈利慢增长、高分红特征明显。2020–2021 外贸高景气港口盈利跳升（上港 146→172亿），2022 后高位温和回落但仍稳。ROE 普遍 3%–11%，防御属性强。</div><div class="item"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>看“吞吐量+单吨费率+分红率+负债率”而非营收。上港 10 年净利 65→135亿、ROE 9.6%、现金流极强、负债低；青岛港 ROE 11.5% 居首；唐山港 gpm 48.6% 成本最优。重资产但折旧覆盖再投资，自由现金流厚、分红率高，是红利资产典型。</div><div class="item"><b>6️⃣ 估值水位与历史分位</b>历史 8–15x PE、0.7–1.3x PB，当前红利风格下估值中枢上移。宜用股息率+PB+吞吐量增速，回避单纯看 PE（利润稳但增长慢）。枢纽港（上港/青岛/宁波）享受估值溢价。</div><div class="item"><b>7️⃣ 主要风险事件清单</b>①全球贸易摩擦/关税冲击吞吐量；②外贸结构变化（转口/近岸化）；③港口费率政策下调；④腹地经济下行（干散货需求）；⑤自动化替代人工的资本开支；⑥地缘（区域冲突影响航线）。</div><div class="item"><b>8️⃣ 投资跟踪指标与反向信号</b>跟踪——海关总署进出口数据、集装箱吞吐量（八大枢纽港）、BDI/SCFI 运价、单吨费率、龙头季度吞吐与净利、分红率。反向信号：吞吐量连续负增+费率下调+外贸订单锐减。</div></div>
 </section>
 <section class="ws2-section">
   <h3><span class="tag">DATA</span> 历史分位图 · 6 张</h3>
@@ -364,23 +657,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 </section>
 <section class="ws2-section">
   <h3>📦 投资逻辑附加：产品定位 / 竞争格局 / 产能周期（占位）</h3>
-  
-<div class="ws2-frame-placeholder">
-  <h4>📦 产品定位与投资信号</h4>
-  此处待人工填实：每家公司主打产品价格带、渠道结构、品牌力定位、批价走势等定性内容（取自年报/公开渠道）。
-  <br>可用结构：①高端品牌矩阵 ②次高端与区域龙头 ③大众价位。
-</div>
-<div class="ws2-frame-placeholder">
-  <h4>🏛 竞争格局分析</h4>
-  此处待人工填实：CR3/CR5 集中度、行业份额变迁、价格战历史、经销商生态、跨区域挤压。
-  <br>可用指标：①销量集中度（公开数据） ②价格带定价权 ③经销商话语权变化。
-</div>
-<div class="ws2-frame-placeholder">
-  <h4>🔄 产能周期与库存周期</h4>
-  此处待人工填实：产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
-  <br>可用结构：①半成品库存月数 ②终端动销与渠道库存 ③价格倒挂信号。
-</div>
-
+  <div class="ws2-frame"><h4>📦 产品定位与投资信号</h4>产品定位：①集装箱枢纽港（上港/宁波/青岛/招商港口，高附加值+航线密集）；②干散货/能源港（唐山/秦港/日照，煤炭矿石专用）；③综合港（天津/广州/辽港，多货类）。信号：优选“高分红+低负债+吞吐稳增长”的红利资产（上港/青岛/唐山），规避吞吐下滑的区域小港。</div><div class="ws2-frame"><h4>🏛 竞争格局分析</h4>竞争格局：岸线资源不可复制，各港按区位与腹地自然分割、错位竞争，几乎无正面价格战。枢纽港凭航线网络与中转量形成正反馈；区域港依赖本地外贸与资源。行政定价（港口收费目录）削弱价格竞争，强化“量”的壁垒。</div><div class="ws2-frame"><h4>🔄 产能周期与库存周期</h4>产能周期：码头建设周期长（5–10年）、岸线稀缺，产能释放刚性；产能利用率随外贸周期摆动。当前主要枢纽港产能偏紧、利用率高，扩建以自动化码头为主（资本开支可控）。无库存周期大博弈，盈利波动小。</div>
 </section>
 <section class="ws2-section">
   <h3>🐴 白马型 vs 周期型一览（基于 10 年财报自动分类）</h3>
@@ -407,415 +684,827 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Mi
 </section>
 <!-- ===== v2 body END ===== -->
 
-<!--research-signal-->
-
-<div class="section-title" style="border-left:3px solid #0369a1">研究信号</div>
-
-<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #0369a1;border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-
-  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
-
-    <div style="font-weight:700;color:#475569">周期位置</div><div>港口属重资产、弱周期、高分红的「收息型」基础设施；当前板块普遍破净（多数 PB<1）、PE 处历史中低位，估值安全边际厚，但 ROE 普遍偏低（3%–12%）反映重资产属性与增长平缓。外贸集装箱景气与大宗散货（煤炭/矿石/原油）周期共同驱动吞吐。</div>
-
-<div style="font-weight:700;color:#475569">景气方向</div><div>2024–25 外贸温和复苏 +「北煤南运/能源安全」支撑散货，枢纽港（上港/宁波/青岛）吞吐与利润稳健；但区域竞争（环渤海/长三角）、集装箱货源分流使中小港盈利分化。板块股息率普遍 3%–4% 具吸引力。</div>
-
-<div style="font-weight:700;color:#475569">结论信号</div><div><b>🟢 破净 + 高股息 + 强现金流 三角</b> — 优先「破净（低 PB 分位）+ 高股息 + 低负债 + 强现金流」的枢纽/专业港（上港/宁波/唐山/秦港/招商），规避「高 PE + 低 ROE + 高负债」的弱质港（日照/广州/辽港）。</div>
-
-<div style="font-weight:700;color:#475569">核心催化</div><div>①外贸集装箱复苏 / 出口链回暖　②「北煤南运」与能源安全支撑散货　③破净修复（市值管理）　④高股息率吸引长期资金　⑤多式联运（海铁）与自动化提效。</div>
-
-<div style="font-weight:700;color:#475569">关键风险</div><div>①外贸/出口下行压制集装箱　②大宗（煤炭/矿石/原油）周期回落　③区域港口竞争与货源分流　④重资产 Capex 与 ROE 偏低　⑤地缘政治与供应链重构。</div>
-
-  </div>
-
-  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：10 家平均 PE分位 ≈35% · 平均 PB分位 ≈17% · 7 家 PB<1 破净 · 上港/宁波 PE分位处历史极低(<20%) · 唐山港毛利率48.6%/负债9%质量顶尖 · 板块股息率普遍 3%–4%。结论为框架合成，需结合实盘研究校验。</div>
-
-</div>
-
-<!--/research-signal--><div class="section-title">跨层分析框架（5 层）</div>
-
-<div class="layers">
-
-<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">区位与吞吐能力</div><div class="layer-desc">港口地理位置、水深、泊位与岸线，是核心资源壁垒；集装箱/散货吞吐能力决定规模与定价权，不可复制。</div></div>
-
-<div class="layer-card"><div class="layer-num">02</div><div class="layer-name">装卸与作业</div><div class="layer-desc">装卸效率、自动化、多式联运（海铁联运），单吨成本与作业能力；重资产下经营杠杆高。</div></div>
-
-<div class="layer-card"><div class="layer-num">03</div><div class="layer-name">货物结构</div><div class="layer-desc">集装箱 / 散货（煤炭/矿石/原油）/ 汽车滚装，货种决定费率与景气弹性，多元货种抗单一波动。</div></div>
-
-<div class="layer-card"><div class="layer-num">04</div><div class="layer-name">费率与定价</div><div class="layer-desc">港口使用费、装卸费率，受政策管制与区域竞争格局影响；外贸景气与腹地需求驱动吞吐。</div></div>
-
-<div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">看吞吐量（外贸+内需）+ 费率 + 高股息 + 破净安全边际；重资产、现金流稳，破净+分红是估值锚。</div></div>
-
-</div>
-
-
-
-<div class="section-title">估值历史分位总览（港口 10 家）</div>
-
-<div class="ovtable">
-
-<table class="sortable">
-
-<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th><th data-type="num">ROE<span class="sort-ind"></span></th></tr></thead>
-
-<tbody>
-
-<tr><td><a href="berkshire-port-chain-001872.html"><b>招商港口</b></a></td><td class="num">11.49</td><td><span class="pct-cell pct-lo">32.0%</span></td><td class="num">0.82</td><td><span class="pct-cell pct-mid">44.0%</span></td><td class="num">7.3%</td></tr>
-
-<tr><td><a href="berkshire-port-chain-600017.html"><b>日照港</b></a></td><td class="num">18.73</td><td><span class="pct-cell pct-hi">76.2%</span></td><td class="num">0.58</td><td><span class="pct-cell pct-lo">0.8%</span></td><td class="num">3.6%</td></tr>
-
-<tr><td><a href="berkshire-port-chain-600018.html"><b>上港集团</b></a></td><td class="num">8.69</td><td><span class="pct-cell pct-lo">19.0%</span></td><td class="num">0.82</td><td><span class="pct-cell pct-lo">2.7%</span></td><td class="num">9.9%</td></tr>
-
-<tr><td><a href="berkshire-port-chain-600717.html"><b>天津港</b></a></td><td class="num">11.46</td><td><span class="pct-cell pct-lo">2.9%</span></td><td class="num">0.59</td><td><span class="pct-cell pct-lo">0.8%</span></td><td class="num">5.0%</td></tr>
-
-<tr><td><a href="berkshire-port-chain-601000.html"><b>唐山港</b></a></td><td class="num">12.86</td><td><span class="pct-cell pct-hi">62.9%</span></td><td class="num">1.22</td><td><span class="pct-cell pct-hi">68.0%</span></td><td class="num">9.5%</td></tr>
-
-<tr><td><a href="berkshire-port-chain-601018.html"><b>宁波港</b></a></td><td class="num">12.55</td><td><span class="pct-cell pct-lo">1.1%</span></td><td class="num">0.79</td><td><span class="pct-cell pct-lo">1.0%</span></td><td class="num">6.5%</td></tr>
-
-<tr><td><a href="berkshire-port-chain-601228.html"><b>广州港</b></a></td><td class="num">28.84</td><td><span class="pct-cell pct-hi">65.3%</span></td><td class="num">1.06</td><td><span class="pct-cell pct-lo">1.6%</span></td><td class="num">3.9%</td></tr>
-
-<tr><td><a href="berkshire-port-chain-601298.html"><b>青岛港</b></a></td><td class="num">10.76</td><td><span class="pct-cell pct-hi">61.3%</span></td><td class="num">1.20</td><td><span class="pct-cell pct-mid">41.8%</span></td><td class="num">11.9%</td></tr>
-
-<tr><td><a href="berkshire-port-chain-601326.html"><b>秦港股份</b></a></td><td class="num">11.53</td><td><span class="pct-cell pct-lo">9.9%</span></td><td class="num">0.90</td><td><span class="pct-cell pct-lo">7.8%</span></td><td class="num">8.1%</td></tr>
-
-<tr><td><a href="berkshire-port-chain-601880.html"><b>辽港股份</b></a></td><td class="num">23.38</td><td><span class="pct-cell pct-lo">8.9%</span></td><td class="num">0.84</td><td><span class="pct-cell pct-lo">4.7%</span></td><td class="num">3.3%</td></tr>
-
-</tbody>
-
-</table>
-
-<div class="note-line">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span><span class="vleg"><i style="background:#075985"></i>40–60% 中位</span><span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。港口盈利弱周期、重资产属性强，分位为时点统计、仅供参考。</div>
-
-</div>
-
-
-
-<div class="section-title">R15 三维评级总览（港口 10 家）</div>
-
-<div class="ovtable">
-
-<table class="sortable">
-
-<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
-
-<tbody>
-
-<tr><td><a href="berkshire-port-chain-001872.html"><b>招商港口</b></a></td><td><span class="pct-cell pct-lo">★★★</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td class="num">7</td><td><span class="pct-cell pct-lo">32.0%</span></td><td><span class="pct-cell pct-mid">44.0%</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-600017.html"><b>日照港</b></a></td><td><span class="pct-cell pct-hi">★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td class="num">3</td><td><span class="pct-cell pct-hi">76.2%</span></td><td><span class="pct-cell pct-lo">0.8%</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-600018.html"><b>上港集团</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td class="num">10</td><td><span class="pct-cell pct-lo">19.0%</span></td><td><span class="pct-cell pct-lo">2.7%</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-600717.html"><b>天津港</b></a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★</span></td><td class="num">6</td><td><span class="pct-cell pct-lo">2.9%</span></td><td><span class="pct-cell pct-lo">0.8%</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-601000.html"><b>唐山港</b></a></td><td><span class="pct-cell pct-hi">★★</span></td><td><span class="pct-cell pct-hi">★★★★★</span></td><td class="num">8</td><td><span class="pct-cell pct-hi">62.9%</span></td><td><span class="pct-cell pct-hi">68.0%</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-601018.html"><b>宁波港</b></a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td class="num">9</td><td><span class="pct-cell pct-lo">1.1%</span></td><td><span class="pct-cell pct-lo">1.0%</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-601228.html"><b>广州港</b></a></td><td><span class="pct-cell pct-hi">★★</span></td><td><span class="pct-cell pct-lo">★★</span></td><td class="num">3</td><td><span class="pct-cell pct-hi">65.3%</span></td><td><span class="pct-cell pct-lo">1.6%</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-601298.html"><b>青岛港</b></a></td><td><span class="pct-cell pct-hi">★★</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td class="num">9</td><td><span class="pct-cell pct-hi">61.3%</span></td><td><span class="pct-cell pct-mid">41.8%</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-601326.html"><b>秦港股份</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td class="num">7</td><td><span class="pct-cell pct-lo">9.9%</span></td><td><span class="pct-cell pct-lo">7.8%</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-601880.html"><b>辽港股份</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">★★</span></td><td class="num">5</td><td><span class="pct-cell pct-lo">8.9%</span></td><td><span class="pct-cell pct-lo">4.7%</span></td></tr>
-
-</tbody>
-
-</table>
-
-<div class="note-line">R15 三维框架：①<b>相对估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；②<b>质量星级</b>=近10年ROE均值（★越多质地越好）；③<b>时机分</b>=链周期底部程度换算（分越高越接近周期底部、买点越好）。<span class="vleg"><i style="background:#15803d"></i>绿=好</span><span class="vleg"><i style="background:#075985"></i>橙=中</span><span class="vleg"><i style="background:#b91c1c"></i>红=差/贵</span>。数据为时点统计。</div>
-
-</div>
-
-
-
-<div class="section-title">产业链成本传导（市场变量传导）</div>
-
-<div class="cost-block">
-
-<div class="cost-chart"><svg viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg">
-
-  <defs><marker id="arr-pt" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0 0, 8 4, 0 8" fill="#075985"/></marker></defs>
-
-  <g><rect x="15" y="30" width="150" height="48" rx="6" fill="white" stroke="#075985" stroke-width="1.5"/><text x="90" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">吞吐量(量)</text><text x="90" y="68" text-anchor="middle" font-size="10" fill="#64748b">箱量/吨</text></g>
-
-  <g><rect x="225" y="30" width="150" height="48" rx="6" fill="white" stroke="#075985" stroke-width="1.5"/><text x="300" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">装卸费收入</text><text x="300" y="68" text-anchor="middle" font-size="10" fill="#64748b">量×费率</text></g>
-
-  <g><rect x="435" y="30" width="150" height="48" rx="6" fill="white" stroke="#075985" stroke-width="1.5"/><text x="510" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">折旧+Capex</text><text x="510" y="68" text-anchor="middle" font-size="10" fill="#64748b">重资产</text></g>
-
-  <g><rect x="635" y="30" width="150" height="48" rx="6" fill="white" stroke="#075985" stroke-width="1.5"/><text x="710" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">自由现金流</text><text x="710" y="68" text-anchor="middle" font-size="10" fill="#64748b">→分红</text></g>
-
-  <line x1="165" y1="54" x2="225" y2="54" stroke="#075985" stroke-width="1.5" marker-end="url(#arr-pt)"/>
-
-  <line x1="375" y1="54" x2="435" y2="54" stroke="#075985" stroke-width="1.5" marker-end="url(#arr-pt)"/>
-
-  <line x1="585" y1="54" x2="635" y2="54" stroke="#075985" stroke-width="1.5" marker-end="url(#arr-pt)"/>
-
-  <g><rect x="230" y="100" width="340" height="44" rx="6" fill="#f0f9ff" stroke="#075985" stroke-width="1.5"/><text x="400" y="118" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">估值锚：破净+高股息 提供安全边际</text><text x="400" y="136" text-anchor="middle" font-size="10" fill="#64748b">区位不可复制 = 护城河</text></g>
-
-  <line x1="710" y1="78" x2="570" y2="100" stroke="#075985" stroke-width="1.5" marker-end="url(#arr-pt)"/>
-
-</svg></div>
-
-<div class="cost-note">
-
-<p>港口的<b>「成本传导」本质是吞吐量→利润的杠杆放大</b>：①<b>吞吐量（量）</b> → 装卸费收入（量×费率），是利润核心变量，集装箱外贸+大宗散货共驱；②<b>折旧 + Capex</b> → 重资产特征，固定成本占比高、边际成本低、经营杠杆大；③吞吐增长 + 费率稳定 → 利润弹性显著；④共同决定<b>自由现金流 → 分红 / 再投资</b>。</p><p>护城河 = <b>区位（不可复制的深水岸线与腹地）+ 吞吐规模</b>；破净 + 高股息 = 估值锚，但须警惕高 Capex 与区域货源分流对 ROE 的压制。</p>
-
-</div>
-
-</div>
-
-
-
-<div class="section-title">员工效率与组织效能排行（港口 10 家）</div>
-
-<div class="ovtable"><table>
-
-<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均净利</th><th>效率信号</th></tr></thead>
-
-<tbody>
-
-<tr><td><a href="berkshire-port-chain-001872.html"><b>招商港口</b></a></td><td class="num">15,013</td><td class="num down">-0.9%</td><td class="num">¥30.7万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">收缩</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-600017.html"><b>日照港</b></a></td><td class="num">5,855</td><td class="num flat">—</td><td class="num">¥8.5万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#64748b">—</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-600018.html"><b>上港集团</b></a></td><td class="num">13,046</td><td class="num up">+0.2%</td><td class="num">¥104.0万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-600717.html"><b>天津港</b></a></td><td class="num">4,933</td><td class="num down">-3.0%</td><td class="num">¥19.9万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">收缩</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-601000.html"><b>唐山港</b></a></td><td class="num">3,242</td><td class="num up">+2.4%</td><td class="num">¥61.6万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-601018.html"><b>宁波港</b></a></td><td class="num">17,901</td><td class="num up">+4.1%</td><td class="num">¥28.9万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-601228.html"><b>广州港</b></a></td><td class="num">9,716</td><td class="num up">+3.8%</td><td class="num">¥8.5万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-601298.html"><b>青岛港</b></a></td><td class="num">9,728</td><td class="num up">+1.8%</td><td class="num">¥54.2万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-601326.html"><b>秦港股份</b></a></td><td class="num">8,348</td><td class="num down">-3.8%</td><td class="num">¥19.2万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">收缩</span></td></tr>
-
-<tr><td><a href="berkshire-port-chain-601880.html"><b>辽港股份</b></a></td><td class="num">10,561</td><td class="num flat">—</td><td class="num">¥12.4万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#64748b">—</span></td></tr>
-
-</tbody>
-
-</table>
-
-<div class="note-line">员工增速=在职员工同比；人均净利=2025 归母净利÷员工数。各港口口径基本一致（均为港口运营上市主体），可直接横向比较。上港集团人均净利 ¥104.0 万为板块最高，辽港/广州港人均净利偏低。组织效能信号为代理指标，非投资建议。</div>
-
-</div>
-
-
-
-<div class="section-title">主要玩家索引（上市公司 10 家）</div>
-
-<div class="grid">
-
-<a class="giant-card" href="berkshire-port-chain-001872.html"><div class="giant-head"><span class="giant-name">招商港口</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">招商局集团旗下港口投资平台，控股/参股东部沿海与海外（斯里兰卡、吉布提、巴西等）码头组合，毛利率44%板块最高、负债率36%健康、经营现金流81.7亿，是「港口里的收租股」，盈利质量与全球布局兼具；PE分位32%/PB破净（0.82），估值合理偏低。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-
-<a class="giant-card" href="berkshire-port-chain-600017.html"><div class="giant-head"><span class="giant-name">日照港</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">以铁矿石等大宗散货为主的枢纽港，腹地连接日照钢铁精品基地，但毛利率20.2%、ROE3.6%（板块最低）、负债率59.9%偏高，盈利质量弱；PE分位76.2%为板块最贵、PB 0.58破净提供边际，属「破净但质量弱」标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-
-<a class="giant-card" href="berkshire-port-chain-600018.html"><div class="giant-head"><span class="giant-name">上港集团</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">上海港运营主体，集装箱吞吐量全球第一，2025 营收396.1亿、净利135.7亿（板块最高）、ROE9.9%、负债率29.7%、经营现金流118亿，盈利质量与规模双优；PE 8.69（分位19%低）、PB 0.82（破净，分位2.7%极低），估值与质量双优，是港口「锚」。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-
-<a class="giant-card" href="berkshire-port-chain-600717.html"><div class="giant-head"><span class="giant-name">天津港</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">环渤海核心枢纽港（集装箱+散货），2025 营收127.9亿、净利9.8亿、ROE5.0%、负债率25.2%健康、现金流25.1亿；PE分位2.9%、PB 0.59破净(0.8%)均为板块最低区间，估值极度便宜，但ROE偏低、区域增长平缓，安全边际看破净修复。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-
-<a class="giant-card" href="berkshire-port-chain-601000.html"><div class="giant-head"><span class="giant-name">唐山港</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">以煤炭、矿石等大宗散货为主的优质专业港，2025 毛利率48.6%（板块最高）、ROE9.5%、负债率9.0%（最低）、股息率4.28%（最高），资产极干净、分红慷慨；但PE分位62.9%、PB 1.22（未破净、分位68%）已不便宜，估值「质量优但price-in」。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-
-<a class="giant-card" href="berkshire-port-chain-601018.html"><div class="giant-head"><span class="giant-name">宁波港</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">宁波舟山港运营主体，货物吞吐量全球第一、集装箱居前，2025 营收310.2亿、净利51.7亿、现金流134.5亿（板块最强）、负债率27%健康；PE分位1.1%、PB 0.79破净(1.0%)均为板块最低，估值极致便宜，是「破净+强现金流+稳分红」的压舱石。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-
-<a class="giant-card" href="berkshire-port-chain-601228.html"><div class="giant-head"><span class="giant-name">广州港</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">华南综合性枢纽港（集装箱+汽车滚装+散货），2025 营收139.1亿、净利8.2亿、ROE3.9%、负债率53.6%偏高、股息率1.09%（最低）；PE分位65.3%偏贵但PB 1.06（分位1.6%极低）破净边际，盈利质量与回报一般，性价比偏低。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-
-<a class="giant-card" href="berkshire-port-chain-601298.html"><div class="giant-head"><span class="giant-name">青岛港</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">山东半岛核心枢纽港（集装箱+液体散货+干散货），2025 营收188.1亿、净利52.7亿、ROE11.9%（板块最高）、毛利率36.7%、负债率24.7%健康、现金流55.5亿，盈利质量顶尖；PE分位61.3%、PB 1.20（分位41.8%）中性，估值「质量优但未破净」。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-
-<a class="giant-card" href="berkshire-port-chain-601326.html"><div class="giant-head"><span class="giant-name">秦港股份</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">以煤炭运输为主的传统枢纽港（大秦线出海口），2025 营收69.9亿、净利16.1亿、毛利率41.7%、ROE8.1%、负债率23.0%健康、现金流23.0亿；PE分位9.9%、PB 0.90破净(7.8%)低，估值便宜、股息率3.39%，属「破净+稳健分红」收息标的，但货种单一(煤炭)周期敏感。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-
-<a class="giant-card" href="berkshire-port-chain-601880.html"><div class="giant-head"><span class="giant-name">辽港股份</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">大连/营口港整合平台（辽港集团），东北出海核心，2025 营收113.6亿、净利13.1亿、ROE3.3%偏低、负债率23.5%健康、现金流56.8亿；PE分位8.9%、PB 0.84破净(4.7%)低，估值便宜但盈利质量弱、人均净利12.4万低，安全边际看破净与潜在整合。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-
-</div>
-
-
-
-<div class="note-line">
-
-📌 <b>两类主体</b>：①<b>综合性 / 集装箱枢纽港</b>——上港集团、宁波港、青岛港、招商港口、广州港、天津港，以集装箱+多元货种为主，受益于外贸与多式联运，盈利质量与现金流更优（上港/宁波/青岛为质量标杆）；②<b>专业化散货港</b>——唐山港（煤炭/矿石）、秦港股份（煤炭）、日照港（铁矿石）、辽港股份（散杂/原油），货种集中于大宗干散货，盈利随大宗周期与腹地需求波动，但普遍破净、高股息提供安全边际。两类估值与质量差异大，须分开看待。</div>
-
-
-
-<div class="section-title">延伸阅读</div><div class="extend-grid">
-<a class="extend-card" href="./berkshire-port-compare.html"><b>🥇 估值分位</b><span>港口（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-port-thermometer.html"><b>🌡️ 估值温度计</b><span>港口（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-port-buyback.html"><b>💰 回购监测</b><span>港口（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-port-repomap.html"><b>🗺️ 板块图谱</b><span>港口（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-port-backtest.html"><b>📈 五年回测</b><span>港口（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-port-cycle.html"><b>🔄 周期演进</b><span>港口（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-port-methodology.html"><b>📘 方法论说明</b><span>港口（估值/回购/周期研究的取值口径与可信区间）</span></a>
-</div>
-
-<div class="grid">
-
-
-
-<a class="giant-card" href="berkshire-port-cycle.html">
-
-<div class="giant-head"><span class="giant-name">🔄 港口周期 2016→2025</span></div>
-
-<div class="giant-desc">把 10 家港口数据串成宏观视图：吞吐量、装卸费率、内外贸分化与周期底部信号。</div>
-
-<div class="giant-foot"><span class="giant-link">查看周期专题 →</span></div>
-
-</a>
-
-<a class="giant-card" href="berkshire-port-backtest.html">
-
-<div class="giant-head"><span class="giant-name">🎯 港口估值回测</span></div>
-
-<div class="giant-desc">用「低 PB + 高股息率」买点复盘 2014 / 2018 / 2024–25 三轮大底的历史回报，提炼可复用的买点信号框架。</div>
-
-<div class="giant-foot"><span class="giant-link">查看回测专题 →</span></div>
-
-</a>
-
-<a class="giant-card" href="berkshire-port-thermometer.html">
-
-<div class="giant-head"><span class="giant-name">🌡️ 港口估值温度计</div>
-
-<div class="giant-desc">10 家港口估值冷热一览：低 PB + 高股息 = 冷（安全边际高），高 PE + 低股息 = 热（溢价区）。</div>
-
-<div class="giant-foot"><span class="giant-link">查看温度计 →</span></div>
-
-</a>
-
-<a class="giant-card" href="berkshire-port-buyback.html">
-
-<div class="giant-head"><span class="giant-name">📊 逐轮买点回报图</span></div>
-
-<div class="giant-desc">10 家港口，2014 / 2018 / 2025 三轮大底买入后的累计回报曲线，含峰值标注与逐点回报数据表。</div>
-
-<div class="giant-foot"><span class="giant-link">查看回报图 →</span></div>
-
-</a>
-
-</div>
-
-
-
-<div class="source-note">
-
-📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。数据日期：2026-08-13。
-
-</div>
-
-
-
-</div>
-
-<script>
-
-(function(){
-
-  function num(v){
-
-    if(v==null) return NaN;
-
-    v=v.textContent||v;
-
-    if(typeof v==='string'){
-
-      v=v.replace(/,/g,'').replace(/[ \t\r\n]/g,'');
-
-      if(v==='—'||v==='-'||v==='') return NaN;
-
-      var unit=1;
-
-      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
-
-      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
-
-      v=v.replace(/[¥,%]/g,'');
-
-      var n=parseFloat(v);
-
-      if(!isNaN(n)) n*=unit;
-
-      return n;
-
-    }
-
-    return NaN;
-
-  }
-
-  function cmp(a,b,asc){
-
-    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
-
-    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
-
-    var nanA=isNaN(a), nanB=isNaN(b);
-
-    if(nanA && nanB) return 0;
-
-    if(nanA) return asc?1:-1;
-
-    if(nanB) return asc?-1:1;
-
-    if(an<bn) return asc?-1:1;
-
-    if(an>bn) return asc?1:-1;
-
-    return 0;
-
-  }
-
-  function sortTable(th){
-
-    var table=th.closest('table');
-
-    var tbody=table.querySelector('tbody');
-
-    var rows=Array.from(tbody.querySelectorAll('tr'));
-
-    var idx=Array.from(th.parentNode.children).indexOf(th);
-
-    var type=th.getAttribute('data-type')||'text';
-
-    var asc=!th.classList.contains('asc');
-
-    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
-
-    th.classList.add(asc?'asc':'desc');
-
-    rows.sort(function(r1,r2){
-
-      var c1=r1.cells[idx], c2=r2.cells[idx];
-
-      var v1, v2;
-
-      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
-
-      else if(type==='num'){ v1=num(c1); v2=num(c2); }
-
-      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
-
-      return cmp(v1,v2,asc);
-
-    });
-
-    rows.forEach(function(r){ tbody.appendChild(r); });
-
-  }
-
-  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
-
-    th.addEventListener('click',function(){ sortTable(th); });
-
-  });
-
-})();
-
-</script>
-
-  <script src="/analytics.js"></script>
-
-  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
-
-<div class="back-bar">
-<a href="./berkshire-chain-map.html">← 全链索引</a>
-<a href="./berkshire-standalone.html">← 数据中心首页</a>
-</div>
-</body>
-
-</html>
-
+<!--research-signal-->
+
+
+
+<div class="section-title" style="border-left:3px solid #0369a1">研究信号</div>
+
+
+
+<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #0369a1;border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+
+
+
+  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
+
+
+
+    <div style="font-weight:700;color:#475569">周期位置</div><div>港口属重资产、弱周期、高分红的「收息型」基础设施；当前板块普遍破净（多数 PB<1）、PE 处历史中低位，估值安全边际厚，但 ROE 普遍偏低（3%–12%）反映重资产属性与增长平缓。外贸集装箱景气与大宗散货（煤炭/矿石/原油）周期共同驱动吞吐。</div>
+
+
+
+<div style="font-weight:700;color:#475569">景气方向</div><div>2024–25 外贸温和复苏 +「北煤南运/能源安全」支撑散货，枢纽港（上港/宁波/青岛）吞吐与利润稳健；但区域竞争（环渤海/长三角）、集装箱货源分流使中小港盈利分化。板块股息率普遍 3%–4% 具吸引力。</div>
+
+
+
+<div style="font-weight:700;color:#475569">结论信号</div><div><b>🟢 破净 + 高股息 + 强现金流 三角</b> — 优先「破净（低 PB 分位）+ 高股息 + 低负债 + 强现金流」的枢纽/专业港（上港/宁波/唐山/秦港/招商），规避「高 PE + 低 ROE + 高负债」的弱质港（日照/广州/辽港）。</div>
+
+
+
+<div style="font-weight:700;color:#475569">核心催化</div><div>①外贸集装箱复苏 / 出口链回暖　②「北煤南运」与能源安全支撑散货　③破净修复（市值管理）　④高股息率吸引长期资金　⑤多式联运（海铁）与自动化提效。</div>
+
+
+
+<div style="font-weight:700;color:#475569">关键风险</div><div>①外贸/出口下行压制集装箱　②大宗（煤炭/矿石/原油）周期回落　③区域港口竞争与货源分流　④重资产 Capex 与 ROE 偏低　⑤地缘政治与供应链重构。</div>
+
+
+
+  </div>
+
+
+
+  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：10 家平均 PE分位 ≈35% · 平均 PB分位 ≈17% · 7 家 PB<1 破净 · 上港/宁波 PE分位处历史极低(<20%) · 唐山港毛利率48.6%/负债9%质量顶尖 · 板块股息率普遍 3%–4%。结论为框架合成，需结合实盘研究校验。</div>
+
+
+
+</div>
+
+
+
+<!--/research-signal--><div class="section-title">跨层分析框架（5 层）</div>
+
+
+
+<div class="layers">
+
+
+
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">区位与吞吐能力</div><div class="layer-desc">港口地理位置、水深、泊位与岸线，是核心资源壁垒；集装箱/散货吞吐能力决定规模与定价权，不可复制。</div></div>
+
+
+
+<div class="layer-card"><div class="layer-num">02</div><div class="layer-name">装卸与作业</div><div class="layer-desc">装卸效率、自动化、多式联运（海铁联运），单吨成本与作业能力；重资产下经营杠杆高。</div></div>
+
+
+
+<div class="layer-card"><div class="layer-num">03</div><div class="layer-name">货物结构</div><div class="layer-desc">集装箱 / 散货（煤炭/矿石/原油）/ 汽车滚装，货种决定费率与景气弹性，多元货种抗单一波动。</div></div>
+
+
+
+<div class="layer-card"><div class="layer-num">04</div><div class="layer-name">费率与定价</div><div class="layer-desc">港口使用费、装卸费率，受政策管制与区域竞争格局影响；外贸景气与腹地需求驱动吞吐。</div></div>
+
+
+
+<div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">看吞吐量（外贸+内需）+ 费率 + 高股息 + 破净安全边际；重资产、现金流稳，破净+分红是估值锚。</div></div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="section-title">估值历史分位总览（港口 10 家）</div>
+
+
+
+<div class="ovtable">
+
+
+
+<table class="sortable">
+
+
+
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th><th data-type="num">ROE<span class="sort-ind"></span></th></tr></thead>
+
+
+
+<tbody>
+
+
+
+<tr><td><a href="berkshire-port-chain-001872.html"><b>招商港口</b></a></td><td class="num">11.49</td><td><span class="pct-cell pct-lo">32.0%</span></td><td class="num">0.82</td><td><span class="pct-cell pct-mid">44.0%</span></td><td class="num">7.3%</td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-600017.html"><b>日照港</b></a></td><td class="num">18.73</td><td><span class="pct-cell pct-hi">76.2%</span></td><td class="num">0.58</td><td><span class="pct-cell pct-lo">0.8%</span></td><td class="num">3.6%</td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-600018.html"><b>上港集团</b></a></td><td class="num">8.69</td><td><span class="pct-cell pct-lo">19.0%</span></td><td class="num">0.82</td><td><span class="pct-cell pct-lo">2.7%</span></td><td class="num">9.9%</td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-600717.html"><b>天津港</b></a></td><td class="num">11.46</td><td><span class="pct-cell pct-lo">2.9%</span></td><td class="num">0.59</td><td><span class="pct-cell pct-lo">0.8%</span></td><td class="num">5.0%</td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601000.html"><b>唐山港</b></a></td><td class="num">12.86</td><td><span class="pct-cell pct-hi">62.9%</span></td><td class="num">1.22</td><td><span class="pct-cell pct-hi">68.0%</span></td><td class="num">9.5%</td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601018.html"><b>宁波港</b></a></td><td class="num">12.55</td><td><span class="pct-cell pct-lo">1.1%</span></td><td class="num">0.79</td><td><span class="pct-cell pct-lo">1.0%</span></td><td class="num">6.5%</td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601228.html"><b>广州港</b></a></td><td class="num">28.84</td><td><span class="pct-cell pct-hi">65.3%</span></td><td class="num">1.06</td><td><span class="pct-cell pct-lo">1.6%</span></td><td class="num">3.9%</td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601298.html"><b>青岛港</b></a></td><td class="num">10.76</td><td><span class="pct-cell pct-hi">61.3%</span></td><td class="num">1.20</td><td><span class="pct-cell pct-mid">41.8%</span></td><td class="num">11.9%</td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601326.html"><b>秦港股份</b></a></td><td class="num">11.53</td><td><span class="pct-cell pct-lo">9.9%</span></td><td class="num">0.90</td><td><span class="pct-cell pct-lo">7.8%</span></td><td class="num">8.1%</td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601880.html"><b>辽港股份</b></a></td><td class="num">23.38</td><td><span class="pct-cell pct-lo">8.9%</span></td><td class="num">0.84</td><td><span class="pct-cell pct-lo">4.7%</span></td><td class="num">3.3%</td></tr>
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+<div class="note-line">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span><span class="vleg"><i style="background:#075985"></i>40–60% 中位</span><span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。港口盈利弱周期、重资产属性强，分位为时点统计、仅供参考。</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="section-title">R15 三维评级总览（港口 10 家）</div>
+
+
+
+<div class="ovtable">
+
+
+
+<table class="sortable">
+
+
+
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
+
+
+
+<tbody>
+
+
+
+<tr><td><a href="berkshire-port-chain-001872.html"><b>招商港口</b></a></td><td><span class="pct-cell pct-lo">★★★</span></td><td><span class="pct-cell pct-mid">★★★★</span></td><td class="num">7</td><td><span class="pct-cell pct-lo">32.0%</span></td><td><span class="pct-cell pct-mid">44.0%</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-600017.html"><b>日照港</b></a></td><td><span class="pct-cell pct-hi">★★</span></td><td><span class="pct-cell pct-lo">★</span></td><td class="num">3</td><td><span class="pct-cell pct-hi">76.2%</span></td><td><span class="pct-cell pct-lo">0.8%</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-600018.html"><b>上港集团</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td class="num">10</td><td><span class="pct-cell pct-lo">19.0%</span></td><td><span class="pct-cell pct-lo">2.7%</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-600717.html"><b>天津港</b></a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★</span></td><td class="num">6</td><td><span class="pct-cell pct-lo">2.9%</span></td><td><span class="pct-cell pct-lo">0.8%</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601000.html"><b>唐山港</b></a></td><td><span class="pct-cell pct-hi">★★</span></td><td><span class="pct-cell pct-hi">★★★★★</span></td><td class="num">8</td><td><span class="pct-cell pct-hi">62.9%</span></td><td><span class="pct-cell pct-hi">68.0%</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601018.html"><b>宁波港</b></a></td><td><span class="pct-cell pct-lo">★★★★★</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td class="num">9</td><td><span class="pct-cell pct-lo">1.1%</span></td><td><span class="pct-cell pct-lo">1.0%</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601228.html"><b>广州港</b></a></td><td><span class="pct-cell pct-hi">★★</span></td><td><span class="pct-cell pct-lo">★★</span></td><td class="num">3</td><td><span class="pct-cell pct-hi">65.3%</span></td><td><span class="pct-cell pct-lo">1.6%</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601298.html"><b>青岛港</b></a></td><td><span class="pct-cell pct-hi">★★</span></td><td><span class="pct-cell pct-mid">★★★★★</span></td><td class="num">9</td><td><span class="pct-cell pct-hi">61.3%</span></td><td><span class="pct-cell pct-mid">41.8%</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601326.html"><b>秦港股份</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">★★★★</span></td><td class="num">7</td><td><span class="pct-cell pct-lo">9.9%</span></td><td><span class="pct-cell pct-lo">7.8%</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601880.html"><b>辽港股份</b></a></td><td><span class="pct-cell pct-lo">★★★★</span></td><td><span class="pct-cell pct-lo">★★</span></td><td class="num">5</td><td><span class="pct-cell pct-lo">8.9%</span></td><td><span class="pct-cell pct-lo">4.7%</span></td></tr>
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+<div class="note-line">R15 三维框架：①<b>相对估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；②<b>质量星级</b>=近10年ROE均值（★越多质地越好）；③<b>时机分</b>=链周期底部程度换算（分越高越接近周期底部、买点越好）。<span class="vleg"><i style="background:#15803d"></i>绿=好</span><span class="vleg"><i style="background:#075985"></i>橙=中</span><span class="vleg"><i style="background:#b91c1c"></i>红=差/贵</span>。数据为时点统计。</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="section-title">产业链成本传导（市场变量传导）</div>
+
+
+
+<div class="cost-block">
+
+
+
+<div class="cost-chart"><svg viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg">
+
+
+
+  <defs><marker id="arr-pt" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0 0, 8 4, 0 8" fill="#075985"/></marker></defs>
+
+
+
+  <g><rect x="15" y="30" width="150" height="48" rx="6" fill="white" stroke="#075985" stroke-width="1.5"/><text x="90" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">吞吐量(量)</text><text x="90" y="68" text-anchor="middle" font-size="10" fill="#64748b">箱量/吨</text></g>
+
+
+
+  <g><rect x="225" y="30" width="150" height="48" rx="6" fill="white" stroke="#075985" stroke-width="1.5"/><text x="300" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">装卸费收入</text><text x="300" y="68" text-anchor="middle" font-size="10" fill="#64748b">量×费率</text></g>
+
+
+
+  <g><rect x="435" y="30" width="150" height="48" rx="6" fill="white" stroke="#075985" stroke-width="1.5"/><text x="510" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">折旧+Capex</text><text x="510" y="68" text-anchor="middle" font-size="10" fill="#64748b">重资产</text></g>
+
+
+
+  <g><rect x="635" y="30" width="150" height="48" rx="6" fill="white" stroke="#075985" stroke-width="1.5"/><text x="710" y="50" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">自由现金流</text><text x="710" y="68" text-anchor="middle" font-size="10" fill="#64748b">→分红</text></g>
+
+
+
+  <line x1="165" y1="54" x2="225" y2="54" stroke="#075985" stroke-width="1.5" marker-end="url(#arr-pt)"/>
+
+
+
+  <line x1="375" y1="54" x2="435" y2="54" stroke="#075985" stroke-width="1.5" marker-end="url(#arr-pt)"/>
+
+
+
+  <line x1="585" y1="54" x2="635" y2="54" stroke="#075985" stroke-width="1.5" marker-end="url(#arr-pt)"/>
+
+
+
+  <g><rect x="230" y="100" width="340" height="44" rx="6" fill="#f0f9ff" stroke="#075985" stroke-width="1.5"/><text x="400" y="118" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">估值锚：破净+高股息 提供安全边际</text><text x="400" y="136" text-anchor="middle" font-size="10" fill="#64748b">区位不可复制 = 护城河</text></g>
+
+
+
+  <line x1="710" y1="78" x2="570" y2="100" stroke="#075985" stroke-width="1.5" marker-end="url(#arr-pt)"/>
+
+
+
+</svg></div>
+
+
+
+<div class="cost-note">
+
+
+
+<p>港口的<b>「成本传导」本质是吞吐量→利润的杠杆放大</b>：①<b>吞吐量（量）</b> → 装卸费收入（量×费率），是利润核心变量，集装箱外贸+大宗散货共驱；②<b>折旧 + Capex</b> → 重资产特征，固定成本占比高、边际成本低、经营杠杆大；③吞吐增长 + 费率稳定 → 利润弹性显著；④共同决定<b>自由现金流 → 分红 / 再投资</b>。</p><p>护城河 = <b>区位（不可复制的深水岸线与腹地）+ 吞吐规模</b>；破净 + 高股息 = 估值锚，但须警惕高 Capex 与区域货源分流对 ROE 的压制。</p>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="section-title">员工效率与组织效能排行（港口 10 家）</div>
+
+
+
+<div class="ovtable"><table>
+
+
+
+<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均净利</th><th>效率信号</th></tr></thead>
+
+
+
+<tbody>
+
+
+
+<tr><td><a href="berkshire-port-chain-001872.html"><b>招商港口</b></a></td><td class="num">15,013</td><td class="num down">-0.9%</td><td class="num">¥30.7万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">收缩</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-600017.html"><b>日照港</b></a></td><td class="num">5,855</td><td class="num flat">—</td><td class="num">¥8.5万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#64748b">—</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-600018.html"><b>上港集团</b></a></td><td class="num">13,046</td><td class="num up">+0.2%</td><td class="num">¥104.0万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-600717.html"><b>天津港</b></a></td><td class="num">4,933</td><td class="num down">-3.0%</td><td class="num">¥19.9万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">收缩</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601000.html"><b>唐山港</b></a></td><td class="num">3,242</td><td class="num up">+2.4%</td><td class="num">¥61.6万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601018.html"><b>宁波港</b></a></td><td class="num">17,901</td><td class="num up">+4.1%</td><td class="num">¥28.9万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601228.html"><b>广州港</b></a></td><td class="num">9,716</td><td class="num up">+3.8%</td><td class="num">¥8.5万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601298.html"><b>青岛港</b></a></td><td class="num">9,728</td><td class="num up">+1.8%</td><td class="num">¥54.2万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">平稳/微增</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601326.html"><b>秦港股份</b></a></td><td class="num">8,348</td><td class="num down">-3.8%</td><td class="num">¥19.2万</td><td><span class="emp-badge" style="background:#fef2f2;color:#b91c1c">收缩</span></td></tr>
+
+
+
+<tr><td><a href="berkshire-port-chain-601880.html"><b>辽港股份</b></a></td><td class="num">10,561</td><td class="num flat">—</td><td class="num">¥12.4万</td><td><span class="emp-badge" style="background:#f1f5f9;color:#64748b">—</span></td></tr>
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+<div class="note-line">员工增速=在职员工同比；人均净利=2025 归母净利÷员工数。各港口口径基本一致（均为港口运营上市主体），可直接横向比较。上港集团人均净利 ¥104.0 万为板块最高，辽港/广州港人均净利偏低。组织效能信号为代理指标，非投资建议。</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="section-title">主要玩家索引（上市公司 10 家）</div>
+
+
+
+<div class="grid">
+
+
+
+<a class="giant-card" href="berkshire-port-chain-001872.html"><div class="giant-head"><span class="giant-name">招商港口</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">招商局集团旗下港口投资平台，控股/参股东部沿海与海外（斯里兰卡、吉布提、巴西等）码头组合，毛利率44%板块最高、负债率36%健康、经营现金流81.7亿，是「港口里的收租股」，盈利质量与全球布局兼具；PE分位32%/PB破净（0.82），估值合理偏低。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+
+
+<a class="giant-card" href="berkshire-port-chain-600017.html"><div class="giant-head"><span class="giant-name">日照港</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">以铁矿石等大宗散货为主的枢纽港，腹地连接日照钢铁精品基地，但毛利率20.2%、ROE3.6%（板块最低）、负债率59.9%偏高，盈利质量弱；PE分位76.2%为板块最贵、PB 0.58破净提供边际，属「破净但质量弱」标的。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+
+
+<a class="giant-card" href="berkshire-port-chain-600018.html"><div class="giant-head"><span class="giant-name">上港集团</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">上海港运营主体，集装箱吞吐量全球第一，2025 营收396.1亿、净利135.7亿（板块最高）、ROE9.9%、负债率29.7%、经营现金流118亿，盈利质量与规模双优；PE 8.69（分位19%低）、PB 0.82（破净，分位2.7%极低），估值与质量双优，是港口「锚」。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+
+
+<a class="giant-card" href="berkshire-port-chain-600717.html"><div class="giant-head"><span class="giant-name">天津港</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">环渤海核心枢纽港（集装箱+散货），2025 营收127.9亿、净利9.8亿、ROE5.0%、负债率25.2%健康、现金流25.1亿；PE分位2.9%、PB 0.59破净(0.8%)均为板块最低区间，估值极度便宜，但ROE偏低、区域增长平缓，安全边际看破净修复。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+
+
+<a class="giant-card" href="berkshire-port-chain-601000.html"><div class="giant-head"><span class="giant-name">唐山港</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">以煤炭、矿石等大宗散货为主的优质专业港，2025 毛利率48.6%（板块最高）、ROE9.5%、负债率9.0%（最低）、股息率4.28%（最高），资产极干净、分红慷慨；但PE分位62.9%、PB 1.22（未破净、分位68%）已不便宜，估值「质量优但price-in」。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+
+
+<a class="giant-card" href="berkshire-port-chain-601018.html"><div class="giant-head"><span class="giant-name">宁波港</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">宁波舟山港运营主体，货物吞吐量全球第一、集装箱居前，2025 营收310.2亿、净利51.7亿、现金流134.5亿（板块最强）、负债率27%健康；PE分位1.1%、PB 0.79破净(1.0%)均为板块最低，估值极致便宜，是「破净+强现金流+稳分红」的压舱石。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+
+
+<a class="giant-card" href="berkshire-port-chain-601228.html"><div class="giant-head"><span class="giant-name">广州港</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">华南综合性枢纽港（集装箱+汽车滚装+散货），2025 营收139.1亿、净利8.2亿、ROE3.9%、负债率53.6%偏高、股息率1.09%（最低）；PE分位65.3%偏贵但PB 1.06（分位1.6%极低）破净边际，盈利质量与回报一般，性价比偏低。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+
+
+<a class="giant-card" href="berkshire-port-chain-601298.html"><div class="giant-head"><span class="giant-name">青岛港</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">山东半岛核心枢纽港（集装箱+液体散货+干散货），2025 营收188.1亿、净利52.7亿、ROE11.9%（板块最高）、毛利率36.7%、负债率24.7%健康、现金流55.5亿，盈利质量顶尖；PE分位61.3%、PB 1.20（分位41.8%）中性，估值「质量优但未破净」。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+
+
+<a class="giant-card" href="berkshire-port-chain-601326.html"><div class="giant-head"><span class="giant-name">秦港股份</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">以煤炭运输为主的传统枢纽港（大秦线出海口），2025 营收69.9亿、净利16.1亿、毛利率41.7%、ROE8.1%、负债率23.0%健康、现金流23.0亿；PE分位9.9%、PB 0.90破净(7.8%)低，估值便宜、股息率3.39%，属「破净+稳健分红」收息标的，但货种单一(煤炭)周期敏感。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+
+
+<a class="giant-card" href="berkshire-port-chain-601880.html"><div class="giant-head"><span class="giant-name">辽港股份</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">大连/营口港整合平台（辽港集团），东北出海核心，2025 营收113.6亿、净利13.1亿、ROE3.3%偏低、负债率23.5%健康、现金流56.8亿；PE分位8.9%、PB 0.84破净(4.7%)低，估值便宜但盈利质量弱、人均净利12.4万低，安全边际看破净与潜在整合。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="note-line">
+
+
+
+📌 <b>两类主体</b>：①<b>综合性 / 集装箱枢纽港</b>——上港集团、宁波港、青岛港、招商港口、广州港、天津港，以集装箱+多元货种为主，受益于外贸与多式联运，盈利质量与现金流更优（上港/宁波/青岛为质量标杆）；②<b>专业化散货港</b>——唐山港（煤炭/矿石）、秦港股份（煤炭）、日照港（铁矿石）、辽港股份（散杂/原油），货种集中于大宗干散货，盈利随大宗周期与腹地需求波动，但普遍破净、高股息提供安全边际。两类估值与质量差异大，须分开看待。</div>
+
+
+
+
+
+
+
+<div class="section-title">延伸阅读</div><div class="extend-grid">
+
+<a class="extend-card" href="./berkshire-port-compare.html"><b>🥇 估值分位</b><span>港口（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-port-thermometer.html"><b>🌡️ 估值温度计</b><span>港口（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-port-buyback.html"><b>💰 回购监测</b><span>港口（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-port-repomap.html"><b>🗺️ 板块图谱</b><span>港口（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-port-backtest.html"><b>📈 五年回测</b><span>港口（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-port-cycle.html"><b>🔄 周期演进</b><span>港口（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-port-methodology.html"><b>📘 方法论说明</b><span>港口（估值/回购/周期研究的取值口径与可信区间）</span></a>
+
+</div>
+
+
+
+<div class="grid">
+
+
+
+
+
+
+
+<a class="giant-card" href="berkshire-port-cycle.html">
+
+
+
+<div class="giant-head"><span class="giant-name">🔄 港口周期 2016→2025</span></div>
+
+
+
+<div class="giant-desc">把 10 家港口数据串成宏观视图：吞吐量、装卸费率、内外贸分化与周期底部信号。</div>
+
+
+
+<div class="giant-foot"><span class="giant-link">查看周期专题 →</span></div>
+
+
+
+</a>
+
+
+
+<a class="giant-card" href="berkshire-port-backtest.html">
+
+
+
+<div class="giant-head"><span class="giant-name">🎯 港口估值回测</span></div>
+
+
+
+<div class="giant-desc">用「低 PB + 高股息率」买点复盘 2014 / 2018 / 2024–25 三轮大底的历史回报，提炼可复用的买点信号框架。</div>
+
+
+
+<div class="giant-foot"><span class="giant-link">查看回测专题 →</span></div>
+
+
+
+</a>
+
+
+
+<a class="giant-card" href="berkshire-port-thermometer.html">
+
+
+
+<div class="giant-head"><span class="giant-name">🌡️ 港口估值温度计</div>
+
+
+
+<div class="giant-desc">10 家港口估值冷热一览：低 PB + 高股息 = 冷（安全边际高），高 PE + 低股息 = 热（溢价区）。</div>
+
+
+
+<div class="giant-foot"><span class="giant-link">查看温度计 →</span></div>
+
+
+
+</a>
+
+
+
+<a class="giant-card" href="berkshire-port-buyback.html">
+
+
+
+<div class="giant-head"><span class="giant-name">📊 逐轮买点回报图</span></div>
+
+
+
+<div class="giant-desc">10 家港口，2014 / 2018 / 2025 三轮大底买入后的累计回报曲线，含峰值标注与逐点回报数据表。</div>
+
+
+
+<div class="giant-foot"><span class="giant-link">查看回报图 →</span></div>
+
+
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="source-note">
+
+
+
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。数据日期：2026-08-13。
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+<script>
+
+
+
+(function(){
+
+
+
+  function num(v){
+
+
+
+    if(v==null) return NaN;
+
+
+
+    v=v.textContent||v;
+
+
+
+    if(typeof v==='string'){
+
+
+
+      v=v.replace(/,/g,'').replace(/[ \t\r\n]/g,'');
+
+
+
+      if(v==='—'||v==='-'||v==='') return NaN;
+
+
+
+      var unit=1;
+
+
+
+      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
+
+
+
+      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
+
+
+
+      v=v.replace(/[¥,%]/g,'');
+
+
+
+      var n=parseFloat(v);
+
+
+
+      if(!isNaN(n)) n*=unit;
+
+
+
+      return n;
+
+
+
+    }
+
+
+
+    return NaN;
+
+
+
+  }
+
+
+
+  function cmp(a,b,asc){
+
+
+
+    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
+
+
+
+    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
+
+
+
+    var nanA=isNaN(a), nanB=isNaN(b);
+
+
+
+    if(nanA && nanB) return 0;
+
+
+
+    if(nanA) return asc?1:-1;
+
+
+
+    if(nanB) return asc?-1:1;
+
+
+
+    if(an<bn) return asc?-1:1;
+
+
+
+    if(an>bn) return asc?1:-1;
+
+
+
+    return 0;
+
+
+
+  }
+
+
+
+  function sortTable(th){
+
+
+
+    var table=th.closest('table');
+
+
+
+    var tbody=table.querySelector('tbody');
+
+
+
+    var rows=Array.from(tbody.querySelectorAll('tr'));
+
+
+
+    var idx=Array.from(th.parentNode.children).indexOf(th);
+
+
+
+    var type=th.getAttribute('data-type')||'text';
+
+
+
+    var asc=!th.classList.contains('asc');
+
+
+
+    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
+
+
+
+    th.classList.add(asc?'asc':'desc');
+
+
+
+    rows.sort(function(r1,r2){
+
+
+
+      var c1=r1.cells[idx], c2=r2.cells[idx];
+
+
+
+      var v1, v2;
+
+
+
+      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+
+
+
+      else if(type==='num'){ v1=num(c1); v2=num(c2); }
+
+
+
+      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+
+
+
+      return cmp(v1,v2,asc);
+
+
+
+    });
+
+
+
+    rows.forEach(function(r){ tbody.appendChild(r); });
+
+
+
+  }
+
+
+
+  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
+
+
+
+    th.addEventListener('click',function(){ sortTable(th); });
+
+
+
+  });
+
+
+
+})();
+
+
+
+</script>
+
+
+
+  <script src="/analytics.js"></script>
+
+
+
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+
+
+
+<div class="back-bar">
+
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+
+</div>
+
+</body>
+
+
+
+</html>
+
+
+
