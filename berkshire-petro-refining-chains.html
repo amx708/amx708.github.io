@@ -1,76 +1,149 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>炼化（炼油+石化）产业链 · 伯克希尔数据中心</title>
-
-<style>
-:root{--primary:#e8b84b;--primary-dark:#b45309;--bg:#f0f2f5;--text:#0f172a;--muted:#64748b}
-*{box-sizing:border-box}body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);margin:0;padding:0;line-height:1.7}
-.wrap{max-width:1180px;margin:0 auto;padding:24px 32px}
-.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309);color:white;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(184,83,9,.18)}
-.top-bar .home-btn{color:white;text-decoration:none;font-size:14px;background:rgba(255,255,255,.18);padding:6px 16px;border-radius:20px;transition:all .2s}
-.top-bar .home-btn:hover{background:rgba(255,255,255,.32)}
-.top-bar .top-title{font-size:16px;font-weight:600;letter-spacing:.5px}
-.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
-.breadcrumb a{color:var(--primary-dark);text-decoration:none}
-.hero{background:linear-gradient(135deg,rgba(232,184,75,.12),rgba(180,83,9,.08));border-left:5px solid var(--primary);border-radius:12px;padding:24px 28px;margin-bottom:18px}
-.hero-title{font-size:24px;font-weight:800;color:#0f172a;margin-bottom:8px}
-.hero-sub{font-size:14px;color:var(--muted);margin-bottom:14px}
-.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
-.stat-item{background:white;border-radius:10px;padding:12px 18px;box-shadow:0 1px 4px rgba(0,0,0,.06);min-width:120px}
-.stat-num{font-size:22px;font-weight:800;color:var(--primary-dark)}
-.stat-label{font-size:11px;color:var(--muted);margin-top:2px}
-.data-banner{background:#fffbf0;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;font-size:13px;color:#92400e;margin-bottom:16px}
-.data-banner b{color:#b45309}
-.explain-banner{background:#f1f5f9;border-left:4px solid #6366f1;border-radius:8px;padding:14px 18px;font-size:13px;color:#475569;margin-bottom:18px}
-.explain-banner b{color:#6366f1}
-.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:24px 0 12px;padding-left:14px;border-left:5px solid var(--primary)}
-.research-signal{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:14px 0}
-.signal{background:white;border-radius:10px;padding:14px 18px;border-left:4px solid var(--primary);box-shadow:0 1px 4px rgba(0,0,0,.04)}
-.signal h4{margin:0 0 6px;font-size:14px;color:var(--primary-dark)}
-.signal p{margin:0;font-size:13px;color:#475569;line-height:1.6}
-.layer-card{background:white;border-radius:10px;padding:18px 22px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.04);border-left:4px solid var(--primary)}
-.layer-card h3{margin:0 0 8px;font-size:16px;color:var(--primary-dark)}
-.layer-card p{margin:0;font-size:14px;color:#475569;line-height:1.65}
-.ovtable{width:100%;border-collapse:collapse;margin:12px 0;background:white;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-.ovtable th{background:var(--primary);color:white;text-align:left;padding:10px 14px;font-size:13px;font-weight:600;position:sticky;top:0}
-.ovtable td{padding:10px 14px;border-bottom:1px solid #e2e8f0;font-size:13px}
-.ovtable tr:hover td{background:#fef9e7}
-.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
-.pct-cell{text-align:center;font-weight:600}
-.pct-lo{color:#15803d;background:#dcfce7}
-.pct-mid{color:#a16207;background:#fef3c7}
-.pct-hi{color:#b91c1c;background:#fee2e2}
-.cost-block{background:#1e293b;color:#e2e8f0;border-radius:10px;padding:18px;font-family:'SF Mono',monospace;font-size:13px;line-height:1.6;white-space:pre-wrap;margin:14px 0;overflow-x:auto}
-.cost-block .hl{color:#e8b84b;font-weight:600}
-.emp-block{background:white;border-radius:10px;padding:18px;margin:14px 0;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-.emp-block h3{margin:0 0 12px;font-size:15px;color:var(--primary-dark)}
-.emp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
-.emp-badge{background:#fef3c7;border-radius:8px;padding:10px 14px;border-left:3px solid var(--primary)}
-.emp-badge b{font-size:14px;color:var(--primary-dark)}
-.emp-badge .meta{font-size:11px;color:#92400e;margin-top:2px}
-.giant-card{background:white;border-radius:12px;padding:16px 20px;margin:10px 0;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.04);border-left:4px solid var(--primary);text-decoration:none;color:inherit;transition:all .15s}
-.giant-card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(232,184,75,.22)}
-.giant-card .name{font-size:15px;font-weight:700;color:#0f172a}
-.giant-card .code{font-size:11px;color:var(--muted);font-family:monospace;margin-left:6px}
-.giant-card .desc{font-size:13px;color:#475569;flex:1;margin-left:18px}
-.region-tag{font-size:10px;padding:2px 8px;border-radius:10px;background:#dbeafe;color:#1d4ed8;margin-left:8px;font-weight:600}
-.region-tag.region-cn{background:#fee2e2;color:#b91c1c}
-.region-tag.region-up{background:#dbeafe;color:#1d4ed8}
-.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
-.extend-card{background:white;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
-.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
-.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
-.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
-.note-line{font-size:12px;color:var(--muted);font-style:italic;margin:18px 0 8px;padding:10px 14px;background:#fef9e7;border-radius:6px;border-left:3px solid var(--primary)}
-.source-note{background:#f8fafc;border-radius:8px;padding:14px 18px;font-size:12px;color:var(--muted);margin:14px 0;line-height:1.7}
-.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
-.back-bar a{background:white;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
-.back-bar a:hover{background:#e8b84b;color:white}
-</style>
-
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>炼化（炼油+石化）产业链 · 伯克希尔数据中心</title>
+
+
+
+<style>
+
+:root{--primary:#e8b84b;--primary-dark:#b45309;--bg:#f0f2f5;--text:#0f172a;--muted:#64748b}
+
+*{box-sizing:border-box}body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);margin:0;padding:0;line-height:1.7}
+
+.wrap{max-width:1180px;margin:0 auto;padding:24px 32px}
+
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309);color:white;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(184,83,9,.18)}
+
+.top-bar .home-btn{color:white;text-decoration:none;font-size:14px;background:rgba(255,255,255,.18);padding:6px 16px;border-radius:20px;transition:all .2s}
+
+.top-bar .home-btn:hover{background:rgba(255,255,255,.32)}
+
+.top-bar .top-title{font-size:16px;font-weight:600;letter-spacing:.5px}
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+
+.hero{background:linear-gradient(135deg,rgba(232,184,75,.12),rgba(180,83,9,.08));border-left:5px solid var(--primary);border-radius:12px;padding:24px 28px;margin-bottom:18px}
+
+.hero-title{font-size:24px;font-weight:800;color:#0f172a;margin-bottom:8px}
+
+.hero-sub{font-size:14px;color:var(--muted);margin-bottom:14px}
+
+.hero-stats{display:flex;gap:16px;flex-wrap:wrap}
+
+.stat-item{background:white;border-radius:10px;padding:12px 18px;box-shadow:0 1px 4px rgba(0,0,0,.06);min-width:120px}
+
+.stat-num{font-size:22px;font-weight:800;color:var(--primary-dark)}
+
+.stat-label{font-size:11px;color:var(--muted);margin-top:2px}
+
+.data-banner{background:#fffbf0;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;font-size:13px;color:#92400e;margin-bottom:16px}
+
+.data-banner b{color:#b45309}
+
+.explain-banner{background:#f1f5f9;border-left:4px solid #6366f1;border-radius:8px;padding:14px 18px;font-size:13px;color:#475569;margin-bottom:18px}
+
+.explain-banner b{color:#6366f1}
+
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:24px 0 12px;padding-left:14px;border-left:5px solid var(--primary)}
+
+.research-signal{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:14px 0}
+
+.signal{background:white;border-radius:10px;padding:14px 18px;border-left:4px solid var(--primary);box-shadow:0 1px 4px rgba(0,0,0,.04)}
+
+.signal h4{margin:0 0 6px;font-size:14px;color:var(--primary-dark)}
+
+.signal p{margin:0;font-size:13px;color:#475569;line-height:1.6}
+
+.layer-card{background:white;border-radius:10px;padding:18px 22px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.04);border-left:4px solid var(--primary)}
+
+.layer-card h3{margin:0 0 8px;font-size:16px;color:var(--primary-dark)}
+
+.layer-card p{margin:0;font-size:14px;color:#475569;line-height:1.65}
+
+.ovtable{width:100%;border-collapse:collapse;margin:12px 0;background:white;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+
+.ovtable th{background:var(--primary);color:white;text-align:left;padding:10px 14px;font-size:13px;font-weight:600;position:sticky;top:0}
+
+.ovtable td{padding:10px 14px;border-bottom:1px solid #e2e8f0;font-size:13px}
+
+.ovtable tr:hover td{background:#fef9e7}
+
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+
+.pct-cell{text-align:center;font-weight:600}
+
+.pct-lo{color:#15803d;background:#dcfce7}
+
+.pct-mid{color:#a16207;background:#fef3c7}
+
+.pct-hi{color:#b91c1c;background:#fee2e2}
+
+.cost-block{background:#1e293b;color:#e2e8f0;border-radius:10px;padding:18px;font-family:'SF Mono',monospace;font-size:13px;line-height:1.6;white-space:pre-wrap;margin:14px 0;overflow-x:auto}
+
+.cost-block .hl{color:#e8b84b;font-weight:600}
+
+.emp-block{background:white;border-radius:10px;padding:18px;margin:14px 0;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+
+.emp-block h3{margin:0 0 12px;font-size:15px;color:var(--primary-dark)}
+
+.emp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+
+.emp-badge{background:#fef3c7;border-radius:8px;padding:10px 14px;border-left:3px solid var(--primary)}
+
+.emp-badge b{font-size:14px;color:var(--primary-dark)}
+
+.emp-badge .meta{font-size:11px;color:#92400e;margin-top:2px}
+
+.giant-card{background:white;border-radius:12px;padding:16px 20px;margin:10px 0;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.04);border-left:4px solid var(--primary);text-decoration:none;color:inherit;transition:all .15s}
+
+.giant-card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(232,184,75,.22)}
+
+.giant-card .name{font-size:15px;font-weight:700;color:#0f172a}
+
+.giant-card .code{font-size:11px;color:var(--muted);font-family:monospace;margin-left:6px}
+
+.giant-card .desc{font-size:13px;color:#475569;flex:1;margin-left:18px}
+
+.region-tag{font-size:10px;padding:2px 8px;border-radius:10px;background:#dbeafe;color:#1d4ed8;margin-left:8px;font-weight:600}
+
+.region-tag.region-cn{background:#fee2e2;color:#b91c1c}
+
+.region-tag.region-up{background:#dbeafe;color:#1d4ed8}
+
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+
+.extend-card{background:white;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+
+.note-line{font-size:12px;color:var(--muted);font-style:italic;margin:18px 0 8px;padding:10px 14px;background:#fef9e7;border-radius:6px;border-left:3px solid var(--primary)}
+
+.source-note{background:#f8fafc;border-radius:8px;padding:14px 18px;font-size:12px;color:var(--muted);margin:14px 0;line-height:1.7}
+
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+
+.back-bar a{background:white;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+
+.back-bar a:hover{background:#e8b84b;color:white}
+
+</style>
+
+
+
 
 <style>
 /* v2 white-spirit template additions */
@@ -111,32 +184,58 @@
 .ws2-frame b{color:#3854cc}
 </style>
 
-</head>
-<body>
-<div class="top-bar">
-<a href="./berkshire-standalone.html" class="home-btn">← 数据中心</a>
-<div class="top-title">🏭 石油石化 · 炼化（炼油+石化）产业链</div>
-</div>
-<div class="wrap">
-<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-石油石化-hub.html">石油石化分类总览</a> &gt; <b>炼化（炼油+石化）</b></div>
-
-<div class="hero">
-<div class="hero-title">🏭 炼化（炼油+石化）产业链 · 全表</div>
-<div class="hero-sub">价值投资视角下的 A 股炼化公司全梳理 · 一体化民营 / 国资炼厂 / 化工延伸</div>
-<div class="hero-stats">
-<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">覆盖公司</div></div>
-<div class="stat-item"><div class="stat-num">34%</div><div class="stat-label">PE 分位中位</div></div>
-<div class="stat-item"><div class="stat-num">49%</div><div class="stat-label">PB 分位中位</div></div>
-<div class="stat-item"><div class="stat-num">3.4%</div><div class="stat-label">ROE 均值</div></div>
-<div class="stat-item"><div class="stat-num">30%</div><div class="stat-label">PB 低估占比 (≤30%)</div></div>
-</div>
-</div>
-
-<div class="data-banner"><b>数据口径</b>：财务以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>。分位 = 当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。员工数 = 2025 年报年末合并报表数（公司公告）。本页为原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-08-15</span></div>
-
-<div class="explain-banner">炼化板块（炼油 + 石化）是石油石化产业链的<b>「加工端」</b>，承上启下 —— 上受原油成本压制，下受成品油 / 化工品价格影响。A 股炼化民营四巨头（<b>荣盛/恒力/盛虹/桐昆</b>）+ 国资老厂（<b>上海石化/华锦</b>）+ 特色路线（<b>卫星化学 PDH / 宝丰能源煤制烯烃</b>）构成多层次格局。炼化标的估值波动较大（PE 10-70），反映其强周期属性。</div>
-
-<div class="section-title">研究主题（炼化（炼油+石化））</div>
+</head>
+
+<body>
+
+<div class="top-bar">
+
+<a href="./berkshire-standalone.html" class="home-btn">← 数据中心</a>
+
+<div class="top-title">🏭 石油石化 · 炼化（炼油+石化）产业链</div>
+
+</div>
+
+<div class="wrap">
+
+<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-石油石化-hub.html">石油石化分类总览</a> &gt; <b>炼化（炼油+石化）</b></div>
+
+
+
+<div class="hero">
+
+<div class="hero-title">🏭 炼化（炼油+石化）产业链 · 全表</div>
+
+<div class="hero-sub">价值投资视角下的 A 股炼化公司全梳理 · 一体化民营 / 国资炼厂 / 化工延伸</div>
+
+<div class="hero-stats">
+
+<div class="stat-item"><div class="stat-num">10</div><div class="stat-label">覆盖公司</div></div>
+
+<div class="stat-item"><div class="stat-num">34%</div><div class="stat-label">PE 分位中位</div></div>
+
+<div class="stat-item"><div class="stat-num">49%</div><div class="stat-label">PB 分位中位</div></div>
+
+<div class="stat-item"><div class="stat-num">3.4%</div><div class="stat-label">ROE 均值</div></div>
+
+<div class="stat-item"><div class="stat-num">30%</div><div class="stat-label">PB 低估占比 (≤30%)</div></div>
+
+</div>
+
+</div>
+
+
+
+<div class="data-banner"><b>数据口径</b>：财务以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>。分位 = 当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。员工数 = 2025 年报年末合并报表数（公司公告）。本页为原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-08-15</span></div>
+
+
+
+<div class="explain-banner">炼化板块（炼油 + 石化）是石油石化产业链的<b>「加工端」</b>，承上启下 —— 上受原油成本压制，下受成品油 / 化工品价格影响。A 股炼化民营四巨头（<b>荣盛/恒力/盛虹/桐昆</b>）+ 国资老厂（<b>上海石化/华锦</b>）+ 特色路线（<b>卫星化学 PDH / 宝丰能源煤制烯烃</b>）构成多层次格局。炼化标的估值波动较大（PE 10-70），反映其强周期属性。</div>
+
+
+
+<div class="section-title">研究主题（炼化（炼油+石化））</div>
+
 
 <!-- ===== v2 body (per 老板截屏) START ===== -->
 <div class="ws2-counter-wrap">
@@ -150,8 +249,8 @@
 
 </div>
 <section class="ws2-section">
-  <h3>🎯 投资逻辑（8 条 · 占位框架，待人工填实）</h3>
-  <div class='ws2-logic8'><div class="item empty"><b>1️⃣ 商业模式与护城河来源</b>（占位 · 待人工填实）</div><div class="item empty"><b>2️⃣ 行业集中度与玩家分层</b>（占位 · 待人工填实）</div><div class="item empty"><b>3️⃣ 产业链上下游关系</b>（占位 · 待人工填实）</div><div class="item empty"><b>4️⃣ 周期性与价格话语权</b>（占位 · 待人工填实）</div><div class="item empty"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>（占位 · 待人工填实）</div><div class="item empty"><b>6️⃣ 估值水位与历史分位</b>（占位 · 待人工填实）</div><div class="item empty"><b>7️⃣ 主要风险事件清单</b>（占位 · 待人工填实）</div><div class="item empty"><b>8️⃣ 投资跟踪指标与反向信号</b>（占位 · 待人工填实）</div></div>
+  <h3>🎯 投资逻辑（8 条 · AI 填实（基于 10 年财报））</h3>
+  <div class='ws2-logic8'><div class="item"><b>1️⃣ 商业模式与护城河来源</b>炼化 / 化工护城河来自一体化规模 + 工艺成本 + 产品结构。宝丰能源（营收约 480 亿、净利约 114 亿、gpm 约 36%、roe 约 23.5%、npm 约 23.6% 煤化工成本标杆）、卫星化学（营收约 461 亿、净利约 53 亿、gpm 22%、roe 15.8%、C2/C3 工艺）、恒力石化（营收约 2010 亿、净利约 71 亿、roe 10.6%）凭大炼化一体化领先。</div><div class="item"><b>2️⃣ 行业集中度与玩家分层</b>行业呈“煤化工 / 轻烃高盈利（宝丰 roe 23.5%、卫星 roe 15.8%）vs 大炼化薄利（荣盛 3086 亿但净利仅 8 亿、npm 0.3%；桐昆 939 亿、npm 2.2%；东方盛虹 1256 亿、净利 1 亿扩张期）vs 亏损（华锦 -18 亿 roe -18%、齐翔腾达 -6 亿、上海石化 -14 亿）”分化。本页 10 家盈利质量极差极大。</div><div class="item"><b>3️⃣ 产业链上下游关系</b>上游原油 / 煤炭 / 轻烃 → 炼化（炼油 / 乙烯）→ 化纤 / 塑料 / 化工品 → 纺织 / 包装 / 下游制造。炼化对油价无定价权，利润取决于炼油价差与化工品价差，向一体化与低成本工艺集中。</div><div class="item"><b>4️⃣ 周期性与价格话语权</b>强周期：利润由油价（成本端）与化工品价差（供需）双轮驱动，价差波动大；价格话语权弱，护城河来自规模一体化与工艺成本。景气随油价与库存周期大幅摆动。</div><div class="item"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>煤化工 / 轻烃自由现金流转好（宝丰 roe 23.5%、卫星 roe 15.8%）；大炼化薄利且受价差挤压（荣盛 npm 0.3%），亏损年吞噬利润（华锦 / 上海石化）。分红随景气波动，优质标的更稳定。</div><div class="item"><b>6️⃣ 估值水位与历史分位</b>按“价差（炼油价差 / 化工品价差）+ PB（重资产 1 倍附近）+ 股息率”定价：煤化工 / 轻烃看 roe 与成本，大炼化看价差复苏买点。历史分位低 + 价差走阔时为逆向窗口。</div><div class="item"><b>7️⃣ 主要风险事件清单</b>油价暴涨（成本端）或暴跌（库存跌价）、化工品产能过剩与价差收窄、需求（纺服 / 地产）走弱、产能投放冲击、出口贸易壁垒、安全生产与环保、煤 / 气原料波动。</div><div class="item"><b>8️⃣ 投资跟踪指标与反向信号</b>跟踪：布伦特油价、炼油价差（裂解价差）、乙烯 / PTA / 聚酯价差、煤 / 气价、产能投放节奏、各公司吨利与存货、PB 分位与股息率。</div></div>
 </section>
 <section class="ws2-section">
   <h3><span class="tag">DATA</span> 历史分位图 · 6 张</h3>
@@ -170,23 +269,7 @@
 </section>
 <section class="ws2-section">
   <h3>📦 投资逻辑附加：产品定位 / 竞争格局 / 产能周期（占位）</h3>
-  
-<div class="ws2-frame-placeholder">
-  <h4>📦 产品定位与投资信号</h4>
-  此处待人工填实：每家公司主打产品价格带、渠道结构、品牌力定位、批价走势等定性内容（取自年报/公开渠道）。
-  <br>可用结构：①高端品牌矩阵 ②次高端与区域龙头 ③大众价位。
-</div>
-<div class="ws2-frame-placeholder">
-  <h4>🏛 竞争格局分析</h4>
-  此处待人工填实：CR3/CR5 集中度、行业份额变迁、价格战历史、经销商生态、跨区域挤压。
-  <br>可用指标：①销量集中度（公开数据） ②价格带定价权 ③经销商话语权变化。
-</div>
-<div class="ws2-frame-placeholder">
-  <h4>🔄 产能周期与库存周期</h4>
-  此处待人工填实：产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
-  <br>可用结构：①半成品库存月数 ②终端动销与渠道库存 ③价格倒挂信号。
-</div>
-
+  <div class="ws2-frame"><h4>📦 产品定位与投资信号</h4>产品分大炼化（恒力 / 荣盛 / 盛虹：炼油 + 乙烯 + 聚酯）、煤化工（宝丰能源：烯烃）、轻烃（卫星化学：C2/C3）、细分（桐昆聚酯、齐翔腾达甲乙酮）。投资信号：煤化工 / 轻烃高盈利优，大炼化薄利周期。</div><div class="ws2-frame"><h4>🏛 竞争格局分析</h4>民营大炼化（恒力 / 荣盛 / 盛虹）规模领先，煤化工（宝丰）凭成本突围，央企（上海石化）包袱重；本页 10 家分化：宝丰 roe23.5% / 卫星 roe15.8% vs 华锦 roe-18% / 上海石化 -14亿。一体化与成本是核心壁垒。</div><div class="ws2-frame"><h4>🔄 产能周期与库存周期</h4>产能由大炼化项目审批与建设驱动，单体规模巨大、建设周期 3-5 年；集中投放期压制价差，供给端刚性强。煤化工 / 轻烃受原料与工艺约束，扩产节奏决定供需错配与价差。</div>
 </section>
 <section class="ws2-section">
   <h3>🐴 白马型 vs 周期型一览（基于 10 年财报自动分类）</h3>
@@ -213,263 +296,522 @@
 </section>
 <!-- ===== v2 body END ===== -->
 
-<div class="research-signal">
-<div class="signal"><h4>民营 vs 国资的效率差异</h4><p>民营四巨头（荣盛/恒力/桐昆/盛虹）ROE 中位 ~7%，国资炼厂（中石化上海/华锦）ROE 中位 ~-2%。差距源于<b>决策效率 + 一体化深度 + 人工成本</b>。化工周期下行期，民营韧性更强。</p></div>
-<div class="signal"><h4>PX-PTA-聚酯一体化：景气高度相关</h4><p>PTA 单环节毛利率 2-5%，一体化项目（如荣盛浙石化）从原油到涤纶吃<b>全链毛利 15%+</b>。当纺服需求 + 涤纶价差上行时，一体化标的弹性放大 2-3 倍。</p></div>
-<div class="signal"><h4>成品油定价机制的「地板红利」</h4><p>国内成品油<b>40 美元 / 桶地板价</b>机制下，国际油价跌破 40 美元时国内汽柴油不降价，炼厂享受<b>超额毛利</b>；但 130 美元 / 桶天花板价下利润被强制压缩。所以<b>国际低油价</b>是<b>炼化标的</b>的<b>最佳环境</b>。</p></div>
-<div class="signal"><h4>煤制烯烃的工艺红利</h4><p>宝丰能源煤制烯烃路线在<b>低煤价（500 元 / 吨以下）时 ROE 可达 25%+</b>，但煤价 800+ 元 / 吨时 ROE 可能跌至 10% 以下。要<b>动态评估煤价 - 油价差</b>，不是简单「煤便宜就好」。</p></div>
-<div class="signal"><h4>碳中和约束下的产能天花板</h4><p>中国炼化总产能 2025 年已达<b>9.5 亿吨 / 年</b>，超过国内需求 7 亿吨 / 年。<b>新建炼厂审批已收紧</b>，龙头存量价值正在抬升。但短期内产能过剩仍压制吨毛利。</p></div>
-</div>
-
-<div class="section-title">跨层五维分析</div>
-<div class="layer-card"><h3>1. 一体化深度：从原油到化纤的链条</h3><p>民营四巨头（荣盛 / 恒力 / 桐昆 / 盛虹）的核心优势是<b>纵向一体化</b>：原油 → PX → PTA → 聚酯 → 涤纶长丝 / 织造。每个环节多吃一份毛利，对冲单环节景气下行。一体化项目（浙石化 / 大连恒力）规模效应使吨成本低 10-15%。</p></div>
-<div class="layer-card"><h3>2. 炼化工艺路线分化</h3><p>传统炼化（FCC 催化裂化）vs 加氢裂化 vs 煤制烯烃 vs PDH（乙烷脱氢）vs MTO（甲醇制烯烃），不同工艺对原油 / 石脑油 / 煤 / 乙烷的依赖度完全不同。卫星化学 PDH 路线完全规避原油波动，2025 年 ROE 16.8% 全行业最高；宝丰能源煤制烯烃在低煤价时 ROE 24.84% 也是工艺红利。</p></div>
-<div class="layer-card"><h3>3. 聚酯产业链的传导周期</h3><p>PTA - 聚酯 - 涤纶 - 织造周期跟随纺服需求，一般滞后宏观需求 6-12 个月。2024-2025 年纺服出口承压，桐昆 / 恒逸 ROE 仅 5% 左右。当织造库存周期触底回升时，PTA-聚酯环节先受益，弹性最大。</p></div>
-<div class="layer-card"><h3>4. 成品油定价机制的红利与约束</h3><p>国内成品油<b>10 个工作日调整一次</b>，形成「地板价 / 天花板价」机制（40-130 美元 / 桶区间）。地板价下炼厂利润获得保护，天花板价下利润被挤压。上海石化作为典型国资大炼厂，高油价周期利润反不如低油价周期（因为成品油价格滞后传导）。</p></div>
-<div class="layer-card"><h3>5. 估值锚与买点</h3><p>炼化标的的合理估值锚：成熟国资（中石化系）<b>PE 8-12 / PB 0.7-1.0</b> 为合理区间；民营四巨头<b>PE 12-18 / PB 1.5-3.0</b>为合理区间（成长溢价）；特色工艺标的（卫星 / 宝丰）可享有<b>PE 15-25</b> 估值。低于对应区间下沿时往往进入 biddable 窗口。</p></div>
-
-<div class="section-title">估值分位总览（点击行进入公司页）</div>
-<table class="ovtable sortable">
-<thead><tr><th data-type="str">公司</th><th data-type="str">代码</th><th data-type="num">PE(TTM)</th><th data-type="num">PE 分位</th><th data-type="num">PB</th><th data-type="num">PB 分位</th><th data-type="num">ROE%</th><th data-type="num">员工数</th></tr></thead>
-<tbody>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-000059.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">华锦股份</a></td>
-<td class="num">000059</td>
-<td class="num">-</td>
-<td class="pct-cell pct-lo" data-value="23.8">23.8</td>
-<td class="num">0.75</td>
-<td class="pct-cell pct-mid" data-value="49.2">49.2</td>
-<td class="num pct-cell pct-mid" data-value="-16.66">-16.66</td>
-<td class="num" data-value="6769">6,769</td>
-</tr>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-000301.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">东方盛虹</a></td>
-<td class="num">000301</td>
-<td class="num">68.05</td>
-<td class="pct-cell pct-hi" data-value="76.9">76.9</td>
-<td class="num">2.40</td>
-<td class="pct-cell pct-hi" data-value="71.5">71.5</td>
-<td class="num num" data-value="0.39">0.39</td>
-<td class="num" data-value="27878">27,878</td>
-</tr>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-000703.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">恒逸石化</a></td>
-<td class="num">000703</td>
-<td class="num">10.81</td>
-<td class="pct-cell pct-lo" data-value="20.9">20.9</td>
-<td class="num">2.15</td>
-<td class="pct-cell pct-hi" data-value="77.0">77.0</td>
-<td class="num num" data-value="1.05">1.05</td>
-<td class="num" data-value="17511">17,511</td>
-</tr>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-002408.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">齐翔腾达</a></td>
-<td class="num">002408</td>
-<td class="num">-</td>
-<td class="pct-cell pct-lo" data-value="24.8">24.8</td>
-<td class="num">1.30</td>
-<td class="pct-cell pct-lo" data-value="20.5">20.5</td>
-<td class="num pct-cell pct-mid" data-value="-5.03">-5.03</td>
-<td class="num" data-value="3457">3,457</td>
-</tr>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-002493.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">荣盛石化</a></td>
-<td class="num">002493</td>
-<td class="num">40.90</td>
-<td class="pct-cell pct-hi" data-value="73.9">73.9</td>
-<td class="num">2.71</td>
-<td class="pct-cell pct-mid" data-value="33.9">33.9</td>
-<td class="num num" data-value="1.94">1.94</td>
-<td class="num" data-value="19849">19,849</td>
-</tr>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-002648.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">卫星化学</a></td>
-<td class="num">002648</td>
-<td class="num">14.52</td>
-<td class="pct-cell pct-mid" data-value="56.4">56.4</td>
-<td class="num">2.40</td>
-<td class="pct-cell pct-mid" data-value="57.0">57.0</td>
-<td class="num num" data-value="16.8">16.80</td>
-<td class="num" data-value="4811">4,811</td>
-</tr>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-600346.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">恒力石化</a></td>
-<td class="num">600346</td>
-<td class="num">13.50</td>
-<td class="pct-cell pct-mid" data-value="33.7">33.7</td>
-<td class="num">1.71</td>
-<td class="pct-cell pct-lo" data-value="14.1">14.1</td>
-<td class="num num" data-value="10.85">10.85</td>
-<td class="num" data-value="37368">37,368</td>
-</tr>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-600688.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">上海石化</a></td>
-<td class="num">600688</td>
-<td class="num">-</td>
-<td class="pct-cell pct-lo" data-value="20.0">20.0</td>
-<td class="num">1.25</td>
-<td class="pct-cell pct-lo" data-value="25.7">25.7</td>
-<td class="num pct-cell pct-mid" data-value="-5.95">-5.95</td>
-<td class="num" data-value="6940">6,940</td>
-</tr>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-600989.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">宝丰能源</a></td>
-<td class="num">600989</td>
-<td class="num">10.93</td>
-<td class="pct-cell pct-lo" data-value="0.1">0.1</td>
-<td class="num">3.04</td>
-<td class="pct-cell pct-mid" data-value="45.6">45.6</td>
-<td class="num num" data-value="24.84">24.84</td>
-<td class="num" data-value="22037">22,037</td>
-</tr>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-601233.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">桐昆股份</a></td>
-<td class="num">601233</td>
-<td class="num">16.37</td>
-<td class="pct-cell pct-mid" data-value="64.7">64.7</td>
-<td class="num">1.35</td>
-<td class="pct-cell pct-mid" data-value="49.9">49.9</td>
-<td class="num num" data-value="5.43">5.43</td>
-<td class="num" data-value="33639">33,639</td>
-</tr>
-</tbody>
-</table>
-
-<div class="section-title">R15 三维（ROE × 营收估 × 人均创利 × 估值水位）</div>
-<table class="ovtable">
-<thead><tr><th>公司</th><th class="num">ROE%</th><th class="num">营收(估)</th><th class="num">人均创利(元)</th><th>PE 分位</th></tr></thead>
-<tbody>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-600989.html" style="color:var(--primary-dark);text-decoration:none">宝丰能源</a></td>
-<td class="num">24.84</td>
-<td class="num">4407.4 亿</td>
-<td class="num">11272</td>
-<td>0%</td>
-</tr>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-002648.html" style="color:var(--primary-dark);text-decoration:none">卫星化学</a></td>
-<td class="num">16.80</td>
-<td class="num">962.2 亿</td>
-<td class="num">34920</td>
-<td>56%</td>
-</tr>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-600346.html" style="color:var(--primary-dark);text-decoration:none">恒力石化</a></td>
-<td class="num">10.85</td>
-<td class="num">7473.6 亿</td>
-<td class="num">2904</td>
-<td>34%</td>
-</tr>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-601233.html" style="color:var(--primary-dark);text-decoration:none">桐昆股份</a></td>
-<td class="num">5.43</td>
-<td class="num">6727.8 亿</td>
-<td class="num">1614</td>
-<td>65%</td>
-</tr>
-<tr>
-<td><a href="./berkshire-petro-refining-chain-002493.html" style="color:var(--primary-dark);text-decoration:none">荣盛石化</a></td>
-<td class="num">1.94</td>
-<td class="num">3969.8 亿</td>
-<td class="num">977</td>
-<td>74%</td>
-</tr>
-</tbody>
-</table>
-
-<div class="section-title">成本传导：油价 / 煤价 / 石脑油价如何影响本链</div>
-<div class="cost-block">
-<span class="hl">原料端</span>：
-  上游：原油采购（占成本 50-70%），OPEC+ 减产 / 地缘冲突（如红海航运）可短期推升 10-30%
-  炼化：原油 + 石脑油 + 煤炭 / 天然气（煤制烯烃路线）
-  零售：批发价（炼厂出厂） + 物流费（短驳 / 长输）
-
-<span class="hl">加工端</span>：
-  折旧（炼厂/管网/加油站投入大）+ 人工 + 能耗（电/蒸汽）
-  一体化项目（浙石化/恒力）规模效应使吨成本低于行业 10-15%
-
-<span class="hl">销售端</span>：
-  批零差（成品油定价机制：10 个工作日调整一次）
-  加油站毛利率 5-8%（轻油）+ 非油业务毛利 20%+（便利店/广告）
-
-<span class="hl">传导结论</span>：
-  • 油价 ↑ 80 美元/桶时：上游净利 +30%，炼化毛利被挤压（最优炼油价差 5-10 美元/桶）
-  • 油价 ↓ 50 美元/桶时：上游资源价值打折，炼化库存收益 +5-10%
-  • 煤价 ↑ 时：宝丰能源（煤制烯烃）成本压力大；广汇能源煤化工利润同步承压
-</div>
-
-<div class="section-title">员工效率（本链人均创利分布）</div>
-<div class="emp-block">
-<h3>员工总数对比（年报年末，万人级差异反映资本 / 劳动结构）</h3>
-<div class="emp-grid">
-<div class="emp-badge"><b>恒力石化</b> <span style="color:#92400e;font-size:11px">600346</span><div class="meta">37,368 人 · ROE 10.8%</div></div>
-<div class="emp-badge"><b>桐昆股份</b> <span style="color:#92400e;font-size:11px">601233</span><div class="meta">33,639 人 · ROE 5.4%</div></div>
-<div class="emp-badge"><b>东方盛虹</b> <span style="color:#92400e;font-size:11px">000301</span><div class="meta">27,878 人 · ROE 0.4%</div></div>
-<div class="emp-badge"><b>宝丰能源</b> <span style="color:#92400e;font-size:11px">600989</span><div class="meta">22,037 人 · ROE 24.8%</div></div>
-<div class="emp-badge"><b>荣盛石化</b> <span style="color:#92400e;font-size:11px">002493</span><div class="meta">19,849 人 · ROE 1.9%</div></div>
-<div class="emp-badge"><b>恒逸石化</b> <span style="color:#92400e;font-size:11px">000703</span><div class="meta">17,511 人 · ROE 1.1%</div></div>
-<div class="emp-badge"><b>上海石化</b> <span style="color:#92400e;font-size:11px">600688</span><div class="meta">6,940 人 · ROE -6.0%</div></div>
-<div class="emp-badge"><b>华锦股份</b> <span style="color:#92400e;font-size:11px">000059</span><div class="meta">6,769 人 · ROE -16.7%</div></div>
-</div>
-<p style="font-size:12px;color:#94a3b8;margin-top:14px">提示：员工数仅为规模指标，与人均创利结合看才有意义。一体化民营（恒力/荣盛/宝丰）员工数万级；上游巨头（中石油/中石化）30万+ 体现国企总部 + 销售网络双重负担；卫星化学 4,811 人创 ¥110 万/人 = 高人均创利典型。</p>
-</div>
-
-<div class="section-title">主要玩家（本链头部 6 家）</div>
-<a class="giant-card" href="./berkshire-petro-refining-chain-600989.html"><div><span class="name">宝丰能源</span><span class="code">600989</span><span class="region-tag region-cn">A股</span></div><div class="desc">煤制烯烃龙头，ROE 24.84% / 人均创利 ¥51.5 万</div></a>
-<a class="giant-card" href="./berkshire-petro-refining-chain-002648.html"><div><span class="name">卫星化学</span><span class="code">002648</span><span class="region-tag region-cn">A股</span></div><div class="desc">PDH 乙烷制乙烯，ROE 16.8% / 人均创利 ¥110 万</div></a>
-<a class="giant-card" href="./berkshire-petro-refining-chain-600346.html"><div><span class="name">恒力石化</span><span class="code">600346</span><span class="region-tag region-cn">A股</span></div><div class="desc">大连长兴岛 4,000 万吨炼化，ROE 10.85%</div></a>
-<a class="giant-card" href="./berkshire-petro-refining-chain-601233.html"><div><span class="name">桐昆股份</span><span class="code">601233</span><span class="region-tag region-cn">A股</span></div><div class="desc">涤纶长丝+ PTA 龙头，ROE 5.43%</div></a>
-<a class="giant-card" href="./berkshire-petro-refining-chain-002493.html"><div><span class="name">荣盛石化</span><span class="code">002493</span><span class="region-tag region-cn">A股</span></div><div class="desc">浙石化千万吨炼化，PB 2.71 估值溢价</div></a>
-<a class="giant-card" href="./berkshire-petro-refining-chain-600688.html"><div><span class="name">上海石化</span><span class="code">600688</span><span class="region-tag region-cn">A股</span></div><div class="desc">中石化上海炼化，PE 分位 20% 高股息红利</div></a>
-
-<div class="section-title">延伸阅读 · 炼化（炼油+石化） 7 兄弟页</div>
-<div class="extend-grid">
-<a class="extend-card" href="./berkshire-petro-refining-compare.html"><b>🥇 估值分位</b><span>炼化（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-petro-refining-thermometer.html"><b>🌡️ 估值温度计</b><span>炼化（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-petro-refining-buyback.html"><b>💰 回购监测</b><span>炼化（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-petro-refining-repomap.html"><b>🗺️ 板块图谱</b><span>炼化（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-petro-refining-backtest.html"><b>📈 五年回测</b><span>炼化（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-petro-refining-cycle.html"><b>🔄 周期演进</b><span>炼化（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-petro-refining-methodology.html"><b>📘 方法论说明</b><span>炼化（估值/回购/周期研究的取值口径与可信区间）</span></a>
-</div>
-
-<div class="note-line">注：① 本链财务报告 / 业务陈述仅为公开披露合集，不构成对任何标的的买卖建议。 ② 估值分位随行情每日变动，请以最新采集为准。 ③ 员工数来自 2025 年报合并报表，体现集团整体规模，子公司 / 联营企业未单独拆出。</div>
-<div class="source-note"><b>数据来源</b>：估值 PE/PB/分位 — 百度股市通；ROE — 同花顺 / 东方财富财务摘要；员工数 — 上市公司 2025 年度报告（巨潮资讯 / 上交所 / 深交所）。</div>
-
-<div class="back-bar">
-<a href="./berkshire-石油石化-hub.html">← 石油石化聚合</a>
-<a href="./berkshire-chain-map.html">← 全链索引</a>
-<a href="./berkshire-standalone.html">← 数据中心首页</a>
-</div>
-</div>
-
-<script src="/analytics.js"></script>
-<script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
-<script>
-(function(){
-  const tables=document.querySelectorAll('table.sortable');
-  tables.forEach(t=>{
-    const ths=t.querySelectorAll('th[data-type]');
-    ths.forEach((th,idx)=>{
-      th.style.cursor='pointer';
-      th.addEventListener('click',()=>{
-        const tbody=t.querySelector('tbody');
-        const rows=Array.from(tbody.querySelectorAll('tr')).filter(r=>r.children.length>1);
-        const dir=th.getAttribute('data-dir')==='asc'?'desc':'asc';
-        ths.forEach(x=>x.removeAttribute('data-dir'));
-        th.setAttribute('data-dir',dir);
-        const type=th.getAttribute('data-type');
-        rows.sort((a,b)=>{
-          let va=a.children[idx].getAttribute('data-value'),vb=b.children[idx].getAttribute('data-value');
-          if(va===null||va===undefined||va==='') va=type==='num'?-1e9:'';
-          if(vb===null||vb===undefined||vb==='') vb=type==='num'?-1e9:'';
-          if(type==='num'){
-            va=parseFloat(va);vb=parseFloat(vb);
-            if(isNaN(va))va=-1e9;if(isNaN(vb))vb=-1e9;
-            return dir==='asc'?va-vb:vb-va;
-          }
-          va=String(va);vb=String(vb);
-          return dir==='asc'?va.localeCompare(vb,'zh'):vb.localeCompare(va,'zh');
-        });
-        rows.forEach(r=>tbody.appendChild(r));
-      });
-    });
-  });
-})();
-</script>
-</body>
+<div class="research-signal">
+
+<div class="signal"><h4>民营 vs 国资的效率差异</h4><p>民营四巨头（荣盛/恒力/桐昆/盛虹）ROE 中位 ~7%，国资炼厂（中石化上海/华锦）ROE 中位 ~-2%。差距源于<b>决策效率 + 一体化深度 + 人工成本</b>。化工周期下行期，民营韧性更强。</p></div>
+
+<div class="signal"><h4>PX-PTA-聚酯一体化：景气高度相关</h4><p>PTA 单环节毛利率 2-5%，一体化项目（如荣盛浙石化）从原油到涤纶吃<b>全链毛利 15%+</b>。当纺服需求 + 涤纶价差上行时，一体化标的弹性放大 2-3 倍。</p></div>
+
+<div class="signal"><h4>成品油定价机制的「地板红利」</h4><p>国内成品油<b>40 美元 / 桶地板价</b>机制下，国际油价跌破 40 美元时国内汽柴油不降价，炼厂享受<b>超额毛利</b>；但 130 美元 / 桶天花板价下利润被强制压缩。所以<b>国际低油价</b>是<b>炼化标的</b>的<b>最佳环境</b>。</p></div>
+
+<div class="signal"><h4>煤制烯烃的工艺红利</h4><p>宝丰能源煤制烯烃路线在<b>低煤价（500 元 / 吨以下）时 ROE 可达 25%+</b>，但煤价 800+ 元 / 吨时 ROE 可能跌至 10% 以下。要<b>动态评估煤价 - 油价差</b>，不是简单「煤便宜就好」。</p></div>
+
+<div class="signal"><h4>碳中和约束下的产能天花板</h4><p>中国炼化总产能 2025 年已达<b>9.5 亿吨 / 年</b>，超过国内需求 7 亿吨 / 年。<b>新建炼厂审批已收紧</b>，龙头存量价值正在抬升。但短期内产能过剩仍压制吨毛利。</p></div>
+
+</div>
+
+
+
+<div class="section-title">跨层五维分析</div>
+
+<div class="layer-card"><h3>1. 一体化深度：从原油到化纤的链条</h3><p>民营四巨头（荣盛 / 恒力 / 桐昆 / 盛虹）的核心优势是<b>纵向一体化</b>：原油 → PX → PTA → 聚酯 → 涤纶长丝 / 织造。每个环节多吃一份毛利，对冲单环节景气下行。一体化项目（浙石化 / 大连恒力）规模效应使吨成本低 10-15%。</p></div>
+
+<div class="layer-card"><h3>2. 炼化工艺路线分化</h3><p>传统炼化（FCC 催化裂化）vs 加氢裂化 vs 煤制烯烃 vs PDH（乙烷脱氢）vs MTO（甲醇制烯烃），不同工艺对原油 / 石脑油 / 煤 / 乙烷的依赖度完全不同。卫星化学 PDH 路线完全规避原油波动，2025 年 ROE 16.8% 全行业最高；宝丰能源煤制烯烃在低煤价时 ROE 24.84% 也是工艺红利。</p></div>
+
+<div class="layer-card"><h3>3. 聚酯产业链的传导周期</h3><p>PTA - 聚酯 - 涤纶 - 织造周期跟随纺服需求，一般滞后宏观需求 6-12 个月。2024-2025 年纺服出口承压，桐昆 / 恒逸 ROE 仅 5% 左右。当织造库存周期触底回升时，PTA-聚酯环节先受益，弹性最大。</p></div>
+
+<div class="layer-card"><h3>4. 成品油定价机制的红利与约束</h3><p>国内成品油<b>10 个工作日调整一次</b>，形成「地板价 / 天花板价」机制（40-130 美元 / 桶区间）。地板价下炼厂利润获得保护，天花板价下利润被挤压。上海石化作为典型国资大炼厂，高油价周期利润反不如低油价周期（因为成品油价格滞后传导）。</p></div>
+
+<div class="layer-card"><h3>5. 估值锚与买点</h3><p>炼化标的的合理估值锚：成熟国资（中石化系）<b>PE 8-12 / PB 0.7-1.0</b> 为合理区间；民营四巨头<b>PE 12-18 / PB 1.5-3.0</b>为合理区间（成长溢价）；特色工艺标的（卫星 / 宝丰）可享有<b>PE 15-25</b> 估值。低于对应区间下沿时往往进入 biddable 窗口。</p></div>
+
+
+
+<div class="section-title">估值分位总览（点击行进入公司页）</div>
+
+<table class="ovtable sortable">
+
+<thead><tr><th data-type="str">公司</th><th data-type="str">代码</th><th data-type="num">PE(TTM)</th><th data-type="num">PE 分位</th><th data-type="num">PB</th><th data-type="num">PB 分位</th><th data-type="num">ROE%</th><th data-type="num">员工数</th></tr></thead>
+
+<tbody>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-000059.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">华锦股份</a></td>
+
+<td class="num">000059</td>
+
+<td class="num">-</td>
+
+<td class="pct-cell pct-lo" data-value="23.8">23.8</td>
+
+<td class="num">0.75</td>
+
+<td class="pct-cell pct-mid" data-value="49.2">49.2</td>
+
+<td class="num pct-cell pct-mid" data-value="-16.66">-16.66</td>
+
+<td class="num" data-value="6769">6,769</td>
+
+</tr>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-000301.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">东方盛虹</a></td>
+
+<td class="num">000301</td>
+
+<td class="num">68.05</td>
+
+<td class="pct-cell pct-hi" data-value="76.9">76.9</td>
+
+<td class="num">2.40</td>
+
+<td class="pct-cell pct-hi" data-value="71.5">71.5</td>
+
+<td class="num num" data-value="0.39">0.39</td>
+
+<td class="num" data-value="27878">27,878</td>
+
+</tr>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-000703.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">恒逸石化</a></td>
+
+<td class="num">000703</td>
+
+<td class="num">10.81</td>
+
+<td class="pct-cell pct-lo" data-value="20.9">20.9</td>
+
+<td class="num">2.15</td>
+
+<td class="pct-cell pct-hi" data-value="77.0">77.0</td>
+
+<td class="num num" data-value="1.05">1.05</td>
+
+<td class="num" data-value="17511">17,511</td>
+
+</tr>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-002408.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">齐翔腾达</a></td>
+
+<td class="num">002408</td>
+
+<td class="num">-</td>
+
+<td class="pct-cell pct-lo" data-value="24.8">24.8</td>
+
+<td class="num">1.30</td>
+
+<td class="pct-cell pct-lo" data-value="20.5">20.5</td>
+
+<td class="num pct-cell pct-mid" data-value="-5.03">-5.03</td>
+
+<td class="num" data-value="3457">3,457</td>
+
+</tr>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-002493.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">荣盛石化</a></td>
+
+<td class="num">002493</td>
+
+<td class="num">40.90</td>
+
+<td class="pct-cell pct-hi" data-value="73.9">73.9</td>
+
+<td class="num">2.71</td>
+
+<td class="pct-cell pct-mid" data-value="33.9">33.9</td>
+
+<td class="num num" data-value="1.94">1.94</td>
+
+<td class="num" data-value="19849">19,849</td>
+
+</tr>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-002648.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">卫星化学</a></td>
+
+<td class="num">002648</td>
+
+<td class="num">14.52</td>
+
+<td class="pct-cell pct-mid" data-value="56.4">56.4</td>
+
+<td class="num">2.40</td>
+
+<td class="pct-cell pct-mid" data-value="57.0">57.0</td>
+
+<td class="num num" data-value="16.8">16.80</td>
+
+<td class="num" data-value="4811">4,811</td>
+
+</tr>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-600346.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">恒力石化</a></td>
+
+<td class="num">600346</td>
+
+<td class="num">13.50</td>
+
+<td class="pct-cell pct-mid" data-value="33.7">33.7</td>
+
+<td class="num">1.71</td>
+
+<td class="pct-cell pct-lo" data-value="14.1">14.1</td>
+
+<td class="num num" data-value="10.85">10.85</td>
+
+<td class="num" data-value="37368">37,368</td>
+
+</tr>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-600688.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">上海石化</a></td>
+
+<td class="num">600688</td>
+
+<td class="num">-</td>
+
+<td class="pct-cell pct-lo" data-value="20.0">20.0</td>
+
+<td class="num">1.25</td>
+
+<td class="pct-cell pct-lo" data-value="25.7">25.7</td>
+
+<td class="num pct-cell pct-mid" data-value="-5.95">-5.95</td>
+
+<td class="num" data-value="6940">6,940</td>
+
+</tr>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-600989.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">宝丰能源</a></td>
+
+<td class="num">600989</td>
+
+<td class="num">10.93</td>
+
+<td class="pct-cell pct-lo" data-value="0.1">0.1</td>
+
+<td class="num">3.04</td>
+
+<td class="pct-cell pct-mid" data-value="45.6">45.6</td>
+
+<td class="num num" data-value="24.84">24.84</td>
+
+<td class="num" data-value="22037">22,037</td>
+
+</tr>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-601233.html" style="color:var(--primary-dark);text-decoration:none;font-weight:600">桐昆股份</a></td>
+
+<td class="num">601233</td>
+
+<td class="num">16.37</td>
+
+<td class="pct-cell pct-mid" data-value="64.7">64.7</td>
+
+<td class="num">1.35</td>
+
+<td class="pct-cell pct-mid" data-value="49.9">49.9</td>
+
+<td class="num num" data-value="5.43">5.43</td>
+
+<td class="num" data-value="33639">33,639</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+
+
+<div class="section-title">R15 三维（ROE × 营收估 × 人均创利 × 估值水位）</div>
+
+<table class="ovtable">
+
+<thead><tr><th>公司</th><th class="num">ROE%</th><th class="num">营收(估)</th><th class="num">人均创利(元)</th><th>PE 分位</th></tr></thead>
+
+<tbody>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-600989.html" style="color:var(--primary-dark);text-decoration:none">宝丰能源</a></td>
+
+<td class="num">24.84</td>
+
+<td class="num">4407.4 亿</td>
+
+<td class="num">11272</td>
+
+<td>0%</td>
+
+</tr>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-002648.html" style="color:var(--primary-dark);text-decoration:none">卫星化学</a></td>
+
+<td class="num">16.80</td>
+
+<td class="num">962.2 亿</td>
+
+<td class="num">34920</td>
+
+<td>56%</td>
+
+</tr>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-600346.html" style="color:var(--primary-dark);text-decoration:none">恒力石化</a></td>
+
+<td class="num">10.85</td>
+
+<td class="num">7473.6 亿</td>
+
+<td class="num">2904</td>
+
+<td>34%</td>
+
+</tr>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-601233.html" style="color:var(--primary-dark);text-decoration:none">桐昆股份</a></td>
+
+<td class="num">5.43</td>
+
+<td class="num">6727.8 亿</td>
+
+<td class="num">1614</td>
+
+<td>65%</td>
+
+</tr>
+
+<tr>
+
+<td><a href="./berkshire-petro-refining-chain-002493.html" style="color:var(--primary-dark);text-decoration:none">荣盛石化</a></td>
+
+<td class="num">1.94</td>
+
+<td class="num">3969.8 亿</td>
+
+<td class="num">977</td>
+
+<td>74%</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+
+
+<div class="section-title">成本传导：油价 / 煤价 / 石脑油价如何影响本链</div>
+
+<div class="cost-block">
+
+<span class="hl">原料端</span>：
+
+  上游：原油采购（占成本 50-70%），OPEC+ 减产 / 地缘冲突（如红海航运）可短期推升 10-30%
+
+  炼化：原油 + 石脑油 + 煤炭 / 天然气（煤制烯烃路线）
+
+  零售：批发价（炼厂出厂） + 物流费（短驳 / 长输）
+
+
+
+<span class="hl">加工端</span>：
+
+  折旧（炼厂/管网/加油站投入大）+ 人工 + 能耗（电/蒸汽）
+
+  一体化项目（浙石化/恒力）规模效应使吨成本低于行业 10-15%
+
+
+
+<span class="hl">销售端</span>：
+
+  批零差（成品油定价机制：10 个工作日调整一次）
+
+  加油站毛利率 5-8%（轻油）+ 非油业务毛利 20%+（便利店/广告）
+
+
+
+<span class="hl">传导结论</span>：
+
+  • 油价 ↑ 80 美元/桶时：上游净利 +30%，炼化毛利被挤压（最优炼油价差 5-10 美元/桶）
+
+  • 油价 ↓ 50 美元/桶时：上游资源价值打折，炼化库存收益 +5-10%
+
+  • 煤价 ↑ 时：宝丰能源（煤制烯烃）成本压力大；广汇能源煤化工利润同步承压
+
+</div>
+
+
+
+<div class="section-title">员工效率（本链人均创利分布）</div>
+
+<div class="emp-block">
+
+<h3>员工总数对比（年报年末，万人级差异反映资本 / 劳动结构）</h3>
+
+<div class="emp-grid">
+
+<div class="emp-badge"><b>恒力石化</b> <span style="color:#92400e;font-size:11px">600346</span><div class="meta">37,368 人 · ROE 10.8%</div></div>
+
+<div class="emp-badge"><b>桐昆股份</b> <span style="color:#92400e;font-size:11px">601233</span><div class="meta">33,639 人 · ROE 5.4%</div></div>
+
+<div class="emp-badge"><b>东方盛虹</b> <span style="color:#92400e;font-size:11px">000301</span><div class="meta">27,878 人 · ROE 0.4%</div></div>
+
+<div class="emp-badge"><b>宝丰能源</b> <span style="color:#92400e;font-size:11px">600989</span><div class="meta">22,037 人 · ROE 24.8%</div></div>
+
+<div class="emp-badge"><b>荣盛石化</b> <span style="color:#92400e;font-size:11px">002493</span><div class="meta">19,849 人 · ROE 1.9%</div></div>
+
+<div class="emp-badge"><b>恒逸石化</b> <span style="color:#92400e;font-size:11px">000703</span><div class="meta">17,511 人 · ROE 1.1%</div></div>
+
+<div class="emp-badge"><b>上海石化</b> <span style="color:#92400e;font-size:11px">600688</span><div class="meta">6,940 人 · ROE -6.0%</div></div>
+
+<div class="emp-badge"><b>华锦股份</b> <span style="color:#92400e;font-size:11px">000059</span><div class="meta">6,769 人 · ROE -16.7%</div></div>
+
+</div>
+
+<p style="font-size:12px;color:#94a3b8;margin-top:14px">提示：员工数仅为规模指标，与人均创利结合看才有意义。一体化民营（恒力/荣盛/宝丰）员工数万级；上游巨头（中石油/中石化）30万+ 体现国企总部 + 销售网络双重负担；卫星化学 4,811 人创 ¥110 万/人 = 高人均创利典型。</p>
+
+</div>
+
+
+
+<div class="section-title">主要玩家（本链头部 6 家）</div>
+
+<a class="giant-card" href="./berkshire-petro-refining-chain-600989.html"><div><span class="name">宝丰能源</span><span class="code">600989</span><span class="region-tag region-cn">A股</span></div><div class="desc">煤制烯烃龙头，ROE 24.84% / 人均创利 ¥51.5 万</div></a>
+
+<a class="giant-card" href="./berkshire-petro-refining-chain-002648.html"><div><span class="name">卫星化学</span><span class="code">002648</span><span class="region-tag region-cn">A股</span></div><div class="desc">PDH 乙烷制乙烯，ROE 16.8% / 人均创利 ¥110 万</div></a>
+
+<a class="giant-card" href="./berkshire-petro-refining-chain-600346.html"><div><span class="name">恒力石化</span><span class="code">600346</span><span class="region-tag region-cn">A股</span></div><div class="desc">大连长兴岛 4,000 万吨炼化，ROE 10.85%</div></a>
+
+<a class="giant-card" href="./berkshire-petro-refining-chain-601233.html"><div><span class="name">桐昆股份</span><span class="code">601233</span><span class="region-tag region-cn">A股</span></div><div class="desc">涤纶长丝+ PTA 龙头，ROE 5.43%</div></a>
+
+<a class="giant-card" href="./berkshire-petro-refining-chain-002493.html"><div><span class="name">荣盛石化</span><span class="code">002493</span><span class="region-tag region-cn">A股</span></div><div class="desc">浙石化千万吨炼化，PB 2.71 估值溢价</div></a>
+
+<a class="giant-card" href="./berkshire-petro-refining-chain-600688.html"><div><span class="name">上海石化</span><span class="code">600688</span><span class="region-tag region-cn">A股</span></div><div class="desc">中石化上海炼化，PE 分位 20% 高股息红利</div></a>
+
+
+
+<div class="section-title">延伸阅读 · 炼化（炼油+石化） 7 兄弟页</div>
+
+<div class="extend-grid">
+
+<a class="extend-card" href="./berkshire-petro-refining-compare.html"><b>🥇 估值分位</b><span>炼化（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-petro-refining-thermometer.html"><b>🌡️ 估值温度计</b><span>炼化（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-petro-refining-buyback.html"><b>💰 回购监测</b><span>炼化（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-petro-refining-repomap.html"><b>🗺️ 板块图谱</b><span>炼化（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-petro-refining-backtest.html"><b>📈 五年回测</b><span>炼化（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-petro-refining-cycle.html"><b>🔄 周期演进</b><span>炼化（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-petro-refining-methodology.html"><b>📘 方法论说明</b><span>炼化（估值/回购/周期研究的取值口径与可信区间）</span></a>
+
+</div>
+
+
+
+<div class="note-line">注：① 本链财务报告 / 业务陈述仅为公开披露合集，不构成对任何标的的买卖建议。 ② 估值分位随行情每日变动，请以最新采集为准。 ③ 员工数来自 2025 年报合并报表，体现集团整体规模，子公司 / 联营企业未单独拆出。</div>
+
+<div class="source-note"><b>数据来源</b>：估值 PE/PB/分位 — 百度股市通；ROE — 同花顺 / 东方财富财务摘要；员工数 — 上市公司 2025 年度报告（巨潮资讯 / 上交所 / 深交所）。</div>
+
+
+
+<div class="back-bar">
+
+<a href="./berkshire-石油石化-hub.html">← 石油石化聚合</a>
+
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+
+</div>
+
+</div>
+
+
+
+<script src="/analytics.js"></script>
+
+<script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+
+<script>
+
+(function(){
+
+  const tables=document.querySelectorAll('table.sortable');
+
+  tables.forEach(t=>{
+
+    const ths=t.querySelectorAll('th[data-type]');
+
+    ths.forEach((th,idx)=>{
+
+      th.style.cursor='pointer';
+
+      th.addEventListener('click',()=>{
+
+        const tbody=t.querySelector('tbody');
+
+        const rows=Array.from(tbody.querySelectorAll('tr')).filter(r=>r.children.length>1);
+
+        const dir=th.getAttribute('data-dir')==='asc'?'desc':'asc';
+
+        ths.forEach(x=>x.removeAttribute('data-dir'));
+
+        th.setAttribute('data-dir',dir);
+
+        const type=th.getAttribute('data-type');
+
+        rows.sort((a,b)=>{
+
+          let va=a.children[idx].getAttribute('data-value'),vb=b.children[idx].getAttribute('data-value');
+
+          if(va===null||va===undefined||va==='') va=type==='num'?-1e9:'';
+
+          if(vb===null||vb===undefined||vb==='') vb=type==='num'?-1e9:'';
+
+          if(type==='num'){
+
+            va=parseFloat(va);vb=parseFloat(vb);
+
+            if(isNaN(va))va=-1e9;if(isNaN(vb))vb=-1e9;
+
+            return dir==='asc'?va-vb:vb-va;
+
+          }
+
+          va=String(va);vb=String(vb);
+
+          return dir==='asc'?va.localeCompare(vb,'zh'):vb.localeCompare(va,'zh');
+
+        });
+
+        rows.forEach(r=>tbody.appendChild(r));
+
+      });
+
+    });
+
+  });
+
+})();
+
+</script>
+
+</body>
+
 </html>
