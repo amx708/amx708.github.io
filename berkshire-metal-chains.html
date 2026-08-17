@@ -1,379 +1,495 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="initial-scale=1">
-<title>有色产业链 · 价值投资视角</title>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
+<title>有色产业链 · 价值投资视角</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(180,83,9,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(180,83,9,0.10);color:#b45309;border:1px solid rgba(180,83,9,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#b45309;color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#b45309}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(180,83,9,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(180,83,9,0.08);border:1px solid rgba(180,83,9,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#b45309}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(180,83,9,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#b45309;background:rgba(180,83,9,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
+.explain-banner .eb-text b{color:#0f172a;font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #b45309}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#b45309;font-weight:700}
+.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.giant-card:hover{border-color:#b45309;background:rgba(180,83,9,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(180,83,9,0.12)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:#0f172a}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
+.region-hk{background:rgba(234,179,8,0.14);color:#b45309;border:1px solid rgba(234,179,8,0.3)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#b45309;font-weight:600}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
+.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
+.overview{background:rgba(180,83,9,0.05);border:1px solid rgba(180,83,9,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
+.overview b{color:#0f172a;font-weight:600}
+.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #b45309;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
+.layer-detail-body b{color:#334155}
+.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.info-table tr{border-bottom:1px solid #eef2f7}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
+.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
+.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(180,83,9,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#b45309}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.back-bar{margin-top:20px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(180,83,9,0.08);color:#b45309;border:1px solid rgba(180,83,9,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:rgba(180,83,9,0.16)}
+.data-banner{background:rgba(180,83,9,0.07);border:1px solid rgba(180,83,9,0.22);border-left:4px solid #b45309;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:#0f172a;font-weight:600}
+.data-banner .upd{color:#b45309;font-weight:600}
+.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(180,83,9,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cycle-title .icon{color:#b45309}
+.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
+.cycle-body b{color:#0f172a;font-weight:600}
+.cycle-body p{margin-bottom:8px}
+.cycle-body ul{margin:8px 0 0 18px;padding:0}
+.cycle-body li{margin-bottom:6px}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #b45309;padding:8px 12px;background:rgba(180,83,9,0.06);line-height:1.7}
+.cycle-current b{color:#334155}
+.cycle-current a{text-decoration:none}
+.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.fin-title .icon{color:#b45309}
+.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px}
+.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.fin-table tr{border-bottom:1px solid #eef2f7}
+.fin-table tr:last-child{border-bottom:none}
+.fin-table td{padding:10px 14px;font-size:13px;color:#334155}
+.fin-table td:first-child{width:130px;color:#64748b}
+.fin-table .val{color:#b45309;font-weight:600}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}.extend a:hover{border-color:#b45309;box-shadow:0 6px 18px rgba(0,0,0,.1)}.extend b{color:#b45309;display:block;margin-bottom:5px;font-weight:700}.extend span{font-size:12.5px;color:#64748b;line-height:1.55}
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+</style>
+
+<style>
+/* P0 估值历史分位 + 成本传导 */
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0f766e;text-decoration:none}
+.ovtable a:hover{text-decoration:underline}
+.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
+.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
+.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
+.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
+.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
+.cost-chart{flex:1;min-width:300px}
+.cost-chart svg{width:100%;height:auto;display:block}
+.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
+.cost-note b{color:#0f172a}
+.cost-note p{margin:0 0 10px}
+
+</style>
+<style>
+
+/* 员工效率与组织效能 */
+.emp-block{margin:6px 0 2px}
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
+.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
+.emp-val{font-size:18px;font-weight:700;color:#0f172a}
+.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
+.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
+.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
+.emp-signal b{font-weight:700}
+.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
+
+</style>
+<style>
+/* chain-sort */
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
+.sortable th:hover{background:#e0f2fe}
+.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
+.sortable th.asc .sort-ind::before{content:"▲";color:var(--accent)}
+.sortable th.desc .sort-ind::before{content:"▼";color:var(--accent)}
+</style>
+<!-- chain-sort -->
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
-.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(180,83,9,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(180,83,9,0.10);color:#b45309;border:1px solid rgba(180,83,9,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
-.home-btn:hover{background:#b45309;color:#fff}
-.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
-.breadcrumb a{color:#64748b;text-decoration:none}
-.breadcrumb a:hover{color:#b45309}
-.crumb-sep{color:#cbd5e1}
-.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
-.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(180,83,9,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
-.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
-.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
-.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
-.stat-item{background:rgba(180,83,9,0.08);border:1px solid rgba(180,83,9,0.15);border-radius:10px;padding:10px 18px;text-align:center}
-.stat-num{font-size:20px;font-weight:800;color:#b45309}
-.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
-.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(180,83,9,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
-.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
-.explain-banner .eb-body{flex:1;min-width:0}
-.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.explain-banner .eb-tag{font-size:11px;color:#b45309;background:rgba(180,83,9,0.12);padding:2px 9px;border-radius:10px}
-.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
-.explain-banner .eb-text b{color:#0f172a;font-weight:600}
-.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #b45309}
-.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
-.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.layer-num{font-size:12px;color:#b45309;font-weight:700}
-.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
-.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.giant-card:hover{border-color:#b45309;background:rgba(180,83,9,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(180,83,9,0.12)}
-.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.giant-name{font-size:16px;font-weight:700;color:#0f172a}
-.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
-.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
-.region-hk{background:rgba(234,179,8,0.14);color:#b45309;border:1px solid rgba(234,179,8,0.3)}
-.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
-.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
-.giant-link{color:#b45309;font-weight:600}
-.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.source-note b{color:#475569}
-@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}
-.region-tag-mini{font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;display:inline-block;margin-top:8px}
-.overview{background:rgba(180,83,9,0.05);border:1px solid rgba(180,83,9,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
-.overview b{color:#0f172a;font-weight:600}
-.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #b45309;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
-.layer-detail-body b{color:#334155}
-.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.info-table tr{border-bottom:1px solid #eef2f7}
-.info-table tr:last-child{border-bottom:none}
-.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
-.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
-.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(180,83,9,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
-.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.insight-title .icon{color:#b45309}
-.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
-.back-bar{margin-top:20px}
-.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(180,83,9,0.08);color:#b45309;border:1px solid rgba(180,83,9,0.25);border-radius:20px;padding:8px 16px;font-size:13px;text-decoration:none;transition:all .2s}
-.back-btn:hover{background:rgba(180,83,9,0.16)}
-.data-banner{background:rgba(180,83,9,0.07);border:1px solid rgba(180,83,9,0.22);border-left:4px solid #b45309;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
-.data-banner b{color:#0f172a;font-weight:600}
-.data-banner .upd{color:#b45309;font-weight:600}
-.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(180,83,9,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
-.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.cycle-title .icon{color:#b45309}
-.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
-.cycle-body b{color:#0f172a;font-weight:600}
-.cycle-body p{margin-bottom:8px}
-.cycle-body ul{margin:8px 0 0 18px;padding:0}
-.cycle-body li{margin-bottom:6px}
-.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #b45309;padding:8px 12px;background:rgba(180,83,9,0.06);line-height:1.7}
-.cycle-current b{color:#334155}
-.cycle-current a{text-decoration:none}
-.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
-.fin-title .icon{color:#b45309}
-.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px}
-.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
-.fin-table tr{border-bottom:1px solid #eef2f7}
-.fin-table tr:last-child{border-bottom:none}
-.fin-table td{padding:10px 14px;font-size:13px;color:#334155}
-.fin-table td:first-child{width:130px;color:#64748b}
-.fin-table .val{color:#b45309;font-weight:600}
-.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
-
-.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}.extend a:hover{border-color:#b45309;box-shadow:0 6px 18px rgba(0,0,0,.1)}.extend b{color:#b45309;display:block;margin-bottom:5px;font-weight:700}.extend span{font-size:12.5px;color:#64748b;line-height:1.55}
-.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
-.breadcrumb a{color:var(--primary-dark);text-decoration:none}
-.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
-.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
-.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
-.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
-.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
-.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
-.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
-.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
-.back-bar a:hover{background:#e8b84b;color:#fff}
-
+/* v2 white-spirit template additions */
+.ws2-counter{display:flex;gap:20px;margin:18px 0 8px 0;justify-content:center;flex-wrap:wrap}
+.ws2-counter .card{background:#f4f6fa;border:1px solid #dfe4ec;border-radius:10px;padding:14px 28px;text-align:center;min-width:140px}
+.ws2-counter .num{font-size:28px;font-weight:700;color:#1a2540;line-height:1.1}
+.ws2-counter .lbl{font-size:13px;color:#5d6a82;margin-top:4px}
+.ws2-tip{background:#fff8e1;border:1px solid #f3d585;color:#7a5d1a;border-radius:8px;padding:12px 18px;margin:14px 0;font-size:13.5px;line-height:1.6}
+.ws2-tip b{color:#b37800}
+.ws2-section{background:#fff;border:1px solid #e7ebf3;border-radius:10px;padding:22px 26px;margin:18px 0}
+.ws2-section h3{font-size:17px;color:#1a2540;margin:0 0 12px 0;display:flex;align-items:center;gap:8px}
+.ws2-section h3 .tag{background:#3854cc;color:#fff;border-radius:4px;font-size:11px;padding:2px 8px;font-weight:500}
+.ws2-logic8{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ws2-logic8 .item{border:1px dashed #c9d1e0;border-radius:8px;padding:12px 14px;background:#fafbfd;color:#6b7891;font-size:12.5px}
+.ws2-logic8 .item b{color:#1a2540;display:block;margin-bottom:4px;font-size:13.5px}
+.ws2-logic8 .item.empty::before{content:"⚠ ";color:#d9722c}
+.ws2-charts{display:grid;gap:18px}
+.ws2-charts .chart{background:#fff;border:1px solid #e7ebf3;border-radius:10px;padding:14px 18px}
+.ws2-charts .chart .ti{font-size:14px;color:#1a2540;font-weight:600;margin-bottom:8px}
+.ws2-charts svg{max-width:100%;height:auto;display:block;margin:0 auto}
+.ws2-table-wrap{overflow-x:auto;border:1px solid #e7ebf3;border-radius:10px}
+.ws2-table-wrap table{width:100%;border-collapse:collapse;font-size:13px}
+.ws2-table-wrap thead th{background:#f4f6fa;color:#1a2540;padding:10px 12px;text-align:right;font-weight:600;border-bottom:1px solid #e1e6ef;white-space:nowrap}
+.ws2-table-wrap thead th:first-child{text-align:left}
+.ws2-table-wrap tbody td{padding:9px 12px;text-align:right;border-bottom:1px solid #f0f2f6;color:#2a3548;white-space:nowrap}
+.ws2-table-wrap tbody td:first-child{text-align:left;color:#1a2540;font-weight:500}
+.ws2-table-wrap tbody tr:nth-child(odd){background:#fbfcfe}
+.ws2-classify td.tag{font-weight:600}
+.ws2-classify .tag-白马{color:#0dab6a}
+.ws2-classify .tag-周期{color:#d63b3b}
+.ws2-classify .tag-中性{color:#5d6a82}
+.ws2-frame-placeholder{border:1px dashed #c9d1e0;border-radius:10px;padding:18px 22px;background:#fafbfd;color:#6b7891;font-size:13px;line-height:1.8}
+.ws2-frame-placeholder h4{font-size:13.5px;color:#1a2540;margin:0 0 8px 0;font-weight:600}
+.ws2-frame-placeholder ul{margin:6px 0 0 0;padding-left:22px;color:#5d6a82;font-size:12.5px}
+.ws2-frame-placeholder li{margin:2px 0}
+.ws2-frame{border:1px solid #d8dee9;border-radius:10px;padding:18px 22px;background:#fff;color:#2a3548;font-size:13px;line-height:1.85;margin-bottom:12px}
+.ws2-frame h4{font-size:13.5px;color:#1a2540;margin:0 0 8px 0;font-weight:600}
+.ws2-frame b{color:#3854cc}
 </style>
 
-<style>
-/* P0 估值历史分位 + 成本传导 */
-.valband{margin:6px 0 2px}
-.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
-.vlab{width:68px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
-.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
-.vfill{height:100%;border-radius:6px}
-.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
-.vval{width:240px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
-.vval b{color:#0f172a}
-.vtag{font-weight:700;margin-left:4px}
-.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px;color:#64748b}
-.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
-.ovtable{overflow-x:auto;margin:6px 0}
-.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
-.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
-.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
-.ovtable td:first-child,.ovtable th:first-child{text-align:left}
-.ovtable a{color:#0f766e;text-decoration:none}
-.ovtable a:hover{text-decoration:underline}
-.pct-cell{font-weight:700;border-radius:4px;padding:2px 6px}
-.pct-lo{color:#15803d;background:rgba(34,197,94,0.12)}
-.pct-mid{color:#b45309;background:rgba(245,158,11,0.14)}
-.pct-hi{color:#b91c1c;background:rgba(220,38,38,0.12)}
-.cost-block{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:6px 0}
-.cost-chart{flex:1;min-width:300px}
-.cost-chart svg{width:100%;height:auto;display:block}
-.cost-note{flex:1;min-width:260px;font-size:13px;color:#334155;line-height:1.85}
-.cost-note b{color:#0f172a}
-.cost-note p{margin:0 0 10px}
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px;font-weight:700">有色</a><a href="berkshire-chem-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">电力设备</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>有色产业链</span>
+</div>
+</div><!--poisson-chain-link--><div class="poisson-chain-link" style="max-width:1080px;margin:14px auto 0;padding:0 20px"><a href="berkshire-metal-poisson.html" style="display:inline-block;background:#fff;border:1px solid #e2e8f0;border-left:3px solid #2563eb;border-radius:8px;padding:8px 14px;font-size:13px;color:#1e40af;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.04)">📊 查看 有色 产业链泊松象限图（λ净 vs 总收益）</a></div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">有色产业链</div>
+<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">11</div><div class="stat-label">上市公司</div></div>
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+</div>
+</div>
+
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
+
+<div class="explain-banner">
+<div class="eb-icon">🪙</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「有色产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把有色龙头按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
+<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中为框架级定性梳理，不编造具体财务数字，最新数据以公司公告为准。
+</div>
+</div>
+</div>
+
 
-</style>
-<style>
-
-/* 员工效率与组织效能 */
-.emp-block{margin:6px 0 2px}
-.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:4px 0 10px}
-.emp-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
-.emp-lab{font-size:12px;color:#64748b;margin-bottom:4px}
-.emp-val{font-size:18px;font-weight:700;color:#0f172a}
-.emp-val span{font-size:12px;font-weight:500;color:#94a3b8}
-.emp-val.up{color:#15803d}.emp-val.down{color:#b91c1c}
-.emp-signal{font-size:13px;padding:9px 12px;border-radius:8px;margin:2px 0 8px;line-height:1.6}
-.emp-signal b{font-weight:700}
-.emp-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
-.ovtable .num{text-align:right;font-variant-numeric:tabular-nums}
-.ovtable .num.up{color:#15803d;font-weight:700}.ovtable .num.down{color:#b91c1c;font-weight:700}
-
-</style>
-<style>
-/* chain-sort */
-.sortable th{cursor:pointer;user-select:none;white-space:nowrap;position:relative}
-.sortable th:hover{background:#e0f2fe}
-.sortable th .sort-ind{display:inline-block;width:18px;text-align:center;margin-left:4px;color:#94a3b8;font-size:11px}
-.sortable th.asc .sort-ind::before{content:"▲";color:var(--accent)}
-.sortable th.desc .sort-ind::before{content:"▼";color:var(--accent)}
-</style>
-<!-- chain-sort -->
-</head>
-<body>
-<div class="top-bar">
-<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
-<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-bank-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">银行</a><a href="berkshire-baijiu-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">白酒</a><a href="berkshire-ai-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">AI</a><a href="berkshire-robot-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">机器人</a><a href="berkshire-tcm-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">中药</a><a href="berkshire-innov-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">创新药</a><a href="berkshire-appliance-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">家电</a><a href="berkshire-power-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">电力</a><a href="berkshire-coal-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">煤炭</a><a href="berkshire-metal-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px;font-weight:700">有色</a><a href="berkshire-chem-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">化工</a><a href="berkshire-equip-chains.html" style="color:a78bfa;text-decoration:none;font-size:13px">电力设备</a></span>
-<div class="breadcrumb">
-<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>有色产业链</span>
+<!-- ===== v2 body (per 老板截屏) START ===== -->
+<div class="ws2-counter-wrap">
+  
+<div class="ws2-counter">
+  <div class="card"><div class="num">10</div><div class="lbl">家上市公司</div></div>
+  <div class="card"><div class="num">11</div><div class="lbl">核心环节 / 子链</div></div>
+  <div class="card"><div class="num">6</div><div class="lbl">延伸阅读</div></div>
 </div>
-</div><!--poisson-chain-link--><div class="poisson-chain-link" style="max-width:1080px;margin:14px auto 0;padding:0 20px"><a href="berkshire-metal-poisson.html" style="display:inline-block;background:#fff;border:1px solid #e2e8f0;border-left:3px solid #2563eb;border-radius:8px;padding:8px 14px;font-size:13px;color:#1e40af;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.04)">📊 查看 有色 产业链泊松象限图（λ净 vs 总收益）</a></div>
-<div class="container">
+<div class="ws2-tip"><b>纪律声明：</b>本面板只用公开财报与估值数据可验证的事实。<b>不含</b>任何编造叙事——投资逻辑、产品定位、竞争格局、产能周期均以<b>占位框架</b>呈现，待人工补充。</div>
 
-<div class="hero">
-<div class="hero-title">有色产业链</div>
-<div class="hero-sub">价值投资视角下的「跨层全栈」梳理 · 用公开年报 / 官网 / 新闻原创整理，不复制任何付费内容</div>
-<div class="hero-stats">
-<div class="stat-item"><div class="stat-num">11</div><div class="stat-label">上市公司</div></div>
-<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
-<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
 </div>
-</div>
-
-<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>最新可得年报</b>为准；估值 / 行情为<b>采集日快照</b>（实时行情接口当前环境不可用）。本页为框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-07-12</span></div>
-
-<div class="explain-banner">
-<div class="eb-icon">🪙</div>
-<div class="eb-body">
-<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「有色产业链地图」是怎么来的</div>
-<div class="eb-text">
-本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把有色龙头按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
-<b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中为框架级定性梳理，不编造具体财务数字，最新数据以公司公告为准。
-</div>
-</div>
-</div>
-
-<!--research-signal-->
-<div class="section-title" style="border-left:3px solid #b45309">研究信号</div>
-<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #b45309;border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
-    <div style="font-weight:700;color:#475569">周期位置</div><div>供需紧+降息交易（早中期）</div>
-    <div style="font-weight:700;color:#475569">景气方向</div><div>资源重估（PB55中高），动量强（泊松★7/10）</div>
-    <div style="font-weight:700;color:#475569">结论信号</div><div><b>🟡 中性（铜主线，但 PB 不便宜）</b> — 铜超级周期+电网/AI 用铜逻辑强，但 PB 已反映资源重估，等回调</div>
-    <div style="font-weight:700;color:#475569">核心催化</div><div>①全球电网投资  ②AI 数据中心用铜  ③降息预期</div>
-    <div style="font-weight:700;color:#475569">关键风险</div><div>①全球需求走弱  ②美元走强  ③矿端供给释放</div>
-  </div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：PE分位28% PB分位55% · 泊松★7/10 · 效能扩张3/收缩3。结论为框架合成，需结合实盘研究校验。</div>
-</div>
-<!--/research-signal--><div class="section-title">跨层分析框架（5 层）</div>
-<div class="layers">
-<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游 · 勘探与采矿</div><div class="layer-desc">地质勘探、矿山开采（露天 / 地下），资源储量与品位是根本</div></div><div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游 · 冶炼与精炼</div><div class="layer-desc">矿石冶炼、电解精炼，能耗与工艺决定成本</div></div><div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游 · 加工与材料</div><div class="layer-desc">铜铝加工、合金、锂电材料等深加工</div></div><div class="layer-card"><div class="layer-num">04</div><div class="layer-name">消费与场景</div><div class="layer-desc">新能源（电车 / 储能）、电子、建筑、电力、珠宝首饰</div></div><div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">资源储量 / 价格周期 / 供需格局；风险在金属价格、宏观与地缘</div></div>
-</div>
-
-<div class="section-title">产业周期判断标准</div>
-<div class="cycle-block" id="cycle"><div class="cycle-title"><span class="icon">🔄</span> 有色产业链 产业周期怎么看</div><div class="cycle-body"><p><b>分品种逻辑</b>：工业金属（铜/铝）看全球宏观与美元、LME/SHFE 库存、铜冶炼费 TC/RC；贵金属（金）看实际利率与美元、央行购金；能源金属（锂/钴/镍）看供需平衡与成本曲线。</p>
-<ul>
-<li><b>工业金属</b>：LME+SHFE 库存持续去化+价升 → 景气；铜精矿 TC 跌破低位 → 矿端紧张、冶炼利润承压；铝看能耗双控与水电铝成本。</li>
-<li><b>贵金属</b>：美债实际收益率下行、美元走弱、央行购金 → 金价支撑。</li>
-<li><b>能源金属</b>：锂价跌破高成本矿现金成本 → 底部锚；过剩出清+需求放量 → 回升。</li>
-<li><b>美元与实际利率</b>：美元走弱/实际利率下行 → 工业金属与黄金皆受益。</li>
-</ul></div><div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：有色按品种判周期：工业金属看库存+美元+TC，贵金属看实际利率+央行购金，能源金属看成本曲线与过剩出清；当前铜强、金稳、锂处产能出清寻底阶段。</div></div>
-
-<div class="section-title">估值历史分位总览（有色 11 家）</div>
-<div class="ovtable">
-<table class="sortable">
-<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
-<tbody><tr><td><a href="berkshire-metal-chain-zijin.html">紫金矿业</a></td><td>12.53</td><td><span class="pct-cell pct-lo">5.1%</span></td><td>3.92</td><td><span class="pct-cell pct-hi">74.6%</span></td></tr><tr><td><a href="berkshire-metal-chain-jiangxi.html">江西铜业</a></td><td>18.99</td><td><span class="pct-cell pct-mid">44.0%</span></td><td>1.81</td><td><span class="pct-cell pct-hi">94.9%</span></td></tr><tr><td><a href="berkshire-metal-chain-chalco.html">中国铝业</a></td><td>10.37</td><td><span class="pct-cell pct-lo">4.7%</span></td><td>1.88</td><td><span class="pct-cell pct-hi">64.7%</span></td></tr><tr><td><a href="berkshire-metal-chain-lomo.html">洛阳钼业</a></td><td>16.13</td><td><span class="pct-cell pct-lo">17.1%</span></td><td>4.38</td><td><span class="pct-cell pct-hi">85.4%</span></td></tr><tr><td><a href="berkshire-metal-chain-sdgold.html">山东黄金</a></td><td>22.57</td><td><span class="pct-cell pct-lo">7.0%</span></td><td>3.64</td><td><span class="pct-cell pct-lo">32.0%</span></td></tr><tr><td><a href="berkshire-metal-chain-zhongjin.html">中金黄金</a></td><td>15.81</td><td><span class="pct-cell pct-lo">0.7%</span></td><td>3.03</td><td><span class="pct-cell pct-hi">82.6%</span></td></tr><tr><td><a href="berkshire-metal-chain-yunlu.html">云铝股份</a></td><td>9.98</td><td><span class="pct-cell pct-lo">21.5%</span></td><td>2.43</td><td><span class="pct-cell pct-hi">74.3%</span></td></tr><tr><td><a href="berkshire-metal-chain-shenhuo.html">神火股份</a></td><td>9.94</td><td><span class="pct-cell pct-mid">57.7%</span></td><td>2.06</td><td><span class="pct-cell pct-mid">49.1%</span></td></tr><tr><td><a href="berkshire-metal-chain-tianqi.html">天齐锂业</a></td><td>36.31</td><td><span class="pct-cell pct-hi">86.7%</span></td><td>1.75</td><td><span class="pct-cell pct-lo">19.0%</span></td></tr><tr><td><a href="berkshire-metal-chain-ganfeng.html">赣锋锂业</a></td><td>28.95</td><td><span class="pct-cell pct-mid">49.4%</span></td><td>2.37</td><td><span class="pct-cell pct-lo">20.9%</span></td></tr><tr><td><a href="berkshire-metal-chain-huayou.html">华友钴业</a></td><td>10.66</td><td><span class="pct-cell pct-lo">14.4%</span></td><td>1.55</td><td><span class="pct-cell pct-lo">9.8%</span></td></tr></tbody>
+<section class="ws2-section">
+  <h3>🎯 投资逻辑（8 条 · 占位框架，待人工填实）</h3>
+  <div class='ws2-logic8'><div class="item empty"><b>1️⃣ 商业模式与护城河来源</b>（占位 · 待人工填实）</div><div class="item empty"><b>2️⃣ 行业集中度与玩家分层</b>（占位 · 待人工填实）</div><div class="item empty"><b>3️⃣ 产业链上下游关系</b>（占位 · 待人工填实）</div><div class="item empty"><b>4️⃣ 周期性与价格话语权</b>（占位 · 待人工填实）</div><div class="item empty"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>（占位 · 待人工填实）</div><div class="item empty"><b>6️⃣ 估值水位与历史分位</b>（占位 · 待人工填实）</div><div class="item empty"><b>7️⃣ 主要风险事件清单</b>（占位 · 待人工填实）</div><div class="item empty"><b>8️⃣ 投资跟踪指标与反向信号</b>（占位 · 待人工填实）</div></div>
+</section>
+<section class="ws2-section">
+  <h3><span class="tag">DATA</span> 历史分位图 · 6 张</h3>
+  <div class='ws2-charts'><div class="chart"><div class="ti">毛利率分位带（有色产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">毛利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">55.1%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">41.6%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">28.2%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">14.8%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">1.3%</text><path d="M 60.0,77.4 L 120.0,78.0 L 180.0,65.0 L 240.0,71.9 L 300.0,106.5 L 360.0,114.7 L 420.0,68.5 L 480.0,41.0 L 540.0,93.0 L 600.0,114.2 L 660.0,109.8 L 660.0,136.9 L 600.0,148.2 L 540.0,150.8 L 480.0,151.7 L 420.0,151.3 L 360.0,155.7 L 300.0,162.4 L 240.0,156.5 L 180.0,153.3 L 120.0,155.6 L 60.0,165.0 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,125.7 L 120.0,96.7 L 180.0,82.7 L 240.0,88.1 L 300.0,137.2 L 360.0,124.0 L 420.0,93.9 L 480.0,103.2 L 540.0,132.4 L 600.0,130.8 L 660.0,116.9 L 660.0,131.6 L 600.0,139.1 L 540.0,141.0 L 480.0,144.6 L 420.0,146.4 L 360.0,152.2 L 300.0,153.7 L 240.0,151.6 L 180.0,149.2 L 120.0,152.0 L 60.0,157.1 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,153.9 L 120.0,135.3 L 180.0,126.6 L 240.0,144.5 L 300.0,142.8 L 360.0,141.5 L 420.0,132.7 L 480.0,137.1 L 540.0,138.7 L 600.0,133.1 L 660.0,129.1" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,135.5 L 120.0,118.3 L 180.0,110.2 L 240.0,118.2 L 300.0,133.9 L 360.0,134.8 L 420.0,117.0 L 480.0,111.2 L 540.0,120.9 L 600.0,129.4 L 660.0,124.4" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">7.8</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">15.3</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">18.7</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.6</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.3</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">12.8</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">16.3</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">14.5</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.9</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">16.1</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">17.8</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">净利率分位带（有色产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">净利率分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">52.1%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">34.6%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">17.1%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">-0.4%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-17.9%</text><path d="M 60.0,109.3 L 120.0,100.2 L 180.0,70.5 L 240.0,82.8 L 300.0,122.7 L 360.0,122.7 L 420.0,80.0 L 480.0,39.8 L 540.0,105.2 L 600.0,119.6 L 660.0,116.8 L 660.0,127.8 L 600.0,166.2 L 540.0,130.3 L 480.0,133.0 L 420.0,133.6 L 360.0,145.8 L 300.0,158.6 L 240.0,136.2 L 180.0,134.2 L 120.0,135.0 L 60.0,147.9 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,121.6 L 120.0,113.8 L 180.0,102.1 L 240.0,105.0 L 300.0,130.8 L 360.0,129.5 L 420.0,115.4 L 480.0,105.7 L 540.0,109.7 L 600.0,122.9 L 660.0,118.1 L 660.0,126.7 L 600.0,132.0 L 540.0,127.9 L 480.0,130.6 L 420.0,131.5 L 360.0,133.7 L 300.0,134.3 L 240.0,134.4 L 180.0,133.5 L 120.0,134.2 L 60.0,135.4 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,135.1 L 120.0,132.4 L 180.0,130.7 L 240.0,132.8 L 300.0,132.0 L 360.0,130.8 L 420.0,125.2 L 480.0,126.4 L 540.0,126.2 L 600.0,125.7 L 660.0,123.0" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,130.3 L 120.0,120.8 L 180.0,114.0 L 240.0,118.7 L 300.0,154.6 L 360.0,139.1 L 420.0,114.5 L 480.0,106.2 L 540.0,120.3 L 600.0,140.2 L 660.0,123.1" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">0.3</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">1.7</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.6</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">1.5</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">1.9</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.5</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.5</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.9</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.0</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">5.2</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">6.6</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">ROE 分位带（有色产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">ROE 分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 11 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">49.4%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">33.5%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">17.5%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">1.5%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-14.5%</text><path d="M 60.0,125.5 L 120.0,97.6 L 180.0,72.7 L 240.0,97.2 L 300.0,123.1 L 360.0,119.2 L 420.0,87.4 L 480.0,40.2 L 540.0,104.4 L 600.0,99.6 L 660.0,98.8 L 660.0,132.7 L 600.0,153.0 L 540.0,120.0 L 480.0,124.3 L 420.0,126.9 L 360.0,144.4 L 300.0,154.8 L 240.0,140.7 L 180.0,132.9 L 120.0,137.2 L 60.0,165.8 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,128.2 L 120.0,123.4 L 180.0,98.8 L 240.0,107.5 L 300.0,129.4 L 360.0,124.2 L 420.0,98.5 L 480.0,55.8 L 540.0,110.1 L 600.0,103.3 L 660.0,104.5 L 660.0,120.4 L 600.0,122.7 L 540.0,118.8 L 480.0,123.1 L 420.0,122.0 L 360.0,130.9 L 300.0,135.0 L 240.0,135.2 L 180.0,130.8 L 120.0,136.3 L 60.0,138.8 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,137.3 L 120.0,131.2 L 180.0,125.4 L 240.0,130.0 L 300.0,130.2 L 360.0,126.5 L 420.0,109.2 L 480.0,111.6 L 540.0,116.1 L 600.0,114.9 L 660.0,109.4" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,142.6 L 120.0,123.0 L 180.0,112.9 L 240.0,125.4 L 300.0,145.0 L 360.0,134.8 L 420.0,108.3 L 480.0,93.9 L 540.0,111.9 L 600.0,121.0 L 660.0,112.5" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2015</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">1.1</text><text x="120.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="120.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.0</text><text x="180.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="180.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">6.8</text><text x="240.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="240.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.6</text><text x="300.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="300.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">4.5</text><text x="360.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="360.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">6.3</text><text x="420.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="420.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">14.5</text><text x="480.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="480.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">13.4</text><text x="540.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="540.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.3</text><text x="600.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="600.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.8</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">14.5</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">营收同比分位带（有色产业链 10 家，10 年窗）</div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 680 220' font-family='PingFang SC,Helvetica,Arial,sans-serif'><rect width="680" height="220" fill="#fafbfd" rx="6"/><text x="60" y="22" fill="#1a2540" font-size="15" font-weight="600">营收同比分位带</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">家族 10 年窗 ｜ N=10 家公司/年的截面</text><line x1="60" y1="36.0" x2="660" y2="36.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="39.0" fill="#8b96ad" font-size="11" text-anchor="end">292.0%</text><line x1="60" y1="69.5" x2="660" y2="69.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="72.5" fill="#8b96ad" font-size="11" text-anchor="end">207.2%</text><line x1="60" y1="103.0" x2="660" y2="103.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="106.0" fill="#8b96ad" font-size="11" text-anchor="end">122.4%</text><line x1="60" y1="136.5" x2="660" y2="136.5" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="139.5" fill="#8b96ad" font-size="11" text-anchor="end">37.6%</text><line x1="60" y1="170.0" x2="660" y2="170.0" stroke="#e5e9f0" stroke-dasharray="3 3"/><text x="52" y="173.0" fill="#8b96ad" font-size="11" text-anchor="end">-47.2%</text><path d="M 60.0,108.2 L 126.7,106.9 L 193.3,144.4 L 260.0,134.0 L 326.7,137.2 L 393.3,109.7 L 460.0,36.8 L 526.7,147.6 L 593.3,140.0 L 660.0,140.7 L 660.0,153.2 L 593.3,169.2 L 526.7,159.8 L 460.0,151.6 L 393.3,147.2 L 326.7,153.5 L 260.0,155.6 L 193.3,151.6 L 126.7,151.5 L 60.0,152.5 Z" fill="#7a8df0" fill-opacity="0.22"/><path d="M 60.0,129.1 L 126.7,131.2 L 193.3,146.2 L 260.0,143.2 L 326.7,143.6 L 393.3,120.1 L 460.0,123.3 L 526.7,148.4 L 593.3,146.4 L 660.0,142.8 L 660.0,150.3 L 593.3,153.9 L 526.7,156.1 L 460.0,150.0 L 393.3,135.7 L 326.7,150.5 L 260.0,149.1 L 193.3,150.2 L 126.7,149.7 L 60.0,149.0 Z" fill="#3854cc" fill-opacity="0.42"/><path d="M 60.0,143.8 L 126.7,138.4 L 193.3,148.9 L 260.0,146.8 L 326.7,147.5 L 393.3,128.7 L 460.0,143.5 L 526.7,150.3 L 593.3,149.9 L 660.0,147.9" stroke="#3854cc" stroke-width="2" fill="none"/><path d="M 60.0,137.5 L 126.7,131.4 L 193.3,147.2 L 260.0,142.1 L 326.7,146.6 L 393.3,129.5 L 460.0,116.7 L 526.7,152.2 L 593.3,152.3 L 660.0,147.3" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3" fill="none"/><text x="60.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2016</text><text x="60.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">19.1</text><text x="126.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2017</text><text x="126.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">32.8</text><text x="193.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2018</text><text x="193.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">6.2</text><text x="260.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2019</text><text x="260.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">11.5</text><text x="326.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2020</text><text x="326.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">9.8</text><text x="393.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2021</text><text x="393.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">57.3</text><text x="460.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2022</text><text x="460.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">19.9</text><text x="526.7" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2023</text><text x="526.7" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">2.7</text><text x="593.3" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2024</text><text x="593.3" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">3.6</text><text x="660.0" y="188" fill="#8b96ad" font-size="11" text-anchor="middle">2025</text><text x="660.0" y="204" fill="#1a2540" font-size="11" font-weight="600" text-anchor="middle">8.9</text><rect x="60" y="142" width="12" height="8" fill="#3854cc" fill-opacity="0.42"/><text x="78" y="149" fill="#666" font-size="11">25-75 分位带</text><rect x="165" y="142" width="12" height="8" fill="#7a8df0" fill-opacity="0.42"/><text x="183" y="149" fill="#666" font-size="11">10-90 分位带</text><line x1="285" y1="146" x2="303" y2="146" stroke="#3854cc" stroke-width="2"/><text x="308" y="149" fill="#666" font-size="11">中位数</text><line x1="375" y1="146" x2="393" y2="146" stroke="#d9722c" stroke-width="1.4" stroke-dasharray="4 3"/><text x="398" y="149" fill="#666" font-size="11">平均数</text></svg></div><div class="chart"><div class="ti">PE 横截面 TTM · 10 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 180" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="180" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PE 横截面（TTM，13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">2 家公司 · 取自估值快照</text><text x="102" y="68.0" fill="#1a2540" font-size="11" text-anchor="end">云铝股份</text><rect x="110" y="40.0" width="279.4" height="50.0" fill="#3854cc" fill-opacity="0.8"/><text x="394.4" y="68.0" fill="#1a2540" font-size="11">10.6x</text><text x="102" y="126.0" fill="#1a2540" font-size="11" text-anchor="end">中金黄金</text><rect x="110" y="98.0" width="514.3" height="50.0" fill="#3854cc" fill-opacity="0.8"/><text x="629.3" y="126.0" fill="#1a2540" font-size="11">19.5x</text></svg></div><div class="chart"><div class="ti">PB 横截面 · 10 家</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 180" font-family="PingFang SC,Helvetica,Arial,sans-serif"><rect width="680" height="180" fill="#fafbfd" rx="6"/><text x="110" y="22" fill="#1a2540" font-size="15" font-weight="600">PB 横截面（13 家）</text><text x="660" y="22" fill="#666" font-size="11" text-anchor="end">2 家公司 · 取自估值快照</text><text x="102" y="68.0" fill="#1a2540" font-size="11" text-anchor="end">云铝股份</text><rect x="110" y="40.0" width="344.6" height="50.0" fill="#0dab6a" fill-opacity="0.8"/><text x="459.6" y="68.0" fill="#1a2540" font-size="11">2.7x</text><text x="102" y="126.0" fill="#1a2540" font-size="11" text-anchor="end">中金黄金</text><rect x="110" y="98.0" width="514.3" height="50.0" fill="#0dab6a" fill-opacity="0.8"/><text x="629.3" y="126.0" fill="#1a2540" font-size="11">4.0x</text></svg></div></div>
+</section>
+<section class="ws2-section">
+  <h3>📊 可比公司估值大表（10 家 · 当前截面）</h3>
+  
+<div class="ws2-table-wrap">
+<table>
+<thead><tr><th>公司</th><th>代码</th><th>PE-TTM</th><th>PB</th><th>营收(亿)</th><th>净利(亿)</th><th>毛利率</th><th>净利率</th><th>ROE</th><th>营收YoY</th></tr></thead>
+<tbody><tr><td>中国铝业</td><td>601600</td><td>—</td><td>—</td><td>2411.3</td><td>126.7</td><td>18.0%</td><td>5.3%</td><td>16.9%</td><td>1.7%</td></tr><tr><td>赣锋锂业</td><td>002460</td><td>—</td><td>—</td><td>230.8</td><td>16.1</td><td>15.7%</td><td>7.0%</td><td>3.6%</td><td>22.1%</td></tr><tr><td>华友钴业</td><td>603799</td><td>—</td><td>—</td><td>810.2</td><td>61.1</td><td>17.5%</td><td>7.5%</td><td>12.7%</td><td>32.9%</td></tr><tr><td>江西铜业</td><td>600362</td><td>—</td><td>—</td><td>5446.2</td><td>71.3</td><td>4.4%</td><td>1.3%</td><td>8.8%</td><td>5.4%</td></tr><tr><td>洛阳钼业</td><td>603993</td><td>—</td><td>—</td><td>2066.8</td><td>203.4</td><td>23.9%</td><td>9.8%</td><td>24.7%</td><td>-3.0%</td></tr><tr><td>山东黄金</td><td>600547</td><td>—</td><td>—</td><td>1042.9</td><td>47.4</td><td>20.5%</td><td>4.5%</td><td>10.6%</td><td>26.4%</td></tr><tr><td>神火股份</td><td>000933</td><td>—</td><td>—</td><td>412.4</td><td>40.1</td><td>23.4%</td><td>9.7%</td><td>16.3%</td><td>7.5%</td></tr><tr><td>天齐锂业</td><td>002466</td><td>—</td><td>—</td><td>103.5</td><td>4.6</td><td>39.5%</td><td>4.5%</td><td>1.1%</td><td>-20.8%</td></tr><tr><td>云铝股份</td><td>000807</td><td>10.6</td><td>2.7</td><td>600.4</td><td>60.5</td><td>16.8%</td><td>10.1%</td><td>18.9%</td><td>10.3%</td></tr><tr><td>中金黄金</td><td>600489</td><td>19.5</td><td>4.0</td><td>790.7</td><td>49.3</td><td>16.7%</td><td>6.2%</td><td>16.3%</td><td>20.6%</td></tr></tbody>
 </table>
-<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
-<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
-<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
-<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
-亏损企业 PE 为负、PE 分位不适用，仅看 PB；港股成分百度不覆盖，标"港股"。分位为时点统计。</div>
 </div>
 
+</section>
+<section class="ws2-section">
+  <h3>📦 投资逻辑附加：产品定位 / 竞争格局 / 产能周期（占位）</h3>
+  
+<div class="ws2-frame-placeholder">
+  <h4>📦 产品定位与投资信号</h4>
+  此处待人工填实：每家公司主打产品价格带、渠道结构、品牌力定位、批价走势等定性内容（取自年报/公开渠道）。
+  <br>可用结构：①高端品牌矩阵 ②次高端与区域龙头 ③大众价位。
+</div>
+<div class="ws2-frame-placeholder">
+  <h4>🏛 竞争格局分析</h4>
+  此处待人工填实：CR3/CR5 集中度、行业份额变迁、价格战历史、经销商生态、跨区域挤压。
+  <br>可用指标：①销量集中度（公开数据） ②价格带定价权 ③经销商话语权变化。
+</div>
+<div class="ws2-frame-placeholder">
+  <h4>🔄 产能周期与库存周期</h4>
+  此处待人工填实：产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
+  <br>可用结构：①半成品库存月数 ②终端动销与渠道库存 ③价格倒挂信号。
+</div>
 
-
-<div class="section-title">R15 三维评级总览（有色 11 家）</div>
-<div class="ovtable">
-<table class="sortable">
-<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-metal-chain-zijin.html">紫金矿业</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★★☆</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-lo">5.1%</span></td><td><span class="pct-cell pct-hi">74.6%</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-jiangxi.html">江西铜业</a></td><td><span class="pct-cell pct-mid">低估1★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-mid">44.0%</span></td><td><span class="pct-cell pct-hi">94.9%</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-chalco.html">中国铝业</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-lo">4.7%</span></td><td><span class="pct-cell pct-hi">64.7%</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-lomo.html">洛阳钼业</a></td><td><span class="pct-cell pct-mid">低估1★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-lo">17.1%</span></td><td><span class="pct-cell pct-hi">85.4%</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-sdgold.html">山东黄金</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-lo">7.0%</span></td><td><span class="pct-cell pct-lo">32.0%</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-zhongjin.html">中金黄金</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-lo">0.7%</span></td><td><span class="pct-cell pct-hi">82.6%</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-yunlu.html">云铝股份</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-lo">21.5%</span></td><td><span class="pct-cell pct-hi">74.3%</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-shenhuo.html">神火股份</a></td><td><span class="pct-cell pct-mid">低估1★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-mid">57.7%</span></td><td><span class="pct-cell pct-mid">49.1%</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-tianqi.html">天齐锂业</a></td><td><span class="pct-cell pct-mid">低估1★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-hi">86.7%</span></td><td><span class="pct-cell pct-lo">19.0%</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-ganfeng.html">赣锋锂业</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★★☆</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-mid">49.4%</span></td><td><span class="pct-cell pct-lo">20.9%</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-huayou.html">华友钴业</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-lo">14.4%</span></td><td><span class="pct-cell pct-lo">9.8%</span></td></tr>
-</tbody>
+</section>
+<section class="ws2-section">
+  <h3>🐴 白马型 vs 周期型一览（基于 10 年财报自动分类）</h3>
+  <p style="color:#5d6a82;font-size:12.5px;margin:0 0 10px 0">分类口径：ROE 中位&gt;18% 且净利率波动 σ&lt;5pp 且营收YoY σ&lt;15pp → 白马型；营收YoY σ&gt;30pp 或净利率 σ&gt;10pp → 周期型；其余 → 平衡型。</p>
+  
+<div class="ws2-table-wrap ws2-classify">
+<table>
+<thead><tr><th>公司</th><th>代码</th><th>分类</th><th>ROE 中位</th><th>净利率波动 σ</th><th>营收YoY波动 σ</th></tr></thead>
+<tbody><tr><td>中国铝业</td><td>601600</td><td class="tag tag-中性">平衡型</td><td>3.6%</td><td>1.9</td><td>22.2</td></tr><tr><td>赣锋锂业</td><td>002460</td><td class="tag tag-周期">周期型</td><td>10.5%</td><td>18.0</td><td>92.2</td></tr><tr><td>华友钴业</td><td>603799</td><td class="tag tag-周期">周期型</td><td>11.7%</td><td>6.6</td><td>33.9</td></tr><tr><td>江西铜业</td><td>600362</td><td class="tag tag-中性">平衡型</td><td>4.9%</td><td>0.4</td><td>13.2</td></tr><tr><td>洛阳钼业</td><td>603993</td><td class="tag tag-周期">周期型</td><td>11.3%</td><td>6.1</td><td>82.5</td></tr><tr><td>山东黄金</td><td>600547</td><td class="tag tag-中性">平衡型</td><td>6.6%</td><td>1.4</td><td>26.3</td></tr><tr><td>神火股份</td><td>000933</td><td class="tag tag-中性">平衡型</td><td>16.3%</td><td>7.6</td><td>28.0</td></tr><tr><td>天齐锂业</td><td>002466</td><td class="tag tag-周期">周期型</td><td>14.2%</td><td>55.9</td><td>144.5</td></tr><tr><td>云铝股份</td><td>000807</td><td class="tag tag-中性">平衡型</td><td>7.6%</td><td>5.2</td><td>18.1</td></tr><tr><td>中金黄金</td><td>600489</td><td class="tag tag-中性">平衡型</td><td>6.6%</td><td>2.0</td><td>11.1</td></tr></tbody>
 </table>
-<div class="fin-note">R15 三维框架：①<b>相对估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；
-②<b>质量星级</b>=近10年ROE均值（★越多质地越好；带※为亏损/生物科技，ROE 失真仅供参考）；
-③<b>时机分</b>=链周期指数百分位换算（=round(10−链分位/5)，分越高越接近周期底部、买点越好）。
-<span class="vleg"><i style="background:#15803d"></i>绿=好</span>
-<span class="vleg"><i style="background:#b45309"></i>橙=中</span>
-<span class="vleg"><i style="background:#b91c1c"></i>红=差/贵</span>。数据为时点统计。</div>
-</div>
-<div class="section-title">产业链成本传导 · 铜 → 毛利</div>
-<div class="cost-block">
-  <div class="cost-chart"><svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="铜价格走势">
-  <line x1="54" y1="16.0" x2="664" y2="16.0" stroke="#e2e8f0"/><text x="48" y="20.0" text-anchor="end" font-size="10" fill="#94a3b8">10.5万</text><line x1="54" y1="74.7" x2="664" y2="74.7" stroke="#e2e8f0"/><text x="48" y="78.7" text-anchor="end" font-size="10" fill="#94a3b8">7.8万</text><line x1="54" y1="133.3" x2="664" y2="133.3" stroke="#e2e8f0"/><text x="48" y="137.3" text-anchor="end" font-size="10" fill="#94a3b8">5.1万</text><line x1="54" y1="192.0" x2="664" y2="192.0" stroke="#e2e8f0"/><text x="48" y="196.0" text-anchor="end" font-size="10" fill="#94a3b8">2.4万</text><polygon points="54,192 54.0,179.8 56.4,176.8 58.7,175.3 61.1,174.1 63.5,177.2 65.8,172.5 68.2,169.2 70.6,167.9 72.9,166.5 75.3,164.9 77.6,163.4 80.0,153.2 82.4,144.2 84.7,146.7 87.1,134.4 89.5,96.2 91.8,84.4 94.2,109.4 96.6,96.9 98.9,97.8 101.3,90.3 103.7,94.0 106.0,101.1 108.4,113.4 110.7,129.9 113.1,117.4 115.5,106.8 117.8,89.8 120.2,102.5 122.6,104.9 124.9,94.2 127.3,101.4 129.7,96.1 132.0,102.3 134.4,117.6 136.8,120.4 139.1,111.1 141.5,94.5 143.8,100.3 146.2,101.9 148.6,112.4 150.9,106.1 153.3,109.8 155.7,116.5 158.0,128.0 160.4,175.6 162.8,183.2 165.1,192.0 167.5,187.7 169.9,183.3 172.2,171.5 174.6,165.2 176.9,163.0 179.3,155.0 181.7,145.7 184.0,136.8 186.4,139.5 188.8,132.7 191.1,124.8 193.5,113.5 195.9,123.2 198.2,117.5 200.6,110.1 203.0,116.3 205.3,124.3 207.7,131.4 210.0,121.7 212.4,117.0 214.8,112.3 217.1,108.3 219.5,107.8 221.9,86.7 224.2,83.6 226.6,82.5 229.0,90.4 231.3,93.6 233.7,95.0 236.1,92.2 238.4,86.1 240.8,95.5 243.1,124.9 245.5,117.4 247.9,125.4 250.2,123.6 252.6,112.2 255.0,111.3 257.3,113.4 259.7,116.9 262.1,125.4 264.4,123.9 266.8,124.3 269.2,123.5 271.5,114.1 273.9,120.4 276.2,119.4 278.6,118.2 281.0,114.3 283.3,118.6 285.7,124.8 288.1,131.4 290.4,129.4 292.8,138.3 295.2,137.0 297.5,131.0 299.9,129.2 302.3,131.3 304.6,134.0 307.0,130.3 309.3,133.2 311.7,137.1 314.1,142.3 316.4,140.4 318.8,138.2 321.2,136.2 323.5,134.2 325.9,135.7 328.3,139.5 330.6,140.1 333.0,144.0 335.4,144.4 337.7,158.9 340.1,151.0 342.4,149.7 344.8,147.8 347.2,147.6 349.5,152.4 351.9,160.8 354.3,158.7 356.6,160.5 359.0,159.6 361.4,168.4 363.7,164.4 366.1,166.3 368.5,165.9 370.8,163.8 373.2,162.0 375.6,166.2 377.9,162.3 380.3,162.4 382.6,165.0 385.0,161.9 387.4,160.4 389.7,143.7 392.1,145.0 394.5,139.5 396.8,140.2 399.2,140.1 401.6,143.2 403.9,145.6 406.3,140.8 408.7,133.7 411.0,129.2 413.4,131.2 415.7,127.0 418.1,129.1 420.5,123.2 422.8,128.3 425.2,129.7 427.6,134.9 429.9,131.9 432.3,132.3 434.7,131.7 437.0,135.6 439.4,138.3 441.8,134.9 444.1,137.3 446.5,136.0 448.8,138.9 451.2,139.4 453.6,134.9 455.9,137.9 458.3,137.6 460.7,143.6 463.0,141.8 465.4,142.4 467.8,142.4 470.1,141.2 472.5,141.1 474.9,141.1 477.2,137.1 479.6,139.6 481.9,147.4 484.3,158.8 486.7,150.6 489.0,148.4 491.4,137.9 493.8,131.3 496.1,131.0 498.5,133.3 500.9,133.2 503.2,118.6 505.6,118.5 508.0,118.9 510.3,96.3 512.7,101.4 515.0,87.8 517.4,83.3 519.8,95.4 522.1,88.0 524.5,91.7 526.9,96.3 529.2,90.7 531.6,93.1 534.0,91.1 536.3,91.3 538.7,89.8 541.1,84.7 543.4,84.1 545.8,87.3 548.1,105.2 550.5,113.4 552.9,109.1 555.2,110.7 557.6,109.1 560.0,103.4 562.3,100.0 564.7,93.5 567.1,94.0 569.4,93.6 571.8,97.5 574.2,102.9 576.5,97.8 578.9,92.9 581.2,93.1 583.6,97.9 586.0,97.7 588.3,95.8 590.7,94.2 593.1,93.3 595.4,94.1 597.8,86.4 600.2,65.5 602.5,64.8 604.9,73.7 607.3,82.2 609.6,82.7 612.0,72.8 614.3,77.7 616.7,83.6 619.1,83.7 621.4,79.9 623.8,77.1 626.2,70.3 628.5,76.2 630.9,75.4 633.3,70.5 635.6,74.5 638.0,71.5 640.4,63.5 642.7,55.0 645.1,54.1 647.4,30.7 649.8,18.9 652.2,18.3 654.5,36.9 656.9,24.6 659.3,16.0 661.6,19.7 664.0,20.2 664.0,192" fill="#b45309" opacity="0.12"/>
-  <polyline points="54.0,179.8 56.4,176.8 58.7,175.3 61.1,174.1 63.5,177.2 65.8,172.5 68.2,169.2 70.6,167.9 72.9,166.5 75.3,164.9 77.6,163.4 80.0,153.2 82.4,144.2 84.7,146.7 87.1,134.4 89.5,96.2 91.8,84.4 94.2,109.4 96.6,96.9 98.9,97.8 101.3,90.3 103.7,94.0 106.0,101.1 108.4,113.4 110.7,129.9 113.1,117.4 115.5,106.8 117.8,89.8 120.2,102.5 122.6,104.9 124.9,94.2 127.3,101.4 129.7,96.1 132.0,102.3 134.4,117.6 136.8,120.4 139.1,111.1 141.5,94.5 143.8,100.3 146.2,101.9 148.6,112.4 150.9,106.1 153.3,109.8 155.7,116.5 158.0,128.0 160.4,175.6 162.8,183.2 165.1,192.0 167.5,187.7 169.9,183.3 172.2,171.5 174.6,165.2 176.9,163.0 179.3,155.0 181.7,145.7 184.0,136.8 186.4,139.5 188.8,132.7 191.1,124.8 193.5,113.5 195.9,123.2 198.2,117.5 200.6,110.1 203.0,116.3 205.3,124.3 207.7,131.4 210.0,121.7 212.4,117.0 214.8,112.3 217.1,108.3 219.5,107.8 221.9,86.7 224.2,83.6 226.6,82.5 229.0,90.4 231.3,93.6 233.7,95.0 236.1,92.2 238.4,86.1 240.8,95.5 243.1,124.9 245.5,117.4 247.9,125.4 250.2,123.6 252.6,112.2 255.0,111.3 257.3,113.4 259.7,116.9 262.1,125.4 264.4,123.9 266.8,124.3 269.2,123.5 271.5,114.1 273.9,120.4 276.2,119.4 278.6,118.2 281.0,114.3 283.3,118.6 285.7,124.8 288.1,131.4 290.4,129.4 292.8,138.3 295.2,137.0 297.5,131.0 299.9,129.2 302.3,131.3 304.6,134.0 307.0,130.3 309.3,133.2 311.7,137.1 314.1,142.3 316.4,140.4 318.8,138.2 321.2,136.2 323.5,134.2 325.9,135.7 328.3,139.5 330.6,140.1 333.0,144.0 335.4,144.4 337.7,158.9 340.1,151.0 342.4,149.7 344.8,147.8 347.2,147.6 349.5,152.4 351.9,160.8 354.3,158.7 356.6,160.5 359.0,159.6 361.4,168.4 363.7,164.4 366.1,166.3 368.5,165.9 370.8,163.8 373.2,162.0 375.6,166.2 377.9,162.3 380.3,162.4 382.6,165.0 385.0,161.9 387.4,160.4 389.7,143.7 392.1,145.0 394.5,139.5 396.8,140.2 399.2,140.1 401.6,143.2 403.9,145.6 406.3,140.8 408.7,133.7 411.0,129.2 413.4,131.2 415.7,127.0 418.1,129.1 420.5,123.2 422.8,128.3 425.2,129.7 427.6,134.9 429.9,131.9 432.3,132.3 434.7,131.7 437.0,135.6 439.4,138.3 441.8,134.9 444.1,137.3 446.5,136.0 448.8,138.9 451.2,139.4 453.6,134.9 455.9,137.9 458.3,137.6 460.7,143.6 463.0,141.8 465.4,142.4 467.8,142.4 470.1,141.2 472.5,141.1 474.9,141.1 477.2,137.1 479.6,139.6 481.9,147.4 484.3,158.8 486.7,150.6 489.0,148.4 491.4,137.9 493.8,131.3 496.1,131.0 498.5,133.3 500.9,133.2 503.2,118.6 505.6,118.5 508.0,118.9 510.3,96.3 512.7,101.4 515.0,87.8 517.4,83.3 519.8,95.4 522.1,88.0 524.5,91.7 526.9,96.3 529.2,90.7 531.6,93.1 534.0,91.1 536.3,91.3 538.7,89.8 541.1,84.7 543.4,84.1 545.8,87.3 548.1,105.2 550.5,113.4 552.9,109.1 555.2,110.7 557.6,109.1 560.0,103.4 562.3,100.0 564.7,93.5 567.1,94.0 569.4,93.6 571.8,97.5 574.2,102.9 576.5,97.8 578.9,92.9 581.2,93.1 583.6,97.9 586.0,97.7 588.3,95.8 590.7,94.2 593.1,93.3 595.4,94.1 597.8,86.4 600.2,65.5 602.5,64.8 604.9,73.7 607.3,82.2 609.6,82.7 612.0,72.8 614.3,77.7 616.7,83.6 619.1,83.7 621.4,79.9 623.8,77.1 626.2,70.3 628.5,76.2 630.9,75.4 633.3,70.5 635.6,74.5 638.0,71.5 640.4,63.5 642.7,55.0 645.1,54.1 647.4,30.7 649.8,18.9 652.2,18.3 654.5,36.9 656.9,24.6 659.3,16.0 661.6,19.7 664.0,20.2" fill="none" stroke="#b45309" stroke-width="2"/>
-  <text x="54" y="212" font-size="10" fill="#94a3b8">2005-01</text>
-  <text x="664" y="212" text-anchor="end" font-size="10" fill="#94a3b8">2026-07</text>
-  <text x="54" y="18" font-size="10" fill="#b45309" font-weight="600">铜 现价约 ¥10.3万/吨</text>
-</svg></div>
-  <div class="cost-note"><p><b>铜是有色定价的"锚"</b>，兼具商品（电网/电动车/AI 数据中心）与金融（美元/利率）双重属性。铜价（cu0）决定产业链利润分配：① 矿端（紫金、江西铜业自产矿）直接享受价格弹性；② 冶炼端受矿紧→加工费(TC/RC)下行挤压；③ 加工（铝/铜加工）承压于原料成本。</p>
-<p>长周期看，铜从 2005 年约 ¥3 万/吨升至 2026 年约 <b>¥10.3万/吨</b>，中枢持续上移（电气化+AI+电网投资）。但短周期波动大：2020–2021 宽松+碳中和预期冲高，2022 加息回落，2023–2024 再启上行。</p>
-<p><b>怎么读</b>：资源型龙头（紫金）在铜价高位最受益、PB 分位却未必贵；冶炼/加工则看价差与产能出清。分位表一眼看清"谁在历史便宜位"。</p></div>
 </div>
 
-<div class="section-title">员工效率与组织效能排行（有色 11 家）</div>
-<div class="ovtable"><table>
-<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>效率信号</th></tr></thead>
-<tbody>
-<tr><td><a href="berkshire-metal-chain-sdgold.html">山东黄金</a></td><td>29,282</td><td class="num up">+67.91%</td><td class="num">¥356.1万</td><td class="num">¥16.2万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-zhongjin.html">中金黄金</a></td><td>24,607</td><td class="num up">+7.92%</td><td class="num">¥321.4万</td><td class="num">¥20.1万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-huayou.html">华友钴业</a></td><td>26,466</td><td class="num up">+4.31%</td><td class="num">¥306.1万</td><td class="num">¥23.1万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-zijin.html">紫金银行</a></td><td>2,490</td><td class="num up">+1.59%</td><td class="num">¥1.40亿</td><td class="num">¥2079.4万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-jiangxi.html">江西铜业</a></td><td>26,740</td><td class="num up">+1.41%</td><td class="num">¥2036.7万</td><td class="num">¥26.7万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-yunlu.html">云铝股份</a></td><td>10,144</td><td class="num down">-0.78%</td><td class="num">¥591.9万</td><td class="num">¥59.7万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-chalco.html">中国铝业</a></td><td>60,814</td><td class="num down">-3.67%</td><td class="num">¥396.5万</td><td class="num">¥20.8万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-shenhuo.html">神火股份</a></td><td>22,709</td><td class="num down">-5.39%</td><td class="num">¥181.6万</td><td class="num">¥17.6万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-ganfeng.html">赣锋锂业</a></td><td>19,257</td><td class="num down">-13.98%</td><td class="num">¥119.9万</td><td class="num">¥8.4万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-tianqi.html">天齐锂业</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
-<tr><td><a href="berkshire-metal-chain-lomo.html">洛阳钼业</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
-</tbody>
+</section>
+<section class="ws2-section">
+  <h3>🏆 产业链地位 + 11 年累计复合增长（按营收 CAGR 排序）</h3>
+  
+<div class="ws2-table-wrap">
+<table>
+<thead><tr><th>公司</th><th>代码</th><th>营收 CAGR (10Y)</th><th>净利 CAGR (10Y)</th><th>ROE 中位</th><th>最新营收(亿)</th></tr></thead>
+<tbody><tr><td>洛阳钼业</td><td>603993</td><td>47.7%</td><td>38.9%</td><td>11.3%</td><td>2066.8</td></tr><tr><td>华友钴业</td><td>603799</td><td>35.0%</td><td>0.0%</td><td>11.7%</td><td>810.2</td></tr><tr><td>赣锋锂业</td><td>002460</td><td>32.8%</td><td>29.1%</td><td>10.5%</td><td>230.8</td></tr><tr><td>天齐锂业</td><td>002466</td><td>18.7%</td><td>6.4%</td><td>14.2%</td><td>103.5</td></tr><tr><td>云铝股份</td><td>000807</td><td>14.2%</td><td>70.4%</td><td>7.6%</td><td>600.4</td></tr><tr><td>江西铜业</td><td>600362</td><td>11.4%</td><td>27.3%</td><td>4.9%</td><td>5446.2</td></tr><tr><td>山东黄金</td><td>600547</td><td>10.4%</td><td>22.1%</td><td>6.6%</td><td>1042.9</td></tr><tr><td>神火股份</td><td>000933</td><td>7.9%</td><td>0.0%</td><td>16.3%</td><td>412.4</td></tr><tr><td>中金黄金</td><td>600489</td><td>7.9%</td><td>49.9%</td><td>6.6%</td><td>790.7</td></tr><tr><td>中国铝业</td><td>601600</td><td>6.9%</td><td>56.0%</td><td>3.6%</td><td>2411.3</td></tr></tbody>
 </table>
-<div class="fin-note">员工增速=在职员工同比；人均营收/净利=2025 营收(元)÷员工数。已覆盖 9/11 家员工数据，
-其余为非 A 股主体或年报未披露标准口径，标「数据不足」。排序：有数据优先、按员工增速降序。
-组织效能信号由「员工增速分档 × 人均盈利分档 × 人均营收趋势」组合判定，为代理指标，非投资建议。</div>
 </div>
 
-<div class="section-title">有色龙头索引（上市公司 11 家）</div>
-<div class="grid">
-<a class="giant-card" href="berkshire-metal-chain-zijin.html"><div class="giant-head"><span class="giant-name">紫金矿业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">金铜锂多元矿业龙头，逆周期并购扩张。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-jiangxi.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">江西铜业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">国内铜业龙头，采选冶加一体化。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-chalco.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">中国铝业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">氧化铝与电解铝龙头，央企背景。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-lomo.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">洛阳钼业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">铜钴钼多元龙头，刚果金核心资产。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-sdgold.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">山东黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">黄金龙头，资源增储提速。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-zhongjin.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">中金黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">央企黄金平台，金铜并举。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-yunlu.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">云铝股份 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">绿电铝标杆，水电铝一体化。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-shenhuo.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">神火股份 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">煤铝双主业，低成本电解铝。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-tianqi.html"><div class="giant-head"><span class="giant-name">天齐锂业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">锂资源龙头，控股格林布什矿。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-ganfeng.html"><div class="giant-head"><span class="giant-name">赣锋锂业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">锂盐加工龙头，资源全球布局。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-huayou.html"><div class="giant-head"><span class="giant-name">华友钴业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">钴镍锂电材料龙头，一体化布局。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
-</div>
+</section>
+<!-- ===== v2 body END ===== -->
 
-<div class="source-note">
-📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
-</div>
-
-</div>
-<div class="section-title">延伸阅读</div><div class="extend-grid">
-<a class="extend-card" href="./berkshire-metal-compare.html"><b>🥇 估值分位</b><span>金属（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-metal-thermometer.html"><b>🌡️ 估值温度计</b><span>金属（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-metal-buyback.html"><b>💰 回购监测</b><span>金属（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-metal-repomap.html"><b>🗺️ 板块图谱</b><span>金属（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-metal-backtest.html"><b>📈 五年回测</b><span>金属（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-metal-cycle.html"><b>🔄 周期演进</b><span>金属（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-metal-methodology.html"><b>📘 方法论说明</b><span>金属（估值/回购/周期研究的取值口径与可信区间）</span></a>
-</div><script>
-(function(){
-  function num(v){
-    if(v==null) return NaN;
-    v=v.textContent||v;
-    if(typeof v==='string'){
-      v=v.replace(/,/g,'').replace(/[ \t\r\n]/g,'');
-      if(v==='—'||v==='-'||v==='') return NaN;
-      var unit=1;
-      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
-      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
-      v=v.replace(/[¥,%]/g,'');
-      var n=parseFloat(v);
-      if(!isNaN(n)) n*=unit;
-      return n;
-    }
-    return NaN;
-  }
-  function cmp(a,b,asc){
-    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
-    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
-    var nanA=isNaN(a), nanB=isNaN(b);
-    if(nanA && nanB) return 0;
-    if(nanA) return asc?1:-1;
-    if(nanB) return asc?-1:1;
-    if(an<bn) return asc?-1:1;
-    if(an>bn) return asc?1:-1;
-    return 0;
-  }
-  function sortTable(th){
-    var table=th.closest('table');
-    var tbody=table.querySelector('tbody');
-    var rows=Array.from(tbody.querySelectorAll('tr'));
-    var idx=Array.from(th.parentNode.children).indexOf(th);
-    var type=th.getAttribute('data-type')||'text';
-    var asc=!th.classList.contains('asc');
-    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
-    th.classList.add(asc?'asc':'desc');
-    rows.sort(function(r1,r2){
-      var c1=r1.cells[idx], c2=r2.cells[idx];
-      var v1, v2;
-      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
-      else if(type==='num'){ v1=num(c1); v2=num(c2); }
-      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
-      return cmp(v1,v2,asc);
-    });
-    rows.forEach(function(r){ tbody.appendChild(r); });
-  }
-  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
-    th.addEventListener('click',function(){ sortTable(th); });
-  });
-})();
-</script>
-  <script src="/analytics.js"></script>
-  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
-<div class="back-bar">
-<a href="./berkshire-chain-map.html">← 全链索引</a>
-<a href="./berkshire-standalone.html">← 数据中心首页</a>
-</div>
-</body><a href="berkshire-metal-cycle.html"><b>商品/产能周期</b><span>框架级梳理行业周期脉络与关键信号</span></a>
+<!--research-signal-->
+<div class="section-title" style="border-left:3px solid #b45309">研究信号</div>
+<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #b45309;border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
+    <div style="font-weight:700;color:#475569">周期位置</div><div>供需紧+降息交易（早中期）</div>
+    <div style="font-weight:700;color:#475569">景气方向</div><div>资源重估（PB55中高），动量强（泊松★7/10）</div>
+    <div style="font-weight:700;color:#475569">结论信号</div><div><b>🟡 中性（铜主线，但 PB 不便宜）</b> — 铜超级周期+电网/AI 用铜逻辑强，但 PB 已反映资源重估，等回调</div>
+    <div style="font-weight:700;color:#475569">核心催化</div><div>①全球电网投资  ②AI 数据中心用铜  ③降息预期</div>
+    <div style="font-weight:700;color:#475569">关键风险</div><div>①全球需求走弱  ②美元走强  ③矿端供给释放</div>
+  </div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：PE分位28% PB分位55% · 泊松★7/10 · 效能扩张3/收缩3。结论为框架合成，需结合实盘研究校验。</div>
+</div>
+<!--/research-signal--><div class="section-title">跨层分析框架（5 层）</div>
+<div class="layers">
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游 · 勘探与采矿</div><div class="layer-desc">地质勘探、矿山开采（露天 / 地下），资源储量与品位是根本</div></div><div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游 · 冶炼与精炼</div><div class="layer-desc">矿石冶炼、电解精炼，能耗与工艺决定成本</div></div><div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游 · 加工与材料</div><div class="layer-desc">铜铝加工、合金、锂电材料等深加工</div></div><div class="layer-card"><div class="layer-num">04</div><div class="layer-name">消费与场景</div><div class="layer-desc">新能源（电车 / 储能）、电子、建筑、电力、珠宝首饰</div></div><div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-desc">资源储量 / 价格周期 / 供需格局；风险在金属价格、宏观与地缘</div></div>
+</div>
+
+<div class="section-title">产业周期判断标准</div>
+<div class="cycle-block" id="cycle"><div class="cycle-title"><span class="icon">🔄</span> 有色产业链 产业周期怎么看</div><div class="cycle-body"><p><b>分品种逻辑</b>：工业金属（铜/铝）看全球宏观与美元、LME/SHFE 库存、铜冶炼费 TC/RC；贵金属（金）看实际利率与美元、央行购金；能源金属（锂/钴/镍）看供需平衡与成本曲线。</p>
+<ul>
+<li><b>工业金属</b>：LME+SHFE 库存持续去化+价升 → 景气；铜精矿 TC 跌破低位 → 矿端紧张、冶炼利润承压；铝看能耗双控与水电铝成本。</li>
+<li><b>贵金属</b>：美债实际收益率下行、美元走弱、央行购金 → 金价支撑。</li>
+<li><b>能源金属</b>：锂价跌破高成本矿现金成本 → 底部锚；过剩出清+需求放量 → 回升。</li>
+<li><b>美元与实际利率</b>：美元走弱/实际利率下行 → 工业金属与黄金皆受益。</li>
+</ul></div><div class="cycle-current"><b>当前位置（定性框架，非数据结论）</b>：有色按品种判周期：工业金属看库存+美元+TC，贵金属看实际利率+央行购金，能源金属看成本曲线与过剩出清；当前铜强、金稳、锂处产能出清寻底阶段。</div></div>
+
+<div class="section-title">估值历史分位总览（有色 11 家）</div>
+<div class="ovtable">
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PE 分位<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">PB 分位<span class="sort-ind"></span></th></tr></thead>
+<tbody><tr><td><a href="berkshire-metal-chain-zijin.html">紫金矿业</a></td><td>12.53</td><td><span class="pct-cell pct-lo">5.1%</span></td><td>3.92</td><td><span class="pct-cell pct-hi">74.6%</span></td></tr><tr><td><a href="berkshire-metal-chain-jiangxi.html">江西铜业</a></td><td>18.99</td><td><span class="pct-cell pct-mid">44.0%</span></td><td>1.81</td><td><span class="pct-cell pct-hi">94.9%</span></td></tr><tr><td><a href="berkshire-metal-chain-chalco.html">中国铝业</a></td><td>10.37</td><td><span class="pct-cell pct-lo">4.7%</span></td><td>1.88</td><td><span class="pct-cell pct-hi">64.7%</span></td></tr><tr><td><a href="berkshire-metal-chain-lomo.html">洛阳钼业</a></td><td>16.13</td><td><span class="pct-cell pct-lo">17.1%</span></td><td>4.38</td><td><span class="pct-cell pct-hi">85.4%</span></td></tr><tr><td><a href="berkshire-metal-chain-sdgold.html">山东黄金</a></td><td>22.57</td><td><span class="pct-cell pct-lo">7.0%</span></td><td>3.64</td><td><span class="pct-cell pct-lo">32.0%</span></td></tr><tr><td><a href="berkshire-metal-chain-zhongjin.html">中金黄金</a></td><td>15.81</td><td><span class="pct-cell pct-lo">0.7%</span></td><td>3.03</td><td><span class="pct-cell pct-hi">82.6%</span></td></tr><tr><td><a href="berkshire-metal-chain-yunlu.html">云铝股份</a></td><td>9.98</td><td><span class="pct-cell pct-lo">21.5%</span></td><td>2.43</td><td><span class="pct-cell pct-hi">74.3%</span></td></tr><tr><td><a href="berkshire-metal-chain-shenhuo.html">神火股份</a></td><td>9.94</td><td><span class="pct-cell pct-mid">57.7%</span></td><td>2.06</td><td><span class="pct-cell pct-mid">49.1%</span></td></tr><tr><td><a href="berkshire-metal-chain-tianqi.html">天齐锂业</a></td><td>36.31</td><td><span class="pct-cell pct-hi">86.7%</span></td><td>1.75</td><td><span class="pct-cell pct-lo">19.0%</span></td></tr><tr><td><a href="berkshire-metal-chain-ganfeng.html">赣锋锂业</a></td><td>28.95</td><td><span class="pct-cell pct-mid">49.4%</span></td><td>2.37</td><td><span class="pct-cell pct-lo">20.9%</span></td></tr><tr><td><a href="berkshire-metal-chain-huayou.html">华友钴业</a></td><td>10.66</td><td><span class="pct-cell pct-lo">14.4%</span></td><td>1.55</td><td><span class="pct-cell pct-lo">9.8%</span></td></tr></tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
+<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+亏损企业 PE 为负、PE 分位不适用，仅看 PB；港股成分百度不覆盖，标"港股"。分位为时点统计。</div>
+</div>
+
+
+
+<div class="section-title">R15 三维评级总览（有色 11 家）</div>
+<div class="ovtable">
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-metal-chain-zijin.html">紫金矿业</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★★☆</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-lo">5.1%</span></td><td><span class="pct-cell pct-hi">74.6%</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-jiangxi.html">江西铜业</a></td><td><span class="pct-cell pct-mid">低估1★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-mid">44.0%</span></td><td><span class="pct-cell pct-hi">94.9%</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-chalco.html">中国铝业</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-lo">4.7%</span></td><td><span class="pct-cell pct-hi">64.7%</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-lomo.html">洛阳钼业</a></td><td><span class="pct-cell pct-mid">低估1★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-lo">17.1%</span></td><td><span class="pct-cell pct-hi">85.4%</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-sdgold.html">山东黄金</a></td><td><span class="pct-cell pct-lo">低估3★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-lo">7.0%</span></td><td><span class="pct-cell pct-lo">32.0%</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-zhongjin.html">中金黄金</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-lo">0.7%</span></td><td><span class="pct-cell pct-hi">82.6%</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-yunlu.html">云铝股份</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-lo">21.5%</span></td><td><span class="pct-cell pct-hi">74.3%</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-shenhuo.html">神火股份</a></td><td><span class="pct-cell pct-mid">低估1★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-mid">57.7%</span></td><td><span class="pct-cell pct-mid">49.1%</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-tianqi.html">天齐锂业</a></td><td><span class="pct-cell pct-mid">低估1★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-hi">86.7%</span></td><td><span class="pct-cell pct-lo">19.0%</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-ganfeng.html">赣锋锂业</a></td><td><span class="pct-cell pct-mid">低估2★</span></td><td><span class="pct-cell pct-mid">★★★☆</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-mid">49.4%</span></td><td><span class="pct-cell pct-lo">20.9%</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-huayou.html">华友钴业</a></td><td><span class="pct-cell pct-lo">低估4★</span></td><td><span class="pct-cell pct-mid">★★★</span></td><td><span class="pct-cell pct-hi">-2.5</span></td><td><span class="pct-cell pct-lo">14.4%</span></td><td><span class="pct-cell pct-lo">9.8%</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">R15 三维框架：①<b>相对估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；
+②<b>质量星级</b>=近10年ROE均值（★越多质地越好；带※为亏损/生物科技，ROE 失真仅供参考）；
+③<b>时机分</b>=链周期指数百分位换算（=round(10−链分位/5)，分越高越接近周期底部、买点越好）。
+<span class="vleg"><i style="background:#15803d"></i>绿=好</span>
+<span class="vleg"><i style="background:#b45309"></i>橙=中</span>
+<span class="vleg"><i style="background:#b91c1c"></i>红=差/贵</span>。数据为时点统计。</div>
+</div>
+<div class="section-title">产业链成本传导 · 铜 → 毛利</div>
+<div class="cost-block">
+  <div class="cost-chart"><svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="铜价格走势">
+  <line x1="54" y1="16.0" x2="664" y2="16.0" stroke="#e2e8f0"/><text x="48" y="20.0" text-anchor="end" font-size="10" fill="#94a3b8">10.5万</text><line x1="54" y1="74.7" x2="664" y2="74.7" stroke="#e2e8f0"/><text x="48" y="78.7" text-anchor="end" font-size="10" fill="#94a3b8">7.8万</text><line x1="54" y1="133.3" x2="664" y2="133.3" stroke="#e2e8f0"/><text x="48" y="137.3" text-anchor="end" font-size="10" fill="#94a3b8">5.1万</text><line x1="54" y1="192.0" x2="664" y2="192.0" stroke="#e2e8f0"/><text x="48" y="196.0" text-anchor="end" font-size="10" fill="#94a3b8">2.4万</text><polygon points="54,192 54.0,179.8 56.4,176.8 58.7,175.3 61.1,174.1 63.5,177.2 65.8,172.5 68.2,169.2 70.6,167.9 72.9,166.5 75.3,164.9 77.6,163.4 80.0,153.2 82.4,144.2 84.7,146.7 87.1,134.4 89.5,96.2 91.8,84.4 94.2,109.4 96.6,96.9 98.9,97.8 101.3,90.3 103.7,94.0 106.0,101.1 108.4,113.4 110.7,129.9 113.1,117.4 115.5,106.8 117.8,89.8 120.2,102.5 122.6,104.9 124.9,94.2 127.3,101.4 129.7,96.1 132.0,102.3 134.4,117.6 136.8,120.4 139.1,111.1 141.5,94.5 143.8,100.3 146.2,101.9 148.6,112.4 150.9,106.1 153.3,109.8 155.7,116.5 158.0,128.0 160.4,175.6 162.8,183.2 165.1,192.0 167.5,187.7 169.9,183.3 172.2,171.5 174.6,165.2 176.9,163.0 179.3,155.0 181.7,145.7 184.0,136.8 186.4,139.5 188.8,132.7 191.1,124.8 193.5,113.5 195.9,123.2 198.2,117.5 200.6,110.1 203.0,116.3 205.3,124.3 207.7,131.4 210.0,121.7 212.4,117.0 214.8,112.3 217.1,108.3 219.5,107.8 221.9,86.7 224.2,83.6 226.6,82.5 229.0,90.4 231.3,93.6 233.7,95.0 236.1,92.2 238.4,86.1 240.8,95.5 243.1,124.9 245.5,117.4 247.9,125.4 250.2,123.6 252.6,112.2 255.0,111.3 257.3,113.4 259.7,116.9 262.1,125.4 264.4,123.9 266.8,124.3 269.2,123.5 271.5,114.1 273.9,120.4 276.2,119.4 278.6,118.2 281.0,114.3 283.3,118.6 285.7,124.8 288.1,131.4 290.4,129.4 292.8,138.3 295.2,137.0 297.5,131.0 299.9,129.2 302.3,131.3 304.6,134.0 307.0,130.3 309.3,133.2 311.7,137.1 314.1,142.3 316.4,140.4 318.8,138.2 321.2,136.2 323.5,134.2 325.9,135.7 328.3,139.5 330.6,140.1 333.0,144.0 335.4,144.4 337.7,158.9 340.1,151.0 342.4,149.7 344.8,147.8 347.2,147.6 349.5,152.4 351.9,160.8 354.3,158.7 356.6,160.5 359.0,159.6 361.4,168.4 363.7,164.4 366.1,166.3 368.5,165.9 370.8,163.8 373.2,162.0 375.6,166.2 377.9,162.3 380.3,162.4 382.6,165.0 385.0,161.9 387.4,160.4 389.7,143.7 392.1,145.0 394.5,139.5 396.8,140.2 399.2,140.1 401.6,143.2 403.9,145.6 406.3,140.8 408.7,133.7 411.0,129.2 413.4,131.2 415.7,127.0 418.1,129.1 420.5,123.2 422.8,128.3 425.2,129.7 427.6,134.9 429.9,131.9 432.3,132.3 434.7,131.7 437.0,135.6 439.4,138.3 441.8,134.9 444.1,137.3 446.5,136.0 448.8,138.9 451.2,139.4 453.6,134.9 455.9,137.9 458.3,137.6 460.7,143.6 463.0,141.8 465.4,142.4 467.8,142.4 470.1,141.2 472.5,141.1 474.9,141.1 477.2,137.1 479.6,139.6 481.9,147.4 484.3,158.8 486.7,150.6 489.0,148.4 491.4,137.9 493.8,131.3 496.1,131.0 498.5,133.3 500.9,133.2 503.2,118.6 505.6,118.5 508.0,118.9 510.3,96.3 512.7,101.4 515.0,87.8 517.4,83.3 519.8,95.4 522.1,88.0 524.5,91.7 526.9,96.3 529.2,90.7 531.6,93.1 534.0,91.1 536.3,91.3 538.7,89.8 541.1,84.7 543.4,84.1 545.8,87.3 548.1,105.2 550.5,113.4 552.9,109.1 555.2,110.7 557.6,109.1 560.0,103.4 562.3,100.0 564.7,93.5 567.1,94.0 569.4,93.6 571.8,97.5 574.2,102.9 576.5,97.8 578.9,92.9 581.2,93.1 583.6,97.9 586.0,97.7 588.3,95.8 590.7,94.2 593.1,93.3 595.4,94.1 597.8,86.4 600.2,65.5 602.5,64.8 604.9,73.7 607.3,82.2 609.6,82.7 612.0,72.8 614.3,77.7 616.7,83.6 619.1,83.7 621.4,79.9 623.8,77.1 626.2,70.3 628.5,76.2 630.9,75.4 633.3,70.5 635.6,74.5 638.0,71.5 640.4,63.5 642.7,55.0 645.1,54.1 647.4,30.7 649.8,18.9 652.2,18.3 654.5,36.9 656.9,24.6 659.3,16.0 661.6,19.7 664.0,20.2 664.0,192" fill="#b45309" opacity="0.12"/>
+  <polyline points="54.0,179.8 56.4,176.8 58.7,175.3 61.1,174.1 63.5,177.2 65.8,172.5 68.2,169.2 70.6,167.9 72.9,166.5 75.3,164.9 77.6,163.4 80.0,153.2 82.4,144.2 84.7,146.7 87.1,134.4 89.5,96.2 91.8,84.4 94.2,109.4 96.6,96.9 98.9,97.8 101.3,90.3 103.7,94.0 106.0,101.1 108.4,113.4 110.7,129.9 113.1,117.4 115.5,106.8 117.8,89.8 120.2,102.5 122.6,104.9 124.9,94.2 127.3,101.4 129.7,96.1 132.0,102.3 134.4,117.6 136.8,120.4 139.1,111.1 141.5,94.5 143.8,100.3 146.2,101.9 148.6,112.4 150.9,106.1 153.3,109.8 155.7,116.5 158.0,128.0 160.4,175.6 162.8,183.2 165.1,192.0 167.5,187.7 169.9,183.3 172.2,171.5 174.6,165.2 176.9,163.0 179.3,155.0 181.7,145.7 184.0,136.8 186.4,139.5 188.8,132.7 191.1,124.8 193.5,113.5 195.9,123.2 198.2,117.5 200.6,110.1 203.0,116.3 205.3,124.3 207.7,131.4 210.0,121.7 212.4,117.0 214.8,112.3 217.1,108.3 219.5,107.8 221.9,86.7 224.2,83.6 226.6,82.5 229.0,90.4 231.3,93.6 233.7,95.0 236.1,92.2 238.4,86.1 240.8,95.5 243.1,124.9 245.5,117.4 247.9,125.4 250.2,123.6 252.6,112.2 255.0,111.3 257.3,113.4 259.7,116.9 262.1,125.4 264.4,123.9 266.8,124.3 269.2,123.5 271.5,114.1 273.9,120.4 276.2,119.4 278.6,118.2 281.0,114.3 283.3,118.6 285.7,124.8 288.1,131.4 290.4,129.4 292.8,138.3 295.2,137.0 297.5,131.0 299.9,129.2 302.3,131.3 304.6,134.0 307.0,130.3 309.3,133.2 311.7,137.1 314.1,142.3 316.4,140.4 318.8,138.2 321.2,136.2 323.5,134.2 325.9,135.7 328.3,139.5 330.6,140.1 333.0,144.0 335.4,144.4 337.7,158.9 340.1,151.0 342.4,149.7 344.8,147.8 347.2,147.6 349.5,152.4 351.9,160.8 354.3,158.7 356.6,160.5 359.0,159.6 361.4,168.4 363.7,164.4 366.1,166.3 368.5,165.9 370.8,163.8 373.2,162.0 375.6,166.2 377.9,162.3 380.3,162.4 382.6,165.0 385.0,161.9 387.4,160.4 389.7,143.7 392.1,145.0 394.5,139.5 396.8,140.2 399.2,140.1 401.6,143.2 403.9,145.6 406.3,140.8 408.7,133.7 411.0,129.2 413.4,131.2 415.7,127.0 418.1,129.1 420.5,123.2 422.8,128.3 425.2,129.7 427.6,134.9 429.9,131.9 432.3,132.3 434.7,131.7 437.0,135.6 439.4,138.3 441.8,134.9 444.1,137.3 446.5,136.0 448.8,138.9 451.2,139.4 453.6,134.9 455.9,137.9 458.3,137.6 460.7,143.6 463.0,141.8 465.4,142.4 467.8,142.4 470.1,141.2 472.5,141.1 474.9,141.1 477.2,137.1 479.6,139.6 481.9,147.4 484.3,158.8 486.7,150.6 489.0,148.4 491.4,137.9 493.8,131.3 496.1,131.0 498.5,133.3 500.9,133.2 503.2,118.6 505.6,118.5 508.0,118.9 510.3,96.3 512.7,101.4 515.0,87.8 517.4,83.3 519.8,95.4 522.1,88.0 524.5,91.7 526.9,96.3 529.2,90.7 531.6,93.1 534.0,91.1 536.3,91.3 538.7,89.8 541.1,84.7 543.4,84.1 545.8,87.3 548.1,105.2 550.5,113.4 552.9,109.1 555.2,110.7 557.6,109.1 560.0,103.4 562.3,100.0 564.7,93.5 567.1,94.0 569.4,93.6 571.8,97.5 574.2,102.9 576.5,97.8 578.9,92.9 581.2,93.1 583.6,97.9 586.0,97.7 588.3,95.8 590.7,94.2 593.1,93.3 595.4,94.1 597.8,86.4 600.2,65.5 602.5,64.8 604.9,73.7 607.3,82.2 609.6,82.7 612.0,72.8 614.3,77.7 616.7,83.6 619.1,83.7 621.4,79.9 623.8,77.1 626.2,70.3 628.5,76.2 630.9,75.4 633.3,70.5 635.6,74.5 638.0,71.5 640.4,63.5 642.7,55.0 645.1,54.1 647.4,30.7 649.8,18.9 652.2,18.3 654.5,36.9 656.9,24.6 659.3,16.0 661.6,19.7 664.0,20.2" fill="none" stroke="#b45309" stroke-width="2"/>
+  <text x="54" y="212" font-size="10" fill="#94a3b8">2005-01</text>
+  <text x="664" y="212" text-anchor="end" font-size="10" fill="#94a3b8">2026-07</text>
+  <text x="54" y="18" font-size="10" fill="#b45309" font-weight="600">铜 现价约 ¥10.3万/吨</text>
+</svg></div>
+  <div class="cost-note"><p><b>铜是有色定价的"锚"</b>，兼具商品（电网/电动车/AI 数据中心）与金融（美元/利率）双重属性。铜价（cu0）决定产业链利润分配：① 矿端（紫金、江西铜业自产矿）直接享受价格弹性；② 冶炼端受矿紧→加工费(TC/RC)下行挤压；③ 加工（铝/铜加工）承压于原料成本。</p>
+<p>长周期看，铜从 2005 年约 ¥3 万/吨升至 2026 年约 <b>¥10.3万/吨</b>，中枢持续上移（电气化+AI+电网投资）。但短周期波动大：2020–2021 宽松+碳中和预期冲高，2022 加息回落，2023–2024 再启上行。</p>
+<p><b>怎么读</b>：资源型龙头（紫金）在铜价高位最受益、PB 分位却未必贵；冶炼/加工则看价差与产能出清。分位表一眼看清"谁在历史便宜位"。</p></div>
+</div>
+
+<div class="section-title">员工效率与组织效能排行（有色 11 家）</div>
+<div class="ovtable"><table>
+<thead><tr><th>公司</th><th>员工(2025)</th><th>员工增速</th><th>人均营收</th><th>人均净利</th><th>效率信号</th></tr></thead>
+<tbody>
+<tr><td><a href="berkshire-metal-chain-sdgold.html">山东黄金</a></td><td>29,282</td><td class="num up">+67.91%</td><td class="num">¥356.1万</td><td class="num">¥16.2万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-zhongjin.html">中金黄金</a></td><td>24,607</td><td class="num up">+7.92%</td><td class="num">¥321.4万</td><td class="num">¥20.1万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-huayou.html">华友钴业</a></td><td>26,466</td><td class="num up">+4.31%</td><td class="num">¥306.1万</td><td class="num">¥23.1万</td><td><span class="emp-badge" style="background:#ecfdf5;color:#15803d">扩张向好</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-zijin.html">紫金银行</a></td><td>2,490</td><td class="num up">+1.59%</td><td class="num">¥1.40亿</td><td class="num">¥2079.4万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-jiangxi.html">江西铜业</a></td><td>26,740</td><td class="num up">+1.41%</td><td class="num">¥2036.7万</td><td class="num">¥26.7万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-yunlu.html">云铝股份</a></td><td>10,144</td><td class="num down">-0.78%</td><td class="num">¥591.9万</td><td class="num">¥59.7万</td><td><span class="emp-badge" style="background:#f0fdfa;color:#0f766e">效率兑现</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-chalco.html">中国铝业</a></td><td>60,814</td><td class="num down">-3.67%</td><td class="num">¥396.5万</td><td class="num">¥20.8万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-shenhuo.html">神火股份</a></td><td>22,709</td><td class="num down">-5.39%</td><td class="num">¥181.6万</td><td class="num">¥17.6万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-ganfeng.html">赣锋锂业</a></td><td>19,257</td><td class="num down">-13.98%</td><td class="num">¥119.9万</td><td class="num">¥8.4万</td><td><span class="emp-badge" style="background:#fef9c3;color:#a16207">收缩调整</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-tianqi.html">天齐锂业</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+<tr><td><a href="berkshire-metal-chain-lomo.html">洛阳钼业</a></td><td>—</td><td class="num up">—</td><td class="num">—</td><td class="num">—</td><td><span class="emp-badge" style="background:#f1f5f9;color:#94a3b8">数据不足</span></td></tr>
+</tbody>
+</table>
+<div class="fin-note">员工增速=在职员工同比；人均营收/净利=2025 营收(元)÷员工数。已覆盖 9/11 家员工数据，
+其余为非 A 股主体或年报未披露标准口径，标「数据不足」。排序：有数据优先、按员工增速降序。
+组织效能信号由「员工增速分档 × 人均盈利分档 × 人均营收趋势」组合判定，为代理指标，非投资建议。</div>
+</div>
+
+<div class="section-title">有色龙头索引（上市公司 11 家）</div>
+<div class="grid">
+<a class="giant-card" href="berkshire-metal-chain-zijin.html"><div class="giant-head"><span class="giant-name">紫金矿业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">金铜锂多元矿业龙头，逆周期并购扩张。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-jiangxi.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">江西铜业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">国内铜业龙头，采选冶加一体化。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-chalco.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">中国铝业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">氧化铝与电解铝龙头，央企背景。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-lomo.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">洛阳钼业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">铜钴钼多元龙头，刚果金核心资产。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-sdgold.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">山东黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">黄金龙头，资源增储提速。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-zhongjin.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">中金黄金 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">央企黄金平台，金铜并举。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-yunlu.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">云铝股份 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">绿电铝标杆，水电铝一体化。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-shenhuo.html"><span class="poisson-star">★泊松</span><div class="giant-head"><span class="giant-name">神火股份 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">煤铝双主业，低成本电解铝。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-tianqi.html"><div class="giant-head"><span class="giant-name">天齐锂业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">锂资源龙头，控股格林布什矿。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-ganfeng.html"><div class="giant-head"><span class="giant-name">赣锋锂业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">锂盐加工龙头，资源全球布局。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a><a class="giant-card" href="berkshire-metal-chain-huayou.html"><div class="giant-head"><span class="giant-name">华友钴业 链</span><span class="region-tag region-cn">中国</span></div><div class="giant-desc">钴镍锂电材料龙头，一体化布局。</div><div class="giant-foot"><span class="giant-link">查看跨层分析 →</span></div></a>
+</div>
+
+<div class="source-note">
+📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+</div>
+
+</div>
+<div class="section-title">延伸阅读</div><div class="extend-grid">
+<a class="extend-card" href="./berkshire-metal-compare.html"><b>🥇 估值分位</b><span>金属（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-metal-thermometer.html"><b>🌡️ 估值温度计</b><span>金属（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-metal-buyback.html"><b>💰 回购监测</b><span>金属（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-metal-repomap.html"><b>🗺️ 板块图谱</b><span>金属（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-metal-backtest.html"><b>📈 五年回测</b><span>金属（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-metal-cycle.html"><b>🔄 周期演进</b><span>金属（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-metal-methodology.html"><b>📘 方法论说明</b><span>金属（估值/回购/周期研究的取值口径与可信区间）</span></a>
+</div><script>
+(function(){
+  function num(v){
+    if(v==null) return NaN;
+    v=v.textContent||v;
+    if(typeof v==='string'){
+      v=v.replace(/,/g,'').replace(/[ \t\r\n]/g,'');
+      if(v==='—'||v==='-'||v==='') return NaN;
+      var unit=1;
+      if(v.indexOf('亿')!==-1){ unit=10000; v=v.replace(/亿/g,''); }
+      else if(v.indexOf('万')!==-1){ unit=1; v=v.replace(/万/g,''); }
+      v=v.replace(/[¥,%]/g,'');
+      var n=parseFloat(v);
+      if(!isNaN(n)) n*=unit;
+      return n;
+    }
+    return NaN;
+  }
+  function cmp(a,b,asc){
+    var an=isNaN(a)? (typeof a==='string'?a:'') : a;
+    var bn=isNaN(b)? (typeof b==='string'?b:'') : b;
+    var nanA=isNaN(a), nanB=isNaN(b);
+    if(nanA && nanB) return 0;
+    if(nanA) return asc?1:-1;
+    if(nanB) return asc?-1:1;
+    if(an<bn) return asc?-1:1;
+    if(an>bn) return asc?1:-1;
+    return 0;
+  }
+  function sortTable(th){
+    var table=th.closest('table');
+    var tbody=table.querySelector('tbody');
+    var rows=Array.from(tbody.querySelectorAll('tr'));
+    var idx=Array.from(th.parentNode.children).indexOf(th);
+    var type=th.getAttribute('data-type')||'text';
+    var asc=!th.classList.contains('asc');
+    table.querySelectorAll('th').forEach(function(h){ h.classList.remove('asc','desc'); });
+    th.classList.add(asc?'asc':'desc');
+    rows.sort(function(r1,r2){
+      var c1=r1.cells[idx], c2=r2.cells[idx];
+      var v1, v2;
+      if(type==='name'){ v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      else if(type==='num'){ v1=num(c1); v2=num(c2); }
+      else { v1=c1.textContent.trim(); v2=c2.textContent.trim(); }
+      return cmp(v1,v2,asc);
+    });
+    rows.forEach(function(r){ tbody.appendChild(r); });
+  }
+  document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){
+    th.addEventListener('click',function(){ sortTable(th); });
+  });
+})();
+</script>
+  <script src="/analytics.js"></script>
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="back-bar">
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+</div>
+</body><a href="berkshire-metal-cycle.html"><b>商品/产能周期</b><span>框架级梳理行业周期脉络与关键信号</span></a>
 </html>
