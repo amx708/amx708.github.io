@@ -1,97 +1,191 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>园林产业链 · 调研 | 价值投资初级阶段</title>
-<link rel="stylesheet" href="./analytics.js">
-<style>
-:root {
-  --navy: #0b1f3a;
-  --navy2: #10294d;
-  --ink: #1d2b40;
-  --line: #e4e9f2;
-  --accent: #e8b84b;
-  --accent-rgb: 232,184,75;
-  --txt: #23344e;
-  --muted: #6b7a93;
-  --card: #fff;
-  --bg: #f4f7fc;
-  --green: #1f9d6b;
-  --red: #e74c3c;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
-.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
-.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
-.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
-.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
-.hero h1{font-size:28px;margin-bottom:10px;}
-.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
-.hero .stat{font-size:14px;}
-.hero .stat b{color:var(--accent);font-size:22px;display:block;}
-.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
-.data-banner b{color:var(--navy);font-weight:600}
-.container{max-width:1100px;margin:0 auto;padding:0 20px;}
-.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
-.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
-.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
-.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
-.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
-.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
-.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
-.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
-.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
-.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
-.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
-.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
-.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
-.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
-.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
-.ovtable tr:hover{background:#f4f7fc;}
-.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
-.pct-lo{background:#d1fae5;color:#065f46;}
-.pct-mid{background:#fef3c7;color:#92400e;}
-.pct-hi{background:#fee2e2;color:#991b1b;}
-.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
-.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
-.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
-.emp-badge.normal{background:#d1fae5;color:#065f46;}
-.emp-badge.warn{background:#fef3c7;color:#92400e;}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
-.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
-.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
-.gc-icon{font-size:24px;margin-bottom:8px;}
-.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
-.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
-.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
-.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
-.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
-.sortable th{cursor:pointer;user-select:none;}
-.sortable th:hover{background:var(--navy2);}
-.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
-.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
-.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
-
-.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
-.breadcrumb a{color:var(--primary-dark);text-decoration:none}
-.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
-.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
-.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
-.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
-.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
-.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
-.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
-.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
-.back-bar a:hover{background:#e8b84b;color:#fff}
-
-</style>
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>园林产业链 · 调研 | 价值投资初级阶段</title>
+
+<link rel="stylesheet" href="./analytics.js">
+
+<style>
+
+:root {
+
+  --navy: #0b1f3a;
+
+  --navy2: #10294d;
+
+  --ink: #1d2b40;
+
+  --line: #e4e9f2;
+
+  --accent: #e8b84b;
+
+  --accent-rgb: 232,184,75;
+
+  --txt: #23344e;
+
+  --muted: #6b7a93;
+
+  --card: #fff;
+
+  --bg: #f4f7fc;
+
+  --green: #1f9d6b;
+
+  --red: #e74c3c;
+
+}
+
+
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
+
+.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
+
+.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
+
+.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
+
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
+
+.hero h1{font-size:28px;margin-bottom:10px;}
+
+.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
+
+.hero .stat{font-size:14px;}
+
+.hero .stat b{color:var(--accent);font-size:22px;display:block;}
+
+.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
+
+.data-banner b{color:var(--navy);font-weight:600}
+
+.container{max-width:1100px;margin:0 auto;padding:0 20px;}
+
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
+
+.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+
+.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
+
+.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
+
+.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+
+.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
+
+.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
+
+.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
+
+.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
+
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
+
+.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
+
+.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
+
+.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+
+.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
+
+.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
+
+.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
+
+.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+
+.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
+
+.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
+
+.ovtable tr:hover{background:#f4f7fc;}
+
+.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
+
+.pct-lo{background:#d1fae5;color:#065f46;}
+
+.pct-mid{background:#fef3c7;color:#92400e;}
+
+.pct-hi{background:#fee2e2;color:#991b1b;}
+
+.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+
+.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
+
+.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
+
+.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
+
+.emp-badge.normal{background:#d1fae5;color:#065f46;}
+
+.emp-badge.warn{background:#fef3c7;color:#92400e;}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
+
+.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
+
+.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
+
+.gc-icon{font-size:24px;margin-bottom:8px;}
+
+.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+
+.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
+
+.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
+
+.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
+
+.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
+
+.sortable th{cursor:pointer;user-select:none;}
+
+.sortable th:hover{background:var(--navy2);}
+
+.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
+
+.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
+
+.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
+
+
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+
+
+</style>
+
 
 <style>
 /* v2 white-spirit template additions */
@@ -132,33 +226,60 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 .ws2-frame b{color:#3854cc}
 </style>
 
-</head>
-<body>
-
-<div class="top-bar">
-  <a href="./index.html">← 返回首页</a>
-  <span style="opacity:0.5">·</span>
-  <strong>园林产业链</strong>
-</div>
-<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>园林</b></div>
-
-<div class="hero">
-  <h1>🌳 园林产业链</h1>
-  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 估值/质量/景气/回报/效率 五维验证</div>
-  <div class="stats">
-    <div class="stat"><b>10</b>代表公司</div>
-    <div class="stat"><b>≈34%</b>平均PE分位</div>
-    <div class="stat"><b>≈43%</b>平均PB分位</div>
-  </div>
-</div>
-
-<div class="data-banner">
-  <b>📊 数据锚</b>：平均 PE分位 ≈34% · 平均 PB分位 ≈43% · 估值/ROE/人均盈利已 10/10 覆盖
-</div>
-
-<div class="container">
-
-<h2 class="section-title">🔔 5 维研究信号</h2>
+</head>
+
+<body>
+
+
+
+<div class="top-bar">
+
+  <a href="./index.html">← 返回首页</a>
+
+  <span style="opacity:0.5">·</span>
+
+  <strong>园林产业链</strong>
+
+</div>
+
+<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>园林</b></div>
+
+
+
+<div class="hero">
+
+  <h1>🌳 园林产业链</h1>
+
+  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 估值/质量/景气/回报/效率 五维验证</div>
+
+  <div class="stats">
+
+    <div class="stat"><b>10</b>代表公司</div>
+
+    <div class="stat"><b>≈34%</b>平均PE分位</div>
+
+    <div class="stat"><b>≈43%</b>平均PB分位</div>
+
+  </div>
+
+</div>
+
+
+
+<div class="data-banner">
+
+  <b>📊 数据锚</b>：平均 PE分位 ≈34% · 平均 PB分位 ≈43% · 估值/ROE/人均盈利已 10/10 覆盖
+
+</div>
+
+
+
+<div class="container">
+
+
+
+<h2 class="section-title">🔔 5 维研究信号</h2>
+
 
 <!-- ===== v2 body (per 老板截屏) START ===== -->
 <div class="ws2-counter-wrap">
@@ -172,8 +293,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 
 </div>
 <section class="ws2-section">
-  <h3>🎯 投资逻辑（8 条 · 占位框架，待人工填实）</h3>
-  <div class='ws2-logic8'><div class="item empty"><b>1️⃣ 商业模式与护城河来源</b>（占位 · 待人工填实）</div><div class="item empty"><b>2️⃣ 行业集中度与玩家分层</b>（占位 · 待人工填实）</div><div class="item empty"><b>3️⃣ 产业链上下游关系</b>（占位 · 待人工填实）</div><div class="item empty"><b>4️⃣ 周期性与价格话语权</b>（占位 · 待人工填实）</div><div class="item empty"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>（占位 · 待人工填实）</div><div class="item empty"><b>6️⃣ 估值水位与历史分位</b>（占位 · 待人工填实）</div><div class="item empty"><b>7️⃣ 主要风险事件清单</b>（占位 · 待人工填实）</div><div class="item empty"><b>8️⃣ 投资跟踪指标与反向信号</b>（占位 · 待人工填实）</div></div>
+  <h3>🎯 投资逻辑（8 条 · AI 填实（基于 10 年财报））</h3>
+  <div class='ws2-logic8'><div class="item"><b>1️⃣ 商业模式与护城河来源</b>园林/生态景观是"市政绿化+PPP 项目+地产景观"的工程生意，护城河薄（资质门槛低、项目制非重复收入、强依赖地方政府回款）。商业模式本质是高垫资工程，现金流取决于政府财政与回款节奏，而非产品壁垒。属于典型的"订单驱动、回款脆弱"行业。</div><div class="item"><b>2️⃣ 行业集中度与玩家分层</b>行业高度分散、无真正龙头。本家族 10 家曾经各有体量（东方园林 2017 净利 21.8 亿、岭南 2017 净利 5.1 亿），但 2018 去杠杆+地方财政恶化后全线崩塌。当前无一盈利：棕榈（-11.9 亿）、岭南（-23.4 亿，资不抵债 gpm -140.6%）、节能铁汉（-20.7 亿）、东珠生态（-10.8 亿）、普邦（-4.6 亿）、文科园林（-2.9 亿）、东方园林（-0.8 亿）、诚邦（-1.2 亿）、杭州园林（-0.4 亿）、美尚生态（数据止 2023 已巨亏，濒临退市）。</div><div class="item"><b>3️⃣ 产业链上下游关系</b>上游=苗木/建材/劳务；中游=园林工程总包；下游=地方政府（市政 PPP）+房企（地产景观）。收入确认靠工程进度，但回款严重滞后——地方政府付费能力是生死线。苗木自给率、项目区域集中度放大风险。</div><div class="item"><b>4️⃣ 周期性与价格话语权</b>强政策/财政周期——2015–2017 PPP 狂热（东方园林市值巅峰），2018 资管新规去杠杆致 PPP 停摆、回款断崖；2021 后地产下行+地方债务收紧，行业进入价值毁灭期。无产品价格周期，纯需求（政府支出）周期，且下行极深、 recovery 极弱。</div><div class="item"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>全行业财务质量坍塌——普遍巨额亏损、经营现金流为负、应收账款/合同资产高企、资不抵债（岭南 ROE 173% 系净资产为负所致失真、棕榈 ROE -282.9%）。无任何一家具备可持续盈利能力，属价值陷阱样本。本页数据如实呈现亏损，不作美化。</div><div class="item"><b>6️⃣ 估值水位与历史分位</b>板块估值已破净甚至负资产，无正常 PE 参考。少数公司靠"转型/国资接盘/重组"交易性博弈，非价值投资标的。历史高估值（2017 年东方园林 30x+）已成教训。</div><div class="item"><b>7️⃣ 主要风险事件清单</b>①地方政府债务违约/回款永久拖延；②PPP 项目减值（已大规模计提）；③资不抵债触发退市（美尚等）；④地产客户爆雷连带坏账；⑤融资断流致流动性危机。</div><div class="item"><b>8️⃣ 投资跟踪指标与反向信号</b>跟踪——地方政府财政/城投债风险、园林公司应收账款周转天数、经营现金流、新增订单质量（是否现结）。反向信号——应收账款持续攀升、净资产转负、被实施 ST/退市风险警示、大股东质押爆仓。</div></div>
 </section>
 <section class="ws2-section">
   <h3><span class="tag">DATA</span> 历史分位图 · 6 张</h3>
@@ -192,23 +313,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 </section>
 <section class="ws2-section">
   <h3>📦 投资逻辑附加：产品定位 / 竞争格局 / 产能周期（占位）</h3>
-  
-<div class="ws2-frame-placeholder">
-  <h4>📦 产品定位与投资信号</h4>
-  此处待人工填实：每家公司主打产品价格带、渠道结构、品牌力定位、批价走势等定性内容（取自年报/公开渠道）。
-  <br>可用结构：①高端品牌矩阵 ②次高端与区域龙头 ③大众价位。
-</div>
-<div class="ws2-frame-placeholder">
-  <h4>🏛 竞争格局分析</h4>
-  此处待人工填实：CR3/CR5 集中度、行业份额变迁、价格战历史、经销商生态、跨区域挤压。
-  <br>可用指标：①销量集中度（公开数据） ②价格带定价权 ③经销商话语权变化。
-</div>
-<div class="ws2-frame-placeholder">
-  <h4>🔄 产能周期与库存周期</h4>
-  此处待人工填实：产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
-  <br>可用结构：①半成品库存月数 ②终端动销与渠道库存 ③价格倒挂信号。
-</div>
-
+  <div class="ws2-frame"><h4>📦 产品定位与投资信号</h4>产品定位：全部为市政/地产景观工程总包，同质化、无产品溢价。信号：本家族属"价值毁灭"行业，按老板纪律（只买有可验证现金流的资产）应整体规避，不作为投资标的，仅作风险教育样本。若博弈仅限"国资接盘重组"事件驱动，非能力圈。</div><div class="ws2-frame"><h4>🏛 竞争格局分析</h4>竞争格局：高度分散、区域割据，曾靠 PPP 扩张卡位，现普遍出清。无护城河——资质易得、关系驱动、项目非重复。东方园林/岭南等昔日龙头现均资不抵债，说明规模不带来安全边际。行业出清以破产/重组/退市完成。</div><div class="ws2-frame"><h4>🔄 产能周期与库存周期</h4>产能周期：工程产能=人员+设备，弹性大，无刚性约束。真正约束在"政府付费能力"与"自身垫资上限"。库存=已完工未结算/应收账款（大量沉淀难回收），非可售产成品。周期本质=地方财政信用周期，当前处于深度违约风险区。</div>
 </section>
 <section class="ws2-section">
   <h3>🐴 白马型 vs 周期型一览（基于 10 年财报自动分类）</h3>
@@ -235,452 +340,900 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 </section>
 <!-- ===== v2 body END ===== -->
 
-<div class="research-signal">
-  <div class="rs-grid">
-    <div class="rs-item"><div class="rs-label">估值信号</div><div class="rs-val">估值历史分位 → 当前位置 + 平均分位</div><div style="font-size:10px;color:var(--muted);margin-top:4px">估</div></div><div class="rs-item"><div class="rs-label">质量信号</div><div class="rs-val">ROE/毛利率/净利率 → 龙头质量</div><div style="font-size:10px;color:var(--muted);margin-top:4px">质</div></div><div class="rs-item"><div class="rs-label">景气信号</div><div class="rs-val">营收/利润同比 → 行业景气</div><div style="font-size:10px;color:var(--muted);margin-top:4px">景</div></div><div class="rs-item"><div class="rs-label">回报信号</div><div class="rs-val">股息率 + 回购 → 股东回报</div><div style="font-size:10px;color:var(--muted);margin-top:4px">回</div></div><div class="rs-item"><div class="rs-label">人效信号</div><div class="rs-val">人均创收/人均净利 → 经营效率</div><div style="font-size:10px;color:var(--muted);margin-top:4px">效</div></div>
-  </div>
-</div>
-
-<h2 class="section-title">🏛 5 层分析框架</h2>
-<div class="layers">
-      <div class="layer-card">
-        <div class="layer-num">01</div>
-        <div class="layer-name">上游成本</div>
-        <div class="layer-text">原材料/零部件供应，价格波动传导与议价能力。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">02</div>
-        <div class="layer-name">中游制造</div>
-        <div class="layer-text">产能利用率与规模效应，决定盈利波动。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">03</div>
-        <div class="layer-name">下游应用</div>
-        <div class="layer-text">终端需求景气与渗透率变化。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">04</div>
-        <div class="layer-name">竞争格局</div>
-        <div class="layer-text">集中度、龙头溢价、护城河深浅。</div>
-      </div>
-      <div class="layer-card">
-        <div class="layer-num">05</div>
-        <div class="layer-name">投资逻辑</div>
-        <div class="layer-text">周期位置 + 估值锚 + 人效 + 机构共识 四维验证。</div>
-      </div></div>
-
-<h2 class="section-title">💬 人话版 · 实战信号</h2>
-<div class="human-block">
-  <p><b>看产业链核心是「周期位置 + 护城河 + 估值锚」三维交叉验证。</b></p>
-  <ul style="margin-top:12px;padding-left:20px;line-height:1.8">
-    <li>先看周期位置：库存/价格/产能/估值 四维判断当前位置。</li><li>再看护城河：龙头集中度 + 规模效应 + 准入壁垒。</li><li>然后看估值锚：PE/PB 历史分位 + 同行业可比 + 跨市场对比。</li><li>警惕陷阱：低估值不等于低估，可能反映景气下行。</li><li>实战信号：股息率 + 回购 + 机构持仓 三路验证。</li>
-  </ul>
-</div>
-
-<h2 class="section-title">🔄 产业周期判断标准</h2>
-<div class="cycle-block">
-  <p><b>驱动因素：</b>行业景气由供需结构 + 政策周期 + 货币环境 + 库存周期 共同决定。</p>
-  <div class="cycle-grid">
-    <div><b>供需</b>产能利用率/订单饱满度/价格传导</div><div><b>库存</b>主动累库/被动累库/主动去库</div><div><b>价格</b>原料价格/出厂价/终端价</div><div><b>估值</b>PE/PB 历史分位 + 行业相对估值</div>
-  </div>
-  <p style="margin-top:14px"><b>历史案例：</b>复盘 2018-2020 周期：估值低位 + 业绩拐点 + 产业政策利好 三共振时胜率最高。</p>
-  <p style="margin-top:8px"><b>当前位置：</b>当前多数子行业估值历史分位偏低，部分龙头股息率创近 5 年新高，景气底部信号渐显。</p>
-</div>
-
-<h2 class="section-title">📈 估值历史分位总览</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002310.html"><b>东方园林</b></a></td>
-        <td>002310</td>
-        <td>-154.9 <span class="pct pct-lo">2%</span></td>
-        <td>5.48 <span class="pct pct-hi">80%</span></td>
-        <td>-3.8%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002431.html"><b>棕榈股份</b></a></td>
-        <td>002431</td>
-        <td>-1.9 <span class="pct pct-hi">68%</span></td>
-        <td>7.58 <span class="pct pct-hi">98%</span></td>
-        <td>-114.5%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002717.html"><b>岭南股份</b></a></td>
-        <td>002717</td>
-        <td>-0.8 <span class="pct pct-mid">52%</span></td>
-        <td>-1.22 <span class="pct pct-lo">2%</span></td>
-        <td>1640.7%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002663.html"><b>普邦股份</b></a></td>
-        <td>002663</td>
-        <td>-5.3 <span class="pct pct-lo">39%</span></td>
-        <td>1.29 <span class="pct pct-hi">70%</span></td>
-        <td>-21.2%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002775.html"><b>文科园林</b></a></td>
-        <td>002775</td>
-        <td>-7.5 <span class="pct pct-lo">23%</span></td>
-        <td>-45.98 <span class="pct pct-lo">2%</span></td>
-        <td>-207.9%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-300495.html"><b>美尚生态</b></a></td>
-        <td>300495</td>
-        <td>-0.1 <span class="pct pct-lo">38%</span></td>
-        <td>-3.59 <span class="pct pct-lo">5%</span></td>
-        <td>—%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-300197.html"><b>节能铁汉</b></a></td>
-        <td>300197</td>
-        <td>-2.5 <span class="pct pct-mid">49%</span></td>
-        <td>-14.00 <span class="pct pct-lo">2%</span></td>
-        <td>-122.7%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-300649.html"><b>杭州园林</b></a></td>
-        <td>300649</td>
-        <td>-72.5 <span class="pct pct-lo">22%</span></td>
-        <td>6.94 <span class="pct pct-hi">72%</span></td>
-        <td>-8.8%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-603316.html"><b>诚邦股份</b></a></td>
-        <td>603316</td>
-        <td>-34.4 <span class="pct pct-lo">9%</span></td>
-        <td>6.17 <span class="pct pct-hi">93%</span></td>
-        <td>-20.3%</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-603359.html"><b>东珠生态</b></a></td>
-        <td>603359</td>
-        <td>-0.8 <span class="pct pct-lo">36%</span></td>
-        <td>0.66 <span class="pct pct-lo">10%</span></td>
-        <td>-55.1%</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">⚖ R15 三维评级总览</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002310.html"><b>东方园林</b></a></td>
-        <td>-154.9</td>
-        <td>5.48</td>
-        <td>★★★★★</td>
-        <td>★</td>
-        <td>6</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002431.html"><b>棕榈股份</b></a></td>
-        <td>-1.9</td>
-        <td>7.58</td>
-        <td>★★★</td>
-        <td>★</td>
-        <td>2</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002717.html"><b>岭南股份</b></a></td>
-        <td>-0.8</td>
-        <td>-1.22</td>
-        <td>★★★</td>
-        <td>★★★★★</td>
-        <td>7</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002663.html"><b>普邦股份</b></a></td>
-        <td>-5.3</td>
-        <td>1.29</td>
-        <td>★★</td>
-        <td>★</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002775.html"><b>文科园林</b></a></td>
-        <td>-7.5</td>
-        <td>-45.98</td>
-        <td>★★★★</td>
-        <td>★</td>
-        <td>9</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-300495.html"><b>美尚生态</b></a></td>
-        <td>-0.1</td>
-        <td>-3.59</td>
-        <td>★★</td>
-        <td>—</td>
-        <td>8</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-300197.html"><b>节能铁汉</b></a></td>
-        <td>-2.5</td>
-        <td>-14.00</td>
-        <td>★★★</td>
-        <td>★</td>
-        <td>7</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-300649.html"><b>杭州园林</b></a></td>
-        <td>-72.5</td>
-        <td>6.94</td>
-        <td>★★★★</td>
-        <td>★</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-603316.html"><b>诚邦股份</b></a></td>
-        <td>-34.4</td>
-        <td>6.17</td>
-        <td>★★★★★</td>
-        <td>★</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-603359.html"><b>东珠生态</b></a></td>
-        <td>-0.8</td>
-        <td>0.66</td>
-        <td>★★</td>
-        <td>★</td>
-        <td>8</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">🏭 产业链成本传导</h2>
-
-    <div class="cost-block">
-      <h3>产业链成本传导路径</h3>
-      <svg viewBox="0 0 800 140" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <marker id="arr-ac" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-            <polygon points="0 0, 8 4, 0 8" fill="#10b981"/>
-          </marker>
-        </defs>
-        <g>
-          <rect x="15" y="30" width="130" height="44" rx="6" fill="white" stroke="#10b981" stroke-width="1.5"/>
-          <text x="80" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游原材料</text>
-        </g>
-        <g>
-          <rect x="215" y="30" width="130" height="44" rx="6" fill="white" stroke="#10b981" stroke-width="1.5"/>
-          <text x="280" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游加工</text>
-        </g>
-        <g>
-          <rect x="415" y="30" width="130" height="44" rx="6" fill="white" stroke="#10b981" stroke-width="1.5"/>
-          <text x="480" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游品牌</text>
-        </g>
-        <g>
-          <rect x="615" y="30" width="130" height="44" rx="6" fill="white" stroke="#10b981" stroke-width="1.5"/>
-          <text x="680" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">需求弹性</text>
-        </g>
-        <line x1="145" y1="52" x2="215" y2="52" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-        <line x1="345" y1="52" x2="415" y2="52" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-        <line x1="545" y1="52" x2="615" y2="52" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr-ac)"/>
-      </svg>
-      <p class="cost-note">成本传导关键看议价能力与库存周期：龙头凭借规模优势可锁定上游成本；中小厂商在价格上行期被动跟涨、在下行期被迫降价。</p>
-    </div>
-
-<h2 class="section-title">👥 员工效率排行</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>2024员工</th><th>同比</th><th>人均净利</th></tr></thead>
-  <tbody>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002310.html"><b>东方园林</b></a></td>
-        <td>002310</td>
-        <td>113</td>
-        <td>—</td>
-        <td>口径异常</td>
-        <td>¥-70.8万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002431.html"><b>棕榈股份</b></a></td>
-        <td>002431</td>
-        <td>810</td>
-        <td>911</td>
-        <td>-11.1%</td>
-        <td>¥-146.9万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002717.html"><b>岭南股份</b></a></td>
-        <td>002717</td>
-        <td>345</td>
-        <td>559</td>
-        <td>-38.3%</td>
-        <td>¥-678.3万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002663.html"><b>普邦股份</b></a></td>
-        <td>002663</td>
-        <td>1231</td>
-        <td>1301</td>
-        <td>-5.4%</td>
-        <td>¥-38.2万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-002775.html"><b>文科园林</b></a></td>
-        <td>002775</td>
-        <td>712</td>
-        <td>955</td>
-        <td>-25.4%</td>
-        <td>¥-40.7万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-300495.html"><b>美尚生态</b></a></td>
-        <td>300495</td>
-        <td>—</td>
-        <td>—</td>
-        <td>口径异常</td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-300197.html"><b>节能铁汉</b></a></td>
-        <td>300197</td>
-        <td>746</td>
-        <td>1060</td>
-        <td>-29.6%</td>
-        <td>¥-278.8万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-300649.html"><b>杭州园林</b></a></td>
-        <td>300649</td>
-        <td>288</td>
-        <td>345</td>
-        <td>-16.5%</td>
-        <td>¥-13.9万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-603316.html"><b>诚邦股份</b></a></td>
-        <td>603316</td>
-        <td>266</td>
-        <td>238</td>
-        <td>+11.8%</td>
-        <td>¥-45.1万</td>
-      </tr>
-      <tr>
-        <td><a href="./berkshire-landscape-chain-603359.html"><b>东珠生态</b></a></td>
-        <td>603359</td>
-        <td>200</td>
-        <td>273</td>
-        <td>-26.7%</td>
-        <td>¥-540.0万</td>
-      </tr></tbody>
-</table>
-
-<h2 class="section-title">🏢 公司索引</h2>
-<div class="grid">
-      <a class="giant-card" href="./berkshire-landscape-chain-002310.html">
-        <div class="gc-title">东方园林</div>
-        <div class="gc-code">002310</div>
-        <div class="gc-meta">PE -154.9 · PB 5.48 · ROE -3.8%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-landscape-chain-002431.html">
-        <div class="gc-title">棕榈股份</div>
-        <div class="gc-code">002431</div>
-        <div class="gc-meta">PE -1.9 · PB 7.58 · ROE -114.5%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-landscape-chain-002717.html">
-        <div class="gc-title">岭南股份</div>
-        <div class="gc-code">002717</div>
-        <div class="gc-meta">PE -0.8 · PB -1.22 · ROE 1640.7%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-landscape-chain-002663.html">
-        <div class="gc-title">普邦股份</div>
-        <div class="gc-code">002663</div>
-        <div class="gc-meta">PE -5.3 · PB 1.29 · ROE -21.2%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-landscape-chain-002775.html">
-        <div class="gc-title">文科园林</div>
-        <div class="gc-code">002775</div>
-        <div class="gc-meta">PE -7.5 · PB -45.98 · ROE -207.9%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-landscape-chain-300495.html">
-        <div class="gc-title">美尚生态</div>
-        <div class="gc-code">300495</div>
-        <div class="gc-meta">PE -0.1 · PB -3.59 · ROE —%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-landscape-chain-300197.html">
-        <div class="gc-title">节能铁汉</div>
-        <div class="gc-code">300197</div>
-        <div class="gc-meta">PE -2.5 · PB -14.00 · ROE -122.7%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-landscape-chain-300649.html">
-        <div class="gc-title">杭州园林</div>
-        <div class="gc-code">300649</div>
-        <div class="gc-meta">PE -72.5 · PB 6.94 · ROE -8.8%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-landscape-chain-603316.html">
-        <div class="gc-title">诚邦股份</div>
-        <div class="gc-code">603316</div>
-        <div class="gc-meta">PE -34.4 · PB 6.17 · ROE -20.3%</div>
-      </a>
-      <a class="giant-card" href="./berkshire-landscape-chain-603359.html">
-        <div class="gc-title">东珠生态</div>
-        <div class="gc-code">603359</div>
-        <div class="gc-meta">PE -0.8 · PB 0.66 · ROE -55.1%</div>
-      </a></div>
-
-<h2 class="section-title">📚 延伸阅读</h2>
-<div class="grid">
-
-      <a class="giant-card" href="berkshire-landscape-cycle.html">
-        <div class="gc-icon">🔄</div>
-        <div class="gc-title">产业周期</div>
-        <div class="gc-desc">库存/价格/产能/估值四维判断周期位置。</div>
-      </a>
-      <a class="giant-card" href="berkshire-landscape-backtest.html">
-        <div class="gc-icon">📈</div>
-        <div class="gc-title">回测框架</div>
-        <div class="gc-desc">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</div>
-      </a>
-      <a class="giant-card" href="./berkshire-landscape-buyback.html">
-        <div class="gc-icon">💰</div>
-        <div class="gc-title">逐轮买点回报图</div>
-        <div class="gc-desc">三轮全市场大底买入并持有的后复权累计回报。</div>
-      </a>      <a class="giant-card" href="berkshire-landscape-repomap.html">
-        <div class="gc-icon">🗺️</div>
-        <div class="gc-title">回购地图</div>
-        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分，逐家拆解。</div>
-      </a></div>
-
-<div class="source-note">
-  数据来源：akshare / 同花顺 / 巨潮资讯网 · 数据日期：2026-08-09 · 仅供参考，不构成投资建议
-</div>
-
-</div>
-
-<script src="./analytics.js"></script>
-<script src="./tdx-link.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.sortable').forEach(function(t){
-    t.querySelectorAll('th').forEach(function(th,i){
-      th.addEventListener('click',function(){
-        var d=t.querySelector('tbody');
-        var rows=Array.from(d.querySelectorAll('tr'));
-        var asc=th.classList.contains('sorted-asc');
-        th.classList.remove('sorted-asc','sorted-desc');
-        rows.sort(function(a,b){
-          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          av=parseFloat(av); bv=parseFloat(bv);
-          return asc?bv-av:av-bv;
-        });
-        th.classList.add(asc?'sorted-desc':'sorted-asc');
-        rows.forEach(function(r){d.appendChild(r)});
-      });
-    });
-  });
-});
-</script>
-<div class="section-title">延伸阅读 · 园林 7 兄弟页</div>
-<div class="extend-grid">
-<a class="extend-card" href="./berkshire-landscape-compare.html"><b>🥇 估值分位</b><span>园林（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-landscape-thermometer.html"><b>🌡️ 估值温度计</b><span>园林（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-landscape-buyback.html"><b>💰 回购监测</b><span>园林（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-landscape-repomap.html"><b>🗺️ 板块图谱</b><span>园林（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-landscape-backtest.html"><b>📈 五年回测</b><span>园林（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-landscape-cycle.html"><b>🔄 周期演进</b><span>园林（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-landscape-methodology.html"><b>📘 方法论说明</b><span>园林（估值/回购/周期研究的取值口径与可信区间）</span></a>
-</div>
-<div class="back-bar">
-<a href="./berkshire-chain-map.html">← 全链索引</a>
-<a href="./berkshire-standalone.html">← 数据中心首页</a>
-</div>
-</body>
+<div class="research-signal">
+
+  <div class="rs-grid">
+
+    <div class="rs-item"><div class="rs-label">估值信号</div><div class="rs-val">估值历史分位 → 当前位置 + 平均分位</div><div style="font-size:10px;color:var(--muted);margin-top:4px">估</div></div><div class="rs-item"><div class="rs-label">质量信号</div><div class="rs-val">ROE/毛利率/净利率 → 龙头质量</div><div style="font-size:10px;color:var(--muted);margin-top:4px">质</div></div><div class="rs-item"><div class="rs-label">景气信号</div><div class="rs-val">营收/利润同比 → 行业景气</div><div style="font-size:10px;color:var(--muted);margin-top:4px">景</div></div><div class="rs-item"><div class="rs-label">回报信号</div><div class="rs-val">股息率 + 回购 → 股东回报</div><div style="font-size:10px;color:var(--muted);margin-top:4px">回</div></div><div class="rs-item"><div class="rs-label">人效信号</div><div class="rs-val">人均创收/人均净利 → 经营效率</div><div style="font-size:10px;color:var(--muted);margin-top:4px">效</div></div>
+
+  </div>
+
+</div>
+
+
+
+<h2 class="section-title">🏛 5 层分析框架</h2>
+
+<div class="layers">
+
+      <div class="layer-card">
+
+        <div class="layer-num">01</div>
+
+        <div class="layer-name">上游成本</div>
+
+        <div class="layer-text">原材料/零部件供应，价格波动传导与议价能力。</div>
+
+      </div>
+
+      <div class="layer-card">
+
+        <div class="layer-num">02</div>
+
+        <div class="layer-name">中游制造</div>
+
+        <div class="layer-text">产能利用率与规模效应，决定盈利波动。</div>
+
+      </div>
+
+      <div class="layer-card">
+
+        <div class="layer-num">03</div>
+
+        <div class="layer-name">下游应用</div>
+
+        <div class="layer-text">终端需求景气与渗透率变化。</div>
+
+      </div>
+
+      <div class="layer-card">
+
+        <div class="layer-num">04</div>
+
+        <div class="layer-name">竞争格局</div>
+
+        <div class="layer-text">集中度、龙头溢价、护城河深浅。</div>
+
+      </div>
+
+      <div class="layer-card">
+
+        <div class="layer-num">05</div>
+
+        <div class="layer-name">投资逻辑</div>
+
+        <div class="layer-text">周期位置 + 估值锚 + 人效 + 机构共识 四维验证。</div>
+
+      </div></div>
+
+
+
+<h2 class="section-title">💬 人话版 · 实战信号</h2>
+
+<div class="human-block">
+
+  <p><b>看产业链核心是「周期位置 + 护城河 + 估值锚」三维交叉验证。</b></p>
+
+  <ul style="margin-top:12px;padding-left:20px;line-height:1.8">
+
+    <li>先看周期位置：库存/价格/产能/估值 四维判断当前位置。</li><li>再看护城河：龙头集中度 + 规模效应 + 准入壁垒。</li><li>然后看估值锚：PE/PB 历史分位 + 同行业可比 + 跨市场对比。</li><li>警惕陷阱：低估值不等于低估，可能反映景气下行。</li><li>实战信号：股息率 + 回购 + 机构持仓 三路验证。</li>
+
+  </ul>
+
+</div>
+
+
+
+<h2 class="section-title">🔄 产业周期判断标准</h2>
+
+<div class="cycle-block">
+
+  <p><b>驱动因素：</b>行业景气由供需结构 + 政策周期 + 货币环境 + 库存周期 共同决定。</p>
+
+  <div class="cycle-grid">
+
+    <div><b>供需</b>产能利用率/订单饱满度/价格传导</div><div><b>库存</b>主动累库/被动累库/主动去库</div><div><b>价格</b>原料价格/出厂价/终端价</div><div><b>估值</b>PE/PB 历史分位 + 行业相对估值</div>
+
+  </div>
+
+  <p style="margin-top:14px"><b>历史案例：</b>复盘 2018-2020 周期：估值低位 + 业绩拐点 + 产业政策利好 三共振时胜率最高。</p>
+
+  <p style="margin-top:8px"><b>当前位置：</b>当前多数子行业估值历史分位偏低，部分龙头股息率创近 5 年新高，景气底部信号渐显。</p>
+
+</div>
+
+
+
+<h2 class="section-title">📈 估值历史分位总览</h2>
+
+<table class="ovtable sortable" data-type="num">
+
+  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
+
+  <tbody>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002310.html"><b>东方园林</b></a></td>
+
+        <td>002310</td>
+
+        <td>-154.9 <span class="pct pct-lo">2%</span></td>
+
+        <td>5.48 <span class="pct pct-hi">80%</span></td>
+
+        <td>-3.8%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002431.html"><b>棕榈股份</b></a></td>
+
+        <td>002431</td>
+
+        <td>-1.9 <span class="pct pct-hi">68%</span></td>
+
+        <td>7.58 <span class="pct pct-hi">98%</span></td>
+
+        <td>-114.5%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002717.html"><b>岭南股份</b></a></td>
+
+        <td>002717</td>
+
+        <td>-0.8 <span class="pct pct-mid">52%</span></td>
+
+        <td>-1.22 <span class="pct pct-lo">2%</span></td>
+
+        <td>1640.7%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002663.html"><b>普邦股份</b></a></td>
+
+        <td>002663</td>
+
+        <td>-5.3 <span class="pct pct-lo">39%</span></td>
+
+        <td>1.29 <span class="pct pct-hi">70%</span></td>
+
+        <td>-21.2%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002775.html"><b>文科园林</b></a></td>
+
+        <td>002775</td>
+
+        <td>-7.5 <span class="pct pct-lo">23%</span></td>
+
+        <td>-45.98 <span class="pct pct-lo">2%</span></td>
+
+        <td>-207.9%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-300495.html"><b>美尚生态</b></a></td>
+
+        <td>300495</td>
+
+        <td>-0.1 <span class="pct pct-lo">38%</span></td>
+
+        <td>-3.59 <span class="pct pct-lo">5%</span></td>
+
+        <td>—%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-300197.html"><b>节能铁汉</b></a></td>
+
+        <td>300197</td>
+
+        <td>-2.5 <span class="pct pct-mid">49%</span></td>
+
+        <td>-14.00 <span class="pct pct-lo">2%</span></td>
+
+        <td>-122.7%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-300649.html"><b>杭州园林</b></a></td>
+
+        <td>300649</td>
+
+        <td>-72.5 <span class="pct pct-lo">22%</span></td>
+
+        <td>6.94 <span class="pct pct-hi">72%</span></td>
+
+        <td>-8.8%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-603316.html"><b>诚邦股份</b></a></td>
+
+        <td>603316</td>
+
+        <td>-34.4 <span class="pct pct-lo">9%</span></td>
+
+        <td>6.17 <span class="pct pct-hi">93%</span></td>
+
+        <td>-20.3%</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-603359.html"><b>东珠生态</b></a></td>
+
+        <td>603359</td>
+
+        <td>-0.8 <span class="pct pct-lo">36%</span></td>
+
+        <td>0.66 <span class="pct pct-lo">10%</span></td>
+
+        <td>-55.1%</td>
+
+      </tr></tbody>
+
+</table>
+
+
+
+<h2 class="section-title">⚖ R15 三维评级总览</h2>
+
+<table class="ovtable sortable" data-type="num">
+
+  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
+
+  <tbody>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002310.html"><b>东方园林</b></a></td>
+
+        <td>-154.9</td>
+
+        <td>5.48</td>
+
+        <td>★★★★★</td>
+
+        <td>★</td>
+
+        <td>6</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002431.html"><b>棕榈股份</b></a></td>
+
+        <td>-1.9</td>
+
+        <td>7.58</td>
+
+        <td>★★★</td>
+
+        <td>★</td>
+
+        <td>2</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002717.html"><b>岭南股份</b></a></td>
+
+        <td>-0.8</td>
+
+        <td>-1.22</td>
+
+        <td>★★★</td>
+
+        <td>★★★★★</td>
+
+        <td>7</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002663.html"><b>普邦股份</b></a></td>
+
+        <td>-5.3</td>
+
+        <td>1.29</td>
+
+        <td>★★</td>
+
+        <td>★</td>
+
+        <td>5</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002775.html"><b>文科园林</b></a></td>
+
+        <td>-7.5</td>
+
+        <td>-45.98</td>
+
+        <td>★★★★</td>
+
+        <td>★</td>
+
+        <td>9</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-300495.html"><b>美尚生态</b></a></td>
+
+        <td>-0.1</td>
+
+        <td>-3.59</td>
+
+        <td>★★</td>
+
+        <td>—</td>
+
+        <td>8</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-300197.html"><b>节能铁汉</b></a></td>
+
+        <td>-2.5</td>
+
+        <td>-14.00</td>
+
+        <td>★★★</td>
+
+        <td>★</td>
+
+        <td>7</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-300649.html"><b>杭州园林</b></a></td>
+
+        <td>-72.5</td>
+
+        <td>6.94</td>
+
+        <td>★★★★</td>
+
+        <td>★</td>
+
+        <td>5</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-603316.html"><b>诚邦股份</b></a></td>
+
+        <td>-34.4</td>
+
+        <td>6.17</td>
+
+        <td>★★★★★</td>
+
+        <td>★</td>
+
+        <td>5</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-603359.html"><b>东珠生态</b></a></td>
+
+        <td>-0.8</td>
+
+        <td>0.66</td>
+
+        <td>★★</td>
+
+        <td>★</td>
+
+        <td>8</td>
+
+      </tr></tbody>
+
+</table>
+
+
+
+<h2 class="section-title">🏭 产业链成本传导</h2>
+
+
+
+    <div class="cost-block">
+
+      <h3>产业链成本传导路径</h3>
+
+      <svg viewBox="0 0 800 140" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
+
+        <defs>
+
+          <marker id="arr-ac" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+
+            <polygon points="0 0, 8 4, 0 8" fill="#10b981"/>
+
+          </marker>
+
+        </defs>
+
+        <g>
+
+          <rect x="15" y="30" width="130" height="44" rx="6" fill="white" stroke="#10b981" stroke-width="1.5"/>
+
+          <text x="80" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">上游原材料</text>
+
+        </g>
+
+        <g>
+
+          <rect x="215" y="30" width="130" height="44" rx="6" fill="white" stroke="#10b981" stroke-width="1.5"/>
+
+          <text x="280" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">中游加工</text>
+
+        </g>
+
+        <g>
+
+          <rect x="415" y="30" width="130" height="44" rx="6" fill="white" stroke="#10b981" stroke-width="1.5"/>
+
+          <text x="480" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">下游品牌</text>
+
+        </g>
+
+        <g>
+
+          <rect x="615" y="30" width="130" height="44" rx="6" fill="white" stroke="#10b981" stroke-width="1.5"/>
+
+          <text x="680" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1f3a">需求弹性</text>
+
+        </g>
+
+        <line x1="145" y1="52" x2="215" y2="52" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+
+        <line x1="345" y1="52" x2="415" y2="52" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+
+        <line x1="545" y1="52" x2="615" y2="52" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr-ac)"/>
+
+      </svg>
+
+      <p class="cost-note">成本传导关键看议价能力与库存周期：龙头凭借规模优势可锁定上游成本；中小厂商在价格上行期被动跟涨、在下行期被迫降价。</p>
+
+    </div>
+
+
+
+<h2 class="section-title">👥 员工效率排行</h2>
+
+<table class="ovtable sortable" data-type="num">
+
+  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>2024员工</th><th>同比</th><th>人均净利</th></tr></thead>
+
+  <tbody>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002310.html"><b>东方园林</b></a></td>
+
+        <td>002310</td>
+
+        <td>113</td>
+
+        <td>—</td>
+
+        <td>口径异常</td>
+
+        <td>¥-70.8万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002431.html"><b>棕榈股份</b></a></td>
+
+        <td>002431</td>
+
+        <td>810</td>
+
+        <td>911</td>
+
+        <td>-11.1%</td>
+
+        <td>¥-146.9万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002717.html"><b>岭南股份</b></a></td>
+
+        <td>002717</td>
+
+        <td>345</td>
+
+        <td>559</td>
+
+        <td>-38.3%</td>
+
+        <td>¥-678.3万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002663.html"><b>普邦股份</b></a></td>
+
+        <td>002663</td>
+
+        <td>1231</td>
+
+        <td>1301</td>
+
+        <td>-5.4%</td>
+
+        <td>¥-38.2万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-002775.html"><b>文科园林</b></a></td>
+
+        <td>002775</td>
+
+        <td>712</td>
+
+        <td>955</td>
+
+        <td>-25.4%</td>
+
+        <td>¥-40.7万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-300495.html"><b>美尚生态</b></a></td>
+
+        <td>300495</td>
+
+        <td>—</td>
+
+        <td>—</td>
+
+        <td>口径异常</td>
+
+        <td>—</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-300197.html"><b>节能铁汉</b></a></td>
+
+        <td>300197</td>
+
+        <td>746</td>
+
+        <td>1060</td>
+
+        <td>-29.6%</td>
+
+        <td>¥-278.8万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-300649.html"><b>杭州园林</b></a></td>
+
+        <td>300649</td>
+
+        <td>288</td>
+
+        <td>345</td>
+
+        <td>-16.5%</td>
+
+        <td>¥-13.9万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-603316.html"><b>诚邦股份</b></a></td>
+
+        <td>603316</td>
+
+        <td>266</td>
+
+        <td>238</td>
+
+        <td>+11.8%</td>
+
+        <td>¥-45.1万</td>
+
+      </tr>
+
+      <tr>
+
+        <td><a href="./berkshire-landscape-chain-603359.html"><b>东珠生态</b></a></td>
+
+        <td>603359</td>
+
+        <td>200</td>
+
+        <td>273</td>
+
+        <td>-26.7%</td>
+
+        <td>¥-540.0万</td>
+
+      </tr></tbody>
+
+</table>
+
+
+
+<h2 class="section-title">🏢 公司索引</h2>
+
+<div class="grid">
+
+      <a class="giant-card" href="./berkshire-landscape-chain-002310.html">
+
+        <div class="gc-title">东方园林</div>
+
+        <div class="gc-code">002310</div>
+
+        <div class="gc-meta">PE -154.9 · PB 5.48 · ROE -3.8%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-landscape-chain-002431.html">
+
+        <div class="gc-title">棕榈股份</div>
+
+        <div class="gc-code">002431</div>
+
+        <div class="gc-meta">PE -1.9 · PB 7.58 · ROE -114.5%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-landscape-chain-002717.html">
+
+        <div class="gc-title">岭南股份</div>
+
+        <div class="gc-code">002717</div>
+
+        <div class="gc-meta">PE -0.8 · PB -1.22 · ROE 1640.7%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-landscape-chain-002663.html">
+
+        <div class="gc-title">普邦股份</div>
+
+        <div class="gc-code">002663</div>
+
+        <div class="gc-meta">PE -5.3 · PB 1.29 · ROE -21.2%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-landscape-chain-002775.html">
+
+        <div class="gc-title">文科园林</div>
+
+        <div class="gc-code">002775</div>
+
+        <div class="gc-meta">PE -7.5 · PB -45.98 · ROE -207.9%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-landscape-chain-300495.html">
+
+        <div class="gc-title">美尚生态</div>
+
+        <div class="gc-code">300495</div>
+
+        <div class="gc-meta">PE -0.1 · PB -3.59 · ROE —%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-landscape-chain-300197.html">
+
+        <div class="gc-title">节能铁汉</div>
+
+        <div class="gc-code">300197</div>
+
+        <div class="gc-meta">PE -2.5 · PB -14.00 · ROE -122.7%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-landscape-chain-300649.html">
+
+        <div class="gc-title">杭州园林</div>
+
+        <div class="gc-code">300649</div>
+
+        <div class="gc-meta">PE -72.5 · PB 6.94 · ROE -8.8%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-landscape-chain-603316.html">
+
+        <div class="gc-title">诚邦股份</div>
+
+        <div class="gc-code">603316</div>
+
+        <div class="gc-meta">PE -34.4 · PB 6.17 · ROE -20.3%</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-landscape-chain-603359.html">
+
+        <div class="gc-title">东珠生态</div>
+
+        <div class="gc-code">603359</div>
+
+        <div class="gc-meta">PE -0.8 · PB 0.66 · ROE -55.1%</div>
+
+      </a></div>
+
+
+
+<h2 class="section-title">📚 延伸阅读</h2>
+
+<div class="grid">
+
+
+
+      <a class="giant-card" href="berkshire-landscape-cycle.html">
+
+        <div class="gc-icon">🔄</div>
+
+        <div class="gc-title">产业周期</div>
+
+        <div class="gc-desc">库存/价格/产能/估值四维判断周期位置。</div>
+
+      </a>
+
+      <a class="giant-card" href="berkshire-landscape-backtest.html">
+
+        <div class="gc-icon">📈</div>
+
+        <div class="gc-title">回测框架</div>
+
+        <div class="gc-desc">三轮大底回测：2014/2018/2024-25 估值+股息率双视角。</div>
+
+      </a>
+
+      <a class="giant-card" href="./berkshire-landscape-buyback.html">
+
+        <div class="gc-icon">💰</div>
+
+        <div class="gc-title">逐轮买点回报图</div>
+
+        <div class="gc-desc">三轮全市场大底买入并持有的后复权累计回报。</div>
+
+      </a>      <a class="giant-card" href="berkshire-landscape-repomap.html">
+
+        <div class="gc-icon">🗺️</div>
+
+        <div class="gc-title">回购地图</div>
+
+        <div class="gc-desc">回购金额/估值锚/管理层信号三维评分，逐家拆解。</div>
+
+      </a></div>
+
+
+
+<div class="source-note">
+
+  数据来源：akshare / 同花顺 / 巨潮资讯网 · 数据日期：2026-08-09 · 仅供参考，不构成投资建议
+
+</div>
+
+
+
+</div>
+
+
+
+<script src="./analytics.js"></script>
+
+<script src="./tdx-link.js"></script>
+
+<script>
+
+document.addEventListener('DOMContentLoaded',function(){
+
+  document.querySelectorAll('.sortable').forEach(function(t){
+
+    t.querySelectorAll('th').forEach(function(th,i){
+
+      th.addEventListener('click',function(){
+
+        var d=t.querySelector('tbody');
+
+        var rows=Array.from(d.querySelectorAll('tr'));
+
+        var asc=th.classList.contains('sorted-asc');
+
+        th.classList.remove('sorted-asc','sorted-desc');
+
+        rows.sort(function(a,b){
+
+          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+
+          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+
+          av=parseFloat(av); bv=parseFloat(bv);
+
+          return asc?bv-av:av-bv;
+
+        });
+
+        th.classList.add(asc?'sorted-desc':'sorted-asc');
+
+        rows.forEach(function(r){d.appendChild(r)});
+
+      });
+
+    });
+
+  });
+
+});
+
+</script>
+
+<div class="section-title">延伸阅读 · 园林 7 兄弟页</div>
+
+<div class="extend-grid">
+
+<a class="extend-card" href="./berkshire-landscape-compare.html"><b>🥇 估值分位</b><span>园林（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-landscape-thermometer.html"><b>🌡️ 估值温度计</b><span>园林（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-landscape-buyback.html"><b>💰 回购监测</b><span>园林（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-landscape-repomap.html"><b>🗺️ 板块图谱</b><span>园林（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-landscape-backtest.html"><b>📈 五年回测</b><span>园林（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-landscape-cycle.html"><b>🔄 周期演进</b><span>园林（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-landscape-methodology.html"><b>📘 方法论说明</b><span>园林（估值/回购/周期研究的取值口径与可信区间）</span></a>
+
+</div>
+
+<div class="back-bar">
+
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+
+</div>
+
+</body>
+
 </html>
