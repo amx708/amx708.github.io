@@ -1,97 +1,191 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>造纸产业链 · 调研 | 价值投资初级阶段</title>
-<link rel="stylesheet" href="./analytics.js">
-<style>
-:root {
-  --navy: #0b1f3a;
-  --navy2: #10294d;
-  --ink: #1d2b40;
-  --line: #e4e9f2;
-  --accent: #e8b84b;
-  --accent-rgb: 232,184,75;
-  --txt: #23344e;
-  --muted: #6b7a93;
-  --card: #fff;
-  --bg: #f4f7fc;
-  --green: #1f9d6b;
-  --red: #e74c3c;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
-.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
-.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
-.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
-.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
-.hero h1{font-size:28px;margin-bottom:10px;}
-.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
-.hero .stat{font-size:14px;}
-.hero .stat b{color:var(--accent);font-size:22px;display:block;}
-.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
-.data-banner b{color:var(--navy);font-weight:600}
-.container{max-width:1100px;margin:0 auto;padding:0 20px;}
-.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
-.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
-.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
-.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
-.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
-.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
-.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
-.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
-.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
-.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
-.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
-.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
-.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
-.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
-.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
-.ovtable tr:hover{background:#f4f7fc;}
-.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
-.pct-lo{background:#d1fae5;color:#065f46;}
-.pct-mid{background:#fef3c7;color:#92400e;}
-.pct-hi{background:#fee2e2;color:#991b1b;}
-.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
-.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
-.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
-.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
-.emp-badge.normal{background:#d1fae5;color:#065f46;}
-.emp-badge.warn{background:#fef3c7;color:#92400e;}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
-.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
-.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
-.gc-icon{font-size:24px;margin-bottom:8px;}
-.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
-.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
-.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
-.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
-.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
-.sortable th{cursor:pointer;user-select:none;}
-.sortable th:hover{background:var(--navy2);}
-.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
-.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
-.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
-
-.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
-.breadcrumb a{color:var(--primary-dark);text-decoration:none}
-.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
-.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
-.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
-.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
-.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
-.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
-.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
-.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
-.back-bar a:hover{background:#e8b84b;color:#fff}
-
-</style>
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>造纸产业链 · 调研 | 价值投资初级阶段</title>
+
+<link rel="stylesheet" href="./analytics.js">
+
+<style>
+
+:root {
+
+  --navy: #0b1f3a;
+
+  --navy2: #10294d;
+
+  --ink: #1d2b40;
+
+  --line: #e4e9f2;
+
+  --accent: #e8b84b;
+
+  --accent-rgb: 232,184,75;
+
+  --txt: #23344e;
+
+  --muted: #6b7a93;
+
+  --card: #fff;
+
+  --bg: #f4f7fc;
+
+  --green: #1f9d6b;
+
+  --red: #e74c3c;
+
+}
+
+
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
+
+.top-bar{background:var(--navy);padding:8px 16px;color:#fff;font-size:13px;}
+
+.top-bar a{color:#fff;text-decoration:none;margin:0 8px;}
+
+.top-bar a.cur{font-weight:800;border-bottom:2px solid var(--accent)}
+
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:30px 20px;text-align:center;}
+
+.hero h1{font-size:28px;margin-bottom:10px;}
+
+.hero .stats{display:flex;justify-content:center;gap:30px;margin-top:16px;flex-wrap:wrap;}
+
+.hero .stat{font-size:14px;}
+
+.hero .stat b{color:var(--accent);font-size:22px;display:block;}
+
+.data-banner{background:#fff;padding:14px 20px;margin:20px auto;max-width:1100px;border-left:4px solid var(--accent);border-radius:4px;}
+
+.data-banner b{color:var(--navy);font-weight:600}
+
+.container{max-width:1100px;margin:0 auto;padding:0 20px;}
+
+.section-title{font-size:18px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-left:12px;border-left:3px solid var(--accent)}
+
+.research-signal{background:#fff;border-radius:8px;padding:24px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+
+.rs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;}
+
+.rs-item{background:#f4f7fc;padding:12px;border-radius:6px;text-align:center;}
+
+.rs-item .rs-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+
+.rs-item .rs-val{font-size:13px;font-weight:700;color:var(--navy)}
+
+.layers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:20px 0;}
+
+.layer-card{background:#fff;padding:18px;border-radius:8px;border-left:3px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.04)}
+
+.layer-num{font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;}
+
+.layer-name{font-size:14px;color:var(--navy);font-weight:600;margin:4px 0 4px}
+
+.layer-text{font-size:12px;color:var(--muted);line-height:1.5}
+
+.human-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;border-left:4px solid var(--accent)}
+
+.cycle-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+
+.cycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px;}
+
+.cycle-grid > div{padding:12px;background:#f4f7fc;border-radius:6px;}
+
+.cycle-grid b{color:var(--navy);display:block;margin-bottom:4px;font-size:13px;}
+
+.ovtable{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+
+.ovtable th{background:var(--navy);color:#fff;padding:10px;text-align:left;font-size:13px;font-weight:600;}
+
+.ovtable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;}
+
+.ovtable tr:hover{background:#f4f7fc;}
+
+.pct{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:600;margin-left:4px;}
+
+.pct-lo{background:#d1fae5;color:#065f46;}
+
+.pct-mid{background:#fef3c7;color:#92400e;}
+
+.pct-hi{background:#fee2e2;color:#991b1b;}
+
+.cost-block{background:#fff;border-radius:8px;padding:24px;margin:20px 0;}
+
+.cost-svg{width:100%;max-width:800px;margin:0 auto;display:block;}
+
+.cost-note{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;font-style:italic}
+
+.emp-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:11px;font-weight:600;}
+
+.emp-badge.normal{background:#d1fae5;color:#065f46;}
+
+.emp-badge.warn{background:#fef3c7;color:#92400e;}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
+
+.giant-card{background:#fff;border-radius:8px;padding:16px;text-decoration:none;color:var(--text);transition:all .2s;border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.03)}
+
+.giant-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-color:var(--accent)}
+
+.gc-icon{font-size:24px;margin-bottom:8px;}
+
+.gc-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+
+.gc-code{font-size:11px;color:var(--muted);font-family:monospace;margin-bottom:6px;}
+
+.gc-meta{font-size:12px;color:var(--accent);font-weight:600;}
+
+.gc-desc{font-size:12px;color:var(--muted);line-height:1.5}
+
+.source-note{text-align:center;font-size:11px;color:var(--muted);padding:20px;margin-top:30px;border-top:1px solid var(--line)}
+
+.sortable th{cursor:pointer;user-select:none;}
+
+.sortable th:hover{background:var(--navy2);}
+
+.sortable th::after{content:' ⇅';opacity:0.4;font-size:10px;}
+
+.sortable th.sorted-asc::after{content:' ↑';opacity:1;}
+
+.sortable th.sorted-desc::after{content:' ↓';opacity:1;}
+
+
+
+.breadcrumb{padding:12px 0;color:var(--muted);font-size:13px}
+
+.breadcrumb a{color:var(--primary-dark);text-decoration:none}
+
+.top-bar{background:linear-gradient(135deg,#e8b84b,#b45309)!important;color:#fff}
+
+.extend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+
+.extend-card{background:#fff;border-radius:10px;padding:16px 18px;border:1px solid #e2e8f0;text-decoration:none;color:inherit;transition:all .15s;display:block}
+
+.extend-card:hover{border-color:var(--primary);transform:translateY(-1px);box-shadow:0 4px 14px rgba(232,184,75,.16)}
+
+.extend-card b{font-size:14px;color:var(--primary-dark);display:block;margin-bottom:4px}
+
+.extend-card span{font-size:12px;color:var(--muted);line-height:1.5}
+
+.back-bar{margin-top:28px;padding-top:18px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap}
+
+.back-bar a{background:#fff;color:var(--primary-dark);padding:10px 20px;border-radius:24px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid #e8b84b;transition:all .15s}
+
+.back-bar a:hover{background:#e8b84b;color:#fff}
+
+
+
+</style>
+
 
 <style>
 /* v2 white-spirit template additions */
@@ -132,52 +226,98 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 .ws2-frame b{color:#3854cc}
 </style>
 
-</head>
-<body>
-<style>
-.explain-banner{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:16px 20px;margin:18px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.explain-banner .eb-icon{font-size:22px;flex-shrink:0;line-height:1.4}
-.explain-banner .eb-body{flex:1;min-width:0}
-.explain-banner .eb-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
-.explain-banner .eb-tag{display:inline-block;font-size:11px;color:#b45309;background:rgba(232,184,75,.14);padding:2px 9px;border-radius:10px;margin-right:6px}
-.explain-banner .eb-text{font-size:13px;color:var(--muted);line-height:1.8}
-.explain-banner .eb-text b{color:var(--navy);font-weight:600}
-</style>
-<div class="top-bar">
-  <a href="./index.html">← 返回首页</a>
-  <span style="opacity:0.5">·</span>
-  <strong>造纸产业链</strong>
-</div>
-<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>造纸</b></div>
-
-<div class="hero">
-  <h1>📄 造纸产业链</h1>
-  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 强周期 × 资源属性 × 破净安全边际 · 价值投资视角原创梳理</div>
-  <div class="stats">
-    <div class="stat"><b>10</b>代表公司</div>
-    <div class="stat"><b>≈23%</b>平均PB分位</div>
-    <div class="stat"><b>5/10</b>破净</div>
-    <div class="stat"><b>原创</b>公开源整理</div>
-  </div>
-</div>
-
-<div class="data-banner" style="border-left-color:var(--accent)">
-  <b>📊 数据锚</b>：平均 PE分位 ≈44% · 平均 PB分位 ≈23%（受亏损企业扭曲）· 破净约 5/10 · 一体化龙头太阳 PB分位仅 6%。
-</div>
-
-<div class="container">
-
-<div class="explain-banner">
-<div class="eb-icon">🛡️</div>
-<div class="eb-body">
-<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「造纸产业链地图」是怎么来的</div>
-<div class="eb-text">
-本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把 A 股造纸按「层级」拆解，便于从价值投资视角理解其周期属性、资源壁垒与当前的破净安全边际。<br><b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中数字为近年财报四舍五入值，最新以公司公告为准。造纸属<b>强周期 + 资源属性</b>行业，木浆占成本六成以上，与林业、化工、包装消费紧密耦合，分析时须区分「浆价周期」与「纸种供需」两条主线。
-</div>
-</div>
-</div>
-
-<h2 class="section-title">🔔 研究信号</h2>
+</head>
+
+<body>
+
+<style>
+
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:16px 20px;margin:18px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+
+.explain-banner .eb-icon{font-size:22px;flex-shrink:0;line-height:1.4}
+
+.explain-banner .eb-body{flex:1;min-width:0}
+
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
+
+.explain-banner .eb-tag{display:inline-block;font-size:11px;color:#b45309;background:rgba(232,184,75,.14);padding:2px 9px;border-radius:10px;margin-right:6px}
+
+.explain-banner .eb-text{font-size:13px;color:var(--muted);line-height:1.8}
+
+.explain-banner .eb-text b{color:var(--navy);font-weight:600}
+
+</style>
+
+<div class="top-bar">
+
+  <a href="./index.html">← 返回首页</a>
+
+  <span style="opacity:0.5">·</span>
+
+  <strong>造纸产业链</strong>
+
+</div>
+
+<div class="breadcrumb"><a href="./berkshire-standalone.html">伯克希尔数据中心</a> &gt; <a href="./berkshire-chain-map.html">全链索引</a> &gt; <b>造纸</b></div>
+
+
+
+<div class="hero">
+
+  <h1>📄 造纸产业链</h1>
+
+  <div style="opacity:0.8;font-size:13px;margin-top:8px">10 家公司 · 强周期 × 资源属性 × 破净安全边际 · 价值投资视角原创梳理</div>
+
+  <div class="stats">
+
+    <div class="stat"><b>10</b>代表公司</div>
+
+    <div class="stat"><b>≈23%</b>平均PB分位</div>
+
+    <div class="stat"><b>5/10</b>破净</div>
+
+    <div class="stat"><b>原创</b>公开源整理</div>
+
+  </div>
+
+</div>
+
+
+
+<div class="data-banner" style="border-left-color:var(--accent)">
+
+  <b>📊 数据锚</b>：平均 PE分位 ≈44% · 平均 PB分位 ≈23%（受亏损企业扭曲）· 破净约 5/10 · 一体化龙头太阳 PB分位仅 6%。
+
+</div>
+
+
+
+<div class="container">
+
+
+
+<div class="explain-banner">
+
+<div class="eb-icon">🛡️</div>
+
+<div class="eb-body">
+
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「造纸产业链地图」是怎么来的</div>
+
+<div class="eb-text">
+
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把 A 股造纸按「层级」拆解，便于从价值投资视角理解其周期属性、资源壁垒与当前的破净安全边际。<br><b>资料来源</b>：各公司年报 / 官网 / 公开新闻 / 行业研报摘要——均为公开事实层；文中数字为近年财报四舍五入值，最新以公司公告为准。造纸属<b>强周期 + 资源属性</b>行业，木浆占成本六成以上，与林业、化工、包装消费紧密耦合，分析时须区分「浆价周期」与「纸种供需」两条主线。
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<h2 class="section-title">🔔 研究信号</h2>
+
 
 <!-- ===== v2 body (per 老板截屏) START ===== -->
 <div class="ws2-counter-wrap">
@@ -191,8 +331,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 
 </div>
 <section class="ws2-section">
-  <h3>🎯 投资逻辑（8 条 · 占位框架，待人工填实）</h3>
-  <div class='ws2-logic8'><div class="item empty"><b>1️⃣ 商业模式与护城河来源</b>（占位 · 待人工填实）</div><div class="item empty"><b>2️⃣ 行业集中度与玩家分层</b>（占位 · 待人工填实）</div><div class="item empty"><b>3️⃣ 产业链上下游关系</b>（占位 · 待人工填实）</div><div class="item empty"><b>4️⃣ 周期性与价格话语权</b>（占位 · 待人工填实）</div><div class="item empty"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>（占位 · 待人工填实）</div><div class="item empty"><b>6️⃣ 估值水位与历史分位</b>（占位 · 待人工填实）</div><div class="item empty"><b>7️⃣ 主要风险事件清单</b>（占位 · 待人工填实）</div><div class="item empty"><b>8️⃣ 投资跟踪指标与反向信号</b>（占位 · 待人工填实）</div></div>
+  <h3>🎯 投资逻辑（8 条 · AI 填实（基于 10 年财报））</h3>
+  <div class='ws2-logic8'><div class="item"><b>1️⃣ 商业模式与护城河来源</b>造纸护城河=林浆纸一体化+规模成本+特种纸技术。太阳纸业凭老挝林场+自营浆线+多纸种布局成本领先（2025 gpm 15.6%、ROE 10.7%），是家族唯一穿越周期稳健盈利的标杆；中顺洁柔凭“洁柔”生活用纸品牌享零售溢价（gpm 34% 远高于工业纸）。其余文化/包装纸厂（晨鸣、山鹰、华泰、岳阳、博汇）同质化、无品牌、赚加工费。</div><div class="item"><b>2️⃣ 行业集中度与玩家分层</b>文化纸/包装纸产能分散、过剩，价格战常态。10家中太阳纸业（2025 净利 32.5亿）一骑绝尘；中顺洁柔（3.2亿）靠品牌稳；博汇（1.6亿）、青山（0.55亿）、景兴（0.55亿）、民丰（0.16亿）微利；山鹰（-11.4亿）、华泰（-0.66亿）、岳阳林纸（-2.35亿）亏损；晨鸣纸业 2025 净亏 82.96亿（债务危机+产线停机），是行业风险极端样本。</div><div class="item"><b>3️⃣ 产业链上下游关系</b>上游=木浆（进口为主，受汇率+海外浆厂定价）、废纸（回收体系）；中游=制浆造纸；下游=出版印刷、包装、日用消费（生活用纸）。成本核心看木浆价格，盈利跟随浆价与纸价剪刀差摆动。</div><div class="item"><b>4️⃣ 周期性与价格话语权</b>强商品周期——盈利随木浆/纸价大幅波动。2021 纸价高位行业普赚（太阳 29亿、山鹰 15亿、博汇 17亿），2022 起浆价高位+需求弱盈利骤降，2023–2025 文化纸持续探底，晨鸣/山鹰巨额亏损。周期约 3–4 年一轮，由浆价+库存+地产（包装纸需求）驱动。</div><div class="item"><b>5️⃣ 财务质量（盈利/分红/现金流）</b>看“自给浆比例+毛利率+经营现金流”而非营收。太阳纸业 10 年净利从 6.7 亿增至 32.5 亿、ROE 稳定 10%+、现金流强；中顺洁柔 gpm 34% 但 ROE 仅 5.8%（销售费用高）。重资产+高负债是行业通病——晨鸣 2025 ROE -917.9%、资不抵债，是杠杆+周期双杀典型。</div><div class="item"><b>6️⃣ 估值水位与历史分位</b>工业纸厂历史 8–15x PE，随盈利大摆；太阳凭一体化享受 10–18x 溢价；生活用纸品牌（中顺式）20–30x。当前行业景气底部，亏损户不可按 PE 看，宜看 PB+自给浆成本优势+分红。</div><div class="item"><b>7️⃣ 主要风险事件清单</b>①木浆价格超预期上涨（成本端）；②包装纸需求受地产下行拖累；③产能过剩价格战；④高负债杠杆（晨鸣式流动性危机）；⑤环保限产与能耗；⑥人民币汇率（进口浆）。</div><div class="item"><b>8️⃣ 投资跟踪指标与反向信号</b>跟踪——木浆（针叶/阔叶）现货价、双胶/铜版/箱板纸价、纸厂开工率与库存、地产竣工（包装纸）、出口纸量、龙头季度毛利与经营现金流。反向信号：浆价破成本线+纸价跌+龙头毛利异常下滑+高负债厂债务展期困难。</div></div>
 </section>
 <section class="ws2-section">
   <h3><span class="tag">DATA</span> 历史分位图 · 6 张</h3>
@@ -211,23 +351,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 </section>
 <section class="ws2-section">
   <h3>📦 投资逻辑附加：产品定位 / 竞争格局 / 产能周期（占位）</h3>
-  
-<div class="ws2-frame-placeholder">
-  <h4>📦 产品定位与投资信号</h4>
-  此处待人工填实：每家公司主打产品价格带、渠道结构、品牌力定位、批价走势等定性内容（取自年报/公开渠道）。
-  <br>可用结构：①高端品牌矩阵 ②次高端与区域龙头 ③大众价位。
-</div>
-<div class="ws2-frame-placeholder">
-  <h4>🏛 竞争格局分析</h4>
-  此处待人工填实：CR3/CR5 集中度、行业份额变迁、价格战历史、经销商生态、跨区域挤压。
-  <br>可用指标：①销量集中度（公开数据） ②价格带定价权 ③经销商话语权变化。
-</div>
-<div class="ws2-frame-placeholder">
-  <h4>🔄 产能周期与库存周期</h4>
-  此处待人工填实：产能/库存周转周期、批价与终端价差、行业库存周期阶段判断。
-  <br>可用结构：①半成品库存月数 ②终端动销与渠道库存 ③价格倒挂信号。
-</div>
-
+  <div class="ws2-frame"><h4>📦 产品定位与投资信号</h4>产品定位：①林浆纸一体化综合纸企（太阳纸业，成本+多纸种最优）；②生活用纸品牌（中顺洁柔，高毛利零售）；③文化纸/包装纸加工（晨鸣/山鹰/华泰/岳阳，同质化赚加工费）；④特种纸（民丰/青山，小众）。信号：只买“自营浆+低负债+高ROE”的太阳式，规避高杠杆加工亏损户（晨鸣式）。</div><div class="ws2-frame"><h4>🏛 竞争格局分析</h4>竞争格局：文化纸/包装纸产能极度分散、CR低、无品牌壁垒；生活用纸呈“心相印/维达/洁柔/清风”四强格局，中顺凭渠道+产品占一席。成本曲线分层明显——一体化厂毛利 15%+，纯加工厂 6%–10% 且持续被浆价挤压。</div><div class="ws2-frame"><h4>🔄 产能周期与库存周期</h4>产能周期：造纸产能投放滞后于需求，景气期扩产易在下行期形成过剩与减值（晨鸣、山鹰即例）。库存=纸厂原纸库存+经销商库存，随浆价预期摆动。当前处于产能出清+需求弱的底部区间，龙头凭借成本优势份额提升。</div>
 </section>
 <section class="ws2-section">
   <h3>🐴 白马型 vs 周期型一览（基于 10 年财报自动分类）</h3>
@@ -254,153 +378,303 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;backg
 </section>
 <!-- ===== v2 body END ===== -->
 
-<div class="research-signal">
-  <div class="rs-grid">
-    <div class="rs-item"><div class="rs-label">周期位置</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">景气底部·破净</div></div>
-    <div class="rs-item"><div class="rs-label">景气方向</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">弱复苏</div></div>
-    <div class="rs-item"><div class="rs-label">结论信号</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">🟡 中性偏积极(左侧)</div></div>
-    <div class="rs-item"><div class="rs-label">核心催化</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">浆价↓/需求↑/改革</div></div>
-    <div class="rs-item"><div class="rs-label">关键风险</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">浆价反弹/负债</div></div>
-  </div>
-  <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:13px;line-height:1.8">
-<div style="font-weight:700;color:var(--navy)">周期位置</div><div>2024–2025 行业处于景气底部：需求疲软（文化纸受无纸化+教辅下滑、包装纸受出口/消费拖累）、木浆自 2022 高点回落后企稳、纸价低迷、多家龙头亏损或债务承压；估值大面积破净（多数 PB 分位 <10%）。</div>
-<div style="font-weight:700;color:var(--navy)">景气方向</div><div>弱复苏。木浆价格较 2022 高点大幅回落缓解成本，但终端需求恢复慢；白卡/箱板产能仍偏过剩，纸价提涨落地艰难，盈利修复斜率平缓。</div>
-<div style="font-weight:700;color:var(--navy)">结论信号</div><div><b>🟡 中性偏积极（左侧布局）</b> — 破净 + 个别高股息提供安全边际，但须甄别「价值陷阱」（晨鸣/山鹰高负债）与真正一体化龙头（太阳），在需求明确回暖前不追高、分批。</div>
-<div style="font-weight:700;color:var(--navy)">核心催化</div><div>①木浆价格低位/继续下行→毛利修复　②消费/出口/地产链需求回暖　③产能出清与自律限产　④央企改革/资产注入（岳阳林纸）　⑤分红与回购升温。</div>
-<div style="font-weight:700;color:var(--navy)">关键风险</div><div>①木浆价格反弹吞噬毛利　②需求持续低迷　③产能过剩引发价格战　④环保/能耗约束趋严　⑤高负债企业流动性风险（晨鸣/山鹰）。</div>
-  </div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:12px;color:var(--muted)">数据锚：平均 PE分位 ≈44% · 平均 PB分位 ≈23%（受亏损企业扭曲）；破净约 5/10；一体化龙头太阳 PB分位仅 6%。结论为框架合成，需结合实盘研究校验。</div>
-</div>
-
-<h2 class="section-title">🏛 5 层分析框架（造纸专属）</h2>
-<div class="layers">
-<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游浆料</div><div class="layer-text">木浆（针叶/阔叶）/废纸（再生纤维）/非木浆。木浆占成本 60–70%，针叶浆进口依赖度高（加拿大/智利/芬兰）；废纸受「禁废令」后转向再生浆/进口。议价看全球浆厂与汇率。</div></div>
-<div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游造纸</div><div class="layer-text">按纸种分文化纸（双胶/铜版/新闻）、包装纸（箱板/瓦楞/白卡）、生活用纸、特种纸。规模效应+纸机幅宽决定成本；产能利用率与纸价是盈利核心。</div></div>
-<div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游应用</div><div class="layer-text">文化纸→出版印刷/教辅；包装纸→消费/出口/电商物流/食品饮料；生活用纸→零售；特种纸→烟/电/医等工业。需求与宏观经济、消费、出口强相关。</div></div>
-<div class="layer-card"><div class="layer-num">04</div><div class="layer-name">竞争格局</div><div class="layer-text">木浆系（太阳/晨鸣/博汇）vs 废纸系（山鹰/景兴）；央企（岳阳林纸/中国纸业）vs 民企；APP（博汇）等外资。集中度偏低、同质化，龙头靠一体化+林浆纸+规模降本。</div></div>
-<div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-text">看「浆价周期(成本) × 纸价(供需) × 估值(破净) × 一体化壁垒」；一体化（自有浆）在浆价上行时防御、下行时弹性；高负债企业在周期底易被流动性击垮，须甄别价值陷阱。</div></div>
-</div>
-
-<h2 class="section-title">📈 估值历史分位总览</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
-  <tbody>
-<tr><td><a href="./berkshire-paper-chain-002078.html"><b>太阳纸业</b></a></td><td class="num">12.3</td><td><span class="pct pct-pct-mid">40%</span></td><td class="num">1.31</td><td><span class="pct pct-pct-lo">6%</span></td><td class="num">11.0%</td></tr>
-<tr><td><a href="./berkshire-paper-chain-000488.html"><b>晨鸣纸业</b></a></td><td class="num">-0.67</td><td><span class="pct pct-pct-lo">23%</span></td><td class="num">6.18</td><td><span class="pct pct-pct-hi">98%</span></td><td class="num">-164.9%</td></tr>
-<tr><td><a href="./berkshire-paper-chain-600966.html"><b>博汇纸业</b></a></td><td class="num">38.6</td><td><span class="pct pct-pct-hi">74%</span></td><td class="num">0.81</td><td><span class="pct pct-pct-lo">3%</span></td><td class="num">2.2%</td></tr>
-<tr><td><a href="./berkshire-paper-chain-600567.html"><b>山鹰国际</b></a></td><td class="num">-7.2</td><td><span class="pct pct-pct-lo">12%</span></td><td class="num">0.54</td><td><span class="pct pct-pct-lo">4%</span></td><td class="num">-7.5%</td></tr>
-<tr><td><a href="./berkshire-paper-chain-600963.html"><b>岳阳林纸</b></a></td><td class="num">-23.6</td><td><span class="pct pct-pct-lo">16%</span></td><td class="num">0.73</td><td><span class="pct pct-pct-lo">8%</span></td><td class="num">-3.0%</td></tr>
-<tr><td><a href="./berkshire-paper-chain-002511.html"><b>中顺洁柔</b></a></td><td class="num">28.1</td><td><span class="pct pct-pct-lo">4%</span></td><td class="num">1.64</td><td><span class="pct pct-pct-lo">7%</span></td><td class="num">5.9%</td></tr>
-<tr><td><a href="./berkshire-paper-chain-002067.html"><b>景兴纸业</b></a></td><td class="num">110.1</td><td><span class="pct pct-pct-hi">78%</span></td><td class="num">0.92</td><td><span class="pct pct-pct-mid">56%</span></td><td class="num">0.9%</td></tr>
-<tr><td><a href="./berkshire-paper-chain-600103.html"><b>青山纸业</b></a></td><td class="num">106.5</td><td><span class="pct pct-pct-hi">90%</span></td><td class="num">1.47</td><td><span class="pct pct-pct-mid">43%</span></td><td class="num">1.4%</td></tr>
-<tr><td><a href="./berkshire-paper-chain-600308.html"><b>华泰股份</b></a></td><td class="num">-71.5</td><td><span class="pct pct-pct-lo">12%</span></td><td class="num">0.52</td><td><span class="pct pct-pct-lo">3%</span></td><td class="num">-0.7%</td></tr>
-<tr><td><a href="./berkshire-paper-chain-600235.html"><b>民丰特纸</b></a></td><td class="num">108.1</td><td><span class="pct pct-pct-hi">87%</span></td><td class="num">1.17</td><td><span class="pct pct-pct-lo">6%</span></td><td class="num">1.1%</td></tr>
-  </tbody>
-</table>
-<div class="source-note" style="margin-top:10px">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。<span class="pct pct-lo">绿</span>偏低/便宜　<span class="pct pct-mid">橙</span>中位　<span class="pct pct-hi">红</span>偏高/贵。亏损企业 PE 为负、PE 分位不适用，仅看 PB；分位为时点统计。</div>
-
-<h2 class="section-title">⚖ R15 三维评级总览</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
-  <tbody>
-<tr><td><a href="./berkshire-paper-chain-002078.html"><b>太阳纸业</b></a></td><td><span class="pct pct-pct-mid">★★★</span></td><td><span class="pct pct-pct-lo">★★★</span></td><td class="num">8</td><td><span class="pct pct-pct-mid">40%</span></td><td><span class="pct pct-pct-lo">6%</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-000488.html"><b>晨鸣纸业</b></a></td><td><span class="pct pct-pct-lo">★★★★</span></td><td><span class="pct pct-pct-hi">★</span></td><td class="num">4</td><td><span class="pct pct-pct-lo">23%</span></td><td><span class="pct pct-pct-hi">98%</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-600966.html"><b>博汇纸业</b></a></td><td><span class="pct pct-pct-hi">★★★</span></td><td><span class="pct pct-pct-lo">★</span></td><td class="num">6</td><td><span class="pct pct-pct-hi">74%</span></td><td><span class="pct pct-pct-lo">3%</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-600567.html"><b>山鹰国际</b></a></td><td><span class="pct pct-pct-lo">★★★★★</span></td><td><span class="pct pct-pct-lo">★</span></td><td class="num">9</td><td><span class="pct pct-pct-lo">12%</span></td><td><span class="pct pct-pct-lo">4%</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-600963.html"><b>岳阳林纸</b></a></td><td><span class="pct pct-pct-lo">★★★★</span></td><td><span class="pct pct-pct-lo">★</span></td><td class="num">9</td><td><span class="pct pct-pct-lo">16%</span></td><td><span class="pct pct-pct-lo">8%</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-002511.html"><b>中顺洁柔</b></a></td><td><span class="pct pct-pct-lo">★★★★★</span></td><td><span class="pct pct-pct-lo">★</span></td><td class="num">9</td><td><span class="pct pct-pct-lo">4%</span></td><td><span class="pct pct-pct-lo">7%</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-002067.html"><b>景兴纸业</b></a></td><td><span class="pct pct-pct-hi">★</span></td><td><span class="pct pct-pct-mid">★</span></td><td class="num">3</td><td><span class="pct pct-pct-hi">78%</span></td><td><span class="pct pct-pct-mid">56%</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-600103.html"><b>青山纸业</b></a></td><td><span class="pct pct-pct-hi">★</span></td><td><span class="pct pct-pct-mid">★</span></td><td class="num">3</td><td><span class="pct pct-pct-hi">90%</span></td><td><span class="pct pct-pct-mid">43%</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-600308.html"><b>华泰股份</b></a></td><td><span class="pct pct-pct-lo">★★★★★</span></td><td><span class="pct pct-pct-lo">★</span></td><td class="num">9</td><td><span class="pct pct-pct-lo">12%</span></td><td><span class="pct pct-pct-lo">3%</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-600235.html"><b>民丰特纸</b></a></td><td><span class="pct pct-pct-hi">★</span></td><td><span class="pct pct-pct-lo">★</span></td><td class="num">5</td><td><span class="pct pct-pct-hi">87%</span></td><td><span class="pct pct-pct-lo">6%</span></td></tr>
-  </tbody>
-</table>
-<div class="source-note" style="margin-top:10px">R15 三维：①<b>估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；②<b>质量星级</b>=近10年ROE均值（★越多质地越好）；③<b>时机分</b>=链周期指数百分位（分越高越接近周期底部）。数据为时点统计。</div>
-
-<h2 class="section-title">🏭 产业链成本传导（浆价 → 毛利 → 利润）</h2>
-<div class="cost-block">
-  <svg viewBox="0 0 800 150" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
-    <defs><marker id="arr-pa" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0 0, 8 4, 0 8" fill="#f59e0b"/></marker></defs>
-    <g><rect x="15" y="40" width="150" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="90" y="63" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0b1f3a">上游·木浆/废纸</text><text x="90" y="80" text-anchor="middle" font-size="10" fill="#6b7a93">占成本 60–70%</text></g>
-    <g><rect x="225" y="40" width="150" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="300" y="63" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0b1f3a">中游·造纸</text><text x="300" y="80" text-anchor="middle" font-size="10" fill="#6b7a93">产能/纸机/利用率</text></g>
-    <g><rect x="435" y="40" width="150" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="510" y="63" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0b1f3a">下游·纸价</text><text x="510" y="80" text-anchor="middle" font-size="10" fill="#6b7a93">供需定售价</text></g>
-    <g><rect x="645" y="40" width="140" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="715" y="63" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0b1f3a">利润</text><text x="715" y="80" text-anchor="middle" font-size="10" fill="#6b7a93">毛利-费用</text></g>
-    <line x1="165" y1="64" x2="225" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-pa)"/>
-    <line x1="375" y1="64" x2="435" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-pa)"/>
-    <line x1="585" y1="64" x2="645" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-pa)"/>
-    <g><rect x="290" y="105" width="220" height="34" rx="6" fill="#fbf7ee" stroke="#f59e0b" stroke-width="1.5"/><text x="400" y="127" text-anchor="middle" font-size="12" font-weight="700" fill="#0b1f3a">一体化(自有浆)=护城河变量</text></g>
-  </svg>
-  <p class="cost-note" style="font-style:normal;text-align:left"><p>造纸<b>成本传导本质=浆价→毛利→利润</b>。木浆占成本六成以上：浆价上涨时若无纸价传导则毛利压缩（2021–2022 浆价暴涨挤压全行业）；浆价下行（2023–2024）则毛利修复。但纸价受产能与需求制约，<b>成本下降未必全转为利润</b>——产能过剩时纸价跟跌，利好被稀释。</p><p>能源（煤/蒸汽）、化工辅料（淀粉/钛白）次之。因此造纸股盈利 ≈ f(浆价↓、纸价↑、产能利用率↑)，<b>浆价方向是最大弹性来源</b>，而「一体化（自有浆产能）」是熨平浆价周期、构筑护城河的核心变量——这也是太阳纸业区别于同业的根本。</p></p>
-</div>
-
-<h2 class="section-title">👥 员工效率排行</h2>
-<table class="ovtable sortable" data-type="num">
-  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>同比</th><th>人均净利</th><th>效率信号</th></tr></thead>
-  <tbody>
-<tr><td><a href="./berkshire-paper-chain-002078.html"><b>太阳纸业</b></a></td><td class="num">4057</td><td class="num ">口径异常</td><td class="num">¥80.1万</td><td><span class="emp-badge warn">口径异常</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-000488.html"><b>晨鸣纸业</b></a></td><td class="num">8992</td><td class="num down">-6.3%</td><td class="num">¥-92.3万</td><td><span class="emp-badge warn">收缩</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-600966.html"><b>博汇纸业</b></a></td><td class="num">5608</td><td class="num down">-4.7%</td><td class="num">¥2.9万</td><td><span class="emp-badge warn">收缩</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-600567.html"><b>山鹰国际</b></a></td><td class="num">1万</td><td class="num down">-3.8%</td><td class="num">¥-8.7万</td><td><span class="emp-badge warn">收缩</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-600963.html"><b>岳阳林纸</b></a></td><td class="num">3937</td><td class="num ">口径异常</td><td class="num">¥-6.1万</td><td><span class="emp-badge warn">口径异常</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-002511.html"><b>中顺洁柔</b></a></td><td class="num">5550</td><td class="num down">-9.2%</td><td class="num">¥5.8万</td><td><span class="emp-badge warn">收缩</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-002067.html"><b>景兴纸业</b></a></td><td class="num">2147</td><td class="num down">-1.5%</td><td class="num">¥2.8万</td><td><span class="emp-badge warn">收缩</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-600103.html"><b>青山纸业</b></a></td><td class="num">2822</td><td class="num down">-2.9%</td><td class="num">¥2.1万</td><td><span class="emp-badge warn">收缩</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-600308.html"><b>华泰股份</b></a></td><td class="num">5771</td><td class="num up">+3.5%</td><td class="num">¥-1.2万</td><td><span class="emp-badge normal">平稳/微增</span></td></tr>
-<tr><td><a href="./berkshire-paper-chain-600235.html"><b>民丰特纸</b></a></td><td class="num">920</td><td class="num down">-8.5%</td><td class="num">¥2.2万</td><td><span class="emp-badge warn">收缩</span></td></tr>
-  </tbody>
-</table>
-<div class="source-note" style="margin-top:10px">员工增速=在职员工同比；人均净利=2025 归母净利÷员工数。太阳/岳阳因年报口径（集团 vs 上市主体）不可比，标「口径异常」，不参与排序。组织效能信号为代理指标，非投资建议。</div>
-
-<h2 class="section-title">🏢 主要玩家索引（上市公司 10 家）</h2>
-<div class="grid">
-<a class="giant-card" href="./berkshire-paper-chain-002078.html"><div class="gc-title">太阳纸业</div><div class="gc-code">002078</div><div class="gc-meta">林浆纸一体化龙头</div><div class="gc-desc">国内林浆纸一体化最完整的民营龙头，多纸种+自有浆产能，穿越周期能力最强。</div></a>
-<a class="giant-card" href="./berkshire-paper-chain-000488.html"><div class="gc-title">晨鸣纸业</div><div class="gc-code">000488</div><div class="gc-meta">文化纸/白卡龙头·债务危机</div><div class="gc-desc">曾经的铜版/白卡龙头，深陷债务流动性危机（ST），是「低估值价值陷阱」的典型反面教材。</div></a>
-<a class="giant-card" href="./berkshire-paper-chain-600966.html"><div class="gc-title">博汇纸业</div><div class="gc-code">600966</div><div class="gc-meta">白卡纸龙头·APP控股</div><div class="gc-desc">白卡纸龙头，被金光集团（APP）收购控股，外资浆纸巨头背书+白卡景气是核心变量。</div></a>
-<a class="giant-card" href="./berkshire-paper-chain-600567.html"><div class="gc-title">山鹰国际</div><div class="gc-code">600567</div><div class="gc-meta">包装纸/废纸系龙头·债务承压</div><div class="gc-desc">箱板瓦楞包装纸+废纸回收+海外纸厂龙头，债务压力与出海是唯一变量。</div></a>
-<a class="giant-card" href="./berkshire-paper-chain-600963.html"><div class="gc-title">岳阳林纸</div><div class="gc-code">600963</div><div class="gc-meta">文化纸+林业碳汇·央企</div><div class="gc-desc">文化纸+林业资源（碳汇）央企平台，诚通旗下，林业资产与改革是特色变量。</div></a>
-<a class="giant-card" href="./berkshire-paper-chain-002511.html"><div class="gc-title">中顺洁柔</div><div class="gc-code">002511</div><div class="gc-meta">生活用纸消费品</div><div class="gc-desc">生活用纸品牌（洁柔）龙头，最偏消费品的造纸标的，渠道+品牌是核心。</div></a>
-<a class="giant-card" href="./berkshire-paper-chain-002067.html"><div class="gc-title">景兴纸业</div><div class="gc-code">002067</div><div class="gc-meta">包装纸·中小</div><div class="gc-desc">箱板瓦楞包装纸区域龙头（浙江），规模中等、盈利薄，周期弹性标的。</div></a>
-<a class="giant-card" href="./berkshire-paper-chain-600103.html"><div class="gc-title">青山纸业</div><div class="gc-code">600103</div><div class="gc-meta">包装纸+医药双主业</div><div class="gc-desc">包装纸（纸袋纸）+头孢医药双主业，造纸老牌国企，盈利薄、转型杂。</div></a>
-<a class="giant-card" href="./berkshire-paper-chain-600308.html"><div class="gc-title">华泰股份</div><div class="gc-code">600308</div><div class="gc-meta">新闻纸龙头·转型化工</div><div class="gc-desc">新闻纸龙头，受无纸化冲击转型盐化工（烧碱/环氧丙烷），盈利周期波动。</div></a>
-<a class="giant-card" href="./berkshire-paper-chain-600235.html"><div class="gc-title">民丰特纸</div><div class="gc-code">600235</div><div class="gc-meta">特种纸·老牌</div><div class="gc-desc">特种纸（卷烟纸/描图纸）老牌企业，小而专、盈利薄、估值贵。</div></a>
-</div>
-
-<div class="source-note">
-  📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
-</div>
-
-</div>
-
-<script src="./analytics.js"></script>
-<script src="./tdx-link.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.sortable').forEach(function(t){
-    t.querySelectorAll('th').forEach(function(th,i){
-      th.addEventListener('click',function(){
-        var d=t.querySelector('tbody');
-        var rows=Array.from(d.querySelectorAll('tr'));
-        var asc=th.classList.contains('sorted-asc');
-        th.classList.remove('sorted-asc','sorted-desc');
-        rows.sort(function(a,b){
-          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
-          av=parseFloat(av); bv=parseFloat(bv);
-          return asc?bv-av:av-bv;
-        });
-        th.classList.add(asc?'sorted-desc':'sorted-asc');
-        rows.forEach(function(r){d.appendChild(r)});
-      });
-    });
-  });
-});
-</script>
-<div class="section-title">延伸阅读 · 造纸 7 兄弟页</div>
-<div class="extend-grid">
-<a class="extend-card" href="./berkshire-paper-compare.html"><b>🥇 估值分位</b><span>造纸（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-paper-thermometer.html"><b>🌡️ 估值温度计</b><span>造纸（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-paper-buyback.html"><b>💰 回购监测</b><span>造纸（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-paper-repomap.html"><b>🗺️ 板块图谱</b><span>造纸（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-paper-backtest.html"><b>📈 五年回测</b><span>造纸（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-paper-cycle.html"><b>🔄 周期演进</b><span>造纸（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-paper-methodology.html"><b>📘 方法论说明</b><span>造纸（估值/回购/周期研究的取值口径与可信区间）</span></a>
-</div>
-<div class="back-bar">
-<a href="./berkshire-chain-map.html">← 全链索引</a>
-<a href="./berkshire-standalone.html">← 数据中心首页</a>
-</div>
-</body>
+<div class="research-signal">
+
+  <div class="rs-grid">
+
+    <div class="rs-item"><div class="rs-label">周期位置</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">景气底部·破净</div></div>
+
+    <div class="rs-item"><div class="rs-label">景气方向</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">弱复苏</div></div>
+
+    <div class="rs-item"><div class="rs-label">结论信号</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">🟡 中性偏积极(左侧)</div></div>
+
+    <div class="rs-item"><div class="rs-label">核心催化</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">浆价↓/需求↑/改革</div></div>
+
+    <div class="rs-item"><div class="rs-label">关键风险</div><div class="rs-val" style="font-size:12px;font-weight:600;color:var(--navy)">浆价反弹/负债</div></div>
+
+  </div>
+
+  <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:13px;line-height:1.8">
+
+<div style="font-weight:700;color:var(--navy)">周期位置</div><div>2024–2025 行业处于景气底部：需求疲软（文化纸受无纸化+教辅下滑、包装纸受出口/消费拖累）、木浆自 2022 高点回落后企稳、纸价低迷、多家龙头亏损或债务承压；估值大面积破净（多数 PB 分位 <10%）。</div>
+
+<div style="font-weight:700;color:var(--navy)">景气方向</div><div>弱复苏。木浆价格较 2022 高点大幅回落缓解成本，但终端需求恢复慢；白卡/箱板产能仍偏过剩，纸价提涨落地艰难，盈利修复斜率平缓。</div>
+
+<div style="font-weight:700;color:var(--navy)">结论信号</div><div><b>🟡 中性偏积极（左侧布局）</b> — 破净 + 个别高股息提供安全边际，但须甄别「价值陷阱」（晨鸣/山鹰高负债）与真正一体化龙头（太阳），在需求明确回暖前不追高、分批。</div>
+
+<div style="font-weight:700;color:var(--navy)">核心催化</div><div>①木浆价格低位/继续下行→毛利修复　②消费/出口/地产链需求回暖　③产能出清与自律限产　④央企改革/资产注入（岳阳林纸）　⑤分红与回购升温。</div>
+
+<div style="font-weight:700;color:var(--navy)">关键风险</div><div>①木浆价格反弹吞噬毛利　②需求持续低迷　③产能过剩引发价格战　④环保/能耗约束趋严　⑤高负债企业流动性风险（晨鸣/山鹰）。</div>
+
+  </div>
+
+  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:12px;color:var(--muted)">数据锚：平均 PE分位 ≈44% · 平均 PB分位 ≈23%（受亏损企业扭曲）；破净约 5/10；一体化龙头太阳 PB分位仅 6%。结论为框架合成，需结合实盘研究校验。</div>
+
+</div>
+
+
+
+<h2 class="section-title">🏛 5 层分析框架（造纸专属）</h2>
+
+<div class="layers">
+
+<div class="layer-card"><div class="layer-num">01</div><div class="layer-name">上游浆料</div><div class="layer-text">木浆（针叶/阔叶）/废纸（再生纤维）/非木浆。木浆占成本 60–70%，针叶浆进口依赖度高（加拿大/智利/芬兰）；废纸受「禁废令」后转向再生浆/进口。议价看全球浆厂与汇率。</div></div>
+
+<div class="layer-card"><div class="layer-num">02</div><div class="layer-name">中游造纸</div><div class="layer-text">按纸种分文化纸（双胶/铜版/新闻）、包装纸（箱板/瓦楞/白卡）、生活用纸、特种纸。规模效应+纸机幅宽决定成本；产能利用率与纸价是盈利核心。</div></div>
+
+<div class="layer-card"><div class="layer-num">03</div><div class="layer-name">下游应用</div><div class="layer-text">文化纸→出版印刷/教辅；包装纸→消费/出口/电商物流/食品饮料；生活用纸→零售；特种纸→烟/电/医等工业。需求与宏观经济、消费、出口强相关。</div></div>
+
+<div class="layer-card"><div class="layer-num">04</div><div class="layer-name">竞争格局</div><div class="layer-text">木浆系（太阳/晨鸣/博汇）vs 废纸系（山鹰/景兴）；央企（岳阳林纸/中国纸业）vs 民企；APP（博汇）等外资。集中度偏低、同质化，龙头靠一体化+林浆纸+规模降本。</div></div>
+
+<div class="layer-card"><div class="layer-num">05</div><div class="layer-name">投资逻辑</div><div class="layer-text">看「浆价周期(成本) × 纸价(供需) × 估值(破净) × 一体化壁垒」；一体化（自有浆）在浆价上行时防御、下行时弹性；高负债企业在周期底易被流动性击垮，须甄别价值陷阱。</div></div>
+
+</div>
+
+
+
+<h2 class="section-title">📈 估值历史分位总览</h2>
+
+<table class="ovtable sortable" data-type="num">
+
+  <thead><tr><th>公司</th><th>代码</th><th>PE(TTM) / 分位</th><th>PB / 分位</th><th>ROE</th></tr></thead>
+
+  <tbody>
+
+<tr><td><a href="./berkshire-paper-chain-002078.html"><b>太阳纸业</b></a></td><td class="num">12.3</td><td><span class="pct pct-pct-mid">40%</span></td><td class="num">1.31</td><td><span class="pct pct-pct-lo">6%</span></td><td class="num">11.0%</td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-000488.html"><b>晨鸣纸业</b></a></td><td class="num">-0.67</td><td><span class="pct pct-pct-lo">23%</span></td><td class="num">6.18</td><td><span class="pct pct-pct-hi">98%</span></td><td class="num">-164.9%</td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600966.html"><b>博汇纸业</b></a></td><td class="num">38.6</td><td><span class="pct pct-pct-hi">74%</span></td><td class="num">0.81</td><td><span class="pct pct-pct-lo">3%</span></td><td class="num">2.2%</td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600567.html"><b>山鹰国际</b></a></td><td class="num">-7.2</td><td><span class="pct pct-pct-lo">12%</span></td><td class="num">0.54</td><td><span class="pct pct-pct-lo">4%</span></td><td class="num">-7.5%</td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600963.html"><b>岳阳林纸</b></a></td><td class="num">-23.6</td><td><span class="pct pct-pct-lo">16%</span></td><td class="num">0.73</td><td><span class="pct pct-pct-lo">8%</span></td><td class="num">-3.0%</td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-002511.html"><b>中顺洁柔</b></a></td><td class="num">28.1</td><td><span class="pct pct-pct-lo">4%</span></td><td class="num">1.64</td><td><span class="pct pct-pct-lo">7%</span></td><td class="num">5.9%</td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-002067.html"><b>景兴纸业</b></a></td><td class="num">110.1</td><td><span class="pct pct-pct-hi">78%</span></td><td class="num">0.92</td><td><span class="pct pct-pct-mid">56%</span></td><td class="num">0.9%</td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600103.html"><b>青山纸业</b></a></td><td class="num">106.5</td><td><span class="pct pct-pct-hi">90%</span></td><td class="num">1.47</td><td><span class="pct pct-pct-mid">43%</span></td><td class="num">1.4%</td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600308.html"><b>华泰股份</b></a></td><td class="num">-71.5</td><td><span class="pct pct-pct-lo">12%</span></td><td class="num">0.52</td><td><span class="pct pct-pct-lo">3%</span></td><td class="num">-0.7%</td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600235.html"><b>民丰特纸</b></a></td><td class="num">108.1</td><td><span class="pct pct-pct-hi">87%</span></td><td class="num">1.17</td><td><span class="pct pct-pct-lo">6%</span></td><td class="num">1.1%</td></tr>
+
+  </tbody>
+
+</table>
+
+<div class="source-note" style="margin-top:10px">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。<span class="pct pct-lo">绿</span>偏低/便宜　<span class="pct pct-mid">橙</span>中位　<span class="pct pct-hi">红</span>偏高/贵。亏损企业 PE 为负、PE 分位不适用，仅看 PB；分位为时点统计。</div>
+
+
+
+<h2 class="section-title">⚖ R15 三维评级总览</h2>
+
+<table class="ovtable sortable" data-type="num">
+
+  <thead><tr><th>公司</th><th>PE</th><th>PB</th><th>估值星级</th><th>质量星级</th><th>时机分</th></tr></thead>
+
+  <tbody>
+
+<tr><td><a href="./berkshire-paper-chain-002078.html"><b>太阳纸业</b></a></td><td><span class="pct pct-pct-mid">★★★</span></td><td><span class="pct pct-pct-lo">★★★</span></td><td class="num">8</td><td><span class="pct pct-pct-mid">40%</span></td><td><span class="pct pct-pct-lo">6%</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-000488.html"><b>晨鸣纸业</b></a></td><td><span class="pct pct-pct-lo">★★★★</span></td><td><span class="pct pct-pct-hi">★</span></td><td class="num">4</td><td><span class="pct pct-pct-lo">23%</span></td><td><span class="pct pct-pct-hi">98%</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600966.html"><b>博汇纸业</b></a></td><td><span class="pct pct-pct-hi">★★★</span></td><td><span class="pct pct-pct-lo">★</span></td><td class="num">6</td><td><span class="pct pct-pct-hi">74%</span></td><td><span class="pct pct-pct-lo">3%</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600567.html"><b>山鹰国际</b></a></td><td><span class="pct pct-pct-lo">★★★★★</span></td><td><span class="pct pct-pct-lo">★</span></td><td class="num">9</td><td><span class="pct pct-pct-lo">12%</span></td><td><span class="pct pct-pct-lo">4%</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600963.html"><b>岳阳林纸</b></a></td><td><span class="pct pct-pct-lo">★★★★</span></td><td><span class="pct pct-pct-lo">★</span></td><td class="num">9</td><td><span class="pct pct-pct-lo">16%</span></td><td><span class="pct pct-pct-lo">8%</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-002511.html"><b>中顺洁柔</b></a></td><td><span class="pct pct-pct-lo">★★★★★</span></td><td><span class="pct pct-pct-lo">★</span></td><td class="num">9</td><td><span class="pct pct-pct-lo">4%</span></td><td><span class="pct pct-pct-lo">7%</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-002067.html"><b>景兴纸业</b></a></td><td><span class="pct pct-pct-hi">★</span></td><td><span class="pct pct-pct-mid">★</span></td><td class="num">3</td><td><span class="pct pct-pct-hi">78%</span></td><td><span class="pct pct-pct-mid">56%</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600103.html"><b>青山纸业</b></a></td><td><span class="pct pct-pct-hi">★</span></td><td><span class="pct pct-pct-mid">★</span></td><td class="num">3</td><td><span class="pct pct-pct-hi">90%</span></td><td><span class="pct pct-pct-mid">43%</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600308.html"><b>华泰股份</b></a></td><td><span class="pct pct-pct-lo">★★★★★</span></td><td><span class="pct pct-pct-lo">★</span></td><td class="num">9</td><td><span class="pct pct-pct-lo">12%</span></td><td><span class="pct pct-pct-lo">3%</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600235.html"><b>民丰特纸</b></a></td><td><span class="pct pct-pct-hi">★</span></td><td><span class="pct pct-pct-lo">★</span></td><td class="num">5</td><td><span class="pct pct-pct-hi">87%</span></td><td><span class="pct pct-pct-lo">6%</span></td></tr>
+
+  </tbody>
+
+</table>
+
+<div class="source-note" style="margin-top:10px">R15 三维：①<b>估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；②<b>质量星级</b>=近10年ROE均值（★越多质地越好）；③<b>时机分</b>=链周期指数百分位（分越高越接近周期底部）。数据为时点统计。</div>
+
+
+
+<h2 class="section-title">🏭 产业链成本传导（浆价 → 毛利 → 利润）</h2>
+
+<div class="cost-block">
+
+  <svg viewBox="0 0 800 150" class="cost-svg" xmlns="http://www.w3.org/2000/svg">
+
+    <defs><marker id="arr-pa" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0 0, 8 4, 0 8" fill="#f59e0b"/></marker></defs>
+
+    <g><rect x="15" y="40" width="150" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="90" y="63" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0b1f3a">上游·木浆/废纸</text><text x="90" y="80" text-anchor="middle" font-size="10" fill="#6b7a93">占成本 60–70%</text></g>
+
+    <g><rect x="225" y="40" width="150" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="300" y="63" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0b1f3a">中游·造纸</text><text x="300" y="80" text-anchor="middle" font-size="10" fill="#6b7a93">产能/纸机/利用率</text></g>
+
+    <g><rect x="435" y="40" width="150" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="510" y="63" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0b1f3a">下游·纸价</text><text x="510" y="80" text-anchor="middle" font-size="10" fill="#6b7a93">供需定售价</text></g>
+
+    <g><rect x="645" y="40" width="140" height="48" rx="6" fill="white" stroke="#f59e0b" stroke-width="1.5"/><text x="715" y="63" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0b1f3a">利润</text><text x="715" y="80" text-anchor="middle" font-size="10" fill="#6b7a93">毛利-费用</text></g>
+
+    <line x1="165" y1="64" x2="225" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-pa)"/>
+
+    <line x1="375" y1="64" x2="435" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-pa)"/>
+
+    <line x1="585" y1="64" x2="645" y2="64" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-pa)"/>
+
+    <g><rect x="290" y="105" width="220" height="34" rx="6" fill="#fbf7ee" stroke="#f59e0b" stroke-width="1.5"/><text x="400" y="127" text-anchor="middle" font-size="12" font-weight="700" fill="#0b1f3a">一体化(自有浆)=护城河变量</text></g>
+
+  </svg>
+
+  <p class="cost-note" style="font-style:normal;text-align:left"><p>造纸<b>成本传导本质=浆价→毛利→利润</b>。木浆占成本六成以上：浆价上涨时若无纸价传导则毛利压缩（2021–2022 浆价暴涨挤压全行业）；浆价下行（2023–2024）则毛利修复。但纸价受产能与需求制约，<b>成本下降未必全转为利润</b>——产能过剩时纸价跟跌，利好被稀释。</p><p>能源（煤/蒸汽）、化工辅料（淀粉/钛白）次之。因此造纸股盈利 ≈ f(浆价↓、纸价↑、产能利用率↑)，<b>浆价方向是最大弹性来源</b>，而「一体化（自有浆产能）」是熨平浆价周期、构筑护城河的核心变量——这也是太阳纸业区别于同业的根本。</p></p>
+
+</div>
+
+
+
+<h2 class="section-title">👥 员工效率排行</h2>
+
+<table class="ovtable sortable" data-type="num">
+
+  <thead><tr><th>公司</th><th>代码</th><th>2025员工</th><th>同比</th><th>人均净利</th><th>效率信号</th></tr></thead>
+
+  <tbody>
+
+<tr><td><a href="./berkshire-paper-chain-002078.html"><b>太阳纸业</b></a></td><td class="num">4057</td><td class="num ">口径异常</td><td class="num">¥80.1万</td><td><span class="emp-badge warn">口径异常</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-000488.html"><b>晨鸣纸业</b></a></td><td class="num">8992</td><td class="num down">-6.3%</td><td class="num">¥-92.3万</td><td><span class="emp-badge warn">收缩</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600966.html"><b>博汇纸业</b></a></td><td class="num">5608</td><td class="num down">-4.7%</td><td class="num">¥2.9万</td><td><span class="emp-badge warn">收缩</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600567.html"><b>山鹰国际</b></a></td><td class="num">1万</td><td class="num down">-3.8%</td><td class="num">¥-8.7万</td><td><span class="emp-badge warn">收缩</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600963.html"><b>岳阳林纸</b></a></td><td class="num">3937</td><td class="num ">口径异常</td><td class="num">¥-6.1万</td><td><span class="emp-badge warn">口径异常</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-002511.html"><b>中顺洁柔</b></a></td><td class="num">5550</td><td class="num down">-9.2%</td><td class="num">¥5.8万</td><td><span class="emp-badge warn">收缩</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-002067.html"><b>景兴纸业</b></a></td><td class="num">2147</td><td class="num down">-1.5%</td><td class="num">¥2.8万</td><td><span class="emp-badge warn">收缩</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600103.html"><b>青山纸业</b></a></td><td class="num">2822</td><td class="num down">-2.9%</td><td class="num">¥2.1万</td><td><span class="emp-badge warn">收缩</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600308.html"><b>华泰股份</b></a></td><td class="num">5771</td><td class="num up">+3.5%</td><td class="num">¥-1.2万</td><td><span class="emp-badge normal">平稳/微增</span></td></tr>
+
+<tr><td><a href="./berkshire-paper-chain-600235.html"><b>民丰特纸</b></a></td><td class="num">920</td><td class="num down">-8.5%</td><td class="num">¥2.2万</td><td><span class="emp-badge warn">收缩</span></td></tr>
+
+  </tbody>
+
+</table>
+
+<div class="source-note" style="margin-top:10px">员工增速=在职员工同比；人均净利=2025 归母净利÷员工数。太阳/岳阳因年报口径（集团 vs 上市主体）不可比，标「口径异常」，不参与排序。组织效能信号为代理指标，非投资建议。</div>
+
+
+
+<h2 class="section-title">🏢 主要玩家索引（上市公司 10 家）</h2>
+
+<div class="grid">
+
+<a class="giant-card" href="./berkshire-paper-chain-002078.html"><div class="gc-title">太阳纸业</div><div class="gc-code">002078</div><div class="gc-meta">林浆纸一体化龙头</div><div class="gc-desc">国内林浆纸一体化最完整的民营龙头，多纸种+自有浆产能，穿越周期能力最强。</div></a>
+
+<a class="giant-card" href="./berkshire-paper-chain-000488.html"><div class="gc-title">晨鸣纸业</div><div class="gc-code">000488</div><div class="gc-meta">文化纸/白卡龙头·债务危机</div><div class="gc-desc">曾经的铜版/白卡龙头，深陷债务流动性危机（ST），是「低估值价值陷阱」的典型反面教材。</div></a>
+
+<a class="giant-card" href="./berkshire-paper-chain-600966.html"><div class="gc-title">博汇纸业</div><div class="gc-code">600966</div><div class="gc-meta">白卡纸龙头·APP控股</div><div class="gc-desc">白卡纸龙头，被金光集团（APP）收购控股，外资浆纸巨头背书+白卡景气是核心变量。</div></a>
+
+<a class="giant-card" href="./berkshire-paper-chain-600567.html"><div class="gc-title">山鹰国际</div><div class="gc-code">600567</div><div class="gc-meta">包装纸/废纸系龙头·债务承压</div><div class="gc-desc">箱板瓦楞包装纸+废纸回收+海外纸厂龙头，债务压力与出海是唯一变量。</div></a>
+
+<a class="giant-card" href="./berkshire-paper-chain-600963.html"><div class="gc-title">岳阳林纸</div><div class="gc-code">600963</div><div class="gc-meta">文化纸+林业碳汇·央企</div><div class="gc-desc">文化纸+林业资源（碳汇）央企平台，诚通旗下，林业资产与改革是特色变量。</div></a>
+
+<a class="giant-card" href="./berkshire-paper-chain-002511.html"><div class="gc-title">中顺洁柔</div><div class="gc-code">002511</div><div class="gc-meta">生活用纸消费品</div><div class="gc-desc">生活用纸品牌（洁柔）龙头，最偏消费品的造纸标的，渠道+品牌是核心。</div></a>
+
+<a class="giant-card" href="./berkshire-paper-chain-002067.html"><div class="gc-title">景兴纸业</div><div class="gc-code">002067</div><div class="gc-meta">包装纸·中小</div><div class="gc-desc">箱板瓦楞包装纸区域龙头（浙江），规模中等、盈利薄，周期弹性标的。</div></a>
+
+<a class="giant-card" href="./berkshire-paper-chain-600103.html"><div class="gc-title">青山纸业</div><div class="gc-code">600103</div><div class="gc-meta">包装纸+医药双主业</div><div class="gc-desc">包装纸（纸袋纸）+头孢医药双主业，造纸老牌国企，盈利薄、转型杂。</div></a>
+
+<a class="giant-card" href="./berkshire-paper-chain-600308.html"><div class="gc-title">华泰股份</div><div class="gc-code">600308</div><div class="gc-meta">新闻纸龙头·转型化工</div><div class="gc-desc">新闻纸龙头，受无纸化冲击转型盐化工（烧碱/环氧丙烷），盈利周期波动。</div></a>
+
+<a class="giant-card" href="./berkshire-paper-chain-600235.html"><div class="gc-title">民丰特纸</div><div class="gc-code">600235</div><div class="gc-meta">特种纸·老牌</div><div class="gc-desc">特种纸（卷烟纸/描图纸）老牌企业，小而专、盈利薄、估值贵。</div></a>
+
+</div>
+
+
+
+<div class="source-note">
+
+  📌 <b>资料与合规</b>：本页所有分析均基于各公司<b>公开年报、官网、产品发布与新闻</b>等事实层信息，由本站原创整理与重写；不复制、不转载任何付费 / 闭源专享内容。文中对具体公司的判断仅作研究框架示例，<b>不构成投资建议</b>。
+
+</div>
+
+
+
+</div>
+
+
+
+<script src="./analytics.js"></script>
+
+<script src="./tdx-link.js"></script>
+
+<script>
+
+document.addEventListener('DOMContentLoaded',function(){
+
+  document.querySelectorAll('.sortable').forEach(function(t){
+
+    t.querySelectorAll('th').forEach(function(th,i){
+
+      th.addEventListener('click',function(){
+
+        var d=t.querySelector('tbody');
+
+        var rows=Array.from(d.querySelectorAll('tr'));
+
+        var asc=th.classList.contains('sorted-asc');
+
+        th.classList.remove('sorted-asc','sorted-desc');
+
+        rows.sort(function(a,b){
+
+          var av=a.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+
+          var bv=b.cells[i].innerText.replace(/[^0-9.\-]/g,'');
+
+          av=parseFloat(av); bv=parseFloat(bv);
+
+          return asc?bv-av:av-bv;
+
+        });
+
+        th.classList.add(asc?'sorted-desc':'sorted-asc');
+
+        rows.forEach(function(r){d.appendChild(r)});
+
+      });
+
+    });
+
+  });
+
+});
+
+</script>
+
+<div class="section-title">延伸阅读 · 造纸 7 兄弟页</div>
+
+<div class="extend-grid">
+
+<a class="extend-card" href="./berkshire-paper-compare.html"><b>🥇 估值分位</b><span>造纸（估值分位横向对比（PE/PB/ROE/股息率/毛利率/负债率））</span></a><a class="extend-card" href="./berkshire-paper-thermometer.html"><b>🌡️ 估值温度计</b><span>造纸（各公司 PB/PE 在子链内的相对位置）</span></a><a class="extend-card" href="./berkshire-paper-buyback.html"><b>💰 回购监测</b><span>造纸（回购进度与历史买点回报监测）</span></a><a class="extend-card" href="./berkshire-paper-repomap.html"><b>🗺️ 板块图谱</b><span>造纸（回购力度/估值锚/管理层信号三维评分地图）</span></a><a class="extend-card" href="./berkshire-paper-backtest.html"><b>📈 五年回测</b><span>造纸（当前估值快照与买点框架回测）</span></a><a class="extend-card" href="./berkshire-paper-cycle.html"><b>🔄 周期演进</b><span>造纸（价格/政策周期脉络与当前位置）</span></a><a class="extend-card" href="./berkshire-paper-methodology.html"><b>📘 方法论说明</b><span>造纸（估值/回购/周期研究的取值口径与可信区间）</span></a>
+
+</div>
+
+<div class="back-bar">
+
+<a href="./berkshire-chain-map.html">← 全链索引</a>
+
+<a href="./berkshire-standalone.html">← 数据中心首页</a>
+
+</div>
+
+</body>
+
