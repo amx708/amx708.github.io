@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>中金岭南 · 涨价逻辑受益</title><style>
+:root{--bg:#f5f9ff;--soft:#eef5ff;--card:#fff;--ink:#0f172a;--mut:#475569;--line:rgba(59,130,246,.15);--red:#dc2626;--green:#16a34a;--accent:#2563eb;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(180deg,#f8fbff 0%,#f0f7ff 100%);background-attachment:fixed;color:var(--ink);line-height:1.7;font-size:15px}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(11,31,58,.82);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
+.topbar-in{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:17px}.brand .ac{color:#f5a623}
+.crumb{font-size:13px;color:#9fb2cf}.crumb a{color:#9fb2cf;text-decoration:none}.crumb a:hover{color:#f5a623}
+.detail{max-width:920px;margin:0 auto;padding:28px 20px 70px}
+.detail .back{color:var(--accent);text-decoration:none;font-size:13px}
+.detail>h1{font-weight:700;letter-spacing:-.5px;margin:10px 0 2px}
+.hero-sub{color:var(--mut);margin:0 0 6px;font-size:14px}
+.section-title{font-size:18px;font-weight:700;margin:34px 0 16px;padding-left:12px;border-left:4px solid var(--accent);color:var(--ink)}
+.note{background:var(--soft);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:13px;color:var(--mut);line-height:1.65}
+.snap{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin:16px 0}
+.snap div{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 10px;text-align:center}
+.snap b{display:block;font-size:19px;color:var(--accent);font-weight:700}
+.snap span{font-size:11px;color:var(--mut)}
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:78px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:260px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.ovw{background:#eef5ff;border:1px solid rgba(59,130,246,.15);border-left:3px solid #2563eb;border-radius:8px;padding:12px 16px;margin:14px 0;font-size:13px;color:#475569;line-height:1.65}
+.mv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.mv-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.mv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#60a5fa)}
+.mv-h{display:flex;align-items:baseline;gap:8px;margin:0 0 2px}
+.mv-h b{font-size:15px;color:var(--ink)}
+.mv-h .en{font-size:11px;color:#94a3b8;font-weight:500}
+.mv-tag{font-size:11px;color:#1d4ed8;background:#eff6ff;border:1px solid rgba(59,130,246,.18);padding:2px 9px;border-radius:20px;display:inline-block;margin:4px 0 8px;font-weight:600}
+.mv-read{font-size:12.5px;color:#334155;line-height:1.7;margin:6px 0}
+.mv-read b{color:#0f172a}
+.mv-q{font-size:12.5px;color:#475569;background:#f8fafc;border-radius:8px;padding:8px 10px;margin:8px 0;line-height:1.6}
+.mv-q .lab{color:#b45309;font-weight:700}
+.mg-viz{display:flex;flex-direction:column;gap:12px;margin:6px 0 10px}
+.mg-row{display:grid;grid-template-columns:90px 1fr 130px;gap:10px;align-items:center;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.mg-label{font-size:12px;color:#0f172a;font-weight:600;line-height:1.3}
+.mg-val{font-size:13px;color:#64748b;font-weight:500}
+.mg-track{position:relative;height:10px;background:#f1f5f9;border-radius:5px;overflow:visible}
+.mg-bar{height:100%;background:#94a3b8;border-radius:5px;position:relative}
+.mg-thr{position:absolute;top:-4px;width:2px;height:18px;background:#0f172a}
+.mg-meta{display:flex;flex-direction:column;gap:3px;align-items:flex-end}
+.mg-status{font-size:12px;font-weight:600;padding:2px 8px;border-radius:6px}
+.mg-on{background:#dcfce7;color:#166534}.mg-off{background:#fef3c7;color:#92400e}.mg-na{background:#f1f5f9;color:#64748b}
+.synth-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px;margin:6px 0 14px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.synth-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.synth-tbl td{border-bottom:1px solid #f1f5f9;padding:7px 8px;vertical-align:top;color:#334155}
+.synth-tbl td.ax{color:#0f172a;font-weight:700;width:140px;white-space:nowrap}
+.synth-verdict{margin-top:10px;padding:9px 12px;background:#f8fafc;border-left:3px solid #a8a29e;border-radius:6px;font-size:13px;line-height:1.6;color:#1e293b}
+.fin-note{font-size:11.5px;color:#64748b;margin-top:8px;line-height:1.55}
+footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid var(--line);margin-top:30px}
+@media(max-width:600px){.mv-grid{grid-template-columns:1fr}.vval{width:auto}.mg-row{grid-template-columns:80px 1fr}.mg-meta{width:100px}}
+
+/*co-sticky-return*/.top-actions{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.top-actions .tret{text-decoration:none;font-size:13px;padding:5px 11px;border-radius:7px;font-weight:500;white-space:nowrap;border:1px solid var(--line);color:var(--mut);transition:.15s}
+.top-actions .tret:hover{color:var(--accent);background:var(--soft);border-color:var(--accent)}
+.top-actions .tret.back{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600}
+.top-actions .tret.back:hover{background:var(--accent-light);color:#fff}
+
+/*masters-outro-css*/
+.mv-outro{background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:16px 20px;margin:18px 0;font-size:14px;line-height:1.85;color:var(--ink)}
+.mv-outro p{margin:0 0 12px}
+.mv-outro p:last-of-type{margin-bottom:0}
+.mv-outro .mv-outro-h{font-weight:700;color:var(--accent);margin:14px 0 4px}
+.mv-check{margin:4px 0 0;padding-left:22px}
+.mv-check li{margin:6px 0}
+.mv-check b{color:var(--accent)}
+
+/*synth-cf-v1*/
+.synth-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px;margin:6px 0 14px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.synth-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.synth-tbl td{border-bottom:1px solid #f1f5f9;padding:7px 8px;vertical-align:top;color:#334155}
+.synth-tbl td.ax{color:#0f172a;font-weight:700;width:140px;white-space:nowrap}
+.synth-verdict{margin-top:10px;padding:9px 12px;background:#f8fafc;border-left:3px solid #a8a29e;border-radius:6px;font-size:13px;line-height:1.6;color:#1e293b}
+.synth-lines{font-size:13px;line-height:1.75;color:#334155}
+.synth-gov{font-size:13px;line-height:1.7;color:#334155}
+.synth-inv-title{font-size:13px;color:#0f172a;font-weight:600;margin-bottom:6px}
+.synth-inv{margin:0;padding-left:20px;font-size:13px;line-height:1.7;color:#334155}
+.synth-inv li{margin-bottom:3px}
+
+</style></head><body>
+<div class="topbar"><div class="topbar-in"><div class="brand">伯克希尔<span class="ac">价值投资初级阶段</span></div><div class="crumb">/ <a href="berkshire-standalone.html">枢纽</a> / <a href="berkshire-chain-map.html">覆盖地图</a> / <a href="articles/price-hike-monitor.html">涨价逻辑监测</a> / 中金岭南</div><div class="top-actions"><a class="tret back" href="articles/price-hike-monitor.html">← 返回</a><a class="tret" href="berkshire-standalone.html">站点枢纽</a><a class="tret" href="index.html">首页</a></div></div></div>
+<div class="detail">
+<a class="back" href="articles/price-hike-monitor.html">← 返回涨价逻辑监测看板</a>
+<h1>中金岭南 <span style="font-size:14px;color:var(--mut)">000060 · 数据采集页</span></h1>
+<p class="hero-sub">涨价逻辑受益代表公司；财务快照与估值分位基于 akshare 公开行情回填（截至 2026-08-01）。以下数据仅供研究参考，不构成投资建议。</p>
+<div class="section-title">公司概述</div><div class="ovw">本页为「涨价逻辑监测」补建的<b>公司数据采集页</b>：中金岭南（000060）是监测清单中锌、铅涨价的受益标的之一。关键弹性：铅锌矿自给；铅锌联产。财务与估值基于 akshare 公开披露回填（截至 2026-08-01），仅供研究参考，不构成投资建议。</div>
+<h3 class="section-title">财务快照（2025-12-31 年报 / 2026-08-01 估值）</h3>
+<div class="snap"><div><b>605.44</b><span>营收(亿)</span></div><div><b>8.02</b><span>归母净利(亿)</span></div><div><b>6.51</b><span>毛利率(%)</span></div><div><b>5.11</b><span>ROE(%)</span></div><div><b>58.62</b><span>负债率(%)</span></div><div><b>20.62</b><span>经营现金流(亿)</span></div><div><b>280.24</b><span>总市值(亿)</span></div><div><b>27.15</b><span>PE</span></div><div><b>1.40</b><span>PB</span></div><div><b>0.8</b><span>股息率(%)</span></div></div>
+<div class="note">营收/归母净利/毛利率/ROE/负债率/经营现金流取自同花顺财务摘要年报；总市值取自腾讯行情；PE/PB 与近十年分位取自百度估值；股息率 = 最新实施方案每股股利 ÷ 现价。本页为补建数据采集页，叙事与五层框架为公开资料整理。</div>
+<div class="section-title">估值历史分位</div><div class="valband"><div class="vrow"><div class="vlab">PE（TTM）</div><div class="vbar"><div class="vfill" style="width:5.5%;background:#16a34a"></div><div class="vmark" style="left:5.5%"></div></div><div class="vval"><b>27.15</b> · 近十年分位 <span class="vtag" style="color:#16a34a">5.5%</span> 低·便宜</div></div><div class="vrow"><div class="vlab">PB</div><div class="vbar"><div class="vfill" style="width:12.9%;background:#16a34a"></div><div class="vmark" style="left:12.9%"></div></div><div class="vval"><b>1.40</b> · 近十年分位 <span class="vtag" style="color:#16a34a">12.9%</span> 低·便宜</div></div></div>
+<div class="section-title"><span class="dot"></span>安全边际量化线（巴菲特式买点阈值）</div>
+<div class="mg-viz"><div class="mg-row"><div class="mg-label">PE分位<br><span class="mg-val">5.5%</span></div><div class="mg-track"><div class="mg-bar" style="width:5.5%"></div><div class="mg-thr" style="left:20.0%"></div></div><div class="mg-meta"><span class="mg-status mg-on">已触发</span><span class="mg-note">阈值 20.0%</span></div></div><div class="mg-row"><div class="mg-label">PB分位<br><span class="mg-val">12.9%</span></div><div class="mg-track"><div class="mg-bar" style="width:12.9%"></div><div class="mg-thr" style="left:20.0%"></div></div><div class="mg-meta"><span class="mg-status mg-on">已触发</span><span class="mg-note">阈值 20.0%</span></div></div><div class="mg-row"><div class="mg-label">股息率线<br><span class="mg-val">0.9%</span></div><div class="mg-track"><div class="mg-bar" style="width:0.9%"></div><div class="mg-thr" style="left:3.1%"></div></div><div class="mg-meta"><span class="mg-status mg-off">未触发</span><span class="mg-note">阈值 3.1%</span></div></div></div>
+<div class="note">安全边际 = 价格显著低于内在价值的缓冲。本线为<b>透明规则触发</b>，非 DCF 精算；现金牛看股息率与低 PB，成长看兑现与分位。不构成买卖建议。</div>
+<!-- synth-cf-start -->
+<div class="section-title"><span class="dot"></span>结论合成 · 护城河 × 估值 × 周期 × 信号</div>
+<div class="synth-card">
+  <table class="synth-tbl">
+    <tr><td class="ax">护城河质量</td><td>—（ROE 数据不足，待采集）</td></tr>
+    <tr><td class="ax">估值便宜度</td><td>PE分位 —% · PB分位 —% → 数据不足</td></tr>
+    <tr><td class="ax">周期位置</td><td>—（CF链未做链级时机量化）</td></tr>
+    <tr><td class="ax">价格信号</td><td>数据不足（待采集）</td></tr>
+  </table>
+  <div class="synth-verdict"><b>综合结论：</b>估值数据不足（待采集），无法做便宜/贵判定</div>
+  <div class="fin-note">本段为<b>机械合成</b>：将本页已呈现的护城河/分位/泊松按透明规则归并，<b>非研究结论、不构成投资建议</b>。规则：便宜+强护城河=便宜的好生意；贵+强护城河=贵的好生意；贵+弱护城河=回避；便宜+弱护城河=警惕价值陷阱。</div>
+</div>
+
+<div class="section-title"><span class="dot"></span>安全边际量化线（巴菲特式买点阈值）</div>
+<div class="synth-card">
+  <div class="synth-lines">• PB分位线：PB历史分位 < 20% 视为低PB安全边际区间 → 当前数据不足（待采集）<br>• PE分位线：PE历史分位 < 20% 视为低PE安全边际区间 → 当前数据不足（待采集）<br>• 现金牛安全边际线：股息率阈值≈3.1%（10Y国债~1.6%+1.5%风险溢价）；当前股息率数据不足（待采集），无法判定。</div>
+  <div class="fin-note">安全边际 = 价格显著低于内在价值的缓冲。本线为<b>透明规则触发</b>，非 DCF 精算；现金牛看股息率与低PB，成长看兑现与分位。不构成买卖建议。</div>
+</div>
+
+<div class="section-title"><span class="dot"></span>治理 / 诚信维度（段永平透镜）</div>
+<div class="synth-card">
+  <div class="synth-gov"><b>治理/诚信风险（混合所有制）</b>：该领域国资与头部民企并存，需分情况审视——民企重点警惕大股东占款、高比例股权质押、关联交易与审计意见风险；国资则审视政策任务与股东回报权衡、关联交易公允性。无论所有制，均应以经营性现金流与税费反推验证财报真实性，并关注审计意见类型。</div>
+</div>
+
+<div class="section-title"><span class="dot"></span>逆向压力测试 · 什么情景下永久损失资本（芒格 invert）</div>
+<div class="synth-card">
+  <div class="synth-inv-title">若以下情景同时或持续发生，中金岭南 的护城河与现金流将被实质性削弱：</div>
+  <ul class="synth-inv"><li>商品价格/景气跌破现金成本且长期低位</li><li>产能无序扩张致加工费与利润塌方</li><li>需求侧（地产/消费/出口）共振下行</li><li>库存减值与安全环保事故</li><li>政策/贸易壁垒冲击</li></ul>
+  <div class="fin-note">invert 思维：先想「怎么亏光」，再谈「怎么赚钱」。缓解因素通常已在护城河与财务板块体现（如低负债、长协、一体化）。</div>
+</div>
+
+<div class="section-title"><span class="dot"></span>两轴拆分 · 估值分位 ≠ 永久损失风险（霍华德·马克斯）</div>
+<div class="synth-card">
+  <table class="synth-tbl">
+    <tr><td class="ax">轴① 估值分位</td><td>PE —% / PB —% → 数据不足</td></tr>
+    <tr><td class="ax">轴② 永久损失风险</td><td>中（cyclical 链性质 + 护城河中（数据不足） 调整后）</td></tr>
+  </table>
+  <div class="synth-verdict"><b>读图：</b>马克斯警告「贵≠高风险」。两轴需结合护城河质量与信号综合判断，勿单看分位定买卖。</div>
+</div>
+
+</div>
+<!--rpt-section-start--><style>
+.rpt-sec{margin:14px 0 4px}
+.rpt-cols{display:flex;gap:20px;flex-wrap:wrap;margin-top:8px}
+.rpt-col{flex:1;min-width:300px}
+.rpt-h{font-size:15px;color:#2e7d5b;margin:4px 0 8px;padding-left:9px;border-left:3px solid #2e7d5b;font-weight:600}
+.rpt-list{list-style:none;margin:0;padding:0}
+.rpt-list li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed #e3e7ee;font-size:13px;line-height:1.45}
+.rpt-list a{color:#1a4f8a;text-decoration:none;flex:1}
+.rpt-list a:hover{text-decoration:underline}
+.rpt-d{color:#8a93a3;font-size:12px;white-space:nowrap;flex-shrink:0}
+.rpt-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.rpt-tbl th{text-align:left;color:#5a6472;padding:5px 7px;border-bottom:2px solid #e3e7ee;font-weight:600}
+.rpt-tbl td{padding:6px 7px;border-bottom:1px solid #f0f2f6;vertical-align:top;line-height:1.45}
+.rpt-tbl a{color:#1a4f8a;text-decoration:none}
+.rpt-tbl a:hover{text-decoration:underline}
+.rpt-rate{color:#c0392b;font-weight:600;white-space:nowrap}
+.rpt-empty{color:#8a93a3;font-size:13px;padding:6px 0}
+.rpt-note{color:#9aa3b2;font-size:12px;margin:8px 0 2px}
+</style><div class="rpt-sec"><div class="section-title"><span class="dot"></span>财报与研报</div><div class="rpt-cols"><div class="rpt-col"><div class="rpt-h">最新财报</div><ul class="rpt-list"><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=000060&amp;announcementId=1225408956&amp;orgId=gssz0000060&amp;announcementTime=2026-07-04 00:00:00" target="_blank" rel="noopener">2026年半年度业绩预告</a><span class="rpt-d">2026-07-04</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=000060&amp;announcementId=1225140778&amp;orgId=gssz0000060&amp;announcementTime=2026-04-22 00:00:00" target="_blank" rel="noopener">募集资金年度报告-众环专字(2026)0500466号</a><span class="rpt-d">2026-04-22</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=000060&amp;announcementId=1225140762&amp;orgId=gssz0000060&amp;announcementTime=2026-04-22 00:00:00" target="_blank" rel="noopener">2025年年度报告</a><span class="rpt-d">2026-04-22</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=000060&amp;announcementId=1224617852&amp;orgId=gssz0000060&amp;announcementTime=2025-08-30 00:00:00" target="_blank" rel="noopener">2025年半年度报告</a><span class="rpt-d">2025-08-30</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=000060&amp;announcementId=1223094665&amp;orgId=gssz0000060&amp;announcementTime=2025-04-15 00:00:00" target="_blank" rel="noopener">2024年年度报告</a><span class="rpt-d">2025-04-15</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=000060&amp;announcementId=1222924110&amp;orgId=gssz0000060&amp;announcementTime=2025-03-28 00:00:00" target="_blank" rel="noopener">2024年度业绩预告</a><span class="rpt-d">2025-03-28</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=000060&amp;announcementId=1221000497&amp;orgId=gssz0000060&amp;announcementTime=2024-08-28 00:00:00" target="_blank" rel="noopener">2024年半年度报告</a><span class="rpt-d">2024-08-28</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=000060&amp;announcementId=1219799641&amp;orgId=gssz0000060&amp;announcementTime=2024-04-25 00:00:00" target="_blank" rel="noopener">2023年年度报告</a><span class="rpt-d">2024-04-25</span></li></ul></div><div class="rpt-col"><div class="rpt-h">近期研报</div><table class="rpt-tbl"><thead><tr><th>日期</th><th>研报标题</th><th>机构</th><th>评级</th></tr></thead><tbody><tr><td>2026-05-13</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202605131822282665_1.pdf' target='_blank' rel='noopener'>高纯金属镓锗铟产量大增，参股金洲精工受益PCB钻针需求爆发</a></td><td>中邮证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2025-11-03</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202511031774350267_1.pdf' target='_blank' rel='noopener'>Q3业绩符合预期，铜冶炼收入增长</a></td><td>华安证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2025-04-20</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202504201659338928_1.pdf' target='_blank' rel='noopener'>2024年归母净利同增57%，矿端加速增储上产</a></td><td>华安证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2024-10-30</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202410301640587727_1.pdf' target='_blank' rel='noopener'>Q3业绩符合预期，矿山产量稳健增长</a></td><td>华安证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2024-10-29</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202410291640578295_1.pdf' target='_blank' rel='noopener'>铅锌价格贡献业绩，上游资源端再发力</a></td><td>国金证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2024-09-01</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202409011639680001_1.pdf' target='_blank' rel='noopener'>铜铅锌产量平稳，冶炼业务利润承压</a></td><td>国信证券</td><td class='rpt-rate'>增持</td></tr><tr><td>2024-08-28</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202408281639505101_1.pdf' target='_blank' rel='noopener'>量稳价增，Q2业绩环比增长</a></td><td>国金证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2024-06-28</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202406281637027473_1.pdf' target='_blank' rel='noopener'>铅锌矿扩建+铜矿投产，业绩有望增厚</a></td><td>华安证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2024-05-12</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202405121632918314_1.pdf' target='_blank' rel='noopener'>金属价格上涨将增厚矿山版块利润</a></td><td>国信证券</td><td class='rpt-rate'>增持</td></tr><tr><td>2024-04-29</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202404291631565771_1.pdf' target='_blank' rel='noopener'>并表铜冶炼厂，增厚公司利润</a></td><td>国金证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2023-10-31</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202310311606770347_1.pdf' target='_blank' rel='noopener'>盈利能力边际改善，持续强链延链</a></td><td>国金证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2023-09-07</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202309071598010307_1.pdf' target='_blank' rel='noopener'>锌价下行利润承压，铜冶炼贡献业绩增量</a></td><td>华安证券</td><td class='rpt-rate'>买入</td></tr></tbody></table></div></div><div class="rpt-note">数据来源：研报来自东方财富网，财报公告来自巨潮资讯网（CNINFO），链接指向原始文件，仅供研究参考。</div></div><!--rpt-section-end--><footer>价值投资初级阶段 · 数据采集页（涨价逻辑监测补建）　|　数据来源：akshare（同花顺财务摘要 / 百度估值 / 腾讯行情）　|　仅供研究参考，不构成投资建议</footer>
+  <script src="/analytics.js"></script>
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+</body></html>
