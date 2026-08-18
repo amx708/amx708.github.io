@@ -48,6 +48,14 @@ h3{font-size:14px;font-weight:650;margin-bottom:10px;color:var(--ink2)}
 .card .d{font-size:12px;color:var(--ink3);margin-top:7px;line-height:1.5}
 .v-up{color:var(--up)} .v-ac{color:var(--accent)} .v-dn{color:var(--down)}
 
+/* hero dual-card: 最厚 vs 推荐 */
+.card-warn{border-left:3px solid var(--warn)!important}
+.card-rec{border-left:3px solid #1f7a45!important}
+.tag-warn{display:inline-block;background:#fef3c7;color:#92400e;font-size:10px;padding:1px 7px;border-radius:8px;margin-left:6px;vertical-align:middle;font-weight:600;letter-spacing:.3px}
+.tag-ok{display:inline-block;background:#d1fae5;color:#065f46;font-size:10px;padding:1px 7px;border-radius:8px;margin-left:6px;vertical-align:middle;font-weight:600;letter-spacing:.3px}
+.warn-box{margin-top:8px;background:#fffbeb;border:1px solid #fcd34d;border-radius:5px;padding:8px 10px;font-size:11.5px;color:#92400e;line-height:1.45}
+.rec-box{margin-top:8px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:5px;padding:8px 10px;font-size:11.5px;color:#065f46;line-height:1.45}
+
 /* conclusion */
 .concl{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;padding:18px 20px}
 .concl ol{margin-left:18px}
@@ -105,6 +113,9 @@ h3{font-size:14px;font-weight:650;margin-bottom:10px;color:var(--ink2)}
 .roll-alert b{font-weight:700}
 .roll-alert.warn b{color:#9a6b00}
 .roll-alert.ok b{color:#1f7a45}
+.daily-note{margin:14px 0 0;padding:12px 16px;border-radius:8px;font-size:13px;line-height:1.7;border-left:4px solid var(--accent);background:#eef3fb;color:var(--ink)}
+.daily-note .t{font-weight:700;margin-right:6px;color:var(--accent)}
+.daily-note b{font-weight:700}
 /* 换月时机详解块 */
 .ops-detail{margin-top:16px;padding:14px 18px;background:var(--panel);border:1px solid var(--line);border-radius:8px}
 .ops-detail h3{font-size:14px;font-weight:700;color:var(--ink2);margin:0 0 10px}
@@ -290,7 +301,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <div class="hd">
   <h1>📊 贴水策略 · 股指期货吃贴水完整方案</h1>
   <div class="sub">
-    <span>数据基准 <b>2026-08-04 结算</b></span>
+    <span>数据基准 <b>2026-08-18 结算</b></span>
     <span>资料来源 <b>网络收录实盘帖 + 中金所参数</b></span>
     <span class="tag tag-w">不构成投资建议</span>
   </div>
@@ -299,7 +310,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <!-- 导航 -->
 <nav class="nav">
   <a href="#core">核心指标</a><a href="#conclusion">结论</a><a href="#term">期限结构</a><a href="#full">全合约</a><a href="#calc">测算器</a><span class="sep">|</span>
-  <a href="#capital">资金管理</a><a href="#redline">风控红线</a><a href="#roll">移仓规则</a><a href="#roll-ops">操作步骤</a><a href="#calendar">交割日历</a><span class="sep">|</span>
+  <a href="#capital">资金管理</a><a href="#redline">风控红线</a><a href="#roll">移仓规则</a><a href="#capital-use">资金机会成本</a><a href="#roll-ops">操作步骤</a><a href="#calendar">交割日历</a><span class="sep">|</span>
   <a href="#report">完整报告</a><a href="#compare">收益拆解</a><a href="#selection">品种选择</a><a href="#timing">择时分析</a><span class="sep">|</span>
   <a href="#enhance">增强模块</a><a href="#cost">摩擦成本</a><a href="#checklist">落地清单</a><a href="#reminder">个人提醒</a>
 </nav>
@@ -309,22 +320,38 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <!-- 核心指标 -->
 <section id="core">
   <div class="cards">
-    <div class="card">
-      <div class="k">当前最厚贴水</div>
-      <div class="v v-up">34.43%</div>
-      <div class="d">IC2608（中证500 · 2026年8月）年化<br>持有到期单手可收 <b>15,150 元</b></div>
+    <!-- 最厚贴水（可能被公式放大，仅展示） -->
+    <div class="card card-warn">
+      <div class="k">📊 当前最厚贴水<span class="tag-warn">短期·仅供参考</span></div>
+      <div class="v v-up">85.67%</div>
+      <div class="d">IC2608（中证500 · 2026年8月）年化<br><span style='color:var(--ink3);font-size:.9em'>今日买→08-21到期结算可吃；剩3天，越晚买收益越少 · 数据2026-08-18</span><br>持有到期单手可收 <b>11,515 元</b></div>
+      
+      <div class="warn-box">⚠ 年化 85.7% 是因仅剩 3 天到期被公式放大，实际绝对收益仅 11,515 元/手，并非真有近 85% 无风险收益。这是「甜点」不是「主菜」。<br><br>💡 <b>人话版：</b>贴水占名义市值其实只有 <b>0.70%</b>（11,515 元 ÷ 约 163 万名义），但因只剩 3 天，公式要 ×(365÷3)=<b>122 倍</b> 把它拉成年化才变成 85.7%。好比「周薪 500 块」被说成「年薪 2.6 万」——数字没错，但听着像暴富。你真正赚的是 <b>3 天 11,515 元</b>，不是一年 85%。<br><br>⚠ <b>这 11,515 元不是「保证到手」</b>：它是「现货价格不变」假设下锁定的贴水。实际到手 = 贴水 11,515 + 持有期间指数涨跌×200。若指数跌 5%，净亏约 70,256 元；跌 10% 即触发追保/强平。</div>
     </div>
+
+    <!-- 推荐执行标的（稳的真肉） -->
+    <div class="card card-rec">
+      <div class="k">🎯 推荐执行标的<span class="tag-ok">长期·主力配置</span></div>
+      <div class="v v-up">13.52%</div>
+      <div class="d">IM2612（中证1000 · 2026年12月）年化<br><span style='color:var(--ink3);font-size:.9em'>今日买→12-18到期结算可吃；剩约122天 · 数据2026-08-18</span><br>持有到期单手可收约 <b>71,833 元</b></div>
+      
+      <div class="rec-box">✅ 年化 13.52% 是真实稳定收益（非公式放大），剩 122 天足够摊薄波动。单手可收约 71,833 元。这是策略的「主菜」，资金优先配这里。</div>
+    </div>
+
+    <!-- 一手名义 -->
     <div class="card">
       <div class="k">一手 IM 名义市值</div>
       <div class="v v-ac">141<span style="font-size:18px">万</span></div>
       <div class="d">这才是真实门槛<br>不是 50 万开户线</div>
     </div>
+    <!-- 历史回撤 -->
     <div class="card">
       <div class="k">历史最大回撤</div>
       <div class="v v-dn">−33%</div>
       <div class="d">无杠杆口径（2018高点起算）<br>2 倍杠杆 = <b>−68%</b></div>
     </div>
   </div>
+  <div id="daily-note" class="daily-note"><span class='t'>【今日解读】</span>远月 IM2703 年化 <b>12.07%</b> 为真实稳定收益（剩213天，单手约 111,953 元）；近月 IC2608 显示 85.7% 是因仅剩 3 天被公式放大，绝对收益仅 11,515 元/手，并非真有近 85% 无风险收益。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。<span class='t'>【今日解读】</span>远月 IM2703 年化 <b>11.5%</b> 为真实稳定收益（剩约227天，单手数万元）；近月 IC2608 显示 57.7% 是因仅剩 4 天被公式放大，绝对收益仅 10,106 元/手，并非真有近 57% 无风险收益。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。
 </section>
 
 <!-- 结论 -->
@@ -380,7 +407,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <span><i style="background:#5a9bd4"></i>IH 上证50</span>
       <span style="margin-left:auto;color:var(--ink3)">柱长 = <b>年化贴水率绝对值</b>（满格 10%）· 红色斜纹 = 升水（亏）· 合约原色 = 贴水（赚）</span>
     </div>
-    <div class="data-stamp">数据截至 <b>2026-08-11</b> 结算价 · 每个交易日 16:00 自动更新</div>
+    <div class="data-stamp">数据截至 <b>2026-08-18</b> 结算价 · 每个交易日 16:00 自动更新</div>
     <div class="bars" id="bars"></div>
     <div class="bars-scale"><span>0%</span><span>5%</span><span>10%</span></div>
     <div class="bars-note">
@@ -600,6 +627,63 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <div class="num">⚡</div>
       <div class="body">如果窗口期远月贴水始终没出来，或资金链紧张、3 天内必须平掉近月 —— <b>不要硬移</b>，把<b>整个仓位一次性换成对应 ETF</b>（如 <code>中证1000ETF(159845)</code> / <code>中证500ETF(510500)</code>）。优点：零移仓成本、不用管合约月份、占用保证金降一档；代价：<b>失去年化 5-10% 的贴水收益</b>。判断阈值：<b>如果移仓的预期收益（剩余贴水年化 × 仓位 × 剩余天数/365）&lt; 2000 元/手</b>，不如直接换 ETF。</div>
     </div>
+  </div>
+</section>
+
+<!-- 资金利用与机会成本 -->
+<section id="capital-use">
+  <h2>资金有限怎么用 · 机会成本与到期时点</h2>
+
+  <div class="ops-callout" style="border-left-color:var(--accent)">
+    <b>一句话：</b>近月与远月是<b>接力</b>，不是二选一。近月到期释放的保证金，立刻能开远月 —— 同一笔钱滚动利用，<b>不存在"买了近月就放弃远月"</b>。真正要算的是：把有限的钱押在哪段、吃哪块肉最划算。
+  </div>
+
+  <h3 style="font-size:13px;font-weight:700;color:var(--ink2);margin:14px 0 6px">一、机会成本算账（以 1 手 IM 保证金 ≈ 21 万为例）</h3>
+  <table>
+    <thead><tr><th>方案</th><th>操作</th><th>资金占用</th><th>年化收益</th><th>机会成本</th></tr></thead>
+    <tbody class="pit">
+      <tr><td>只做远月</td><td>持 IM2703 滚到次年 3 月</td><td>21万锁死</td><td>8.44%（真肉）</td><td>放弃近月间隙收益</td></tr>
+      <tr><td>近月接力</td><td>8/21前平 IC2608 → 开 IM2609/2703</td><td>21万滚动</td><td>8.44% + 近月附加</td><td>几乎无，钱不闲置</td></tr>
+      <tr><td>满仓滚近月</td><td>一直滚最近月</td><td>21万滚动</td><td>看当月贴水</td><td>近月常年贴水薄，多数时段不如远月</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12.5px;color:var(--ink2);line-height:1.65;margin:8px 0 4px">⚠ <b>区分真肉与假肉：</b>当前 IC2608 显示 57.70% 年化，但这是<b>只剩 4 天到期被公式放大</b>的假象，绝对收益只有 <b>10,106 元/手</b>。真实稳定收益在远月（IM2703 年化 8.44%）。近月那 10,106 元是"白捡的间隙收益"——只占用 4 天保证金，到期后钱还能去远月继续吃 8%，<b>两者不冲突</b>。</p>
+
+  <h3 style="font-size:13px;font-weight:700;color:var(--ink2);margin:14px 0 6px">二、资金量级排布</h3>
+  <table>
+    <thead><tr><th>资金量级</th><th>推荐排布</th><th>说明</th></tr></thead>
+    <tbody class="pit">
+      <tr><td>只够 1 手保证金（≈21万）</td><td>1手远月打底，近月有肉顺手吃</td><td>滚动利用，保证金不闲置</td></tr>
+      <tr><td>够 2 手（≈42万）</td><td>1手远月 + 1手近月同时持有</td><td>资金效率最高：远月吃稳肉，近月吃间隙</td></tr>
+      <tr><td>够多手</td><td>多手远月 + 机动近月</td><td>主力吃稳肉，机动仓抓近月异常贴水</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:13px;font-weight:700;color:var(--ink2);margin:14px 0 6px">三、8月21日到期：早上卖还是下午卖？</h3>
+  <div class="ops-detail">
+    <ul>
+      <li><span class="tag tag-do">最省心</span><b>持有到收盘，让系统自动现金交割。</b>股指期货交割价 = 最后交易日标的指数<b>最后 2 小时算术平均价</b>，贴水会在收盘前收敛到 0，你吃满全部贴水，不费操作。</li>
+      <li><span class="tag tag-do">想滚动</span>若计划换远月，<b>不要在 8/21 当天操作</b>。提前 2–3 天（8/18–19）就移仓，避开最后交易日流动性塌方和可能的基差异动。</li>
+      <li><span class="tag tag-do">移仓窗口</span>移仓选<b>尾盘 14:30–15:00</b>。理由：此时近月贴水收敛最充分、与远月价差最干净，滑点最小。</li>
+      <li><span class="tag tag-no">别踩</span>不要在<b>开盘/午盘</b>急匆匆平近月——波动大、贴水未收敛，容易卖在基差还没消失的位置，少赚一点。</li>
+    </ul>
+  </div>
+  <div class="ops-callout">
+    <b>结论：</b>不打算换月的，<b>8/21 收盘前啥都不用干</b>，系统自动结算，贴水落袋；打算换远月的，<b>8/18–19 尾盘</b>平旧开新，别等到交割日当天。
+  </div>
+
+  <h3 style="font-size:13px;font-weight:700;color:var(--ink2);margin:14px 0 6px">四、到底坚持远月还是短期获利出逃（决策树）</h3>
+  <table>
+    <thead><tr><th>当前状态</th><th>决策</th><th>理由</th></tr></thead>
+    <tbody class="pit">
+      <tr><td>已持有近月 IC2608</td><td><b>拿到 8/21 到期</b>，再换远月</td><td>10,106 元是已锁定利润，放弃=白送；4 天后保证金释放接远月，不冲突</td></tr>
+      <tr><td>未开仓、资金有限</td><td><b>直接开远月 IM2703</b></td><td>别为 1 万块折腾 4 天，手续费+滑点可能吃掉几百；远月 76,398 元才是主菜</td></tr>
+      <tr><td>资金充裕（≥2手）</td><td>1手远月 + 1手近月同时持</td><td>资金效率最高，两块肉都吃到</td></tr>
+      <tr><td>担心短期暴跌</td><td>只吃近月、到期观望</td><td>近月只扛 4 天风险 vs 远月扛 7 个半月；避险时近月更安全</td></tr>
+    </tbody>
+  </table>
+  <div class="ops-callout" style="border-left-color:var(--danger)">
+    <b>最差选择：</b>为了追近月那 57.7% 的<b>假高年化</b>，把本来准备投远月的子弹挪过来——那是被公式数字骗了。10,106 元是真金白银，76,398 元远月才是这套策略的主菜。
   </div>
 </section>
 
@@ -990,20 +1074,20 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 </section>
 
 <div class="ft">
-  <b>风险提示：</b>股指期货属高杠杆衍生品。① 保证金不足会被强制平仓，损失可能超过初始保证金；② 贴水非固定收益，2023年 IC 全年仅 186 点，2026年1月一度转升水；③ 吃到 8% 贴水但指数跌 20%，净亏 12% —— <b>贴水只能减亏，不能防跌</b>；④ 远月合约流动性稀薄，极端行情可能无法按理想价格移仓；⑤ 交易所可临时上调保证金率、限制开仓（2015年有先例）；⑥ 本页数据基于 2026-08-11 结算价，基差每日变动，实盘前必须重新核算。<br><br>
+  <b>风险提示：</b>股指期货属高杠杆衍生品。① 保证金不足会被强制平仓，损失可能超过初始保证金；② 贴水非固定收益，2023年 IC 全年仅 186 点，2026年1月一度转升水；③ 吃到 8% 贴水但指数跌 20%，净亏 12% —— <b>贴水只能减亏，不能防跌</b>；④ 远月合约流动性稀薄，极端行情可能无法按理想价格移仓；⑤ 交易所可临时上调保证金率、限制开仓（2015年有先例）；⑥ 本页数据基于 2026-08-18 结算价，基差每日变动，实盘前必须重新核算。<br><br>
   <b>以上为数据整理，不构成投资建议，决策请自行判断。</b>
 </div>
 
 </div>
 
 <script>
-const SPOT={IF:4702.02,IC:8030.95,IM:7733.90,IH:2967.73};
+const SPOT={IF:4725.81,IC:8177.18,IM:7945.96,IH:2940.70};
 const MULT={IM:200,IC:200,IF:300,IH:300};
 const NAME={IM:"IM 中证1000",IC:"IC 中证500",IF:"IF 沪深300",IH:"IH 上证50"};
 const COLOR={IM:"#c0392b",IC:"#d9742b",IF:"#1b4f8f",IH:"#5a9bd4"};
-const DAYS={"2608":10,"2609":38,"2612":129,"2703":220};
+const DAYS={"2608":3,"2609":31,"2612":122,"2703":213};
 const EXPD={"2608":"2026-08-21","2609":"2026-09-18","2612":"2026-12-18","2703":"2027-03-19"};
-const FUT={ IF:{"2608":4675.2,"2609":4644.6,"2612":4565.2,"2703":4489.0}, IC:{"2608":7955.2,"2609":7881.4,"2612":7707.6,"2703":7539.2}, IM:{"2608":7682.8,"2609":7607.2,"2612":7413.2,"2703":7220.0}, IH:{"2608":2956.0,"2609":2936.0,"2612":2893.2,"2703":2865.8}
+const FUT={ IF:{"2608":4706.4,"2609":4670.2,"2612":4587.2,"2703":4515.4}, IC:{"2608":8119.6,"2609":8022.6,"2612":7818.0,"2703":7642.0}, IM:{"2608":7900.8,"2609":7807.0,"2612":7586.8,"2703":7386.2}, IH:{"2608":2932.2,"2609":2911.6,"2612":2868.6,"2703":2836.2}
 };
 const MR=0.15;
 
@@ -1396,5 +1480,6 @@ function update(){
 update();
 </script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">📅 数据自动更新：每周二/四 16:00（AutoJobsHub）</div>
 </body>
 </html>
