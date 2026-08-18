@@ -380,17 +380,17 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <div class="synth-card">
   <table class="synth-tbl">
     <tr><td class="ax">护城河质量</td><td>弱（ROE 最新年报 0.98%）</td></tr>
-    <tr><td class="ax">估值便宜度</td><td>PE分位 —% · PB分位 —% → 数据不足</td></tr>
+    <tr><td class="ax">估值便宜度</td><td>PE分位 98.5% · PB分位 1.0% → 中性</td></tr>
     <tr><td class="ax">周期位置</td><td>—（CF链未做链级时机量化）</td></tr>
-    <tr><td class="ax">价格信号</td><td>数据不足（待采集）</td></tr>
+    <tr><td class="ax">价格信号</td><td>中性（PE分位 98.5% / PB分位 1.0%）</td></tr>
   </table>
-  <div class="synth-verdict"><b>综合结论：</b>估值数据不足（待采集），无法做便宜/贵判定</div>
+  <div class="synth-verdict"><b>综合结论：</b>中性（估值与护城河均未显优势）</div>
   <div class="fin-note">本段为<b>机械合成</b>：将本页已呈现的护城河/分位/泊松按透明规则归并，<b>非研究结论、不构成投资建议</b>。规则：便宜+强护城河=便宜的好生意；贵+强护城河=贵的好生意；贵+弱护城河=回避；便宜+弱护城河=警惕价值陷阱。</div>
 </div>
 
 <div class="section-title"><span class="dot"></span>安全边际量化线（巴菲特式买点阈值）</div>
 <div class="synth-card">
-  <div class="synth-lines">• PB分位线：PB历史分位 < 20% 视为低PB安全边际区间 → 当前数据不足（待采集）<br>• PE分位线：PE历史分位 < 20% 视为低PE安全边际区间 → 当前数据不足（待采集）<br>• 股息率线：现金牛安全边际≈股息率 ≥ 10Y国债(~1.6%) + 1.5%风险溢价 ≈ <b>3.1%</b>；当前股息率 0.63% → <b>未达线（价格未给现金牛安全边际）</b></div>
+  <div class="synth-lines">• PB分位线：PB历史分位 < 20% 视为低PB安全边际区间 → 当前 PB分位 1.0% → 已触发<br>• PE分位线：PE历史分位 < 20% 视为低PE安全边际区间 → 当前 PE分位 98.5% → 未触发（当前偏贵）<br>• 股息率线：现金牛安全边际≈股息率 ≥ 10Y国债(~1.6%) + 1.5%风险溢价 ≈ <b>3.1%</b>；当前股息率 0.63% → <b>未达线（价格未给现金牛安全边际）</b></div>
   <div class="fin-note">安全边际 = 价格显著低于内在价值的缓冲。本线为<b>透明规则触发</b>，非 DCF 精算；现金牛看股息率与低PB，成长看兑现与分位。不构成买卖建议。</div>
 </div>
 
@@ -409,13 +409,49 @@ footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20
 <div class="section-title"><span class="dot"></span>两轴拆分 · 估值分位 ≠ 永久损失风险（霍华德·马克斯）</div>
 <div class="synth-card">
   <table class="synth-tbl">
-    <tr><td class="ax">轴① 估值分位</td><td>PE —% / PB —% → 数据不足</td></tr>
+    <tr><td class="ax">轴① 估值分位</td><td>PE 98.5% / PB 1.0% → 中性</td></tr>
     <tr><td class="ax">轴② 永久损失风险</td><td>中（cyclical 链性质 + 护城河弱 调整后）</td></tr>
   </table>
   <div class="synth-verdict"><b>读图：</b>马克斯警告「贵≠高风险」。两轴需结合护城河质量与信号综合判断，勿单看分位定买卖。</div>
 </div>
 
 </div><!--rpt-section-end--><!--rpt-section-start--><style>
+.rpt-sec{margin:14px 0 4px}
+.rpt-cols{display:flex;gap:20px;flex-wrap:wrap;margin-top:8px}
+.rpt-col{flex:1;min-width:300px}
+.rpt-h{font-size:15px;color:#2e7d5b;margin:4px 0 8px;padding-left:9px;border-left:3px solid #2e7d5b;font-weight:600}
+.rpt-list{list-style:none;margin:0;padding:0}
+.rpt-list li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed #e3e7ee;font-size:13px;line-height:1.45}
+.rpt-list a{color:#1a4f8a;text-decoration:none;flex:1}
+.rpt-list a:hover{text-decoration:underline}
+.rpt-d{color:#8a93a3;font-size:12px;white-space:nowrap;flex-shrink:0}
+.rpt-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.rpt-tbl th{text-align:left;color:#5a6472;padding:5px 7px;border-bottom:2px solid #e3e7ee;font-weight:600}
+.rpt-tbl td{padding:6px 7px;border-bottom:1px solid #f0f2f6;vertical-align:top;line-height:1.45}
+.rpt-tbl a{color:#1a4f8a;text-decoration:none}
+.rpt-tbl a:hover{text-decoration:underline}
+.rpt-rate{color:#c0392b;font-weight:600;white-space:nowrap}
+.rpt-empty{color:#8a93a3;font-size:13px;padding:6px 0}
+.rpt-note{color:#9aa3b2;font-size:12px;margin:8px 0 2px}
+</style><div class="rpt-sec"><div class="section-title"><span class="dot"></span>财报与研报</div><div class="rpt-cols"><div class="rpt-col"><div class="rpt-h">最新财报</div><ul class="rpt-list"><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1225424822&amp;orgId=GD014107&amp;announcementTime=2026-07-15 00:00:00" target="_blank" rel="noopener">2026年半年度业绩预告</a><span class="rpt-d">2026-07-15</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1225012651&amp;orgId=GD014107&amp;announcementTime=2026-03-17 00:00:00" target="_blank" rel="noopener">2025年年度报告</a><span class="rpt-d">2026-03-17</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1224960306&amp;orgId=GD014107&amp;announcementTime=2026-01-31 00:00:00" target="_blank" rel="noopener">2025年度业绩预告</a><span class="rpt-d">2026-01-31</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1224614950&amp;orgId=GD014107&amp;announcementTime=2025-08-29 00:00:00" target="_blank" rel="noopener">2025年半年度报告</a><span class="rpt-d">2025-08-29</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1222823028&amp;orgId=GD014107&amp;announcementTime=2025-03-18 00:00:00" target="_blank" rel="noopener">2024年年度报告</a><span class="rpt-d">2025-03-18</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1222675476&amp;orgId=GD014107&amp;announcementTime=2025-03-01 00:00:00" target="_blank" rel="noopener">2024年度业绩快报</a><span class="rpt-d">2025-03-01</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1221091515&amp;orgId=GD014107&amp;announcementTime=2024-08-31 00:00:00" target="_blank" rel="noopener">2024年半年度报告</a><span class="rpt-d">2024-08-31</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1220739341&amp;orgId=GD014107&amp;announcementTime=2024-07-27 00:00:00" target="_blank" rel="noopener">2024年半年度业绩快报</a><span class="rpt-d">2024-07-27</span></li></ul></div><div class="rpt-col"><div class="rpt-h">近期研报</div><table class="rpt-tbl"><thead><tr><th>日期</th><th>研报标题</th><th>机构</th><th>评级</th></tr></thead><tbody><tr><td>2026-07-15</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202607151826988453_1.pdf' target='_blank' rel='noopener'>公司信息更新报告：上半年销售逆势增长，结转毛利率下降拖累业绩表现</a></td><td>开源证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2026-05-22</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202605221822671513_1.pdf' target='_blank' rel='noopener'>深耕核心城市，央企平台优势凸显</a></td><td>华源证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2026-05-08</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202605081822070794_1.pdf' target='_blank' rel='noopener'>招商蛇口2026年一季报点评：营收同比增长，拿地聚焦核心</a></td><td>太平洋</td><td class='rpt-rate'>买入</td></tr><tr><td>2026-03-25</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202603251820737829_1.pdf' target='_blank' rel='noopener'>行业保持领先，减值同比下降</a></td><td>国信证券</td><td class='rpt-rate'>增持</td></tr><tr><td>2026-03-23</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202603231820706936_1.pdf' target='_blank' rel='noopener'>招商蛇口2025年报点评：拿地聚焦核心，行业排名提升</a></td><td>太平洋</td><td class='rpt-rate'>买入</td></tr><tr><td>2026-03-19</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202603191820647086_1.pdf' target='_blank' rel='noopener'>2025年年报点评：投销聚焦核心城市，减值充分财务稳健</a></td><td>东吴证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2026-03-17</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202603171820594719_1.pdf' target='_blank' rel='noopener'>公司信息更新报告：投资聚焦核心城市，行业排位稳步提升</a></td><td>开源证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2026-02-03</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202602021819426083_1.pdf' target='_blank' rel='noopener'>2025年业绩预告点评：利润阶段性下滑，聚焦核心投销稳健</a></td><td>东吴证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2026-02-02</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202602021819248210_1.pdf' target='_blank' rel='noopener'>深耕核心城市，央企平台优势凸显</a></td><td>华源证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2025-11-04</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202511041774981326_1.pdf' target='_blank' rel='noopener'>招商蛇口2025年三季报点评：毛利率同比提升，业绩平稳增长</a></td><td>太平洋</td><td class='rpt-rate'>买入</td></tr><tr><td>2025-11-02</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202511021773654271_1.pdf' target='_blank' rel='noopener'>公司信息更新报告：毛利率水平明显提升，拿地积极聚焦一线城市</a></td><td>开源证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2025-09-04</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202509041738720547_1.pdf' target='_blank' rel='noopener'>业绩增长，投拓积极</a></td><td>国信证券</td><td class='rpt-rate'>增持</td></tr></tbody></table></div></div><div class="rpt-note">数据来源：研报来自东方财富网，财报公告来自巨潮资讯网（CNINFO），链接指向原始文件，仅供研究参考。</div></div><!--rpt-section-end--><!--rpt-section-start--><style>
+.rpt-sec{margin:14px 0 4px}
+.rpt-cols{display:flex;gap:20px;flex-wrap:wrap;margin-top:8px}
+.rpt-col{flex:1;min-width:300px}
+.rpt-h{font-size:15px;color:#2e7d5b;margin:4px 0 8px;padding-left:9px;border-left:3px solid #2e7d5b;font-weight:600}
+.rpt-list{list-style:none;margin:0;padding:0}
+.rpt-list li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed #e3e7ee;font-size:13px;line-height:1.45}
+.rpt-list a{color:#1a4f8a;text-decoration:none;flex:1}
+.rpt-list a:hover{text-decoration:underline}
+.rpt-d{color:#8a93a3;font-size:12px;white-space:nowrap;flex-shrink:0}
+.rpt-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.rpt-tbl th{text-align:left;color:#5a6472;padding:5px 7px;border-bottom:2px solid #e3e7ee;font-weight:600}
+.rpt-tbl td{padding:6px 7px;border-bottom:1px solid #f0f2f6;vertical-align:top;line-height:1.45}
+.rpt-tbl a{color:#1a4f8a;text-decoration:none}
+.rpt-tbl a:hover{text-decoration:underline}
+.rpt-rate{color:#c0392b;font-weight:600;white-space:nowrap}
+.rpt-empty{color:#8a93a3;font-size:13px;padding:6px 0}
+.rpt-note{color:#9aa3b2;font-size:12px;margin:8px 0 2px}
+</style><div class="rpt-sec"><div class="section-title"><span class="dot"></span>财报与研报</div><div class="rpt-cols"><div class="rpt-col"><div class="rpt-h">最新财报</div><ul class="rpt-list"><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1225424822&amp;orgId=GD014107&amp;announcementTime=2026-07-15 00:00:00" target="_blank" rel="noopener">2026年半年度业绩预告</a><span class="rpt-d">2026-07-15</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1225012651&amp;orgId=GD014107&amp;announcementTime=2026-03-17 00:00:00" target="_blank" rel="noopener">2025年年度报告</a><span class="rpt-d">2026-03-17</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1224960306&amp;orgId=GD014107&amp;announcementTime=2026-01-31 00:00:00" target="_blank" rel="noopener">2025年度业绩预告</a><span class="rpt-d">2026-01-31</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1224614950&amp;orgId=GD014107&amp;announcementTime=2025-08-29 00:00:00" target="_blank" rel="noopener">2025年半年度报告</a><span class="rpt-d">2025-08-29</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1222823028&amp;orgId=GD014107&amp;announcementTime=2025-03-18 00:00:00" target="_blank" rel="noopener">2024年年度报告</a><span class="rpt-d">2025-03-18</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1222675476&amp;orgId=GD014107&amp;announcementTime=2025-03-01 00:00:00" target="_blank" rel="noopener">2024年度业绩快报</a><span class="rpt-d">2025-03-01</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1221091515&amp;orgId=GD014107&amp;announcementTime=2024-08-31 00:00:00" target="_blank" rel="noopener">2024年半年度报告</a><span class="rpt-d">2024-08-31</span></li><li><a href="http://www.cninfo.com.cn/new/disclosure/detail?stockCode=001979&amp;announcementId=1220739341&amp;orgId=GD014107&amp;announcementTime=2024-07-27 00:00:00" target="_blank" rel="noopener">2024年半年度业绩快报</a><span class="rpt-d">2024-07-27</span></li></ul></div><div class="rpt-col"><div class="rpt-h">近期研报</div><table class="rpt-tbl"><thead><tr><th>日期</th><th>研报标题</th><th>机构</th><th>评级</th></tr></thead><tbody><tr><td>2026-07-15</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202607151826988453_1.pdf' target='_blank' rel='noopener'>公司信息更新报告：上半年销售逆势增长，结转毛利率下降拖累业绩表现</a></td><td>开源证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2026-05-22</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202605221822671513_1.pdf' target='_blank' rel='noopener'>深耕核心城市，央企平台优势凸显</a></td><td>华源证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2026-05-08</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202605081822070794_1.pdf' target='_blank' rel='noopener'>招商蛇口2026年一季报点评：营收同比增长，拿地聚焦核心</a></td><td>太平洋</td><td class='rpt-rate'>买入</td></tr><tr><td>2026-03-25</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202603251820737829_1.pdf' target='_blank' rel='noopener'>行业保持领先，减值同比下降</a></td><td>国信证券</td><td class='rpt-rate'>增持</td></tr><tr><td>2026-03-23</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202603231820706936_1.pdf' target='_blank' rel='noopener'>招商蛇口2025年报点评：拿地聚焦核心，行业排名提升</a></td><td>太平洋</td><td class='rpt-rate'>买入</td></tr><tr><td>2026-03-19</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202603191820647086_1.pdf' target='_blank' rel='noopener'>2025年年报点评：投销聚焦核心城市，减值充分财务稳健</a></td><td>东吴证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2026-03-17</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202603171820594719_1.pdf' target='_blank' rel='noopener'>公司信息更新报告：投资聚焦核心城市，行业排位稳步提升</a></td><td>开源证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2026-02-03</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202602021819426083_1.pdf' target='_blank' rel='noopener'>2025年业绩预告点评：利润阶段性下滑，聚焦核心投销稳健</a></td><td>东吴证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2026-02-02</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202602021819248210_1.pdf' target='_blank' rel='noopener'>深耕核心城市，央企平台优势凸显</a></td><td>华源证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2025-11-04</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202511041774981326_1.pdf' target='_blank' rel='noopener'>招商蛇口2025年三季报点评：毛利率同比提升，业绩平稳增长</a></td><td>太平洋</td><td class='rpt-rate'>买入</td></tr><tr><td>2025-11-02</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202511021773654271_1.pdf' target='_blank' rel='noopener'>公司信息更新报告：毛利率水平明显提升，拿地积极聚焦一线城市</a></td><td>开源证券</td><td class='rpt-rate'>买入</td></tr><tr><td>2025-09-04</td><td><a href='https://pdf.dfcfw.com/pdf/H3_AP202509041738720547_1.pdf' target='_blank' rel='noopener'>业绩增长，投拓积极</a></td><td>国信证券</td><td class='rpt-rate'>增持</td></tr></tbody></table></div></div><div class="rpt-note">数据来源：研报来自东方财富网，财报公告来自巨潮资讯网（CNINFO），链接指向原始文件，仅供研究参考。</div></div><!--rpt-section-end--><!--rpt-section-start--><style>
 .rpt-sec{margin:14px 0 4px}
 .rpt-cols{display:flex;gap:20px;flex-wrap:wrap;margin-top:8px}
 .rpt-col{flex:1;min-width:300px}
