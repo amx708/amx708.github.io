@@ -38,7 +38,8 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
 .tag-red { background:#fee2e2; color:#dc2626; }
 
 /* ===== 全站总览卡(深色玻璃,占满整行) ===== */
-.card-portal { grid-column:1 / -1; display:flex; align-items:center; gap:24px; padding:28px 32px; background:linear-gradient(135deg,#0f1729 0%,#1b2c4d 60%,#0a0e1a 100%); color:#fff; border:1px solid rgba(245,215,110,.3); border-radius:var(--radius); box-shadow:0 4px 24px rgba(15,23,42,.4); text-decoration:none; transition:all .2s; position:relative; overflow:hidden; }
+/* 2026-08-19 老板指令:首页隐藏此卡,_portal.html 路径保留;以后想回来就改 display:flex 即可 */
+.card-portal { grid-column:1 / -1; display:none; align-items:center; gap:24px; padding:28px 32px; background:linear-gradient(135deg,#0f1729 0%,#1b2c4d 60%,#0a0e1a 100%); color:#fff; border:1px solid rgba(245,215,110,.3); border-radius:var(--radius); box-shadow:0 4px 24px rgba(15,23,42,.4); text-decoration:none; transition:all .2s; position:relative; overflow:hidden; }
 .card-portal::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 90% 20%,rgba(45,212,191,.15) 0%,transparent 50%); pointer-events:none; }
 .card-portal:hover { transform:translateY(-3px); box-shadow:0 8px 32px rgba(245,215,110,.2); border-color:rgba(245,215,110,.6); }
 .card-portal .portal-ico { font-size:48px; flex-shrink:0; filter:drop-shadow(0 0 8px rgba(245,215,110,.4)); }
