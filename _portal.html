@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>伯克希尔数据中心 · 一站式总览</title>
+<link rel="icon" type="image/x-icon" href="./favicon.ico">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0e1a; --panel:rgba(255,255,255,.04); --panel-strong:rgba(255,255,255,.07);
+  --border:rgba(255,255,255,.08); --border-strong:rgba(120,180,255,.22);
+  --text:#e8eefc; --text2:#a3b3cc; --text3:#6b7a99;
+  --gold:#f5d76e; --teal:#2dd4bf; --rose:#f87171; --green:#34d399;
+  --shadow:0 4px 16px rgba(0,0,0,.5);
+}
+html,body{background:var(--bg);color:var(--text);}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;min-height:100vh;line-height:1.65;}
+
+/* ==== Hero ==== */
+.hero{position:relative;background:linear-gradient(135deg,#0f1729 0%,#1b2c4d 60%,#0a0e1a 100%);padding:48px 20px 56px;text-align:center;overflow:hidden;border-bottom:1px solid var(--border-strong);}
+.hero::before{content:"";position:absolute;inset:-2px;background:radial-gradient(circle at 20% 0%,rgba(45,212,191,.18) 0%,transparent 50%),radial-gradient(circle at 80% 60%,rgba(99,102,241,.18) 0%,transparent 50%);pointer-events:none;}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto;}
+.brand{font-size:13px;letter-spacing:6px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;font-weight:700;opacity:.85;}
+.hero h1{font-size:34px;font-weight:800;letter-spacing:1px;margin-bottom:14px;background:linear-gradient(135deg,#f5d76e 0%,#fff 50%,#2dd4bf 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero p{font-size:15px;color:var(--text2);max-width:780px;margin:0 auto 22px;}
+.stats{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:18px;}
+.stat{background:var(--panel);backdrop-filter:blur(10px);border:1px solid var(--border-strong);border-radius:14px;padding:14px 22px;min-width:140px;}
+.stat .n{font-size:24px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;letter-spacing:.5px;}
+.stat .l{font-size:12px;color:var(--text3);margin-top:2px;letter-spacing:1px;}
+
+/* ==== Sections ==== */
+.wrap{max-width:1180px;margin:0 auto;padding:30px 18px 70px;}
+section{margin-top:30px;}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;padding:0 4px 14px;border-bottom:1px dashed var(--border);margin-bottom:18px;flex-wrap:wrap;gap:8px;}
+.section-head h2{font-size:18px;font-weight:700;color:var(--text);letter-spacing:.5px;}
+.section-head h2 .badge{display:inline-block;font-size:11px;background:var(--gold);color:#0a0e1a;padding:2px 8px;border-radius:10px;margin-left:8px;font-weight:700;vertical-align:middle;}
+.section-head .hint{font-size:12px;color:var(--text3);}
+
+/* ==== Quick entry cards (launcher 17 张 - 深色玻璃) ==== */
+.entry-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;}
+.entry{position:relative;display:block;background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid var(--border-strong);border-radius:14px;padding:18px 18px 16px;text-decoration:none;color:var(--text);backdrop-filter:blur(6px);transition:all .2s;overflow:hidden;}
+.entry::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--teal),transparent);opacity:.6;}
+.entry:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 8px 24px rgba(245,215,110,.15);}
+.entry .ico{font-size:26px;display:inline-block;margin-bottom:8px;filter:drop-shadow(0 0 4px rgba(245,215,110,.5));}
+.entry .ttl{font-size:15.5px;font-weight:700;margin-bottom:6px;color:#fff;}
+.entry .desc{font-size:12.5px;color:var(--text2);line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.entry .tags{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;}
+.entry .tag{font-size:10.5px;padding:2px 8px;border-radius:8px;background:rgba(255,255,255,.08);color:var(--text2);font-weight:600;border:1px solid rgba(255,255,255,.06);}
+.entry .tag.t-purple{background:rgba(168,85,247,.18);color:#d8b4fe;}
+.entry .tag.t-blue{background:rgba(59,130,246,.18);color:#93c5fd;}
+.entry .tag.t-green{background:rgba(34,197,94,.18);color:#86efac;}
+.entry .tag.t-amber{background:rgba(245,158,11,.18);color:#fcd34d;}
+.entry .tag.t-red{background:rgba(239,68,68,.18);color:#fca5a5;}
+
+.entry.local{background:linear-gradient(135deg,rgba(15,23,42,.85),rgba(30,41,59,.6));}
+.entry.local::after{content:"本地";position:absolute;top:10px;right:12px;font-size:10px;padding:2px 8px;border-radius:8px;background:rgba(45,212,191,.15);color:var(--teal);border:1px solid rgba(45,212,191,.3);font-weight:700;letter-spacing:.5px;}
+
+/* ==== Section title divider inside grid ==== */
+.sec-title{grid-column:1/-1;font-size:14px;font-weight:700;color:var(--gold);margin:14px 0 -2px;padding-left:12px;border-left:3px solid var(--gold);letter-spacing:.5px;}
+
+/* ==== Search ==== */
+.search-bar{position:sticky;top:0;background:rgba(10,14,26,.92);backdrop-filter:blur(8px);padding:10px 0 12px;z-index:5;margin-bottom:6px;}
+.search-bar input{width:100%;padding:11px 14px;border-radius:10px;border:1px solid var(--border-strong);background:rgba(255,255,255,.04);color:var(--text);font-size:14px;outline:none;transition:all .2s;}
+.search-bar input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,215,110,.15);}
+.search-meta{font-size:11.5px;color:var(--text3);margin:8px 4px 0;letter-spacing:.3px;}
+
+/* ==== All links details (from _private) ==== */
+#links-target details{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;margin:6px 0;padding:6px 14px;backdrop-filter:blur(4px);}
+#links-target details[open]{background:rgba(255,255,255,.05);}
+#links-target summary{cursor:pointer;font-weight:600;color:var(--text);padding:8px 0;font-size:13.5px;letter-spacing:.3px;display:flex;align-items:center;gap:6px;}
+#links-target summary:hover{color:var(--gold);}
+#links-target summary .cnt{color:var(--text3);font-weight:400;font-size:11.5px;margin-left:auto;font-variant-numeric:tabular-nums;}
+#links-target ul{list-style:none;padding:0 0 8px;}
+#links-target li{padding:3px 0;font-size:12.5px;border-bottom:1px dashed rgba(255,255,255,.05);}
+#links-target li:last-child{border-bottom:none;}
+#links-target li a{color:#93c5fd;text-decoration:none;transition:color .15s;}
+#links-target li a:hover{color:var(--gold);text-decoration:underline;}
+#links-target li .fn{color:var(--text3);font-size:11px;margin-left:6px;}
+#links-target h3.grp{font-size:14px;font-weight:700;color:var(--teal);margin:18px 0 6px;padding-left:10px;border-left:3px solid var(--teal);}
+#links-target footer,#links-target h1,#links-target .sub{display:none;}
+.loading{text-align:center;padding:40px;color:var(--text3);font-size:13px;}
+.loading::before{content:"";display:inline-block;width:14px;height:14px;border:2px solid var(--border-strong);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ==== Footer ==== */
+.foot{text-align:center;padding:24px 16px 36px;font-size:12px;color:var(--text3);border-top:1px solid var(--border);margin-top:30px;}
+.foot .em{color:var(--gold);font-weight:600;}
+.foot .src{display:inline-block;margin:0 6px;color:var(--text2);}
+.foot a{color:var(--text2);text-decoration:none;border-bottom:1px dashed var(--text3);}
+.foot a:hover{color:var(--gold);border-color:var(--gold);}
+
+/* ==== Responsive ==== */
+@media(max-width:760px){
+  .hero{padding:36px 16px 40px;}
+  .hero h1{font-size:24px;}
+  .stats{gap:10px;}
+  .stat{min-width:120px;padding:10px 14px;}
+  .stat .n{font-size:20px;}
+  .wrap{padding:20px 12px 50px;}
+  .entry-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="brand">BERKSHIRE · DATA CENTER</div>
+    <h1>伯克希尔数据中心 · 一站式总览</h1>
+    <p>17 个高频入口 + 全站 3804 页面索引 · 同一份数据 · 本地与线上自动同步 · 以最新数据为准</p>
+    <div class="stats" id="stats">
+      <div class="stat"><div class="n" id="n-quick">17</div><div class="l">快捷入口</div></div>
+      <div class="stat"><div class="n" id="n-pages">3,804</div><div class="l">全站页面</div></div>
+      <div class="stat"><div class="n" id="n-groups">261</div><div class="l">分组数</div></div>
+      <div class="stat"><div class="n" id="n-time">实时</div><div class="l">同步状态</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section>
+    <div class="section-head">
+      <h2>🚀 快捷入口 · Launcher 17<span class="badge">快速通道</span></h2>
+      <span class="hint">与 launcher 首页(127.0.0.1:8080/)· github.io 公开版完全一致 · 数据来源:启动器缓存</span>
+    </div>
+
+    <div class="entry-grid" id="quick-grid">
+
+      <a class="entry" href="./curated36.html">
+        <div class="ico">🌐</div>
+        <div class="ttl">跨境电商参考</div>
+        <div class="desc">精选36篇文章，涵盖商业认知、案例拆解、选品方法论、Shopify 实战、AI+跨境、平台趋势六大分类，支持普通话/粤语朗读。</div>
+        <div class="tags"><span class="tag t-purple">32 篇文章</span><span class="tag t-blue">6 大分类</span><span class="tag t-amber">🔊 朗读</span></div>
+      </a>
+
+      <a class="entry" href="./buffett-partnership-showcase.html">
+        <div class="ico">📚</div>
+        <div class="ttl">巴菲特致股东信</div>
+        <div class="desc">1957-1972 年巴菲特合伙基金及伯克希尔早期致股东信中文合集，RanRan 最佳翻译版，支持逐字高亮朗读。</div>
+        <div class="tags"><span class="tag t-green">16 封信</span><span class="tag t-blue">1957-1972</span><span class="tag t-amber">🔊 朗读</span></div>
+      </a>
+
+      <a class="entry" href="./berkshire-standalone.html">
+        <div class="ico">📜</div>
+        <div class="ttl">伯克希尔投资数据</div>
+        <div class="desc">巴菲特历年投资数据、收购数据、68 封致股东信（1957-2024）、股东大会、演讲等 comprehensive 数据合集。</div>
+        <div class="tags"><span class="tag t-green">68 封信</span><span class="tag t-blue">1957-2024</span><span class="tag t-purple">投资数据</span></div>
+      </a>
+
+      <div class="sec-title">🎯 策略专辑 · 投资方法论</div>
+
+      <a class="entry local" href="./要约收购全案例深度拆解_总览表.html">
+        <div class="ico">🎯</div>
+        <div class="ttl">要约收购套利策略</div>
+        <div class="desc">网络收录的套利方法论（风险系数法 / 策略轮动法 / 事件套利法 / 四步法实战 + 七条铁律与「三个知道」）+ 32 例真实案例全维度拆解。</div>
+        <div class="tags"><span class="tag t-purple">网络收集</span><span class="tag t-blue">套利策略</span><span class="tag t-amber">32 例</span></div>
+      </a>
+
+      <a class="entry local" href="./berkshire-national-team-etf.html">
+        <div class="ico">🛡️</div>
+        <div class="ttl">战略配置型 ETF 买卖信号</div>
+        <div class="desc">以宽基核心 ETF（沪深300/中证500/中证1000/上证50/科创50/创业板）的「超大单+主力净流入」方向，刻画汇金等护盘资金动向。</div>
+        <div class="tags"><span class="tag t-red">信号参考</span><span class="tag t-amber">宽基核心</span></div>
+      </a>
+
+      <a class="entry local" href="./berkshire-chain-map.html">
+        <div class="ico">🗺️</div>
+        <div class="ttl">全 A 产业链</div>
+        <div class="desc">全站产业链的统一入口：把 5000+ 上市公司归并到约 126 条产业链，已深凿与框架版全部可一键直达，自动随站点文件更新状态。</div>
+        <div class="tags"><span class="tag t-blue">12 深凿</span><span class="tag t-green">73 框架</span><span class="tag t-amber">自动布局</span></div>
+      </a>
+
+      <a class="entry local" href="./fear_greed_chart.html">
+        <div class="ico">🎭</div>
+        <div class="ttl">A 股恐贪指数 · 情绪温度计</div>
+        <div class="desc">六维拆解市场情绪（波动率 / 换手 / 融资 / 宽度 / RSI / 涨跌停），每日收盘后自动刷新，附「人话解读」。恐贪&lt;25 进入加仓区。</div>
+        <div class="tags"><span class="tag t-red">情绪温度</span><span class="tag t-blue">每日更新</span><span class="tag t-amber">人话解读</span></div>
+      </a>
+
+      <a class="entry local" href="./market-thermometer-detail.html">
+        <div class="ico">📈</div>
+        <div class="ttl">市场温度计 · 详细版</div>
+        <div class="desc">PE / PB / 股息率 / ERP 等估值分位详细数据，近 15 年历史区间与温度条标注当前位置，离线可读。</div>
+        <div class="tags"><span class="tag t-amber">估值分位</span><span class="tag t-blue">15 年区间</span><span class="tag t-green">离线可读</span></div>
+      </a>
+
+      <a class="entry local" href="./articles/经济冷暖表_总览导航.html">
+        <div class="ico">🌡️</div>
+        <div class="ttl">经济冷暖表 · 总览导航</div>
+        <div class="desc">用金铜比 / 金银比 / 金油比判断当前"偏防御"还是"偏进攻"，帮定仓位舒适度与行业配置倾向。一图看懂 + 宏观象限仪表盘。</div>
+        <div class="tags"><span class="tag t-purple">防御/进攻</span><span class="tag t-blue">金铜·金银·金油</span><span class="tag t-green">每月更新</span></div>
+      </a>
+
+      <a class="entry local" href="./macro-dashboard.html">
+        <div class="ico">🌍</div>
+        <div class="ttl">宏观仪表盘 · 总览</div>
+        <div class="desc">一键看全：CPI / PPI / PMI / M2 / 利率 / 汇率 等核心宏观指标当期值与趋势，颜色约定红涨绿跌，国家统计局等公开来源。</div>
+        <div class="tags"><span class="tag t-purple">宏观全览</span><span class="tag t-blue">官方数据</span><span class="tag t-green">一键看全</span></div>
+      </a>
+
+      <a class="entry local" href="./articles/price-hike-logic.html">
+        <div class="ico">🔥</div>
+        <div class="ttl">涨价逻辑攻略 · 通用方法论</div>
+        <div class="desc">周期股涨价逻辑的通用方法论：五步法、业绩弹性公式、化工/有色实战案例与致命陷阱，附内联弹性计算器。</div>
+        <div class="tags"><span class="tag t-amber">投资方法</span><span class="tag t-green">弹性计算器</span><span class="tag t-blue">化工·有色</span></div>
+      </a>
+
+      <a class="entry local" href="./double_low/index.html">
+        <div class="ico">🔄</div>
+        <div class="ttl">可转债策略</div>
+        <div class="desc">可转债策略子站总入口：双低轮动（策略终端 / 作战手册 / 轮动监控表 / 信号监测器 / 人话详解 / 留底档案）+ 全套数据表。</div>
+        <div class="tags"><span class="tag t-purple">可转债</span><span class="tag t-blue">策略总览</span><span class="tag t-amber">子站导航</span></div>
+      </a>
+
+      <a class="entry local" href="./option-strategy-overview.html">
+        <div class="ico">📈</div>
+        <div class="ttl">期权策略体系总览</div>
+        <div class="desc">期权策略体系总览 + 今日择时日报合并版：方向/波动/区间/对冲四大策略矩阵、环境适配、今日择时信号与复盘，附 KPI 速览与人话解读。</div>
+        <div class="tags"><span class="tag t-blue">期权策略</span><span class="tag t-red">择时日报</span><span class="tag t-green">本地收录</span></div>
+      </a>
+
+      <a class="entry local" href="./discount-strategy.html">
+        <div class="ico">📉</div>
+        <div class="ttl">贴水策略 · 股指期货吃贴水</div>
+        <div class="desc">股指期货吃贴水完整方案：贴水/升水原理、滚贴水收益来源、实操建仓与移仓节奏、风险与对冲，附情景测算与人话解读。</div>
+        <div class="tags"><span class="tag t-purple">股指期货</span><span class="tag t-blue">吃贴水</span><span class="tag t-green">本地收录</span></div>
+      </a>
+
+      <a class="entry local" href="./smallcap/">
+        <div class="ico">🔎</div>
+        <div class="ttl">小市值策略 · 信号看板</div>
+        <div class="desc">小市值策略信号看板：选股因子、打分与排序、择时信号与回测概览，附信号状态与人话解读。</div>
+        <div class="tags"><span class="tag t-amber">小市值</span><span class="tag t-blue">信号看板</span><span class="tag t-green">本地收录</span></div>
+      </a>
+
+      <a class="entry local" href="./每日简单复盘.html">
+        <div class="ico">📋</div>
+        <div class="ttl">每日简单复盘</div>
+        <div class="desc">浏览器直连东方财富公开行情，零后端零安装：涨停池 / 连板梯队 / 板块强度 / 指数 / 龙虎榜。任何设备打开即用。</div>
+        <div class="tags"><span class="tag t-blue">每日复盘</span><span class="tag t-green">零后端</span><span class="tag t-amber">即点即用</span></div>
+      </a>
+
+      <a class="entry local" href="./commodity-dashboard.html">
+        <div class="ico">🛢️</div>
+        <div class="ttl">商品期货</div>
+        <div class="desc">铜金油宏观验证专版 + 全市场 90 合约温度 + 外资持仓结构。铜金油机构多空、涨跌热力图、外资净多/净空榜与「涨跌×外资」交叉验证。</div>
+        <div class="tags"><span class="tag t-amber">商品期货</span><span class="tag t-blue">铜金油宏观</span><span class="tag t-green">外资持仓</span></div>
+      </a>
+
+      <a class="entry local" href="./crei-viz.html">
+        <div class="ico">🏠</div>
+        <div class="ttl">房地产数据看板</div>
+        <div class="desc">房地产核心指标可视化（价格 / 销售 / 投资 / 土地等），网络收录公开数据，多维度交叉看趋势，纯静态看板。</div>
+        <div class="tags"><span class="tag t-blue">房地产</span><span class="tag t-amber">可视化</span><span class="tag t-green">网络收录</span></div>
+      </a>
+
+      <a class="entry local" href="./fred_dashboard.html">
+        <div class="ico">🏦</div>
+        <div class="ttl">FRED 宏观监测看板</div>
+        <div class="desc">圣路易斯联储官方 7 项核心宏观指标（美联储利率 · 中美汇率 · WTI · 10Y/2Y利差 · CPI · 衰退标记等），含趋势图与结论速览；本地快照零后端。</div>
+        <div class="tags"><span class="tag t-blue">美国宏观</span><span class="tag t-amber">官方数据</span><span class="tag t-purple">本地快照</span></div>
+      </a>
+
+      <div class="sec-title">🛠️ 本地监控工具</div>
+
+      <a class="entry local" href="./center_alerts.html#cat-1">
+        <div class="ico">🏷️</div>
+        <div class="ttl">全监控中心 · 错价告警</div>
+        <div class="desc">46 条去重告警按来源类目分栏：机票现金错价（10）/ 酒店错价尾房（6）/ 拼多多捡漏（16）/ 商家推广优惠链接（5）/ 美团团购门票（9）。</div>
+        <div class="tags"><span class="tag t-red">46 条</span><span class="tag t-amber">5 类目</span></div>
+      </a>
+
+      <a class="entry local" href="./irm/">
+        <div class="ico">💬</div>
+        <div class="ttl">互动问答可检索数据库</div>
+        <div class="desc">深交所「互动易」/ 上交所「e互动」 官方问答库，按股票代码 / 关键词 / 日期检索；内置快捷筛选词组（分红 / 产能 / 现金流 / 计提 / 重组）。</div>
+        <div class="tags"><span class="tag t-purple">沪深两市</span><span class="tag t-blue">官方平台</span><span class="tag t-amber">关键词筛选</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>🗂️ 全站 3804 链接索引<span class="badge">与 _private 同步</span></h2>
+      <span class="hint">从 <code>./_private/index.html</code> 实时拉取 · 自动同步</span>
+    </div>
+
+    <div class="search-bar">
+      <input id="search" placeholder="🔍 搜索页面（文件名 / 标题关键字）…" autocomplete="off">
+      <div class="search-meta" id="search-meta">加载完成后可即时过滤 · 搜索时会自动展开匹配分组</div>
+    </div>
+
+    <div id="links-target"><div class="loading">正在加载 3804 个页面索引…</div></div>
+  </section>
+
+  <div class="foot">
+    数据同步策略:
+    <span class="src">本地 <code>deploy_site/_portal.html</code></span>·
+    <span class="src">远端 <a href="https://amx708.github.io/_portal.html" target="_blank">github.io/_portal.html</a></span>
+    ·<span class="em">以最新数据为准</span>·
+    生成于 <span class="em" id="gen-time"></span>·
+    launcher 17 卡源 <code>deploy_site/index.html</code>·
+    3804 链接源 <code>deploy_site/_private/index.html</code>
+  </div>
+
+</div><!-- /.wrap -->
+
+<script>
+document.getElementById('gen-time').textContent = new Date().toISOString().slice(0,10);
+
+// 从 _private/index.html 拉取 3804 链接
+fetch('./_private/index.html', {cache:'no-cache'})
+  .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
+  .then(function(html){
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    var wrap = doc.querySelector('#content .wrap');
+    var target = document.getElementById('links-target');
+    if(!wrap){ target.innerHTML='<div class="loading" style="color:#fca5a5">⚠️ 拉取失败：_private/index.html 找不到 #content</div>'; return; }
+    // 拷 wrap 的所有子节点（剥掉 h1/sub/footer）
+    var kids = Array.from(wrap.children);
+    var copied = 0;
+    kids.forEach(function(el){
+      if(el.tagName==='H1') return;
+      if(el.tagName==='DIV' && el.classList && el.classList.contains('sub')) return;
+      if(el.tagName==='FOOTER') return;
+      target.appendChild(el.cloneNode(true));
+      copied++;
+    });
+    // 统计实际行数
+    var realLinks = target.querySelectorAll('li a').length;
+    var realDetails = target.querySelectorAll('details').length;
+    if(realLinks>0) document.getElementById('n-pages').textContent = realLinks.toLocaleString();
+    if(realDetails>0) document.getElementById('n-groups').textContent = realDetails;
+    document.getElementById('n-time').textContent = '已同步';
+  })
+  .catch(function(err){
+    var target = document.getElementById('links-target');
+    target.innerHTML='<div class="loading" style="color:#fca5a5">⚠️ 拉取失败: '+err.message+'（在 github.io 静态托管下 fetch 跨域限制下，可能需直接打开 <a href="./_private/index.html" style="color:#fcd34d">_private/index.html</a>）</div>';
+  });
+
+// 搜索过滤（展开匹配分组）
+document.getElementById('search').addEventListener('input', function(e){
+  var q = (e.target.value||'').trim().toLowerCase();
+  var details = document.querySelectorAll('#links-target details');
+  var visibleCount = 0;
+  details.forEach(function(d){
+    if(!q){ d.style.display=''; return; }
+    var text = (d.textContent||'').toLowerCase();
+    if(text.indexOf(q) >= 0){ d.style.display=''; d.open = true; visibleCount++; }
+    else { d.style.display='none'; }
+  });
+  document.getElementById('search-meta').textContent = q
+    ? (visibleCount + ' 个分组匹配 · ' + (visibleCount>0?'已自动展开':'无匹配'))
+    : '加载完成后可即时过滤 · 搜索时会自动展开匹配分组';
+});
+</script>
+
+<script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+</body>
+</html>
