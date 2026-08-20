@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="initial-scale=1"><title>旅游横向对比工具</title><style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.08);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.04);color:#475569;border:1px solid rgba(0,0,0,.12);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center;margin-left:auto}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:1000px;margin:0 auto;padding:24px 16px 56px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:30px 28px;margin-bottom:18px;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.hero h1{font-size:25px;font-weight:800;color:#0f172a;margin:0 0 6px}
+.hero p{font-size:13.5px;color:#64748b;margin:0;max-width:820px}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #0f766e}
+.note{background:#fff;border:1px solid rgba(0,0,0,.08);border-left:3px solid #0f766e;border-radius:10px;padding:14px 18px;margin:16px 0;font-size:13px;color:#64748b;line-height:1.7}
+.note a{color:#0f766e}
+.tbl{width:100%;border-collapse:collapse;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;margin:14px 0;font-size:13px}
+.tbl th,.tbl td{border-bottom:1px solid #eef2f7;padding:10px 10px;text-align:center}
+.tbl th{background:#f8fafc;color:#334155;font-weight:700;border-bottom:2px solid rgba(0,0,0,.08)}
+.tbl tr:hover td{background:#f8fafc}
+.cmp-ctrl{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px 18px;margin:14px 0;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.cmp-ctrl .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.cmp-ctrl input[type=text]{flex:1;min-width:180px;border:1px solid rgba(0,0,0,.12);border-radius:8px;padding:9px 12px;font-size:13px;outline:none;background:#f0f2f5;color:#1e293b}
+.cmp-ctrl .fbtn{border:1px solid rgba(0,0,0,.12);background:#f8fafc;color:#64748b;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13px}
+.cmp-ctrl .fbtn.on{background:#0f766e;color:#fff;border-color:#0f766e}
+.cmp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;max-height:240px;overflow:auto;padding:4px}
+.cmp-item{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 9px;border:1px solid rgba(0,0,0,.1);border-radius:8px;cursor:pointer;transition:.15s}
+.cmp-item input{accent-color:#0f766e;width:15px;height:15px}
+.cmp-item .cc{font-size:11px;color:#94a3b8}
+.cmp-sel{font-size:12.5px;color:#64748b;margin:6px 0}
+.cmp-good{color:#16a34a;font-weight:700}
+.cmp-bad{color:#dc2626;font-weight:700}
+.thermo{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #eef2f7;flex-wrap:wrap}
+.thermo .nm{width:120px;font-weight:600;font-size:14px;color:#0f172a}
+.thermo .bar{flex:1;height:10px;background:linear-gradient(90deg,#f87171,#e8b84b,#34d399);border-radius:6px;position:relative;min-width:160px;opacity:.85}
+.thermo .dot{position:absolute;top:-4px;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid #0f766e;transform:translateX(-50%);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.thermo .v{font-size:12.5px;color:#64748b;width:230px}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.extend a:hover{border-color:#0f766e;box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.extend b{color:#0f766e;display:block;margin-bottom:5px;font-weight:700}
+.extend span{font-size:12.5px;color:#64748b;line-height:1.55}
+footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}</style></head><body>
+<div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-retail-chains.html" style="color:#0284c7;text-decoration:none;font-size:13px">商贸社服</a><a href="berkshire-commodity-chains.html" style="color:#0284c7;text-decoration:none;font-size:13px">大宗商品</a><a href="berkshire-tour-chains.html" style="color:#0284c7;text-decoration:none;font-size:13px;font-weight:700">旅游</a><a href="berkshire-edu-chains.html" style="color:#0284c7;text-decoration:none;font-size:13px">教育</a><a href="berkshire-proservice-chains.html" style="color:#0284c7;text-decoration:none;font-size:13px">专业服务</a><a href="berkshire-sports-chains.html" style="color:#0284c7;text-decoration:none;font-size:13px">体育</a></span></span>
+<div class="breadcrumb"><a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>旅游及景区产业链</span></div></div>
+<div class="container">
+<div class="hero"><h1>旅游横向对比工具</h1><p>勾选多家旅游公司并排比较 PE/PB/ROE/毛利率/负债率/股息率等核心指标（财务=2025 年报，估值=采集日快照 2026-08-20）。</p></div>
+<div class="cmp-ctrl"><div class="bar"><input type="text" id="q" placeholder="搜索公司名称或代码…"><button class="fbtn on" id="selAll">全选</button><button class="fbtn" id="selNone">清空</button></div>
+<div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div>
+<table class="tbl"><thead><tr><th style="text-align:left">公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收(亿)</th><th>净利(亿)</th><th>市值(亿)</th><th>每股经营现金流</th></tr></thead><tbody id="tbody"></tbody></table>
+<div class="note">数据：各公司公开年报与行情快照（akshare / 腾讯行情 / 百度分位，截至 2026-08-20），框架级原创整理，<b>不构成投资建议</b>。绿色=同行该列最优，红色=同行该列最弱（按指标方向：PE/PB/负债率越低越好，其余越高越好）。字段缺失者诚实留空。</div>
+<div class="extend"><a href="berkshire-tour-chains.html"><b>返回旅游及景区产业链</b><span>查看完整跨层分析与各公司详情页</span></a>
+<a href="berkshire-tour-thermometer.html"><b>估值温度计</b><span>行业内 PB 相对位置一览</span></a></div>
+</div>
+<footer>数据来源：akshare / 腾讯行情 / 百度股市通 · 框架级整理，非投资建议</footer>
+<script>var DATA=[{"code": "600054", "name": "黄山旅游", "cat": "自然景区标杆", "pe": 28.27, "pb": 1.71, "pe_pct": 92.6, "pb_pct": 12.4, "dy": null, "roe": 6.18, "gross": 46.86, "debt": 18.52, "rev": 21.09, "np": 2.92, "mcap": 82.06, "ocf": 0.91, "price": 11.25}, {"code": "603199", "name": "九华旅游", "cat": "佛教名山景区", "pe": 16.87, "pb": 2.19, "pe_pct": 19.9, "pb_pct": 14.7, "dy": null, "roe": 13.55, "gross": 49.88, "debt": 15.37, "rev": 8.79, "np": 2.13, "mcap": 37.63, "ocf": 2.82, "price": 34.0}, {"code": "000888", "name": "峨眉山A", "cat": "佛教名山景区", "pe": 23.58, "pb": 1.91, "pe_pct": 39.9, "pb_pct": 27.2, "dy": null, "roe": 8.18, "gross": 49.89, "debt": 26.46, "rev": 9.33, "np": 2.2, "mcap": 51.95, "ocf": 0.67, "price": 9.86}, {"code": "300144", "name": "宋城演艺", "cat": "演艺+主题公园", "pe": 20.1, "pb": 2.01, "pe_pct": 76.4, "pb_pct": 1.4, "dy": null, "roe": 9.89, "gross": 64.76, "debt": 14.53, "rev": 22.58, "np": 8.18, "mcap": 157.32, "ocf": 0.59, "price": 6.03}, {"code": "603099", "name": "长白山", "cat": "冰雪旅游目的地", "pe": 80.76, "pb": 7.11, "pe_pct": 78.6, "pb_pct": 46.9, "dy": null, "roe": 10.33, "gross": 37.47, "debt": 18.04, "rev": 7.88, "np": 1.29, "mcap": 107.14, "ocf": 0.64, "price": 39.34}, {"code": "603136", "name": "天目湖", "cat": "休闲度假景区", "pe": 26.91, "pb": 1.79, "pe_pct": 19.7, "pb_pct": 1.4, "dy": null, "roe": 7.06, "gross": 50.33, "debt": 11.92, "rev": 5.08, "np": 0.95, "mcap": 24.74, "ocf": 0.7, "price": 9.16}, {"code": "600138", "name": "中青旅", "cat": "旅行社+景区+乌镇", "pe": 63.54, "pb": 0.81, "pe_pct": 56.5, "pb_pct": 1.8, "dy": null, "roe": 1.32, "gross": 19.83, "debt": 51.62, "rev": 113.37, "np": 0.84, "mcap": 51.03, "ocf": 1.3, "price": 7.05}, {"code": "600706", "name": "曲江文旅", "cat": "西安文旅演艺", "pe": -12.12, "pb": 4.51, "pe_pct": 26.9, "pb_pct": 72.6, "dy": null, "roe": -34.96, "gross": 7.64, "debt": 81.27, "rev": 9.67, "np": -1.96, "mcap": 20.25, "ocf": 0.43, "price": 7.94}, {"code": "002033", "name": "丽江股份", "cat": "丽江旅游目的地", "pe": 19.56, "pb": 1.97, "pe_pct": 14.6, "pb_pct": 41.2, "dy": null, "roe": 8.46, "gross": 56.18, "debt": 8.62, "rev": 8.6, "np": 2.13, "mcap": 49.23, "ocf": 0.71, "price": 8.96}, {"code": "002159", "name": "三特索道", "cat": "索道+景区运营商", "pe": 17.86, "pb": 1.61, "pe_pct": 14.2, "pb_pct": 13.7, "dy": null, "roe": 10.17, "gross": 62.35, "debt": 20.02, "rev": 6.38, "np": 1.43, "mcap": 23.9, "ocf": 1.29, "price": 13.48}];
+var COLS=[["pe","PE","low"],["pb","PB","low"],["dy","股息率%","high"],["roe","ROE%","high"],["gross","毛利率%","high"],["debt","资产负债率%","low"],["rev","营收亿","high"],["np","净利亿","high"],["mcap","市值亿","high"],["ocf","每股经营现金流","high"]];
+var sel=new Set(DATA.map(function(d){return d.code;}));var filt='all',q='';
+var listEl=document.getElementById('list'),tbody=document.getElementById('tbody'),selinfo=document.getElementById('selinfo');
+function renderList(){listEl.innerHTML='';DATA.filter(function(d){return (filt==='all')&&(q===''||d.name.indexOf(q)>=0||d.code.indexOf(q)>=0)}).forEach(function(d){var lab=document.createElement('label');lab.className='cmp-item';lab.innerHTML='<input type="checkbox" '+(sel.has(d.code)?'checked':'')+'><b>'+d.name+'</b><span class="cc">'+d.code+'</span>';lab.querySelector('input').onchange=function(e){if(e.target.checked)sel.add(d.code);else sel.delete(d.code);renderList();renderTbl();};listEl.appendChild(lab);});}
+function fmt(v){return (v===null||v===undefined)?'—':v;}
+function color(v,dir,best,worst){if(v===null||v===undefined)return '—';if(v===best)return '<span class="cmp-good">'+v+'</span>';if(v===worst)return '<span class="cmp-bad">'+v+'</span>';return ''+v;}
+function renderTbl(){var rows=DATA.filter(function(d){return sel.has(d.code);});selinfo.textContent='已选 '+rows.length+' 家';if(!rows.length){tbody.innerHTML='<tr><td colspan="12" style="color:#94a3b8">请在上方勾选公司</td></tr>';return;}var stats={};COLS.forEach(function(c){var vs=rows.map(function(r){return r[c[0]];}).filter(function(x){return x!==null&&x!==undefined;});stats[c[0]]={best:Math[c[2]==='high'?'max':'min'].apply(null,vs),worst:Math[c[2]==='high'?'min':'max'].apply(null,vs)};});tbody.innerHTML=rows.map(function(d){var tds=COLS.map(function(c){return '<td>'+color(d[c[0]],c[2],stats[c[0]].best,stats[c[0]].worst)+'</td>';}).join('');return '<tr><td style="text-align:left"><b>'+d.name+'</b></td><td>'+d.cat+'</td>'+tds+'</tr>';}).join('');}
+document.getElementById('selAll').onclick=function(){DATA.forEach(function(d){sel.add(d.code);});renderList();renderTbl();};
+document.getElementById('selNone').onclick=function(){sel.clear();renderList();renderTbl();};
+renderList();renderTbl();
+</script>
+</body></html>
