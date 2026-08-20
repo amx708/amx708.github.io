@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
+<title>外服控股 · 专业服务产业链</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(13,148,136,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(13,148,136,0.10);color:#0d9488;border:1px solid rgba(13,148,136,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#0d9488;color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#0d9488}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(13,148,136,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(13,148,136,0.08);border:1px solid rgba(13,148,136,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#0d9488}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(13,148,136,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#0d9488;background:rgba(13,148,136,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
+.explain-banner .eb-text b{color:#0f172a;font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #0d9488}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#0d9488;font-weight:700}
+.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.giant-card:hover{border-color:#0d9488;background:rgba(13,148,136,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(13,148,136,0.12)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:#0f172a}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#0d9488;font-weight:600}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+.overview{background:rgba(13,148,136,0.05);border:1px solid rgba(13,148,136,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
+.overview b{color:#0f172a;font-weight:600}
+.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #0d9488;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
+.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.info-table tr{border-bottom:1px solid #eef2f7}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
+.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
+.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(13,148,136,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#0d9488}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.data-banner{background:rgba(13,148,136,0.07);border:1px solid rgba(13,148,136,0.22);border-left:4px solid #0d9488;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:#0f172a;font-weight:600}
+.data-banner .upd{color:#0d9488;font-weight:600}
+.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(13,148,136,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cycle-title .icon{color:#0d9488}
+.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
+.cycle-body b{color:#0f172a;font-weight:600}
+.cycle-body p{margin-bottom:8px}
+.cycle-body ul{margin:8px 0 0 18px;padding:0}
+.cycle-body li{margin-bottom:6px}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #0d9488;padding:8px 12px;background:rgba(13,148,136,0.06);line-height:1.7}
+.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px}
+.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.fin-title .icon{color:#0d9488}
+.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px;white-space:nowrap}
+.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.fin-table tr{border-bottom:1px solid #eef2f7}
+.fin-table tr:last-child{border-bottom:none}
+.fin-table td{padding:9px 12px;font-size:13px;color:#334155}
+.fin-table td:first-child{width:130px;color:#64748b}
+.fin-table .val{color:#0d9488;font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0d9488;text-decoration:none}
+.pct-cell{display:inline-block;padding:1px 7px;border-radius:9px;font-size:11.5px;font-weight:600}
+.pct-lo{background:rgba(22,163,74,0.13);color:#15803d}
+.pct-mid{background:rgba(180,83,9,0.12);color:#b45309}
+.pct-hi{background:rgba(220,38,38,0.12);color:#dc2626}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.cost-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(13,148,136,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cost-chart{overflow-x:auto}
+.cost-chart svg{width:100%;max-width:760px;height:auto;display:block;margin:0 auto}
+.cost-note{font-size:13px;color:#475569;line-height:1.85;margin-top:12px}
+.cost-note p{margin-bottom:8px}
+.cost-note b{color:#0f172a}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:8px}
+.extend a{display:block;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.extend a:hover{border-color:#0d9488;box-shadow:0 6px 18px rgba(0,0,0,0.1)}
+.extend b{color:#0d9488;display:block;margin-bottom:5px;font-weight:700}
+.extend span{font-size:12.5px;color:#64748b;line-height:1.55}
+.deep-oneliner{background:rgba(13,148,136,0.06);border:1px solid rgba(13,148,136,0.20);border-radius:12px;padding:16px 18px;font-size:14.5px;color:#334155;line-height:1.8}
+.deep-oneliner b{color:#0f172a}
+.deep-kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.deep-kpi{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.deep-kpi .dk-num{font-size:18px;font-weight:800;color:#0d9488}
+.deep-kpi .dk-lab{font-size:11.5px;color:#64748b;margin-top:2px}
+.deep-kpi .dk-sub{font-size:11px;color:#94a3b8;margin-top:1px}
+.deep-table-wrap{overflow-x:auto;margin-top:6px}
+.deep-table-wrap table{width:100%;border-collapse:collapse;font-size:13px}
+.deep-table-wrap th,.deep-table-wrap td{padding:9px 10px;text-align:right;border-bottom:1px solid #eef2f7;color:#334155}
+.deep-table-wrap th:first-child,.deep-table-wrap td:first-child{text-align:left;color:#0f172a;font-weight:600}
+.deep-table-wrap th{color:#64748b;font-weight:600;background:#f8fafc}
+.deep-table-wrap td .pos{color:#16a34a}
+.deep-table-wrap td .neg{color:#dc2626}
+.deep-src{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px 14px;margin-top:10px;font-size:12px;color:#64748b;line-height:1.7}
+.deep-timeline{position:relative;padding-left:22px;margin-top:6px}
+.deep-timeline::before{content:"";position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:rgba(13,148,136,0.4)}
+.deep-tl-item{position:relative;margin-bottom:16px}
+.deep-tl-item::before{content:"";position:absolute;left:-19px;top:6px;width:10px;height:10px;border-radius:50%;background:#0d9488;box-shadow:0 0 0 3px rgba(13,148,136,0.15)}
+.deep-tl-date{font-size:12px;color:#0d9488;font-weight:700}
+.deep-tl-text{font-size:13.5px;color:#475569;line-height:1.75;margin-top:2px}
+.deep-tl-text b{color:#1e293b}
+footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,0.08);margin-top:30px}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-retail-chains.html" style="color:#0d9488;text-decoration:none;font-size:13px">商贸社服</a><a href="berkshire-commodity-chains.html" style="color:#0d9488;text-decoration:none;font-size:13px">大宗商品</a><a href="berkshire-tour-chains.html" style="color:#0d9488;text-decoration:none;font-size:13px">旅游</a><a href="berkshire-edu-chains.html" style="color:#0d9488;text-decoration:none;font-size:13px">教育</a><a href="berkshire-proservice-chains.html" style="color:#0d9488;text-decoration:none;font-size:13px;font-weight:700">专业服务</a><a href="berkshire-sports-chains.html" style="color:#0d9488;text-decoration:none;font-size:13px">体育</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<a href="berkshire-proservice-chains.html">专业服务</a><span class="crumb-sep">/</span><span>外服控股</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">外服控股（600662）</div>
+<div class="hero-sub">人力资源服务 · 专业服务产业链代表公司 · 本页为框架级原创梳理，最新数据以公司公告为准</div>
+<div class="hero-stats"><div class="stat-item"><div class="stat-num">4.28</div><div class="stat-label">现价</div></div><div class="stat-item"><div class="stat-num">98亿</div><div class="stat-label">市值</div></div><div class="stat-item"><div class="stat-num">14.4</div><div class="stat-label">PE</div></div><div class="stat-item"><div class="stat-num">1.80</div><div class="stat-label">PB</div></div></div>
+</div>
+
+<div class="section-title">一句话业务</div>
+<div class="deep-oneliner"><b>外服控股（600662）</b> 是「专业服务产业链」产业链中的代表性 A 股核心标的，人力资源服务，业务处于该链条的关键环节，是观察这条产业链景气度的窗口之一。</div>
+
+<div class="section-title">关键数字</div>
+
+<div class="deep-kpi-grid">
+<div class="deep-kpi"><div class="dk-num">241亿</div><div class="dk-lab">营业总收入(2025-12)</div><div class="dk-sub">同比 8.17%</div></div>
+<div class="deep-kpi"><div class="dk-num">6.5亿</div><div class="dk-lab">归母净利润(2025-12)</div><div class="dk-sub">同比 -39.96%</div></div>
+<div class="deep-kpi"><div class="dk-num">8.6%</div><div class="dk-lab">销售毛利率</div><div class="dk-sub">盈利空间</div></div>
+<div class="deep-kpi"><div class="dk-num">12.8%</div><div class="dk-lab">ROE(加权)</div><div class="dk-sub">回报质量</div></div>
+<div class="deep-kpi"><div class="dk-num">64.5%</div><div class="dk-lab">资产负债率</div><div class="dk-sub">财务杠杆</div></div>
+<div class="deep-kpi"><div class="dk-num">4.28</div><div class="dk-lab">现价(元)</div><div class="dk-sub">市值 98亿</div></div>
+</div>
+<div class="deep-table-wrap"><table>
+<thead><tr><th>指标（2025-12 年报）</th><th>数值</th><th>信号</th></tr></thead>
+<tbody>
+<tr><td>营业总收入</td><td>241.3 亿</td><td class="pos">同比 8.17%</td></tr>
+<tr><td>归母净利润</td><td>6.5 亿</td><td class="pos">同比 -39.96%</td></tr>
+<tr><td>销售毛利率</td><td>8.6%</td><td class="pos">盈利空间</td></tr>
+<tr><td>ROE（加权）</td><td>12.8%</td><td class="pos">高回报</td></tr>
+<tr><td>资产负债率</td><td>64.5%</td><td class="neg">关注杠杆</td></tr>
+<tr><td>每股经营现金流</td><td>0.46</td><td class="pos">造血能力</td></tr>
+</tbody></table></div>
+<div class="deep-src" style="margin-top:10px">注：财务取自同花顺年报摘要（2025-12）；估值 / 行情为采集日快照（腾讯行情）。PE 14.41 · 近十年分位 50.2%；PB 1.8 · 近十年分位 17.6%。</div>
+
+
+<div class="section-title">跨层全栈分析（5 层）</div>
+<div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">01</span>客户与需求</div><div class="layer-detail-body">人力资源服务；在「客户与需求」环节：企业客户（用工/招聘/检测/会展需求）与宏观经济/投资周期强相关，客户结构与粘性是护城河。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">02</span>交付网络</div><div class="layer-detail-body">人力资源服务；在「交付网络」环节：服务网点/实验室/仓配/项目团队的区域覆盖，交付能力决定接单上限。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">03</span>资质与品牌</div><div class="layer-detail-body">人力资源服务；在「资质与品牌」环节：人力资源服务许可、检测认证资质（CMA/CNAS）、会展品牌与场馆资源，资质壁垒高。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">04</span>效率与规模</div><div class="layer-detail-body">人力资源服务；在「效率与规模」环节：人效、实验室利用率、项目周转率，规模效应与数字化降本。</div></div><div class="layer-detail"><div class="layer-detail-title"><span class="layer-num">05</span>投资逻辑</div><div class="layer-detail-body">人力资源服务；在「投资逻辑」环节：看经济与用工景气、检测行业'市场化+集中度提升'长逻辑、会展恢复；风险在宏观需求与应收账款。</div></div>
+
+<div class="section-title">产业周期判断标准（专业服务）</div>
+<div class="cycle-block" id="cycle"><div class="cycle-title"><span class="icon">🔄</span> 本链产业周期怎么看</div><div class="cycle-body">
+<p><b>驱动变量</b>：企业招聘与灵活用工需求（经济景气）、制造业投资与产品质量监管（检测）、会展排期与出入境便利化</p><p><b>景气信号</b>：灵活用工人数/客户数回升、检测订单与产能利用率提升、会展场次与展位销售回暖 → 景气上行；反之下行</p><p><b>当前位置</b>：人力资源服务随经济温和复苏、灵活用工渗透率持续提升；检验检测受'高质量发展+监管趋严'驱动、市场化并购集中；会展随商务活动恢复；板块整体估值中低、现金流稳健</p>
+</div><div class="cycle-current"><b>结论信号</b>：🟢 偏积极（精选龙头）：检测'长坡厚雪+并购集中'、人服'渗透率提升+现金牛'、会展'低基数恢复'；低估值龙头符合价值框架</div></div>
+
+<div class="section-title">公司 / 主题概述</div>
+<div class="overview">外服控股（600662）是专业服务领域的代表公司，人力资源服务。本页为框架级原创梳理，业务结构、市场份额与最新财务以各公司公开年报为准，不构成投资建议。</div>
+
+<div class="section-title">关键信息一览</div>
+<table class="info-table">
+<tr><td>定位</td><td>人力资源服务</td></tr>
+<tr><td>产业链</td><td>专业服务产业链</td></tr>
+<tr><td>属性</td><td>A股样本 · 600662</td></tr>
+<tr><td>关注点</td><td>检测'长坡厚雪+并购集中'、人服'渗透率提升+现金牛'、会展'低基数恢复'；低估值龙头符合价值框架</td></tr>
+</table>
+
+<div class="section-title">财务数据（已采集）</div>
+<div class="fin-block">
+  <div class="fin-head"><div class="fin-title"><span class="icon">📊</span> 关键财务（2025-12 年报摘要）</div><span class="fin-tag">已采集</span></div>
+  <table class="fin-table">
+    <tr><td>营业总收入</td><td class="val">241.29 亿</td></tr>
+    <tr><td>归母净利润</td><td class="val">6.52 亿</td></tr>
+    <tr><td>毛利率</td><td class="val">8.6%</td></tr>
+    <tr><td>ROE（加权）</td><td class="val">12.8%</td></tr>
+    <tr><td>资产负债率</td><td class="val">64.5%</td></tr>
+    <tr><td>每股经营现金流</td><td class="val">0.46</td></tr>
+  </table>
+  <div class="fin-note">数据说明：本表数值取自同花顺年报摘要，已做原创整理；报告期以各页标注为准。本页为价值研究素材，不构成投资建议。</div>
+</div>
+
+<div class="section-title">估值指标（已采集）</div>
+<div class="fin-block">
+  <div class="fin-head"><div class="fin-title"><span class="icon">💰</span> 估值快照（2026-08-20）</div><span class="fin-tag">已采集</span></div>
+  <table class="fin-table">
+    <tr><td>总市值</td><td class="val">98 亿</td></tr>
+    <tr><td>现价</td><td class="val">4.28 元</td></tr>
+    <tr><td>PE（TTM）</td><td class="val">14.41 · 近十年分位 50.2%</td></tr>
+    <tr><td>PB</td><td class="val">1.80 · 近十年分位 17.6%</td></tr>
+  </table>
+  <div class="fin-note">分位=当前估值在近十年日度序列中所处百分位（百度股市通）；亏损企业 PE 分位不适用。分位为时点统计。</div>
+</div>
+
+<div class="insight-box"><div class="insight-title"><span class="icon">🛡️</span> 护城河视角（框架示例）</div>
+<div class="insight-body">护城河取决于本链「跨层分析」所述逻辑（企业招聘与灵活用工需求（经济景气）、制造业投资与产品质量监管（检测）、会展排期与出入境便利化…）；需结合人力资源服务判断其资源/资质/品牌/规模壁垒的高低。以资源型景区为例，稀缺资源+经营权构成核心壁垒；以人服/检测为例，资质+客户粘性+规模构成壁垒。</div></div>
+
+<div class="insight-box"><div class="insight-title"><span class="icon">⚠️</span> 主要风险（框架示例）</div>
+<div class="insight-body">主要风险来自行业周期与本链核心变量（当前位置）波动，以及政策、竞争与需求变化；具体以年报披露为准。本框架不构成投资建议。</div></div>
+
+<div class="section-title">新闻时间线（近 1 年）</div>
+<div class="deep-timeline"><div class="deep-tl-item"><div class="deep-tl-date">2026-08-07</div><div class="deep-tl-text">财税数字化概念下跌1.69%，12股主力资金净流出超5000万元</div></div>
+<div class="deep-tl-item"><div class="deep-tl-date">2026-07-31</div><div class="deep-tl-text">财税数字化概念上涨6.43%，9股主力资金净流入超亿元</div></div>
+<div class="deep-tl-item"><div class="deep-tl-date">2026-07-30</div><div class="deep-tl-text">上海国企改革概念上涨0.85%，9股主力资金净流入超千万元</div></div>
+<div class="deep-tl-item"><div class="deep-tl-date">2026-07-29</div><div class="deep-tl-text">2.92亿元资金今日流入社会服务股</div></div>
+<div class="deep-tl-item"><div class="deep-tl-date">2026-07-28</div><div class="deep-tl-text">财税数字化概念涨1.98%，主力资金净流入35股</div></div>
+<div class="deep-tl-item"><div class="deep-tl-date">2026-07-08</div><div class="deep-tl-text">财税数字化概念上涨2.09%，7股主力资金净流入超5000万元</div></div>
+</div>
+<div class="deep-src">📌 <b>合规说明</b>：本页「一句话业务 / 关键数字 / 新闻时间线」均基于<b>外服控股</b>公开年报、官网与新闻等事实层信息，由本站原创整理与重写，不复制、不转载任何付费 / 闭源专享内容；第三方机构预测为估算或传闻，仅供框架参考，请以公司官方披露为准。投资逻辑仅为跨层框架研究示例，<b>不构成任何投资建议</b>。</div>
+
+</div>
+<footer>伯克希尔投资数据中心 · 专业服务产业链　|　数据来源：akshare / 腾讯行情 / 百度股市通　|　仅供研究参考，不构成投资建议</footer>
+<script src="/analytics.js"></script>
+<script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<script>
+(function(){function num(v){if(v==null)return NaN;v=v.textContent||v;if(typeof v==='string'){v=v.replace(/,/g,'').replace(/[ 	
+]/g,'');if(v==='—'||v==='-'||v==='')return NaN;var unit=1;if(v.indexOf('亿')!==-1){unit=10000;v=v.replace(/亿/g,'');}else if(v.indexOf('万')!==-1){unit=1;v=v.replace(/万/g,'');}v=v.replace(/[¥,%]/g,'');var n=parseFloat(v);if(!isNaN(n))n*=unit;return n;}return NaN;}
+function cmp(a,b,asc){var an=isNaN(a)?(typeof a==='string'?a:''):a;var bn=isNaN(b)?(typeof b==='string'?b:''):b;var nanA=isNaN(a),nanB=isNaN(b);if(nanA&&nanB)return 0;if(nanA)return asc?1:-1;if(nanB)return asc?-1:1;if(an<bn)return asc?-1:1;if(an>bn)return asc?1:-1;return 0;}
+function sortTable(th){var table=th.closest('table');var tbody=table.querySelector('tbody');var rows=Array.from(tbody.querySelectorAll('tr'));var idx=Array.from(th.parentNode.children).indexOf(th);var type=th.getAttribute('data-type')||'text';var asc=!th.classList.contains('asc');table.querySelectorAll('th').forEach(function(h){h.classList.remove('asc','desc');});th.classList.add(asc?'asc':'desc');rows.sort(function(r1,r2){var c1=r1.cells[idx],c2=r2.cells[idx];var v1,v2;if(type==='name'){v1=c1.textContent.trim();v2=c2.textContent.trim();}else if(type==='num'){v1=num(c1);v2=num(c2);}else{v1=c1.textContent.trim();v2=c2.textContent.trim();}return cmp(v1,v2,asc);});rows.forEach(function(r){tbody.appendChild(r);});}
+document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){th.addEventListener('click',function(){sortTable(th);});});
+})();</script>
+</body></html>
