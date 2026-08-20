@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
+<title>专业服务产业链 · 价值投资视角</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(13,148,136,0.18);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(13,148,136,0.10);color:#0d9488;border:1px solid rgba(13,148,136,0.3);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.home-btn:hover{background:#0d9488;color:#fff}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.breadcrumb a:hover{color:#0d9488}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:32px 28px;margin-bottom:20px;border:1px solid rgba(13,148,136,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.hero-title{font-size:26px;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:.5px}
+.hero-sub{font-size:14px;color:#64748b;margin-bottom:18px}
+.hero-stats{display:flex;gap:12px;flex-wrap:wrap}
+.stat-item{background:rgba(13,148,136,0.08);border:1px solid rgba(13,148,136,0.15);border-radius:10px;padding:10px 18px;text-align:center}
+.stat-num{font-size:20px;font-weight:800;color:#0d9488}
+.stat-label{font-size:11px;color:#64748b;margin-top:2px;white-space:nowrap}
+.explain-banner{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid rgba(13,148,136,0.25);border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.explain-banner .eb-icon{font-size:24px;flex-shrink:0}
+.explain-banner .eb-body{flex:1;min-width:0}
+.explain-banner .eb-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.explain-banner .eb-tag{font-size:11px;color:#0d9488;background:rgba(13,148,136,0.12);padding:2px 9px;border-radius:10px}
+.explain-banner .eb-text{font-size:13px;color:#475569;line-height:1.8}
+.explain-banner .eb-text b{color:#0f172a;font-weight:600}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #0d9488}
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.layer-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-num{font-size:12px;color:#0d9488;font-weight:700}
+.layer-name{font-size:14px;color:#0f172a;font-weight:600;margin:4px 0 4px}
+.layer-desc{font-size:12px;color:#64748b;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.giant-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;transition:all .2s;text-decoration:none;display:block;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.giant-card:hover{border-color:#0d9488;background:rgba(13,148,136,0.05);transform:translateY(-2px);box-shadow:0 4px 14px rgba(13,148,136,0.12)}
+.giant-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.giant-name{font-size:16px;font-weight:700;color:#0f172a}
+.region-tag{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600}
+.region-cn{background:rgba(220,38,38,0.12);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
+.giant-desc{font-size:12.5px;color:#64748b;line-height:1.65;margin-bottom:10px}
+.giant-foot{font-size:12px;display:flex;align-items:center;justify-content:space-between}
+.giant-link{color:#0d9488;font-weight:600}
+.source-note{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:24px;font-size:12.5px;color:#64748b;line-height:1.7;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.source-note b{color:#475569}
+.overview{background:rgba(13,148,136,0.05);border:1px solid rgba(13,148,136,0.14);border-radius:12px;padding:18px 20px;margin-bottom:8px;font-size:14px;color:#334155;line-height:1.85}
+.overview b{color:#0f172a;font-weight:600}
+.layer-detail{background:#fff;border:1px solid #e2e8f0;border-left:3px solid #0d9488;border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.layer-detail-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.layer-detail-body{font-size:13.5px;color:#475569;line-height:1.8}
+.info-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-top:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.info-table tr{border-bottom:1px solid #eef2f7}
+.info-table tr:last-child{border-bottom:none}
+.info-table td{padding:12px 16px;font-size:13.5px;color:#334155}
+.info-table td:first-child{width:160px;color:#64748b;background:#f8fafc}
+.insight-box{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(13,148,136,0.2);border-radius:12px;padding:18px 20px;margin-top:16px}
+.insight-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.insight-title .icon{color:#0d9488}
+.insight-body{font-size:13.5px;color:#475569;line-height:1.8}
+.data-banner{background:rgba(13,148,136,0.07);border:1px solid rgba(13,148,136,0.22);border-left:4px solid #0d9488;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#334155;line-height:1.7}
+.data-banner b{color:#0f172a;font-weight:600}
+.data-banner .upd{color:#0d9488;font-weight:600}
+.cycle-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(13,148,136,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cycle-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cycle-title .icon{color:#0d9488}
+.cycle-body{font-size:13.5px;color:#475569;line-height:1.85}
+.cycle-body b{color:#0f172a;font-weight:600}
+.cycle-body p{margin-bottom:8px}
+.cycle-body ul{margin:8px 0 0 18px;padding:0}
+.cycle-body li{margin-bottom:6px}
+.cycle-current{margin-top:12px;font-size:12.5px;color:#64748b;border-left:3px solid #0d9488;padding:8px 12px;background:rgba(13,148,136,0.06);line-height:1.7}
+.fin-block{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.fin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px}
+.fin-title{font-size:15px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.fin-title .icon{color:#0d9488}
+.fin-tag{font-size:11px;color:#b45309;background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);padding:2px 9px;border-radius:10px;white-space:nowrap}
+.fin-table{width:100%;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.fin-table tr{border-bottom:1px solid #eef2f7}
+.fin-table tr:last-child{border-bottom:none}
+.fin-table td{padding:9px 12px;font-size:13px;color:#334155}
+.fin-table td:first-child{width:130px;color:#64748b}
+.fin-table .val{color:#0d9488;font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fin-note{font-size:12px;color:#64748b;margin-top:8px;line-height:1.6}
+.ovtable{overflow-x:auto;margin:6px 0}
+.ovtable table{width:100%;border-collapse:collapse;font-size:12.5px}
+.ovtable th,.ovtable td{padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:right;white-space:nowrap}
+.ovtable th{background:#f8fafc;color:#475569;font-weight:600}
+.ovtable td:first-child,.ovtable th:first-child{text-align:left}
+.ovtable a{color:#0d9488;text-decoration:none}
+.pct-cell{display:inline-block;padding:1px 7px;border-radius:9px;font-size:11.5px;font-weight:600}
+.pct-lo{background:rgba(22,163,74,0.13);color:#15803d}
+.pct-mid{background:rgba(180,83,9,0.12);color:#b45309}
+.pct-hi{background:rgba(220,38,38,0.12);color:#dc2626}
+.vleg{display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:11.5px}
+.vleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.cost-block{background:linear-gradient(135deg,#f8fafc,#ffffff);border:1px solid rgba(13,148,136,0.22);border-radius:12px;padding:18px 20px;margin-bottom:8px}
+.cost-chart{overflow-x:auto}
+.cost-chart svg{width:100%;max-width:760px;height:auto;display:block;margin:0 auto}
+.cost-note{font-size:13px;color:#475569;line-height:1.85;margin-top:12px}
+.cost-note p{margin-bottom:8px}
+.cost-note b{color:#0f172a}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:8px}
+.extend a{display:block;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.extend a:hover{border-color:#0d9488;box-shadow:0 6px 18px rgba(0,0,0,0.1)}
+.extend b{color:#0d9488;display:block;margin-bottom:5px;font-weight:700}
+.extend span{font-size:12.5px;color:#64748b;line-height:1.55}
+.deep-oneliner{background:rgba(13,148,136,0.06);border:1px solid rgba(13,148,136,0.20);border-radius:12px;padding:16px 18px;font-size:14.5px;color:#334155;line-height:1.8}
+.deep-oneliner b{color:#0f172a}
+.deep-kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.deep-kpi{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.deep-kpi .dk-num{font-size:18px;font-weight:800;color:#0d9488}
+.deep-kpi .dk-lab{font-size:11.5px;color:#64748b;margin-top:2px}
+.deep-kpi .dk-sub{font-size:11px;color:#94a3b8;margin-top:1px}
+.deep-table-wrap{overflow-x:auto;margin-top:6px}
+.deep-table-wrap table{width:100%;border-collapse:collapse;font-size:13px}
+.deep-table-wrap th,.deep-table-wrap td{padding:9px 10px;text-align:right;border-bottom:1px solid #eef2f7;color:#334155}
+.deep-table-wrap th:first-child,.deep-table-wrap td:first-child{text-align:left;color:#0f172a;font-weight:600}
+.deep-table-wrap th{color:#64748b;font-weight:600;background:#f8fafc}
+.deep-table-wrap td .pos{color:#16a34a}
+.deep-table-wrap td .neg{color:#dc2626}
+.deep-src{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px 14px;margin-top:10px;font-size:12px;color:#64748b;line-height:1.7}
+.deep-timeline{position:relative;padding-left:22px;margin-top:6px}
+.deep-timeline::before{content:"";position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:rgba(13,148,136,0.4)}
+.deep-tl-item{position:relative;margin-bottom:16px}
+.deep-tl-item::before{content:"";position:absolute;left:-19px;top:6px;width:10px;height:10px;border-radius:50%;background:#0d9488;box-shadow:0 0 0 3px rgba(13,148,136,0.15)}
+.deep-tl-date{font-size:12px;color:#0d9488;font-weight:700}
+.deep-tl-text{font-size:13.5px;color:#475569;line-height:1.75;margin-top:2px}
+.deep-tl-text b{color:#1e293b}
+footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,0.08);margin-top:30px}
+@media(max-width:640px){.hero{padding:22px 16px}.hero-title{font-size:21px}.grid{grid-template-columns:1fr}.explain-banner{flex-direction:column;padding:16px}}</style>
+</head>
+<body>
+<div class="top-bar">
+<a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-retail-chains.html" style="color:#0d9488;text-decoration:none;font-size:13px">商贸社服</a><a href="berkshire-commodity-chains.html" style="color:#0d9488;text-decoration:none;font-size:13px">大宗商品</a><a href="berkshire-tour-chains.html" style="color:#0d9488;text-decoration:none;font-size:13px">旅游</a><a href="berkshire-edu-chains.html" style="color:#0d9488;text-decoration:none;font-size:13px">教育</a><a href="berkshire-proservice-chains.html" style="color:#0d9488;text-decoration:none;font-size:13px;font-weight:700">专业服务</a><a href="berkshire-sports-chains.html" style="color:#0d9488;text-decoration:none;font-size:13px">体育</a></span>
+<div class="breadcrumb">
+<a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span>
+<a href="berkshire-chain-map.html">社会服务</a><span class="crumb-sep">/</span><span>专业服务产业链</span>
+</div>
+</div>
+<div class="container">
+
+<div class="hero">
+<div class="hero-title">🧾 专业服务产业链</div>
+<div class="hero-sub">价值投资视角下的「专业服务产业链」梳理 · 人力资源 / 会展 / 检验检测，用公开年报/官网/新闻原创整理</div>
+<div class="hero-stats">
+<div class="stat-item"><div class="stat-num">8</div><div class="stat-label">代表公司</div></div>
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-label">产业层级</div></div>
+<div class="stat-item"><div class="stat-num">原创</div><div class="stat-label">公开源整理</div></div>
+</div>
+</div>
+
+<div class="data-banner">📊 <b>数据口径</b>：财务数据以各公司<b>2025 年报</b>为准（同花顺年报摘要）；估值分位为<b>近十年日度序列</b>（百度股市通）；行情为<b>采集日快照（2026-08-20）</b>。框架级原创整理，<b>不构成投资建议</b>。最后更新：<span class="upd">2026-08-20</span></div>
+
+<div class="explain-banner">
+<div class="eb-icon">🧾</div>
+<div class="eb-body">
+<div class="eb-title"><span class="eb-tag">资料说明</span> 这份「专业服务产业链地图」是怎么来的</div>
+<div class="eb-text">
+本页是<b>借鉴产业链分析方法、用公开资料自行整理</b>的知识框架，把专业服务代表公司按「层级」拆解，便于从投资视角理解其护城河与周期风险。<br>
+<b>资料来源</b>：各公司年报 / 官网 / 公开新闻——均为公开事实层；财务与估值为真实采集（akshare / 腾讯行情 / 百度股市通），最新以公司公告为准。
+</div>
+</div>
+</div>
+
+<div class="section-title">研究信号</div>
+<div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #0d9488;border-radius:12px;padding:16px 18px;margin:4px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+  <div style="display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:14px;line-height:1.75">
+    <div style="font-weight:700;color:#475569">周期位置</div><div>人服随经济温和复苏、检测'长坡厚雪'、会展低基数恢复</div><div style="font-weight:700;color:#475569">景气方向</div><div>看灵活用工人数、检测订单与产能利用率、会展场次与展位销售</div><div style="font-weight:700;color:#475569">结论信号</div><div>🟢 偏积极（精选龙头）：检测/人服/会展龙头现金流稳、估值中低</div><div style="font-weight:700;color:#475569">核心催化</div><div>①灵活用工渗透率提升 ②检测市场化+并购集中 ③商务活动恢复</div><div style="font-weight:700;color:#475569">关键风险</div><div>宏观需求波动、应收账款、检测价格竞争、会展排期不确定</div>
+  </div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:12px;color:#94a3b8">数据锚：PE/PB 分位见上表；结论为框架合成，需结合实盘研究校验。</div>
+</div>
+
+<div class="section-title">跨层分析框架（5 层）</div>
+<div class="layers">
+<div class='layer-card'><div class='layer-num'>01</div><div class='layer-name'>客户与需求</div><div class='layer-desc'>企业客户（用工/招聘/检测/会展需求）与宏观经济/投资周期强相关，客户结构与粘性是护城河</div></div><div class='layer-card'><div class='layer-num'>02</div><div class='layer-name'>交付网络</div><div class='layer-desc'>服务网点/实验室/仓配/项目团队的区域覆盖，交付能力决定接单上限</div></div><div class='layer-card'><div class='layer-num'>03</div><div class='layer-name'>资质与品牌</div><div class='layer-desc'>人力资源服务许可、检测认证资质（CMA/CNAS）、会展品牌与场馆资源，资质壁垒高</div></div><div class='layer-card'><div class='layer-num'>04</div><div class='layer-name'>效率与规模</div><div class='layer-desc'>人效、实验室利用率、项目周转率，规模效应与数字化降本</div></div><div class='layer-card'><div class='layer-num'>05</div><div class='layer-name'>投资逻辑</div><div class='layer-desc'>看经济与用工景气、检测行业'市场化+集中度提升'长逻辑、会展恢复；风险在宏观需求与应收账款</div></div>
+</div>
+
+<div class="section-title">产业周期判断标准</div>
+<div class="cycle-block" id="cycle"><div class="cycle-title"><span class="icon">🔄</span> 专业服务产业链 产业周期怎么看</div><div class="cycle-body">
+<p><b>驱动变量</b>：企业招聘与灵活用工需求（经济景气）、制造业投资与产品质量监管（检测）、会展排期与出入境便利化</p><p><b>景气信号</b>：灵活用工人数/客户数回升、检测订单与产能利用率提升、会展场次与展位销售回暖 → 景气上行；反之下行</p><p><b>当前位置</b>：人力资源服务随经济温和复苏、灵活用工渗透率持续提升；检验检测受'高质量发展+监管趋严'驱动、市场化并购集中；会展随商务活动恢复；板块整体估值中低、现金流稳健</p>
+</div><div class="cycle-current"><b>结论信号</b>：🟢 偏积极（精选龙头）：检测'长坡厚雪+并购集中'、人服'渗透率提升+现金牛'、会展'低基数恢复'；低估值龙头符合价值框架</div></div>
+
+<div class="section-title">估值历史分位总览（专业服务 8 家）</div>
+<div class="ovtable">
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">PE(TTM)<span class="sort-ind"></span></th><th data-type="num">PB<span class="sort-ind"></span></th><th data-type="num">相对估值<span class="sort-ind"></span></th></tr></thead>
+<tbody><tr><td><a href='berkshire-proservice-chain-300662.html'>科锐国际</a></td><td>11.31 <span class="pct-cell pct-lo">2.4%</span></td><td>1.67 <span class="pct-cell pct-lo">2.1%</span></td><td><span class='pct-cell pct-lo'>低估3★</span></td></tr><tr><td><a href='berkshire-proservice-chain-002967.html'>广电计量</a></td><td>25.65 <span class="pct-cell pct-lo">1.3%</span></td><td>2.28 <span class="pct-cell pct-lo">4.1%</span></td><td><span class='pct-cell pct-lo'>低估3★</span></td></tr><tr><td><a href='berkshire-proservice-chain-300012.html'>华测检测</a></td><td>22.74 <span class="pct-cell pct-lo">4.7%</span></td><td>3.13 <span class="pct-cell pct-lo">5.5%</span></td><td><span class='pct-cell pct-lo'>低估3★</span></td></tr><tr><td><a href='berkshire-proservice-chain-300416.html'>苏试试验</a></td><td>27.65 <span class="pct-cell pct-lo">13.0%</span></td><td>2.64 <span class="pct-cell pct-lo">8.1%</span></td><td><span class='pct-cell pct-lo'>低估3★</span></td></tr><tr><td><a href='berkshire-proservice-chain-603060.html'>国检集团</a></td><td>35.83 <span class="pct-cell pct-lo">28.2%</span></td><td>2.19 <span class="pct-cell pct-lo">0.6%</span></td><td><span class='pct-cell pct-lo'>低估3★</span></td></tr><tr><td><a href='berkshire-proservice-chain-600662.html'>外服控股</a></td><td>14.41 <span class="pct-cell pct-mid">50.2%</span></td><td>1.80 <span class="pct-cell pct-lo">17.6%</span></td><td><span class='pct-cell pct-lo'>低估2★</span></td></tr><tr><td><a href='berkshire-proservice-chain-600861.html'>北京人力</a></td><td>8.85 <span class="pct-cell pct-hi">96.6%</span></td><td>0.98 <span class="pct-cell pct-lo">1.9%</span></td><td><span class='pct-cell pct-mid'>低估1★</span></td></tr><tr><td><a href='berkshire-proservice-chain-600826.html'>兰生股份</a></td><td>16.91 <span class="pct-cell pct-hi">86.0%</span></td><td>1.31 <span class="pct-cell pct-lo">14.5%</span></td><td><span class='pct-cell pct-mid'>低估1★</span></td></tr></tbody>
+</table>
+<div class="fin-note">分位=当前 PE/PB 在近十年日度序列中所处百分位（百度股市通）。
+<span class="vleg"><i style="background:#15803d"></i>&lt;40% 偏低/便宜</span>
+<span class="vleg"><i style="background:#b45309"></i>40–60% 中位</span>
+<span class="vleg"><i style="background:#b91c1c"></i>&gt;60% 偏高/贵</span>。
+亏损企业 PE 为负、PE 分位不适用，仅看 PB；分位为时点统计。</div>
+</div>
+
+<div class="section-title">R15 三维评级总览（专业服务 8 家）</div>
+<div class="ovtable">
+<table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="text">相对估值星级<span class="sort-ind"></span></th><th data-type="text">质量星级(ROE)<span class="sort-ind"></span></th><th data-type="num">时机分<span class="sort-ind"></span></th><th data-type="num">PE分位<span class="sort-ind"></span></th><th data-type="num">PB分位<span class="sort-ind"></span></th></tr></thead>
+<tbody><tr><td><a href='berkshire-proservice-chain-300662.html'>科锐国际</a></td><td><span class='pct-cell pct-lo'>低估3★</span></td><td><span class='pct-cell pct-lo'>★★★★☆</span></td><td><span class='pct-cell pct-hi'>10</span></td><td><span class="pct-cell pct-lo">2.4%</span></td><td><span class="pct-cell pct-lo">2.1%</span></td></tr><tr><td><a href='berkshire-proservice-chain-002967.html'>广电计量</a></td><td><span class='pct-cell pct-lo'>低估3★</span></td><td><span class='pct-cell pct-lo'>★★★★</span></td><td><span class='pct-cell pct-hi'>9</span></td><td><span class="pct-cell pct-lo">1.3%</span></td><td><span class="pct-cell pct-lo">4.1%</span></td></tr><tr><td><a href='berkshire-proservice-chain-300012.html'>华测检测</a></td><td><span class='pct-cell pct-lo'>低估3★</span></td><td><span class='pct-cell pct-lo'>★★★★</span></td><td><span class='pct-cell pct-hi'>9</span></td><td><span class="pct-cell pct-lo">4.7%</span></td><td><span class="pct-cell pct-lo">5.5%</span></td></tr><tr><td><a href='berkshire-proservice-chain-300416.html'>苏试试验</a></td><td><span class='pct-cell pct-lo'>低估3★</span></td><td><span class='pct-cell pct-mid'>★★★</span></td><td><span class='pct-cell pct-hi'>8</span></td><td><span class="pct-cell pct-lo">13.0%</span></td><td><span class="pct-cell pct-lo">8.1%</span></td></tr><tr><td><a href='berkshire-proservice-chain-603060.html'>国检集团</a></td><td><span class='pct-cell pct-lo'>低估3★</span></td><td><span class='pct-cell pct-mid'>★★</span></td><td><span class='pct-cell pct-hi'>7</span></td><td><span class="pct-cell pct-lo">28.2%</span></td><td><span class="pct-cell pct-lo">0.6%</span></td></tr><tr><td><a href='berkshire-proservice-chain-600662.html'>外服控股</a></td><td><span class='pct-cell pct-lo'>低估2★</span></td><td><span class='pct-cell pct-lo'>★★★★</span></td><td><span class='pct-cell pct-hi'>3</span></td><td><span class="pct-cell pct-mid">50.2%</span></td><td><span class="pct-cell pct-lo">17.6%</span></td></tr><tr><td><a href='berkshire-proservice-chain-600861.html'>北京人力</a></td><td><span class='pct-cell pct-mid'>低估1★</span></td><td><span class='pct-cell pct-lo'>★★★★☆</span></td><td><span class='pct-cell pct-hi'>0</span></td><td><span class="pct-cell pct-hi">96.6%</span></td><td><span class="pct-cell pct-lo">1.9%</span></td></tr><tr><td><a href='berkshire-proservice-chain-600826.html'>兰生股份</a></td><td><span class='pct-cell pct-mid'>低估1★</span></td><td><span class='pct-cell pct-mid'>★★</span></td><td><span class='pct-cell pct-hi'>0</span></td><td><span class="pct-cell pct-hi">86.0%</span></td><td><span class="pct-cell pct-lo">14.5%</span></td></tr></tbody>
+</table>
+<div class="fin-note">R15 三维框架：①<b>相对估值星级</b>=PE/PB 历史分位均值换算（分位越低越便宜、星越多）；
+②<b>质量星级</b>=近 ROE（★越多质地越好）；③<b>时机分</b>=10−分位/5（分越高越接近周期底部、买点越好）。
+<span class="vleg"><i style="background:#15803d"></i>绿=好</span>
+<span class="vleg"><i style="background:#b45309"></i>橙=中</span>
+<span class="vleg"><i style="background:#b91c1c"></i>红=差/贵</span>。数据为时点统计。</div>
+</div>
+
+<div class="section-title">产业链成本传导</div>
+<div class="cost-block">
+  <div class="cost-chart"><svg viewBox="0 0 680 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="专业服务产业链成本传导">
+<rect x="20" y="45" width="190" height="60" rx="10" fill="rgba(13,148,136,0.10)" stroke="#0d9488" stroke-width="1.5"/>
+<text x="115" y="70" text-anchor="middle" font-size="13" fill="#0f172a" font-weight="700">专业服务上游</text>
+<text x="115" y="90" text-anchor="middle" font-size="10.5" fill="#64748b">专业人才/检测设备与资质</text>
+<line x1="210" y1="75" x2="250" y2="75" stroke="#0d9488" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="250" y="45" width="190" height="60" rx="10" fill="rgba(13,148,136,0.10)" stroke="#0d9488" stroke-width="1.5"/>
+<text x="345" y="70" text-anchor="middle" font-size="13" fill="#0f172a" font-weight="700">专业服务中游</text>
+<text x="345" y="90" text-anchor="middle" font-size="10.5" fill="#64748b">服务交付(人服/检测/会展项目)</text>
+<line x1="440" y1="75" x2="480" y2="75" stroke="#0d9488" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="480" y="45" width="180" height="60" rx="10" fill="rgba(13,148,136,0.10)" stroke="#0d9488" stroke-width="1.5"/>
+<text x="570" y="70" text-anchor="middle" font-size="13" fill="#0f172a" font-weight="700">专业服务下游</text>
+<text x="570" y="90" text-anchor="middle" font-size="10.5" fill="#64748b">企业客户付费(项目/服务费)</text>
+<defs><marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#0d9488"/></marker></defs>
+<text x="340" y="130" text-anchor="middle" font-size="11" fill="#94a3b8">需求 → 项目 → 交付 → 回款：宏观景气是需求端总开关</text>
+</svg></div>
+  <div class="cost-note"><p><b>宏观与企业投资是需求总开关</b>：人服（灵活用工/招聘）随企业招聘景气波动；检测（第三方）受制造业投资、质量监管与法规驱动，具'市场化+集中度提升'长逻辑；会展与商务活动景气挂钩。</p><p>传导路径：<b>经济景气与企业投资</b> → 用工/检测/会展需求 → 项目接单与产能利用率 → 收入与回款。检测现金流稳定、粘性高（资质+复检），人服高周转低毛利，会展高弹性重排期。</p></div>
+</div>
+
+<div class="section-title">盈利效率与组织效能（专业服务 8 家）</div>
+<div class="ovtable"><table class="sortable">
+<thead><tr><th data-type="name">公司<span class="sort-ind"></span></th><th data-type="num">营收(亿)<span class="sort-ind"></span></th><th data-type="num">归母净利(亿)<span class="sort-ind"></span></th><th data-type="num">毛利率%<span class="sort-ind"></span></th><th data-type="num">ROE%<span class="sort-ind"></span></th><th data-type="num">净利率%<span class="sort-ind"></span></th><th data-type="num">负债率%<span class="sort-ind"></span></th></tr></thead>
+<tbody><tr><td><a href='berkshire-proservice-chain-600861.html'>北京人力</a></td><td class='num'>452</td><td class='num'>11.7</td><td class='num'>5.5%</td><td class='num'>17.0%</td><td class='num'>2.6%</td><td class='num'>50.1%</td></tr><tr><td><a href='berkshire-proservice-chain-300662.html'>科锐国际</a></td><td class='num'>145</td><td class='num'>3.1</td><td class='num'>5.9%</td><td class='num'>14.7%</td><td class='num'>2.2%</td><td class='num'>47.4%</td></tr><tr><td><a href='berkshire-proservice-chain-300012.html'>华测检测</a></td><td class='num'>66</td><td class='num'>10.2</td><td class='num'>48.6%</td><td class='num'>14.0%</td><td class='num'>15.3%</td><td class='num'>23.9%</td></tr><tr><td><a href='berkshire-proservice-chain-600662.html'>外服控股</a></td><td class='num'>241</td><td class='num'>6.5</td><td class='num'>8.6%</td><td class='num'>12.8%</td><td class='num'>2.7%</td><td class='num'>64.5%</td></tr><tr><td><a href='berkshire-proservice-chain-002967.html'>广电计量</a></td><td class='num'>36</td><td class='num'>4.2</td><td class='num'>46.8%</td><td class='num'>12.2%</td><td class='num'>11.8%</td><td class='num'>44.6%</td></tr><tr><td><a href='berkshire-proservice-chain-300416.html'>苏试试验</a></td><td class='num'>22</td><td class='num'>2.6</td><td class='num'>41.8%</td><td class='num'>9.5%</td><td class='num'>11.4%</td><td class='num'>40.7%</td></tr><tr><td><a href='berkshire-proservice-chain-600826.html'>兰生股份</a></td><td class='num'>16</td><td class='num'>3.3</td><td class='num'>36.6%</td><td class='num'>7.4%</td><td class='num'>20.0%</td><td class='num'>21.9%</td></tr><tr><td><a href='berkshire-proservice-chain-603060.html'>国检集团</a></td><td class='num'>26</td><td class='num'>1.2</td><td class='num'>38.2%</td><td class='num'>5.7%</td><td class='num'>4.6%</td><td class='num'>50.0%</td></tr></tbody>
+</table>
+<div class="fin-note">盈利效率以 ROE / 毛利率 / 净利率（=归母净利÷营收）代理；<b>员工人数未在本页采集口径内</b>，故以盈利质量替代"人均效能"。数据为 2025 年报 + 2026-08-20 估值快照。</div>
+</div>
+
+<div class="section-title">主要玩家索引</div>
+<div class='section-title'>灵活用工（1 家）</div><div class='grid'><a class='giant-card' href='berkshire-proservice-chain-300662.html'><div class='giant-head'><span class='giant-name'>科锐国际</span><span class='region-tag region-cn'>300662</span></div><div class='giant-desc'>灵活用工+猎头 · PE 11.31 / PB 1.67</div><div class='giant-foot'><span>跨层分析</span><span class='giant-link'>查看 →</span></div></a></div>
+<div class='section-title'>人力资源服务（2 家）</div><div class='grid'><a class='giant-card' href='berkshire-proservice-chain-600662.html'><div class='giant-head'><span class='giant-name'>外服控股</span><span class='region-tag region-cn'>600662</span></div><div class='giant-desc'>人力资源服务 · PE 14.41 / PB 1.8</div><div class='giant-foot'><span>跨层分析</span><span class='giant-link'>查看 →</span></div></a><a class='giant-card' href='berkshire-proservice-chain-600861.html'><div class='giant-head'><span class='giant-name'>北京人力</span><span class='region-tag region-cn'>600861</span></div><div class='giant-desc'>人力资源服务 · PE 8.85 / PB 0.98</div><div class='giant-foot'><span>跨层分析</span><span class='giant-link'>查看 →</span></div></a></div>
+<div class='section-title'>会展（1 家）</div><div class='grid'><a class='giant-card' href='berkshire-proservice-chain-600826.html'><div class='giant-head'><span class='giant-name'>兰生股份</span><span class='region-tag region-cn'>600826</span></div><div class='giant-desc'>会展+贸易 · PE 16.91 / PB 1.31</div><div class='giant-foot'><span>跨层分析</span><span class='giant-link'>查看 →</span></div></a></div>
+<div class='section-title'>检验检测认证（1 家）</div><div class='grid'><a class='giant-card' href='berkshire-proservice-chain-603060.html'><div class='giant-head'><span class='giant-name'>国检集团</span><span class='region-tag region-cn'>603060</span></div><div class='giant-desc'>检验检测认证 · PE 35.83 / PB 2.19</div><div class='giant-foot'><span>跨层分析</span><span class='giant-link'>查看 →</span></div></a></div>
+<div class='section-title'>计量检测（1 家）</div><div class='grid'><a class='giant-card' href='berkshire-proservice-chain-002967.html'><div class='giant-head'><span class='giant-name'>广电计量</span><span class='region-tag region-cn'>002967</span></div><div class='giant-desc'>计量检测 · PE 25.65 / PB 2.28</div><div class='giant-foot'><span>跨层分析</span><span class='giant-link'>查看 →</span></div></a></div>
+<div class='section-title'>第三方检测龙头（1 家）</div><div class='grid'><a class='giant-card' href='berkshire-proservice-chain-300012.html'><div class='giant-head'><span class='giant-name'>华测检测</span><span class='region-tag region-cn'>300012</span></div><div class='giant-desc'>第三方检测龙头 · PE 22.74 / PB 3.13</div><div class='giant-foot'><span>跨层分析</span><span class='giant-link'>查看 →</span></div></a></div>
+<div class='section-title'>环境试验（1 家）</div><div class='grid'><a class='giant-card' href='berkshire-proservice-chain-300416.html'><div class='giant-head'><span class='giant-name'>苏试试验</span><span class='region-tag region-cn'>300416</span></div><div class='giant-desc'>环境试验+检测 · PE 27.65 / PB 2.64</div><div class='giant-foot'><span>跨层分析</span><span class='giant-link'>查看 →</span></div></a></div>
+
+<div class="section-title">延伸阅读</div>
+<div class="extend">
+<a href="berkshire-proservice-compare.html"><b>横向对比工具</b><span>勾选多家公司并排比较 PE/PB/ROE/毛利率/负债率</span></a>
+<a href="berkshire-proservice-thermometer.html"><b>估值温度计</b><span>行业内 PB/PE 相对位置，一眼看清谁被低估</span></a>
+<a href="berkshire-retail-chains.html"><b>商贸社服产业链</b><span>零售/电商/酒店/免税/餐饮综合梳理</span></a>
+<a href="berkshire-chain-map.html"><b>全A产业链地图</b><span>返回 122+ 条产业链总览</span></a>
+</div>
+
+<div class="source-note"><b>资料说明</b>：本页为框架级原创整理，财务与估值分位为真实采集（akshare / 腾讯行情 / 百度股市通，截至 2026-08-20），不复制任何付费内容。结论为机械/框架合成，<b>不构成投资建议</b>；最新数据以公司公告为准。</div>
+
+</div>
+<footer>伯克希尔投资数据中心 · 专业服务产业链　|　数据来源：akshare / 腾讯行情 / 百度股市通　|　仅供研究参考，不构成投资建议</footer>
+<script src="/analytics.js"></script>
+<script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<script>
+(function(){function num(v){if(v==null)return NaN;v=v.textContent||v;if(typeof v==='string'){v=v.replace(/,/g,'').replace(/[ 	
+]/g,'');if(v==='—'||v==='-'||v==='')return NaN;var unit=1;if(v.indexOf('亿')!==-1){unit=10000;v=v.replace(/亿/g,'');}else if(v.indexOf('万')!==-1){unit=1;v=v.replace(/万/g,'');}v=v.replace(/[¥,%]/g,'');var n=parseFloat(v);if(!isNaN(n))n*=unit;return n;}return NaN;}
+function cmp(a,b,asc){var an=isNaN(a)?(typeof a==='string'?a:''):a;var bn=isNaN(b)?(typeof b==='string'?b:''):b;var nanA=isNaN(a),nanB=isNaN(b);if(nanA&&nanB)return 0;if(nanA)return asc?1:-1;if(nanB)return asc?-1:1;if(an<bn)return asc?-1:1;if(an>bn)return asc?1:-1;return 0;}
+function sortTable(th){var table=th.closest('table');var tbody=table.querySelector('tbody');var rows=Array.from(tbody.querySelectorAll('tr'));var idx=Array.from(th.parentNode.children).indexOf(th);var type=th.getAttribute('data-type')||'text';var asc=!th.classList.contains('asc');table.querySelectorAll('th').forEach(function(h){h.classList.remove('asc','desc');});th.classList.add(asc?'asc':'desc');rows.sort(function(r1,r2){var c1=r1.cells[idx],c2=r2.cells[idx];var v1,v2;if(type==='name'){v1=c1.textContent.trim();v2=c2.textContent.trim();}else if(type==='num'){v1=num(c1);v2=num(c2);}else{v1=c1.textContent.trim();v2=c2.textContent.trim();}return cmp(v1,v2,asc);});rows.forEach(function(r){tbody.appendChild(r);});}
+document.querySelectorAll('table.sortable th[data-type]').forEach(function(th){th.addEventListener('click',function(){sortTable(th);});});
+})();</script>
+</body></html>
