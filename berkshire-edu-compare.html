@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="initial-scale=1"><title>教育横向对比工具</title><style>*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#1e293b;line-height:1.75}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.08);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.04);color:#475569;border:1px solid rgba(0,0,0,.12);border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;text-decoration:none;transition:all .2s}
+.breadcrumb{font-size:13px;color:#64748b;display:flex;gap:4px;align-items:center;margin-left:auto}
+.breadcrumb a{color:#64748b;text-decoration:none}
+.crumb-sep{color:#cbd5e1}
+.container{max-width:1000px;margin:0 auto;padding:24px 16px 56px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%);border-radius:14px;padding:30px 28px;margin-bottom:18px;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.hero h1{font-size:25px;font-weight:800;color:#0f172a;margin:0 0 6px}
+.hero p{font-size:13.5px;color:#64748b;margin:0;max-width:820px}
+.section-title{font-size:18px;font-weight:700;color:#0f172a;margin:28px 0 14px;padding-left:12px;border-left:3px solid #0f766e}
+.note{background:#fff;border:1px solid rgba(0,0,0,.08);border-left:3px solid #0f766e;border-radius:10px;padding:14px 18px;margin:16px 0;font-size:13px;color:#64748b;line-height:1.7}
+.note a{color:#0f766e}
+.tbl{width:100%;border-collapse:collapse;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;margin:14px 0;font-size:13px}
+.tbl th,.tbl td{border-bottom:1px solid #eef2f7;padding:10px 10px;text-align:center}
+.tbl th{background:#f8fafc;color:#334155;font-weight:700;border-bottom:2px solid rgba(0,0,0,.08)}
+.tbl tr:hover td{background:#f8fafc}
+.cmp-ctrl{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px 18px;margin:14px 0;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.cmp-ctrl .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.cmp-ctrl input[type=text]{flex:1;min-width:180px;border:1px solid rgba(0,0,0,.12);border-radius:8px;padding:9px 12px;font-size:13px;outline:none;background:#f0f2f5;color:#1e293b}
+.cmp-ctrl .fbtn{border:1px solid rgba(0,0,0,.12);background:#f8fafc;color:#64748b;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13px}
+.cmp-ctrl .fbtn.on{background:#0f766e;color:#fff;border-color:#0f766e}
+.cmp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;max-height:240px;overflow:auto;padding:4px}
+.cmp-item{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 9px;border:1px solid rgba(0,0,0,.1);border-radius:8px;cursor:pointer;transition:.15s}
+.cmp-item input{accent-color:#0f766e;width:15px;height:15px}
+.cmp-item .cc{font-size:11px;color:#94a3b8}
+.cmp-sel{font-size:12.5px;color:#64748b;margin:6px 0}
+.cmp-good{color:#16a34a;font-weight:700}
+.cmp-bad{color:#dc2626;font-weight:700}
+.thermo{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #eef2f7;flex-wrap:wrap}
+.thermo .nm{width:120px;font-weight:600;font-size:14px;color:#0f172a}
+.thermo .bar{flex:1;height:10px;background:linear-gradient(90deg,#f87171,#e8b84b,#34d399);border-radius:6px;position:relative;min-width:160px;opacity:.85}
+.thermo .dot{position:absolute;top:-4px;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid #0f766e;transform:translateX(-50%);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.thermo .v{font-size:12.5px;color:#64748b;width:230px}
+.extend{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.extend a{display:block;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px;text-decoration:none;color:#1e293b;transition:.18s;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.extend a:hover{border-color:#0f766e;box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.extend b{color:#0f766e;display:block;margin-bottom:5px;font-weight:700}
+.extend span{font-size:12.5px;color:#64748b;line-height:1.55}
+footer{background:#f8fafc;color:#94a3b8;text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid rgba(0,0,0,.08);margin-top:30px}
+@media(max-width:640px){.thermo .nm{width:100px}.cmp-list{grid-template-columns:1fr}}</style></head><body>
+<div class="top-bar"><a href="berkshire-standalone.html" class="home-btn">← 数据中心</a>
+<span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><span style="display:inline-flex;gap:12px;align-items:center;margin-left:10px;flex-wrap:wrap"><a href="berkshire-retail-chains.html" style="color:#7c3aed;text-decoration:none;font-size:13px">商贸社服</a><a href="berkshire-commodity-chains.html" style="color:#7c3aed;text-decoration:none;font-size:13px">大宗商品</a><a href="berkshire-tour-chains.html" style="color:#7c3aed;text-decoration:none;font-size:13px">旅游</a><a href="berkshire-edu-chains.html" style="color:#7c3aed;text-decoration:none;font-size:13px;font-weight:700">教育</a><a href="berkshire-proservice-chains.html" style="color:#7c3aed;text-decoration:none;font-size:13px">专业服务</a><a href="berkshire-sports-chains.html" style="color:#7c3aed;text-decoration:none;font-size:13px">体育</a></span></span>
+<div class="breadcrumb"><a href="berkshire-standalone.html">数据中心</a><span class="crumb-sep">/</span><span>教育产业链</span></div></div>
+<div class="container">
+<div class="hero"><h1>教育横向对比工具</h1><p>勾选多家教育公司并排比较 PE/PB/ROE/毛利率/负债率/股息率等核心指标（财务=2025 年报，估值=采集日快照 2026-08-20）。</p></div>
+<div class="cmp-ctrl"><div class="bar"><input type="text" id="q" placeholder="搜索公司名称或代码…"><button class="fbtn on" id="selAll">全选</button><button class="fbtn" id="selNone">清空</button></div>
+<div class="cmp-list" id="list"></div><div class="cmp-sel" id="selinfo">已选 0 家</div></div>
+<table class="tbl"><thead><tr><th style="text-align:left">公司</th><th>类别</th><th>PE</th><th>PB</th><th>股息率%</th><th>ROE%</th><th>毛利率%</th><th>资产负债率%</th><th>营收(亿)</th><th>净利(亿)</th><th>市值(亿)</th><th>每股经营现金流</th></tr></thead><tbody id="tbody"></tbody></table>
+<div class="note">数据：各公司公开年报与行情快照（akshare / 腾讯行情 / 百度分位，截至 2026-08-20），框架级原创整理，<b>不构成投资建议</b>。绿色=同行该列最优，红色=同行该列最弱（按指标方向：PE/PB/负债率越低越好，其余越高越好）。字段缺失者诚实留空。</div>
+<div class="extend"><a href="berkshire-edu-chains.html"><b>返回教育产业链</b><span>查看完整跨层分析与各公司详情页</span></a>
+<a href="berkshire-edu-thermometer.html"><b>估值温度计</b><span>行业内 PB 相对位置一览</span></a></div>
+</div>
+<footer>数据来源：akshare / 腾讯行情 / 百度股市通 · 框架级整理，非投资建议</footer>
+<script>var DATA=[{"code": "002607", "name": "中公教育", "cat": "职业培训龙头", "pe": 222.68, "pb": 15.56, "pe_pct": 54.8, "pb_pct": 10.1, "dy": null, "roe": 6.6, "gross": 59.7, "debt": 86.69, "rev": 22.37, "np": 0.49, "mcap": 125.2, "ocf": 0.07, "price": 2.03}, {"code": "000526", "name": "学大教育", "cat": "个性化辅导", "pe": 17.21, "pb": 3.7, "pe_pct": 20.8, "pb_pct": 1.9, "dy": null, "roe": 22.86, "gross": 33.46, "debt": 76.81, "rev": 32.27, "np": 1.95, "mcap": 45.76, "ocf": 6.06, "price": 37.55}, {"code": "600661", "name": "昂立教育", "cat": "上海K12+素养", "pe": 21.94, "pb": 9.5, "pe_pct": 17.0, "pb_pct": 5.8, "dy": null, "roe": 98.28, "gross": 48.18, "debt": 80.77, "rev": 13.73, "np": 0.87, "mcap": 25.19, "ocf": 0.8, "price": 8.79}, {"code": "605098", "name": "行动教育", "cat": "企业家管理培训", "pe": 18.38, "pb": 6.34, "pe_pct": 14.2, "pb_pct": 43.2, "dy": null, "roe": 31.04, "gross": 78.86, "debt": 57.44, "rev": 8.11, "np": 3.2, "mcap": 66.21, "ocf": 3.48, "price": 55.52}, {"code": "003032", "name": "传智教育", "cat": "IT职业教育", "pe": -57.51, "pb": 4.11, "pe_pct": 33.4, "pb_pct": 19.8, "dy": null, "roe": -7.44, "gross": 50.85, "debt": 29.19, "rev": 3.79, "np": -0.9, "mcap": 48.09, "ocf": 0.2, "price": 11.95}, {"code": "002659", "name": "凯文教育", "cat": "国际学校运营", "pe": -153.42, "pb": 1.24, "pe_pct": 37.3, "pb_pct": 2.8, "dy": null, "roe": -0.79, "gross": 26.75, "debt": 27.51, "rev": 3.47, "np": -0.17, "mcap": 26.56, "ocf": 0.21, "price": 4.44}, {"code": "300010", "name": "豆神教育", "cat": "语文素养教育", "pe": -186.63, "pb": 2.56, "pe_pct": 27.0, "pb_pct": 21.0, "dy": null, "roe": 4.16, "gross": 54.34, "debt": 30.79, "rev": 10.06, "np": 0.7, "mcap": 44.43, "ocf": -0.09, "price": 2.15}, {"code": "600636", "name": "国新文化", "cat": "教育信息化", "pe": -2.85, "pb": 0.43, "pe_pct": 4.0, "pb_pct": 0.8, "dy": null, "roe": -13.09, "gross": 69.8, "debt": 7.81, "rev": 2.96, "np": -2.5, "mcap": 7.5, "ocf": -0.12, "price": 1.71}];
+var COLS=[["pe","PE","low"],["pb","PB","low"],["dy","股息率%","high"],["roe","ROE%","high"],["gross","毛利率%","high"],["debt","资产负债率%","low"],["rev","营收亿","high"],["np","净利亿","high"],["mcap","市值亿","high"],["ocf","每股经营现金流","high"]];
+var sel=new Set(DATA.map(function(d){return d.code;}));var filt='all',q='';
+var listEl=document.getElementById('list'),tbody=document.getElementById('tbody'),selinfo=document.getElementById('selinfo');
+function renderList(){listEl.innerHTML='';DATA.filter(function(d){return (filt==='all')&&(q===''||d.name.indexOf(q)>=0||d.code.indexOf(q)>=0)}).forEach(function(d){var lab=document.createElement('label');lab.className='cmp-item';lab.innerHTML='<input type="checkbox" '+(sel.has(d.code)?'checked':'')+'><b>'+d.name+'</b><span class="cc">'+d.code+'</span>';lab.querySelector('input').onchange=function(e){if(e.target.checked)sel.add(d.code);else sel.delete(d.code);renderList();renderTbl();};listEl.appendChild(lab);});}
+function fmt(v){return (v===null||v===undefined)?'—':v;}
+function color(v,dir,best,worst){if(v===null||v===undefined)return '—';if(v===best)return '<span class="cmp-good">'+v+'</span>';if(v===worst)return '<span class="cmp-bad">'+v+'</span>';return ''+v;}
+function renderTbl(){var rows=DATA.filter(function(d){return sel.has(d.code);});selinfo.textContent='已选 '+rows.length+' 家';if(!rows.length){tbody.innerHTML='<tr><td colspan="12" style="color:#94a3b8">请在上方勾选公司</td></tr>';return;}var stats={};COLS.forEach(function(c){var vs=rows.map(function(r){return r[c[0]];}).filter(function(x){return x!==null&&x!==undefined;});stats[c[0]]={best:Math[c[2]==='high'?'max':'min'].apply(null,vs),worst:Math[c[2]==='high'?'min':'max'].apply(null,vs)};});tbody.innerHTML=rows.map(function(d){var tds=COLS.map(function(c){return '<td>'+color(d[c[0]],c[2],stats[c[0]].best,stats[c[0]].worst)+'</td>';}).join('');return '<tr><td style="text-align:left"><b>'+d.name+'</b></td><td>'+d.cat+'</td>'+tds+'</tr>';}).join('');}
+document.getElementById('selAll').onclick=function(){DATA.forEach(function(d){sel.add(d.code);});renderList();renderTbl();};
+document.getElementById('selNone').onclick=function(){sel.clear();renderList();renderTbl();};
+renderList();renderTbl();
+</script>
+</body></html>
