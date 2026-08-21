@@ -109,6 +109,8 @@ body{
 .tool-banner-desc{font-size:13px;color:#94a3b8;line-height:1.6}
 .tool-banner-arrow{font-size:20px;color:#dc2626;flex-shrink:0;transition:transform 0.2s}
 .tool-banner:hover .tool-banner-arrow{transform:translateX(4px)}
+.tool-status{margin-top:8px;display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#93c5fd;background:rgba(59,130,246,0.15);padding:3px 10px;border-radius:20px;white-space:nowrap}
+.tool-banner-red .tool-status{color:#fca5a5;background:rgba(220,38,38,0.15)}
 .tool-banner-combo{display:flex;gap:0;background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#7f1d1d 100%);border-radius:16px;margin-bottom:40px;overflow:hidden;border:1px solid rgba(220,38,38,0.2);transition:all .25s ease}
 .tool-banner-combo:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(220,38,38,0.15);border-color:rgba(220,38,38,0.4)}
 .combo-main{display:flex;align-items:center;gap:20px;padding:28px 32px;flex:1;text-decoration:none;color:inherit}
@@ -222,12 +224,13 @@ body{
 
 <main class="main">
 
-  <a href="berkshire-sector-crowding.html" class="tool-banner" id="section-板块拥挤度">
+  <a href="berkshire-sector-crowding.html" class="tool-banner tool-banner-red" id="section-板块拥挤度">
     <div class="tool-banner-icon">📊</div>
     <div class="tool-banner-body">
       <span class="tool-banner-tag">信号参考</span>
       <div class="tool-banner-title">A股板块拥挤度监测</div>
-      <div class="tool-banner-desc">成交拥挤 / 获利拥挤 / 持仓拥挤 三维框架，实时刻画哪些板块站在「过热踩踏」边缘，为逆向避坑提供量化参考（数据截至 2026-07-22 盘中）。</div>
+      <div class="tool-banner-desc">成交拥挤 / 获利拥挤 / 持仓拥挤 三维框架，实时刻画哪些板块站在「过热踩踏」边缘，为逆向避坑提供量化参考。</div>
+      <div class="tool-status" data-status="sector-crowding">📅 自动检查：每周一至五 20:15 · 最新检查 2026-08-21</div>
     </div>
     <span class="tool-banner-arrow">→</span>
   </a>
@@ -248,6 +251,7 @@ body{
       <span class="tool-banner-tag" style="background:rgba(59,130,246,0.2);color:#93c5fd">数据工具</span>
       <div class="tool-banner-title">宽基指数 PE 全景图（2012-05 至今）</div>
       <div class="tool-banner-desc">14 条序列月度全景：A 股 7 大宽基 TTM PE + 全市场中位 PE + 标普500 / 恒生 / 日经225 / 德国DAX，右轴叠加 10Y 美债 / 中债收益率，一眼看全球估值水位与无风险利率的相对位置。</div>
+      <div class="tool-status" data-status="index-pe-chart">📅 自动更新：每月1日 09:00 · 数据截至 2026-08-21</div>
     </div>
     <span class="tool-banner-arrow" style="color:#3b82f6">→</span>
   </a>
@@ -269,6 +273,7 @@ body{
         <span class="combo-tag">信号参考</span>
         <div class="combo-title">战略配置型 ETF 买卖信号</div>
         <div class="combo-desc">以宽基核心 ETF（沪深300/中证500/中证1000/上证50/科创50/创业板）的「超大单+主力净流入」方向，刻画汇金等护盘资金动向，提供逆向买卖参考。</div>
+        <div class="tool-status" data-status="national-team-etf">📅 自动更新：每周一至五 20:15 · 最新更新 2026-08-20</div>
       </div>
       <span class="combo-arrow">→</span>
     </a>
