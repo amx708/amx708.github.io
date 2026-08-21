@@ -291,6 +291,33 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <style>
 .back-home{position:fixed;top:12px;right:12px;z-index:9999;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;padding:7px 16px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;transition:transform .2s}
 .back-home:hover{transform:translateX(-2px)}
+
+/* 今日解读卡片化（折叠 + 收藏 + 工具栏）*/
+.daily-note-toolbar{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;align-items:center}
+.daily-note-toolbar button{background:var(--panel);border:1px solid var(--line);padding:5px 12px;border-radius:4px;cursor:pointer;color:var(--ink2);font-size:12px;font-weight:600;transition:all .15s}
+.daily-note-toolbar button:hover{background:var(--accent-l);color:var(--accent);border-color:var(--accent)}
+.daily-note-toolbar button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.note-list{display:flex;flex-direction:column;gap:8px}
+.note-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;border-left:3px solid var(--accent);transition:border-color .2s,background .2s}
+.note-card.faved{border-left-color:#d4af37;background:#fffbf0}
+.note-card.hidden-by-filter{display:none}
+.note-hd{display:flex;align-items:center;gap:8px;padding:9px 14px;cursor:pointer;user-select:none;font-size:13px;background:transparent;border:none;width:100%;text-align:left;font-family:inherit}
+.note-toggle{display:inline-block;width:14px;text-align:center;font-size:9px;color:var(--ink3);transition:transform .2s;flex-shrink:0}
+.note-card:not(.expanded) .note-toggle{transform:rotate(-90deg)}
+.note-date{font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;flex-shrink:0}
+.note-card.faved .note-date{color:#9a6b00}
+.note-rel{font-size:11px;color:var(--ink3);flex-shrink:0}
+.note-tag{display:inline-block;background:var(--accent-l);color:var(--accent);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;flex-shrink:0}
+.note-card.faved .note-tag{background:#fff3cd;color:#9a6b00}
+.note-hd-actions{margin-left:auto;display:flex;align-items:center;gap:2px;flex-shrink:0}
+.note-fav{background:none;border:none;font-size:17px;cursor:pointer;color:var(--ink3);padding:2px 6px;line-height:1;transition:color .2s,transform .15s}
+.note-fav:hover{color:#d4af37;transform:scale(1.15)}
+.note-fav.faved{color:#d4af37}
+.note-bd{padding:0 14px;font-size:13px;line-height:1.7;color:var(--ink);max-height:0;overflow:hidden;transition:max-height .3s ease,padding .25s ease}
+.note-card.expanded .note-bd{max-height:600px;padding:10px 14px 12px 14px;border-top:1px dashed var(--line)}
+.note-bd .t{font-weight:700;margin-right:6px;color:var(--accent)}
+.note-bd b{font-weight:700}
+
 </style>
 </head>
 <body>
@@ -351,8 +378,88 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <div class="d">无杠杆口径（2018高点起算）<br>2 倍杠杆 = <b>−68%</b></div>
     </div>
   </div>
-  <div id="daily-note" class="daily-note"><span class='t'>【今日解读】</span>远月 IM2703 年化 <b>10.52%</b> 为真实稳定收益（剩211天，单手约 92,316 元）；近月 IF2608 显示 45.7% 是因仅剩 1 天被公式放大，绝对收益仅 1,725 元/手，并非真有近 45% 无风险收益。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。<span class='t'>【今日解读】</span>远月 IM2703 年化 <b>10.08%</b> 为真实稳定收益（剩212天，单手约 88,034 元）；近月 IH2608 显示 56.5% 是因仅剩 2 天被公式放大，绝对收益仅 2,690 元/手，并非真有近 56% 无风险收益。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。<span class='t'>【今日解读】</span>远月 IM2703 年化 <b>12.13%</b> 为真实稳定收益（剩212天，单手约 111,953 元）；近月 IC2608 显示 128.5% 是因仅剩 2 天被公式放大，绝对收益仅 11,515 元/手，并非真有近 128% 无风险收益。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。<span class='t'>【今日解读】</span>远月 IM2703 年化 <b>12.07%</b> 为真实稳定收益（剩213天，单手约 111,953 元）；近月 IC2608 显示 85.7% 是因仅剩 3 天被公式放大，绝对收益仅 11,515 元/手，并非真有近 85% 无风险收益。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。<span class='t'>【今日解读】</span>远月 IM2703 年化 <b>12.07%</b> 为真实稳定收益（剩213天，单手约 111,953 元）；近月 IC2608 显示 85.7% 是因仅剩 3 天被公式放大，绝对收益仅 11,515 元/手，并非真有近 85% 无风险收益。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。<span class='t'>【今日解读】</span>远月 IM2703 年化 <b>11.5%</b> 为真实稳定收益（剩约227天，单手数万元）；近月 IC2608 显示 57.7% 是因仅剩 4 天被公式放大，绝对收益仅 10,106 元/手，并非真有近 57% 无风险收益。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。
-</section>
+  <div id="daily-note" class="daily-note">
+  <div class="daily-note-toolbar">
+    <button onclick="expandAll(true)">▼ 全部展开</button>
+    <button onclick="expandAll(false)">▶ 全部收起</button>
+    <button id="fav-filter" onclick="toggleFavFilter()">⭐ 只看收藏</button>
+    <span style="margin-left:auto;color:var(--ink3);font-size:11px">点击卡片标题展开 / 收起；点 ☆ 收藏（仅本机记住）</span>
+  </div>
+  <div class="note-list" id="note-list">
+<div class="note-card" data-id="dnote-2026-08-20-1" data-date="2026-08-20">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-08-20-1')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-20</span>
+    <span class="note-rel">（昨日）</span>
+    <span class="note-tag">今日解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-08-20-1" onclick="event.stopPropagation();toggleFav('dnote-2026-08-20-1')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【今日解读】</span>远月 IM2703 年化 <b>10.52%</b> 为真实稳定收益（剩211天，单手约 92,316 元）；近月 IF2608 显示 45.7% 是因仅剩 1 天被公式放大，绝对收益仅 1,725 元/手，并非真有近 45% 无风险收益。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+<div class="note-card" data-id="dnote-2026-08-19-2" data-date="2026-08-19">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-08-19-2')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-19</span>
+    <span class="note-rel">（2 天前）</span>
+    <span class="note-tag">今日解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-08-19-2" onclick="event.stopPropagation();toggleFav('dnote-2026-08-19-2')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【今日解读】</span>远月 IM2703 年化 <b>10.08%</b> 为真实稳定收益（剩212天，单手约 88,034 元）；近月 IH2608 显示 56.5% 是因仅剩 2 天被公式放大，绝对收益仅 2,690 元/手，并非真有近 56% 无风险收益。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+<div class="note-card" data-id="dnote-2026-08-19-3" data-date="2026-08-19">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-08-19-3')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-19</span>
+    <span class="note-rel">（2 天前）</span>
+    <span class="note-tag">今日解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-08-19-3" onclick="event.stopPropagation();toggleFav('dnote-2026-08-19-3')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【今日解读】</span>远月 IM2703 年化 <b>12.13%</b> 为真实稳定收益（剩212天，单手约 111,953 元）；近月 IC2608 显示 128.5% 是因仅剩 2 天被公式放大，绝对收益仅 11,515 元/手，并非真有近 128% 无风险收益。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+<div class="note-card" data-id="dnote-2026-08-18-4" data-date="2026-08-18">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-08-18-4')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-18</span>
+    <span class="note-rel">（3 天前）</span>
+    <span class="note-tag">今日解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-08-18-4" onclick="event.stopPropagation();toggleFav('dnote-2026-08-18-4')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【今日解读】</span>远月 IM2703 年化 <b>12.07%</b> 为真实稳定收益（剩213天，单手约 111,953 元）；近月 IC2608 显示 85.7% 是因仅剩 3 天被公式放大，绝对收益仅 11,515 元/手，并非真有近 85% 无风险收益。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+<div class="note-card" data-id="dnote-2026-08-18-5" data-date="2026-08-18">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-08-18-5')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-18</span>
+    <span class="note-rel">（3 天前）</span>
+    <span class="note-tag">今日解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-08-18-5" onclick="event.stopPropagation();toggleFav('dnote-2026-08-18-5')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【今日解读】</span>远月 IM2703 年化 <b>12.07%</b> 为真实稳定收益（剩213天，单手约 111,953 元）；近月 IC2608 显示 85.7% 是因仅剩 3 天被公式放大，绝对收益仅 11,515 元/手，并非真有近 85% 无风险收益。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+<div class="note-card" data-id="dnote-2026-08-04-6" data-date="2026-08-04">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-08-04-6')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-04</span>
+    <span class="note-rel">（17 天前）</span>
+    <span class="note-tag">今日解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-08-04-6" onclick="event.stopPropagation();toggleFav('dnote-2026-08-04-6')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【今日解读】</span>远月 IM2703 年化 <b>11.5%</b> 为真实稳定收益（剩约227天，单手数万元）；近月 IC2608 显示 57.7% 是因仅剩 4 天被公式放大，绝对收益仅 10,106 元/手，并非真有近 57% 无风险收益。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+  </div>
+</div></section>
 
 <!-- 结论 -->
 <section id="conclusion">
@@ -1481,5 +1588,20 @@ update();
 </script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
 <div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">✅ 已更新 2026-08-19 20:36 · 📅 数据自动更新：每周一至五 20:30（AutoJobsHub）</div>
+
+<script>
+// ============ 今日解读 卡片：收藏 / 展开 / 筛选 ============
+const FAV_KEY='dnote-favs', OPEN_KEY='dnote-open', FILTER_KEY='dnote-favOnly';
+const ls=window.localStorage;
+const favSet=new Set(JSON.parse(ls.getItem(FAV_KEY)||'[]'));
+const openSet=new Set(JSON.parse(ls.getItem(OPEN_KEY)||'[]'));
+let favOnly=ls.getItem(FILTER_KEY)==='1';
+function toggleNote(id){const c=document.querySelector('[data-id="'+id+'"]');if(!c)return;c.classList.toggle('expanded');if(c.classList.contains('expanded'))openSet.add(id);else openSet.delete(id);ls.setItem(OPEN_KEY,JSON.stringify([...openSet]))}
+function toggleFav(id){const c=document.querySelector('[data-id="'+id+'"]');if(!c)return;const b=c.querySelector('.note-fav');if(favSet.has(id)){favSet.delete(id);c.classList.remove('faved');b.classList.remove('faved');b.textContent='☆'}else{favSet.add(id);c.classList.add('faved');b.classList.add('faved');b.textContent='★'}ls.setItem(FAV_KEY,JSON.stringify([...favSet]))}
+function expandAll(on){document.querySelectorAll('.note-card').forEach(c=>{c.classList.toggle('expanded',on);if(on)openSet.add(c.dataset.id);else openSet.delete(c.dataset.id)});ls.setItem(OPEN_KEY,JSON.stringify([...openSet]))}
+function toggleFavFilter(){favOnly=!favOnly;ls.setItem(FILTER_KEY,favOnly?'1':'0');applyFilter()}
+function applyFilter(){const btn=document.getElementById('fav-filter');if(btn)btn.classList.toggle('active',favOnly);document.querySelectorAll('.note-card').forEach(c=>{c.classList.toggle('hidden-by-filter',favOnly&&!favSet.has(c.dataset.id))})}
+(function init(){favSet.forEach(id=>{const c=document.querySelector('[data-id="'+id+'"]');if(c){c.classList.add('faved');const b=c.querySelector('.note-fav');if(b){b.classList.add('faved');b.textContent='★'}}});openSet.forEach(id=>{const c=document.querySelector('[data-id="'+id+'"]');if(c)c.classList.add('expanded')});if(!openSet.size){const cards=document.querySelectorAll('.note-card');if(cards.length){const first=cards[0];first.classList.add('expanded');openSet.add(first.dataset.id);ls.setItem(OPEN_KEY,JSON.stringify([...openSet]))}}applyFilter()})();
+</script>
 </body>
 </html>
