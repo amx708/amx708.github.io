@@ -7,7 +7,6 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>信息收录</title>
-<link rel="icon" type="image/x-icon" href="./favicon.ico">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 :root {
@@ -31,34 +30,12 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
 .card-desc { font-size:14px; color:var(--text2); line-height:1.6; }
 .card-meta { margin-top:18px; display:flex; gap:12px; flex-wrap:wrap; }
 .card-tag { font-size:12px; padding:3px 10px; border-radius:20px; font-weight:600; }
+.card-status { display:inline-flex; align-items:center; gap:5px; font-size:11px; color:#0f766e; background:#f0fdfa; padding:3px 10px; border-radius:20px; margin-bottom:10px; white-space:nowrap; align-self:flex-start; border:1px solid rgba(20,184,166,0.15); }
 .tag-purple { background:#ede9fe; color:#7c3aed; }
 .tag-blue { background:#dbeafe; color:#2563eb; }
 .tag-green { background:#d1fae5; color:#059669; }
 .tag-amber { background:#fef3c7; color:#d97706; }
 .tag-red { background:#fee2e2; color:#dc2626; }
-/* 卡片更新时间戳（左上角） */
-.card-stamp { position:absolute; top:10px; left:12px; font-size:11px; color:#9ca3af; background:rgba(255,255,255,.9); padding:2px 8px; border-radius:8px; border:1px solid #e5e7eb; z-index:2; white-space:nowrap; pointer-events:none; line-height:1.4; }
-.card-stamp[data-dual] { white-space:normal; line-height:1.5; top:8px; left:10px; max-width:calc(100% - 20px); }
-.card:has(> .card-stamp[data-dual]) { padding-top:42px; }
-.card:hover .card-stamp { background:rgba(255,255,255,1); border-color:#d1d5db; }
-
-/* ===== 全站总览卡(深色玻璃,占满整行) ===== */
-/* 2026-08-19 老板指令:首页隐藏此卡,_portal.html 路径保留;以后想回来就改 display:flex 即可 */
-.card-portal { grid-column:1 / -1; display:none; align-items:center; gap:24px; padding:28px 32px; background:linear-gradient(135deg,#0f1729 0%,#1b2c4d 60%,#0a0e1a 100%); color:#fff; border:1px solid rgba(245,215,110,.3); border-radius:var(--radius); box-shadow:0 4px 24px rgba(15,23,42,.4); text-decoration:none; transition:all .2s; position:relative; overflow:hidden; }
-.card-portal::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 90% 20%,rgba(45,212,191,.15) 0%,transparent 50%); pointer-events:none; }
-.card-portal:hover { transform:translateY(-3px); box-shadow:0 8px 32px rgba(245,215,110,.2); border-color:rgba(245,215,110,.6); }
-.card-portal .portal-ico { font-size:48px; flex-shrink:0; filter:drop-shadow(0 0 8px rgba(245,215,110,.4)); }
-.card-portal .portal-body { flex:1; }
-.card-portal .portal-ttl { font-size:22px; font-weight:800; margin-bottom:6px; background:linear-gradient(135deg,#f5d76e,#fff,#2dd4bf); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-.card-portal .portal-desc { font-size:14px; color:#cbd5e1; line-height:1.6; margin-bottom:10px; }
-.card-portal .portal-stats { display:flex; gap:18px; flex-wrap:wrap; }
-.card-portal .portal-stat { font-size:12px; padding:3px 12px; border-radius:12px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); font-weight:600; letter-spacing:.5px; }
-.card-portal .portal-stat .n { color:#f5d76e; font-weight:800; margin-right:4px; }
-.card-portal .portal-arrow { font-size:36px; color:#f5d76e; flex-shrink:0; transition:transform .2s; }
-.card-portal:hover .portal-arrow { transform:translateX(6px); }
-@media(max-width:760px){ .card-portal { flex-direction:column; text-align:center; padding:24px 20px; } .card-portal .portal-arrow { display:none; } }
-.section-title { grid-column:1 / -1; font-size:17px; font-weight:700; margin:6px 0 2px; display:flex; align-items:center; gap:8px; color:var(--text); }
-.section-title::before { content:""; width:4px; height:18px; border-radius:2px; background:linear-gradient(135deg,#7c3aed,#2563eb); }
 .footer { text-align:center; padding:24px; font-size:12px; color:#9ca3af; }
 /* ===== 平板适配 (768px-1024px) ===== */
 @media(max-width:900px) {
@@ -81,6 +58,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
   .card-desc { font-size:13px; }
   .card-meta { gap:8px; margin-top:14px; }
   .card-tag { font-size:11px; padding:3px 8px; }
+  .card-status { font-size:10px; margin-bottom:8px; }
   .footer { padding:20px 16px; font-size:11px; }
 }
 /* ===== 小屏手机适配 (≤380px) ===== */
@@ -118,21 +96,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
 <div class="main">
   <div class="card-grid">
 
-    <a class="card-portal" href="./_portal.html">
-      <div class="portal-ico">🗂️</div>
-      <div class="portal-body">
-        <div class="portal-ttl">全站 3804 链接 · 一站式总览</div>
-        <div class="portal-desc">Launcher 17 张快捷入口 + 全站 3804 个页面索引 · 本地 8080 与 github.io 自动同步 · 以最新数据为准</div>
-        <div class="portal-stats">
-          <span class="portal-stat"><span class="n">17</span>快捷入口</span>
-          <span class="portal-stat"><span class="n">3,804</span>全站页面</span>
-          <span class="portal-stat"><span class="n">261</span>分组数</span>
-          <span class="portal-stat"><span class="n">2026-08-19</span>更新</span>
-        </div>
-      </div>
-      <div class="portal-arrow">→</div>
-    </a>
-
     <a class="card" href="./curated36.html">
       <span class="card-icon">🌐</span>
       <div class="card-title">跨境电商参考</div>
@@ -156,7 +119,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
     </a>
 
     <a class="card" href="./berkshire-standalone.html">
-      <span class="card-icon">📜</span>
+      <span class="card-icon">📊</span>
       <div class="card-title">伯克希尔投资数据</div>
       <div class="card-desc">巴菲特历年投资数据、收购数据、68封致股东信（1957-2024）、股东大会、演讲等 comprehensive 数据合集。</div>
       <div class="card-meta">
@@ -166,36 +129,21 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
       </div>
     </a>
 
-
-    <!-- 本地优先收录：以下卡片只在本地 127.0.0.1:8080 显示，公网 github.io 自动移除 -->
-    <!-- display:contents 让 wrapper "消失"，里面的 <a class="card"> 仍是 grid 直接子项 -->
+    <!-- 本地优先收录：以下 6 张卡片只在本地 127.0.0.1:8080 显示，公网 github.io 自动移除 -->
+    <!-- display:contents 让 wrapper "消失"，里面的 6 张 <a class="card"> 仍是 grid 直接子项 -->
     <div class="local-only-cards" style="display:contents" data-reason="本地优先收录，公网暂不展示">
-    <!-- 本地优先：要约收购套利策略（仅本地 127.0.0.1 显示，github.io 自动移除） -->
-    <h2 class="section-title">策略专辑 · 投资方法论</h2>
-    <a class="card" href="./要约收购全案例深度拆解_总览表.html">
-      <span class="card-stamp">📅 每日 20:15 自动收录</span>
-      <span class="card-icon">🎯</span>
-      <div class="card-title">要约收购套利策略</div>
-      <div class="card-desc">网络收录的套利方法论（风险系数法 / 策略轮动法 / 事件套利法 / 四步法实战 + 七条铁律与「三个知道」）+ 32 例真实案例全维度拆解（背景 / 资产结构 / 收购动机 / 套利空间 / 风险评级）。</div>
-      <div class="card-meta">
-        <span class="card-tag tag-purple">网络收集</span>
-        <span class="card-tag tag-blue">套利策略</span>
-        <span class="card-tag tag-amber">32例</span>
-      </div>
-    </a>
-
-    <a class="card" href="./berkshire-national-team-etf.html">
-      <span class="card-stamp">📅 每周一至五 20:15</span>
+    <a class="card" href="./berkshire-index-investing.html">
       <span class="card-icon">🛡️</span>
-      <div class="card-title">战略配置型 ETF 买卖信号</div>
-      <div class="card-desc">以宽基核心 ETF（沪深300/中证500/中证1000/上证50/科创50/创业板）的「超大单+主力净流入」方向，刻画汇金等护盘资金动向，提供逆向买卖参考。</div>
+      <div class="card-title">指数投资</div>
+      <div class="card-desc">长赢指数投资必读精华：理念框架、资产配置、估值择时、心态纪律与进阶策略，并内嵌战略配置型 ETF 买卖信号工具。</div>
       <div class="card-meta">
-        <span class="card-tag tag-red">信号参考</span>
-        <span class="card-tag tag-amber">宽基核心</span>
+        <span class="card-tag tag-red">长赢精华</span>
+        <span class="card-tag tag-amber">指数工具</span>
       </div>
     </a>
 
     <a class="card" href="./berkshire-chain-map.html">
+      <span class="card-status" data-status="chain-map">📅 自动重建：每周一至五 20:15 · 最新重建 2026-08-20</span>
       <span class="card-icon">🗺️</span>
       <div class="card-title">全A产业链</div>
       <div class="card-desc">全站产业链的统一入口：把 5000+ 上市公司归并到约 126 条产业链，已深凿与框架版全部可一键直达，自动随站点文件更新状态。</div>
@@ -207,8 +155,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
     </a>
 
     <a class="card" href="./fear_greed_chart.html">
-      <span class="card-stamp">📅 每周一至五 20:15</span>
-      <span class="card-icon">🎭</span>
+      <span class="card-icon">📊</span>
       <div class="card-title">A股恐贪指数 · 情绪温度计</div>
       <div class="card-desc">六维拆解市场情绪（波动率 / 换手 / 融资 / 宽度 / RSI / 涨跌停），每日收盘后自动刷新，附「人话解读」。恐贪&lt;25 进入加仓区。</div>
       <div class="card-meta">
@@ -219,8 +166,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
     </a>
 
     <a class="card" href="./market-thermometer-detail.html">
-      <span class="card-stamp">📅 每周一至五 20:15</span>
-      <span class="card-icon">📈</span>
+      <span class="card-icon">🌡️</span>
       <div class="card-title">市场温度计 · 详细版</div>
       <div class="card-desc">PE / PB / 股息率 / ERP 等估值分位详细数据，近15年历史区间与温度条标注当前位置，离线可读。</div>
       <div class="card-meta">
@@ -231,7 +177,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
     </a>
 
     <a class="card" href="./articles/经济冷暖表_总览导航.html">
-      <span class="card-stamp">📅 每月更新</span>
       <span class="card-icon">🌡️</span>
       <div class="card-title">经济冷暖表 · 总览导航</div>
       <div class="card-desc">用金铜比 / 金银比 / 金油比判断当前是"偏防御"还是"偏进攻"，帮你定仓位舒适度与行业配置倾向。一图看懂 + 宏观象限仪表盘 + 决策参考卡 + 行业映射卡 + 使用手册。</div>
@@ -243,7 +188,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
     </a>
 
     <a class="card" href="./macro-dashboard.html">
-      <span class="card-stamp">📅 每日 20:15</span>
       <span class="card-icon">🌍</span>
       <div class="card-title">宏观仪表盘 · 总览</div>
       <div class="card-desc">一键看全：CPI / PPI / PMI / M2 / 利率 / 汇率 等核心宏观指标当期值与趋势，颜色约定红涨绿跌，国家统计局等公开来源。</div>
@@ -254,21 +198,18 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
       </div>
     </a>
 
-    <a class="card" href="./articles/price-hike-monitor.html">
-      <span class="card-stamp">📅 每周一至五 20:15</span>
+    <a class="card" href="./articles/price-hike-logic.html">
       <span class="card-icon">🔥</span>
-      <div class="card-title">涨价逻辑监测表</div>
-      <div class="card-desc">实时追踪周期品涨价事件与价差异动，自动标注涨价幅度、持续性与受益标的，每周一至五收盘后自动刷新，附「人话解读」与排雷提示。卫星仓位排雷主工具。</div>
+      <div class="card-title">涨价逻辑攻略 · 通用方法论</div>
+      <div class="card-desc">周期股涨价逻辑的通用方法论：五步法、业绩弹性公式、化工/有色实战案例与致命陷阱，附内联弹性计算器。可借作卫星仓位排雷工具。</div>
       <div class="card-meta">
-        <span class="card-tag tag-red">实时监测</span>
-        <span class="card-tag tag-green">每日更新</span>
-        <span class="card-tag tag-amber">排雷工具</span>
+        <span class="card-tag tag-amber">投资方法</span>
+        <span class="card-tag tag-green">弹性计算器</span>
+        <span class="card-tag tag-blue">化工·有色</span>
       </div>
     </a>
 
-
     <a class="card" href="./double_low/index.html">
-      <span class="card-stamp">📅 每周一至五 20:15</span>
       <span class="card-icon">🔄</span>
       <div class="card-title">可转债策略</div>
       <div class="card-desc">可转债策略子站总入口：双低轮动（策略终端 / 作战手册 / 轮动监控表 / 信号监测器 / 人话详解 / 留底档案）+ 全套数据表（明细 / 配债筛选 / 策略汇总）。</div>
@@ -280,7 +221,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
     </a>
 
     <a class="card" href="./option-strategy-overview.html">
-      <span class="card-stamp">📅 每周一至五 20:15</span>
       <span class="card-icon">📈</span>
       <div class="card-title">期权策略体系总览</div>
       <div class="card-desc">期权策略体系总览 + 今日择时日报合并版：方向/波动/区间/对冲四大策略矩阵、环境适配、今日择时信号与复盘，附 KPI 速览与人话解读。</div>
@@ -292,7 +232,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
     </a>
 
     <a class="card" href="./discount-strategy.html">
-      <span class="card-stamp">📅 每周一至五 20:15</span>
       <span class="card-icon">📉</span>
       <div class="card-title">贴水策略 · 股指期货吃贴水</div>
       <div class="card-desc">股指期货吃贴水完整方案：贴水/升水原理、滚贴水收益来源、实操建仓与移仓节奏、风险与对冲，附情景测算与人话解读。</div>
@@ -304,7 +243,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
     </a>
 
     <a class="card" href="./smallcap/">
-      <span class="card-stamp">📅 每周一至五 20:15</span>
       <span class="card-icon">🔎</span>
       <div class="card-title">小市值策略 · 信号看板</div>
       <div class="card-desc">小市值策略信号看板：选股因子、打分与排序、择时信号与回测概览，附信号状态与人话解读。</div>
@@ -316,7 +254,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
     </a>
 
     <a class="card" href="./每日简单复盘.html">
-      <span class="card-stamp" data-dual="true">📅 数据 20:15 ｜ 复盘 20:30</span>
       <span class="card-icon">📋</span>
       <div class="card-title">每日简单复盘</div>
       <div class="card-desc">浏览器直连东方财富公开行情，零后端零安装：涨停池 / 连板梯队 / 板块强度 / 指数 / 龙虎榜。任何设备（含 github.io 部署版）打开即用，点代码行开个股页。不依赖任何本机服务，从根上不会弹窗。</div>
@@ -328,7 +265,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
     </a>
 
     <a class="card" href="./commodity-dashboard.html">
-      <span class="card-stamp">📅 每周一至五 20:15</span>
       <span class="card-icon">🛢️</span>
       <div class="card-title">商品期货</div>
       <div class="card-desc">铜金油宏观验证专版 + 全市场90合约温度 + 外资持仓结构。铜金油机构多空、涨跌热力图、外资净多/净空榜与「涨跌×外资」交叉验证；带杠杆高风险，仅作温度参考。</div>
@@ -340,7 +276,6 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
     </a>
 
     <a class="card" href="./crei-viz.html">
-      <span class="card-stamp">📅 每日 20:15</span>
       <span class="card-icon">🏠</span>
       <div class="card-title">房地产数据看板</div>
       <div class="card-desc">房地产核心指标可视化（价格 / 销售 / 投资 / 土地等），网络收录公开数据，多维度交叉看趋势，纯静态看板。</div>
@@ -352,8 +287,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
     </a>
 
     <a class="card" href="./fred_dashboard.html">
-      <span class="card-stamp">📅 每周一至五 20:15</span>
-      <span class="card-icon">🏦</span>
+      <span class="card-icon">📊</span>
       <div class="card-title">FRED 宏观监测看板</div>
       <div class="card-desc">圣路易斯联储官方 7 项核心宏观指标（美联储利率 · 中美汇率 · WTI · 10Y/2Y利差 · CPI · 衰退标记等），含趋势图与结论速览；数据来自本地快照 fred_data.json（零后端，不依赖后台服务）。</div>
       <div class="card-meta">
@@ -362,22 +296,18 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
         <span class="card-tag tag-purple">本地快照</span>
       </div>
     </a>
-    </div><!-- /.local-only-cards -->
-
-    <div class="local-only-cards" style="display:contents" data-reason="本地监控工具，公网暂不展示">
-    <a class="card" href="./center_alerts.html#cat-1">
-      <span class="card-icon">🏷️</span>
-      <div class="card-title">全监控中心 · 错价告警</div>
-      <div class="card-desc">46 条去重告警按来源类目分栏：机票现金错价（10）/ 酒店错价尾房（6）/ 拼多多捡漏（16）/ 商家推广优惠链接（5）/ 美团团购门票（9）。点类目标题直达对应分组。</div>
+    <a class="card" href="./berkshire-tender-offer-arbitrage.html">
+      <span class="card-icon">🎯</span>
+      <div class="card-title">要约收购套利策略</div>
+      <div class="card-desc">网络收录的套利方法论（风险系数法 / 策略轮动法 / 事件套利法 / 四步法实战 + 七条铁律与「三个知道」） + 32 例真实案例全维度拆解（背景 / 资产结构 / 收购动机 / 套利空间 / 风险评级）。</div>
       <div class="card-meta">
-        <span class="card-tag tag-red">46 条告警</span>
-        <span class="card-tag tag-amber">5 类目</span>
-        <span class="card-tag tag-blue">本地</span>
+        <span class="card-tag tag-purple">网络收集</span>
+        <span class="card-tag tag-blue">套利策略</span>
+        <span class="card-tag tag-amber">32例</span>
       </div>
     </a>
 
     <a class="card" href="./irm/">
-      <span class="card-stamp">📅 每周一至五 20:15</span>
       <span class="card-icon">💬</span>
       <div class="card-title">互动问答可检索数据库</div>
       <div class="card-desc">深交所<b>互动易</b> / 上交所<b>e互动</b> 官方问答库，按股票代码 / 关键词 / 日期检索；回复具合规背书，可作研究素材。内置快捷筛选词组（分红 / 产能 / 现金流 / 计提 / 重组 等），多选即查。</div>
@@ -387,6 +317,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
         <span class="card-tag tag-amber">关键词筛选</span>
       </div>
     </a>
+
     </div><!-- /.local-only-cards -->
 
   </div>
@@ -439,46 +370,10 @@ body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang 
         el.parentNode && el.parentNode.removeChild(el);
       });
     }
-    // 卡片子链接拦截：.card-extra 嵌在 <a class="card"> 内，HTML 禁止 <a> 嵌套，固改用 div + JS 跳转
-    document.addEventListener('click', function (e) {
-      var t = e.target.closest && e.target.closest('.card-extra');
-      if (!t) return;
-      e.preventDefault();
-      e.stopPropagation();
-      var href = t.getAttribute('data-href');
-      if (href) window.location.href = href;
-    }, true);
   </script>
   <script>
     // 历史「龙头复盘神器」卡片（依赖 8765 本地服务、会弹窗）已于 2026-08-08 移除，
     // 由零后端的「每日简单复盘」(每日简单复盘.html) 取代，不再有任何 /api/fupan 探测与拉起。
-  </script>
-  <script>
-    // 卡片时间戳：读取中心时间戳文件，在静态调度时间后追加实际更新时间
-    // 支持双时间戳（data-dual 属性）：显示数据更新时间 + 复盘生成时间
-    (function(){
-      var stamps = document.querySelectorAll('.card-stamp');
-      if (!stamps.length) return;
-      fetch('./_last_update.json?t='+Date.now())
-        .then(function(r){ return r.ok ? r.json() : null; })
-        .then(function(d){
-          if (!d || !d._last) return;
-          stamps.forEach(function(el){
-            if (el.getAttribute('data-dual') === 'true') {
-              // 双时间戳：数据(20:15) + 复盘(20:30)
-              var dt = d._last;
-              var rt = d.daily_review || d._last;
-              el.innerHTML = '📅 数据 20:15 <span style="color:#6b7280">｜</span> ' + dt
-                + '<br>📅 复盘 20:30 <span style="color:#6b7280">｜</span> ' + rt;
-            } else {
-              // 单时间戳：保留原调度时间 + 追加动态时间
-              var base = el.textContent.replace(/📅\s*/,'').trim();
-              el.textContent = '📅 ' + base + ' ｜ ' + d._last;
-            }
-          });
-        })
-        .catch(function(){ /* 离线/文件不存在时保留静态文字 */ });
-    })();
   </script>
   <script src="/analytics.js"></script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
