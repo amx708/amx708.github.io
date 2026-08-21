@@ -34,17 +34,22 @@
   .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
   .toolbar button{background:var(--chip);border:1px solid var(--line);border-radius:8px;padding:6px 13px;font-size:13px;color:var(--ink);cursor:pointer}
   .toolbar button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
-  /* 总览表 */
-  .ov-scroll{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:12px;background:#fff}
-  table.ov{width:100%;border-collapse:collapse;font-size:12px;min-width:1080px}
-  table.ov th,table.ov td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
-  table.ov th{background:#eef3fa;color:#22405f;font-weight:700;white-space:nowrap;position:sticky;top:0}
-  table.ov td.c{color:var(--sub)}
+  /* 总览卡片（纵向自适应，不横向滚动） */
+  .ov-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:12px;margin:12px 0}
+  .ovc{background:#fff;border:1px solid var(--line);border-radius:11px;padding:12px 14px;box-shadow:0 1px 3px rgba(20,40,80,.04)}
+  .ovc .hd{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;padding-bottom:8px;border-bottom:1px dashed var(--line)}
+  .ovc .hd .nm{font-size:15px;font-weight:700}
+  .ovc .hd .cd{font-size:12px;color:var(--sub);font-weight:500}
+  .ovc .hd .yr{font-size:11px;color:var(--sub)}
+  .ovc .row{display:grid;grid-template-columns:64px 1fr;gap:8px;padding:3px 0;font-size:12.5px;line-height:1.5}
+  .ovc .row .k{color:var(--sub);font-weight:600;white-space:nowrap}
+  .ovc .row .v{color:#2c3848;word-break:break-word}
+  .ovc .row .v.c{color:var(--sub)}
   .rk{font-size:11px;padding:1px 7px;border-radius:5px;color:#fff;font-weight:700}
   .rk.s{background:var(--green)} .rk.f{background:var(--red)} .rk.c{background:var(--amber)} .rk.o{background:var(--blue)} .rk.w{background:#9aa3b2}
   .cf{font-size:11px;padding:1px 7px;border-radius:5px}
   .cf.h{background:#e7f6ee;color:var(--green)} .cf.m{background:#fff3df;color:var(--amber)} .cf.w{background:#fdeaea;color:var(--red)}
-  .dl{display:inline-block;background:#eef3fa;border:1px solid #cdd9ea;color:var(--blue);border-radius:7px;padding:3px 9px;font-size:11.5px;font-weight:600;text-decoration:none;margin:2px 3px 2px 0}
+  .dl{display:inline-block;background:#eef3fa;border:1px solid #cdd9ea;color:var(--blue);border-radius:7px;padding:3px 9px;font-size:11.5px;font-weight:600;text-decoration:none;margin:6px 3px 0 0}
   .dl:hover{background:var(--blue);color:#fff}
   .deep{margin:4px 0 2px}
   .idxln{font-size:13px;color:var(--sub);margin:10px 0 4px}
@@ -97,10 +102,10 @@
 </div>
 
 <div class="note">
-  <b>本篇构成：</b>① 顶部<b>总览表</b>——32 例一行浓缩（代码/名称/类型/要约价/比例/结果/收购方背景/标的资产/动机/置信度）；② 下方 <b>32 例逐个深挖</b>，每例按 ST新潮 范式拆 <b>被收购方（背景/资产/动机）+ 收购方（背景/资产/动机）</b>。所有数据来自已核实案例（公开公告/权威财经媒体，已脱敏），<b>不编造</b>；早年价格与部分买壳方资产缺口已标"待核"。
+  <b>本篇构成：</b>① 顶部<b>总览卡片</b>——34 例一卡一案例（代码/名称/类型/要约价/比例/结果/收购方/标的资产/动机/置信度），竖向排列无需横向滚动；② 下方 <b>34 例逐个深挖</b>，每例按 ST新潮 范式拆 <b>被收购方（背景/资产/动机）+ 收购方（背景/资产/动机）</b>。所有数据来自已核实案例（公开公告/权威财经媒体，已脱敏），<b>不编造</b>；早年价格与部分买壳方资产缺口已标"待核"。
 </div>
 
-<h2 class="sec">一、总览表（32 例浓缩）</h2>
+<h2 class="sec">一、总览卡片（34 例）</h2>
 <p class="idxln">每例均已有<b>完整独立深度页</b>（收购方+被收购方 背景/资产/动机 + 图表 + 套利启示）：<a class="dl" href="个案深度分析/个案深度分析_索引.html">→ 全部个案深度分析索引</a>；下表「深度分析」列与每张卡片也可直达对应页。</p>
 <div class="toolbar" id="filters">
   <button class="active" data-f="all">全部</button>
@@ -109,10 +114,7 @@
   <button data-f="ongoing">进行中</button>
   <button data-f="wait">含待核</button>
 </div>
-<div class="ov-scroll"><table class="ov" id="ovt"><thead><tr>
-  <th>代码</th><th>名称</th><th>类型</th><th>要约价</th><th>比例</th><th>结果</th>
-  <th>收购方（背景）</th><th>标的（资产）</th><th>动机</th><th>置信</th><th>深度分析</th>
-</tr></thead><tbody id="ovb"></tbody></table></div>
+<div id="ovCards" class="ov-cards"></div>
 
 <h2 class="sec">二、全案例逐个深挖（背景 / 资产 / 动机）</h2>
 <div id="cases"></div>
@@ -121,10 +123,6 @@
   <b>风险提示：</b>要约收购套利属事件驱动策略，本质非"有可验证现金流"长期资产；含终止、生效不足、倒挂、退市、余股补跌等风险。本总览与拆解仅为研究整理，<b>不构成投资建议，决策请自行判断，亏损可能随时发生</b>。
 </div>
 
-<footer>
-  阿研 · 要约收购全案例深度拆解（32例）· 数据时点 2026-08-09 · 来源：公开公告/权威财经媒体（已脱敏）<br>
-  范式：单案例深挖（收购方+被收购方，背景/资产/动机）。早年价格(全柴16.62/南钢3.69)及部分买壳方资产标"待核"。
-</footer>
 </div>
 
 <script>
@@ -415,29 +413,40 @@ const CASES = [
   tMot:"国资巩固控制权、对抗银泰系。",
   aName:"武商联+武汉经发投+武汉国资",aBG:"武汉国资联合体(武商联+武汉经发投+武汉国资公司)。",
   aAsset:"武汉国资商业资产。",
-  aMot:"A股首例'为夺控制权'而发的要约;溢价6.1%巩固国资控股、拉开与银泰系差距。"} {name:"兴业银锡",code:"000426",year:2026,atype:"待核",offerPrice:"待核",offerPct:"待核",offerShares:"待核",maxAmount:"待核",structure:"公告见2026-08-19",announce:"2026-08-19",preaccept:"待核",result:"进行中",confidence:"低",_nodetail:true,note:"自动收录:兴业银锡:关于对外投资收购威领股份控制权及向威领股份股东发起部分要约收购的公告"}, {name:"*ST威领",code:"002667",year:2026,atype:"待核",offerPrice:"待核",offerPct:"待核",offerShares:"待核",maxAmount:"待核",structure:"公告见2026-08-19",announce:"2026-08-19",preaccept:"待核",result:"进行中",confidence:"低",_nodetail:true,note:"自动收录:*ST威领:威领新能源股份有限公司要约收购报告书摘要"},
+  aMot:"A股首例'为夺控制权'而发的要约;溢价6.1%巩固国资控股、拉开与银泰系差距。"},
+{name:"兴业银锡",code:"000426",year:2026,atype:"待核",offerPrice:"待核",offerPct:"待核",offerShares:"待核",maxAmount:"待核",structure:"公告见2026-08-19",announce:"2026-08-19",preaccept:"待核",result:"进行中",confidence:"低",_nodetail:true,note:"自动收录:兴业银锡:关于对外投资收购威领股份控制权及向威领股份股东发起部分要约收购的公告"}, {name:"*ST威领",code:"002667",year:2026,atype:"待核",offerPrice:"待核",offerPct:"待核",offerShares:"待核",maxAmount:"待核",structure:"公告见2026-08-19",announce:"2026-08-19",preaccept:"待核",result:"进行中",confidence:"低",_nodetail:true,note:"自动收录:*ST威领:威领新能源股份有限公司要约收购报告书摘要"},
 ];
 
-// ---- 总览表 ----
+// ---- 总览卡片（纵向自适应，不横向滚动） ----
 const resKey={ "成功":"s","成功(控股)":"s","成功(保上市)":"s","成功(退市)":"s","成功(巩固控制)":"s","成功(控制权变更)":"s",
   "失败":"f","失败(遇冷)":"f","无套利空间":"c","进行中":"o","部分成功/后续终止":"c" };
 const resTxt={ "成功":"成功","成功(控股)":"成功","成功(保上市)":"成功(保上市)","成功(退市)":"成功(退市)","成功(巩固控制)":"成功","成功(控制权变更)":"成功(变控)",
   "失败":"失败","失败(遇冷)":"遇冷","无套利空间":"无空间","进行中":"进行中","部分成功/后续终止":"部分成功" };
 const safeD=x=>String(x).replace(/[\\/:*?"<>|]/g,"_");
 function linkHtml(c){if(c._nodetail)return '<span class="dl" style="background:#f0f0f3;color:#9aa3b2;border-color:#e6e6ea;cursor:default">深度页待生成</span>';return '<a class="dl" href="个案深度分析/个案_'+safeD(c.code)+'_'+safeD(c.name)+'.html">完整深度页 →</a>';}
-const ovb=document.getElementById("ovb");
-ovb.innerHTML=CASES.map(c=>{
+function row(k,v,cls){return `<div class="row"><div class="k">${k}</div><div class="v ${cls||''}">${v}</div></div>`;}
+const ovBox=document.getElementById("ovCards");
+ovBox.innerHTML=CASES.map(c=>{
   const rk=resKey[c.result]||"c";
   const cf=c.confidence==="高"?"h":c.confidence==="中"?"m":"w";
-  const wait=c._wait?" ⚠待核":"";
-  return `<tr data-res="${c.result}" data-conf="${c.confidence}">
-    <td>${c.code}</td><td><b>${c.name}</b></td><td>${c.atype}</td>
-    <td>${c.offerPrice}</td><td>${c.offerPct}</td>
-    <td><span class="rk ${rk}">${resTxt[c.result]}</span></td>
-    <td>${c.aName}</td><td class="c">${c.tAsset}</td><td class="c">${c.tMot}</td>
-    <td><span class="cf ${cf}">${c.confidence}</span>${wait}</td>
-    <td>${linkHtml(c)}</td>
-  </tr>`;
+  const wait=c._wait?' <span class="pill w" style="font-size:10px;padding:1px 6px;border-radius:5px;background:#9aa3b2;color:#fff">⚠待核</span>':'';
+  const confidence=`${c.confidence}${wait}`;
+  return `<div class="ovc" data-res="${c.result}" data-conf="${c.confidence}">
+    <div class="hd">
+      <span class="nm">${c.name}</span>
+      <span class="cd">${c.code}</span>
+      <span class="yr">${c.year}</span>
+      <span class="rk ${rk}">${resTxt[c.result]}</span>
+      <span class="cf ${cf}">${confidence}</span>
+    </div>
+    ${row("类型",c.atype)}
+    ${row("要约价",c.offerPrice)}
+    ${row("比例",c.offerPct)}
+    ${row("收购方",c.aName)}
+    ${row("标的资产",c.tAsset,"c")}
+    ${row("动机",c.tMot,"c")}
+    ${linkHtml(c)}
+  </div>`;
 }).join("");
 
 // ---- 个案卡 ----
@@ -475,10 +484,11 @@ document.getElementById("filters").addEventListener("click",e=>{
     (el.dataset.res==="进行中"&&f==="ongoing")||
     ((el.dataset.conf==="待核"||el.dataset.conf==="中"||el.querySelector(".pill.w"))&&f==="wait")||
     f==="all";
-  [...ovb.children].forEach(tr=>tr.style.display=show(tr)?"":"none");
+  [...ovBox.children].forEach(card=>card.style.display=show(card)?"":"none");
   [...casesBox.children].forEach(card=>card.style.display=show(card)?"":"none");
 });
 </script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">✅ 已更新 2026-08-20 22:09 · 📅 要约收购监测：每日 20:15 自动收录新公告（AutoJobsHub）</div>
 </body>
 </html>
