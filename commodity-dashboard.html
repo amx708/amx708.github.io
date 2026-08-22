@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商品投研总看板 · 铜金油宏观 + 全市场温度 + 外资持仓</title>
+<style>
+  :root{--bg:#f5f7fa;--card:#fff;--ink:#1f2430;--sub:#6b7280;--line:#e6e9ef;
+    --red:#d4380d;--green:#389e0d;--amber:#d48806;--blue:#1677ff;--soft:#f0f5ff}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.55;padding:24px}
+  .wrap{max-width:1180px;margin:0 auto}
+  h1{font-size:23px}
+  .meta{color:var(--sub);font-size:13px;margin-top:6px}
+  .banner{background:#fff7e6;border:1px solid #ffe58f;border-radius:10px;padding:10px 14px;font-size:13px;color:#874d00;margin:14px 0}
+  .auto{background:#e6f7ff;border:1px solid #91d5ff;border-radius:10px;padding:10px 14px;font-size:13px;color:#0050b3;margin:14px 0}
+  .partbar{background:linear-gradient(90deg,#1677ff,#389e0d);color:#fff;border-radius:10px;padding:12px 16px;margin:26px 0 14px;font-size:16px;font-weight:700}
+  /* 宏观专版 */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .card h2{font-size:19px;display:flex;align-items:center;gap:8px}
+  .tag{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--soft);color:var(--blue)}
+  .price{font-size:26px;font-weight:700;margin:10px 0 2px}
+  .price small{font-size:13px;font-weight:400;color:var(--sub)}
+  .chg{font-size:13px;font-weight:600}
+  .down{color:var(--green)} .up{color:var(--red)}
+  .bars{display:flex;height:26px;border-radius:6px;overflow:hidden;margin:14px 0 6px;font-size:12px;color:#fff;font-weight:600}
+  .bars span{display:flex;align-items:center;justify-content:center}
+  .b-bull{background:var(--red)} .b-flat{background:var(--amber)} .b-bear{background:var(--green)}
+  .legend{display:flex;gap:14px;font-size:12px;color:var(--sub);margin-bottom:10px}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+  .sec{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+  .sec .t{font-size:12px;color:var(--sub);margin-bottom:4px}
+  .vp{font-size:13px}.vp b{color:var(--red)}
+  .mean{font-size:13px;background:var(--soft);border-radius:8px;padding:10px;margin-top:10px}
+  .mean b{color:var(--ink)}
+  .summary{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:18px}
+  .summary h2{font-size:18px;margin-bottom:10px}
+  .summary ul{margin-left:18px;font-size:14px}.summary li{margin:6px 0}
+  .contrarian{background:#fff1f0;border:1px solid #ffccc7;border-radius:10px;padding:12px;margin-top:14px;font-size:13px;color:#820014}
+  /* 热力图 */
+  .gauge{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0}
+  .stat{flex:1;min-width:140px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-align:center}
+  .stat .num{font-size:30px;font-weight:800}.stat .lab{font-size:12px;color:var(--sub);margin-top:2px}
+  .verdict{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:15px;margin-bottom:18px}
+  .verdict b{font-size:17px}
+  .sec-title{font-size:16px;font-weight:700;margin:22px 0 10px;display:flex;align-items:center;gap:8px}
+  .heat{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:6px}
+  .cell{border-radius:8px;padding:8px 6px;color:#fff;font-size:12px;line-height:1.25;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+  .cell .nm{font-weight:700;font-size:13px}.cell .pr{opacity:.9;font-size:11px}.cell .cg{font-weight:700}
+  .movers{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:680px){.movers{grid-template-columns:1fr}}
+  .mlist{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .mlist h3{font-size:14px;margin-bottom:8px}
+  .mrow{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line);font-size:13px}
+  .mrow:last-child{border:0}
+  .fore{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:6px}
+  .fore h3{font-size:15px;margin:14px 0 8px}.fore h3:first-child{margin-top:0}
+  .ftab{width:100%;border-collapse:collapse;font-size:13px}
+  .ftab th,.ftab td{border:1px solid var(--line);padding:6px 8px;text-align:right}
+  .ftab th:first-child,.ftab td:first-child{text-align:left}
+  .ftab th{background:var(--soft);font-weight:600}
+  .callout{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+  .chip{background:#f6ffed;border:1px solid #b7eb8f;border-radius:8px;padding:8px 12px;font-size:13px}
+  .chip.warn{background:#fff1f0;border-color:#ffccc7}.chip b{color:var(--ink)}
+  .samples{background:#fff7e6;border:1px solid #ffe58f;border-radius:12px;padding:14px 16px;margin-top:14px;font-size:13px}
+  .samples h3{font-size:14px;color:#874d00;margin-bottom:8px}
+  .crow{display:flex;gap:8px;align-items:baseline;padding:4px 0}
+  .tag2{font-size:11px;padding:1px 7px;border-radius:999px;background:#fff;color:#cf1322;border:1px solid #ffccc7;white-space:nowrap}
+  .tag2.ok{color:#389e0d;border-color:#b7eb8f}
+  footer{color:var(--sub);font-size:12px;margin-top:20px;line-height:1.8}
+  .src{color:var(--blue);text-decoration:none}
+</style>
+<style>
+.back-home{position:fixed;top:12px;right:12px;z-index:9999;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;padding:7px 16px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;transition:transform .2s}
+.back-home:hover{transform:translateX(-2px)}
+</style>
+</head>
+<body>
+<a class="back-home" href="./index.html">← 返回主页</a>
+
+<div class="wrap">
+  <h1>📊 商品投研总看板</h1>
+  <div class="meta">本版更新：2026-08-08｜温度计数据：2026-08-20 22:09</div>
+
+  <div class="banner">⚠️ 本看板是"宏观验证 + 市场温度"工具，不是"方向盘"。商品期货带杠杆、风险极高，<b>不构成任何买卖建议</b>，决策请自行判断。</div>
+  <div class="auto">⏰ 自动更新：<b>铜金油研报多空</b> 每周六 10:00 刷新；<b>全市场涨跌 + 外资持仓 + 交叉验证</b> 每个交易日 16:00 刷新（日盘15:00收盘清算后抓快照最准，周末跳过）。</div>
+
+  <!-- ===================== 第一部分：铜金油宏观专版 ===================== -->
+  <div class="partbar">① 铜 / 金 / 原油 · 宏观验证专版（AI研报多空 + 价格快照）</div>
+
+  <!-- DATA_BLOCK_START
+  {
+    "update":"2026-08-08",
+    "copper":{"price":"沪铜2609 ≈ 107,160 元/吨","chg":"-1.14%","spot":"现货参考 1#铜 ≈ 91,800 元/吨（8/7）","bull":7,"flat":6,"bear":1,"topBull":"国信期货(强)：矿端干扰长期化、国网十五五4万亿投资、电解铜社库低位、LME去库","topBear":"紫金天风(弱)：缺资金实质支持、美股日股崩塌拖累、淡季需求弱","mean":"铜=经济领先指标。机构普遍看多=预期景气/通胀+供给收紧；价格临近108,400压力位，对'消费复苏至2028'假设偏正面验证，但需防高位拥挤。"},
+    "gold":{"price":"COMEX黄金 ≈ 4,401 美元/盎司","chg":"+2.37%（本周+7%）","spot":"内盘参考 880–920 元/克","bull":10,"flat":4,"bear":0,"topBull":"中泰期货(强)：央行购金Q2净购288.9吨同比+62.4%、去美元化、地缘风险、美元走弱，下半年偏强","topBear":"无看空机构","mean":"金强=通胀/避险/去美元化信号强。对'硬资产+存量服务'框架中黄金类资产（若有）是正向；也提示实际利率与美元走弱。"},
+    "crude":{"price":"布伦特参考区间 80–95 美元/桶","chg":"地缘主导（霍尔木兹/美伊）","spot":"低库存提供底部支撑","bull":4,"flat":4,"bear":2,"topBull":"中泰期货(中)：低库存强支撑、地缘风险溢价主导、油市实际短缺","topBear":"五矿(中)/银河(中)：地缘发酵后逢高加空、中东缓和","mean":"原油分歧最大（多空几乎均分）=通胀路径最不确定。低库存+地缘=上行风险，对CPI/通胀指示意义最强，密切关注霍尔木兹局势。"}
+  }
+  DATA_BLOCK_END -->
+
+  <div class="grid">
+    <div class="card">
+      <h2>🔩 沪铜 <span class="tag">经济领先指标</span></h2>
+      <div class="price">107,160 <small>元/吨</small></div>
+      <div class="chg down">沪铜2609  -1.14%　|　现货1#铜≈91,800</div>
+      <div class="bars"><span class="b-bull" style="width:50%">看多 7</span><span class="b-flat" style="width:43%">震荡 6</span><span class="b-bear" style="width:7%">空1</span></div>
+      <div class="legend"><span><i class="dot" style="background:var(--red)"></i>看多 7</span><span><i class="dot" style="background:var(--amber)"></i>震荡 6</span><span><i class="dot" style="background:var(--green)"></i>看空 1</span></div>
+      <div class="sec"><div class="t">最强看多（2026-08-07）</div><div class="vp"><b>国信期货(强)</b>：矿端干扰长期化、国网十五五4万亿投资、电解铜社库低位、LME去库。</div></div>
+      <div class="sec"><div class="t">唯一看空</div><div class="vp">紫金天风(弱)：缺资金实质支持、美股日股崩塌拖累、淡季需求弱。</div></div>
+      <div class="mean"><b>宏观含义：</b>铜=经济领先指标。机构普遍看多=预期景气/通胀+供给收紧；价格临近108,400压力位，对"消费复苏至2028"假设偏正面验证，但需防高位拥挤。</div>
+    </div>
+    <div class="card">
+      <h2>🪙 沪金 <span class="tag">通胀/避险</span></h2>
+      <div class="price">4,401 <small>美元/盎司</small></div>
+      <div class="chg up">COMEX +2.37%（本周+7%）　|　内盘880–920元/克</div>
+      <div class="bars"><span class="b-bull" style="width:62%">看多 10</span><span class="b-flat" style="width:38%">震荡 4</span><span class="b-bear" style="width:0%"></span></div>
+      <div class="legend"><span><i class="dot" style="background:var(--red)"></i>看多 10</span><span><i class="dot" style="background:var(--amber)"></i>震荡 4</span><span><i class="dot" style="background:var(--green)"></i>看空 0</span></div>
+      <div class="sec"><div class="t">最强看多（2026-08-07）</div><div class="vp"><b>中泰期货(强)</b>：央行购金Q2净购288.9吨同比+62.4%、去美元化、地缘风险、美元走弱，下半年偏强。</div></div>
+      <div class="sec"><div class="t">看空</div><div class="vp">无看空机构。</div></div>
+      <div class="mean"><b>宏观含义：</b>金强=通胀/避险/去美元化信号强。对"硬资产+存量服务"框架中黄金类资产（若有）是正向；也提示实际利率与美元走弱。</div>
+    </div>
+    <div class="card">
+      <h2>🛢️ 原油 <span class="tag">通胀路径</span></h2>
+      <div class="price">80–95 <small>美元/桶</small></div>
+      <div class="chg up">布伦特参考区间　|　地缘主导（霍尔木兹/美伊）</div>
+      <div class="bars"><span class="b-bull" style="width:40%">看多 4</span><span class="b-flat" style="width:40%">震荡 4</span><span class="b-bear" style="width:20%">看空 2</span></div>
+      <div class="legend"><span><i class="dot" style="background:var(--red)"></i>看多 4</span><span><i class="dot" style="background:var(--amber)"></i>震荡 4</span><span><i class="dot" style="background:var(--green)"></i>看空 2</span></div>
+      <div class="sec"><div class="t">最强看多（2026-08-07）</div><div class="vp"><b>中泰期货(中)</b>：低库存强支撑、地缘风险溢价主导、油市实际短缺。</div></div>
+      <div class="sec"><div class="t">看空</div><div class="vp">五矿(中)/银河(中)：地缘发酵后逢高加空、中东缓和。</div></div>
+      <div class="mean"><b>宏观含义：</b>原油分歧最大（多空几乎均分）=通胀路径最不确定。低库存+地缘=上行风险，对CPI/通胀指示意义最强，密切关注霍尔木兹局势。</div>
+    </div>
+  </div>
+
+  <div class="summary">
+    <h2>🔎 综合宏观信号（阿研观点，仅供参考）</h2>
+    <ul>
+      <li><b>铜 + 金共振看多</b>：通胀+景气预期偏强，与"消费复苏至2028 / 逢八拐点"框架方向一致，但一致看多后需警惕拥挤与回撤。</li>
+      <li><b>原油分歧最大</b>：多空几乎均分，通胀方向未明；低库存+地缘给油价上行风险，是CPI最敏感的观察点。</li>
+      <li><b>黄金零看空</b>：去美元化+央行购金逻辑扎实，对持有硬资产/黄金类头寸是正向背书。</li>
+      <li><b>反向提醒</b>：若某品种出现"亏货扎堆做多"（亏货动向），通常视为反向信号，别追。</li>
+    </ul>
+    <div class="contrarian">📌 读法：本看板是"温度计"不是"方向盘"。铜金油三线偏暖→宏观环境对硬资产/价值股友好；但若三线同时极端一致看多，反而要留一分清醒（一致预期常是拐点前兆）。</div>
+  </div>
+
+  <!-- ===================== 第二部分：全市场温度计 ===================== -->
+  <div class="partbar">② 商品大盘温度计 · 全市场涨跌（实时） + 外资持仓结构（历史快照）</div>
+
+  <div class="gauge" id="gauge"></div>
+  <div class="verdict" id="verdict"></div>
+
+  <div class="sec-title">🟥🟩 全市场涨跌热力图（红=涨 绿=跌，按涨跌幅排序）</div>
+  <div class="heat" id="heat"></div>
+
+  <div class="sec-title">⚡ 异动榜（单日波动超 ±1% 的重点）</div>
+  <div class="movers">
+    <div class="mlist"><h3 class="up">🔺 涨幅榜 Top5</h3><div id="topUp"></div></div>
+    <div class="mlist"><h3 class="down">🔻 跌幅榜 Top5</h3><div id="topDown"></div></div>
+  </div>
+
+  <div class="fore">
+    <div class="sec-title" style="margin-top:0">🧭 外资席位商品持仓结构（历史快照 · 2026-08-07，自动数据源未覆盖外资席位）</div>
+    <div class="callout">
+      <div class="chip">💰 外资净多最重：<b>菜油 95.7亿</b>、沪铜 60.7亿、豆粕 45.0亿、沪金 34.3亿、沪锌 30.6亿</div>
+      <div class="chip warn">🩳 外资净空最重：<b>500中证 275亿</b>、1000中证 265亿、300沪深 137亿、螺纹钢 82亿</div>
+      <div class="chip">📈 当日流多最猛：<b>豆一 +4.18亿</b></div>
+      <div class="chip warn">📉 当日流空最猛：<b>沪银 -8.41亿</b></div>
+    </div>
+    <h3>外资净多 Top（席位看多阵营）</h3>
+    <table class="ftab" id="tblLong"></table>
+    <h3>外资净空 Top（席位看空阵营）</h3>
+    <table class="ftab" id="tblShort"></table>
+    <h3>席位层面（外资期货商）</h3>
+    <table class="ftab" id="tblSeat"></table>
+    <div style="font-size:12px;color:var(--sub);margin-top:10px">读图：外资在<b>有色/农产品（铜、金、锌、菜油、豆粕）</b>上净多，在<b>股指（中证/沪深300/上证50）与黑色（螺纹、热卷）</b>上净空；豆一当日被外资集中流多、沪银被集中流空。对价值投资者，外资净多且价格未透支的品种，可与自身"硬资产/通胀"框架交叉验证。</div>
+  </div>
+
+  <div class="sec-title">📊 涨跌 × 外资持仓 交叉验证（价格实时 · 外资净持仓为历史快照）</div>
+  <div class="fore" style="margin-top:6px">
+    <div class="callout" id="crossChips"></div>
+    <table class="ftab" id="tblCross"></table>
+    <div style="font-size:12px;color:var(--sub);margin-top:10px">逻辑：把"当日涨跌"（价格行为）与"外资净持仓"（聪明钱方向）叠加。外资净多却跌=逆势吸筹、值得跟踪；外资净空却涨=空头被轧、慎空。股指（中证/沪深/上证）外资净空属对冲常态，单列不计入商品信号。本表为数据交叉验证，<b>不构成投资建议</b>。</div>
+  </div>
+
+  <div class="sec-title">🚜 日内推土机（强趋势品种 · 实时）</div>
+  <div class="movers" id="bulldozer"></div>
+
+  <div class="samples">
+    <h3>📌 其他逆向样本（首页头条，VIP完整榜未公开）</h3>
+    <div class="crow"><span class="tag2">亏货扎堆</span><span><b>烧碱2609</b> 散户扎堆做多（1901，+0.9%）→ 逆向：群众一致看多，警惕追高</span></div>
+    <div class="crow"><span class="tag2 ok">大佬逆势</span><span><b>沪锌2609</b> 主力布局做多（25505，-1.7%）→ 价格跌但主力逆势吸，值得跟踪</span></div>
+    <div class="crow"><span class="tag2 ok">外资流多</span><span><b>豆一</b> 外资单品种最大流多（约4.18亿，与上方结构数据一致）</span></div>
+  </div>
+
+  <footer>
+    数据来源：网络收录（铜金油AI研报多空 + 乾坤归一全市场涨跌 + 外资席位商品持仓结构，2026-08-08 / 2026-08-07）。<br>
+    免责：以上为公开数据整理，<b>不构成投资建议，决策请自行判断</b>。商品期货带杠杆，风险极高。
+  </footer>
+</div>
+
+<script>
+/* ===== 全市场温度计数据（交易日16:00自动刷新） ===== */
+const data = [{n:'原油',p:595.9,c:2.14},{n:'甲醇',p:2888,c:1.8},{n:'液化气',p:5774,c:1.55},{n:'沥青',p:4536,c:1.14},{n:'低硫油',p:5051,c:1.12},{n:'燃料油',p:4305,c:1.1},{n:'丙烯',p:7927,c:0.96},{n:'乙二醇',p:5361,c:0.73},{n:'沪铅',p:16040,c:0.66},{n:'沪锌',p:25515,c:0.65},{n:'焦炭',p:2084.5,c:0.58},{n:'PP',p:8039,c:0.56},{n:'白糖',p:5425,c:0.54},{n:'纸浆',p:4824,c:0.5},{n:'合成橡胶',p:14530,c:0.45},{n:'棉纱',p:23095,c:0.41},{n:'氧化铝',p:2674,c:0.41},{n:'短纤',p:7618,c:0.37},{n:'沪银',p:16410,c:0.3},{n:'塑料',p:7813,c:0.24},{n:'螺纹钢',p:3039,c:0.23},{n:'棉花',p:17070,c:0.21},{n:'PTA',p:5746,c:0.1},{n:'豆油',p:8853,c:0.07},{n:'铁矿石',p:707.5,c:0.07},{n:'对二甲苯',p:8270,c:0.07},{n:'沪锡',p:426480,c:0.05},{n:'玉米',p:2264,c:0.04},{n:'二债',p:102.64,c:0},{n:'铂',p:443.65,c:0},{n:'十债',p:109.5,c:0},{n:'五债',p:106.595,c:0},{n:'集运欧线',p:1740,c:0},{n:'锰硅',p:5930,c:0},{n:'多晶硅',p:38475,c:0},{n:'热卷',p:3291,c:0},{n:'20号胶',p:15450,c:0},{n:'三十债',p:115.94,c:0},{n:'工业硅',p:8755,c:0},{n:'1000中证',p:7516.2,c:0},{n:'鸡蛋',p:3880,c:0},{n:'硅铁',p:5966,c:0},{n:'碳酸锂',p:152160,c:0},{n:'50上证',p:2858.8,c:0},{n:'500中证',p:7761,c:0},{n:'尿素',p:1759,c:0},{n:'苹果',p:7755,c:0},{n:'生猪',p:12315,c:0},{n:'300沪深',p:4554,c:0},{n:'花生',p:8164,c:0},{n:'红枣',p:8205,c:0},{n:'沪金',p:972,c:-0.1},{n:'棕榈油',p:10147,c:-0.13},{n:'双胶纸',p:3880,c:-0.15},{n:'天然橡胶',p:18430,c:-0.16},{n:'淀粉',p:2562,c:-0.19},{n:'豆二',p:4052,c:-0.22},{n:'苯乙烯',p:8681,c:-0.25},{n:'国际铜',p:95120,c:-0.26},{n:'铝合金',p:22885,c:-0.26},{n:'豆粕',p:3258,c:-0.28},{n:'沪铝',p:23525,c:-0.3},{n:'沪铜',p:106820,c:-0.35},{n:'瓶片',p:7450,c:-0.35},{n:'纯碱',p:1029,c:-0.39},{n:'PVC',p:4688,c:-0.47},{n:'烧碱',p:1905,c:-0.57},{n:'豆一',p:5097,c:-0.64},{n:'沪镍',p:128110,c:-0.84},{n:'不锈钢',p:14175,c:-0.87},{n:'菜油',p:10574,c:-1.01},{n:'菜粕',p:2257,c:-1.1},{n:'焦煤',p:1573.5,c:-1.13},{n:'玻璃',p:905,c:-1.31}];
+const seats = [
+ {s:'高盛期货',net:23.70,chg:23.65},{s:'摩根大通',net:-252.99,chg:3.51},{s:'瑞银期货',net:-392.41,chg:41.94}
+];
+const bull = [{n:'沪银',p:16029,c:3.87},{n:'乙二醇',p:5459,c:2.79},{n:'沪金',p:971.62,c:2.76},{n:'纯碱',p:1036,c:2.37},{n:'沪镍',p:130550,c:2.11},{n:'玻璃',p:920,c:2},{n:'焦炭',p:2018,c:1.97},{n:'不锈钢',p:14440,c:1.26},{n:'菜油',p:10697,c:1.22}];
+
+/* ===== 温度计渲染 ===== */
+const up=data.filter(d=>d.c>0).length, down=data.filter(d=>d.c<0).length, flat=data.filter(d=>d.c===0).length, net=up-down;
+document.getElementById('gauge').innerHTML=`
+  <div class="stat"><div class="num up">${up}</div><div class="lab">上涨品种</div></div>
+  <div class="stat"><div class="num down">${down}</div><div class="lab">下跌品种</div></div>
+  <div class="stat"><div class="num" style="color:#8c8c8c">${flat}</div><div class="lab">持平品种</div></div>
+  <div class="stat"><div class="num" style="color:${net>=0?'var(--red)':'var(--green)'}">${net>=0?'+':''}${net}</div><div class="lab">涨减跌净值</div></div>`;
+let vtxt,vcol;
+if(net>=10){vtxt='商品大盘偏暖：涨家数明显占优，风险偏好回升';vcol='var(--red)';}
+else if(net<=-10){vtxt='商品大盘偏冷：跌家数明显占优，避险/需求担忧占上风';vcol='var(--green)';}
+else{vtxt='商品大盘震荡平衡：涨跌接近，无单边共识';vcol='var(--amber)';}
+document.getElementById('verdict').innerHTML=`📌 综合判断：<b style="color:${vcol}">${vtxt}</b>。今日样本 ${data.length} 个合约中 ${up} 涨 / ${down} 跌 / ${flat} 平。`;
+
+function color(c){if(c===0)return 'background:#eceff3;color:#8c8c8c';const a=Math.min(Math.abs(c)/3,0.92)+0.08;return c>0?`background:rgba(212,56,13,${a.toFixed(2)})`:`background:rgba(56,158,13,${a.toFixed(2)})`;}
+document.getElementById('heat').innerHTML=[...data].sort((a,b)=>b.c-a.c).map(d=>`<div class="cell" style="${color(d.c)}"><div class="nm">${d.n}</div><div class="pr">${d.p}</div><div class="cg">${d.c>0?'+':''}${d.c.toFixed(2)}%</div></div>`).join('');
+document.getElementById('topUp').innerHTML=[...data].filter(d=>d.c>0).sort((a,b)=>b.c-a.c).slice(0,5).map(d=>`<div class="mrow"><span>${d.n} <span class="up">+${d.c.toFixed(2)}%</span></span><span class="sub">${d.p}</span></div>`).join('');
+document.getElementById('topDown').innerHTML=[...data].filter(d=>d.c<0).sort((a,b)=>a.c-b.c).slice(0,5).map(d=>`<div class="mrow"><span>${d.n} <span class="down">${d.c.toFixed(2)}%</span></span><span class="sub">${d.p}</span></div>`).join('');
+
+/* ===== 外资持仓结构 ===== */
+const fLong=fore.filter(f=>f.net>0).sort((a,b)=>b.net-a.net).slice(0,12);
+const fShort=fore.filter(f=>f.net<0).sort((a,b)=>a.net-b.net).slice(0,12);
+function frow(f){const fc=f.flow>=0?`<span class="up">流多${f.flow.toFixed(2)}</span>`:`<span class="down">流空${Math.abs(f.flow).toFixed(2)}</span>`;return `<tr><td>${f.v}</td><td>${f.net.toFixed(2)}</td><td>${fc}</td></tr>`;}
+document.getElementById('tblLong').innerHTML=`<tr><th>品种</th><th>净市值(亿)</th><th>当日</th></tr>`+fLong.map(frow).join('');
+document.getElementById('tblShort').innerHTML=`<tr><th>品种</th><th>净市值(亿)</th><th>当日</th></tr>`+fShort.map(frow).join('');
+document.getElementById('tblSeat').innerHTML=`<tr><th>外资席位</th><th>净市值(亿)</th><th>当日变化(亿)</th></tr>`+seats.map(s=>`<tr><td>${s.s}</td><td class="${s.net>=0?'up':'down'}">${s.net.toFixed(2)}</td><td class="${s.chg>=0?'up':'down'}">${s.chg>=0?'+':''}${s.chg.toFixed(2)}</td></tr>`).join('');
+
+/* ===== 交叉验证：当日涨跌 × 外资净持仓 ===== */
+const dmap={}; data.forEach(d=>dmap[d.n]=d.c);
+const cross=fore.map(f=>{
+  const c=(dmap[f.v]!==undefined)?dmap[f.v]:null;
+  const isIdx=/中证|沪深|上证/.test(f.v);
+  let sig,cls,pri;
+  if(f.net>0){
+    if(c!==null&&c<=1){sig='外资吸筹·价格未透支';cls='good';pri=3;}
+    else{sig='外资净多·已兑现防追高';cls='warn';pri=2;}
+  }else{
+    if(c!==null&&c>0.3){sig=isIdx?'股指净空·对冲常态':'净空+上涨·逼空风险';cls=isIdx?'neutral':'bad';pri=isIdx?1:3;}
+    else{sig=isIdx?'股指净空·对冲常态':'净空+顺势弱势';cls='neutral';pri=1;}
+  }
+  return {v:f.v,c,net:f.net,flow:f.flow,sig,cls,pri};
+}).sort((a,b)=>b.pri-a.pri||b.net-a.net);
+const good=cross.filter(r=>r.cls==='good').map(r=>r.v);
+const bad=cross.filter(r=>r.cls==='bad').map(r=>`${r.v}(${r.c>0?'+':''}${r.c.toFixed(2)}%)`);
+document.getElementById('crossChips').innerHTML=
+  `<div class="chip">⭐ <b>外资逆势吸筹</b>（净多+下跌，最值得跟踪）：${good.join('、')}</div>`+
+  `<div class="chip warn">🔥 <b>逼空/空头回补风险</b>（净空+上涨）：${bad.join('、')||'今日无'}</div>`;
+document.getElementById('tblCross').innerHTML=`<tr><th>品种</th><th>当日涨跌</th><th>外资净市值(亿)</th><th>当日</th><th>交叉信号</th></tr>`+
+  cross.map(r=>{
+    const cTxt=r.c===null?'—':(r.c>0?'+':'')+r.c.toFixed(2)+'%';
+    const cCol=r.c===null?'':(r.c>0?'up':(r.c<0?'down':''));
+    const fc=r.flow>=0?`<span class="up">流多${r.flow.toFixed(2)}</span>`:`<span class="down">流空${Math.abs(r.flow).toFixed(2)}</span>`;
+    const sCol=r.cls==='good'?'var(--green)':r.cls==='warn'?'var(--amber)':r.cls==='bad'?'var(--red)':'#8c8c8c';
+    return `<tr><td>${r.v}</td><td class="${cCol}">${cTxt}</td><td>${r.net.toFixed(2)}</td><td>${fc}</td><td style="color:${sCol};font-weight:600">${r.sig}</td></tr>`;
+  }).join('');
+
+/* ===== 日内推土机 ===== */
+document.getElementById('bulldozer').innerHTML=`<div class="mlist"><h3>🚜 推土机强趋势合约（信号"强烈"才展示）</h3>`+
+  bull.map(b=>`<div class="mrow"><span>${b.n} <span class="${b.c>=0?'up':'down'}">${b.c>0?'+':''}${b.c.toFixed(2)}%</span></span><span class="sub">${b.p}</span></div>`).join('')+
+  `<div style="font-size:12px;color:var(--sub);margin-top:8px">注：推土机=增仓驱动价格的力量，偏多品种今日占多数（燃料油/焦煤/苯乙烯/纯苯/20号胶/对二甲苯），合成橡胶逆势偏弱。</div></div>`;
+</script>
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+</body>
+</html>
