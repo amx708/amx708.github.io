@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>全A广度 · 申万一级全景</title><style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:#f0f2f5; color:#1e293b; line-height:1.7; }
+.top-bar { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(232,184,75,0.2); padding:12px 20px; display:flex; align-items:center; gap:12px; }
+.home-btn { display:inline-flex; align-items:center; gap:6px; background:rgba(232,184,75,0.12); color:#b45309; border:1px solid rgba(232,184,75,0.3); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; text-decoration:none; }
+.home-btn:hover { background:#b45309; color:#fff; }
+.breadcrumb { font-size:13px; color:#64748b; display:flex; gap:4px; align-items:center; }
+.breadcrumb a { color:#64748b; text-decoration:none; }
+.container { max-width:1080px; margin:0 auto; padding:24px 16px 48px; }
+.hero { background:linear-gradient(135deg,#ffffff 0%,#fbf7ee 100%); border-radius:14px; padding:28px 28px; margin-bottom:20px; border:1px solid rgba(232,184,75,0.25); box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+.hero-title { font-size:26px; font-weight:800; color:#0f172a; margin-bottom:6px; }
+.hero-sub { font-size:14px; color:#64748b; margin-bottom:16px; }
+.hero-stats { display:flex; gap:12px; flex-wrap:wrap; }
+.stat-item { background:rgba(232,184,75,0.08); border:1px solid rgba(232,184,75,0.15); border-radius:10px; padding:10px 18px; text-align:center; }
+.stat-num { font-size:22px; font-weight:800; color:#b45309; }
+.stat-label { font-size:11px; color:#64748b; margin-top:2px; white-space:nowrap; }
+.note { font-size:12.5px; color:#64748b; margin-top:14px; line-height:1.7; }
+.note b { color:#475569; }
+table { width:100%; border-collapse:collapse; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 1px 6px rgba(0,0,0,0.04); margin-top:8px; }
+th,td { padding:10px 14px; text-align:left; font-size:13px; border-bottom:1px solid #eef2f7; }
+th { background:#fbf7ee; color:#b45309; font-weight:700; position:sticky; top:64px; }
+tbody tr:hover { background:rgba(232,184,75,0.05); }
+.code { font-family:ui-monospace,Menlo,Consolas,monospace; color:#475569; }
+.covered { color:#15803d; font-weight:600; }
+.pending { color:#94a3b8; }
+.tag-cov { font-size:11px; background:rgba(21,128,61,0.1); color:#15803d; padding:2px 8px; border-radius:10px; }
+.tag-pen { font-size:11px; background:#f1f5f9; color:#94a3b8; padding:2px 8px; border-radius:10px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; margin-top:8px; }
+.ind-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:18px; text-decoration:none; color:inherit; display:block; transition:all .2s; box-shadow:0 1px 6px rgba(0,0,0,0.04); border-left:3px solid #e8b84b; }
+.ind-card:hover { border-color:#b45309; background:rgba(232,184,75,0.06); transform:translateY(-2px); }
+.ind-name { font-size:17px; font-weight:700; color:#0f172a; }
+.ind-meta { font-size:12.5px; color:#64748b; margin-top:6px; display:flex; gap:14px; flex-wrap:wrap; }
+.ind-meta b { color:#b45309; }
+@media(max-width:640px){ .hero-title{font-size:21px} .grid{grid-template-columns:1fr} th,td{padding:8px 10px;font-size:12px} }
+</style></head>
+<body>
+<div class="top-bar">
+  <a href="berkshire-chain-map.html" class="home-btn">← 产业链地图</a>
+  <div class="breadcrumb"><a href="berkshire-chain-map.html">产业链地图</a>
+  <span>/</span><span>全A广度</span></div>
+</div>
+<div class="container">
+  <div class="hero">
+    <div class="hero-title">全A广度 · 申万一级全景</div>
+    <div class="hero-sub">广度铺底：按申万一级行业把全A上市公司逐家列入框架，深度（金标精修）在此框架上推进</div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">31</div><div class="stat-label">申万一级行业</div></div>
+      <div class="stat-item"><div class="stat-num">5223</div><div class="stat-label">全A成份(家)</div></div>
+      <div class="stat-item"><div class="stat-num" style="color:#15803d">1107</div><div class="stat-label">已覆盖指标</div></div>
+      <div class="stat-item"><div class="stat-num" style="color:#94a3b8">4100</div><div class="stat-label">待补深度</div></div>
+    </div>
+    <div class="note">📌 本页是「广度框架」入口：31个申万一级行业各一张全A成份页。已接入伯克希尔数据体系的公司显示 PE/PB/ROE/R15/员工数；其余为广度占位、待深度精修。下方「精选主题产业链」（白酒/保险等）是已深凿的入口，二者互补。</div>
+  </div>
+  <div class="grid"><a class="ind-card" href="berkshire-sw1-801010-all.html"><div class="ind-name">农林牧渔</div><div class="ind-meta"><span>全A <b>104</b> 家</span><span>已覆盖 <b>43</b></span><span>待补 <b>61</b></span></div></a><a class="ind-card" href="berkshire-sw1-801030-all.html"><div class="ind-name">基础化工</div><div class="ind-meta"><span>全A <b>411</b> 家</span><span>已覆盖 <b>42</b></span><span>待补 <b>368</b></span></div></a><a class="ind-card" href="berkshire-sw1-801040-all.html"><div class="ind-name">钢铁</div><div class="ind-meta"><span>全A <b>44</b> 家</span><span>已覆盖 <b>13</b></span><span>待补 <b>30</b></span></div></a><a class="ind-card" href="berkshire-sw1-801050-all.html"><div class="ind-name">有色金属</div><div class="ind-meta"><span>全A <b>140</b> 家</span><span>已覆盖 <b>30</b></span><span>待补 <b>110</b></span></div></a><a class="ind-card" href="berkshire-sw1-801080-all.html"><div class="ind-name">电子</div><div class="ind-meta"><span>全A <b>495</b> 家</span><span>已覆盖 <b>108</b></span><span>待补 <b>384</b></span></div></a><a class="ind-card" href="berkshire-sw1-801880-all.html"><div class="ind-name">汽车</div><div class="ind-meta"><span>全A <b>290</b> 家</span><span>已覆盖 <b>43</b></span><span>待补 <b>245</b></span></div></a><a class="ind-card" href="berkshire-sw1-801110-all.html"><div class="ind-name">家用电器</div><div class="ind-meta"><span>全A <b>93</b> 家</span><span>已覆盖 <b>22</b></span><span>待补 <b>71</b></span></div></a><a class="ind-card" href="berkshire-sw1-801120-all.html"><div class="ind-name">食品饮料</div><div class="ind-meta"><span>全A <b>123</b> 家</span><span>已覆盖 <b>73</b></span><span>待补 <b>49</b></span></div></a><a class="ind-card" href="berkshire-sw1-801130-all.html"><div class="ind-name">纺织服饰</div><div class="ind-meta"><span>全A <b>107</b> 家</span><span>已覆盖 <b>23</b></span><span>待补 <b>83</b></span></div></a><a class="ind-card" href="berkshire-sw1-801140-all.html"><div class="ind-name">轻工制造</div><div class="ind-meta"><span>全A <b>156</b> 家</span><span>已覆盖 <b>39</b></span><span>待补 <b>117</b></span></div></a><a class="ind-card" href="berkshire-sw1-801150-all.html"><div class="ind-name">医药生物</div><div class="ind-meta"><span>全A <b>479</b> 家</span><span>已覆盖 <b>70</b></span><span>待补 <b>408</b></span></div></a><a class="ind-card" href="berkshire-sw1-801160-all.html"><div class="ind-name">公用事业</div><div class="ind-meta"><span>全A <b>137</b> 家</span><span>已覆盖 <b>24</b></span><span>待补 <b>113</b></span></div></a><a class="ind-card" href="berkshire-sw1-801170-all.html"><div class="ind-name">交通运输</div><div class="ind-meta"><span>全A <b>126</b> 家</span><span>已覆盖 <b>53</b></span><span>待补 <b>73</b></span></div></a><a class="ind-card" href="berkshire-sw1-801180-all.html"><div class="ind-name">房地产</div><div class="ind-meta"><span>全A <b>95</b> 家</span><span>已覆盖 <b>9</b></span><span>待补 <b>86</b></span></div></a><a class="ind-card" href="berkshire-sw1-801200-all.html"><div class="ind-name">商贸零售</div><div class="ind-meta"><span>全A <b>99</b> 家</span><span>已覆盖 <b>9</b></span><span>待补 <b>90</b></span></div></a><a class="ind-card" href="berkshire-sw1-801210-all.html"><div class="ind-name">社会服务</div><div class="ind-meta"><span>全A <b>82</b> 家</span><span>已覆盖 <b>6</b></span><span>待补 <b>76</b></span></div></a><a class="ind-card" href="berkshire-sw1-801780-all.html"><div class="ind-name">银行</div><div class="ind-meta"><span>全A <b>42</b> 家</span><span>已覆盖 <b>41</b></span><span>待补 <b>1</b></span></div></a><a class="ind-card" href="berkshire-sw1-801790-all.html"><div class="ind-name">非银金融</div><div class="ind-meta"><span>全A <b>79</b> 家</span><span>已覆盖 <b>31</b></span><span>待补 <b>48</b></span></div></a><a class="ind-card" href="berkshire-sw1-801230-all.html"><div class="ind-name">综合</div><div class="ind-meta"><span>全A <b>20</b> 家</span><span>已覆盖 <b>0</b></span><span>待补 <b>20</b></span></div></a><a class="ind-card" href="berkshire-sw1-801710-all.html"><div class="ind-name">建筑材料</div><div class="ind-meta"><span>全A <b>72</b> 家</span><span>已覆盖 <b>32</b></span><span>待补 <b>40</b></span></div></a><a class="ind-card" href="berkshire-sw1-801720-all.html"><div class="ind-name">建筑装饰</div><div class="ind-meta"><span>全A <b>147</b> 家</span><span>已覆盖 <b>27</b></span><span>待补 <b>120</b></span></div></a><a class="ind-card" href="berkshire-sw1-801730-all.html"><div class="ind-name">电力设备</div><div class="ind-meta"><span>全A <b>379</b> 家</span><span>已覆盖 <b>66</b></span><span>待补 <b>311</b></span></div></a><a class="ind-card" href="berkshire-sw1-801890-all.html"><div class="ind-name">机械设备</div><div class="ind-meta"><span>全A <b>541</b> 家</span><span>已覆盖 <b>96</b></span><span>待补 <b>441</b></span></div></a><a class="ind-card" href="berkshire-sw1-801740-all.html"><div class="ind-name">国防军工</div><div class="ind-meta"><span>全A <b>138</b> 家</span><span>已覆盖 <b>31</b></span><span>待补 <b>107</b></span></div></a><a class="ind-card" href="berkshire-sw1-801750-all.html"><div class="ind-name">计算机</div><div class="ind-meta"><span>全A <b>334</b> 家</span><span>已覆盖 <b>52</b></span><span>待补 <b>282</b></span></div></a><a class="ind-card" href="berkshire-sw1-801760-all.html"><div class="ind-name">传媒</div><div class="ind-meta"><span>全A <b>130</b> 家</span><span>已覆盖 <b>46</b></span><span>待补 <b>84</b></span></div></a><a class="ind-card" href="berkshire-sw1-801770-all.html"><div class="ind-name">通信</div><div class="ind-meta"><span>全A <b>122</b> 家</span><span>已覆盖 <b>34</b></span><span>待补 <b>88</b></span></div></a><a class="ind-card" href="berkshire-sw1-801950-all.html"><div class="ind-name">煤炭</div><div class="ind-meta"><span>全A <b>33</b> 家</span><span>已覆盖 <b>11</b></span><span>待补 <b>22</b></span></div></a><a class="ind-card" href="berkshire-sw1-801960-all.html"><div class="ind-name">石油石化</div><div class="ind-meta"><span>全A <b>47</b> 家</span><span>已覆盖 <b>12</b></span><span>待补 <b>35</b></span></div></a><a class="ind-card" href="berkshire-sw1-801970-all.html"><div class="ind-name">环保</div><div class="ind-meta"><span>全A <b>130</b> 家</span><span>已覆盖 <b>20</b></span><span>待补 <b>110</b></span></div></a><a class="ind-card" href="berkshire-sw1-801980-all.html"><div class="ind-name">美容护理</div><div class="ind-meta"><span>全A <b>28</b> 家</span><span>已覆盖 <b>1</b></span><span>待补 <b>27</b></span></div></a></div>
+  <div class="note">数据来源：申万指数成份（网络收录）+ 伯克希尔数据中心已覆盖指标。本页仅作广度索引，不构成投资建议。生成时间：2026-08-22</div>
+</div></body></html>
