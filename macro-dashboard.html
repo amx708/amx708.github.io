@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宏观仪表盘总览 · 2026-08-08</title>
+<style>
+  :root{--bg:#f5f6f8;--card:#fff;--ink:#1f2329;--sub:#6b7280;--line:#e5e7eb;
+        --red:#e23b3b;--green:#1f9d55;--blue:#2c6fdb;--orange:#e67e22;--grey:#9aa0a6;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;}
+  header{padding:24px 20px 8px;max-width:1000px;margin:0 auto;}
+  h1{font-size:22px;margin:0 0 4px;}
+  .meta{color:var(--sub);font-size:13px;}
+  main{max-width:1000px;margin:0 auto;padding:0 20px 40px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .card h2{font-size:16px;margin:0 0 4px;}
+  .card .tip{color:var(--sub);font-size:13px;margin:2px 0 14px;}
+  .human{background:#fafbfc;border-left:4px solid var(--blue);padding:10px 14px;border-radius:6px;font-size:14px;margin-top:16px;}
+  .human b{color:var(--blue);}
+  footer{max-width:1000px;margin:0 auto;padding:10px 20px 40px;color:var(--sub);font-size:12px;}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:10px 0;}
+  .kpi{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fcfcfd;}
+  .kpi .lbl{font-size:12px;color:var(--sub);}
+  .kpi .val{font-size:18px;font-weight:700;margin:2px 0;}
+  .kpi .val.red{color:var(--red);}
+  .kpi .val.green{color:var(--green);}
+  .kpi .sub{font-size:11px;color:var(--sub);}
+
+  .pmi-row{display:flex;align-items:center;margin:8px 0;font-size:13px;}
+  .pmi-label{width:120px;text-align:right;padding-right:10px;}
+  .pmi-track{flex:1;position:relative;height:22px;background:#f3f4f6;border-radius:4px;}
+  .pmi-line{position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:#333;z-index:3;}
+  .pmi-bar{position:absolute;top:3px;height:16px;border-radius:3px;background:var(--green);}
+  .pmi-val{width:70px;text-align:left;padding-left:10px;font-weight:600;}
+
+  .bar-row{display:flex;align-items:center;margin:6px 0;font-size:13px;}
+  .bar-label{width:96px;text-align:right;padding-right:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .bar-track{flex:1;position:relative;height:18px;background:#f3f4f6;border-radius:3px;}
+  .bar-zero{position:absolute;left:50%;top:0;bottom:0;width:1px;background:#9aa0a6;z-index:2;}
+  .bar{position:absolute;top:0;height:100%;border-radius:3px;min-width:2px;z-index:1;}
+  .bar.red{background:var(--red);}
+  .bar.green{background:var(--green);}
+  .bar-value{width:180px;text-align:left;padding-left:10px;line-height:1.25;font-size:12px;}
+  .bar-value .price{color:var(--ink);}
+  .bar-value .price .u{color:var(--sub);font-size:10px;}
+  .bar-value .chg{font-weight:600;}
+  .bar-value .chg.red{color:var(--red);}
+  .bar-value .chg.green{color:var(--green);}
+
+  .vol-row{display:flex;align-items:center;margin:6px 0;font-size:13px;}
+  .vol-label{width:104px;text-align:right;padding-right:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .vol-track{flex:1;height:18px;background:#f3f4f6;border-radius:3px;position:relative;}
+  .vol-bar{position:absolute;left:0;top:0;height:100%;border-radius:3px;}
+  .vol-bar.red{background:var(--red);}
+  .vol-bar.green{background:var(--green);}
+  .vol-bar.grey{background:var(--grey);}
+  .vol-value{width:200px;text-align:left;padding-left:10px;line-height:1.2;font-size:12px;}
+  .vol-value .qty{font-weight:600;}
+  .vol-value .yoy{font-weight:600;}
+  .vol-value .yoy.red{color:var(--red);}
+  .vol-value .yoy.green{color:var(--green);}
+  .vol-value .cum{color:var(--sub);font-size:11px;}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0;}
+  th,td{padding:6px 10px;border:1px solid var(--line);text-align:left;}
+  th{background:#f3f4f6;}
+  .fx-up{color:var(--red);font-weight:600;}
+  .fx-dn{color:var(--green);font-weight:600;}
+
+  .rate-box{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin:10px 0;}
+  .rate-big{font-size:30px;font-weight:800;color:var(--orange);}
+  .rate-note{font-size:13px;color:var(--sub);}
+  .blk-title{font-size:14px;font-weight:600;margin:16px 0 6px;}
+</style>
+<style>
+.back-home{position:fixed;top:12px;right:12px;z-index:9999;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;padding:7px 16px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;transition:transform .2s}
+.back-home:hover{transform:translateX(2px)}
+</style>
+</head>
+<body>
+<a class="back-home" href="./index.html">← 返回主页</a>
+
+<header>
+  <h1>宏观仪表盘总览 <span style="color:var(--sub);font-size:14px;">（一键看全）</span></h1>
+  <div class="meta">数据截至 2026年07月-08 ｜ 国内宏观=国家统计局(7月已发布部分) ｜ 价格=7月下旬 ｜ 产量=6月/上半年 ｜ 跨境=央行(8/7)+美联储(2025-12-11)</div>
+</header>
+<main>
+
+  <!-- 模块A 国内宏观 -->
+  <div class="card">
+    <h2>① 国内宏观体温（经济冷热）</h2>
+    <div class="tip">PMI 三条线相对 50% 荣枯线；下方关键指标卡（红=同比扩张，绿=同比收缩）。CPI/PPI 7月未发布，标注待补。</div>
+
+    <div class="blk-title">PMI 采购经理指数（2026年7月）</div>
+    <div class="pmi-row"><div class="pmi-label">制造业</div><div class="pmi-track"><div class="pmi-line"></div><div class="pmi-bar" style="left:0;width:98.4%;"></div></div><div class="pmi-val" style="color:var(--green)">49.2%</div></div>
+    <div class="pmi-row"><div class="pmi-label">非制造业</div><div class="pmi-track"><div class="pmi-line"></div><div class="pmi-bar" style="left:0;width:98.0%;"></div></div><div class="pmi-val" style="color:var(--green)">49.0%</div></div>
+    <div class="pmi-row"><div class="pmi-label">综合</div><div class="pmi-track"><div class="pmi-line"></div><div class="pmi-bar" style="left:0;width:98.6%;"></div></div><div class="pmi-val" style="color:var(--green)">49.3%</div></div>
+    <div style="font-size:12px;color:var(--sub);margin-top:2px;">三条线全在荣枯线下方 → 景气偏弱</div>
+
+    <div class="blk-title">关键指标（最新值 / 同比）</div>
+    <div class="kpis">
+      <div class="kpi"><div class="kpi"><div class="lbl">GDP 上半年</div><div class="val red">+4.7%</div><div class="sub">695704 亿元</div></div>
+      <div class="kpi"><div class="lbl">社零 上半年</div><div class="val red">+1.2%</div><div class="sub">2026-07月 +1.2%</div></div>
+      <div class="kpi"><div class="lbl">工业增加值 1—6月</div><div class="val red">+5.3%</div><div class="sub">2026-07月 +5.3%</div></div>
+      <div class="kpi"><div class="lbl">固定资产投资 1—6月</div><div class="val green">-6.7%</div><div class="sub">2026-07月 -6.7%</div></div>
+      <div class="kpi"><div class="lbl">房地产投资 1—6月</div><div class="val green">-19.2%</div><div class="sub">2026-07月 -19.2%</div></div>
+      <div class="kpi"><div class="kpi"><div class="lbl">工业企业利润 1—6月</div><div class="val red">+18.7%</div><div class="sub">营收利润率 5.70%</div></div>
+      <div class="kpi"><div class="lbl">CPI 7月</div><div class="val red">+0.5%</div><div class="sub">同比 +0.5%</div></div>
+      <div class="kpi"><div class="lbl">PPI 7月</div><div class="val red">+3.5%</div><div class="sub">同比 +3.5%</div></div>
+    </div>
+
+    <div class="human"><b>人话：</b>GDP 还在涨（+4.7%），但<b>景气先行指标 PMI 跌破荣枯线</b>、<b>消费抠（+1.3%）、地产凉（-18%）、民间投资缩（-8.5%）</b>——典型的"总量还行、内里偏弱"。工业利润 +18.7% 看着美，但靠有色/电子/化工拉，汽车/水泥拖后腿。</div>
+  </div>
+
+  <!-- 模块B 价格 -->
+  <div class="card">
+    <h2>② 生产资料价格（2026年7月下旬）</h2>
+    <div class="tip">条形=比上期涨跌（红涨绿跌）；右侧标价格+单位+涨跌%。</div>
+    <div class="blk-title">原油链条 / 有色 / 黑色 / 煤炭 / 建材 / 化工</div>
+    <div id="b_all"></div>
+    <div class="human"><b>人话：</b>涨价靠<b>原油链条</b>带头（LPG +9.8%、柴油 +5.8%），你盯的<b>铜 +1.3%</b> 温和；螺纹钢 -0.8%、水泥 -1.4% 仍弱，地产不兴。</div>
+  </div>
+
+  <!-- 模块C 产量 -->
+  <div class="card">
+    <h2>③ 生产资料产量（2026年6月 / 1—6月累计）</h2>
+    <div class="tip">条形=6月产量绝对量（组内对比）；颜色=同比方向（红增绿减灰平）；右侧标吨数+同比+累计。</div>
+    <div class="blk-title">能源 / 黑色 / 有色 / 建材 / 化工 / 电力</div>
+    <div id="v_all"></div>
+    <div class="human"><b>人话：</b>多数品种"量在缩"——<b>水泥 -5.6%、原煤 -9.7%、原油加工 -17.7%</b>；只有<b>有色（电解铝 +4.7%）</b>量价齐稳。量价一起看，黑色/建材的弱互相印证。</div>
+  </div>
+
+  <!-- 模块D 跨境 -->
+  <div class="card">
+    <h2>④ 跨境补充：央行汇率 + 美联储利率</h2>
+    <div class="tip">汇率来源中国货币网（2026-08-07）；利率来源美联储（2025-12-11 起）。</div>
+    <div class="blk-title">人民币汇率中间价（2026-08-07）</div>
+    <table>
+      <thead><tr><th>货币对</th><th>中间价</th><th>涨跌(基点)</th></tr></thead>
+      <tbody>
+        <tr><td>美元/人民币 USD/CNY</td><td>6.7904</td><td class="fx-up">+9.00</td></tr>
+        <tr><td>欧元/人民币 EUR/CNY</td><td>7.8067</td><td class="fx-up">+130.00</td></tr>
+        <tr><td>100日元/人民币</td><td>4.2791</td><td class="fx-up">+165.00</td></tr>
+        <tr><td>港币/人民币 HKD/CNY</td><td>0.8656</td><td class="fx-up">+0.30</td></tr>
+        <tr><td>英镑/人民币 GBP/CNY</td><td>9.1163</td><td class="fx-up">+39.00</td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:12px;color:var(--sub);">中间价"涨跌"为基点：正值=人民币较前日走弱（美元走强）。</div>
+
+    <div class="blk-title">美联储联邦基金目标利率</div>
+    <div class="rate-box">
+      <div class="rate-big">3.50%–3.75%</div>
+      <div class="rate-note">当前目标区间 ｜ 最近一次：2025-12-11 下调 25bp ｜ 2026年尚未变动 ｜ 处于<b>降息周期</b></div>
+    </div>
+
+    <div class="human"><b>人话：</b>人民币近期对美元在 6.79 附近（相对平稳，年内偏强）；美联储已从 2025 年一路降到 3.50–3.75%，<b>中美利差收窄</b>对人民币汇率和你的港股/美元资产都是顺风。但利率是滞后指标，别当成买卖信号。</div>
+  </div>
+
+</main>
+<footer>
+  数据来源：国家统计局、中国货币网、美联储官网。以上为数据整理，不构成投资建议，决策请自行判断。颜色约定：红=涨/增产/扩张，绿=跌/减产/收缩。各模块口径时点不同，对照看趋势即可。
+</footer>
+
+<script>
+function renderBars(id, data, max){
+  const box=document.getElementById(id); box.innerHTML='';
+  data.forEach(([label, price, unit, chg])=>{
+    const w=Math.abs(chg)/max*50, left=chg>=0?50:50-w, cls=chg>=0?'red':'green';
+    const row=document.createElement('div');row.className='bar-row';
+    row.innerHTML=`<div class="bar-label" title="${label}">${label}</div>
+      <div class="bar-track"><div class="bar-zero"></div><div class="bar ${cls}" style="left:${left}%;width:${w}%;"></div></div>
+      <div class="bar-value"><div class="price">${price} <span class="u">${unit}</span></div><div class="chg ${cls}">${chg>0?'+':''}${chg}%</div></div>`;
+    box.appendChild(row);
+  });
+}
+function renderVol(id, data, max){
+  const box=document.getElementById(id); box.innerHTML='';
+  data.forEach(([label, qty, unit, yoy, cum, cumUnit])=>{
+    const w=Math.abs(qty)/max*100, cls=yoy>0?'red':(yoy<0?'green':'grey');
+    const cumTxt=cum!=null?`1—6月累计 ${cum} ${cumUnit}`:'';
+    const row=document.createElement('div');row.className='vol-row';
+    row.innerHTML=`<div class="vol-label" title="${label}">${label}</div>
+      <div class="vol-track"><div class="vol-bar ${cls}" style="width:${w}%;"></div></div>
+      <div class="vol-value"><span class="qty">${qty} ${unit}</span> <span class="yoy ${cls}">${(yoy>0?'+':'')+yoy}%</span><br><span class="cum">${cumTxt}</span></div>`;
+    box.appendChild(row);
+  });
+}
+// 价格（7月下旬）
+renderBars('b_all',[
+ ['汽油95#',9392.5,'元/吨',5.2],['柴油0#',7817.7,'元/吨',5.8],['LPG',5999.5,'元/吨',9.8],['LNG',5525.4,'元/吨',-3.0],
+ ['电解铜',105694.4,'元/吨',1.3],['铝',23270.0,'元/吨',0.4],['锌',24651.3,'元/吨',0.2],['铅',15568.8,'元/吨',-0.8],
+ ['螺纹钢',3123.4,'元/吨',-0.8],['线材',3293.2,'元/吨',-0.7],['无缝钢管',4044.1,'元/吨',0.0],
+ ['无烟煤',1321.9,'元/吨',5.0],['山西优混',824.8,'元/吨',1.5],['焦煤',1875.0,'元/吨',-1.7],['焦炭',1740.2,'元/吨',-3.1],
+ ['水泥',246.4,'元/吨',-1.4],['浮法玻璃',1098.9,'元/吨',-0.1],
+ ['硫酸',2037.8,'元/吨',-2.1],['烧碱',690.0,'元/吨',0.2],['顺丁胶',13000.0,'元/吨',-0.8]
+],12);
+// 产量（6月）
+renderVol('v_all',[
+ ['原油加工量',5124,'万吨',-17.7,34387,'万吨'],['原油',1812,'万吨',-0.5,10943,'万吨'],['原煤',38088,'万吨',-9.7,236508,'万吨'],['焦炭',4204,'万吨',1.1,25250,'万吨'],['天然气',214,'亿方',1.1,1330,'亿方'],
+ ['生铁',7199,'万吨',-0.9,42664,'万吨'],['粗钢',8367,'万吨',0.4,49995,'万吨'],['钢材',12656,'万吨',0.0,71878,'万吨'],
+ ['十种有色金属',719,'万吨',3.9,4151,'万吨'],['电解铝',398,'万吨',4.7,2319,'万吨'],
+ ['水泥',14423,'万吨',-5.6,73585,'万吨'],['平板玻璃',7654,'万重箱',-5.3,44683,'万重箱'],
+ ['硫酸',792,'万吨',-10.0,5222,'万吨'],['烧碱',379,'万吨',-2.2,2366,'万吨'],['乙烯',337,'万吨',5.5,2080,'万吨'],
+ ['发电量',8276,'亿千瓦时',2.0,47501,'亿千瓦时']
+],38088);
+</script>
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">✅ 已更新 2026-08-20 12:30 · 📅 模块①宏观指标自动更新：每日 20:15（AutoJobsHub）｜ 价格/产量/汇率/美联储为月度手工数据</div>
+</body>
+</html>
