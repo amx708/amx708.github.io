@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长赢150份 持仓配置全景 — 伯克希尔数据中心</title>
+<meta name="description" content="且慢长赢150份计划最新公开持仓快照（2026-08-21），6 大类 × 中类 × 39 只基金 三层旭日图 + 大类→中类→基金 三级细分明细表（含持仓份数与累计收益率）。">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#f4f4f2;color:#2c2c2c}
+.wrap{max-width:1240px;margin:0 auto;padding:24px 16px}
+.card{background:#fff;border-radius:18px;padding:20px 14px;box-shadow:0 2px 14px rgba(0,0,0,.05);border:1px solid #e8e6e1}
+.title{font-size:22px;font-weight:800;color:#1f2937;text-align:center;margin-bottom:4px}
+.subtitle{font-size:13px;color:#8a8a8a;text-align:center;margin-bottom:14px}
+.chart-wrap{position:relative}
+.chart{width:100%;height:1000px}
+.chart-hint{font-size:12px;color:#a3a3a3;text-align:center;margin-top:2px;line-height:1.7}
+.table-title{font-size:15px;font-weight:700;color:#1f2937;margin:24px 0 4px;padding-left:4px;border-left:3px solid #0d9488}
+.table-hint{font-size:12px;color:#a3a3a3;margin-bottom:6px;padding-left:7px;line-height:1.7}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid #e5e5e5}
+th{background:#f8f8f6;font-weight:700;color:#555}
+td{color:#333}
+tr:hover td{background:#f4f9f8}
+.pct{font-weight:700;color:#0d9488;font-variant-numeric:tabular-nums}
+.fen{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.cat-row td{cursor:pointer;user-select:none}
+tr.cat-row:hover td{background:#f0f4f3}
+.arrow{display:inline-block;width:14px;color:#999;font-size:11px;text-align:center}
+.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+td.l2{padding-left:34px}
+td.l3{padding-left:58px;color:#555}
+.bar-wrap{background:#f0efec;border-radius:4px;height:13px;overflow:hidden}
+.bar{height:100%;border-radius:4px;min-width:2px}
+td.cnt{text-align:right;color:#999;font-size:12px;white-space:nowrap}
+.up{color:#d0392f;font-weight:700;font-variant-numeric:tabular-nums}
+.dn{color:#0a8f6b;font-weight:700;font-variant-numeric:tabular-nums}
+.na{color:#bbb}
+.note{margin-top:14px;font-size:12px;color:#a3a3a3;line-height:1.7;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="./berkshire-index-investing.html" class="back" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;color:#0d9488;text-decoration:none;margin-bottom:14px;font-weight:600">&#8592; 返回指数投资</a>
+ <div class="card">
+  <div class="title">且慢 &#183; 长赢150份 持仓配置</div>
+  <div class="subtitle">数据快照 2026-08-21 &#183; 且慢官方成分页 &#183; 三层旭日图 + 三级明细表（含份数 / 累计收益率）&#183; 页面每月1日由 AutoJobsHub 自动重建</div>
+  <div class="chart-wrap"><div id="sb" class="chart"></div></div>
+  <div class="chart-hint">内圈 = 大类 &#183; 中圈 = 中类 &#183; 外圈 = 39 只基金 &#183; 基金标签按占比分级：&#8805;2% 显示「名称+占比」，1~2% 仅显示名称，&lt;1% 扇区过小隐藏标签（悬停可查看完整信息）</div>
+
+  <div class="table-title">&#128196; 持仓明细：大类 &#8594; 中类 &#8594; 基金 三级细分
+    <a href="./berkshire-changying-fund-profiles.html" style="float:right;font-size:13px;color:#0d9488;text-decoration:none;font-weight:700">&#128218; 成分基金档案（经理 / 规模 / 费率 / 重仓）&#8594;</a>
+  </div>
+  <div class="table-hint">点击大类 / 中类行可折叠展开 &#183; 颜色与上图旭日图对应 &#183; 组内按占比降序<br>&#9312; 份数 = 长赢计划投入的份数（150 份为满仓，当前已投 109 份，剩 41 份为未投现金） &#183; &#9313; 累计收益率 = 该基金自计划买入以来的累计收益</div>
+  <table id="fund-table">
+    <thead><tr>
+      <th>分类 / 基金</th>
+      <th style="text-align:right;width:64px">份数</th>
+      <th style="text-align:right;width:64px">占比</th>
+      <th style="width:24%">占比图示</th>
+      <th style="text-align:right;width:84px">累计收益率</th>
+      <th style="text-align:right;width:60px">只数</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="note">&#128197; 本页骨架每月1日由 AutoJobsHub 自动重建，持仓份数与累计收益率随长赢实际调仓手动更新 &#183; 数据来源：且慢长赢指数投资计划官方成分页（qieman.com/longwin/compositions/LONG_WIN）&#183; 持仓随调仓变化 &#183; 仅作研究参考，不构成投资建议</div>
+ </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<script>
+/* ============ 完整数据（三层 + 份数fen + 累计收益率ret，用于 tooltip 和表格） ============ */
+var raw = [{"name": "A股", "value": 43.94, "fen": 71, "ret": 49.22, "children": [{"name": "红利", "value": 13.9, "children": [{"name": "富国中证红利", "value": 6.36, "fen": 11, "ret": 62.34}, {"name": "博时红利低波100", "value": 2.91, "fen": 4, "ret": -1.08}, {"name": "易方达红利低波", "value": 2.28, "fen": 3, "ret": 2.66}, {"name": "易方达中证红利", "value": 1.56, "fen": 2, "ret": 5.15}, {"name": "南方标普红利低波50", "value": 0.79, "fen": 1, "ret": 6.76}]}, {"name": "医药医疗", "value": 10.63, "children": [{"name": "全指医药", "value": 3.39, "fen": 7, "ret": 21.87}, {"name": "华宝医疗C", "value": 2.78, "fen": 4, "ret": -5.62}, {"name": "大摩健康产业", "value": 2.2, "fen": 4, "ret": -15.39}, {"name": "华宝医疗A", "value": 1.68, "fen": 3, "ret": -16.17}, {"name": "融通健康产业", "value": 0.58, "fen": 1, "ret": 17.65}]}, {"name": "大盘宽基", "value": 8.04, "children": [{"name": "富国300", "value": 5.26, "fen": 7, "ret": 64.85}, {"name": "沪深300", "value": 1.56, "fen": 2, "ret": 75.92}, {"name": "上证50", "value": 1.22, "fen": 2, "ret": 62.09}]}, {"name": "消费", "value": 4.81, "children": [{"name": "富国消费", "value": 1.72, "fen": 3, "ret": -15.74}, {"name": "富国消费C", "value": 1.71, "fen": 3, "ret": -15.94}, {"name": "易方达消费行业", "value": 0.69, "fen": 1, "ret": 53.25}, {"name": "汇添富消费", "value": 0.69, "fen": 1, "ret": -3.37}]}, {"name": "中小盘", "value": 3.82, "children": [{"name": "中证500", "value": 1.47, "fen": 2, "ret": 59.84}, {"name": "富国500", "value": 0.92, "fen": 1, "ret": 101.1}, {"name": "广发A500", "value": 0.75, "fen": 1, "ret": 1.49}, {"name": "建信500", "value": 0.68, "fen": 1, "ret": 51.05}]}, {"name": "养老产业", "value": 2.74, "children": [{"name": "养老产业", "value": 2.74, "fen": 7, "ret": 6.59}]}]}, {"name": "现金", "value": 29.96, "fen": 41, "children": [{"name": "现金", "value": 29.96, "children": [{"name": "现金（未投入）", "value": 29.96, "fen": 41}]}]}, {"name": "境内债券", "value": 10.46, "fen": 14, "ret": 44.53, "children": [{"name": "利率债", "value": 4.44, "children": [{"name": "易方达1-3年国开债", "value": 2.97, "fen": 4, "ret": 0.31}, {"name": "7-10年国开债", "value": 0.75, "fen": 1, "ret": 14.24}, {"name": "广发1-3年国开债", "value": 0.72, "fen": 1, "ret": 1.8}]}, {"name": "可转债", "value": 3.2, "children": [{"name": "兴全转债", "value": 3.2, "fen": 4, "ret": 72.91}]}, {"name": "信用纯债", "value": 2.82, "children": [{"name": "易方达安心回报债", "value": 2.07, "fen": 3, "ret": 44.13}, {"name": "景顺景泰纯债", "value": 0.75, "fen": 1, "ret": 0.48}]}]}, {"name": "海外新兴", "value": 9.28, "fen": 16, "ret": 25.83, "children": [{"name": "香港", "value": 6.62, "children": [{"name": "恒生指数", "value": 4.66, "fen": 7, "ret": 40.88}, {"name": "恒生科技", "value": 1.96, "fen": 3, "ret": 8.56}]}, {"name": "中概互联", "value": 2.66, "children": [{"name": "中国海外互联", "value": 1.48, "fen": 4, "ret": -5.25}, {"name": "易方达中概互联", "value": 1.18, "fen": 2, "ret": -14.25}]}]}, {"name": "海外债券", "value": 3.51, "fen": 5, "ret": 3.08, "children": [{"name": "美元债", "value": 3.51, "children": [{"name": "富国全球债A", "value": 1.42, "fen": 2, "ret": -0.98}, {"name": "汇添富美元债", "value": 0.7, "fen": 1, "ret": -1.8}, {"name": "富国全球债C", "value": 0.7, "fen": 1, "ret": 0.54}, {"name": "中银美元债", "value": 0.69, "fen": 1, "ret": -2.16}]}]}, {"name": "海外成熟", "value": 2.85, "fen": 3, "ret": 61.13, "children": [{"name": "成熟市场", "value": 2.85, "children": [{"name": "全球医疗保健", "value": 1.64, "fen": 2, "ret": 16.75}, {"name": "标普500", "value": 1.21, "fen": 1, "ret": 63.22}]}]}];
+
+/* 构建三层图表数据（大类 → 中类 → 基金，共 39 只基金） */
+var chartData = raw.map(function(top){
+  return {
+    name: top.name,
+    value: top.value,
+    children: top.children.map(function(mid){
+      return {
+        name: mid.name,
+        value: mid.value,
+        children: mid.children.map(function(f){
+          return { name: f.name, value: f.value };
+        })
+      };
+    })
+  };
+});
+
+/* 基金信息索引：tooltip 里补份数 / 累计收益率 */
+var FUND_INFO = {};
+raw.forEach(function(t){
+  t.children.forEach(function(m){
+    m.children.forEach(function(f){ FUND_INFO[f.name] = f; });
+  });
+});
+
+/* ============ 调色板 ============ */
+var CAT = {"A股": {"h": 216, "s": 64}, "现金": {"h": 280, "s": 62}, "境内债券": {"h": 173, "s": 54}, "海外新兴": {"h": 14, "s": 70}, "海外债券": {"h": 340, "s": 55}, "海外成熟": {"h": 98, "s": 48}};
+function hsl(h,s,l){return 'hsl('+h+','+s+'%,'+l+'%)';}
+
+/* 三层着色：大类深、中类中、基金浅且相邻渐变区分 */
+function decorate(nodes, cat, depth){
+  nodes.forEach(function(n, i){
+    var L, S;
+    if(depth === 1){ L = 38; S = cat.s; }
+    else if(depth === 2){ L = 50; S = cat.s - 6; }
+    else { L = 52 + i * 5; S = cat.s - 12; }   /* 基金层：同组内逐只变浅，区分相邻扇区 */
+    n.itemStyle = { color: hsl(cat.h, S, L) };
+    var darkText = depth === 3 && L > 64;       /* 浅色扇区用深色字，保证可读 */
+    n.label = {
+      color: darkText ? '#2c2c2c' : '#fff',
+      fontSize: depth === 1 ? 16 : (depth === 2 ? 12 : 10),
+      fontWeight: depth === 1 ? 800 : (depth === 2 ? 700 : 600),
+      textShadowColor: darkText ? 'transparent' : 'rgba(0,0,0,.45)',
+      textShadowBlur: darkText ? 0 : 3
+    };
+    if(n.children) decorate(n.children, cat, depth+1);
+  });
+}
+chartData.forEach(function(top){ decorate([top], CAT[top.name], 1); });
+
+/* ============ 渲染三层旭日图 ============ */
+var chart = echarts.init(document.getElementById('sb'));
+chart.setOption({
+  graphic:[
+    { type:'text', left:'center', top:'44%',
+      style:{ text:'长赢150份', textAlign:'center', fill:'#1f2937',
+              fontSize:24, fontWeight:800,
+              fontFamily:'-apple-system,"PingFang SC","Microsoft YaHei",sans-serif' } },
+    { type:'text', left:'center', top:'52%',
+      style:{ text:'已投 109 / 150 份', textAlign:'center', fill:'#9ca3af',
+              fontSize:13, fontWeight:500,
+              fontFamily:'-apple-system,"PingFang SC","Microsoft YaHei",sans-serif' } }
+  ],
+  series:[{
+    type:'sunburst',
+    data:chartData,
+    radius:['24%','95%'],
+    center:['50%','50%'],
+    sort:null,
+    nodeClick:false,
+    emphasis:{ focus:'ancestor' },
+    label:{
+      rotate:'radial',
+      minAngle:1.8
+    },
+    levels:[
+      {},
+      { r0:'24%', r:'45%', itemStyle:{borderWidth:3, borderColor:'#fff'},
+        label:{ formatter:function(p){ return p.name + '\n' + p.value.toFixed(1) + '%'; } } },
+      { r0:'45%', r:'70%', itemStyle:{borderWidth:2, borderColor:'#fff'},
+        label:{ formatter:function(p){ return p.name + ' ' + p.value.toFixed(1) + '%'; } } },
+      { r0:'70%', r:'95%', itemStyle:{borderWidth:1.5, borderColor:'#fff'},
+        label:{ formatter:function(p){
+          if(p.value >= 2) return p.name + '\n' + p.value.toFixed(1) + '%';
+          if(p.value >= 1) return p.name;
+          return p.name;   /* <1% 也显示名称，扇区极小时由 minAngle 自动隐藏 */
+        } } }
+    ]
+  }],
+  tooltip:{
+    trigger:'item',
+    backgroundColor:'rgba(40,45,50,.9)',
+    borderColor:'none',
+    textStyle:{color:'#fff', fontSize:13},
+    formatter:function(p){
+      var path = (p.treePathInfo||[]).map(function(x){return x.name;}).join(' > ');
+      var html = '<b>' + path + '</b><br>&#21344;&#27604;: <b>' + p.value + '%</b>';
+      var info = FUND_INFO[p.name];
+      if(info){
+        html += '<br>&#20221;&#25968;: <b>' + info.fen + '</b> &#20221;';
+        if(info.ret !== undefined && info.ret !== null){
+          var sign = info.ret > 0 ? '+' : '';
+          html += '<br>&#32047;&#35336;&#25910;&#30410;: <b>' + sign + info.ret.toFixed(2) + '%</b>';
+        }
+      }
+      return html;
+    }
+  }
+});
+window.addEventListener('resize', function(){ chart.resize(); });
+
+/* ============ 三级细分明细表（大类 → 中类 → 基金，可折叠） ============ */
+var tbody = document.querySelector('#fund-table tbody');
+
+/* 收益率着色：涨红跌绿 */
+function retHtml(ret){
+  if(ret === undefined || ret === null) return '<span class="na">&#8212;</span>';
+  var cls = ret >= 0 ? 'up' : 'dn';
+  return '<span class="'+cls+'">'+(ret>0?'+':'')+ret.toFixed(2)+'%</span>';
+}
+
+/* 组装层级数据：组内按占比降序 */
+var catRows = raw.map(function(top){
+  var mids = top.children.map(function(mid){
+    var funds = mid.children.slice().sort(function(a,b){ return b.value - a.value; });
+    return {
+      name: mid.name,
+      value: mid.value,
+      funds: funds,
+      fen: funds.reduce(function(a,f){ return a + (f.fen||0); }, 0)
+    };
+  }).sort(function(a,b){ return b.value - a.value; });
+  var count = mids.reduce(function(a,m){ return a + m.funds.length; }, 0);
+  return { name: top.name, value: top.value, fen: top.fen, ret: top.ret, mids: mids, count: count };
+}).sort(function(a,b){ return b.value - a.value; });
+
+/* 占比条的最大基准 */
+var maxV = 0;
+catRows.forEach(function(c){
+  if(c.value > maxV) maxV = c.value;
+  c.mids.forEach(function(m){ m.funds.forEach(function(f){ if(f.value > maxV) maxV = f.value; }); });
+});
+
+function barHtml(v, color){
+  var w = Math.max(1.2, v / maxV * 100);
+  return '<div class="bar-wrap"><div class="bar" style="width:' + w.toFixed(1) + '%;background:' + color + '"></div></div>';
+}
+
+catRows.forEach(function(c, ci){
+  var cat = CAT[c.name];
+  var col  = hsl(cat.h, cat.s, 42);   /* 深色：大类 */
+  var colM = hsl(cat.h, cat.s, 55);   /* 中色：中类 */
+  var colF = hsl(cat.h, cat.s, 68);   /* 浅色：基金 */
+  var tint = hsl(cat.h, cat.s, 94);   /* 大类行底色 */
+
+  /* 大类是"同名单节点"（如 现金）→ 只画一行，不可折叠 */
+  var isSimpleCat = c.mids.length === 1 && c.mids[0].funds.length === 1 && c.mids[0].name === c.name;
+  var gid = 't' + ci;
+  var fenLabel = c.name === '现金' ? c.fen + '&#20221;&#183;&#26410;&#25237;' : c.fen + '&#20221;';
+
+  var tr = document.createElement('tr');
+  tr.className = 'cat-row top';
+  tr.dataset.gid = gid;
+  tr.innerHTML =
+    '<td><span class="dot" style="background:' + col + '"></span>' +
+    (isSimpleCat ? '' : '<span class="arrow">&#9662;</span>') +
+    '<b>' + c.name + '</b></td>' +
+    '<td class="fen" style="text-align:right"><b>' + fenLabel + '</b></td>' +
+    '<td class="pct" style="text-align:right">' + c.value.toFixed(2) + '%</td>' +
+    '<td>' + barHtml(c.value, col) + '</td>' +
+    '<td style="text-align:right">' + retHtml(c.ret) + '</td>' +
+    '<td class="cnt">' + c.count + ' &#21482;</td>';
+  /* 大类行浅色底 */
+  tr.querySelectorAll('td').forEach(function(td){ td.style.background = tint; td.style.borderBottom = '1px solid #e2e2df'; });
+  if(!isSimpleCat) tr.style.cursor = 'pointer';
+  tbody.appendChild(tr);
+
+  if(isSimpleCat) return;
+
+  c.mids.forEach(function(m, mi){
+    var mid = gid + 'm' + mi;
+    /* 中类是"同名单基金"（如 养老产业>养老产业）→ 本身就是叶子行 */
+    var isSimpleMid = m.funds.length === 1 && m.funds[0].name === m.name;
+
+    var trm = document.createElement('tr');
+    trm.className = 'cat-row mid';
+    trm.dataset.gid = mid;
+    trm.dataset.parent = gid;
+    trm.innerHTML =
+      '<td class="l2">' + (isSimpleMid ? '<span class="arrow">&#8226;</span>' : '<span class="arrow">&#9662;</span>') +
+      m.name + '</td>' +
+      '<td class="fen" style="text-align:right">' + m.fen + '&#20221;</td>' +
+      '<td class="pct" style="text-align:right">' + m.value.toFixed(2) + '%</td>' +
+      '<td>' + barHtml(m.value, colM) + '</td>' +
+      '<td style="text-align:right">' + retHtml(isSimpleMid ? m.funds[0].ret : null) + '</td>' +
+      '<td class="cnt">' + (isSimpleMid ? '&#8212;' : m.funds.length + ' &#21482;') + '</td>';
+    if(!isSimpleMid) trm.style.cursor = 'pointer';
+    tbody.appendChild(trm);
+
+    if(isSimpleMid) return;
+
+    m.funds.forEach(function(f){
+      var trf = document.createElement('tr');
+      trf.dataset.parent = mid;
+      trf.dataset.root = gid;
+      trf.innerHTML =
+        '<td class="l3">' + f.name + '</td>' +
+        '<td class="fen" style="text-align:right">' + f.fen + '&#20221;</td>' +
+        '<td class="pct" style="text-align:right">' + f.value.toFixed(2) + '%</td>' +
+        '<td>' + barHtml(f.value, colF) + '</td>' +
+        '<td style="text-align:right">' + retHtml(f.ret) + '</td>' +
+        '<td class="cnt">&#8212;</td>';
+      tbody.appendChild(trf);
+    });
+  });
+});
+
+/* 折叠交互：点大类收起其下全部；点中类只收起基金行 */
+tbody.addEventListener('click', function(e){
+  var tr = e.target.closest('tr.cat-row');
+  if(!tr || !tr.style.cursor) return;
+  var closed = tr.classList.toggle('closed');
+  var arrow = tr.querySelector('.arrow');
+  if(arrow) arrow.innerHTML = closed ? '&#9656;' : '&#9662;';
+  var gid = tr.dataset.gid;
+  if(tr.classList.contains('top')){
+    tbody.querySelectorAll('tr[data-parent="' + gid + '"], tr[data-root="' + gid + '"]').forEach(function(r){
+      r.style.display = closed ? 'none' : '';
+    });
+  } else {
+    tbody.querySelectorAll('tr[data-parent="' + gid + '"]').forEach(function(r){
+      r.style.display = closed ? 'none' : '';
+    });
+  }
+});
+</script>
+</body>
+</html>
