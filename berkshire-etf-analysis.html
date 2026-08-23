@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>全市场场内基金(ETF+LOF)表 · 结构化分析与利用框架</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;background:#f5f7fa;color:#1f2937;line-height:1.6;padding:24px}
+.wrap{max-width:1080px;margin:0 auto}
+h1{font-size:26px;margin-bottom:4px}
+.sub{color:#6b7280;font-size:13px;margin-bottom:20px}
+.card{background:#fff;border-radius:12px;padding:20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.card h2{font-size:18px;margin-bottom:14px;padding-left:10px;border-left:4px solid #2563eb}
+.stat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.stat{background:#f8fafc;border-radius:10px;padding:14px;text-align:center}
+.stat .num{font-size:24px;font-weight:700;color:#2563eb}
+.stat .lab{font-size:12px;color:#6b7280;margin-top:4px}
+.chip{display:inline-block;background:#eff6ff;color:#1d4ed8;border-radius:20px;padding:6px 14px;margin:4px 6px 4px 0;font-size:13px;font-weight:600}
+.bar-row{display:flex;align-items:center;margin:7px 0;font-size:13px}
+.bar-name{width:230px;flex:none;color:#374151;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-name em{color:#9ca3af;font-style:normal;font-size:11px}
+.bar-track{flex:1;background:#f1f5f9;border-radius:6px;position:relative;height:20px;display:flex;align-items:center}
+.bar-fill{height:20px;border-radius:6px;min-width:2px}
+.bar-val{position:absolute;right:8px;font-size:12px;font-weight:600;color:#374151}
+.liq-bar{display:flex;height:34px;border-radius:8px;overflow:hidden;margin:10px 0}
+.liq-seg{height:100%}
+.lg{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:8px}
+.lg-item{font-size:13px;color:#374151;display:flex;align-items:center}
+.lg-dot{width:12px;height:12px;border-radius:3px;margin-right:6px;display:inline-block}
+.callout{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:10px;padding:12px 14px;font-size:13.5px;margin:10px 0}
+.callout.ok{background:#f0fdf4;border-color:#bbf7d0;color:#166534}
+.frame-step{border-left:3px solid #e5e7eb;padding:6px 0 6px 16px;margin:14px 0}
+.frame-step b{color:#1d4ed8}
+ul{margin:8px 0 8px 20px} li{margin:4px 0;font-size:13.5px}
+.foot{font-size:12px;color:#9ca3af;text-align:center;margin-top:10px}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+.tbl th,.tbl td{border:1px solid #e5e7eb;padding:6px 8px;text-align:left}
+.tbl th{background:#f8fafc;color:#374151}
+.tag-red{color:#dc2626;font-weight:700} .tag-green{color:#16a34a;font-weight:700}
+.note{font-size:12.5px;color:#6b7280;margin-top:8px}
+</style></head>
+<body><div class="wrap">
+<h1>全市场场内基金(ETF + LOF)表 · 结构化分析与利用框架</h1>
+<div class="sub">数据日期 2026-08-23 · 来源 东方财富/天天基金(ETF权威) + 新浪(LOF部分) · 共 1901 只 · 总流通市值 40394 亿元</div>
+
+<div class="card">
+<div class="stat-grid">
+<div class="stat"><div class="num">1901</div><div class="lab">场内基金总数</div></div>
+<div class="stat"><div class="num" style="color:#16a34a">1584</div><div class="lab">ETF</div></div>
+<div class="stat"><div class="num" style="color:#ea580c">317</div><div class="lab">LOF(部分)</div></div>
+<div class="stat"><div class="num">40394亿</div><div class="lab">总流通市值</div></div>
+<div class="stat"><div class="num" style="color:#dc2626">1020</div><div class="lab">日成交&lt;1000万</div></div>
+</div>
+</div>
+
+<div class="card">
+<h2>一、规模集中度：钱集中在头部</h2>
+<div style="margin-bottom:10px">
+<span class="chip">Top10 占 19.0%</span>
+<span class="chip">Top50 占 49.0%</span>
+<span class="chip">Top100 占 65.3%</span>
+</div>
+<p class="note">全市场 1901 只里，规模最大的 100 只（占 5.3%）拿走了 65.3% 的流通市值。头部多为宽基(沪深300/科创50/A500)、商品(黄金)、货币(银华日利/华宝添益)与行业龙头(证券/半导体)。</p>
+<div class="bar-row"><span class="bar-name">1. 沪深300ETF华泰柏瑞 <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:100.0%;background:#2563eb"></div><span class="bar-val">1117亿</span></div></div><div class="bar-row"><span class="bar-name">2. 黄金ETF华安 <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:95.3%;background:#2563eb"></div><span class="bar-val">1064亿</span></div></div><div class="bar-row"><span class="bar-name">3. 银华日利ETF <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:94.2%;background:#2563eb"></div><span class="bar-val">1052亿</span></div></div><div class="bar-row"><span class="bar-name">4. 科创50ETF华夏 <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:77.5%;background:#2563eb"></div><span class="bar-val">866亿</span></div></div><div class="bar-row"><span class="bar-name">5. 华宝添益ETF <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:74.4%;background:#2563eb"></div><span class="bar-val">831亿</span></div></div><div class="bar-row"><span class="bar-name">6. 创业板ETF易方达 <em>ETF·深交所</em></span><div class="bar-track"><div class="bar-fill" style="width:58.7%;background:#2563eb"></div><span class="bar-val">655亿</span></div></div><div class="bar-row"><span class="bar-name">7. 证券ETF国泰 <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:56.2%;background:#2563eb"></div><span class="bar-val">628亿</span></div></div><div class="bar-row"><span class="bar-name">8. 沪深300ETF易方达 <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:46.6%;background:#2563eb"></div><span class="bar-val">520亿</span></div></div><div class="bar-row"><span class="bar-name">9. 科创芯片ETF嘉实 <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:44.7%;background:#2563eb"></div><span class="bar-val">499亿</span></div></div><div class="bar-row"><span class="bar-name">10. 黄金ETF博时 <em>ETF·深交所</em></span><div class="bar-track"><div class="bar-fill" style="width:39.7%;background:#2563eb"></div><span class="bar-val">444亿</span></div></div><div class="bar-row"><span class="bar-name">11. 半导体设备ETF国泰 <em>ETF·深交所</em></span><div class="bar-track"><div class="bar-fill" style="width:38.5%;background:#2563eb"></div><span class="bar-val">430亿</span></div></div><div class="bar-row"><span class="bar-name">12. 通信ETF国泰 <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:38.2%;background:#2563eb"></div><span class="bar-val">426亿</span></div></div><div class="bar-row"><span class="bar-name">13. 科创半导体ETF华夏 <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:38.0%;background:#2563eb"></div><span class="bar-val">424亿</span></div></div><div class="bar-row"><span class="bar-name">14. 恒生科技ETF华夏 <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:37.3%;background:#2563eb"></div><span class="bar-val">417亿</span></div></div><div class="bar-row"><span class="bar-name">15. A500ETF华泰柏瑞 <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:37.2%;background:#2563eb"></div><span class="bar-val">416亿</span></div></div><div class="bar-row"><span class="bar-name">16. 沪深300ETF华夏 <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:37.2%;background:#2563eb"></div><span class="bar-val">415亿</span></div></div><div class="bar-row"><span class="bar-name">17. 科创50ETF易方达 <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:36.8%;background:#2563eb"></div><span class="bar-val">411亿</span></div></div><div class="bar-row"><span class="bar-name">18. 港股通互联网ETF富国 <em>ETF·深交所</em></span><div class="bar-track"><div class="bar-fill" style="width:36.5%;background:#2563eb"></div><span class="bar-val">408亿</span></div></div><div class="bar-row"><span class="bar-name">19. 中证500ETF南方 <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:36.4%;background:#2563eb"></div><span class="bar-val">406亿</span></div></div><div class="bar-row"><span class="bar-name">20. 券商ETF华宝 <em>ETF·上交所</em></span><div class="bar-track"><div class="bar-fill" style="width:34.4%;background:#2563eb"></div><span class="bar-val">384亿</span></div></div>
+</div>
+
+<div class="card">
+<h2>二、流动性分层：过半是"僵尸基金"（最关键的发现）</h2>
+<div class="liq-bar"><div class="liq-seg" style="width:41.42%;background:#dc2626" title="日成交<500万：787只(41.4%)"></div><div class="liq-seg" style="width:22.47%;background:#ea580c" title="500万~2000万：427只(22.5%)"></div><div class="liq-seg" style="width:19.95%;background:#f59e0b" title="2000万~1亿：379只(19.9%)"></div><div class="liq-seg" style="width:13.63%;background:#2563eb" title="1亿~10亿：259只(13.6%)"></div><div class="liq-seg" style="width:2.53%;background:#16a34a" title="≥10亿：48只(2.5%)"></div></div>
+<div class="lg"><div class="lg-item"><span class="lg-dot" style="background:#dc2626"></span>日成交<500万：<b>787</b>只 (41.4%)</div><div class="lg-item"><span class="lg-dot" style="background:#ea580c"></span>500万~2000万：<b>427</b>只 (22.5%)</div><div class="lg-item"><span class="lg-dot" style="background:#f59e0b"></span>2000万~1亿：<b>379</b>只 (19.9%)</div><div class="lg-item"><span class="lg-dot" style="background:#2563eb"></span>1亿~10亿：<b>259</b>只 (13.6%)</div><div class="lg-item"><span class="lg-dot" style="background:#16a34a"></span>≥10亿：<b>48</b>只 (2.5%)</div></div>
+<div class="callout"><b>⚠️ 流动性黑榜：1020 只（占 53.7%）日成交不足 1000 万元，其中 787 只连 500 万都不到。</b><br>
+这些基金买不进、卖不出，价差（滑点）直接吞噬收益——对价值投资者是"隐性本金损失"，比估值更重要。任何研究前应先剔除。</div>
+<div class="callout ok">✅ 真正有交易深度、可作配置底的仅 <b>307 只</b>（日成交≥1亿，占 16.1%）。这就是"可投宇宙"。</div>
+</div>
+
+<div class="card">
+<h2>三、定价偏差 / 溢价预警（IOPV 偏离）</h2>
+<p class="note">IOPV = 基金实时参考净值。价格相对 IOPV <b>正偏离=溢价（追高陷阱）</b>，<b>负偏离=折价（潜在机会）</b>。下表为偏离绝对值最大的 15 只：</p>
+<div class="bar-row"><span class="bar-name">纳指科技ETF景顺 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:100.0%;background:#dc2626"></div><span class="bar-val">+24.9%</span></div></div><div class="bar-row"><span class="bar-name">纳指ETF嘉实 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:47.9%;background:#dc2626"></div><span class="bar-val">+11.9%</span></div></div><div class="bar-row"><span class="bar-name">中韩半导体ETF华泰柏瑞 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:44.8%;background:#dc2626"></div><span class="bar-val">+11.2%</span></div></div><div class="bar-row"><span class="bar-name">纳指ETF国泰 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:44.8%;background:#dc2626"></div><span class="bar-val">+11.2%</span></div></div><div class="bar-row"><span class="bar-name">纳指ETF广发 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:42.5%;background:#dc2626"></div><span class="bar-val">+10.6%</span></div></div><div class="bar-row"><span class="bar-name">纳指ETF易方达 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:40.3%;background:#dc2626"></div><span class="bar-val">+10.0%</span></div></div><div class="bar-row"><span class="bar-name">纳斯达克100ETF招商 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:37.4%;background:#dc2626"></div><span class="bar-val">+9.3%</span></div></div><div class="bar-row"><span class="bar-name">纳指ETF富国 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:37.2%;background:#dc2626"></div><span class="bar-val">+9.2%</span></div></div><div class="bar-row"><span class="bar-name">纳指ETF汇添富 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:36.6%;background:#dc2626"></div><span class="bar-val">+9.1%</span></div></div><div class="bar-row"><span class="bar-name">标普500ETF博时 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:36.5%;background:#dc2626"></div><span class="bar-val">+9.1%</span></div></div><div class="bar-row"><span class="bar-name">纳斯达克ETF华夏 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:36.0%;background:#dc2626"></div><span class="bar-val">+8.9%</span></div></div><div class="bar-row"><span class="bar-name">纳指ETF华泰柏瑞 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:35.0%;background:#dc2626"></div><span class="bar-val">+8.7%</span></div></div><div class="bar-row"><span class="bar-name">纳指100ETF博时 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:35.0%;background:#dc2626"></div><span class="bar-val">+8.7%</span></div></div><div class="bar-row"><span class="bar-name">纳斯达克ETF华安 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:34.7%;background:#dc2626"></div><span class="bar-val">+8.6%</span></div></div><div class="bar-row"><span class="bar-name">纳斯达克100ETF大成 <em>ETF</em></span><div class="bar-track"><div class="bar-fill" style="width:34.5%;background:#dc2626"></div><span class="bar-val">+8.6%</span></div></div>
+<div class="callout"><b>⚠️ 偏离最大的清一色是纳指/标普/纳斯达克 QDII-ETF，溢价高达 +8%~+25%（纳指科技ETF景顺 +24.9%）。</b><br>
+原因：QDII 额度受限、套利机制失效，二级市场价格被情绪推高。这是"溢价避雷"信号——<b>逆向含义：此时买入=为泡沫付溢价，价值纪律要求回避</b>。本表另有 80 只 ETF 折价(<-0.3%)，属潜在折价机会，需结合流动性与 LOF 折价交叉验证。</div>
+</div>
+
+<div class="card">
+<h2>四、怎么用：三层利用框架（落到五维价值纪律）</h2>
+
+<div class="frame-step"><b>第 0 层 · 流动性预处理（最重要）</b><br>
+全市场 1901 只里 1020 只日成交&lt;1000万。动作：任何 ETF/LOF 研究前先 drop 这批 → 直接反向使用 <code>etf_screen_illiquid.csv</code>。</div>
+
+<div class="frame-step"><b>第 1 层 · 核心池作配置底仓</b><br>
+流通市值 Top50（合计占全市场 49.0%）是最厚、最流动、做市最活跃的 50 只，构成"可投宇宙"。宽基/商品/行业核心仓位只从这 50 只里挑（沪深300/科创50/黄金/A500/创业板等已在内）→ <code>etf_screen_core.csv</code>。</div>
+
+<div class="frame-step"><b>第 2 层 · 溢价避雷（IOPV 偏离）</b><br>
+IOPV 偏离 &gt; +3% 一律标"溢价预警、慎追"（纳指系列全中招）；&lt; -1% 才可能是折价机会。把此列当"情绪温度计"，不接最后一棒。</div>
+
+<div class="frame-step"><b>第 3 层 · 数据缺口与下一步（诚实标注）</b><br>
+<ul>
+<li><b>LOF 折价率缺失</b>：新浪兜底源不带折价率字段，"深度折价榜"暂为空——LOF 价值信号缺位。等代理通畅跑 <code>fetch_lof_direct.py</code> 补全权威 LOF（含真实折价率）后，折价价值信号才完整。</li>
+<li><b>费率/跟踪指数</b>：需 <code>fund_etf_fund_info_em</code> 单只补，建议只对核心池 50 只做（慢，不宜全量）。</li>
+<li><b>分类(宽基/行业/主题)</b>：可再 join <code>fund_etf_category_sina/ths</code> 做风格切片，本表未含。</li>
+</ul></div>
+
+<div class="frame-step"><b>对照五维框架</b><br>
+<ul>
+<li>存量服务/硬资产 → ETF 本身是"服务飞轮"（管理费=可验证现金流），头部宽基/黄金最符合；</li>
+<li>低估值 → 用 IOPV 折价(负偏离) 找便宜货；</li>
+<li>特殊事件 → 折溢价套利(LOF 封转开/ETF 溢价回归)；</li>
+<li>小市值 → <b>反向</b>：小市值场内基金多为流动性陷阱（见第二节），坚决避开；</li>
+<li>净现金 → 场内基金不适用，跳过。</li>
+</ul></div>
+</div>
+
+<div class="card">
+<h2>五、衍生筛选清单（已生成 CSV）</h2>
+<table class="tbl">
+<tr><th>清单</th><th>口径</th><th>用途</th><th>只数</th></tr>
+<tr><td><code>etf_screen_core.csv</code></td><td>流通市值 Top50</td><td>可投宇宙 / 配置底仓</td><td>50</td></tr>
+<tr><td><code>etf_screen_illiquid.csv</code></td><td>日成交 &lt; 1000万</td><td><span class="tag-red">流动性黑榜·回避</span></td><td>1020</td></tr>
+<tr><td><code>etf_screen_discount.csv</code></td><td>LOF 折价最深</td><td><span class="tag-green">价值信号(待补)</span></td><td>0*</td></tr>
+</table>
+<p class="note">* LOF 折价数据在新浪兜底源缺失，该清单暂为空；待代理通畅补全权威 LOF 后自动填充。</p>
+</div>
+
+<div class="foot">本页由 AutoJobsHub 同源数据离线生成 · 仅作研究参考，不构成投资建议 · 数据缺口已如实标注</div>
+</div></body></html>
