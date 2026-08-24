@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ST新潮要约收购·个案深度拆解（标的+三方收购方）</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root{
+    --bg:#f6f8fb; --card:#fff; --ink:#1c2230; --sub:#5d6776; --line:#e4e9f0;
+    --red:#cf2222; --green:#15834a; --blue:#1f5fd6; --amber:#a9720d; --purple:#6d28d9;
+    --chip:#eef3fa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;line-height:1.7}
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
+  header.top{background:linear-gradient(135deg,#5a2233,#8a2f47);color:#fff;border-radius:14px;padding:26px 30px;margin-bottom:20px}
+  header.top h1{margin:0 0 6px;font-size:23px}
+  header.top p{margin:3px 0;font-size:13px;color:#f2d9e0}
+  .badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);
+    border-radius:20px;padding:2px 11px;font-size:12px;margin:6px 7px 0 0}
+  h2.sec{font-size:20px;margin:34px 0 14px;padding-left:12px;border-left:4px solid var(--blue)}
+  h3.pp{font-size:17px;margin:22px 0 10px;color:#22364f;display:flex;align-items:center;gap:9px}
+  .role{font-size:12px;padding:2px 10px;border-radius:7px;color:#fff;font-weight:700}
+  .role.target{background:var(--purple)} .role.win{background:var(--green)}
+  .role.fail{background:var(--amber)} .role.stop{background:var(--red)}
+  .note{background:#fff8e6;border:1px solid #ffe1a6;border-radius:10px;padding:13px 16px;font-size:13px;color:#7a5a12;margin:12px 0}
+  .party{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:16px 18px;margin:14px 0;box-shadow:0 1px 3px rgba(20,40,80,.04)}
+  .block{display:grid;grid-template-columns:96px 1fr;gap:0;border:1px solid var(--line);border-radius:9px;overflow:hidden;margin:9px 0}
+  .block .lab{background:#eef3fa;color:#22405f;font-weight:700;font-size:13px;padding:9px 11px;display:flex;align-items:center}
+  .block .val{font-size:13px;padding:9px 13px;color:#2c3848}
+  .block .val ul{margin:4px 0 0;padding-left:18px}
+  .block .val li{margin:3px 0}
+  .hl{background:#fff4f4;border-left:4px solid var(--red);padding:8px 12px;border-radius:0 7px 7px 0;font-size:12.5px;margin:9px 0;color:#7a2020}
+  .ok{background:#eef8f1;border-left:4px solid var(--green);padding:8px 12px;border-radius:0 7px 7px 0;font-size:12.5px;margin:9px 0;color:#1c5e38}
+  table.tb{width:100%;border-collapse:collapse;margin:12px 0;font-size:12.5px}
+  table.tb th,table.tb td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+  table.tb th{background:#eef3fa;color:#22405f;font-weight:700;white-space:nowrap}
+  .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin-top:14px}
+  .chart-box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .chart-box h4{margin:2px 0 8px;font-size:14px}
+  .legend{font-size:12px;color:var(--sub);margin-top:8px}
+  footer{margin-top:34px;font-size:12px;color:var(--sub);border-top:1px solid var(--line);padding-top:16px}
+  .risk{background:#fdeaea;border:1px solid #f3b0b0;border-radius:10px;padding:13px 16px;font-size:13px;color:#8a1c1c;margin-top:14px}
+  .tag{display:inline-block;background:var(--chip);border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:11px;color:#34507a;margin:2px 3px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>ST新潮要约收购 · 个案深度拆解</h1>
+  <p>单案例深挖范式：被收购方 + 三方收购方，逐一方拆解【背景 · 资产 · 动机】</p>
+  <div>
+    <span class="badge">标的：ST新潮 600777（A股首例竞争性要约）</span>
+    <span class="badge">三方：伊泰B股(胜) / 金帝石油(败) / 汇能海投(终止)</span>
+    <span class="badge">数据时点 2026-08-09</span>
+  </div>
+</header>
+
+<div class="note">
+  <b>本篇定位（新标准首例）：</b>按老板最新要求，个案分析须同时深挖<b>收购方与被收购方</b>，每家都拆 <b>背景 / 资产 / 动机</b> 三块。ST新潮是 A 股首例竞争性要约，一个标的、三方争夺，最适合作"单案例深挖"示范——既能看清标的本身，又能横向比较三类收购人。所有数据来自公开公告 / 权威财经媒体（已脱敏），<b>不编造</b>。
+</div>
+
+<!-- ===================== 被收购方 ===================== -->
+<h2 class="sec">一、被收购方：ST新潮（600777）</h2>
+<div class="party">
+  <h3 class="pp"><span class="role target">标的</span> ST新潮 · 一家"净壳+稀缺海外油气"的特殊公司</h3>
+  <div class="block"><div class="lab">背景</div><div class="val">
+    <ul>
+      <li>1996 年于上交所上市（注册地山东烟台），原名新潮实业，原主业为纺织/地产。</li>
+      <li><b>2014 年启动战略转型</b>，定位于海外石油天然气勘探开采，陆续收购美国德州 Crosby 常规油田、Howard 与 Borden 郡页岩油藏。</li>
+      <li><b>控制权长期动荡</b>：历史多次股东纠纷，无控股股东、无实际控制人，股权高度分散。</li>
+      <li>2024 年 4 月因中兴华出具<b>否定意见内控审计报告</b>被实施其他风险警示（ST）；2025 年又因年报延期未披露被证监会立案。</li>
+      <li>原第二至第五大股东因隐瞒一致行动关系，表决权被限制 36 个月；第一大股东宁波国金仅持股 6.39%。</li>
+    </ul>
+  </div></div>
+  <div class="block"><div class="lab">资产</div><div class="val">
+    <ul>
+      <li><b>核心资产：美国二叠纪盆地（Permian）核心区域页岩油</b>，99% 以上资产位于北美油气核心产区，<b>全部营收来自海外</b>。</li>
+      <li>2024 全年油气生产 <b>2268.10 万桶当量</b>（+1.88%）；天然气增产 15.14%；至 2024H1 已上线页岩油净井 <b>726 口</b>。</li>
+      <li>财务面扎实：2024H1 营收 43.59 亿（+9.27%）、归母净 11.71 亿（+1.77%）、经营现金流 34.81 亿；资产 354.31 亿，负债率仅 <b>40.32%</b>，每股净资产 3.11 元。</li>
+      <li>成长曲线：2018→2023 油气产量 4→6 万桶/日，营收 47.81→88.49 亿，净利 6.01→25.96 亿，资产 247.5→335.8 亿。</li>
+      <li>行业地位：Enverus 2023 全美非上市油气企业排名第 11，作业规模超壳牌/BP 在德州业务。</li>
+      <li>瑕疵：<b>连续 15 年未现金分红</b>（自 2009），未分配 69.47 亿但因境内母公司未分配为负+境外资金限制难以回汇。</li>
+    </ul>
+  </div></div>
+  <div class="block"><div class="lab">动机（为何被盯上）</div><div class="val">
+    <ul>
+      <li><b>"净壳"+</b> 股权分散无实控人 → 产业资本只需拿下相对多数即可夺控制权，阻力小。</li>
+      <li><b>稀缺性</b>：A 股少有的、拥有美国核心产区真实油气产量与现金流的标的，在汇率波动+能源重构下被视为"避险稀缺资产"。</li>
+      <li>资产质量实、负债率低、产量稳，是"有可验证现金流"的实体资产——正合老板价值框架的口味，但<b>跨境审计/治理混乱/退市风险</b>是硬伤。</li>
+    </ul>
+  </div></div>
+  <div class="hl">⚠️ 标的重大风险：内控否定→ST、年报延期→立案、面值/财务退市风险；跨境资产透明度低、治理混乱，夺控后整合并购仍高度不确定。</div>
+</div>
+
+<!-- ===================== 收购方① 伊泰B股 ===================== -->
+<h2 class="sec">二、收购方①：伊泰B股（内蒙古伊泰煤炭）——<span class="role win" style="border-radius:6px;padding:2px 9px">胜出方</span></h2>
+<div class="party">
+  <h3 class="pp"><span class="role win">胜出</span> 伊泰B股 · 现金充裕的老牌煤企，高价胜出</h3>
+  <div class="block"><div class="lab">背景</div><div class="val">
+    <ul>
+      <li>伊泰集团由 <b>张双旺</b>（2025 年约 82 岁）1988 年创立，内蒙古最大地方煤炭企业，中国 500 强（2024 第 449 位）。</li>
+      <li>实控人张双旺通过伊泰投资持股 37.54%；2024 年胡润财富 185 亿（第 265 位）。</li>
+      <li>伊泰煤炭 1997 年 B 股上市、2012 年 H 股上市、<b>2023 年 8 月 H 股退市</b>，现仅 B 股。</li>
+      <li>集团总资产超 1000 亿，员工 6300+；创始人"四个不变"办企原则，区域根基深。</li>
+    </ul>
+  </div></div>
+  <div class="block"><div class="lab">资产</div><div class="val">
+    <ul>
+      <li>2024 年营收 <b>519.68 亿</b>、归母净 <b>51.57 亿</b>，负债率仅 <b>32.07%</b>，总资产 839.24 亿。</li>
+      <li>煤炭主业占营收 77.2%，坐拥鄂尔多斯 <b>21 亿吨可采储量</b>、年产 5400 万吨、开采周期 35 年+，低成本优势。</li>
+      <li><b>现金极充裕</b>：2024 年半年每股派 1 元、年度再派 1 元，全年分红占净利 <b>113.61%</b>——典型"现金牛"。</li>
+      <li>煤化工延伸：伊犁 100 万吨/年煤制油项目（投资 210 亿，预计 2027 投产）。</li>
+    </ul>
+  </div></div>
+  <div class="block"><div class="lab">动机</div><div class="val">
+    <ul>
+      <li>控制 ST新潮 优质油气资产，<b>拓展能源储备、优化产业布局</b>（煤炭+油气双能源），获取跨境资产配置。</li>
+      <li>用自身充裕现金+产业运营能力，承接二叠纪盆地资产，做"能源平台"升级。</li>
+    </ul>
+  </div></div>
+  <div class="ok">✅ 要约方案与结果：3.40 元/股、收购 51%（34.68 亿股）、最高 117.92 亿；生效条件 28%（19.04 亿股）。最终预受 13.58 亿股（19.99%，1.06 万户），<b>交割后持股 50.10%，成功夺控</b>。出价高于金帝(3.10)，在竞争性要约中胜出。</div>
+</div>
+
+<!-- ===================== 收购方② 金帝石油 ===================== -->
+<h2 class="sec">三、收购方②：浙江金帝石油——<span class="role fail" style="border-radius:6px;padding:2px 9px">失败方</span></h2>
+<div class="party">
+  <h3 class="pp"><span class="role fail">失败</span> 金帝石油 · 成立不满月就出手，高负债母公司撑腰</h3>
+  <div class="block"><div class="lab">背景</div><div class="val">
+    <ul>
+      <li>收购主体<b>浙江金帝石油勘探开发有限公司成立于 2024-12-27</b>——发起 42 亿要约时成立<b>不满一个月</b>，法人卢斯侃。</li>
+      <li>由金帝联合控股集团（金帝控股）100% 持股；金帝控股 1992 年创立于杭州萧山，实控人为 <b>卢斯侃 / 孔列岚夫妇</b>。</li>
+      <li>金帝控股五大板块：地产开发与商业管理、园区运营、清洁能源服务、大宗石化贸易、油气田勘探开采销售。</li>
+    </ul>
+  </div></div>
+  <div class="block"><div class="lab">资产</div><div class="val">
+    <ul>
+      <li>收购主体注册资本仅 6000 万、<b>无实际业务、无财务数据</b>，纯 SPV 壳。</li>
+      <li>母公司金帝控股 2024 年末资产 283.34 亿、净资产 63.33 亿、营收 7.18 亿、净利 1.18 亿，但 <b>资产负债率高达 77.65%</b>（偏重）。</li>
+      <li>一致行动人金帝商业持 1589.99 万股 + 金帝控股持 100 股，合计仅 0.23%。</li>
+    </ul>
+  </div></div>
+  <div class="block"><div class="lab">动机</div><div class="val">
+    <ul>
+      <li>取得 ST新潮 控制权，借其快速切入页岩油/美国市场，拓展油气布局。</li>
+      <li>借要约"稳定股权结构"——原股东表决权受限，若成第一股东可优化治理叙事。</li>
+    </ul>
+  </div></div>
+  <div class="hl">❌ 要约方案与结果：3.10 元/股、收购 20%（13.6 亿股）、最高 42.16 亿，保证金 20% 已存。但伊泰半路出更高价(3.40)，4/21 单日 1487 户撤回 1.45 亿股；最终预受仅 <b>963 万股（0.14%）</b>，未达 8%（5.44 亿股）生效条件 → <b>自始不生效，出局</b>。</div>
+</div>
+
+<!-- ===================== 收购方③ 汇能海投 ===================== -->
+<h2 class="sec">四、收购方③：北京汇能海投——<span class="role stop" style="border-radius:6px;padding:2px 9px">终止方</span></h2>
+<div class="party">
+  <h3 class="pp"><span class="role stop">终止</span> 汇能海投 · 煤炭大王出手，因违规黯然退场</h3>
+  <div class="block"><div class="lab">背景</div><div class="val">
+    <ul>
+      <li>北京汇能海投新能源开发有限公司，<b>汇能集团子公司</b>，成立于 2023 年 4 月。</li>
+      <li>汇能集团实控人 <b>郭金树</b>（内蒙古"煤炭大王"），2024 胡润财富 200 亿（第 1274 位）；集团总资产 1350 亿、员工 1.6 万。</li>
+      <li>主业煤炭/电力/化工，向新能源、新材料、现代煤化工延伸。</li>
+    </ul>
+  </div></div>
+  <div class="block"><div class="lab">资产</div><div class="val">
+    <ul>
+      <li>背靠汇能集团（总资产 1350 亿），资金实力雄厚。</li>
+      <li>要约前已"潜伏"持股 4.99%（逼近举牌线），跻身第五大股东。</li>
+    </ul>
+  </div></div>
+  <div class="block"><div class="lab">动机</div><div class="val">
+    <ul>
+      <li>基于集团发展战略，认同 ST新潮 价值与前景，提升持股、增强股权稳定、取得控制权。</li>
+      <li>同样瞄准美国二叠纪盆地油气资产，做能源扩张。</li>
+    </ul>
+  </div></div>
+  <div class="hl">❌ 要约方案与结果：3.10 元/股、收购 46%（31.28 亿股）、最高 96.98 亿（近 100 亿）。发布摘要仅一周，被举报<b>未如实披露一致行动人</b>；经核查承认与相关股东构成一致行动关系、触及收购人负面情形，2024-08-30 <b>主动终止</b>。山东证监局责令改正、上交所公开谴责，12 个月内不得再收购。</div>
+</div>
+
+<!-- ===================== 横向对比 ===================== -->
+<h2 class="sec">五、三方收购方横向对比</h2>
+<table class="tb">
+  <tr><th>维度</th><th>伊泰B股（胜）</th><th>金帝石油（败）</th><th>汇能海投（终止）</th></tr>
+  <tr><td class="k">背后主体</td><td>伊泰集团(1988,张双旺)</td><td>金帝控股(1992,卢斯侃)</td><td>汇能集团(郭金树)</td></tr>
+  <tr><td class="k">主体资产</td><td>839亿/负债率32%/高分红现金牛</td><td>母283亿但负债率77.65%/壳无业务</td><td>集团1350亿雄厚</td></tr>
+  <tr><td class="k">出价</td><td><b>3.40 元</b></td><td>3.10 元</td><td>3.10 元</td></tr>
+  <tr><td class="k">比例/金额</td><td>51% / 117.92亿</td><td>20% / 42.16亿</td><td>46% / 96.98亿</td></tr>
+  <tr><td class="k">动机侧重</td><td>能源储备+产业协同(现金充裕)</td><td>切入页岩油/稳定股权</td><td>夺控+能源扩张</td></tr>
+  <tr><td class="k">关键变量</td><td>价高+实力稳</td><td>成立不满月/高负债</td><td>隐瞒一致行动人</td></tr>
+  <tr><td class="k">结果</td><td class="ok" style="border-radius:0">交割50.10% 胜出</td><td class="hl" style="border-radius:0">预受0.14% 失败</td><td class="hl" style="border-radius:0">违规终止</td></tr>
+</table>
+
+<div class="charts">
+  <div class="chart-box"><h4>三方出价对比（要约价 / 收购比例）</h4><div id="c1" style="height:280px"></div></div>
+  <div class="chart-box"><h4>ST新潮 资产质量趋势（2018→2023）</h4><div id="c2" style="height:280px"></div></div>
+</div>
+<div class="legend">左图：伊泰以更高价(3.40)+更大比例(51%)在竞争性要约中胜出；右图：标的营收/净利逐年抬升，资产质量实，但治理与退市风险并存。</div>
+
+<!-- ===================== 套利启示 ===================== -->
+<h2 class="sec">六、个案套利启示</h2>
+<div class="party">
+  <ul style="font-size:13.5px;line-height:1.9">
+    <li><b>竞争性要约=价格发现战</b>：后发高价方(伊泰3.40)挤出先发方(金帝3.10)，低位参与的股东在切换中左右挨巴掌——必须盯每日预受切换。</li>
+    <li><b>收购人实力是履约第一锚</b>：伊泰(现金牛、负债率32%)稳；金帝(壳+母高负债77.65%)与汇能(虽强但违规)皆折戟——<b>空壳/高负债/有合规污点的一票警惕</b>。</li>
+    <li><b>生效条件是成败开关</b>：金帝设 8% 生效门槛，预受仅 0.14% → 白忙；伊泰设 28% 且达成。</li>
+    <li><b>标的"有现金流"但"有退市风险"</b>：ST新潮资产真实（二叠纪盆地、负债率40%），却内控否定+立案+退市边缘——<b>正合价值框架口味，但退市风险触发禁区</b>，不符合"可验证现金流+安全边际"的参与条件。</li>
+    <li><b>个人观点</b>：此案对老板的价值不在"去套利"，而在<u>学会甄别收购人</u>——同样夺一个好资产，国资/现金牛产业资本(伊泰)胜出，空壳高负债(金帝)与违规方(汇能)出局，这正是老板"看人+看资产+看动机"框架的鲜活教材。</li>
+  </ul>
+</div>
+
+<div class="risk">
+  <b>风险提示：</b>ST新潮涉及年报延期被立案、内控否定、面值/财务退市风险，属高风险标的；竞争性要约博弈剧烈，预受撤回踩踏常见。本个案拆解仅为研究与学习示范，<b>不构成投资建议，决策请自行判断，亏损可能随时发生</b>。
+</div>
+
+<footer>
+  阿研 · ST新潮要约收购个案深度拆解（标的+三方收购方：背景/资产/动机）· 数据时点 2026-08-09 · 来源：公开公告/权威财经媒体（已脱敏）<br>
+  本篇为"单案例深挖"新标准首例，后续个案均按此范式（收购方与被收购方背景·资产·动机）执行。
+</footer>
+</div>
+
+<script>
+// 三方出价
+const names=["伊泰B股","金帝石油","汇能海投"];
+const price=[3.40,3.10,3.10];
+const pct=[51,20,46];
+const ch1=echarts.init(document.getElementById("c1"));
+ch1.setOption({
+  tooltip:{trigger:"axis"},
+  legend:{data:["要约价(元)","收购比例(%)"],top:0,textStyle:{fontSize:11,color:"#5d6776"}},
+  grid:{left:8,right:14,top:34,bottom:24,containLabel:true},
+  xAxis:{type:"category",data:names,axisLabel:{fontSize:11,color:"#5d6776"}},
+  yAxis:[{type:"value",name:"元",axisLabel:{color:"#5d6776"},splitLine:{lineStyle:{color:"#eef1f6"}}},
+         {type:"value",name:"%",axisLabel:{color:"#5d6776"},splitLine:{show:false}}],
+  series:[
+    {name:"要约价(元)",type:"bar",data:price,itemStyle:{color:"#1f5fd6",borderRadius:[4,4,0,0]},label:{show:true,position:"top",fontSize:11}},
+    {name:"收购比例(%)",type:"line",yAxisIndex:1,data:pct,itemStyle:{color:"#cf2222"},symbolSize:8,label:{show:true,fontSize:11}}
+  ]
+});
+
+// ST新潮 资产趋势
+const yr=["2018","2019","2020","2021","2022","2023"];
+const rev=[47.81,null,null,null,null,88.49];
+const np=[6.01,null,null,3.65,31.27,25.96];
+const ch2=echarts.init(document.getElementById("c2"));
+ch2.setOption({
+  tooltip:{trigger:"axis"},
+  legend:{data:["营收(亿)","归母净(亿)"],top:0,textStyle:{fontSize:11,color:"#5d6776"}},
+  grid:{left:8,right:14,top:34,bottom:24,containLabel:true},
+  xAxis:{type:"category",data:yr,axisLabel:{fontSize:11,color:"#5d6776"}},
+  yAxis:{type:"value",axisLabel:{color:"#5d6776"},splitLine:{lineStyle:{color:"#eef1f6"}}},
+  series:[
+    {name:"营收(亿)",type:"line",data:rev,itemStyle:{color:"#1f5fd6"},symbolSize:7,lineStyle:{width:2},
+      markPoint:{data:[{type:"max",name:"最高"}],symbolSize:42}},
+    {name:"归母净(亿)",type:"line",data:np,itemStyle:{color:"#15834a"},symbolSize:7,lineStyle:{width:2}}
+  ]
+});
+</script>
+</body>
+</html>
