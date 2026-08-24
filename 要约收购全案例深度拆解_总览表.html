@@ -34,19 +34,31 @@
   .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
   .toolbar button{background:var(--chip);border:1px solid var(--line);border-radius:8px;padding:6px 13px;font-size:13px;color:var(--ink);cursor:pointer}
   .toolbar button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
-  /* 总览表（横向滚动容器，一行一例） */
+  /* 总览表（横向滚动容器，一行一例，等宽布局） */
   .ov-tbl-wrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:10px;background:#fff;-webkit-overflow-scrolling:touch}
-  .ov-tbl{width:100%;border-collapse:collapse;font-size:12.5px;min-width:1180px;table-layout:auto}
-  .ov-tbl th,.ov-tbl td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left;line-height:1.45;word-break:break-word;overflow-wrap:break-word}
-  .ov-tbl th{background:#eef3fa;color:#22405f;font-weight:700;white-space:nowrap;font-size:12.5px;position:sticky;top:0}
+  .ov-tbl{width:100%;border-collapse:collapse;font-size:12.5px;table-layout:fixed;min-width:1320px}
+  .ov-tbl th,.ov-tbl td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:middle;text-align:left;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ov-tbl th{background:#eef3fa;color:#22405f;font-weight:700;font-size:12.5px;position:sticky;top:0}
   .ov-tbl tr:last-child td{border-bottom:none}
   .ov-tbl tbody tr:hover td{background:#f5f8fc}
-  .ov-tbl .col-num{color:var(--sub);font-weight:600;width:36px;text-align:center;white-space:nowrap}
-  .ov-tbl .col-code{font-family:'SF Mono','Consolas',monospace;font-size:12px;color:var(--blue);white-space:nowrap}
-  .ov-tbl .col-name{font-weight:700;font-size:13px;white-space:nowrap}
-  .ov-tbl .col-year{color:var(--sub);font-size:11.5px;text-align:center;white-space:nowrap}
-  .ov-tbl .col-pct{white-space:nowrap;text-align:center}
-  .ov-tbl .col-dep{white-space:nowrap}
+  /* 11 列固定百分比（按内容长度配比，总和=100） */
+  .ov-tbl .col-num   {width:4%;text-align:center;color:var(--sub);font-weight:600}
+  .ov-tbl .col-code  {width:8%;font-family:'SF Mono','Consolas',monospace;font-size:12px;color:var(--blue)}
+  .ov-tbl .col-name  {width:11%;font-weight:700;font-size:13px}
+  .ov-tbl .col-year  {width:6%;text-align:center;color:var(--sub);font-size:11.5px}
+  .ov-tbl .col-type  {width:13%}
+  .ov-tbl .col-price {width:11%}
+  .ov-tbl .col-pct   {width:8%;text-align:center}
+  .ov-tbl .col-res   {width:9%;text-align:center}
+  .ov-tbl .col-conf  {width:6%;text-align:center}
+  .ov-tbl .col-acq   {width:18%}
+  .ov-tbl .col-dep   {width:6%;text-align:center}
+  /* thead 对应类 */
+  .ov-tbl thead th.col-num,
+  .ov-tbl thead th.col-pct,
+  .ov-tbl thead th.col-res,
+  .ov-tbl thead th.col-conf,
+  .ov-tbl thead th.col-dep{text-align:center}
   .rk{font-size:11.5px;padding:3px 10px;border-radius:5px;color:#fff;font-weight:700;display:inline-block;white-space:nowrap;line-height:1.4}
   .cf{font-size:11px;padding:1px 7px;border-radius:5px;display:inline-block;white-space:nowrap;line-height:1.4}
   .rk.s{background:var(--green)} .rk.f{background:var(--red)} .rk.c{background:var(--amber)} .rk.o{background:var(--blue)} .rk.w{background:#9aa3b2}
@@ -440,16 +452,16 @@ ovBody.innerHTML=CASES.map((c,i)=>{
   const cf=c.confidence==="高"?"h":c.confidence==="中"?"m":"w";
   const wait=c._wait?' <span class="pill w" style="font-size:10px;padding:1px 6px;border-radius:5px;background:#9aa3b2;color:#fff">⚠待核</span>':'';
   return `<tr data-res="${c.result}" data-conf="${c.confidence}">
-    <td class="col-num">${i+1}</td>
-    <td class="col-code">${c.code}</td>
-    <td class="col-name">${c.name}</td>
-    <td class="col-year">${c.year||''}</td>
-    <td>${c.atype||''}</td>
-    <td>${c.offerPrice||''}</td>
-    <td class="col-pct">${c.offerPct||''}</td>
-    <td><span class="rk ${rk}">${resTxt[c.result]||c.result}</span></td>
-    <td><span class="cf ${cf}">${c.confidence||''}</span>${wait}</td>
-    <td>${c.aName||''}</td>
+    <td class="col-num" title="第 ${i+1} 例">${i+1}</td>
+    <td class="col-code" title="${c.code}">${c.code}</td>
+    <td class="col-name" title="${c.name}">${c.name}</td>
+    <td class="col-year" title="${c.year||''}">${c.year||''}</td>
+    <td class="col-type" title="${c.atype||''}">${c.atype||''}</td>
+    <td class="col-price" title="${c.offerPrice||''}">${c.offerPrice||''}</td>
+    <td class="col-pct" title="${c.offerPct||''}">${c.offerPct||''}</td>
+    <td class="col-res" title="${c.result||''}"><span class="rk ${rk}">${resTxt[c.result]||c.result}</span></td>
+    <td class="col-conf" title="${c.confidence||''} ${wait?'含待核':''}"><span class="cf ${cf}">${c.confidence||''}</span>${wait}</td>
+    <td class="col-acq" title="${c.aName||''}">${c.aName||''}</td>
     <td class="col-dep">${linkHtml(c)}</td>
   </tr>`;
 }).join("");
