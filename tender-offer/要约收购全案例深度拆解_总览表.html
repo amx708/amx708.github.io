@@ -37,7 +37,10 @@
   /* 总览表（横向滚动容器，一行一例，等宽布局） */
   .ov-tbl-wrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:10px;background:#fff;-webkit-overflow-scrolling:touch}
   .ov-tbl{width:100%;border-collapse:collapse;font-size:12.5px;table-layout:fixed;min-width:1320px}
-  .ov-tbl th,.ov-tbl td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:middle;text-align:left;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ov-tbl th,.ov-tbl td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:middle;text-align:left;line-height:1.5}
+  /* 短内容列（数字/代码/单价/比例/标签）保留 nowrap + 截断；名称/类型/收购方允许多行显示 */
+  .ov-tbl .col-num,.ov-tbl .col-code,.ov-tbl .col-year,.ov-tbl .col-price,.ov-tbl .col-pct,.ov-tbl .col-res,.ov-tbl .col-conf,.ov-tbl .col-dep{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ov-tbl .col-name,.ov-tbl .col-type,.ov-tbl .col-acq{white-space:normal;word-break:break-word}
   .ov-tbl th{background:#eef3fa;color:#22405f;font-weight:700;font-size:12.5px;position:sticky;top:0}
   .ov-tbl tr:last-child td{border-bottom:none}
   .ov-tbl tbody tr:hover td{background:#f5f8fc}
