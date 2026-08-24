@@ -40,7 +40,9 @@
   .ov-tbl th,.ov-tbl td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:middle;text-align:left;line-height:1.5}
   /* 短内容列（数字/代码/单价/比例/标签）保留 nowrap + 截断；名称/类型/收购方允许多行显示 */
   .ov-tbl .col-num,.ov-tbl .col-code,.ov-tbl .col-year,.ov-tbl .col-price,.ov-tbl .col-pct,.ov-tbl .col-res,.ov-tbl .col-conf,.ov-tbl .col-dep{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .ov-tbl .col-name,.ov-tbl .col-type,.ov-tbl .col-acq{white-space:normal;word-break:break-word}
+  .ov-tbl .col-name,.ov-tbl .col-type,.ov-tbl .col-acq{white-space:normal;line-height:1.5}
+  .ov-tbl .code-link{color:var(--blue);text-decoration:none;font-weight:600;display:inline-block;padding:1px 6px;border-radius:5px;transition:.12s;cursor:pointer}
+  .ov-tbl .code-link:hover{background:var(--blue);color:#fff;text-decoration:none}
   .ov-tbl th{background:#eef3fa;color:#22405f;font-weight:700;font-size:12.5px;position:sticky;top:0}
   .ov-tbl tr:last-child td{border-bottom:none}
   .ov-tbl tbody tr:hover td{background:#f5f8fc}
@@ -456,7 +458,7 @@ ovBody.innerHTML=CASES.map((c,i)=>{
   const wait=c._wait?' <span class="pill w" style="font-size:10px;padding:1px 6px;border-radius:5px;background:#9aa3b2;color:#fff">⚠待核</span>':'';
   return `<tr data-res="${c.result}" data-conf="${c.confidence}">
     <td class="col-num" title="第 ${i+1} 例">${i+1}</td>
-    <td class="col-code" title="${c.code}">${c.code}</td>
+    <td class="col-code">${c._nodetail?`<span style="color:#9aa3b2;cursor:default" title="深度页待生成">${c.code}</span>`:`<a class="code-link" href="个案深度分析/个案_${safeD(c.code)}_${safeD(c.name)}.html" title="点击查看 ${c.name} · ${c.code} 个案深度分析">${c.code}</a>`}</td>
     <td class="col-name" title="${c.name}">${c.name}</td>
     <td class="col-year" title="${c.year||''}">${c.year||''}</td>
     <td class="col-type" title="${c.atype||''}">${c.atype||''}</td>
