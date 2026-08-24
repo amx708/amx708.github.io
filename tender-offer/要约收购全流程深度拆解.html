@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>要约收购全流程深度拆解（机制·套利决策·风险地图）</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root{
+    --bg:#f6f8fb; --card:#fff; --ink:#1c2230; --sub:#5d6776; --line:#e4e9f0;
+    --red:#cf2222; --green:#15834a; --blue:#1f5fd6; --amber:#a9720d; --purple:#6d28d9;
+    --chip:#eef3fa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;line-height:1.7}
+  .wrap{max-width:1200px;margin:0 auto;padding:26px 20px 70px}
+  header.top{background:linear-gradient(135deg,#15324f,#27567f);color:#fff;border-radius:14px;padding:26px 30px;margin-bottom:20px}
+  header.top h1{margin:0 0 8px;font-size:24px}
+  header.top p{margin:3px 0;font-size:13.5px;color:#d6e2f0}
+  .badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+    border-radius:20px;padding:2px 11px;font-size:12px;margin:6px 7px 0 0}
+  h2.sec{font-size:20px;margin:36px 0 14px;padding-left:12px;border-left:4px solid var(--blue)}
+  h3.ss{font-size:16px;margin:22px 0 10px;color:#22405f}
+  .note{background:#fff8e6;border:1px solid #ffe1a6;border-radius:10px;padding:13px 16px;font-size:13px;color:#7a5a12;margin:12px 0}
+  .key{background:#eaf1ff;border-left:4px solid var(--blue);border-radius:0 8px 8px 0;padding:11px 15px;margin:12px 0;font-size:13.5px}
+  .key b{color:var(--blue)}
+  /* 时间轴 */
+  .timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin:16px 0}
+  .stage{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 12px;position:relative}
+  .stage .n{display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;background:var(--blue);color:#fff;border-radius:50%;font-size:12px;font-weight:700;margin-bottom:6px}
+  .stage .t{font-size:13.5px;font-weight:700}
+  .stage .d{font-size:11px;color:var(--sub);margin:3px 0}
+  .stage .c{font-size:11.5px;color:#3a4658;line-height:1.5}
+  /* 阶段表 */
+  table.tb{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  table.tb th,table.tb td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+  table.tb th{background:#eef3fa;color:#22405f;font-weight:700;white-space:nowrap}
+  table.tb td.k{background:#f7f9fc;font-weight:600;color:var(--sub);width:96px;white-space:nowrap}
+  .pos{color:var(--green);font-weight:700}
+  .neg{color:var(--red);font-weight:700}
+  .mech{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0;box-shadow:0 1px 3px rgba(20,40,80,.04)}
+  .mech h4{margin:0 0 8px;font-size:15.5px;color:#22405f;display:flex;align-items:center;gap:8px}
+  .mech h4 .tag{font-size:11px;background:var(--purple);color:#fff;border-radius:6px;padding:2px 8px}
+  .mech ul{margin:6px 0 0;padding-left:20px}
+  .mech li{margin:5px 0;font-size:13px}
+  .case-chip{display:inline-block;background:var(--chip);border:1px solid var(--line);border-radius:6px;
+    padding:1px 7px;font-size:11.5px;color:#34507a;margin:2px 3px 0 0}
+  .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin-top:14px}
+  .chart-box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .chart-box h4{margin:2px 0 8px;font-size:14px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .riskmap{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:14px 0}
+  .rk{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .rk .lv{font-size:11px;padding:2px 8px;border-radius:6px;color:#fff;font-weight:700}
+  .lv-h{background:var(--red)} .lv-m{background:var(--amber)} .lv-l{background:var(--green)}
+  .toc{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 18px;font-size:13px;margin:14px 0}
+  .toc a{color:var(--blue);text-decoration:none;margin-right:16px;white-space:nowrap}
+  footer{margin-top:34px;font-size:12px;color:var(--sub);border-top:1px solid var(--line);padding-top:16px}
+  .risk{background:#fdeaea;border:1px solid #f3b0b0;border-radius:10px;padding:13px 16px;font-size:13px;color:#8a1c1c;margin-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>要约收购全流程深度拆解</h1>
+  <p>机制 · 套利决策 · 风险地图 —— 不止"有哪些案例"，而是"一次要约到底怎么发生、怎么套利、哪里会死"</p>
+  <div>
+    <span class="badge">数据底座：32 例真实要约（过程库）</span>
+    <span class="badge">8 阶段生命周期拆解</span>
+    <span class="badge">6 大核心机制 · 套利决策框架</span>
+    <span class="badge">数据时点 2026-08-09</span>
+  </div>
+</header>
+
+<div class="note">
+  <b>本篇定位：</b>上一篇《案例研究过程库》是"检索台账"——记录了每个案例查了什么、来源、数据。本篇在其之上做<b>机制层深度拆解</b>：把一次 A 股要约收购从"触发"到"余股"拆成 8 个阶段，逐阶段讲清规则、时间表、套利动作、风险开关，并用过程库的 32 个真实案例做实证标注。所有数据均来自已核查案例，<b>不编造</b>；个别早年价格已在过程库中标"待核"。
+</div>
+
+<div class="toc">
+  <a href="#s1">① 全景与分类</a><a href="#s2">② 8 阶段生命周期</a><a href="#s3">③ 六大核心机制</a>
+  <a href="#s4">④ 套利决策框架</a><a href="#s5">⑤ 空间图与风险地图</a><a href="#s6">⑥ 案例贯穿</a><a href="#s7">⑦ 风险提示</a>
+</div>
+
+<!-- ============ 1 全景 ============ -->
+<h2 class="sec" id="s1">一、全景：要约收购在 A 股是什么、为什么发生</h2>
+<div class="key">
+  <b>定义：</b>收购人向<b>上市公司全体股东</b>（而非仅大股东）发出公开要约，以确定的价格、按比例收购其股份。它是《上市公司收购管理办法》规定的收购方式之一，本质是"绕开大股东、直接向市场买筹码"。法制化始于 2002 年《收购办法》，<b>首例为 2003 年南钢股份</b>；A 股累计不足 300 例，单年峰值 2018 与 2025 各约 19 起。
+</div>
+<table class="tb">
+  <tr><th>发生动因</th><th>机制性质</th><th>套利友好度</th><th>真实案例（过程库）</th></tr>
+  <tr><td class="k">私有化退市</td><td>以终止上市为目的的全面要约（集团整合上市子公司）</td><td class="pos">高（确定性现金溢价）</td><td>中石油系、中石化系、瓦轴B、德邦(未退市)</td></tr>
+  <tr><td class="k">强制触发</td><td>持股超 30% 触发法定全面要约义务（混改/转让导致）</td><td class="pos">高（义务托底，预受不足即巩固控制）</td><td>重庆百货、南钢、全柴(失败)</td></tr>
+  <tr><td class="k">主动部分要约</td><td>为取控制权/强化持股主动发起的部分要约</td><td class="pos">中高（看价差与比例）</td><td>鲁阳、奥马、浙民投、科林、ST凯利</td></tr>
+  <tr><td class="k">协议+要约买壳</td><td>"协议转让拿 29.99% + 部分要约补比例"两步法</td><td class="neg">分化（多倒挂无空间）</td><td>上纬、天普、嘉美、锋龙、君亭等</td></tr>
+  <tr><td class="k">敌意要约</td><td>绕开管理层、直接向股东收购以夺控制权</td><td class="pos">高（溢价高、股东惜筹难）</td><td>浙民投→ST生化（A股首例成功）</td></tr>
+  <tr><td class="k">竞争性要约</td><td>多方同时/先后要约同一标的，价高者得</td><td class="neg">高风险博弈</td><td>ST新潮：汇能(终止)/金帝(失败)/伊泰(胜)</td></tr>
+</table>
+<div class="key"><b>与价值投资纪律的边界（必读）：</b>要约套利是<b>事件驱动（Workouts）</b>，赚"要约价−市价"的确定性差价，<b>不属于</b>老板体系里的"有可验证现金流的长期资产"。定位应为<b>现金管理增强工具 / 卫星仓</b>，绝不当核心持仓。巴菲特把 workouts 当"闲置资金替代品"，目标年化 10–20%（无杠杆），与大盘弱相关——这正是它的价值，也是它的边界。</div>
+
+<!-- ============ 2 生命周期 ============ -->
+<h2 class="sec" id="s2">二、8 阶段生命周期深度拆解（一次要约怎么走完）</h2>
+<div class="timeline">
+  <div class="stage"><span class="n">1</span><div class="t">触发/动因</div><div class="d">T0</div><div class="c">持股达 30% 或主动决定买壳</div></div>
+  <div class="stage"><span class="n">2</span><div class="t">摘要公告</div><div class="d">+1~2日</div><div class="c">首次提示，价差机会出现</div></div>
+  <div class="stage"><span class="n">3</span><div class="t">报告书</div><div class="d">约 +15日</div><div class="c">价格/比例/生效条件锁定</div></div>
+  <div class="stage"><span class="n">4</span><div class="t">要约期</div><div class="d">30个自然日</div><div class="c">可申报预受，末3日不可撤</div></div>
+  <div class="stage"><span class="n">5</span><div class="t">预受申报</div><div class="d">期内滚动</div><div class="c">投资者接受，末3日前可撤回</div></div>
+  <div class="stage"><span class="n">6</span><div class="t">生效判定</div><div class="d">期满后</div><div class="c">达最低预受门槛？</div></div>
+  <div class="stage"><span class="n">7</span><div class="t">清算交割</div><div class="d">+2~3日</div><div class="c">按比例收购、付款、过户</div></div>
+  <div class="stage"><span class="n">8</span><div class="t">余股阶段</div><div class="d">复牌后</div><div class="c">退市 或 余股补跌</div></div>
+</div>
+
+<h3 class="ss">逐阶段规则 · 套利动作 · 风险开关</h3>
+<table class="tb">
+  <tr><th>阶段</th><th>规则与时间表</th><th>套利动作（个人观点）</th><th>风险开关</th><th>真实案例标注</th></tr>
+  <tr>
+    <td class="k">①触发</td>
+    <td>协议转让/增资致持股≥30% 即触发法定全面要约义务；或收购人主动发起部分要约。</td>
+    <td>公告前无法参与；公告后第一时间算<b>静态价差</b>。</td>
+    <td>触发≠真要约（可终止/豁免）。</td>
+    <td><span class="case-chip">重庆百货(混改触发)</span><span class="case-chip">天普(增资致68.29%触发)</span></td>
+  </tr>
+  <tr>
+    <td class="k">②摘要</td>
+    <td>《要约收购报告书摘要》披露，含要约价、比例、期限预告。</td>
+    <td>出现"价差窗口"信号；但<b>尚未锁定</b>，仅观察。</td>
+    <td>摘要后至报告书前可取消（12月禁再收）。</td>
+    <td><span class="case-chip">汇能海投(摘要后即被举报)</span></td>
+  </tr>
+  <tr>
+    <td class="k">③报告书</td>
+    <td>正式锁定要约价、股份数、<b>生效条件（最低预受门槛）</b>、资金安排。</td>
+    <td>核对<b>生效条件</b>是否可达；这是套利成败总开关。</td>
+    <td>生效条件设得太高→易失败。</td>
+    <td><span class="case-chip">伊泰B(生效28%=19.04亿股)</span><span class="case-chip">金帝(生效8%未达)</span></td>
+  </tr>
+  <tr>
+    <td class="k">④要约期</td>
+    <td>通常 <b>30 个自然日</b>；最后 3 个交易日预受<b>不可撤回</b>。</td>
+    <td>期间可滚动建仓/申报；末3日前务必决定去留。</td>
+    <td>股价波动使"接受即亏"（倒挂）。</td>
+    <td><span class="case-chip">天普(市147 vs 要约23.98)</span></td>
+  </tr>
+  <tr>
+    <td class="k">⑤预受</td>
+    <td>申报代码申报；末3日前可撤回；超购则<b>按比例收购</b>。</td>
+    <td>关注每日预受进度（公告）；进度高→胜率升。</td>
+    <td>撤回踩踏（竞争性要约常见）。</td>
+    <td><span class="case-chip">金帝(4/21单日撤1.45亿股)</span></td>
+  </tr>
+  <tr>
+    <td class="k">⑥生效</td>
+    <td>期满判定是否达最低预受门槛；未达则<b>自始不生效</b>。</td>
+    <td>达→坐等交割收钱；未达→资金返还、零收益。</td>
+    <td>生效不足=白忙（金帝）。</td>
+    <td><span class="case-chip">金帝(963万股/0.14%失败)</span></td>
+  </tr>
+  <tr>
+    <td class="k">⑦交割</td>
+    <td>中登按比例清算、付款、过户，约 2–3 日。</td>
+    <td>确定收益落袋；记录实际年化。</td>
+    <td>资金延迟（极少）。</td>
+    <td><span class="case-chip">鲁阳(奇耐持股53%)</span><span class="case-chip">奥马(TCL 50%)</span></td>
+  </tr>
+  <tr>
+    <td class="k">⑧余股</td>
+    <td>退市目的→摘牌给现金；保留上市→<b>复牌余股补跌</b>。</td>
+    <td>余股<b>复牌即卖</b>，不赌反弹。</td>
+    <td>补跌吞噬收益（科林/百大）。</td>
+    <td><span class="case-chip">科林(要约后锚定丧失)</span><span class="case-chip">瓦轴B(退市)</span></td>
+  </tr>
+</table>
+
+<!-- ============ 3 机制 ============ -->
+<h2 class="sec" id="s3">三、六大核心机制深度拆解</h2>
+
+<div class="mech">
+  <h4><span class="tag">机制1</span>触发机制：30% 红线与豁免</h4>
+  <ul>
+    <li><b>强制触发：</b>收购人持股达到公司已发行股份 <b>30%</b> 时，继续增持须向全体股东发出全面要约（或在 30% 内"爬行"豁免）。这是重庆百货、南钢等案例的法律根源。</li>
+    <li><b>主动发起：</b>未达 30% 也可主动部分要约（如鲁阳、奥马、ST凯利）取控制权或强化持股。</li>
+    <li><b>两步法买壳：</b>2025 年主流结构——协议转让卡在 <b>29.99%</b>（精准低于 30% 触发线之下），再以部分要约补比例至 40–55%。锋龙、嘉美、友邦等均如此。</li>
+    <li><b>套利含义：</b>触发型要约往往"义务托底"，预受不足反而便宜巩固控制（重庆百货仅花 10 亿）；主动型看诚意与价差。</li>
+  </ul>
+</div>
+
+<div class="mech">
+  <h4><span class="tag">机制2</span>定价机制：前 6 月最高价托底</h4>
+  <ul>
+    <li><b>法定下限：</b>要约价不得低于要约提示性公告日前 <b>6 个月内</b>收购人取得该种股票所支付的最高价格（《收购办法》第 35 条）。</li>
+    <li><b>全面要约：</b>通常<b>延续协议转让价</b>（天普 23.98 元即延续协议价），因此往往远低于市价→倒挂。</li>
+    <li><b>部分要约：</b>可溢价（鲁阳 21.73 vs 停牌前 13.10，溢 66%；科林 27.17 vs 23.61，溢 15%）。</li>
+    <li><b>套利含义：</b>全面要约（尤其触发/私有化）价常=协议价，<b>若市价已远超则无空间甚至接受即亏</b>（天普、上纬）；部分要约才有真溢价套利。</li>
+  </ul>
+</div>
+
+<div class="mech">
+  <h4><span class="tag">机制3</span>预受与撤回：不可撤销期 + 按比例</h4>
+  <ul>
+    <li><b>预受申报：</b>股东在要约期内通过券商申报代码接受要约；<b>最后 3 个交易日预受不可撤回</b>。</li>
+    <li><b>按比例收购：</b>预受总量超收购上限时，<b>同比例收购</b>（百大预受超近 1 倍仍只收 8.50%）。</li>
+    <li><b>撤回权：</b>末 3 日前可撤；竞争性要约中"高价方出现→低价方预受踩踏撤回"（金帝 4/21 单日撤 1.45 亿股）。</li>
+    <li><b>套利含义：</b>每日预受进度是"胜率温度计"；末 3 日是决策死线，错过即被锁定。</li>
+  </ul>
+</div>
+
+<div class="mech">
+  <h4><span class="tag">机制4</span>生效条件：套利成败总开关</h4>
+  <ul>
+    <li><b>最低预受门槛：</b>部分要约常设"预受不少于 X%"才生效（伊泰 B 设 28%=19.04 亿股；金帝设 8%=5.44 亿股）。</li>
+    <li><b>未达后果：</b>自始不生效，所有预受不被接受、资金返还（金帝白忙一场）。</li>
+    <li><b>全面要约：</b>退市目的型无需最低门槛（只要有人接受即推进退市）；非退市目的则看股权分布是否仍符合上市条件。</li>
+    <li><b>套利含义：</b>买前必算"生效条件对应的预受股数 vs 当前进度"。门槛高+进度低=红灯。</li>
+  </ul>
+</div>
+
+<div class="mech">
+  <h4><span class="tag">机制5</span>履约担保：20% 保证金冻结</h4>
+  <ul>
+    <li><b>保证金：</b>要约人须将不低于最高资金总额 <b>20%</b> 存入中登指定账户作为履约保证金（ST龙元 1.147 亿全额冻结；金帝存 20%）。</li>
+    <li><b>意义：</b>保证"说了真买"，降低违约风险；但<b>不保证要约不终止</b>（汇能海投钱在但仍因违规终止）。</li>
+    <li><b>套利含义：</b>保证金只是"诚意证明"，<b>履约力要看收购人实力+动机</b>（国资/产业资本 > 空壳 SPV）。</li>
+  </ul>
+</div>
+
+<div class="mech">
+  <h4><span class="tag">机制6</span>竞争性要约：价高者得 + 踩踏</h4>
+  <ul>
+    <li><b>A股首例：</b>ST新潮——汇能海投(3.10,46%)→金帝石油(3.10,20%)→伊泰B(3.40,51%)先后登场。</li>
+    <li><b>规则：</b>后发要约价≥先发时构成竞争；竞争期内先期预受可撤回转向高价方。</li>
+    <li><b>结果：</b>汇能因隐瞒一致行动人被监管叫停；金帝因伊泰出更高价→预受不足失败；伊泰以 3.40 胜出交割 50.10%。</li>
+    <li><b>套利含义：</b>竞争性要约是"价格发现"，但<b>高度博弈</b>——低位参与可能左右挨巴掌，须盯每日预受切换。</li>
+  </ul>
+</div>
+
+<!-- ============ 4 套利框架 ============ -->
+<h2 class="sec" id="s4">四、套利决策框架深度拆解</h2>
+<h3 class="ss">4.1 价差公式与安全边际三档</h3>
+<div class="key">
+  <b>静态价差</b> = (要约价 − 当前市价) / 当前市价。<br>
+  • <b class="pos">厚（≥+5%~+15%）</b>：有参与价值（鲁阳停牌前 +66%、科林 +15%、浙民投约 +20%）。<br>
+  • <b>薄（0~+5%）</b>：仅"现金增强"，ST龙元 +1.63% 属此类，须搭配极低风险才值。<br>
+  • <b class="neg">倒挂（负）</b>：接受即亏，<b>不参与</b>（天普 −83.7%、上纬 −93%、ST凯利 −17.7%、上海家化负）。
+</div>
+
+<h3 class="ss">4.2 四种情景推演（接受要约后的盈亏）</h3>
+<table class="tb">
+  <tr><th>情景</th><th>条件</th><th>接受要约盈亏</th><th>概率特征</th><th>案例</th></tr>
+  <tr><td class="k">成功交割</td><td>达生效条件+预受</td><td class="pos">=静态价差（落袋）</td><td>高（国企/产业资本）</td><td>鲁阳 +10%、奥马 +3.9%</td></tr>
+  <tr><td class="k">失败/遇冷</td><td>股价>要约价无人接受</td><td>≈0（未接受则无损益）</td><td>中（倒挂必遇冷）</td><td>上海家化、ST凯利</td></tr>
+  <tr><td class="k">生效不足</td><td>未达最低门槛</td><td>≈0（资金返还）</td><td>中（门槛高时）</td><td>金帝石油（白忙）</td></tr>
+  <tr><td class="k">倒挂接受</td><td>误在倒挂时接受</td><td class="neg">=负价差（实亏）</td><td>低（但新手易犯）</td><td>天普（−83.7%）</td></tr>
+</table>
+
+<h3 class="ss">4.3 巴菲特 Workouts 四问（落地版）</h3>
+<table class="tb">
+  <tr><th>四问</th><th>落到要约套利怎么答</th></tr>
+  <tr><td class="k">①发生概率</td><td>要约能否走到交割？看生效条件可达性 + 收购人履约力 + 监管风险（汇能因违规 0%）。</td></tr>
+  <tr><td class="k">②占用时间</td><td>要约期约 30 日 + 交割，资金占用 1–2 月；年化收益 = 静态价差 ×(12/占用月)。</td></tr>
+  <tr><td class="k">③更好结果</td><td>竞争方抬价（伊泰 3.40>金帝 3.10）或股价上行带来额外收益？</td></tr>
+  <tr><td class="k">④未发生后果</td><td>要约终止/失败：未接受则仅错失机会、无实亏；倒挂接受才实亏。</td></tr>
+</table>
+
+<h3 class="ss">4.4 要约套利前检查清单（强化 10 项）</h3>
+<table class="tb">
+  <tr><th>#</th><th>检查项</th><th>通过标准（个人观点）</th></tr>
+  <tr><td class="k">1</td><td>要约类型</td><td>全面(私有化/触发) 或 部分(高溢价) 优先；倒挂型一票否决</td></tr>
+  <tr><td class="k">2</td><td>静态价差</td><td>≥+5% 才考虑；<0 直接否</td></tr>
+  <tr><td class="k">3</td><td>要约比例</td><td>≥20% 安全；<10% 警惕补跌（百大 8.5%）</td></tr>
+  <tr><td class="k">4</td><td>生效条件</td><td>门槛 vs 当前预受进度，能否达</td></tr>
+  <tr><td class="k">5</td><td>收购人履约力</td><td>国资/产业资本/强民企 > 空壳 SPV</td></tr>
+  <tr><td class="k">6</td><td>预受进度</td><td>每日跟踪，进度高=胜率升</td></tr>
+  <tr><td class="k">7</td><td>标的退市风险</td><td>ST/面退边缘禁区（ST龙元/ST新潮）</td></tr>
+  <tr><td class="k">8</td><td>终止风险</td><td>监管/一致行动人/审批（汇能、全柴）</td></tr>
+  <tr><td class="k">9</td><td>时间窗口</td><td>末 3 日不可撤，死线前决断</td></tr>
+  <tr><td class="k">10</td><td>退出纪律</td><td>余股复牌即卖 + 硬止损（破关键价即撤）</td></tr>
+</table>
+
+<!-- ============ 5 图表 ============ -->
+<h2 class="sec" id="s5">五、套利空间数据图 & 风险地图</h2>
+<div class="charts">
+  <div class="chart-box"><h4>套利空间：要约价 vs 公告前市价（正负分色）</h4><div id="cSpace" style="height:300px"></div>
+    <div style="font-size:11.5px;color:var(--sub);margin-top:8px">正=有空间(绿)，负=倒挂无空间(红)。数据来自过程库已核查案例。</div></div>
+  <div class="chart-box"><h4>流程阶段风险热力（1低–5高）</h4><div id="cRisk" style="height:300px"></div>
+    <div style="font-size:11.5px;color:var(--sub);margin-top:8px">风险在"摘要→报告书"(可终止)与"余股"(补跌)两端最高。</div></div>
+</div>
+
+<h3 class="ss">5.1 分阶段风险地图</h3>
+<div class="riskmap">
+  <div class="rk"><span class="lv lv-m">中</span> <b>①触发</b><br><span style="font-size:12px">触发≠真要约，可终止/豁免</span></div>
+  <div class="rk"><span class="lv lv-h">高</span> <b>②摘要→③报告书</b><br><span style="font-size:12px">监管/违规致终止（汇能海投）</span></div>
+  <div class="rk"><span class="lv lv-l">低</span> <b>④要约期</b><br><span style="font-size:12px">窗口期，可建仓可撤</span></div>
+  <div class="rk"><span class="lv lv-m">中</span> <b>⑤预受</b><br><span style="font-size:12px">踩踏撤回（金帝）</span></div>
+  <div class="rk"><span class="lv lv-h">高</span> <b>⑥生效</b><br><span style="font-size:12px">不足则白忙（金帝 0.14%）</span></div>
+  <div class="rk"><span class="lv lv-l">低</span> <b>⑦交割</b><br><span style="font-size:12px">落袋，几乎无风险</span></div>
+  <div class="rk"><span class="lv lv-h">高</span> <b>⑧余股</b><br><span style="font-size:12px">补跌吞噬收益（科林/百大）</span></div>
+  <div class="rk"><span class="lv lv-h">极高</span> <b>标的退市</b><br><span style="font-size:12px">ST龙元/ST新潮面退风险</span></div>
+</div>
+
+<!-- ============ 6 案例贯穿 ============ -->
+<h2 class="sec" id="s6">六、机制 × 真实案例 贯穿标注</h2>
+<table class="tb">
+  <tr><th>机制</th><th>正向实证（可学）</th><th>反向实证（避雷）</th></tr>
+  <tr><td class="k">定价/价差</td><td><span class="case-chip">鲁阳(+66%)</span><span class="case-chip">科林(+15%)</span><span class="case-chip">浙民投(+20%)</span></td><td><span class="case-chip">天普(−83.7%)</span><span class="case-chip">上纬(−93%)</span><span class="case-chip">ST凯利(−17.7%)</span></td></tr>
+  <tr><td class="k">生效条件</td><td><span class="case-chip">伊泰B(28%达成)</span></td><td><span class="case-chip">金帝(8%未达)</span></td></tr>
+  <tr><td class="k">履约/监管</td><td><span class="case-chip">ST龙元(国资全额冻结)</span></td><td><span class="case-chip">汇能海投(隐瞒一致行动人终止)</span><span class="case-chip">全柴(审批未过失败)</span></td></tr>
+  <tr><td class="k">预受/比例</td><td><span class="case-chip">浙民投(196%目标)</span><span class="case-chip">多瑞(原股东锁定24.3%)</span></td><td><span class="case-chip">百大(比例仅8.5%补跌)</span><span class="case-chip">上海家化(遇冷)</span></td></tr>
+  <tr><td class="k">竞争性</td><td><span class="case-chip">伊泰B(高价胜出)</span></td><td><span class="case-chip">金帝(被挤出)</span></td></tr>
+  <tr><td class="k">余股</td><td><span class="case-chip">瓦轴B(退市给现金)</span></td><td><span class="case-chip">科林(复牌锚定丧失)</span></td></tr>
+</table>
+
+<!-- ============ 7 风险 ============ -->
+<h2 class="sec" id="s7">七、风险提示与纪律</h2>
+<div class="risk">
+  <b>核心风险清单：</b><br>
+  ① <b>终止风险</b>——监管/违规/审批未过（汇能海投、全柴动力）；<br>
+  ② <b>生效不足</b>——最低门槛未达，白忙（金帝石油）；<br>
+  ③ <b>倒挂亏损</b>——市价远超要约价，接受即实亏（天普、上纬）；<br>
+  ④ <b>标的退市</b>——ST/面退边缘，本金永久性损失（ST龙元、ST新潮）；<br>
+  ⑤ <b>余股补跌</b>——保留上市后复牌下跌吞噬收益（科林、百大）；<br>
+  ⑥ <b>竞争踩踏</b>——高价方出现致低价方预受撤回（金帝）。<br><br>
+  <b>纪律底线：</b>要约套利=事件驱动卫星仓，非"有可验证现金流"核心资产；ST/退市边缘/倒挂/比例&lt;10% 一票否决；余股复牌即卖 + 硬止损。任何参与须极小仓、独立判断。<br><br>
+  <b>以上为机制拆解与数据整理，不构成投资建议，决策请自行判断。亏损可能随时发生。</b>
+</div>
+
+<footer>
+  阿研 · 要约收购全流程深度拆解 · 数据底座：32 例真实要约（案例研究过程库）· 数据时点 2026-08-09<br>
+  来源：公开公告 / 权威财经媒体（已脱敏）· 早年价格(全柴16.62/南钢3.69)标"待核"，以报告书原文为准。
+</footer>
+</div>
+
+<script>
+// 套利空间：要约价 vs 公告前市价（价差%）
+const space=[
+  {n:"鲁阳节能",v:65.9},{n:"浙民投·ST生化",v:20.0},{n:"科林电气",v:15.1},
+  {n:"重庆百货",v:3.0},{n:"奥马电器",v:3.9},{n:"ST龙元",v:1.63},
+  {n:"ST凯利",v:-17.7},{n:"上海家化",v:-5.0},{n:"天普股份",v:-83.7},{n:"上纬新材",v:-93.1}
+];
+const ch1=echarts.init(document.getElementById("cSpace"));
+ch1.setOption({
+  tooltip:{trigger:"axis",formatter:p=>p[0].name+"：静态价差 "+(p[0].value>0?"+":"")+p[0].value+"%"},
+  grid:{left:8,right:18,top:16,bottom:46,containLabel:true},
+  xAxis:{type:"category",data:space.map(s=>s.n),axisLabel:{interval:0,rotate:38,fontSize:10,color:"#5d6776"}},
+  yAxis:{type:"value",name:"价差%",axisLabel:{color:"#5d6776"},splitLine:{lineStyle:{color:"#eef1f6"}}},
+  series:[{type:"bar",data:space.map(s=>({value:s.v,itemStyle:{color:s.v>=0?"#15834a":"#cf2222",borderRadius:[4,4,0,0]}})),
+    label:{show:true,position:"top",fontSize:10,formatter:p=>(p.value>0?"+":"")+p.value+"%",color:"#33415c"}}]
+});
+
+// 阶段风险热力
+const stages=["①触发","②摘要","③报告书","④要约期","⑤预受","⑥生效","⑦交割","⑧余股"];
+const risk=[2,5,5,2,3,5,1,5];
+const ch2=echarts.init(document.getElementById("cRisk"));
+ch2.setOption({
+  tooltip:{trigger:"axis"},
+  grid:{left:8,right:18,top:16,bottom:46,containLabel:true},
+  xAxis:{type:"category",data:stages,axisLabel:{interval:0,rotate:30,fontSize:10,color:"#5d6776"}},
+  yAxis:{type:"value",max:5,name:"风险",axisLabel:{color:"#5d6776"},splitLine:{lineStyle:{color:"#eef1f6"}}},
+  series:[{type:"bar",data:risk.map(r=>({value:r,itemStyle:{color:r>=5?"#cf2222":r>=3?"#a9720d":"#15834a",borderRadius:[4,4,0,0]}})),
+    label:{show:true,position:"top",fontSize:11,color:"#33415c"}}]
+});
+</script>
+</body>
+</html>
