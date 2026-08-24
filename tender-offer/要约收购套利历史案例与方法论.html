@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股要约收购套利 · 历史案例库与实战方法论（全案例版）</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --ink:#1f2933; --sub:#5b6470;
+    --line:#e3e7ec; --brand:#b3243b; --brand-soft:#fbe9ec;
+    --ok:#1a7f4b; --warn:#c9821a; --bad:#b3243b; --blue:#1f5fbf;
+    --soft:#eef2f6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+    line-height:1.65;font-size:15px}
+  .wrap{max-width:1100px;margin:0 auto;padding:28px 20px 60px}
+  header.top{border-bottom:3px solid var(--brand);padding-bottom:14px;margin-bottom:22px}
+  h1{font-size:25px;margin:0 0 6px;letter-spacing:.5px}
+  .meta{color:var(--sub);font-size:13px}
+  h2{font-size:19px;margin:34px 0 12px;padding-left:11px;border-left:4px solid var(--brand)}
+  h3{font-size:16px;margin:20px 0 8px;color:var(--brand)}
+  .tldr{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px;margin:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .tldr .big{font-size:17px;font-weight:700;color:var(--brand);margin-bottom:8px}
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:780px){.g2,.g3{grid-template-columns:1fr}}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .kpi .n{font-size:24px;font-weight:800;color:var(--brand)}
+  .kpi .l{font-size:12.5px;color:var(--sub);margin-top:2px}
+  table{width:100%;border-collapse:collapse;background:var(--card);font-size:13px;
+    border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:10px 0}
+  th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:var(--soft);font-weight:700;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  td .pill{display:inline-block;padding:1px 8px;border-radius:20px;font-size:12px;font-weight:600}
+  .p-ok{background:#e6f5ec;color:var(--ok)}
+  .p-warn{background:#fbf0db;color:var(--warn)}
+  .p-bad{background:var(--brand-soft);color:var(--bad)}
+  .p-blue{background:#e7eefb;color:var(--blue)}
+  .chart{width:100%;height:380px;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;margin:12px 0;padding:6px}
+  .check{background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:10px 16px;margin:8px 0}
+  .check li{list-style:none;padding:8px 0 8px 34px;position:relative;border-bottom:1px dashed var(--line)}
+  .check li:last-child{border-bottom:none}
+  .check li:before{content:"☐";position:absolute;left:8px;top:8px;color:var(--brand);font-size:17px}
+  .check b{color:var(--brand)}
+  .note{background:var(--soft);border-left:4px solid var(--brand);border-radius:0 8px 8px 0;
+    padding:12px 16px;margin:12px 0;font-size:14px}
+  .warnbox{background:#fff6ee;border-left:4px solid var(--warn);border-radius:0 8px 8px 0;
+    padding:12px 16px;margin:12px 0}
+  .foot{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--sub)}
+  .src{font-size:12px;color:var(--sub);margin-top:6px}
+  .cnt{display:inline-block;background:var(--brand);color:#fff;border-radius:20px;
+    padding:1px 9px;font-size:12px;font-weight:700;margin-left:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>A股要约收购套利 · 历史案例库与实战方法论（全案例版）</h1>
+  <div class="meta">为以后要约收购套利做准备参考 ｜ 编制：阿研（投研副手）｜ 数据截至 2026-08-10 ｜ 案例数据来源于公开公告与权威财经媒体公开报道整理（已脱敏）</div>
+</header>
+
+  <div class="tldr">
+    <div class="big">一句话结论</div>
+    <div>要约收购套利本质是<b>事件驱动（巴菲特称 Workouts）</b>，赚"要约价 − 市场价"的确定性差价，<b>不是</b>您体系里"有可验证现金流"的长期资产。本库以 <b>17 个深研案例</b>（成功/确定 10 + 失败/遇冷 7）为主表，并附<b>扩展速览</b>（早年私有化全面要约经典 + 2024-2026 其余已检索案例），力求覆盖全面要约、部分要约、国资、民营、敌意、竞争性、履行义务型、私有化退市等<b>全部要约类型</b>。规律很清楚：<b>价差大 ≠ 能赚</b>，成败看「类型 + 要约比例 + 收购人履约力 + 标的退市风险」四件套。</div>
+  </div>
+
+<div class="grid g3">
+  <div class="kpi"><div class="n">17+</div><div class="l">主表深研案例 17 + 扩展速览（早年私有化 & 近年其余）</div></div>
+  <div class="kpi"><div class="n">10~20%</div><div class="l">巴菲特套利年化（无杠杆口径）</div></div>
+  <div class="kpi"><div class="n">19 起</div><div class="l">2025 年 A 股要约收购数（2019 年来 7 年新高）</div></div>
+</div>
+
+<h2>一、历史案例库（全 17 例）</h2>
+<p class="src">价差 =（要约价 − 参与市价）/ 参与市价；部分要约按比例收购，超额部分退回并面临补跌。ST新潮系列为同一标的多路资本混战，单列对比。</p>
+
+<h3>① 确定性套利 / 强样本（正价差，可参与）<span class="cnt">6</span></h3>
+<table>
+  <thead><tr><th>案例</th><th>年份</th><th>收购人</th><th>类型/比例</th><th>要约价</th><th>参与市价</th><th>静态价差</th><th>结果与收益</th></tr></thead>
+  <tbody>
+    <tr><td>鲁阳节能</td><td>2022</td><td>奇耐亚太</td><td>部分 22.99%</td><td>21.73</td><td>≈20.0</td><td><span class="pill p-ok">+8.6%</span></td><td>实际绝对收益 <b>10.09%</b>，占用 43 天，年化 ≈67%</td></tr>
+    <tr><td>奥马电器</td><td>2021</td><td>TCL 家电</td><td>部分</td><td>6.00</td><td>≈5.66</td><td><span class="pill p-ok">+5.8%</span></td><td>绝对收益 <b>3.9%</b>，年化 ≈84%</td></tr>
+    <tr><td>浙民投 → ST生化</td><td>2017</td><td>浙民投天弘</td><td>敌意/主动 27.49%</td><td>36.00</td><td>≈28.1(前30均)</td><td><span class="pill p-ok">+28%</span></td><td>中国首例敌意要约控股成功；3 年后净赚 <b>≈11 亿</b>退出</td></tr>
+    <tr><td>重庆百货</td><td>2020</td><td>商社集团(重庆国资混改)</td><td>全面</td><td>27.16</td><td>混改触发</td><td><span class="pill p-blue">—</span></td><td>预受 3805 万股，不以终止上市为目的，保留上市</td></tr>
+    <tr><td>百大集团</td><td>2022</td><td>西子国际</td><td>部分 8.50%</td><td>溢价要约</td><td>—</td><td><span class="pill p-blue">—</span></td><td>预受 6245 万股，巩固控制权（增持式部分要约）</td></tr>
+    <tr><td>伊泰B股 → ST新潮</td><td>2025</td><td>伊泰B股(内蒙煤炭)</td><td>部分 51%</td><td>3.40</td><td>3.21(停前)</td><td><span class="pill p-ok">+6%</span></td><td>生效条件 28%，最终交割 <b>50.10%</b>（成功但叠加退市风险）</td></tr>
+  </tbody>
+</table>
+
+<h3>② 履行义务型 / 特殊结构（价差失真，套利意义低）<span class="cnt">4</span></h3>
+<table>
+  <thead><tr><th>案例</th><th>年份</th><th>收购人</th><th>类型/比例</th><th>要约价</th><th>市价</th><th>静态价差</th><th>结果与说明</th></tr></thead>
+  <tbody>
+    <tr><td>汇通能源</td><td>2023</td><td>圣石贸易</td><td>部分 5%</td><td>19.28</td><td>9.16(停前)</td><td><span class="pill p-warn">+110%</span></td><td>理论空间 19%，但<b>比例仅 5%</b>，实际能被收购份额极小，重组预期驱动</td></tr>
+    <tr><td>德邦股份</td><td>2022</td><td>京东卓风</td><td>全面(退市目的)</td><td>13.15</td><td>13.93(复牌)</td><td><span class="pill p-bad">+3.9%</span></td><td>仅 5.43% 接受，保留上市；股价高于要约价，股东"不行权"更划算</td></tr>
+    <tr><td>上纬新材</td><td>2025</td><td>智元恒岳(机器人)</td><td>部分 37%</td><td>7.78</td><td>112.70</td><td><span class="pill p-bad">−93%</span></td><td>股价远高于要约价，近乎"定向"要约，<b>无套利空间</b></td></tr>
+    <tr><td>天普股份</td><td>2025</td><td>中昊芯英(AI芯片)</td><td>全面 25%</td><td>23.98</td><td>147.00</td><td><span class="pill p-bad">−84%</span></td><td>履行义务型，接受要约反亏 <b>123 元/股</b>，预受仅 3400 股</td></tr>
+  </tbody>
+</table>
+
+<h3>③ 失败 / 终止 / 遇冷（血泪教训）<span class="cnt">7</span></h3>
+<table>
+  <thead><tr><th>案例</th><th>年份</th><th>风险点</th><th>结果</th></tr></thead>
+  <tbody>
+    <tr><td>汇能海投 → ST新潮</td><td>2024</td><td>46% 要约 97 亿，<b>隐瞒一致行动人</b></td><td>被监管叫停，<b>百亿要约终止流产</b></td></tr>
+    <tr><td>金帝石油 → ST新潮</td><td>2025</td><td>20% 要约，生效需预受 ≥8%</td><td>预受仅 0.14%，<b>自始不生效失败</b></td></tr>
+    <tr><td>ST凯利（涌金投资）</td><td>2025</td><td>要约 5.18 vs 市价 6.14（股价更高）</td><td>仅收 8.33 万股（0.0089%），<b>遇冷</b></td></tr>
+    <tr><td>君亭酒店</td><td>2025</td><td>湖北国资易主，协议价 25.71 vs 市跌至 18 倒挂</td><td>控制权变更终止，<b>要约流产</b></td></tr>
+    <tr><td>科林电气</td><td>2023</td><td>部分要约结束後<b>价格锚定丧失</b></td><td>复牌首日跌停、次日跌近 8%，余股补跌</td></tr>
+    <tr><td>万里 / 宝鹰</td><td>待实施</td><td>部分要约 + 比例小 + 市场已反映预期</td><td>买入补齐价差风险大，结束后补跌</td></tr>
+    <tr><td>ST龙元（当前）</td><td>2026</td><td>部分 6%，要约 1.25 vs 市 1.23，<b>面值退市风险</b></td><td>理论 +1.63% 但属<b>禁区样本</b>（预受仅 0.04%）</td></tr>
+  </tbody>
+</table>
+
+<h3>④ 扩展速览：早年"私有化退市"全面要约经典（以终止上市为目的）</h3>
+<table>
+  <thead><tr><th>案例</th><th>年份</th><th>收购人</th><th>要约价 / 溢价</th><th>套利启示</th></tr></thead>
+  <tbody>
+    <tr><td>中石油系（辽河油田/锦州石化/吉林化工）</td><td>2005-2006</td><td>中石油</td><td>现金对价溢价约 10%~40%</td><td>经典无风险套利：股价低于要约价买入，退市后余股按要约价收购</td></tr>
+    <tr><td>中石化系（齐鲁石化/扬子石化/中原油气/石油大明）</td><td>2006</td><td>中石化</td><td>资金超百亿，解决同业竞争</td><td>同上，央企整合私有化套利范本</td></tr>
+    <tr><td>金马集团</td><td>2013</td><td>神华国能</td><td>13.46 元/股</td><td>解决与*中国神华同业竞争，全面要约退市</td></tr>
+    <tr><td>东方电气</td><td>2008</td><td>东方电气</td><td>换股要约</td><td>集团整体上市，东方锅炉换股被吸收合并退市</td></tr>
+    <tr><td>*ST山航B</td><td>2022-2023</td><td>中国国航</td><td>2.62 港元/股（低于当时股价）</td><td>以终止上市为目的，但要约价低于市价，<b>无套利</b>；最终退市</td></tr>
+  </tbody>
+</table>
+
+<h3>⑤ 扩展速览：2024-2026 其余已检索案例（套利意义偏低或待深研）</h3>
+<table>
+  <thead><tr><th>案例</th><th>年份</th><th>收购人 / 类型</th><th>要约价</th><th>备注</th></tr></thead>
+  <tbody>
+    <tr><td>申科股份</td><td>2025</td><td>深圳汇理鸿晟（台儿庄国资）全面要约</td><td>16.13（比例 57.73%）</td><td>公告后大涨，卖壳触发</td></tr>
+    <tr><td>荃银高科</td><td>2025</td><td>中种集团 部分 20%</td><td>11.85</td><td>主动要约，农业整合</td></tr>
+    <tr><td>浩欧博</td><td>2024-25</td><td>双润正安/中国生物制药 部分 25.01%</td><td>33.74</td><td>公告后大涨，中国生物制药 A 股控股首子</td></tr>
+    <tr><td>美兰空港</td><td>2024</td><td>海南机场 全面要约</td><td>—</td><td>上市公司要约上市公司</td></tr>
+    <tr><td>曙光数创</td><td>2024</td><td>海光信息 要约</td><td>—</td><td>上市公司要约上市公司</td></tr>
+    <tr><td>真爱美家 / 胜通能源</td><td>2025</td><td>探迹远擎 / 七腾机器人 部分+表决权放弃</td><td>—</td><td>民营买壳</td></tr>
+    <tr><td>宏辉果蔬 / 长岭液压 / 中国高科</td><td>2025</td><td>国资+产业资本联合</td><td>—</td><td>联合收购新模式</td></tr>
+    <tr><td>世荣兆业</td><td>待实施</td><td>大横琴安居 全面要约</td><td>6.22</td><td>股价低于要约价时可<b>无风险套利</b>样本</td></tr>
+    <tr><td>东风汽车</td><td>早年</td><td>部分要约</td><td>—</td><td>复牌后短期涨超 50%</td></tr>
+  </tbody>
+</table>
+<div class="src">扩展表案例多为"公告后股价已推升至要约价附近或之上"，留给二级市场的便宜价差少，故未进主表深研；早年私有化案例是"全面要约无风险套利"范本，值得长期记。完整穷尽 A 股历年全部要约收购（累计数以百计）超出本次检索范围，本库定位为<b>类型全覆盖的代表性样本库</b>。</div>
+
+<div class="warnbox">
+  <b>核心规律：</b>① 部分要约比例越小（汇通 5%、ST龙元 6%），越可能被"只收一小部分、余股补跌"吃掉利润；② 股价远高于要约价时（上纬、天普），要约是"履行法定义务"，<b>接受反而亏</b>；③ 生效条件未达成（金帝石油）、隐瞒一致行动人（汇能海投）、协议价倒挂（君亭）都会让要约直接流产；④ ST标的最好一票否决。
+</div>
+
+<h2>二、静态价差可视化（正=有套利空间，负=履行义务无套利）</h2>
+<div class="chart" id="c_yield"></div>
+<div class="src">鲁阳、奥马的"参与套利绝对收益率"为公开个人实盘记录；汇通为复牌后理论空间（受 5% 比例限制难兑现）；上纬、天普价差为"负"即市价远高于要约价，无套利。横向看：真正有正价差的只有鲁阳/奥马/浙民投/伊泰B等少数案例。</div>
+
+<h2>三、巴菲特 / 格雷厄姆套利框架（底层逻辑）</h2>
+<div class="note">
+  <b>Workouts（套利类）三原则（巴菲特合伙基金时期）：</b><br>
+  ① <b>只做公告驱动</b>：不听传闻、不靠内幕，白纸黑字读到才出手；<br>
+  ② <b>风险是"事件风险"而非"市场风险"</b>：主要亏在"宣布的事件没发生"（反垄断、融资故障、股东反对、监管否决、隐瞒一致行动人）；<br>
+  ③ <b>套利是闲置资金的高效替代</b>：定位为短期现金等价物，不是核心持仓——"冷却我们放松长期标准的诱惑"。
+</div>
+<table>
+  <thead><tr><th>评估四问（1988 致股东信）</th><th>落到 A 股要约套利怎么用</th></tr></thead>
+  <tbody>
+    <tr><td>① 已宣布的事件<b>确实发生</b>的概率？</td><td>看生效条件（最低预受门槛）、收购人履约保证金、监管/审批进度、是否 ST/退市</td></tr>
+    <tr><td>② 资金会被<b>占用多久</b>？</td><td>要约期 30~60 天 + 清算 3~5 天；占用期决定年化，越长越稀释收益</td></tr>
+    <tr><td>③ 出现<b>更好结果</b>的概率？</td><td>保壳成功/资产注入/控股权溢价 → 超额收益期权（如浙民投 3 年 11 亿）</td></tr>
+    <tr><td>④ 事件<b>未能发生</b>会怎样？</td><td>要约失败余股退回 + 锚定丧失补跌；ST 标的还可能退市归零</td></tr>
+  </tbody>
+</table>
+
+<h2>四、2024–2025 A 股要约收购市场特征</h2>
+<div class="grid g2">
+  <div class="kpi"><div class="n">≈25%</div><div class="l">T+20 要约标的相对沪深300 的超额涨幅（短期提振显著）</div></div>
+  <div class="kpi"><div class="n">+40%</div><div class="l">要约完成后次年标的净利润平均增幅（2016 以来样本）</div></div>
+</div>
+<div class="note">
+  <b>市场回暖信号：</b>2025 年要约收购 19 起创 7 年新高，"并购六条"推动产业整合；超七成案例聚焦产业链协同，要约价较前 30 日均价平均溢价 &gt;7%。但<b>数量多 ≠ 能套利</b>——多数案例公告后股价即被推升至接近/超过要约价（如上纬 15 倍、天普 6 倍倒挂），留给二级市场的"便宜价差"反而更少。
+</div>
+
+<h2>五、要约收购套利前检查清单（10 项 · 每次对照打勾）</h2>
+<ul class="check">
+  <li><b>要约类型确认：</b>全面要约（股价＜要约价可近似无风险）vs 部分要约（按比例，有补跌）。先定性再算账。</li>
+  <li><b>静态价差 ≥ 5% 且覆盖摩擦：</b>价差 =（要约价−市价）/市价；须 &gt; 印花税+佣金+资金占用机会成本，否则白干。</li>
+  <li><b>要约比例：</b>≥20% 较安全；&lt;10%（ST龙元 6%、汇通 5%）警惕"只能卖出一小部分、余股补跌"。</li>
+  <li><b>生效 / 失效条件：</b>是否有最低预受门槛（金帝石油需 8%）？未达则<b>自始不生效、白忙</b>。</li>
+  <li><b>收购人实力与诚意：</b>20% 履约保证金已交？真金白银冻结合约账户？背景是国资 / 产业资本 / 纯 SPV 壳？</li>
+  <li><b>预受进度与市场博弈：</b>预受极低 + 股价贴着要约价 = 市场不买账（ST龙元仅 0.04%），危险信号。</li>
+  <li><b>标的退市风险：</b>ST / 面值 / 财务 / 规范 / 重大违法——要约<b>期内及结束后</b>都要查，退市即归零。</li>
+  <li><b>交易终止风险：</b>协议转让价倒挂（君亭）、监管审批未过、隐瞒一致行动人（汇能海投）、竞争性要约变局。</li>
+  <li><b>时间窗口：</b>要约期 30~60 天，<b>最后 3 个交易日不可撤销</b>；算清资金占用天数与年化收益。</li>
+  <li><b>退出纪律：</b>未被收购的剩余股份，复牌当日卖出防补跌（科林电气教训）；设硬止损（如破要约价/破面值即撤）。</li>
+</ul>
+
+<h2>六、风险地图（不同要约类型风险维度对比）</h2>
+<div class="chart" id="c_risk"></div>
+<div class="src">维度满分 5。可见：部分要约·低比例与 ST/退市边缘标的在"预受退回补跌""标的退市"两维显著高企——ST龙元、万里/宝鹰正处于此危险区；上纬/天普属"履行义务型"，风险在"价差收窄"（负价差）而非退市。</div>
+
+<h2>七、与您的价值投资纪律边界对照</h2>
+<table>
+  <thead><tr><th>维度</th><th>要约套利</th><th>您的价值纪律</th><th>冲突 / 适配</th></tr></thead>
+  <tbody>
+    <tr><td>资产性质</td><td>事件驱动、短期（30~60 天）</td><td>长期持有有可验证现金流的资产</td><td><b>套利是"现金增强"而非"投资"，不进主仓</b></td></tr>
+    <tr><td>收益来源</td><td>事件确定性差价</td><td>企业内在价值增长 + 分红</td><td>不同逻辑；套利赚的是"别人的确定性"</td></tr>
+    <tr><td>风险类型</td><td>事件风险（失败/终止/退市）</td><td>估值 / 基本面 / 系统性</td><td>套利与大盘弱相关（巴菲特验证），但不能替代基本面研究</td></tr>
+    <tr><td>仓位</td><td>卫星仓 / 试错仓</td><td>主仓质量价值</td><td><b>套利仓 ≤ 小比例，硬止损</b></td></tr>
+    <tr><td>持有期</td><td>以"天"计</td><td>以"年"计</td><td>套利是闲置资金替代，机会成本对标短债利率</td></tr>
+  </tbody>
+</table>
+<div class="warnbox">
+  <b>适配建议（个人观点）：</b>把要约套利当成您体系里的"<b>现金管理增强工具</b>"——只在「全面要约+股价低于要约价+标的无退市风险」或「部分要约+比例≥20%+价差厚+收购人强」时，用极小卫星仓参与；ST / 退市边缘 / 比例＜10% / 股价远高于要约价的履行义务型，<b>原则上一票否决</b>（ST龙元、汇通、上纬、天普均属此列）。
+</div>
+
+<div class="foot">
+  以上为历史案例与公开数据的整理分析，<b>不构成投资建议，决策请自行判断</b>。要约收购存在要约失败、交易终止、余股补跌、标的退市等多重风险，过往收益不预示未来。案例数据来源于公开公告与权威财经媒体公开报道整理（已脱敏处理），如有出入以交易所披露原文为准。
+</div>
+</div>
+
+<script>
+// 图1：静态价差对比（正=有套利空间，负=履行义务无套利）
+(function(){
+  var chart = echarts.init(document.getElementById('c_yield'));
+  var names = ['鲁阳节能','奥马电器','伊泰B→ST新潮','德邦股份','浙民投→ST生化','汇通能源','ST龙元','上纬新材','天普股份'];
+  var spread = [8.6, 5.8, 6.0, 3.9, 28.0, 110.0, 1.63, -93.0, -84.0];
+  chart.setOption({
+    title:{text:'主要案例静态价差对比（%）',left:'center',textStyle:{fontSize:14,color:'#1f2933'}},
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},
+      formatter:function(p){var v=p[0].value;return p[0].name+'<br/>静态价差: '+v+'%'+(v>=0?'（有套利空间）':'（市价远高于要约价，无套利）');}},
+    grid:{top:48,left:90,right:30,bottom:40},
+    xAxis:{type:'value',name:'%',axisLabel:{formatter:'{value}'}},
+    yAxis:{type:'category',data:names,axisLabel:{fontSize:12}},
+    series:[{
+      type:'bar',data:spread,
+      itemStyle:{color:function(p){return p.value>=0 ? '#b3243b' : '#1f5fbf';},
+        borderRadius:[0,4,4,0]},
+      label:{show:true,position:'right',formatter:'{c}%',fontSize:11}
+    }]
+  });
+  window.addEventListener('resize',function(){chart.resize();});
+})();
+
+// 图2：风险雷达（不同要约类型风险维度）
+(function(){
+  var chart = echarts.init(document.getElementById('c_risk'));
+  var dims = ['价差收窄风险','要约失败风险','预受退回/补跌','标的退市风险','收购人履约风险','时间占用风险'];
+  chart.setOption({
+    title:{text:'不同要约类型 · 风险维度雷达（满分5）',left:'center',textStyle:{fontSize:14,color:'#1f2933'}},
+    tooltip:{},
+    legend:{bottom:0,data:['全面要约·标的健康','部分要约·高比例(≥20%)','部分要约·低比例(<10%)','ST/退市边缘标的']},
+    radar:{indicator:dims.map(function(d){return {name:d,max:5};}),radius:'62%',center:['50%','52%'],
+      axisName:{color:'#5b6470',fontSize:11}},
+    series:[{
+      type:'radar',
+      data:[
+        {value:[1,1,1,1,1,2],name:'全面要约·标的健康',itemStyle:{color:'#1a7f4b'}},
+        {value:[2,2,3,1,1,3],name:'部分要约·高比例(≥20%)',itemStyle:{color:'#1f5fbf'}},
+        {value:[3,3,5,2,2,4],name:'部分要约·低比例(<10%)',itemStyle:{color:'#c9821a'}},
+        {value:[3,2,4,5,3,4],name:'ST/退市边缘标的',itemStyle:{color:'#b3243b'}}
+      ]
+    }]
+  });
+  window.addEventListener('resize',function(){chart.resize();});
+})();
+</script>
+</body>
+</html>
