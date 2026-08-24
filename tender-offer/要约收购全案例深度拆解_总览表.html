@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>要约收购全案例深度拆解（32例）· 总览表 + 单案例背景/资产/动机</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root{
+    --bg:#f6f8fb; --card:#fff; --ink:#1c2230; --sub:#5d6776; --line:#e4e9f0;
+    --red:#cf2222; --green:#15834a; --blue:#1f5fd6; --amber:#a9720d; --purple:#6d28d9;
+    --chip:#eef3fa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;line-height:1.65}
+  .wrap{max-width:1240px;margin:0 auto;padding:26px 20px 70px}
+  header.top{background:linear-gradient(135deg,#15324f,#27567f);color:#fff;border-radius:14px;padding:26px 30px;margin-bottom:18px}
+  header.top h1{margin:0 0 6px;font-size:23px}
+  header.top p{margin:3px 0;font-size:13px;color:#d6e2f0}
+  .badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+    border-radius:20px;padding:2px 11px;font-size:12px;margin:6px 7px 0 0}
+  h2.sec{font-size:20px;margin:32px 0 12px;padding-left:12px;border-left:4px solid var(--blue)}
+  .note{background:#fff8e6;border:1px solid #ffe1a6;border-radius:10px;padding:13px 16px;font-size:13px;color:#7a5a12;margin:12px 0}
+  .meth-entry{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#f3eeff,#eaf1ff);
+    border:1px solid #d8c9f5;border-radius:12px;padding:14px 18px;margin:14px 0}
+  .meth-entry .me-ico{font-size:26px;line-height:1}
+  .meth-entry .me-txt{flex:1;font-size:13px;color:#3a2c5e;line-height:1.6}
+  .meth-entry .me-txt b{color:#5b21b6}
+  .meth-entry .me-btn{flex:none;background:var(--purple);color:#fff;text-decoration:none;
+    border-radius:9px;padding:9px 16px;font-size:13.5px;font-weight:700;white-space:nowrap}
+  .meth-entry .me-btn:hover{background:#581c87}
+  @media(max-width:640px){.meth-entry{flex-wrap:wrap}.meth-entry .me-btn{width:100%;text-align:center}}
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+  .toolbar button{background:var(--chip);border:1px solid var(--line);border-radius:8px;padding:6px 13px;font-size:13px;color:var(--ink);cursor:pointer}
+  .toolbar button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+  /* 总览卡片（纵向自适应，不横向滚动） */
+  .ov-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:12px;margin:12px 0}
+  .ovc{background:#fff;border:1px solid var(--line);border-radius:11px;padding:12px 14px;box-shadow:0 1px 3px rgba(20,40,80,.04)}
+  .ovc .hd{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;padding-bottom:8px;border-bottom:1px dashed var(--line)}
+  .ovc .hd .nm{font-size:15px;font-weight:700}
+  .ovc .hd .cd{font-size:12px;color:var(--sub);font-weight:500}
+  .ovc .hd .yr{font-size:11px;color:var(--sub)}
+  .ovc .row{display:grid;grid-template-columns:64px 1fr;gap:8px;padding:3px 0;font-size:12.5px;line-height:1.5}
+  .ovc .row .k{color:var(--sub);font-weight:600;white-space:nowrap}
+  .ovc .row .v{color:#2c3848;word-break:break-word}
+  .ovc .row .v.c{color:var(--sub)}
+  .rk{font-size:11px;padding:1px 7px;border-radius:5px;color:#fff;font-weight:700}
+  .rk.s{background:var(--green)} .rk.f{background:var(--red)} .rk.c{background:var(--amber)} .rk.o{background:var(--blue)} .rk.w{background:#9aa3b2}
+  .cf{font-size:11px;padding:1px 7px;border-radius:5px}
+  .cf.h{background:#e7f6ee;color:var(--green)} .cf.m{background:#fff3df;color:var(--amber)} .cf.w{background:#fdeaea;color:var(--red)}
+  .dl{display:inline-block;background:#eef3fa;border:1px solid #cdd9ea;color:var(--blue);border-radius:7px;padding:3px 9px;font-size:11.5px;font-weight:600;text-decoration:none;margin:6px 3px 0 0}
+  .dl:hover{background:var(--blue);color:#fff}
+  .deep{margin:4px 0 2px}
+  .idxln{font-size:13px;color:var(--sub);margin:10px 0 4px}
+  .idxln a.dl{font-size:12.5px}
+  /* 个案卡 */
+  .case{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin:14px 0;box-shadow:0 1px 3px rgba(20,40,80,.04)}
+  .case h3{margin:0 0 8px;font-size:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+  .case h3 .code{font-size:12px;color:var(--sub);font-weight:500}
+  .pill{font-size:11px;padding:2px 9px;border-radius:7px;font-weight:700}
+  .pill.t{background:var(--purple);color:#fff} .pill.a{background:#34507a;color:#fff}
+  .pill.s{background:var(--green);color:#fff} .pill.f{background:var(--red);color:#fff}
+  .pill.o{background:var(--blue);color:#fff} .pill.w{background:#9aa3b2;color:#fff}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+  @media(max-width:780px){.two{grid-template-columns:1fr}}
+  .party{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .party .ph{background:#eef3fa;padding:7px 11px;font-weight:700;font-size:13.5px;color:#22405f;display:flex;justify-content:space-between;align-items:center}
+  .b3{display:grid;grid-template-columns:64px 1fr}
+  .b3 div{border-top:1px solid var(--line);padding:6px 9px;font-size:12px}
+  .b3 .lab{background:#f7f9fc;color:var(--sub);font-weight:600;white-space:nowrap}
+  .b3 .v{color:#2c3848}
+  .deal{background:#f5f8fc;border-radius:8px;padding:8px 11px;font-size:12.5px;margin-top:10px}
+  .deal b{color:#22405f}
+  .back-home{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;margin:18px 0 0;
+    font-size:13.5px;color:var(--blue);text-decoration:none;font-weight:700;
+    background:var(--chip);border:1px solid var(--line);border-radius:9px;width:fit-content}
+  .back-home:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+  /* hero 内部右上角的返回首页按钮（白字半透明，更醒目） */
+  header.top{position:relative}
+  .back-home-hero{position:absolute;top:16px;right:18px;display:inline-flex;align-items:center;gap:6px;
+    padding:7px 14px;font-size:13.5px;color:#fff;text-decoration:none;font-weight:700;
+    background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.40);border-radius:9px;
+    backdrop-filter:blur(6px);transition:.18s}
+  .back-home-hero:hover{background:var(--blue);border-color:#fff;color:#fff}
+  footer{margin-top:30px;font-size:12px;color:var(--sub);border-top:1px solid var(--line);padding-top:16px}
+  .risk{background:#fdeaea;border:1px solid #f3b0b0;border-radius:10px;padding:13px 16px;font-size:13px;color:#8a1c1c;margin-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back-home" href="./index.html">← 返回首页</a>
+<header class="top">
+  <a class="back-home-hero" href="./index.html">← 返回首页</a>
+  <h1>要约收购全案例深度拆解（32 例）</h1>
+  <p>总览表 + 单案例背景/资产/动机 · 收购方与被收购方双拆解</p>
+  <div>
+    <span class="badge">范式：单案例深挖（背景·资产·动机）</span>
+    <span class="badge">覆盖 32 例要约</span>
+    <span class="badge">数据时点 2026-08-09 · 来源脱敏</span>
+  </div>
+</header>
+
+<div class="meth-entry">
+  <span class="me-ico">📘</span>
+  <div class="me-txt">
+    <b>套利方法论全文</b>：风险系数法 · 策略轮动法 · 事件套利法 · 四步法实战 + 七条铁律与「三个知道」，并对比现金选择权与要约收购异同。
+  </div>
+  <a class="me-btn" href="./要约收购总览表_一页纸通俗版.html">前往阅读 →</a>
+</div>
+
+<div class="note">
+  <b>本篇构成：</b>① 顶部<b>总览卡片</b>——34 例一卡一案例（代码/名称/类型/要约价/比例/结果/收购方/标的资产/动机/置信度），竖向排列无需横向滚动；② 下方 <b>34 例逐个深挖</b>，每例按 ST新潮 范式拆 <b>被收购方（背景/资产/动机）+ 收购方（背景/资产/动机）</b>。所有数据来自已核实案例（公开公告/权威财经媒体，已脱敏），<b>不编造</b>；早年价格与部分买壳方资产缺口已标"待核"。
+</div>
+
+<h2 class="sec">一、总览卡片（34 例）</h2>
+<p class="idxln">每例均已有<b>完整独立深度页</b>（收购方+被收购方 背景/资产/动机 + 图表 + 套利启示）：<a class="dl" href="个案深度分析/个案深度分析_索引.html">→ 全部个案深度分析索引</a>；下表「深度分析」列与每张卡片也可直达对应页。</p>
+<div class="toolbar" id="filters">
+  <button class="active" data-f="all">全部</button>
+  <button data-f="success">成功</button>
+  <button data-f="fail">失败/遇冷</button>
+  <button data-f="ongoing">进行中</button>
+  <button data-f="wait">含待核</button>
+</div>
+<div id="ovCards" class="ov-cards"></div>
+
+<h2 class="sec">二、全案例逐个深挖（背景 / 资产 / 动机）</h2>
+<div id="cases"></div>
+
+<div class="risk">
+  <b>风险提示：</b>要约收购套利属事件驱动策略，本质非"有可验证现金流"长期资产；含终止、生效不足、倒挂、退市、余股补跌等风险。本总览与拆解仅为研究整理，<b>不构成投资建议，决策请自行判断，亏损可能随时发生</b>。
+</div>
+
+</div>
+
+<script>
+const CASES = [
+ {name:"ST龙元",code:"600491",year:2026,atype:"部分要约(主动)",offerPrice:"1.25元",offerPct:"6%",offerShares:"9178.6万股",maxAmount:"1.147亿",
+  structure:"主动要约(托市)",announce:"2026-07-09摘要/期7-28~8-26",preaccept:"预受≈0.70%上限",result:"进行中",confidence:"高",
+  tBG:"1996上市(宁波),原建筑施工主业;2026-05被ST,面值退市边缘(6/29曾破0.97)。",
+  tAsset:"2025归母净亏25.86亿、扣非连亏4年;负债率83.49%、有息负债218亿、逾期12亿;控股家族质押99.78%冻结。",
+  tMot:"面值退市边缘+国资紧急兜底托市;但资产质量差、债务沉重,非价值资产,纯保壳博弈。",
+  aName:"宁波开海(宁波国资委SPV)",aBG:"宁波市国资委实控→宁波开投(60%,AAA)+象山海洋(40%)2026-07-02设SPV,注册资本1.2亿,从零持股。",
+  aAsset:"纯国资壳平台,无经营;资金1.147亿已全额冻结中登。",
+  aMot:"政治任务式'兜底要约':防面退保壳、填补杭州交投定增失败后控制真空,只托价不控股、不解决债务。"},
+
+ {name:"艾艾精工",code:"603580",year:2025,atype:"协议+部分要约",offerPrice:"27.54元",offerPct:"协议29.99%+要约10.01%",offerShares:"要约≤1308.04万股",maxAmount:"约3.61亿",
+  structure:"协议转让+部分要约(拿40%控股权)",announce:"2025末",preaccept:"原实控人承诺预受36.95%锁定",result:"无套利空间",confidence:"高",
+  tBG:"轻型输送带+中石信(精密金属);2026-07-01刚摘帽(原*ST)。",
+  tAsset:"2025营收3.30亿(+96.85%)、归母净4384万但扣非仅63万;经营现金流-5297万(净现比-132%);中石信商誉8709万计提减值,有息负债1.996亿。",
+  tMot:"刚摘帽小市值壳+原实控人高位套现离场,被民营资本选中买壳。",
+  aName:"上海誉升/广西誉升锗业(袁源)",aBG:"上海誉升2025-12设(注册资本6亿,纯SPV);背后广西誉升锗业(袁源60%/袁睿40%,锗产能国内前列,2024/2025广西制造业百强)。",
+  aAsset:"广西誉升2025末总资产37.24亿、营收27.40亿、净利2.19亿(逐年增);资金自有+并购贷合计14.43亿。",
+  aMot:"原实控人高位套现+80后袁源买干净小壳;承诺36月不注入资产规避'类借壳'审核。"},
+
+ {name:"ST新潮·汇能海投",code:"600777",year:2024,atype:"部分要约(竞争①)",offerPrice:"3.10元",offerPct:"46%",offerShares:"31.28亿股",maxAmount:"96.98亿",
+  structure:"部分要约(取控制权)",announce:"2024-08-23披露/08-30终止",preaccept:"—",result:"失败",confidence:"高",
+  tBG:"1996上市(烟台),2014转型能源;无实控人股权分散;2024内控否定被ST、2025年报延期被立案。",
+  tAsset:"美国二叠纪盆地核心页岩油,99%资产北美、全部营收海外;2024H1营收43.59亿/净11.71亿/负债率40.32%;连续15年未分红。",
+  tMot:"净壳+稀缺海外油气+股权分散易夺,成产业资本争夺对象。",
+  aName:"北京汇能海投(汇能集团/郭金树)",aBG:"汇能海投2023-04设,汇能集团(郭金树'内蒙古煤炭大王')子公司;集团总资产1350亿、员工1.6万。",
+  aAsset:"背靠汇能集团(煤炭/电力/化工+新能源),资金雄厚;要约前潜伏持股4.99%。",
+  aMot:"基于集团战略认同ST新潮价值,提升持股取控制权、夺油气资产;后因隐瞒一致行动人违规终止。"},
+
+ {name:"ST新潮·金帝石油",code:"600777",year:2025,atype:"部分要约(竞争②)",offerPrice:"3.10元",offerPct:"20%",offerShares:"13.6亿股",maxAmount:"42.16亿",
+  structure:"部分要约(取控制权)",announce:"2025-01-18/期4-8~5-7",preaccept:"预受963万股(0.14%)未达生效",result:"失败",confidence:"高",
+  tBG:"同上(ST新潮标的)。",
+  tAsset:"同上(二叠纪盆地页岩油,资产质量实但治理乱)。",
+  tMot:"同上(净壳+稀缺油气)。",
+  aName:"浙江金帝石油(卢斯侃/孔列岚)",aBG:"金帝石油2024-12-27成立(要约时不满月),法人卢斯侃;金帝控股(1992,杭州萧山)100%持股,实控卢斯侃夫妇。",
+  aAsset:"收购主体注册资本6000万、无实际业务(壳);母公司金帝控股2024末资产283.34亿、净63.33亿、负债率77.65%(偏高)。",
+  aMot:"取控制权、借ST新潮切入页岩油/美国市场、稳定股权结构;竞争性要约中被伊泰更高价挤出。"},
+
+ {name:"ST新潮·伊泰B股",code:"600777",year:2025,atype:"部分要约(竞争③/胜)",offerPrice:"3.40元",offerPct:"51%",offerShares:"34.68亿股",maxAmount:"117.92亿",
+  structure:"部分要约(取控制权)",announce:"2025-04-18竞争/期4-23~5-22",preaccept:"预受13.58亿股(19.99%)",result:"成功",confidence:"高",
+  tBG:"同上(ST新潮标的)。",
+  tAsset:"同上(二叠纪盆地页岩油)。",
+  tMot:"同上(净壳+稀缺油气)。",
+  aName:"内蒙古伊泰煤炭(张双旺)",aBG:"伊泰集团1988张双旺(82岁)创立,内蒙古最大地方煤企,中国500强(2024第449),实控张双旺(伊泰投资37.54%)。",
+  aAsset:"伊泰煤炭2024营收519.68亿/净51.57亿/负债率32.07%/资产839.24亿;21亿吨可采储量、年产5400万吨;高分红现金牛(全年分红占净利113.61%)。",
+  aMot:"控优质油气资产、拓展能源储备、优化产业布局(煤炭+油气);以更高价(3.40>3.10)在竞争性要约中胜出,交割持股50.10%。"},
+
+ {name:"全柴动力",code:"600218",year:2012,atype:"全面要约(触发)",offerPrice:"16.62元(待核)",offerPct:"全面",offerShares:"—",maxAmount:"—",
+  structure:"熔盛重工收购全柴集团触发全面要约",announce:"2012",preaccept:"预受极少",result:"失败",confidence:"中",
+  tBG:"柴油机主业国企;控股股东全柴集团。",
+  tAsset:"柴油发动机资产(具体财务待核)。",
+  tMot:"熔盛重工(造船)借壳上市平台,触发全面要约义务。",
+  aName:"熔盛重工(张志熔)",aBG:"熔盛重工为当时国内大型民营造船企业(张志熔)。",
+  aAsset:"造船主业(具体财务待核)。",
+  aMot:"通过收购全柴集团100%股权借壳A股;后因未获相关审批放弃,成A股首例失败要约。",_wait:true},
+
+ {name:"南钢股份",code:"600282",year:2023,atype:"全面要约(触发)",offerPrice:"3.69元(待核)",offerPct:"全面",offerShares:"—",maxAmount:"—",
+  structure:"复星转让南钢集团60%股权触发;沙钢先、中信后入主",announce:"2023",preaccept:"预受低,保留上市",result:"成功(控制权变更)",confidence:"中",
+  tBG:"优质钢企(南京),原复星系控股。",
+  tAsset:"钢铁冶炼资产(具体财务待核)。",
+  tMot:"复星系退出、央企中信接盘,触发全面要约。",
+  aName:"中信特钢(新冶钢)/原沙钢",aBG:"先沙钢报价,后中信特钢(央企)入主;中信集团旗下特钢平台。",
+  aAsset:"中信特钢为特钢龙头(具体财务待核)。",
+  aMot:"产业整合+央企接盘复星退出资产;价格以公开报道为准(待核)。",_wait:true},
+
+ {name:"嘉亨家化",code:"300955",year:2025,atype:"协议+部分要约",offerPrice:"33.21元",offerPct:"协议29.70%+要约21.10%",offerShares:"要约≤7.06亿",maxAmount:"约17亿",
+  structure:"协议+部分要约(50.80%)",announce:"2025-12-31",preaccept:"预受2356.93万股(23.38%,超预定110.8%)",result:"成功(控制权变更)",confidence:"高",
+  tBG:"日化ODM代工;2024首亏2369万。",
+  tAsset:"化妆品/日化塑料包装代工产能;2024由盈转亏。",
+  tMot:"小市值日化代工壳,被快消平台选中买壳。",
+  aName:"杭州拼便宜(徐意)",aBG:"杭州拼便宜为徐意创立的快消品B2B采购平台。",
+  aAsset:"快消B2B平台+供应链(具体财务待核)。",
+  aMot:"入主日化代工上市平台,产业协同/买壳(2025买壳潮样本,非机器人系)。",_wait:true},
+
+ {name:"胜通能源",code:"001331",year:2025,atype:"协议+部分要约",offerPrice:"13.28元",offerPct:"协议29.99%+要约15%",offerShares:"要约≤5.62亿",maxAmount:"约16.86亿",
+  structure:"协议+部分要约(44.99%)",announce:"2025-12-11",preaccept:"—",result:"进行中",confidence:"高",
+  tBG:"LNG物流;民营企业。",
+  tAsset:"LNG运输/物流资产。",
+  tMot:"被机器人企业选中买壳。",
+  aName:"七腾机器人(朱冬/85后)",aBG:"七腾机器人为特种机器人企业(防爆巡检等),创始人朱冬(85后)。",
+  aAsset:"机器人研发制造(具体财务待核)。",
+  aMot:"'协议+要约'拿壳上市,产业延伸/资本平台。",_wait:true},
+
+ {name:"嘉美包装",code:"002969",year:2025,atype:"协议+部分要约",offerPrice:"4.45元",offerPct:"协议29.90%+要约25%",offerShares:"要约≤10.39亿",maxAmount:"约22.82亿",
+  structure:"协议+部分要约(54.90%)",announce:"2025-12-16",preaccept:"预受2.15亿股(19.59%,占预定92.17%)",result:"成功(控制权变更)",confidence:"高",
+  tBG:"金属包装;民营企业。",
+  tAsset:"三片罐/二片罐金属包装产能。",
+  tMot:"消费包装壳,被追觅系资本入主。",
+  aName:"逐越鸿智/俞浩(追觅创始人)",aBG:"收购主体逐越鸿智,背后俞浩为追觅科技创始人。",
+  aAsset:"追觅系智能家电/清洁农机资本(具体财务待核)。",
+  aMot:"资本入主消费包装上市平台;要约比例25%偏高,安全边际较好。"},
+
+ {name:"锋龙股份",code:"002931",year:2025,atype:"协议+部分要约",offerPrice:"17.72元",offerPct:"协议29.99%+要约13.02%",offerShares:"要约≤5.04亿",maxAmount:"约16.65亿",
+  structure:"协议+部分要约(43%)",announce:"2025-12-24",preaccept:"—",result:"进行中",confidence:"高",
+  tBG:"园林机械;民营企业。",
+  tAsset:"园林工具/零部件产能。",
+  tMot:"被机器人龙头选中买壳。",
+  aName:"优必选(周剑)",aBG:"优必选为国内人形机器人龙头(港股上市),创始人周剑。",
+  aAsset:"人形机器人研发制造(上市公司,市值较高)。",
+  aMot:"机器人企业买壳;29.99%精准卡30%触发临界点之下。"},
+
+ {name:"长龄液压",code:"605389",year:2025,atype:"协议+部分要约",offerPrice:"协议34.39/要约36.24元",offerPct:"协议29.99%+要约12%",offerShares:"要约≤6.27亿",maxAmount:"约18.65亿",
+  structure:"协议+部分要约(41.99%)",announce:"2025-07-10",preaccept:"夏继发预受11.28%",result:"进行中",confidence:"高",
+  tBG:"液压件;民营企业。",
+  tAsset:"液压回转接头/马达等零部件产能。",
+  tMot:"被资本选中买壳。",
+  aName:"核芯破浪(胡康桥)",aBG:"核芯破浪为收购方(胡康桥,具体背景待核)。",
+  aAsset:"待核。",
+  aMot:"买壳上市;协议价<要约价结构,原股东已部分预受锁定。",_wait:true},
+
+ {name:"友邦吊顶",code:"002718",year:2025,atype:"协议+部分要约",offerPrice:"29.41元",offerPct:"协议29.99%+要约15.01%",offerShares:"要约≤5.71亿",maxAmount:"约17.13亿",
+  structure:"协议+部分要约(45%)",announce:"2025-12-30",preaccept:"—",result:"进行中",confidence:"高",
+  tBG:"集成吊顶;民营企业。",
+  tAsset:"集成吊顶研发制造产能。",
+  tMot:"被数字科技资本选中入主家居。",
+  aName:"明盛智能(施其明/数传集团)",aBG:"明盛智能,背后施其明/数传集团(武汉,教育/数字出版科技)。",
+  aAsset:"数字科技/教育出版科技(具体财务待核)。",
+  aMot:"文化/数字科技资本入主家居上市平台。"},
+
+ {name:"多瑞医药",code:"301075",year:2025,atype:"协议+部分要约",offerPrice:"32.064元",offerPct:"协议29.60%+要约24.30%",offerShares:"要约≤6.23亿",maxAmount:"约13.82亿",
+  structure:"协议+部分要约(53.90%)",announce:"2025-10",preaccept:"西藏嘉康预受24.30%",result:"进行中",confidence:"高",
+  tBG:"化学药;连续亏损。",
+  tAsset:"化学药研发生产(连亏)。",
+  tMot:"医药壳,被资本买壳。",
+  aName:"王庆太等+西藏嘉康",aBG:"收购方王庆太等联合西藏嘉康。",
+  aAsset:"待核。",
+  aMot:"买壳医药上市平台;要约比例24.30%高且已由西藏嘉康承诺预受,成功率锁定性强。"},
+
+ {name:"真爱美家",code:"003041",year:2025,atype:"协议+部分要约",offerPrice:"27.74元",offerPct:"协议29.99%+要约15%",offerShares:"要约—",maxAmount:"约14.97亿",
+  structure:"协议+部分要约(44.99%)",announce:"2025-11-11",preaccept:"—",result:"进行中",confidence:"高",
+  tBG:"毛毯家纺;民营企业。",
+  tAsset:"毛毯/家纺产能。",
+  tMot:"被民营资本选中买壳。",
+  aName:"探迹远擎(黎展)",aBG:"探迹远擎,实控黎展(具体背景待核)。",
+  aAsset:"待核。",
+  aMot:"民营资本买壳家纺上市平台;协议价=要约价一致。",_wait:true},
+
+ {name:"瓦轴B",code:"200706",year:2026,atype:"全面要约(退市目的)",offerPrice:"2.86港元",offerPct:"全面39.39%",offerShares:"1.59亿股",maxAmount:"—",
+  structure:"以退市为目的全面要约",announce:"2026-03-05",preaccept:"—",result:"进行中",confidence:"高",
+  tBG:"B股轴承制造;瓦轴集团旗下。",
+  tAsset:"轴承研发制造(B股上市,流动性枯竭)。",
+  tMot:"B股'僵尸化'、流动性枯竭,主动私有化退市。",
+  aName:"瓦轴集团(大连重工装备/大连国资委)",aBG:"瓦轴集团,控股股东大连重工装备(大连市国资委)。",
+  aAsset:"轴承制造国资平台。",
+  aMot:"解决B股流动性枯竭,主动私有化退市(全面要约以终止上市为目的)。"},
+
+ {name:"鲁阳节能",code:"002088",year:2022,atype:"部分要约",offerPrice:"21.73元",offerPct:"24.86%",offerShares:"生效≥1.16亿股",maxAmount:"最高27.35亿",
+  structure:"部分要约(取控制权)",announce:"2022-04-27",preaccept:"2329户/2.01亿股(超目标)",result:"成功",confidence:"高",
+  tBG:"陶瓷纤维耐火材料龙头;民企。",
+  tAsset:"陶瓷纤维产能(技术壁垒高);停牌前13.10元,要约溢价超60%。",
+  tMot:"优质耐火材料资产,被外资产业资本整合控股权。",
+  aName:"奇耐亚太(Unifrax,美籍)",aBG:"奇耐亚太为美国Unifrax(耐火材料巨头)子公司。",
+  aAsset:"全球耐火材料/陶瓷纤维技术+渠道。",
+  aMot:"产业整合、控股权收购;最终奇耐亚太持股53%。套利样本:绝对收益≈10.09%(年化≈67%)。"},
+
+ {name:"奥马电器",code:"002668",year:2021,atype:"部分要约",offerPrice:"6元",offerPct:"22.99%",offerShares:"最高2.77亿股",maxAmount:"最高14.95亿",
+  structure:"部分要约(取控制权)",announce:"2021-08-17",preaccept:"4307户/2.557亿股",result:"成功",confidence:"高",
+  tBG:"冰箱ODM;曾陷控制权纠纷。",
+  tAsset:"冰箱ODM制造产能(出口强)。",
+  tMot:"白电资产,被TCL整合夺控。",
+  aName:"TCL家电(李东生)",aBG:"TCL家电为TCL系(李东生)白电平台。",
+  aAsset:"TCL白电研发制造+渠道。",
+  aMot:"夺控冰箱ODM、白电整合;要约后TCL合计持股50%。套利样本:绝对收益≈3.9%(年化≈84%)。"},
+
+ {name:"浙民投→ST生化",code:"000403",year:2017,atype:"部分要约(敌意)",offerPrice:"36元",offerPct:"27.49%",offerShares:"生效≥22.50%",maxAmount:"最高26.97亿",
+  structure:"部分要约(A股首例成功敌意)",announce:"2017-06-28",preaccept:"3870户/1.47亿股(196%目标)",result:"成功(控股)",confidence:"高",
+  tBG:"血液制品;曾被ST,管理层抗拒外部资本。",
+  tAsset:"血液制品牌照+浆站资源(稀缺高壁垒);流通股参与75.5%。",
+  tMot:"低估+稀缺血制品牌照,被民营投资联合体敌意夺控。",
+  aName:"浙民投天弘(浙江民投联合体)",aBG:"浙民投(浙江民营投资股份有限公司)旗下天弘,民营资本联合体。",
+  aAsset:"投资平台(无实业,纯资本)。",
+  aMot:"敌意举牌夺控+估值修复+产业整合;佳兆业'白衣骑士'未果,3年净赚≈11亿。教科书级敌意要约胜利。"},
+
+ {name:"重庆百货",code:"600729",year:2020,atype:"全面要约(触发)",offerPrice:"27.16元",offerPct:"54.93%",offerShares:"—",maxAmount:"最高60.65亿",
+  structure:"混改触发全面要约",announce:"2020-04",preaccept:"3784户/3805.84万股(9.36%)",result:"成功(保上市)",confidence:"高",
+  tBG:"重庆商业零售龙头;商社集团旗下。",
+  tAsset:"百货+超市+电器零售网络(区域强势)。",
+  tMot:"混改引入物美/步步高,触发全面要约义务。",
+  aName:"商社集团(物美45%+步步高10%混改)",aBG:"商社集团为重庆国资混改平台,引入物美(45%)+步步高(10%)。",
+  aAsset:"物美(连锁零售)/步步高(区域零售)资产。",
+  aMot:"混改巩固控制;因预受不足10%,仅花10.34亿即巩固控制、保留上市。"},
+
+ {name:"百大集团",code:"600865",year:2022,atype:"部分要约",offerPrice:"11.59/11.39元",offerPct:"8.50%",offerShares:"3200万股",maxAmount:"—",
+  structure:"部分要约",announce:"2022-06",preaccept:"1044户/6245万股(超近1倍)",result:"成功",confidence:"高",
+  tBG:"杭州百货+ deposits;民企。",
+  tAsset:"杭州百货物业+类金融业务。",
+  tMot:"巩固控制权。",
+  aName:"西子国际(陈夏鑫)",aBG:"西子国际为陈夏鑫(西子联合系)旗下。",
+  aAsset:"西子联合(电梯/置业等)资产。",
+  aMot:"巩固控制;要约比例仅8.50%(偏低),余股补跌风险需警惕。"},
+
+ {name:"上海家化",code:"600315",year:2015,atype:"部分要约",offerPrice:"40元",offerPct:"31%",offerShares:"—",maxAmount:"最高83.58亿",
+  structure:"部分要约",announce:"2015-11-04~12-03",preaccept:"仅73人/1022.66万股(1.517%)",result:"失败(遇冷)",confidence:"高",
+  tBG:"日化龙头(百年品牌)。",
+  tAsset:"护肤/个护品牌矩阵(高价值)。",
+  tMot:"平安系试图整合日化资产。",
+  aName:"太富祥尔(平安系)",aBG:"太富祥尔为平安系(平安信托)旗下。",
+  aAsset:"平安系金融/产业资本。",
+  aMot:"平安系整合日化;因要约价40元低于市价→投资者惜筹,仅1.517%预受,失败。反面教材:价倒挂即无空间。"},
+
+ {name:"中石油系私有化",code:"辽河/锦州/吉化",year:2005,atype:"全面要约(退市目的)",offerPrice:"辽河8.8/锦州4.25/吉化A5.25(H2.8)",offerPct:"全面",offerShares:"—",maxAmount:"约63亿",
+  structure:"以退市为目的全面要约",announce:"2005-10-31",preaccept:"—",result:"成功(退市)",confidence:"高",
+  tBG:"中石油旗下上市子公司(辽河/锦州/吉林化工)。",
+  tAsset:"油气开采/炼化资产(集团内重复上市)。",
+  tMot:"集团整合、消除同业、私有化退市。",
+  aName:"中石油集团",aBG:"中石油集团(央企)。",
+  aAsset:"超大型油气央企。",
+  aMot:"整合上市子公司、私有化退市;A股首例退市目的要约,现金选择权式溢价(溢6-19%)。"},
+
+ {name:"中石化系私有化",code:"齐鲁/扬子/中原油气/石油大明",year:2006,atype:"全面要约(退市目的)",offerPrice:"齐鲁10.18/扬子13.95/中原油气12.12/石油大明10.30",offerPct:"全面",offerShares:"—",maxAmount:"133.51亿",
+  structure:"以退市为目的全面要约",announce:"2006-03-08~04-06",preaccept:"全部生效退市",result:"成功(退市)",confidence:"高",
+  tBG:"中石化旗下四家上市子公司。",
+  tAsset:"炼油/石化/油气资产(集团内重复上市)。",
+  tMot:"集团整合、私有化退市。",
+  aName:"中石化集团",aBG:"中石化集团(央企)。",
+  aAsset:"超大型石化央企。",
+  aMot:"整合上市子公司、私有化退市;超百亿级,溢价13-26%,参与者赚确定性现金溢价。"},
+
+ {name:"汇通能源",code:"600605",year:2019,atype:"协议+部分要约",offerPrice:"12.5元(2019)/19.27(2022)",offerPct:"部分21%(2019)+协议29.97%+要约5%(2022)",offerShares:"2019要约3.87亿",maxAmount:"—",
+  structure:"先部分要约巩固,后协议+要约再谋控",announce:"2019-07/2022-09(后终止)",preaccept:"2019完成持股51%",result:"部分成功/后续终止",confidence:"高",
+  tBG:"原物业+地产;民企。",
+  tAsset:"物业租赁+地产资产。",
+  tMot:"巩固/再谋控制权。",
+  aName:"汤玉祥/西藏德锦(2019);圣石贸易(2022)",aBG:"2019汤玉祥/西藏德锦入主;2022圣石贸易再推协议+要约。",
+  aAsset:"西藏德锦(宇通系背景待核)/圣石贸易(待核)。",
+  aMot:"第一阶段部分要约成功巩固(持股51%);第二阶段因置出资产分歧终止。",_wait:true},
+
+ {name:"德邦股份",code:"603056",year:2022,atype:"全面要约(退市目的)",offerPrice:"13.15元",offerPct:"26.98%",offerShares:"2.77亿股",maxAmount:"—",
+  structure:"以退市为目的全面要约",announce:"2022-08-02~08-31",preaccept:"仅5.43%(5577.61万股)",result:"成功(保上市)",confidence:"高",
+  tBG:"大件快递;民企。",
+  tAsset:"大件快递网络(直营)。",
+  tMot:"京东物流私有化整合。",
+  aName:"京东卓风(京东物流)",aBG:"京东卓风为京东物流旗下。",
+  aAsset:"京东物流(直营快运/快递网络)。",
+  aMot:"退市目的全面要约整合物流;因流通股东惜售(股价>要约价)仅5.43%接受→保留上市,无套利空间。"},
+
+ {name:"上纬新材",code:"688585",year:2025,atype:"协议+部分要约",offerPrice:"7.78元",offerPct:"协议29.99%+要约37%",offerShares:"要约≤11.61亿",maxAmount:"—",
+  structure:"协议+部分要约(66.99%)",announce:"2025-09-29~10-28",preaccept:"22户/1.357亿股(33.63%)",result:"成功",confidence:"高",
+  tBG:"风电材料(乙烯基酯树脂等);民企。",
+  tAsset:"风电叶片材料产能(技术壁垒)。",
+  tMot:"被机器人企业选中借壳。",
+  aName:"智元恒岳(智元机器人/邓泰华)",aBG:"智元恒岳为智元机器人(邓泰华)旗下。",
+  aAsset:"智元机器人(人形机器人研发制造)。",
+  aMot:"机器人借壳上市;股价暴涨至约112.7元(差15倍),近乎定向、中小股东无套利空间。"},
+
+ {name:"天普股份",code:"605255",year:2025,atype:"全面要约(触发)",offerPrice:"23.98元",offerPct:"全面25%",offerShares:"3352万股",maxAmount:"8.04亿",
+  structure:"触发全面要约(协议+增资致68.29%)",announce:"2025-11-20~12-19",preaccept:"预受极少(4户/3400股)",result:"无套利空间",confidence:"高",
+  tBG:"汽车橡胶管路;民企。",
+  tAsset:"汽车橡胶管路产能;2025前三季营收2.30亿/净1785万(小幅下滑)。",
+  tMot:"被智元系入主,新能源延伸(但明确无借壳)。",
+  aName:"中昊芯英(智元系/杨龚轶凡)",aBG:"中昊芯英为AI算力企业(智元系关联),实控杨龚轶凡。",
+  aAsset:"AI算力/芯片(具体财务待核)。",
+  aMot:"入主+向新能源延伸;市价最高147元,接受要约即每股亏123元,典型'接受反亏'。"},
+
+ {name:"ST凯利",code:"300326",year:2025,atype:"部分要约(主动)",offerPrice:"5.18元",offerPct:"10%",offerShares:"7170.13万股",maxAmount:"最高3.71亿",
+  structure:"主动部分要约(强化控制)",announce:"2025-07-17~08-15",preaccept:"26户/83297股(遇冷)",result:"失败(遇冷)",confidence:"高",
+  tBG:"骨科植入器械;2024内控否定被ST。",
+  tAsset:"骨科植入医疗器械(集采承压);2024营收9.85亿/归母亏1.06亿。",
+  tMot:"低位增持、强化控制权。",
+  aName:"涌金投资(陈金霞/涌金系)",aBG:"涌金投资为涌金系(陈金霞)旗下,资产规模大(2024资产1258亿)。",
+  aAsset:"涌金系金融/投资平台(2024营收47.85亿/净20.50亿)。",
+  aMot:"低位增持、强化控制;要约期股价涨超要约价→仅收8.33万股遇冷。"},
+
+ {name:"君亭酒店",code:"301073",year:2025,atype:"协议+部分要约",offerPrice:"25.71元",offerPct:"协议29.99%+要约6.01%",offerShares:"要约1168.65万股",maxAmount:"约18亿",
+  structure:"协议+部分要约(36%)",announce:"2025-12-02",preaccept:"原实控人承诺预受6.01%",result:"进行中",confidence:"高",
+  tBG:"中高端酒店;81岁创始人吴启元。",
+  tAsset:"中高端酒店管理(直营+轻资产转型中);2025前三季营收5.06亿/净990万(下滑)。",
+  tMot:"国资文旅平台买壳。",
+  aName:"湖北文旅(湖北省国资委)",aBG:"湖北文化旅游集团,湖北省国资委实控。",
+  aAsset:"湖北文旅(景区/酒店/文旅资源,资产规模大)。",
+  aMot:"国资文旅平台入主;创始人放弃表决权+承诺预受,控制权交接彻底。"},
+
+ {name:"科林电气",code:"603050",year:2024,atype:"部分要约(控股权争夺)",offerPrice:"27.17元",offerPct:"20%",offerShares:"5450.26万股",maxAmount:"—",
+  structure:"部分要约(与石家庄国资争夺)",announce:"2024-05-28~06-26",preaccept:"2753户/6220万股(22.82%超目标)",result:"成功",confidence:"高",
+  tBG:"电力设备;石家庄民企,陷控制权之争。",
+  tAsset:"智能电网/配电设备产能。",
+  tMot:"海信与石家庄国资争夺控制权。",
+  aName:"海信网能(海信系)",aBG:"青岛海信网络能源(海信系)。",
+  aAsset:"海信系(家电/能源设备,规模大)。",
+  aMot:"夺控电力设备;预受超目标触发生效,最终海信持股34.94%、表决权44.51%;要约后余股补跌需警惕。"},
+
+ {name:"鄂武商",code:"000501",year:2011,atype:"部分要约(控制权争夺)",offerPrice:"21.21元",offerPct:"5%",offerShares:"2536.24万股",maxAmount:"最高5.38亿",
+  structure:"部分要约(大股东vs银泰系)",announce:"2011-08-03(2012-06执行)",preaccept:"—",result:"成功(巩固控制)",confidence:"高",
+  tBG:"武汉商业零售;武商联旗下,与银泰系控制权之争。",
+  tAsset:"武汉百货/购物中心网络(区域强势)。",
+  tMot:"国资巩固控制权、对抗银泰系。",
+  aName:"武商联+武汉经发投+武汉国资",aBG:"武汉国资联合体(武商联+武汉经发投+武汉国资公司)。",
+  aAsset:"武汉国资商业资产。",
+  aMot:"A股首例'为夺控制权'而发的要约;溢价6.1%巩固国资控股、拉开与银泰系差距。"},
+{name:"兴业银锡",code:"000426",year:2026,atype:"待核",offerPrice:"待核",offerPct:"待核",offerShares:"待核",maxAmount:"待核",structure:"公告见2026-08-19",announce:"2026-08-19",preaccept:"待核",result:"进行中",confidence:"低",_nodetail:true,note:"自动收录:兴业银锡:关于对外投资收购威领股份控制权及向威领股份股东发起部分要约收购的公告"}, {name:"*ST威领",code:"002667",year:2026,atype:"待核",offerPrice:"待核",offerPct:"待核",offerShares:"待核",maxAmount:"待核",structure:"公告见2026-08-19",announce:"2026-08-19",preaccept:"待核",result:"进行中",confidence:"低",_nodetail:true,note:"自动收录:*ST威领:威领新能源股份有限公司要约收购报告书摘要"},
+];
+
+// ---- 总览卡片（纵向自适应，不横向滚动） ----
+const resKey={ "成功":"s","成功(控股)":"s","成功(保上市)":"s","成功(退市)":"s","成功(巩固控制)":"s","成功(控制权变更)":"s",
+  "失败":"f","失败(遇冷)":"f","无套利空间":"c","进行中":"o","部分成功/后续终止":"c" };
+const resTxt={ "成功":"成功","成功(控股)":"成功","成功(保上市)":"成功(保上市)","成功(退市)":"成功(退市)","成功(巩固控制)":"成功","成功(控制权变更)":"成功(变控)",
+  "失败":"失败","失败(遇冷)":"遇冷","无套利空间":"无空间","进行中":"进行中","部分成功/后续终止":"部分成功" };
+const safeD=x=>String(x).replace(/[\\/:*?"<>|]/g,"_");
+function linkHtml(c){if(c._nodetail)return '<span class="dl" style="background:#f0f0f3;color:#9aa3b2;border-color:#e6e6ea;cursor:default">深度页待生成</span>';return '<a class="dl" href="个案深度分析/个案_'+safeD(c.code)+'_'+safeD(c.name)+'.html">完整深度页 →</a>';}
+function row(k,v,cls){return `<div class="row"><div class="k">${k}</div><div class="v ${cls||''}">${v}</div></div>`;}
+const ovBox=document.getElementById("ovCards");
+ovBox.innerHTML=CASES.map(c=>{
+  const rk=resKey[c.result]||"c";
+  const cf=c.confidence==="高"?"h":c.confidence==="中"?"m":"w";
+  const wait=c._wait?' <span class="pill w" style="font-size:10px;padding:1px 6px;border-radius:5px;background:#9aa3b2;color:#fff">⚠待核</span>':'';
+  const confidence=`${c.confidence}${wait}`;
+  return `<div class="ovc" data-res="${c.result}" data-conf="${c.confidence}">
+    <div class="hd">
+      <span class="nm">${c.name}</span>
+      <span class="cd">${c.code}</span>
+      <span class="yr">${c.year}</span>
+      <span class="rk ${rk}">${resTxt[c.result]}</span>
+      <span class="cf ${cf}">${confidence}</span>
+    </div>
+    ${row("类型",c.atype)}
+    ${row("要约价",c.offerPrice)}
+    ${row("比例",c.offerPct)}
+    ${row("收购方",c.aName)}
+    ${row("标的资产",c.tAsset,"c")}
+    ${row("动机",c.tMot,"c")}
+    ${linkHtml(c)}
+  </div>`;
+}).join("");
+
+// ---- 个案卡 ----
+function block(lab,val){return `<div class="b3"><div class="lab">${lab}</div><div class="v">${val}</div></div>`;}
+const casesBox=document.getElementById("cases");
+casesBox.innerHTML=CASES.map(c=>{
+  const rc=resKey[c.result]||"c";
+  return `<div class="case" data-res="${c.result}" data-conf="${c.confidence}">
+    <h3>${c.name} <span class="code">${c.code} · ${c.year}</span>
+      <span class="pill t">${c.atype}</span>
+      <span class="pill ${rc}">${c.result}</span>
+      <span class="pill a">置信·${c.confidence}</span>${c._wait?'<span class="pill w">含待核</span>':''}
+    </h3>
+    <div class="deep">${linkHtml(c)}</div>
+    <div class="two">
+      <div class="party"><div class="ph">被收购方 · ${c.name}<span>背景/资产/动机</span></div>
+        ${block("背景",c.tBG)}${block("资产",c.tAsset)}${block("动机",c.tMot)}
+      </div>
+      <div class="party"><div class="ph">收购方 · ${c.aName}<span>背景/资产/动机</span></div>
+        ${block("背景",c.aBG)}${block("资产",c.aAsset)}${block("动机",c.aMot)}
+      </div>
+    </div>
+    <div class="deal"><b>要约方案：</b>${c.offerPrice} ｜ ${c.offerPct} ｜ ${c.offerShares} ｜ ${c.maxAmount} ｜ 结构：${c.structure} ｜ 公告：${c.announce} ｜ 预受：${c.preaccept}</div>
+  </div>`;
+}).join("");
+
+// ---- 筛选 ----
+document.getElementById("filters").addEventListener("click",e=>{
+  if(e.target.tagName!=="BUTTON")return;
+  [...e.currentTarget.children].forEach(b=>b.classList.remove("active"));
+  e.target.classList.add("active");
+  const f=e.target.dataset.f;
+  const show=el=>(el.dataset.res.startsWith("成功")&&f==="success")||
+    ((el.dataset.res.includes("失败")||el.dataset.res.includes("遇冷"))&&f==="fail")||
+    (el.dataset.res==="进行中"&&f==="ongoing")||
+    ((el.dataset.conf==="待核"||el.dataset.conf==="中"||el.querySelector(".pill.w"))&&f==="wait")||
+    f==="all";
+  [...ovBox.children].forEach(card=>card.style.display=show(card)?"":"none");
+  [...casesBox.children].forEach(card=>card.style.display=show(card)?"":"none");
+});
+</script>
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">📅 要约收购监测：每日 20:15 自动收录新公告（AutoJobsHub） ｜ 2026-08-22 22:42</div>
+</body>
+</html>
