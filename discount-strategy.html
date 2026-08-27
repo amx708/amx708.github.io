@@ -13,9 +13,7 @@ window.addEventListener('error', function(e){
       d.style.cssText='position:fixed;left:0;right:0;top:0;z-index:99999;background:#c0392b;color:#fff;font:13px/1.6 monospace;padding:10px 14px;white-space:pre-wrap;box-shadow:0 2px 8px rgba(0,0,0,.3)';
       (document.body||document.documentElement).appendChild(d);
     }
-    d.textContent='⚠ JS 运行错误：'+(e.message||(e.error&&e.error.message)||e.error)+(e.filename?('
-'+e.filename+':'+e.lineno):'')+'
-请按 Ctrl+Shift+R 硬刷新；若仍报错，按 F12 把此红条截图发我。';
+    d.textContent='⚠ JS 运行错误：'+(e.message||(e.error&&e.error.message)||e.error)+(e.filename?('\n'+e.filename+':'+e.lineno):'')+'\n请按 Ctrl+Shift+R 硬刷新；若仍报错，按 F12 把此红条截图发我。';
   }catch(_){}
 });
 </script>
@@ -572,7 +570,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <span><i style="background:#5a9bd4"></i>IH 上证50</span>
       <span style="margin-left:auto;color:var(--ink3)">横轴 = 年化贴水率，<b>右</b>为贴水（赚），<b>左</b>为升水（亏）。满格 ±10%</span>
     
-    <div class="bars-pro" id="bars-pro">
+    <div class="bars-pro" id="bars-pro"></div>
     <div class="bars-note" style="margin-top:10px">
       <b>专业版读法：</b>中间灰竖线 = <b>0%（无套利中性）</b>；柱子偏离零线<b>越远 = 信号越强</b>。贴水（向右）= 持有到期赚；升水（向左）= 持有到期亏。柱子颜色 = 合约原色，贴水全色、升水降透明度 0.55。这是 Wind / iFinD / 期货研究所通用的画法，能直接看出"曲线倒挂""陡峭化""远月升水"等专业结构。
     
@@ -1665,7 +1663,6 @@ function update(){
 
 update();
 </script>
-
 <script>
 // 自诊断：若测算器脚本未成功执行（下拉为空），给出明确恢复指引
 (function(){
