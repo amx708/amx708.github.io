@@ -4,6 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>贴水策略 · 股指期货吃贴水完整方案</title>
+<script>
+// 全局错误捕获：任何脚本错误都显示红条，避免静默 "—"
+window.addEventListener('error', function(e){
+  try{
+    var d=document.getElementById('__errbanner');
+    if(!d){ d=document.createElement('div'); d.id='__errbanner';
+      d.style.cssText='position:fixed;left:0;right:0;top:0;z-index:99999;background:#c0392b;color:#fff;font:13px/1.6 monospace;padding:10px 14px;white-space:pre-wrap;box-shadow:0 2px 8px rgba(0,0,0,.3)';
+      (document.body||document.documentElement).appendChild(d);
+    }
+    d.textContent='⚠ JS 运行错误：'+(e.message||(e.error&&e.error.message)||e.error)+(e.filename?('
+'+e.filename+':'+e.lineno):'')+'
+请按 Ctrl+Shift+R 硬刷新；若仍报错，按 F12 把此红条截图发我。';
+  }catch(_){}
+});
+</script>
 <style>
 :root{
   --bg:#f5f6f8; --panel:#ffffff; --line:#e3e6ea; --line2:#eef0f3;
@@ -1392,12 +1407,11 @@ document.getElementById("tbl").innerHTML=th;
 
 // ---- selector ----
 const sel=document.getElementById("sel");
-let so="";
+sel.innerHTML="";
 for(const p of ["IM","IC","IF","IH"])for(const c of ["2609","2610","2612","2703"]){
   const r=calc(p,c);
-  so+=`<option value="${p}|${c}">${p}${c} · 年化${r.ann.toFixed(2)}% · ${wan(r.nominal)}</option>`;
+  sel.appendChild(new Option(`${p}${c} · 年化${r.ann.toFixed(2)}% · ${wan(r.nominal)}`, `${p}|${c}`));
 }
-sel.innerHTML=so;
 sel.value="IM|2703";
 
 function update(){
@@ -1650,6 +1664,21 @@ function update(){
 })();
 
 update();
+</script>
+
+<script>
+// 自诊断：若测算器脚本未成功执行（下拉为空），给出明确恢复指引
+(function(){
+  try{
+    var sel=document.getElementById('sel');
+    if(!sel || sel.options.length===0){
+      var d=document.createElement('div');
+      d.style.cssText='margin:14px 0;padding:12px 14px;border:1px solid #c0392b;background:#fdecea;color:#c0392b;border-radius:8px;font-size:13px;line-height:1.7';
+      d.innerHTML='⚠ <b>测算器脚本未成功执行</b>（合约下拉为空）。请：① 按 <b>Ctrl+Shift+R</b> 硬刷新本页；② 若仍为空，按 <b>F12</b> 打开控制台，把红色报错截图发我。';
+      var calc=document.getElementById('calc'); if(calc) calc.appendChild(d);
+    }
+  }catch(_){}
+})();
 </script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
 <div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">📅 数据自动更新：每周一至五 20:15（AutoJobsHub） ｜ 2026-08-26 13:37</div>
