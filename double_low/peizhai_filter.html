@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>配债待发标的筛选表（价值派视角）</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;margin:0;background:#f5f7fa;color:#222;line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding:24px}
+h1{font-size:24px;margin:0 0 4px}
+.sub{color:#888;font-size:13px;margin-bottom:18px}
+h2{font-size:18px;margin:28px 0 12px;border-left:4px solid #c8102e;padding-left:10px}
+.box{background:#fff;border:1px solid #e3e8ef;border-radius:10px;padding:16px 18px;margin:14px 0}
+.box.warn{border-color:#f0a020;background:#fffaf0}
+.box.ok{border-color:#2e9e5b;background:#f1faf4}
+.box.info{border-color:#3b7ddd;background:#f1f6ff}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:13.5px;margin:10px 0}
+th,td{border:1px solid #e3e8ef;padding:8px 10px;text-align:center}
+th{background:#f0f3f7;font-weight:600}
+td.l,th.l{text-align:left}
+.green{color:#2e9e5b;font-weight:700}
+.red{color:#c8102e;font-weight:700}
+.tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:12px;background:#eee}
+.card{background:#fff;border:1px solid #e3e8ef;border-radius:10px;padding:16px;margin:12px 0}
+.card h3{margin:0 0 8px;font-size:16px}
+.kv{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;margin:8px 0}
+.kv b{color:#444}
+code{background:#f0f3f7;padding:1px 5px;border-radius:4px;font-size:12.5px}
+footer{color:#999;font-size:12px;margin-top:30px;border-top:1px solid #e3e8ef;padding-top:14px}
+
+
+  :root{--bg:#f5f7fa;--card:#fff;--ink:#1f2329;--sub:#5a6573;--line:#e4e8ef;
+    --blue:#2b6cb0;--green:#1e7d4f;--red:#c0392b;--amber:#b9770e;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;padding:24px 14px 60px}
+  .wrap{max-width:1280px;margin:0 auto}
+  header{background:linear-gradient(135deg,#2b6cb0,#3b82c4);color:#fff;border-radius:16px;
+    padding:22px 26px;margin-bottom:18px;box-shadow:0 4px 18px rgba(43,108,176,.18)}
+  header h1{font-size:22px;margin-bottom:6px}
+  header p{font-size:13px;opacity:.92}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.06),0 6px 18px rgba(0,0,0,.04)}
+  h2{font-size:17px;color:var(--blue);border-left:4px solid var(--blue);padding-left:10px;margin-bottom:12px}
+  .sub{font-size:12px;color:var(--sub)}
+  .box{background:#fdf3e3;border:1px solid #f0d9a8;border-radius:10px;padding:12px 14px;margin:10px 0;color:var(--amber);font-size:13px}
+  .box.warn{background:#fdecea;border-color:#f5c6c0;color:var(--red)}
+  .box.ok{background:#eaf6ef;border-color:#bfe3cd;color:var(--green)}
+  label{font-size:13px;margin-right:6px}
+  input,select{padding:5px 8px;border:1px solid var(--line);border-radius:7px;font-size:13px;background:#fff;color:var(--ink)}
+  input:focus,select:focus{outline:2px solid #bcdcff;border-color:#2b6cb0}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th,td{border:1px solid var(--line);padding:6px 7px;text-align:center;vertical-align:middle}
+  th{background:#f0f4f9;font-weight:700;position:sticky;top:0}
+  td input,td select{padding:3px 5px;width:100%;border:1px solid #d8dee8;border-radius:5px}
+  .num{text-align:right}
+  .config{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+  .config .val{font-weight:700;color:var(--blue)}
+  .btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:8px 16px;
+    font-size:13px;cursor:pointer;margin-right:8px}
+  .btn:hover{background:#245a96}
+  .btn.ghost{background:#fff;color:var(--blue);border:1px solid var(--blue)}
+  .btn.del{background:#fdecea;color:var(--red);border:1px solid #f5c6c0;padding:4px 10px}
+  .scroll{overflow-x:auto;border-radius:10px;border:1px solid var(--line)}
+  .totals td{font-weight:700;background:#f0f4f9}
+  .warn-row td{background:#fff4f3}
+  footer{text-align:center;color:var(--sub);font-size:12px;margin-top:22px;line-height:1.8}
+  .status-待埋伏{color:var(--sub)}
+  .status-已买入{color:var(--blue);font-weight:700}
+  .status-已缴款{color:var(--amber);font-weight:700}
+  .status-已卖出{color:var(--green);font-weight:700}
+  .status-已放弃{color:var(--red);font-weight:700}
+
+</style>
+<style>
+  :root{--bg:#f5f7fa;--card:#fff;--ink:#1f2329;--sub:#5a6573;--line:#e4e8ef;
+    --blue:#2b6cb0;--green:#1e7d4f;--red:#c0392b;--amber:#b9770e;
+    --green-bg:#eaf6ef;--red-bg:#fdecea;--amber-bg:#fdf3e3;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;padding:28px 16px 60px}
+  .wrap{max-width:1320px;margin:0 auto}
+  header{background:linear-gradient(135deg,#2b6cb0,#3b82c4);color:#fff;border-radius:16px;
+    padding:26px 28px;margin-bottom:22px;box-shadow:0 4px 18px rgba(43,108,176,.18)}
+  header h1{font-size:24px;margin-bottom:8px}
+  header p{font-size:14px;opacity:.92}
+  .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:20px;
+    padding:3px 12px;font-size:12px;margin-top:12px;margin-right:6px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 24px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.06),0 6px 18px rgba(0,0,0,.04)}
+  h2{font-size:18px;color:var(--blue);border-left:4px solid var(--blue);
+    padding-left:10px;margin-bottom:14px}
+  p{font-size:14px;margin-bottom:8px}
+  .sub{font-size:12px;color:var(--sub)}
+  .box{background:var(--amber-bg);border:1px solid #f0d9a8;border-radius:10px;
+    padding:14px 16px;margin:12px 0;color:var(--amber)}
+  .box.warn{background:var(--red-bg);border-color:#f5c6c0;color:var(--red)}
+  .box.ok{background:var(--green-bg);border-color:#bfe3cd;color:var(--green)}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;white-space:nowrap}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:center;vertical-align:middle}
+  th{background:#f0f4f9;color:var(--ink);font-weight:700;position:sticky;top:0}
+  tr:nth-child(even) td{background:#fafbfc}
+  tr:hover td{background:#f0f7ff}
+  .green{color:var(--green);font-weight:700}
+  .red{color:var(--red);font-weight:700}
+  .blue{color:var(--blue);font-weight:700}
+  .tag-pill{display:inline-block;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700}
+  .scroll{overflow-x:auto;border-radius:10px;border:1px solid var(--line)}
+  .legend{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}
+  .legend span{font-size:12px;padding:4px 10px;border-radius:6px}
+  footer{text-align:center;color:var(--sub);font-size:12px;margin-top:24px;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>配债待发标的筛选表 · 价值派视角</h1>
+  <p>数据来源：网络收录的集思录待发转债页；状态为「同意注册」或「上市委通过」，适合埋伏观察。</p>
+  <span class="tag">静态快照 · 动手前请用实时行情复核</span>
+  <span class="tag">安全垫按保守 15% 预期涨幅测算</span>
+  <span class="tag">合理配置按总仓 30 万示例</span>
+</header>
+
+<div class="box ok" style="font-size:13px"><b>本任务全部表格已整合进此页：</b> <a href="#part-value" style="color:#2b6cb0;font-weight:700">⑩ 正股真实安全垫测算</a> ｜ <a href="#part-reg" style="color:#2b6cb0;font-weight:700">⑪ 多账户配债登记表（可填写）</a> <span style="color:#888">（筛选表①~⑨与上表"正股真实入手价"列见上方）</span></div>
+<section>
+  <h2>① 筛选标准（对照你的纪律）</h2>
+  <div class="legend">
+    <span style="background:#eaf6ef;color:#1e7d4f;border:1px solid #bfe3cd">价值：低 PB / 公用事业 / 制造 / 服务，现金流相对稳</span>
+    <span style="background:#fdf3e3;color:#b9770e;border:1px solid #f0d9a8">中性：周期 / 消费 / 传统制造，需进一步尽调</span>
+    <span style="background:#fdecea;color:#c0392b;border:1px solid #f5c6c0">成长：半导体 / 新能源 / 高 PB 题材，与你纪律冲突较大</span>
+  </div>
+  <div class="box ok"><b>可参与条件（需同时满足）：</b> 状态≥上市委通过 + 安全垫≥3% + 正股本身是好资产（价值/中性标签）+ 你有对应板块权限（科创/创业）</div>
+  <div class="box warn"><b>重要提醒：</b>表中价格为网络收录时的静态数据，会随行情实时变动。百元含权、安全垫、所需股数都会变，动手前务必按当前股价重新计算。</div>
+  <div class="box"><b>数据完整度与可继续完善的方向：</b>
+    <p>① <b>主业/行业</b>：本表为常识归纳（网络收录），仅作「是否好资产」初判，动手前请用公司财报/公告复核，不替代基本面研究。</p>
+    <p>② <b>交易权限</b>：由板块直接推导（688=科创板 / 300·301=创业板），无对应权限则无法参与，已逐行标注。</p>
+    <p>③ <b>可选增强（需拉实时数据，待你确认再做）</b>：转债评级(AA/AA-/A+)→安全垫应按评级打折；正股估值分位 / 近1月涨跌→埋伏时点参考；股权质押与减持公告→埋伏期黑天鹅提示。</p>
+  </div>
+</section>
+
+<section>
+  <h2>② 资金怎么算（先看懂再填表）</h2>
+  <div class="box">
+    <p><b>两种配置方案的资金：</b></p>
+    <p><b>方案A 标准配1手</b>：买「配10张所需股数」的正股 → 稳配1手（10张）。正股本金 = 配10张股数 × 正股价（见「配1手正股本金」列）。</p>
+    <p><b>方案B 沪市一手党（最小资金）</b>：仅沪市适用，买「一手党股数」的正股（≈配10张股数的一半），利用尾数进位规则搏1手。本金见「一手党本金」列。深市无此玩法。</p>
+    <p><b>配债缴款（必交）</b>：获配1手需在 T日缴款 <b>1000 元</b>（100元/张 × 10张）。可用 T日卖出正股回款支付。</p>
+    <p><b>总占用</b> ≈ 正股本金 + 1000元缴款；缴款日卖正股回款抵扣缴款，真实冻结≈正股本金（持股期间）+ 上市前冻结的1000元。</p>
+  </div>
+</section>
+
+<section>
+  <h2>③ 合理配置：多少手算合理，超过了就不划算</h2>
+  <div class="box ok">
+    <p><b>三条硬上限（卫星仓定位，绝不破）：</b></p>
+    <p>① <b>单只上限 = 总仓的 5%</b>。超过即单只暴露过大，正股波动一口就吞掉转债收益。</p>
+    <p>② <b>整体配债资金池 ≤ 总仓的 10%</b>（即机动仓的一部分，非主仓）。</p>
+    <p>③ <b>不杠杆、不融资融券</b>。配债缴款用自有现金。</p>
+  </div>
+  <div class="box">
+    <p><b>按安全垫分档配置（超过就不划算）：</b></p>
+    <table style="margin:8px 0">
+      <tr><th>安全垫（15%预期）</th><th>配置比例（占单只上限）</th><th>含义</th></tr>
+      <tr><td class="green">≥ 5%</td><td>100%（配满单只上限）</td><td>安全垫厚，可放心配到上限</td></tr>
+      <tr><td class="amber" style="color:#b9770e;font-weight:700">3% ~ 5%</td><td>50%</td><td>中等安全垫，半仓试探，验证后再说</td></tr>
+      <tr><td class="red">＜ 3%</td><td>0%（不配）</td><td>安全垫太薄，正股随便跌就亏，不划算</td></tr>
+    </table>
+  </div>
+  <div class="box ok"><b>关键区分：此处的「安全垫」≠ 你的「正股安全边际」。</b>
+    <p>① 表里的<b>安全垫</b> = 百元含权 × 15%预期涨幅，衡量的是「正股从买入到 T日 跌多少，转债收益还能兜住」——这是<b>配债套利</b>的缓冲。</p>
+    <p>② 你的<b>安全边际</b> = 正股本身便宜、现金流稳、跌了不怕——这是<b>正股资产</b>的护城河。两者不是一回事。</p>
+    <p>③ 所以「安全垫＜3% → 不配」指的是<b>配债套利仓位归零（别为这点安全垫去抢权）</b>；<b>不代表正股不能买</b>。像申能股份(安全垫0.70%)、玉禾田(2.69%)都是价值标签的好资产，若你本就认可、愿意长拿，正股照买，只是主角是正股不是转债，T日在册顺手缴款拿转债当附赠。</p>
+  </div>
+  <div class="box warn">
+    <p><b>手数换算公式：</b> 建议最多手数 = floor( 单只上限 × 分档比例 ÷ 配1手正股本金 )</p>
+    <p><b>示例（总仓 30 万）：</b>单只上限 = 30万 × 5% = 15,000 元。</p>
+    <p>→ 四方科技（安全垫3.83%→半配，配1手本金3,919）：15,000 × 50% ÷ 3,919 = 1 手。</p>
+    <p>→ 宝钛股份（安全垫3.21%→半配，配1手本金4,697）：15,000 × 50% ÷ 4,697 = 1 手。</p>
+    <p class="sub">注：手数基于「标准配1手」本金测算；若用沪市一手党最小资金，可配手数会更多，但单只总占用仍受 5% 上限约束。总仓不是 30 万时，按同比例缩放即可。</p>
+  </div>
+</section>
+
+<section>
+  <h2>④ 待发标的详细表（按安全垫降序）</h2>
+  <div class="box warn" style="font-size:12px"><b>图例：</b>🟢=实时（申购已公告/已覆盖快照）　⚪=静态快照（待发·日期未定，价格随行情变动，动手前复核）。定量列由「正股价+每股配售额」实时重算；⑤重点/⑧一手党/⑩入手价为 2026-08-30 前人工测算，随④变动可要求刷新。</div>
+    <div class="box warn"><b>今天（2026-08-30）值得配吗？—— 不直接构成"精准配债"窗口。</b> 配债是事件驱动：只有各标的「股权登记日(T-1)」公告出来后，那一天尾盘买/调仓才是标准动作。<b>当前全部为待发阶段（同意注册 / 上市委通过），尚无确定的 T-1 日期</b>，所以今天买入本质是「提前埋伏正股」——前提是它是你好资产 + 你愿意等发债，而非到点配。详见每行「配置时机 / 日期」列，及第⑥节时间轴。</div>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>标的</th>
+          <th>状态</th>
+          <th>配置时机<br>/日期</th>
+          <th>市场</th>
+          <th>主业/行业</th>
+          <th>交易权限</th>
+          <th>发行规模<br>(亿元)</th>
+          <th>正股价<br>(元)</th>
+          <th>正股 PB</th>
+          <th>百元含权<br>(元)</th>
+          <th>每股配售<br>(元)</th>
+          <th>配10张<br>所需股数</th>
+          <th>配1手<br>正股本金(元)</th>
+          <th>一手党<br>股数</th>
+          <th>一手党<br>本金(元)</th>
+          <th>一手党算账<br>(沪市)</th>
+          <th>安全垫<br>(15%)</th>
+          <th>建议手数<br>(30万示例)</th>
+          <th>操作指导<br>(期限/配置/出货)</th>
+          <th>价值派<br>初筛</th>
+          <th>正股真实入手价<br>(2026-08-11测算)</th>
+        </tr>
+      </thead>
+      <tbody>
+    <tr>
+      <td><b>四方科技</b><br><span class="sub">603339</span></td>
+      <td>上市委通过 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">仅过会·未注册，日期更远（连批文无）；先观察，不急于埋伏</td>
+      <td>沪市·主板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">冷链装备/罐式集装箱</td>
+      <td>无（主板直接买）</td>
+      <td>10.23</td>
+      <td>12.94</td>
+      <td>1.54</td>
+      <td><b>25.50</b></td>
+      <td>3.300</td>
+      <td>304</td>
+      <td>3,934</td>
+      <td>200</td>
+      <td>2,588</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">配10张303股→半≈151.5→取整200股；200÷303=0.66手(尾数进位1手)；省+1,332元</td>
+      <td class="green"><b>3.83%</b></td>
+      <td><b>1 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日缴款（正股好资产可长拿，不必T日卖）· 上市首日卖转债</td>
+      <td><span class="tag-pill" style="background:#eaf6ef;color:#1e7d4f;border:1px solid #bfe3cd;">价值</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">等≤11.5现价13.91·偏贵·资产合理价11.5</td>
+    </tr>
+    <tr>
+      <td><b>金杨精密</b><br><span class="sub">301210</span></td>
+      <td>同意注册 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">待发·日期未定。现在买=提前埋伏（赌发债+安全垫）；精准配须等「股权登记日」公告，T-1尾盘买</td>
+      <td>深市·创业板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">电池结构件(圆柱/方形)</td>
+      <td>需创业板权限</td>
+      <td>9.80</td>
+      <td>38.29</td>
+      <td>2.38</td>
+      <td><b>22.32</b></td>
+      <td>8.547</td>
+      <td>118</td>
+      <td>4,518</td>
+      <td>—</td>
+      <td>—</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">深市按张精确配售、无尾数进位 → 无一手党。要稳配1手须买满配10张117股（=「配1手正股本金」栏，省不了沪市那一半）；想配N手就买 N×117股。配多少手看「建议手数」列/第③节安全垫分档。</td>
+      <td class="green"><b>3.35%</b></td>
+      <td><b>1 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（严格快进快出）</td>
+      <td><span class="tag-pill" style="background:#fdecea;color:#c0392b;border:1px solid #f5c6c0;">成长</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    <tr>
+      <td><b>宝钛股份</b><br><span class="sub">600456</span></td>
+      <td>上市委通过 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">仅过会·未注册，日期更远（连批文无）；先观察，不急于埋伏</td>
+      <td>沪市·主板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">钛及钛合金材料</td>
+      <td>无（主板直接买）</td>
+      <td>35.00</td>
+      <td>34.28</td>
+      <td>2.32</td>
+      <td><b>21.29</b></td>
+      <td>7.299</td>
+      <td>138</td>
+      <td>4,731</td>
+      <td>100</td>
+      <td>3,428</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">配10张137股→半≈68.5→取整100股；100÷137=0.73手(尾数进位1手)；省+1,268元</td>
+      <td class="green"><b>3.19%</b></td>
+      <td><b>1 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日缴款（正股好资产可长拿，不必T日卖）· 上市首日卖转债</td>
+      <td><span class="tag-pill" style="background:#eaf6ef;color:#1e7d4f;border:1px solid #bfe3cd;">价值</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">等≤17.8现价28.31·偏贵·周期下行·不为价值买</td>
+    </tr>
+    <tr>
+      <td><b>玉禾田</b><br><span class="sub">300815</span></td>
+      <td>上市委通过 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">仅过会·未注册，日期更远（连批文无）；先观察，不急于埋伏</td>
+      <td>深市·创业板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">环卫服务</td>
+      <td>需创业板权限</td>
+      <td>15.00</td>
+      <td>20.98</td>
+      <td>1.9</td>
+      <td><b>17.92</b></td>
+      <td>3.759</td>
+      <td>267</td>
+      <td>5,602</td>
+      <td>—</td>
+      <td>—</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">深市按张精确配售、无尾数进位 → 无一手党。要稳配1手须买满配10张266股（=「配1手正股本金」栏，省不了沪市那一半）；想配N手就买 N×266股。配多少手看「建议手数」列/第③节安全垫分档。</td>
+      <td class="red"><b>2.69%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日缴款（正股好资产可长拿，不必T日卖）· 上市首日卖转债</td>
+      <td><span class="tag-pill" style="background:#eaf6ef;color:#1e7d4f;border:1px solid #bfe3cd;">价值</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">等≤14.9现价16.53·略贵·等≤14.9更稳</td>
+    </tr>
+    <tr>
+      <td><b>金帝股份</b><br><span class="sub">603270</span></td>
+      <td>上市委通过 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">仅过会·未注册，日期更远（连批文无）；先观察，不急于埋伏</td>
+      <td>沪市·主板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">轴承/精密机械</td>
+      <td>无（主板直接买）</td>
+      <td>9.70</td>
+      <td>25.23</td>
+      <td>2.45</td>
+      <td><b>17.54</b></td>
+      <td>4.425</td>
+      <td>226</td>
+      <td>5,702</td>
+      <td>200</td>
+      <td>5,046</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">配10张226股→半≈113.0→取整200股；200÷226=0.885手(尾数进位1手)；省+655元</td>
+      <td class="red"><b>2.63%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（快出为主）</td>
+      <td><span class="tag-pill" style="background:#f3f4f6;color:#5a6573;border:1px solid #d8dee8;">中性</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    <tr>
+      <td><b>华翔股份</b><br><span class="sub">603112</span></td>
+      <td>上市委通过 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">仅过会·未注册，日期更远（连批文无）；先观察，不急于埋伏</td>
+      <td>沪市·主板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">汽车/家电零部件铸造</td>
+      <td>无（主板直接买）</td>
+      <td>13.01</td>
+      <td>17.27</td>
+      <td>2.16</td>
+      <td><b>13.92</b></td>
+      <td>2.404</td>
+      <td>416</td>
+      <td>7,184</td>
+      <td>300</td>
+      <td>5,181</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">配10张416股→半≈208.0→取整300股；300÷416=0.721手(尾数进位1手)；省+2,003元</td>
+      <td class="red"><b>2.09%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（快出为主）</td>
+      <td><span class="tag-pill" style="background:#f3f4f6;color:#5a6573;border:1px solid #d8dee8;">中性</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    <tr>
+      <td><b>迪威尔</b><br><span class="sub">688377</span></td>
+      <td>同意注册 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">待发·日期未定。现在买=提前埋伏（赌发债+安全垫）；精准配须等「股权登记日」公告，T-1尾盘买</td>
+      <td>沪市·科创板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">油气设备锻件</td>
+      <td>需科创板权限</td>
+      <td>9.08</td>
+      <td>36.85</td>
+      <td>3.85</td>
+      <td><b>12.62</b></td>
+      <td>4.651</td>
+      <td>216</td>
+      <td>7,960</td>
+      <td>200</td>
+      <td>7,370</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">配10张215股→半≈107.5→取整200股；200÷215=0.93手(尾数进位1手)；省+552元</td>
+      <td class="red"><b>1.89%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（快出为主）</td>
+      <td><span class="tag-pill" style="background:#f3f4f6;color:#5a6573;border:1px solid #d8dee8;">中性</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    <tr>
+      <td><b>通合科技</b><br><span class="sub">300491</span></td>
+      <td>上市委通过 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">仅过会·未注册，日期更远（连批文无）；先观察，不急于埋伏</td>
+      <td>深市·创业板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">充电源模块/电力操作电源</td>
+      <td>需创业板权限</td>
+      <td>5.22</td>
+      <td>23.81</td>
+      <td>3.47</td>
+      <td><b>12.46</b></td>
+      <td>2.967</td>
+      <td>338</td>
+      <td>8,048</td>
+      <td>—</td>
+      <td>—</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">深市按张精确配售、无尾数进位 → 无一手党。要稳配1手须买满配10张337股（=「配1手正股本金」栏，省不了沪市那一半）；想配N手就买 N×337股。配多少手看「建议手数」列/第③节安全垫分档。</td>
+      <td class="red"><b>1.87%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（严格快进快出）</td>
+      <td><span class="tag-pill" style="background:#fdecea;color:#c0392b;border:1px solid #f5c6c0;">成长</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    <tr>
+      <td><b>爱科科技</b><br><span class="sub">688092</span></td>
+      <td>同意注册 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">待发·日期未定。现在买=提前埋伏（赌发债+安全垫）；精准配须等「股权登记日」公告，T-1尾盘买</td>
+      <td>沪市·科创板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">智能切割设备</td>
+      <td>需科创板权限</td>
+      <td>2.67</td>
+      <td>29.39</td>
+      <td>3.74</td>
+      <td><b>10.98</b></td>
+      <td>3.226</td>
+      <td>310</td>
+      <td>9,111</td>
+      <td>200</td>
+      <td>5,878</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">配10张310股→半≈155.0→取整200股；200÷310=0.645手(尾数进位1手)；省+3,232元</td>
+      <td class="red"><b>1.65%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（严格快进快出）</td>
+      <td><span class="tag-pill" style="background:#fdecea;color:#c0392b;border:1px solid #f5c6c0;">成长</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    <tr>
+      <td><b>南芯科技</b><br><span class="sub">688484</span></td>
+      <td>上市委通过 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">仅过会·未注册，日期更远（连批文无）；先观察，不急于埋伏</td>
+      <td>沪市·科创板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">电源管理芯片</td>
+      <td>需科创板权限</td>
+      <td>15.87</td>
+      <td>36.00</td>
+      <td>3.77</td>
+      <td><b>10.29</b></td>
+      <td>3.704</td>
+      <td>270</td>
+      <td>9,720</td>
+      <td>200</td>
+      <td>7,200</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">配10张270股→半≈135.0→取整200股；200÷270=0.741手(尾数进位1手)；省+2,520元</td>
+      <td class="red"><b>1.54%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（严格快进快出）</td>
+      <td><span class="tag-pill" style="background:#fdecea;color:#c0392b;border:1px solid #f5c6c0;">成长</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    <tr>
+      <td><b>盛德鑫泰</b><br><span class="sub">300881</span></td>
+      <td>上市委通过 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">仅过会·未注册，日期更远（连批文无）；先观察，不急于埋伏</td>
+      <td>深市·创业板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">能源用无缝钢管</td>
+      <td>需创业板权限</td>
+      <td>4.40</td>
+      <td>44.25</td>
+      <td>4.45</td>
+      <td><b>9.04</b></td>
+      <td>4.000</td>
+      <td>250</td>
+      <td>11,062</td>
+      <td>—</td>
+      <td>—</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">深市按张精确配售、无尾数进位 → 无一手党。要稳配1手须买满配10张250股（=「配1手正股本金」栏，省不了沪市那一半）；想配N手就买 N×250股。配多少手看「建议手数」列/第③节安全垫分档。</td>
+      <td class="red"><b>1.36%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（快出为主）</td>
+      <td><span class="tag-pill" style="background:#f3f4f6;color:#5a6573;border:1px solid #d8dee8;">中性</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    <tr>
+      <td><b>金三江</b><br><span class="sub">301059</span></td>
+      <td>同意注册 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">待发·日期未定。现在买=提前埋伏（赌发债+安全垫）；精准配须等「股权登记日」公告，T-1尾盘买</td>
+      <td>深市·创业板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">牙膏用二氧化硅(消费材料)</td>
+      <td>需创业板权限</td>
+      <td>2.90</td>
+      <td>13.91</td>
+      <td>5.26</td>
+      <td><b>9.01</b></td>
+      <td>1.253</td>
+      <td>799</td>
+      <td>11,114</td>
+      <td>—</td>
+      <td>—</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">深市按张精确配售、无尾数进位 → 无一手党。要稳配1手须买满配10张798股（=「配1手正股本金」栏，省不了沪市那一半）；想配N手就买 N×798股。配多少手看「建议手数」列/第③节安全垫分档。</td>
+      <td class="red"><b>1.35%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（严格快进快出）</td>
+      <td><span class="tag-pill" style="background:#fdecea;color:#c0392b;border:1px solid #f5c6c0;">成长</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    <tr>
+      <td><b>本川智能</b><br><span class="sub">300964</span></td>
+      <td>同意注册 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">待发·日期未定。现在买=提前埋伏（赌发债+安全垫）；精准配须等「股权登记日」公告，T-1尾盘买</td>
+      <td>深市·创业板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">PCB/通信电路板</td>
+      <td>需创业板权限</td>
+      <td>4.69</td>
+      <td>75.06</td>
+      <td>5.59</td>
+      <td><b>8.17</b></td>
+      <td>6.135</td>
+      <td>163</td>
+      <td>12,235</td>
+      <td>—</td>
+      <td>—</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">深市按张精确配售、无尾数进位 → 无一手党。要稳配1手须买满配10张163股（=「配1手正股本金」栏，省不了沪市那一半）；想配N手就买 N×163股。配多少手看「建议手数」列/第③节安全垫分档。</td>
+      <td class="red"><b>1.23%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（严格快进快出）</td>
+      <td><span class="tag-pill" style="background:#fdecea;color:#c0392b;border:1px solid #f5c6c0;">成长</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    <tr>
+      <td><b>奥士康</b><br><span class="sub">002913</span></td>
+      <td>同意注册 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">待发·日期未定。现在买=提前埋伏（赌发债+安全垫）；精准配须等「股权登记日」公告，T-1尾盘买</td>
+      <td>深市·主板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">PCB印制电路板</td>
+      <td>无（主板直接买）</td>
+      <td>10.00</td>
+      <td>49.71</td>
+      <td>3.58</td>
+      <td><b>6.33</b></td>
+      <td>3.145</td>
+      <td>318</td>
+      <td>15,808</td>
+      <td>—</td>
+      <td>—</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">深市按张精确配售、无尾数进位 → 无一手党。要稳配1手须买满配10张318股（=「配1手正股本金」栏，省不了沪市那一半）；想配N手就买 N×318股。配多少手看「建议手数」列/第③节安全垫分档。</td>
+      <td class="red"><b>0.95%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（快出为主）</td>
+      <td><span class="tag-pill" style="background:#f3f4f6;color:#5a6573;border:1px solid #d8dee8;">中性</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    <tr>
+      <td><b>斯达半导</b><br><span class="sub">603290</span></td>
+      <td>同意注册 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">待发·日期未定。现在买=提前埋伏（赌发债+安全垫）；精准配须等「股权登记日」公告，T-1尾盘买</td>
+      <td>沪市·主板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">IGBT功率半导体</td>
+      <td>无（主板直接买）</td>
+      <td>15.00</td>
+      <td>100.59</td>
+      <td>3.48</td>
+      <td><b>6.21</b></td>
+      <td>6.250</td>
+      <td>160</td>
+      <td>16,094</td>
+      <td>100</td>
+      <td>10,059</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">配10张160股→半≈80.0→取整100股；100÷160=0.625手(尾数进位1手)；省+6,035元</td>
+      <td class="red"><b>0.93%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（严格快进快出）</td>
+      <td><span class="tag-pill" style="background:#fdecea;color:#c0392b;border:1px solid #f5c6c0;">成长</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    <tr>
+      <td><b>春风动力</b><br><span class="sub">603129</span></td>
+      <td>同意注册 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">待发·日期未定。现在买=提前埋伏（赌发债+安全垫）；精准配须等「股权登记日」公告，T-1尾盘买</td>
+      <td>沪市·主板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">全地形车/摩托车</td>
+      <td>无（主板直接买）</td>
+      <td>21.79</td>
+      <td>245.90</td>
+      <td>5.24</td>
+      <td><b>5.73</b></td>
+      <td>14.085</td>
+      <td>71</td>
+      <td>17,459</td>
+      <td>100</td>
+      <td>24,590</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">pei10=71<100，强制买100股(最小单位)，无一手党优势，反多7,131元</td>
+      <td class="red"><b>0.86%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（快出为主）</td>
+      <td><span class="tag-pill" style="background:#f3f4f6;color:#5a6573;border:1px solid #d8dee8;">中性</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    <tr>
+      <td><b>申能股份</b><br><span class="sub">600642</span></td>
+      <td>同意注册 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">待发·日期未定。现在买=提前埋伏（赌发债+安全垫）；精准配须等「股权登记日」公告，T-1尾盘买</td>
+      <td>沪市·主板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">电力/燃气公用事业</td>
+      <td>无（主板直接买）</td>
+      <td>20.00</td>
+      <td>8.79</td>
+      <td>1.05</td>
+      <td><b>4.65</b></td>
+      <td>0.409</td>
+      <td>2445</td>
+      <td>21,492</td>
+      <td>1300</td>
+      <td>11,427</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">配10张2447股→半≈1223.5→取整1300股；1300÷2447=0.531手(尾数进位1手)；省+10,082元</td>
+      <td class="red"><b>0.70%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日缴款（正股好资产可长拿，不必T日卖）· 上市首日卖转债</td>
+      <td><span class="tag-pill" style="background:#eaf6ef;color:#1e7d4f;border:1px solid #bfe3cd;">价值</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">≤7.30 可入现价8.47·现价甜区·跌到7.3破净加仓</td>
+    </tr>
+    <tr>
+      <td><b>华峰测控</b><br><span class="sub">688200</span></td>
+      <td>同意注册 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">待发·日期未定。现在买=提前埋伏（赌发债+安全垫）；精准配须等「股权登记日」公告，T-1尾盘买</td>
+      <td>沪市·科创板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">半导体测试设备</td>
+      <td>需科创板权限</td>
+      <td>7.49</td>
+      <td>279.59</td>
+      <td>9.77</td>
+      <td><b>1.98</b></td>
+      <td>5.525</td>
+      <td>181</td>
+      <td>50,606</td>
+      <td>100</td>
+      <td>27,959</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">配10张181股→半≈90.5→取整100股；100÷181=0.552手(尾数进位1手)；省+22,646元</td>
+      <td class="red"><b>0.30%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（严格快进快出）</td>
+      <td><span class="tag-pill" style="background:#fdecea;color:#c0392b;border:1px solid #f5c6c0;">成长</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    <tr>
+      <td><b>珂玛科技</b><br><span class="sub">301611</span></td>
+      <td>同意注册 <span style="font-size:10px;color:#9ca3af">⚪</span></td>
+      <td style="text-align:left;white-space:normal;min-width:230px">待发·日期未定。现在买=提前埋伏（赌发债+安全垫）；精准配须等「股权登记日」公告，T-1尾盘买</td>
+      <td>深市·创业板</td>
+      <td style="text-align:left;white-space:normal;min-width:130px">半导体陶瓷部件</td>
+      <td>需创业板权限</td>
+      <td>7.50</td>
+      <td>96.22</td>
+      <td>24.29</td>
+      <td><b>1.79</b></td>
+      <td>1.721</td>
+      <td>582</td>
+      <td>56,000</td>
+      <td>—</td>
+      <td>—</td>
+      <td style="text-align:left;white-space:normal;min-width:260px">深市按张精确配售、无尾数进位 → 无一手党。要稳配1手须买满配10张581股（=「配1手正股本金」栏，省不了沪市那一半）；想配N手就买 N×581股。配多少手看「建议手数」列/第③节安全垫分档。</td>
+      <td class="red"><b>0.27%</b></td>
+      <td><b>0 手</b></td>
+      <td style="text-align:left;white-space:normal;min-width:210px">T-1尾盘买 · T日卖正股+缴款 · 上市首日卖转债（严格快进快出）</td>
+      <td><span class="tag-pill" style="background:#fdecea;color:#c0392b;border:1px solid #f5c6c0;">成长</span></td>
+      <td style="text-align:left;white-space:normal;min-width:150px">—快出·不按价值买</td>
+    </tr>
+    </tbody>
+    </table>
+  </div>
+  <div class="box"><b>正股真实入手价说明：</b>该列仅对「价值」标签的 4 只（申能 / 四方 / 宝钛 / 玉禾田）做了价值法测算，基于 <b>2026-08-11 实时行情</b>（现价 / PB / 股息率，三锚定法：资产 BPS×目标PB、股息 DPS÷目标股息率、格雷厄姆数），完整推导见《正股真实安全垫_入手价测算.html》。中性 / 成长标的为事件套利（快进快出），不按价值定价，故标「—」。注意：本表其余价格列为网络收录静态快照，与实时测算时点不同，<b>动手前请以实时行情复核</b>。</div>
+</section>
+
+<section>
+  <h2>⑤ 重点标的合理配置速览（安全垫≥3% 且 价值/中性）</h2>
+<table><tr><th>标的</th><th>状态</th><th>市场</th><th>安全垫</th><th>配1手本金</th><th>分档比例</th><th>建议手数(30万示例)</th><th>价值派看点</th></tr><tr><td><b>四方科技</b><br><span class='sub'>603339</span></td><td>上市委通过</td><td>沪市·主板</td><td class='green'><b>3.83%</b></td><td>3,921</td><td>50%</td><td class='blue'><b>1 手</b></td><td style='text-align:left'>沪市，冷链装备，PB1.54偏低，需看现金流稳定性</td></tr><tr><td><b>宝钛股份</b><br><span class='sub'>600456</span></td><td>上市委通过</td><td>沪市·主板</td><td class='green'><b>3.21%</b></td><td>4,696</td><td>50%</td><td class='blue'><b>1 手</b></td><td style='text-align:left'>沪市，钛材硬资产，PB2.32，周期属性注意</td></tr></table>
+</section>
+
+<section>
+  <h2>⑥ 3个知道操作指导：期限 · 配置 · 出手时机</h2>
+  <div class="cards">
+    <div class="card"><div class="t">知道① 期限</div><div class="d">一轮周期≈1个月：正股只持1天(T-1→T)，缴款冻约1个月。批文主板12个月/双创6个月有效，快进快出者不提前埋伏。</div></div>
+    <div class="card"><div class="t">知道② 配置</div><div class="d">唯一硬时点=T-1(股权登记日)收盘前持股在册。最优买点=T-1尾盘(14:30后)，持股最短、风险最小。</div></div>
+    <div class="card"><div class="t">知道③ 出手</div><div class="d">正股T日开盘卖；转债上市首日卖。正股跌超安全垫认亏，不补仓摊薄。</div></div>
+  </div>
+  <div class="timeline">
+    <div class="step"><div class="badge">T-2<br><small>公告</small></div><div class="body"><b>发行公告出炉</b>：明确股权登记日(T-1)、每股配售额、申购日(T)。发令枪，确定配置日。</div></div>
+    <div class="step"><div class="badge">T-1<br><small>配置</small></div><div class="body"><b>股权登记日尾盘买入正股</b>(14:30后)，持股到收盘→自动获配债权。配置唯一硬时点，错过即无券。</div></div>
+    <div class="step"><div class="badge">T<br><small>缴款+出货</small></div><div class="body"><b>两步同做</b>：①点"XX配债"买入/缴款(1000元/手)；②<b>开盘即卖正股</b>。正股持股仅1天，回款抵扣缴款。</div></div>
+    <div class="step"><div class="badge">T+20~30<br><small>上市</small></div><div class="body"><b>转债上市首日卖出</b>(历史首日收益最高)。一轮结束，资金释放接下一只。</div></div>
+  </div>
+  <div class="box"><b>资金合理利用（快进快出）</b>：单只占用=正股本金(1天)+缴款1000元(冻1月)；多标的轮动不闲置，一年可周转多轮；整体配债池≤总仓10%、单只≤5%；绝不为了周转碰题材股/杠杆。</div>
+  <div class="box ok"><b>价值派修正</b>：若正股本身是好资产(低PB、现金流稳)，正股<b>可不卖、长期持有</b>，只卖转债——配债变"附赠安全垫"，正股跌了也无所谓；题材/高估值正股则严格按上面快进快出。</div>
+</section>
+
+<section>
+  <h2>⑦ 计算口径说明</h2>
+  <ul style="margin-left:20px;font-size:13.5px">
+    <li>百元含权 = 每股配售额 ÷ 正股价 × 100，表中已取自网络收录。</li>
+    <li>每股配售额 = 1000 ÷ 配10张所需股数（由含权/股价反推，与公告一致）。</li>
+    <li>安全垫 = 百元含权 × 15% ÷ 100，代表正股最多跌多少这笔不亏（保守预期涨幅 15%）。</li>
+    <li>配1手正股本金 = 配10张所需股数 × 正股价（标准方案，稳配1手）。</li>
+    <li>一手党股数仅适用于沪市：取「配10张股数×0.5」向上取整到100股；本金=股数×正股价。</li>
+    <li>建议手数 = floor(总仓5% × 分档比例 ÷ 配1手正股本金)；总仓非30万时按同比例缩放。</li>
+    <li>深市按张精确配售，无四舍五入，一手党不适用。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>⑧ 沪市一手党：为什么几百股就能配1手</h2>
+  <div class="box">
+    <p><b>机制（仅沪市，深市无）：</b>沪市转债配售用「精确算法」——先按手数向下取整，剩下不足1手的零股（尾数）按尾数大小排序，<b>尾数大的优先补1手</b>。所以只要买到「配10张股数 × 0.5」附近（向上取整到100股），尾数就能≥0.5，几乎稳进1手；本金≈标准方案的一半。</p>
+    <p><b>公式：</b>一手党股数 = max(100, ceil(配10张股数 × 0.5 ÷ 100) × 100)。预计获配手数 ≈ 一手党股数 ÷ 配10张股数。</p>
+    <p class="sub">注：当「配10张股数」本身＜100 时（如春风动力 pei10=71），一手党被强制为最小交易单位100股，反而比标准理论方案贵——此时一手党不省钱（见下表春风动力，节省额显示为负）。</p>
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr>
+        <th>沪市标的</th><th>配10张<br>所需股数</th><th>每股配售<br>(元)</th><th>一手党<br>股数</th>
+        <th>一手党<br>本金(元)</th><th>预计获配<br>(含尾数进位)</th><th>较标准方案<br>省(元)</th>
+      </tr></thead>
+      <tbody><tr><td><b>春风动力</b><br><span class='sub'>603129</span></td><td>71</td><td>14.085</td><td>100</td><td>24,590</td><td>1.408 手</td><td class='red'>-7,131</td></tr><tr><td><b>宝钛股份</b><br><span class='sub'>600456</span></td><td>137</td><td>7.299</td><td>100</td><td>3,428</td><td>0.73 手</td><td class='green'>+1,268</td></tr><tr><td><b>斯达半导</b><br><span class='sub'>603290</span></td><td>160</td><td>6.25</td><td>100</td><td>10,059</td><td>0.625 手</td><td class='green'>+6,035</td></tr><tr><td><b>华峰测控</b><br><span class='sub'>688200</span></td><td>181</td><td>5.525</td><td>100</td><td>27,959</td><td>0.552 手</td><td class='green'>+22,646</td></tr><tr><td><b>迪威尔</b><br><span class='sub'>688377</span></td><td>215</td><td>4.651</td><td>200</td><td>7,370</td><td>0.93 手</td><td class='green'>+552</td></tr><tr><td><b>金帝股份</b><br><span class='sub'>603270</span></td><td>226</td><td>4.425</td><td>200</td><td>5,046</td><td>0.885 手</td><td class='green'>+655</td></tr><tr><td><b>南芯科技</b><br><span class='sub'>688484</span></td><td>270</td><td>3.704</td><td>200</td><td>7,200</td><td>0.741 手</td><td class='green'>+2,520</td></tr><tr><td><b>四方科技</b><br><span class='sub'>603339</span></td><td>303</td><td>3.3</td><td>200</td><td>2,588</td><td>0.66 手</td><td class='green'>+1,332</td></tr><tr><td><b>爱科科技</b><br><span class='sub'>688092</span></td><td>310</td><td>3.226</td><td>200</td><td>5,878</td><td>0.645 手</td><td class='green'>+3,232</td></tr><tr><td><b>华翔股份</b><br><span class='sub'>603112</span></td><td>416</td><td>2.404</td><td>300</td><td>5,181</td><td>0.721 手</td><td class='green'>+2,003</td></tr><tr><td><b>申能股份</b><br><span class='sub'>600642</span></td><td>2447</td><td>0.409</td><td>1300</td><td>11,427</td><td>0.531 手</td><td class='green'>+10,082</td></tr></tbody>
+    </table>
+  </div>
+  <div class="box ok">
+    <p><b>两个重点案例：</b></p>
+    <p><b>四方科技(603339)</b>：配10张需 303 股。一半≈151.5股，向上取整到100股 = <b>200股</b>。200÷303=0.66手，尾数0.66够大→进1手。标准方案要303股(本金3,919)，一手党200股(本金2,588)，省约1,331元。</p>
+    <p><b>宝钛股份(600456)</b>：配10张需 137 股。一半≈68.5股，但A股最小买100股(1手)，故一手党 = <b>100股</b>。100÷137=0.73手，尾数0.73→进1手。标准方案要137股(本金4,697)，一手党100股(本金3,428)，省约1,269元。</p>
+  </div>
+  <div class="box warn"><b>深市不适用：</b>深市按张精确配售、无尾数进位玩法，要稳配1手必须买满「配10张所需股数」，没有迷你资金版本。表中深市标的的「一手党股数/本金」列显示「—」即为此因。</div>
+</section>
+
+<section>
+  <h2>⑨ 多账户操作建议（价值派视角）</h2>
+  <div class="box"><b>多账户对配债有用吗？—— 看市场。</b>
+    <p>① <b>沪市一手党 + 多账户 = 真有用</b>：沪市按账户独立算「尾数进位」。把一笔大资金拆成多个账户、各买最小一手党 lot，每个账户都能各自搏到 1 手进位。例：单账户买 2000 股可能只进位若干次；拆成 10 个账户各买 200 股，各进位 1 手 → 约 10 手，获配总数明显更多。</p>
+    <p>② <b>深市拆户没用</b>：深市按张精确、无尾数进位，总获配只与「总股数」有关，与账户数无关。深市多账户仅在你做「单只上限分散管理」时有点用，不增加获配。</p>
+  </div>
+  <div class="box warn"><b>纪律护栏（多账户不能突破）：</b>
+    <p>① <b>总闸不变</b>：所有账户合计仍守 单只≤总仓 5% + 配债池≤总仓 10%。按「全家总仓」算，不是按单账户。</p>
+    <p>② <b>只用普通账户</b>（本人 / 配偶 / 父母）。<b>禁两融 / 信用账户</b>——那等于杠杆，触你红线。</p>
+    <p>③ <b>账户数 2–3 个足够</b>。再多操作失误率上升，一手党边际收益递减，不划算。</p>
+    <p>④ <b>不借无关第三人账户</b>（实名 / 反洗钱风险）。</p>
+  </div>
+  <div class="box ok"><b>实操要点：</b>
+    <p>① 每个账户各自跑「一手党最小资金」，T日各自缴款、上市首日各自卖转债。</p>
+    <p>② 用一张表登记各账户：标的 / 股数 / 缴款额 / 上市卖点，<b>漏缴 = 放弃获配且白占资金</b>，多账户最易栽在这。</p>
+    <p>③ <b>税务</b>：可转债个人收益目前免税，多账户无税负劣势。</p>
+    <p class="sub">注：本表「建议手数」按单账户示例测算；多账户时把单只上限按账户数切分、各自跑一手党即可，总获配会更高，但总占用仍受 5% / 10% 双闸约束。</p>
+  </div>
+</section>
+
+<footer>
+  本表为数据整理与流程演示，所有价格、含权、安全垫均取自网络收录的静态快照，会随行情变动，以公司最新公告为准。<br>
+  <strong>以上为数据与方法整理，不构成投资建议，亏损可能，决策请自行判断。</strong>
+</footer>
+</div>
+<section id="part-value"><h2>⑩ 正股真实安全垫 · 入手价测算（与④表"正股真实入手价"列对应，三锚定法明细）</h2><div class="wrap">
+<h1>正股真实安全垫 · 入手价测算</h1>
+<div class="sub">数据日期 2026-08-11 ｜ 来源：腾讯行情 + 东方财富F10分红公告 + 行情指标(股息率TTM) ｜ 价值派视角</div>
+
+<div class="box warn">
+<b>先厘清：这是两种完全不同的"安全垫"</b><br>
+· <b>配债安全垫</b>（之前表里的）= 百元含权 × 预期涨幅，衡量"正股跌多少，转债收益还能兜住"——是<b>配债套利</b>的缓冲。<br>
+· <b>正股安全边际</b>（本表）= 股价相对内在价值(资产/股息/盈利)的折扣，衡量"这只股票本身便不便宜"——是<b>资产质量</b>的护城河。<br>
+<b>两者不是一回事。</b> 四方/宝钛的配债安全垫看着高(20%+)，但那是"转债收益对冲正股波动"；正股本身按价值法算，未必便宜。下面用三法算"正股到底便不便宜、什么价该入手"。
+</div>
+
+<h2>测算方法（三锚定法）</h2>
+<div class="box info">
+<b>① 资产锚（账面价值法）</b>：安全价₁ = 每股净资产 BPS × 目标PB。BPS = 现价 ÷ PB。防御/公用事业目标PB≈1.0（买在净值附近），制造/服务≈1.2~1.3，周期股再打折。<br>
+<b>② 股息锚（股息率法）</b>：安全价₂ = 每股分红 DPS ÷ 目标股息率。公用事业目标≈5%，其他≈3~3.5%（无风险利率+溢价）。<br>
+<b>③ 格雷厄姆数（盈利+资产法）</b>：GN = 现价 × √(22.5 ÷ (PE×PB))，即 PE×PB=22.5 时的"合理价"。保守买点取 GN×0.7。<br>
+<b>结论口径</b>：取三法<b>最保守价</b>为"综合保守入手价"；现价低于它=三法都认可(便宜)，高于它=至少一法认为偏贵。下方逐股给"建议入手区间"。
+</div>
+
+<h2>主表：4 只价值标的 · 三法入手价对照</h2>
+<div class="box">
+<table>
+<tr><th class="l">标的</th><th>现价</th><th>PB</th><th>静PE</th><th>股息率</th>
+<th>资产法<br>入手价</th><th>股息法<br>入手价</th><th>格雷厄姆<br>合理价(GN)</th><th>综合保守<br>入手价</th><th>正股<br>安全垫</th><th class="l">结论</th></tr>
+<tr>
+<td class="l"><b>申能股份</b><br><span class="tag">600642</span></td>
+<td><b>8.47</b></td>
+<td>1.16</td><td>10.94</td><td>5.44%</td>
+<td>7.30</td>
+<td>9.20</td>
+<td>11.28</td>
+<td><b>7.30</b></td>
+<td class="red">-13.8%</td>
+<td class="l"><span class="green">✅ 可入手</span><br>股息已达标，现价即甜区</td></tr><tr>
+<td class="l"><b>四方科技</b><br><span class="tag">603339</span></td>
+<td><b>13.91</b></td>
+<td>1.57</td><td>25.12</td><td>1.08%</td>
+<td>11.52</td>
+<td>5.00</td>
+<td>10.51</td>
+<td><b>5.00</b></td>
+<td class="red">-64.1%</td>
+<td class="l"><span class="red">⏳ 偏贵</span><br>等≤11.5</td></tr><tr>
+<td class="l"><b>宝钛股份</b><br><span class="tag">600456</span></td>
+<td><b>28.31</b></td>
+<td>1.91</td><td>35.72</td><td>1.06%</td>
+<td>17.79</td>
+<td>10.00</td>
+<td>16.26</td>
+<td><b>10.00</b></td>
+<td class="red">-64.7%</td>
+<td class="l"><span class="red">⛔ 偏贵</span><br>不为价值买</td></tr><tr>
+<td class="l"><b>玉禾田</b><br><span class="tag">300815</span></td>
+<td><b>16.53</b></td>
+<td>1.44</td><td>11.74</td><td>2.09%</td>
+<td>14.92</td>
+<td>9.89</td>
+<td>19.07</td>
+<td><b>9.89</b></td>
+<td class="red">-40.2%</td>
+<td class="l"><span class="red">⏳ 略贵</span><br>等≤14.9更稳</td></tr></table></div>
+<div class="card">
+<h3>申能股份（600642）· 电力/燃气 公用事业(防御)</h3>
+<div class="kv">
+<span>现价 <b>8.47</b></span>
+<span>PB <b>1.16</b></span>
+<span>静PE <b>10.94</b></span>
+<span>每股净资产BPS <b>7.30</b></span>
+<span>每股分红 <b>0.46</b></span>
+<span>股息率 <b>5.44%</b></span>
+</div>
+<table>
+<tr><th class="l">方法</th><th>公式/参数</th><th>出手价</th><th>现价相对</th></tr>
+<tr><td class="l">资产法</td><td class="l">BPS 7.30 × 目标PB 1.0</td><td><b>7.30</b></td><td class="red">-13.8%</td></tr>
+<tr><td class="l">股息法</td><td class="l">DPS 0.46 ÷ 目标股息率 5%</td><td><b>9.20</b></td><td class="green">+8.6%</td></tr>
+<tr><td class="l">格雷厄姆</td><td class="l">GN = 现价×√(22.5/(PE×PB))，保守×0.7</td><td><b>11.28</b> <span style="color:#999">(保守7.89)</span></td><td class="green">+33.2%</td></tr>
+</table>
+<p style="margin:10px 0 0;font-size:13.5px"><b>入手价判断：</b>高股息公用事业，盈利稳定，破净即黄金买点。建议入手区间 <b>7.30</b> ~ <b>11.28</b>（保守→格雷厄姆合理）；现价 <b>8.47</b> 处于偏贵区。</p>
+</div>
+
+<div class="card">
+<h3>四方科技（603339）· 冷链装备/罐箱制造(小盘制造)</h3>
+<div class="kv">
+<span>现价 <b>13.91</b></span>
+<span>PB <b>1.57</b></span>
+<span>静PE <b>25.12</b></span>
+<span>每股净资产BPS <b>8.86</b></span>
+<span>每股分红 <b>0.15</b></span>
+<span>股息率 <b>1.08%</b></span>
+</div>
+<table>
+<tr><th class="l">方法</th><th>公式/参数</th><th>出手价</th><th>现价相对</th></tr>
+<tr><td class="l">资产法</td><td class="l">BPS 8.86 × 目标PB 1.3</td><td><b>11.52</b></td><td class="red">-17.2%</td></tr>
+<tr><td class="l">股息法</td><td class="l">DPS 0.15 ÷ 目标股息率 3%</td><td><b>5.00</b></td><td class="red">-64.1%</td></tr>
+<tr><td class="l">格雷厄姆</td><td class="l">GN = 现价×√(22.5/(PE×PB))，保守×0.7</td><td><b>10.51</b> <span style="color:#999">(保守7.35)</span></td><td class="red">-24.5%</td></tr>
+</table>
+<p style="margin:10px 0 0;font-size:13.5px"><b>入手价判断：</b>制造小盘，分红薄，靠资产法与格雷厄姆定价。建议入手区间 <b>5.00</b> ~ <b>10.51</b>（保守→格雷厄姆合理）；现价 <b>13.91</b> 处于偏贵区。</p>
+</div>
+
+<div class="card">
+<h3>宝钛股份（600456）· 钛材(强周期新材料)</h3>
+<div class="kv">
+<span>现价 <b>28.31</b></span>
+<span>PB <b>1.91</b></span>
+<span>静PE <b>35.72</b></span>
+<span>每股净资产BPS <b>14.82</b></span>
+<span>每股分红 <b>0.3</b></span>
+<span>股息率 <b>1.06%</b></span>
+</div>
+<table>
+<tr><th class="l">方法</th><th>公式/参数</th><th>出手价</th><th>现价相对</th></tr>
+<tr><td class="l">资产法</td><td class="l">BPS 14.82 × 目标PB 1.2</td><td><b>17.79</b></td><td class="red">-37.2%</td></tr>
+<tr><td class="l">股息法</td><td class="l">DPS 0.3 ÷ 目标股息率 3%</td><td><b>10.00</b></td><td class="red">-64.7%</td></tr>
+<tr><td class="l">格雷厄姆</td><td class="l">GN = 现价×√(22.5/(PE×PB))，保守×0.7</td><td><b>16.26</b> <span style="color:#999">(保守11.38)</span></td><td class="red">-42.6%</td></tr>
+</table>
+<p style="margin:10px 0 0;font-size:13.5px"><b>入手价判断：</b>周期下行(2025净利-30%)，分红砍半，估值偏贵。建议入手区间 <b>10.00</b> ~ <b>16.26</b>（保守→格雷厄姆合理）；现价 <b>28.31</b> 处于偏贵区。</p>
+</div>
+
+<div class="card">
+<h3>玉禾田（300815）· 环卫服务(稳定现金流)</h3>
+<div class="kv">
+<span>现价 <b>16.53</b></span>
+<span>PB <b>1.44</b></span>
+<span>静PE <b>11.74</b></span>
+<span>每股净资产BPS <b>11.48</b></span>
+<span>每股分红 <b>0.346</b></span>
+<span>股息率 <b>2.09%</b></span>
+</div>
+<table>
+<tr><th class="l">方法</th><th>公式/参数</th><th>出手价</th><th>现价相对</th></tr>
+<tr><td class="l">资产法</td><td class="l">BPS 11.48 × 目标PB 1.3</td><td><b>14.92</b></td><td class="red">-9.7%</td></tr>
+<tr><td class="l">股息法</td><td class="l">DPS 0.346 ÷ 目标股息率 3%</td><td><b>9.89</b></td><td class="red">-40.2%</td></tr>
+<tr><td class="l">格雷厄姆</td><td class="l">GN = 现价×√(22.5/(PE×PB))，保守×0.7</td><td><b>19.07</b> <span style="color:#999">(保守13.35)</span></td><td class="green">+15.4%</td></tr>
+</table>
+<p style="margin:10px 0 0;font-size:13.5px"><b>入手价判断：</b>现金流稳定但增长放缓，分红率仅25%。建议入手区间 <b>9.89</b> ~ <b>19.07</b>（保守→格雷厄姆合理）；现价 <b>16.53</b> 处于偏贵区。</p>
+</div>
+
+<h2>与配债表的衔接：安全垫高 ≠ 股票便宜</h2>
+<div class="box">
+<table>
+<tr><th class="l">标的</th><th>配债安全垫(原表)</th><th>正股安全边际(本表)</th><th class="l">配债操作含义</th></tr>
+<tr><td class="l">申能股份</td><td>0.70%（低）</td><td><span class="green">正股便宜+高股息</span></td><td class="l">最稳：好资产上附赠期权，正股可长拿，T日只缴款</td></tr>
+<tr><td class="l">四方科技</td><td>3.83%（中）</td><td><span class="red">正股偏贵~合理</span></td><td class="l">配债安全垫是主吸引力；正股波动风险中等，套利部分T日卖</td></tr>
+<tr><td class="l">宝钛股份</td><td>21.37%（高）</td><td><span class="red">正股偏贵(周期下行)</span></td><td class="l">21%安全垫要能cover正股潜在下跌；严格快出，别长拿</td></tr>
+<tr><td class="l">玉禾田</td><td>2.69%（低）</td><td><span class="red">正股略贵</span></td><td class="l">正股为主角时等≤14.9；仅为配债则轻仓快出</td></tr>
+</table>
+<p style="margin:10px 0 0;font-size:13.5px"><b>核心一句话：</b>申能是"好资产+便宜"双重满足，配债最稳；其余三只"配债安全垫高"靠的是事件套利，<b>正股本身并不便宜</b>——这正是"为好资产配债，不为配债买票"的边界：宝钛这种周期贵股，配债赚了也别恋战正股。</p>
+</div>
+
+<footer>
+<p><b>数据与免责：</b>以上为 2026-08-11 真实行情快照（现价/PB/PE/股息率来自腾讯行情与东方财富F10），分红数据来自各公司年报权益分派实施公告。目标价由三法模型推导，<b>参数（目标PB/目标股息率/格雷厄姆22.5阈值）为价值投资常用假设，可按你的偏好调整</b>；模型不含成长性溢价与周期拐点判断，周期股(宝钛)估值会随盈利大幅摆动。</p>
+<p><b>风险提示：</b>本测算为价值分析，<b>不构成投资建议</b>。股价可继续下跌，安全边际是概率不是保证；可转债上市亦可能破发。决策请自行判断，亏损可能。</p>
+</footer>
+</div></section>
+<section id="part-reg">
+<div class="wrap">
+<header>
+  <h1>配债多账户登记表 · 价值派视角</h1>
+  <p>逐账户记录配债埋伏 / 缴款 / 卖出，自动算缴款额、汇总占用、核对 5%/10% 双闸。数据存本地浏览器，刷新不丢。</p>
+</header>
+
+<section>
+  <h2>① 总仓假设（用于双闸核对）</h2>
+  <div class="config">
+    <div><label>总仓市值</label><input id="total" type="number" value="30" style="width:90px"> 万元</div>
+    <div>单只上限(5%)：<span class="val" id="capSingle">1.50</span> 万</div>
+    <div>配债池上限(10%)：<span class="val" id="capPool">3.00</span> 万</div>
+  </div>
+  <div class="box warn"><b>双闸纪律（所有账户合计）：</b>单只标的总占用 ≤ 单只上限；配债总占用 ≤ 配债池上限；不杠杆、只用普通账户。下表超闸自动标红。</div>
+</section>
+
+<section>
+  <h2>② 配债操作登记（每个账户 × 标的 = 一行）</h2>
+  <div>
+    <button class="btn" onclick="addRow()">＋ 添加一行</button>
+    <button class="btn ghost" onclick="fillSeed()">载入全部待发</button>
+    <button class="btn ghost" onclick="clearAll()">清空全部</button>
+  </div>
+  <div class="scroll">
+    <table id="tbl">
+      <thead>
+        <tr>
+          <th style="min-width:90px">账户</th>
+          <th style="min-width:120px">标的(代码/名称)</th>
+          <th>市场</th>
+          <th>配10张<br>股数</th>
+          <th>买股数</th>
+          <th>买价</th>
+          <th>正股金额<br>(自动)</th>
+          <th>预计获配<br>(手)</th>
+          <th>缴款额<br>(自动)</th>
+          <th>T-1<br>登记日</th>
+          <th>T日<br>缴款</th>
+          <th>上市日</th>
+          <th>状态</th>
+          <th style="min-width:60px">操作</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+      <tfoot>
+        <tr class="totals">
+          <td colspan="6">合计</td>
+          <td class="num" id="sumStock">0</td>
+          <td></td>
+          <td class="num" id="sumPay">0</td>
+          <td colspan="4"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="box" id="capNote"></div>
+</section>
+
+<section>
+  <h2>③ 多账户操作要点（回顾）</h2>
+  <div class="box"><b>沪市一手党 + 多账户 = 真有用</b>：沪市按账户独立算尾数进位，拆户能放大获配（单账户2000股≈7手 vs 10账户各200股≈10手）。深市按张精确、无尾数进位，拆户不增获配。</div>
+  <div class="box warn"><b>纪律护栏</b>：总闸按全家总仓算；只用普通账户（禁两融/信用=杠杆）；账户 2–3 个足够；不借无关第三人账户；<b>漏缴 = 放弃获配且白占资金</b>。</div>
+  <div class="box ok"><b>税务</b>：可转债个人收益目前免税，多账户无税负劣势。</div>
+</section>
+
+<footer>
+  本表为操作登记工具，数据仅存于本机浏览器（localStorage）。价格、pei10 取自静态快照，动手前请用实时行情与最新公告复核。<br>
+  以上为流程演示，不构成投资建议，亏损可能，决策请自行判断。
+</footer>
+</div>
+
+
+</section>
+<script>
+const STORE_KEY = "peizhai_multi_account_v2";
+const $ = id => document.getElementById(id);
+
+function fmt(n){ return (Math.round(n*100)/100).toLocaleString('zh-CN',{minimumFractionDigits:0,maximumFractionDigits:2}); }
+
+function updateCaps(){
+  const T = parseFloat($('total').value)||0;
+  $('capSingle').textContent = fmt(T*0.05);
+  $('capPool').textContent = fmt(T*0.10);
+  recalc();
+}
+
+function computeRow(tr){
+  const stock = (parseFloat(tr.querySelector('.c-shares').value)||0) * (parseFloat(tr.querySelector('.c-price').value)||0);
+  const hands = parseFloat(tr.querySelector('.c-hands').value)||0;
+  tr.querySelector('.c-stock').textContent = fmt(stock);
+  tr.querySelector('.c-pay').textContent = fmt(hands*1000);
+}
+
+function recalc(){
+  const rows = [...document.querySelectorAll('#tbody tr')];
+  let sumStock=0, sumPay=0;
+  const byName = {};
+  rows.forEach(tr=>{
+    const stock = (parseFloat(tr.querySelector('.c-shares').value)||0)*(parseFloat(tr.querySelector('.c-price').value)||0);
+    const pay = (parseFloat(tr.querySelector('.c-hands').value)||0)*1000;
+    sumStock+=stock; sumPay+=pay;
+    const name = tr.querySelector('.c-name').value.trim();
+    if(name) byName[name]=(byName[name]||0)+stock;
+  });
+  $('sumStock').textContent = fmt(sumStock);
+  $('sumPay').textContent = fmt(sumPay);
+
+  const T = parseFloat($('total').value)||0;
+  const capSingle = T*0.05, capPool = T*0.10;
+  let notes=[];
+  if(sumStock > capPool){
+    notes.push(`⚠️ 配债总占用 ${fmt(sumStock)} 万 > 池上限 ${fmt(capPool)} 万（超 ${fmt(sumStock-capPool)} 万）`);
+  }
+  Object.entries(byName).forEach(([n,v])=>{
+    if(v > capSingle) notes.push(`⚠️ 标的「${n}」占用 ${fmt(v)} 万 > 单只上限 ${fmt(capSingle)} 万`);
+  });
+  const note = $('capNote');
+  if(notes.length){
+    note.className='box warn';
+    note.innerHTML = '<b>双闸预警：</b><br>'+notes.join('<br>');
+  } else {
+    note.className='box ok';
+    note.innerHTML = `✅ 当前合计：正股占用 ${fmt(sumStock)} 万（池上限 ${fmt(capPool)} 万），缴款额 ${fmt(sumPay)} 元。均未超闸。`;
+  }
+  // 标红超闸行（按单只上限）
+  rows.forEach(tr=>{
+    const name = tr.querySelector('.c-name').value.trim();
+    const stock = (parseFloat(tr.querySelector('.c-shares').value)||0)*(parseFloat(tr.querySelector('.c-price').value)||0);
+    if(name && byName[name]>capSingle && stock>0) tr.classList.add('warn-row'); else tr.classList.remove('warn-row');
+  });
+  save();
+}
+
+function newRow(d={}){
+  const tr=document.createElement('tr');
+  tr.innerHTML=`
+    <td><input class="c-acc" value="${d.acc||''}" placeholder="本人/配偶"></td>
+    <td><input class="c-name" value="${d.name||''}" placeholder="四方科技 603339"></td>
+    <td><select class="c-mkt"><option ${d.mkt==='沪市'?'selected':''}>沪市</option><option ${d.mkt==='深市'?'selected':''}>深市</option></select></td>
+    <td><input class="c-pei10 num" value="${d.pei10||''}" style="width:64px" placeholder="303"></td>
+    <td><input class="c-shares num" value="${d.shares||''}" style="width:70px"></td>
+    <td><input class="c-price num" value="${d.price||''}" style="width:64px"></td>
+    <td class="num c-stock">0</td>
+    <td><input class="c-hands num" value="${d.hands||''}" style="width:56px"></td>
+    <td class="num c-pay">0</td>
+    <td><input class="c-t1" value="${d.t1||''}" style="width:96px" placeholder="YYYY-MM-DD"></td>
+    <td><input class="c-td" value="${d.td||''}" style="width:96px" placeholder="YYYY-MM-DD"></td>
+    <td><input class="c-ipo" value="${d.ipo||''}" style="width:96px" placeholder="YYYY-MM-DD"></td>
+    <td><select class="c-status">
+      ${['待埋伏','已买入','已缴款','已卖出','已放弃'].map(s=>`<option ${d.status===s?'selected':''}>${s}</option>`).join('')}
+    </select></td>
+    <td><button class="btn del" onclick="delRow(this)">删</button></td>`;
+  tr.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',()=>{computeRow(tr);recalc();}));
+  $('tbody').appendChild(tr);
+  computeRow(tr);
+  return tr;
+}
+
+function addRow(){ newRow(); recalc(); }
+function delRow(btn){ btn.closest('tr').remove(); recalc(); }
+
+function save(){
+  const rows=[...document.querySelectorAll('#tbody tr')].map(tr=>({
+    acc:tr.querySelector('.c-acc').value, name:tr.querySelector('.c-name').value,
+    mkt:tr.querySelector('.c-mkt').value, pei10:tr.querySelector('.c-pei10').value,
+    shares:tr.querySelector('.c-shares').value, price:tr.querySelector('.c-price').value,
+    hands:tr.querySelector('.c-hands').value, t1:tr.querySelector('.c-t1').value,
+    td:tr.querySelector('.c-td').value, ipo:tr.querySelector('.c-ipo').value,
+    status:tr.querySelector('.c-status').value
+  }));
+  localStorage.setItem(STORE_KEY, JSON.stringify({total:$('total').value, rows}));
+}
+
+function load(){
+  try{
+    const data=JSON.parse(localStorage.getItem(STORE_KEY));
+    if(data){
+      $('total').value=data.total||30;
+      data.rows.forEach(r=>newRow(r));
+      recalc(); return;
+    }
+  }catch(e){}
+  fillSeed();
+}
+
+const SEED = [
+  {acc:'本人',name:'迪威尔 688377',mkt:'沪市',pei10:215,shares:200,price:36.85,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'爱科科技 688092',mkt:'沪市',pei10:310,shares:200,price:29.39,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'申能股份 600642',mkt:'沪市',pei10:2447,shares:1300,price:8.79,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'斯达半导 603290',mkt:'沪市',pei10:160,shares:100,price:100.59,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'华峰测控 688200',mkt:'沪市',pei10:181,shares:100,price:279.59,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'春风动力 603129',mkt:'沪市',pei10:71,shares:100,price:245.90,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'金帝股份 603270',mkt:'沪市',pei10:226,shares:200,price:25.23,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'南芯科技 688484',mkt:'沪市',pei10:270,shares:200,price:36.00,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'四方科技 603339',mkt:'沪市',pei10:303,shares:200,price:12.94,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'宝钛股份 600456',mkt:'沪市',pei10:137,shares:100,price:34.28,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'华翔股份 603112',mkt:'沪市',pei10:416,shares:300,price:17.27,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'金三江 301059',mkt:'深市',pei10:798,shares:798,price:13.91,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'奥士康 002913',mkt:'深市',pei10:318,shares:318,price:49.71,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'本川智能 300964',mkt:'深市',pei10:163,shares:163,price:75.06,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'金杨精密 301210',mkt:'深市',pei10:117,shares:117,price:38.29,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'珂玛科技 301611',mkt:'深市',pei10:581,shares:581,price:96.22,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'盛德鑫泰 300881',mkt:'深市',pei10:250,shares:250,price:44.25,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'通合科技 300491',mkt:'深市',pei10:337,shares:337,price:23.81,hands:1,status:'待埋伏'},
+  {acc:'本人',name:'玉禾田 300815',mkt:'深市',pei10:266,shares:266,price:20.98,hands:1,status:'待埋伏'}
+];
+function fillSeed(){
+  $('tbody').innerHTML='';
+  SEED.forEach(d=>newRow(d));
+  recalc();
+}
+
+function clearAll(){
+  if(confirm('确定清空所有登记行？此操作不可撤销。')){ $('tbody').innerHTML=''; recalc(); }
+}
+
+$('total').addEventListener('input',updateCaps);
+load();
+updateCaps();
+</script>
+<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">📅 配债待发表自动更新：每周一至五 16:30（AutoJobsHub） ｜ 2026-08-30 11:36</div>
+</body>
+</html>
