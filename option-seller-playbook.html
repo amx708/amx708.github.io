@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>期权卖方策略与攻略 · 人话操作版</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#ffffff; --ink:#1f2933; --sub:#5b6b7b;
+    --line:#e3e8ef; --brand:#2563eb; --brand-soft:#e8f0fe;
+    --up:#c0392b; --down:#1e8e5a;
+    --bull:#1e8e5a; --bear:#c0392b; --range:#7c5cff; --highv:#e67e22; --lowv:#0a8f8f; --hedge:#2563eb;
+    --warn:#c0392b; --warn-soft:#fdecea;
+    --shadow:0 1px 3px rgba(16,24,40,.08),0 4px 16px rgba(16,24,40,.06);
+    --blue:#1565c0; --green:#2e7d32; --yellow:#f9a825; --red:#c62828; --chip:#eef2f7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;padding-bottom:40px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+  header{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;padding:34px 0 28px;margin-bottom:22px;position:relative}
+  header .wrap{padding:0 18px}
+  header h1{font-size:25px;font-weight:700;letter-spacing:.5px}
+  header p{font-size:13px;opacity:.88;margin-top:8px;max-width:840px}
+  .src{display:inline-block;margin-top:12px;font-size:12px;background:rgba(255,255,255,.15);padding:4px 10px;border-radius:20px}
+  header .home-link{position:absolute;top:18px;right:24px;display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.45);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;text-decoration:none;transition:background .15s}
+  header .home-link:hover{background:rgba(255,255,255,.32);color:#fff}
+  nav{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:20;margin-bottom:22px}
+  nav .wrap{display:flex;gap:6px;flex-wrap:wrap;padding:10px 18px}
+  nav a{font-size:13px;color:var(--sub);text-decoration:none;padding:6px 12px;border-radius:8px}
+  nav a:hover{background:var(--brand-soft);color:var(--brand)}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+  .kpi .n{font-size:26px;font-weight:800;color:var(--brand)}
+  .kpi .l{font-size:12px;color:var(--sub);margin-top:4px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:22px;box-shadow:var(--shadow)}
+  h2{font-size:18px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  h2 .tag{font-size:11px;font-weight:600;color:#fff;background:var(--brand);padding:2px 9px;border-radius:20px}
+  .sec-sub{font-size:13px;color:var(--sub);margin-bottom:16px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:6px}
+  th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--chip);font-weight:600;color:var(--sub);font-size:12px}
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .stage{flex:1;min-width:150px;border:1px solid var(--line);border-radius:12px;padding:14px;background:#fafbfc}
+  .stage .t{font-size:13px;font-weight:700;color:var(--brand);margin-bottom:8px}
+  .stage ul{list-style:none;font-size:12.5px;color:var(--sub)}
+  .stage ul li{padding:3px 0;border-bottom:1px dashed var(--line)}
+  .arrow{display:flex;align-items:center;justify-content:center;padding:0 6px;color:var(--brand);font-size:20px;font-weight:700}
+  .risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .risk{border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:12px 14px;background:#fff}
+  .risk .k{font-size:13px;font-weight:700;color:var(--warn)}
+  .risk .v{font-size:13px;color:var(--ink);margin-top:4px}
+  .bars{margin-top:8px}
+  .bar{margin-bottom:12px}
+  .bar .lab{display:flex;justify-content:space-between;font-size:12.5px;color:var(--sub);margin-bottom:4px}
+  .bar .track{height:9px;background:#eef1f5;border-radius:6px;overflow:hidden}
+  .bar .fill{height:100%;border-radius:6px}
+  .foot-warn{background:var(--warn-soft);border:1px solid #f5c6c0;border-radius:12px;padding:16px 18px;font-size:13px;color:#7a241c}
+  .foot-warn b{color:var(--warn)}
+  footer{text-align:center;font-size:12px;color:var(--sub);margin-top:26px}
+
+  /* ===== 卖方攻略专属样式 ===== */
+  .analogy{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+  .analogy .box{border-radius:14px;padding:16px 18px;font-size:13px}
+  .analogy .ins{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20}
+  .analogy .land{background:#e3f2fd;border:1px solid #90caf9;color:#0d47a1}
+  .analogy h3{font-size:14px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+  .analogy ul{margin:6px 0 0 18px;font-size:12.5px}
+  .analogy li{margin:5px 0}
+  .strat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .strat{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fafbfc;display:flex;flex-direction:column}
+  .strat h3{font-size:15px;font-weight:700;color:var(--brand);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+  .strat .one{font-size:12.5px;color:var(--sub);margin-bottom:10px;font-style:italic}
+  .strat .field{display:grid;grid-template-columns:74px 1fr;gap:8px;font-size:12.5px;margin-bottom:6px}
+  .strat .field b{color:var(--ink);font-weight:600;background:var(--chip);border-radius:6px;padding:2px 6px;text-align:center;font-size:11.5px;white-space:nowrap}
+  .strat .field span{color:var(--sub)}
+  .strat .field.danger b{background:#fdecea;color:var(--warn)}
+  .strat .field.danger span{color:var(--bear)}
+  .strat .ops{margin:6px 0 0 18px;font-size:12.5px;color:var(--sub)}
+  .strat .ops li{margin:3px 0}
+  .pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:600;margin:2px 4px 2px 0}
+  .pill.safe{background:#e8f5e9;color:var(--green);border:1px solid #a5d6a7}
+  .pill.mid{background:#fff8e1;color:#e65100;border:1px solid #ffe082}
+  .pill.hot{background:#fdecea;color:var(--warn);border:1px solid #ef9a9a}
+  .step{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:#fafbfc}
+  .step .no{flex:0 0 30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .step .bd{font-size:13px}
+  .step .bd b{color:var(--ink)}
+  .checklist{list-style:none;font-size:13.5px}
+  .checklist li{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:9px;background:#fafbfc}
+  .checklist input{margin-top:4px;width:16px;height:16px;accent-color:var(--brand);flex:0 0 16px}
+  .checklist .must{color:var(--warn);font-weight:600}
+  .pit{list-style:none}
+  .pit li{border-left:4px solid var(--warn);background:var(--warn-soft);border-radius:0 10px 10px 0;padding:11px 14px;margin-bottom:10px;font-size:13px;color:#7a241c}
+  .pit li b{color:var(--warn)}
+  .env-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .env-card{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fafbfc}
+  .env-card h3{font-size:14px;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+  .env-card p{font-size:12.5px;color:var(--sub)}
+  .link-card{background:linear-gradient(135deg,#eef2f7,#e3f2fd);border:1px solid #c7d7ee;border-radius:12px;padding:14px 16px;font-size:13px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  .link-card a{color:var(--blue);font-weight:700;text-decoration:none;border:1px solid #90caf9;background:#fff;padding:7px 14px;border-radius:8px;font-size:13px}
+  .link-card a:hover{background:#e3f2fd}
+  .disclaim{margin-top:14px;background:#fdecea;border:1px solid #ef9a9a;border-radius:10px;padding:11px 14px;font-size:12px;color:#b71c1c}
+  .muted{color:var(--sub);font-size:12px}
+  @media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}.risk-grid{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.analogy{grid-template-columns:1fr}.strat-grid{grid-template-columns:1fr}.env-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <a class="home-link" href="./index.html">← 返回首页</a>
+  <div class="wrap">
+    <h1>期权卖方策略与攻略 · 人话操作版</h1>
+    <p>把"卖期权"当成开保险公司、当房东收租来读懂——本页用大白话讲清：卖方到底赚谁的钱、怎么一步步下单、保证金怎么回事、什么环境最合适、以及保命的风控红线。配套《期权策略体系总览》一起看更完整。</p>
+    <span class="src" id="srcBadge">来源：网络收录 · 仅供研究参考，不构成投资建议</span>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#what">什么是卖方</a>
+    <a href="#vs">买卖对比</a>
+    <a href="#strats">主流策略</a>
+    <a href="#margin">保证金</a>
+    <a href="#steps">五步实操</a>
+    <a href="#risk">风控红线</a>
+    <a href="#env">环境判读</a>
+    <a href="#checklist">自检清单</a>
+    <a href="#pit">新手坑</a>
+    <a href="#warn">风险提示</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="link-card">
+    <span>📚 已读过本页？搭配《期权策略体系总览 + 今日择时日报》看实时波动率与买方时机分 →</span>
+    <a href="./option-strategy-overview.html">打开总览页 ↗</a>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="n">高胜率</div><div class="l">多数时间价值衰减归买方，卖方"收租"赢面大</div></div>
+    <div class="kpi"><div class="n">赚有限</div><div class="l">最大盈利≈收到的权利金；裸卖却可能亏很大</div></div>
+    <div class="kpi"><div class="n">≤10%</div><div class="l">裸卖单策略仓位红线（占总资金）</div></div>
+    <div class="kpi"><div class="n">≥30%</div><div class="l">账户常备闲置资金，应对跳空与升波</div></div>
+  </div>
+
+  <!-- ============ 什么是期权卖方 ============ -->
+  <section id="what">
+    <h2><span class="tag">入门</span>一、什么是期权卖方（大白话）</h2>
+    <div class="sec-sub">一句话：买方是"买保险的人"，卖方就是"卖保险的人"（保险公司）。你收一笔钱（权利金），承担未来被行权的义务。</div>
+
+    <div class="analogy">
+      <div class="box ins">
+        <h3>🏦 类比 1：你开了一家"保险公司"</h3>
+        <ul>
+          <li><b>买方</b>花一笔小钱，买一份"未来按约定价买卖"的权利（保险）。</li>
+          <li><b>你（卖方）</b>收下这笔钱（保费），承诺：万一将来买方要行权，你就得按约定价买/卖给他。</li>
+          <li>多数保险没人来理赔（合约到期作废），你白赚保费 → <b>这就是卖方的主要利润来源：时间价值的衰减</b>。</li>
+        </ul>
+      </div>
+      <div class="box land">
+        <h3>🏠 类比 2：你是个"收租的房东"</h3>
+        <ul>
+          <li>你把房子（标的）租出去，按月收租金（权利金）。</li>
+          <li>租客（买方）多数时候安稳住着、不来"退租索赔"，你稳稳落袋租金。</li>
+          <li>只有房价/租金剧烈波动、租客真来行权时，你才需要履约——所以<b>选好"租客"和"租约条件"（行权价/到期月）是关键</b>。</li>
+        </ul>
+      </div>
+    </div>
+
+    <table>
+      <thead><tr><th>你（卖方）收到的</th><th>你（卖方）承担的</th><th>对手（买方）</th></tr></thead>
+      <tbody>
+        <tr><td><b>权利金（现金，立即到账）</b><br>不管结果如何，这笔钱已经进口袋</td><td>履约义务：到期实值被指派时，按行权价买入/卖出标的</td><td>花权利金买"权利"（非义务）；多数合约到期归零，钱打水漂</td></tr>
+        <tr><td colspan="3" style="background:var(--brand-soft);color:var(--brand);font-weight:600">核心心法：你的利润 = 时间价值慢慢流失（对你有利） + 波动不大（对你有利）。你赚的是"大概率小钱"，但要防"小概率大亏"。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ 买卖对比 ============ -->
+  <section id="vs">
+    <h2><span class="tag">对比</span>二、卖方 vs 买方，一张表说清</h2>
+    <div class="sec-sub">为什么很多人说"期权卖方是赚时间的钱"？看这张表就懂了。</div>
+    <table>
+      <thead><tr><th>维度</th><th>买方（买保险的人）</th><th>卖方（卖保险的人）</th></tr></thead>
+      <tbody>
+        <tr><td><b>胜率</b></td><td>低：多数合约到期归零，钱亏光</td><td><span class="pill safe">高</span> 时间价值衰减天然站在卖方这边</td></tr>
+        <tr><td><b>盈利空间</b></td><td>理论上很大（几倍、几十倍）</td><td><span class="pill mid">有限</span> 最多赚到全部权利金</td></tr>
+        <tr><td><b>亏损空间</b></td><td><span class="pill safe">有限</span> 最多亏光权利金</td><td><span class="pill hot">可能很大</span> 裸卖购理论无限亏，裸卖沽大跌大亏/穿仓</td></tr>
+        <tr><td><b>时间（Theta）</b></td><td><span class="pill hot">敌人</span> 每天白白流失价值</td><td><span class="pill safe">朋友</span> 每天收时间价值</td></tr>
+        <tr><td><b>波动（Vega）</b></td><td>喜欢升波（权利金变贵）</td><td>喜欢降波/横盘（权利金慢慢缩水归你）</td></tr>
+        <tr><td><b>心态</b></td><td>博一把、赌方向</td><td>收租心态、积少成多、靠概率</td></tr>
+        <tr><td><b>保证金</b></td><td>不用（已付权利金就是全部成本）</td><td><span class="pill hot">要</span> 券商冻结押金，不足会被强平</td></tr>
+      </tbody>
+    </table>
+    <div class="disclaim">⚠️ 别把"高胜率"误读成"无风险"。卖方是"赚小钱、赌不出事"，一旦出事（单边暴涨暴跌+升波），亏损可能远超平时赚的零头。仓位与保护决定生死。</div>
+  </section>
+
+  <!-- ============ 主流策略 ============ -->
+  <section id="strats">
+    <h2><span class="tag">策略</span>三、主流卖方策略（人话 + 怎么操作）</h2>
+    <div class="sec-sub">按"你手里有什么 / 想干什么"选策略。每个卡片都给出：一句话、适用场景、怎么下单、赚什么、最大风险、移仓止损。</div>
+    <div class="strat-grid">
+
+      <div class="strat">
+        <h3>① 备兑开仓（卖购）</h3>
+        <div class="one">"我本来就持股，顺便在上面卖张认购收租。"</div>
+        <div class="field"><b>适用</b><span>已持有 ETF/股票，慢牛或震荡，想增厚收益</span></div>
+        <div class="field"><b>怎么下</b><span>持有 10000 份 ETF + 卖出 1 张虚值认购（一档/二档，剩 25–40 天）</span></div>
+        <ul class="ops"><li>登录券商 → 期权交易 → 卖出开仓（SELL CALL）</li><li>选"虚值一档"（行权价≈现价×1.03–1.05）</li><li>确认账户收到权利金</li></ul>
+        <div class="field"><b>赚什么</b><span>权利金；涨过行权价最多被"叫走"筹码（本就是浮盈）</span></div>
+        <div class="field danger"><b>最大风险</b><span>股票下跌（但你有现货扛，不是裸风险）；胜率常态 78%–88%</span></div>
+        <div class="field"><b>移仓</b><span>大涨被行权就换下月继续卖；大跌靠现货扛，不轻易止损</span></div>
+      </div>
+
+      <div class="strat">
+        <h3>② 现金担保卖沽（CSP）</h3>
+        <div class="one">"我本就想更便宜接货，先卖张沽收钱等着。"</div>
+        <div class="field"><b>适用</b><span>看好某标的、想在更低价建仓的看多者</span></div>
+        <div class="field"><b>怎么下</b><span>账户预留足额现金 + 卖出 1 张虚值认沽（行权价≈心理买价）</span></div>
+        <ul class="ops"><li>券商 → 卖出开仓（SELL PUT）</li><li>行权价设在"愿意买入的价位"</li><li><b>账户必须冻结等额现金</b>（准备接货，不是裸卖）</li></ul>
+        <div class="field"><b>赚什么</b><span>权利金；被行权就低位买到心仪标的，否则白收租</span></div>
+        <div class="field danger"><b>最大风险</b><span>需现金覆盖接货；跌穿行权价会被指派买入（浮亏），但属"计划内建仓"</span></div>
+        <div class="field"><b>移仓</b><span>未到价则权利金归你；到期前 7–10 天可顺移下月继续收租</span></div>
+      </div>
+
+      <div class="strat">
+        <h3>③ 裸卖购 / 裸卖沽</h3>
+        <div class="one">"不持股、不预留现金，直接卖一张赌它不动。"<span class="pill hot">高风险</span></div>
+        <div class="field"><b>适用</b><span>老手、强观点、严格控仓时使用</span></div>
+        <div class="field"><b>怎么下</b><span>直接卖出开仓认购/认沽，无现货/无现金担保</span></div>
+        <ul class="ops"><li>券商 → 卖出开仓（无担保）</li><li>必须清楚：浮亏会吃保证金、可能强平</li></ul>
+        <div class="field"><b>赚什么</b><span>权利金（但风险收益极不对称）</span></div>
+        <div class="field danger"><b>最大风险</b><span>裸卖购<b>理论无限亏</b>（标的暴涨）；裸卖沽大跌大亏、极端穿仓强平</span></div>
+        <div class="field danger"><b>纪律</b><span>新手别碰；老手裸卖 ≤ 总资金 10% + 买远虚值保护尾部</span></div>
+      </div>
+
+      <div class="strat">
+        <h3>④ 双卖（跨式 / 宽跨）</h3>
+        <div class="one">"我赌它横盘，上下都卖一张，通吃时间价值。"</div>
+        <div class="field"><b>适用</b><span>明确震荡、横盘，波动率偏高</span></div>
+        <div class="field"><b>怎么下</b><span>同时卖出 1 张认购 + 1 张认沽（同行权月）</span></div>
+        <ul class="ops"><li>宽跨：购/沽都选虚值，安全垫更宽</li><li>近月优先，剩 25–40 天，到期前 7–10 天换月</li></ul>
+        <div class="field"><b>赚什么</b><span>两边时间价值；横盘降波通吃</span></div>
+        <div class="field danger"><b>最大风险</b><span>涨跌两头都亏；<b>严禁重仓裸双卖</b>，需用买远虚值锁风险或铁鹰化</span></div>
+        <div class="field"><b>移仓</b><span>顺势移仓、吃贴水；单边突破立即减仓/转价差</span></div>
+      </div>
+
+      <div class="strat">
+        <h3>⑤ 铁鹰（Iron Condor）</h3>
+        <div class="one">"双卖的'安全版'——上下都加一道保护，亏多少提前锁死。"<span class="pill safe">卖方天花板</span></div>
+        <div class="field"><b>适用</b><span>窄幅震荡、想高胜率又控住最大亏损</span></div>
+        <div class="field"><b>怎么下</b><span>牛市认沽价差 + 熊市认购价差（4 条腿合成）</span></div>
+        <ul class="ops"><li>卖一张虚值购 + 买一张更高虚值购（封顶）</li><li>卖一张虚值沽 + 买一张更低虚值沽（封底）</li></ul>
+        <div class="field"><b>赚什么</b><span>净权利金；最大盈亏固定，胜率 85%–92%</span></div>
+        <div class="field danger"><b>最大风险</b><span>极端行情"折翼"；任一侧触界整组立即平仓，不扛单</span></div>
+        <div class="field"><b>移仓</b><span>触界即平；未触界到期归零收租</span></div>
+      </div>
+
+      <div class="strat">
+        <h3>⑥ 牛三腿（偏多三腿）</h3>
+        <div class="one">"整体看多，卖近月做降波，再买购合成多头对冲。"</div>
+        <div class="field"><b>适用</b><span>整体偏多、高波环境想收租</span></div>
+        <div class="field"><b>怎么下</b><span>卖购 + 卖沽 + 买购，合成偏多头寸</span></div>
+        <ul class="ops"><li>用浅实值买购对冲，构建日历牛市价差</li><li>宽幅震荡中滚动移仓</li></ul>
+        <div class="field"><b>赚什么</b><span>近月高波 decay 快，赚时间差 + 方向</span></div>
+        <div class="field danger"><b>最大风险</b><span>怕急跌回调；靠浅实值买购对冲尾部</span></div>
+        <div class="field"><b>移仓</b><span>高波到期归零；回撤时用买购端保护</span></div>
+      </div>
+
+      <div class="strat">
+        <h3>⑦ 波动率卖方（做空 IV）</h3>
+        <div class="one">"波动率高得离谱时，双卖/铁鹰高波收租，等它回落。"</div>
+        <div class="field"><b>适用</b><span>IV 历史分位 &gt; 80%（恐慌/狂热），高波环境</span></div>
+        <div class="field"><b>怎么下</b><span>双卖 / 铁鹰，吃厚权利金</span></div>
+        <ul class="ops"><li>参考《总览页》实时 HV60 分位（IV 代理）</li><li>IV 回落至 40% 分位以下止盈</li></ul>
+        <div class="field"><b>赚什么</b><span>高波提供的厚安全垫 + 降波收益</span></div>
+        <div class="field danger"><b>最大风险</b><span>防单边逼空/逼多升波；高波≠马上回落，需保护</span></div>
+        <div class="field"><b>移仓</b><span>IV 高位分批建；回落分批止盈</span></div>
+      </div>
+
+      <div class="strat">
+        <h3>⑧ 废纸买权防身术</h3>
+        <div class="one">"用收来的权利金，买张极便宜买权给自己上保险。"<span class="pill safe">保护</span></div>
+        <div class="field"><b>适用</b><span>任何裸卖仓位，做尾部保护</span></div>
+        <div class="field"><b>怎么下</b><span>用卖方权利金的一部分，买极小虚值买权</span></div>
+        <ul class="ops"><li>成本极低（几元~几十元）</li><li>极端行情对冲无限风险</li></ul>
+        <div class="field"><b>赚什么</b><span>不是赚钱，是"把无限风险变有限"</span></div>
+        <div class="field danger"><b>最大风险</b><span>买权多数归零（当成保险费即可）</span></div>
+        <div class="field"><b>触发</b><span>极端跳空/升波时对冲赔付，锁住下方</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ 保证金 人话 ============ -->
+  <section id="margin">
+    <h2><span class="tag">资金</span>四、保证金（人话）：冻多少钱、被行权怎么办、何时强平</h2>
+    <div class="sec-sub">卖方不是"免费收租"——券商要你押一笔押金（保证金），确保你履约得起。</div>
+    <table>
+      <thead><tr><th>策略类型</th><th>冻结什么</th><th>被行权时</th><th>强平红线</th></tr></thead>
+      <tbody>
+        <tr><td><b>备兑开仓</b></td><td>用你持有的股票做担保，<b>不额外冻现金</b>（最省）</td><td>涨过行权价，筹码被"叫走"（按行权价卖出）</td><td>基本无（有现货兜底）</td></tr>
+        <tr><td><b>现金担保卖沽</b></td><td>冻结<b>等额现金</b>（准备接货）</td><td>跌穿行权价，按行权价买入标的（计划内建仓）</td><td>标的暴跌、接货浮亏扩大时关注保证金</td></tr>
+        <tr><td><b>裸卖（购/沽）</b></td><td>按交易所公式冻结保证金（标的×合约乘数×比例 + 权利金）</td><td>实值被指派，按行权价履约</td><td><span class="pill hot">浮亏扩大 / 升波 → 保证金不足 → 券商强制平仓，可能穿仓</span></td></tr>
+        <tr><td><b>铁鹰 / 价差</b></td><td>仅冻结"净保证金"（两腿差额），比裸卖少</td><td>触界才可能有指派</td><td>触界整组平仓，最大亏损已锁定</td></tr>
+      </tbody>
+    </table>
+    <div class="disclaim">⚠️ 关键认知：<b>保证金是"动态"的</b>。行情朝你不利方向走 + 波动率上升，保证金会越冻越多。账户现金不够时，券商不分青红皂白直接强平（往往在最低点砍你）。所以"常备 30% 闲置资金"不是建议，是保命线。</div>
+  </section>
+
+  <!-- ============ 五步实操 ============ -->
+  <section id="steps">
+    <h2><span class="tag">实操</span>五、实操五步法（人话操作流程）</h2>
+    <div class="sec-sub">把"我想卖期权"拆成 5 个可执行的动作，按顺序走，不跳步。</div>
+    <div class="step"><div class="no">1</div><div class="bd"><b>判环境</b>：先定方向（看多 / 看空 / 震荡），再看<b>IV 分位</b>（&gt;70% 高波适合卖、&lt;40% 低波不宜卖），最后定<b>仓位上限</b>（裸卖≤10%）。环境没判就下单 = 蒙眼开车。</div></div>
+    <div class="step"><div class="no">2</div><div class="bd"><b>选策略</b>：低位想接货→现金担保卖沽；已持股→备兑开仓；震荡→双卖/铁鹰；偏多降波→牛三腿；高波→波动率卖方。一条原则：<b>先判方向，再看 IV，最后定策略</b>。</div></div>
+    <div class="step"><div class="no">3</div><div class="bd"><b>设参数</b>：选<b>行权价</b>（虚值几档：卖购/卖沽通常虚值一档 Δ0.20–0.30）、选<b>到期月</b>（近月优先，剩 25–40 天最好滚）、算好<b>仓位占比</b>。</div></div>
+    <div class="step"><div class="no">4</div><div class="bd"><b>下单</b>：券商 App → 期权 → <b>卖出开仓（SELL TO OPEN）</b> → 选合约 → 确认"卖出"而非"买入" → 看到账户<b>收到权利金</b>才算成功。新手最容易下反成"买入开仓"，务必核对。</div></div>
+    <div class="step"><div class="no">5</div><div class="bd"><b>移仓 / 盯市</b>：顺势移仓吃贴水；<b>大跌不下移卖沽、准备接货</b>；近月到期前 7–10 天换月；每日复盘三问（方向变没变？IV 变没变？保证金够不够？）。</div></div>
+  </section>
+
+  <!-- ============ 风控红线 ============ -->
+  <section id="risk">
+    <h2><span class="tag">红线</span>六、风控红线（生死线）</h2>
+    <div class="sec-sub">卖方胜率高但"小赚大亏"，下面这些是反复被验证的保命规则，违反任一条都可能在极端行情爆亏。</div>
+    <div class="risk-grid">
+      <div class="risk"><div class="k">仓位红线</div><div class="v">裸卖 ≤ 总资金 10%；价差 / 铁鹰 / 备兑 ≤ 25%；末日轮 ≤ 5%</div></div>
+      <div class="risk"><div class="k">闲置资金</div><div class="v">账户常备 30%+ 闲置资金，应对跳空与 IV 飙升导致的保证金暴涨</div></div>
+      <div class="risk"><div class="k">移仓纪律</div><div class="v">顺势移仓、吃贴水；不逆势硬扛；近月到期前 7–10 天换月</div></div>
+      <div class="risk"><div class="k">铁鹰 / 铁蝶</div><div class="v">任一侧触碰行权边界，整组立即平仓，绝不扛单</div></div>
+      <div class="risk"><div class="k">深度虚值 Put</div><div class="v">单笔极端亏损上限设 9 倍止损（浮亏达权利金 9 倍无条件退）</div></div>
+      <div class="risk"><div class="k">尾部保护</div><div class="v">裸卖仓位必配废纸买权 / 保护性认沽，把无限风险变有限</div></div>
+      <div class="risk"><div class="k">希腊字母敞口</div><div class="v">Delta 敞口 ≤ 10%；Gamma 实时监控防跳空</div></div>
+      <div class="risk"><div class="k">波动率开关</div><div class="v">IV &gt; 70% 只卖不买；IV &lt; 40% 轻买不卖（权利金太薄）</div></div>
+      <div class="risk"><div class="k">分散</div><div class="v">同方向分 2–3 行权价、不同到期月分散，不押单一合约</div></div>
+      <div class="risk"><div class="k">每日开盘风控</div><div class="v">小资金：净等价 Dollar Delta ±150 元；组合总 Vega ≤ 50</div></div>
+    </div>
+    <h3 style="font-size:14px;margin:18px 0 10px;color:var(--sub)">仓位阈值可视化（占账户比例）</h3>
+    <div class="bars">
+      <div class="bar"><div class="lab"><span>裸卖单策略保证金（≤10%）</span><span>10%</span></div><div class="track"><div class="fill" style="width:30%;background:var(--warn)"></div></div></div>
+      <div class="bar"><div class="lab"><span>价差 / 铁鹰 / 备兑总仓位（≤25%）</span><span>25%</span></div><div class="track"><div class="fill" style="width:75%;background:var(--highv)"></div></div></div>
+      <div class="bar"><div class="lab"><span>闲置资金预留（≥30%）</span><span>30%</span></div><div class="track"><div class="fill" style="width:90%;background:var(--lowv)"></div></div></div>
+      <div class="bar"><div class="lab"><span>买方进攻权利金（≤10%）</span><span>10%</span></div><div class="track"><div class="fill" style="width:30%;background:var(--brand)"></div></div></div>
+      <div class="bar"><div class="lab"><span>末日轮仓位（≤5%）</span><span>5%</span></div><div class="track"><div class="fill" style="width:15%;background:var(--bear)"></div></div></div>
+    </div>
+  </section>
+
+  <!-- ============ 环境判读 ============ -->
+  <section id="env">
+    <h2><span class="tag">择时</span>七、什么环境适合卖方（结合波动率框架）</h2>
+    <div class="sec-sub">卖方的命门是"波动率"。下面用大白话讲清：什么时候是卖方天堂，什么时候该收手。实时数据看《总览页》HV60 分位。</div>
+    <div class="env-grid">
+      <div class="env-card"><h3><span class="dot" style="background:var(--highv)"></span>高波环境（IV 分位 &gt; 70%）</h3><p><span class="pill safe">卖方天堂</span> 权利金厚、安全垫宽。适合双卖/铁鹰/波动率卖方高波收租。但防单边逼空逼多升波，务必加保护、控仓位。</p></div>
+      <div class="env-card"><h3><span class="dot" style="background:var(--range)"></span>震荡 / 横盘</h3><p><span class="pill safe">双卖最佳</span> 标的不动、时间价值稳稳流失。双卖/铁鹰收益最稳；一旦突破边界立即减仓或转价差。</p></div>
+      <div class="env-card"><h3><span class="dot" style="background:var(--bull)"></span>慢牛 / 已持股</h3><p><span class="pill safe">备兑开仓</span> 持股上方卖虚值购，白收租金；涨过行权价最多被叫走筹码（浮盈落袋）。最省心、零裸风险。</p></div>
+      <div class="env-card"><h3><span class="dot" style="background:var(--bear)"></span>低位 / 想抄底</h3><p><span class="pill safe">现金担保卖沽</span> 预留现金卖虚值沽，被行权就低位接货，否则白收租。比直接买更从容。</p></div>
+      <div class="env-card"><h3><span class="dot" style="background:var(--lowv)"></span>低波环境（IV 分位 &lt; 40%）</h3><p><span class="pill mid">不宜卖方</span> 权利金太薄、安全垫窄，卖了不划算。此时更适合买（双买/末日埋伏），等波动起来。</p></div>
+      <div class="env-card"><h3><span class="dot" style="background:var(--red)"></span>单边暴涨暴跌 + 升波</h3><p><span class="pill hot">卖方禁区</span> 浮亏+保证金暴涨双杀，极易强平穿仓。已有卖仓立即减/对冲，绝不逆势加裸卖。</p></div>
+    </div>
+    <div class="disclaim">⚠️ 数据口径：本页"环境判读"为通用框架（文字版）。实时 IV/HV 数字请以《期权策略体系总览 + 今日择时日报》为准——该页用新浪真实日 K 线算 HV60 分位作 IV 代理。公开期权链级 IV 绝对值不可得，相关维度缺失，结论仅供参考。</div>
+  </section>
+
+  <!-- ============ 自检清单 ============ -->
+  <section id="checklist">
+    <h2><span class="tag">清单</span>八、开盘前自检清单（可打勾）</h2>
+    <div class="sec-sub">每次卖期权前，逐条过一遍。带 <span class="must">＊</span> 的是"不过就别动手"的硬条件。</div>
+    <ul class="checklist">
+      <li><input type="checkbox"><div><span class="must">＊</span> <b>我判了方向吗？</b>（看多/看空/震荡，不是"感觉要涨"）</div></li>
+      <li><input type="checkbox"><div><span class="must">＊</span> <b>我看了 IV 分位吗？</b>（&gt;70% 可卖，&lt;40% 不宜卖）</div></li>
+      <li><input type="checkbox"><div><span class="must">＊</span> <b>我是裸卖、担保还是价差？</b>（裸卖必须 ≤10% 且懂无限风险；优先用备兑/CSP/铁鹰）</div></li>
+      <li><input type="checkbox"><div><span class="must">＊</span> <b>我留了 ≥30% 闲置资金吗？</b>（防跳空+升波导致的保证金暴涨强平）</div></li>
+      <li><input type="checkbox"><div><b>我设了移仓/止损触发价吗？</b>（铁鹰触界整组平；深度虚值 Put 9 倍止损）</div></li>
+      <li><input type="checkbox"><div><b>我懂这笔的最大亏损是多少吗？</b>（裸卖=可能很大；铁鹰/价差=已锁定）</div></li>
+      <li><input type="checkbox"><div><b>我配了尾部保护吗？</b>（废纸买权/保护性认沽，把无限风险变有限）</div></li>
+      <li><input type="checkbox"><div><b>这笔只用"亏光也不心疼"的钱吗？</b>（期权卖方属高风险，仅用可承受损失资金）</div></li>
+      <li><input type="checkbox"><div><b>我分散了吗？</b>（同行权价/不同到期月，不押单一合约）</div></li>
+      <li><input type="checkbox"><div><b>下单动作核对过吗？</b>（是"卖出开仓"不是"买入开仓"；账户确实收到权利金）</div></li>
+    </ul>
+  </section>
+
+  <!-- ============ 新手坑 ============ -->
+  <section id="pit">
+    <h2><span class="tag">避坑</span>九、新手常踩的坑</h2>
+    <div class="sec-sub">这些都是"高胜率幻觉"下最容易翻车的地方，逐条对照避雷。</div>
+    <ul class="pit">
+      <li><b>坑 1：裸卖沽抄底，结果暴跌穿仓。</b> 以为"接货"很美，跌穿行权价后被指派，浮亏+保证金暴涨双杀，账户扛不住被强平在最低点。</li>
+      <li><b>坑 2：双卖遇单边行情，两头都亏。</b> 横盘赚了几个月，一次突破全吐回去还倒贴。没保护、没减仓是主因。</li>
+      <li><b>坑 3：末日轮博黑天鹅，亏光权利金。</b> 到期前买深度虚值赌翻倍，胜率极低，多数归零。仓位 ≤5% 是底线。</li>
+      <li><b>坑 4：升波时浮亏 + 保证金暴涨被强平。</b> 没留闲置资金，波动一上来券商直接砍仓，亏在黎明前。</li>
+      <li><b>坑 5：把"高胜率"当"无风险"。</b> 卖方赚的是概率钱，但一次极端行情的亏损可能抵掉十次小赚。仓位红线是命。</li>
+      <li><b>坑 6：下反单。</b> 想"卖出开仓"却点成"买入开仓"，从收租变赌徒。下单前务必核对买卖方向与账户权利金变动。</li>
+    </ul>
+  </section>
+
+  <!-- ============ 风险提示 ============ -->
+  <section id="warn">
+    <h2><span class="tag">提示</span>十、风险提示</h2>
+    <div class="foot-warn">
+      <p>本文仅为对网络收录期权实盘讨论与策略逻辑的<b>整理与人话解读，不构成任何投资建议</b>。期权属高杠杆、高风险衍生品：</p>
+      <p style="margin-top:8px">· 卖方存在理论上的<b>无限亏损与穿仓强平</b>风险（尤其裸卖购）；买方多数合约到期归零。</p>
+      <p>· 历史策略表现不代表未来，任何策略都有适配环境，环境切换可能导致大幅回撤。</p>
+      <p>· 请充分理解策略原理与风险情景，仅用可承受损失的资金交易，并自行对交易决策与账户负责。</p>
+      <p>· <b>投资有风险，入市需谨慎。本文所有内容仅供研究参考，不构成投资建议。</b></p>
+    </div>
+  </section>
+
+  <footer id="pageFooter">来源：网络收录整理 · 不构成投资建议</footer>
+</div>
+<script>
+/* 时效标注：页面打开时间 + 静态版本戳（与总览页统一口径） */
+(function(){
+  var PAGE_UPDATED='2026-08-30 10:02';
+  var sb=document.getElementById('srcBadge'); if(sb) sb.textContent='来源：网络收录 · 页面更新：'+PAGE_UPDATED+' · 仅供研究参考，不构成投资建议';
+  var pf=document.getElementById('pageFooter'); if(pf) pf.textContent='来源：网络收录整理 · 页面更新：'+PAGE_UPDATED+' · 不构成投资建议';
+})();
+</script>
+</body>
+</html>
