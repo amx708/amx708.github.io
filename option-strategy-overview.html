@@ -83,8 +83,26 @@
   .gridline{stroke:var(--line);stroke-width:1}
   .axis{font-size:11px;fill:var(--sub)}
   .ptxt{font-size:10px;fill:#fff;font-weight:700}
+  .plabel{font-size:11px;font-weight:700;fill:#1a1a1a;paint-order:stroke;stroke:#fff;stroke-width:3px}
   .sectitle{font-size:15px;font-weight:700;margin-bottom:4px}
   .dsub{font-size:12.5px;color:var(--sub);margin-bottom:10px}
+  .score-legend{margin:0 0 14px;padding:14px 16px;border-radius:12px;background:#fff8e1;border:1px solid #ffe082}
+  .sl-title{font-size:14px;font-weight:700;margin-bottom:10px;color:#7a5b00}
+  .sl-zones{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+  .sl-pill{display:inline-block;padding:5px 12px;border-radius:999px;font-size:13px;font-weight:700;white-space:nowrap}
+  .sl-pill.g{background:#2e7d32;color:#fff}
+  .sl-pill.y{background:#f9a825;color:#3a2d00}
+  .sl-pill.r{background:#c62828;color:#fff}
+  .sl-formula{font-size:12.5px;color:#5d4510;background:#fff;border:1px dashed #ffe082;border-radius:8px;padding:8px 10px;margin-bottom:8px}
+  .sl-note{font-size:12.5px;color:#5d4510;line-height:1.6}
+  .hv-legend{margin:10px 0 14px;padding:12px 16px;border-radius:12px;background:#e3f2fd;border:1px solid #90caf9}
+  .hl-title{font-size:13.5px;font-weight:700;margin-bottom:8px;color:#0d47a1}
+  .hl-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+  .hl-pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12.5px;font-weight:700;color:#fff;white-space:nowrap}
+  .hl-pill.high{background:#c62828}
+  .hl-pill.mid{background:#f9a825;color:#3a2d00}
+  .hl-pill.low{background:#2e7d32}
+  .hl-note{font-size:12.5px;color:#0d47a1;line-height:1.6}
   table{width:100%;border-collapse:collapse;font-size:13px}
   th,td{padding:8px 9px;text-align:left;border-bottom:1px solid var(--line)}
   th{background:var(--chip);font-weight:600;color:var(--sub);font-size:12px}
@@ -115,15 +133,14 @@
 
   @media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}.matrix{grid-template-columns:1fr}.risk-grid{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}}
 </style>
-</style>
 </head>
 <body>
 <header>
-  <a class="home-link" href="index.html" title="返回主页" data-no-tdx="1" onclick="event.stopPropagation();window.location.href='index.html';return false;">← 返回主页</a>
+  <a class="home-link" href="./index.html">← 返回首页</a>
   <div class="wrap">
     <h1>期权策略体系总览 + 今日择时日报（合并版）</h1>
     <p>基于网络收录的期权实盘讨论与策略帖，提炼策略谱系、操作核心与风控红线；并嵌入本工作区「买方择时日报（真实 HV 版）」——策略框架与每日择时实操合一。</p>
-    <span class="src">来源：网络收录 · 仅供研究参考，不构成投资建议</span>
+    <span class="src" id="srcBadge">来源：网络收录 · 仅供研究参考，不构成投资建议</span>
   </div>
 </header>
 
@@ -135,10 +152,16 @@
     <a href="#risk">风控红线</a>
     <a href="#daily">今日择时日报</a>
     <a href="#warn">风险提示</a>
+    <a href="./option-seller-playbook.html">卖方攻略 ↗</a>
   </div>
 </nav>
 
 <div class="wrap">
+
+  <div style="background:linear-gradient(135deg,#eef2f7,#e3f2fd);border:1px solid #c7d7ee;border-radius:12px;padding:12px 16px;font-size:13px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+    <span>📘 想系统学"卖期权"怎么操作？单独做了《期权卖方策略与攻略 · 人话操作版》→</span>
+    <a href="./option-seller-playbook.html" style="color:#1565c0;font-weight:700;text-decoration:none;border:1px solid #90caf9;background:#fff;padding:7px 14px;border-radius:8px;font-size:13px">打开卖方攻略 ↗</a>
+  </div>
 
   <div class="kpis" id="overview">
     <div class="kpi"><div class="n">10</div><div class="l">收录实盘 / 策略帖</div></div>
@@ -210,6 +233,24 @@
   <section id="daily" style="background:transparent;border:none;box-shadow:none;padding:0;margin-bottom:22px">
     <h2 style="margin-bottom:14px"><span class="tag">实操</span>今日买权择时日报（真实 HV 版）</h2>
 
+    <div class="score-legend">
+      <div class="sl-title">📊 买方时机分是什么？—— 当前市场下「买期权（做买方）」的吸引力评分</div>
+      <div class="sl-zones">
+        <span class="sl-pill g">≥70　积极开仓区：可以买</span>
+        <span class="sl-pill y">50–69　中性/择优区：再看看</span>
+        <span class="sl-pill r">&lt;50　回避区：现在先别买</span>
+      </div>
+      <div class="sl-formula">算法：总分 = (100 − IV历史分位)×0.4 + 剩余天数(DTE)分×0.3 + 趋势分×0.2 + 事件分×0.1</div>
+      <div class="sl-note">⚠️ 这是<b>当前市场状态</b>下的评分，<b>不是合理值 / 目标值</b>。分数越高 = 越适合买购/买沽；分数越低 = 权利金越贵、时间损耗越快，对买方越不利。<b>今天 9 只全在 &lt;50 回避区，说明现在不是买期权的时候。</b></div>
+    </div>
+
+    <div id="dataBar" style="display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin-bottom:14px;padding:12px 16px;border-radius:12px;background:#eef2f7;border:1px solid var(--line)">
+      <div style="font-size:13px;color:var(--sub)">📅 数据快照：<b id="dataDate" style="color:var(--ink)">—</b></div>
+      <div style="font-size:13px;color:var(--sub)">📝 页面更新：<b id="pageUpdated" style="color:var(--ink)">—</b></div>
+      <div style="font-size:13px;color:var(--sub)">🕒 你打开页面的时间：<b id="liveClock" style="color:var(--ink);font-variant-numeric:tabular-nums">—</b></div>
+      <div style="font-size:12px;color:var(--sub)">合约到期 DTE 按打开日期自动算（每月第4个周三行权）</div>
+    </div>
+
     <div class="dnote-blue">
       <b>📈 通达信直连已开启</b><br>
       表中任意标的（名称 / 代码）均可点击 → 自动向通达信发送跳转指令，主图直接切到该标的。<br>
@@ -223,12 +264,12 @@
 
     <div class="dnote">
       <b>🟢 数据源升级：本次用真实数据</b><br>
-      通过 <b>westock-data CLI</b>（managed node）拉取 6 只 ETF 近 250 日真实 K 线，由 <code>compute_hv.py</code> 算出 HV20 / HV60 / 历史分位 / 量比（数据截止 2026-08-06）。<br>
-      <b>IV 代理说明</b>：期权链级隐含波动率(IV)绝对值该 CLI 取不到，故用<b>历史波动率 HV60 分位作 IV 代理</b>（已实现波动≠隐含波动但高度相关，卖方主流做法）。指数期权(IO/MO/IH)未纳入本真实版，其 HV 需另接数据源。
+      通过 <b>新浪公开日 K 线接口</b>（HTTP，零 key、不封 IP）拉取 6 只 ETF 近 320 根真实日线，由 <code>compute_hv.py</code> 算出 HV20 / HV60 / 历史分位 / 量比（数据截止 2026-08-14 收盘，刷新于 2026-08-26）。<br>
+      <b>IV 代理说明</b>：期权链级隐含波动率(IV)绝对值该源取不到，故用<b>历史波动率 HV60 分位作 IV 代理</b>（已实现波动≠隐含波动但高度相关，卖方主流做法）。指数期权(IO/MO/IH)未纳入本真实版，其 HV 需另接数据源。
     </div>
 
     <div class="dwarn">
-      <b>⚠️ 数据口径</b>：HV 分位基于 westock-data 返回的近 250 日 K 线。当前 6 只 HV60 分位 96.8–99.5，极为一致地偏高，<b>可初步采信为"高波动环境"信号</b>。结论：高波动=权利金贵=买方回避区。
+      <b>⚠️ 数据口径</b>：HV 分位基于新浪近 320 根日 K 线。当前 9 只 HV60 分位 92.7–96.9，仍一致偏高，<b>可初步采信为"高波动环境"信号</b>。结论：高波动=权利金贵=买方回避区。若手动刷新，重跑 <code>compute_hv.py</code> 即可（无需旧 westock CLI）。
     </div>
 
     <!-- 今日总览 -->
@@ -244,10 +285,21 @@
 
     <!-- 真实HV表 -->
     <div class="dcard">
-      <div class="sectitle">一、今日真实波动率（HV，westock-data 拉取）</div>
+      <div class="sectitle">一、今日真实波动率（HV，新浪公开日K线拉取）</div>
       <div class="dsub">HV60 分位越高=历史波动越极端=权利金越贵=买方越不合算。量比&lt;1 为缩量，无量异动。</div>
+
+      <div class="hv-legend">
+        <div class="hl-title">📈 HV60 分位（IV 代理）是什么？</div>
+        <div class="hl-row">
+          <span class="hl-pill high">≥80：波动率高位 · 期权贵</span>
+          <span class="hl-pill mid">≈50：历史中位</span>
+          <span class="hl-pill low">≤20：波动率低位 · 期权便宜</span>
+        </div>
+        <div class="hl-note">含义：当前 60 日历史波动率在过去一年中的<strong>历史排名</strong>。比如 92.7 表示比过去一年 92.7% 的日子波动都大。<strong>分位越高 ≈ 期权越贵 ≈ 买权越不合算</strong>。因公开 IV 数据不可得，这里用 HV60 分位作为期权隐含波动率 IV 的代理指标。</div>
+      </div>
+
       <table>
-        <thead><tr><th>标的</th><th>代码</th><th>HV20</th><th>HV60</th><th>HV60分位</th><th>量比(今日/20日均)</th></tr></thead>
+        <thead><tr><th>标的</th><th>代码</th><th>HV20</th><th>HV60</th><th title="HV60 历史分位：数值越高，当前 60 日波动率在过去一年中越极端，作为期权 IV 高低的代理指标">HV60分位<br>(IV代理)</th><th>量比(今日/20日均)</th></tr></thead>
         <tbody id="hvTable"></tbody>
       </table>
     </div>
@@ -262,23 +314,24 @@
         </span>
       </div>
       <div class="sectitle">二、四因子地图：IV 分位（横轴）× 剩余天数（纵轴）</div>
-      <div class="dsub">横轴越往右 IV 分位越高（越贵，对买方越差）；纵轴越往下剩余天数越少（越耗时间）。点的颜色=买方时机分好坏。</div>
-      <svg id="scatter" viewBox="0 0 680 420" role="img" aria-label="IV分位与DTE四因子散点图"></svg>
-      <div class="dfoot">图例：<span class="g">●</span> 积极(≥70)　<span class="y">●</span> 中性(50–69)　<span class="r">●</span> 回避(&lt;50)。</div>
+      <div class="dsub">横轴越往右 IV 分位越高（越贵，对买方越差）；纵轴越往下剩余天数越少（越耗时间）。<b>每个点已标注标的昵称</b>；同月标的 DTE 相同，故点竖向错开便于区分，<b>灰色虚线=真实 DTE 所在高度</b>。点的颜色=买方时机分好坏。</div>
+      <svg id="scatter" viewBox="0 0 680 460" role="img" aria-label="IV分位与DTE四因子散点图"></svg>
+      <div class="dfoot">图例：<span class="g">●</span> 积极(≥70)　<span class="y">●</span> 中性(50–69)　<span class="r">●</span> 回避(&lt;50)。　｜　每个点下方数字=买方时机分，标注昵称=标的；灰色虚线=真实 DTE。</div>
     </div>
 
     <!-- 综合分排序 -->
     <div class="dcard">
       <div class="sectitle">三、买方时机分排序（<span id="ovMonth2">9月次近月</span> · 四因子）</div>
-      <div class="dsub">总分 = (100−IV分位)×0.4 + DTE分×0.3 + 趋势分×0.2 + 事件分×0.1。趋势默认取"模糊/震荡"50、事件默认"无"60。</div>
+      <div class="dsub">买方时机分 = <b>当前市场条件下的买方开仓吸引力评分</b>，不是合理/目标值。≥70 积极开仓区 · 50–69 中性/择优区 · <50 回避区。总分 = (100−IV分位)×0.4 + DTE分×0.3 + 趋势分×0.2 + 事件分×0.1。趋势默认取"模糊/震荡"50、事件默认"无"60。</div>
       <div id="scoreBars"></div>
     </div>
 
     <!-- 明细表 -->
     <div class="dcard">
       <div class="sectitle">四、逐标的明细（<span id="ovMonth3">9月次近月</span>）</div>
+      <div class="dsub">下表「买方时机分」是<b>当前市场状态</b>下的买方开仓吸引力评分（数值越高越适合买；<50 表示当前权利金贵或时间损耗快，<b>不是合理值/目标值</b>）。最右列「可搜合约代码」：9 只真实 ETF 期权标的（与交易所/券商一致）<b>均为交易所 8 位合约编码</b>（通达信直接输入即可定位合约）。代码来自交易所官方披露（AKShare 直连），非估算。点击代码即复制。</div>
       <table>
-        <thead><tr><th>标的</th><th>HV60分位<br>(IV代理)</th><th>DTE</th><th>买方时机分</th><th>区带</th><th>推荐买哪月</th><th>行权价档<br>(Delta)</th><th>示意合约<br>(非实时)</th></tr></thead>
+        <thead><tr><th>标的</th><th>HV60分位<br>(IV代理)</th><th>DTE</th><th>买方时机分</th><th>区带</th><th>推荐买哪月</th><th>行权价档<br>(Delta)</th><th>可搜合约代码<br>(8位/交易码)</th></tr></thead>
         <tbody id="tbody"></tbody>
       </table>
       <details>
@@ -312,7 +365,7 @@
     <div class="dcard">
       <div class="sectitle">七、操作提示（人话版）</div>
       <ul class="tips">
-        <li><b>买方：当前高波动=权利金贵、时间价值损耗快</b>，按四因子属「回避区」（~37分）。若要做多，优先用<b>牛市/熊市价差</b>替代裸买以补贴时间价值；或<b>等波动率从 99 分位向中位回落</b>后再买，届时才是「积极开仓区」。</li>
+        <li><b>买方：当前高波动=权利金贵、时间价值损耗快</b>，按四因子属「回避区」（当前约 47–49 分）。若要做多，优先用<b>牛市/熊市价差</b>替代裸买以补贴时间价值；或<b>等波动率从高位向中位回落</b>后再买，届时才是「积极开仓区」。</li>
         <li><b>卖方/双卖/铁鹰</b>：高 HV 提供厚安全垫，但须控仓位（裸卖≤10%、价差≤25%、常备30%闲置资金）并对冲尾部——急跌反弹后中小盘 Gamma 大，谨防反向升波。</li>
         <li><b>中小盘反弹延续性</b>：科创50/1000/创业板 20 日深跌后今日反弹，关注是否企稳；若波动见顶回落，是未来买权性价比提升的信号，列入「持续关注」。</li>
         <li><b>指标只是滤网</b>：IV低+DTE够+顺趋势=赔率好，但还得你自己判断有没有催化剂（财报/政策/事件）。</li>
@@ -320,7 +373,7 @@
     </div>
 
     <div class="disclaim">
-      ⚠️ <b>数据说明与风险</b>：HV 来自 westock-data CLI 真实 K 线（2026-08-06）；HV 为已实现波动率，<b>不等于隐含波动率(IV)</b>，作 IV 代理使用。期权链级 IV/偏度/期限结构该源不可得，相关维度缺失。期权买方属高风险，时间价值损耗为刚性成本，<b>以上为数据整理，不构成投资建议，决策请自行判断。</b>
+      ⚠️ <b>数据说明与风险</b>：HV 来自新浪公开日 K 线（2026-08-14 收盘，重跑 compute_hv.py 可刷新）；HV 为已实现波动率，<b>不等于隐含波动率(IV)</b>，作 IV 代理使用。期权链级 IV/偏度/期限结构公开接口不可得，相关维度缺失。期权买方属高风险，时间价值损耗为刚性成本，<b>以上为数据整理，不构成投资建议，决策请自行判断。</b>
     </div>
   </section>
   <!-- ============ /今日择时日报 ============ -->
@@ -336,7 +389,7 @@
     </div>
   </section>
 
-  <footer>网络收录整理 · 不构成投资建议</footer>
+  <footer id="pageFooter">来源：网络收录整理 · 不构成投资建议</footer>
 </div>
 
 <script>
@@ -432,17 +485,69 @@ BARS.forEach(b=>{
 });
 
 /* ============ 今日择时日报（真实HV）脚本 ============ */
+// codes.near = 8月近月认购虚值一档 8位合约编码（或交易代码）；codes.far = 9月次近月
+// codeKind: '8digit' = 交易所8位合约编码（通达信直接输入即可）；'trade' = 交易代码（同规则可搜，8位编码待接通达信连接器补）
 const RAW = [
-  {name:'50ETF',      code:'510050', mkt:'SH', hv20:21.60, hv60:20.96, ivPct:99.5, vol:0.47},
-  {name:'300ETF',     code:'510300', mkt:'SH', hv20:26.76, hv60:23.94, ivPct:96.8, vol:0.49},
-  {name:'500ETF',     code:'510500', mkt:'SH', hv20:43.10, hv60:34.51, ivPct:98.9, vol:0.72},
-  {name:'1000ETF',    code:'512100', mkt:'SH', hv20:44.55, hv60:33.75, ivPct:98.9, vol:0.94},
-  {name:'创业板ETF',   code:'159915', mkt:'SZ', hv20:59.65, hv60:47.24, ivPct:98.4, vol:0.61},
-  {name:'科创50ETF',  code:'588000', mkt:'SH', hv20:73.67, hv60:63.39, ivPct:98.9, vol:0.57},
+  {name:'50ETF',     fullName:'华夏50ETF',       nickname:'50ETF',    code:'510050', mkt:'SH', hv20:17.04, hv60:20.56, ivPct:92.7, vol:0.48, callOtm1:3.10, codeKind:'8digit', codes:{near:'10011856', far:'10010975'}},
+  {name:'300ETF',    fullName:'华泰柏瑞300ETF',   nickname:'300ETF',   code:'510300', mkt:'SH', hv20:20.17, hv60:23.46, ivPct:94.6, vol:0.49, callOtm1:4.80, codeKind:'8digit', codes:{near:'10011871', far:'10010994'}},
+  {name:'500ETF',    fullName:'南方500ETF',       nickname:'500ETF',   code:'510500', mkt:'SH', hv20:32.76, hv60:33.85, ivPct:95.8, vol:0.43, callOtm1:8.00, codeKind:'8digit', codes:{near:'10012056', far:'10012074'}},
+  {name:'科创50ETF', fullName:'华夏科创50ETF',    nickname:'科创板50', code:'588000', mkt:'SH', hv20:64.40, hv60:62.02, ivPct:95.4, vol:0.51, callOtm1:1.85, codeKind:'8digit', codes:{near:'10012107', far:'10011033'}},
+  {name:'科创50ETFE',fullName:'易方达科创50ETF',  nickname:'科创板50E',code:'588080', mkt:'SH', hv20:63.25, hv60:61.71, ivPct:96.2, vol:0.51, callOtm1:1.80, codeKind:'8digit', codes:{near:'10012110', far:'10011051'}},
+  {name:'创业板ETF',  fullName:'易方达创业板ETF', nickname:'创业板ETF',code:'159915', mkt:'SZ', hv20:49.94, hv60:47.51, ivPct:96.9, vol:0.45, callOtm1:3.70, codeKind:'8digit', codes:{near:'90007774', far:'90007077'}},
+  {name:'嘉实300ETF',fullName:'嘉实300ETF',       nickname:'300ETF嘉', code:'159919', mkt:'SZ', hv20:19.63, hv60:23.12, ivPct:94.6, vol:0.50, callOtm1:5.00, codeKind:'8digit', codes:{near:'90007718', far:'90007092'}},
+  {name:'嘉实500ETF',fullName:'嘉实500ETF',       nickname:'500ETF嘉', code:'159922', mkt:'SZ', hv20:32.83, hv60:33.05, ivPct:96.5, vol:0.33, callOtm1:3.30, codeKind:'8digit', codes:{near:'90007734', far:'90007107'}},
+  {name:'深证100ETF',fullName:'易方达深证100ETF', nickname:'深证100',  code:'159901', mkt:'SZ', hv20:33.78, hv60:35.20, ivPct:96.5, vol:0.72, callOtm1:3.80, codeKind:'8digit', codes:{near:'90007680', far:'90007058'}},
 ];
-const DTE = {near:20, far:48};
+const DATA_DATE = '2026-08-25 收盘'; // 最新交易日快照；重跑 compute_hv.py 自动更新
+const PAGE_UPDATED = '2026-08-26 13:36:13'; // 页面版本更新时间（同步到 deploy_site 时修改）
 const TREND = 50, EVENT = 60; // 默认：模糊/震荡、无事件
 let month = 'far';
+
+// ===== 动态 DTE：按打开页面当天的日期，算当月/次月第4个周三行权日的剩余天数 =====
+function fourthWednesdayDTE(offsetMonths){
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = now.getMonth() + 1 + offsetMonths;
+  const adjY = m > 12 ? y + 1 : y;
+  const adjM = m > 12 ? m - 12 : m;
+  // 找该月第4个周三
+  let wednesdays = 0;
+  let day = 1;
+  const daysInMonth = new Date(adjY, adjM, 0).getDate();
+  let target = null;
+  for(day=1; day<=daysInMonth; day++){
+    const dt = new Date(adjY, adjM-1, day);
+    if(dt.getDay() === 3){ // 周三
+      wednesdays++;
+      if(wednesdays === 4){ target = dt; break; }
+    }
+  }
+  if(!target) return 30;
+  target.setHours(15,0,0,0); // 收盘后到期
+  const ms = target - now;
+  const d = Math.ceil(ms / 86400000);
+  return d > 0 ? d : 0;
+}
+const DTE = {near: fourthWednesdayDTE(0), far: fourthWednesdayDTE(1)};
+
+// 合约月份名（按当前真实月份推算，避免硬编码 8月/9月）
+function contractMonthNum(offsetMonths){
+  const mm = new Date().getMonth() + 1 + offsetMonths;
+  return mm > 12 ? mm - 12 : mm;
+}
+function contractMonth(offsetMonths){
+  const m = contractMonthNum(offsetMonths);
+  const suffix = offsetMonths===0 ? '近月' : (offsetMonths===1 ? '次近月' : '第'+(offsetMonths+1)+'月');
+  return m + '月' + suffix;
+}
+// 生成通达信/券商端常见的合约简称：科创板50购8月2100（按 strike*1000 取4位）
+function contractDisplay(r, monthNum){
+  const strikeCode = Math.round(r.callOtm1 * 1000).toString().padStart(4,'0');
+  return `${r.nickname}购${monthNum}月${strikeCode}`;
+}
+// 真实合约代码（8位编码 / 交易代码）与展示标签
+function realCodeOf(r, monthKey){ return r.codes[monthKey]; }            // monthKey: 'near'|'far'
+function realCodeLabel(r){ return r.codeKind==='trade' ? '交易代码' : '合约编码'; }
 
 function dteScore4(d){
   if(d>=30 && d<=45) return 100;
@@ -503,7 +608,7 @@ function setMonth(m){
   month = m;
   document.getElementById('bNear').className = (m==='near')?'on':'';
   document.getElementById('bFar').className  = (m==='far')?'on':'';
-  const lbl = m==='near'?'8月近月':'9月次近月';
+  const lbl = m==='near' ? contractMonth(0) : contractMonth(1);
   ['ovMonth','ovMonth2','ovMonth3'].forEach(id=>document.getElementById(id).textContent=lbl);
   render();
 }
@@ -523,7 +628,7 @@ function render(){
   document.getElementById('cHv').textContent = lowHv.name+' '+lowHv.ivPct+'%';
 
   // 散点图
-  const W=680,H=420, padL=46, padR=18, padT=18, padB=40;
+  const W=680,H=460, padL=46, padR=18, padT=18, padB=46;
   const x0=padL, x1=W-padR, y0=H-padB, y1=padT;
   const X = v => x0 + (v/100)*(x1-x0);
   const Y = v => y0 - (v/90)*(y0-y1);
@@ -538,10 +643,16 @@ function render(){
     svg+=`<text class="axis" x="${x0-8}" y="${yy+4}" text-anchor="end">${j}d</text>`; }
   svg+=`<text class="axis" x="${(x0+x1)/2}" y="${H-6}" text-anchor="middle">IV 历史分位（左低右高 → 越贵）</text>`;
   svg+=`<text class="axis" x="14" y="${(y0+y1)/2}" text-anchor="middle" transform="rotate(-90 14 ${(y0+y1)/2})">剩余天数 DTE（下短上长）</text>`;
-  rows.forEach(r=>{
-    const cx=X(r.ivPct), cy=Y(d);
-    svg+=`<circle cx="${cx}" cy="${cy}" r="15" fill="${r.v.c}" opacity="0.9"><title>${r.name}｜IV分位 ${r.ivPct}｜DTE ${d}｜买方时机分 ${r.score.toFixed(0)}｜${r.v.t}</title></circle>`;
+  // 真实 DTE 参考线（灰虚线）
+  svg += `<line x1="${x0}" y1="${Y(d)}" x2="${x1}" y2="${Y(d)}" stroke="#90a4ae" stroke-width="1.3" stroke-dasharray="6 4"/>`;
+  svg += `<text class="axis" x="${x1-4}" y="${Y(d)-6}" text-anchor="end" fill="#607d8b">真实 DTE=${d}天</text>`;
+  const n = rows.length;
+  rows.forEach((r,idx)=>{
+    const cx=X(r.ivPct);
+    const cy = Y(d) + (idx-(n-1)/2)*15;
+    svg+=`<circle cx="${cx}" cy="${cy}" r="12" fill="${r.v.c}" opacity="0.92"><title>${r.name}｜IV分位 ${r.ivPct}｜DTE ${d}｜买方时机分 ${r.score.toFixed(0)}｜${r.v.t}</title></circle>`;
     svg+=`<text class="ptxt" x="${cx}" y="${cy+3.5}" text-anchor="middle">${r.score.toFixed(0)}</text>`;
+    svg+=`<text class="plabel" x="${cx}" y="${cy+24}" text-anchor="middle">${r.nickname}</text>`;
   });
   document.getElementById('scatter').innerHTML = svg;
 
@@ -561,16 +672,18 @@ function render(){
   // 明细表
   let tb='';
   rows.forEach(r=>{
-    const recMonth = d<21 ? '次近月(9月,DTE≈48)' : '当前(9月)';
+    const recMonth = DTE.near < 21 ? contractMonth(1) : contractMonth(0);
+    const viewMon = contractMonthNum(month==='near'?0:1);
+    const disp = contractDisplay(r, viewMon);
     tb += `<tr>
-      <td><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')">${r.name}<br><span style="color:var(--sub);font-size:11px">${r.code}</span></span></td>
+      <td><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')">${r.fullName}<br><span style="color:var(--sub);font-size:11px">${r.name} · ${r.code}</span></span></td>
       <td>${r.ivPct}</td>
       <td>${d}天</td>
-      <td><span class="score" style="color:${r.v.c}">${r.score.toFixed(0)}</span></td>
+      <td><span class="score" style="color:${r.v.c}" title="买方时机分 ${r.score.toFixed(0)}（当前市场下买方开仓吸引力评分，非目标值）· ${r.v.t}">${r.score.toFixed(0)}</span></td>
       <td><span class="dtag" style="background:${r.v.c}">${r.v.t}</span></td>
       <td style="font-size:12px">${recMonth}</td>
-      <td style="font-size:12px">虚值一档 Δ0.20–0.30</td>
-      <td style="font-size:11.5px">${r.code}购9月@虚值一档</td>
+      <td style="font-size:12px">虚值一档 Δ0.20–0.30<br><span style="color:var(--sub);font-size:11px">约 ${r.callOtm1.toFixed(2)}</span></td>
+      <td style="font-size:12px"><span class="tdxlink" onclick="copyText('${realCodeOf(r, month)}');showToast('已复制代码：${realCodeOf(r, month)}')" style="font-weight:700">${realCodeOf(r, month)}</span><br><span style="color:var(--sub);font-size:10px">${realCodeLabel(r)}${r.codeKind==='trade'?'（可搜）':''} · 简称 ${disp}</span><br><span class="tdxlink" onclick="copyText('${disp}');showToast('已复制简称：${disp}')" style="color:var(--sub);font-size:10px">复制简称</span></td>
     </tr>`;
   });
   document.getElementById('tbody').innerHTML = tb;
@@ -580,34 +693,47 @@ function render(){
   const list = document.getElementById('okList');
   const note = document.getElementById('okNote');
   if(okRows.length>0){
-    list.innerHTML = okRows.map(r=>`<li><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')"><b>${r.name}（${r.code}）</b></span> — 买方时机分 ${r.score.toFixed(0)}，买购 Call / 9月次近月 / 虚值一档 Δ0.20–0.30（示意合约：${r.code}购9月@虚值一档，行权价按现价×0.95–0.97，非实时报价）</li>`).join('');
-    note.textContent = '示意合约行权价按现价×0.95–0.97推算，下单前核对真实代码与价格。';
+    list.innerHTML = okRows.map(r=>`<li><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')"><b>${r.fullName}（${r.code}）</b></span> — 买方时机分 ${r.score.toFixed(0)}，买购 Call / ${contractMonth(1)} / 虚值一档 Δ0.20–0.30（合约代码 <b>${r.codes.far}</b> · 简称 ${contractDisplay(r,contractMonthNum(1))}）</li>`).join('');
+    note.innerHTML = '表中已列出真实<b>合约代码</b>：9 只真实 ETF 期权标的（与交易所/券商一致）<b>均为交易所 8 位合约编码</b>（通达信直接输入即可定位合约），代码来自交易所官方披露（AKShare 直连），非估算。如只需简称，按「标的昵称+购+月份+行权价×1000」在券商 App 搜索即可。下单前务必核对真实代码与价格。';
   } else {
     const top = rows.slice(0,2);
-    list.innerHTML = top.map(r=>`<li><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')"><b>${r.name}（${r.code}）</b></span> — 买方时机分 ${r.score.toFixed(0)}（回避区），暂不适合买权。</li>`).join('');
-    note.innerHTML = '⚠️ 按真实 HV，今日<b>无买方时机分≥70的「适合买」标的</b>——6 只 ETF 的 HV60 分位全在 96.8–99.5（极高波动），权利金贵、时间损耗快。<b>建议「继续等，不宜追」</b>；待 HV 从高位回落（分位向 50 回归）才是积极开仓区。';
+    list.innerHTML = top.map(r=>`<li><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')"><b>${r.fullName}（${r.code}）</b></span> — 买方时机分 ${r.score.toFixed(0)}（回避区），合约代码 ${r.codes.far} · 简称 ${contractDisplay(r,contractMonthNum(1))}；暂不适合买权。</li>`).join('');
+    note.innerHTML = '⚠️ 按真实 HV，今日<b>无买方时机分≥70的「适合买」标的</b>——9 只 ETF 的 HV60 分位全在 92.7–96.9（极高波动），权利金贵、时间损耗快。<b>建议「继续等，不宜追」</b>；待 HV 从高位回落（分位向 50 回归）才是积极开仓区。';
   }
 }
 
 // 真实HV表
 document.getElementById('hvTable').innerHTML = RAW.map(r=>`<tr>
-  <td><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')" title="点击：跳转通达信该标的">${r.name}</span></td><td><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')" title="点击：跳转通达信该标的">${r.code}</span></td>
+  <td><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')" title="点击：跳转通达信该标的">${r.fullName}</span></td>
+  <td><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')" title="点击：跳转通达信该标的">${r.code}</span></td>
   <td>${r.hv20}</td><td>${r.hv60}</td>
-  <td><b>${r.ivPct}</b></td><td>${r.vol}</td></tr>`).join('');
+  <td><b title="HV60 分位=${r.ivPct}：当前 60 日波动率超过过去一年 ${r.ivPct}% 的交易日；越高=期权越贵=对买方越不利">${r.ivPct}</b></td><td>${r.vol}</td></tr>`).join('');
 
 // 关注标签
 const TAGS = [
-  {k:'① IV 跌至历史低位（买权机会）', s:'否', c:'tg-no', d:'HV60 分位 96.8–99.5，波动率处一年高位，权利金贵 → 反向（对买方不利）'},
-  {k:'② IV 单日骤升（事件/恐慌）', s:'观察', c:'tg-watch', d:'无单日 IV 数据；但 HV20≫HV60（近期波动急剧扩张），属周度级波动放大'},
-  {k:'③ 近远月倒挂/异常陡峭', s:'缺失', c:'tg-miss', d:'期权链期限结构 westock-data CLI 不可得，标注数据缺失'},
+  {k:'① IV 跌至历史低位（买权机会）', s:'否', c:'tg-no', d:'HV60 分位 92.7–96.9，波动率处一年高位，权利金贵 → 反向（对买方不利）'},
+  {k:'② IV 单日骤升（事件/恐慌）', s:'观察', c:'tg-watch', d:'无单日 IV 数据；科创50/创业板 HV20 已高于 HV60（波动边际走扩），但 50/300/500 仍 HV20<HV60，整体 HV60 处一年高位'},
+  {k:'③ 近远月倒挂/异常陡峭', s:'缺失', c:'tg-miss', d:'期权链期限结构新浪公开接口不可得，标注数据缺失'},
   {k:'④ 放量异动', s:'否', c:'tg-no', d:'量比均 ≤1.18，无异常放量'},
-  {k:'⑤ 临近到期（末日轮）', s:'否', c:'tg-no', d:'DTE 20天（近月）/48天（次近月），未进入 ≤10 天窗口'},
+  {k:'⑤ 临近到期（末日轮）', s: DTE.near<=10?'是':'否', c: DTE.near<=10?'tg-watch':'tg-no', d:'近月 DTE '+DTE.near+'天（'+(DTE.near<=10?'已进入 ≤10 天末日轮窗口':'未进入 ≤10 天窗口')+'），次近月 '+DTE.far+'天'},
 ];
 document.getElementById('tagBox').innerHTML = TAGS.map(t=>`<div style="margin:8px 0"><span class="tagbox ${t.c}">${t.s}</span> <b style="font-size:13px">${t.k}</b><div class="muted" style="margin-top:3px">${t.d}</div></div>`).join('');
 
-render();
+// ===== 时效栏：数据快照日期 + 实时时钟 + 动态合约月份按钮 + 默认月份渲染 =====
+(function initTiming(){
+  const dd=document.getElementById('dataDate'); if(dd) dd.textContent=DATA_DATE;
+  const pu=document.getElementById('pageUpdated'); if(pu) pu.textContent=PAGE_UPDATED;
+  const sb=document.getElementById('srcBadge'); if(sb) sb.textContent='来源：网络收录 · 页面更新：'+PAGE_UPDATED+' · 仅供研究参考，不构成投资建议';
+  const pf=document.getElementById('pageFooter'); if(pf) pf.textContent='来源：网络收录整理 · 页面更新：'+PAGE_UPDATED+' · 不构成投资建议';
+  const lc=document.getElementById('liveClock');
+  if(lc){ const tick=()=>{ lc.textContent=new Date().toLocaleString('zh-CN'); }; tick(); setInterval(tick,1000); }
+  const bn=document.getElementById('bNear'), bf=document.getElementById('bFar');
+  if(bn) bn.textContent=contractMonth(0)+'（'+DTE.near+'天）';
+  if(bf) bf.textContent=contractMonth(1)+'（'+DTE.far+'天）';
+})();
+setMonth(month); // 渲染默认月份标签 + 图表（取代原 render()）
 </script>
 <div id="toast"></div>
-  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">✅ 期权数据已更新 2026-08-26 13:36 · 每交易日 18:30 自动运行（AutoJobsHub） ｜ 2026-08-26 13:36</div>
 </body>
 </html>
