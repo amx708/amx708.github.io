@@ -506,6 +506,29 @@ document.getElementById("filters").addEventListener("click",e=>{
 });
 </script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
-<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">📅 要约收购监测：每日 16:30 自动收录新公告（AutoJobsHub） ｜ 2026-08-30 16:30</div>
+<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">📅 要约收购监测：每日 16:30 自动收录新公告（AutoJobsHub） ｜ 2026-08-31 18:05</div>
+<script>
+/* 标题案例数自动同步：始终等于 CASES.length，增删后无需手改数字 */
+(function(){
+  function syncCaseCount(){
+    if (typeof CASES === 'undefined') return;
+    var n = CASES.length, t = String(n);
+    var h1 = document.querySelector('h1');
+    if (h1) h1.innerHTML = h1.innerHTML.replace(/（\d+\s*例）/g, '（' + t + ' 例）');
+    document.title = document.title.replace(/（\d+\s*例）/g, '（' + t + ' 例）');
+    document.querySelectorAll('.badge').forEach(function(b){
+      if (/覆盖/.test(b.textContent)) b.innerHTML = b.innerHTML.replace(/覆盖\s*\d+\s*例要约/, '覆盖 ' + t + ' 例要约');
+    });
+    document.querySelectorAll('h2.sec').forEach(function(h){
+      if (/总览表/.test(h.textContent)) h.innerHTML = h.innerHTML.replace(/（\d+\s*例）/g, '（' + t + ' 例）');
+    });
+    document.querySelectorAll('.note').forEach(function(el){
+      el.innerHTML = el.innerHTML.replace(/（\d+\s*例）/g, '（' + t + ' 例）').replace(/\d+\s*例逐个深挖/g, t + ' 例逐个深挖');
+    });
+  }
+  if (document.readyState !== 'loading') syncCaseCount();
+  else document.addEventListener('DOMContentLoaded', syncCaseCount);
+})();
+</script>
 </body>
 </html>
