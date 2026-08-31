@@ -101,6 +101,8 @@
   .link-card a:hover{background:#e3f2fd}
   .disclaim{margin-top:14px;background:#fdecea;border:1px solid #ef9a9a;border-radius:10px;padding:11px 14px;font-size:12px;color:#b71c1c}
   .muted{color:var(--sub);font-size:12px}
+  .cpc{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--chip);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12.5px;color:var(--ink);cursor:pointer;white-space:nowrap}
+  .cpc:hover{background:var(--brand-soft);border-color:var(--brand)}
   @media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}.risk-grid{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.analogy{grid-template-columns:1fr}.strat-grid{grid-template-columns:1fr}.env-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -123,6 +125,7 @@
     <a href="#steps">五步实操</a>
     <a href="#risk">风控红线</a>
     <a href="#env">环境判读</a>
+    <a href="#codes">卖方标的</a>
     <a href="#checklist">自检清单</a>
     <a href="#pit">新手坑</a>
     <a href="#warn">风险提示</a>
@@ -345,9 +348,36 @@
     </div>
   </section>
 
+  <!-- ============ 卖方标的代码 ============ -->
+  <section id="codes">
+    <h2><span class="tag">标的</span>七、现在可卖的标的代码（人话：在哪卖、卖什么）</h2>
+    <div class="sec-sub">卖方就是在下面这些 <b>ETF 期权</b> 上"卖购 / 卖沽"。先记住 <b>ETF 代码</b>（券商 App 一搜就出期权链），再按需要选合约卖出。合约代码随月份轮换，下面给当前 <b>9 月主力月</b> 真实代码示例（数据快照 2026-08-25，实时代码以《总览页》为准）。</div>
+    <table>
+      <thead><tr><th>标的</th><th>ETF 代码</th><th>市场</th><th>卖方怎么用</th><th>9月主力认购合约代码(示例)</th></tr></thead>
+      <tbody>
+        <tr><td>50ETF</td><td><code class="cpc" title="点击复制">510050</code></td><td>沪(SH)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">10010975</code></td></tr>
+        <tr><td>300ETF</td><td><code class="cpc" title="点击复制">510300</code></td><td>沪(SH)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">10010994</code></td></tr>
+        <tr><td>500ETF</td><td><code class="cpc" title="点击复制">510500</code></td><td>沪(SH)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">10012074</code></td></tr>
+        <tr><td>科创50ETF</td><td><code class="cpc" title="点击复制">588000</code></td><td>沪(SH)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">10011033</code></td></tr>
+        <tr><td>科创50ETFE</td><td><code class="cpc" title="点击复制">588080</code></td><td>沪(SH)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">10011051</code></td></tr>
+        <tr><td>创业板ETF</td><td><code class="cpc" title="点击复制">159915</code></td><td>深(SZ)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">90007077</code></td></tr>
+        <tr><td>嘉实300ETF</td><td><code class="cpc" title="点击复制">159919</code></td><td>深(SZ)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">90007092</code></td></tr>
+        <tr><td>嘉实500ETF</td><td><code class="cpc" title="点击复制">159922</code></td><td>深(SZ)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">90007107</code></td></tr>
+        <tr><td>深证100ETF</td><td><code class="cpc" title="点击复制">159901</code></td><td>深(SZ)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">90007058</code></td></tr>
+      </tbody>
+    </table>
+    <div class="dsub" style="margin-top:12px">
+      · <b>卖购（Covered Call）</b>：已持有该 ETF 时，在期权链选「认购 + 虚值一档 + 近月」点"卖"即可收租。<br>
+      · <b>卖沽（CSP）</b>：想低位接货时，选「认沽 + 虚值一档 + 近月」点"卖"，账户留足等额现金准备接货。<br>
+      · 上面 8 位代码是 <b>认购(买购) 虚值一档</b> 示例；卖沽代码在期权链选「认沽」同理，实时以券商 / 《总览页》逐标的明细表为准（可一键复制）。<br>
+      · <b>卖哪个月？</b> 近月(DTE≈20天)时间价值衰减快、适合滚动收租；次近月(DTE≈48天)更从容。新手先卖次近月。
+    </div>
+    <div class="disclaim">⚠️ 期权合约代码 <b>每月轮换</b>（到期月变了代码就变）：8 月近月合约已于 2026-08-26 到期，故不列出；上表为 9 月主力月代码（数据快照 2026-08-25）。实盘下单前请务必在券商 App 核对 <b>当下真实合约代码与价格</b>，或打开《期权策略体系总览》逐标的明细表一键复制最新代码。</div>
+  </section>
+
   <!-- ============ 环境判读 ============ -->
   <section id="env">
-    <h2><span class="tag">择时</span>七、什么环境适合卖方（结合波动率框架）</h2>
+    <h2><span class="tag">择时</span>八、什么环境适合卖方（结合波动率框架）</h2>
     <div class="sec-sub">卖方的命门是"波动率"。下面用大白话讲清：什么时候是卖方天堂，什么时候该收手。实时数据看《总览页》HV60 分位。</div>
     <div class="env-grid">
       <div class="env-card"><h3><span class="dot" style="background:var(--highv)"></span>高波环境（IV 分位 &gt; 70%）</h3><p><span class="pill safe">卖方天堂</span> 权利金厚、安全垫宽。适合双卖/铁鹰/波动率卖方高波收租。但防单边逼空逼多升波，务必加保护、控仓位。</p></div>
@@ -362,7 +392,7 @@
 
   <!-- ============ 自检清单 ============ -->
   <section id="checklist">
-    <h2><span class="tag">清单</span>八、开盘前自检清单（可打勾）</h2>
+    <h2><span class="tag">清单</span>九、开盘前自检清单（可打勾）</h2>
     <div class="sec-sub">每次卖期权前，逐条过一遍。带 <span class="must">＊</span> 的是"不过就别动手"的硬条件。</div>
     <ul class="checklist">
       <li><input type="checkbox"><div><span class="must">＊</span> <b>我判了方向吗？</b>（看多/看空/震荡，不是"感觉要涨"）</div></li>
@@ -380,7 +410,7 @@
 
   <!-- ============ 新手坑 ============ -->
   <section id="pit">
-    <h2><span class="tag">避坑</span>九、新手常踩的坑</h2>
+    <h2><span class="tag">避坑</span>十、新手常踩的坑</h2>
     <div class="sec-sub">这些都是"高胜率幻觉"下最容易翻车的地方，逐条对照避雷。</div>
     <ul class="pit">
       <li><b>坑 1：裸卖沽抄底，结果暴跌穿仓。</b> 以为"接货"很美，跌穿行权价后被指派，浮亏+保证金暴涨双杀，账户扛不住被强平在最低点。</li>
@@ -394,7 +424,7 @@
 
   <!-- ============ 风险提示 ============ -->
   <section id="warn">
-    <h2><span class="tag">提示</span>十、风险提示</h2>
+    <h2><span class="tag">提示</span>十一、风险提示</h2>
     <div class="foot-warn">
       <p>本文仅为对网络收录期权实盘讨论与策略逻辑的<b>整理与人话解读，不构成任何投资建议</b>。期权属高杠杆、高风险衍生品：</p>
       <p style="margin-top:8px">· 卖方存在理论上的<b>无限亏损与穿仓强平</b>风险（尤其裸卖购）；买方多数合约到期归零。</p>
@@ -413,6 +443,18 @@
   var sb=document.getElementById('srcBadge'); if(sb) sb.textContent='来源：网络收录 · 页面更新：'+PAGE_UPDATED+' · 仅供研究参考，不构成投资建议';
   var pf=document.getElementById('pageFooter'); if(pf) pf.textContent='来源：网络收录整理 · 页面更新：'+PAGE_UPDATED+' · 不构成投资建议';
 })();
+/* 合约代码点击复制 */
+document.querySelectorAll('.cpc').forEach(function(el){
+  el.style.cursor='pointer';
+  el.addEventListener('click',function(){
+    var t=el.textContent.trim();
+    try{
+      if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(t).catch(function(){}); }
+      else{ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.top='-1000px'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }
+    }catch(e){}
+    var old=el.title; el.title='已复制 '+t; setTimeout(function(){ el.title=old; },1500);
+  });
+});
 </script>
 </body>
 </html>
