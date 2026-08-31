@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>期权卖方择时策略详解 · 详细版</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#ffffff; --ink:#1f2933; --sub:#5b6b7b;
+    --line:#e3e8ef; --brand:#2563eb; --brand-soft:#e8f0fe;
+    --up:#c0392b; --down:#1e8e5a;
+    --bull:#1e8e5a; --bear:#c0392b; --range:#7c5cff; --highv:#e67e22; --lowv:#0a8f8f; --hedge:#2563eb;
+    --warn:#c0392b; --warn-soft:#fdecea;
+    --shadow:0 1px 3px rgba(16,24,40,.08),0 4px 16px rgba(16,24,40,.06);
+    --blue:#1565c0; --green:#2e7d32; --yellow:#f9a825; --red:#c62828; --chip:#eef2f7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;padding-bottom:40px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+  header{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;padding:34px 0 28px;margin-bottom:22px;position:relative}
+  header .wrap{padding:0 18px}
+  header h1{font-size:25px;font-weight:700;letter-spacing:.5px}
+  header p{font-size:13px;opacity:.88;margin-top:8px;max-width:840px}
+  .src{display:inline-block;margin-top:12px;font-size:12px;background:rgba(255,255,255,.15);padding:4px 10px;border-radius:20px}
+  header .home-link{position:absolute;top:18px;right:24px;display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.45);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;text-decoration:none;transition:background .15s}
+  header .home-link:hover{background:rgba(255,255,255,.32);color:#fff}
+  nav{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:20;margin-bottom:22px}
+  nav .wrap{display:flex;gap:6px;flex-wrap:wrap;padding:10px 18px}
+  nav a{font-size:13px;color:var(--sub);text-decoration:none;padding:6px 12px;border-radius:8px}
+  nav a:hover{background:var(--brand-soft);color:var(--brand)}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+  .kpi .n{font-size:26px;font-weight:800;color:var(--brand)}
+  .kpi .l{font-size:12px;color:var(--sub);margin-top:4px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:22px;box-shadow:var(--shadow)}
+  h2{font-size:18px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  h2 .tag{font-size:11px;font-weight:600;color:#fff;background:var(--brand);padding:2px 9px;border-radius:20px}
+  .sec-sub{font-size:13px;color:var(--sub);margin-bottom:16px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:6px}
+  th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--chip);font-weight:600;color:var(--sub);font-size:12px}
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .stage{flex:1;min-width:150px;border:1px solid var(--line);border-radius:12px;padding:14px;background:#fafbfc}
+  .stage .t{font-size:13px;font-weight:700;color:var(--brand);margin-bottom:8px}
+  .stage ul{list-style:none;font-size:12.5px;color:var(--sub)}
+  .stage ul li{padding:3px 0;border-bottom:1px dashed var(--line)}
+  .arrow{display:flex;align-items:center;justify-content:center;padding:0 6px;color:var(--brand);font-size:20px;font-weight:700}
+  .risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .risk{border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:12px 14px;background:#fff}
+  .risk .k{font-size:13px;font-weight:700;color:var(--warn)}
+  .risk .v{font-size:13px;color:var(--ink);margin-top:4px}
+  .bars{margin-top:8px}
+  .bar{margin-bottom:12px}
+  .bar .lab{display:flex;justify-content:space-between;font-size:12.5px;color:var(--sub);margin-bottom:4px}
+  .bar .track{height:9px;background:#eef1f5;border-radius:6px;overflow:hidden}
+  .bar .fill{height:100%;border-radius:6px}
+  .foot-warn{background:var(--warn-soft);border:1px solid #f5c6c0;border-radius:12px;padding:16px 18px;font-size:13px;color:#7a241c}
+  .foot-warn b{color:var(--warn)}
+  footer{text-align:center;font-size:12px;color:var(--sub);margin-top:26px}
+
+  .analogy{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+  .analogy .box{border-radius:14px;padding:16px 18px;font-size:13px}
+  .analogy .ins{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20}
+  .analogy .land{background:#e3f2fd;border:1px solid #90caf9;color:#0d47a1}
+  .analogy h3{font-size:14px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+  .analogy ul{margin:6px 0 0 18px;font-size:12.5px}
+  .analogy li{margin:5px 0}
+  .strat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  .strat{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fafbfc;display:flex;flex-direction:column}
+  .strat h3{font-size:15px;font-weight:700;color:var(--brand);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+  .strat .one{font-size:12.5px;color:var(--sub);margin-bottom:10px;font-style:italic}
+  .strat .field{display:grid;grid-template-columns:74px 1fr;gap:8px;font-size:12.5px;margin-bottom:6px}
+  .strat .field b{color:var(--ink);font-weight:600;background:var(--chip);border-radius:6px;padding:2px 6px;text-align:center;font-size:11.5px;white-space:nowrap}
+  .strat .field span{color:var(--sub)}
+  .strat .field.danger b{background:#fdecea;color:var(--warn)}
+  .strat .field.danger span{color:var(--bear)}
+  .strat .ops{margin:6px 0 0 18px;font-size:12.5px;color:var(--sub)}
+  .strat .ops li{margin:3px 0}
+  .pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:600;margin:2px 4px 2px 0}
+  .pill.safe{background:#e8f5e9;color:var(--green);border:1px solid #a5d6a7}
+  .pill.mid{background:#fff8e1;color:#e65100;border:1px solid #ffe082}
+  .pill.hot{background:#fdecea;color:var(--warn);border:1px solid #ef9a9a}
+  .step{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:#fafbfc}
+  .step .no{flex:0 0 30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .step .bd{font-size:13px}
+  .step .bd b{color:var(--ink)}
+  .checklist{list-style:none;font-size:13.5px}
+  .checklist li{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:9px;background:#fafbfc}
+  .checklist input{margin-top:4px;width:16px;height:16px;accent-color:var(--brand);flex:0 0 16px}
+  .dnote-blue{background:#e3f2fd;border:1px solid #90caf9;border-radius:12px;padding:14px 16px;margin:14px 0;font-size:13px;color:#0d3b6e}
+  .concl{background:#eafaf0;border:2px solid #34a853;border-radius:12px;padding:14px 16px;margin:6px 0 14px;font-size:13.5px;color:#14532d}
+  .concl b{color:#14532d}
+  .tdxlink{color:var(--blue);cursor:pointer;font-family:monospace;font-weight:700;text-decoration:underline}
+  #toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%);background:rgba(30,41,59,.95);color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;opacity:0;transition:opacity .25s;z-index:99;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="wrap">
+    <h1>期权卖方择时策略详解</h1>
+    <p>从"为什么要择时"到"现在该卖哪个、怎么卖"的完整实战框架。卖方赚的是<b>时间价值衰减 + 高波动率溢价</b>——<b>不择时 = 在错误的波动率/方向卖出 = 送钱</b>。本页与《期权卖方策略与攻略（人话操作版）》配套使用。</p>
+    <span class="src" id="srcBadge">来源：网络收录 · 仅供研究参考，不构成投资建议</span>
+    <a class="home-link" href="./option-seller-playbook.html">← 卖方攻略</a>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#why">① 为什么择时</a>
+    <a href="#frame">② 双维度框架</a>
+    <a href="#iv">③ 波动率框架</a>
+    <a href="#env">④ 六类环境</a>
+    <a href="#strat">⑤ 三策略切入点</a>
+    <a href="#rhythm">⑥ 开仓节奏</a>
+    <a href="#manage">⑦ 移仓止损止盈</a>
+    <a href="#now">⑧ 当前实战判断</a>
+    <a href="#check">⑨ 检查清单</a>
+  </div>
+</nav>
+
+<div class="kpis">
+  <div class="kpi"><div class="n">92.7~96.9%</div><div class="l">当前 9 只 ETF 的 HV60 分位（全在卖方天堂区）</div></div>
+  <div class="kpi"><div class="n">2 维</div><div class="l">择时维度：方向 + IV（波动率）</div></div>
+  <div class="kpi"><div class="n">3 样</div><div class="l">只做：备兑 / CSP / 铁鹰（亏有上限、不倒贴）</div></div>
+  <div class="kpi"><div class="n">卖非买</div><div class="l">高波环境结论：适合卖、不适合买</div></div>
+</div>
+
+<!-- ============ ① 为什么择时 ============ -->
+<section id="why">
+  <h2><span class="tag">基础</span>一、为什么卖方必须择时</h2>
+  <div class="sec-sub">卖方的利润来源和买方完全不同，这决定了"何时出手"比"选哪个标的"更关键。</div>
+  <div class="analogy">
+    <div class="box ins">
+      <h3>🌱 卖方赚什么</h3>
+      <ul>
+        <li><b>时间价值衰减（Theta）</b>：期权越临近到期越不值钱，卖方"坐收"这部分流失。</li>
+        <li><b>高波动率溢价（Vega）</b>：IV 越高，权利金越贵，卖在高位=卖得贵。</li>
+        <li><b>胜率高</b>：横盘/小涨小跌都能盈利，靠概率+时间取胜。</li>
+      </ul>
+    </div>
+    <div class="box land">
+      <h3>⚠️ 不择时的代价</h3>
+      <ul>
+        <li><b>低波卖</b>：权利金薄如纸，跑了半年赚的不够一次回调。</li>
+        <li><b>逆方向裸卖</b>：方向错了，时间价值救不了你，浮亏无限（裸购）。</li>
+        <li><b>高波追卖不留缓冲</b>：升波+单边，保证金暴涨双杀，强平穿仓。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="concl"><b>一句话结论：</b>卖方择时 = 在<b>波动率够高（租金厚）+ 方向不对你不利 + 仓位可控</b>的三重条件下出手。三者齐全才卖，缺一个就收手或减仓。低波环境卖方是"亏本赚吆喝"，该把精力留给买方策略。</div>
+</section>
+
+<!-- ============ ② 双维度框架 ============ -->
+<section id="frame">
+  <h2><span class="tag">核心</span>二、择时双维度框架（方向 × IV）</h2>
+  <div class="sec-sub">卖方当然要择时，而且择"两个维度"。两维都对，才算真正的安全。</div>
+  <div class="risk-grid">
+    <div class="risk"><div class="k">维度① 方向</div><div class="v">先判看多 / 看空 / 震荡。卖沽抄底要"真想接货"；卖购备兑要"真持股"；逆势裸卖 = 找死。方向不对，时间价值也救不了你。</div></div>
+    <div class="risk"><div class="k">维度② IV（波动率）</div><div class="v">IV 历史分位 &gt;70% = 卖方天堂（权利金厚、安全垫宽）；&lt;40% 不宜卖（租金薄、不划算）。实时看《总览页》HV60 分位。</div></div>
+    <div class="risk"><div class="k">一句话口诀</div><div class="v">卖方择时 = <b>高波 + 不对你不利的方向 + 控仓位</b>。三者齐全才出手，缺一个就收手或减仓。</div></div>
+    <div class="risk"><div class="k">现在适合买还是卖？</div><div class="v">当前 9 只 ETF 的 HV60 分位全在 92.7%–96.9%（极高波）→ <b>适合卖、不适合买</b>（权利金贵、时间损耗快）。等波动率回落才是买方时机。</div></div>
+  </div>
+
+  <h3 style="font-size:14px;margin:18px 0 10px;color:var(--sub)">决策矩阵：方向 × IV 该卖什么</h3>
+  <table>
+    <thead><tr><th>方向判断 ＼ IV 环境</th><th>高波（分位 &gt;70%）<br>卖方天堂</th><th>中波（40%~70%）<br>可卖可不动</th><th>低波（&lt;40%）<br>不宜卖</th></tr></thead>
+    <tbody>
+      <tr><td><b>看多 / 已持股</b></td><td><span class="pill safe">备兑 + CSP</span> 收厚租、接货价更优</td><td><span class="pill safe">备兑</span> 轻仓收租</td><td><span class="pill mid">不宜卖</span> 改买购（低波买便宜）</td></tr>
+      <tr><td><b>看空 / 想抄底</b></td><td><span class="pill safe">CSP</span> 收厚租 + 低位接货</td><td><span class="pill safe">CSP</span> 轻仓</td><td><span class="pill mid">不宜卖</span></td></tr>
+      <tr><td><b>震荡 / 横盘</b></td><td><span class="pill safe">铁鹰 / 双卖（最佳）</span></td><td><span class="pill safe">铁鹰 / 双卖</span></td><td><span class="pill mid">不宜卖</span> 改买跨式/ Strait</td></tr>
+    </tbody>
+  </table>
+  <div class="dnote-blue">💡 <b>方向怎么判（给新手的实用清单）：</b>① 价格在 20/60 日均线上方且均线多头 = 偏多；下方 = 偏空；缠绕 = 震荡。② 前期支撑/阻力位：卖购行权价别设在阻力下方太近，卖沽行权价别设在支撑上方太近。③ 量能：放量突破边界 = 趋势可能开始，铁鹰要警惕。④ 实在判不准 = 默认"震荡"，用铁鹰/双卖通吃，别裸赌方向。</div>
+</section>
+
+<!-- ============ ③ 波动率框架 ============ -->
+<section id="iv">
+  <h2><span class="tag">波动率</span>三、波动率框架详解（卖方的命门）</h2>
+  <div class="sec-sub">波动率不是玄学，是可量化、可跟踪的数字。卖方要盯的是"IV 的历史分位"。</div>
+  <div class="risk-grid">
+    <div class="risk"><div class="k">IV vs HV</div><div class="v"><b>隐含波动率 IV</b> = 市场当前"怕不怕"（期权价格反推出来的预期波动）；<b>历史波动率 HV</b> = 过去实际波动。卖方的金律：<b>卖在 IV 高（你卖贵了）、买在 IV 低</b>。</div></div>
+    <div class="risk"><div class="k">分位怎么算</div><div class="v">把当前 IV 放在"过去 1 年 IV 分布"里看：处于 90% 分位 = 比历史上 90% 的时间都贵 = 卖方天堂；处于 10% 分位 = 极便宜 = 买方时机。</div></div>
+    <div class="risk"><div class="k">本页的 IV 代理</div><div class="v">公开期权链级 IV 绝对值不可得，本页用《总览页》的 <b>HV60 分位</b> 作 IV 代理（近 60 日实际波动的分位），实战足够区分"高波/低波"。</div></div>
+    <div class="risk"><div class="k">阈值速记</div><div class="v">&gt;70% 高波（卖）；40%~70% 中波（可卖）；&lt;40% 低波（买）。单边升波 + 突破 = 卖方禁区。</div></div>
+  </div>
+
+  <h3 style="font-size:14px;margin:18px 0 10px;color:var(--sub)">当前 9 只 ETF 的 HV60 分位（2026-08-31 快照，卖方天堂区）</h3>
+  <table>
+    <thead><tr><th>标的</th><th>HV60 分位<br>(IV 代理)</th><th>卖方信号</th><th>对应建议策略</th></tr></thead>
+    <tbody>
+      <tr><td>50ETF</td><td>92.7%</td><td><span class="pill safe">高波·适合卖</span></td><td>备兑为主（垫薄）</td></tr>
+      <tr><td>300ETF</td><td>94.6%</td><td><span class="pill safe">高波·适合卖</span></td><td>备兑为主（垫薄）</td></tr>
+      <tr><td>500ETF</td><td>95.8%</td><td><span class="pill safe">高波·强烈适合</span></td><td>备兑 / 铁鹰（厚租，控仓）</td></tr>
+      <tr><td>科创50ETF</td><td>95.4%</td><td><span class="pill safe">高波·强烈适合</span></td><td>备兑（厚垫 6.4%）</td></tr>
+      <tr><td>科创50ETFE</td><td>96.2%</td><td><span class="pill safe">高波·适合卖</span></td><td>备兑（垫 6.9%）</td></tr>
+      <tr><td>创业板ETF</td><td>96.9%</td><td><span class="pill safe">高波·适合卖</span></td><td>备兑（垫最厚 8.0%）</td></tr>
+      <tr><td>嘉实300ETF</td><td>94.6%</td><td><span class="pill safe">高波·适合卖</span></td><td>同 300 选流动性好的</td></tr>
+      <tr><td>嘉实500ETF</td><td>96.5%</td><td><span class="pill safe">高波·适合卖</span></td><td>备兑 / 铁鹰（中高收益薄垫）</td></tr>
+      <tr><td>深证100ETF</td><td>96.5%</td><td><span class="pill safe">高波·适合卖</span></td><td><span class="pill hot">不推荐</span>（薄租+宽价差）</td></tr>
+    </tbody>
+  </table>
+  <div class="concl"><b>结论：</b>9 只 ETF 的 HV60 分位<b>全部 &gt;92%</b>，处于"极高波"区间 → 现在是<b>卖方收租的黄金窗口</b>，不是买方时机。但"适合卖"≠"闭眼卖"：仍需结合方向（别逆势裸卖）与仓位（单标的 ≤10%~15%）。</div>
+</section>
+
+<!-- ============ ④ 六类环境 ============ -->
+<section id="env">
+  <h2><span class="tag">环境</span>四、六类市场环境的卖方打法</h2>
+  <div class="sec-sub">把"波动率 + 方向 + 趋势"组合成六类典型环境，每类给明确的"该卖什么 / 不该卖什么 / 仓位 / 止损触发"。</div>
+  <table>
+    <thead><tr><th>环境</th><th>特征</th><th>该卖</th><th>不该卖</th><th>仓位建议</th><th>止损/减仓触发</th></tr></thead>
+    <tbody>
+      <tr><td><span class="pill safe">高波环境<br>(&gt;70%)</span></td><td>IV 分位高、权利金厚</td><td>双卖 / 铁鹰 / CSP 高波收租</td><td>裸卖购（无限风险）</td><td>铁鹰/价差 ≤25%<br>CSP ≤15%</td><td>防单边升波；任一侧触界整组平</td></tr>
+      <tr><td><span class="pill safe">震荡 / 横盘</span></td><td>标的不动、时间价值稳流失</td><td>双卖 / 铁鹰（最佳）</td><td>方向性裸卖</td><td>铁鹰 ≤25%</td><td>突破边界立即减仓或转价差</td></tr>
+      <tr><td><span class="pill safe">慢牛 / 已持股</span></td><td>温和上行</td><td>备兑开仓（白收租）</td><td>卖沽（会被指派在更低处）</td><td>备兑无额外保证金</td><td>涨过行权价愉快交出筹码</td></tr>
+      <tr><td><span class="pill safe">低位 / 想抄底</span></td><td>估值低、想建仓</td><td>现金担保卖沽 CSP</td><td>裸卖购</td><td>CSP ≤15%（冻现金）</td><td>接货后继续跌 → 转 Wheel 回血</td></tr>
+      <tr><td><span class="pill mid">低波环境<br>(&lt;40%)</span></td><td>IV 分位低、权利金薄</td><td><span class="pill mid">不宜卖方</span></td><td>双卖/铁鹰（租金不够摩擦）</td><td>—</td><td>等波动起来再卖；此时适合买</td></tr>
+      <tr><td><span class="pill hot">单边暴涨暴跌<br>+ 升波</span></td><td>浮亏+保证金双杀</td><td><span class="pill hot">卖方禁区</span></td><td>任何逆势裸卖</td><td>已有卖仓立即减/对冲</td><td>绝不逆势加裸卖；保命第一</td></tr>
+    </tbody>
+  </table>
+  <div class="dnote-blue">💡 <b>环境会切换，策略要跟着切</b>：高波→卖、低波→买、单边→收手。同一标的，HV60 分位从 90% 掉到 30% 时，你的铁鹰就该平仓获利了结，而不是死扛到"租金耗尽"。<b>环境切换是卖方最大的回撤来源</b>。</div>
+</section>
+
+<!-- ============ ⑤ 三策略切入点 ============ -->
+<section id="strat">
+  <h2><span class="tag">策略</span>五、三策略（备兑 / CSP / 铁鹰）的择时切入点</h2>
+  <div class="sec-sub">"只做三样"是价值投资者的铁律。每种策略的"最佳开仓时机"不同，下面拆解。</div>
+  <div class="strat-grid">
+    <div class="strat">
+      <h3>🟢 备兑开仓</h3>
+      <div class="one">"持股收租"</div>
+      <div class="field"><b>何时卖</b><span>已持股 + 温和看多/震荡；不指望大涨（涨过就被叫走也开心）</span></div>
+      <div class="field"><b>选哪档</b><span>虚值一档购（卖购上限价 ≈ 现价×1.05），被行权即高位落袋</span></div>
+      <div class="field"><b>最佳时点</b><span>高波 + 震荡/慢牛；IV 越高租金越厚</span></div>
+      <div class="field danger"><b>别卖在</b><span>强烈看多（会错过主升浪）/ 暴跌中（接飞刀）</span></div>
+    </div>
+    <div class="strat">
+      <h3>🔵 现金担保卖沽 CSP</h3>
+      <div class="one">"低价接货收租"</div>
+      <div class="field"><b>何时卖</b><span>想低位建仓 + 震荡偏多；或大跌时加码（黄金窗口）</span></div>
+      <div class="field"><b>选哪档</b><span>虚值一档沽（卖沽接货价 ≈ 现价×0.95），跌到就接货</span></div>
+      <div class="field"><b>最佳时点</b><span>高波 + 你对标的"真想接货"；大跌伴随高 IV 最香</span></div>
+      <div class="field danger"><b>别卖在</b><span>单只个股退市风险 / 杠杆反向 ETF；别满仓接飞刀</span></div>
+    </div>
+    <div class="strat">
+      <h3>🟣 铁鹰（Iron Condor）</h3>
+      <div class="one">"赌横盘双收"</div>
+      <div class="field"><b>何时卖</b><span>明确震荡 + 高波；上下都收，亏锁定</span></div>
+      <div class="field"><b>选哪档</b><span>翼宽 5%（买购=卖购×1.05、买沽=卖沽×0.95），标准等宽</span></div>
+      <div class="field"><b>最佳时点</b><span>高波 + IV 有望回落；震荡市胜率 85%~92%</span></div>
+      <div class="field danger"><b>别卖在</b><span>单边趋势启动 / 财报/事件前；触界硬扛</span></div>
+    </div>
+  </div>
+  <div class="concl"><b>配合口诀：</b>已持股 → 卖备兑；想买更便宜 → 卖 CSP；判断横盘 → 卖铁鹰。这套覆盖绝大多数行情：涨（备兑赚租+筹码增值）、横（铁鹰通吃）、跌（CSP 低价接你本就想买的货）。唯一"吃亏"的单边大趋势——那本来就不是卖方该赚的钱。</div>
+</section>
+
+<!-- ============ ⑥ 开仓节奏 ============ -->
+<section id="rhythm">
+  <h2><span class="tag">节奏</span>六、开仓节奏：不用等大跌，但大跌是黄金窗口</h2>
+  <div class="sec-sub">回答"卖方要不要等指数大跌再开仓"——不需要干等，但大跌（伴随高 IV）确实是加码良机。</div>
+  <div class="concl"><b>结论：</b>正确做法是 <b>常态小仓收租 + 大跌时加码</b>，而不是空仓等到崩盘才动手。下面用 500ETF（现价≈7.88、9月剩23天、权利金 0.1161/份≈1,161元/张）算清楚。</div>
+  <div class="risk-grid">
+    <div class="risk"><div class="k">误区① 踏空机会成本</div><div class="v">死等大跌，半年可能横盘不动，权利金一分没收到。<b>时间是你卖方的朋友</b>——空仓就是白白浪费时间价值衰减。</div></div>
+    <div class="risk"><div class="k">误区② 跳空穿 strike</div><div class="v">大跌往往<b>跳空低开</b>，你挂的虚值 put 一夜间变深实值，还没反应过来就已"接飞刀"。真大跌时流动性骤降、平仓价差极宽。</div></div>
+    <div class="risk"><div class="k">误区③ 接下落的刀</div><div class="v">大跌时你 CSP 接到的"便宜货"可能还在跌——接完继续跌，账上浮亏扩大、保证金吃紧。CSP 要"真想接货、能拿住"，不是赌反弹。</div></div>
+  </div>
+
+  <table style="margin-top:14px">
+    <thead><tr><th>节奏</th><th>做法</th><th>23天实收(对本金)</th><th>滚动年化</th><th>大跌时表现</th><th>结论</th></tr></thead>
+    <tbody>
+      <tr><td><b>A 死等大跌</b></td><td>空仓等 500ETF 跌到 6.5 再卖沽</td><td style="color:var(--warn);font-weight:700">0 元</td><td style="color:var(--warn);font-weight:700">0%</td><td>真跌到 6.5 才有一两次机会，多数时间踏空</td><td>机会成本最高，<b>不推荐</b></td></tr>
+      <tr><td><b>B 不等地持续卖</b></td><td>现在 7.88 卖 CSP 行权价 7.50，收 1,161 元/张，每月滚动</td><td style="color:var(--green);font-weight:700">1.47%</td><td style="color:var(--green);font-weight:700">23.4%</td><td>跌到 7.50 被指派接货（计划内建仓）；否则白收租</td><td>常态收租、纪律稳，<b>推荐作基础仓</b></td></tr>
+      <tr><td><b>C 混合（推荐）</b></td><td>B 节奏常态小仓滚动；真大跌到 6.5~7.0 分批加仓至 40%~50%</td><td style="color:var(--green);font-weight:700">1.47% 起</td><td style="color:var(--green);font-weight:700">23.4%+</td><td>大跌反成加码良机，接货成本更低、安全垫更厚</td><td>常态收租 + 大跌低价扫货，<b>最稳健</b></td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:14px;margin:18px 0 10px;color:var(--sub)">月度滚动：近月 vs 次近月，DTE 管理</h3>
+  <div class="risk-grid">
+    <div class="risk"><div class="k">近月（DTE≈20天）</div><div class="v">时间衰减最快、租金回报率高，适合<b>滚动收租</b>。缺点：时间少、gamma 大、临近到期波动敏感。新手可从次近月起步。</div></div>
+    <div class="risk"><div class="k">次近月（DTE≈48天）</div><div class="v">更从容、受单日波动影响小，适合<b>铁鹰/双卖</b>与新手练手。租金略薄但容错高。</div></div>
+    <div class="risk"><div class="k">滚动纪律</div><div class="v">近月合约<b>到期前 5~7 天</b>主动平仓/移仓到下一月，别拖到最后一周（gamma 爆炸 + 被指派风险骤升）。</div></div>
+    <div class="risk"><div class="k">加仓/减仓触发</div><div class="v">HV60 分位跌破 40% → 停止开新卖仓；标的突破铁鹰边界 → 整组平；账户保证金占用 &gt;50% → 不再加。</div></div>
+  </div>
+</section>
+
+<!-- ============ ⑦ 移仓止损止盈 ============ -->
+<section id="manage">
+  <h2><span class="tag">管理</span>七、移仓 / 止损 / 止盈的择时</h2>
+  <div class="sec-sub">开仓只是开始，过程管理决定最终盈亏。卖方靠"小赚多次 + 严格止损"取胜。</div>
+  <table>
+    <thead><tr><th>动作</th><th>触发条件</th><th>怎么做</th><th>目的</th></tr></thead>
+    <tbody>
+      <tr><td><b>止盈</b></td><td>权利金跌到开仓的 <b>40%</b>（已赚约 60% 时间价值）</td><td>买回平仓、锁定利润（例：500ETF 0.1161→0.0464 就平）</td><td>落袋为安，释放保证金</td></tr>
+      <tr><td><b>止损</b></td><td>权利金涨到开仓的 <b>2 倍</b>（翻倍）</td><td>买回止损，防单边升波吞噬（例：0.1161→0.2322 就砍）</td><td>防小亏变大亏</td></tr>
+      <tr><td><b>移仓（Roll）</b></td><td>近月到期前 5~7 天，或标的逼近行权价</td><td>平近月、开下一月同/更远档（back/forward roll）</td><td>延续收租、避免被指派/归零</td></tr>
+      <tr><td><b>铁鹰触界平</b></td><td>任一侧触及行权边界</td><td><b>整组立即平仓</b>，绝不扛单</td><td>铁鹰优势是亏有上限，扛单就废</td></tr>
+      <tr><td><b>波动率回落</b></td><td>HV60 分位从高位快速回落</td><td>高波卖仓获利了结，不贪最后一口</td><td>落袋，等下一轮高波</td></tr>
+    </tbody>
+  </table>
+  <div class="dnote-blue">💡 <b>卖方的"时间止损"比"价格止损"更重要</b>：近月合约越接近到期，时间价值流失越快——若持仓逻辑没变（仍在安全垫内、IV 仍高），<b>不一定要止盈</b>，让时间替你赚钱；但若<b>方向已破（触界/升波）</b>，必须按纪律止损/平仓，别用"再等等时间价值会回来"自我麻痹。</div>
+</section>
+
+<!-- ============ ⑧ 当前实战判断 ============ -->
+<section id="now">
+  <h2><span class="tag">实战</span>八、用当前数据做择时判断（现在该卖哪个）</h2>
+  <div class="sec-sub">结合上面框架 + 2026-08-31 真实快照，给 9 只 ETF 一个"红绿灯"式的当前建议。</div>
+  <table>
+    <thead><tr><th>标的</th><th>HV60 分位</th><th>真实收益率(对本金)</th><th>安全垫</th><th>当前建议</th><th>首选策略</th></tr></thead>
+    <tbody>
+      <tr><td>科创50ETF</td><td>95.4%</td><td style="color:var(--green);font-weight:700">1.59%</td><td style="color:var(--green);font-weight:700">6.4%</td><td><span class="pill safe">★ 强烈推荐</span></td><td>备兑（厚垫+高收益）</td></tr>
+      <tr><td>500ETF</td><td>95.8%</td><td style="color:var(--green);font-weight:700">1.47%</td><td style="color:var(--warn);font-weight:700">1.5%</td><td><span class="pill safe">推荐（控仓≤10%）</span></td><td>备兑 / 铁鹰（厚租但垫薄）</td></tr>
+      <tr><td>创业板ETF</td><td>96.9%</td><td style="color:var(--blue);font-weight:700">0.86%</td><td style="color:var(--green);font-weight:700">8.0%</td><td><span class="pill safe">★ 稳健首选</span></td><td>备兑（垫最厚，睡得着）</td></tr>
+      <tr><td>科创50ETFE</td><td>96.2%</td><td style="color:var(--green);font-weight:700">1.49%</td><td style="color:var(--green);font-weight:700">6.9%</td><td><span class="pill safe">推荐</span></td><td>备兑（同科创选它垫更厚）</td></tr>
+      <tr><td>嘉实500ETF</td><td>96.5%</td><td style="color:var(--green);font-weight:700">1.52%</td><td style="color:var(--warn);font-weight:700">2.1%</td><td><span class="pill safe">推荐（控仓≤10%）</span></td><td>备兑 / 铁鹰（薄垫，同赛道选510500更流动）</td></tr>
+      <tr><td>嘉实300ETF</td><td>94.6%</td><td style="color:#666">0.51%</td><td>3.0%</td><td><span class="pill mid">可卖</span></td><td>同 300 选 300ETF 流动性好</td></tr>
+      <tr><td>300ETF</td><td>94.6%</td><td style="color:#666">0.45%</td><td>3.2%</td><td><span class="pill mid">可卖（备兑）</span></td><td>备兑（垫薄+收益低）</td></tr>
+      <tr><td>50ETF</td><td>92.7%</td><td style="color:#666">0.42%</td><td>2.6%</td><td><span class="pill mid">可卖（备兑）</span></td><td>备兑（垫薄+收益低，不如理财）</td></tr>
+      <tr><td>深证100ETF</td><td>96.5%</td><td style="color:#999">0.20%</td><td>6.2%</td><td><span class="pill hot">不推荐</span></td><td>薄租+宽价差+流动性差，坚决不卖</td></tr>
+    </tbody>
+  </table>
+  <div class="concl"><b>当前一句话操作：</b>高波窗口已开，<b>优先科创50 / 创业板（厚垫睡得着）</b>做备兑，<b>500 / 嘉实500（厚租）控仓≤10%做备兑或铁鹰</b>；50/300 收益偏低仅适合顺手备兑；深证100 三重不划算坚决不卖。<b>全部用备兑/CSP/铁鹰，裸卖一律不碰。</b></div>
+</section>
+
+<!-- ============ ⑨ 检查清单 ============ -->
+<section id="check">
+  <h2><span class="tag">清单</span>九、开盘前卖方择时检查清单</h2>
+  <div class="sec-sub">每次开卖仓前，逐条打勾。全绿才出手，有一条红就收手。</div>
+  <ul class="checklist">
+    <li><input type="checkbox"><div>我看过了《总览页》HV60 分位——当前是<b>高波（&gt;70%）</b>还是低波？（高波才卖）</div></li>
+    <li><input type="checkbox"><div>我判了<b>方向</b>：卖购=真持股、卖沽=真想接货；没有逆势裸卖。</div></li>
+    <li><input type="checkbox"><div>我选的是<b>备兑 / CSP / 铁鹰</b> 三样之一（不是裸卖）。</div></li>
+    <li><input type="checkbox"><div>我设了<b>止盈（×0.4）/ 止损（×2.0）</b> 触发价，并知道移仓时点（近月到期前 5~7 天）。</div></li>
+    <li><input type="checkbox"><div>单标的仓位 <b>≤10%~15%</b>，账户保证金占用 <b>&lt;50%</b>，留 30% 闲置应对追保/接货。</div></li>
+    <li><input type="checkbox"><div>铁鹰我确认了<b>翼宽留 5%+ 缓冲</b>，且触界会整组平（绝不扛）。</div></li>
+    <li><input type="checkbox"><div>合约代码已在券商/通达信<b>核对无误</b>（每月轮换，下月需重填）。</div></li>
+    <li><input type="checkbox"><div>我理解这笔的<b>最大亏损</b>是多少、是否在我可承受范围内。</div></li>
+  </ul>
+</section>
+
+<!-- ============ 风险 ============ -->
+<section id="warn">
+  <h2><span class="tag">提示</span>十、风险提示</h2>
+  <div class="foot-warn">
+    <p>本文仅为对网络收录期权实盘讨论与策略逻辑的<b>整理与人话解读，不构成任何投资建议</b>。期权属高杠杆、高风险衍生品：</p>
+    <p style="margin-top:8px">· 卖方存在理论上的<b>无限亏损与穿仓强平</b>风险（尤其裸卖购）；买方多数合约到期归零。</p>
+    <p>· 历史策略表现不代表未来，任何策略都有适配环境，环境切换（高波→低波、震荡→单边）可能导致大幅回撤。</p>
+    <p>· 本文 HV60 分位为 IV 代理（非期权链级 IV 绝对值），结论仅供参考；实盘请以券商/通达信实时报价与合约代码为准。</p>
+    <p>· 请充分理解策略原理与风险情景，仅用可承受损失的资金交易，并自行对交易决策与账户负责。</p>
+    <p>· <b>投资有风险，入市需谨慎。本文所有内容仅供研究参考，不构成投资建议。</b></p>
+  </div>
+</section>
+
+<footer id="pageFooter">来源：网络收录整理 · 不构成投资建议</footer>
+</div>
+<script>
+(function(){
+  var PAGE_UPDATED='2026-08-31 16:45（新建：期权卖方择时策略详解，覆盖为什么择时→双维度框架→波动率→六类环境→三策略切入点→开仓节奏→移仓止损→当前实战判断→检查清单）';
+  var sb=document.getElementById('srcBadge'); if(sb) sb.textContent='来源：网络收录 · 页面更新：'+PAGE_UPDATED+' · 仅供研究参考，不构成投资建议';
+  var pf=document.getElementById('pageFooter'); if(pf) pf.textContent='来源：网络收录整理 · 页面更新：'+PAGE_UPDATED+' · 不构成投资建议';
+})();
+</script>
+<div id="toast"></div>
+</body>
+</html>
