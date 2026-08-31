@@ -103,6 +103,11 @@
   .muted{color:var(--sub);font-size:12px}
   .cpc{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--chip);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:12.5px;color:var(--ink);cursor:pointer;white-space:nowrap}
   .cpc:hover{background:var(--brand-soft);border-color:var(--brand)}
+  .tdxlink{color:var(--blue);text-decoration:underline;cursor:pointer;font-weight:600;white-space:nowrap}
+  .tdxlink:hover{opacity:.75}
+  .dnote-blue{background:#e3f2fd;border:1px solid #90caf9;border-radius:10px;padding:12px 14px;font-size:13px;color:#0d47a1;margin-bottom:14px}
+  .dnote-blue b{color:#1565c0}
+  #toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#1f2a37;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99}
   @media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}.risk-grid{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.analogy{grid-template-columns:1fr}.strat-grid{grid-template-columns:1fr}.env-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -348,31 +353,50 @@
     </div>
   </section>
 
-  <!-- ============ 卖方标的代码 ============ -->
+  <!-- ============ 卖方择时 + 标的细节 ============ -->
   <section id="codes">
-    <h2><span class="tag">标的</span>七、现在可卖的标的代码（人话：在哪卖、卖什么）</h2>
-    <div class="sec-sub">卖方就是在下面这些 <b>ETF 期权</b> 上"卖购 / 卖沽"。先记住 <b>ETF 代码</b>（券商 App 一搜就出期权链），再按需要选合约卖出。合约代码随月份轮换，下面给当前 <b>9 月主力月</b> 真实代码示例（数据快照 2026-08-25，实时代码以《总览页》为准）。</div>
+    <h2><span class="tag">标的</span>七、卖方需要择时吗？+ 现在可卖的标的细节</h2>
+    <div class="sec-sub">先答"择时"：卖方当然要择时，而且择两个维度（方向 + IV）。下面给 9 个可卖标的的具体细节，<b>代码点一下直达通达信</b>（底层 / 合约都能跳）。</div>
+
+    <div class="dnote-blue">
+      <b>📈 通达信直连已开启</b><br>
+      表中 <b>ETF 代码</b>（跳到底层，看期权链）与 <b>9 月主力合约代码</b>（直接定位合约）均可点击 → 自动向通达信发送跳转指令。<br>
+      <b>首次使用必须先注册协议（任选其一）：</b><br>
+      方法 A：双击运行同目录下的 <code>注册通达信协议.reg</code> → 点<b>是</b> → 点<b>确定</b>（推荐，最稳）。<br>
+      方法 B：右键 <code>注册通达信协议.ps1</code> → 以<b>管理员身份</b>运行 PowerShell。<br>
+      注册后若仍弹 Microsoft Store 对话框，请<b>重启浏览器</b>再试。点击后浏览器可能弹「是否允许打开 tdx 应用」，请点<b>允许</b>。
+    </div>
+
+    <h3 style="font-size:14px;margin:6px 0 10px;color:var(--sub)">卖方需要择时吗？—— 是的，而且择"两个维度"</h3>
+    <div class="risk-grid">
+      <div class="risk"><div class="k">维度① 方向</div><div class="v">先判看多/看空/震荡。卖沽抄底要"真想接货"；卖购备兑要"真持股"；逆势裸卖=找死。方向不对，时间价值也救不了你。</div></div>
+      <div class="risk"><div class="k">维度② IV（波动率）</div><div class="v">IV 历史分位 &gt;70% = 卖方天堂（权利金厚、安全垫宽）；&lt;40% 不宜卖（租金薄、不划算）。实时看《总览页》HV60 分位。</div></div>
+      <div class="risk"><div class="k">一句话口诀</div><div class="v">卖方择时 = <b>高波 + 不对你不利的方向 + 控仓位</b>。三者齐全才出手，缺一个就收手或减仓。</div></div>
+      <div class="risk"><div class="k">现在适合买还是卖？</div><div class="v">当前 9 只 ETF 的 HV60 分位全在 92.7%–96.9%（极高波）→ <b>适合卖、不适合买</b>（权利金贵、时间损耗快）。等波动率回落才是买方时机。</div></div>
+    </div>
+
+    <h3 style="font-size:14px;margin:18px 0 10px;color:var(--sub)">9 个可卖标的细节（代码点一下跳通达信）</h3>
     <table>
-      <thead><tr><th>标的</th><th>ETF 代码</th><th>市场</th><th>卖方怎么用</th><th>9月主力认购合约代码(示例)</th></tr></thead>
+      <thead><tr><th>标的</th><th>ETF代码<br>(跳底层)</th><th>市场</th><th>IV分位<br>(卖方信号)</th><th>卖购上限价(元)<br>涨过被叫走</th><th>卖沽接货价(元)<br>≈估算</th><th>9月主力合约<br>(跳合约)</th></tr></thead>
       <tbody>
-        <tr><td>50ETF</td><td><code class="cpc" title="点击复制">510050</code></td><td>沪(SH)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">10010975</code></td></tr>
-        <tr><td>300ETF</td><td><code class="cpc" title="点击复制">510300</code></td><td>沪(SH)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">10010994</code></td></tr>
-        <tr><td>500ETF</td><td><code class="cpc" title="点击复制">510500</code></td><td>沪(SH)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">10012074</code></td></tr>
-        <tr><td>科创50ETF</td><td><code class="cpc" title="点击复制">588000</code></td><td>沪(SH)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">10011033</code></td></tr>
-        <tr><td>科创50ETFE</td><td><code class="cpc" title="点击复制">588080</code></td><td>沪(SH)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">10011051</code></td></tr>
-        <tr><td>创业板ETF</td><td><code class="cpc" title="点击复制">159915</code></td><td>深(SZ)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">90007077</code></td></tr>
-        <tr><td>嘉实300ETF</td><td><code class="cpc" title="点击复制">159919</code></td><td>深(SZ)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">90007092</code></td></tr>
-        <tr><td>嘉实500ETF</td><td><code class="cpc" title="点击复制">159922</code></td><td>深(SZ)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">90007107</code></td></tr>
-        <tr><td>深证100ETF</td><td><code class="cpc" title="点击复制">159901</code></td><td>深(SZ)</td><td>备兑卖购 / 低位卖沽接货</td><td><code class="cpc" title="点击复制">90007058</code></td></tr>
+        <tr><td>50ETF</td><td><span class="tdxlink" onclick="gotoTdx('510050','50ETF','SH')">510050</span></td><td>沪</td><td><span class="pill safe">92.7% 适合卖</span></td><td>3.10</td><td>≈2.83</td><td><span class="tdxlink" onclick="gotoTdx('10010975','50ETF 9月购','SH')">10010975</span></td></tr>
+        <tr><td>300ETF</td><td><span class="tdxlink" onclick="gotoTdx('510300','300ETF','SH')">510300</span></td><td>沪</td><td><span class="pill safe">94.6% 适合卖</span></td><td>4.80</td><td>≈4.39</td><td><span class="tdxlink" onclick="gotoTdx('10010994','300ETF 9月购','SH')">10010994</span></td></tr>
+        <tr><td>500ETF</td><td><span class="tdxlink" onclick="gotoTdx('510500','500ETF','SH')">510500</span></td><td>沪</td><td><span class="pill safe">95.8% 适合卖</span></td><td>8.00</td><td>≈7.31</td><td><span class="tdxlink" onclick="gotoTdx('10012074','500ETF 9月购','SH')">10012074</span></td></tr>
+        <tr><td>科创50ETF</td><td><span class="tdxlink" onclick="gotoTdx('588000','科创50ETF','SH')">588000</span></td><td>沪</td><td><span class="pill safe">95.4% 适合卖</span></td><td>1.85</td><td>≈1.69</td><td><span class="tdxlink" onclick="gotoTdx('10011033','科创50ETF 9月购','SH')">10011033</span></td></tr>
+        <tr><td>科创50ETFE</td><td><span class="tdxlink" onclick="gotoTdx('588080','科创50ETFE','SH')">588080</span></td><td>沪</td><td><span class="pill safe">96.2% 适合卖</span></td><td>1.80</td><td>≈1.64</td><td><span class="tdxlink" onclick="gotoTdx('10011051','科创50ETFE 9月购','SH')">10011051</span></td></tr>
+        <tr><td>创业板ETF</td><td><span class="tdxlink" onclick="gotoTdx('159915','创业板ETF','SZ')">159915</span></td><td>深</td><td><span class="pill safe">96.9% 适合卖</span></td><td>3.70</td><td>≈3.38</td><td><span class="tdxlink" onclick="gotoTdx('90007077','创业板ETF 9月购','SZ')">90007077</span></td></tr>
+        <tr><td>嘉实300ETF</td><td><span class="tdxlink" onclick="gotoTdx('159919','嘉实300ETF','SZ')">159919</span></td><td>深</td><td><span class="pill safe">94.6% 适合卖</span></td><td>5.00</td><td>≈4.57</td><td><span class="tdxlink" onclick="gotoTdx('90007092','嘉实300ETF 9月购','SZ')">90007092</span></td></tr>
+        <tr><td>嘉实500ETF</td><td><span class="tdxlink" onclick="gotoTdx('159922','嘉实500ETF','SZ')">159922</span></td><td>深</td><td><span class="pill safe">96.5% 适合卖</span></td><td>3.30</td><td>≈3.01</td><td><span class="tdxlink" onclick="gotoTdx('90007107','嘉实500ETF 9月购','SZ')">90007107</span></td></tr>
+        <tr><td>深证100ETF</td><td><span class="tdxlink" onclick="gotoTdx('159901','深证100ETF','SZ')">159901</span></td><td>深</td><td><span class="pill safe">96.5% 适合卖</span></td><td>3.80</td><td>≈3.47</td><td><span class="tdxlink" onclick="gotoTdx('90007058','深证100ETF 9月购','SZ')">90007058</span></td></tr>
       </tbody>
     </table>
     <div class="dsub" style="margin-top:12px">
-      · <b>卖购（Covered Call）</b>：已持有该 ETF 时，在期权链选「认购 + 虚值一档 + 近月」点"卖"即可收租。<br>
-      · <b>卖沽（CSP）</b>：想低位接货时，选「认沽 + 虚值一档 + 近月」点"卖"，账户留足等额现金准备接货。<br>
-      · 上面 8 位代码是 <b>认购(买购) 虚值一档</b> 示例；卖沽代码在期权链选「认沽」同理，实时以券商 / 《总览页》逐标的明细表为准（可一键复制）。<br>
-      · <b>卖哪个月？</b> 近月(DTE≈20天)时间价值衰减快、适合滚动收租；次近月(DTE≈48天)更从容。新手先卖次近月。
+      · <b>卖购上限价（元）</b>：备兑卖购的行权价（虚值一档），标的<b>涨过此价你就被"叫走"筹码</b>——这就是这笔的<b>上涨上限</b>（之上收益归买家，你只赚到权利金 + 行权价与成本之间的差价）。<br>
+      · <b>卖沽接货价（元）</b>：现金担保卖沽的建议行权价（≈现价下方 5%，按实时价定），标的<b>跌到此价你开始接货</b>，再往下是浮亏——这就是你的<b>下跌承受底线</b>（极端情况最大亏损≈接货价，标的归零时）。<br>
+      · <b>卖哪个月？</b> 近月(DTE≈20天)时间价值衰减快、适合滚动收租；次近月(DTE≈48天)更从容。新手先卖次近月。<br>
+      · 接货价为<b>估算值</b>（基于虚值一档购行权价×0.914 推算），实盘以通达信实时价为准。
     </div>
-    <div class="disclaim">⚠️ 期权合约代码 <b>每月轮换</b>（到期月变了代码就变）：8 月近月合约已于 2026-08-26 到期，故不列出；上表为 9 月主力月代码（数据快照 2026-08-25）。实盘下单前请务必在券商 App 核对 <b>当下真实合约代码与价格</b>，或打开《期权策略体系总览》逐标的明细表一键复制最新代码。</div>
+    <div class="disclaim">⚠️ 期权合约代码 <b>每月轮换</b>（到期月变了代码就变）：8 月近月合约已于 2026-08-26 到期，故不列出；上表为 9 月主力月代码（数据快照 2026-08-25，来源：交易所披露 / AKShare）。接货价为估算值，<b>实盘下单前请在通达信 / 券商核对当下真实价格与代码</b>。</div>
   </section>
 
   <!-- ============ 环境判读 ============ -->
@@ -439,22 +463,36 @@
 <script>
 /* 时效标注：页面打开时间 + 静态版本戳（与总览页统一口径） */
 (function(){
-  var PAGE_UPDATED='2026-08-30 10:02';
+  var PAGE_UPDATED='2026-08-31 11:31';
   var sb=document.getElementById('srcBadge'); if(sb) sb.textContent='来源：网络收录 · 页面更新：'+PAGE_UPDATED+' · 仅供研究参考，不构成投资建议';
   var pf=document.getElementById('pageFooter'); if(pf) pf.textContent='来源：网络收录整理 · 页面更新：'+PAGE_UPDATED+' · 不构成投资建议';
 })();
-/* 合约代码点击复制 */
-document.querySelectorAll('.cpc').forEach(function(el){
-  el.style.cursor='pointer';
-  el.addEventListener('click',function(){
-    var t=el.textContent.trim();
-    try{
-      if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(t).catch(function(){}); }
-      else{ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.top='-1000px'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }
-    }catch(e){}
-    var old=el.title; el.title='已复制 '+t; setTimeout(function(){ el.title=old; },1500);
-  });
-});
+/* ============ 通达信直连 + 代码复制 ============ */
+function copyText(txt){
+  if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(txt).catch(function(){ fallbackCopy(txt); }); }
+  else { fallbackCopy(txt); }
+}
+function fallbackCopy(txt){
+  try{ var ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.top='-1000px'; ta.style.opacity='0'; document.body.appendChild(ta); ta.focus(); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }catch(e){}
+}
+var toastTimer=null;
+function showToast(msg){
+  var el=document.getElementById('toast'); if(!el) return;
+  el.textContent=msg; el.style.opacity='1';
+  if(toastTimer) clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){ el.style.opacity='0'; },2600);
+}
+function gotoTdx(code, name, mkt){
+  var full=(mkt||'')+code;
+  copyText(code);
+  showToast('正在跳转到通达信：'+(name||'')+' '+code+' …');
+  try{
+    var a=document.createElement('a'); a.href='tdx://'+full; a.style.display='none';
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ if(a.parentNode) a.parentNode.removeChild(a); },1000);
+  }catch(e){ showToast('已复制代码 '+code+'，请手动在通达信输入'); }
+}
 </script>
+<div id="toast"></div>
 </body>
 </html>
