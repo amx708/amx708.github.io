@@ -668,6 +668,7 @@ document.getElementById("filters").addEventListener("click",e=>{
     var n = CASES.length, t = String(n);
     var h1 = document.querySelector('h1');
     if (h1) h1.innerHTML = h1.innerHTML.replace(/（\d+\s*例）/g, '（' + t + ' 例）');
+    document.title = document.title.replace(/（\d+\s*例）/g, '（' + t + ' 例）');
     document.querySelectorAll('.badge').forEach(function(b){
       if (/覆盖/.test(b.textContent)) b.innerHTML = b.innerHTML.replace(/覆盖\s*\d+\s*例要约/, '覆盖 ' + t + ' 例要约');
     });
