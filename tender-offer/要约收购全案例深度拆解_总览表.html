@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>要约收购全案例深度拆解（34例）· 总览表 + 单案例背景/资产/动机</title>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<title>要约收购全案例深度拆解（36例）· 总览表 + 单案例背景/资产/动机</title>
 <style>
   :root{
     --bg:#f6f8fb; --card:#fff; --ink:#1c2230; --sub:#5d6776; --line:#e4e9f0;
@@ -36,33 +35,45 @@
   .toolbar button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
   /* 总览表（横向滚动容器，一行一例，等宽布局） */
   .ov-tbl-wrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:10px;background:#fff;-webkit-overflow-scrolling:touch}
-  .ov-tbl{width:100%;border-collapse:collapse;font-size:12.5px;table-layout:fixed;min-width:1320px}
-  .ov-tbl th,.ov-tbl td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:middle;text-align:left;line-height:1.5}
-  /* 短内容列（数字/代码/单价/比例/标签）保留 nowrap + 截断；名称/类型/收购方允许多行显示 */
-  .ov-tbl .col-num,.ov-tbl .col-code,.ov-tbl .col-year,.ov-tbl .col-res,.ov-tbl .col-conf,.ov-tbl .col-dep{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .ov-tbl .col-name,.ov-tbl .col-type,.ov-tbl .col-price,.ov-tbl .col-pct,.ov-tbl .col-acq{white-space:normal;line-height:1.5;overflow:visible}
+  .ov-tbl{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed;min-width:100%}
+  .ov-tbl th,.ov-tbl td{padding:6px 7px;border-bottom:1px solid var(--line);vertical-align:middle;text-align:left;line-height:1.4}
+  /* 短内容列 nowrap */
+  .ov-tbl .col-num,.ov-tbl .col-code,.ov-tbl .col-res,
+  .ov-tbl .col-dep,.ov-tbl .col-mkt,.ov-tbl .col-offer,.ov-tbl .col-spread,
+  .ov-tbl .col-pct,.ov-tbl .col-tl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ov-tbl .col-name,.ov-tbl .col-type,.ov-tbl .col-deal{white-space:normal;line-height:1.4;overflow:visible}
   .ov-tbl .code-link{color:var(--blue);text-decoration:none;font-weight:600;display:inline-block;padding:1px 6px;border-radius:5px;transition:.12s;cursor:pointer}
   .ov-tbl .code-link:hover{background:var(--blue);color:#fff;text-decoration:none}
   .ov-tbl th{background:#eef3fa;color:#22405f;font-weight:700;font-size:12.5px;position:sticky;top:0}
+  .ov-tbl th[data-sort]{cursor:pointer;user-select:none;transition:background .12s;white-space:nowrap}
+  .ov-tbl th[data-sort]:hover{background:#e0eaf5}
+  .ov-tbl th .sarrow{display:inline-block;margin-left:4px;font-size:10px;color:#8aa0bd;width:10px;text-align:center}
+  .ov-tbl th.sort-asc .sarrow{color:#1f5fd6;transform:rotate(180deg)}
+  .ov-tbl th.sort-desc .sarrow{color:#1f5fd6}
+  .ov-tbl th[data-sort].sort-active{background:#e3edf9;box-shadow:inset 0 -2px 0 #1f5fd6}
   .ov-tbl tr:last-child td{border-bottom:none}
   .ov-tbl tbody tr:hover td{background:#f5f8fc}
-  /* 11 列固定百分比（按内容长度配比，总和=100） */
-  .ov-tbl .col-num   {width:4%;text-align:center;color:var(--sub);font-weight:600}
-  .ov-tbl .col-code  {width:8%;font-family:'SF Mono','Consolas',monospace;font-size:12px;color:var(--blue)}
-  .ov-tbl .col-name  {width:14%;font-weight:700;font-size:13px}
-  .ov-tbl .col-year  {width:6%;text-align:center;color:var(--sub);font-size:11.5px}
-  .ov-tbl .col-type  {width:14%}
-  .ov-tbl .col-price {width:11%}
-  .ov-tbl .col-pct   {width:10%;text-align:center;line-height:1.45}
-  .ov-tbl .col-res   {width:9%;text-align:center}
-  .ov-tbl .col-conf  {width:6%;text-align:center}
-  .ov-tbl .col-acq   {width:13%}
-  .ov-tbl .col-dep   {width:5%;text-align:center}
-  /* thead 对应类 */
+  /* 12 列（无横向滚动，100% 自适应） */
+  .ov-tbl .col-num   {width:3%;text-align:center;color:var(--sub);font-weight:700;font-size:10.5px}
+  .ov-tbl .col-code  {width:6.5%;font-family:'SF Mono','Consolas',monospace;font-size:10.5px;color:var(--blue)}
+  .ov-tbl .col-name  {width:9.5%;font-weight:700;font-size:11.5px}
+  .ov-tbl .col-type  {width:8%;font-size:10.5px}
+  .ov-tbl .col-deal  {width:12.5%;font-size:10px;color:#334155;line-height:1.45}
+  .ov-tbl .col-tl    {width:12%;font-size:10px;font-family:'SF Mono',Consolas,monospace;color:#334155}
+  .ov-tbl .col-pct   {width:5.5%;text-align:center;font-size:10.5px}
+  .ov-tbl .col-mkt   {width:4.5%;text-align:right;font-family:'SF Mono',Consolas,monospace;font-size:11px;font-weight:600;color:var(--ink)}
+  .ov-tbl .col-offer {width:4.5%;text-align:right;font-family:'SF Mono',Consolas,monospace;font-size:11px;font-weight:600;color:var(--blue)}
+  .ov-tbl .col-spread{width:5%;text-align:center;font-weight:700;font-size:11px}
+  .ov-tbl .col-res   {width:7%;text-align:center}
+  .ov-tbl .col-dep   {width:3.5%;text-align:center}
+  /* thead 居中 */
   .ov-tbl thead th.col-num,
   .ov-tbl thead th.col-pct,
+  .ov-tbl thead th.col-tl,
+  .ov-tbl thead th.col-mkt,
+  .ov-tbl thead th.col-offer,
+  .ov-tbl thead th.col-spread,
   .ov-tbl thead th.col-res,
-  .ov-tbl thead th.col-conf,
   .ov-tbl thead th.col-dep{text-align:center}
   .rk{font-size:11.5px;padding:3px 10px;border-radius:5px;color:#fff;font-weight:700;display:inline-block;white-space:nowrap;line-height:1.4}
   .cf{font-size:11px;padding:1px 7px;border-radius:5px;display:inline-block;white-space:nowrap;line-height:1.4}
@@ -111,12 +122,13 @@
 <a class="back-home" href="./index.html">← 返回首页</a>
 <header class="top">
   <a class="back-home-hero" href="./index.html">← 返回首页</a>
-  <h1>要约收购全案例深度拆解（34 例）</h1>
+  <h1>要约收购全案例深度拆解（36 例）</h1>
   <p>总览表 + 单案例背景/资产/动机 · 收购方与被收购方双拆解</p>
   <div>
     <span class="badge">范式：单案例深挖（背景·资产·动机）</span>
     <span class="badge">覆盖 34 例要约</span>
     <span class="badge">数据时点 2026-08-09 · 来源脱敏</span>
+    <span class="badge" style="background:rgba(34,197,94,.25);border-color:rgba(34,197,94,.45);color:#bbf7d0">✅ 已更新 2026-08-30（8例状态补正：7成功取控+瓦轴B退市+ST龙元遇冷·仅剩2例进行中）</span>
   </div>
 </header>
 
@@ -129,11 +141,11 @@
 </div>
 
 <div class="note">
-  <b>本篇构成：</b>① 顶部<b>总览表</b>——一行一例（代码/名称/年份/类型/要约价/比例/结果/置信/收购方/深度页），按需横向滚动；② 下方 <b>34 例逐个深挖</b>，每例按 ST新潮 范式拆 <b>被收购方（背景/资产/动机）+ 收购方（背景/资产/动机）</b>。所有数据来自已核实案例（公开公告/权威财经媒体，已脱敏），<b>不编造</b>；早年价格与部分买壳方资产缺口已标"待核"。
+  <b>本篇构成：</b>① 顶部<b>总览表</b>——一行一例（代码/名称/年份/类型/要约价/比例/结果/置信/收购方/深度页），按需横向滚动；② 下方 <b>36 例逐个深挖</b>，每例按 ST新潮 范式拆 <b>被收购方（背景/资产/动机）+ 收购方（背景/资产/动机）</b>。所有数据来自已核实案例（公开公告/权威财经媒体，已脱敏），<b>不编造</b>；早年价格与部分买壳方资产缺口已标"待核"。
 </div>
 
-<h2 class="sec">一、总览表（34 例）</h2>
-<p class="idxln">每例均已有<b>完整独立深度页</b>（收购方+被收购方 背景/资产/动机 + 图表 + 套利启示）：<a class="dl" href="个案深度分析/个案深度分析_索引.html">→ 全部个案深度分析索引</a>；下表「深度页」列也可直达对应页。</p>
+<h2 class="sec">一、总览表（36 例）</h2>
+<p class="idxln">每例均已有<b>完整独立深度页</b>（收购方+被收购方 背景/资产/动机 + 图表 + 套利启示）：<a class="dl" href="个案深度分析/个案深度分析_索引.html">→ 全部个案深度分析索引</a>；下表「深度页」列也可直达对应页。<span style="font-size:11px;color:var(--sub);float:right">¹市价为 2026-08-28 收盘快照，仅进行中标的 2 例有值；价差=(要约价−市价)/市价，正=折价(绿)、负=溢价(红)</span><span style="font-size:11px;color:var(--sub);float:right">¹市价 2026-08-28 收盘快照(仅进行中 2 例)；价差=(要约价−市价)/市价，正=折价(绿)、负=溢价(红)</span><span style="font-size:10.5px;color:var(--sub);display:block;margin-top:4px">四阶段：①摘要=首次公告日（时间线列上行）｜②要约报告书(全文)见各例「深度页」｜③要约期=预受窗口(时间线列下行，股东可按规定价卖股的时间)｜④结果=清算后定。名称悬停可看收购方；年份附在名称后</span></p>
 <div class="toolbar" id="filters">
   <button class="active" data-f="all">全部</button>
   <button data-f="success">成功</button>
@@ -141,7 +153,11 @@
   <button data-f="ongoing">进行中</button>
   <button data-f="wait">含待核</button>
 </div>
-<div class="ov-tbl-wrap"><table id="ovTable" class="ov-tbl"><thead><tr><th>#</th><th>代码</th><th>名称</th><th>年份</th><th>类型</th><th>要约价</th><th>比例</th><th>结果</th><th>置信</th><th>收购方</th><th>深度页</th></tr></thead><tbody></tbody></table></div>
+<div class="ov-tbl-wrap"><table id="ovTable" class="ov-tbl"><thead><tr><th data-sort="num">#<span class="sarrow">↕</span></th><th data-sort="code">代码<span class="sarrow">↕</span></th><th data-sort="name">名称<span class="sarrow">↕</span></th><th data-sort="type">类型<span class="sarrow">↕</span></th><th>要约方案<br><span style="font-weight:400;font-size:9.5px">价/股/额</span></th><th>时间线<br><span style="font-weight:400;font-size:9.5px">①摘要 / ③要约期</span></th><th data-sort="pct">比例<span class="sarrow">↕</span></th><th data-sort="mkt">市价¹<span class="sarrow">↕</span></th><th data-sort="offer">要约价<span class="sarrow">↕</span></th><th data-sort="spread">价差%<span class="sarrow">↕</span></th><th data-sort="res">④结果<span class="sarrow">↕</span></th><th>深度页</th></tr></thead><tbody></tbody></table></div>
+
+<div class="note" style="background:#eef6ff;border:1px solid #bcd6f5;border-radius:10px;padding:13px 16px;font-size:13px;color:#1f3a5f;margin:12px 0">
+  <b>套利速览（快照 2026-08-28 收盘 · 来源脱敏）：</b>仅剩 <b>2 个进行中标的</b>——<b>兴业银锡(000426)</b>为收购方（要约标的*ST威领、无独立要约价）、<b>*ST威领(002667)</b> 市价 19.00＞要约 18.00（价差 <b>−5.0%</b>，溢价无空间）。其余 9 例均已结束：胜通能源/锋龙股份/长龄液压/友邦吊顶/多瑞医药/真爱美家 <b>成功取控</b>、瓦轴B <b>成功退市</b>、ST龙元 <b>遇冷</b>（预受仅0.0274%）、君亭酒店 <b>终止</b>（此前 +28.3% 为"幽灵价差"，要约从未进预受窗口）。<b>整组无进行中正价差套利</b>，均非"有可验证现金流"价值资产，按纪律仅宜事件驱动观察、不当核心仓。
+</div>
 
 <h2 class="sec">二、全案例逐个深挖（背景 / 资产 / 动机）</h2>
 <div id="cases"></div>
@@ -155,7 +171,7 @@
 <script>
 const CASES = [
  {name:"ST龙元",code:"600491",year:2026,atype:"部分要约(主动)",offerPrice:"1.25元",offerPct:"6%",offerShares:"9178.6万股",maxAmount:"1.147亿",
-  structure:"主动要约(托市)",announce:"2026-07-09摘要/期7-28~8-26",preaccept:"预受≈0.70%上限",result:"进行中",confidence:"高",
+  structure:"主动要约(托市)",announce:"2026-07-09摘要/2026-08-26届满(预受0.0274%)",preaccept:"预受42户/418699股(0.0274%,远低于6%目标)",result:"失败(遇冷)",confidence:"高",
   tBG:"1996上市(宁波),原建筑施工主业;2026-05被ST,面值退市边缘(6/29曾破0.97)。",
   tAsset:"2025归母净亏25.86亿、扣非连亏4年;负债率83.49%、有息负债218亿、逾期12亿;控股家族质押99.78%冻结。",
   tMot:"面值退市边缘+国资紧急兜底托市;但资产质量差、债务沉重,非价值资产,纯保壳博弈。",
@@ -227,7 +243,7 @@ const CASES = [
   aMot:"入主日化代工上市平台,产业协同/买壳(2025买壳潮样本,非机器人系)。",_wait:true},
 
  {name:"胜通能源",code:"001331",year:2025,atype:"协议+部分要约",offerPrice:"13.28元",offerPct:"协议29.99%+要约15%",offerShares:"要约≤5.62亿",maxAmount:"约16.86亿",
-  structure:"协议+部分要约(44.99%)",announce:"2025-12-11",preaccept:"—",result:"进行中",confidence:"高",
+  structure:"协议+部分要约(44.99%)",announce:"2025-12-11/2026-05-27届满(6-3过户)",preaccept:"预受4192.42万股(14.85%,占预定99.03%)",result:"成功(控制权变更)",confidence:"高",
   tBG:"LNG物流;民营企业。",
   tAsset:"LNG运输/物流资产。",
   tMot:"被机器人企业选中买壳。",
@@ -245,7 +261,7 @@ const CASES = [
   aMot:"资本入主消费包装上市平台;要约比例25%偏高,安全边际较好。"},
 
  {name:"锋龙股份",code:"002931",year:2025,atype:"协议+部分要约",offerPrice:"17.72元",offerPct:"协议29.99%+要约13.02%",offerShares:"要约≤5.04亿",maxAmount:"约16.65亿",
-  structure:"协议+部分要约(43%)",announce:"2025-12-24",preaccept:"—",result:"进行中",confidence:"高",
+  structure:"协议+部分要约(43%)",announce:"2025-12-24/2026-04-20届满(4-24过户)",preaccept:"预受2845.79万股(13.02%,占预定100.03%)",result:"成功(控制权变更)",confidence:"高",
   tBG:"园林机械;民营企业。",
   tAsset:"园林工具/零部件产能。",
   tMot:"被机器人龙头选中买壳。",
@@ -253,8 +269,8 @@ const CASES = [
   aAsset:"人形机器人研发制造(上市公司,市值较高)。",
   aMot:"机器人企业买壳;29.99%精准卡30%触发临界点之下。"},
 
- {name:"长龄液压",code:"605389",year:2025,atype:"协议+部分要约",offerPrice:"协议34.39/要约36.24元",offerPct:"协议29.99%+要约12%",offerShares:"要约≤6.27亿",maxAmount:"约18.65亿",
-  structure:"协议+部分要约(41.99%)",announce:"2025-07-10",preaccept:"夏继发预受11.28%",result:"进行中",confidence:"高",
+ {name:"长龄液压",code:"605389",year:2025,atype:"协议+部分要约",offerPrice:"协议34.39/要约35.82元(除息调整)",offerPct:"协议29.99%+要约12%",offerShares:"要约≤6.27亿",maxAmount:"约18.65亿",
+  structure:"协议+部分要约(41.99%)",announce:"2025-07-10/2026-03-09届满(3-11复牌)",preaccept:"预受1729.05万股(12.00%,占预定100%)",result:"成功(控制权变更)",confidence:"高",
   tBG:"液压件;民营企业。",
   tAsset:"液压回转接头/马达等零部件产能。",
   tMot:"被资本选中买壳。",
@@ -263,7 +279,7 @@ const CASES = [
   aMot:"买壳上市;协议价<要约价结构,原股东已部分预受锁定。",_wait:true},
 
  {name:"友邦吊顶",code:"002718",year:2025,atype:"协议+部分要约",offerPrice:"29.41元",offerPct:"协议29.99%+要约15.01%",offerShares:"要约≤5.71亿",maxAmount:"约17.13亿",
-  structure:"协议+部分要约(45%)",announce:"2025-12-30",preaccept:"—",result:"进行中",confidence:"高",
+  structure:"协议+部分要约(45%)",announce:"2025-12-30/2026-03-26届满(4-3过户)",preaccept:"预受1943.01万股(15.01%,占预定100%)",result:"成功(控制权变更)",confidence:"高",
   tBG:"集成吊顶;民营企业。",
   tAsset:"集成吊顶研发制造产能。",
   tMot:"被数字科技资本选中入主家居。",
@@ -271,8 +287,8 @@ const CASES = [
   aAsset:"数字科技/教育出版科技(具体财务待核)。",
   aMot:"文化/数字科技资本入主家居上市平台。"},
 
- {name:"多瑞医药",code:"301075",year:2025,atype:"协议+部分要约",offerPrice:"32.064元",offerPct:"协议29.60%+要约24.30%",offerShares:"要约≤6.23亿",maxAmount:"约13.82亿",
-  structure:"协议+部分要约(53.90%)",announce:"2025-10",preaccept:"西藏嘉康预受24.30%",result:"进行中",confidence:"高",
+ {name:"多瑞医药",code:"301075",year:2025,atype:"协议+部分要约",offerPrice:"32.07元",offerPct:"协议29.60%+要约24.30%",offerShares:"要约≤6.23亿",maxAmount:"约13.82亿",
+  structure:"协议+部分要约(53.90%)",announce:"2025-10/2026-02-24届满(2-27复牌)",preaccept:"预受1944.00万股(24.30%,占预定100%)",result:"成功(控制权变更)",confidence:"高",
   tBG:"化学药;连续亏损。",
   tAsset:"化学药研发生产(连亏)。",
   tMot:"医药壳,被资本买壳。",
@@ -281,7 +297,7 @@ const CASES = [
   aMot:"买壳医药上市平台;要约比例24.30%高且已由西藏嘉康承诺预受,成功率锁定性强。"},
 
  {name:"真爱美家",code:"003041",year:2025,atype:"协议+部分要约",offerPrice:"27.74元",offerPct:"协议29.99%+要约15%",offerShares:"要约—",maxAmount:"约14.97亿",
-  structure:"协议+部分要约(44.99%)",announce:"2025-11-11",preaccept:"—",result:"进行中",confidence:"高",
+  structure:"协议+部分要约(44.99%)",announce:"2025-11-11/2026-04-21届满(4-29过户)",preaccept:"预受1873.75万股(13.01%,占预定100%)",result:"成功(控制权变更)",confidence:"高",
   tBG:"毛毯家纺;民营企业。",
   tAsset:"毛毯/家纺产能。",
   tMot:"被民营资本选中买壳。",
@@ -290,7 +306,7 @@ const CASES = [
   aMot:"民营资本买壳家纺上市平台;协议价=要约价一致。",_wait:true},
 
  {name:"瓦轴B",code:"200706",year:2026,atype:"全面要约(退市目的)",offerPrice:"2.86港元",offerPct:"全面39.39%",offerShares:"1.59亿股",maxAmount:"—",
-  structure:"以退市为目的全面要约",announce:"2026-03-05",preaccept:"—",result:"进行中",confidence:"高",
+  structure:"以退市为目的全面要约",announce:"2026-01-19报告书/2026-02-27届满(生效退市)",preaccept:"预受1459户/5452.46万股(净34.38%,社会公众<10%触发退市)",result:"成功(退市)",confidence:"高",
   tBG:"B股轴承制造;瓦轴集团旗下。",
   tAsset:"轴承研发制造(B股上市,流动性枯竭)。",
   tMot:"B股'僵尸化'、流动性枯竭,主动私有化退市。",
@@ -416,7 +432,7 @@ const CASES = [
   aMot:"低位增持、强化控制;要约期股价涨超要约价→仅收8.33万股遇冷。"},
 
  {name:"君亭酒店",code:"301073",year:2025,atype:"协议+部分要约",offerPrice:"25.71元",offerPct:"协议29.99%+要约6.01%",offerShares:"要约1168.65万股",maxAmount:"约18亿",
-  structure:"协议+部分要约(36%)",announce:"2025-12-02",preaccept:"原实控人承诺预受6.01%",result:"进行中",confidence:"高",
+  structure:"协议+部分要约(36%)",announce:"2025-12-02/2026-07-01终止",preaccept:"2026-07-01全面终止(协议转让+部分要约+控制权变更均未实施)",result:"失败(终止)",confidence:"高",
   tBG:"中高端酒店;81岁创始人吴启元。",
   tAsset:"中高端酒店管理(直营+轻资产转型中);2025前三季营收5.06亿/净990万(下滑)。",
   tMot:"国资文旅平台买壳。",
@@ -441,35 +457,32 @@ const CASES = [
   aName:"武商联+武汉经发投+武汉国资",aBG:"武汉国资联合体(武商联+武汉经发投+武汉国资公司)。",
   aAsset:"武汉国资商业资产。",
   aMot:"A股首例'为夺控制权'而发的要约;溢价6.1%巩固国资控股、拉开与银泰系差距。"},
-{name:"兴业银锡",code:"000426",year:2026,atype:"待核",offerPrice:"待核",offerPct:"待核",offerShares:"待核",maxAmount:"待核",structure:"公告见2026-08-19",announce:"2026-08-19",preaccept:"待核",result:"进行中",confidence:"低",_nodetail:true,note:"自动收录:兴业银锡:关于对外投资收购威领股份控制权及向威领股份股东发起部分要约收购的公告"}, {name:"*ST威领",code:"002667",year:2026,atype:"待核",offerPrice:"待核",offerPct:"待核",offerShares:"待核",maxAmount:"待核",structure:"公告见2026-08-19",announce:"2026-08-19",preaccept:"待核",result:"进行中",confidence:"低",_nodetail:true,note:"自动收录:*ST威领:威领新能源股份有限公司要约收购报告书摘要"},
+{name:"🆕兴业银锡",code:"000426",year:2026,atype:"收购方·发起要约",offerPrice:"—（要约标的*ST威领）",offerPct:"—",offerShares:"—",maxAmount:"≤18亿",
+  structure:"通过全资子公司山南锑金发起部分要约",announce:"2026-08-19",preaccept:"—",result:"进行中",confidence:"高",_nodetail:true,
+  tBG:"兴业银锡(000426)银/锡/铅锌/锑多金属矿采选冶炼龙头,市值约689亿。",
+  tAsset:"有色金属矿采选+冶炼,现金流较强,自有资金支付要约。",
+  tMot:"重启收购*ST威领:6月因标的被*ST终止参股,8月升级为控股要约(18元/股、30%),整合锂电+有色矿协同。",
+  aName:"西藏山南锑金资源(全资子公司)",aBG:"山南锑金,兴业银锡全资子公司,本次要约收购主体。",
+  aAsset:"兴业银锡矿业资产(自有资金,履约保证金7.04亿已存中登)。",
+  aMot:"取得*ST威领控制权并改善经营,总投资≤18亿,不以终止上市为目的。"},
+ {name:"🆕*ST威领",code:"002667",year:2026,atype:"部分要约(主动·取控股权)",offerPrice:"18.00元",offerPct:"30.00%",offerShares:"7817.75万股",maxAmount:"14.07亿",
+  structure:"部分要约(山南锑金向全体股东)",announce:"2026-08-19/要约期8-31~9-29",preaccept:"预受≥5%(1302.96万股)生效",result:"进行中",confidence:"高",_nodetail:true,
+  tBG:"威领新能源(原威领股份)锂矿选矿+锂盐加工+钨锡铅锌多金属矿开采;2025年报保留意见、披星戴帽(*ST)。",
+  tAsset:"锂电原料(锂盐)+有色金属矿采选;持续亏损、退市风险警示未解除;原控股股东上海领亿。",
+  tMot:"兴业银锡主动要约夺控,整合矿产资源;此前6月因标的被*ST终止7.78%参股,8月升级为控股要约。",
+  aName:"西藏山南锑金资源(兴业银锡全资子公司)",aBG:"山南锑金,兴业银锡(000426)全资子公司;兴业银锡为银/锡/铅锌/锑多金属矿龙头(市值约689亿)。",
+  aAsset:"兴业银锡矿业资产(自有资金支付);履约保证金7.04亿已存中登。",
+  aMot:"取得*ST威领控制权、稳定股权结构、整合锂电+有色矿;未来12月可继续增持,不以终止上市为目的。"},
 ];
 
 // ---- 总览表（一行一例，横向滚动） ----
 const resKey={ "成功":"s","成功(控股)":"s","成功(保上市)":"s","成功(退市)":"s","成功(巩固控制)":"s","成功(控制权变更)":"s",
-  "失败":"f","失败(遇冷)":"f","无套利空间":"c","进行中":"o","部分成功/后续终止":"c" };
+  "失败":"f","失败(遇冷)":"f","失败(终止)":"f","无套利空间":"c","进行中":"o","部分成功/后续终止":"c" };
 const resTxt={ "成功":"成功","成功(控股)":"成功","成功(保上市)":"成功(保上市)","成功(退市)":"成功(退市)","成功(巩固控制)":"成功","成功(控制权变更)":"成功(变控)",
-  "失败":"失败","失败(遇冷)":"遇冷","无套利空间":"无空间","进行中":"进行中","部分成功/后续终止":"部分成功" };
+  "失败":"失败","失败(遇冷)":"遇冷","失败(终止)":"终止","无套利空间":"无空间","进行中":"进行中","部分成功/后续终止":"部分成功" };
 const safeD=x=>String(x).replace(/[\\/:*?"<>|]/g,"_");
 function linkHtml(c){if(c._nodetail)return '<span class="dl" style="background:#f0f0f3;color:#9aa3b2;border-color:#e6e6ea;cursor:default">深度页待生成</span>';return '<a class="dl" href="个案深度分析/个案_'+safeD(c.code)+'_'+safeD(c.name)+'.html">完整深度页 →</a>';}
 const ovBody=document.querySelector("#ovTable tbody");
-ovBody.innerHTML=CASES.map((c,i)=>{
-  const rk=resKey[c.result]||"c";
-  const cf=c.confidence==="高"?"h":c.confidence==="中"?"m":"w";
-  const wait=c._wait?' <span class="pill w" style="font-size:10px;padding:1px 6px;border-radius:5px;background:#9aa3b2;color:#fff">⚠待核</span>':'';
-  return `<tr data-res="${c.result}" data-conf="${c.confidence}">
-    <td class="col-num" title="第 ${i+1} 例">${i+1}</td>
-    <td class="col-code">${c._nodetail?`<span style="color:#9aa3b2;cursor:default" title="深度页待生成">${c.code}</span>`:`<a class="code-link" href="个案深度分析/个案_${safeD(c.code)}_${safeD(c.name)}.html" title="点击查看 ${c.name} · ${c.code} 个案深度分析">${c.code}</a>`}</td>
-    <td class="col-name" title="${c.name}">${c.name}</td>
-    <td class="col-year" title="${c.year||''}">${c.year||''}</td>
-    <td class="col-type" title="${c.atype||''}">${c.atype||''}</td>
-    <td class="col-price" title="${c.offerPrice||''}">${c.offerPrice||''}</td>
-    <td class="col-pct" title="${c.offerPct||''}">${c.offerPct||''}</td>
-    <td class="col-res" title="${c.result||''}"><span class="rk ${rk}">${resTxt[c.result]||c.result}</span></td>
-    <td class="col-conf" title="${c.confidence||''} ${wait?'含待核':''}"><span class="cf ${cf}">${c.confidence||''}</span>${wait}</td>
-    <td class="col-acq" title="${c.aName||''}">${c.aName||''}</td>
-    <td class="col-dep">${linkHtml(c)}</td>
-  </tr>`;
-}).join("");
 
 // ---- 个案卡 ----
 function block(lab,val){return `<div class="b3"><div class="lab">${lab}</div><div class="v">${val}</div></div>`;}
@@ -495,6 +508,141 @@ casesBox.innerHTML=CASES.map(c=>{
   </div>`;
 }).join("");
 
+// ---- 表头排序 ----
+let sortState={key:null,dir:1}; // dir: 1=升序, -1=降序
+const confOrder={高:3,中:2,低:1};
+const resOrder={"成功":5,"成功(控股)":5,"成功(保上市)":4,"成功(退市)":4,"成功(巩固控制)":4,"成功(控制权变更)":5,"失败":1,"失败(遇冷)":1,"无套利空间":2,"进行中":3,"部分成功/后续终止":2};
+function parseMoney(s){if(!s)return NaN;const m=String(s).replace(/[元亿万股%,\s]/g,"");const n=parseFloat(m);if(isNaN(n))return NaN;return s.includes("亿")?n*10000:n;}
+function parsePct(s){if(!s)return NaN;const m=String(s).match(/([\d.]+)\s*%/);return m?parseFloat(m[1]):NaN;}
+function sortValue(c,key){
+  switch(key){
+    case "num":return c._index;
+    case "code":return c.code;
+    case "name":return c.name||"";
+    case "year":return c.year||0;
+    case "type":return c.atype||"";
+    case "price":return parseMoney(c.offerPrice);
+    case "pct":return parsePct(c.offerPct)||parseMoney(c.offerPct);
+    case "res":return resOrder[c.result]??10;
+    case "conf":return confOrder[c.confidence]??0;
+    case "acq":return c.aName||"";
+    case "mkt":return MKT_PRICES[c.code]??null;
+    case "offer":return parseMoney(c.offerPrice);
+    case "spread":{const m=MKT_PRICES[c.code],o=parseMoney(c.offerPrice);return(m!=null&&!isNaN(o)&&o>0)?((o-m)/m*100):null;}
+    default:return "";
+  }
+}
+// 市价快照（2026-08-28 收盘 · 来源脱敏）— 仅进行中标的实时行情，其余为 null
+const MKT_PRICES={"000426":41.58,"002667":19.00};
+// 瓦轴B 要约价是港元
+const HKD_OFFERS={"200706":2.86};
+
+function fmtSpread(v){if(isNaN(v)||v===null)return"—";const c=v>0?"var(--green)":v<0?"var(--red)":"var(--sub)";return`<span style="color:${c}">${v>0?"+":""}${v.toFixed(1)}%</span>`;}
+function extPeriod(a){if(!a)return"—";const m=a.match(/期([\d\-~]+)/);return m?m[1]:a.replace(/^\d{4}[-\d]*/,"").replace(/^摘要?\//,"");}
+// 解析要约四阶段时间线：①摘要(首次公告) ②报告书(全文) ③期(预受窗口) ④结果
+function parseTimeline(a,result){
+  if(!a) return {summary:"—",period:"—"};
+  let summary="—";
+  const sumM=a.match(/\d{4}(?:-\d{1,2}){0,2}(?:末)?/);
+  if(sumM) summary=sumM[0];
+  let period="—";
+  const perM=a.match(/期([\d\-~]+)/);
+  if(perM){period=perM[1];}
+  else{
+    const r1=a.match(/(\d{4}-\d{1,2}-\d{1,2})~(\d{4}-\d{1,2}-\d{1,2})/);
+    if(r1){period=r1[1].replace(/^\d{4}-/,"")+"~"+r1[2].replace(/^\d{4}-/,"");}
+    else{const r2=a.match(/(\d{1,2}-\d{1,2})~(\d{1,2}-\d{1,2})/);if(r2)period=r2[1]+"~"+r2[2];}
+  }
+  // 要约期补注年份：若 period 缺 4 位年份，则从 ①摘要(summary) 取年份前缀
+  const yrM=summary.match(/^\d{4}/);
+  if(yrM&&period!=="—"&&!/^\d{4}/.test(period)){period=yrM[0]+"-"+period;}
+  return {summary,period};
+}
+// 防护：进行中案例若要约期结束日已过去，标记为"期已过待核"，避免状态滞后未发现
+function periodEndPassed(c){
+  if(c.result!=="进行中") return false;
+  const t=parseTimeline(c.announce,c.result);
+  if(!t.period||t.period==="—") return false;
+  const m=t.period.match(/~(\d{1,2}(?:-\d{1,2})?)$/);
+  if(!m) return false;
+  const yrM=t.summary.match(/^\d{4}/);
+  const y=yrM?parseInt(yrM[0],10):new Date().getFullYear();
+  const p=m[1].split("-");
+  const end=new Date(y,parseInt(p[0],10)-1,parseInt(p[1],10));
+  return end < new Date();
+}
+
+function renderTable(){
+  ovBody.innerHTML=CASES.map((c,i)=>{
+    const rk=resKey[c.result]||"c";
+    const cf=c.confidence==="高"?"h":c.confidence==="中"?"m":"w";
+    const wait=c._wait?' <span class="pill w" style="font-size:10px;padding:1px 6px;border-radius:5px;background:#9aa3b2;color:#fff">⚠待核</span>':'';
+    return `<tr data-res="${c.result}" data-conf="${c.confidence}">
+      <td class="col-num" title="第 ${c._index+1} 例">${c._index+1}</td>
+      <td class="col-code">${c._nodetail?`<span style="color:#9aa3b2;cursor:default" title="深度页待生成">${c.code}</span>`:`<a class="code-link" href="个案深度分析/个案_${safeD(c.code)}_${safeD(c.name)}.html" title="点击查看 ${c.name} · ${c.code} 个案深度分析">${c.code}</a>`}</td>
+      <td class="col-name" title="${c.name}${c.year?' ('+c.year+')':''}${c.aName?' | 收购方:'+c.aName:''}">${c.name}<span style="font-weight:400;font-size:10px;color:var(--sub);margin-left:4px">${c.year||''}</span></td>
+      <td class="col-type" title="${c.atype||''}">${c.atype||''}</td>
+      <td class="col-deal" title="要约价:${c.offerPrice||''} 股数:${c.offerShares||''} 金额:${c.maxAmount||''}">
+        <div>价 ${c.offerPrice||'—'}</div><div>股 ${c.offerShares||'—'}</div><div>额 ${c.maxAmount||'—'}</div>
+      </td>
+      ${(()=>{const t=parseTimeline(c.announce,c.result);return `<td class="col-tl" title="①首次公告(摘要):${t.summary} | ③要约期(预受窗口):${t.period}"><div>${t.summary}</div><div style="color:var(--sub);font-size:9.5px">③${t.period}</div></td>`;})()}
+      <td class="col-pct" title="${c.offerPct||''}">${c.offerPct||''}</td>
+      ${(()=>{
+        const mkt=MKT_PRICES[c.code];
+        const offer=parseMoney(c.offerPrice);
+        const isHkd=!!HKD_OFFERS[c.code];
+        const mktTxt=mkt!=null?(isHkd?`${mkt}<small style="color:var(--sub);font-size:8.5px">HKD</small>`:`${mkt}`):"—";
+        const offerTxt=!isNaN(offer)?(isHkd?`${offer}<small style="color:var(--sub);font-size:8px">HKD</small>`:`${offer}`):c.offerPrice||"—";
+        const spread=(mkt!=null&&!isNaN(offer)&&offer>0)?((offer-mkt)/mkt*100):null;
+        return `<td class="col-mkt" title="2026-08-28 收盘(现价)">${mktTxt}</td><td class="col-offer" title="要约价">${offerTxt}</td><td class="col-spread" title="要约价 vs 市价">${fmtSpread(spread)}</td>`;
+      })()}
+      <td class="col-res" title="${c.result||''}"><span class="rk ${rk}">${resTxt[c.result]||c.result}</span>${periodEndPassed(c)?' <span style="font-size:9px;padding:1px 5px;border-radius:5px;background:#fde68a;color:#92400e;font-weight:700;white-space:nowrap">⚠期已过待核</span>':''}</td>
+      <td class="col-dep">${linkHtml(c)}</td>
+    </tr>`;
+  }).join("");
+  // 重新应用当前筛选
+  const activeF=document.querySelector("#filters button.active");
+  if(activeF){
+    const f=activeF.dataset.f;
+    const show=el=>(el.dataset.res.startsWith("成功")&&f==="success")||
+      ((el.dataset.res.includes("失败")||el.dataset.res.includes("遇冷"))&&f==="fail")||
+      (el.dataset.res==="进行中"&&f==="ongoing")||
+      ((el.dataset.conf==="待核"||el.dataset.conf==="中"||el.querySelector(".pill.w"))&&f==="wait")||
+      f==="all";
+    [...ovBody.querySelectorAll("tr")].forEach(r=>r.style.display=show(r)?"":"none");
+  }
+}
+// 给原始数据加索引 + 首次渲染
+CASES.forEach((c,i)=>{c._index=i;});
+renderTable();
+// 排序事件
+document.querySelectorAll("#ovTable th[data-sort]").forEach(th=>{
+  th.addEventListener("click",()=>{
+    const key=th.dataset.sort;
+    // 更新状态：同列切换方向，不同列重置为升序
+    if(sortState.key===key){sortState.dir*=-1;}else{sortState.key=key;sortState.dir=1;}
+    // 更新表头样式
+    document.querySelectorAll("#ovTable th[data-sort]").forEach(h=>{
+      h.classList.remove("sort-active","sort-asc","sort-desc");
+      h.querySelector(".sarrow").textContent="↕";
+    });
+    th.classList.add("sort-active",sortState.dir===1?"sort-asc":"sort-desc");
+    th.querySelector(".sarrow").textContent=sortState.dir===1?"▲":"▼";
+    // 排序
+    const sorted=[...CASES].sort((a,b)=>{
+      const va=sortValue(a,key),vb=sortValue(b,key);
+      if(va===vb)return a._index-b._index;
+      if(va===NaN||vb===NaN||va===""&&vb!==""||vb===""&&va!=="")return 0;
+      if(typeof va==="number"&&typeof vb==="number")return (va-vb)*sortState.dir;
+      return String(va).localeCompare(String(vb),"zh-Hans-CN")*sortState.dir;
+    });
+    // 用排序后的顺序重建数组（保留原对象，仅调整CASES顺序）
+    const map=new Map(CASES.map(c=>[c,c]));
+    CASES.length=0;CASES.push(...sorted);
+    renderTable();
+  });
+});
+
 // ---- 筛选 ----
 document.getElementById("filters").addEventListener("click",e=>{
   if(e.target.tagName!=="BUTTON")return;
@@ -512,5 +660,27 @@ document.getElementById("filters").addEventListener("click",e=>{
 </script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
 <div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">📅 要约收购监测：每日 20:15 自动收录新公告（AutoJobsHub） ｜ 2026-08-22 22:42</div>
+<script>
+/* 标题案例数自动同步：始终等于 CASES.length，增删后无需手改数字 */
+(function(){
+  function syncCaseCount(){
+    if (typeof CASES === 'undefined') return;
+    var n = CASES.length, t = String(n);
+    var h1 = document.querySelector('h1');
+    if (h1) h1.innerHTML = h1.innerHTML.replace(/（\d+\s*例）/g, '（' + t + ' 例）');
+    document.querySelectorAll('.badge').forEach(function(b){
+      if (/覆盖/.test(b.textContent)) b.innerHTML = b.innerHTML.replace(/覆盖\s*\d+\s*例要约/, '覆盖 ' + t + ' 例要约');
+    });
+    document.querySelectorAll('h2.sec').forEach(function(h){
+      if (/总览表/.test(h.textContent)) h.innerHTML = h.innerHTML.replace(/（\d+\s*例）/g, '（' + t + ' 例）');
+    });
+    document.querySelectorAll('.note').forEach(function(el){
+      el.innerHTML = el.innerHTML.replace(/（\d+\s*例）/g, '（' + t + ' 例）').replace(/\d+\s*例逐个深挖/g, t + ' 例逐个深挖');
+    });
+  }
+  if (document.readyState !== 'loading') syncCaseCount();
+  else document.addEventListener('DOMContentLoaded', syncCaseCount);
+})();
+</script>
 </body>
 </html>
