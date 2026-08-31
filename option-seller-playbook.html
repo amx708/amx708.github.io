@@ -130,8 +130,9 @@
     <a href="#steps">五步实操</a>
     <a href="#risk">风控红线</a>
     <a href="#env">环境判读</a>
-    <a href="#codes">卖方标的</a>
-    <a href="#checklist">自检清单</a>
+        <a href="#codes">卖方标的</a>
+        <a href="#howto">手把手</a>
+        <a href="#checklist">自检清单</a>
     <a href="#pit">新手坑</a>
     <a href="#warn">风险提示</a>
   </div>
@@ -479,9 +480,72 @@
     </ul>
   </section>
 
+  <!-- ============ 手把手教程 ============ -->
+  <section id="howto">
+    <h2><span class="tag">实操</span>十一、手把手：备兑开仓 &amp; 铁鹰 怎么下单（以创业板ETF为例）</h2>
+    <div class="sec-sub">前面讲的都是"原理"，这节直接上手。用我们表里"<b>稳健首选</b>"的 <b>创业板ETF（159915）</b> 真实数据演示：现价 ≈ 3.427 元/份，9 月认购行权价 3.70（买价 0.0296，1 张实收 ≈ 296 元），安全垫 8.0%，到期 2026-09-23（剩 23 天）。</div>
+
+    <h3 style="font-size:14px;margin:18px 0 10px;color:var(--sub)">A. 备兑开仓（Covered Call）—— 已持股收租</h3>
+    <div class="dnote-blue"><b>前提</b>：你<b>已经持有 10,000 份创业板ETF</b>（市值 ≈ 34,270 元）。没有持股就做不了标准备兑（那叫"裸卖购"，风险不同）。</div>
+    <div class="step"><div class="no">1</div><div class="bd"><b>打开券商 App</b> → 期权交易 → 选 <b>卖出开仓（SELL TO OPEN）</b>。注意是"卖"不是"买"！</div></div>
+    <div class="step"><div class="no">2</div><div class="bd"><b>选合约</b>：创业板 <b>9 月 3.70 认购</b>（代码 <code>90007077</code>），行权价 3.70 比现价高 <b>8.0%</b>（虚值一档）。</div></div>
+    <div class="step"><div class="no">3</div><div class="bd"><b>数量填 1 张</b>（= 10,000 份，跟你持股数对齐）。</div></div>
+    <div class="step"><div class="no">4</div><div class="bd"><b>挂限价单</b>，价格填 <b>买价 0.0296</b>（或略低），尽量贴近买价成交，别市价硬砸被价差吃。</div></div>
+    <div class="step"><div class="no">5</div><div class="bd"><b>确认下单</b> → 账户立即 <b>+296 元</b> 权利金（未扣佣金）。这就是"到手租"。</div></div>
+    <div class="step"><div class="no">6</div><div class="bd"><b>等到期</b>：不用天天盯，到期前 7–10 天看一眼要不要移仓下月继续卖。</div></div>
+
+    <table style="margin-top:14px">
+      <thead><tr><th>到期时 ETF 价格</th><th>发生什么</th><th>你最终拿到</th></tr></thead>
+      <tbody>
+        <tr><td>≤ 3.70（没涨过行权价）</td><td>合约归零，白赚租金</td><td><b>+296 元现金</b> + 仍持有 10,000 份 ETF（可继续卖下月）</td></tr>
+        <tr><td>&gt; 3.70（涨过了）</td><td>被"叫走"，按 3.70 卖出你的 ETF</td><td>收到 <b>37,000 元</b> 现金（已含权利金）</td></tr>
+      </tbody>
+    </table>
+    <div class="dsub" style="margin-top:10px">
+      <b>算一笔账（被行权时）</b>：持仓成本（现价买入）34,270 − 权利金 296 = <b>实际成本 33,974 元</b>；被行权收 37,000 元 → 利润 <b>3,026 元</b>，收益率 <b>8.83%（仅 23 天，年化 ≈ 140%）</b>。即便没被行权，296 元也是 <b>0.86% 的 23 天无风险收益</b>（年化 ≈ 13.7%）。<br>
+      <b>⚠️ 注意</b>：备兑<b>不冻额外保证金</b>（用持股做担保），最省心；但若 ETF <b>大跌</b>，你的 ETF 仓位会浮亏（296 元权利金远不够抵消股价下跌）。所以备兑适合<b>长期看好、不介意短期被叫走筹码</b>的标的。
+    </div>
+
+    <h3 style="font-size:14px;margin:20px 0 10px;color:var(--sub)">B. 铁鹰（Iron Condor）—— 不持股也赚钱、亏有上限</h3>
+    <div class="dnote-blue"><b>思路</b>：同时赌"不会大涨 <b>且</b> 不会大跌"，赚两边权利金；再花小钱买"保险"把两头封死。<b>不需要持股、不需要冻全额保证金</b>，最大亏损提前锁死。胜率通常 85%–92%（卖方天花板）。</div>
+    <table style="margin-top:10px">
+      <thead><tr><th>腿</th><th>操作</th><th>合约（9月）</th><th>方向</th><th>现金流(元/张)</th><th>作用</th></tr></thead>
+      <tbody>
+        <tr><td>腿①</td><td>卖出开仓</td><td>3.70 认购</td><td>赚钱</td><td style="color:var(--green)">+296</td><td>主力：赌不会涨过 3.70</td></tr>
+        <tr><td>腿②</td><td>买入开仓</td><td>3.90 认购</td><td>花钱</td><td style="color:var(--red)">−180（估）</td><td>上封顶保险：暴涨超 3.90 时盈利抵消腿①亏损</td></tr>
+        <tr><td>腿③</td><td>卖出开仓</td><td>3.20 认沽</td><td>赚钱</td><td style="color:var(--green)">+200（估）</td><td>主力：赌不会跌穿 3.20</td></tr>
+        <tr><td>腿④</td><td>买入开仓</td><td>3.00 认沽</td><td>花钱</td><td style="color:var(--red)">−100（估）</td><td>下封底保险：暴跌破 3.00 时盈利抵消腿③亏损</td></tr>
+      </tbody>
+    </table>
+    <div class="dsub" style="margin-top:10px">
+      <b>净权利金</b> = 296 − 180 + 200 − 100 ≈ <b>+216 元/张</b> = 这是你<b>最多能赚的</b>（ETF 在 3.20~3.70 之间到期，四张全归零）。<br>
+      <b>最大亏损</b> = (单边宽度 0.20 − 净权利金 0.0216) × 10000 = <b>≈ 1,784 元</b>（单边宽度 3.70−3.90 = 3.20−3.00 = 0.20，标准铁鹰两边等宽）。<br>
+      <b>盈亏平衡点</b>：上 = 3.70 + 0.0216 = <b>3.7216</b>；下 = 3.20 − 0.0216 = <b>3.1784</b>。<br>
+      <b>赢利区间宽度</b> = (3.722 − 3.178) ÷ 3.427 = <b>15.9%</b> ≈ 日波动的 2 倍 → 所以胜率高。<b>当前现价 3.427 正好在区间中上部，安全空间充裕</b>。
+    </div>
+    <div class="risk-grid" style="margin-top:12px">
+      <div class="risk"><div class="k">触界即平</div><div class="v">任一侧触碰行权边界，<b>整组立即平仓</b>，绝不扛单（铁鹰优势就是亏有上限，扛单就废了）</div></div>
+      <div class="risk"><div class="k">仓位 ≤ 25%</div><div class="v">虽亏有限，但别重仓；与备兑/CSP 合计占用 ≤ 25% 账户</div></div>
+      <div class="risk"><div class="k">选窄价差标的</div><div class="v">创业板 ETF 价差 2.4% ✅；深证 100 价差 147% ❌（滑点吞光利润）</div></div>
+      <div class="risk"><div class="k">近月 + 7 天移仓</div><div class="v">近月时间衰减快（23 天归零概率大）；DTE &lt; 7 天必须移仓/平仓，防 Gamma 飙升</div></div>
+    </div>
+
+    <h3 style="font-size:14px;margin:20px 0 10px;color:var(--sub)">C. 你该选哪个？</h3>
+    <table>
+      <thead><tr><th>你的情况</th><th>推荐策略</th><th>原因</th></tr></thead>
+      <tbody>
+        <tr><td><b>已持有 ETF / 股票</b></td><td><span class="pill safe">备兑开仓</span></td><td>零额外资金、零保证金、最省心</td></tr>
+        <tr><td><b>不想持股、纯卖方收租</b></td><td><span class="pill safe">铁鹰</span></td><td>不需持仓、亏有上限、胜率 85%+</td></tr>
+        <tr><td><b>看好某标的、想低位接货</b></td><td><span class="pill mid">现金担保卖沽 CSP</span></td><td>跟备兑镜像，卖认沽等接货</td></tr>
+        <tr><td><b>新手第一笔</b></td><td><span class="pill safe">先备兑</span></td><td>逻辑最简单：有股就卖购，不容易下反单</td></tr>
+      </tbody>
+    </table>
+    <div class="disclaim">⚠️ 铁鹰腿②③的买入价为<b>估算</b>（更虚值合约的 bid/ask 需实时在券商查询），净权利金/最大亏损以实盘报价为准。本教程为下单流程演示，<b>不构成投资建议</b>。</div>
+  </section>
+
   <!-- ============ 风险提示 ============ -->
   <section id="warn">
-    <h2><span class="tag">提示</span>十一、风险提示</h2>
+    <h2><span class="tag">提示</span>十二、风险提示</h2>
     <div class="foot-warn">
       <p>本文仅为对网络收录期权实盘讨论与策略逻辑的<b>整理与人话解读，不构成任何投资建议</b>。期权属高杠杆、高风险衍生品：</p>
       <p style="margin-top:8px">· 卖方存在理论上的<b>无限亏损与穿仓强平</b>风险（尤其裸卖购）；买方多数合约到期归零。</p>
@@ -496,7 +560,7 @@
 <script>
 /* 时效标注：页面打开时间 + 静态版本戳（与总览页统一口径） */
 (function(){
-  var PAGE_UPDATED='2026-08-31 11:57（权利金已更新为真实快照 11:29）';
+  var PAGE_UPDATED='2026-08-30 10:02（新增第11节手把手教程：备兑开仓+铁鹰 · 权利金沿用 2026-08-31 11:29 真实快照）';
   var sb=document.getElementById('srcBadge'); if(sb) sb.textContent='来源：网络收录 · 页面更新：'+PAGE_UPDATED+' · 仅供研究参考，不构成投资建议';
   var pf=document.getElementById('pageFooter'); if(pf) pf.textContent='来源：网络收录整理 · 页面更新：'+PAGE_UPDATED+' · 不构成投资建议';
 })();
