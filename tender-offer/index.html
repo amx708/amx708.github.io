@@ -129,5 +129,23 @@
 
 <script src="/analytics.js"></script>
 <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<script>
+/* 导航页标题案例数自动同步：从主表页取 CASES.length，避免与主表对不上 */
+(function(){
+  function applyN(n){
+    var t = String(n);
+    document.querySelectorAll('.ti, .ds').forEach(function(el){
+      el.innerHTML = el.innerHTML
+        .replace(/要约收购全案例深度拆解（\d+\s*例）/g, '要约收购全案例深度拆解（' + t + ' 例）')
+        .replace(/\d+\s*例逐个深挖/g, t + ' 例逐个深挖')
+        .replace(/\d+\s*例独立深度页/g, t + ' 例独立深度页');
+    });
+  }
+  fetch('要约收购全案例深度拆解_总览表.html').then(function(r){return r.text();}).then(function(s){
+    var m = s.match(/const CASES = \[([\s\S]*?)\];/);
+    if (m) applyN((m[1].match(/code:"\d{6}"/g)||[]).length);
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>
