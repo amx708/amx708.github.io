@@ -484,6 +484,36 @@
       · <b>价差（Spread = 卖价 − 买价）</b>：<b>越窄越香</b>。流动性强的 50ETF / 300ETF 价差常 1–2 跳；创业板 / 科创 / 深市部分合约价差宽，滑点会直接吞掉利润——卖方优先选<b>窄价差</b>的标的与近月合约。<br>
       · 一句话：<b>开仓看买价（你收多少）、平仓看卖价（你付多少）、价差决定摩擦成本</b>。底层 ETF 本身的买卖价主要决定你的成本基准与接货价，已体现在上方"卖购上限价 / 卖沽接货价"中。
     </div>
+    <h3 style="font-size:14px;margin:18px 0 10px;color:var(--sub)">被指派接货后怎么办？—— Wheel（轮子）策略：把"亏的本金"慢慢赚回来</h3>
+    <div class="sec-sub" style="margin:-4px 0 10px">
+      CSP 被指派接货（比如 500ETF 跌到 7.50 接到货），账面浮亏别慌——<b>Wheel（轮子）</b>是把"被动接货"转成"主动收租循环"的标准玩法：<b>接货 → 卖备兑购收租 → 被叫走就高价出货 / 没走就继续收 → 现金回笼再卖下一轮 CSP</b>。靠"持续收租 + 低成本滚动"回血，而不是死等涨回来。
+    </div>
+
+    <div style="background:#e8f5e9;border:2px solid #43a047;border-radius:12px;padding:14px 16px;font-size:13px;color:#1b5e20">
+      <b style="font-size:14px">🔄 一个完整 Wheel 循环（以 500ETF 为例，接前面 7.50 CSP）</b>
+      <table style="margin-top:10px">
+        <thead><tr><th>步骤</th><th>动作</th><th>现金流 / 结果</th></tr></thead>
+        <tbody>
+          <tr><td><b>① CSP 卖沽</b></td><td>卖 500ETF 9月沽 7.50，标的不及 7.50 被指派接货</td><td>收租金 <b>1,161 元</b>；账户进 10,000 份 500ETF，<b>实际成本 = 7.50 − 0.1161 = 7.3839/份</b></td></tr>
+          <tr><td><b>② 卖备兑购</b></td><td>持 10,000 份，卖 500ETF 9月购 8.00（虚值一档）收租</td><td>再收租金 <b>≈1,161 元</b>；≤8.00 不被行权→白收租继续持货；&gt;8.00 被叫走→以 8.00 出货</td></tr>
+          <tr><td><b>③ 循环</b></td><td>货被叫走→现金回笼→再卖下一轮 CSP 7.50 接货</td><td>"低价接、高价出、中间收租"，成本越滚越低；两轮租金已落袋 <b>2,322 元</b></td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:10px;font-size:12.5px;color:#2e7d32">
+        · <b>接货后继续跌怎么办（回血算术）</b>：假定接货后 500ETF 跌到 7.00（浮亏 0.50/份 ≈ 5,000 元），但你已收 CSP 租金 1,161 + 备兑租金 1,161 = <b>2,322 元</b>，实际浮亏 = 5,000 − 2,322 = <b>2,678 元</b>（租金已抵消近一半跌幅）。继续卖备兑购收租（标的横在 7.0 每月还能收 ~1,000+ 元），用时间价值把浮亏慢慢磨平——<b>只要标的不再崩、你能拿住，租金就是回血现金流</b>。<br>
+        · <b>关键认知</b>：Wheel 不靠"涨回来"回本，靠"<b>持续收租 + 低成本滚动</b>"回本。所以只做宽基 ETF（不归零、能长期拿住），不碰个股期权。
+      </div>
+    </div>
+
+    <div style="background:#fff3e0;border:2px solid #ff7043;border-radius:12px;padding:14px 16px;margin-top:14px;font-size:13px;color:#bf360c">
+      <b style="font-size:14px">⚠️ Wheel 纪律红线（接货后别乱来）</b><br>
+      · ① <b>只 Wheel 宽基 ETF</b>：标的得"不归零、能拿住"，个股可能退市 / 暴雷，不适合 Wheel。<br>
+      · ② <b>接货别恐慌割肉</b>：先卖备兑购把租金收上，让时间价值替你回血；割在最低点等于把浮亏坐实。<br>
+      · ③ <b>备兑购行权价设在"乐意出货价"</b>：≥ 实际成本(含租金) + 合理利润，被叫走也开心落袋。<br>
+      · ④ <b>单标的 Wheel 仓位 ≤ 15%</b>：别把所有现金锁死在一只 ETF 的接货上，留余地机动。<br>
+      · ⑤ <b>真破位该止损就止损</b>：若标的<b>基本面恶化、长期下行</b>（非短期波动），Wheel 不是死扛理由，该减该撤就撤。
+    </div>
+
     <div class="disclaim">⚠️ 期权合约代码 <b>每月轮换</b>（到期月变了代码就变）：8 月近月合约已于 2026-08-26 到期，故不列出；上表为 9 月主力月代码（合约代码与权利金数据快照 2026-08-31 11:29，来源：新浪期权实时接口 / 交易所披露）。接货价为估算值，<b>实盘下单前请在通达信 / 券商核对当下真实价格与代码</b>。</div>
   </section>
 
@@ -627,6 +657,7 @@
       <tbody><tr><td>50ETF</td><td style="font-family:monospace">购 10010975<br><small style="color:var(--blue)">沽 <span class="tdxlink" onclick="gotoTdx('10010980','50ETF沽9月2850','SH')">10010980</span></small></td><td>3.02</td><td>0.0128</td><td>0.0128</td><td><b>≈256元</b></td><td>0.151<br><small>(≈1,510元)</small></td><td>≈1,254元</td><td>上3.1256/下2.8244</td><td style="text-align:center">9.97%</td><td style="text-align:center">323.97%</td></tr><tr><td>300ETF</td><td style="font-family:monospace">购 10010994<br><small style="color:var(--blue)">沽 <span class="tdxlink" onclick="gotoTdx('10010999','300ETF沽9月4400','SH')">10010999</span></small></td><td>4.65</td><td>0.0208</td><td>0.0208</td><td><b>≈416元</b></td><td>0.2325<br><small>(≈2,325元)</small></td><td>≈1,909元</td><td>上4.8416/下4.3584</td><td style="text-align:center">10.39%</td><td style="text-align:center">345.82%</td></tr><tr><td>500ETF</td><td style="font-family:monospace">购 10012074<br><small style="color:var(--blue)">沽 <span class="tdxlink" onclick="gotoTdx('10012081','500ETF沽9月7500','SH')">10012081</span></small></td><td>7.88</td><td>0.1161</td><td>0.1161</td><td><b>≈2,322元</b></td><td>0.394<br><small>(≈3,940元)</small></td><td>≈1,618元</td><td>上8.2322/下7.2678</td><td style="text-align:center">12.24%</td><td style="text-align:center">2277.45%</td></tr><tr><td>科创50ETF</td><td style="font-family:monospace">购 10011033<br><small style="color:var(--blue)">沽 <span class="tdxlink" onclick="gotoTdx('10011038','科创50沽9月1650','SH')">10011038</span></small></td><td>1.738</td><td>0.0276</td><td>0.0276</td><td><b>≈552元</b></td><td>0.0869<br><small>(≈869元)</small></td><td>≈317元</td><td>上1.9052/下1.5948</td><td style="text-align:center">17.86%</td><td style="text-align:center">2763.41%</td></tr><tr><td>科创50ETFE</td><td style="font-family:monospace">购 10011051<br><small style="color:var(--blue)">沽 <span class="tdxlink" onclick="gotoTdx('10011056','科创板50沽9月1600','SH')">10011056</span></small></td><td>1.684</td><td>0.025</td><td>0.025</td><td><b>≈500元</b></td><td>0.0842<br><small>(≈842元)</small></td><td>≈342元</td><td>上1.85/下1.55</td><td style="text-align:center">17.81%</td><td style="text-align:center">2320.11%</td></tr><tr><td>创业板ETF</td><td style="font-family:monospace">购 90007077<br><small style="color:var(--blue)">沽 <span class="tdxlink" onclick="gotoTdx('90007081','创业板ETF沽9月3200','SZ')">90007081</span></small></td><td>3.427</td><td>0.0296</td><td>0.0296</td><td><b>≈592元</b></td><td>0.1714<br><small>(≈1,714元)</small></td><td>≈1,122元</td><td>上3.7592/下3.1408</td><td style="text-align:center">18.04%</td><td style="text-align:center">837.70%</td></tr><tr><td>嘉实300ETF</td><td style="font-family:monospace">购 90007092<br><small style="color:var(--blue)">沽 <span class="tdxlink" onclick="gotoTdx('90007097','沪深300ETF沽9月4600','SZ')">90007097</span></small></td><td>4.856</td><td>0.025</td><td>0.025</td><td><b>≈500元</b></td><td>0.2428<br><small>(≈2,428元)</small></td><td>≈1,928元</td><td>上5.05/下4.55</td><td style="text-align:center">10.30%</td><td style="text-align:center">411.56%</td></tr><tr><td>嘉实500ETF</td><td style="font-family:monospace">购 90007107<br><small style="color:var(--blue)">沽 <span class="tdxlink" onclick="gotoTdx('90007114','中证500ETF沽9月3100','SZ')">90007114</span></small></td><td>0.649</td><td>0.0312</td><td>0.0312</td><td><b>≈624元</b></td><td>0.191<br><small>(≈1,910元)</small></td><td style="color:var(--warn);font-weight:700">≈1,286元</td><td>上3.4212/下2.9788</td><td style="text-align:center">13.02%</td><td style="text-align:center">71.55%</td></tr><tr><td>深证100ETF</td><td style="font-family:monospace">购 90007058<br><small style="color:var(--blue)">沽 <span class="tdxlink" onclick="gotoTdx('90007063','深证100ETF沽9月3400','SZ')">90007063</span></small></td><td>3.579</td><td>0.0073</td><td>0.0073</td><td><b>≈146元</b></td><td>0.179<br><small>(≈1,790元)</small></td><td>≈1,644元</td><td>上3.8146/下3.3854</td><td style="text-align:center">11.99%</td><td style="text-align:center">140.98%</td></tr></tbody>
     </table>
     <div class="dsub" style="margin-top:6px">· 翼宽取 5%（买购=卖购×1.05、买沽=卖沽×0.95），标准等宽铁鹰。· <b>最大亏 = 翼宽−净收</b>（已锁死，亏有上限，不倒贴）。· 年化列是"对净保证金(=最大亏)"的回报——数字高因最大亏小，<b>但最大亏才是真风险上限</b>，别只看百分比。· 嘉实500ETF 现价异常低(0.649)致翼宽&lt;净收、最大亏为负，标⚠️属数据异常，勿据此下单。</div>
+    <div class="dsub" style="margin-top:4px;color:var(--warn)">⚠️ <b>极端风险（铁鹰最大亏虽锁死，仍可能"追加 / 强平"或扩大亏损）：</b>① <b>触界扛单</b>——任一侧突破行权边界若不整组平仓、硬扛，浮亏逼近最大亏，账户保证金不足时会被强平在不利价位（强平价可能差于理论最大亏）；② <b>跳空 / 双杀</b>——标的跳空越过卖腿行权价或单边升波，开盘即深度 ITM、两端权利金同涨，无法在理想价位平仓，滑点吞噬利润甚至超过净收；③ <b>流动性真空</b>——铁鹰 4 腿同时平仓价差极宽（尤其深市 / 创业板远月），想平平不掉、只能干等到期；④ <b>近月 gamma 爆炸</b>——到期前 1 周边界处 gamma 骤升，小幅突破即浮亏快速放大。实操：翼宽留 5%+ 缓冲、<b>触界整组立即平（绝不扛）</b>、单组仓位 ≤ 净资产 5%、近月铁鹰到期前 5 天主动平仓或移远月。</div>
     <div class="disclaim">⚠️ 三表卖沽腿均按"看跌看涨平价对称"由同档认购推导（23天期 ETF 期权误差&lt;0.5%），<b>非独立行情快照</b>；嘉实500ETF 现价 0.649 异常，相关数字仅作演示。实盘请以券商认沽实时买价与合约代码为准。<b>不构成投资建议</b>。</div>
   </section>
 
@@ -647,7 +678,7 @@
 <script>
 /* 时效标注：页面打开时间 + 静态版本戳（与总览页统一口径） */
 (function(){
-  var PAGE_UPDATED='2026-08-31 18:05（第七节新增"卖方要不要等大跌"三种节奏对比+500ETF实例+三条纪律红线，与"高波适合卖"框架、CSP极端风险说明形成择时→风险→解法闭环）';
+  var PAGE_UPDATED='2026-08-31 16:25（第七节省末尾新增 Wheel 轮子策略回血小节；第十二节铁鹰极端风险说明镜像 CSP；与"高波适合卖"框架+CSP风险形成完整闭环）';
   var sb=document.getElementById('srcBadge'); if(sb) sb.textContent='来源：网络收录 · 页面更新：'+PAGE_UPDATED+' · 仅供研究参考，不构成投资建议';
   var pf=document.getElementById('pageFooter'); if(pf) pf.textContent='来源：网络收录整理 · 页面更新：'+PAGE_UPDATED+' · 不构成投资建议';
 })();
