@@ -482,4 +482,196 @@
 </div>
 <p class="foot">信号含义：错配买点=价涨股未涨(安全边际)；供给冲击=周涨急涨(事故/不可抗力)；价涨股跌=见顶派发警惕；周期下行=考虑退出。
 本看板为方法论演示，不构成投资建议。实盘请接入真实行情并自行核对。 标注「演示」的 4 个品种(VE/VA/钛白粉/磷矿石)为生意社/百川盈孚付费源，暂无免费接口，暂用演示数据；接入付费源后自动转实盘。</p>
-</div></body></html>
+</div><div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">📅 涨价逻辑监测：每日 16:30 自动刷新（AutoJobsHub） ｜ 2026-09-02 18:14</div>
+<script>
+/* 标的名称 → 通达信联动（仅本地 8080 有效）
+ * 左键 = 跳通达信 K 线（调 /api/open_tdx/<code>，由 local_site_server.py ctypes 广播）
+ * 右键 / Ctrl / 中键 / Shift = 仍走原详情页（保留导航） */
+(function(){
+  function ensureToast(){
+    var t = document.getElementById('tdx-toast');
+    if (t) return t;
+    t = document.createElement('div');
+    t.id = 'tdx-toast';
+    t.style.cssText = 'position:fixed;left:50%;bottom:32px;transform:translateX(-50%);z-index:999999;'
+      + 'background:#0f1729;color:#e2e8f0;font:13px/1.4 -apple-system,Segoe UI,sans-serif;'
+      + 'padding:9px 16px;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,.32);'
+      + 'opacity:0;transition:opacity .18s;pointer-events:none;max-width:360px;text-align:center';
+    document.body.appendChild(t);
+    return t;
+  }
+  function toast(msg, ok){
+    var t = ensureToast();
+    t.textContent = msg;
+    t.style.background = ok ? '#0e7c3a' : '#7a1a1a';
+    t.style.opacity = '1';
+    clearTimeout(t._h);
+    t._h = setTimeout(function(){ t.style.opacity = '0'; }, 2400);
+  }
+  function bind(a){
+    if (a.__tdxBound) return;
+    var href = a.getAttribute('href') || '';
+    var m = href.match(/co-(\d{6})\.html/);
+    if (!m) return;
+    var code = m[1];
+    a.__tdxBound = true;
+    var oldTitle = a.getAttribute('title') || '';
+    a.setAttribute('title', oldTitle + '　｜左键=通达信　右键=详情页');
+    a.addEventListener('click', function(e){
+      // 修饰键 / 非左键 → 走默认（打开详情页，零冲突）
+      if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      fetch('/api/open_tdx/' + code, {method:'GET'})
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          if (j.ok) {
+            toast('✓ 已发送通达信跳转：' + code + '（请确认通达信已运行）', true);
+          } else {
+            toast('✗ ' + (j.msg || '跳转失败'), false);
+          }
+        })
+        .catch(function(err){
+          toast('✗ 请求失败（仅本地 8080 有效）：' + err, false);
+        });
+    });
+  }
+  function scan(root){
+    var links = (root || document).querySelectorAll('a[href*="berkshire-"][href*="-co-"]');
+    for (var i = 0; i < links.length; i++) bind(links[i]);
+  }
+
+  /* ----- 期货标的：注入"期货"列 + 跳转 handler -----
+   * 通达信期货跳转走 /api/open_futures/<code>（launcher 用 keybd_event
+   * 把代码键入 TDX 期货报价窗口），要求通达信已开 + 期货窗口响应。
+   * 主力合约月份：本页生成日（2026-09）附近的主力月。精细化工等无
+   * 对应期货品种显式标"— 暂无期货"。 */
+  // 通达信「主力连续(主连)」代码规则 = 品种字母 + L8（L7=次连, L9=加权）
+  // 用主连而非月份合约：主连永不到期、无需按季维护，且看产业链涨价周期需要长期连续价格
+  var FUTURES_MAP = {
+    "维生素E":   null,                                       // 国内无对应期货
+    "维生素A":   null,                                       // 国内无对应期货
+    "纯碱":      {code: "SAL8", ex: "郑商所 纯碱主连"},
+    "碳酸锂":    {code: "LCL8", ex: "广期所 碳酸锂主连"},
+    "焦炭":      {code: "JL8",  ex: "大商所 焦炭主连"},
+    "焦煤":      {code: "JML8", ex: "大商所 焦煤主连"},
+    "甲醇":      {code: "MAL8", ex: "郑商所 甲醇主连"},
+    "PVC":      {code: "VL8",  ex: "大商所 PVC主连"},
+    "玻璃":      {code: "FGL8", ex: "郑商所 玻璃主连"},
+    "乙二醇":    {code: "EGL8", ex: "大商所 乙二醇主连"},
+    "磷矿石":    null,                                       // 国内无对应期货
+    "铜":        {code: "CUL8", ex: "上期所 沪铜主连"},
+    "铝":        {code: "ALL8", ex: "上期所 沪铝主连"},
+    "黄金":      {code: "AUL8", ex: "上期所 黄金主连"},
+    "锌":        {code: "ZNL8", ex: "上期所 沪锌主连"},
+    "铅":        {code: "PBL8", ex: "上期所 沪铅主连"},
+    "白银":      {code: "AGL8", ex: "上期所 沪银主连"},
+    "铁矿石":    {code: "IL8",  ex: "大商所 铁矿石主连"},
+    "PTA":      {code: "TAL8", ex: "郑商所 PTA主连"},
+    "聚烯烃":    {code: "LL8",  ex: "大商所 聚乙烯(塑料)主连；姊妹品 PPL8 聚丙烯"},
+    "白糖":      {code: "SRL8", ex: "郑商所 白糖主连"},
+    "棉花":      {code: "CFL8", ex: "郑商所 棉花主连"},
+    "菜油":      {code: "OIL8", ex: "郑商所 菜油主连"},
+    "棕榈油":    {code: "PL8",  ex: "大商所 棕榈油主连"},
+    "豆油":      {code: "YL8",  ex: "大商所 豆油主连"},
+    "玉米":      {code: "CL8",  ex: "大商所 玉米主连"},
+    "橡胶":      {code: "RUL8", ex: "上期所 橡胶主连"},
+    "钛白粉":    null,                                       // 国内无对应期货
+    "镍":        {code: "NIL8", ex: "上期所 沪镍主连"},
+    "锡":        {code: "SNL8", ex: "上期所 沪锡主连"},
+    "尿素":      {code: "URL8", ex: "郑商所 尿素主连"},
+    "大豆":      {code: "AL8",  ex: "大商所 豆一主连；进口豆二为 BL8"},
+    "纸浆":      {code: "SPL8", ex: "上期所 纸浆主连"},
+  };
+
+  function buildFuturesCell(name){
+    var f = FUTURES_MAP[name];
+    if (!f) {
+      return '<span class="mut" style="font-size:12px">— 暂无期货</span>';
+    }
+    return '<a href="javascript:void(0)" onclick="return false;" '
+         + 'class="tdx-futures" data-code="' + f.code + '" '
+         + 'title="点击在通达信打开期货 ' + f.code + '（' + f.ex + '）" '
+         + 'style="display:inline-block;cursor:pointer;color:#7fc0ff;'
+         + 'text-decoration:none;font-weight:500;font-size:12.5px;'
+         + 'border:1px solid rgba(127,192,255,.35);border-radius:6px;'
+         + 'padding:2px 7px;background:rgba(127,192,255,.08)">'
+         + f.code + ' · 主连</a>';
+  }
+
+  function injectFuturesColumn(){
+    if (document.body.dataset.futuresInjected === '1') return;
+    var ths = document.querySelectorAll('table thead th');
+    if (!ths.length) return;
+    // 检查是否已注入（避免重复）
+    if (document.querySelector('th.futures-col')) return;
+    // 1) 加表头
+    var theadRow = ths[0].parentNode;
+    var newTh = document.createElement('th');
+    newTh.className = 'futures-col';
+    newTh.textContent = '期货';
+    theadRow.appendChild(newTh);
+    // 2) 加每行单元格
+    var rows = document.querySelectorAll('table tbody tr');
+    for (var i = 0; i < rows.length; i++){
+      var row = rows[i];
+      // 取"品种"列的 <b> 文本作为 commodity 名
+      var cells = row.querySelectorAll('td');
+      var nameCell = null;
+      for (var j = 0; j < cells.length; j++){
+        if (cells[j].getAttribute('data-label') === '品种') {
+          nameCell = cells[j]; break;
+        }
+      }
+      if (!nameCell) continue;
+      var b = nameCell.querySelector('b');
+      var name = b ? (b.textContent || '').trim() : '';
+      var td = document.createElement('td');
+      td.className = 'futures-col';
+      td.setAttribute('data-label', '期货');
+      td.innerHTML = buildFuturesCell(name);
+      row.appendChild(td);
+    }
+    document.body.dataset.futuresInjected = '1';
+  }
+
+  function bindFutures(a){
+    if (a.__futuresBound) return;
+    var code = a.getAttribute('data-code') || '';
+    if (!code) return;
+    a.__futuresBound = true;
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      fetch('/api/open_futures/' + encodeURIComponent(code), {method: 'GET'})
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          if (j.ok) {
+            toast('✓ ' + j.msg + '（请确认通达信期货窗口已在前台）', true);
+          } else {
+            toast('✗ ' + j.msg, false);
+          }
+        })
+        .catch(function(err){
+          toast('✗ 请求失败（仅本地 8080 有效）：' + err, false);
+        });
+    });
+  }
+
+  function scanFutures(){
+    var links = document.querySelectorAll('a.tdx-futures');
+    for (var i = 0; i < links.length; i++) bindFutures(links[i]);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ scan(); injectFuturesColumn(); scanFutures(); });
+  } else {
+    scan();
+    injectFuturesColumn();
+    scanFutures();
+  }
+  // 兜底：观察后续动态注入
+  if (window.MutationObserver) {
+    new MutationObserver(function(){ scan(); injectFuturesColumn(); scanFutures(); }).observe(document.body, {childList:true, subtree:true});
+  }
+})();
+</script>
+</body></html>
