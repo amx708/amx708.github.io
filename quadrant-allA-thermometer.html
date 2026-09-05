@@ -15724,13 +15724,17 @@ th{background:#f6f6f6}.note{font-size:12.5px;color:#555;line-height:1.7}b{color:
 .tdx-code.active{background:#ffe9e9;color:#e23b3b;}
 .tdx-trend{margin-left:5px;text-decoration:none;font-size:12px;cursor:pointer;padding:0 3px;border-radius:3px;}
 .tdx-trend:hover{background:#eaf1ff;text-decoration:none;}
+.chain-link{cursor:pointer;color:#b45309;text-decoration:underline dotted #b45309;font-weight:600;}
+.chain-link:hover{background:#fff7ed;}
 #tdx-toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%);background:#222;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9999;max-width:80%;text-align:center;}
 #tdx-toast.show{opacity:.95;}
-@keyframes tdxpulse{0%{r:9;opacity:1}70%{r:18;opacity:0}100%{r:18;opacity:0}}
+@keyframes tdxpulse{0%{r:8;opacity:1}70%{r:16;opacity:0}100%{r:16;opacity:0}}
 .tdx-pulse{animation:tdxpulse 1.4s ease-out infinite;}
+th:hover{background:#f0f4ff;cursor:pointer;}
 </style>
 <div id="tdx-toast"></div>
 <script>
+var _NS='http://www.w3.org/2000/svg';
 function tdxJump(code){
   fetch('http://127.0.0.1:8765/tdx?code='+encodeURIComponent(code))
     .then(function(r){return r.text();})
@@ -15740,94 +15744,162 @@ function tdxJump(code){
 function tdxToast(msg){
   var el=document.getElementById('tdx-toast');
   el.textContent=msg; el.classList.add('show');
-  clearTimeout(el._t); el._t=setTimeout(function(){el.classList.remove('show');},2800);
+  clearTimeout(el._t); el._t=setTimeout(function(){el.classList.remove('show');},3200);
 }
-// 在象限散点图中高亮某个标的：红圈脉冲 + 文字标签 + 滚动到视图中央
-function tdxHighlight(code){
-  var svg=document.querySelector('svg');
-  if(!svg){return;}
+// 清除所有高亮（个股红圈 + 产业链接红圈）
+function clearHl(){
   var old=document.getElementById('tdx-hl'); if(old){old.parentNode.removeChild(old);}
-  var found=null, name='';
-  svg.querySelectorAll('circle').forEach(function(c){
-    if(found) return;
-    var ti=c.querySelector('title'); if(!ti) return;
-    var m=ti.textContent.match(/\((\d{6})\)/);
-    if(m && m[1]===code){ found=c; name=ti.textContent.split('\n')[0].trim(); }
-  });
-  if(!found){ tdxToast('未在象限图中找到 '+code); return; }
-  var cx=parseFloat(found.getAttribute('cx')), cy=parseFloat(found.getAttribute('cy'));
-  var NS='http://www.w3.org/2000/svg';
-  var g=document.createElementNS(NS,'g'); g.setAttribute('id','tdx-hl');
-  var ring=document.createElementNS(NS,'circle');
-  ring.setAttribute('cx',cx); ring.setAttribute('cy',cy); ring.setAttribute('r',11);
+  document.querySelectorAll('g.chain-hl').forEach(function(g){g.parentNode.removeChild(g);});
+}
+function _mkRing(cx,cy,r){
+  var ring=document.createElementNS(_NS,'circle');
+  ring.setAttribute('cx',cx); ring.setAttribute('cy',cy); ring.setAttribute('r',r);
   ring.setAttribute('fill','none'); ring.setAttribute('stroke','#e23b3b');
-  ring.setAttribute('stroke-width','2.4'); ring.setAttribute('class','tdx-pulse');
-  g.appendChild(ring);
-  var dot=document.createElementNS(NS,'circle');
-  dot.setAttribute('cx',cx); dot.setAttribute('cy',cy); dot.setAttribute('r',3.4);
-  dot.setAttribute('fill','#e23b3b'); g.appendChild(dot);
-  var lx=cx+15, ly=cy-13;
-  var tw=Math.max(name.length*7+12, 60);
-  if(lx>800){ lx=cx-15-tw; } if(ly<14){ ly=cy+24; }
-  var rect=document.createElementNS(NS,'rect');
-  rect.setAttribute('x',lx); rect.setAttribute('y',ly-12);
-  rect.setAttribute('width',tw); rect.setAttribute('height',17); rect.setAttribute('rx',4);
+  ring.setAttribute('stroke-width','1.8'); ring.setAttribute('class','tdx-pulse');
+  return ring;
+}
+function _mkLabel(x,y,name){
+  var g=document.createElementNS(_NS,'g');
+  var tw=Math.max(name.length*7+12,60); var lx=x, ly=y;
+  if(lx>800){ lx=x-12-tw; } if(ly<14){ ly=y+24; }
+  var rect=document.createElementNS(_NS,'rect');
+  rect.setAttribute('x',lx); rect.setAttribute('y',ly-12); rect.setAttribute('width',tw);
+  rect.setAttribute('height',17); rect.setAttribute('rx',4);
   rect.setAttribute('fill','#e23b3b'); rect.setAttribute('opacity','0.94');
   g.appendChild(rect);
-  var txt=document.createElementNS(NS,'text');
-  txt.setAttribute('x',lx+6); txt.setAttribute('y',ly);
-  txt.setAttribute('font-size','11.5'); txt.setAttribute('fill','#fff');
-  txt.textContent=name; g.appendChild(txt);
+  var txt=document.createElementNS(_NS,'text');
+  txt.setAttribute('x',lx+6); txt.setAttribute('y',ly); txt.setAttribute('font-size','11.5');
+  txt.setAttribute('fill','#fff'); txt.textContent=name; g.appendChild(txt);
+  return g;
+}
+function _circleInfo(c){
+  var ti=c.querySelector('title'); if(!ti) return null;
+  var line=ti.textContent.split('\n')[0];
+  var m=line.match(/^(.+?)\((\d{6})\)\s+(.+?)\s+\d{4}-\d{2}-\d{2}$/);
+  if(!m) return null;
+  return {name:m[1], code:m[2], chains:m[3].split(/\s*\/\s*/)};
+}
+// 在象限散点图中高亮单个标的：红圈脉冲 + 文字标签 + 滚动到视图中央
+function tdxHighlight(code){
+  var svg=document.querySelector('svg'); if(!svg){return;}
+  clearHl();
+  var found=null;
+  svg.querySelectorAll('circle').forEach(function(c){
+    if(found) return;
+    var info=_circleInfo(c);
+    if(info && info.code===code){ found={c:c,info:info}; }
+  });
+  if(!found){ tdxToast('未在象限图中找到 '+code); return; }
+  var cx=parseFloat(found.c.getAttribute('cx')), cy=parseFloat(found.c.getAttribute('cy'));
+  var g=document.createElementNS(_NS,'g'); g.setAttribute('id','tdx-hl');
+  g.appendChild(_mkRing(cx,cy,11));
+  var dot=document.createElementNS(_NS,'circle');
+  dot.setAttribute('cx',cx); dot.setAttribute('cy',cy); dot.setAttribute('r',3.4);
+  dot.setAttribute('fill','#e23b3b'); g.appendChild(dot);
+  g.appendChild(_mkLabel(cx,cy,found.info.name));
   svg.appendChild(g);
-  svg.scrollIntoView({behavior:'smooth', block:'center'});
+  try{ svg.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
+}
+// 高亮一整条产业链的企业：给该链所有圆点套红圈 + 计数 toast
+function highlightChains(chains){
+  var svg=document.querySelector('svg'); if(!svg){return;}
+  clearHl();
+  var matched=[];
+  svg.querySelectorAll('circle').forEach(function(c){
+    var info=_circleInfo(c); if(!info) return;
+    if(chains.some(function(ch){ return info.chains.indexOf(ch)>=0; })){
+      matched.push({c:c, info:info});
+    }
+  });
+  if(!matched.length){ tdxToast('未找到该产业链企业: '+chains.join('/')); return; }
+  var g=document.createElementNS(_NS,'g');
+  matched.forEach(function(it){
+    var cx=parseFloat(it.c.getAttribute('cx')), cy=parseFloat(it.c.getAttribute('cy'));
+    g.appendChild(_mkRing(cx,cy,6.5));
+  });
+  g.setAttribute('class','chain-hl');
+  svg.appendChild(g);
+  tdxToast(chains.join(' / ')+' · 该链 '+matched.length+' 家（红圈高亮，点任意圆点看轨迹图）');
+  try{ svg.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
 }
 // 点击动作：先图表高亮，再联动通达信
 function tdxActivate(code){
   try{ tdxHighlight(code); }catch(e){ /* 高亮失败不影响联动跳转 */ }
   tdxJump(code);
 }
+function makeSortable(tbl, tid){
+  var ths=tbl.querySelectorAll('th'); if(!ths.length) return;
+  Array.prototype.forEach.call(ths,function(th,i){
+    th.style.cursor='pointer'; th.title='点击排序';
+    th.addEventListener('click',function(ev){
+      ev.stopPropagation();
+      var tb=tbl.tBodies[0]||tbl;
+      var rows=Array.prototype.slice.call(tb.querySelectorAll('tr'));
+      var asc=th.getAttribute('data-asc')!=='1'; th.setAttribute('data-asc',asc?'1':'0');
+      rows.sort(function(a,b){
+        var av=(a.children[i]?a.children[i].textContent.trim():'');
+        var bv=(b.children[i]?b.children[i].textContent.trim():'');
+        var na=parseFloat(av), nb=parseFloat(bv);
+        if(!isNaN(na)&&!isNaN(nb)&&av!==''&&bv!==''){ return asc?na-nb:nb-na; }
+        return asc? av.localeCompare(bv,'zh') : bv.localeCompare(av,'zh');
+      });
+      rows.forEach(function(r){ tb.appendChild(r); });
+    });
+  });
+}
 document.addEventListener('DOMContentLoaded',function(){
   var re=/^\d{6}$/;
+  // --- 所有表格：可点表头排序 ---
+  document.querySelectorAll('table').forEach(function(t,i){ makeSortable(t,'t'+i); });
+  // --- 1/2) 6 位代码格：高亮+通达信 + 📈 轨迹图 ---
   document.querySelectorAll('td').forEach(function(td){
     var t=(td.textContent||'').trim();
     if(re.test(t)){
-      var code=t;
-      var nm='';
+      var code=t; var nm='';
       if(td.previousElementSibling && td.previousElementSibling.tagName==='TD'){ nm=(td.previousElementSibling.textContent||'').trim(); }
       td.classList.add('tdx-code'); td.title='点击：象限图高亮 + 联动通达信（'+code+'）；点右侧 📈 看该股供需轨迹图';
-      td.onclick=function(){
-        document.querySelectorAll('td.tdx-code.active').forEach(function(e){e.classList.remove('active');});
-        td.classList.add('active'); tdxActivate(code);
-      };
-      // 📈 供需轨迹图入口（新标签页打开；阻止冒泡，避免同时触发本格的通达信联动）
+      td.onclick=function(){ document.querySelectorAll('td.tdx-code.active').forEach(function(e){e.classList.remove('active');}); td.classList.add('active'); tdxActivate(code); };
       var a=document.createElement('a');
       a.className='tdx-trend'; a.href='quadrant-trends.html#'+code; a.target='_blank';
-      a.title='查看 '+(nm||code)+' 的供需轨迹图（四象限折线 + 说明）';
-      a.textContent='📈';
+      a.title='查看 '+(nm||code)+' 的供需轨迹图（四象限折线 + 说明）'; a.textContent='📈';
       a.onclick=function(e){ e.stopPropagation(); };
-      td.appendChild(document.createTextNode(' '));
-      td.appendChild(a);
+      td.appendChild(document.createTextNode(' ')); td.appendChild(a);
       var prev=td.previousElementSibling;
       if(prev && prev.tagName==='TD' && !re.test((prev.textContent||'').trim())){
         prev.classList.add('tdx-code'); prev.title='点击：象限图高亮 + 联动通达信（'+code+'）';
-        prev.onclick=function(){
-          document.querySelectorAll('td.tdx-code.active').forEach(function(e){e.classList.remove('active');});
-          prev.classList.add('active'); tdxActivate(code);
-        };
+        prev.onclick=function(){ document.querySelectorAll('td.tdx-code.active').forEach(function(e){e.classList.remove('active');}); prev.classList.add('active'); tdxActivate(code); };
       }
     }
   });
-  // 散点图上的点也可点击：打开该股供需轨迹图（覆盖全部样本，不只是榜单里的）
+  // --- 3) 散点图圆点：点击打开该股轨迹图 ---
   var qsvg=document.querySelector('svg');
   if(qsvg){
     qsvg.querySelectorAll('circle').forEach(function(c){
-      var ti=c.querySelector('title'); if(!ti) return;
-      var m=ti.textContent.match(/\((\d{6})\)/); if(!m) return;
-      var ccode=m[1];
+      var info=_circleInfo(c); if(!info) return;
+      if(c.__trendBound) return;
+      c.__trendBound=true;
       c.style.cursor='pointer';
-      c.addEventListener('click',function(){ window.open('quadrant-trends.html#'+ccode,'_blank'); });
+      c.addEventListener('click',function(){ window.open('quadrant-trends.html#'+info.code,'_blank'); });
     });
   }
+  // --- 4) 产业链单元格：点击高亮该链全部企业 ---
+  // 先靠圆点 title 收集"真实存在的链名集合"，避免把非链文本当链点
+  var chainSet={};
+  if(qsvg){
+    qsvg.querySelectorAll('circle').forEach(function(c){
+      var info=_circleInfo(c); if(!info) return;
+      info.chains.forEach(function(ch){ if(ch.trim().length>1) chainSet[ch.trim()]=1; });
+    });
+  }
+  document.querySelectorAll('td').forEach(function(td){
+    var t=(td.textContent||'').trim(); if(!t || re.test(t)) return;
+    var parts=t.split(/\s*\/\s*/).map(function(s){return s.trim();}).filter(function(s){return chainSet[s];});
+    if(parts.length){
+      td.classList.add('chain-link');
+      td.title='点击：高亮该产业链全部企业（'+parts.join(' / ')+'）';
+      td.onclick=function(e){ highlightChains(parts); };
+    }
+  });
 });
 </script>
 
