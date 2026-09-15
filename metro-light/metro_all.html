@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>全国城市地铁数据中心 · 四页合一</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#eef2f8;--bg2:#e4eaf4;--card:rgba(255,255,255,.82);--line:rgba(40,80,160,.20);
+--txt:#15233f;--dim:#5a6a8c;--neon:#0a7fb5;--neon2:#5b3fd0;--grn:#0f9d6b;--amb:#b07a16;--red:#d23a55}
+body{background:radial-gradient(1100px 620px at 12% -8%,#cfe0f6 0%,transparent 60%),
+radial-gradient(900px 520px at 92% 4%,#e6dcf6 0%,transparent 58%),var(--bg);
+color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+min-height:100vh;padding:18px 16px 40px;-webkit-font-smoothing:antialiased;
+/* 全屏不拉伸：窄容器宁可出横向滚动条，也不把内容压成一条竖缝 */
+min-width:360px;overflow-x:auto}
+.wrap{width:100%;margin:0 auto}
+h1{font-size:23px;font-weight:700;letter-spacing:.4px;
+background:linear-gradient(92deg,#1f8fb8,#5b3fd0 55%,#0f9d6b);
+-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--dim);font-size:12.5px;margin-top:7px;line-height:1.75}
+.glass{background:var(--card);border:1px solid var(--line);border-radius:15px;
+backdrop-filter:blur(13px);box-shadow:0 10px 34px rgba(20,40,80,.16)}
+.sec{margin:20px 0 10px;font-size:15.5px;font-weight:650;display:flex;align-items:center;gap:9px}
+.sec:before{content:"";width:3px;height:16px;border-radius:2px;
+background:linear-gradient(180deg,var(--neon),var(--neon2))}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:11px;margin:16px 0}
+.kpi{padding:13px 15px}
+.kpi .k{font-size:11.5px;color:var(--dim);letter-spacing:.3px}
+.kpi .v{font-size:23px;font-weight:700;margin-top:5px;color:var(--neon)}
+.kpi .t{font-size:11px;color:var(--dim);margin-top:3px}
+.panel{padding:14px 15px;margin-bottom:14px;position:relative;z-index:5}
+.note{color:var(--dim);font-size:11.8px;line-height:1.7}
+/* 标签栏 */
+.mz-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 14px}
+.mz-tabs label{cursor:pointer;padding:9px 15px;border-radius:11px;font-size:13px;font-weight:600;
+color:var(--dim);background:rgba(255,255,255,.78);border:1px solid var(--line);transition:.16s}
+.mz-tabs label:hover{color:var(--txt);border-color:rgba(40,80,160,.46)}
+input[name=mz]{position:absolute;left:-9999px;width:0;height:0;opacity:0}
+.mz-pane{display:none}
+/* ⚠ 这里的 `.wrap` 不能省：input 与 .mz-panes 必须是「兄弟」`~` 才生效，
+   而 .mz-panes 被包在 .wrap 里，所以路径是 `input ~ .wrap .mz-panes .pzN`。
+   直接写 `input ~ .mz-panes` 会因为隔着 .wrap 而永远匹配不上（全部面板 display:none）。 */
+#mz0:checked ~ .wrap .mz-panes .pz0,#mz1:checked ~ .wrap .mz-panes .pz1,
+#mz2:checked ~ .wrap .mz-panes .pz2,#mz3:checked ~ .wrap .mz-panes .pz3,
+#mz4:checked ~ .wrap .mz-panes .pz4{display:block}
+#mz0:checked ~ .wrap .mz-tabs label[for=mz0],#mz1:checked ~ .wrap .mz-tabs label[for=mz1],
+#mz2:checked ~ .wrap .mz-tabs label[for=mz2],#mz3:checked ~ .wrap .mz-tabs label[for=mz3],
+#mz4:checked ~ .wrap .mz-tabs label[for=mz4]{color:#04101c;background:linear-gradient(92deg,#1f8fb8,#0a7fb5);
+border-color:transparent;box-shadow:0 6px 20px rgba(10,127,181,.30)}
+/* 总表 */
+table.ovt{width:100%;border-collapse:collapse;font-size:12.6px}
+table.ovt th,table.ovt td{padding:9px 10px;text-align:left;
+border-bottom:1px solid rgba(40,80,160,.14);vertical-align:top}
+table.ovt th{color:var(--dim);font-weight:600;font-size:11.5px;background:#dde4f0;position:sticky;top:0}
+table.ovt td:nth-child(1){width:64px}
+table.ovt td:nth-child(3){width:210px}
+.ovt-tag{display:inline-block;padding:2px 8px;border-radius:7px;font-size:11px;font-weight:600;
+color:var(--neon);background:rgba(10,127,181,.14);border:1px solid rgba(10,127,181,.28)}
+.ovt-v{font-weight:700;color:var(--txt);font-variant-numeric:tabular-nums}
+.ovt-s{color:var(--dim);font-size:11.5px;line-height:1.6}
+/* 入口卡（label 点击切标签） */
+.mz-cuts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0 4px}
+.mz-cut{padding:15px 16px;cursor:pointer;display:block;transition:.16s;position:relative}
+.mz-cut:hover{transform:translateY(-2px);border-color:rgba(40,80,160,.50)}
+.mz-cut-n{position:absolute;right:14px;top:12px;font-size:26px;font-weight:800;
+color:rgba(40,80,160,.24);line-height:1}
+.mz-cut-t{font-size:15px;font-weight:700;color:var(--neon)}
+.mz-cut-d{color:var(--dim);font-size:11.8px;line-height:1.6;margin-top:6px;padding-right:26px}
+.mz-cut-a{color:var(--grn);font-size:11.5px;font-weight:600;margin-top:9px}
+/* iframe 面板 */
+.mz-fb{color:var(--dim);font-size:11.8px;margin-bottom:9px;line-height:1.6}
+.mz-fb a{color:var(--neon)}
+.mz-frame{width:100%;height:calc(100vh - 150px);min-height:640px;border:1px solid var(--line);
+border-radius:15px;background:#eef2f8;display:block}
+.warn{border-color:rgba(210,58,85,.34);background:rgba(210,58,85,.08)}
+.warn .sec:before{background:linear-gradient(180deg,var(--red),var(--amb))}
+@media (max-width:760px){.mz-cuts{grid-template-columns:1fr}
+.mz-frame{height:calc(100vh - 120px);min-height:520px}}
+</style>
+</head>
+<body>
+<input type="radio" name="mz" id="mz0" checked>
+<input type="radio" name="mz" id="mz1">
+<input type="radio" name="mz" id="mz2">
+<input type="radio" name="mz" id="mz3">
+<input type="radio" name="mz" id="mz4">
+
+<div class="wrap">
+  <h1>全国城市地铁数据中心</h1>
+  <div class="sub">四个页面合一：<b>线路图 · 通勤圈 / A→B · 横向对比 · 票价表</b>。
+  点上面的标签切换视图；下面的「合并总表」把四页的关键口径汇到一张表里，先看口径再看数字。<br>
+  数据日期 2026-09-15 22:48　线网 53 城 / 363 线 / 7,017 站 / 1,046 换乘　票价 54 个体系（官方核验 48 个）</div>
+
+  <nav class="mz-tabs">
+    <label for="mz0">总览 · 合并总表</label>
+    <label for="mz1">线路图</label>
+    <label for="mz2">通勤圈 / A→B</label>
+    <label for="mz3">横向对比</label>
+    <label for="mz4">票价表</label>
+  </nav>
+
+  <main class="mz-panes">
+
+    <section class="mz-pane pz0">
+      <div class="cards"><div class="kpi glass"><div class="k">覆盖城市 / 地区</div><div class="v">53</div><div class="t">含港澳台</div></div><div class="kpi glass"><div class="k">线路总数</div><div class="v">363</div><div class="t">同名重复已合并</div></div><div class="kpi glass"><div class="k">车站 / 换乘站</div><div class="v">7,017 / 1,046</div><div class="t">换乘率 14.9%</div></div><div class="kpi glass"><div class="k">统一口径里程</div><div class="v">12,137.4</div><div class="t">km（同城共线去重）</div></div><div class="kpi glass"><div class="k">票价体系</div><div class="v">54</div><div class="t">官方核验 48 个</div></div><div class="kpi glass"><div class="k">数据日期</div><div class="v">2026-09-15</div><div class="t">线网 + 票价双源</div></div></div>
+
+      <div class="sec">四张入口</div>
+      <div class="mz-cuts"><label class="mz-cut glass" for="mz1"><div class="mz-cut-n">1</div><div class="mz-cut-t">线路图</div><div class="mz-cut-d">52 城线网 · 共线去重 · 单线视图与站序</div><div class="mz-cut-a">打开 →</div></label><label class="mz-cut glass" for="mz2"><div class="mz-cut-n">2</div><div class="mz-cut-t">通勤圈 / A→B</div><div class="mz-cut-d">等时圈 30/45/60 分钟 · 最快与最少换乘两条走法</div><div class="mz-cut-a">打开 →</div></label><label class="mz-cut glass" for="mz3"><div class="mz-cut-n">3</div><div class="mz-cut-t">横向对比</div><div class="mz-cut-d">线路数/车站/换乘密度/里程/票价 一张表可比</div><div class="mz-cut-a">打开 →</div></label><label class="mz-cut glass" for="mz4"><div class="mz-cut-n">4</div><div class="mz-cut-t">票价表</div><div class="mz-cut-d">54 个票价体系逐城回官方核验 · 辟谣对照</div><div class="mz-cut-a">打开 →</div></label></div>
+
+      <div class="sec">合并总表（板块 · 指标 · 数值 · 口径出处）</div>
+      <div class="panel glass">
+        <table class="ovt">
+          <thead><tr><th>板块</th><th>指标</th><th>数值</th><th>口径 / 出处</th></tr></thead>
+          <tbody><tr><td><span class="ovt-tag">覆盖</span></td><td>城市 / 地区数</td><td class="ovt-v">53 个</td><td class="ovt-s">含中国香港、中国澳门、中国台湾；大陆按城市拆分</td></tr><tr><td><span class="ovt-tag">覆盖</span></td><td>线路总数</td><td class="ovt-v">363 条</td><td class="ovt-s">同名重复录入合并后（合并前 372 条）</td></tr><tr><td><span class="ovt-tag">覆盖</span></td><td>车站数</td><td class="ovt-v">7,017 座</td><td class="ovt-s">站名归并后：同名换乘站合并计 1 座</td></tr><tr><td><span class="ovt-tag">覆盖</span></td><td>换乘站</td><td class="ovt-v">1,046 座（占 14.9%）</td><td class="ovt-s">站点聚类后判定，≥2 条线可乘</td></tr><tr><td><span class="ovt-tag">里程</span></td><td>各市原始相加</td><td class="ovt-v">12,283.4 km</td><td class="ovt-s">最宽松口径：跨市线路在各市重复计入</td></tr><tr><td><span class="ovt-tag">里程</span></td><td>本页统一口径</td><td class="ovt-v">12,137.4 km</td><td class="ovt-s">站名合并 + 同城共线只算一次（各页排名用这个）</td></tr><tr><td><span class="ovt-tag">里程</span></td><td>跨市对边去重</td><td class="ovt-v">12,185.9 km</td><td class="ovt-s">只合并坐标完全重合的边，与前两行算法不同，不可加减</td></tr><tr><td><span class="ovt-tag">通勤</span></td><td>等时圈带宽</td><td class="ovt-v">30 / 45 / 60 分钟</td><td class="ovt-s">起点站出发，含换乘惩罚；车站可达数按带宽分色</td></tr><tr><td><span class="ovt-tag">通勤</span></td><td>默认平均旅速</td><td class="ovt-v">35 km/h</td><td class="ovt-s">站间直线距离推算，未计曲线绕行与实际停站，属偏乐观估计</td></tr><tr><td><span class="ovt-tag">通勤</span></td><td>默认换乘惩罚</td><td class="ovt-v">4 分钟 / 次</td><td class="ovt-s">可填 0（0 是合法值，不会被默认值覆盖）</td></tr><tr><td><span class="ovt-tag">通勤</span></td><td>A→B 两种走法</td><td class="ovt-v">最快 / 最少换乘</td><td class="ovt-s">同一张「站点×线路」图上分别求解，并列展示</td></tr><tr><td><span class="ovt-tag">对比</span></td><td>票价体系数</td><td class="ovt-v">54 个</td><td class="ovt-s">大陆 47 + 中国台湾 5 + 中国香港 1 + 中国澳门 1</td></tr><tr><td><span class="ovt-tag">对比</span></td><td>20 km 票价</td><td class="ovt-v">见「横向对比」页</td><td class="ovt-s">按各城官方阶梯推算；天津为区间分段计价，不参与同类比较</td></tr><tr><td><span class="ovt-tag">票价</span></td><td>官方页 / 文件核验</td><td class="ovt-v">48 个</td><td class="ovt-s">逐城回到运营方官网或发改委文件</td></tr><tr><td><span class="ovt-tag">票价</span></td><td>官方转述</td><td class="ovt-v">5 个</td><td class="ovt-s">官方新闻稿或与官方一致的二手资料</td></tr><tr><td><span class="ovt-tag">票价</span></td><td>待复核</td><td class="ovt-v">1 个</td><td class="ovt-s">仅有百科类来源，未取得官方页</td></tr><tr><td><span class="ovt-tag">票价</span></td><td>与流传说法冲突</td><td class="ovt-v">16 个</td><td class="ovt-s">含辟谣条目：如「包头 40 城汇总」系虚构，包头至今无轨道交通运营</td></tr></tbody>
+        </table>
+      </div>
+
+      <div class="sec">怎么用这四页</div>
+      <div class="panel glass">
+        <div class="note" style="line-height:1.85">
+        <b style="color:#15233f">① 先定坐标</b>：在「线路图」选城 / 选线，看这条线到底经过哪些站、哪些是换乘点。<br>
+        <b style="color:#15233f">② 再算可达</b>：把起点丢进「通勤圈」，30/45/60 分钟能到哪些站一目了然；填了终点站才会出现 A→B 路线（最快、最少换乘两条并列）。<br>
+        <b style="color:#15233f">③ 横向找差距</b>：「横向对比」把 52 城的线网规模与票价摆在一张表里，点表头可排序。<br>
+        <b style="color:#15233f">④ 票价回一手源</b>：「票价表」逐城对到官方页 / 发改委文件，并把流传汇总里的错处单独列出来。<br>
+        <span style="color:#5a6a8c">四页共用同一份载荷（53 城 / 363 线 / 7,017 站），所以任何一页改口径，其余三页同步。</span>
+        </div>
+      </div>
+
+      <div class="sec">口径与边界</div>
+      <div class="panel glass">
+        <div class="note" style="line-height:1.8">
+        · 线网数据取自 OpenStreetMap，<b>分两层</b>：① 主口径 <code>route=subway</code>；② <b>补充制式</b> <code>route=monorail / light_rail / maglev</code>（单轨／磁浮／APM／轻轨），<b>逐城白名单核定</b>纳入 <b>13 条</b>（北京 1 条、上海 2 条、广州 1 条、重庆 2 条、长沙 1 条、长春 3 条、澳门 3 条）；不含 <code>route=tram</code> 有轨电车、云巴／云轨、机场内部捷运与旅游观光专线（边界详见四页页脚）。按「归属方 + 线路编号」聚合，取交路边并集。<br>
+        · <b>制式构成与对账</b>：地铁 348 条 · 单轨 4 条 · 磁浮 3 条 · APM 2 条 · 轻轨 6 条。其中非地铁制式 <b>15 条</b> ＝ 补充层 13 条 ＋ <b>2 条</b>（芜湖1号线、芜湖2号线）——后者在 OSM 里标的是 <code>route=monorail</code>，但它是该市<b>唯一</b>的轨道交通线网、早期即随主口径取数，故不重复计入补充层。非地铁制式的线路名后标出制式（如「〔单轨〕」），这些多为<b>独立票制／独立票价</b>；<b>未纳入并点名</b>：中国香港轻铁（12 条路线 / 68 站）。<br>
+        · <b>里程一律是「站间直线连线」下限</b>：未计曲线绕行，故普遍小于官方公报里程，仅用于<b>同口径横向比较</b>。<br>
+        · <b>三个里程数字算法不同、不可相互加减</b>：各市原始相加 12,283.4 km ／ 本站统一口径 12,137.4 km ／ 跨市对边去重 12,185.9 km。<br>
+        · 通勤耗时是按平均旅速推算的<b>估算值，不是官方时刻表</b>；换乘惩罚默认为每次 4 分钟，可在页内调整。<br>
+        · 票价均为<b>按官方阶梯推算的派生值</b>，非购票实付；特殊线路（机场线等）独立定价，已在票价页单列。<br>
+        · <b>车站数与换乘站有两个口径，别跨页混引</b>：「地铁线路图 / 通勤圈」页的 KPI、以及本表数值，一律用<b>页面口径</b>（7,017 站 / 1,046 换乘，站名做最小归一、同名换乘站并成 1 座）；数据源 metro_network.json 顶层另有一个<b>建库口径</b>（7,076 站 / 1,013 换乘），按原始站名聚类、不去「（N号线）」后缀，所以站数偏大、换乘偏少。两个口径数字不同、算法不同，<b>不可相互加减</b>。（页面口径存在的原因：曾出现「大连北（1号线）」与「大连北（2号线）」被拆成两个节点，导致该市 59/105 个站与主网不连通。）
+        · <b>站点角色口径</b>：把 OSM 线路关系里的 <code>stop</code> / <code>stop_entry_only</code>（只上客）/ <code>stop_exit_only</code>（只下客）/ <b>空角色</b>（早期标注法）四种站点标注<b>都计为车站</b>；<code>inactive_*</code>（未启用站）不计入。相较只认 <code>role="stop"</code> 的旧口径，整站<b>净增 68 站、净减 0 站</b>（市域去重后相加，例：成都 +16、北京 +9、广州 +8、合肥 +7），另有 <b>54 处</b>未启用站被排除（涉及 <b>9 城</b>：青岛 20、成都 10、北京 6、重庆 6 等），逐城站名台账已列在四页页脚。被排除的<b>不全是「未启用」</b>：既含真未启用（成都 天府机场3号4号航站楼、合肥 7 号线 义城／天津路／巢湖南路），也含<b>临时封闭</b>（北京 八角游乐园，2025-06 起因 1 号线支线改造封闭、车不停），还含<b>重复节点噪声</b>（青岛 8 号线 20 处：双向／快速交路把同一批站重复挂载并标为 inactive，另一侧关系仍为在营，<b>不减少</b>站数）。故本站「车站数」是<b>在营站口径</b>，与官方公报个别站差 1–2 站即源于此。最典型的一条线是港铁机场快线：旧口径只剩「博覽館＋機場」2 站、里程 0.89 km，补回 香港／九龍／青衣 后为 <b>5 站 / 29.5 km</b>；（该三站在同城其他线路里已存在，所以修好的是<b>本线站序与里程</b>，城市站数不变。）
+        · <b>口径边界（隐藏假设）</b>：线路一律按 OSM 标签 <code>route=subway</code> 取，<b>不做人工剔除</b>——
+        个别市域快轨／城际在该标签下也被计入（例：北京雄安 R1 线 4 站／20.6 km），
+        故「线路数」在同口径比较时须留意此边界；有轨电车（<code>route=tram</code>）与未启用站不计入。<br>
+        </div>
+      </div>
+
+      <div class="panel glass warn">
+        <div class="sec">使用前请注意</div>
+        <div class="note" style="line-height:1.8">
+        ① 本页是<b>数据与口径的汇总视图</b>，用于城市间横向比较与通勤可行性判断，<b>不作为出行依据</b>——实际出行请以运营方当日公告为准。<br>
+        ② 四页数据同源，<b>任何一个数字有误，四页会一起错</b>；发现可疑数字请指出来源页与城市，便于回查。<br>
+        ③ 合并页依赖同目录四个源文件（见下方说明），单独拷走本文件会导致四个标签页空白。
+        </div>
+      </div>
+
+      <div class="sec">文件依赖（重要）</div>
+      <div class="panel glass">
+        <div class="note" style="line-height:1.8">
+        本文件<b>不是单文件离线页</b>：四个交互页用 iframe 内嵌（各自带 Leaflet 与 400KB+ 载荷，
+        拼接进同一文档会因 `const DATA` 重名直接报错），所以它必须与下面四个文件<b>放在同一目录</b>一起分发：<br>
+        <code style="color:#0a6e9c">metro_map.html</code> ·
+        <code style="color:#0a6e9c">metro_commute.html</code> ·
+        <code style="color:#0a6e9c">metro_compare.html</code> ·
+        <code style="color:#0a6e9c">metro_fare.html</code><br>
+        <span style="color:#5a6a8c">好处是四个页面的交互（地图缩放 / 可排序表 / 组合框搜索）全部原样保留，且互不干扰。</span>
+        </div>
+      </div>
+    </section>
+
+<section class="mz-pane pz1"><div class="mz-fb">此页为交互页（地图 / 可排序表格），已内嵌运行。若面板未显示或需要更大视野，<a href="metro_map.html" target="_blank" rel="noopener">在新标签打开 metro_map.html</a>。</div><iframe class="mz-frame" src="metro_map.html" loading="lazy" title="线路图" allowfullscreen></iframe></section><section class="mz-pane pz2"><div class="mz-fb">此页为交互页（地图 / 可排序表格），已内嵌运行。若面板未显示或需要更大视野，<a href="metro_commute.html" target="_blank" rel="noopener">在新标签打开 metro_commute.html</a>。</div><iframe class="mz-frame" src="metro_commute.html" loading="lazy" title="通勤圈 / A→B" allowfullscreen></iframe></section><section class="mz-pane pz3"><div class="mz-fb">此页为交互页（地图 / 可排序表格），已内嵌运行。若面板未显示或需要更大视野，<a href="metro_compare.html" target="_blank" rel="noopener">在新标签打开 metro_compare.html</a>。</div><iframe class="mz-frame" src="metro_compare.html" loading="lazy" title="横向对比" allowfullscreen></iframe></section><section class="mz-pane pz4"><div class="mz-fb">此页为交互页（地图 / 可排序表格），已内嵌运行。若面板未显示或需要更大视野，<a href="metro_fare.html" target="_blank" rel="noopener">在新标签打开 metro_fare.html</a>。</div><iframe class="mz-frame" src="metro_fare.html" loading="lazy" title="票价表" allowfullscreen></iframe></section>
+  </main>
+</div>
+</body>
+</html>
