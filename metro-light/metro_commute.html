@@ -84,7 +84,7 @@ user-select:none;white-space:nowrap}
 background:rgba(10,127,181,.09);border:1px solid rgba(10,127,181,.26)}
 .hlp b{color:#1f8fb8}
 .brtag{padding:0 4px;border-radius:4px;background:rgba(122,77,208,.20);color:#7a4dd0}
-</style></head><body><div class="wrap"><div class="hdr"><a class="backhub" href="metro_all.html" target="_top">← 四页总览</a></div><h1>地铁通勤圈 / A→B 路线分析</h1><div class="sub"><b>两种模式</b>：选终点站 → A→B 路线（最快 / 最少换乘两种走法、分段线路、逐站累计耗时）；不选终点站 → 起点出发的 30/45/60 分钟等时圈。算法：站点×线路建图 + Dijkstra，乘车边 = 站间直线距离 ÷ 旅速 + 每站停站，换乘边 = 换乘惩罚。这是**量级估算**，不是官方时刻表。<span style="opacity:.65;font-size:11px;margin-left:10px">(浅色 v09-16·14:19)</span></div>
+</style></head><body><div class="wrap"><div class="hdr"><a class="backhub" href="metro_all.html" target="_top">← 四页总览</a></div><h1>地铁通勤圈 / A→B 路线分析</h1><div class="sub"><b>两种模式</b>：选终点站 → A→B 路线（最快 / 最少换乘两种走法、分段线路、逐站累计耗时）；不选终点站 → 起点出发的 30/45/60 分钟等时圈。算法：站点×线路建图 + Dijkstra，乘车边 = 站间直线距离 ÷ 旅速 + 每站停站，换乘边 = 换乘惩罚。这是**量级估算**，不是官方时刻表。<span style="opacity:.65;font-size:11px;margin-left:10px">(浅色 v09-16·14:41)</span></div>
 <div class="panel glass" id="ctrl">
   <div class="row">
     <span style="font-size:12.5px;color:#5a6a8c">城市</span><select id="city"></select>
@@ -219,9 +219,11 @@ let PT={o:null,d:null};   // 地图选点（latlng）；吸附到的最近车站
 // ——— 沿街步行：OSRM-foot 开源步行规划（routing.openstreetmap.de，免密钥、CORS 全开）。
 //      先画直线×1.25 估算（快速反馈），后台取真实街道折线，到达后 walkEnrich 替换；
 //      断网/服务挂 → 保持直线估算不变。步速口径统一 75 米/分（4.5km/h）。———
-const WALK={tok:0,cache:{},lnO:null,lnD:null,mkO:null,mkD:null,wo:null,wd:null,rerender:null};
+const WALK={tok:0,cache:{},lnO:null,lnD:null,mkO:null,mkD:null,wo:null,wd:null,rerender:null,
+  direct:null,dcache:{},dkey:'',mode:'auto'};   // direct=全程步行沿街路线；mode: auto/walk/metro
 function walkEnrich(tag){  // 沿街路线到达：换折线、改气泡、同步模拟小人时间轴、刷新 KPI
   const d=tag==='o'?WALK.wo:WALK.wd; if(!d||!d.pts)return;
+  if(WALK.mode==='walk')return;   // 步行直达模式下车站接驳步行无意义，防误写直达段
   const ln=tag==='o'?WALK.lnO:WALK.lnD, mk=tag==='o'?WALK.mkO:WALK.mkD;
   if(ln)ln.setLatLngs(d.pts.map(p=>[p[0],p[1]]));
   if(mk)mk.setTooltipContent(tag==='o'
@@ -229,7 +231,11 @@ function walkEnrich(tag){  // 沿街路线到达：换折线、改气泡、同�
     :`目的地 · 从「${d.sta}」沿街步行约 ${d.m} 米`);
   const pool=tag==='o'?SIM.legs:[...SIM.legs].reverse();
   const leg=pool.find(l=>l.mode==='walk');
-  if(leg&&!SIM.playing&&SIM.p===0){leg.pts=d.pts.map(p=>[p[0],p[1]]);leg.min=d.min;leg.label='🚶 沿街步行 '+d.m+' 米';}
+  if(leg&&!SIM.playing&&SIM.p===0){
+    // 倒放修复：终点侧(route 'd')请求是「目的地→车站」方向，回来的点序是反的；
+    // 小人要按「车站→目的地」正向走，必须 reverse（老板 2026-09-16：出站后人是倒放的）
+    leg.pts=(tag==='d'?d.pts.slice().reverse():d.pts).map(p=>[p[0],p[1]]);
+    leg.min=d.min;leg.label='🚶 沿街步行 '+d.m+' 米';}
   if(WALK.rerender)WALK.rerender();
 }
 function fetchWalk(tag,pt,sta){  // tag:'o' 起点侧 / 'd' 终点侧；sta=[站名,纬,经]
@@ -247,6 +253,26 @@ function fetchWalk(tag,pt,sta){  // tag:'o' 起点侧 / 'd' 终点侧；sta=[站
     if(!(m>0)||cs.length<2)return;
     apply(WALK.cache[ck]={m:m,min:m/75,sta:sta[0],pts:cs.map(c=>[c[1],c[0]])});
   }).catch(()=>{});                              // 网络/服务不可用 → 保持直线估算
+}
+function fetchDirect(o,d,thr){  // 全程步行（OSRM-foot）；thr=地铁方案全耗时（分钟），超过它步行才值得推荐
+  const dk='d'+o.lat.toFixed(4)+','+o.lng.toFixed(4)+'>'+d.lat.toFixed(4)+','+d.lng.toFixed(4);
+  const tok=WALK.tok, hit=WALK.dcache[dk];
+  if(hit){WALK.direct=hit;maybeAutoWalk(thr);return;}
+  const u='https://routing.openstreetmap.de/routed-foot/route/v1/foot/'
+    +o.lng.toFixed(5)+','+o.lat.toFixed(5)+';'+d.lng.toFixed(5)+','+d.lat.toFixed(5)
+    +'?overview=full&geometries=geojson&alternatives=false';
+  fetch(u).then(r=>r.json()).then(j=>{
+    if(tok!==WALK.tok)return;
+    if(!j||j.code!=='Ok'||!j.routes||!j.routes[0]||!j.routes[0].geometry)return;
+    const r0=j.routes[0],m=Math.round(r0.distance),cs=r0.geometry.coordinates;
+    if(!(m>0)||cs.length<2)return;
+    WALK.direct=WALK.dcache[dk]={m:m,min:m/75,pts:cs.map(c=>[c[1],c[0]])};
+    maybeAutoWalk(thr);
+  }).catch(()=>{});
+}
+function maybeAutoWalk(thr){  // 老板 2026-09-16：近的直接步行到就行，不用非省地铁；步行明显更快 → 自动切
+  if(WALK.mode!=='auto'||!WALK.direct||!(WALK.direct.min<thr))return;
+  WALK.mode='walk'; setTimeout(run,0);   // defer：避免在 run() 渲染中途重入
 }
 function walkInfo(pt,s){  // 选点→车站 的步行估算：直线×1.25 沿街绕行系数，步速 4.5km/h=75米/分
   const m=hav([pt.lat,pt.lng],[s[1],s[2]]);
@@ -579,6 +605,30 @@ function drawRoute(G,c,rs,oi,di){
   gRoute.clearLayers(); simReset(); WALK.tok++;
   WALK.wo=WALK.wd=null;WALK.lnO=WALK.lnD=WALK.mkO=WALK.mkD=null;
   if(!rs)return;
+  // —— OD 变化检测：换起终点后直达结果作废、模式回 auto（老板 2026-09-16 步行直达）——
+  const dkd=PT.o&&PT.d?'d'+PT.o.lat.toFixed(4)+','+PT.o.lng.toFixed(4)+'>'+PT.d.lat.toFixed(4)+','+PT.d.lng.toFixed(4):'';
+  if(dkd!==WALK.dkey){WALK.dkey=dkd;WALK.direct=WALK.dcache[dkd]||null;WALK.mode='auto';}
+  // —— 步行直达模式：只画一条沿街步行线，不进站 ——
+  if(WALK.mode==='walk'&&WALK.direct){
+    gRoute.clearLayers(); simReset();
+    const dd=WALK.direct,pO=[PT.o.lat,PT.o.lng],pD=[PT.d.lat,PT.d.lng];
+    gRoute.addLayer(L.polyline(dd.pts.map(p=>[p[0],p[1]]),{color:'#0a7fb5',weight:5,opacity:.95})
+      .bindTooltip(`步行直达 · ${dd.m} 米 · 约 ${dd.min.toFixed(0)} 分钟（沿街实测路线）`,{sticky:true}));
+    gRoute.addLayer(L.circleMarker(PT.o,{radius:7,color:'#fff',weight:2.5,fillColor:'#0a7fb5',fillOpacity:1})
+      .bindTooltip(`起点（「${c.st[oi][0]}」附近）· 出发`,{direction:'top'}));
+    gRoute.addLayer(L.circleMarker(PT.d,{radius:7,color:'#fff',weight:2.5,fillColor:'#d23a55',fillOpacity:1})
+      .bindTooltip(`目的地（「${c.st[di][0]}」附近）· 到达`,{direction:'top'}));
+    SIM.legs=[{pts:dd.pts.map(p=>[p[0],p[1]]),min:dd.min,mode:'walk',label:'🚶 步行直达 '+dd.m+' 米'}];
+    return;
+  }
+  // —— 发起全程步行规划（直线 8km 内才算「近」；到货后 maybeAutoWalk 决定要不要自动切）——
+  if(PT.o&&PT.d){
+    const estW=(PT.o?walkInfo(PT.o,c.st[oi]).min:0)+(PT.d?walkInfo(PT.d,c.st[di]).min:0);
+    const thr=rs.tt+estW+0.5;
+    const dd=hav([PT.o.lat,PT.o.lng],[PT.d.lat,PT.d.lng]);
+    if(dd<8000&&WALK.mode==='auto'&&!WALK.direct)fetchDirect(PT.o,PT.d,thr);
+    else if(WALK.direct)maybeAutoWalk(thr);
+  }
   const ptsAll=[];
   rs.segs.forEach(sg=>{
     const pts=sg.st.map(i=>[c.st[i][1],c.st[i][2]]);
@@ -758,7 +808,15 @@ function run(){
     drawRoute(G,c,active,oi,di);
     // 线路去重后再报「途经线路」条数（同一条线可能被分成多段）
     const uniqL=[...new Set(active.segs.map(s=>(G.meta[s.k]||{}).label))];
-    const buildK=()=>{const Ko=PT.o?(WALK.wo||walkInfo(PT.o,c.st[oi])):null, Kd=PT.d?(WALK.wd||walkInfo(PT.d,c.st[di])):null;
+    const buildK=()=>{if(WALK.mode==='walk'&&WALK.direct){const dd=WALK.direct,
+      wtot=active.tt+(PT.o?walkInfo(PT.o,c.st[oi]).min:0)+(PT.d?walkInfo(PT.d,c.st[di]).min:0);
+      boxK.innerHTML=[
+       ['步行直达',dd.m+' 米','约 '+dd.min.toFixed(0)+' 分钟（沿街实测路线 · 全程步行不坐地铁）'],
+       ['对比地铁',wtot.toFixed(0)+' 分钟','进站坐地铁的全耗时 · 点「最快」标签可切回'],
+       ['两端直线',active.straight.toFixed(1),'km · 步行绕行系数 '+(dd.m/1000/Math.max(active.straight,.01)).toFixed(2)],
+       ['参考票价',fareTxt(c,active.km),'地铁方案的票价 · 步行本身 0 元']]
+     .map(x=>`<div class="kpi glass"><div class="k">${x[0]}</div><div class="v">${x[1]}</div><div class="t">${x[2]}</div></div>`).join('');return;}
+    const Ko=PT.o?(WALK.wo||walkInfo(PT.o,c.st[oi])):null, Kd=PT.d?(WALK.wd||walkInfo(PT.d,c.st[di])):null;
     boxK.innerHTML=[
       ...(Ko?[['起点步行',Ko.m+' 米','到「'+Ko.sta+'」乘车 · 约 '+Ko.min.toFixed(0)+' 分钟'+(WALK.wo?'（沿街实测路线）':'（直线×1.25 估）')]]:[]),
       ...(Kd?[['终点步行',Kd.m+' 米','从「'+Kd.sta+'」出站走到目的地 · 约 '+Kd.min.toFixed(0)+' 分钟'+(WALK.wd?'（沿街实测路线）':'（直线×1.25 估）')]]:[]),
@@ -778,6 +836,7 @@ function run(){
     const on='background:rgba(10,127,181,.16);border-color:#0a7fb5;color:#15233f';
     let tabs=`<span class="chip" data-tab="fast" style="${routeTab==='fast'?on:''}">最快：${F.tt.toFixed(0)} 分钟 · 换乘 ${F.tr} 次</span>`;
     if(M) tabs+=`<span class="chip" data-tab="few" style="${routeTab==='few'?on:''}">最少换乘：${M.tr} 次 · ${M.tt.toFixed(0)} 分钟</span>`;
+    if(WALK.direct) tabs=`<span class="chip" data-walk="1" style="${WALK.mode==='walk'?on:''}">🚶 步行直达：${WALK.direct.min.toFixed(0)} 分钟</span>`+tabs;
     const segHtml=active.segs.map((sg,ix)=>{
       const mm=G.meta[sg.k]||{};
       const a=c.st[sg.st[0]][0], b=c.st[sg.st[sg.st.length-1]][0];
@@ -797,9 +856,11 @@ function run(){
       :`<div class="note" style="margin-top:8px"><b>票价</b>：该城票价不按「公里阶梯」计价（区间/站数/里程段票价或待复核），无法在线推算，以车站公示为准。</div>`;
     boxR.innerHTML=
       `<div class="shead">${c.st[oi][0]} <span style="color:#0a7fb5">→</span> ${c.st[di][0]}　
-        总耗时约 <b style="color:#0f9d6b">${active.tt.toFixed(0)} 分钟</b>　·　换乘 ${active.tr} 次　·　途经 ${active.nst} 站　·　路径 ${active.km.toFixed(1)} km</div>
+        ${WALK.mode==='walk'&&WALK.direct?`<b style="color:#0a7fb5">🚶 步行直达约 ${WALK.direct.min.toFixed(0)} 分钟 · ${(WALK.direct.m/1000).toFixed(1)} km</b>`:`总耗时约 <b style="color:#0f9d6b">${active.tt.toFixed(0)} 分钟</b>　·　换乘 ${active.tr} 次　·　途经 ${active.nst} 站　·　路径 ${active.km.toFixed(1)} km`}</div>
        <div class="row" style="margin-bottom:8px">${tabs}</div>
-       ${segHtml}
+       ${WALK.mode==='walk'&&WALK.direct
+         ?`<div class="note" style="margin:2px 0 8px">这两站近，直接步行更省事：省去「走到站 + 进站 + 等车 + 出站再走」，沿街实测约 <b>${WALK.direct.min.toFixed(0)} 分钟</b>。点上面「最快」标签切回地铁方案。</div>`
+         :segHtml}
        <div class="note" style="margin-top:9px">
        耗时口径 = 各段<b>站间直线距离 ÷ 旅速</b> + 每站停站 0.5 分钟 + 换乘惩罚 ${pen} 分钟/次。
        站间用直线比实际曲线里程短，所以总耗时<b>偏乐观</b>；「绕行系数」= 路径里程 ÷ 起终点直线距离，
@@ -1053,8 +1114,10 @@ document.getElementById('swap').onclick=()=>{
   routeTab='fast'; run();
 };
 boxR.addEventListener('click',ev=>{
+  const w=ev.target.closest('[data-walk]');
+  if(w){WALK.mode=(WALK.mode==='walk')?'metro':'walk'; run(); return;}   // 🚶 直达 chip：切换步行/地铁
   const t=ev.target.closest('[data-tab]'); if(!t)return;
-  routeTab=t.dataset.tab; run();
+  routeTab=t.dataset.tab; WALK.mode='metro'; run();                      // 点地铁标签 = 明确要坐地铁
 });
 boxS.addEventListener('click',ev=>{
   const r=ev.target.closest('.srow'); if(!r)return;
