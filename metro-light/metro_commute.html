@@ -58,7 +58,9 @@ select:focus,input:focus{border-color:var(--neon)}
 .chip:hover,.chip.on{color:var(--txt);border-color:var(--neon);background:rgba(10,127,181,.13)}
 /* ——— 地图 + 侧栏布局（原来只写在地图页里，通勤页用了 class="mgrid" 却没有定义，
        导致它的地图与侧栏其实是上下堆叠的。收进公共 CSS，两页共用。） ——— */
-.mgrid{display:grid;grid-template-columns:1fr 336px;gap:12px;align-items:start}
+.mgrid{display:grid;grid-template-columns:1fr;gap:12px;align-items:start}
+/* 老板 2026-09-16：通勤页改「地图全宽在上、侧栏解析在下」——地图大一点、去掉侧栏内滚条。
+   地图页 metro_map.html 仍是 1fr 336px 双栏，两页各持一份内联 CSS，互不影响。 */
 .mgrid>div{min-width:0}                     /* 防栅格子项被内容撑破 */
 @media(max-width:1120px){.mgrid{grid-template-columns:1fr}}
 @media(max-width:900px){.mgrid{gap:9px}#side{max-height:none!important}}
@@ -157,9 +159,9 @@ margin-bottom:3px;line-height:1.5}
 <div class="mgrid">
   <div class="glass" id="mapcard" style="padding:0;overflow:hidden;border-radius:15px;position:relative">
     <span class="fsbtn" id="fsbtn" title="铺满整个屏幕；再点一次或按 Esc 退出">⛶ 全屏</span>
-    <div id="map" style="height:calc(100vh - 200px);min-height:420px"></div>
+    <div id="map" style="height:calc(100vh - 180px);min-height:460px"></div>
   </div>
-  <div class="glass" id="side" style="padding:12px 13px;max-height:calc(100vh - 200px);overflow:auto"></div>
+  <div class="glass" id="side" style="padding:12px 15px"></div>
 </div>
 <div class="sec">各带宽可达站点（以起点站计）</div>
 <div class="panel glass" id="lst"></div>
