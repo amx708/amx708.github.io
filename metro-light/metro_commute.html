@@ -84,7 +84,7 @@ user-select:none;white-space:nowrap}
 background:rgba(10,127,181,.09);border:1px solid rgba(10,127,181,.26)}
 .hlp b{color:#1f8fb8}
 .brtag{padding:0 4px;border-radius:4px;background:rgba(122,77,208,.20);color:#7a4dd0}
-</style></head><body><div class="wrap"><div class="hdr"><a class="backhub" href="metro_all.html" target="_top">← 四页总览</a></div><h1>地铁通勤圈 / A→B 路线分析</h1><div class="sub"><b>两种模式</b>：选终点站 → A→B 路线（最快 / 最少换乘两种走法、分段线路、逐站累计耗时）；不选终点站 → 起点出发的 30/45/60 分钟等时圈。算法：站点×线路建图 + Dijkstra，乘车边 = 站间直线距离 ÷ 旅速 + 每站停站，换乘边 = 换乘惩罚。这是**量级估算**，不是官方时刻表。<span style="opacity:.65;font-size:11px;margin-left:10px">(浅色 v09-16·12:34)</span></div>
+</style></head><body><div class="wrap"><div class="hdr"><a class="backhub" href="metro_all.html" target="_top">← 四页总览</a></div><h1>地铁通勤圈 / A→B 路线分析</h1><div class="sub"><b>两种模式</b>：选终点站 → A→B 路线（最快 / 最少换乘两种走法、分段线路、逐站累计耗时）；不选终点站 → 起点出发的 30/45/60 分钟等时圈。算法：站点×线路建图 + Dijkstra，乘车边 = 站间直线距离 ÷ 旅速 + 每站停站，换乘边 = 换乘惩罚。这是**量级估算**，不是官方时刻表。<span style="opacity:.65;font-size:11px;margin-left:10px">(浅色 v09-16·12:54)</span></div>
 <div class="panel glass" id="ctrl">
   <div class="row">
     <span style="font-size:12.5px;color:#5a6a8c">城市</span><select id="city"></select>
@@ -216,6 +216,38 @@ let gBase=L.layerGroup().addTo(map), gIso={30:L.layerGroup(),45:L.layerGroup(),6
 })();
 // ——— 右键地图选起/终点 + 步行接驳 + 模拟出行（老板 2026-09-16）———
 let PT={o:null,d:null};   // 地图选点（latlng）；吸附到的最近车站写在 orgIdx/dstIdx 里
+// ——— 沿街步行：OSRM-foot 开源步行规划（routing.openstreetmap.de，免密钥、CORS 全开）。
+//      先画直线×1.25 估算（快速反馈），后台取真实街道折线，到达后 walkEnrich 替换；
+//      断网/服务挂 → 保持直线估算不变。步速口径统一 75 米/分（4.5km/h）。———
+const WALK={tok:0,cache:{},lnO:null,lnD:null,mkO:null,mkD:null,wo:null,wd:null,rerender:null};
+function walkEnrich(tag){  // 沿街路线到达：换折线、改气泡、同步模拟小人时间轴、刷新 KPI
+  const d=tag==='o'?WALK.wo:WALK.wd; if(!d||!d.pts)return;
+  const ln=tag==='o'?WALK.lnO:WALK.lnD, mk=tag==='o'?WALK.mkO:WALK.mkD;
+  if(ln)ln.setLatLngs(d.pts.map(p=>[p[0],p[1]]));
+  if(mk)mk.setTooltipContent(tag==='o'
+    ?`起点 · 沿街步行约 ${d.m} 米到「${d.sta}」`
+    :`目的地 · 从「${d.sta}」沿街步行约 ${d.m} 米`);
+  const pool=tag==='o'?SIM.legs:[...SIM.legs].reverse();
+  const leg=pool.find(l=>l.mode==='walk');
+  if(leg&&!SIM.playing&&SIM.p===0){leg.pts=d.pts.map(p=>[p[0],p[1]]);leg.min=d.min;leg.label='🚶 沿街步行 '+d.m+' 米';}
+  if(WALK.rerender)WALK.rerender();
+}
+function fetchWalk(tag,pt,sta){  // tag:'o' 起点侧 / 'd' 终点侧；sta=[站名,纬,经]
+  const ck='w'+pt.lat.toFixed(4)+','+pt.lng.toFixed(4)+'>'+sta[1].toFixed(4)+','+sta[2].toFixed(4);
+  const hit=WALK.cache[ck], tok=WALK.tok;
+  const apply=d=>{if(tag==='o')WALK.wo=d;else WALK.wd=d;walkEnrich(tag);};
+  if(hit){apply(hit);return;}
+  const u='https://routing.openstreetmap.de/routed-foot/route/v1/foot/'
+    +pt.lng.toFixed(5)+','+pt.lat.toFixed(5)+';'+sta[2].toFixed(5)+','+sta[1].toFixed(5)
+    +'?overview=full&geometries=geojson&alternatives=false';
+  fetch(u).then(r=>r.json()).then(j=>{
+    if(tok!==WALK.tok)return;                    // 选点已变，过期响应作废
+    if(!j||j.code!=='Ok'||!j.routes||!j.routes[0]||!j.routes[0].geometry)return;
+    const r0=j.routes[0],m=Math.round(r0.distance),cs=r0.geometry.coordinates;
+    if(!(m>0)||cs.length<2)return;
+    apply(WALK.cache[ck]={m:m,min:m/75,sta:sta[0],pts:cs.map(c=>[c[1],c[0]])});
+  }).catch(()=>{});                              // 网络/服务不可用 → 保持直线估算
+}
 function walkInfo(pt,s){  // 选点→车站 的步行估算：直线×1.25 沿街绕行系数，步速 4.5km/h=75米/分
   const m=hav([pt.lat,pt.lng],[s[1],s[2]]);
   const est=Math.round(m*1.25);
@@ -544,7 +576,8 @@ function scorePath(G,c,path,pen,spd,oi,di){
   return out;
 }
 function drawRoute(G,c,rs,oi,di){
-  gRoute.clearLayers(); simReset();
+  gRoute.clearLayers(); simReset(); WALK.tok++;
+  WALK.wo=WALK.wd=null;WALK.lnO=WALK.lnD=WALK.mkO=WALK.mkD=null;
   if(!rs)return;
   const ptsAll=[];
   rs.segs.forEach(sg=>{
@@ -574,17 +607,23 @@ function drawRoute(G,c,rs,oi,di){
   //   必须先 .lat/.lng 摊平成数组，否则 hav() 全是 NaN，小人动画直接飞出图外（「出轨」bug）。
   SIM.legs=[];
   if(PT.o){const w=walkInfo(PT.o,c.st[oi]),pA=[c.st[oi][1],c.st[oi][2]],pO=[PT.o.lat,PT.o.lng];
-    gRoute.addLayer(L.polyline([PT.o,pA],{color:'#0a7fb5',weight:3,opacity:.9,dashArray:'7,7'}));
-    gRoute.addLayer(L.circleMarker(PT.o,{radius:6,color:'#fff',weight:2,fillColor:'#0a7fb5',fillOpacity:1})
-      .bindTooltip(`起点 · 步行约 ${w.m} 米到「${w.sta}」`,{direction:'top'}));
-    SIM.legs.push({pts:[pO,pA],min:w.min,mode:'walk',label:'🚶 步行 '+w.m+' 米'});}
+    WALK.lnO=L.polyline([pO,pA],{color:'#0a7fb5',weight:3,opacity:.9,dashArray:'7,7'});
+    gRoute.addLayer(WALK.lnO);
+    WALK.mkO=L.circleMarker(PT.o,{radius:6,color:'#fff',weight:2,fillColor:'#0a7fb5',fillOpacity:1})
+      .bindTooltip(`起点 · 步行约 ${w.m} 米到「${w.sta}」`,{direction:'top'});
+    gRoute.addLayer(WALK.mkO);
+    SIM.legs.push({pts:[pO,pA],min:w.min,mode:'walk',label:'🚶 步行 '+w.m+' 米'});
+    fetchWalk('o',PT.o,c.st[oi]);}
   rs.segs.forEach(sg=>{SIM.legs.push({pts:sg.st.map(i=>[c.st[i][1],c.st[i][2]]),min:sg.t,mode:'ride',
     label:'🚇 '+((G.meta[sg.k]||{}).label||'地铁')});});
   if(PT.d){const w=walkInfo(PT.d,c.st[di]),pB=[c.st[di][1],c.st[di][2]],pD=[PT.d.lat,PT.d.lng];
-    gRoute.addLayer(L.polyline([pB,PT.d],{color:'#d23a55',weight:3,opacity:.9,dashArray:'7,7'}));
-    gRoute.addLayer(L.circleMarker(PT.d,{radius:6,color:'#fff',weight:2,fillColor:'#d23a55',fillOpacity:1})
-      .bindTooltip(`目的地 · 从「${w.sta}」步行约 ${w.m} 米`,{direction:'top'}));
-    SIM.legs.push({pts:[pB,pD],min:w.min,mode:'walk',label:'🚶 步行 '+w.m+' 米'});}
+    WALK.lnD=L.polyline([pB,pD],{color:'#d23a55',weight:3,opacity:.9,dashArray:'7,7'});
+    gRoute.addLayer(WALK.lnD);
+    WALK.mkD=L.circleMarker(PT.d,{radius:6,color:'#fff',weight:2,fillColor:'#d23a55',fillOpacity:1})
+      .bindTooltip(`目的地 · 从「${w.sta}」步行约 ${w.m} 米`,{direction:'top'});
+    gRoute.addLayer(WALK.mkD);
+    SIM.legs.push({pts:[pB,pD],min:w.min,mode:'walk',label:'🚶 步行 '+w.m+' 米'});
+    fetchWalk('d',PT.d,c.st[di]);}
   if(ptsAll.length) map.fitBounds(L.latLngBounds(ptsAll).pad(.2));
 }
 let routeTab='fast', GC={key:'',G:null}, RC={key:'',F:null,M:null}, CC={key:'',c:null};
@@ -617,6 +656,7 @@ function getCC(c,ci){
   return CC.c;
 }
 function run(){
+  WALK.tok++;   // 新一次渲染作废所有在途步行规划请求
   const ci=+selC.value, c=DATA[ci];
   // 站号从隐藏字段读；换城后索引可能越界，这里兜一层
   let oi=parseInt(document.getElementById('orgIdx').value,10);
@@ -718,13 +758,13 @@ function run(){
     drawRoute(G,c,active,oi,di);
     // 线路去重后再报「途经线路」条数（同一条线可能被分成多段）
     const uniqL=[...new Set(active.segs.map(s=>(G.meta[s.k]||{}).label))];
-    const WKo=PT.o?walkInfo(PT.o,c.st[oi]):null, WKd=PT.d?walkInfo(PT.d,c.st[di]):null;
+    const buildK=()=>{const Ko=PT.o?(WALK.wo||walkInfo(PT.o,c.st[oi])):null, Kd=PT.d?(WALK.wd||walkInfo(PT.d,c.st[di])):null;
     boxK.innerHTML=[
-      ...(WKo?[['起点步行',WKo.m+' 米','到「'+WKo.sta+'」乘车 · 约 '+WKo.min.toFixed(0)+' 分钟（直线×1.25 估）']]:[]),
-      ...(WKd?[['终点步行',WKd.m+' 米','从「'+WKd.sta+'」出站走到目的地 · 约 '+WKd.min.toFixed(0)+' 分钟']]:[]),
-      ['总耗时',(active.tt+(WKo?WKo.min:0)+(WKd?WKd.min:0)).toFixed(0),
+      ...(Ko?[['起点步行',Ko.m+' 米','到「'+Ko.sta+'」乘车 · 约 '+Ko.min.toFixed(0)+' 分钟'+(WALK.wo?'（沿街实测路线）':'（直线×1.25 估）')]]:[]),
+      ...(Kd?[['终点步行',Kd.m+' 米','从「'+Kd.sta+'」出站走到目的地 · 约 '+Kd.min.toFixed(0)+' 分钟'+(WALK.wd?'（沿街实测路线）':'（直线×1.25 估）')]]:[]),
+      ['总耗时',(active.tt+(Ko?Ko.min:0)+(Kd?Kd.min:0)).toFixed(0),
         `分钟（乘车 ${active.ride.toFixed(0)}′ + 换乘 ${active.tp.toFixed(0)}′`
-        +((WKo||WKd)?' + 步行 '+((WKo?WKo.min:0)+(WKd?WKd.min:0)).toFixed(0)+'′）':'）')],
+        +((Ko||Kd)?' + 步行 '+((Ko?Ko.min:0)+(Kd?Kd.min:0)).toFixed(0)+'′）':'）')],
       ['换乘', String(active.tr), active.tr?('次 · 在 '+active.trans.map(t=>c.st[t.si][0]).slice(0,3).join('、')+(active.trans.length>3?' 等':'')):'次（直达，不用换）'],
       ['途经站点', String(active.nst), '站 · 含起终点'],
       ['路径里程', active.km.toFixed(1), 'km（站间直线口径）'],
@@ -732,7 +772,8 @@ function run(){
       ['两端直线', active.straight.toFixed(1),
         active.straight>0.2?('km · 绕行系数 '+(active.km/active.straight).toFixed(2)):'km'],
       ['途经线路', String(uniqL.length), '条 · '+uniqL.join(' / ')],
-    ].map(x=>`<div class="kpi glass"><div class="k">${x[0]}</div><div class="v">${x[1]}</div><div class="t">${x[2]}</div></div>`).join('');
+    ].map(x=>`<div class="kpi glass"><div class="k">${x[0]}</div><div class="v">${x[1]}</div><div class="t">${x[2]}</div></div>`).join('');};
+    buildK(); WALK.rerender=buildK;
     boxR.style.display='';
     const on='background:rgba(10,127,181,.16);border-color:#0a7fb5;color:#15233f';
     let tabs=`<span class="chip" data-tab="fast" style="${routeTab==='fast'?on:''}">最快：${F.tt.toFixed(0)} 分钟 · 换乘 ${F.tr} 次</span>`;
