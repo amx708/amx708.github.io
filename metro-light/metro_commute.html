@@ -84,7 +84,7 @@ user-select:none;white-space:nowrap}
 background:rgba(10,127,181,.09);border:1px solid rgba(10,127,181,.26)}
 .hlp b{color:#1f8fb8}
 .brtag{padding:0 4px;border-radius:4px;background:rgba(122,77,208,.20);color:#7a4dd0}
-</style></head><body><div class="wrap"><div class="hdr"><a class="backhub" href="metro_all.html" target="_top">← 四页总览</a></div><h1>地铁通勤圈 / A→B 路线分析</h1><div class="sub"><b>两种模式</b>：选终点站 → A→B 路线（最快 / 最少换乘两种走法、分段线路、逐站累计耗时）；不选终点站 → 起点出发的 30/45/60 分钟等时圈。算法：站点×线路建图 + Dijkstra，乘车边 = 站间直线距离 ÷ 旅速 + 每站停站，换乘边 = 换乘惩罚。这是**量级估算**，不是官方时刻表。</div>
+</style></head><body><div class="wrap"><div class="hdr"><a class="backhub" href="metro_all.html" target="_top">← 四页总览</a></div><h1>地铁通勤圈 / A→B 路线分析</h1><div class="sub"><b>两种模式</b>：选终点站 → A→B 路线（最快 / 最少换乘两种走法、分段线路、逐站累计耗时）；不选终点站 → 起点出发的 30/45/60 分钟等时圈。算法：站点×线路建图 + Dijkstra，乘车边 = 站间直线距离 ÷ 旅速 + 每站停站，换乘边 = 换乘惩罚。这是**量级估算**，不是官方时刻表。<span style="opacity:.65;font-size:11px;margin-left:10px">(浅色 v09-16·11:38)</span></div>
 <div class="panel glass" id="ctrl">
   <div class="row">
     <span style="font-size:12.5px;color:#5a6a8c">城市</span><select id="city"></select>
@@ -648,11 +648,11 @@ function run(){
   renderLst();
 }
 // ——— 各带宽可达站点（老板 2026-09-16 改版）———
-// ① 不再一堵墙：按耗时升序、每带默认只展 12 站，可「展开全部 / 收起」；
+// ① 不再一堵墙：按耗时升序、每带默认只展 10 站，可「展开全部 / 收起」；
 // ② 点站名 = 直接填进「终点站」并画路线（drawRoute 里 fitBounds 会把地图收到路线上），并滚回地图卡。
 let LST={exp:{}};
 function renderLst(){
-  const c=LST.c, oi=LST.oi, cnt=LST.cnt, nOrph=LST.nOrph, ccL=LST.ccL, g=LST.g, LIM=12;
+  const c=LST.c, oi=LST.oi, cnt=LST.cnt, nOrph=LST.nOrph, ccL=LST.ccL, g=LST.g, LIM=10;
   const mk=(B,arr)=>{
     const all=[...arr].sort((a,b)=>a[1]-b[1]||a[0].localeCompare(b[0],'zh'));
     const open=!!LST.exp[B], show=open?all:all.slice(0,LIM);
