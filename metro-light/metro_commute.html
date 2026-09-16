@@ -147,6 +147,11 @@ margin-bottom:3px;line-height:1.5}
 .stlbl{background:rgba(255,255,255,.94);color:#15233f;border:1px solid rgba(40,80,160,.30);
  font-size:10.5px;padding:1px 5px;border-radius:6px;box-shadow:0 2px 8px rgba(20,40,80,.16);font-weight:600}
 .stlbl::before{display:none}
+/* 可达站点 chip（老板 2026-09-16）：可点击、稀疏排布；点站名=设终点+图上定位 */
+.spick{cursor:pointer;margin:2px 4px 2px 0}
+.spick:hover{border-color:var(--neon);background:rgba(10,127,181,.16)}
+.spmore{cursor:pointer;border-style:dashed;color:#2b6cb0}
+.spmore:hover{border-color:var(--neon);background:rgba(10,127,181,.12)}
 </style>
 <div class="cards" id="kpi"></div>
 <div class="panel glass" id="rbox" style="display:none"></div>
@@ -636,17 +641,47 @@ function run(){
      .map(x=>`<div class="kpi glass"><div class="k">${x[0]}</div><div class="v">${x[1]}</div><div class="t">${x[2]}</div></div>`).join('');
     renderSideIso(c,oi,cnt);
   }
-  const mk=(B,arr)=>`<div style="margin:6px 0"><b style="color:${bandCol(B)}">≤${B} 分钟</b>
-    <span class="note">共 ${arr.length} 站</span><br>${arr.map(x=>`<span class="chip" style="cursor:default">${x[0]} <span style="color:#5a6a8c">${x[1].toFixed(0)}′</span></span>`).join(' ')}</div>`;
   const ccL=getCC(c,ci);
   // 与起点不连通的站（含其他区段 + 本区段内因数据缺失而进不来的站）单独声明，避免误读成「可达数偏少」
   const nOrph=stMin.filter(m=>m>=INF).length;
+  LST={c:c, oi:oi, cnt:cnt, nOrph:nOrph, ccL:ccL, g:g, exp:LST.exp||{}};
+  renderLst();
+}
+// ——— 各带宽可达站点（老板 2026-09-16 改版）———
+// ① 不再一堵墙：按耗时升序、每带默认只展 12 站，可「展开全部 / 收起」；
+// ② 点站名 = 直接填进「终点站」并画路线（drawRoute 里 fitBounds 会把地图收到路线上），并滚回地图卡。
+let LST={exp:{}};
+function renderLst(){
+  const c=LST.c, oi=LST.oi, cnt=LST.cnt, nOrph=LST.nOrph, ccL=LST.ccL, g=LST.g, LIM=12;
+  const mk=(B,arr)=>{
+    const all=[...arr].sort((a,b)=>a[1]-b[1]||a[0].localeCompare(b[0],'zh'));
+    const open=!!LST.exp[B], show=open?all:all.slice(0,LIM);
+    return `<div style="margin:10px 0 2px"><b style="color:${bandCol(B)};font-size:13.5px">≤${B} 分钟</b>
+      <span class="note">共 ${all.length} 站 · 按耗时排序 · <b>点站名</b>设为终点并在图上定位</span></div>
+      <div style="line-height:2.5">${show.map(x=>{
+        const si=c.st.findIndex(s=>s[0]===x[0]);
+        return `<span class="chip spick" data-si="${si}" title="点击：设为终点站并在地图上定位">${x[0]} <span style="color:#5a6a8c">${x[1].toFixed(0)}′</span></span>`;}).join(' ')}
+      ${all.length>LIM?`<span class="chip spmore" data-b="${B}">${open?'▲ 收起':'▾ 展开全部 '+all.length+' 站'}</span>`:''}</div>`;
+  };
   document.getElementById('lst').innerHTML=
     `<div class="note" style="margin-bottom:6px">按起点站「${c.st[oi][0]}」计算：30 分钟 ${cnt[30]} 站 · 45 分钟 ${cnt[45]} 站 · 60 分钟 ${cnt[60]} 站。`
     +(nOrph?`<br>另有 <b>${nOrph}</b> 站不与起点连通（本城 ${ccL.sizes.length} 个独立区段：${ccL.sizes.map((x,i)=>(i===ccL.cid[oi]?'起点所在 ':'')+x+' 站').join(' / ')}），按「不可达」处理，不在下列名单里。`:'')
     +`</div>`
     +mk(30,g[30])+mk(45,g[45])+mk(60,g[60]);
 }
+// 事件委托：#lst 里的站名 chip（→设终点+滚回地图）/「展开全部·收起」
+document.getElementById('lst').addEventListener('click',function(ev){
+  const more=ev.target.closest('.spmore');
+  if(more){ LST.exp[more.dataset.b]=!LST.exp[more.dataset.b]; renderLst(); return; }
+  const pick=ev.target.closest('.spick');
+  if(!pick) return;
+  const si=+pick.dataset.si, oi=parseInt(document.getElementById('orgIdx').value,10)||0;
+  if(!(si>=0)||si===oi) return;
+  setCombo('dst',si);
+  routeTab='fast';
+  run();
+  document.getElementById('mapcard').scrollIntoView({behavior:'smooth',block:'start'});
+});
 function renderSideRoute(G,c,rs,oi,di){
   const rows=rs.hops.map((h,ix)=>{
     const s=c.st[h.si];
