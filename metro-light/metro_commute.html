@@ -84,7 +84,7 @@ user-select:none;white-space:nowrap}
 background:rgba(10,127,181,.09);border:1px solid rgba(10,127,181,.26)}
 .hlp b{color:#1f8fb8}
 .brtag{padding:0 4px;border-radius:4px;background:rgba(122,77,208,.20);color:#7a4dd0}
-</style></head><body><div class="wrap"><div class="hdr"><a class="backhub" href="metro_all.html" target="_top">← 四页总览</a></div><h1>地铁通勤圈 / A→B 路线分析</h1><div class="sub"><b>两种模式</b>：选终点站 → A→B 路线（最快 / 最少换乘两种走法、分段线路、逐站累计耗时）；不选终点站 → 起点出发的 30/45/60 分钟等时圈。算法：站点×线路建图 + Dijkstra，乘车边 = 站间直线距离 ÷ 旅速 + 每站停站，换乘边 = 换乘惩罚。这是**量级估算**，不是官方时刻表。<span style="opacity:.65;font-size:11px;margin-left:10px">(浅色 v09-16·12:13)</span></div>
+</style></head><body><div class="wrap"><div class="hdr"><a class="backhub" href="metro_all.html" target="_top">← 四页总览</a></div><h1>地铁通勤圈 / A→B 路线分析</h1><div class="sub"><b>两种模式</b>：选终点站 → A→B 路线（最快 / 最少换乘两种走法、分段线路、逐站累计耗时）；不选终点站 → 起点出发的 30/45/60 分钟等时圈。算法：站点×线路建图 + Dijkstra，乘车边 = 站间直线距离 ÷ 旅速 + 每站停站，换乘边 = 换乘惩罚。这是**量级估算**，不是官方时刻表。<span style="opacity:.65;font-size:11px;margin-left:10px">(浅色 v09-16·12:34)</span></div>
 <div class="panel glass" id="ctrl">
   <div class="row">
     <span style="font-size:12.5px;color:#5a6a8c">城市</span><select id="city"></select>
@@ -248,7 +248,9 @@ function simStart(){
   const totMin=SIM.legs.reduce((a,l)=>a+l.min,0)||1;
   let acc=0;
   SIM.legs.forEach(l=>{
-    const share=l.min/totMin, pts=l.pts, segs=[]; let L=0;
+    const share=l.min/totMin;
+    const pts=(l.pts||[]).filter(q=>q&&isFinite(q[0])&&isFinite(q[1]));   // 只认 [lat,lng] 数组，挡住 NaN/LatLng 对象
+    const segs=[]; let L=0;
     for(let i=1;i<pts.length;i++){const d=hav(pts[i-1],pts[i]);segs.push(d);L+=d;}
     if(!L)return;
     let cum=0;
@@ -568,19 +570,21 @@ function drawRoute(G,c,rs,oi,di){
     else if(isTr) gRoute.addLayer(L.marker([s[1],s[2]],{icon:lbl('换 '+s[0],'#b07a16')}));
   });
   // ——— 步行接驳（地图右键选点时）：虚线 + 选点标记 + 装配模拟时间轴 ———
+  // ⚠ 模拟引擎按 a[0]/a[1] 取坐标，只认 [lat,lng] 数组；PT.o/PT.d 是 L.LatLng 对象，
+  //   必须先 .lat/.lng 摊平成数组，否则 hav() 全是 NaN，小人动画直接飞出图外（「出轨」bug）。
   SIM.legs=[];
-  if(PT.o){const w=walkInfo(PT.o,c.st[oi]),pA=[c.st[oi][1],c.st[oi][2]];
+  if(PT.o){const w=walkInfo(PT.o,c.st[oi]),pA=[c.st[oi][1],c.st[oi][2]],pO=[PT.o.lat,PT.o.lng];
     gRoute.addLayer(L.polyline([PT.o,pA],{color:'#0a7fb5',weight:3,opacity:.9,dashArray:'7,7'}));
     gRoute.addLayer(L.circleMarker(PT.o,{radius:6,color:'#fff',weight:2,fillColor:'#0a7fb5',fillOpacity:1})
       .bindTooltip(`起点 · 步行约 ${w.m} 米到「${w.sta}」`,{direction:'top'}));
-    SIM.legs.push({pts:[PT.o,pA],min:w.min,mode:'walk',label:'🚶 步行 '+w.m+' 米'});}
+    SIM.legs.push({pts:[pO,pA],min:w.min,mode:'walk',label:'🚶 步行 '+w.m+' 米'});}
   rs.segs.forEach(sg=>{SIM.legs.push({pts:sg.st.map(i=>[c.st[i][1],c.st[i][2]]),min:sg.t,mode:'ride',
     label:'🚇 '+((G.meta[sg.k]||{}).label||'地铁')});});
-  if(PT.d){const w=walkInfo(PT.d,c.st[di]),pB=[c.st[di][1],c.st[di][2]];
+  if(PT.d){const w=walkInfo(PT.d,c.st[di]),pB=[c.st[di][1],c.st[di][2]],pD=[PT.d.lat,PT.d.lng];
     gRoute.addLayer(L.polyline([pB,PT.d],{color:'#d23a55',weight:3,opacity:.9,dashArray:'7,7'}));
     gRoute.addLayer(L.circleMarker(PT.d,{radius:6,color:'#fff',weight:2,fillColor:'#d23a55',fillOpacity:1})
       .bindTooltip(`目的地 · 从「${w.sta}」步行约 ${w.m} 米`,{direction:'top'}));
-    SIM.legs.push({pts:[pB,PT.d],min:w.min,mode:'walk',label:'🚶 步行 '+w.m+' 米'});}
+    SIM.legs.push({pts:[pB,pD],min:w.min,mode:'walk',label:'🚶 步行 '+w.m+' 米'});}
   if(ptsAll.length) map.fitBounds(L.latLngBounds(ptsAll).pad(.2));
 }
 let routeTab='fast', GC={key:'',G:null}, RC={key:'',F:null,M:null}, CC={key:'',c:null};
