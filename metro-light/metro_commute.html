@@ -84,7 +84,7 @@ user-select:none;white-space:nowrap}
 background:rgba(10,127,181,.09);border:1px solid rgba(10,127,181,.26)}
 .hlp b{color:#1f8fb8}
 .brtag{padding:0 4px;border-radius:4px;background:rgba(122,77,208,.20);color:#7a4dd0}
-</style></head><body><div class="wrap"><div class="hdr"><a class="backhub" href="metro_all.html" target="_top">← 四页总览</a></div><h1>地铁通勤圈 / A→B 路线分析</h1><div class="sub"><b>两种模式</b>：选终点站 → A→B 路线（最快 / 最少换乘两种走法、分段线路、逐站累计耗时）；不选终点站 → 起点出发的 30/45/60 分钟等时圈。算法：站点×线路建图 + Dijkstra，乘车边 = 站间直线距离 ÷ 旅速 + 每站停站，换乘边 = 换乘惩罚。这是**量级估算**，不是官方时刻表。<span style="opacity:.65;font-size:11px;margin-left:10px">(浅色 v09-16·11:46)</span></div>
+</style></head><body><div class="wrap"><div class="hdr"><a class="backhub" href="metro_all.html" target="_top">← 四页总览</a></div><h1>地铁通勤圈 / A→B 路线分析</h1><div class="sub"><b>两种模式</b>：选终点站 → A→B 路线（最快 / 最少换乘两种走法、分段线路、逐站累计耗时）；不选终点站 → 起点出发的 30/45/60 分钟等时圈。算法：站点×线路建图 + Dijkstra，乘车边 = 站间直线距离 ÷ 旅速 + 每站停站，换乘边 = 换乘惩罚。这是**量级估算**，不是官方时刻表。<span style="opacity:.65;font-size:11px;margin-left:10px">(浅色 v09-16·12:13)</span></div>
 <div class="panel glass" id="ctrl">
   <div class="row">
     <span style="font-size:12.5px;color:#5a6a8c">城市</span><select id="city"></select>
@@ -214,6 +214,121 @@ let gBase=L.layerGroup().addTo(map), gIso={30:L.layerGroup(),45:L.layerGroup(),6
   document.addEventListener('webkitfullscreenchange',sync);
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&on()) exit(); });
 })();
+// ——— 右键地图选起/终点 + 步行接驳 + 模拟出行（老板 2026-09-16）———
+let PT={o:null,d:null};   // 地图选点（latlng）；吸附到的最近车站写在 orgIdx/dstIdx 里
+function walkInfo(pt,s){  // 选点→车站 的步行估算：直线×1.25 沿街绕行系数，步速 4.5km/h=75米/分
+  const m=hav([pt.lat,pt.lng],[s[1],s[2]]);
+  const est=Math.round(m*1.25);
+  return {m:est,min:est/75,sta:s[0]};
+}
+function personIcon(){return L.divIcon({className:'',iconSize:[0,0],
+  html:`<div style="transform:translate(-50%,-55%);font-size:21px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.4))">🚶</div>`});}
+function badgeIcon(txt){return L.divIcon({className:'',iconSize:[0,0],
+  html:`<div style="transform:translate(-50%,-210%);white-space:nowrap;font-size:11px;font-weight:600;color:#15233f;background:rgba(255,255,255,.95);border:1px solid rgba(40,80,160,.4);border-radius:6px;padding:1px 6px">${txt}</div>`});}
+function drawPtMarkers(c,oi,di){   // 等时圈模式（未选终点）也把选点+步行虚线画出来，别让用户点了没反馈
+  if(PT.o){const w=walkInfo(PT.o,c.st[oi]);
+    gRoute.addLayer(L.polyline([PT.o,[c.st[oi][1],c.st[oi][2]]],{color:'#0a7fb5',weight:3,opacity:.9,dashArray:'7,7'}));
+    gRoute.addLayer(L.circleMarker(PT.o,{radius:6,color:'#fff',weight:2,fillColor:'#0a7fb5',fillOpacity:1})
+      .bindTooltip(`起点 · 步行约 ${w.m} 米到「${w.sta}」`,{direction:'top'}));}
+  if(PT.d){const w=walkInfo(PT.d,c.st[di]);
+    gRoute.addLayer(L.polyline([[c.st[di][1],c.st[di][2]],PT.d],{color:'#d23a55',weight:3,opacity:.9,dashArray:'7,7'}));
+    gRoute.addLayer(L.circleMarker(PT.d,{radius:6,color:'#fff',weight:2,fillColor:'#d23a55',fillOpacity:1})
+      .bindTooltip(`目的地 · 从「${w.sta}」步行约 ${w.m} 米`,{direction:'top'}));}
+}
+// 模拟出行引擎：时间轴 = 各 leg 按「分钟占比」分配，leg 内部按子段长度分配；1× 全程约 14 秒
+const SIM={legs:[],tl:[],p:0,speed:1,raf:0,last:0,playing:false,marker:null,badge:null};
+function simReset(){
+  if(SIM.raf)cancelAnimationFrame(SIM.raf);
+  SIM.raf=0;SIM.playing=false;SIM.p=0;SIM.tl=[];SIM.marker=null;SIM.badge=null;
+  const go=document.getElementById('simGo'); if(go)go.textContent='▶ 模拟出行';
+}
+function simStart(){
+  simReset();
+  if(!SIM.legs.length)return;
+  const totMin=SIM.legs.reduce((a,l)=>a+l.min,0)||1;
+  let acc=0;
+  SIM.legs.forEach(l=>{
+    const share=l.min/totMin, pts=l.pts, segs=[]; let L=0;
+    for(let i=1;i<pts.length;i++){const d=hav(pts[i-1],pts[i]);segs.push(d);L+=d;}
+    if(!L)return;
+    let cum=0;
+    segs.forEach((d,i)=>{ SIM.tl.push({a:pts[i],b:pts[i+1],t0:acc+share*cum/L,t1:acc+share*(cum+d)/L,leg:l}); cum+=d; });
+    acc+=share;
+  });
+  if(!SIM.tl.length)return;
+  SIM.p=0;SIM.playing=true;
+  SIM.marker=L.marker(SIM.tl[0].a,{icon:personIcon(),zIndexOffset:1400,interactive:false}).addTo(gRoute);
+  SIM.badge=L.marker(SIM.tl[0].a,{icon:badgeIcon('出发'),zIndexOffset:1400,interactive:false}).addTo(gRoute);
+  SIM.last=performance.now();
+  SIM.raf=requestAnimationFrame(simTick);
+  const go=document.getElementById('simGo'); if(go)go.textContent='⏸ 暂停';
+}
+function simTick(now){
+  if(!SIM.playing){SIM.last=now;SIM.raf=requestAnimationFrame(simTick);return}
+  const dt=Math.min((now-SIM.last)/1000,.2); SIM.last=now;
+  SIM.p+=dt*SIM.speed/14;   // 1× 全程约 14 秒
+  if(SIM.p>=1){SIM.p=1;simDraw();simEnd();return}
+  simDraw();
+  SIM.raf=requestAnimationFrame(simTick);
+}
+function simDraw(){
+  let seg=SIM.tl[SIM.tl.length-1];
+  for(let i=0;i<SIM.tl.length;i++){ if(SIM.p<=SIM.tl[i].t1){seg=SIM.tl[i];break} }
+  const f=(SIM.p-seg.t0)/((seg.t1-seg.t0)||1);
+  const ll=[seg.a[0]+(seg.b[0]-seg.a[0])*f, seg.a[1]+(seg.b[1]-seg.a[1])*f];
+  SIM.marker.setLatLng(ll); SIM.badge.setLatLng(ll);
+  SIM.badge.setIcon(badgeIcon(seg.leg.label));
+}
+function simEnd(){
+  SIM.playing=false;SIM.raf=0;
+  if(SIM.badge)SIM.badge.setIcon(badgeIcon('🏁 到达'));
+  const go=document.getElementById('simGo'); if(go)go.textContent='▶ 再来一次';
+}
+(function(){   // 右键菜单
+  const card=document.getElementById('mapcard');
+  const menu=document.createElement('div');
+  menu.id='rcmenu';
+  menu.style.cssText='display:none;position:absolute;z-index:1300;background:#fff;border:1px solid rgba(40,80,160,.4);border-radius:10px;box-shadow:0 10px 26px rgba(20,40,80,.22);padding:4px;min-width:130px';
+  menu.innerHTML='<div class="rci" data-k="o">📍 设为起点</div><div class="rci" data-k="d">🚩 设为终点</div><div class="rci" data-k="c">🗑 清除选点</div>';
+  card.appendChild(menu);
+  menu.querySelectorAll('.rci').forEach(x=>{
+    x.style.cssText='padding:6px 10px;border-radius:7px;font-size:12.3px;cursor:pointer;color:#15233f';
+    x.onmouseenter=()=>x.style.background='rgba(10,127,181,.14)';
+    x.onmouseleave=()=>x.style.background='';
+  });
+  let ll=null;
+  map.on('contextmenu',function(e){
+    ll=e.latlng; menu.style.display='block';
+    menu.style.left=Math.min(e.containerPoint.x,card.clientWidth-150)+'px';
+    menu.style.top=Math.min(e.containerPoint.y,card.clientHeight-120)+'px';
+  });
+  map.on('click',function(){menu.style.display='none'});
+  menu.addEventListener('click',function(ev){
+    const k=ev.target.dataset&&ev.target.dataset.k;
+    if(!k)return;
+    menu.style.display='none';
+    if(k==='c'){PT.o=PT.d=null;setCombo('org',0);setCombo('dst',-1);run();return}
+    if(!ll)return;
+    const c=DATA[+selC.value];
+    let bi=0,bd=1e18;
+    c.st.forEach((s,i)=>{const dd=hav([ll.lat,ll.lng],[s[1],s[2]]);if(dd<bd){bd=dd;bi=i}});
+    if(k==='o'){PT.o=ll;setCombo('org',bi)}else{PT.d=ll;setCombo('dst',bi)}
+    run();
+  });
+})();
+document.getElementById('rbox').addEventListener('click',function(ev){   // 模拟出行控件（事件委托，rbox 只换 innerHTML 不换节点）
+  const tg=ev.target;
+  if(tg.id==='simGo'){
+    if(!SIM.tl.length||SIM.p>=1){simStart();return}
+    SIM.playing=!SIM.playing;
+    tg.textContent=SIM.playing?'⏸ 暂停':'▶ 继续';
+    if(SIM.playing)SIM.last=performance.now();   // raf 循环在暂停期间仍活着，恢复只需重置时钟
+    else if(SIM.badge)SIM.badge.setIcon(badgeIcon('⏸ 已暂停'));
+  } else if(tg.dataset&&tg.dataset.sp){
+    SIM.speed=+tg.dataset.sp;
+    document.querySelectorAll('#rbox [data-sp]').forEach(x=>x.classList.toggle('on',x===tg));
+  }
+});
 const selC=document.getElementById('city'), boxK=document.getElementById('kpi'),
       boxR=document.getElementById('rbox'), boxS=document.getElementById('side');
 DATA.forEach((c,i)=>selC.insertAdjacentHTML('beforeend',`<option value="${i}">${c.city} · ${c.n_st}站</option>`));
@@ -427,7 +542,7 @@ function scorePath(G,c,path,pen,spd,oi,di){
   return out;
 }
 function drawRoute(G,c,rs,oi,di){
-  gRoute.clearLayers();
+  gRoute.clearLayers(); simReset();
   if(!rs)return;
   const ptsAll=[];
   rs.segs.forEach(sg=>{
@@ -452,6 +567,20 @@ function drawRoute(G,c,rs,oi,di){
     else if(isD) gRoute.addLayer(L.marker([s[1],s[2]],{icon:lbl('终 '+s[0],'#d23a55')}));
     else if(isTr) gRoute.addLayer(L.marker([s[1],s[2]],{icon:lbl('换 '+s[0],'#b07a16')}));
   });
+  // ——— 步行接驳（地图右键选点时）：虚线 + 选点标记 + 装配模拟时间轴 ———
+  SIM.legs=[];
+  if(PT.o){const w=walkInfo(PT.o,c.st[oi]),pA=[c.st[oi][1],c.st[oi][2]];
+    gRoute.addLayer(L.polyline([PT.o,pA],{color:'#0a7fb5',weight:3,opacity:.9,dashArray:'7,7'}));
+    gRoute.addLayer(L.circleMarker(PT.o,{radius:6,color:'#fff',weight:2,fillColor:'#0a7fb5',fillOpacity:1})
+      .bindTooltip(`起点 · 步行约 ${w.m} 米到「${w.sta}」`,{direction:'top'}));
+    SIM.legs.push({pts:[PT.o,pA],min:w.min,mode:'walk',label:'🚶 步行 '+w.m+' 米'});}
+  rs.segs.forEach(sg=>{SIM.legs.push({pts:sg.st.map(i=>[c.st[i][1],c.st[i][2]]),min:sg.t,mode:'ride',
+    label:'🚇 '+((G.meta[sg.k]||{}).label||'地铁')});});
+  if(PT.d){const w=walkInfo(PT.d,c.st[di]),pB=[c.st[di][1],c.st[di][2]];
+    gRoute.addLayer(L.polyline([pB,PT.d],{color:'#d23a55',weight:3,opacity:.9,dashArray:'7,7'}));
+    gRoute.addLayer(L.circleMarker(PT.d,{radius:6,color:'#fff',weight:2,fillColor:'#d23a55',fillOpacity:1})
+      .bindTooltip(`目的地 · 从「${w.sta}」步行约 ${w.m} 米`,{direction:'top'}));
+    SIM.legs.push({pts:[pB,PT.d],min:w.min,mode:'walk',label:'🚶 步行 '+w.m+' 米'});}
   if(ptsAll.length) map.fitBounds(L.latLngBounds(ptsAll).pad(.2));
 }
 let routeTab='fast', GC={key:'',G:null}, RC={key:'',F:null,M:null}, CC={key:'',c:null};
@@ -585,8 +714,13 @@ function run(){
     drawRoute(G,c,active,oi,di);
     // 线路去重后再报「途经线路」条数（同一条线可能被分成多段）
     const uniqL=[...new Set(active.segs.map(s=>(G.meta[s.k]||{}).label))];
+    const WKo=PT.o?walkInfo(PT.o,c.st[oi]):null, WKd=PT.d?walkInfo(PT.d,c.st[di]):null;
     boxK.innerHTML=[
-      ['总耗时', active.tt.toFixed(0), `分钟（乘车 ${active.ride.toFixed(0)}′ + 换乘 ${active.tp.toFixed(0)}′）`],
+      ...(WKo?[['起点步行',WKo.m+' 米','到「'+WKo.sta+'」乘车 · 约 '+WKo.min.toFixed(0)+' 分钟（直线×1.25 估）']]:[]),
+      ...(WKd?[['终点步行',WKd.m+' 米','从「'+WKd.sta+'」出站走到目的地 · 约 '+WKd.min.toFixed(0)+' 分钟']]:[]),
+      ['总耗时',(active.tt+(WKo?WKo.min:0)+(WKd?WKd.min:0)).toFixed(0),
+        `分钟（乘车 ${active.ride.toFixed(0)}′ + 换乘 ${active.tp.toFixed(0)}′`
+        +((WKo||WKd)?' + 步行 '+((WKo?WKo.min:0)+(WKd?WKd.min:0)).toFixed(0)+'′）':'）')],
       ['换乘', String(active.tr), active.tr?('次 · 在 '+active.trans.map(t=>c.st[t.si][0]).slice(0,3).join('、')+(active.trans.length>3?' 等':'')):'次（直达，不用换）'],
       ['途经站点', String(active.nst), '站 · 含起终点'],
       ['路径里程', active.km.toFixed(1), 'km（站间直线口径）'],
@@ -626,11 +760,14 @@ function run(){
        站间用直线比实际曲线里程短，所以总耗时<b>偏乐观</b>；「绕行系数」= 路径里程 ÷ 起终点直线距离，
        明显大于 1.3 说明这条走法在线路上绕得比较厉害（换乘少但可能绕远）。</div>
        <div class="note" style="margin-top:6px">逐站累计耗时见右侧「沿线车站」表。</div>
+       <div class="row" style="margin:9px 0 2px"><span class="chip" id="simGo">▶ 模拟出行</span>
+         <span class="chip on" data-sp="1">1×</span><span class="chip" data-sp="2">2×</span><span class="chip" data-sp="4">4×</span>
+         <span class="note">🚶 沿路线行走：步行段慢、乘车段快，可调速</span></div>
        ${cmpHtml}
        ${fareNote}`;
     renderSideRoute(G,c,active,oi,di);
   }else{
-    gRoute.clearLayers();
+    gRoute.clearLayers(); drawPtMarkers(c,oi,di);
     boxR.style.display='none';
     boxK.innerHTML=
      [[`起点`,c.st[oi][0],c.city],
@@ -858,6 +995,7 @@ function fillBoth(){
   drawBase(c); run();
 }
 selC.onchange=function(){ fillLines(); fillBoth(); };   // 换城：线路下拉跟着重建
+selC.addEventListener('change',function(){PT.o=PT.d=null;});
 bindCombo('org'); bindCombo('dst');
 document.getElementById('spd').onchange=run;
 document.getElementById('pen').onchange=run;
@@ -865,6 +1003,7 @@ document.getElementById('swap').onclick=()=>{
   const oi=parseInt(document.getElementById('orgIdx').value,10)||0;
   const di=parseInt(document.getElementById('dstIdx').value,10);
   if(!(di>=0)){alert('先在「终点站」里输入一个站名，再点对调。');return}
+  const _po=PT.o,_pd=PT.d; PT.o=_pd; PT.d=_po;
   setCombo('org',di); setCombo('dst',oi);
   routeTab='fast'; run();
 };
