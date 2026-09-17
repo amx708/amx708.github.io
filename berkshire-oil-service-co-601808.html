@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>中海油服 · 油服装备产业链</title><style>
+:root{--bg:#f5f9ff;--soft:#eef5ff;--card:#fff;--ink:#0f172a;--mut:#475569;--line:rgba(59,130,246,.15);--red:#dc2626;--green:#16a34a;--accent:#2563eb;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(180deg,#f8fbff 0%,#f0f7ff 100%);background-attachment:fixed;color:var(--ink);line-height:1.7;font-size:15px}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(11,31,58,.82);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
+.topbar-in{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:17px}.brand .ac{color:#f5a623}
+.crumb{font-size:13px;color:#9fb2cf}.crumb a{color:#9fb2cf;text-decoration:none}.crumb a:hover{color:#f5a623}
+.detail{max-width:920px;margin:0 auto;padding:28px 20px 70px}
+.detail .back{color:var(--accent);text-decoration:none;font-size:13px}
+.detail>h1{font-weight:700;letter-spacing:-.5px;margin:10px 0 2px}
+.hero-sub{color:var(--mut);margin:0 0 6px;font-size:14px}
+.section-title{font-size:18px;font-weight:700;margin:34px 0 16px;padding-left:12px;border-left:4px solid var(--accent);color:var(--ink)}
+.note{background:var(--soft);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:13px;color:var(--mut);line-height:1.65}
+.snap{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin:16px 0}
+.snap div{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 10px;text-align:center}
+.snap b{display:block;font-size:19px;color:var(--accent);font-weight:700}
+.snap span{font-size:11px;color:var(--mut)}
+.valband{margin:6px 0 2px}
+.vrow{display:flex;align-items:center;gap:12px;margin:11px 0}
+.vlab{width:78px;font-size:13px;font-weight:600;color:#334155;flex-shrink:0}
+.vbar{position:relative;flex:1;height:12px;background:#f1f5f9;border-radius:6px;overflow:hidden}
+.vfill{height:100%;border-radius:6px}
+.vmark{position:absolute;top:-3px;width:3px;height:18px;background:#0f172a;border-radius:2px;transform:translateX(-50%)}
+.vval{width:260px;font-size:12.5px;color:#475569;flex-shrink:0;text-align:right}
+.vval b{color:#0f172a}
+.vtag{font-weight:700;margin-left:4px}
+.ovw{background:var(--soft);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:13px;color:#475569;line-height:1.65}
+.mv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.mv-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.mv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#60a5fa)}
+.mv-h{display:flex;align-items:baseline;gap:8px;margin:0 0 2px}
+.mv-h b{font-size:15px;color:var(--ink)}
+.mv-h .en{font-size:11px;color:#94a3b8;font-weight:500}
+.mv-tag{font-size:11px;color:#1d4ed8;background:#eff6ff;border:1px solid rgba(59,130,246,.18);padding:2px 9px;border-radius:20px;display:inline-block;margin:4px 0 8px;font-weight:600}
+.mv-read{font-size:12.5px;color:#334155;line-height:1.7;margin:6px 0}
+.mv-read b{color:#0f172a}
+.mv-q{font-size:12.5px;color:#475569;background:#f8fafc;border-radius:8px;padding:8px 10px;margin:8px 0;line-height:1.6}
+.mv-q .lab{color:#b45309;font-weight:700}
+.mg-viz{display:flex;flex-direction:column;gap:12px;margin:6px 0 10px}
+.mg-row{display:grid;grid-template-columns:90px 1fr 130px;gap:10px;align-items:center;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.mg-label{font-size:12px;color:#0f172a;font-weight:600;line-height:1.3}
+.mg-val{font-size:13px;color:#64748b;font-weight:500}
+.mg-track{position:relative;height:10px;background:#f1f5f9;border-radius:5px;overflow:visible}
+.mg-bar{height:100%;background:#94a3b8;border-radius:5px;position:relative}
+.mg-thr{position:absolute;top:-4px;width:2px;height:18px;background:#0f172a}
+.mg-meta{display:flex;flex-direction:column;gap:3px;align-items:flex-end}
+.mg-status{font-size:12px;font-weight:600;padding:2px 8px;border-radius:6px}
+.mg-on{background:#dcfce7;color:#166534}.mg-off{background:#fef3c7;color:#92400e}.mg-na{background:#f1f5f9;color:#64748b}
+.synth-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px;margin:6px 0 14px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.synth-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.synth-tbl td{border-bottom:1px solid #f1f5f9;padding:7px 8px;vertical-align:top;color:#334155}
+.synth-tbl td.ax{color:#0f172a;font-weight:700;width:140px;white-space:nowrap}
+.synth-verdict{margin-top:10px;padding:9px 12px;background:#f8fafc;border-left:3px solid #a8a29e;border-radius:6px;font-size:13px;line-height:1.6;color:#1e293b}
+.fin-note{font-size:11.5px;color:#64748b;margin-top:8px;line-height:1.55}
+footer{background:var(--soft);color:var(--mut);text-align:center;padding:26px 20px;font-size:12.5px;border-top:1px solid var(--line);margin-top:30px}
+@media(max-width:600px){.mv-grid{grid-template-columns:1fr}.vval{width:auto}.mg-row{grid-template-columns:80px 1fr}.mg-meta{width:100px}}
+
+/*synth-cf-v1*/
+.synth-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px;margin:6px 0 14px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.synth-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.synth-tbl td{border-bottom:1px solid #f1f5f9;padding:7px 8px;vertical-align:top;color:#334155}
+.synth-tbl td.ax{color:#0f172a;font-weight:700;width:140px;white-space:nowrap}
+.synth-verdict{margin-top:10px;padding:9px 12px;background:#f8fafc;border-left:3px solid #a8a29e;border-radius:6px;font-size:13px;line-height:1.6;color:#1e293b}
+.synth-lines{font-size:13px;line-height:1.75;color:#334155}
+.synth-gov{font-size:13px;line-height:1.7;color:#334155}
+.synth-inv-title{font-size:13px;color:#0f172a;font-weight:600;margin-bottom:6px}
+.synth-inv{margin:0;padding-left:20px;font-size:13px;line-height:1.7;color:#334155}
+.synth-inv li{margin-bottom:3px}
+
+</style></head><body>
+<div class="topbar"><div class="topbar-in"><div class="brand">伯克希尔<span class="ac">投资数据中心</span></div><div class="crumb">/ <a href="berkshire-standalone.html">枢纽</a> / <a href="berkshire-chain-map.html">覆盖地图</a> / <a href="berkshire-oil-service-chains.html">油服装备产业链</a> / 中海油服</div></div></div>
+<div class="detail">
+<a class="back" href="berkshire-oil-service-chains.html">← 返回油服装备产业链</a>
+<h1>中海油服 <span style="font-size:14px;color:var(--mut)">601808 · 公司数据采集页</span></h1>
+<p class="hero-sub">油服装备产业链代表公司；财务快照与估值分位提取自该公司详情页（最新可得年报 + 采集日快照），仅供研究参考，不构成投资建议。</p>
+<div class="section-title">公司概述</div><div class="ovw">本页为「油服装备产业链」补建的公司数据采集页：中海油服（601808）。中海油服（601808）是油服装备产业链产业链中的代表公司，油服。本页为框架级原创梳理，业务结构、市场份额与最新财务以各公司公开年报为准，不构成投资建议。 护城河：护城河取决于本链「投资逻辑」所述逻辑（看油价与开支，出海弹性）；需结合油服判断其份额、牌照或工艺壁垒的高低。 主要风险：主要风险来自行业周期与本链「投资逻辑」变量（看油价与开支，出海弹性），以及价格、竞争与需求波动；具体以年报披露为准。财务与估值提取自该公司详情页公开披露，仅供研究参考，不构成投资建议。</div>
+<h3 class="section-title">财务快照（2025-12-31 年报 / 2026-08-05 估值）</h3>
+<div class="snap"><div><b>—</b><span>营收(亿)</span></div><div><b>—</b><span>归母净利(亿)</span></div><div><b>—</b><span>毛利率(%)</span></div><div><b>—</b><span>ROE(%)</span></div><div><b>—</b><span>负债率(%)</span></div><div><b>—</b><span>经营现金流(亿)</span></div><div><b>—</b><span>总市值(亿)</span></div><div><b>—</b><span>PE</span></div><div><b>—</b><span>PB</span></div><div><b>—</b><span>股息率(%)</span></div></div>
+<div class="note">营收/归母净利/毛利率/ROE/负债率/经营现金流取自详情页「关键财务」；总市值/股息率/PE/PB 及其近十年分位取自详情页「估值快照」。本页为补建数据采集页，财务以年报为准，不编造任何数字。</div>
+<div class="section-title">估值历史分位</div><div class="valband"><div class="vrow"><div class="vlab">PE（TTM）</div><div class="vbar"><div class="vfill" style="width:0%;background:#cbd5e1"></div></div><div class="vval">—</div></div><div class="vrow"><div class="vlab">PB</div><div class="vbar"><div class="vfill" style="width:0%;background:#cbd5e1"></div></div><div class="vval">—</div></div></div>
+<div class="section-title"><span class="dot"></span>安全边际量化线（巴菲特式买点阈值）</div>
+<div class="mg-viz"><div class="mg-row"><div class="mg-label">PE分位<br><span class="mg-val">—</span></div><div class="mg-track"><div class="mg-bar" style="width:0%"></div></div><div class="mg-meta"><span class="mg-status mg-na">—</span></div></div><div class="mg-row"><div class="mg-label">PB分位<br><span class="mg-val">—</span></div><div class="mg-track"><div class="mg-bar" style="width:0%"></div></div><div class="mg-meta"><span class="mg-status mg-na">—</span></div></div><div class="mg-row"><div class="mg-label">股息率线<br><span class="mg-val">—</span></div><div class="mg-track"><div class="mg-bar" style="width:0%"></div></div><div class="mg-meta"><span class="mg-status mg-na">—</span></div></div></div>
+<div class="note">安全边际 = 价格显著低于内在价值的缓冲。本线为<b>透明规则触发</b>，非 DCF 精算；现金牛看股息率与低 PB，成长看兑现与分位。不构成买卖建议。</div>
+<!-- synth-cf-start -->
+<div class="section-title"><span class="dot"></span>结论合成 · 护城河 × 估值 × 周期 × 信号</div>
+<div class="synth-card">
+  <table class="synth-tbl">
+    <tr><td class="ax">护城河质量</td><td>弱（ROE 最新年报 8.5%）</td></tr>
+    <tr><td class="ax">估值便宜度</td><td>PE分位 —% · PB分位 —% → 数据不足</td></tr>
+    <tr><td class="ax">周期位置</td><td>—（CF链未做链级时机量化）</td></tr>
+    <tr><td class="ax">价格信号</td><td>死猫反弹</td></tr>
+  </table>
+  <div class="synth-verdict"><b>综合结论：</b>估值数据不足（待采集），无法做便宜/贵判定 · 注意「坑里蹦」</div>
+  <div class="fin-note">本段为<b>机械合成</b>：将本页已呈现的护城河/分位/泊松按透明规则归并，<b>非研究结论、不构成投资建议</b>。规则：便宜+强护城河=便宜的好生意；贵+强护城河=贵的好生意；贵+弱护城河=回避；便宜+弱护城河=警惕价值陷阱。</div>
+</div>
+
+<div class="section-title"><span class="dot"></span>安全边际量化线（巴菲特式买点阈值）</div>
+<div class="synth-card">
+  <div class="synth-lines">• PB分位线：PB历史分位 < 20% 视为低PB安全边际区间 → 当前数据不足（待采集）<br>• PE分位线：PE历史分位 < 20% 视为低PE安全边际区间 → 当前数据不足（待采集）<br>• 股息率线：现金牛安全边际≈股息率 ≥ 10Y国债(~1.6%) + 1.5%风险溢价 ≈ <b>3.1%</b>；当前股息率 1.26% → <b>未达线（价格未给现金牛安全边际）</b></div>
+  <div class="fin-note">安全边际 = 价格显著低于内在价值的缓冲。本线为<b>透明规则触发</b>，非 DCF 精算；现金牛看股息率与低PB，成长看兑现与分位。不构成买卖建议。</div>
+</div>
+
+<div class="section-title"><span class="dot"></span>治理 / 诚信维度（段永平透镜）</div>
+<div class="synth-card">
+  <div class="synth-gov"><b>治理/诚信风险（混合所有制）</b>：该领域国资与头部民企并存，需分情况审视——民企重点警惕大股东占款、高比例股权质押、关联交易与审计意见风险；国资则审视政策任务与股东回报权衡、关联交易公允性。无论所有制，均应以经营性现金流与税费反推验证财报真实性，并关注审计意见类型。</div>
+</div>
+
+<div class="section-title"><span class="dot"></span>逆向压力测试 · 什么情景下永久损失资本（芒格 invert）</div>
+<div class="synth-card">
+  <div class="synth-inv-title">若以下情景同时或持续发生，中海油服 的护城河与现金流将被实质性削弱：</div>
+  <ul class="synth-inv"><li>商品价格/景气跌破现金成本且长期低位</li><li>产能无序扩张致加工费与利润塌方</li><li>需求侧（地产/消费/出口）共振下行</li><li>库存减值与安全环保事故</li><li>政策/贸易壁垒冲击</li></ul>
+  <div class="fin-note">invert 思维：先想「怎么亏光」，再谈「怎么赚钱」。缓解因素通常已在护城河与财务板块体现（如低负债、长协、一体化）。</div>
+</div>
+
+<div class="section-title"><span class="dot"></span>两轴拆分 · 估值分位 ≠ 永久损失风险（霍华德·马克斯）</div>
+<div class="synth-card">
+  <table class="synth-tbl">
+    <tr><td class="ax">轴① 估值分位</td><td>PE —% / PB —% → 数据不足</td></tr>
+    <tr><td class="ax">轴② 永久损失风险</td><td>中（cyclical 链性质 + 护城河弱 调整后）</td></tr>
+  </table>
+  <div class="synth-verdict"><b>读图：</b>马克斯警告「贵≠高风险」。两轴需结合护城河质量与信号综合判断，勿单看分位定买卖。</div>
+</div>
+
+</div><!--rpt-section-end--><footer>伯克希尔投资数据中心 · 公司数据采集页（补建）　|　数据来源：各公司详情页（关键财务 / 估值快照）　|　仅供研究参考，不构成投资建议</footer>
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+</body></html>
