@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>贴水策略 · 股指期货吃贴水完整方案</title>
+<script>
+// 全局错误捕获：任何脚本错误都显示红条，避免静默 "—"
+window.addEventListener('error', function(e){
+  try{
+    var d=document.getElementById('__errbanner');
+    if(!d){ d=document.createElement('div'); d.id='__errbanner';
+      d.style.cssText='position:fixed;left:0;right:0;top:0;z-index:99999;background:#c0392b;color:#fff;font:13px/1.6 monospace;padding:10px 14px;white-space:pre-wrap;box-shadow:0 2px 8px rgba(0,0,0,.3)';
+      (document.body||document.documentElement).appendChild(d);
+    }
+    d.textContent='⚠ JS 运行错误：'+(e.message||(e.error&&e.error.message)||e.error)+(e.filename?('\n'+e.filename+':'+e.lineno):'')+'\n请按 Ctrl+Shift+R 硬刷新；若仍报错，按 F12 把此红条截图发我。';
+  }catch(_){}
+});
+</script>
+<style>
+:root{
+  --bg:#f5f6f8; --panel:#ffffff; --line:#e3e6ea; --line2:#eef0f3;
+  --ink:#1a1d21; --ink2:#4a5058; --ink3:#868e96;
+  --up:#d9342b; --down:#0f9960; --accent:#1b4f8f; --accent-l:#e8eff8;
+  --warn:#b5651d; --warn-bg:#fdf4e7; --danger:#c0392b; --danger-bg:#fdecea;
+  --gold:#a8801a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg); color:var(--ink); line-height:1.6; padding:28px 20px 60px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto}
+
+/* header */
+.hd{margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid var(--ink)}
+.hd h1{font-size:27px;font-weight:700;letter-spacing:-.4px;margin-bottom:8px}
+.hd .sub{font-size:13px;color:var(--ink3);display:flex;gap:18px;flex-wrap:wrap}
+.hd .sub b{color:var(--ink2);font-weight:600}
+.tag{display:inline-block;padding:2px 9px;border-radius:3px;font-size:11px;font-weight:600;letter-spacing:.3px}
+.tag-w{background:var(--warn-bg);color:var(--warn);border:1px solid #e8d5b5}
+
+/* nav */
+.nav{position:sticky;top:0;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 16px;margin-bottom:24px;z-index:10;display:flex;gap:8px;flex-wrap:wrap;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.nav a{font-size:12px;color:var(--accent);text-decoration:none;padding:4px 10px;border-radius:4px;font-weight:600;white-space:nowrap}
+.nav a:hover{background:var(--accent-l)}
+.nav .sep{color:var(--line);align-self:center}
+
+/* section */
+section{margin-bottom:30px}
+h2{font-size:17px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+h2::before{content:"";width:3px;height:16px;background:var(--accent);border-radius:2px}
+h3{font-size:14px;font-weight:650;margin-bottom:10px;color:var(--ink2)}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px}
+.card .k{font-size:11px;color:var(--ink3);letter-spacing:.5px;font-weight:600;margin-bottom:7px;text-transform:uppercase}
+.card .v{font-size:29px;font-weight:700;letter-spacing:-1px;line-height:1.1}
+.card .d{font-size:12px;color:var(--ink3);margin-top:7px;line-height:1.5}
+.v-up{color:var(--up)} .v-ac{color:var(--accent)} .v-dn{color:var(--down)}
+
+/* hero dual-card: 最厚 vs 推荐 */
+.card-warn{border-left:3px solid var(--warn)!important}
+.card-rec{border-left:3px solid #1f7a45!important}
+.tag-warn{display:inline-block;background:#fef3c7;color:#92400e;font-size:10px;padding:1px 7px;border-radius:8px;margin-left:6px;vertical-align:middle;font-weight:600;letter-spacing:.3px}
+.tag-ok{display:inline-block;background:#d1fae5;color:#065f46;font-size:10px;padding:1px 7px;border-radius:8px;margin-left:6px;vertical-align:middle;font-weight:600;letter-spacing:.3px}
+.warn-box{margin-top:8px;background:#fffbeb;border:1px solid #fcd34d;border-radius:5px;padding:8px 10px;font-size:11.5px;color:#92400e;line-height:1.45}
+.rec-box{margin-top:8px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:5px;padding:8px 10px;font-size:11.5px;color:#065f46;line-height:1.45}
+
+/* conclusion */
+.concl{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;padding:18px 20px}
+.concl ol{margin-left:18px}
+.concl li{margin-bottom:11px;font-size:14px}
+.concl li:last-child{margin-bottom:0}
+.concl b{color:var(--accent);font-weight:650}
+.hl{background:#fff3cd;padding:1px 4px;border-radius:2px;font-weight:600}
+
+/* chart */
+.chartbox{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px}
+.legend{display:flex;gap:16px;margin-bottom:14px;font-size:12px;color:var(--ink2);flex-wrap:wrap}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.bars{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+/* 专业版（双视图对照）—— 双向 + 零基准 */
+.bars-pro{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.bars-pro .bg-grp{}
+.bars-pro .bar-row{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.bars-pro .bar-lb{font-size:11px;color:var(--ink3);width:34px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.bars-pro .bar-tr{flex:1;height:22px;background:#fafafa;border:1px solid var(--line);border-radius:4px;overflow:hidden;position:relative}
+.bars-pro .bar-tr::before{content:'';position:absolute;left:50%;top:2px;bottom:2px;width:1px;background:var(--ink3);opacity:0.5;z-index:1}
+.bars-pro .bar-fl{position:absolute;top:0;height:100%;border-radius:2px;transition:left .6s cubic-bezier(.2,.8,.3,1),width .6s cubic-bezier(.2,.8,.3,1),opacity .3s;min-width:2px;cursor:help}
+.bars-pro .bar-fl.premium{opacity:0.55}
+.bars-pro .bar-vl{font-size:11px;font-weight:650;width:42px;text-align:right;flex-shrink:0;font-variant-numeric:tabular-nums}
+.bars-pro .bar-tag{font-size:10px;font-weight:600;width:30px;text-align:center;flex-shrink:0;padding:2px 0;border-radius:3px;background:#fbfbfa}
+.bg-grp{}
+.bg-grp .ttl{font-size:13px;font-weight:700;margin-bottom:3px}
+.bg-grp .stl{font-size:11px;color:var(--ink3);margin-bottom:12px}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.bar-lb{font-size:11px;color:var(--ink3);width:34px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.bar-tr{flex:1;height:24px;background:#fafafa;border:1px solid var(--line);border-radius:4px;overflow:visible;position:relative}
+/* 刻度（0%/5%/10% 三档）*/
+.bar-tr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--ink3);opacity:0.4}
+.bar-tr::after{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line);opacity:0.6}
+/* 关键：bar-fl 必须 position:absolute，否则 height:100% 在 inline <span> 上被忽略 → 柱体高度坍缩为 0、看不见 */
+.bar-fl{position:absolute;top:0;left:0;height:100%;border-radius:2px;display:flex;align-items:center;padding:0 6px;min-width:2px;cursor:help;transition:width .6s cubic-bezier(.2,.8,.3,1);overflow:visible}
+.bar-fl.discount{opacity:1}  /* 贴水：合约原色全色 */
+.bar-fl.premium{opacity:0.82;background-image:linear-gradient(135deg,rgba(255,255,255,.30) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.30) 50%,rgba(255,255,255,.30) 75%,transparent 75%);background-size:9px 9px}  /* 升水：斜纹+提高透明度确保白字清晰 */
+/* 数字内嵌到柱上（白字+深阴影），即便柱很窄文字溢出到灰 track 上也靠阴影保证可读 */
+.bar-num{font-size:11px;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.7),0 0 1px rgba(0,0,0,.3);white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:-.3px}
+.bar-vl{font-size:11px;font-weight:650;width:42px;text-align:right;flex-shrink:0;font-variant-numeric:tabular-nums}
+.bar-tag{font-size:10px;font-weight:600;width:30px;text-align:center;flex-shrink:0;padding:2px 0;border-radius:3px;background:#fbfbfa}
+.bars-note{font-size:11.5px;color:var(--ink3);margin-top:10px;line-height:1.6;padding:10px 14px;background:#fbfbfa;border-left:3px solid #d4af37;border-radius:3px}
+.bars-note b{color:var(--ink2);font-weight:650}
+.bars-note code{font-family:ui-monospace,Consolas,monospace;background:#f0f0ed;padding:1px 5px;border-radius:2px;font-size:11px;color:#c0392b}
+.bars-scale{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--ink3);margin-top:8px;padding:0 34px 0 42px;position:relative}
+.bars-scale::before{content:'';position:absolute;left:34px;right:30px;top:50%;height:1px;background:var(--line);opacity:0.5}
+.bars-scale span{position:relative;background:var(--panel);padding:0 4px}
+.data-stamp{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--ink3);margin-left:14px;padding:3px 9px;background:#fbfbfa;border:1px solid var(--line);border-radius:11px}
+.data-stamp b{color:#c0392b;font-weight:700;font-variant-numeric:tabular-nums}
+.data-stamp::before{content:'';width:6px;height:6px;border-radius:50%;background:#2e8b57;box-shadow:0 0 0 2px rgba(46,139,87,0.18)}
+/* 换月提醒 banner（数据驱动）*/
+.roll-alert{margin:0 0 18px;padding:12px 16px;border-radius:8px;font-size:13px;line-height:1.6;border-left:4px solid #2e8b57;background:#f0f8f3}
+.roll-alert.warn{border-left-color:#d4af37;background:#fff8e6}
+.roll-alert .t{font-weight:700;margin-right:6px}
+.roll-alert b{font-weight:700}
+.roll-alert.warn b{color:#9a6b00}
+.roll-alert.ok b{color:#1f7a45}
+.daily-note{margin:14px 0 0;padding:12px 16px;border-radius:8px;font-size:13px;line-height:1.7;border-left:4px solid var(--accent);background:#eef3fb;color:var(--ink)}
+.daily-note .t{font-weight:700;margin-right:6px;color:var(--accent)}
+.daily-note b{font-weight:700}
+/* 换月时机详解块 */
+.ops-detail{margin-top:16px;padding:14px 18px;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.ops-detail h3{font-size:14px;font-weight:700;color:var(--ink2);margin:0 0 10px}
+.ops-detail ul{margin:0;padding-left:20px;line-height:1.75;font-size:13px;color:var(--ink2)}
+.ops-detail li{margin-bottom:7px}
+.ops-detail b{color:var(--ink1);font-weight:700}
+.ops-detail .tag{display:inline-block;padding:1px 7px;border-radius:3px;font-size:11px;font-weight:700;margin-right:2px}
+.ops-detail .tag-do{background:#2e8b57;color:#fff}
+.ops-detail .tag-no{background:#c0392b;color:#fff}
+/* 步骤块（具体怎么操作）*/
+.ops-step{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;font-size:13px;line-height:1.65;color:var(--ink2)}
+.ops-step .num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--ink3);color:#fff;font-weight:700;font-size:12px;line-height:22px;text-align:center;font-variant-numeric:tabular-nums}
+.ops-step .body{flex:1;min-width:0}
+.ops-step b{color:var(--ink1);font-weight:700}
+.ops-step code{font-family:Consolas,Menlo,monospace;font-size:12px;background:#faf8f2;padding:1px 5px;border-radius:3px;color:#9a6b00;border:1px solid #f0e8d0}
+.ops-tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0}
+.ops-tbl th,.ops-tbl td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+.ops-tbl th{background:#fbfbfa;font-weight:700;color:var(--ink2)}
+.ops-tbl td.num{text-align:right;font-variant-numeric:tabular-nums;font-family:Consolas,monospace;color:var(--ink1)}
+.ops-tbl tr.today{background:#fff8e6}
+.ops-tbl tr.today td:first-child::after{content:'← 今天';color:#9a6b00;font-weight:700;margin-left:6px;font-size:11px}
+.ops-callout{margin:10px 0;padding:10px 14px;background:#fbfbfa;border-left:3px solid #d4af37;border-radius:4px;font-size:12.5px;line-height:1.65;color:var(--ink2)}
+.ops-callout b{color:#9a6b00}
+.ops-detail+div{margin-top:14px}
+
+/* table */
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13px}
+th{background:#fafbfc;text-align:left;padding:10px 12px;font-size:11px;font-weight:650;color:var(--ink3);letter-spacing:.4px;border-bottom:1px solid var(--line);text-transform:uppercase}
+td{padding:10px 12px;border-bottom:1px solid var(--line2);font-variant-numeric:tabular-nums}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafbfc}
+td.num{text-align:right}
+.best{background:#fffbe6 !important}
+.best td:first-child::after{content:" 最优";font-size:10px;color:var(--gold);font-weight:700}
+/* 表格内迷你双向条（对称显示月均贴水差：右=贴水赚/左=升水亏） */
+.tbl-bar{display:inline-block;width:90px;height:14px;position:relative;vertical-align:-2px;margin-right:6px}
+.tbl-bar::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--ink3);opacity:0.5}
+.tbl-bar .tbl-fl{position:absolute;top:0;height:100%;border-radius:2px;min-width:2px}
+.tbl-bar .tbl-fl.up{right:50%}     /* 贴水赚：向右展开 */
+.tbl-bar .tbl-fl.down{left:50%}    /* 升水亏：向左展开 */
+.tbl-th-tip{cursor:help;border-bottom:1px dotted var(--ink3)}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:300px 1fr;gap:20px}
+.ctrl{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px}
+.fld{margin-bottom:16px}
+.fld:last-child{margin-bottom:0}
+.fld label{display:block;font-size:11px;font-weight:650;color:var(--ink3);letter-spacing:.4px;margin-bottom:6px;text-transform:uppercase}
+select,input[type=number]{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:5px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink)}
+select:focus,input:focus{outline:none;border-color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.rngv{font-size:13px;font-weight:700;color:var(--accent);float:right}
+.out{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px}
+.ogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.oc{background:#fafbfc;border:1px solid var(--line2);border-radius:6px;padding:13px}
+.oc .k{font-size:10px;color:var(--ink3);font-weight:600;letter-spacing:.4px;margin-bottom:5px}
+.oc .v{font-size:19px;font-weight:700;letter-spacing:-.5px}
+.oc .s{font-size:11px;color:var(--ink3);margin-top:3px}
+.verdict{padding:11px 14px;border-radius:6px;font-size:13px;font-weight:600;margin-top:4px}
+.vd-ok{background:#e8f6ef;color:#0b6e4f;border:1px solid #b8e0cd}
+.vd-wn{background:var(--warn-bg);color:var(--warn);border:1px solid #e8d5b5}
+.vd-dg{background:var(--danger-bg);color:var(--danger);border:1px solid #f0c4bf}
+
+/* stress */
+.stress{margin-top:16px}
+.st-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;font-size:12px}
+.st-lb{width:52px;color:var(--ink3);font-variant-numeric:tabular-nums;flex-shrink:0}
+.st-tr{flex:1;height:16px;background:var(--line2);border-radius:3px;overflow:hidden}
+.st-fl{height:100%;background:linear-gradient(90deg,#f0a8a3,#c0392b);border-radius:3px;transition:width .4s}
+.st-vl{width:96px;text-align:right;font-variant-numeric:tabular-nums;font-weight:600;flex-shrink:0}
+.st-st{width:58px;text-align:right;font-size:11px;font-weight:700;flex-shrink:0}
+
+/* posts */
+.posts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.post{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:15px}
+.post:hover{border-color:var(--accent)}
+.post .pt{font-size:14px;font-weight:650;margin-bottom:5px;color:var(--accent)}
+.post .pm{font-size:11px;color:var(--ink3);margin-bottom:8px}
+.post .pd{font-size:12.5px;color:var(--ink2);line-height:1.55}
+.rank{display:inline-flex;width:18px;height:18px;background:var(--accent);color:#fff;border-radius:3px;font-size:11px;font-weight:700;align-items:center;justify-content:center;margin-right:7px}
+
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+.rule{background:var(--danger-bg);border:1px solid #f0c4bf;border-radius:6px;padding:13px 15px;font-size:13px;display:flex;gap:10px}
+.rule .no{color:var(--danger);font-weight:700;flex-shrink:0}
+.rule b{color:var(--danger)}
+
+/* pitfalls */
+.pit td:first-child{font-weight:650;width:110px}
+.pit td:nth-child(2){color:var(--ink2);font-size:12.5px}
+.pit td:last-child{color:var(--accent);font-size:12.5px;font-weight:550}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tl-i{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px;text-align:center;position:relative}
+.tl-i.now{border-color:var(--up);background:#fff8f7}
+.tl-i .c{font-size:15px;font-weight:700;margin-bottom:4px}
+.tl-i .d{font-size:12px;color:var(--ink2)}
+.tl-i .m{font-size:11px;color:var(--up);font-weight:650;margin-top:6px}
+.tl-i .h{font-size:11px;color:var(--ink3);margin-top:4px;font-variant-numeric:tabular-nums}
+.tl-i.now{border-color:var(--up);background:#fff8f7}
+.tl-i.best{border-color:#2e8b57;background:#f4fbf6;box-shadow:0 0 0 2px rgba(46,139,87,0.18)}
+.tl-i .tag{position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;line-height:1.3;white-space:nowrap;letter-spacing:0.3px}
+.tl-i.now .tag{background:var(--up);color:#fff}
+.tl-i.best .tag{background:#2e8b57;color:#fff}
+.tl-suggest{display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,#fff8f7 0%,#f4fbf6 100%);border:1px solid #f0c9c1;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:13px;flex-wrap:wrap}
+.tl-suggest .from{color:var(--up);font-weight:700;font-size:14px}
+.tl-suggest .to{color:#2e8b57;font-weight:700;font-size:14px}
+.tl-suggest .arr{font-size:18px;font-weight:700;color:var(--ink2)}
+.tl-suggest .why{flex:1;color:var(--ink2);font-size:12px;line-height:1.5;min-width:220px}
+.tl-suggest .why b{color:#1b4f8f}
+.tl-suggest .empty{color:#2e8b57;font-weight:700}
+@media (max-width:780px){.tl-suggest{flex-direction:column;align-items:flex-start}}
+
+/* note */
+.note{background:var(--warn-bg);border:1px solid #e8d5b5;border-left:3px solid var(--warn);border-radius:6px;padding:14px 16px;font-size:13px;color:#6b4a1a;line-height:1.65}
+/* === endgame：持有到期 / 永续滚 / 退出 === */
+.eg-h{font-size:14px;font-weight:700;color:var(--ink2);margin:22px 0 10px;padding-left:10px;border-left:3px solid var(--up)}
+.eg-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:6px 0 4px}
+.eg-card{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--panel)}
+.eg-card .t{font-size:12px;color:var(--ink2);font-weight:600;margin-bottom:6px}
+.eg-card .v{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.eg-card .s{font-size:11px;color:var(--ink3);margin-top:4px;line-height:1.4}
+.eg-card.up{border-color:#2e8b57;background:#f4fbf6}
+.eg-card.up .v{color:#2e8b57}
+.eg-card.down{border-color:#c0392b;background:#fdf2f0}
+.eg-card.down .v{color:#c0392b}
+.eg-card.flat{border-color:#d4af37;background:#fff8e6}
+.eg-card.flat .v{color:#9a6b00}
+.eg-stress{margin:8px 0 4px}
+.eg-stress th,.eg-stress td{padding:8px 10px;font-size:12.5px}
+.eg-stress .num{text-align:right;font-variant-numeric:tabular-nums}
+.eg-stress tr.mc td{background:#fff8e6;font-weight:700}
+.eg-stress tr.blow td{color:#c0392b}
+.eg-stress .pill{display:inline-block;padding:1px 9px;border-radius:10px;font-size:11px;font-weight:700}
+.eg-stress .pill.ok{background:#e8f6ef;color:#0b6e4f}
+.eg-stress .pill.call{background:#fff3cd;color:#9a6b00}
+.eg-stress .pill.blow{background:#fdecea;color:#c0392b}
+.eg-exit{margin:6px 0 0;padding-left:20px;line-height:1.8;font-size:13px;color:var(--ink2)}
+.eg-exit b{color:var(--ink1)}
+.eg-roll{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0}
+.eg-roll .box{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--panel);font-size:12.5px;line-height:1.7}
+.eg-roll .box h4{margin:0 0 6px;font-size:13px}
+.eg-roll .box.good{border-color:#2e8b57;background:#f4fbf6}
+.eg-roll .box.bad{border-color:#c0392b;background:#fdf2f0}
+@media (max-width:780px){.eg-cards,.eg-roll{grid-template-columns:1fr}}
+.note b{color:var(--warn)}
+.note-blue{background:var(--accent-l);border:1px solid #c5d4ea;border-left:3px solid var(--accent);border-radius:6px;padding:14px 16px;font-size:13px;color:#1a3a6b;line-height:1.65}
+.note-blue b{color:var(--accent)}
+.ft{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--ink3);line-height:1.7}
+
+/* report sections — from MD */
+.rpt-sep{text-align:center;margin:40px 0 30px;position:relative}
+.rpt-sep::before{content:"";position:absolute;left:0;top:50%;right:0;height:1px;background:var(--line)}
+.rpt-sec{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px 24px;margin-bottom:24px}
+.rpt-sec h3{font-size:15px;font-weight:700;color:var(--accent);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--line2)}
+.rpt-sec p{margin-bottom:10px;font-size:13.5px}
+.rpt-sec p:last-child{margin-bottom:0}
+.rpt-sec ul{margin-left:20px;margin-bottom:10px}
+.rpt-sec li{margin-bottom:6px;font-size:13.5px}
+.rpt-sec pre{background:#fafbfc;border:1px solid var(--line2);border-radius:6px;padding:14px 16px;font-size:12.5px;line-height:1.7;overflow-x:auto;margin:10px 0}
+.rpt-sec code{background:#f0f1f3;padding:1px 5px;border-radius:3px;font-size:12px;font-family:"Cascadia Code","Fira Code",Consolas,monospace}
+.checklist{list-style:none;margin-left:0!important}
+.checklist li{padding:6px 0 6px 28px;position:relative;font-size:13.5px!important}
+.checklist li::before{content:"☐";position:absolute;left:0;font-size:15px;color:var(--ink3)}
+
+@media(max-width:900px){
+ .cards,.ogrid,.bars,.posts,.rules,.tl{grid-template-columns:1fr}
+ .calc{grid-template-columns:1fr}
+ .nav{display:none}
+}
+</style>
+<style>
+.back-home{position:fixed;top:12px;right:12px;z-index:9999;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;padding:7px 16px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;transition:transform .2s}
+.back-home:hover{transform:translateX(-2px)}
+
+/* 贴水解读卡片化（折叠 + 收藏 + 工具栏）*/
+.daily-note-toolbar{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;align-items:center}
+.daily-note-toolbar button{background:var(--panel);border:1px solid var(--line);padding:5px 12px;border-radius:4px;cursor:pointer;color:var(--ink2);font-size:12px;font-weight:600;transition:all .15s}
+.daily-note-toolbar button:hover{background:var(--accent-l);color:var(--accent);border-color:var(--accent)}
+.daily-note-toolbar button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.note-list{display:flex;flex-direction:column;gap:8px}
+.note-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;border-left:3px solid var(--accent);transition:border-color .2s,background .2s}
+.note-card.faved{border-left-color:#d4af37;background:#fffbf0}
+.note-card.hidden-by-filter{display:none}
+.note-hd{display:flex;align-items:center;gap:8px;padding:9px 14px;cursor:pointer;user-select:none;font-size:13px;background:transparent;border:none;width:100%;text-align:left;font-family:inherit}
+.note-toggle{display:inline-block;width:14px;text-align:center;font-size:9px;color:var(--ink3);transition:transform .2s;flex-shrink:0}
+.note-card:not(.expanded) .note-toggle{transform:rotate(-90deg)}
+.note-date{font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;flex-shrink:0}
+.note-card.faved .note-date{color:#9a6b00}
+.note-rel{font-size:11px;color:var(--ink3);flex-shrink:0}
+.note-tag{display:inline-block;background:var(--accent-l);color:var(--accent);padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;flex-shrink:0}
+.note-card.faved .note-tag{background:#fff3cd;color:#9a6b00}
+.note-hd-actions{margin-left:auto;display:flex;align-items:center;gap:2px;flex-shrink:0}
+.note-fav{background:none;border:none;font-size:17px;cursor:pointer;color:var(--ink3);padding:2px 6px;line-height:1;transition:color .2s,transform .15s}
+.note-fav:hover{color:#d4af37;transform:scale(1.15)}
+.note-fav.faved{color:#d4af37}
+.note-bd{padding:0 14px;font-size:13px;line-height:1.7;color:var(--ink);max-height:0;overflow:hidden;transition:max-height .3s ease,padding .25s ease}
+.note-card.expanded .note-bd{max-height:600px;padding:10px 14px 12px 14px;border-top:1px dashed var(--line)}
+.note-bd .t{font-weight:700;margin-right:6px;color:var(--accent)}
+.note-bd b{font-weight:700}
+
+</style>
+</head>
+<body>
+<a class="back-home" href="./index.html">← 返回主页</a>
+
+<div class="wrap">
+
+<div class="hd">
+  <h1>📊 贴水策略 · 股指期货吃贴水完整方案</h1>
+  <div class="sub">
+    <span>数据基准 <b>2026-09-18 结算</b></span>
+    <span>资料来源 <b>网络收录实盘帖 + 中金所参数</b></span>
+    <span class="tag tag-w">不构成投资建议</span>
+  </div>
+</div>
+
+<!-- 导航 -->
+<nav class="nav">
+  <a href="#core">核心指标</a><a href="#conclusion">结论</a><a href="#trend">贴水走势</a><a href="#term">期限结构</a><a href="#full">全合约</a><a href="#calc">测算器</a><span class="sep">|</span>
+  <a href="#capital">资金管理</a><a href="#redline">风控红线</a><a href="#roll">移仓规则</a><a href="#capital-use">资金机会成本</a><a href="#roll-ops">操作步骤</a><a href="#calendar">交割日历</a><span class="sep">|</span>
+  <a href="#report">完整报告</a><a href="#compare">收益拆解</a><a href="#selection">品种选择</a><a href="#timing">择时分析</a><span class="sep">|</span>
+  <a href="#enhance">增强模块</a><a href="#cost">摩擦成本</a><a href="#checklist">落地清单</a><a href="#reminder">个人提醒</a>
+</nav>
+
+<!-- ═══════════════════════════ 工作台区域 ═══════════════════════════ -->
+
+<!-- 核心指标 -->
+<section id="core">
+  <div class="cards">
+    <!-- 最厚贴水（可能被公式放大，仅展示） -->
+    <div class="card card-warn">
+      <div class="k">📊 当前最厚贴水<span class="tag-warn">短期·仅供参考</span></div>
+      <div class="v v-up">10.74%</div>
+      <div class="d">IM2703（中证1000 · 2027年3月）年化<br><span style='color:var(--ink3);font-size:.9em'>现在买→03-19到期结算可吃；剩182天，越晚买收益越少 · 数据2026-09-18</span><br>持有到期单手可收 <b>80,884 元</b></div>
+      
+      <div class="warn-box">ℹ 年化 10.7%，剩 182 天，单手可收 80,884 元。</div>
+    </div>
+
+    <!-- 推荐执行标的（稳的真肉） -->
+    <div class="card card-rec">
+      <div class="k">🎯 推荐执行标的<span class="tag-ok">长期·主力配置</span></div>
+      <div class="v v-up">10.74%</div>
+      <div class="d">IM2703（中证1000 · 2027年3月）年化<br><span style='color:var(--ink3);font-size:.9em'>现在买→03-19到期结算可吃；剩约182天 · 数据2026-09-18</span><br>持有到期单手可收约 <b>80,884 元</b></div>
+      
+      <div class="rec-box">✅ 年化 10.74% 是真实稳定收益（非公式放大），剩 182 天足够摊薄波动。单手可收约 80,884 元。这是策略的「主菜」，资金优先配这里。</div>
+    </div>
+
+    <!-- 一手名义 -->
+    <div class="card">
+      <div class="k">一手 IM 名义市值</div>
+      <div class="v v-ac">141<span style="font-size:18px">万</span></div>
+      <div class="d">这才是真实门槛<br>不是 50 万开户线</div>
+    </div>
+    <!-- 历史回撤 -->
+    <div class="card">
+      <div class="k">历史最大回撤</div>
+      <div class="v v-dn">−33%</div>
+      <div class="d">无杠杆口径（2018高点起算）<br>2 倍杠杆 = <b>−68%</b></div>
+    </div>
+  </div>
+  <div id="daily-note" class="daily-note">
+  <div class="daily-note-toolbar">
+    <button onclick="expandAll(true)">▼ 全部展开</button>
+    <button onclick="expandAll(false)">▶ 全部收起</button>
+    <button id="fav-filter" onclick="toggleFavFilter()">⭐ 只看收藏</button>
+    <span style="margin-left:auto;color:var(--ink3);font-size:11px">点击卡片标题展开 / 收起；点 ☆ 收藏（仅本机记住）</span>
+  </div>
+  <div class="note-list" id="note-list">
+
+
+<div class="note-card" data-id="dnote-2026-08-26-new" data-date="2026-08-26">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-08-26-new')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-26</span>
+    <span class="note-rel">（最新）</span>
+    <span class="note-tag">贴水解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-08-26-new" onclick="event.stopPropagation();toggleFav('dnote-2026-08-26-new')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.68%</b> 为真实稳定收益（剩114天，单手约 54,940 元）；当前最厚贴水为 IC2609（年化 15.22%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+
+<div class="note-card" data-id="dnote-2026-08-25-new" data-date="2026-08-25">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-08-25-new')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-25</span>
+    <span class="note-rel">（最新）</span>
+    <span class="note-tag">贴水解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-08-25-new" onclick="event.stopPropagation();toggleFav('dnote-2026-08-25-new')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IC2612 年化 <b>11.82%</b> 为真实稳定收益（剩115天，单手约 57,497 元）；当前最厚贴水为 IC2609（年化 17.48%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+
+<div class="note-card" data-id="dnote-2026-08-24-new" data-date="2026-08-24">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-08-24-new')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-24</span>
+    <span class="note-rel">（最新）</span>
+    <span class="note-tag">贴水解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-08-24-new" onclick="event.stopPropagation();toggleFav('dnote-2026-08-24-new')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IC2612 年化 <b>11.72%</b> 为真实稳定收益（剩116天，单手约 57,497 元）；当前最厚贴水为 IC2609（年化 16.78%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+
+
+<div class="note-card" data-id="dnote-2026-08-21-new" data-date="2026-08-21">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-08-21-new')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-21</span>
+    <span class="note-rel">（最新）</span>
+    <span class="note-tag">贴水解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-08-21-new" onclick="event.stopPropagation();toggleFav('dnote-2026-08-21-new')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.17%</b> 为真实稳定收益（剩119天，单手约 55,276 元）；当前最厚贴水为 IC2609（年化 14.85%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+  
+  </div>
+</section>
+
+<!-- 贴水水位复盘 -->
+<section id="thickest-review">
+  <h2>📈 贴水水位复盘</h2>
+  <p class="sub">每天自动收录「当前最厚贴水」快照（合约 / 年化 / 剩几天 / 单手收益 / 占名义比例 / 公式放大倍数），方便日后回看贴水水位变迁。同日重复刷新只更新当天快照，不重复添加；最多保留 30 条。点击卡片标题展开 / 收起，点 ☆ 收藏（仅本机记住）。</p>
+  <div id="thickest-review-box" class="daily-note">
+    <div class="daily-note-toolbar">
+      <button onclick="expandThickestAll(true)">▼ 全部展开</button>
+      <button onclick="expandThickestAll(false)">▶ 全部收起</button>
+      <button id="thickest-fav-filter" onclick="toggleThickestFavFilter()">⭐ 只看收藏</button>
+      <span style="margin-left:auto;color:var(--ink3);font-size:11px">点击卡片标题展开 / 收起；点 ☆ 收藏（仅本机记住）</span>
+    </div>
+    <div class="note-list" id="thickest-list">
+<div class="note-card" data-id="thickest-2026-09-18" data-date="2026-09-18">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-18')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-18</span>
+    <span class="note-rel">（最新快照）</span>
+    <span class="note-tag">最厚贴水</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="thickest-2026-09-18" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-18')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.74%</b> · 剩 <b>182</b> 天（2027-03-19 到期） · 单手可收 <b>80,884 元</b> · 占名义 <b>5.36%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.74%</b> · 剩 <b>182</b> 天（2027-03-19 到期） · 单手可收 <b>80,884 元</b> · 占名义 <b>5.36%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.74%</b> · 剩 <b>182</b> 天（2027-03-19 到期） · 单手可收 <b>80,884 元</b> · 占名义 <b>5.36%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2612（中证500 · 2026年12月）</b> · 年化 <b>10.94%</b> · 剩 <b>93</b> 天（2026-12-18 到期） · 单手可收 <b>42,158 元</b> · 占名义 <b>2.79%</b> · 放大 <b>4×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2612（中证500 · 2026年12月）</b> · 年化 <b>10.94%</b> · 剩 <b>93</b> 天（2026-12-18 到期） · 单手可收 <b>42,158 元</b> · 占名义 <b>2.79%</b> · 放大 <b>4×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IF2609（沪深300 · 2026年9月）</b> · 年化 <b>82.24%</b> · 剩 <b>3</b> 天（2026-09-18 到期） · 单手可收 <b>9,085 元</b> · 占名义 <b>0.68%</b> · 放大 <b>122×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IF2609（沪深300 · 2026年9月）</b> · 年化 <b>60.61%</b> · 剩 <b>4</b> 天（2026-09-18 到期） · 单手可收 <b>8,986 元</b> · 占名义 <b>0.66%</b> · 放大 <b>91×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2609（中证1000 · 2026年9月）</b> · 年化 <b>118.58%</b> · 剩 <b>7</b> 天（2026-09-18 到期） · 单手可收 <b>34,510 元</b> · 占名义 <b>2.27%</b> · 放大 <b>52×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2609（中证1000 · 2026年9月）</b> · 年化 <b>44.62%</b> · 剩 <b>8</b> 天（2026-09-18 到期） · 单手可收 <b>14,960 元</b> · 占名义 <b>0.98%</b> · 放大 <b>46×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IH2609（上证50 · 2026年9月）</b> · 年化 <b>28.38%</b> · 剩 <b>11</b> 天（2026-09-18 到期） · 单手可收 <b>7,503 元</b> · 占名义 <b>0.86%</b> · 放大 <b>33×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>49.54%</b> · 剩 <b>14</b> 天（2026-09-18 到期） · 单手可收 <b>29,472 元</b> · 占名义 <b>1.90%</b> · 放大 <b>26×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2612（中证1000 · 2026年12月）</b> · 年化 <b>11.26%</b> · 剩 <b>106</b> 天（2026-12-18 到期） · 单手可收 <b>49,591 元</b> · 占名义 <b>3.27%</b> · 放大 <b>3×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2610（中证1000 · 2026年10月）</b> · 年化 <b>12.22%</b> · 剩 <b>43</b> 天（2026-10-16 到期） · 单手可收 <b>21,831 元</b> · 占名义 <b>1.44%</b> · 放大 <b>8×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>53.10%</b> · 剩 <b>16</b> 天（2026-09-18 到期） · 单手可收 <b>36,584 元</b> · 占名义 <b>2.33%</b> · 放大 <b>23×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2609（中证1000 · 2026年9月）</b> · 年化 <b>44.78%</b> · 剩 <b>16</b> 天（2026-09-18 到期） · 单手可收 <b>30,194 元</b> · 占名义 <b>1.96%</b> · 放大 <b>23×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>40.63%</b> · 剩 <b>17</b> 天（2026-09-18 到期） · 单手可收 <b>30,100 元</b> · 占名义 <b>1.89%</b> · 放大 <b>21×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.57%</b> · 剩 <b>200</b> 天（2027-03-19 到期） · 单手可收 <b>89,246 元</b> · 占名义 <b>5.79%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>20.24%</b> · 剩 <b>21</b> 天（2026-09-18 到期） · 单手可收 <b>18,505 元</b> · 占名义 <b>1.16%</b> · 放大 <b>17×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>6.43%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>54,214 元</b> · 占名义 <b>3.59%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>6.43%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>54,214 元</b> · 占名义 <b>3.59%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2612（中证1000 · 2026年12月）</b> · 年化 <b>11.39%</b> · 剩 <b>113</b> 天（2026-12-18 到期） · 单手可收 <b>53,214 元</b> · 占名义 <b>3.53%</b> · 放大 <b>3×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.74%</b> · 剩 <b>205</b> 天（2027-03-19 到期） · 单手可收 <b>90,820 元</b> · 占名义 <b>6.03%</b> · 放大 <b>2×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>15.22%</b> · 剩 <b>23</b> 天（2026-09-18 到期） · 单手可收 <b>14,787 元</b> · 占名义 <b>0.96%</b> · 放大 <b>16×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>15.22%</b> · 剩 <b>23</b> 天（2026-09-18 到期） · 单手可收 <b>14,787 元</b> · 占名义 <b>0.96%</b> · 放大 <b>16×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>17.48%</b> · 剩 <b>24</b> 天（2026-09-18 到期） · 单手可收 <b>17,737 元</b> · 占名义 <b>1.15%</b> · 放大 <b>15×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>17.48%</b> · 剩 <b>24</b> 天（2026-09-18 到期） · 单手可收 <b>17,737 元</b> · 占名义 <b>1.15%</b> · 放大 <b>15×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>16.78%</b> · 剩 <b>25</b> 天（2026-09-18 到期） · 单手可收 <b>17,737 元</b> · 占名义 <b>1.15%</b> · 放大 <b>15×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>16.78%</b> · 剩 <b>25</b> 天（2026-09-18 到期） · 单手可收 <b>17,737 元</b> · 占名义 <b>1.15%</b> · 放大 <b>15×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>15.32%</b> · 剩 <b>28</b> 天（2026-09-18 到期） · 单手可收 <b>18,467 元</b> · 占名义 <b>1.18%</b> · 放大 <b>13×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>14.85%</b> · 剩 <b>28</b> 天（2026-09-18 到期） · 单手可收 <b>17,880 元</b> · 占名义 <b>1.14%</b> · 放大 <b>13×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>14.85%</b> · 剩 <b>28</b> 天（2026-09-18 到期） · 单手可收 <b>17,880 元</b> · 占名义 <b>1.14%</b> · 放大 <b>13×</b></div>
+</div>
+
+  </div>
+  <div class="note-bd">合约 <b>IF2608（沪深300 · 2026年8月）</b> · 年化 <b>45.70%</b> · 剩 <b>1</b> 天（2026-08-21 到期） · 单手可收 <b>1,725 元</b> · 占名义 <b>0.13%</b> · 放大 <b>365×</b></div>
+</div>
+
+  </div>
+  </div>
+</section>
+
+<!-- 贴水走势图 -->
+<section id="trend">
+  <h2>📉 贴水走势图</h2>
+  <p class="sub">近一年股指期货「贴水年化」走势（按 60 天 horizon 归一，剔除近月到期公式放大尖峰）。4 条线为各品种近月主力连续合约的贴水年化；数值越高 = 贴水越厚 = 越值得吃。零线以上为升水、以下为贴水。</p>
+  <div class="trend-wrap" style="position:relative;height:360px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 10px 6px;">
+    <canvas id="trendChart"></canvas>
+  </div>
+  <p class="sub" style="font-size:11px;color:var(--ink3);margin-top:8px">数据来源：akshare（指数现货日线 + 主力连续期货日线）· 年化 = 贴水幅度 × 365 ÷ 60（固定 horizon，避免近月剩 1 天时 ×365 的尖峰失真）· 每日刷新自动更新 · 生成于 <span id="trend-gen"></span></p>
+</section>
+
+<!-- 结论 -->
+<section id="conclusion">
+  <h2>三句话结论</h2>
+  <div class="concl">
+    <ol>
+      <li><b>肉真实存在，但 2026 年明显变薄。</b> 早期玩家吃到的年化 10–15% 是 2016–2022 的行情。当前 IM 最深合约只有 8.44%，IC 为 7.47%，整个基差体系已被指增建仓、雪球对冲、被动基金期货替代重新定价。</li>
+      <li><b>今年最大的结构性变化：近月贴水几乎归零，远月才有肉。</b> <span class="hl">这与 2021 年流传最广的经典结论「滚近月最优」完全相反</span>。IM2608 年化仅 2.83%，IM2703 达 8.44%，差 5.6 个百分点 —— 照抄 5 年前的作业会直接吃亏。</li>
+      <li><b>决定生死的从来不是贴水，是杠杆和入场位。</b> 7 篇实盘帖的共同结论只有一条：3 倍杠杆必爆，2 倍是极限，1.5 倍以内才活得下去。实盘帖原话：<span class="hl">「100万以下买一手 IC 或 IM，不能算吃贴水，只是加杠杆赌上涨」</span>。</li>
+    </ol>
+  
+</section>
+
+<!-- 期限结构 -->
+<section id="term">
+  <h2>期限结构：贴水都在远月</h2>
+  <p class="note" style="margin:0 0 14px;font-size:12.5px;background:#fff;border-left:4px solid #d4af37;padding:10px 14px;border-radius:4px">
+    同一份数据，两种画法对比看：<br>
+    <b>① 专业版（金融标准）</b> —— 中间灰竖线是 0%，柱子<b>向右=贴水赚，向左=升水亏</b>。金融圈看期指贴水都用这种画法，能一眼读出"曲线陡峭化""贴水收敛"等专业结构。<br>
+    <b>② 入门版（人话版）</b> —— 所有柱子统一<b>从左往右长</b>，方向用<b>颜色 + +/- 号 + 文字标签</b>三重视觉明示。不懂术语也能看懂哪个赚哪个亏。
+  </p>
+
+  <!-- 专业版 -->
+  <h3 style="font-size:14px;margin:6px 0 8px;color:var(--ink2);font-weight:700">
+    <span style="background:#1b4f8f;color:#fff;padding:2px 8px;border-radius:3px;margin-right:6px;font-size:11px">专业版</span>
+    期限结构 · 金融标准画法（零基准 + 双向柱）
+  </h3>
+  <div class="chartbox" style="margin-bottom:18px">
+    <div class="legend">
+      <span><i style="background:#c0392b"></i>IM 中证1000</span>
+      <span><i style="background:#d9742b"></i>IC 中证500</span>
+      <span><i style="background:#1b4f8f"></i>IF 沪深300</span>
+      <span><i style="background:#5a9bd4"></i>IH 上证50</span>
+      <span style="margin-left:auto;color:var(--ink3)">横轴 = 年化贴水率，<b>右</b>为贴水（赚），<b>左</b>为升水（亏）。满格 ±10%</span>
+    
+    <div class="bars-pro" id="bars-pro"></div>
+    <div class="bars-note" style="margin-top:10px">
+      <b>专业版读法：</b>中间灰竖线 = <b>0%（无套利中性）</b>；柱子偏离零线<b>越远 = 信号越强</b>。贴水（向右）= 持有到期赚；升水（向左）= 持有到期亏。柱子颜色 = 合约原色，贴水全色、升水降透明度 0.55。这是 Wind / iFinD / 期货研究所通用的画法，能直接看出"曲线倒挂""陡峭化""远月升水"等专业结构。
+    
+  </div>
+
+  <!-- 入门版 -->
+  <h3 style="font-size:14px;margin:14px 0 8px;color:var(--ink2);font-weight:700">
+    <span style="background:#2e8b57;color:#fff;padding:2px 8px;border-radius:3px;margin-right:6px;font-size:11px">入门版</span>
+    年化贴水/升水观察条 · 人话版（柱长=绝对值，方向三重视觉明示）
+  </h3>
+  <div class="chartbox">
+    <div class="legend">
+      <span><i style="background:#c0392b"></i>IM 中证1000</span>
+      <span><i style="background:#d9742b"></i>IC 中证500</span>
+      <span><i style="background:#1b4f8f"></i>IF 沪深300</span>
+      <span><i style="background:#5a9bd4"></i>IH 上证50</span>
+      <span style="margin-left:auto;color:var(--ink3)">柱长 = <b>年化贴水率绝对值</b>（满格 10%）· 红色斜纹 = 升水（亏）· 合约原色 = 贴水（赚）</span>
+    </div>
+    <div class="data-stamp">数据截至 <b>2026-09-18</b> 结算价 · 每个交易日 16:00 自动更新</div>
+    <div class="bars" id="bars"></div>
+    <div class="bars-scale"><span>0%</span><span>5%</span><span>10%</span></div>
+    <div class="bars-note">
+      <b>入门版读法（最简单）：</b><br>
+      ① <b>柱上白字 = 数值（数字直接印在条上，所见即所得）。</b> 柱长 = 年化贴水率<b>绝对值</b>，满格 10%。<br>
+      ② <b>颜色 = 方向（赚/亏）：</b>合约原色实色 = 贴水赚（持有到期多收）；红色斜纹 = 升水亏（持有到期要亏）。<br>
+      ③ <b>数字前符号</b><code>+</code>= 贴水（赚），<code>−</code>= 升水（亏）。<br>
+      ④ <b>右端标签</b>"贴水"或"升水"再次明示，绝不混淆。<br>
+      ⑤ <b>鼠标悬停每根柱</b>可看完整数据：期货/现货点位、月均贴水、剩余天数、持有到期每手赚/亏金额。
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:14px">
+    <b>三个必须注意的异常信号：</b><br>
+    ① <b>曲线陡峭化</b> —— 近月合约被"期货替代现货"的多头买盘推高，肉已被吃干净，必须改看「月均贴水差」而非固守近月规则。<br>
+    ② <b>IF/IH 出现历史罕见深贴水</b> —— 2021 年的方法论帖写过"沪深300和上证50几乎没有贴水"，现在 IF2609 达 6.76%。原因未明，标注仅供参考。<br>
+    ③ <b>当前是暴涨后的高位贴水，含水分</b> —— 8月3–5日中证1000三天涨 5.90%。多篇实盘帖反复验证：<b>涨时贴水扩大，跌时贴水收敛</b>。8% 不是稳态。
+  </div>
+</section>
+
+<!-- 全表 -->
+<section id="full">
+  <h2>四品种全合约明细</h2>
+  <table>
+    <thead><tr>
+      <th>品种</th><th>合约</th><th class="num">期货价</th><th class="num">基差</th>
+      <th class="num">剩余天</th><th class="num">年化贴水</th><th class="num tbl-th-tip" title="月均贴水差 = 月度基差均值（点）。正值=贴水赚（右侧红条）/ 负值=升水亏（左侧绿条）。迷你条以 ±300 点为满格对称显示。">月均贴水差</th>
+      <th class="num">名义市值</th><th class="num">保证金15%</th>
+    </tr></thead>
+    <tbody id="tbl"></tbody>
+  </table>
+</section>
+
+<!-- 测算器 -->
+<section id="calc">
+  <h2>收益 / 保证金测算器</h2>
+  <div class="calc">
+    <div class="ctrl">
+      <div class="fld">
+        <label>合约</label>
+        <select id="sel"></select>
+      </div>
+      <div class="fld">
+        <label>手数</label>
+        <input type="number" id="lots" value="1" min="1" max="20" step="1">
+      </div>
+      <div class="fld">
+        <label>投入资金（万元）<span class="rngv" id="capv">141</span></label>
+        <input type="range" id="cap" min="20" max="600" step="5" value="141">
+      </div>
+      <div class="fld">
+        <label>闲置资金年化（%）<span class="rngv" id="idlev">1.8</span></label>
+        <input type="range" id="idle" min="0" max="5" step="0.1" value="1.8">
+      </div>
+      <div class="fld">
+        <label>假设指数涨跌（%）<span class="rngv" id="betav">0</span></label>
+        <input type="range" id="beta" min="-40" max="40" step="1" value="0">
+      </div>
+    </div>
+
+    <div class="out">
+      <div class="ogrid">
+        <div class="oc"><div class="k">名义市值</div><div class="v" id="o1">—</div><div class="s" id="o1s"></div></div>
+        <div class="oc"><div class="k">实际杠杆</div><div class="v" id="o2">—</div><div class="s" id="o2s"></div></div>
+        <div class="oc"><div class="k">扛跌极限</div><div class="v" id="o3">—</div><div class="s">强平线（15%维持）</div></div>
+        <div class="oc"><div class="k">持有到期贴水收益</div><div class="v v-up" id="o4">—</div><div class="s" id="o4s"></div></div>
+        <div class="oc"><div class="k">闲置资金收益</div><div class="v v-up" id="o5">—</div><div class="s">同期</div></div>
+        <div class="oc"><div class="k">合计损益（含Beta）</div><div class="v" id="o6">—</div><div class="s" id="o6s">对投入资金收益率</div></div>
+      </div>
+      <div class="verdict" id="vd">—</div>
+
+      <div class="stress">
+        <h3 style="margin-top:18px">保证金压力测试 · 需追加金额</h3>
+        <div id="stress"></div>
+        <div style="font-size:11.5px;color:var(--ink3);margin-top:9px;line-height:1.6">
+          追保公式：<code>需补金额 = 亏损额 × (1 − 保证金率)</code>。
+          血泪教训：只备一个跌停（8.5%）<b style="color:var(--danger)">绝对不够</b> —— 交易所会突然上调保证金率、暴跌次日往往还是暴跌、平时没人天天盯保证金。<b>必须备 1.5–2 个跌停。</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 三层账本 -->
+<section id="capital">
+  <h2>三层资金账本（策略生死线）</h2>
+  <table>
+    <thead><tr><th>层级</th><th>用途</th><th class="num">占名义市值</th><th class="num">一手IM金额</th><th>存放形式</th></tr></thead>
+    <tbody>
+      <tr><td>第一层</td><td>初始保证金</td><td class="num">15%</td><td class="num">21.2 万</td><td>期货账户（交易所12%+期货公司3%）</td></tr>
+      <tr><td>第二层</td><td>极端行情追保金</td><td class="num">17%</td><td class="num">24.0 万</td><td>货基 / 银行T+0理财（1.5–2个跌停）</td></tr>
+      <tr><td>第三层</td><td>闲置资金池</td><td class="num">65%</td><td class="num">91.8 万</td><td>国债ETF / 3A转债 / 打新债基</td></tr>
+      <tr class="best"><td><b>合计</b></td><td><b>「1倍杠杆」的真实含义</b></td><td class="num"><b>≈97%</b></td><td class="num"><b>137 万</b></td><td><b>三层必须分开记账</b></td></tr>
+    </tbody>
+  </table>
+  <div style="height:14px"></div>
+  <table>
+    <thead><tr><th>杠杆</th><th class="num">一手IM需备资金</th><th class="num">理论强平跌幅</th><th>实盘帖评价</th></tr></thead>
+    <tbody>
+      <tr><td>1.0 倍</td><td class="num">141 万</td><td class="num">理论不爆</td><td style="color:var(--down)">✅ 最稳，"纯粹的吃贴水"</td></tr>
+      <tr><td>1.5 倍</td><td class="num">94 万</td><td class="num">−60.8%</td><td style="color:var(--down)">✅ 老玩家共识上限</td></tr>
+      <tr><td>2.0 倍</td><td class="num">70 万</td><td class="num">−41.2%</td><td style="color:var(--warn)">⚠️ 极限，会遭遇 68% 回撤</td></tr>
+      <tr><td>3.0 倍</td><td class="num">47 万</td><td class="num">−21.6%</td><td style="color:var(--danger)">❌ "基本上总是要爆仓的"</td></tr>
+      <tr><td>开户线 50 万</td><td class="num">50 万</td><td class="num">−24.1%</td><td style="color:var(--danger)">❌ 这不叫吃贴水，叫赌方向</td></tr>
+    </tbody>
+  </table>
+  <div class="note" style="margin-top:12px;font-size:12px">
+    强平公式：<code>理论强平跌幅 = (自有资金 − 名义市值×15%) ÷ (名义市值×85%)</code>。
+    <b>历史验证：</b>2024 年 1 月至 2 月 5 日中证1000 跌超 30%，<b style="color:var(--danger)">3 倍杠杆在跌 21.6% 时即被强平</b> —— 那一轮集体爆仓是数学必然，不是运气。
+  </div>
+</section>
+
+<!-- 红线 -->
+<section id="redline">
+  <h2>六条风控红线</h2>
+  <div class="rules">
+    <div class="rule"><span class="no">01</span><div>杠杆绝不超过 <b>2 倍</b>。3 倍以上历史证明必爆。</div></div>
+    <div class="rule"><span class="no">02</span><div>绝不<b>浮盈加仓</b>。2024年1-2月集体噩梦的主因。</div></div>
+    <div class="rule"><span class="no">03</span><div>绝不因<b>贴水变大</b>而加仓。贴水扩大往往因为要跌。</div></div>
+    <div class="rule"><span class="no">04</span><div>绝不<b>借钱</b>做。等于把生活质量抵押给市场。</div></div>
+    <div class="rule"><span class="no">05</span><div>绝不<b>高位建仓</b>。低点比贴水更重要——要搞清楚主要矛盾。</div></div>
+    <div class="rule"><span class="no">06</span><div>追保金必须是<b>现金或T+0资产</b>，不能是股票（二次加杠杆）。</div></div>
+  </div>
+</section>
+
+<!-- 移仓规则 -->
+<section id="roll">
+  <h2>移仓换月规则（2026 修正版）</h2>
+  <div id="roll-alert" class="roll-alert"></div>
+  <table>
+    <thead><tr><th>项目</th><th>规则</th><th>依据</th></tr></thead>
+    <tbody class="pit">
+      <tr><td>选合约</td><td>看<b>月均贴水差</b>最大者，不固守近月/远月</td><td>2026年曲线已倒挂，老结论失效</td></tr>
+      <tr><td>移仓时点</td><td>到期<b>前 5–10 个交易日</b>动手，最晚不晚于前 3 天</td><td>提前换避开最后几天流动性塌方；指数期货现金交割，不留过交割日</td></tr>
+      <tr><td>移仓频率</td><td>按季滚动（03/06/09/12）优先</td><td>滑点手续费省 2/3</td></tr>
+      <tr><td>换仓判据</td><td>看两合约<b>价差绝对值</b>，不看收益率</td><td>价差有强均值回复性（IC当月/次月历史均值约60点）</td></tr>
+      <tr><td>分批执行</td><td>大仓位分 3–5 批换</td><td>一次换完常买在最差点位</td></tr>
+      <tr><td>分红季</td><td>5–8月贴水虚高，必须<b>剔除分红</b>判断</td><td>近月含 40–60 点分红因素，是假肉</td></tr>
+      <tr><td>出现升水</td><td>立即移到有贴水合约或暂换 ETF</td><td>2026年1月 IC2602/IM2602 曾转升水</td></tr>
+    </tbody>
+  </table>
+
+  <div class="ops-detail">
+    <h3>换月时机怎么挑（最关键的细节）</h3>
+    <ul>
+      <li><b>核心矛盾：</b>贴水（期货相对现货的折价）会随到期临近<b>自然收敛到 0</b>——你赚的就是"持有期间贴水收敛 + 展期"的钱。所以<b>近月贴水没吃完，就别急着换</b>。</li>
+      <li><span class="tag tag-do">看远月厚度</span>对照本页<b>期限结构图</b>：远月贴水比近月还厚 → <b>早点换</b>，把更厚的远月贴水锁下来；远月贴水变薄/接近平水 → 吃完近月最后这点贴水<b>再换</b>，不亏。</li>
+      <li><span class="tag tag-no">别太晚</span>成交量和盘口深度在到期前约 10 个交易日开始向次月迁移，<b>最后 2–3 天近月盘口变薄、买卖价差拉大</b>——太晚换 = 滑点吃掉部分贴水收益，还可能撞上到期日基差异动。</li>
+      <li><span class="tag tag-do">落地窗口</span>到期<b>前 5–10 个交易日（约日历 8–14 天）</b>动手，<b>最晚不晚于前 3 天</b>。顶部"近月移仓提醒"会按当前数据倒数提示具体日期。</li>
+      <li><span class="tag tag-do">分批换</span>大仓位分 <b>3–5 批</b>、隔 1–2 天换一批；换月当天<b>先开远月、后平近月</b>（或几乎同时），别留裸敞口过夜。</li>
+      <li><span class="tag tag-no">看价差别看收益率</span>换月隐形成本 = 两合约<b>价差（点）</b>。价差明显高于历史均值（如 IC 当月/次月约 60 点）时换 = 贵，等它回落再动手更划算。</li>
+      <li><span class="tag tag-no">分红季注意</span>5–8 月近月贴水含 40–60 点分红因素（假肉），剔除后再判断远月是否真的更划算。</li>
+    </ul>
+  </div>
+
+  <div class="ops-detail" id="roll-ops">
+    <h3>具体怎么操作（含日程范例）</h3>
+    <p style="font-size:12.5px;color:var(--ink2);margin:0 0 12px;line-height:1.65"><b>通用 SOP = 5 步走 + 每批检查。</b>下面以当前数据正在进行的 <b>IM2608 → IM2609</b> 窗口（剩 14 天）为例：30 手分 3 批，8-11 到 8-13 完成。移仓日期直接套用顶部 banner 提示的窗口即可。</p>
+
+    <div class="ops-step">
+      <div class="num">1</div>
+      <div class="body"><b>算账：</b>用页面"期限结构图/计算器"算两个数 ——①<b>远月贴水年化</b> <code>r.ann</code>（决定值不值得换）②<b>两合约价差</b> <code>|d(Far)-d(Near)|</code>（决定今天换贵不贵，IC 历史均值约 60 点，偏离均值 ±30 点以上就别硬换）。例：IM2608 现货 7530 → 期货 7655.6（升水 125 点），IM2609 期货 7590.6（升水 60 点）→ <b>等 2609 转为贴水（年化转向）</b>再执行更优；若贴水已可吃，则换。</div>
+    </div>
+
+    <div class="ops-step">
+      <div class="num">2</div>
+      <div class="body"><b>切资金：</b>把要开仓的远月保证金<b>提前 1 个交易日</b>转入期货账户（避免占用股票仓位）。公式 <code>保证 = 远月价 × 乘数 × 15%</code>，30 手 IM2609 ≈ <code>7590.6 × 300 × 15% × 30 = 1026 万</code>。这笔钱是从近月保证金平移过来的，不是新增。</div>
+    </div>
+
+    <div class="ops-step">
+      <div class="num">3</div>
+      <div class="body"><b>下单：</b>在通达信/期货交易端，<b>先开 远月合约（开仓）</b>，看到回报<b>已成</b>后，再<b>平 近月合约（平仓）</b>，同方向反向手数严格 1:1。下单用<b>"对手价"</b>（即买一/卖一）成交；若极端行情对手价深度差 5 点以上，改<b>"本方价 ±1 跳"</b>挂限价单。<b>绝对不要先平后开</b>，中途系统断线/手抖一下你就裸空了。</div>
+    </div>
+
+    <div class="ops-step">
+      <div class="num">4</div>
+      <div class="body"><b>逐批执行（看日历窗口）：</b>大仓位 30 手分 3 批，10 手/批；50 手分以上分 5 批；个位数仓位一次性换完。每批之间间隔 1–2 个交易日（不是 1–2 个小时）。下面是当前 IM2608 → IM2609 窗口的具体日程：</div>
+    </div>
+
+    <table class="ops-tbl">
+      <thead><tr><th>日期</th><th>批次</th><th>操作</th><th class="num">数量</th><th>触发条件</th></tr></thead>
+      <tbody>
+        <tr><td>08-11 (周一)</td><td>第 1 批</td><td>开 IM2609 → 平 IM2608</td><td class="num">10 手</td><td>开盘后 30 分钟内，两合约价差 ≤ 80 点</td></tr>
+        <tr class="today"><td>08-12 (周二)</td><td>第 2 批</td><td>同上</td><td class="num">10 手</td><td>价差回到 [40, 80] 区间</td></tr>
+        <tr><td>08-13 (周三)</td><td>第 3 批（末批）</td><td>同上</td><td class="num">10 手</td><td>午盘 11:30 前完成，收盘前保证账户零近月</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ops-step">
+      <div class="num">5</div>
+      <div class="body"><b>核对：</b>每批结束后 30 秒做以下 4 项检查，全部通过再走开。<b>任何一项不通过 → 暂停后续批次，等条件回来</b>。</div>
+    </div>
+
+    <table class="ops-tbl">
+      <thead><tr><th>#</th><th>检查项</th><th>怎么对</th><th class="num">通过标准</th></tr></thead>
+      <tbody>
+        <tr><td>①</td><td>开仓成交价 ≤ 期望限价 + 1 跳</td><td>期货端"当日成交"</td><td class="num">滑点 ≤ 0.5 点</td></tr>
+        <tr><td>②</td><td>平仓成交价 ≥ 期望限价 - 1 跳</td><td>同上</td><td class="num">滑点 ≤ 0.5 点</td></tr>
+        <tr><td>③</td><td>实际价差 = (远月开仓价 - 近月平仓价) ≤ 计算器值 +2 点</td><td>手动算或计算器重算</td><td class="num">偏差 ≤ 2 点</td></tr>
+        <tr><td>④</td><td>账户保证金净变化</td><td>看"资金账户"：释放近月 - 占用远月</td><td class="num">差额 = (近月价 - 远月价) × 乘数 × 15%</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:13px;font-weight:700;color:var(--ink2);margin:14px 0 6px">异常情况处理（3 种最常见的坑）</h3>
+    <div class="ops-callout">
+      <b>坑 1：价差突然拉大 (>100 点)</b>　立刻停止后续批次，<b>等 1-2 天</b>看均值是否回归；不回就把剩余批次数 ÷2（本来 3 批 → 拖成 5 批分摊滑点）。典型诱因：隔夜外盘冲击 / 政策消息 / 主力资金跨期套利。
+    </div>
+    <div class="ops-callout">
+      <b>坑 2：程序卡死 — 开了远月还没平近月</b>　<b>立刻市价补平</b>近月（哪怕滑点贵），不留裸敞口过夜。第二天再用均匀批次补回，别追一次性补完。<b>绝不要</b>"等等看会不会回来"——一笔裸敞口能吃掉 3 个批次的贴水收益。
+    </div>
+    <div class="ops-callout">
+      <b>坑 3：限价单挂出去一直未成交</b>　改用<b>"对手价"</b>市价成（手数小时滑点可控）；手数大时分 3-5 个限价单逐笔在买一价 ±1 跳分批挂，<b>始终挂一个未成交就撤单重挂</b>，避免单笔被闷在大单堆里。
+    </div>
+
+    <h3 style="font-size:13px;font-weight:700;color:var(--ink2);margin:14px 0 6px">捷径：差价过大 / 急用钱 → 换 ETF 兜底</h3>
+    <div class="ops-step">
+      <div class="num">⚡</div>
+      <div class="body">如果窗口期远月贴水始终没出来，或资金链紧张、3 天内必须平掉近月 —— <b>不要硬移</b>，把<b>整个仓位一次性换成对应 ETF</b>（如 <code>中证1000ETF(159845)</code> / <code>中证500ETF(510500)</code>）。优点：零移仓成本、不用管合约月份、占用保证金降一档；代价：<b>失去年化 5-10% 的贴水收益</b>。判断阈值：<b>如果移仓的预期收益（剩余贴水年化 × 仓位 × 剩余天数/365）&lt; 2000 元/手</b>，不如直接换 ETF。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 资金利用与机会成本 -->
+<section id="capital-use">
+  <h2>资金有限怎么用 · 机会成本与到期时点</h2>
+
+  <div class="ops-callout" style="border-left-color:var(--accent)">
+    <b>一句话：</b>近月与远月是<b>接力</b>，不是二选一。近月到期释放的保证金，立刻能开远月 —— 同一笔钱滚动利用，<b>不存在"买了近月就放弃远月"</b>。真正要算的是：把有限的钱押在哪段、吃哪块肉最划算。
+  </div>
+
+  <h3 style="font-size:13px;font-weight:700;color:var(--ink2);margin:14px 0 6px">一、机会成本算账（以 1 手 IM 保证金 ≈ 21 万为例）</h3>
+  <table>
+    <thead><tr><th>方案</th><th>操作</th><th>资金占用</th><th>年化收益</th><th>机会成本</th></tr></thead>
+    <tbody class="pit">
+      <tr><td>只做远月</td><td>持 IM2703 滚到次年 3 月</td><td>21万锁死</td><td>8.44%（真肉）</td><td>放弃近月间隙收益</td></tr>
+      <tr><td>近月接力</td><td>8/21前平 IC2608 → 开 IM2609/2703</td><td>21万滚动</td><td>8.44% + 近月附加</td><td>几乎无，钱不闲置</td></tr>
+      <tr><td>满仓滚近月</td><td>一直滚最近月</td><td>21万滚动</td><td>看当月贴水</td><td>近月常年贴水薄，多数时段不如远月</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12.5px;color:var(--ink2);line-height:1.65;margin:8px 0 4px">⚠ <b>区分真肉与假肉：</b>当前 IC2608 显示 57.70% 年化，但这是<b>只剩 4 天到期被公式放大</b>的假象，绝对收益只有 <b>10,106 元/手</b>。真实稳定收益在远月（IM2703 年化 8.44%）。近月那 10,106 元是"白捡的间隙收益"——只占用 4 天保证金，到期后钱还能去远月继续吃 8%，<b>两者不冲突</b>。</p>
+
+  <h3 style="font-size:13px;font-weight:700;color:var(--ink2);margin:14px 0 6px">二、资金量级排布</h3>
+  <table>
+    <thead><tr><th>资金量级</th><th>推荐排布</th><th>说明</th></tr></thead>
+    <tbody class="pit">
+      <tr><td>只够 1 手保证金（≈21万）</td><td>1手远月打底，近月有肉顺手吃</td><td>滚动利用，保证金不闲置</td></tr>
+      <tr><td>够 2 手（≈42万）</td><td>1手远月 + 1手近月同时持有</td><td>资金效率最高：远月吃稳肉，近月吃间隙</td></tr>
+      <tr><td>够多手</td><td>多手远月 + 机动近月</td><td>主力吃稳肉，机动仓抓近月异常贴水</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:13px;font-weight:700;color:var(--ink2);margin:14px 0 6px">三、8月21日到期：早上卖还是下午卖？</h3>
+  <div class="ops-detail">
+    <ul>
+      <li><span class="tag tag-do">最省心</span><b>持有到收盘，让系统自动现金交割。</b>股指期货交割价 = 最后交易日标的指数<b>最后 2 小时算术平均价</b>，贴水会在收盘前收敛到 0，你吃满全部贴水，不费操作。</li>
+      <li><span class="tag tag-do">想滚动</span>若计划换远月，<b>不要在 8/21 当天操作</b>。提前 2–3 天（8/18–19）就移仓，避开最后交易日流动性塌方和可能的基差异动。</li>
+      <li><span class="tag tag-do">移仓窗口</span>移仓选<b>尾盘 14:30–15:00</b>。理由：此时近月贴水收敛最充分、与远月价差最干净，滑点最小。</li>
+      <li><span class="tag tag-no">别踩</span>不要在<b>开盘/午盘</b>急匆匆平近月——波动大、贴水未收敛，容易卖在基差还没消失的位置，少赚一点。</li>
+    </ul>
+  </div>
+  <div class="ops-callout">
+    <b>结论：</b>不打算换月的，<b>8/21 收盘前啥都不用干</b>，系统自动结算，贴水落袋；打算换远月的，<b>8/18–19 尾盘</b>平旧开新，别等到交割日当天。
+  </div>
+
+  <h3 style="font-size:13px;font-weight:700;color:var(--ink2);margin:14px 0 6px">四、到底坚持远月还是短期获利出逃（决策树）</h3>
+  <table>
+    <thead><tr><th>当前状态</th><th>决策</th><th>理由</th></tr></thead>
+    <tbody class="pit">
+      <tr><td>已持有近月 IC2608</td><td><b>拿到 8/21 到期</b>，再换远月</td><td>10,106 元是已锁定利润，放弃=白送；4 天后保证金释放接远月，不冲突</td></tr>
+      <tr><td>未开仓、资金有限</td><td><b>直接开远月 IM2703</b></td><td>别为 1 万块折腾 4 天，手续费+滑点可能吃掉几百；远月 76,398 元才是主菜</td></tr>
+      <tr><td>资金充裕（≥2手）</td><td>1手远月 + 1手近月同时持</td><td>资金效率最高，两块肉都吃到</td></tr>
+      <tr><td>担心短期暴跌</td><td>只吃近月、到期观望</td><td>近月只扛 4 天风险 vs 远月扛 7 个半月；避险时近月更安全</td></tr>
+    </tbody>
+  </table>
+  <div class="ops-callout" style="border-left-color:var(--danger)">
+    <b>最差选择：</b>为了追近月那 57.7% 的<b>假高年化</b>，把本来准备投远月的子弹挪过来——那是被公式数字骗了。10,106 元是真金白银，76,398 元远月才是这套策略的主菜。
+  </div>
+</section>
+
+<!-- 交割日历 -->
+<section id="calendar">
+  <h2>2026–2027 交割日历</h2>
+  <div class="tl-suggest" id="tl-suggest"><!-- JS 填充：当前持仓→推荐换入 --></div>
+  <div class="tl" id="tl">
+    <div class="tl-i now"><div class="tag">◀ 当前持仓</div><div class="c">2608</div><div class="d">2026-08-21</div><div class="m">08-18 前移仓</div><div class="h" data-fill="2608"></div></div>
+    <div class="tl-i"><div class="c">2609</div><div class="d">2026-09-18</div><div class="m">09-15 前移仓</div><div class="h" data-fill="2609"></div></div>
+    <div class="tl-i"><div class="c">2612</div><div class="d">2026-12-18</div><div class="m">12-15 前移仓</div><div class="h" data-fill="2612"></div></div>
+    <div class="tl-i best"><div class="tag">换到这里 ▶</div><div class="c">2703</div><div class="d">2027-03-19</div><div class="m">03-16 前移仓</div><div class="h" data-fill="2703"></div></div>
+  </div>
+  <div class="note" style="margin-top:10px;font-size:12px">
+    <b>图例：</b>🔴 红色卡片 = 当前最近月（需移仓）；🟢 绿色卡片 = 当前品种年化贴水最厚的合约（推荐换入）。<br>
+    <b>换月铁律：</b> 跨品种、跨合约的"哪个换哪个"取决于 <b>「剩余年化贴水 × 剩余天数」最大者</b>，不固守近月/远月。
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 终局 / 永续滚 / 退出 ═══════════════════════════ -->
+<section id="endgame">
+  <h2>持有到期会怎样 · 永续滚 · 退出条件</h2>
+  <div class="note">
+    <b>一句话核心：</b>贴水不是"额外收益"，是期货比现货便宜的那段缺口。你的总收益 = <b>指数涨跌 + 贴水收敛</b>。
+    指数横盘时贴水才完整落袋；指数大跌时贴水只是缓冲（而且缓冲在进场那一刻就锁定了，不会随下跌变大）。
+  </div>
+
+  <h3 class="eg-h">① 持有到期会怎样（以 IM2703 为例，数据自动算）</h3>
+  <div class="eg-cards" id="eg-expire-cards"><!-- JS 填充 --></div>
+  <div class="note" style="margin-top:10px">
+    期货到期价<b>必然收敛到现货</b>（现金交割）。所以"持有到期"的盈亏 = 到期时现货相对进场价的涨跌 + 进场时锁定的贴水（基差收敛）。
+    <b>贴水在开仓那一刻就固定</b>，之后指数每跌 1% 你亏的是 <code>1% × 现货 × 乘数</code>，跟贴水无关——跌超缓冲线后全是纯 beta 亏损。
+  </div>
+
+  <h3 class="eg-h">② 永续滚的收益结构</h3>
+  <div class="eg-roll">
+    <div class="box good">
+      <h4>✅ 当前倒挂结构 → 滚动能吃到新贴水</h4>
+      近月贵（2608 升水 −43%）、远月便宜（2703 贴水 +6.78%）。2703 临到期时贴水已收敛到≈0（变公平价），
+      若新远月（2706/2709）<b>仍有贴水</b> → 你"低价平掉公平的 2703、低价买入带贴水的新远月" = 滚动对你有利。
+    </div>
+    <div class="box bad">
+      <h4>⚠️ 若曲线正常化（contango）→ 每次滚都亏</h4>
+      远月比近月贵时，滚近→远 = "卖便宜买贵"，每次滚动价差都啃掉贴水。
+      历史上 2023 年 IC 全年只吃到 186 点，就是贴水收窄 + 滚动损耗叠加的结果。
+    </div>
+  </div>
+  <div class="note" style="margin-top:0">
+    <b>滚动隐形成本 = 滚动时两个合约的价差</b>（不是你进场时的价差）。判断阈值：滚动价差明显高于历史均值（IC 当月/次月约 60 点）时，等回落再滚更划算。
+    这个策略没有终点——只要贴水还在就一直滚；触发下面的退出条件才离场。
+  </div>
+
+  <h3 class="eg-h">③ 滚到 2703 后 IM 下跌怎么办（压力测试，单手，自动算）</h3>
+  <table class="eg-stress">
+    <thead><tr><th>IM 跌幅</th><th class="num">指数盈亏/手</th><th class="num">+ 贴水缓冲</th><th class="num">净盈亏/手</th><th class="num">保证金余额</th><th>状态</th></tr></thead>
+    <tbody id="eg-stress"><!-- JS 填充 --></tbody>
+  </table>
+  <div class="note" style="margin-top:10px">
+    假设：初始保证金 = 15% × 名义市值（<span id="eg-margin"></span>）；维持保证金率按 <b>12%</b> 估算（经纪商或更高）；追保触发 = 余额 &lt; 维持保证金；强平 ≈ 余额 ≤ 0。
+    <b>15% 保证金 ≈ 6.7 倍杠杆</b>，指数跌 ~10% 触发追保、~13% 逼近强平线。多手持仓按比例放大。
+    <b>贴水只缓冲约 <span id="eg-cushion"></span> 的下跌</b>，超过即净亏——它救不了单边熊市，真跌起来该减仓/降杠杆而非指望贴水。
+  </div>
+
+  <h3 class="eg-h">③-续 下跌时"继续滚"的真实账（年化视角，自动算）</h3>
+  <div class="note" style="margin-top:0;margin-bottom:8px">
+    上面 ③ 是"持有到期一次"的账：贴水只在开仓那一刻锁 ~4.16%（224 天），跌超即净亏。<b>继续滚则每轮都重新吃一次贴水</b>——
+    IM2703 年化贴水 ≈ <span id="eg-ann"></span>，等于你<b>每年</b>能重新补这么厚的缓冲。
+    所以"继续滚"在下跌市里是<b>少亏、不是避险</b>：年跌幅 ≤ 年化贴水时整体仍赚；年跌幅 &gt; 年化贴水时净亏，但比裸持现货少亏这截贴水。
+  </div>
+  <table class="eg-stress">
+    <thead><tr><th>指数年化跌幅</th><th class="num">指数盈亏/年</th><th class="num">+ 年化贴水</th><th class="num">净盈亏/年</th><th class="num">比裸持少亏</th><th>结论</th></tr></thead>
+    <tbody id="eg-rolldown"><!-- JS 填充 --></tbody>
+  </table>
+  <div class="note" style="margin-top:10px">
+    ⚠️ 缓冲以进场名义市值（<span id="eg-ann-nominal"></span>）估算；实际每滚一轮名义随指数下降而递减，真实缓冲会略小于表中值。
+    结论不变：<b>滚贴水救不了单边熊市，它只是把 beta 亏损削掉一截年化贴水</b>——真遇深跌仍要按 ④ 退出条件降杠杆/减仓。
+  </div>
+
+  <h3 class="eg-h">④ 退出条件（策略的终局）</h3>
+  <ul class="eg-exit">
+    <li><b>贴水普遍消失 / 转升水</b>：全合约年化贴水转负（像现在 2608 那样 −43%）→ 边缘优势没了，按日历 banner 提示换 <b>159845 / 510500</b> ETF 兜底。</li>
+    <li><b>你需要用钱</b>：到期前平仓即可，但别在急用钱时被迫低位割肉——提前规划流动性。</li>
+    <li><b>指数暴跌触发保证金压力</b>：余额逼近维持保证金时，先补钱或减仓，<b>绝不留裸敞口过夜</b>（与前面移仓 SOP 一致）。</li>
+    <li><b>策略本质 = LONG 指数</b>：贴水只是给多头加的薄垫，不是对冲。怕下跌应降杠杆 / 减仓，而非指望贴水。</li>
+  </ul>
+</section>
+
+<!-- 踩坑 -->
+<section>
+  <h2>踩坑名录（网络收录真实案例）</h2>
+  <table>
+    <thead><tr><th>坑</th><th>案例</th><th>教训</th></tr></thead>
+    <tbody class="pit">
+      <tr><td>高杠杆</td><td>某实盘者2倍起步→加到10倍，净值跌到 0.2，被迫贷款</td><td>杠杆是魔鬼，波动会让人丢掉原则</td></tr>
+      <tr><td>浮盈加仓</td><td>上涨中"脑子一热加一手"，立刻套牢</td><td>上涨自然降杠杆，别主动加回去</td></tr>
+      <tr><td>贴水加仓</td><td>见贴水变厚就加，结果贴水扩大是因为要跌</td><td>贴水和风险同向</td></tr>
+      <tr><td>频繁 T0</td><td>10个交易日交 3.6 万手续费且每笔亏损</td><td>平今仓费率是隔夜的 <b>10 倍</b>（万2.3 vs 万0.23）</td></tr>
+      <tr><td>底部割肉</td><td>2024年2月5日多人割在最低点</td><td>备足追保金的唯一目的就是不在低点失去头寸</td></tr>
+      <tr><td>贴水断供</td><td>2023年 IC 全年只吃到 <b>186 点</b></td><td>贴水不是固定工资，会断供</td></tr>
+      <tr><td>切品种</td><td>2022年8月价差高位从 IC 换 IM，2024两个低点巨亏</td><td>切换品种也是择时，同样会错</td></tr>
+      <tr><td>借钱投资</td><td>借50万给亲戚5–10年还；借出20万人联系不上</td><td>赚钱容易时手别松</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 帖子索引 -->
+<section>
+  <h2>网络收录高价值实盘帖索引</h2>
+  <div class="note" style="margin-bottom:14px;font-size:12px">
+    以下均为网络公开收录内容，已隐去原站点与发帖人标识，仅保留主题、时间与信息价值。
+  </div>
+  <div class="posts">
+    <div class="post">
+      <div class="pt"><span class="rank">1</span>期指贴水策略 FAQ</div>
+      <div class="pm">2021-03 · 方法论总纲</div>
+      <div class="pd">9 问覆盖全部基础问题。保证金"血的教训"章节最有价值，是关于追保准备最系统的论述。</div>
+    </div>
+    <div class="post">
+      <div class="pt"><span class="rank">2</span>从10倍到1000倍——吃 IC 贴水的正确姿势</div>
+      <div class="pm">2021-02 · 唯一系统回测</div>
+      <div class="pd">2015–2020 全样本回测：合约选择、最大回撤、爆仓阈值、交易成本敏感性。"3倍杠杆必爆"结论出处。</div>
+    </div>
+    <div class="post">
+      <div class="pt"><span class="rank">3</span>4年前开始吃贴水的兄弟怎么样了</div>
+      <div class="pm">2025-06→2026-05 · 完整实盘</div>
+      <div class="pd">单手期指 4 年全周期记录，3 次至暗时刻（最惨浮亏30万＝本金1.5倍），最终盈利 87 万退出。心理压力实录。</div>
+    </div>
+    <div class="post">
+      <div class="pt"><span class="rank">4</span>构建以高抛低吸为核心的多种策略</div>
+      <div class="pm">2026 · 策略族全景</div>
+      <div class="pd">无脑吃贴水10%/波段7%/卖沽增强5%/价差4-8%，附1000万资金的具体手数建议（1-3手，最多4手）。</div>
+    </div>
+    <div class="post">
+      <div class="pt"><span class="rank">5</span>股指期货 IC 长期吃贴水实盘</div>
+      <div class="pm">2019→ · 逐笔移仓</div>
+      <div class="pd">6 年逐笔移仓记录，"商铺收租"心法（日均贴水×200×手数＝每日租金），换月月份选择实操。</div>
+    </div>
+    <div class="post">
+      <div class="pt"><span class="rank">6</span>贴水历史演变长帖</div>
+      <div class="pm">2015至今 · 贴水历史演变</div>
+      <div class="pd">贴水从升水→股灾后年化30%→逐年收敛的完整史料。对冲吃贴水（多近空远）→单多吃贴水的转型逻辑。</div>
+    </div>
+    <div class="post">
+      <div class="pt"><span class="rank">7</span>铁矿石吃贴水策略实盘</div>
+      <div class="pm">2025-11 · 两大铁律</div>
+      <div class="pd">提炼出吃贴水的两条铁律；并指出长期稳定贴水的品种只有三个：IC、IM、铁矿石。低相关分散思路。</div>
+    </div>
+    <div class="post">
+      <div class="pt"><span class="rank">＋</span>策略原始推导长帖（延伸）</div>
+      <div class="pm">2025 · 连载更新</div>
+      <div class="pd">上述多个策略的原始推导过程都在这里连载更新，适合深挖单个模块。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 底层逻辑 -->
+<section>
+  <h2>这块肉从哪来</h2>
+  <div class="chartbox">
+    <svg viewBox="0 0 1000 200" style="width:100%;height:auto">
+      <defs><marker id="ar" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+        <polygon points="0 0, 9 3.5, 0 7" fill="#868e96"/></marker></defs>
+      <rect x="20" y="60" width="185" height="76" rx="7" fill="#e8eff8" stroke="#1b4f8f" stroke-width="1.2"/>
+      <text x="112" y="88" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1b4f8f">量化中性策略</text>
+      <text x="112" y="108" text-anchor="middle" font-size="11.5" fill="#4a5058">持续、刚性、大规模</text>
+      <text x="112" y="124" text-anchor="middle" font-size="11.5" fill="#4a5058">做空股指期货对冲</text>
+
+      <line x1="212" y1="98" x2="258" y2="98" stroke="#868e96" stroke-width="1.5" marker-end="url(#ar)"/>
+
+      <rect x="265" y="60" width="185" height="76" rx="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+      <text x="357" y="88" text-anchor="middle" font-size="13.5" font-weight="700" fill="#c0392b">期货价格被压低</text>
+      <text x="357" y="108" text-anchor="middle" font-size="11.5" fill="#4a5058">跌破现货指数</text>
+      <text x="357" y="124" text-anchor="middle" font-size="11.5" fill="#4a5058">形成负基差 = 贴水</text>
+
+      <line x1="457" y1="98" x2="503" y2="98" stroke="#868e96" stroke-width="1.5" marker-end="url(#ar)"/>
+
+      <rect x="510" y="60" width="185" height="76" rx="7" fill="#fdf4e7" stroke="#b5651d" stroke-width="1.2"/>
+      <text x="602" y="88" text-anchor="middle" font-size="13.5" font-weight="700" fill="#b5651d">A股禁止裸卖空</text>
+      <text x="602" y="108" text-anchor="middle" font-size="11.5" fill="#4a5058">套利盘无法做空现货</text>
+      <text x="602" y="124" text-anchor="middle" font-size="11.5" fill="#4a5058">价差修不回去</text>
+
+      <line x1="702" y1="98" x2="748" y2="98" stroke="#868e96" stroke-width="1.5" marker-end="url(#ar)"/>
+
+      <rect x="755" y="60" width="225" height="76" rx="7" fill="#e8f6ef" stroke="#0b6e4f" stroke-width="1.2"/>
+      <text x="867" y="88" text-anchor="middle" font-size="13.5" font-weight="700" fill="#0b6e4f">多头获得"补贴"</text>
+      <text x="867" y="108" text-anchor="middle" font-size="11.5" fill="#4a5058">贴水到期强制收敛至 0</text>
+      <text x="867" y="124" text-anchor="middle" font-size="11.5" fill="#4a5058">这就是可吃的那块肉</text>
+
+      <text x="500" y="172" text-anchor="middle" font-size="12.5" fill="#868e96">两个条件缺一不可 —— 有人持续付费做空 ＋ 卖空约束让价差修不回去</text>
+    </svg>
+  </div>
+  <div class="note" style="margin-top:14px">
+    <b>那贴水什么时候会消失？</b> 当中性策略规模萎缩，或多头需求（指增建仓 / 雪球对冲 / 被动基金期货替代）超过空头套保需求时。
+    <b>2026年1月就发生过</b>：IC2602、IM2602 一度转为<b>升水</b>，年化升水率 4.76% / 1.79%。这也解释了今年贴水系统性收窄的原因。
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 完整报告区域（MD 补充） ═══════════════════════════ -->
+
+<div class="rpt-sep"><span style="background:var(--bg);padding:0 16px;position:relative;font-size:14px;font-weight:700;color:var(--ink3);z-index:1">━━━ 完整研究报告 ━━━</span></div>
+
+<!-- 收益拆解 -->
+<section id="report">
+  <h2 id="compare">收益拆解：期指多头 vs 直接买 ETF</h2>
+  <div class="rpt-sec">
+    <table>
+      <thead><tr><th>项目</th><th>期指多头</th><th>指数ETF</th></tr></thead>
+      <tbody>
+        <tr><td>指数 Beta</td><td>✅ 相同</td><td>✅ 相同</td></tr>
+        <tr><td>贴水收敛收益</td><td>✅ <b>+5~8%/年</b>（当前）</td><td>❌</td></tr>
+        <tr><td>闲置资金收益</td><td>✅ 约 85% 资金可买货基/国债ETF</td><td>❌ 全额占用</td></tr>
+        <tr><td>成分股分红</td><td>❌ 拿不到（已隐含在基差里）</td><td>✅</td></tr>
+        <tr><td>打新收益</td><td>❌</td><td>✅（小规模指增有）</td></tr>
+        <tr><td>管理费</td><td>✅ 无</td><td>❌ 0.15–1.5%</td></tr>
+        <tr><td>摩擦成本</td><td>移仓滑点 + 手续费</td><td>申赎/佣金</td></tr>
+        <tr style="background:var(--danger-bg)"><td><b>爆仓风险</b></td><td>⚠️ <b>有</b></td><td>✅ 无</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 品种选择 -->
+<section id="selection">
+  <h2>品种选择与建议</h2>
+  <div class="rpt-sec">
+    <table>
+      <thead><tr><th>品种</th><th>当前最优年化</th><th>一手名义市值</th><th>波动性</th><th>建议</th></tr></thead>
+      <tbody>
+        <tr class="best"><td><b>IM</b>（中证1000）</td><td><b>8.44%</b></td><td>137.9万</td><td>最高</td><td>贴水最厚，但回撤也最狠。首选，仓位要小</td></tr>
+        <tr><td><b>IC</b>（中证500）</td><td>7.47%</td><td>145.1万</td><td>高</td><td>贴水略薄，波动小于 IM，稳健型首选</td></tr>
+        <tr><td><b>IF</b>（沪深300）</td><td>6.31%</td><td>132.6万</td><td>中</td><td>今年贴水异常走深，性价比意外不错</td></tr>
+        <tr><td><b>IH</b>（上证50）</td><td>4.34%</td><td>84.0万</td><td>最低</td><td>贴水最薄，但<b>门槛最低</b>，适合小资金练手或防守切换</td></tr>
+      </tbody>
+    </table>
+    <div class="note-blue" style="margin-top:14px">
+      <b>结论：</b>主力仓位 IM 或 IC；若资金不足以覆盖一手 IM 名义市值，<b>用 IH 是唯一"不加杠杆"的现实选择</b>，代价是贴水只有一半。
+    </div>
+  </div>
+</section>
+
+<!-- 单手持有到期收益 -->
+<section>
+  <h2>单手持有到期的绝对收益（静态外推）</h2>
+  <div class="rpt-sec">
+    <table>
+      <thead><tr><th>合约</th><th class="num">持有到期贴水收益</th><th class="num">天数</th><th class="num">年化</th></tr></thead>
+      <tbody>
+        <tr class="best"><td><b>IM2703</b></td><td class="num"><b>76,398 元</b></td><td class="num">227</td><td class="num"><b>8.44%</b></td></tr>
+        <tr><td>IM2612</td><td class="num">42,318 元</td><td class="num">136</td><td class="num">7.80%</td></tr>
+        <tr><td>IC2703</td><td class="num">70,698 元</td><td class="num">227</td><td class="num">7.47%</td></tr>
+        <tr><td>IC2612</td><td class="num">40,818 元</td><td class="num">136</td><td class="num">7.20%</td></tr>
+        <tr><td>IF2703</td><td class="num">54,159 元</td><td class="num">227</td><td class="num">6.31%</td></tr>
+        <tr><td>IH2703</td><td class="num">23,301 元</td><td class="num">227</td><td class="num">4.34%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 择时 -->
+<section id="timing">
+  <h2>择时：做还是不做</h2>
+  <div class="rpt-sec">
+    <h3>网络收录中的三派观点</h3>
+    <table>
+      <thead><tr><th>派别</th><th>主张</th><th>代表证据</th></tr></thead>
+      <tbody class="pit">
+        <tr><td><b>不择时派</b>（主流）</td><td>"只要有贴水就能干"，长期滚动普适性最好</td><td>一位持有者 4 年硬扛，最终 1 手盈利 87 万</td></tr>
+        <tr><td><b>择时派</b></td><td>低位进、高位出；IM 6000 以下才建仓</td><td>实盘记录：6400 进、8300 清，年化远超无脑滚</td></tr>
+        <tr><td><b>日历派</b></td><td>12月/1月/4月换防守仓，其余 9 个月吃贴水</td><td>回测年化 7%，贴水/回撤比显著改善；<b>但 2025 年机械执行失效</b></td></tr>
+      </tbody>
+    </table>
+    <h3 style="margin-top:18px">判断与建议（个人观点）</h3>
+    <p>以价值投资框架来看，"不择时"和体系冲突。建议采用<strong>弱择时</strong>——不做短期波段，但设定入场估值区间：</p>
+    <ul>
+      <li>中证1000 当前约 7493 点，处于近年偏高位置 → <b>不是好的建仓位</b></li>
+      <li>参考网络收录给出的锚：<code>IM 4700–5500 重仓，5500–6300 建仓，6300 以上轻仓，8100+ 减仓</code></li>
+      <li>当前 7493 点：<b>属于"轻仓或观望"区间</b></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 铁律 -->
+<section>
+  <h2>两条铁律（由 6 年实盘提炼）</h2>
+  <div class="rpt-sec">
+    <div class="note" style="margin-bottom:14px">
+      <b>铁律一：只做"一直都有贴水"的品种。</b><br>
+      不能是"价格高位有贴水、价格低了变升水"（大部分商品期货是这样），也不能是"有时有有时没有"。经验证长期稳定贴水的只有三个：<b>IC、IM、铁矿石</b>。
+    </div>
+    <div class="note">
+      <b>铁律二：必须在中等偏下的价格入场，绝不高位浮盈加仓。</b><br>
+      实盘帖原话："你 200% 仓位去吃单个品种的贴水，迟早要死的，22年、24年的 IC、IM 已经吃了多少教训了。"
+    </div>
+  </div>
+</section>
+
+<!-- 增强模块 -->
+<section id="enhance">
+  <h2>增强模块（可选，风险递增）</h2>
+  <div class="rpt-sec">
+    <table>
+      <thead><tr><th>模块</th><th>增厚收益</th><th>风险</th><th>建议</th></tr></thead>
+      <tbody>
+        <tr><td>闲置资金买货基/国债ETF</td><td>+1.5~2%/年</td><td>极低</td><td style="color:var(--down)">✅ 必做</td></tr>
+        <tr><td>卖深虚 MO 认沽</td><td>+5%/年（配2手，贴水 10%→15%）</td><td>⚠️ 急跌时保证金爆炸，曾单日补 80 万</td><td style="color:var(--warn)">❌ 熟练后再考虑</td></tr>
+        <tr><td>IM-IC 价差吃贴水</td><td>+4%/年</td><td>回撤极小但收益小；2026 年该价差处历史低位被套</td><td style="color:var(--accent)">🔶 对冲思路可参考</td></tr>
+        <tr><td>备兑卖虚值看涨</td><td>权利金缓冲</td><td>牺牲大涨收益</td><td style="color:var(--accent)">🔶 震荡市可用</td></tr>
+        <tr><td>铁矿石吃贴水</td><td>10~30%/年</td><td>与股指相关性极低，可分散</td><td style="color:var(--accent)">🔶 单独研究</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 摩擦成本 -->
+<section id="cost">
+  <h2>摩擦成本清单</h2>
+  <div class="rpt-sec">
+    <table>
+      <thead><tr><th>项目</th><th>标准</th><th>一手 IM 单次金额</th></tr></thead>
+      <tbody>
+        <tr><td>交易所保证金</td><td>12%</td><td>16.97 万</td></tr>
+        <tr><td>期货公司加收</td><td>+3%（可协商）</td><td>合计 15% = 21.2 万</td></tr>
+        <tr><td>开仓/隔夜平仓手续费</td><td>万分之 0.23</td><td>约 32.5 元</td></tr>
+        <tr style="background:var(--warn-bg)"><td><b>平今仓手续费</b></td><td><b>万分之 2.3（10倍）</b></td><td><b>约 325 元 ⚠️</b></td></tr>
+        <tr><td>交割手续费</td><td>2026 全年减半</td><td>—</td></tr>
+        <tr><td>移仓滑点</td><td>最小变动 0.2 点 = 40 元/手</td><td>按季滚动全年约 4 次</td></tr>
+        <tr class="best"><td><b>全年摩擦（按季滚动）</b></td><td>手续费 + 滑点</td><td><b>约 300–500 元/手/年</b></td></tr>
+      </tbody>
+    </table>
+    <div class="note-blue" style="margin-top:14px">
+      <b>结论：</b>摩擦成本对这个策略几乎可以忽略（占名义市值 0.03%），前提是<strong>按季滚动 + 绝不做日内</strong>。若改为按月滚动，成本翻 3 倍仍属可控；但若频繁 T0，平今仓费率会直接吃掉全部贴水收益。
+    </div>
+  </div>
+</section>
+
+<!-- 回撤准备 -->
+<section>
+  <h2>回撤心理准备</h2>
+  <div class="rpt-sec">
+    <table>
+      <thead><tr><th>时期</th><th>最大回撤</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td>2015 股灾</td><td>极端</td><td>无参考意义</td></tr>
+        <tr><td>2018 上轮高点</td><td>约 33%（无杠杆）</td><td>2 倍杠杆 = 68%</td></tr>
+        <tr><td>2022.3–4</td><td>单日 −13%（200%仓位）</td><td>戴维斯双杀：指数跌 + 贴水扩</td></tr>
+        <tr style="background:var(--danger-bg)"><td>2024.1–2</td><td>净值一度 0.2</td><td><b>集体至暗时刻</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 落地清单 -->
+<section id="checklist">
+  <h2>落地检查清单</h2>
+  <div class="rpt-sec">
+    <p style="margin-bottom:12px"><b>开仓前逐条打勾，有一条不满足就别做：</b></p>
+    <ul class="checklist">
+      <li>已开通金融期货交易权限（50 万验资 + 知识测试 + 10 笔仿真或实盘商品期货经历）</li>
+      <li>可用于本策略的资金 ≥ <b>1 手名义市值 × 1.0</b>（IM 需 141 万 / IH 需 84 万）</li>
+      <li>已与期货公司协商保证金加收比例和手续费（能省 1–2 个点）</li>
+      <li>追保资金已备好，且为 T+0 可变现资产（货基/国债ETF/银行T+0理财）</li>
+      <li>已在纸面上写下：跌到多少点我需要补多少钱，钱从哪来</li>
+      <li>已确认当前建仓点位处于自己认可的估值区间（<b>当前 IM 7493 点属偏高</b>）</li>
+      <li>已在日历上标记 2026-2027 全部交割日和移仓日</li>
+      <li>已接受"最大回撤可能 30–40%"这一事实，并想清楚届时不割肉</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 个人提醒 -->
+<section id="reminder">
+  <h2>针对价值投资框架的三点提醒</h2>
+  <div class="rpt-sec">
+    <div class="note-blue" style="margin-bottom:14px">
+      <b>① 这不是新增赌注，是仓位替代工具。</b><br>
+      吃贴水的本质是"用期货替代指数 ETF 仓位，多赚一份贴水"。如果你本来就不想持有中证1000/500 的宽基敞口，就不该为了 8% 的贴水去建这个仓。<b>先决定要不要这个 Beta，再决定用什么工具装它。</b>
+    </div>
+    <div class="note-blue" style="margin-bottom:14px">
+      <b>② 和存量服务赛道主线是两套体系。</b><br>
+      消费/医药主线是选股 Alpha，吃贴水是宽基 Beta + 结构性 Alpha。两者不冲突但会争夺资金。以目前持仓整体亏损的状态，<b>再拿出 141 万去开一个高波动仓位，需要非常谨慎</b>。
+    </div>
+    <div class="note">
+      <b>③ 当前时点不理想。</b><br>
+      指数位置：中证1000 三天涨 5.9%，7493 点属偏高区｜贴水水位：8.44% 看似不错，但含暴涨脉冲水分，且远低于历史 10–15%｜结构信号：近月贴水近乎归零，说明多头拥挤。<br><br>
+      <b>若一定要做，建议顺序：</b>先在纸上跟踪 3 个月（记录每周基差和自己会做的决策），确认自己扛得住每周 ±5 万的波动，再考虑用 IH（84 万/手）小仓位起步。
+    </div>
+  </div>
+</section>
+
+<div class="ft">
+  <b>风险提示：</b>股指期货属高杠杆衍生品。① 保证金不足会被强制平仓，损失可能超过初始保证金；② 贴水非固定收益，2023年 IC 全年仅 186 点，2026年1月一度转升水；③ 吃到 8% 贴水但指数跌 20%，净亏 12% —— <b>贴水只能减亏，不能防跌</b>；④ 远月合约流动性稀薄，极端行情可能无法按理想价格移仓；⑤ 交易所可临时上调保证金率、限制开仓（2015年有先例）；⑥ 本页数据基于 2026-09-18 结算价，基差每日变动，实盘前必须重新核算。<br><br>
+  <b>以上为数据整理，不构成投资建议，决策请自行判断。</b>
+</div>
+
+</div>
+
+<script>
+const SPOT={IF:4460.16,IC:7654.98,IM:7548.82,IH:2844.23};
+const MULT={IM:200,IC:200,IF:300,IH:300};
+const NAME={IM:"IM 中证1000",IC:"IC 中证500",IF:"IF 沪深300",IH:"IH 上证50"};
+const COLOR={IM:"#c0392b",IC:"#d9742b",IF:"#1b4f8f",IH:"#5a9bd4"};
+const DAYS={"2609":0,"2610":28,"2612":91,"2703":182};
+const EXPD={"2609":"2026-09-18","2610":"2026-10-16","2612":"2026-12-18","2703":"2027-03-19"};
+const FUT={ IF:{"2609":4460.2,"2610":4433.4,"2612":4374.4,"2703":4292.4}, IC:{"2609":7664.6,"2610":7598.2,"2612":7467.6,"2703":7278.4}, IM:{"2609":7559.8,"2610":7496.8,"2612":7352.0,"2703":7144.4}, IH:{"2609":2845.8,"2610":2831.6,"2612":2792.4,"2703":2749.4}
+};
+const MR=0.15;
+
+function calc(p,c){
+  const f=FUT[p][c], s=SPOT[p], d=DAYS[c], m=MULT[p];
+  const basis=f-s;
+  const ann=-basis/s*365/d*100;
+  const nominal=f*m;
+  const margin=nominal*MR;
+  const monthly=-basis/(d/30.4);
+  const gain=-basis*m;
+  return {f,s,d,m,basis,ann,nominal,margin,monthly,gain};
+}
+function wan(x){return (x/10000).toFixed(1)+"万";}
+function yuan(x){return x.toLocaleString('zh-CN',{maximumFractionDigits:0})+" 元";}
+
+// ---- bars-pro (专业版：零基准 + 双向柱) ----
+// 原理：track 宽 100%，中心 50% = 零基准线。
+//      贴水 (ann>0) → 从 50% 向右延伸；升水 (ann<0) → 从 50% 向左延伸。
+//      颜色：贴水=合约原色 opacity:1；升水=同色 opacity:0.55。
+let bhPro="";
+for(const p of ["IM","IC","IF","IH"]){
+  bhPro+=`<div class="bg-grp"><div class="ttl">${NAME[p]}</div><div class="stl">现货 ${SPOT[p].toFixed(2)} · 乘数 ${MULT[p]}元/点</div>`;
+  for(const c of ["2609","2610","2612","2703"]){
+    const r=calc(p,c);
+    const isPremium=r.ann<0;
+    // 半边长度：|ann|/10 * 50%，上限 50%（即中心到边）。
+    const half=Math.min(Math.abs(r.ann)/10*50,50);
+    let posStyle;
+    if(isPremium){
+      // 升水：从 (50-half)% 起，宽 half%，向左延伸
+      posStyle=`left:${(50-half).toFixed(2)}%;width:${half.toFixed(2)}%`;
+    }else{
+      // 贴水：从 50% 起，宽 half%，向右延伸
+      posStyle=`left:50%;width:${half.toFixed(2)}%`;
+    }
+    const flStyle=isPremium
+      ? `${posStyle};background:${COLOR[p]};opacity:0.55`
+      : `${posStyle};background:${COLOR[p]};opacity:1`;
+    const absAnn=Math.abs(r.ann);
+    const signWord=isPremium?"升水":"贴水";
+    const earnWord=isPremium?"亏":"收";
+    const tip=`${NAME[p]} ${c} 合约 · ${signWord}${absAnn.toFixed(2)}%/年化\n`+
+              `期货 ${r.f.toFixed(2)} · 现货 ${r.s.toFixed(2)}（基差 ${r.basis>=0?"+":""}${r.basis.toFixed(2)}点）\n`+
+              `剩余 ${r.d} 天到期 · 月均${signWord} ${Math.abs(r.monthly).toFixed(2)}点\n`+
+              `持有到期${earnWord} ${r.gain>=0?"":""}${yuan(r.gain)}/手`;
+    const signChar=isPremium?"−":"+";
+    const vlColor=isPremium?"#c0392b":COLOR[p];
+    const flClass=isPremium?"bar-fl premium":"bar-fl discount";
+    bhPro+=`<div class="bar-row" title="${tip.replace(/\n/g," · ")}">`+
+      `<span class="bar-lb">${c}</span>`+
+      `<span class="bar-tr"><span class="${flClass}" style="${flStyle}"></span></span>`+
+      `<span class="bar-vl" style="color:${vlColor}">${signChar}${absAnn.toFixed(2)}%</span>`+
+      `</div>`;
+  }
+  bhPro+=`</div>`;
+}
+document.getElementById("bars-pro").innerHTML=bhPro;
+
+// ---- bars (入门版：所有柱子统一从左往右长 + 数字内嵌在条上) ----
+// 设计原则：非金融用户对"双向零基准"不直观。
+// 简化后：
+//   - 柱长 = |年化贴水率| / 10% * 100%（满格 10%）
+//   - 方向 = 颜色（贴水=合约原色；升水=警示红+斜纹）+ 数字前的 +/- 号 + 末端的"贴水/升水"文字标签
+//   - 数字本身内嵌到柱上（白字+阴影），所见即所得——柱窄时溢出到灰 track 也靠阴影保证可读
+let bh="";
+for(const p of ["IM","IC","IF","IH"]){
+  bh+=`<div class="bg-grp"><div class="ttl">${NAME[p]}</div><div class="stl">现货 ${SPOT[p].toFixed(2)} · 乘数 ${MULT[p]}元/点</div>`;
+  for(const c of ["2609","2610","2612","2703"]){
+    const r=calc(p,c);
+    const isPremium=r.ann<0;
+    const w=Math.min(Math.abs(r.ann)/10*100,100);
+    const signChar=isPremium?"−":"+";
+    const signWord=isPremium?"升水":"贴水";
+    const signColor=isPremium?"#c0392b":COLOR[p];
+    const flClass=isPremium?"bar-fl premium":"bar-fl discount";
+    // 升水强制警示红（不分品种），让"亏钱方向"一眼就能识别
+    const flBg=isPremium?"#c0392b":COLOR[p];
+    const tip=`${NAME[p]} ${c} 合约 · ${signWord}${Math.abs(r.ann).toFixed(2)}%/年化\n`+
+              `期货 ${r.f.toFixed(2)} · 现货 ${r.s.toFixed(2)}（基差 ${r.basis>=0?"+":""}${r.basis.toFixed(2)}点）\n`+
+              `剩余 ${r.d} 天到期 · 月均${signWord} ${Math.abs(r.monthly).toFixed(2)}点\n`+
+              `持有到期${isPremium?"亏":"收"} ${yuan(r.gain)}/手`;
+    const numText=`${signChar}${Math.abs(r.ann).toFixed(2)}%`;
+    // 用 background-color 而非 background:，避免内联 shorthand 把 class 的 background-image（升水斜纹）重置
+    bh+=`<div class="bar-row" title="${tip.replace(/\n/g," · ")}">`+
+      `<span class="bar-lb">${c}</span>`+
+      `<span class="bar-tr"><span class="${flClass}" style="width:${w.toFixed(2)}%;background-color:${flBg}"><span class="bar-num">${numText}</span></span></span>`+
+      `<span class="bar-tag" style="color:${signColor};border-color:${signColor}">${signWord}</span>`+
+      `</div>`;
+  }
+  bh+=`</div>`;
+}
+document.getElementById("bars").innerHTML=bh;
+
+// ---- table ----
+let th="";
+let bestAnn=0,bestKey="";
+for(const p of ["IM","IC","IF","IH"])for(const c of ["2609","2610","2612","2703"]){
+  const r=calc(p,c); if(r.ann>bestAnn){bestAnn=r.ann;bestKey=p+c;}
+}
+for(const p of ["IM","IC","IF","IH"]){
+  // 一次扫描：找当列最大 |monthly|（用于自适应满格）
+  let maxAbs=0;
+  for(const c of ["2609","2610","2612","2703"]){
+    const r=calc(p,c);
+    if(Math.abs(r.monthly)>maxAbs) maxAbs=Math.abs(r.monthly);
+  }
+  for(const c of ["2609","2610","2612","2703"]){
+    const r=calc(p,c);
+    const isBest=(p+c)===bestKey;
+    const isUp=r.monthly>=0;
+    // 自适应满格：max(±150, maxAbs 的 1.1 倍) — 保证视觉对比稳定，IM 严重升水时也不要溢出
+    const FULL=Math.max(150, maxAbs*1.1);
+    const w=Math.min(Math.abs(r.monthly)/FULL*50, 50);
+    const pos=isUp ? `right:50%;width:${w.toFixed(2)}%` : `left:50%;width:${w.toFixed(2)}%`;
+    const clr=isUp ? 'var(--up)' : 'var(--down)';
+    const dir=isUp ? 'up':'down';
+    const sign=isUp ? '+' : '−';
+    const signWord=isUp ? '贴水赚' : '升水亏';
+    const numStr=`${sign}${Math.abs(r.monthly).toFixed(1)} 点`;
+    th+=`<tr class="${isBest?'best':''}">
+      <td><b style="color:${COLOR[p]}">${p}</b></td><td>${c}</td>
+      <td class="num">${r.f.toFixed(1)}</td>
+      <td class="num" style="color:var(--down)">${r.basis.toFixed(1)}</td>
+      <td class="num">${r.d}</td>
+      <td class="num"><b style="color:var(--up)">${r.ann.toFixed(2)}%</b></td>
+      <td class="num" title="${NAME[p]} ${c} · 月均${signWord}${Math.abs(r.monthly).toFixed(1)}点（满格 ±${FULL.toFixed(0)} 点）"><span class="tbl-bar"><span class="tbl-fl ${dir}" style="${pos};background:${clr}"></span></span><span style="color:${clr};font-weight:650;font-size:12.5px">${numStr}</span></td>
+      <td class="num">${wan(r.nominal)}</td>
+      <td class="num">${wan(r.margin)}</td></tr>`;
+  }
+}
+document.getElementById("tbl").innerHTML=th;
+
+// ---- selector ----
+const sel=document.getElementById("sel");
+sel.innerHTML="";
+for(const p of ["IM","IC","IF","IH"])for(const c of ["2609","2610","2612","2703"]){
+  const r=calc(p,c);
+  sel.appendChild(new Option(`${p}${c} · 年化${r.ann.toFixed(2)}% · ${wan(r.nominal)}`, `${p}|${c}`));
+}
+sel.value="IM|2703";
+
+function update(){
+  let pc=(sel.value||"").split("|");
+  let p=pc[0]||"IM", c=pc[1]||"2703";
+  if(!FUT[p]||!FUT[p][c]){p="IM";c="2703";}
+  sel.value=p+"|"+c;
+  const r=calc(p,c);
+  const lots=Math.max(1,parseInt(document.getElementById("lots").value)||1);
+  const cap=parseFloat(document.getElementById("cap").value)*10000;
+  const idle=parseFloat(document.getElementById("idle").value)/100;
+  const beta=parseFloat(document.getElementById("beta").value)/100;
+  document.getElementById("capv").textContent=(cap/10000).toFixed(0);
+  document.getElementById("idlev").textContent=(idle*100).toFixed(1);
+  document.getElementById("betav").textContent=(beta*100).toFixed(0);
+
+  const nominal=r.nominal*lots;
+  const margin=r.margin*lots;
+  const lev=nominal/cap;
+  const maxDrop=(cap-nominal*MR)/(nominal*(1-MR));
+  const gain=r.gain*lots;
+  const idleCash=Math.max(cap-margin,0);
+  const idleGain=idleCash*idle*(r.d/365);
+  const betaPnl=nominal*beta;
+  const total=gain+idleGain+betaPnl;
+  const roi=total/cap*100;
+
+  document.getElementById("o1").textContent=wan(nominal);
+  document.getElementById("o1s").textContent=`${lots} 手 × ${r.f.toFixed(1)} × ${r.m}元`;
+  document.getElementById("o2").textContent=lev.toFixed(2)+" 倍";
+  document.getElementById("o2").className="v "+(lev<=1.05?"v-dn":lev<=1.5?"":lev<=2?"v-up":"v-up");
+  document.getElementById("o2s").textContent=`保证金占用 ${wan(margin)}`;
+  document.getElementById("o3").textContent=(maxDrop*100).toFixed(1)+"%";
+  document.getElementById("o3").className="v "+(maxDrop>0.35?"v-dn":maxDrop>0.25?"":"v-up");
+  document.getElementById("o4").textContent=yuan(gain);
+  document.getElementById("o4s").textContent=`${r.d} 天 · 年化 ${r.ann.toFixed(2)}%`;
+  document.getElementById("o5").textContent=yuan(idleGain);
+  document.getElementById("o6").textContent=yuan(total);
+  document.getElementById("o6").className="v "+(total>=0?"v-up":"v-dn");
+  document.getElementById("o6s").textContent=`收益率 ${roi>=0?"+":""}${roi.toFixed(2)}%`;
+
+  const vd=document.getElementById("vd");
+  if(lev<=1.05){vd.className="verdict vd-ok";vd.textContent="✅ 1倍以内 —— 纯粹的吃贴水，理论上不会爆仓。老玩家公认最稳妥的做法。";}
+  else if(lev<=1.5){vd.className="verdict vd-ok";vd.textContent=`✅ ${lev.toFixed(2)}倍 —— 在实盘共识的 1.5 倍上限内。指数跌 ${(maxDrop*100).toFixed(0)}% 触及强平线，需备足追保金。`;}
+  else if(lev<=2){vd.className="verdict vd-wn";vd.textContent=`⚠️ ${lev.toFixed(2)}倍 —— 已到极限区。回测显示 2 倍杠杆会遭遇 68% 回撤，指数跌 ${(maxDrop*100).toFixed(0)}% 即强平。`;}
+  else {vd.className="verdict vd-dg";vd.textContent=`❌ ${lev.toFixed(2)}倍 —— 超过红线。实盘帖原话："凡是长期3倍杠杆以上的，基本上总是要爆仓的"。指数跌 ${(maxDrop*100).toFixed(0)}% 即强平。`;}
+
+  // stress
+  let sh="";
+  for(const d of [0.05,0.10,0.15,0.20,0.25,0.30,0.40]){
+    const loss=nominal*d;
+    const add=loss*(1-MR);
+    const blown=d>maxDrop;
+    const avail=cap-margin;
+    const w=Math.min(add/(cap*1.2)*100,100);
+    sh+=`<div class="st-row">
+      <span class="st-lb">−${(d*100).toFixed(0)}%</span>
+      <span class="st-tr"><span class="st-fl" style="width:${w}%"></span></span>
+      <span class="st-vl">${yuan(add)}</span>
+      <span class="st-st" style="color:${blown?'var(--danger)':add>avail?'var(--warn)':'var(--down)'}">${blown?'已强平':add>avail?'钱不够':'可扛'}</span>
+    </div>`;
+  }
+  document.getElementById("stress").innerHTML=sh;
+}
+["sel","lots","cap","idle","beta"].forEach(id=>{
+  document.getElementById(id).addEventListener("input",update);
+  document.getElementById(id).addEventListener("change",update);
+});
+// ---- 换月提醒 banner（数据驱动：找剩余天数最少的合约，给移仓窗口）----
+(function(){
+  let nearestC=null, minD=1e9;
+  for(const c of Object.keys(DAYS)){
+    if(DAYS[c] < minD){ minD=DAYS[c]; nearestC=c; }
+  }
+  const expd = EXPD[nearestC];
+  const el = document.getElementById("roll-alert");
+  if(!el) return;
+  const expDate = new Date(expd.replace(/-/g,'/'));
+  const fmt = d => (d.getMonth()+1)+'-'+String(d.getDate()).padStart(2,'0');
+  if(minD <= 15){
+    const cut = new Date(expDate); cut.setDate(cut.getDate()-3);
+    const start = new Date(expDate); start.setDate(start.getDate()-10);
+    el.className = "roll-alert warn";
+    el.innerHTML = `<span class="t">⏰ 近月移仓提醒</span>最近合约 <b>${nearestC}</b> 仅剩 <b>${minD}</b> 天（${expd} 到期）→ 建议在 <b>${fmt(start)} ~ ${fmt(cut)}</b> 间完成移仓，避开最后 2–3 天流动性塌方与基差异动。`;
+  } else {
+    el.className = "roll-alert ok";
+    el.innerHTML = `<span class="t">✅ 移仓状态</span>最近合约 <b>${nearestC}</b> 剩余 <b>${minD}</b> 天（${expd} 到期），暂无移仓压力，专注吃贴水即可。`;
+  }
+})();
+
+// ---- 交割日历：每张卡填"四品种年化贴水均值" + 顶部建议 banner（from→to） ----
+(() => {
+  // 1) 找最近月合约（剩最少天数的）= "持仓"
+  const sortedByDays = Object.keys(DAYS).sort((a,b)=>DAYS[a]-DAYS[b]);
+  const held = sortedByDays[0];
+  const heldD = DAYS[held];
+
+  // 2) 找目标合约：4 品种里"年化贴水 × 剩余天数"乘积最大者
+  //    （注：单纯找年化贴水最大是错的；要看持有到期能真吃多少）
+  let bestP=null, bestC=null, bestGainPerLot=0, bestPerSpecies={};
+  for(const p of ["IM","IC","IF","IH"]){
+    for(const c of ["2609","2610","2612","2703"]){
+      if(c===held) continue;  // 排除自己
+      const r=calc(p,c);
+      if(r.gain>bestGainPerLot){ bestGainPerLot=r.gain; bestP=p; bestC=c; }
+    }
+    // 同时记下每个品种的"最佳合约"（同品种年化贴水最厚）
+    let bpC=null, bpV=-1e9;
+    for(const c of ["2609","2610","2612","2703"]){
+      const r=calc(p,c);
+      if(r.ann>bpV){ bpV=r.ann; bpC=c; }
+    }
+    bestPerSpecies[p] = {c:bpC, ann:bpV};
+  }
+
+  // 3) 填每张卡的"四品种年化贴水均值"小字
+  for(const c of ["2609","2610","2612","2703"]){
+    const els = document.querySelectorAll(`.tl [data-fill="${c}"]`);
+    if(!els.length) continue;
+    const anns = ["IM","IC","IF","IH"].map(p=>calc(p,c).ann);
+    const minA=Math.min(...anns), maxA=Math.max(...anns);
+    const avgA=anns.reduce((a,b)=>a+b,0)/4;
+    const color = avgA>=0 ? "#2e8b57" : "var(--up)";
+    const sign = avgA>=0 ? "+" : "−";
+    els[0].innerHTML = `年化贴水 <b style="color:${color}">${sign}${Math.abs(avgA).toFixed(2)}%</b><br>区间 [${sign}${Math.abs(minA).toFixed(1)}, ${sign}${Math.abs(maxA).toFixed(1)}]%`;
+  }
+
+  // 4) 填顶部建议 banner
+  const sug = document.getElementById("tl-suggest");
+  if(!sug) return;
+  // 异常：如果最佳目标也升水（>0 贴水 <0 即亏），则建议"暂缓/换 ETF"
+  if(bestGainPerLot <= 0){
+    sug.innerHTML = `
+      <span class="from">⚠️ 异常</span>
+      <span class="why"><b>所有合约均已转升水</b>，本月无贴水可吃。立即执行：① 移到 ETF 兜底（<b>159845 / 510500</b>）；② 等下一合约挂牌再重开。</span>
+      <span class="empty">→ ETF 兜底</span>`;
+    return;
+  }
+  const targetR = calc(bestP, bestC);
+  const heldR = calc("IM", held);  // held 的"市场整体年化贴水"用 IM 代理（4 品种结构类似）
+  // 边缘案例：若"持仓合约"自身年化贴水仍最厚（极端罕见），建议"继续吃"
+  let banner;
+  if(targetR.ann > heldR.ann + 0.5){
+    banner = `
+      <span class="from">📍 当前持仓：<b>${held}</b>（剩 ${heldD} 天）</span>
+      <span class="arr">→</span>
+      <span class="to">建议换入：<b>${bestP}${bestC}</b></span>
+      <span class="why">
+        目标合约年化贴水 <b>+${targetR.ann.toFixed(2)}%</b>（${NAME[bestP]}，剩 ${DAYS[bestC]} 天）<br>
+        对比持仓 <b>${heldR.ann.toFixed(2)}%</b>，多赚 ≈ <b>${wan((targetR.gain - heldR.gain)*1)}/手</b>（持有到期口径）<br>
+        分 3-5 批移仓窗口：<b>${EXPD[held]} 前 5–10 个交易日</b>
+      </span>`;
+  } else {
+    banner = `
+      <span class="from">📍 当前持仓：<b>${held}</b></span>
+      <span class="empty">✅ 持仓合约仍是最优</span>
+      <span class="why">持仓年化贴水 <b>+${heldR.ann.toFixed(2)}%</b>，无需换月，安心吃到 ${EXPD[held]}。</span>`;
+  }
+  sug.innerHTML = banner;
+})();
+
+// ---- endgame：持有到期情景 + 下跌压力测试（数据驱动，以 IM2703 为例）----
+(function(){
+  const p="IM", c="2703";
+  const r=calc(p,c);                 // {f,s,d,m,basis,ann,nominal,margin,monthly,gain}
+  const spot=SPOT[p], mult=r.m;
+  const basisGain=r.gain;            // 贴水缓冲（单手，固定）
+  const nominal=r.nominal, margin=r.margin;
+  const MMrate=0.12, MM=nominal*MMrate;   // 维持保证金估算
+  // ① 持有到期三情景：横盘 / 涨10% / 跌20%
+  const scenarios=[
+    {t:"指数横盘（到期现货≈进场）", drop:0,     cls:"flat"},
+    {t:"指数涨 10%",               drop:0.10,  cls:"up"},
+    {t:"指数跌 20%",               drop:-0.20, cls:"down"}
+  ];
+  let ch="";
+  for(const sc of scenarios){
+    const idxPnl = sc.drop*spot*mult;          // 指数涨跌带来的盈亏
+    const net = idxPnl + basisGain;            // 含贴水
+    const sign = net>=0?"+":"−";
+    const color = net>=0?"#2e8b57":"#c0392b";
+    ch+=`<div class="eg-card ${sc.cls}"><div class="t">${sc.t}</div>`+
+        `<div class="v" style="color:${color}">${sign}${Math.abs(net).toLocaleString('zh-CN',{maximumFractionDigits:0})} 元</div>`+
+        `<div class="s">指数 ${idxPnl>=0?"+":""}${idxPnl.toLocaleString('zh-CN',{maximumFractionDigits:0})} + 贴水 ${basisGain.toLocaleString('zh-CN',{maximumFractionDigits:0})}</div></div>`;
+  }
+  const ec=document.getElementById("eg-expire-cards");
+  if(ec) ec.innerHTML=ch;
+
+  // ③ 下跌压力测试（按跌幅从深到浅，插入持平点）
+  const breakeven = -basisGain/(spot*mult);    // 负数：贴水缓冲能扛的跌幅
+  const pts=[];
+  for(const d of [-0.20,-0.13,-0.10,-0.05,-0.03]) pts.push({d, special:false});
+  pts.push({d:breakeven, special:true});
+  pts.sort((a,b)=>a.d-b.d);
+  let sh="";
+  for(const pt of pts){
+    const d=pt.d;
+    const idxPnl=d*spot*mult;
+    const net=idxPnl+basisGain;
+    const balance=margin+net;
+    let cls="", pill="", pillTxt="";
+    if(balance<=0){ cls="blow"; pill="blow"; pillTxt="强平/穿仓"; }
+    else if(balance<MM){ cls="mc"; pill="call"; pillTxt="触发追保"; }
+    else { pill="ok"; pillTxt="可扛"; }
+    const label = pt.special ? `≈ ${(d*100).toFixed(1)}%（贴水吃完）` : `${(d*100).toFixed(0)}%`;
+    const netStr = pt.special ? "≈ 0" : `${net>=0?"+":""}${(net/10000).toFixed(2)}万`;
+    sh+=`<tr class="${cls}">`+
+      `<td>${label}</td>`+
+      `<td class="num" style="color:${idxPnl<0?'#c0392b':'#2e8b57'}">${idxPnl>=0?'+':''}${(idxPnl/10000).toFixed(2)}万</td>`+
+      `<td class="num">+${(basisGain/10000).toFixed(2)}万</td>`+
+      `<td class="num" style="color:${net<0?'#c0392b':'#2e8b57'};font-weight:700">${netStr}</td>`+
+      `<td class="num">${(balance/10000).toFixed(2)}万</td>`+
+      `<td><span class="pill ${pill}">${pillTxt}</span></td></tr>`;
+  }
+  const st=document.getElementById("eg-stress");
+  if(st) st.innerHTML=sh;
+
+  // 填充注脚数字
+  const em=document.getElementById("eg-margin"); if(em) em.textContent=wan(margin)+"（"+(margin/10000).toFixed(1)+"万/手）";
+  const ec2=document.getElementById("eg-cushion"); if(ec2) ec2.textContent=(Math.abs(breakeven)*100).toFixed(1)+"%";
+
+  // ③-续 下跌时"继续滚"的真实账（年化视角）
+  const annYield=r.ann/100;                 // 年化贴水收益率
+  const annAmt=annYield*nominal;            // 年化贴水绝对额（以进场名义计）
+  const ea=document.getElementById("eg-ann"); if(ea) ea.textContent=r.ann.toFixed(2)+"%";
+  const ean=document.getElementById("eg-ann-nominal"); if(ean) ean.textContent=wan(nominal)+"（"+(nominal/10000).toFixed(1)+"万/手）";
+  const rd=[{g:-0.05},{g:-annYield,special:true},{g:-0.10},{g:-0.20}];
+  rd.sort((a,b)=>a.g-b.g);
+  let rh="";
+  for(const x of rd){
+    const g=x.g;
+    const idxPnl=g*spot*mult;
+    const net=idxPnl+annAmt;
+    const isBE=!!x.special;
+    let cls="",concl="",pillCls="";
+    if(net>=0){ cls=""; concl="整体仍赚 ✅"; pillCls="ok"; }
+    else { cls="blow"; concl="净亏，但比裸持少亏贴水 ⚠️"; pillCls="blow"; }
+    if(isBE){ cls="mc"; concl="≈ 持平（贴水吃完）"; pillCls="call"; }
+    const gLabel=isBE?`≈ ${(g*100).toFixed(1)}%（年化贴水）`:`${(g*100).toFixed(0)}%`;
+    const netStr=isBE?"≈ 0":`${net>=0?"+":""}${(net/10000).toFixed(1)}万`;
+    rh+=`<tr class="${cls}">`+
+      `<td>${gLabel}</td>`+
+      `<td class="num" style="color:${idxPnl<0?'#c0392b':'#2e8b57'}">${idxPnl>=0?'+':''}${(idxPnl/10000).toFixed(1)}万</td>`+
+      `<td class="num">+${(annAmt/10000).toFixed(1)}万</td>`+
+      `<td class="num" style="color:${net<0?'#c0392b':'#2e8b57'};font-weight:700">${netStr}</td>`+
+      `<td class="num">+${(annAmt/10000).toFixed(1)}万</td>`+
+      `<td><span class="pill ${pillCls}">${concl}</span></td></tr>`;
+  }
+  const rdEl=document.getElementById("eg-rolldown"); if(rdEl) rdEl.innerHTML=rh;
+})();
+
+update();
+</script>
+<script>
+// 自诊断：若测算器脚本未成功执行（下拉为空），给出明确恢复指引
+(function(){
+  try{
+    var sel=document.getElementById('sel');
+    if(!sel || sel.options.length===0){
+      var d=document.createElement('div');
+      d.style.cssText='margin:14px 0;padding:12px 14px;border:1px solid #c0392b;background:#fdecea;color:#c0392b;border-radius:8px;font-size:13px;line-height:1.7';
+      d.innerHTML='⚠ <b>测算器脚本未成功执行</b>（合约下拉为空）。请：① 按 <b>Ctrl+Shift+R</b> 硬刷新本页；② 若仍为空，按 <b>F12</b> 打开控制台，把红色报错截图发我。';
+      var calc=document.getElementById('calc'); if(calc) calc.appendChild(d);
+    }
+  }catch(_){}
+})();
+</script>
+  <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
+<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">📅 数据自动更新：每周一至五 16:30（AutoJobsHub） ｜ 2026-09-18 08:18</div>
+
+<script>
+// ============ 贴水解读 卡片：收藏 / 展开 / 筛选 ============
+const FAV_KEY='dnote-favs', OPEN_KEY='dnote-open', FILTER_KEY='dnote-favOnly';
+const ls=window.localStorage;
+const favSet=new Set(JSON.parse(ls.getItem(FAV_KEY)||'[]'));
+const openSet=new Set(JSON.parse(ls.getItem(OPEN_KEY)||'[]'));
+let favOnly=ls.getItem(FILTER_KEY)==='1';
+function toggleNote(id){const c=document.querySelector('[data-id="'+id+'"]');if(!c)return;c.classList.toggle('expanded');if(c.classList.contains('expanded'))openSet.add(id);else openSet.delete(id);ls.setItem(OPEN_KEY,JSON.stringify([...openSet]))}
+function toggleFav(id){const c=document.querySelector('[data-id="'+id+'"]');if(!c)return;const b=c.querySelector('.note-fav');if(favSet.has(id)){favSet.delete(id);c.classList.remove('faved');b.classList.remove('faved');b.textContent='☆'}else{favSet.add(id);c.classList.add('faved');b.classList.add('faved');b.textContent='★'}ls.setItem(FAV_KEY,JSON.stringify([...favSet]))}
+function expandAll(on){document.querySelectorAll('.note-card').forEach(c=>{c.classList.toggle('expanded',on);if(on)openSet.add(c.dataset.id);else openSet.delete(c.dataset.id)});ls.setItem(OPEN_KEY,JSON.stringify([...openSet]))}
+function toggleFavFilter(){favOnly=!favOnly;ls.setItem(FILTER_KEY,favOnly?'1':'0');applyFilter()}
+function applyFilter(){const btn=document.getElementById('fav-filter');if(btn)btn.classList.toggle('active',favOnly);document.querySelectorAll('.note-card').forEach(c=>{c.classList.toggle('hidden-by-filter',favOnly&&!favSet.has(c.dataset.id))})}
+(function init(){favSet.forEach(id=>{const c=document.querySelector('[data-id="'+id+'"]');if(c){c.classList.add('faved');const b=c.querySelector('.note-fav');if(b){b.classList.add('faved');b.textContent='★'}}});openSet.forEach(id=>{const c=document.querySelector('[data-id="'+id+'"]');if(c)c.classList.add('expanded')});if(!openSet.size){const cards=document.querySelectorAll('.note-card');if(cards.length){const first=cards[0];first.classList.add('expanded');openSet.add(first.dataset.id);ls.setItem(OPEN_KEY,JSON.stringify([...openSet]))}}applyFilter()})();
+</script>
+
+<script>
+// ============ 贴水水位复盘 卡片：收藏 / 展开 / 筛选（独立状态，不与贴水解读混用） ============
+const TH_FAV_KEY='thickest-favs', TH_OPEN_KEY='thickest-open', TH_FILTER_KEY='thickest-favOnly';
+const thLs=window.localStorage;
+const thFavSet=new Set(JSON.parse(thLs.getItem(TH_FAV_KEY)||'[]'));
+const thOpenSet=new Set(JSON.parse(thLs.getItem(TH_OPEN_KEY)||'[]'));
+let thFavOnly=thLs.getItem(TH_FILTER_KEY)==='1';
+function toggleThickestNote(id){const c=document.querySelector('#thickest-list [data-id="'+id+'"]');if(!c)return;c.classList.toggle('expanded');if(c.classList.contains('expanded'))thOpenSet.add(id);else thOpenSet.delete(id);thLs.setItem(TH_OPEN_KEY,JSON.stringify([...thOpenSet]))}
+function toggleThickestFav(id){const c=document.querySelector('#thickest-list [data-id="'+id+'"]');if(!c)return;const b=c.querySelector('.note-fav');if(thFavSet.has(id)){thFavSet.delete(id);c.classList.remove('faved');b.classList.remove('faved');b.textContent='☆'}else{thFavSet.add(id);c.classList.add('faved');b.classList.add('faved');b.textContent='★'}thLs.setItem(TH_FAV_KEY,JSON.stringify([...thFavSet]))}
+function expandThickestAll(on){document.querySelectorAll('#thickest-list .note-card').forEach(c=>{c.classList.toggle('expanded',on);if(on)thOpenSet.add(c.dataset.id);else thOpenSet.delete(c.dataset.id)});thLs.setItem(TH_OPEN_KEY,JSON.stringify([...thOpenSet]))}
+function toggleThickestFavFilter(){thFavOnly=!thFavOnly;thLs.setItem(TH_FILTER_KEY,thFavOnly?'1':'0');applyThickestFilter()}
+function applyThickestFilter(){const btn=document.getElementById('thickest-fav-filter');if(btn)btn.classList.toggle('active',thFavOnly);document.querySelectorAll('#thickest-list .note-card').forEach(c=>{c.classList.toggle('hidden-by-filter',thFavOnly&&!thFavSet.has(c.dataset.id))})}
+(function initThickest(){thFavSet.forEach(id=>{const c=document.querySelector('#thickest-list [data-id="'+id+'"]');if(c){c.classList.add('faved');const b=c.querySelector('.note-fav');if(b){b.classList.add('faved');b.textContent='★'}}});thOpenSet.forEach(id=>{const c=document.querySelector('#thickest-list [data-id="'+id+'"]');if(c)c.classList.add('expanded')});if(!thOpenSet.size){const cards=document.querySelectorAll('#thickest-list .note-card');if(cards.length){const first=cards[0];first.classList.add('expanded');thOpenSet.add(first.dataset.id);thLs.setItem(TH_OPEN_KEY,JSON.stringify([...thOpenSet]))}}applyThickestFilter()})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+const TREND_DATA = /*__TREND_JSON_START__*/{"dates": ["2025-09-08", "2025-09-09", "2025-09-10", "2025-09-11", "2025-09-12", "2025-09-15", "2025-09-16", "2025-09-17", "2025-09-18", "2025-09-22", "2025-09-23", "2025-09-24", "2025-09-25", "2025-09-26", "2025-09-29", "2025-09-30", "2025-10-09", "2025-10-10", "2025-10-13", "2025-10-14", "2025-10-15", "2025-10-16", "2025-10-20", "2025-10-21", "2025-10-22", "2025-10-23", "2025-10-24", "2025-10-27", "2025-10-28", "2025-10-29", "2025-10-30", "2025-10-31", "2025-11-03", "2025-11-04", "2025-11-05", "2025-11-06", "2025-11-07", "2025-11-10", "2025-11-11", "2025-11-12", "2025-11-13", "2025-11-14", "2025-11-17", "2025-11-18", "2025-11-19", "2025-11-20", "2025-11-24", "2025-11-25", "2025-11-26", "2025-11-27", "2025-11-28", "2025-12-01", "2025-12-02", "2025-12-03", "2025-12-04", "2025-12-05", "2025-12-08", "2025-12-09", "2025-12-10", "2025-12-11", "2025-12-12", "2025-12-15", "2025-12-16", "2025-12-17", "2025-12-18", "2025-12-22", "2025-12-23", "2025-12-24", "2025-12-25", "2025-12-26", "2025-12-29", "2025-12-30", "2025-12-31", "2026-01-05", "2026-01-06", "2026-01-07", "2026-01-08", "2026-01-09", "2026-01-12", "2026-01-13", "2026-01-14", "2026-01-15", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-26", "2026-01-27", "2026-01-28", "2026-01-29", "2026-01-30", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-12", "2026-02-13", "2026-02-24", "2026-02-25", "2026-02-26", "2026-02-27", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24", "2026-04-27", "2026-04-28", "2026-04-29", "2026-04-30", "2026-05-06", "2026-05-07", "2026-05-08", "2026-05-11", "2026-05-12", "2026-05-13", "2026-05-14", "2026-05-18", "2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-07", "2026-09-08", "2026-09-09", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17"], "series": {"IF": [10.82, 8.28, 11.83, -14.01, -1.39, 72.58, 91.82, 131.62, 404.99, 12.46, 12.11, 12.54, 11.3, 9.57, 6.78, 10.5, 19.65, 27.82, 62.33, 85.41, 118.42, 224.62, 7.9, 7.74, 7.73, 6.98, 7.24, 9.79, 7.25, 5.09, 7.01, 3.47, 8.11, 13.81, 15.11, 11.72, 10.81, 16.29, 19.9, 15.63, 24.33, 31.25, 33.05, 35.14, 91.85, 205.87, 4.22, 5.89, 8.65, 8.38, 8.01, 9.34, 8.74, 6.47, 8.55, 5.76, 6.14, 11.93, 15.57, 12.61, 7.91, 102.35, 124.86, 190.77, 383.16, 14.82, 16.24, 13.38, 11.41, 7.03, 12.75, 13.42, 14.85, 14.59, 9.67, 20.09, 18.54, 16.57, 30.32, 6.21, 7.43, 37.1, 1.41, 2.56, 0.07, 1.15, -1.86, -3.86, -4.04, -4.98, -10.52, -1.72, 12.58, 3.27, 2.47, 2.72, 3.37, -1.51, 0.23, -0.84, 2.69, 37.38, 7.8, 1.5, 5.15, -1.16, 7.49, 2.07, 5.76, 9.79, 8.08, 11.69, 8.4, 15.08, 28.38, 95.53, 161.26, 208.94, 347.63, 645.47, 24.32, 29.34, 30.59, 30.21, 29.02, 35.19, 35.82, 39.25, 48.2, 46.14, 66.26, 49.38, 66.17, 83.86, 148.39, 159.63, 233.89, 453.17, 18.67, 19.2, 18.13, 21.47, 20.32, 23.52, 25.18, 21.03, 22.22, 31.34, 35.48, 37.58, 72.3, 89.62, 107.86, 224.27, 7.44, 9.63, 11.06, 10.55, 15.31, 20.47, 14.95, 16.48, 19.65, 15.75, 13.92, 15.71, 11.55, 16.74, 21.71, 21.85, 44.25, 23.22, 126.19, 115.17, 199.81, 292.03, 401.11, 582.03, 21.89, 33.07, 36.03, 37.38, 42.85, 53.72, 53.31, 58.78, 46.97, 48.44, 60.85, 67.68, 74.65, 89.37, 83.1, 118.13, 270.15, 264.53, 410.44, 13.03, 19.09, 17.86, 17.73, 19.91, 15.72, 16.15, 19.13, 15.14, 19.02, 13.83, 22.46, 18.2, 20.57, 27.12, 40.52, 30.36, 43.16, 39.08, 50.83, 81.02, 143.18, 137.2, 307.96, 11.75, 10.1, 8.29, 9.13, 5.87, 10.3, 6.63, 7.9, 8.43, 6.11, 14.09, 9.4, 11.18, 6.21, 115.56, 185.52, 257.66, 370.14, 701.79], "IC": [33.84, 29.59, 40.2, -1.21, 5.65, 253.09, 328.56, 450.05, 1087.33, 42.82, 50.85, 36.12, 39.49, 38.62, 32.65, 35.33, 80.46, 93.19, 180.07, 312.59, 384.82, 855.7, 25.89, 21.76, 19.95, 18.14, 17.73, 24.73, 22.79, 19.3, 19.48, 21.01, 25.99, 34.61, 38.29, 32.9, 34.76, 48.8, 59.37, 49.3, 53.53, 70.67, 115.97, 121.17, 174.09, 320.19, 8.79, 11.94, 12.68, 13.15, 14.18, 20.05, 17.72, 14.98, 10.27, 5.38, 13.12, 13.8, 19.15, 5.47, -3.06, 222.11, 274.43, 362.64, 654.02, 26.65, 25.9, 24.1, 20.17, 16.51, 25.66, 22.43, 31.4, 23.94, 12.96, 37.33, 46.32, 12.22, 13.86, 18.05, 66.32, 73.1, 3.02, -0.14, -4.51, -1.86, -10.32, 6.3, 0.24, -3.84, 0.05, 1.69, 33.77, 1.22, -4.0, 7.74, 9.29, -0.13, 6.87, -5.16, -13.67, 15.57, 3.86, -0.27, 3.84, 2.62, 7.34, 4.0, 8.17, 15.69, 11.77, 5.0, 7.25, 98.42, 126.77, 132.26, 202.62, 313.01, 477.93, 954.96, 40.37, 37.59, 48.56, 49.57, 40.08, 50.51, 54.21, 54.25, 62.61, 63.3, 87.89, 57.86, 86.55, 92.1, 181.98, 225.88, 317.8, 513.5, 25.33, 26.83, 21.22, 23.64, 24.25, 27.52, 28.62, 19.8, 23.17, 42.9, 37.77, 44.0, 104.41, 125.43, 139.23, 261.67, 10.01, 12.66, 11.6, 13.91, 16.37, 20.31, 16.44, 21.43, 20.39, 17.66, 12.01, 15.75, 13.08, 16.46, 19.13, 11.86, 28.47, 19.95, 25.54, -7.07, 217.25, 328.88, 419.04, 655.21, 36.02, 40.89, 44.5, 44.29, 51.24, 65.17, 59.05, 79.82, 57.7, 61.79, 70.63, 79.87, 65.17, 79.3, 104.83, 130.68, 233.66, 226.63, 394.86, 16.79, 17.33, 22.08, 21.43, 20.2, 13.92, 18.6, 14.83, 14.52, 22.96, 16.01, 22.15, 18.93, 30.88, 33.43, 61.79, 43.77, 66.09, 58.51, 84.27, 114.43, 229.99, 167.54, 415.66, 16.78, 14.58, 12.61, 9.05, 9.17, 14.36, 15.55, 15.83, 15.42, 15.22, 18.46, 12.84, 15.4, 7.09, 7.94, -2.89, 339.16, 471.41, 893.45], "IM": [34.05, 30.42, 44.41, 7.45, 21.13, 57.8, 392.18, 539.21, 1283.98, 50.54, 57.7, 48.66, 49.67, 48.96, 43.39, 47.83, 118.39, 133.87, 259.64, 375.16, 507.86, 970.65, 28.36, 25.85, 24.79, 22.23, 21.3, 33.66, 29.2, 25.73, 26.75, 32.06, 37.69, 43.7, 47.08, 47.31, 44.9, 62.41, 72.79, 63.15, 67.43, 90.87, 156.08, 157.31, 219.89, 381.95, 12.49, 16.35, 15.82, 17.93, 17.4, 26.54, 21.6, 16.64, 11.84, 8.06, 19.06, 16.21, 20.17, 4.61, 6.47, 1.35, 375.12, 537.67, 1035.93, 40.35, 40.12, 37.8, 35.11, 30.42, 41.43, 39.03, 47.78, 49.16, 47.57, 75.0, 86.42, 51.82, 49.8, 63.38, 223.61, 200.97, 10.91, 8.91, 2.46, 2.54, -7.06, 13.31, 4.53, 4.16, 0.64, -1.21, 26.35, 6.83, 1.03, 8.53, 19.68, 0.47, 9.42, -0.73, -12.71, 10.06, 5.27, 3.9, 9.23, 5.98, 12.72, 3.44, 8.54, 12.25, 11.71, 5.21, 15.95, 24.5, 32.13, 167.01, 287.32, 377.84, 568.01, 1053.27, 43.18, 42.75, 56.05, 57.29, 49.93, 67.49, 67.75, 72.15, 80.38, 78.6, 110.09, 90.62, 122.13, 138.49, 261.48, 346.21, 453.8, 801.48, 34.7, 32.99, 29.65, 28.48, 29.54, 33.93, 32.13, 26.54, 29.83, 53.43, 45.5, 59.03, 147.97, 165.62, 172.91, 369.66, 11.46, 12.04, 14.35, 10.69, 15.43, 22.88, 15.98, 19.56, 21.77, 13.22, 9.56, 15.41, 17.39, 18.87, 15.37, 3.47, 37.43, 18.07, 18.48, 3.81, 296.23, 418.49, 544.01, 1086.23, 56.23, 48.54, 57.95, 56.79, 57.03, 68.23, 74.48, 92.27, 71.98, 74.94, 81.3, 82.04, 71.87, 94.92, 113.79, 121.22, 210.51, 220.91, 378.6, 18.93, 15.48, 22.09, 21.67, 21.52, 16.15, 17.98, 10.73, 13.33, 21.55, 16.15, 20.0, 18.04, 25.41, 30.19, 54.36, 40.23, 60.53, 48.31, 80.28, 106.94, 212.78, 118.87, 353.85, 12.8, 12.34, 11.12, 9.94, 8.67, 14.83, 12.94, 13.04, 13.03, 13.85, 15.36, 12.49, 16.01, 8.27, 8.45, -2.08, 371.17, 502.77, 951.67], "IH": [3.7, 4.03, 2.47, -10.89, -0.11, 0.66, -15.59, -18.68, 5.34, -0.41, -2.86, -0.16, -0.49, -2.0, -2.02, -0.04, -8.16, -1.66, 17.24, 11.1, 24.01, 2.38, 1.71, 0.96, 1.82, 1.29, -1.19, 1.3, -0.59, -0.92, 0.88, -2.1, -0.17, 3.4, 4.07, 2.67, 0.13, -0.16, 1.96, 2.0, 7.22, 13.77, 8.7, 21.95, 56.49, 69.04, 3.05, 4.61, 3.84, 5.51, 3.76, 4.93, 5.09, 3.6, 5.02, 4.0, 4.79, 7.74, 10.64, 11.08, 13.66, 9.98, 13.95, 67.58, 152.37, 0.88, 0.96, -0.95, -0.63, -3.42, -2.25, 0.81, 4.61, 1.01, -3.51, 1.7, -0.49, -0.79, 10.27, -18.12, -11.29, -28.5, -0.62, -1.82, -2.55, -3.33, -2.41, -4.12, -5.78, -4.79, -10.39, -4.25, -0.72, 1.12, -1.9, -1.9, 1.42, -2.39, -7.32, -3.86, -4.85, 24.65, 1.96, -1.7, 0.26, -3.41, 0.44, -3.37, 1.54, 1.18, 2.35, 0.66, 0.53, 2.1, 7.92, -0.27, 6.45, 6.48, 118.48, 280.8, 8.54, 10.88, 16.39, 11.67, 14.03, 14.89, 16.81, 19.81, 22.05, 24.13, 41.42, 29.39, 38.21, 47.44, 83.3, 107.28, 165.54, 245.4, 7.79, 8.03, 6.92, 9.48, 9.47, 11.49, 14.72, 15.76, 13.62, 25.25, 25.9, 38.16, 56.5, 57.39, 85.32, 145.84, 4.88, 9.03, 7.8, 7.38, 10.85, 12.54, 9.1, 12.93, 13.54, 12.19, 9.47, 12.84, 10.24, 16.45, 19.89, 14.11, 32.73, 23.57, 16.22, -11.55, 0.15, 175.3, 249.18, 360.77, 16.79, 21.94, 25.71, 29.4, 28.67, 42.77, 36.92, 38.7, 34.49, 39.74, 59.2, 64.07, 73.37, 85.27, 79.96, 127.13, 264.91, 326.43, 456.47, 15.21, 19.88, 18.24, 12.66, 20.44, 13.57, 17.38, 19.92, 23.06, 18.53, 19.0, 19.59, 23.92, 19.11, 26.79, 35.48, 26.07, 39.18, 39.77, 46.72, 81.21, 120.4, 192.66, 286.82, 10.07, 10.74, 8.89, 9.23, 7.09, 13.04, 9.65, 12.25, 9.92, 7.14, 14.74, 14.81, 12.82, 11.46, 2.4, 2.07, 274.88, 370.07, 665.17]}, "basis": {"IF": [-0.326, -0.227, -0.292, 0.307, 0.027, -0.795, -0.755, -0.721, -1.11, -0.854, -0.796, -0.79, -0.681, -0.551, -0.334, -0.489, -0.431, -0.534, -0.683, -0.702, -0.649, -0.615, -0.692, -0.657, -0.635, -0.555, -0.555, -0.67, -0.477, -0.321, -0.423, -0.2, -0.4, -0.643, -0.663, -0.482, -0.415, -0.491, -0.545, -0.385, -0.533, -0.599, -0.362, -0.289, -0.503, -0.564, -0.289, -0.388, -0.545, -0.505, -0.461, -0.461, -0.407, -0.284, -0.351, -0.221, -0.185, -0.327, -0.384, -0.276, -0.152, -1.122, -1.026, -1.045, -1.05, -1.015, -1.068, -0.843, -0.688, -0.405, -0.629, -0.625, -0.651, -0.44, -0.265, -0.495, -0.406, -0.318, -0.332, -0.051, -0.041, -0.102, -0.124, -0.218, -0.006, -0.091, 0.143, 0.264, 0.266, 0.314, 0.634, 0.099, -0.62, -0.153, -0.108, -0.112, -0.129, 0.045, -0.006, 0.021, -0.059, -0.717, -0.513, -0.095, -0.31, 0.067, -0.369, -0.097, -0.253, -0.402, -0.31, -0.352, -0.23, -0.372, -0.622, -1.832, -1.767, -1.717, -1.905, -1.768, -1.666, -1.929, -1.928, -1.821, -1.669, -1.735, -1.668, -1.72, -1.981, -1.77, -1.815, -1.218, -1.45, -1.608, -1.626, -1.312, -1.282, -1.242, -1.279, -1.263, -1.142, -1.294, -1.169, -1.16, -1.173, -0.922, -0.913, -0.773, -0.778, -0.721, -0.792, -0.737, -0.591, -0.614, -0.652, -0.818, -0.909, -0.838, -1.174, -1.402, -0.983, -1.038, -1.185, -0.906, -0.687, -0.732, -0.506, -0.688, -0.833, -0.658, -1.212, -0.573, -2.766, -2.209, -2.19, -2.4, -2.198, -1.595, -1.499, -2.175, -2.27, -2.253, -2.465, -2.649, -2.483, -2.577, -1.93, -1.858, -1.834, -1.854, -1.841, -1.959, -1.594, -1.295, -2.22, -1.449, -1.125, -1.142, -1.621, -1.468, -1.409, -1.527, -1.077, -1.062, -1.206, -0.913, -1.094, -0.682, -1.046, -0.798, -0.845, -1.04, -1.221, -0.832, -1.064, -0.857, -0.975, -0.888, -1.177, -0.752, -0.844, -0.805, -0.664, -0.523, -0.55, -0.338, -0.508, -0.309, -0.346, -0.347, -0.234, -0.425, -0.257, -0.276, -0.136, -2.216, -2.033, -2.118, -2.028, -1.923], "IC": [-1.02, -0.811, -0.991, 0.027, -0.108, -2.774, -2.701, -2.466, -2.979, -2.933, -3.344, -2.276, -2.38, -2.222, -1.61, -1.645, -1.763, -1.787, -1.973, -2.569, -2.109, -2.344, -2.269, -1.848, -1.64, -1.441, -1.36, -1.694, -1.499, -1.216, -1.174, -1.209, -1.282, -1.612, -1.678, -1.352, -1.333, -1.471, -1.627, -1.216, -1.173, -1.355, -1.271, -0.996, -0.954, -0.877, -0.602, -0.785, -0.799, -0.792, -0.816, -0.989, -0.825, -0.657, -0.422, -0.206, -0.396, -0.378, -0.472, -0.12, 0.059, -2.434, -2.256, -1.987, -1.792, -1.826, -1.703, -1.518, -1.216, -0.95, -1.265, -1.045, -1.377, -0.721, -0.355, -0.92, -1.015, -0.234, -0.152, -0.148, -0.363, -0.2, -0.265, 0.012, 0.37, 0.148, 0.792, -0.431, -0.016, 0.242, -0.003, -0.097, -1.665, -0.057, 0.175, -0.318, -0.356, 0.004, -0.188, 0.127, 0.3, -0.299, -0.254, 0.017, -0.232, -0.151, -0.362, -0.186, -0.358, -0.645, -0.451, -0.151, -0.199, -2.427, -2.779, -2.536, -2.221, -2.573, -2.619, -2.616, -2.765, -2.472, -3.06, -2.988, -2.306, -2.491, -2.525, -2.378, -2.573, -2.428, -2.408, -1.427, -1.897, -1.766, -1.994, -1.857, -1.741, -1.407, -1.735, -1.764, -1.337, -1.425, -1.395, -1.357, -1.333, -0.868, -0.952, -1.058, -0.828, -0.844, -1.144, -1.031, -0.763, -0.717, -0.877, -1.075, -0.953, -1.105, -1.256, -1.391, -1.081, -1.35, -1.229, -1.016, -0.592, -0.733, -0.573, -0.677, -0.734, -0.357, -0.78, -0.492, -0.56, 0.136, -2.381, -2.703, -2.296, -1.795, -2.467, -2.688, -2.804, -2.67, -2.948, -3.214, -2.75, -3.499, -2.371, -2.37, -2.128, -2.188, -1.607, -1.738, -2.01, -1.432, -1.92, -1.242, -1.082, -1.472, -1.472, -1.815, -1.703, -1.549, -0.953, -1.223, -0.934, -0.875, -1.321, -0.789, -1.032, -0.83, -1.269, -1.282, -1.862, -1.199, -1.63, -1.282, -1.616, -1.254, -1.89, -0.918, -1.139, -1.149, -0.959, -0.794, -0.545, -0.528, -0.708, -0.724, -0.694, -0.634, -0.584, -0.556, -0.352, -0.38, -0.155, -0.152, 0.032, -2.788, -2.583, -2.448], "IM": [-1.026, -0.833, -1.095, -0.163, -0.405, -0.633, -3.223, -2.955, -3.518, -3.462, -3.794, -3.066, -2.994, -2.817, -2.14, -2.228, -2.595, -2.567, -2.845, -3.084, -2.783, -2.659, -2.486, -2.196, -2.038, -1.767, -1.634, -2.305, -1.92, -1.621, -1.612, -1.845, -1.859, -2.035, -2.064, -1.944, -1.722, -1.881, -1.994, -1.557, -1.478, -1.743, -1.71, -1.293, -1.205, -1.046, -0.855, -1.075, -0.997, -1.081, -1.001, -1.309, -1.006, -0.729, -0.486, -0.309, -0.575, -0.444, -0.497, -0.101, -0.124, -0.015, -3.083, -2.946, -2.838, -2.764, -2.638, -2.382, -2.116, -1.75, -2.043, -1.818, -2.095, -1.482, -1.303, -1.849, -1.894, -0.994, -0.546, -0.521, -1.225, -0.551, -0.956, -0.757, -0.202, -0.202, 0.541, -0.911, -0.298, -0.262, -0.038, 0.07, -1.299, -0.318, -0.045, -0.35, -0.755, -0.014, -0.258, 0.018, 0.279, -0.193, -0.347, -0.246, -0.556, -0.344, -0.627, -0.16, -0.375, -0.503, -0.449, -0.157, -0.437, -0.604, -0.704, -3.203, -3.149, -3.106, -3.112, -2.886, -2.957, -2.811, -3.532, -3.453, -2.873, -3.328, -3.156, -3.163, -3.303, -3.015, -3.016, -2.234, -2.677, -2.656, -2.865, -2.846, -2.487, -2.196, -2.376, -2.169, -1.868, -1.716, -1.7, -1.673, -1.496, -1.163, -1.226, -1.317, -0.997, -1.132, -1.622, -1.361, -0.947, -1.013, -1.005, -1.022, -1.18, -0.849, -1.183, -1.567, -1.05, -1.232, -1.312, -0.76, -0.471, -0.718, -0.762, -0.775, -0.589, -0.105, -1.025, -0.445, -0.405, -0.073, -3.246, -3.44, -2.981, -2.976, -3.852, -3.192, -3.651, -3.423, -3.281, -3.365, -3.469, -4.045, -2.958, -2.874, -2.45, -2.248, -1.772, -2.08, -2.182, -1.328, -1.73, -1.21, -1.037, -1.659, -1.315, -1.815, -1.722, -1.651, -1.106, -1.182, -0.676, -0.804, -1.24, -0.796, -0.931, -0.791, -1.044, -1.158, -1.638, -1.102, -1.492, -1.059, -1.54, -1.172, -1.749, -0.651, -0.969, -0.877, -0.812, -0.701, -0.599, -0.499, -0.731, -0.603, -0.572, -0.535, -0.531, -0.463, -0.342, -0.395, -0.181, -0.162, 0.023, -3.051, -2.755, -2.607], "IH": [-0.112, -0.11, -0.061, 0.239, 0.002, -0.007, 0.128, 0.102, -0.015, 0.028, 0.188, 0.01, 0.029, 0.115, 0.099, 0.002, 0.179, 0.032, -0.189, -0.091, -0.132, -0.007, -0.15, -0.082, -0.149, -0.103, 0.091, -0.089, 0.039, 0.058, -0.053, 0.121, 0.008, -0.158, -0.179, -0.11, -0.005, 0.005, -0.054, -0.049, -0.158, -0.264, -0.095, -0.18, -0.31, -0.189, -0.209, -0.303, -0.242, -0.332, -0.216, -0.243, -0.237, -0.158, -0.206, -0.154, -0.144, -0.212, -0.262, -0.243, -0.262, -0.109, -0.115, -0.37, -0.417, -0.061, -0.063, 0.06, 0.038, 0.197, 0.111, -0.038, -0.202, -0.031, 0.096, -0.042, 0.011, 0.015, -0.113, 0.149, 0.062, 0.078, 0.054, 0.155, 0.209, 0.264, 0.185, 0.282, 0.38, 0.302, 0.626, 0.245, 0.035, -0.052, 0.083, 0.078, -0.055, 0.072, 0.201, 0.095, 0.106, -0.473, -0.129, 0.107, -0.016, 0.196, -0.022, 0.157, -0.068, -0.049, -0.09, -0.02, -0.015, -0.052, -0.174, 0.005, -0.071, -0.053, -0.649, -0.769, -0.585, -0.715, -1.033, -0.704, -0.807, -0.734, -0.783, -0.868, -0.906, -0.925, -1.135, -0.725, -0.838, -0.91, -0.913, -0.882, -0.907, -0.672, -0.534, -0.528, -0.436, -0.571, -0.545, -0.567, -0.685, -0.691, -0.56, -0.623, -0.568, -0.732, -0.619, -0.472, -0.468, -0.4, -0.428, -0.767, -0.641, -0.586, -0.832, -0.859, -0.598, -0.815, -0.816, -0.701, -0.467, -0.598, -0.449, -0.676, -0.763, -0.425, -0.897, -0.581, -0.356, 0.221, -0.002, -1.441, -1.365, -0.988, -1.15, -1.443, -1.62, -1.772, -1.649, -2.109, -1.719, -1.696, -1.417, -1.524, -1.784, -1.755, -1.809, -1.869, -1.533, -1.393, -2.177, -1.789, -1.251, -1.334, -1.689, -1.499, -1.006, -1.568, -0.93, -1.143, -1.255, -1.39, -1.066, -0.937, -0.913, -1.049, -0.785, -1.028, -1.069, -0.714, -0.966, -0.872, -0.896, -0.89, -0.99, -1.056, -0.786, -0.69, -0.706, -0.561, -0.557, -0.408, -0.643, -0.449, -0.537, -0.408, -0.274, -0.444, -0.406, -0.316, -0.251, -0.046, -0.023, -2.259, -2.028, -1.822]}, "maxAnn": [34.05, 30.42, 44.41, 7.45, 21.13, 253.09, 392.18, 539.21, 1283.98, 50.54, 57.7, 48.66, 49.67, 48.96, 43.39, 47.83, 118.39, 133.87, 259.64, 375.16, 507.86, 970.65, 28.36, 25.85, 24.79, 22.23, 21.3, 33.66, 29.2, 25.73, 26.75, 32.06, 37.69, 43.7, 47.08, 47.31, 44.9, 62.41, 72.79, 63.15, 67.43, 90.87, 156.08, 157.31, 219.89, 381.95, 12.49, 16.35, 15.82, 17.93, 17.4, 26.54, 21.6, 16.64, 11.84, 8.06, 19.06, 16.21, 20.17, 12.61, 13.66, 222.11, 375.12, 537.67, 1035.93, 40.35, 40.12, 37.8, 35.11, 30.42, 41.43, 39.03, 47.78, 49.16, 47.57, 75.0, 86.42, 51.82, 49.8, 63.38, 223.61, 200.97, 10.91, 8.91, 2.46, 2.54, -1.86, 13.31, 4.53, 4.16, 0.64, 1.69, 33.77, 6.83, 2.47, 8.53, 19.68, 0.47, 9.42, -0.73, 2.69, 37.38, 7.8, 3.9, 9.23, 5.98, 12.72, 4.0, 8.54, 15.69, 11.77, 11.69, 15.95, 98.42, 126.77, 167.01, 287.32, 377.84, 568.01, 1053.27, 43.18, 42.75, 56.05, 57.29, 49.93, 67.49, 67.75, 72.15, 80.38, 78.6, 110.09, 90.62, 122.13, 138.49, 261.48, 346.21, 453.8, 801.48, 34.7, 32.99, 29.65, 28.48, 29.54, 33.93, 32.13, 26.54, 29.83, 53.43, 45.5, 59.03, 147.97, 165.62, 172.91, 369.66, 11.46, 12.66, 14.35, 13.91, 16.37, 22.88, 16.44, 21.43, 21.77, 17.66, 13.92, 15.75, 17.39, 18.87, 21.71, 21.85, 44.25, 23.57, 126.19, 115.17, 296.23, 418.49, 544.01, 1086.23, 56.23, 48.54, 57.95, 56.79, 57.03, 68.23, 74.48, 92.27, 71.98, 74.94, 81.3, 82.04, 74.65, 94.92, 113.79, 130.68, 270.15, 326.43, 456.47, 18.93, 19.88, 22.09, 21.67, 21.52, 16.15, 18.6, 19.92, 23.06, 22.96, 19.0, 22.46, 23.92, 30.88, 33.43, 61.79, 43.77, 66.09, 58.51, 84.27, 114.43, 229.99, 192.66, 415.66, 16.78, 14.58, 12.61, 9.94, 9.17, 14.83, 15.55, 15.83, 15.42, 15.22, 18.46, 14.81, 16.01, 11.46, 115.56, 185.52, 371.17, 502.77, 951.67], "maxBasis": [-1.026, -0.833, -1.095, -0.163, -0.405, -2.774, -3.223, -2.955, -3.518, -3.462, -3.794, -3.066, -2.994, -2.817, -2.14, -2.228, -2.595, -2.567, -2.845, -3.084, -2.783, -2.659, -2.486, -2.196, -2.038, -1.767, -1.634, -2.305, -1.92, -1.621, -1.612, -1.845, -1.859, -2.035, -2.064, -1.944, -1.722, -1.881, -1.994, -1.557, -1.478, -1.743, -1.71, -1.293, -1.205, -1.046, -0.855, -1.075, -0.997, -1.081, -1.001, -1.309, -1.006, -0.729, -0.486, -0.309, -0.575, -0.444, -0.497, -0.276, -0.262, -2.434, -3.083, -2.946, -2.838, -2.764, -2.638, -2.382, -2.116, -1.75, -2.043, -1.818, -2.095, -1.482, -1.303, -1.849, -1.894, -0.994, -0.546, -0.521, -1.225, -0.551, -0.956, -0.757, -0.202, -0.202, 0.143, -0.911, -0.298, -0.262, -0.038, -0.097, -1.665, -0.318, -0.108, -0.35, -0.755, -0.014, -0.258, 0.018, -0.059, -0.717, -0.513, -0.246, -0.556, -0.344, -0.627, -0.186, -0.375, -0.645, -0.451, -0.352, -0.437, -2.427, -2.779, -3.203, -3.149, -3.106, -3.112, -2.886, -2.957, -2.811, -3.532, -3.453, -2.873, -3.328, -3.156, -3.163, -3.303, -3.015, -3.016, -2.234, -2.677, -2.656, -2.865, -2.846, -2.487, -2.196, -2.376, -2.169, -1.868, -1.716, -1.7, -1.673, -1.496, -1.163, -1.226, -1.317, -0.997, -1.132, -1.622, -1.361, -0.947, -1.013, -1.005, -1.075, -1.18, -1.105, -1.256, -1.567, -1.081, -1.35, -1.312, -1.016, -0.687, -0.733, -0.762, -0.775, -0.833, -0.658, -1.212, -0.581, -2.766, -2.209, -3.246, -3.44, -2.981, -2.976, -3.852, -3.192, -3.651, -3.423, -3.281, -3.365, -3.469, -4.045, -2.958, -2.874, -2.45, -2.248, -1.841, -2.08, -2.182, -1.432, -2.22, -1.789, -1.251, -1.659, -1.689, -1.815, -1.722, -1.651, -1.106, -1.223, -1.255, -1.39, -1.321, -0.937, -1.046, -1.049, -1.269, -1.282, -1.862, -1.199, -1.63, -1.282, -1.616, -1.254, -1.89, -1.056, -1.139, -1.149, -0.959, -0.794, -0.599, -0.528, -0.731, -0.724, -0.694, -0.634, -0.584, -0.556, -0.406, -0.395, -0.251, -2.216, -2.033, -3.051, -2.755, -2.607], "names": {"IF": "沪深300", "IC": "中证500", "IM": "中证1000", "IH": "上证50"}, "generated": "2026-09-18", "window": 240}/*__TREND_JSON_END__*/;
+(function(){
+  const D = TREND_DATA;
+  const el = document.getElementById('trendChart');
+  if(!el || typeof Chart==='undefined' || !D || !D.dates) return;
+  const HORIZON = 60;
+  const prods = ['IF','IC','IM','IH'];
+  const colors = {IF:'#5b8def', IC:'#e0729a', IM:'#46c08a', IH:'#e0a458'};
+  const datasets = prods.map(function(p){
+    return {
+      label: D.names[p],
+      data: D.basis[p].map(function(b){ return +(-b*365/HORIZON).toFixed(2); }),
+      borderColor: colors[p],
+      backgroundColor: colors[p]+'22',
+      borderWidth:1.6, pointRadius:0, tension:0.25,
+    };
+  });
+  new Chart(el,{
+    type:'line',
+    data:{ labels:D.dates, datasets:datasets },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
+      plugins:{
+        legend:{ labels:{ color:'#c7ced8', boxWidth:12, font:{size:11} } },
+        tooltip:{ callbacks:{ label:function(c){ return ' '+c.dataset.label+': '+c.parsed.y+'% 年化'; } } }
+      },
+      scales:{
+        x:{ ticks:{ color:'#7c8694', maxTicksLimit:10, font:{size:10} }, grid:{ color:'rgba(255,255,255,.05)' } },
+        y:{ ticks:{ color:'#7c8694', font:{size:10}, callback:function(v){ return v+'%'; } },
+            grid:{ color:'rgba(255,255,255,.05)' },
+            title:{ display:true, text:'贴水年化（60天 horizon 归一）', color:'#9aa4b2', font:{size:10} } }
+      }
+    }
+  });
+  const g=document.getElementById('trend-gen'); if(g) g.textContent=D.generated;
+})();
+</script>
+</body>
+</html>
