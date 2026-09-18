@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>煤炭高频跟踪 · 自动仪表盘</title>
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--ink:#1f2733;--sub:#5b6776;--line:#e4e8ee;--blue:#2563eb;--green:#1e8449;--red:#c0392b;--amber:#b7791f}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;padding:28px 16px}
+.wrap{max-width:980px;margin:0 auto}
+h1{font-size:22px;margin-bottom:4px}
+h2{font-size:18px;margin:24px 0 10px;padding-left:10px;border-left:4px solid var(--blue)}
+h3.sub{font-size:15px;margin:16px 0 8px;color:var(--ink);padding-left:8px;border-left:3px solid var(--amber)}
+.lead{color:var(--sub);font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+th,td{border:1px solid var(--line);padding:8px 9px;text-align:left;vertical-align:middle}
+th{background:#f1f4f8;color:var(--sub);font-weight:600}
+tr:nth-child(even) td{background:#fafbfc}
+.note{color:var(--sub);font-size:12px}
+.chg{font-weight:700}
+input.mv{width:78px;border:1px solid #cdd5df;border-radius:6px;padding:4px 6px;font-size:13px;font-family:inherit}
+.pill{display:inline-block;background:#eef2f7;border-radius:18px;padding:3px 10px;font-size:12px;margin:3px 5px 3px 0;color:var(--sub)}
+.warn{background:#fff7e6;border:1px solid #ffe0a3;border-radius:10px;padding:13px 15px;color:#8a5a00;font-size:13px;margin-top:10px}
+.foot{color:var(--sub);font-size:12px;text-align:center;margin-top:24px}
+.sig{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.sig .box{flex:1 1 280px;background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.sig h3{font-size:14px;margin-bottom:8px}
+.sig label{display:block;font-size:13px;padding:4px 0;cursor:pointer}
+.sig .auto{color:var(--green);font-weight:600}
+.progress{font-size:13px;margin-top:8px;color:var(--ink)}
+.btns{margin-top:10px}
+.btns button{font-size:12px;padding:6px 12px;border:1px solid var(--line);background:#fff;border-radius:8px;cursor:pointer;margin-right:8px}
+.navbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.navbar a{display:inline-flex;align-items:center;font-size:13px;font-weight:600;color:#2b3445;background:#f0f3f8;border:1px solid var(--line);border-radius:8px;padding:7px 12px;text-decoration:none}
+.navbar a:hover{background:#e4e9f2}
+.navbar a.nb-home{background:#1a7a4a;color:#fff;border-color:#1a7a4a}
+.navbar a.nb-home:hover{background:#155f3a}
+th.sort{cursor:pointer;user-select:none;white-space:nowrap}
+th.sort:hover{color:var(--blue)}
+th.sort .arr{font-size:10px;color:var(--blue)}
+a.tdx-link{color:inherit;text-decoration:none;border-bottom:1px dashed #b9c2cf;cursor:pointer}
+a.tdx-link:hover{color:var(--blue);border-bottom-color:var(--blue)}
+.stkcode{font-size:12px;color:#5b6776;letter-spacing:.3px}
+td.num{font-variant-numeric:tabular-nums}
+</style></head><body><div class="wrap">
+<nav class="navbar">
+ <a class="nb-home" href="/">🏠 返回首页</a>
+ <a href="/coal/coal_price.html">煤炭与铝价格跟踪（最优标的）</a>
+ <a href="/basis_trend/basis_trend.html">期现2年走势</a>
+</nav>
+<h1>煤炭高频数据跟踪 · 自动仪表盘</h1>
+<p class="lead">数据更新：2026-09-18 23:12 ｜ ①估值/行情+②价格信号+④信号判定+⑤方向锚+⑥国际基准：全部脚本自动抓取判定（免费源，每周一刷新）｜ ③静态参考值(预填) ｜ 全页无手动项</p>
+<div class="card">
+<span class="pill">✅ 全自动：估值/行情(PB/PE/现价)</span>
+<span class="pill">🌐 全自动：煤焦期货+国际能源锚</span>
+<span class="pill">🌐 全自动：兖煤澳洲季报PRA基准(季度)</span>
+<span class="pill">✅ 全自动：sxcoal CCI当日摘要(动力煤+主焦+焦炭)</span>
+<span class="pill">✅ 全自动：CCTD环渤海现货5500/5000/4500+长协</span>
+<span class="pill">📋 静态参考值：企业成本/长协(半年核对)</span>
+<span class="pill">⚠️ 不可免费自动：CCI精确历史序列/Mysteel(付费)</span>
+</div>
+
+<h2>① 估值 / 行情（自动刷新 · 点表头排序 · 点标的名联动通达信）</h2>
+<div class="card"><table id="tbl_val">
+<tr><th class="sort">标的</th><th class="sort">代码</th><th class="sort">现价</th><th class="sort">涨跌幅</th><th class="sort">PB</th><th class="sort">PE(TTM)</th><th class="sort">PB十年分位</th><th class="sort">黄金圣斗士信号</th></tr>
+<tr><td data-s="山煤国际"><b><a class="tdx-link" data-code="600546" href="javascript:;" title="点击联动通达信：山煤国际（600546）">山煤国际</a></b></td><td><span class="stkcode">600546</span></td><td class="num" data-s="13.39">13.39</td><td class="num" data-s="1.670463173880035">1.67%</td><td class="num" data-s="1.6">1.60</td><td class="num" data-s="17.45">17.45</td><td class="num" data-s="19.5">20%</td><td data-s="0" style="color:#c0392b;font-weight:700">✅ 价格真打折</td></tr><tr><td data-s="兰花科创"><b><a class="tdx-link" data-code="600123" href="javascript:;" title="点击联动通达信：兰花科创（600123）">兰花科创</a></b></td><td><span class="stkcode">600123</span></td><td class="num" data-s="6.96">6.96</td><td class="num" data-s="-0.571428571428572">-0.57%</td><td class="num" data-s="0.67">0.67</td><td class="num" data-s="-19.94">-19.94</td><td class="num" data-s="25.6">26%</td><td data-s="0" style="color:#c0392b;font-weight:700">✅ 价格真打折</td></tr><tr><td data-s="淮北矿业"><b><a class="tdx-link" data-code="600985" href="javascript:;" title="点击联动通达信：淮北矿业（600985）">淮北矿业</a></b></td><td><span class="stkcode">600985</span></td><td class="num" data-s="16.44">16.44</td><td class="num" data-s="-1.320528211284507">-1.32%</td><td class="num" data-s="1.05">1.05</td><td class="num" data-s="25.84">25.84</td><td class="num" data-s="34.9">35%</td><td data-s="1">⚠️ 观察</td></tr><tr><td data-s="中国神华"><b><a class="tdx-link" data-code="601088" href="javascript:;" title="点击联动通达信：中国神华（601088）">中国神华</a></b></td><td><span class="stkcode">601088</span></td><td class="num" data-s="46.23">46.23</td><td class="num" data-s="-0.5378657487091223">-0.54%</td><td class="num" data-s="2.22">2.22</td><td class="num" data-s="18.58">18.58</td><td class="num" data-s="98.2">98%</td><td data-s="2">—</td></tr><tr><td data-s="陕西煤业"><b><a class="tdx-link" data-code="601225" href="javascript:;" title="点击联动通达信：陕西煤业（601225）">陕西煤业</a></b></td><td><span class="stkcode">601225</span></td><td class="num" data-s="25.2">25.20</td><td class="num" data-s="-0.8654602675059103">-0.87%</td><td class="num" data-s="2.42">2.42</td><td class="num" data-s="11.98">11.98</td><td class="num" data-s="86.8">87%</td><td data-s="2">—</td></tr><tr><td data-s="中煤能源"><b><a class="tdx-link" data-code="601898" href="javascript:;" title="点击联动通达信：中煤能源（601898）">中煤能源</a></b></td><td><span class="stkcode">601898</span></td><td class="num" data-s="13.86">13.86</td><td class="num" data-s="-1.0706638115631717">-1.07%</td><td class="num" data-s="1.11">1.11</td><td class="num" data-s="10.02">10.02</td><td class="num" data-s="84.0">84%</td><td data-s="1">⚠️ 观察</td></tr><tr><td data-s="晋控煤业"><b><a class="tdx-link" data-code="601001" href="javascript:;" title="点击联动通达信：晋控煤业（601001）">晋控煤业</a></b></td><td><span class="stkcode">601001</span></td><td class="num" data-s="16.81">16.81</td><td class="num" data-s="-0.41469194312796376">-0.41%</td><td class="num" data-s="1.47">1.47</td><td class="num" data-s="16.76">16.76</td><td class="num" data-s="52.1">52%</td><td data-s="1">⚠️ 观察</td></tr><tr><td data-s="华阳股份"><b><a class="tdx-link" data-code="600348" href="javascript:;" title="点击联动通达信：华阳股份（600348）">华阳股份</a></b></td><td><span class="stkcode">600348</span></td><td class="num" data-s="8.94">8.94</td><td class="num" data-s="-1.106194690265483">-1.11%</td><td class="num" data-s="1.17">1.17</td><td class="num" data-s="16.27">16.27</td><td class="num" data-s="60.2">60%</td><td data-s="1">⚠️ 观察</td></tr></table>
+<div class="warn">读数说明：PB&lt;1.0 <b>或 PB十年分位&lt;20%</b> = 价格真打折（五级漏斗④，可进入研究区）；PB&lt;1.5 = 观察；PE为负=当期亏损（如兰花）。PB十年分位来自百度股市通历史估值（免费，数据点稀疏，粗分位）。本格由脚本自动填充，每周一定时刷新。<br>当前"价格真打折"标的（自动，PB&lt;1.0 或分位&lt;20%）：<b>山煤国际、兰花科创</b></div>
+</div>
+
+<h2>② 价格信号（全自动，无需手填）</h2>
+<div class="card">
+<p class="lead">两个免费源自动抓取：②-A 煤炭资源网(sxcoal)免费当日 CCI 摘要（坑口+主焦+焦炭）；②-B 中国煤炭市场网(CCTD)首页免费露出的环渤海港口价格（秦港5500官方代理）。均由脚本注入，无需浏览器填写。</p>
+<h3 class="sub">②-A CCI指数（自动 · sxcoal免费当日摘要）</h3>
+<table><tr><th>指标</th><th>最新价(元/吨)</th><th>日环比 DoD</th><th>周环比 WoW</th></tr><tr><td>鄂尔多斯5500动力煤</td><td>810</td><td><span style="color:#c0392b;font-weight:700">↑4.0</span></td><td><span style="color:#1e8449;font-weight:700">↓25.0</span></td></tr><tr><td>榆林5800动力煤</td><td>905</td><td><span style="color:#c0392b;font-weight:700">↑10.0</span></td><td><span style="color:#c0392b;font-weight:700">↑23.0</span></td></tr><tr><td>大同5500动力煤</td><td>853</td><td><span style="color:#5b6776;font-weight:700">— 平</span></td><td><span style="color:#1e8449;font-weight:700">↓2.0</span></td></tr><tr><td>山西低硫主焦</td><td>2509</td><td><span style="color:#5b6776;font-weight:700">— 平</span></td><td><span style="color:#1e8449;font-weight:700">↓88.0</span></td></tr><tr><td>准一级冶金焦</td><td>1990</td><td><span style="color:#5b6776;font-weight:700">— 平</span></td><td><span style="color:#5b6776;font-weight:700">— 平</span></td></tr></table>
+<div class="warn">✅ sxcoal免费CCI当日摘要(自动) · 日期 Sep 18, 2026<br>说明：CCI 为煤炭资源网(汾盛)评估价，是"权威现货煤价(PRA)"唯一免费能拿到的<b>当日</b>数字；精确历史序列仍付费。鄂尔多/榆林/大同5500 对应动力煤方向，山西低硫主焦对应吕梁主焦方向，准一级焦炭对应焦炭盘面。红=涨、绿=跌（A股习惯）。<br><b>以上为数据整理，不构成投资建议，决策请自行判断。</b></div>
+<h3 class="sub">②-B CCTD环渤海价格（自动 · 中国煤炭市场网）</h3>
+<table><tr><th>指标</th><th>最新价(元/吨)</th><th>变化</th><th>日期</th></tr><tr><td>环渤海现货5500</td><td>977</td><td><span style="color:#5b6776;font-weight:700">0 / 0.0%</span></td><td>09-18</td></tr><tr><td>环渤海现货5000</td><td>882</td><td><span style="color:#5b6776;font-weight:700">0 / 0.0%</span></td><td>09-18</td></tr><tr><td>环渤海现货4500</td><td>798</td><td><span style="color:#5b6776;font-weight:700">0 / 0.0%</span></td><td>09-18</td></tr><tr><td>综合交易5500</td><td>754</td><td><span style="color:#5b6776;font-weight:700">0 / 0.00%</span></td><td>09-18</td></tr><tr><td>年度长协5500</td><td>704</td><td><span style="color:#c0392b;font-weight:700">3 / 0.43%</span></td><td>09-01</td></tr></table>
+<div class="warn">✅ CCTD环渤海价格(自动) · 现货为日频 09-18，综合/长协为周/月频<br>说明：<b>环渤海现货5500 即"秦港5500"的官方免费代理</b>（此前付费买不到的港口动力煤现货价）；综合交易5500=长协+现货混合成交价；年度长协5500=电煤长协基准（判断"价格真打折"时，现货-长协价差是周期位置标尺）。红涨绿跌。<br>
+<b>📋 名词注释——4500/5000/5500/5800 是什么：</b>这些是<b>动力煤的热值档位</b>，单位「大卡/公斤」（kcal/kg）= 每公斤煤完全燃烧放出的热量。<b>数字越大 = 煤质越好、发热越多、价格越贵</b>。环渤海现货 5500/5000/4500 是北方港口电煤的三个主流档：5500 是<b>行业定价基准</b>（"秦港5500"即指它），5000/4500 是低热值档、价格依次递减；5800（见②-A，榆林）是产地高热值档。同港口同档位才可比价。注意：②-A 里的山西低硫主焦/准一级冶金焦属<b>炼焦煤</b>，不按大卡定价，按灰分/硫分/粘结指数等质量指标定价，与动力煤两套体系。</div>
+</div>
+
+<h2>②-C 动力煤全品种对照表（热值档位 × 属性 × 受众 × 供需 × 价格）</h2>
+<div class="card">
+<p class="lead">把 4500/5000/5500/5800 等动力煤热值档，连同炼焦/喷吹/化工煤一并列出：价格列尽量接活源（CCTD 环渤海现货 / sxcoal CCI / 兖煤澳洲季报 PRA），无免费日频源的标注口径参考。本表仅列价格口径，不含涨跌方向。</p>
+<table style="table-layout:fixed"><colgroup><col style="width:15%"><col style="width:23%"><col style="width:17%"><col style="width:25%"><col style="width:20%"></colgroup><tr><th>品种（热值档/类别）</th><th>属性</th><th>受众</th><th>需求与供给</th><th>价格（口径·参考）</th></tr><tr><td><b>4500 大卡/公斤<br><span class="note">低热值动力煤</span></b></td><td>发热量≈4500 kcal/kg；水分/硫分/灰分偏高；以掺配燃烧为主</td><td>中小电厂掺烧、自备电厂、部分工业锅炉、水泥厂替代燃料</td><td>供应最充裕（坑口/汽运为主、长协覆盖低）；需求随电价与日耗波动；价格带最低</td><td>¥798 元/吨<span class="note"> · CCTD环渤海现货 · 09-18</span></td></tr><tr><td><b>5000 大卡/公斤<br><span class="note">中热值动力煤</span></b></td><td>4500–5500 中段；性价比均衡、流通量最大</td><td>沿海电厂主力掺配煤、水泥厂、化工掺烧</td><td>供需均衡，长协+现货混合；港口主流流通品</td><td>¥882 元/吨<span class="note"> · CCTD环渤海现货 · 09-18</span></td></tr><tr><td><b>5500 大卡/公斤<br><span class="note">高热值·行业标杆</span></b></td><td>高发热量、低硫低灰优质；年度长协基准煤种</td><td>大型燃煤电厂主力煤种、北方港下水煤标杆</td><td>紧平衡；"秦港5500"是行业价格锚；优质资源溢价</td><td>¥977 元/吨<span class="note"> · CCTD环渤海现货 · 09-18</span><br>¥810 元/吨<span class="note"> · 鄂尔多斯5500动力煤 CCI · Sep 18, 2026</span></td></tr><tr><td><b>5800 大卡/公斤<br><span class="note">优质高热值动力煤</span></b></td><td>特高发热量、低灰低硫；产地优质动力煤</td><td>优质电厂、煤化工（气化/煤制油/煤制气）、高要求掺配</td><td>供应偏紧（榆林坑口为主），较5500有品质溢价</td><td>¥905 元/吨<span class="note"> · 榆林5800动力煤 CCI · Sep 18, 2026</span></td></tr><tr><td><b>6000 大卡/公斤<br><span class="note">出口/进口标杆</span></b></td><td>国际出口级高热值动力煤（纽卡斯尔基准品）</td><td>出口贸易、进口电厂、亚太买家</td><td>跟随 globalCOAL 纽卡斯尔基准；受国际供需与海运影响</td><td>US$135/t<span class="note"> · GCNewc 纽卡斯尔6000 · 2Q26</span></td></tr><tr><td><b>炼焦煤 / 主焦煤<br><span class="note">粘结性煤·非热值档</span></b></td><td>强粘结性、用于高炉炼焦；以粘结指数/灰硫评价而非热值</td><td>钢厂（高炉炼铁）、焦化厂</td><td>受钢铁周期驱动；优质主焦依赖进口（澳/蒙）；波动大</td><td>¥2509 元/吨<span class="note"> · 山西低硫主焦 CCI · Sep 18, 2026</span><br><span class="note">另见⑤焦煤主力 jm 盘面</span></td></tr><tr><td><b>喷吹煤 PCI<br><span class="note">高炉喷吹</span></b></td><td>低灰低硫、可磨性好；喷入高炉替代焦炭</td><td>钢厂（降本增效）</td><td>跟随钢铁利润与焦炭比价；进口 PCI 为基准</td><td>US$161/t<span class="note"> · 低挥发喷吹 PCI · 2Q26</span></td></tr><tr><td><b>化工煤 / 气化煤<br><span class="note">原料煤</span></b></td><td>低灰低硫、反应性好；用于煤制油/气/尿素/甲醇</td><td>煤化工企业（煤制油、煤制烯烃、尿素）</td><td>跟随化工景气与能源替代；与优质动力煤同源溢价</td><td><span class="note">参考 5800/优质动力煤溢价（无单独免费日频源）</span></td></tr></table>
+<div class="warn">说明：① 4500/5000/5500/5800 是<b>动力煤热值档</b>（kcal/kg，越大越贵），环渤海现货 5500/5000/4500 为北方港电煤三主流档，5800 为产地高热值档；② 炼焦煤/喷吹/化工煤不按大卡定价，走灰分/硫分/粘结指数等质量体系，与动力煤两套逻辑；③ 价格均为"参考口径"，最终以实际成交与官方源为准。<br><b>以上为数据整理，不构成投资建议，决策请自行判断。</b></div>
+</div>
+
+<h2>③ 供给 / 企业微观（静态参考值 · 预填，半年核对）</h2>
+<div class="card"><table><tr><th>参考项</th><th>参考值</th><th>备注</th></tr><tr><td>吕梁高硫主焦(参考)</td><td>约2147</td><td class="note">方向由②-A山西低硫主焦+⑤焦煤期货自动覆盖</td></tr><tr><td>山煤煤泥竞拍价(3700大卡)</td><td>360→680</td><td class="note">趋势上行=现货紧；来源：网络收录竞拍结果</td></tr><tr><td>山煤吨煤成本/毛利</td><td>—</td><td class="note">冶金煤>动力煤；年报/研报半年核对</td></tr><tr><td>兰花吨煤成本</td><td>约306</td><td class="note">偏高=护城河弱；年报半年核对</td></tr><tr><td>淮北低硫主焦长协</td><td>约1925</td><td class="note">季度长协，核对时更新</td></tr></table>
+<div class="warn">说明：日度领先指标（港口库存/蒙煤通关/大秦发运/沿海运价）经实测<b>无免费稳定数据源</b>（CCTD异步渲染、秦皇岛煤炭网502、sxcoal正文付费墙、生意社JS壳），已移除手填行——与其让你抄不到数，不如不设。方向替代：<b>⑤BDI运价 + ②价格日/周环比</b>已覆盖"需求领先→价格确认"链条。本表只留慢变量参考值，半年核对一次即可。</div></div>
+
+<h2>④ 信号判定板（100% 自动判定 · 无手动项）</h2>
+<div class="card">
+<div class="sig">
+<div class="box"><h3>🟢 见底清单（越多越接近底部）</h3>
+<label><input type="checkbox" id="s_pb" disabled> 价格真打折标的出现（PB&lt;1.0或分位&lt;20%，自动：山煤国际、兰花科创）</label>
+<label><input type="checkbox" id="s_price" disabled> 煤价周环比转正（CCI/CCTD 自动，看②）</label>
+<label><input type="checkbox" id="s_fut" disabled> 期货盘面率先企稳（jm0/j0 周环比转正=底部领先信号，自动：周环比 焦炭-5.3%、焦煤-6.2%）</label>
+</div>
+<div class="box"><h3>🔴 见顶清单（出现需警惕）</h3>
+<label><input type="checkbox" id="s_top" disabled> 顶部高PB：任一标的 PB&gt;2（周期顶经典陷阱，自动：中国神华 PB2.22、陕西煤业 PB2.42）</label>
+<label><input type="checkbox" id="s_rebound" disabled> 煤价冲高回落（20日涨&gt;10% 且近5日回落，自动：未触发（无20日涨超10%后回落））</label>
+</div>
+</div>
+<div class="progress" id="prog">见底信号：0 / 3 已触发 ｜ 见顶警示：0 / 2 已触发</div>
+<div class="warn"><b>说明：</b>原「手动」项（蒙古通关/山西停产/吨煤毛利/停产复产等）经实测<b>无免费数据来源、无法填写</b>，已全部删除或转为自动判定（期货盘面、PB、冲高回落）。现本板 5 项全部由脚本数据自动触发，无需任何操作。<br><b>风险提示：</b>高频数据只验证"是否见底"，不预测"能涨多高/多久"。周期顶部高PB是经典陷阱。本表为研究工具，非买卖建议。<br><b>以上为数据整理，不构成投资建议，决策请自行判断。</b></div>
+</div>
+<h2>⑤ 价格方向锚（自动刷新 · 煤价方向参考）</h2>
+<div class="card"><table>
+<tr><th>类别</th><th>指标</th><th>最新价</th><th>时间/周变动</th><th>说明</th></tr>
+<tr><td>国内煤焦</td><td>焦煤主力(大商所)</td><td>1487.0</td><td>2026-09-18（周-6.2%）</td><td class="note">国内炼焦煤盘面，↔吕梁主焦方向</td></tr><tr><td>国内煤焦</td><td>焦炭主力(大商所)</td><td>1952.5</td><td>2026-09-18（周-5.3%）</td><td class="note">焦炭盘面</td></tr><tr><td>全球能源</td><td>WTI原油(纽商所)</td><td>97.016</td><td>2026-09-18 23:12:06</td><td class="note">全球能源方向锚，与煤价周期同步</td></tr><tr><td>全球能源</td><td>美国天然气(HH)</td><td>3.042</td><td>2026-09-18 23:12:06</td><td class="note">与动力煤同属发电能源，替代/比价关系</td></tr><tr><td>全球航运</td><td>BDI干散货运价</td><td>3370</td><td>2026-09-18（+1.02%）</td><td class="note">全球航运先行，煤/矿/粮运价总和，领先煤价；BDI走弱=大宗商品需求降温</td></tr></table>
+<div class="warn">说明：<b>焦煤主力(jm0)/焦炭主力(j0)为国内炼焦煤/焦炭盘面</b>，是吕梁主焦最直接的"煤价方向"锚（akshare→新浪期货，免费）。WTI原油/美国天然气为<b>全球能源</b>背景锚（天然气与动力煤同属发电能源）。本格脚本自动填充，每周一刷新。<br>纽卡斯尔煤炭、CCI精确现货指数仍需付费源；如需"字面煤炭价"可接 EIA 免费key 或 Argus(付费)。</div>
+</div>
+<h2>⑥ 国际煤价基准（兖煤澳洲季报披露 · PRA权威源）</h2>
+<div class="card"><table>
+<tr><th>季度</th><th>API5(5500大卡)</th><th>GCNewc(6000大卡)</th><th>低挥发喷吹PCI</th><th>半软焦煤</th></tr>
+<tr><td>1Q24</td><td>93</td><td>126</td><td>164</td><td>150</td></tr><tr><td>2Q24</td><td>89</td><td>136</td><td>164</td><td>152</td></tr><tr><td>3Q24</td><td>87</td><td>141</td><td>174</td><td>138</td></tr><tr><td>4Q24</td><td>88</td><td>138</td><td>157</td><td>137</td></tr><tr><td>1Q25</td><td>76</td><td>105</td><td>140</td><td>117</td></tr><tr><td>2Q25</td><td>68</td><td>100</td><td>138</td><td>104</td></tr><tr><td>3Q25</td><td>69</td><td>109</td><td>144</td><td>117</td></tr><tr><td>4Q25</td><td>77</td><td>108</td><td>141</td><td>128</td></tr><tr><td>1Q26</td><td>81</td><td>119</td><td>161</td><td>146</td></tr><tr><td>2Q26</td><td>96</td><td>135</td><td>161</td><td>143</td></tr></table>
+<div class="warn">说明：以上为兖煤澳洲(2898.HK)每季季报"煤炭价格指标"表披露的<b>Argus/McCloskey API5、globalCOAL纽卡斯尔、Platts喷吹/半软</b>基准均价（美元/吨 fob），即PRA权威现货煤价的<b>免费季度序列</b>（季报来源标注 GlobalCOAL/Platts/Argus-McCloskey）。贴秦港5500用API5、贴吕梁主焦用PCI。<br>✅ 已为最新（https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0720/2026072000374.pdf，无需更新）<br>读法：API5在2Q25触底(68)后回升至2Q26(96)，煤价已过本轮底部、右侧温和抬升；纽卡斯尔/CCI精确日频现货仍需付费，本表为季度级权威锚。<br><b>以上为数据整理，不构成投资建议，决策请自行判断。</b></div>
+</div>
+
+<p class="foot">生成于 WorkBuddy ｜ 阿研 · 投研副手 ｜ 数据说话，表格呈现</p>
+</div>
+
+<script>
+// ④ 信号板已 100% 自动化：无手动勾选、无 localStorage，全部由脚本注入数据触发
+function setAuto(){
+  document.getElementById('s_price').checked = true || false;
+  document.getElementById('s_fut').checked   = false;
+  document.getElementById('s_top').checked   = true;
+  document.getElementById('s_rebound').checked = false;
+}
+function renderProg(){
+  var b=['s_pb','s_price','s_fut'], t=['s_top','s_rebound'];
+  var nb=b.filter(function(k){return document.getElementById(k).checked;}).length;
+  var nt=t.filter(function(k){return document.getElementById(k).checked;}).length;
+  document.getElementById('prog').textContent='见底信号：'+nb+' / 3 已触发 ｜ 见顶警示：'+nt+' / 2 已触发';
+}
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('s_pb').checked = true;
+  setAuto();
+  renderProg();
+});
+
+// ① 表格排序：点表头切换升/降序，按单元格 data-s（数值）排序，缺 data-s 时退回文本
+(function(){
+  var dir = {};
+  function val(td){
+    if (td.dataset.s !== undefined && td.dataset.s !== '') { var n = parseFloat(td.dataset.s); return isNaN(n) ? td.textContent : n; }
+    var t = td.textContent.replace(/[%,]/g, '');
+    var n = parseFloat(t); return isNaN(n) ? td.textContent : n;
+  }
+  function sort(tbl, idx, asc){
+    var tb = tbl.tBodies[0] || tbl;
+    var rows = [].slice.call(tb.querySelectorAll('tr')).filter(function(r){ return r.querySelector('td'); });
+    rows.sort(function(a, b){
+      var x = val(a.cells[idx]), y = val(b.cells[idx]);
+      var xn = typeof x === 'number', yn = typeof y === 'number';
+      if (xn && yn) return asc ? x - y : y - x;
+      if (xn) return -1; if (yn) return 1;          // 数字永远排在纯文本前
+      return asc ? String(x).localeCompare(String(y), 'zh') : String(y).localeCompare(String(x), 'zh');
+    });
+    rows.forEach(function(r){ tb.appendChild(r); });
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    var tbl = document.getElementById('tbl_val');
+    if (!tbl) return;
+    var ths = tbl.querySelectorAll('th');
+    [].forEach.call(ths, function(th, i){
+      if (!th.classList.contains('sort')) return;
+      var sp = document.createElement('span'); sp.className = 'arr'; th.appendChild(sp);
+      th.addEventListener('click', function(){
+        dir[i] = !dir[i];
+        [].forEach.call(ths, function(o){ var s = o.querySelector('.arr'); if (s) s.textContent = ''; });
+        sp.textContent = dir[i] ? ' ▲' : ' ▼';
+        sort(tbl, i, dir[i]);
+      });
+    });
+  });
+})();
+</script>
+<script src="/static/tdx-link.js"></script>
+</body></html>
