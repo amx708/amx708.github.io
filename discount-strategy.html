@@ -332,6 +332,14 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .note-bd b{font-weight:700}
 
 </style>
+<style>
+.col-hd{cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 14px;margin:6px 0;border-radius:10px;background:var(--card,#fff);border:1px solid rgba(127,127,127,.18);font-weight:700;user-select:none}
+.col-title{font-size:16px}
+.col-meta{margin-left:auto;color:var(--ink3,#888);font-size:12px;font-weight:400}
+.col-arrow{font-size:13px;color:var(--ink3,#888)}
+.collapsible.collapsed > *:not(.col-hd){display:none}
+.collapsible h2{display:none}
+</style>
 </head>
 <body>
 <a class="back-home" href="./index.html">← 返回主页</a>
@@ -341,7 +349,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <div class="hd">
   <h1>📊 贴水策略 · 股指期货吃贴水完整方案</h1>
   <div class="sub">
-    <span>数据基准 <b>2026-09-18 结算</b></span>
+    <span>数据基准 <b>2026-09-17 结算</b></span>
     <span>资料来源 <b>网络收录实盘帖 + 中金所参数</b></span>
     <span class="tag tag-w">不构成投资建议</span>
   </div>
@@ -363,19 +371,19 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     <!-- 最厚贴水（可能被公式放大，仅展示） -->
     <div class="card card-warn">
       <div class="k">📊 当前最厚贴水<span class="tag-warn">短期·仅供参考</span></div>
-      <div class="v v-up">10.74%</div>
-      <div class="d">IM2703（中证1000 · 2027年3月）年化<br><span style='color:var(--ink3);font-size:.9em'>现在买→03-19到期结算可吃；剩182天，越晚买收益越少 · 数据2026-09-18</span><br>持有到期单手可收 <b>80,884 元</b></div>
+      <div class="v v-up">10.69%</div>
+      <div class="d">IM2703（中证1000 · 2027年3月）年化<br><span style='color:var(--ink3);font-size:.9em'>现在买→03-19到期结算可吃；剩183天，越晚买收益越少 · 数据2026-09-17</span><br>持有到期单手可收 <b>80,884 元</b></div>
       
-      <div class="warn-box">ℹ 年化 10.7%，剩 182 天，单手可收 80,884 元。</div>
+      <div class="warn-box">ℹ 年化 10.7%，剩 183 天，单手可收 80,884 元。</div>
     </div>
 
     <!-- 推荐执行标的（稳的真肉） -->
     <div class="card card-rec">
       <div class="k">🎯 推荐执行标的<span class="tag-ok">长期·主力配置</span></div>
-      <div class="v v-up">10.74%</div>
-      <div class="d">IM2703（中证1000 · 2027年3月）年化<br><span style='color:var(--ink3);font-size:.9em'>现在买→03-19到期结算可吃；剩约182天 · 数据2026-09-18</span><br>持有到期单手可收约 <b>80,884 元</b></div>
+      <div class="v v-up">10.69%</div>
+      <div class="d">IM2703（中证1000 · 2027年3月）年化<br><span style='color:var(--ink3);font-size:.9em'>现在买→03-19到期结算可吃；剩约183天 · 数据2026-09-17</span><br>持有到期单手可收约 <b>80,884 元</b></div>
       
-      <div class="rec-box">✅ 年化 10.74% 是真实稳定收益（非公式放大），剩 182 天足够摊薄波动。单手可收约 80,884 元。这是策略的「主菜」，资金优先配这里。</div>
+      <div class="rec-box">✅ 年化 10.69% 是真实稳定收益（非公式放大），剩 183 天足够摊薄波动。单手可收约 80,884 元。这是策略的「主菜」，资金优先配这里。</div>
     </div>
 
     <!-- 一手名义 -->
@@ -391,7 +399,8 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <div class="d">无杠杆口径（2018高点起算）<br>2 倍杠杆 = <b>−68%</b></div>
     </div>
   </div>
-  <div id="daily-note" class="daily-note">
+  <div id="daily-note" class="daily-note collapsible collapsed">
+  <div class="col-hd" onclick="toggleCollapse('daily-note')"><span class="col-title">📝 贴水解读</span><span class="col-meta"></span><span class="col-arrow">▶</span></div>
   <div class="daily-note-toolbar">
     <button onclick="expandAll(true)">▼ 全部展开</button>
     <button onclick="expandAll(false)">▶ 全部收起</button>
@@ -399,201 +408,18 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     <span style="margin-left:auto;color:var(--ink3);font-size:11px">点击卡片标题展开 / 收起；点 ☆ 收藏（仅本机记住）</span>
   </div>
   <div class="note-list" id="note-list">
-<div class="note-card" data-id="dnote-2026-09-18-new" data-date="2026-09-18">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-09-18-new')">
+<div class="note-card" data-id="dnote-2026-09-17-new" data-date="2026-09-17">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-09-17-new')">
     <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-18</span>
+    <span class="note-date">2026-09-17</span>
     <span class="note-rel">（最新）</span>
     <span class="note-tag">贴水解读</span>
     <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-09-18-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-18-new')" title="收藏/取消收藏">☆</button>
+      <button class="note-fav" data-id="dnote-2026-09-17-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-17-new')" title="收藏/取消收藏">☆</button>
     </span>
   </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2703 年化 <b>10.74%</b> 为真实稳定收益（剩182天，单手约 80,884 元）；当前最厚贴水为 IM2703（年化 10.74%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2703 年化 <b>10.69%</b> 为真实稳定收益（剩183天，单手约 80,884 元）；当前最厚贴水为 IM2703（年化 10.69%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
 </div>
-
-<div class="note-card" data-id="dnote-2026-08-27-new" data-date="2026-08-27">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-08-27-new')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-08-27</span>
-    <span class="note-rel">（回补）</span>
-    <span class="note-tag">贴水解读</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-08-27-new" onclick="event.stopPropagation();toggleFav('dnote-2026-08-27-new')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2703 年化 <b>10.63%</b> 为真实稳定收益（剩204天，单手约 91,869 元）；当前最厚贴水为 IM2703（年化 10.63%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
-</div>
-
-<div class="note-card" data-id="dnote-2026-08-28-new" data-date="2026-08-28">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-08-28-new')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-08-28</span>
-    <span class="note-rel">（回补）</span>
-    <span class="note-tag">贴水解读</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-08-28-new" onclick="event.stopPropagation();toggleFav('dnote-2026-08-28-new')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>10.50%</b> 为真实稳定收益（剩112天，单手约 49,646 元）；当前最厚贴水为 IM2612（年化 10.50%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
-</div>
-
-<div class="note-card" data-id="dnote-2026-08-31-new" data-date="2026-08-31">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-08-31-new')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-08-31</span>
-    <span class="note-rel">（回补）</span>
-    <span class="note-tag">贴水解读</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-08-31-new" onclick="event.stopPropagation();toggleFav('dnote-2026-08-31-new')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.61%</b> 为真实稳定收益（剩109天，单手约 53,884 元）；当前最厚贴水为 IM2609（年化 14.83%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
-</div>
-
-<div class="note-card" data-id="dnote-2026-09-01-new" data-date="2026-09-01">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-09-01-new')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-01</span>
-    <span class="note-rel">（回补）</span>
-    <span class="note-tag">贴水解读</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-09-01-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-01-new')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.57%</b> 为真实稳定收益（剩108天，单手约 52,674 元）；当前最厚贴水为 IC2609（年化 15.55%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
-</div>
-
-<div class="note-card" data-id="dnote-2026-09-02-new" data-date="2026-09-02">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-09-02-new')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-02</span>
-    <span class="note-rel">（回补）</span>
-    <span class="note-tag">贴水解读</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-09-02-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-02-new')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.85%</b> 为真实稳定收益（剩107天，单手约 52,671 元）；当前最厚贴水为 IC2609（年化 15.83%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
-</div>
-
-<div class="note-card" data-id="dnote-2026-09-03-new" data-date="2026-09-03">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-09-03-new')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-03</span>
-    <span class="note-rel">（回补）</span>
-    <span class="note-tag">贴水解读</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-09-03-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-03-new')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.97%</b> 为真实稳定收益（剩106天，单手约 52,859 元）；当前最厚贴水为 IC2609（年化 15.42%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
-</div>
-
-<div class="note-card" data-id="dnote-2026-09-04-new" data-date="2026-09-04">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-09-04-new')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-04</span>
-    <span class="note-rel">（回补）</span>
-    <span class="note-tag">贴水解读</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-09-04-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-04-new')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.85%</b> 为真实稳定收益（剩105天，单手约 51,178 元）；当前最厚贴水为 IC2609（年化 15.22%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
-</div>
-
-<div class="note-card" data-id="dnote-2026-09-07-new" data-date="2026-09-07">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-09-07-new')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-07</span>
-    <span class="note-rel">（回补）</span>
-    <span class="note-tag">贴水解读</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-09-07-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-07-new')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>12.10%</b> 为真实稳定收益（剩102天，单手约 51,672 元）；当前最厚贴水为 IC2609（年化 18.46%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
-</div>
-
-<div class="note-card" data-id="dnote-2026-09-08-new" data-date="2026-09-08">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-09-08-new')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-08</span>
-    <span class="note-rel">（回补）</span>
-    <span class="note-tag">贴水解读</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-09-08-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-08-new')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.96%</b> 为真实稳定收益（剩101天，单手约 50,681 元）；当前最厚贴水为 IH2609（年化 14.81%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
-</div>
-
-<div class="note-card" data-id="dnote-2026-09-09-new" data-date="2026-09-09">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-09-09-new')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-09</span>
-    <span class="note-rel">（回补）</span>
-    <span class="note-tag">贴水解读</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-09-09-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-09-new')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>12.62%</b> 为真实稳定收益（剩100天，单手约 52,880 元）；当前最厚贴水为 IM2609（年化 16.01%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
-</div>
-
-<div class="note-card" data-id="dnote-2026-09-10-new" data-date="2026-09-10">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-09-10-new')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-10</span>
-    <span class="note-rel">（回补）</span>
-    <span class="note-tag">贴水解读</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-09-10-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-10-new')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>12.03%</b> 为真实稳定收益（剩99天，单手约 49,510 元）；当前最厚贴水为 IM2612（年化 12.03%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
-</div>
-
-<div class="note-card" data-id="dnote-2026-09-11-new" data-date="2026-09-11">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-09-11-new')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-11</span>
-    <span class="note-rel">（回补）</span>
-    <span class="note-tag">贴水解读</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-09-11-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-11-new')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>12.48%</b> 为真实稳定收益（剩98天，单手约 49,768 元）；当前最厚贴水为 IM2612（年化 12.48%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
-</div>
-
-<div class="note-card" data-id="dnote-2026-09-14-new" data-date="2026-09-14">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-09-14-new')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-14</span>
-    <span class="note-rel">（回补）</span>
-    <span class="note-tag">贴水解读</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-09-14-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-14-new')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>12.28%</b> 为真实稳定收益（剩95天，单手约 47,740 元）；当前最厚贴水为 IM2612（年化 12.28%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
-</div>
-
-<div class="note-card" data-id="dnote-2026-09-15-new" data-date="2026-09-15">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-09-15-new')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-15</span>
-    <span class="note-rel">（回补）</span>
-    <span class="note-tag">贴水解读</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-09-15-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-15-new')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2703 年化 <b>11.86%</b> 为真实稳定收益（剩185天，单手约 89,421 元）；当前最厚贴水为 IM2703（年化 11.86%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
-</div>
-
 <div class="note-card" data-id="dnote-2026-09-16-new" data-date="2026-09-16">
   <div class="note-hd" onclick="toggleNote('dnote-2026-09-16-new')">
     <span class="note-toggle">▼</span>
@@ -606,76 +432,179 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   </div>
   <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2703 年化 <b>11.00%</b> 为真实稳定收益（剩184天，单手约 84,125 元）；当前最厚贴水为 IM2703（年化 11.00%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
 </div>
-
-<div class="note-card" data-id="dnote-2026-09-17-new" data-date="2026-09-17">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-09-17-new')">
+<div class="note-card" data-id="dnote-2026-09-15-new" data-date="2026-09-15">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-09-15-new')">
     <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-17</span>
+    <span class="note-date">2026-09-15</span>
     <span class="note-rel">（回补）</span>
     <span class="note-tag">贴水解读</span>
     <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-09-17-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-17-new')" title="收藏/取消收藏">☆</button>
+      <button class="note-fav" data-id="dnote-2026-09-15-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-15-new')" title="收藏/取消收藏">☆</button>
     </span>
   </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2703 年化 <b>10.69%</b> 为真实稳定收益（剩183天，单手约 80,884 元）；当前最厚贴水为 IM2703（年化 10.69%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2703 年化 <b>11.86%</b> 为真实稳定收益（剩185天，单手约 89,421 元）；当前最厚贴水为 IM2703（年化 11.86%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
 </div>
-
-<div class="note-card" data-id="dnote-2026-08-26-new" data-date="2026-08-26">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-08-26-new')">
+<div class="note-card" data-id="dnote-2026-09-14-new" data-date="2026-09-14">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-09-14-new')">
     <span class="note-toggle">▼</span>
-    <span class="note-date">2026-08-26</span>
-    <span class="note-rel">（最新）</span>
+    <span class="note-date">2026-09-14</span>
+    <span class="note-rel">（回补）</span>
     <span class="note-tag">贴水解读</span>
     <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-08-26-new" onclick="event.stopPropagation();toggleFav('dnote-2026-08-26-new')" title="收藏/取消收藏">☆</button>
+      <button class="note-fav" data-id="dnote-2026-09-14-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-14-new')" title="收藏/取消收藏">☆</button>
     </span>
   </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.68%</b> 为真实稳定收益（剩114天，单手约 54,940 元）；当前最厚贴水为 IC2609（年化 15.22%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>12.28%</b> 为真实稳定收益（剩95天，单手约 47,740 元）；当前最厚贴水为 IM2612（年化 12.28%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
 </div>
-
-<div class="note-card" data-id="dnote-2026-08-25-new" data-date="2026-08-25">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-08-25-new')">
+<div class="note-card" data-id="dnote-2026-09-11-new" data-date="2026-09-11">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-09-11-new')">
     <span class="note-toggle">▼</span>
-    <span class="note-date">2026-08-25</span>
-    <span class="note-rel">（最新）</span>
+    <span class="note-date">2026-09-11</span>
+    <span class="note-rel">（回补）</span>
     <span class="note-tag">贴水解读</span>
     <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-08-25-new" onclick="event.stopPropagation();toggleFav('dnote-2026-08-25-new')" title="收藏/取消收藏">☆</button>
+      <button class="note-fav" data-id="dnote-2026-09-11-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-11-new')" title="收藏/取消收藏">☆</button>
     </span>
   </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IC2612 年化 <b>11.82%</b> 为真实稳定收益（剩115天，单手约 57,497 元）；当前最厚贴水为 IC2609（年化 17.48%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>12.48%</b> 为真实稳定收益（剩98天，单手约 49,768 元）；当前最厚贴水为 IM2612（年化 12.48%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
 </div>
-
-<div class="note-card" data-id="dnote-2026-08-24-new" data-date="2026-08-24">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-08-24-new')">
+<div class="note-card" data-id="dnote-2026-09-10-new" data-date="2026-09-10">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-09-10-new')">
     <span class="note-toggle">▼</span>
-    <span class="note-date">2026-08-24</span>
-    <span class="note-rel">（最新）</span>
+    <span class="note-date">2026-09-10</span>
+    <span class="note-rel">（回补）</span>
     <span class="note-tag">贴水解读</span>
     <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-08-24-new" onclick="event.stopPropagation();toggleFav('dnote-2026-08-24-new')" title="收藏/取消收藏">☆</button>
+      <button class="note-fav" data-id="dnote-2026-09-10-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-10-new')" title="收藏/取消收藏">☆</button>
     </span>
   </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IC2612 年化 <b>11.72%</b> 为真实稳定收益（剩116天，单手约 57,497 元）；当前最厚贴水为 IC2609（年化 16.78%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>12.03%</b> 为真实稳定收益（剩99天，单手约 49,510 元）；当前最厚贴水为 IM2612（年化 12.03%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
 </div>
-
-<div class="note-card" data-id="dnote-2026-08-21-new" data-date="2026-08-21">
-  <div class="note-hd" onclick="toggleNote('dnote-2026-08-21-new')">
+<div class="note-card" data-id="dnote-2026-09-09-new" data-date="2026-09-09">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-09-09-new')">
     <span class="note-toggle">▼</span>
-    <span class="note-date">2026-08-21</span>
-    <span class="note-rel">（最新）</span>
+    <span class="note-date">2026-09-09</span>
+    <span class="note-rel">（回补）</span>
     <span class="note-tag">贴水解读</span>
     <span class="note-hd-actions">
-      <button class="note-fav" data-id="dnote-2026-08-21-new" onclick="event.stopPropagation();toggleFav('dnote-2026-08-21-new')" title="收藏/取消收藏">☆</button>
+      <button class="note-fav" data-id="dnote-2026-09-09-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-09-new')" title="收藏/取消收藏">☆</button>
     </span>
   </div>
-  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.17%</b> 为真实稳定收益（剩119天，单手约 55,276 元）；当前最厚贴水为 IC2609（年化 14.85%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>12.62%</b> 为真实稳定收益（剩100天，单手约 52,880 元）；当前最厚贴水为 IM2609（年化 16.01%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
 </div>
+<div class="note-card" data-id="dnote-2026-09-08-new" data-date="2026-09-08">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-09-08-new')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-08</span>
+    <span class="note-rel">（回补）</span>
+    <span class="note-tag">贴水解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-09-08-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-08-new')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.96%</b> 为真实稳定收益（剩101天，单手约 50,681 元）；当前最厚贴水为 IH2609（年化 14.81%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
 </div>
-</section>
+<div class="note-card" data-id="dnote-2026-09-07-new" data-date="2026-09-07">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-09-07-new')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-07</span>
+    <span class="note-rel">（回补）</span>
+    <span class="note-tag">贴水解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-09-07-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-07-new')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>12.10%</b> 为真实稳定收益（剩102天，单手约 51,672 元）；当前最厚贴水为 IC2609（年化 18.46%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+<div class="note-card" data-id="dnote-2026-09-04-new" data-date="2026-09-04">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-09-04-new')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-04</span>
+    <span class="note-rel">（回补）</span>
+    <span class="note-tag">贴水解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-09-04-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-04-new')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.85%</b> 为真实稳定收益（剩105天，单手约 51,178 元）；当前最厚贴水为 IC2609（年化 15.22%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+<div class="note-card" data-id="dnote-2026-09-03-new" data-date="2026-09-03">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-09-03-new')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-03</span>
+    <span class="note-rel">（回补）</span>
+    <span class="note-tag">贴水解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-09-03-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-03-new')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.97%</b> 为真实稳定收益（剩106天，单手约 52,859 元）；当前最厚贴水为 IC2609（年化 15.42%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+<div class="note-card" data-id="dnote-2026-09-02-new" data-date="2026-09-02">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-09-02-new')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-02</span>
+    <span class="note-rel">（回补）</span>
+    <span class="note-tag">贴水解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-09-02-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-02-new')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.85%</b> 为真实稳定收益（剩107天，单手约 52,671 元）；当前最厚贴水为 IC2609（年化 15.83%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+<div class="note-card" data-id="dnote-2026-09-01-new" data-date="2026-09-01">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-09-01-new')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-01</span>
+    <span class="note-rel">（回补）</span>
+    <span class="note-tag">贴水解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-09-01-new" onclick="event.stopPropagation();toggleFav('dnote-2026-09-01-new')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.57%</b> 为真实稳定收益（剩108天，单手约 52,674 元）；当前最厚贴水为 IC2609（年化 15.55%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+<div class="note-card" data-id="dnote-2026-08-31-new" data-date="2026-08-31">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-08-31-new')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-31</span>
+    <span class="note-rel">（回补）</span>
+    <span class="note-tag">贴水解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-08-31-new" onclick="event.stopPropagation();toggleFav('dnote-2026-08-31-new')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>11.61%</b> 为真实稳定收益（剩109天，单手约 53,884 元）；当前最厚贴水为 IM2609（年化 14.83%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+<div class="note-card" data-id="dnote-2026-08-28-new" data-date="2026-08-28">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-08-28-new')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-28</span>
+    <span class="note-rel">（回补）</span>
+    <span class="note-tag">贴水解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-08-28-new" onclick="event.stopPropagation();toggleFav('dnote-2026-08-28-new')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2612 年化 <b>10.50%</b> 为真实稳定收益（剩112天，单手约 49,646 元）；当前最厚贴水为 IM2612（年化 10.50%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+<div class="note-card" data-id="dnote-2026-08-27-new" data-date="2026-08-27">
+  <div class="note-hd" onclick="toggleNote('dnote-2026-08-27-new')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-27</span>
+    <span class="note-rel">（回补）</span>
+    <span class="note-tag">贴水解读</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="dnote-2026-08-27-new" onclick="event.stopPropagation();toggleFav('dnote-2026-08-27-new')" title="收藏/取消收藏">☆</button>
+    </span>
+  </div>
+  <div class="note-bd"><span class="t">【贴水解读】</span>远月 IM2703 年化 <b>10.63%</b> 为真实稳定收益（剩204天，单手约 91,869 元）；当前最厚贴水为 IM2703（年化 10.63%）。已持仓者吃到到期再换远月，未开仓者直接开远月主菜；别为追近月假高年化挪用远月子弹。</div>
+</div>
+  
 
 <!-- 贴水水位复盘 -->
-<section id="thickest-review">
+<section id="thickest-review" class="collapsible collapsed">
+  <div class="col-hd" onclick="toggleCollapse('thickest-review')"><span class="col-title">📈 贴水水位复盘</span><span class="col-meta"></span><span class="col-arrow">▶</span></div>
   <h2>📈 贴水水位复盘</h2>
   <p class="sub">每天自动收录「当前最厚贴水」快照（合约 / 年化 / 剩几天 / 单手收益 / 占名义比例 / 公式放大倍数），方便日后回看贴水水位变迁。同日重复刷新只更新当天快照，不重复添加；最多保留 30 条。点击卡片标题展开 / 收起，点 ☆ 收藏（仅本机记住）。</p>
   <div id="thickest-review-box" class="daily-note">
@@ -686,201 +615,18 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <span style="margin-left:auto;color:var(--ink3);font-size:11px">点击卡片标题展开 / 收起；点 ☆ 收藏（仅本机记住）</span>
     </div>
     <div class="note-list" id="thickest-list">
-<div class="note-card" data-id="thickest-2026-09-18" data-date="2026-09-18">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-18')">
+<div class="note-card" data-id="thickest-2026-09-17" data-date="2026-09-17">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-17')">
     <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-18</span>
+    <span class="note-date">2026-09-17</span>
     <span class="note-rel">（最新快照）</span>
     <span class="note-tag">最厚贴水</span>
     <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-09-18" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-18')" title="收藏/取消收藏">☆</button>
+      <button class="note-fav" data-id="thickest-2026-09-17" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-17')" title="收藏/取消收藏">☆</button>
     </span>
   </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.74%</b> · 剩 <b>182</b> 天（2027-03-19 到期） · 单手可收 <b>80,884 元</b> · 占名义 <b>5.36%</b> · 放大 <b>2×</b></div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.69%</b> · 剩 <b>183</b> 天（2027-03-19 到期） · 单手可收 <b>80,884 元</b> · 占名义 <b>5.36%</b> · 放大 <b>2×</b></div>
 </div>
-
-<div class="note-card" data-id="thickest-2026-08-27" data-date="2026-08-27">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-08-27')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-08-27</span>
-    <span class="note-rel">（回补快照）</span>
-    <span class="note-tag">最厚贴水</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-08-27" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-08-27')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-<div class="note-card" data-id="thickest-2026-08-28" data-date="2026-08-28">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-08-28')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-08-28</span>
-    <span class="note-rel">（回补快照）</span>
-    <span class="note-tag">最厚贴水</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-08-28" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-08-28')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd">合约 <b>IM2612（中证1000 · 2026年12月）</b> · 年化 <b>10.50%</b> · 剩 <b>112</b> 天（2026-12-18 到期） · 单手可收 <b>49,646 元</b> · 占名义 <b>3.22%</b> · 放大 <b>3×</b></div>
-</div>
-
-<div class="note-card" data-id="thickest-2026-08-31" data-date="2026-08-31">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-08-31')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-08-31</span>
-    <span class="note-rel">（回补快照）</span>
-    <span class="note-tag">最厚贴水</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-08-31" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-08-31')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd">合约 <b>IM2609（中证1000 · 2026年9月）</b> · 年化 <b>14.83%</b> · 剩 <b>18</b> 天（2026-09-18 到期） · 单手可收 <b>11,364 元</b> · 占名义 <b>0.73%</b> · 放大 <b>20×</b></div>
-</div>
-
-<div class="note-card" data-id="thickest-2026-09-01" data-date="2026-09-01">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-01')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-01</span>
-    <span class="note-rel">（回补快照）</span>
-    <span class="note-tag">最厚贴水</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-09-01" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-01')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>15.55%</b> · 剩 <b>17</b> 天（2026-09-18 到期） · 单手可收 <b>11,384 元</b> · 占名义 <b>0.72%</b> · 放大 <b>21×</b></div>
-</div>
-
-<div class="note-card" data-id="thickest-2026-09-02" data-date="2026-09-02">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-02')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-02</span>
-    <span class="note-rel">（回补快照）</span>
-    <span class="note-tag">最厚贴水</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-09-02" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-02')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>15.83%</b> · 剩 <b>16</b> 天（2026-09-18 到期） · 单手可收 <b>10,727 元</b> · 占名义 <b>0.69%</b> · 放大 <b>23×</b></div>
-</div>
-
-<div class="note-card" data-id="thickest-2026-09-03" data-date="2026-09-03">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-03')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-03</span>
-    <span class="note-rel">（回补快照）</span>
-    <span class="note-tag">最厚贴水</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-09-03" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-03')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>15.42%</b> · 剩 <b>15</b> 天（2026-09-18 到期） · 单手可收 <b>9,832 元</b> · 占名义 <b>0.63%</b> · 放大 <b>24×</b></div>
-</div>
-
-<div class="note-card" data-id="thickest-2026-09-04" data-date="2026-09-04">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-04')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-04</span>
-    <span class="note-rel">（回补快照）</span>
-    <span class="note-tag">最厚贴水</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-09-04" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-04')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>15.22%</b> · 剩 <b>14</b> 天（2026-09-18 到期） · 单手可收 <b>8,938 元</b> · 占名义 <b>0.58%</b> · 放大 <b>26×</b></div>
-</div>
-
-<div class="note-card" data-id="thickest-2026-09-07" data-date="2026-09-07">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-07')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-07</span>
-    <span class="note-rel">（回补快照）</span>
-    <span class="note-tag">最厚贴水</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-09-07" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-07')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>18.46%</b> · 剩 <b>11</b> 天（2026-09-18 到期） · 单手可收 <b>8,634 元</b> · 占名义 <b>0.56%</b> · 放大 <b>33×</b></div>
-</div>
-
-<div class="note-card" data-id="thickest-2026-09-08" data-date="2026-09-08">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-08')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-08</span>
-    <span class="note-rel">（回补快照）</span>
-    <span class="note-tag">最厚贴水</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-09-08" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-08')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd">合约 <b>IH2609（上证50 · 2026年9月）</b> · 年化 <b>14.81%</b> · 剩 <b>10</b> 天（2026-09-18 到期） · 单手可收 <b>3,541 元</b> · 占名义 <b>0.41%</b> · 放大 <b>36×</b></div>
-</div>
-
-<div class="note-card" data-id="thickest-2026-09-09" data-date="2026-09-09">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-09')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-09</span>
-    <span class="note-rel">（回补快照）</span>
-    <span class="note-tag">最厚贴水</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-09-09" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-09')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd">合约 <b>IM2609（中证1000 · 2026年9月）</b> · 年化 <b>16.01%</b> · 剩 <b>9</b> 天（2026-09-18 到期） · 单手可收 <b>6,040 元</b> · 占名义 <b>0.39%</b> · 放大 <b>41×</b></div>
-</div>
-
-<div class="note-card" data-id="thickest-2026-09-10" data-date="2026-09-10">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-10')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-10</span>
-    <span class="note-rel">（回补快照）</span>
-    <span class="note-tag">最厚贴水</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-09-10" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-10')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd">合约 <b>IM2612（中证1000 · 2026年12月）</b> · 年化 <b>12.03%</b> · 剩 <b>99</b> 天（2026-12-18 到期） · 单手可收 <b>49,510 元</b> · 占名义 <b>3.26%</b> · 放大 <b>4×</b></div>
-</div>
-
-<div class="note-card" data-id="thickest-2026-09-11" data-date="2026-09-11">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-11')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-11</span>
-    <span class="note-rel">（回补快照）</span>
-    <span class="note-tag">最厚贴水</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-09-11" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-11')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd">合约 <b>IM2612（中证1000 · 2026年12月）</b> · 年化 <b>12.48%</b> · 剩 <b>98</b> 天（2026-12-18 到期） · 单手可收 <b>49,768 元</b> · 占名义 <b>3.35%</b> · 放大 <b>4×</b></div>
-</div>
-
-<div class="note-card" data-id="thickest-2026-09-14" data-date="2026-09-14">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-14')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-14</span>
-    <span class="note-rel">（回补快照）</span>
-    <span class="note-tag">最厚贴水</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-09-14" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-14')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd">合约 <b>IM2612（中证1000 · 2026年12月）</b> · 年化 <b>12.28%</b> · 剩 <b>95</b> 天（2026-12-18 到期） · 单手可收 <b>47,740 元</b> · 占名义 <b>3.20%</b> · 放大 <b>4×</b></div>
-</div>
-
-<div class="note-card" data-id="thickest-2026-09-15" data-date="2026-09-15">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-15')">
-    <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-15</span>
-    <span class="note-rel">（回补快照）</span>
-    <span class="note-tag">最厚贴水</span>
-    <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-09-15" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-15')" title="收藏/取消收藏">☆</button>
-    </span>
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>11.86%</b> · 剩 <b>185</b> 天（2027-03-19 到期） · 单手可收 <b>89,421 元</b> · 占名义 <b>6.01%</b> · 放大 <b>2×</b></div>
-</div>
-
 <div class="note-card" data-id="thickest-2026-09-16" data-date="2026-09-16">
   <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-16')">
     <span class="note-toggle">▼</span>
@@ -893,221 +639,175 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   </div>
   <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>11.00%</b> · 剩 <b>184</b> 天（2027-03-19 到期） · 单手可收 <b>84,125 元</b> · 占名义 <b>5.54%</b> · 放大 <b>2×</b></div>
 </div>
-
-<div class="note-card" data-id="thickest-2026-09-17" data-date="2026-09-17">
-  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-17')">
+<div class="note-card" data-id="thickest-2026-09-15" data-date="2026-09-15">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-15')">
     <span class="note-toggle">▼</span>
-    <span class="note-date">2026-09-17</span>
+    <span class="note-date">2026-09-15</span>
     <span class="note-rel">（回补快照）</span>
     <span class="note-tag">最厚贴水</span>
     <span class="note-hd-actions">
-      <button class="note-fav" data-id="thickest-2026-09-17" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-17')" title="收藏/取消收藏">☆</button>
+      <button class="note-fav" data-id="thickest-2026-09-15" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-15')" title="收藏/取消收藏">☆</button>
     </span>
   </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.69%</b> · 剩 <b>183</b> 天（2027-03-19 到期） · 单手可收 <b>80,884 元</b> · 占名义 <b>5.36%</b> · 放大 <b>2×</b></div>
+  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>11.86%</b> · 剩 <b>185</b> 天（2027-03-19 到期） · 单手可收 <b>89,421 元</b> · 占名义 <b>6.01%</b> · 放大 <b>2×</b></div>
 </div>
-</div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.74%</b> · 剩 <b>182</b> 天（2027-03-19 到期） · 单手可收 <b>80,884 元</b> · 占名义 <b>5.36%</b> · 放大 <b>2×</b></div>
-</div>
-
+<div class="note-card" data-id="thickest-2026-09-14" data-date="2026-09-14">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-14')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-14</span>
+    <span class="note-rel">（回补快照）</span>
+    <span class="note-tag">最厚贴水</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="thickest-2026-09-14" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-14')" title="收藏/取消收藏">☆</button>
+    </span>
   </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.74%</b> · 剩 <b>182</b> 天（2027-03-19 到期） · 单手可收 <b>80,884 元</b> · 占名义 <b>5.36%</b> · 放大 <b>2×</b></div>
+  <div class="note-bd">合约 <b>IM2612（中证1000 · 2026年12月）</b> · 年化 <b>12.28%</b> · 剩 <b>95</b> 天（2026-12-18 到期） · 单手可收 <b>47,740 元</b> · 占名义 <b>3.20%</b> · 放大 <b>4×</b></div>
 </div>
-
+<div class="note-card" data-id="thickest-2026-09-11" data-date="2026-09-11">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-11')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-11</span>
+    <span class="note-rel">（回补快照）</span>
+    <span class="note-tag">最厚贴水</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="thickest-2026-09-11" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-11')" title="收藏/取消收藏">☆</button>
+    </span>
   </div>
-  <div class="note-bd">合约 <b>IC2612（中证500 · 2026年12月）</b> · 年化 <b>10.94%</b> · 剩 <b>93</b> 天（2026-12-18 到期） · 单手可收 <b>42,158 元</b> · 占名义 <b>2.79%</b> · 放大 <b>4×</b></div>
+  <div class="note-bd">合约 <b>IM2612（中证1000 · 2026年12月）</b> · 年化 <b>12.48%</b> · 剩 <b>98</b> 天（2026-12-18 到期） · 单手可收 <b>49,768 元</b> · 占名义 <b>3.35%</b> · 放大 <b>4×</b></div>
 </div>
-
+<div class="note-card" data-id="thickest-2026-09-10" data-date="2026-09-10">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-10')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-10</span>
+    <span class="note-rel">（回补快照）</span>
+    <span class="note-tag">最厚贴水</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="thickest-2026-09-10" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-10')" title="收藏/取消收藏">☆</button>
+    </span>
   </div>
-  <div class="note-bd">合约 <b>IC2612（中证500 · 2026年12月）</b> · 年化 <b>10.94%</b> · 剩 <b>93</b> 天（2026-12-18 到期） · 单手可收 <b>42,158 元</b> · 占名义 <b>2.79%</b> · 放大 <b>4×</b></div>
+  <div class="note-bd">合约 <b>IM2612（中证1000 · 2026年12月）</b> · 年化 <b>12.03%</b> · 剩 <b>99</b> 天（2026-12-18 到期） · 单手可收 <b>49,510 元</b> · 占名义 <b>3.26%</b> · 放大 <b>4×</b></div>
 </div>
-
+<div class="note-card" data-id="thickest-2026-09-09" data-date="2026-09-09">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-09')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-09</span>
+    <span class="note-rel">（回补快照）</span>
+    <span class="note-tag">最厚贴水</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="thickest-2026-09-09" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-09')" title="收藏/取消收藏">☆</button>
+    </span>
   </div>
-  <div class="note-bd">合约 <b>IF2609（沪深300 · 2026年9月）</b> · 年化 <b>82.24%</b> · 剩 <b>3</b> 天（2026-09-18 到期） · 单手可收 <b>9,085 元</b> · 占名义 <b>0.68%</b> · 放大 <b>122×</b></div>
+  <div class="note-bd">合约 <b>IM2609（中证1000 · 2026年9月）</b> · 年化 <b>16.01%</b> · 剩 <b>9</b> 天（2026-09-18 到期） · 单手可收 <b>6,040 元</b> · 占名义 <b>0.39%</b> · 放大 <b>41×</b></div>
 </div>
-
+<div class="note-card" data-id="thickest-2026-09-08" data-date="2026-09-08">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-08')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-08</span>
+    <span class="note-rel">（回补快照）</span>
+    <span class="note-tag">最厚贴水</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="thickest-2026-09-08" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-08')" title="收藏/取消收藏">☆</button>
+    </span>
   </div>
-  <div class="note-bd">合约 <b>IF2609（沪深300 · 2026年9月）</b> · 年化 <b>60.61%</b> · 剩 <b>4</b> 天（2026-09-18 到期） · 单手可收 <b>8,986 元</b> · 占名义 <b>0.66%</b> · 放大 <b>91×</b></div>
+  <div class="note-bd">合约 <b>IH2609（上证50 · 2026年9月）</b> · 年化 <b>14.81%</b> · 剩 <b>10</b> 天（2026-09-18 到期） · 单手可收 <b>3,541 元</b> · 占名义 <b>0.41%</b> · 放大 <b>36×</b></div>
 </div>
-
+<div class="note-card" data-id="thickest-2026-09-07" data-date="2026-09-07">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-07')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-07</span>
+    <span class="note-rel">（回补快照）</span>
+    <span class="note-tag">最厚贴水</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="thickest-2026-09-07" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-07')" title="收藏/取消收藏">☆</button>
+    </span>
   </div>
-  <div class="note-bd">合约 <b>IM2609（中证1000 · 2026年9月）</b> · 年化 <b>118.58%</b> · 剩 <b>7</b> 天（2026-09-18 到期） · 单手可收 <b>34,510 元</b> · 占名义 <b>2.27%</b> · 放大 <b>52×</b></div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>18.46%</b> · 剩 <b>11</b> 天（2026-09-18 到期） · 单手可收 <b>8,634 元</b> · 占名义 <b>0.56%</b> · 放大 <b>33×</b></div>
 </div>
-
+<div class="note-card" data-id="thickest-2026-09-04" data-date="2026-09-04">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-04')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-04</span>
+    <span class="note-rel">（回补快照）</span>
+    <span class="note-tag">最厚贴水</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="thickest-2026-09-04" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-04')" title="收藏/取消收藏">☆</button>
+    </span>
   </div>
-  <div class="note-bd">合约 <b>IM2609（中证1000 · 2026年9月）</b> · 年化 <b>44.62%</b> · 剩 <b>8</b> 天（2026-09-18 到期） · 单手可收 <b>14,960 元</b> · 占名义 <b>0.98%</b> · 放大 <b>46×</b></div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>15.22%</b> · 剩 <b>14</b> 天（2026-09-18 到期） · 单手可收 <b>8,938 元</b> · 占名义 <b>0.58%</b> · 放大 <b>26×</b></div>
 </div>
-
+<div class="note-card" data-id="thickest-2026-09-03" data-date="2026-09-03">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-03')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-03</span>
+    <span class="note-rel">（回补快照）</span>
+    <span class="note-tag">最厚贴水</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="thickest-2026-09-03" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-03')" title="收藏/取消收藏">☆</button>
+    </span>
   </div>
-  <div class="note-bd">合约 <b>IH2609（上证50 · 2026年9月）</b> · 年化 <b>28.38%</b> · 剩 <b>11</b> 天（2026-09-18 到期） · 单手可收 <b>7,503 元</b> · 占名义 <b>0.86%</b> · 放大 <b>33×</b></div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>15.42%</b> · 剩 <b>15</b> 天（2026-09-18 到期） · 单手可收 <b>9,832 元</b> · 占名义 <b>0.63%</b> · 放大 <b>24×</b></div>
 </div>
-
+<div class="note-card" data-id="thickest-2026-09-02" data-date="2026-09-02">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-02')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-02</span>
+    <span class="note-rel">（回补快照）</span>
+    <span class="note-tag">最厚贴水</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="thickest-2026-09-02" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-02')" title="收藏/取消收藏">☆</button>
+    </span>
   </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>49.54%</b> · 剩 <b>14</b> 天（2026-09-18 到期） · 单手可收 <b>29,472 元</b> · 占名义 <b>1.90%</b> · 放大 <b>26×</b></div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>15.83%</b> · 剩 <b>16</b> 天（2026-09-18 到期） · 单手可收 <b>10,727 元</b> · 占名义 <b>0.69%</b> · 放大 <b>23×</b></div>
 </div>
-
+<div class="note-card" data-id="thickest-2026-09-01" data-date="2026-09-01">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-09-01')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-09-01</span>
+    <span class="note-rel">（回补快照）</span>
+    <span class="note-tag">最厚贴水</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="thickest-2026-09-01" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-09-01')" title="收藏/取消收藏">☆</button>
+    </span>
   </div>
-  <div class="note-bd">合约 <b>IM2612（中证1000 · 2026年12月）</b> · 年化 <b>11.26%</b> · 剩 <b>106</b> 天（2026-12-18 到期） · 单手可收 <b>49,591 元</b> · 占名义 <b>3.27%</b> · 放大 <b>3×</b></div>
+  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>15.55%</b> · 剩 <b>17</b> 天（2026-09-18 到期） · 单手可收 <b>11,384 元</b> · 占名义 <b>0.72%</b> · 放大 <b>21×</b></div>
 </div>
-
+<div class="note-card" data-id="thickest-2026-08-31" data-date="2026-08-31">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-08-31')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-31</span>
+    <span class="note-rel">（回补快照）</span>
+    <span class="note-tag">最厚贴水</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="thickest-2026-08-31" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-08-31')" title="收藏/取消收藏">☆</button>
+    </span>
   </div>
-  <div class="note-bd">合约 <b>IM2610（中证1000 · 2026年10月）</b> · 年化 <b>12.22%</b> · 剩 <b>43</b> 天（2026-10-16 到期） · 单手可收 <b>21,831 元</b> · 占名义 <b>1.44%</b> · 放大 <b>8×</b></div>
+  <div class="note-bd">合约 <b>IM2609（中证1000 · 2026年9月）</b> · 年化 <b>14.83%</b> · 剩 <b>18</b> 天（2026-09-18 到期） · 单手可收 <b>11,364 元</b> · 占名义 <b>0.73%</b> · 放大 <b>20×</b></div>
 </div>
-
+<div class="note-card" data-id="thickest-2026-08-28" data-date="2026-08-28">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-08-28')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-28</span>
+    <span class="note-rel">（回补快照）</span>
+    <span class="note-tag">最厚贴水</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="thickest-2026-08-28" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-08-28')" title="收藏/取消收藏">☆</button>
+    </span>
   </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>53.10%</b> · 剩 <b>16</b> 天（2026-09-18 到期） · 单手可收 <b>36,584 元</b> · 占名义 <b>2.33%</b> · 放大 <b>23×</b></div>
+  <div class="note-bd">合约 <b>IM2612（中证1000 · 2026年12月）</b> · 年化 <b>10.50%</b> · 剩 <b>112</b> 天（2026-12-18 到期） · 单手可收 <b>49,646 元</b> · 占名义 <b>3.22%</b> · 放大 <b>3×</b></div>
 </div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2609（中证1000 · 2026年9月）</b> · 年化 <b>44.78%</b> · 剩 <b>16</b> 天（2026-09-18 到期） · 单手可收 <b>30,194 元</b> · 占名义 <b>1.96%</b> · 放大 <b>23×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>40.63%</b> · 剩 <b>17</b> 天（2026-09-18 到期） · 单手可收 <b>30,100 元</b> · 占名义 <b>1.89%</b> · 放大 <b>21×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.57%</b> · 剩 <b>200</b> 天（2027-03-19 到期） · 单手可收 <b>89,246 元</b> · 占名义 <b>5.79%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>20.24%</b> · 剩 <b>21</b> 天（2026-09-18 到期） · 单手可收 <b>18,505 元</b> · 占名义 <b>1.16%</b> · 放大 <b>17×</b></div>
-</div>
-
+<div class="note-card" data-id="thickest-2026-08-27" data-date="2026-08-27">
+  <div class="note-hd" onclick="toggleThickestNote('thickest-2026-08-27')">
+    <span class="note-toggle">▼</span>
+    <span class="note-date">2026-08-27</span>
+    <span class="note-rel">（回补快照）</span>
+    <span class="note-tag">最厚贴水</span>
+    <span class="note-hd-actions">
+      <button class="note-fav" data-id="thickest-2026-08-27" onclick="event.stopPropagation();toggleThickestFav('thickest-2026-08-27')" title="收藏/取消收藏">☆</button>
+    </span>
   </div>
   <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
 </div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.63%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>91,869 元</b> · 占名义 <b>5.94%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>6.43%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>54,214 元</b> · 占名义 <b>3.59%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>6.43%</b> · 剩 <b>204</b> 天（2027-03-19 到期） · 单手可收 <b>54,214 元</b> · 占名义 <b>3.59%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2612（中证1000 · 2026年12月）</b> · 年化 <b>11.39%</b> · 剩 <b>113</b> 天（2026-12-18 到期） · 单手可收 <b>53,214 元</b> · 占名义 <b>3.53%</b> · 放大 <b>3×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IM2703（中证1000 · 2027年3月）</b> · 年化 <b>10.74%</b> · 剩 <b>205</b> 天（2027-03-19 到期） · 单手可收 <b>90,820 元</b> · 占名义 <b>6.03%</b> · 放大 <b>2×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>15.22%</b> · 剩 <b>23</b> 天（2026-09-18 到期） · 单手可收 <b>14,787 元</b> · 占名义 <b>0.96%</b> · 放大 <b>16×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>15.22%</b> · 剩 <b>23</b> 天（2026-09-18 到期） · 单手可收 <b>14,787 元</b> · 占名义 <b>0.96%</b> · 放大 <b>16×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>17.48%</b> · 剩 <b>24</b> 天（2026-09-18 到期） · 单手可收 <b>17,737 元</b> · 占名义 <b>1.15%</b> · 放大 <b>15×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>17.48%</b> · 剩 <b>24</b> 天（2026-09-18 到期） · 单手可收 <b>17,737 元</b> · 占名义 <b>1.15%</b> · 放大 <b>15×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>16.78%</b> · 剩 <b>25</b> 天（2026-09-18 到期） · 单手可收 <b>17,737 元</b> · 占名义 <b>1.15%</b> · 放大 <b>15×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>16.78%</b> · 剩 <b>25</b> 天（2026-09-18 到期） · 单手可收 <b>17,737 元</b> · 占名义 <b>1.15%</b> · 放大 <b>15×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>15.32%</b> · 剩 <b>28</b> 天（2026-09-18 到期） · 单手可收 <b>18,467 元</b> · 占名义 <b>1.18%</b> · 放大 <b>13×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>14.85%</b> · 剩 <b>28</b> 天（2026-09-18 到期） · 单手可收 <b>17,880 元</b> · 占名义 <b>1.14%</b> · 放大 <b>13×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IC2609（中证500 · 2026年9月）</b> · 年化 <b>14.85%</b> · 剩 <b>28</b> 天（2026-09-18 到期） · 单手可收 <b>17,880 元</b> · 占名义 <b>1.14%</b> · 放大 <b>13×</b></div>
-</div>
-
-  </div>
-  <div class="note-bd">合约 <b>IF2608（沪深300 · 2026年8月）</b> · 年化 <b>45.70%</b> · 剩 <b>1</b> 天（2026-08-21 到期） · 单手可收 <b>1,725 元</b> · 占名义 <b>0.13%</b> · 放大 <b>365×</b></div>
-</div>
-
-  </div>
-  </div>
+  
 </section>
 
 <!-- 贴水走势图 -->
@@ -1173,7 +873,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <span><i style="background:#5a9bd4"></i>IH 上证50</span>
       <span style="margin-left:auto;color:var(--ink3)">柱长 = <b>年化贴水率绝对值</b>（满格 10%）· 红色斜纹 = 升水（亏）· 合约原色 = 贴水（赚）</span>
     </div>
-    <div class="data-stamp">数据截至 <b>2026-09-18</b> 结算价 · 每个交易日 16:00 自动更新</div>
+    <div class="data-stamp">数据截至 <b>2026-09-17</b> 结算价 · 每个交易日 16:00 自动更新</div>
     <div class="bars" id="bars"></div>
     <div class="bars-scale"><span>0%</span><span>5%</span><span>10%</span></div>
     <div class="bars-note">
@@ -1840,7 +1540,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 </section>
 
 <div class="ft">
-  <b>风险提示：</b>股指期货属高杠杆衍生品。① 保证金不足会被强制平仓，损失可能超过初始保证金；② 贴水非固定收益，2023年 IC 全年仅 186 点，2026年1月一度转升水；③ 吃到 8% 贴水但指数跌 20%，净亏 12% —— <b>贴水只能减亏，不能防跌</b>；④ 远月合约流动性稀薄，极端行情可能无法按理想价格移仓；⑤ 交易所可临时上调保证金率、限制开仓（2015年有先例）；⑥ 本页数据基于 2026-09-18 结算价，基差每日变动，实盘前必须重新核算。<br><br>
+  <b>风险提示：</b>股指期货属高杠杆衍生品。① 保证金不足会被强制平仓，损失可能超过初始保证金；② 贴水非固定收益，2023年 IC 全年仅 186 点，2026年1月一度转升水；③ 吃到 8% 贴水但指数跌 20%，净亏 12% —— <b>贴水只能减亏，不能防跌</b>；④ 远月合约流动性稀薄，极端行情可能无法按理想价格移仓；⑤ 交易所可临时上调保证金率、限制开仓（2015年有先例）；⑥ 本页数据基于 2026-09-17 结算价，基差每日变动，实盘前必须重新核算。<br><br>
   <b>以上为数据整理，不构成投资建议，决策请自行判断。</b>
 </div>
 
@@ -1851,7 +1551,7 @@ const SPOT={IF:4460.16,IC:7654.98,IM:7548.82,IH:2844.23};
 const MULT={IM:200,IC:200,IF:300,IH:300};
 const NAME={IM:"IM 中证1000",IC:"IC 中证500",IF:"IF 沪深300",IH:"IH 上证50"};
 const COLOR={IM:"#c0392b",IC:"#d9742b",IF:"#1b4f8f",IH:"#5a9bd4"};
-const DAYS={"2609":0,"2610":28,"2612":91,"2703":182};
+const DAYS={"2609":1,"2610":29,"2612":92,"2703":183};
 const EXPD={"2609":"2026-09-18","2610":"2026-10-16","2612":"2026-12-18","2703":"2027-03-19"};
 const FUT={ IF:{"2609":4460.2,"2610":4433.4,"2612":4374.4,"2703":4292.4}, IC:{"2609":7664.6,"2610":7598.2,"2612":7467.6,"2703":7278.4}, IM:{"2609":7559.8,"2610":7496.8,"2612":7352.0,"2703":7144.4}, IH:{"2609":2845.8,"2610":2831.6,"2612":2792.4,"2703":2749.4}
 };
@@ -2262,7 +1962,7 @@ update();
 })();
 </script>
   <script src="/static/tdx-link.js" data-loader="tdx-link-loader"></script>
-<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">📅 数据自动更新：每周一至五 16:30（AutoJobsHub） ｜ 2026-09-18 08:45</div>
+<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">📅 数据自动更新：每周一至五 20:15（AutoJobsHub） ｜ 2026-09-17 16:36</div>
 
 <script>
 // ============ 贴水解读 卡片：收藏 / 展开 / 筛选 ============
@@ -2333,6 +2033,11 @@ const TREND_DATA = /*__TREND_JSON_START__*/{"dates": ["2025-09-08", "2025-09-09"
   });
   const g=document.getElementById('trend-gen'); if(g) g.textContent=D.generated;
 })();
+</script>
+<script>
+function toggleCollapse(id){var el=document.getElementById(id);if(!el)return;el.classList.toggle('collapsed');var a=el.querySelector('.col-arrow');if(a)a.textContent=el.classList.contains('collapsed')?'▶':'▼';try{localStorage.setItem('collapse_'+id,el.classList.contains('collapsed')?'1':'0')}catch(e){}}
+function fillCollapseMeta(){['daily-note','thickest-review'].forEach(function(id){var s=document.getElementById(id);if(!s)return;var list=s.querySelector('.note-list');var m=s.querySelector('.col-meta');if(!list||!m)return;var cards=list.querySelectorAll('.note-card');var latest='';cards.forEach(function(c){var d=c.getAttribute('data-date');if(d&&d>latest)latest=d;});m.textContent='更新至 '+latest+' · 共'+cards.length+'条';try{if(localStorage.getItem('collapse_'+id)==='0'){s.classList.remove('collapsed');var a=s.querySelector('.col-arrow');if(a)a.textContent='▼';}}catch(e){}});}
+if(document.readyState!=='loading')fillCollapseMeta();else document.addEventListener('DOMContentLoaded',fillCollapseMeta);
 </script>
 </body>
 </html>
