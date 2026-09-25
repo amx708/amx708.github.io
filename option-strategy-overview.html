@@ -258,7 +258,7 @@
 
     <div class="dnote">
       <b>🟢 数据源升级：本次用真实数据</b><br>
-      通过 <b>新浪公开日 K 线接口</b>（HTTP，零 key、不封 IP）拉取 6 只 ETF 近 320 根真实日线，由 <code>compute_hv.py</code> 算出 HV20 / HV60 / 历史分位 / 量比（数据截止 2026-08-14 收盘，刷新于 2026-09-23）。<br>
+      通过 <b>新浪公开日 K 线接口</b>（HTTP，零 key、不封 IP）拉取 6 只 ETF 近 320 根真实日线，由 <code>compute_hv.py</code> 算出 HV20 / HV60 / 历史分位 / 量比（数据截止 2026-08-14 收盘，刷新于 2026-09-24）。<br>
       <b>IV 代理说明</b>：期权链级隐含波动率(IV)绝对值该源取不到，故用<b>历史波动率 HV60 分位作 IV 代理</b>（已实现波动≠隐含波动但高度相关，卖方主流做法）。指数期权(IO/MO/IH)未纳入本真实版，其 HV 需另接数据源。
     </div>
 
@@ -482,18 +482,18 @@ BARS.forEach(b=>{
 // codes.near = 8月近月认购虚值一档 8位合约编码（或交易代码）；codes.far = 9月次近月
 // codeKind: '8digit' = 交易所8位合约编码（通达信直接输入即可）；'trade' = 交易代码（同规则可搜，8位编码待接通达信连接器补）
 const RAW = [
-  {name:'50ETF',     fullName:'华夏50ETF',       nickname:'50ETF',    code:'510050', mkt:'SH', hv20:9.6, hv60:16.62, ivPct:75.6, vol:0.48, callOtm1:3.10, codeKind:'8digit', codes:{near:'10011856', far:'10010975'}},
-  {name:'300ETF',    fullName:'华泰柏瑞300ETF',   nickname:'300ETF',   code:'510300', mkt:'SH', hv20:9.49, hv60:19.8, ivPct:78.0, vol:0.49, callOtm1:4.80, codeKind:'8digit', codes:{near:'10011871', far:'10010994'}},
-  {name:'500ETF',    fullName:'南方500ETF',       nickname:'500ETF',   code:'510500', mkt:'SH', hv20:17.85, hv60:31.99, ivPct:82.0, vol:0.43, callOtm1:8.00, codeKind:'8digit', codes:{near:'10012056', far:'10012074'}},
-  {name:'科创50ETF', fullName:'华夏科创50ETF',    nickname:'科创板50', code:'588000', mkt:'SH', hv20:30.82, hv60:55.77, ivPct:80.8, vol:0.51, callOtm1:1.85, codeKind:'8digit', codes:{near:'10012107', far:'10011033'}},
-  {name:'科创50ETFE',fullName:'易方达科创50ETF',  nickname:'科创板50E',code:'588080', mkt:'SH', hv20:29.67, hv60:55.54, ivPct:80.8, vol:0.51, callOtm1:1.80, codeKind:'8digit', codes:{near:'10012110', far:'10011051'}},
-  {name:'创业板ETF',  fullName:'易方达创业板ETF', nickname:'创业板ETF',code:'159915', mkt:'SZ', hv20:22.11, hv60:43.15, ivPct:82.0, vol:0.45, callOtm1:3.70, codeKind:'8digit', codes:{near:'90007774', far:'90007077'}},
-  {name:'嘉实300ETF',fullName:'嘉实300ETF',       nickname:'300ETF嘉', code:'159919', mkt:'SZ', hv20:9.92, hv60:19.62, ivPct:78.0, vol:0.50, callOtm1:5.00, codeKind:'8digit', codes:{near:'90007718', far:'90007092'}},
-  {name:'嘉实500ETF',fullName:'嘉实500ETF',       nickname:'500ETF嘉', code:'159922', mkt:'SZ', hv20:17.93, hv60:31.23, ivPct:82.0, vol:0.33, callOtm1:3.30, codeKind:'8digit', codes:{near:'90007734', far:'90007107'}},
-  {name:'深证100ETF',fullName:'易方达深证100ETF', nickname:'深证100',  code:'159901', mkt:'SZ', hv20:15.29, hv60:30.92, ivPct:80.8, vol:0.72, callOtm1:3.80, codeKind:'8digit', codes:{near:'90007680', far:'90007058'}},
+  {name:'50ETF',     fullName:'华夏50ETF',       nickname:'50ETF',    code:'510050', mkt:'SH', hv20:10.1, hv60:16.16, ivPct:73.2, vol:0.48, callOtm1:3.10, codeKind:'8digit', codes:{near:'10011856', far:'10010975'}},
+  {name:'300ETF',    fullName:'华泰柏瑞300ETF',   nickname:'300ETF',   code:'510300', mkt:'SH', hv20:10.41, hv60:19.15, ivPct:75.2, vol:0.49, callOtm1:4.80, codeKind:'8digit', codes:{near:'10011871', far:'10010994'}},
+  {name:'500ETF',    fullName:'南方500ETF',       nickname:'500ETF',   code:'510500', mkt:'SH', hv20:17.25, hv60:31.45, ivPct:81.2, vol:0.43, callOtm1:8.00, codeKind:'8digit', codes:{near:'10012056', far:'10012074'}},
+  {name:'科创50ETF', fullName:'华夏科创50ETF',    nickname:'科创板50', code:'588000', mkt:'SH', hv20:28.71, hv60:53.81, ivPct:80.0, vol:0.51, callOtm1:1.85, codeKind:'8digit', codes:{near:'10012107', far:'10011033'}},
+  {name:'科创50ETFE',fullName:'易方达科创50ETF',  nickname:'科创板50E',code:'588080', mkt:'SH', hv20:27.72, hv60:53.42, ivPct:80.0, vol:0.51, callOtm1:1.80, codeKind:'8digit', codes:{near:'10012110', far:'10011051'}},
+  {name:'创业板ETF',  fullName:'易方达创业板ETF', nickname:'创业板ETF',code:'159915', mkt:'SZ', hv20:22.74, hv60:41.95, ivPct:81.2, vol:0.45, callOtm1:3.70, codeKind:'8digit', codes:{near:'90007774', far:'90007077'}},
+  {name:'嘉实300ETF',fullName:'嘉实300ETF',       nickname:'300ETF嘉', code:'159919', mkt:'SZ', hv20:10.71, hv60:18.96, ivPct:74.4, vol:0.50, callOtm1:5.00, codeKind:'8digit', codes:{near:'90007718', far:'90007092'}},
+  {name:'嘉实500ETF',fullName:'嘉实500ETF',       nickname:'500ETF嘉', code:'159922', mkt:'SZ', hv20:17.47, hv60:30.64, ivPct:81.2, vol:0.33, callOtm1:3.30, codeKind:'8digit', codes:{near:'90007734', far:'90007107'}},
+  {name:'深证100ETF',fullName:'易方达深证100ETF', nickname:'深证100',  code:'159901', mkt:'SZ', hv20:16.48, hv60:30.04, ivPct:80.4, vol:0.72, callOtm1:3.80, codeKind:'8digit', codes:{near:'90007680', far:'90007058'}},
 ];
-const DATA_DATE = '2026-09-23 收盘'; // 最新交易日快照；重跑 compute_hv.py 自动更新
-const PAGE_UPDATED = '2026-09-23 18:56:23'; // 页面版本更新时间（同步到 deploy_site 时修改）
+const DATA_DATE = '2026-09-24 收盘'; // 最新交易日快照；重跑 compute_hv.py 自动更新
+const PAGE_UPDATED = '2026-09-25 20:05:23'; // 页面版本更新时间（同步到 deploy_site 时修改）
 const TREND = 50, EVENT = 60; // 默认：模糊/震荡、无事件
 let month = 'far';
 
@@ -728,6 +728,6 @@ document.getElementById('tagBox').innerHTML = TAGS.map(t=>`<div style="margin:8p
 setMonth(month); // 渲染默认月份标签 + 图表（取代原 render()）
 </script>
 <div id="toast"></div>
-<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">✅ 期权 HV 数据已更新 2026-09-23 18:56 · 每周一至五 16:30 自动运行（AutoJobsHub）｜2026-09-23 18:56</div>
+<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">✅ 期权 HV 数据已更新 2026-09-25 20:05 · 每周一至五 16:30 自动运行（AutoJobsHub）｜2026-09-25 20:05</div>
 </body>
 </html>
