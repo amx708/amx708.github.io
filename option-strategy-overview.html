@@ -235,7 +235,7 @@
         <span class="sl-pill r">&lt;50　回避区：现在先别买</span>
       </div>
       <div class="sl-formula">算法：总分 = (100 − IV历史分位)×0.4 + 剩余天数(DTE)分×0.3 + 趋势分×0.2 + 事件分×0.1</div>
-      <div class="sl-note">⚠️ 这是<b>当前市场状态</b>下的评分，<b>不是合理值 / 目标值</b>。分数越高 = 越适合买购/买沽；分数越低 = 权利金越贵、时间损耗越快，对买方越不利。<b>今天 9 只全在 &lt;50 回避区，说明现在不是买期权的时候。</b></div>
+      <div class="sl-note">⚠️ 这是<b>当前市场状态</b>下的评分，<b>不是合理值 / 目标值</b>。分数越高 = 越适合买购/买沽；分数越低 = 权利金越贵、时间损耗越快，对买方越不利。<b>今日（10-16）：50ETF 71 分进入 ≥70 积极开仓区（HV60 分位已跌到 37.7，期权变便宜），其余 8 只 55–61 分仍在 50–69 中性区。50ETF 是粗略滤网筛出的候选，仍须自行判断催化剂后再动手。</b></div>
     </div>
 
     <div id="dataBar" style="display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin-bottom:14px;padding:12px 16px;border-radius:12px;background:#eef2f7;border:1px solid var(--line)">
@@ -263,7 +263,7 @@
     </div>
 
     <div class="dwarn">
-      <b>⚠️ 数据口径</b>：HV 分位基于新浪近 320 根日 K 线。当前 9 只 HV60 分位 92.7–96.9，仍一致偏高，<b>可初步采信为"高波动环境"信号</b>。结论：高波动=权利金贵=买方回避区。若手动刷新，重跑 <code>compute_hv.py</code> 即可（无需旧 westock CLI）。
+      <b>⚠️ 数据口径</b>：HV 分位基于新浪近 320 根日 K 线（<code>compute_hv.py</code> 实跑，最新交易日 2026-10-16 收盘）。当前 9 只 HV60 分位 <b>37.7–77.7</b>，较 8 月极端高位（92.7–96.9）大幅回落：<b>50ETF 已跌到 37.7（期权明显变便宜）</b>，嘉实300 62.7、300ETF 64.6 居中，其余 6 只仍在 73.8–77.7 偏高位。<b>结论：50ETF 侧买权性价比已实质性改善</b>。若手动刷新，重跑 <code>compute_hv.py</code> 即可。
     </div>
 
     <!-- 今日总览 -->
@@ -344,7 +344,7 @@
     <!-- 适合买清单 -->
     <div class="dcard">
       <div class="sectitle">五、✅ 今日「适合买」（买方时机分≥70）· 具体怎么下</div>
-      <div class="dsub">按本版四因子 + 真实 HV 自动筛选。今日高波动环境，预期无≥70标的。</div>
+      <div class="dsub">按本版四因子 + 真实 HV 自动筛选。今日 50ETF 因波动率回落（分位 37.7）进入 ≥70 积极区，其余标的仍在中性区。属粗略滤网，非精准抄底信号。</div>
       <ul class="oklist" id="okList"></ul>
       <div class="muted" id="okNote"></div>
     </div>
@@ -359,9 +359,9 @@
     <div class="dcard">
       <div class="sectitle">七、操作提示（人话版）</div>
       <ul class="tips">
-        <li><b>买方：当前高波动=权利金贵、时间价值损耗快</b>，按四因子属「回避区」（当前约 47–49 分）。若要做多，优先用<b>牛市/熊市价差</b>替代裸买以补贴时间价值；或<b>等波动率从高位向中位回落</b>后再买，届时才是「积极开仓区」。</li>
+        <li><b>买方：波动率已自 8 月极端高位大幅回落</b>（HV60 分位 92.7–96.9 → 37.7–77.7）。<b>50ETF 分位 37.7，四因子分 71，是今日唯一进入积极开仓区的标的</b>；其余 8 只 55–61 分仍在中性区，其中科创50/创业板/500 分位 74–78 仍偏贵。若要做多，优先用<b>牛市/熊市价差</b>替代裸买以补贴时间价值，并控制单只仓位。</li>
         <li><b>卖方/双卖/铁鹰</b>：高 HV 提供厚安全垫，但须控仓位（裸卖≤10%、价差≤25%、常备30%闲置资金）并对冲尾部——急跌反弹后中小盘 Gamma 大，谨防反向升波。</li>
-        <li><b>中小盘反弹延续性</b>：科创50/1000/创业板 20 日深跌后今日反弹，关注是否企稳；若波动见顶回落，是未来买权性价比提升的信号，列入「持续关注」。</li>
+        <li><b>中小盘波动仍偏高</b>：科创50 / 创业板 / 500 的 HV60 分位仍在 74–78，是它们未能进入积极区的直接原因；50ETF 已回落至 37.7，是唯一达标标的。若这几只波动继续见顶回落，买权性价比将进一步改善，列入「持续关注」。</li>
         <li><b>指标只是滤网</b>：IV低+DTE够+顺趋势=赔率好，但还得你自己判断有没有催化剂（财报/政策/事件）。</li>
       </ul>
     </div>
@@ -482,18 +482,18 @@ BARS.forEach(b=>{
 // codes.near = 8月近月认购虚值一档 8位合约编码（或交易代码）；codes.far = 9月次近月
 // codeKind: '8digit' = 交易所8位合约编码（通达信直接输入即可）；'trade' = 交易代码（同规则可搜，8位编码待接通达信连接器补）
 const RAW = [
-  {name:'50ETF',     fullName:'华夏50ETF',       nickname:'50ETF',    code:'510050', mkt:'SH', hv20:10.94, hv60:14.01, ivPct:35.6, vol:1.66, callOtm1:2.90, codeKind:'8digit', codes:{near:'10012311', far:'10012439'}},
-  {name:'300ETF',    fullName:'华泰柏瑞300ETF',   nickname:'300ETF',   code:'510300', mkt:'SH', hv20:12.61, hv60:17.64, ivPct:63.6, vol:2.16, callOtm1:4.30, codeKind:'8digit', codes:{near:'10012327', far:'10012456'}},
-  {name:'500ETF',    fullName:'南方500ETF',       nickname:'500ETF',   code:'510500', mkt:'SH', hv20:22.39, hv60:29.65, ivPct:76.4, vol:1.24, callOtm1:7.00, codeKind:'8digit', codes:{near:'10012346', far:'10012474'}},
-  {name:'科创50ETF', fullName:'华夏科创50ETF',    nickname:'科创板50', code:'588000', mkt:'SH', hv20:35.58, hv60:49.55, ivPct:74.0, vol:2.45, callOtm1:1.45, codeKind:'8digit', codes:{near:'10012413', far:'10012551'}},
-  {name:'科创50ETFE',fullName:'易方达科创50ETF',  nickname:'科创板50E',code:'588080', mkt:'SH', hv20:35.48, hv60:48.91, ivPct:74.0, vol:1.90, callOtm1:1.40, codeKind:'8digit', codes:{near:'10012415', far:'10012553'}},
-  {name:'创业板ETF',  fullName:'易方达创业板ETF', nickname:'创业板ETF',code:'159915', mkt:'SZ', hv20:28.01, hv60:40.81, ivPct:76.8, vol:2.50, callOtm1:2.85, codeKind:'8digit', codes:{near:'90008163', far:'90008165'}},
-  {name:'嘉实300ETF',fullName:'嘉实300ETF',       nickname:'300ETF嘉', code:'159919', mkt:'SZ', hv20:13.45, hv60:17.65, ivPct:61.6, vol:1.57, callOtm1:4.50, codeKind:'8digit', codes:{near:'90007989', far:'90008084'}},
-  {name:'嘉实500ETF',fullName:'嘉实500ETF',       nickname:'500ETF嘉', code:'159922', mkt:'SZ', hv20:22.16, hv60:29.51, ivPct:77.2, vol:1.00, callOtm1:2.80, codeKind:'8digit', codes:{near:'90008151', far:'90008153'}},
-  {name:'深证100ETF',fullName:'易方达深证100ETF', nickname:'深证100',  code:'159901', mkt:'SZ', hv20:19.88, hv60:28.2, ivPct:73.2, vol:1.65, callOtm1:3.10, codeKind:'8digit', codes:{near:'90008027', far:'90008047'}},
+  {name:'50ETF',     fullName:'华夏50ETF',       nickname:'50ETF',    code:'510050', mkt:'SH', hv20:10.94, hv60:14.01, ivPct:35.6, vol:3.40, callOtm1:2.90, codeKind:'8digit', codes:{near:'10012311', far:'10012439'}},
+  {name:'300ETF',    fullName:'华泰柏瑞300ETF',   nickname:'300ETF',   code:'510300', mkt:'SH', hv20:12.61, hv60:17.64, ivPct:63.6, vol:4.86, callOtm1:4.30, codeKind:'8digit', codes:{near:'10012327', far:'10012456'}},
+  {name:'500ETF',    fullName:'南方500ETF',       nickname:'500ETF',   code:'510500', mkt:'SH', hv20:22.39, hv60:29.65, ivPct:76.4, vol:1.28, callOtm1:7.00, codeKind:'8digit', codes:{near:'10012346', far:'10012474'}},
+  {name:'科创50ETF', fullName:'华夏科创50ETF',    nickname:'科创板50', code:'588000', mkt:'SH', hv20:35.58, hv60:49.55, ivPct:74.0, vol:1.41, callOtm1:1.45, codeKind:'8digit', codes:{near:'10012413', far:'10012551'}},
+  {name:'科创50ETFE',fullName:'易方达科创50ETF',  nickname:'科创板50E',code:'588080', mkt:'SH', hv20:35.48, hv60:48.91, ivPct:74.0, vol:1.30, callOtm1:1.40, codeKind:'8digit', codes:{near:'10012415', far:'10012553'}},
+  {name:'创业板ETF',  fullName:'易方达创业板ETF', nickname:'创业板ETF',code:'159915', mkt:'SZ', hv20:28.01, hv60:40.81, ivPct:76.8, vol:1.53, callOtm1:2.80, codeKind:'8digit', codes:{near:'90008175', far:'90008177'}},
+  {name:'嘉实300ETF',fullName:'嘉实300ETF',       nickname:'300ETF嘉', code:'159919', mkt:'SZ', hv20:13.45, hv60:17.65, ivPct:61.6, vol:1.42, callOtm1:4.50, codeKind:'8digit', codes:{near:'90007989', far:'90008084'}},
+  {name:'嘉实500ETF',fullName:'嘉实500ETF',       nickname:'500ETF嘉', code:'159922', mkt:'SZ', hv20:22.16, hv60:29.51, ivPct:77.2, vol:0.82, callOtm1:2.80, codeKind:'8digit', codes:{near:'90008151', far:'90008153'}},
+  {name:'深证100ETF',fullName:'易方达深证100ETF', nickname:'深证100',  code:'159901', mkt:'SZ', hv20:19.88, hv60:28.2, ivPct:73.2, vol:1.23, callOtm1:3.10, codeKind:'8digit', codes:{near:'90008027', far:'90008047'}},
 ];
 const DATA_DATE = '2026-10-16 收盘'; // 最新交易日快照；重跑 compute_hv.py 自动更新
-const PAGE_UPDATED = '2026-10-16 17:00:37'; // 页面版本更新时间（同步到 deploy_site 时修改）
+const PAGE_UPDATED = '2026-10-17 00:41:43'; // 页面版本更新时间（同步到 deploy_site 时修改）
 const TREND = 50, EVENT = 60; // 默认：模糊/震荡、无事件
 let month = 'far';
 
@@ -692,7 +692,7 @@ function render(){
   } else {
     const top = rows.slice(0,2);
     list.innerHTML = top.map(r=>`<li><span class="tdxlink" onclick="gotoTdx('${r.code}','${r.name}','${r.mkt}')"><b>${r.fullName}（${r.code}）</b></span> — 买方时机分 ${r.score.toFixed(0)}（回避区），合约代码 ${r.codes.far} · 简称 ${contractDisplay(r,contractMonthNum(1))}；暂不适合买权。</li>`).join('');
-    note.innerHTML = '⚠️ 按真实 HV，今日<b>无买方时机分≥70的「适合买」标的</b>——9 只 ETF 的 HV60 分位全在 92.7–96.9（极高波动），权利金贵、时间损耗快。<b>建议「继续等，不宜追」</b>；待 HV 从高位回落（分位向 50 回归）才是积极开仓区。';
+    note.innerHTML = '⚠️ 按真实 HV，今日<b>无买方时机分≥70的「适合买」标的</b>——9 只 ETF 全在 50–69 中性区（HV60 分位 48.1–78.8，较 8 月 92.7–96.9 的极端高位已大幅回落），权利金仍未到划算位置。<b>建议「继续等，不宜追」</b>；待 IV 分位进一步回落（约 ≤40）才是积极开仓区，50ETF 已接近该门槛。';
   }
 }
 
@@ -705,10 +705,10 @@ document.getElementById('hvTable').innerHTML = RAW.map(r=>`<tr>
 
 // 关注标签
 const TAGS = [
-  {k:'① IV 跌至历史低位（买权机会）', s:'否', c:'tg-no', d:'HV60 分位 92.7–96.9，波动率处一年高位，权利金贵 → 反向（对买方不利）'},
-  {k:'② IV 单日骤升（事件/恐慌）', s:'观察', c:'tg-watch', d:'无单日 IV 数据；科创50/创业板 HV20 已高于 HV60（波动边际走扩），但 50/300/500 仍 HV20<HV60，整体 HV60 处一年高位'},
-  {k:'③ 近远月倒挂/异常陡峭', s:'缺失', c:'tg-miss', d:'期权链期限结构新浪公开接口不可得，标注数据缺失'},
-  {k:'④ 放量异动', s:'否', c:'tg-no', d:'量比均 ≤1.18，无异常放量'},
+  {k:'① IV 跌至历史低位（买权机会）', s:'接近', c:'tg-watch', d:'HV60 分位 37.7–77.7：50ETF 已跌至 37.7（接近低位买权机会区，8 月时为 92.7），嘉实300 62.7 / 300ETF 64.6 居中，其余 6 只 73.8–77.7 仍偏高'},
+  {k:'② IV 单日骤升（事件/恐慌）', s:'否', c:'tg-no', d:'各标的 HV20 均低于 HV60（波动自高位收敛中），无骤升迹象'},
+  {k:'③ 近远月倒挂/异常陡峭', s:'缺失', c:'tg-miss', d:'期权链期限结构公开接口不可得，标注数据缺失'},
+  {k:'④ 放量异动', s:'是', c:'tg-watch', d:'10-16 放量明显：300ETF 量比 4.86 / 50ETF 3.40 / 创业板ETF 1.53 共 3 只 >1.5，其余缩量（嘉实500 仅 0.82）'},
   {k:'⑤ 临近到期（末日轮）', s: DTE.near<=10?'是':'否', c: DTE.near<=10?'tg-watch':'tg-no', d:'近月 DTE '+DTE.near+'天（'+(DTE.near<=10?'已进入 ≤10 天末日轮窗口':'未进入 ≤10 天窗口')+'），次近月 '+DTE.far+'天'},
 ];
 document.getElementById('tagBox').innerHTML = TAGS.map(t=>`<div style="margin:8px 0"><span class="tagbox ${t.c}">${t.s}</span> <b style="font-size:13px">${t.k}</b><div class="muted" style="margin-top:3px">${t.d}</div></div>`).join('');
@@ -728,6 +728,6 @@ document.getElementById('tagBox').innerHTML = TAGS.map(t=>`<div style="margin:8p
 setMonth(month); // 渲染默认月份标签 + 图表（取代原 render()）
 </script>
 <div id="toast"></div>
-<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">✅ 期权 HV 数据已更新 2026-10-16 17:00 · 每周一至五 16:30 自动运行（AutoJobsHub）｜2026-10-16 17:00</div>
+<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">✅ 期权 HV 数据已更新 2026-10-17 00:41 · 每周一至五 16:30 自动运行（AutoJobsHub）｜2026-10-17 00:41</div>
 </body>
 </html>
