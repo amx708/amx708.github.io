@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>中指研究院房地产数据看板</title>
+<style>
+:root{
+  --bg:#f4f6f9; --card:#ffffff; --ink:#1f2329; --sub:#6b7280; --line:#e8eaed;
+  --red:#e02e2e; --green:#12925a; --blue:#2563eb; --amber:#f59e0b; --violet:#7c3aed;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);font-size:14px;line-height:1.55}
+a{color:inherit;text-decoration:none}
+header{background:linear-gradient(135deg,#1e40af,#2563eb);color:#fff;padding:24px 28px}
+header h1{margin:0;font-size:23px;font-weight:800;letter-spacing:.5px}
+header p{margin:7px 0 0;opacity:.88;font-size:13px}
+nav{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:4px;padding:10px 18px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+nav a{color:var(--sub);padding:7px 14px;border-radius:9px;font-size:13px;font-weight:600;
+  border:1px solid var(--line);transition:.15s}
+nav a:hover{background:#eff3ff;color:var(--blue);border-color:var(--blue)}
+nav a.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 18px 60px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:16px 0;
+  box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.card h2{margin:0 0 4px;font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px}
+.card h2:before{content:"";width:4px;height:17px;background:var(--blue);border-radius:3px}
+.card .hint{color:var(--sub);font-size:12.5px;margin:0 0 14px}
+.grid{display:grid;gap:13px}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.kpi{background:linear-gradient(180deg,#fff,#f8fafc);border:1px solid var(--line);
+  border-radius:13px;padding:15px 16px;position:relative;overflow:hidden}
+.kpi:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3.5px;background:var(--blue);opacity:.85}
+.kpi.red:before{background:var(--red)} .kpi.green:before{background:var(--green)} .kpi.violet:before{background:var(--violet)}
+.kpi .lab{color:var(--sub);font-size:12px}
+.kpi .val{font-size:27px;font-weight:850;margin-top:5px;letter-spacing:.3px}
+.kpi .sub{font-size:11.5px;color:var(--sub);margin-top:3px}
+.kpi.core{border-color:var(--amber);box-shadow:0 0 0 2px rgba(245,158,11,.22);padding-right:72px}
+.kpi .badge{position:absolute;top:10px;right:12px;background:linear-gradient(135deg,#f59e0b,#f97316);
+  color:#fff;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px}
+.kpi .role{font-size:10.5px;color:#9aa6c4;margin-top:4px}
+.kpi[onclick]:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1);transition:.2s}
+.up{color:var(--red)} .down{color:var(--green)} .flat{color:var(--sub)}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+select{font:inherit;padding:8px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+.tab{display:inline-block;padding:7px 14px;border:1px solid var(--line);border-radius:20px;background:#fff;
+  cursor:pointer;font-size:13px;font-weight:600;color:var(--sub);transition:.15s}
+.tab:hover{color:var(--blue)}
+.tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.chart{width:100%}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.axis{stroke:#e3e6ea} .gridline{stroke:#f0f2f5}
+.tick{fill:var(--sub);font-size:11px}
+.tooltip{position:fixed;pointer-events:none;background:rgba(17,24,39,.95);color:#fff;padding:9px 12px;
+  border-radius:9px;font-size:12px;line-height:1.6;z-index:99;opacity:0;transition:opacity .08s;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(0,0,0,.22)}
+.tooltip b{color:#fbbf24}
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px}
+th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--sub);font-weight:600;background:#fafbfc}
+tr:hover td{background:#f7f9ff}
+.sbar{display:flex;flex-wrap:wrap;gap:13px;margin-top:6px}
+.snapbox{flex:1 1 280px;border:1px solid var(--line);border-radius:13px;padding:14px 16px;background:#fcfdff}
+.snapbox h4{margin:0 0 9px;font-size:13.5px;color:var(--blue)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:9px;font-size:12px;color:var(--sub)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.note{background:#fefce8;border:1px solid #fde68a;border-radius:10px;padding:11px 14px;color:#854d0e;font-size:12px;margin:10px 0 0}
+.foot{color:var(--sub);font-size:11.5px;text-align:center;margin-top:26px;line-height:1.8}
+.search{width:100%;max-width:320px;margin-bottom:10px;padding:8px 12px;border-radius:9px;
+  border:1px solid var(--line);background:#fff;color:var(--ink)}
+.back-home{position:fixed;top:14px;right:16px;z-index:9999;background:linear-gradient(135deg,var(--violet),var(--blue));
+  color:#fff;padding:8px 16px;border-radius:22px;text-decoration:none;font-size:13px;font-weight:700;
+  box-shadow:0 3px 12px rgba(37,99,235,.35)}
+.back-home:hover{transform:translateY(-1px)}
+.gen{color:var(--sub);font-size:11.5px;margin-top:6px}
+</style>
+<style id="home-btn-style">
+.home-btn-top{position:fixed;top:14px;right:14px;z-index:9998;display:inline-flex;align-items:center;gap:6px;
+padding:7px 14px 7px 12px;border-radius:999px;background:rgba(255,255,255,.86);
+-webkit-backdrop-filter:blur(10px) saturate(1.15);backdrop-filter:blur(10px) saturate(1.15);
+border:1px solid rgba(15,23,42,.12);box-shadow:0 1px 2px rgba(15,23,42,.06),0 10px 24px -14px rgba(15,23,42,.45);
+color:#334155;text-decoration:none;
+font:600 12.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+letter-spacing:.2px;white-space:nowrap;-webkit-font-smoothing:antialiased;
+transition:transform .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease,border-color .18s ease}
+.home-btn-top svg{display:block;width:14px;height:14px;flex:0 0 14px}
+.home-btn-top:hover{background:#111827;border-color:#111827;color:#fff;transform:translateY(-1px);
+box-shadow:0 2px 4px rgba(15,23,42,.14),0 14px 28px -14px rgba(15,23,42,.6)}
+.home-btn-top:active{transform:translateY(0) scale(.98)}
+.home-btn-top:focus-visible{outline:2px solid #2563eb;outline-offset:2px}
+[data-theme="dark"] .home-btn-top{background:rgba(30,41,59,.78);border-color:rgba(255,255,255,.14);color:#e2e8f0;
+box-shadow:0 1px 2px rgba(0,0,0,.35),0 10px 24px -14px rgba(0,0,0,.75)}
+[data-theme="dark"] .home-btn-top:hover{background:#f8fafc;border-color:#f8fafc;color:#0f172a}
+@media (prefers-reduced-motion:reduce){.home-btn-top{transition:none}}
+@media print{.home-btn-top{display:none}}
+</style>
+</head>
+<body>
+<!-- home-btn-injected -->
+<a class="home-btn-top" href="index.html" title="返回站点首页"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9.5"/><path d="M10 21v-6h4v6"/></svg>返回首页</a>
+<!-- /home-btn-injected -->
+
+<header>
+  <h1>中指研究院（crei.cn）房地产数据看板</h1>
+  <p>免费公开数据 · 周成交多周 × 多城 · 宏观指标 · 首页快照 · 政策法规 · 清爽浅色版</p>
+</header>
+<nav>
+  <a href="#overview">总览</a>
+  <a href="#weekly">周成交</a>
+  <a href="#macro">宏观指标</a>
+  <a href="#snapshot">首页快照</a>
+  <a href="#law">政策法规</a>
+  <a href="#catalog">指标字典</a>
+  <a href="#policy-looseness" style="background:#fef3c7;border-color:#f59e0b;color:#b45309">📊 政策松紧度</a>
+  <a href="#market-watch" style="background:#faf5ff;border-color:#7c3aed;color:#6d28d9">📰 市场观察</a>
+</nav>
+<div class="wrap">
+
+  <section id="overview" class="card">
+    <h2>核心信号 · 一览</h2>
+    <p class="hint">六大房地产关键增速（取最新可得期），红为增长、绿为下滑，一眼看懂景气方向。</p>
+    <div class="grid kpis" id="hero-kpi"></div>
+    <h3 style="font-size:14px;margin:18px 0 8px">六大核心信号 · 历史走势</h3>
+    <div class="legend" id="hero-legend" style="margin-bottom:8px"></div>
+    <div id="hero-line" class="chart" style="margin-bottom:4px"></div>
+    <div class="note">★ <b>景气核心判读</b>：<b>房地产开发投资完成额增速</b>与<b>商品房销售面积增速</b>（带橙色描边 + 「★ 景气核心」标）最能反映行业景气度——前者是同步总量锚（与 GDP 强相关），后者是需求体温计。其余四项为<b>领先指标</b>（土地→新开工→资金→按揭），往往在拐点前 1–3 个季度先行变化，用作前瞻信号。</div>
+    <div class="note">🔄 <b>拐点判读</b>：景气向上拐点通常的传导顺序为「土地出让收入↑ → 新开工面积↑ → 房地产资金来源↑ → 商品房销售面积↑ → 开发投资↑」。当前六项增速<b>全部为负</b>，说明行业仍处于<b>出清寻底</b>阶段，<b>尚未出现反转信号</b>，需持续观察领先指标何时由负转正。</div>
+    <div class="note">说明：城市级月度成交、地块明细、房企排名、法规正文均位于付费 / 登录端，本看板仅纳入免费可稳定获取的数据（网络收录）。</div>
+  </section>
+
+  <section id="weekly" class="card">
+    <h2>周成交分析</h2>
+    <p class="hint">环比 / 同比采用红涨绿跌：数值为正显红、为负显绿。下拉切换城市查看成交 / 可售面积走势。</p>
+    <div class="controls">
+      <label style="color:var(--sub)">城市：</label>
+      <select id="wk-city"></select>
+      <span class="legend"><span><i style="background:var(--blue)"></i>成交面积(万㎡)</span>
+        <span><i style="background:var(--amber)"></i>可售面积(万㎡)</span></span>
+    </div>
+    <div id="wk-line" class="chart"></div>
+    <h3 style="font-size:14px;margin:20px 0 6px">最新一周（<span id="wk-lw"></span>）各城成交面积</h3>
+    <div id="wk-bar" class="chart"></div>
+    <div style="margin-top:16px;overflow:auto">
+      <table id="wk-table"><thead></thead><tbody></tbody></table>
+    </div>
+  </section>
+
+  <section id="macro" class="card">
+    <h2>宏观经济与房地产指标</h2>
+    <p class="hint">点击类别与指标查看走势；增长率正值为红、负值为绿。</p>
+    <div class="grid kpis" id="macro-kpi" style="margin-bottom:14px"></div>
+    <div class="tabs" id="macro-cat"></div>
+    <div class="tabs" id="macro-ind" style="margin-top:8px"></div>
+    <div id="macro-line" class="chart" style="margin-top:14px"></div>
+  </section>
+
+  <section id="snapshot" class="card">
+    <h2>首页快照</h2>
+    <p class="hint">crei.cn 首页内嵌的实时数值快照（土地供应、成交、房企动态等）。</p>
+    <div class="sbar" id="snap-box"></div>
+  </section>
+
+  <section id="law" class="card">
+    <h2>政策法规动态</h2>
+    <p class="hint">最新收录地方 / 部委房地产相关政策法规（标题层，正文需登录）。</p>
+    <div class="grid kpis" id="law-kpi" style="margin-bottom:14px"></div>
+    <div class="grid" style="grid-template-columns:1.1fr 1fr;gap:18px">
+      <div>
+        <h3 style="font-size:14px;margin:0 0 8px">各地区发文数量 TOP15</h3>
+        <div id="law-bar" class="chart"></div>
+      </div>
+      <div>
+        <h3 style="font-size:14px;margin:0 0 8px">最新 20 条</h3>
+        <div style="overflow:auto;max-height:340px">
+          <table id="law-table"><thead><tr><th>日期</th><th>地区</th><th>标题</th></tr></thead><tbody></tbody></table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="catalog" class="card">
+    <h2>指标字典</h2>
+    <p class="hint">中指研究院指标目录（数据字典），可按名称 / 板块检索。</p>
+    <input class="search" id="cat-search" placeholder="搜索指标名称 / 板块…">
+    <div style="overflow:auto;max-height:420px">
+      <table id="cat-table"><thead><tr><th>板块</th><th>序号</th><th>指标名称</th><th>单位</th></tr></thead><tbody></tbody></table>
+    </div>
+  </section>
+
+  <section id="policy-looseness" class="card">
+    <h2>📊 政策松紧度自建指数 <span style="font-size:12px;color:var(--sub);font-weight:600;margin-left:6px">· 量化打分 · 12 城 · 6 项杠杆 · 可编辑可重算</span></h2>
+    <p class="hint">基于 2026 年公开政策报道量化打分，工具可编辑改算。数据快照：2026-08 · 含纵向时间线 + 市场验证层 + 收储落地追踪。</p>
+    <div style="position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff">
+      <iframe src="./crei-re-policy.html" style="width:100%;height:5400px;border:none;display:block" loading="lazy" title="政策松紧度指数"></iframe>
+    </div>
+    <div class="note">🔗 完整工具在独立页：<a href="./crei-re-policy.html" target="_blank" style="color:var(--blue);font-weight:600">crei-re-policy.html ↗</a>（含可编辑打分表 / CSV 导出 / 时间线快照保存）</div>
+  </section>
+
+  <section id="market-watch" class="card">
+    <h2>📰 存量服务行业监测 <span style="font-size:12px;color:var(--sub);font-weight:600;margin-left:6px">· 数据 · 资料 · 报告一体化</span></h2>
+    <p class="hint">网络收录近期行业新闻自动整理。本周（2026-08-18 ~ 2026-08-22）：收录 140 篇，标的 28，重点 23；行业核心信号：存量服务赛道在悄悄变实，但开发端仍在分化。</p>
+    <div style="position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff">
+      <iframe src="./crei-market-watch.html" style="width:100%;height:6800px;border:none;display:block" loading="lazy" title="存量服务行业监测"></iframe>
+    </div>
+    <div class="note">🔗 完整报告在独立页：<a href="./crei-market-watch.html" target="_blank" style="color:var(--blue);font-weight:600">crei-market-watch.html ↗</a>（含筛选条 / 搜索 / 全量资料回溯）</div>
+  </section>
+
+  <div class="foot">
+    数据来源：中指研究院 crei.cn 免费公开数据（网络收录）。本看板仅作数据可视化展示，不构成任何投资建议。<br>
+    生成方式：Python 读取 CSV → 原生 SVG + 原生 JS 渲染，零外部依赖，可离线打开。生成时间：2026-10-17 00:23
+  </div>
+</div>
+<div class="tooltip" id="tip"></div>
+
+<script>
+const DATA = {"weeks": ["202613", "202614", "202615", "202616", "202617", "202618", "202619", "202620", "202621", "202622", "202623", "202624", "202625", "202626", "202627", "202628", "202629", "202630", "202631", "202632", "202633", "202634", "202641"], "cities": ["上海", "北京", "广州", "深圳", "南宁", "大连", "成都", "杭州", "武汉", "青岛"], "byCity": {"上海": {"202613": {"deal_area": 31.44, "deal_units": 4228.0, "deal_mom": 8.64, "deal_yoy": -22.52, "sellable_area": 3032.44, "sellable_units": 148467.0, "sellable_mom": 0.34, "sellable_yoy": 2.76}, "202614": {"deal_area": 51.69, "deal_units": 5740.0, "deal_mom": 64.41, "deal_yoy": 128.11, "sellable_area": 3033.66, "sellable_units": 148280.0, "sellable_mom": 0.04, "sellable_yoy": 3.2}, "202615": {"deal_area": 21.83, "deal_units": 2480.0, "deal_mom": -57.77, "deal_yoy": -8.85, "sellable_area": 3032.87, "sellable_units": 147821.0, "sellable_mom": -0.03, "sellable_yoy": 3.36}, "202616": {"deal_area": 28.17, "deal_units": 3147.0, "deal_mom": 29.04, "deal_yoy": 27.24, "sellable_area": 3038.36, "sellable_units": 147810.0, "sellable_mom": 0.18, "sellable_yoy": 2.79}, "202617": {"deal_area": 31.34, "deal_units": 3757.0, "deal_mom": 11.25, "deal_yoy": 27.19, "sellable_area": 3040.59, "sellable_units": 147752.0, "sellable_mom": 0.07, "sellable_yoy": 2.94}, "202618": {"deal_area": 30.27, "deal_units": 3312.0, "deal_mom": -3.41, "deal_yoy": 2.02, "sellable_area": 3062.98, "sellable_units": 147773.0, "sellable_mom": 0.74, "sellable_yoy": 3.43}, "202619": {"deal_area": 20.22, "deal_units": 2155.0, "deal_mom": -33.2, "deal_yoy": -12.39, "sellable_area": 3062.63, "sellable_units": 147688.0, "sellable_mom": -0.01, "sellable_yoy": 3.26}, "202620": {"deal_area": 29.17, "deal_units": 3369.0, "deal_mom": 44.26, "deal_yoy": -7.22, "sellable_area": 3056.27, "sellable_units": 147109.0, "sellable_mom": -0.21, "sellable_yoy": 3.33}, "202621": {"deal_area": 36.95, "deal_units": 4141.0, "deal_mom": 26.67, "deal_yoy": 25.94, "sellable_area": 3060.87, "sellable_units": 147093.0, "sellable_mom": 0.15, "sellable_yoy": 3.21}, "202622": {"deal_area": 35.34, "deal_units": 4006.0, "deal_mom": -4.36, "deal_yoy": 11.2, "sellable_area": 3051.54, "sellable_units": 146439.0, "sellable_mom": -0.3, "sellable_yoy": 3.0}, "202623": {"deal_area": 32.75, "deal_units": 3190.0, "deal_mom": -7.33, "deal_yoy": 39.01, "sellable_area": 3045.71, "sellable_units": 146143.0, "sellable_mom": -0.19, "sellable_yoy": 2.52}, "202624": {"deal_area": 24.99, "deal_units": 2787.0, "deal_mom": -23.69, "deal_yoy": -12.62, "sellable_area": 3046.19, "sellable_units": 145864.0, "sellable_mom": 0.02, "sellable_yoy": 2.7}, "202625": {"deal_area": 25.93, "deal_units": 3139.0, "deal_mom": 3.76, "deal_yoy": 4.05, "sellable_area": 3056.71, "sellable_units": 146586.0, "sellable_mom": 0.35, "sellable_yoy": 3.1}, "202626": {"deal_area": 45.8, "deal_units": 5015.0, "deal_mom": 76.63, "deal_yoy": -21.13, "sellable_area": 3040.29, "sellable_units": 145701.0, "sellable_mom": -0.54, "sellable_yoy": 2.35}, "202627": {"deal_area": 45.98, "deal_units": 6093.0, "deal_mom": 0.39, "deal_yoy": 49.04, "sellable_area": 3044.07, "sellable_units": 145894.0, "sellable_mom": 0.12, "sellable_yoy": 2.79}, "202628": {"deal_area": 24.09, "deal_units": 2582.0, "deal_mom": -47.61, "deal_yoy": 52.66, "sellable_area": 3039.89, "sellable_units": 145632.0, "sellable_mom": -0.14, "sellable_yoy": 2.52}, "202629": {"deal_area": 22.99, "deal_units": 2498.0, "deal_mom": -4.57, "deal_yoy": 3.89, "sellable_area": 3037.56, "sellable_units": 145391.0, "sellable_mom": -0.08, "sellable_yoy": 2.3}, "202630": {"deal_area": 27.54, "deal_units": 2763.0, "deal_mom": 19.79, "deal_yoy": 29.48, "sellable_area": 3031.19, "sellable_units": 145007.0, "sellable_mom": -0.21, "sellable_yoy": 1.91}, "202631": {"deal_area": 22.63, "deal_units": 2603.0, "deal_mom": -17.83, "deal_yoy": -12.93, "sellable_area": 3028.33, "sellable_units": 144620.0, "sellable_mom": -0.09, "sellable_yoy": 1.88}, "202632": {"deal_area": 28.17, "deal_units": 3140.0, "deal_mom": 24.48, "deal_yoy": 56.5, "sellable_area": 3024.5, "sellable_units": 144388.0, "sellable_mom": -0.13, "sellable_yoy": 1.83}, "202633": {"deal_area": 25.98, "deal_units": 2808.0, "deal_mom": -7.77, "deal_yoy": 55.85, "sellable_area": 3018.27, "sellable_units": 143911.0, "sellable_mom": -0.21, "sellable_yoy": 1.37}, "202634": {"deal_area": 24.64, "deal_units": 2806.0, "deal_mom": -5.16, "deal_yoy": 13.03, "sellable_area": 3022.35, "sellable_units": 144127.0, "sellable_mom": 0.14, "sellable_yoy": 1.53}, "202641": {"deal_area": 15.58, "deal_units": 1879.0, "deal_mom": -59.7, "deal_yoy": null, "sellable_area": 3007.2, "sellable_units": null, "sellable_mom": 0.3, "sellable_yoy": null}}, "北京": {"202613": {"deal_area": 23.75, "deal_units": 3598.0, "deal_mom": 37.2, "deal_yoy": -47.1, "sellable_area": 1885.45, "sellable_units": 299041.0, "sellable_mom": -0.6, "sellable_yoy": -11.75}, "202614": {"deal_area": 46.58, "deal_units": 5280.0, "deal_mom": 96.13, "deal_yoy": 104.03, "sellable_area": 1832.77, "sellable_units": 292368.0, "sellable_mom": -2.79, "sellable_yoy": -14.75}, "202615": {"deal_area": 11.61, "deal_units": 1349.0, "deal_mom": -75.08, "deal_yoy": -12.9, "sellable_area": 1824.91, "sellable_units": 290116.0, "sellable_mom": -0.43, "sellable_yoy": -14.63}, "202616": {"deal_area": 13.94, "deal_units": 1836.0, "deal_mom": 20.07, "deal_yoy": 15.78, "sellable_area": 1838.55, "sellable_units": 292743.0, "sellable_mom": 0.75, "sellable_yoy": -15.06}, "202617": {"deal_area": 17.21, "deal_units": 2242.0, "deal_mom": 23.46, "deal_yoy": -2.93, "sellable_area": 1828.63, "sellable_units": 289974.0, "sellable_mom": -0.54, "sellable_yoy": -13.95}, "202618": {"deal_area": 18.83, "deal_units": 2092.0, "deal_mom": 9.41, "deal_yoy": 84.61, "sellable_area": 1819.79, "sellable_units": 290687.0, "sellable_mom": -0.48, "sellable_yoy": -13.92}, "202619": {"deal_area": 6.11, "deal_units": 790.0, "deal_mom": -67.55, "deal_yoy": -43.32, "sellable_area": 1786.62, "sellable_units": 287640.0, "sellable_mom": -1.82, "sellable_yoy": -15.12}, "202620": {"deal_area": 13.71, "deal_units": 1737.0, "deal_mom": 124.39, "deal_yoy": 4.98, "sellable_area": 1769.54, "sellable_units": 284386.0, "sellable_mom": -0.96, "sellable_yoy": -16.99}, "202621": {"deal_area": 18.79, "deal_units": 2686.0, "deal_mom": 37.05, "deal_yoy": -11.07, "sellable_area": 1775.15, "sellable_units": 283709.0, "sellable_mom": 0.32, "sellable_yoy": -17.2}, "202622": {"deal_area": 24.34, "deal_units": 2339.0, "deal_mom": 29.54, "deal_yoy": 68.21, "sellable_area": 1783.74, "sellable_units": 287038.0, "sellable_mom": 0.48, "sellable_yoy": -17.23}, "202623": {"deal_area": 15.41, "deal_units": 1888.0, "deal_mom": -36.69, "deal_yoy": 47.46, "sellable_area": 1785.64, "sellable_units": 285898.0, "sellable_mom": 0.11, "sellable_yoy": -16.92}, "202624": {"deal_area": 22.01, "deal_units": 1684.0, "deal_mom": 42.83, "deal_yoy": 63.04, "sellable_area": 1769.52, "sellable_units": 284359.0, "sellable_mom": -0.9, "sellable_yoy": -18.42}, "202625": {"deal_area": 17.68, "deal_units": 2053.0, "deal_mom": -19.67, "deal_yoy": -16.01, "sellable_area": 1772.52, "sellable_units": 281712.0, "sellable_mom": 0.17, "sellable_yoy": -16.66}, "202626": {"deal_area": 22.67, "deal_units": 2652.0, "deal_mom": 28.22, "deal_yoy": -43.21, "sellable_area": 1763.5, "sellable_units": 281429.0, "sellable_mom": -0.51, "sellable_yoy": -15.73}, "202627": {"deal_area": 35.16, "deal_units": 3744.0, "deal_mom": 55.09, "deal_yoy": -3.93, "sellable_area": 1688.5, "sellable_units": 272943.0, "sellable_mom": -4.25, "sellable_yoy": -18.07}, "202628": {"deal_area": 12.06, "deal_units": 1851.0, "deal_mom": -65.7, "deal_yoy": -11.84, "sellable_area": 1673.45, "sellable_units": 271752.0, "sellable_mom": -0.89, "sellable_yoy": -18.31}, "202629": {"deal_area": 11.26, "deal_units": 1700.0, "deal_mom": -6.63, "deal_yoy": -6.63, "sellable_area": 1694.17, "sellable_units": 272852.0, "sellable_mom": 1.24, "sellable_yoy": -17.53}, "202630": {"deal_area": 9.8, "deal_units": 1230.0, "deal_mom": -12.97, "deal_yoy": -28.36, "sellable_area": 1714.18, "sellable_units": 277167.0, "sellable_mom": 1.18, "sellable_yoy": -16.15}, "202631": {"deal_area": 13.86, "deal_units": 1878.0, "deal_mom": 41.43, "deal_yoy": -5.71, "sellable_area": 1703.75, "sellable_units": 274841.0, "sellable_mom": -0.61, "sellable_yoy": -16.95}, "202632": {"deal_area": 8.83, "deal_units": 1098.0, "deal_mom": -36.29, "deal_yoy": -11.52, "sellable_area": 1726.79, "sellable_units": 277013.0, "sellable_mom": 1.35, "sellable_yoy": -16.23}, "202633": {"deal_area": 9.02, "deal_units": 1162.0, "deal_mom": 2.15, "deal_yoy": -39.1, "sellable_area": 1734.2, "sellable_units": 276184.0, "sellable_mom": 0.43, "sellable_yoy": -15.99}, "202634": {"deal_area": 22.19, "deal_units": 3332.0, "deal_mom": 146.01, "deal_yoy": 91.79, "sellable_area": 1707.2, "sellable_units": 272964.0, "sellable_mom": -1.56, "sellable_yoy": -16.55}, "202641": {"deal_area": 18.91, "deal_units": 2485.0, "deal_mom": -26.6, "deal_yoy": null, "sellable_area": 1712.1, "sellable_units": null, "sellable_mom": -1.1, "sellable_yoy": null}}, "南宁": {"202613": {"deal_area": 7.54, "deal_units": 927.0, "deal_mom": 25.46, "deal_yoy": -60.25, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202614": {"deal_area": 8.08, "deal_units": 929.0, "deal_mom": 7.16, "deal_yoy": 162.34, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202615": {"deal_area": 5.96, "deal_units": 795.0, "deal_mom": -26.24, "deal_yoy": -31.1, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202616": {"deal_area": 7.41, "deal_units": 990.0, "deal_mom": 24.33, "deal_yoy": 18.94, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202617": {"deal_area": 6.38, "deal_units": 932.0, "deal_mom": -13.9, "deal_yoy": -13.08, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202618": {"deal_area": 8.02, "deal_units": 1025.0, "deal_mom": 25.71, "deal_yoy": 23.38, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202619": {"deal_area": 6.36, "deal_units": 740.0, "deal_mom": -20.7, "deal_yoy": -24.38, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202620": {"deal_area": 9.92, "deal_units": 1151.0, "deal_mom": 55.97, "deal_yoy": -21.58, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202621": {"deal_area": 8.94, "deal_units": 947.0, "deal_mom": -9.88, "deal_yoy": -37.53, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202622": {"deal_area": 9.96, "deal_units": 1124.0, "deal_mom": 11.41, "deal_yoy": -20.83, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202623": {"deal_area": 11.1, "deal_units": 1525.0, "deal_mom": 11.45, "deal_yoy": 45.1, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202624": {"deal_area": 7.8, "deal_units": 1022.0, "deal_mom": -29.73, "deal_yoy": -41.44, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202625": {"deal_area": 5.8, "deal_units": 699.0, "deal_mom": -25.64, "deal_yoy": -54.44, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202626": {"deal_area": 6.57, "deal_units": 808.0, "deal_mom": 13.28, "deal_yoy": -65.64, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202627": {"deal_area": 8.07, "deal_units": 1064.0, "deal_mom": 22.83, "deal_yoy": -4.83, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202628": {"deal_area": 15.01, "deal_units": 1848.0, "deal_mom": 86.0, "deal_yoy": 29.73, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202629": {"deal_area": 6.42, "deal_units": 900.0, "deal_mom": -57.23, "deal_yoy": -15.86, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202630": {"deal_area": 6.42, "deal_units": 900.0, "deal_mom": null, "deal_yoy": -32.99, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202631": {"deal_area": 9.88, "deal_units": 1134.0, "deal_mom": 53.89, "deal_yoy": 20.63, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202632": {"deal_area": 6.25, "deal_units": 885.0, "deal_mom": -36.74, "deal_yoy": -39.5, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202633": {"deal_area": 5.86, "deal_units": 809.0, "deal_mom": -6.24, "deal_yoy": -27.2, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202634": {"deal_area": 7.08, "deal_units": 884.0, "deal_mom": 20.82, "deal_yoy": -14.9, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}}, "大连": {"202613": {"deal_area": 1.42, "deal_units": 146.0, "deal_mom": -24.47, "deal_yoy": -45.8, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202614": {"deal_area": 1.75, "deal_units": 169.0, "deal_mom": 23.24, "deal_yoy": -44.79, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202615": {"deal_area": 1.48, "deal_units": 146.0, "deal_mom": -15.43, "deal_yoy": -58.77, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202616": {"deal_area": 1.1, "deal_units": 112.0, "deal_mom": -25.68, "deal_yoy": -44.16, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202617": {"deal_area": 1.18, "deal_units": 111.0, "deal_mom": 7.27, "deal_yoy": -75.11, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202618": {"deal_area": 2.53, "deal_units": 261.0, "deal_mom": 114.41, "deal_yoy": 68.67, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202619": {"deal_area": 0.8, "deal_units": 122.0, "deal_mom": -68.38, "deal_yoy": -58.97, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202620": {"deal_area": 1.47, "deal_units": 155.0, "deal_mom": 83.75, "deal_yoy": -11.45, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202621": {"deal_area": 2.4, "deal_units": 259.0, "deal_mom": 63.27, "deal_yoy": 30.43, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202622": {"deal_area": 2.44, "deal_units": 242.0, "deal_mom": 1.67, "deal_yoy": 46.99, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202623": {"deal_area": 2.36, "deal_units": 226.0, "deal_mom": -3.28, "deal_yoy": -14.49, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202624": {"deal_area": 2.29, "deal_units": 193.0, "deal_mom": -2.97, "deal_yoy": 65.94, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202625": {"deal_area": 2.44, "deal_units": 218.0, "deal_mom": 6.55, "deal_yoy": -23.75, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202626": {"deal_area": 2.33, "deal_units": 236.0, "deal_mom": -4.51, "deal_yoy": -77.4, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202627": {"deal_area": 1.45, "deal_units": 125.0, "deal_mom": -37.77, "deal_yoy": -39.83, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202628": {"deal_area": 0.79, "deal_units": 76.0, "deal_mom": -45.52, "deal_yoy": -48.37, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202629": {"deal_area": 2.54, "deal_units": 225.0, "deal_mom": 221.52, "deal_yoy": -41.88, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202630": {"deal_area": 2.88, "deal_units": 272.0, "deal_mom": 13.39, "deal_yoy": 46.19, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202631": {"deal_area": 1.29, "deal_units": 128.0, "deal_mom": -55.21, "deal_yoy": -32.11, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202632": {"deal_area": 1.18, "deal_units": 109.0, "deal_mom": -8.53, "deal_yoy": -77.26, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202633": {"deal_area": 1.34, "deal_units": 126.0, "deal_mom": 13.56, "deal_yoy": -69.96, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202634": {"deal_area": 1.33, "deal_units": 130.0, "deal_mom": -0.75, "deal_yoy": -71.02, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}}, "广州": {"202613": {"deal_area": 26.11, "deal_units": 3941.0, "deal_mom": 17.09, "deal_yoy": 23.39, "sellable_area": 2585.93, "sellable_units": 648656.0, "sellable_mom": -0.14, "sellable_yoy": 7.01}, "202614": {"deal_area": 29.76, "deal_units": 3577.0, "deal_mom": 13.98, "deal_yoy": 126.14, "sellable_area": 2578.53, "sellable_units": 648920.0, "sellable_mom": -0.29, "sellable_yoy": 6.92}, "202615": {"deal_area": 17.45, "deal_units": 2662.0, "deal_mom": -41.36, "deal_yoy": 35.9, "sellable_area": 2578.78, "sellable_units": 649321.0, "sellable_mom": 0.01, "sellable_yoy": 6.86}, "202616": {"deal_area": 17.52, "deal_units": 2683.0, "deal_mom": 0.4, "deal_yoy": 22.43, "sellable_area": 2572.84, "sellable_units": 649668.0, "sellable_mom": -0.23, "sellable_yoy": 6.15}, "202617": {"deal_area": 21.51, "deal_units": 3170.0, "deal_mom": 22.77, "deal_yoy": 6.96, "sellable_area": 2596.47, "sellable_units": 652220.0, "sellable_mom": 0.92, "sellable_yoy": 6.54}, "202618": {"deal_area": 18.96, "deal_units": 3583.0, "deal_mom": -11.85, "deal_yoy": 23.76, "sellable_area": 2612.24, "sellable_units": 653401.0, "sellable_mom": 0.61, "sellable_yoy": 6.19}, "202619": {"deal_area": 21.54, "deal_units": 2534.0, "deal_mom": 13.61, "deal_yoy": -28.63, "sellable_area": 2596.1, "sellable_units": 651559.0, "sellable_mom": -0.62, "sellable_yoy": 5.98}, "202620": {"deal_area": 26.86, "deal_units": 4590.0, "deal_mom": 24.7, "deal_yoy": 33.76, "sellable_area": 2588.79, "sellable_units": 650343.0, "sellable_mom": -0.28, "sellable_yoy": 6.01}, "202621": {"deal_area": 22.06, "deal_units": 4172.0, "deal_mom": -17.87, "deal_yoy": 14.42, "sellable_area": 2563.41, "sellable_units": 648534.0, "sellable_mom": -0.98, "sellable_yoy": 4.8}, "202622": {"deal_area": 24.46, "deal_units": 4469.0, "deal_mom": 10.88, "deal_yoy": 25.63, "sellable_area": 2567.6, "sellable_units": 645508.0, "sellable_mom": 0.16, "sellable_yoy": 4.72}, "202623": {"deal_area": 16.92, "deal_units": 3372.0, "deal_mom": -30.83, "deal_yoy": 16.53, "sellable_area": 2576.56, "sellable_units": 644695.0, "sellable_mom": 0.35, "sellable_yoy": 5.46}, "202624": {"deal_area": 17.16, "deal_units": 2915.0, "deal_mom": 1.42, "deal_yoy": 2.51, "sellable_area": 2576.48, "sellable_units": 646451.0, "sellable_mom": null, "sellable_yoy": 5.44}, "202625": {"deal_area": 15.03, "deal_units": 2073.0, "deal_mom": -12.41, "deal_yoy": -16.59, "sellable_area": 2565.77, "sellable_units": 643665.0, "sellable_mom": -0.42, "sellable_yoy": 4.8}, "202626": {"deal_area": 29.01, "deal_units": 5637.0, "deal_mom": 93.01, "deal_yoy": -19.93, "sellable_area": 2564.34, "sellable_units": 641167.0, "sellable_mom": -0.06, "sellable_yoy": 3.95}, "202627": {"deal_area": 23.61, "deal_units": 3139.0, "deal_mom": -18.61, "deal_yoy": -11.47, "sellable_area": 2549.86, "sellable_units": 639449.0, "sellable_mom": -0.56, "sellable_yoy": 3.4}, "202628": {"deal_area": 15.3, "deal_units": 1996.0, "deal_mom": -35.2, "deal_yoy": 9.76, "sellable_area": 2533.56, "sellable_units": 642213.0, "sellable_mom": -0.64, "sellable_yoy": 1.88}, "202629": {"deal_area": 13.17, "deal_units": 1948.0, "deal_mom": -13.92, "deal_yoy": -6.86, "sellable_area": 2538.19, "sellable_units": 644665.0, "sellable_mom": 0.18, "sellable_yoy": 1.96}, "202630": {"deal_area": 14.03, "deal_units": 1814.0, "deal_mom": 6.53, "deal_yoy": 9.18, "sellable_area": 2539.21, "sellable_units": 645556.0, "sellable_mom": 0.04, "sellable_yoy": 1.76}, "202631": {"deal_area": 19.28, "deal_units": 2733.0, "deal_mom": 37.42, "deal_yoy": 10.61, "sellable_area": 2541.96, "sellable_units": 644574.0, "sellable_mom": 0.11, "sellable_yoy": 1.65}, "202632": {"deal_area": 17.22, "deal_units": 2731.0, "deal_mom": -10.68, "deal_yoy": 31.75, "sellable_area": 2542.96, "sellable_units": 644724.0, "sellable_mom": 0.04, "sellable_yoy": 0.69}, "202633": {"deal_area": 14.06, "deal_units": 1977.0, "deal_mom": -18.35, "deal_yoy": 16.49, "sellable_area": 2536.75, "sellable_units": 643882.0, "sellable_mom": -0.24, "sellable_yoy": 0.21}, "202634": {"deal_area": 16.18, "deal_units": 2405.0, "deal_mom": 15.08, "deal_yoy": 23.79, "sellable_area": 2538.4, "sellable_units": 644057.0, "sellable_mom": 0.07, "sellable_yoy": 0.09}, "202641": {"deal_area": 14.22, "deal_units": 1911.0, "deal_mom": -23.4, "deal_yoy": null, "sellable_area": 2586.3, "sellable_units": null, "sellable_mom": -0.2, "sellable_yoy": null}}, "成都": {"202613": {"deal_area": 56.51, "deal_units": null, "deal_mom": 81.47, "deal_yoy": 12.88, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202614": {"deal_area": 42.81, "deal_units": null, "deal_mom": -24.24, "deal_yoy": 38.41, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202615": {"deal_area": 23.63, "deal_units": null, "deal_mom": -44.8, "deal_yoy": -31.33, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202616": {"deal_area": 32.97, "deal_units": null, "deal_mom": 39.53, "deal_yoy": -5.5, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202617": {"deal_area": 34.78, "deal_units": null, "deal_mom": 5.49, "deal_yoy": -3.82, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202618": {"deal_area": 27.19, "deal_units": null, "deal_mom": -21.82, "deal_yoy": 4.34, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202619": {"deal_area": 21.08, "deal_units": null, "deal_mom": -22.47, "deal_yoy": -9.99, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202620": {"deal_area": 30.39, "deal_units": null, "deal_mom": 44.17, "deal_yoy": -29.88, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202621": {"deal_area": 31.02, "deal_units": null, "deal_mom": 2.07, "deal_yoy": -16.59, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202622": {"deal_area": 33.81, "deal_units": null, "deal_mom": 8.99, "deal_yoy": -1.74, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202623": {"deal_area": 38.64, "deal_units": null, "deal_mom": 14.29, "deal_yoy": 43.7, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202624": {"deal_area": 24.91, "deal_units": null, "deal_mom": -35.53, "deal_yoy": -25.06, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202625": {"deal_area": 18.1, "deal_units": null, "deal_mom": -27.34, "deal_yoy": -38.44, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202626": {"deal_area": 26.88, "deal_units": null, "deal_mom": 48.51, "deal_yoy": -18.05, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202627": {"deal_area": 30.4, "deal_units": null, "deal_mom": 13.1, "deal_yoy": 5.45, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202628": {"deal_area": 24.83, "deal_units": null, "deal_mom": -18.32, "deal_yoy": -0.12, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202629": {"deal_area": 24.88, "deal_units": null, "deal_mom": 0.2, "deal_yoy": 10.87, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202630": {"deal_area": 19.97, "deal_units": null, "deal_mom": -19.73, "deal_yoy": -16.27, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202631": {"deal_area": 26.01, "deal_units": null, "deal_mom": 30.25, "deal_yoy": 4.46, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202632": {"deal_area": 21.7, "deal_units": null, "deal_mom": -16.57, "deal_yoy": -15.63, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202633": {"deal_area": 20.2, "deal_units": null, "deal_mom": -6.91, "deal_yoy": -11.52, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202634": {"deal_area": 17.46, "deal_units": null, "deal_mom": -13.56, "deal_yoy": -30.82, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}}, "杭州": {"202613": {"deal_area": 40.46, "deal_units": 2146.0, "deal_mom": 110.29, "deal_yoy": 18.34, "sellable_area": 1217.99, "sellable_units": 84335.0, "sellable_mom": -1.11, "sellable_yoy": -1.91}, "202614": {"deal_area": 42.15, "deal_units": 2423.0, "deal_mom": 4.18, "deal_yoy": 77.1, "sellable_area": 1183.22, "sellable_units": 81976.0, "sellable_mom": -2.85, "sellable_yoy": -3.83}, "202615": {"deal_area": 10.28, "deal_units": 591.0, "deal_mom": -75.61, "deal_yoy": -47.55, "sellable_area": 1204.46, "sellable_units": 83808.0, "sellable_mom": 1.8, "sellable_yoy": -3.9}, "202616": {"deal_area": 12.97, "deal_units": 891.0, "deal_mom": 26.17, "deal_yoy": 2.05, "sellable_area": 1210.83, "sellable_units": 84078.0, "sellable_mom": 0.53, "sellable_yoy": -4.14}, "202617": {"deal_area": 20.95, "deal_units": 1449.0, "deal_mom": 61.53, "deal_yoy": 42.81, "sellable_area": 1181.15, "sellable_units": 82825.0, "sellable_mom": -2.45, "sellable_yoy": -5.82}, "202618": {"deal_area": 12.49, "deal_units": 776.0, "deal_mom": -40.38, "deal_yoy": -19.37, "sellable_area": 1189.22, "sellable_units": 83141.0, "sellable_mom": 0.68, "sellable_yoy": -3.48}, "202619": {"deal_area": 12.55, "deal_units": 795.0, "deal_mom": 0.48, "deal_yoy": -19.45, "sellable_area": 1187.62, "sellable_units": 82956.0, "sellable_mom": -0.13, "sellable_yoy": -3.78}, "202620": {"deal_area": 15.13, "deal_units": 1068.0, "deal_mom": 20.56, "deal_yoy": 11.25, "sellable_area": 1185.63, "sellable_units": 82320.0, "sellable_mom": -0.17, "sellable_yoy": -5.27}, "202621": {"deal_area": 13.39, "deal_units": 871.0, "deal_mom": -11.5, "deal_yoy": -2.9, "sellable_area": 1195.14, "sellable_units": 82606.0, "sellable_mom": 0.8, "sellable_yoy": -5.66}, "202622": {"deal_area": 18.18, "deal_units": 1293.0, "deal_mom": 35.77, "deal_yoy": -33.14, "sellable_area": 1195.74, "sellable_units": 82677.0, "sellable_mom": 0.05, "sellable_yoy": -3.79}, "202623": {"deal_area": 15.51, "deal_units": 962.0, "deal_mom": -14.69, "deal_yoy": -25.14, "sellable_area": 1190.04, "sellable_units": 82261.0, "sellable_mom": -0.48, "sellable_yoy": -4.25}, "202624": {"deal_area": 15.64, "deal_units": 982.0, "deal_mom": 0.84, "deal_yoy": -5.84, "sellable_area": 1196.36, "sellable_units": 82375.0, "sellable_mom": 0.53, "sellable_yoy": -4.14}, "202625": {"deal_area": 20.99, "deal_units": 1516.0, "deal_mom": 34.21, "deal_yoy": -13.48, "sellable_area": 1190.8, "sellable_units": 81465.0, "sellable_mom": -0.46, "sellable_yoy": -4.8}, "202626": {"deal_area": 42.22, "deal_units": 2285.0, "deal_mom": 101.14, "deal_yoy": -30.96, "sellable_area": 1187.76, "sellable_units": 80446.0, "sellable_mom": -0.26, "sellable_yoy": -3.4}, "202627": {"deal_area": 19.53, "deal_units": 1149.0, "deal_mom": -53.74, "deal_yoy": -21.47, "sellable_area": 1174.13, "sellable_units": 79789.0, "sellable_mom": -1.15, "sellable_yoy": -2.24}, "202628": {"deal_area": 7.59, "deal_units": 491.0, "deal_mom": -61.14, "deal_yoy": -48.85, "sellable_area": 1182.89, "sellable_units": 80280.0, "sellable_mom": 0.75, "sellable_yoy": -2.26}, "202629": {"deal_area": 5.92, "deal_units": 453.0, "deal_mom": -22.0, "deal_yoy": -36.82, "sellable_area": 1183.62, "sellable_units": 80396.0, "sellable_mom": 0.06, "sellable_yoy": -2.25}, "202630": {"deal_area": 9.18, "deal_units": 681.0, "deal_mom": 55.07, "deal_yoy": -39.17, "sellable_area": 1187.77, "sellable_units": 80717.0, "sellable_mom": 0.35, "sellable_yoy": -2.43}, "202631": {"deal_area": 18.11, "deal_units": 1265.0, "deal_mom": 97.28, "deal_yoy": 3.54, "sellable_area": 1185.35, "sellable_units": 80542.0, "sellable_mom": -0.2, "sellable_yoy": -2.58}, "202632": {"deal_area": 9.18, "deal_units": 646.0, "deal_mom": -49.31, "deal_yoy": -49.28, "sellable_area": 1187.69, "sellable_units": 80580.0, "sellable_mom": 0.2, "sellable_yoy": 0.3}, "202633": {"deal_area": 6.55, "deal_units": 465.0, "deal_mom": -28.65, "deal_yoy": -41.15, "sellable_area": 1187.76, "sellable_units": 80454.0, "sellable_mom": 0.01, "sellable_yoy": -0.04}, "202634": {"deal_area": 14.19, "deal_units": 1045.0, "deal_mom": 116.64, "deal_yoy": 43.91, "sellable_area": 1190.51, "sellable_units": 80575.0, "sellable_mom": 0.23, "sellable_yoy": 0.54}}, "武汉": {"202613": {"deal_area": 44.72, "deal_units": 4453.0, "deal_mom": 6.32, "deal_yoy": -14.02, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202614": {"deal_area": 33.35, "deal_units": 3663.0, "deal_mom": -25.42, "deal_yoy": 61.27, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202615": {"deal_area": 15.8, "deal_units": 1403.0, "deal_mom": -52.62, "deal_yoy": -14.13, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202616": {"deal_area": 17.97, "deal_units": 1570.0, "deal_mom": 13.73, "deal_yoy": 13.81, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202617": {"deal_area": 17.77, "deal_units": 1388.0, "deal_mom": -1.11, "deal_yoy": -15.62, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202618": {"deal_area": 13.8, "deal_units": 1116.0, "deal_mom": -22.34, "deal_yoy": -26.67, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202619": {"deal_area": 23.14, "deal_units": 1920.0, "deal_mom": 67.68, "deal_yoy": 13.43, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202620": {"deal_area": 27.89, "deal_units": 2218.0, "deal_mom": 20.53, "deal_yoy": 76.63, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202621": {"deal_area": 31.0, "deal_units": 2553.0, "deal_mom": 11.15, "deal_yoy": 19.18, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202622": {"deal_area": 33.64, "deal_units": 3037.0, "deal_mom": 8.52, "deal_yoy": 5.36, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202623": {"deal_area": 16.13, "deal_units": 1354.0, "deal_mom": -52.05, "deal_yoy": -5.67, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202624": {"deal_area": 19.96, "deal_units": 1654.0, "deal_mom": 23.74, "deal_yoy": -35.24, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202625": {"deal_area": 42.0, "deal_units": 4566.0, "deal_mom": 110.42, "deal_yoy": 1.94, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202626": {"deal_area": 59.28, "deal_units": 5197.0, "deal_mom": 41.14, "deal_yoy": -1.22, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202627": {"deal_area": 41.83, "deal_units": 3281.0, "deal_mom": -29.44, "deal_yoy": 56.43, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202628": {"deal_area": 11.93, "deal_units": 951.0, "deal_mom": -71.48, "deal_yoy": -31.0, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202629": {"deal_area": 28.02, "deal_units": 2188.0, "deal_mom": 134.87, "deal_yoy": 71.9, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202630": {"deal_area": 30.64, "deal_units": 2546.0, "deal_mom": 9.35, "deal_yoy": -4.31, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202631": {"deal_area": 28.32, "deal_units": 2606.0, "deal_mom": -7.57, "deal_yoy": -10.75, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202632": {"deal_area": 12.23, "deal_units": 1081.0, "deal_mom": -56.81, "deal_yoy": -51.72, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202633": {"deal_area": 27.88, "deal_units": 2385.0, "deal_mom": 127.96, "deal_yoy": 112.18, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202634": {"deal_area": 27.69, "deal_units": 2280.0, "deal_mom": -0.68, "deal_yoy": 12.01, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}}, "深圳": {"202613": {"deal_area": 5.58, "deal_units": 505.0, "deal_mom": 16.74, "deal_yoy": -35.94, "sellable_area": 546.48, "sellable_units": 44795.0, "sellable_mom": -3.79, "sellable_yoy": -2.22}, "202614": {"deal_area": 6.15, "deal_units": 471.0, "deal_mom": 10.22, "deal_yoy": 30.57, "sellable_area": 512.64, "sellable_units": 40891.0, "sellable_mom": -6.19, "sellable_yoy": -6.52}, "202615": {"deal_area": 4.8, "deal_units": 384.0, "deal_mom": -21.95, "deal_yoy": -26.15, "sellable_area": 513.48, "sellable_units": 41059.0, "sellable_mom": 0.16, "sellable_yoy": -4.46}, "202616": {"deal_area": 8.47, "deal_units": 1150.0, "deal_mom": 76.46, "deal_yoy": 15.4, "sellable_area": 518.6, "sellable_units": 40904.0, "sellable_mom": 1.0, "sellable_yoy": -3.01}, "202617": {"deal_area": 5.98, "deal_units": 596.0, "deal_mom": -29.4, "deal_yoy": -23.04, "sellable_area": 531.86, "sellable_units": 42629.0, "sellable_mom": 2.56, "sellable_yoy": -1.8}, "202618": {"deal_area": 5.64, "deal_units": 536.0, "deal_mom": -5.69, "deal_yoy": 23.14, "sellable_area": 498.52, "sellable_units": 40161.0, "sellable_mom": -6.27, "sellable_yoy": -9.12}, "202619": {"deal_area": 7.73, "deal_units": 589.0, "deal_mom": 37.06, "deal_yoy": 130.75, "sellable_area": 495.12, "sellable_units": 39910.0, "sellable_mom": -0.68, "sellable_yoy": -9.1}, "202620": {"deal_area": 9.23, "deal_units": 819.0, "deal_mom": 19.4, "deal_yoy": 47.92, "sellable_area": 476.77, "sellable_units": 39029.0, "sellable_mom": -3.71, "sellable_yoy": -10.71}, "202621": {"deal_area": 7.37, "deal_units": 697.0, "deal_mom": -20.15, "deal_yoy": 21.42, "sellable_area": 481.18, "sellable_units": 39132.0, "sellable_mom": 0.92, "sellable_yoy": -9.08}, "202622": {"deal_area": 9.17, "deal_units": 730.0, "deal_mom": 24.42, "deal_yoy": 43.51, "sellable_area": 474.9, "sellable_units": 38689.0, "sellable_mom": -1.31, "sellable_yoy": -10.74}, "202623": {"deal_area": 7.5, "deal_units": 616.0, "deal_mom": -18.21, "deal_yoy": 87.97, "sellable_area": 455.84, "sellable_units": 36025.0, "sellable_mom": -4.01, "sellable_yoy": -16.08}, "202624": {"deal_area": 12.54, "deal_units": 1350.0, "deal_mom": 67.2, "deal_yoy": 145.88, "sellable_area": 456.56, "sellable_units": 35635.0, "sellable_mom": 0.16, "sellable_yoy": -14.42}, "202625": {"deal_area": 7.4, "deal_units": 607.0, "deal_mom": -40.99, "deal_yoy": 40.15, "sellable_area": 442.99, "sellable_units": 34420.0, "sellable_mom": -2.97, "sellable_yoy": -17.31}, "202626": {"deal_area": 10.44, "deal_units": 976.0, "deal_mom": 41.08, "deal_yoy": 66.77, "sellable_area": 439.7, "sellable_units": 34011.0, "sellable_mom": -0.74, "sellable_yoy": -19.45}, "202627": {"deal_area": 7.07, "deal_units": 547.0, "deal_mom": -32.28, "deal_yoy": 73.71, "sellable_area": 431.13, "sellable_units": 33196.0, "sellable_mom": -1.95, "sellable_yoy": -23.33}, "202628": {"deal_area": 6.64, "deal_units": 498.0, "deal_mom": -6.08, "deal_yoy": 61.56, "sellable_area": 424.26, "sellable_units": 32564.0, "sellable_mom": -1.59, "sellable_yoy": -25.24}, "202629": {"deal_area": 5.95, "deal_units": 531.0, "deal_mom": -10.39, "deal_yoy": 72.97, "sellable_area": 421.25, "sellable_units": 32288.0, "sellable_mom": -0.71, "sellable_yoy": -24.36}, "202630": {"deal_area": 4.93, "deal_units": 450.0, "deal_mom": -17.14, "deal_yoy": 52.63, "sellable_area": 423.77, "sellable_units": 32379.0, "sellable_mom": 0.6, "sellable_yoy": -25.77}, "202631": {"deal_area": 5.82, "deal_units": 481.0, "deal_mom": 18.05, "deal_yoy": 73.21, "sellable_area": 411.27, "sellable_units": 31039.0, "sellable_mom": -2.95, "sellable_yoy": -28.04}, "202632": {"deal_area": 3.75, "deal_units": 346.0, "deal_mom": -35.57, "deal_yoy": 27.99, "sellable_area": 409.38, "sellable_units": 30555.0, "sellable_mom": -0.46, "sellable_yoy": -28.49}, "202633": {"deal_area": 4.16, "deal_units": 347.0, "deal_mom": 10.93, "deal_yoy": 30.82, "sellable_area": 397.42, "sellable_units": 29903.0, "sellable_mom": -2.92, "sellable_yoy": -30.64}, "202634": {"deal_area": 4.2, "deal_units": 374.0, "deal_mom": 0.96, "deal_yoy": 23.53, "sellable_area": 391.7, "sellable_units": 29360.0, "sellable_mom": -1.44, "sellable_yoy": -38.29}, "202641": {"deal_area": 2.08, "deal_units": 208.0, "deal_mom": -17.5, "deal_yoy": null, "sellable_area": 402.8, "sellable_units": null, "sellable_mom": -0.6, "sellable_yoy": null}}, "青岛": {"202613": {"deal_area": 25.48, "deal_units": 2165.0, "deal_mom": 34.74, "deal_yoy": 7.33, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202614": {"deal_area": 15.45, "deal_units": 1202.0, "deal_mom": -39.36, "deal_yoy": 42.79, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202615": {"deal_area": 13.18, "deal_units": 1144.0, "deal_mom": -14.69, "deal_yoy": -13.29, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202616": {"deal_area": 16.12, "deal_units": 1323.0, "deal_mom": 22.31, "deal_yoy": 22.59, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202617": {"deal_area": 13.42, "deal_units": 1128.0, "deal_mom": -16.75, "deal_yoy": -31.25, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202618": {"deal_area": 15.19, "deal_units": 961.0, "deal_mom": 13.19, "deal_yoy": 35.38, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202619": {"deal_area": 14.4, "deal_units": 1776.0, "deal_mom": -5.2, "deal_yoy": -6.43, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202620": {"deal_area": 17.31, "deal_units": 1667.0, "deal_mom": 20.21, "deal_yoy": -3.78, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202621": {"deal_area": 12.57, "deal_units": 1028.0, "deal_mom": -27.38, "deal_yoy": -55.2, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202622": {"deal_area": 22.14, "deal_units": 1914.0, "deal_mom": 76.13, "deal_yoy": 14.95, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202623": {"deal_area": 14.54, "deal_units": 1117.0, "deal_mom": -34.33, "deal_yoy": -5.95, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202624": {"deal_area": 13.08, "deal_units": 1027.0, "deal_mom": -10.04, "deal_yoy": -21.77, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202625": {"deal_area": 14.85, "deal_units": 1225.0, "deal_mom": 13.53, "deal_yoy": -37.68, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202626": {"deal_area": 22.04, "deal_units": 1745.0, "deal_mom": 48.42, "deal_yoy": 12.68, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202627": {"deal_area": 21.41, "deal_units": 1549.0, "deal_mom": -2.86, "deal_yoy": 55.26, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202628": {"deal_area": 10.86, "deal_units": 698.0, "deal_mom": -49.28, "deal_yoy": -35.05, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202629": {"deal_area": 15.74, "deal_units": 884.0, "deal_mom": 44.94, "deal_yoy": 19.06, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202630": {"deal_area": 10.53, "deal_units": 869.0, "deal_mom": -33.1, "deal_yoy": -30.68, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202631": {"deal_area": 11.6, "deal_units": 954.0, "deal_mom": 10.16, "deal_yoy": -20.55, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202632": {"deal_area": 15.5, "deal_units": 1325.0, "deal_mom": 33.62, "deal_yoy": -19.65, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202633": {"deal_area": 11.71, "deal_units": 950.0, "deal_mom": -24.45, "deal_yoy": -19.35, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}, "202634": {"deal_area": 9.26, "deal_units": 795.0, "deal_mom": -20.92, "deal_yoy": -59.84, "sellable_area": null, "sellable_units": null, "sellable_mom": null, "sellable_yoy": null}}}, "latestWeek": "202641", "latestRows": [{"city": "北京", "deal_area": 18.91, "deal_units": 2485.0, "deal_mom": -26.6, "deal_yoy": null, "sellable_area": 1712.1, "sellable_units": null, "sellable_mom": -1.1, "sellable_yoy": null}, {"city": "上海", "deal_area": 15.58, "deal_units": 1879.0, "deal_mom": -59.7, "deal_yoy": null, "sellable_area": 3007.2, "sellable_units": null, "sellable_mom": 0.3, "sellable_yoy": null}, {"city": "广州", "deal_area": 14.22, "deal_units": 1911.0, "deal_mom": -23.4, "deal_yoy": null, "sellable_area": 2586.3, "sellable_units": null, "sellable_mom": -0.2, "sellable_yoy": null}, {"city": "深圳", "deal_area": 2.08, "deal_units": 208.0, "deal_mom": -17.5, "deal_yoy": null, "sellable_area": 402.8, "sellable_units": null, "sellable_mom": -0.6, "sellable_yoy": null}], "macro": {"宏观经济指标": {"CPI（同比）": {"2026-07": 100.5, "2026-08": 100.8}, "PPI（同比）": {"2026-07": 103.5, "2026-08": 103.8}, "一般预算收入增速": {"2026-07": 5.8, "2026-08": 5.7}, "固定资产投资增速": {"2026-07": -6.7, "2026-08": -7.2}, "土地出让收入增速": {"2026-07": -30.8}, "工业增加值增速": {"2026-07": 5.3, "2026-08": 5.3}, "消费品零售总额增速": {"2026-07": 1.2, "2026-08": 1.1}}, "房地产市场指标": {"个人按揭贷款增速": {"2026-06": -24.9, "2026-07": -23.5, "2026-08": -22.4}, "商品房待售面积增速": {"2026-06": -0.9, "2026-07": -0.8, "2026-08": -1.1}, "商品房竣工面积增速": {"2026-06": -23.7, "2026-07": -23.2, "2026-08": -23.7}, "商品房销售面积增速": {"2026-06": -11.6, "2026-07": -11.8, "2026-08": -12.1}, "商品房销售额增速": {"2026-06": -13.6, "2026-07": -13.1, "2026-08": -13.0}, "房地产开发投资增速": {"2026-06": -18.0, "2026-07": -19.2, "2026-08": -19.9}, "房地产资金来源增速": {"2026-06": -20.2, "2026-07": -20.3, "2026-08": -21.0}, "新开工面积增速": {"2026-06": -23.4, "2026-07": -24.0, "2026-08": -24.8}}, "居民收入与消费": {"农村外出务工劳动力人数": {"2025-12": 1.8, "2026-03": 1.88, "2026-06": 1.93}, "城镇居民可支配收入增速": {"2025-12": 4.2, "2026-03": 3.2, "2026-06": 3.4}, "外出务工劳动力月均收入": {"2025-12": 5075.0, "2026-03": 5172.0, "2026-06": 5118.0}, "居民人均可支配收入": {"2025-12": 43377.0, "2026-03": 12782.0, "2026-06": 22981.0}, "居民人均消费支出": {"2025-12": 28227.0, "2026-03": 7955.0, "2026-06": 14836.0}, "居民人均消费支出增速": {"2025-12": 5.1, "2026-03": 2.6, "2026-06": 2.7}, "居民可支配收入实际增速": {"2025-12": 5.0, "2026-03": 4.0, "2026-06": 4.2}, "文化相关产业企业收入增速": {"2025-12": 7.4, "2026-03": 6.4}}}, "periods": ["2025-12", "2026-03", "2026-06", "2026-07", "2026-08"], "keySignals": [{"indicator": "房地产开发投资增速", "value": -19.9, "period": "2026-08"}, {"indicator": "商品房销售面积增速", "value": -12.1, "period": "2026-08"}, {"indicator": "个人按揭贷款增速", "value": -22.4, "period": "2026-08"}, {"indicator": "新开工面积增速", "value": -24.8, "period": "2026-08"}, {"indicator": "房地产资金来源增速", "value": -21.0, "period": "2026-08"}], "snapshots": [{"tag": "土地供应最新", "header": ["指标", "单位", "7月", "8月", "9月"], "rows": [["工业增加值增速", "%", "5.3", "5.3", "-"], ["固定资产投资增速", "%", "-6.7", "-7.2", "-"], ["消费品零售总额增速", "%", "1.2", "1.1", "-"], ["一般预算收入增速", "%", "5.8", "5.7", "-"], ["土地出让收入增速", "%", "-30.8", "-", "-"], ["货币供应量(M2)增速", "%", "-", "-", "-"], ["CPI（同比）", "%", "100.5", "100.8", "-"], ["PPI（同比）", "%", "103.5", "103.8", "-"]]}, {"tag": "成交快照(首页)", "header": ["城市", "可售", "环比", "成交(套)", "面积(万�O)", "环比"], "rows": [["北京", "1712.1", "-1.1", "2485", "18.91", "-26.6"], ["上海", "3007.2", "0.3", "1879", "15.58", "-59.7"], ["广州", "2586.3", "-0.2", "1911", "14.22", "-23.4"], ["深圳", "402.8", "-0.6", "208", "2.08", "-17.5"]]}, {"tag": "成交快照(首页)", "header": ["城市", "可售", "环比", "成交(套)", "面积(万�O)", "环比"], "rows": [["北京", "1746.8", "2.2", "10420", "81.58", "31.6"], ["上海", "3000.2", "-0.3", "18714", "164.90", "38.0"], ["广州", "2592.0", "2.4", "12000", "71.34", "-1.3"], ["深圳", "406.6", "2.1", "1447", "15.60", "-14.1"]]}, {"tag": "土地供应最新", "header": ["日期", "地区", "出让宗数(宗)", "出让面积(万�O)"], "rows": [["2026.09", "全国", "37484", "109151.5"], ["2026.09", "长三角", "8677", "24232.8"], ["2026.09", "珠三角", "1275", "3738.6"], ["2026.09", "京津冀", "2455", "6032.3"]]}, {"tag": "土地供应最新", "header": ["日期", "地区", "成交宗数(宗)", "面积(万�O)", "均价(元/平方米)"], "rows": [["2026.09", "全国", "31052", "88397.0", "1739"], ["2026.09", "长三角", "7868", "21647.7", "2770"], ["2026.09", "珠三角", "1133", "3231.8", "4942"], ["2026.09", "京津冀", "1991", "4792.6", "3740"]]}, {"tag": "土地供应最新", "header": ["城 市", "用 途", "面 积(平方米)", "出让价(万元)", "出让截止日期"], "rows": [["孝感", "住宅", "57888", "19103", "2026.12.25"], ["常州", "住宅", "51305", "77000", "2026.12.09"], ["连云港", "住宅", "21964", "10544", "2026.12.08"], ["苏州", "住宅", "33858", "28441", "2026.12.04"]]}, {"tag": "房企动态最新", "header": ["拿地企业", "城市", "面积(万�O)", "成交价(万元)", "日期"], "rows": [["华润置地", "武汉", "138320", "175000", "2026.09.30"], ["龙湖集团", "沈阳", "65298", "42417", "2026.09.30"], ["招商蛇口", "沈阳", "107124", "95126", "2026.09.30"], ["保利发展", "三亚", "10525", "11515", "2026.09.30"]]}, {"tag": "土地供应最新", "header": ["日期", "宗数(宗)", "面积(万�O)", "总价(亿元)", "均价(元/�O)"], "rows": [["2026-09", "43", "166.8", "670.9", "40228"], ["2026-08", "28", "95.4", "591.8", "62050"], ["2026-07", "46", "131.9", "648.1", "49132"], ["2026-06", "35", "98.8", "445.5", "45073"]]}, {"tag": "土地供应最新", "header": ["日期", "企业", "面积(万�O)", "金额(亿元)", "均价(元/�O)"], "rows": [["2026-09", "保利", "0.00", "0.00", "0"], ["2026-09", "华润", "41.80", "155.00", "37081"], ["2026-09", "金地", "26.70", "23.00", "8614"], ["2026-09", "万科", "0.00", "0.00", "0"]]}], "catalog": [{"section": "宏观城市(tongji)", "no": "1", "name": "地区生产总值", "unit": "亿元"}, {"section": "宏观城市(tongji)", "no": "2", "name": "人均地区生产总值", "unit": "元"}, {"section": "宏观城市(tongji)", "no": "3", "name": "地区生产总值增长率", "unit": "%"}, {"section": "宏观城市(tongji)", "no": "4", "name": "第一产业占GDP的比重", "unit": "%"}, {"section": "宏观城市(tongji)", "no": "5", "name": "第二产业占GDP的比重", "unit": "%"}, {"section": "宏观城市(tongji)", "no": "6", "name": "第三产业占GDP的比重", "unit": "%"}, {"section": "宏观城市(tongji)", "no": "7", "name": "地区生产总值：第一产业", "unit": "亿元"}, {"section": "宏观城市(tongji)", "no": "8", "name": "地区生产总值：第二产业", "unit": "亿元"}, {"section": "宏观城市(tongji)", "no": "9", "name": "地区生产总值：第三产业", "unit": "亿元"}, {"section": "工业经济(gongye)", "no": "1", "name": "原煤", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "2", "name": "天然原油", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "3", "name": "天然气", "unit": "亿立方米"}, {"section": "工业经济(gongye)", "no": "4", "name": "铁矿石原矿", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "5", "name": "原盐", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "1", "name": "饲料", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "2", "name": "精制食用植物油", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "3", "name": "成品糖", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "4", "name": "乳制品", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "8", "name": "饮料", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "1", "name": "纱", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "1", "name": "机制纸及纸板(外购原纸加工除外)", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "2", "name": "新闻纸", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "3", "name": "纸制品", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "1", "name": "原油加工量", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "2", "name": "煤油", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "3", "name": "燃料油", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "4", "name": "石脑油", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "5", "name": "焦炭", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "1", "name": "硫酸(折100%)", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "2", "name": "烧碱(氢氧化纳)(折100%)", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "3", "name": "纯碱(碳酸钠)", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "4", "name": "碳化钙(电石,折300升/千克)", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "5", "name": "乙烯", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "6", "name": "合成氨(无水氨)", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "7", "name": "农用氮、磷、钾化学肥料(折纯)", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "8", "name": "化学农药原药(折有效成分100%)", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "9", "name": "初级形态塑料", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "10", "name": "合成橡胶", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "11", "name": "合成洗涤剂", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "12", "name": "化学药品原药", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "13", "name": "中成药", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "14", "name": "化学纤维", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "16", "name": "塑料制品", "unit": "万吨"}, {"section": "工业经济(gongye)", "no": "1", "name": "单位个数", "unit": "个"}, {"section": "工业经济(gongye)", "no": "2", "name": "亏损企业个数", "unit": "个"}, {"section": "工业经济(gongye)", "no": "3", "name": "工业总产值", "unit": "亿元"}, {"section": "工业经济(gongye)", "no": "4", "name": "工业增加值增速", "unit": "%"}, {"section": "工业经济(gongye)", "no": "5", "name": "工业销售产值", "unit": "亿元"}, {"section": "工业经济(gongye)", "no": "6", "name": "出口交货值", "unit": "亿元"}, {"section": "工业经济(gongye)", "no": "7", "name": "从业人员平均人数", "unit": "万人"}, {"section": "工业经济(gongye)", "no": "8", "name": "平均用工人数", "unit": "万人"}], "laws": {"total": 280, "byRegion": {"※※※": 252, "四川省": 3, "日照市": 2, "厦门市": 2, "北京市": 2, "滨州市": 2, "国务院": 2, "湖南省": 1, "青岛市": 1, "肇庆市": 1, "商务部": 1, "呼和浩": 1, "天津市": 1, "威海市": 1, "昆明市": 1}, "recent": [{"region": "日照市", "title": "关于修改《日照市城市建设项目交通影响评价实施办法》等四件市政府规章的决定", "date": "2026-08-15"}, {"region": "湖南省", "title": "关于加快智能机器人产业发展的实施意见", "date": "2026-08-15"}, {"region": "青岛市", "title": "关于印发《青岛市建筑废弃物资源化利用管理规定》的通知", "date": "2026-08-14"}, {"region": "肇庆市", "title": "肇庆市持续完善“全肇办”企业服务体系打造一流营商环境行动方案（2026年度版）", "date": "2026-08-13"}, {"region": "厦门市", "title": "关于优化灵活就业人员住房公积金缴存补贴的通知", "date": "2026-08-13"}, {"region": "商务部", "title": "关于进一步激发下沉市场活力 活跃县域消费的意见", "date": "2026-08-13"}, {"region": "四川省", "title": "关于加快推进通道网、物流网、数联网“三网”融合的实施意见", "date": "2026-08-13"}, {"region": "呼和浩", "title": "关于调整部分住房公积金使用政策的通知", "date": "2026-08-13"}, {"region": "天津市", "title": "天津港保税区2026年优化营商环境行动方案", "date": "2026-08-11"}, {"region": "威海市", "title": "关于优化调整住房公积金使用政策的通知", "date": "2026-08-11"}, {"region": "昆明市", "title": "关于印发昆明市优化营商环境护航产业发展工作方案的通知", "date": "2026-08-11"}, {"region": "四川省", "title": "关于印发《四川省城市更新“十五五”规划》的通知", "date": "2026-08-11"}, {"region": "北京市", "title": "关于印发《北京市促进农产品市场高质量发展支持办法》的通知", "date": "2026-08-11"}, {"region": "滨州市", "title": "关于实施阶段性住房公积金业务政策的通知", "date": "2026-08-11"}, {"region": "四川省", "title": "关于促进政府投资基金高质量发展的实施意见", "date": "2026-08-11"}, {"region": "厦门市", "title": "关于印发厦门市国际化消费环境建设试点项目专项资金管理办法的通知", "date": "2026-08-10"}, {"region": "佛山市", "title": "关于印发佛山市加快智能机器人产业发展若干措施操作细则的通知", "date": "2026-08-10"}, {"region": "深圳市", "title": "关于印发《深圳市关于加快推动首发经济促进消费的若干措施》的通知", "date": "2026-08-10"}, {"region": "南京市", "title": "关于印发《南京市加快场景培育和开放的政策措施》的通知", "date": "2026-08-10"}, {"region": "滨州市", "title": "关于印发《滨州市2026年老旧营运货车报废更新工作实施细则》的通知", "date": "2026-08-10"}]}};
+const ROLE = {
+  '房地产开发投资增速':'同步·总量锚','商品房销售面积增速':'同步·需求体温计',
+  '房地产资金来源增速':'领先·金融闸门','新开工面积增速':'领先·开发商预期',
+  '土地出让收入增速':'领先·土地市场','个人按揭贷款增速':'领先·居民杠杆'
+};
+const CORE = {'房地产开发投资增速':1,'商品房销售面积增速':1};
+const RED='#e02e2e', GREEN='#12925a', BLUE='#2563eb', AMBER='#f59e0b', GREY='#94a3b8', VIOLET='#7c3aed';
+const tip = document.getElementById('tip');
+function showTip(html, e){ tip.innerHTML=html; tip.style.opacity=1;
+  let x=e.clientX+14, y=e.clientY+14;
+  if(x+220>window.innerWidth) x=e.clientX-220;
+  tip.style.left=x+'px'; tip.style.top=y+'px'; }
+function hideTip(){ tip.style.opacity=0; }
+function fmt(v,d=2){ if(v===null||v===undefined||isNaN(v)) return '-'; return Number(v).toLocaleString('zh-CN',{maximumFractionDigits:d,minimumFractionDigits:0}); }
+function cls(v){ if(v===null||v===undefined||isNaN(v)||v===0) return 'flat'; return v>0?'up':'down'; }
+function wkLabel(w){ return "'"+w.slice(2,4)+"W"+w.slice(4); }
+
+/* ---------- 折线图 ---------- */
+function lineChart(el, series, opt){
+  opt=opt||{};
+  const W=Math.max(el.clientWidth||680, 340), H=opt.height||350;
+  const pad={l:opt.padL||54, r:18, t:16, b:46};
+  const iw=W-pad.l-pad.r, ih=H-pad.t-pad.b;
+  let ys=[]; series.forEach(s=>s.data.forEach(p=>{ if(p.y!==null&&!isNaN(p.y)) ys.push(p.y); }));
+  if(!ys.length){ el.innerHTML='<p style="color:#94a3b8;padding:20px">暂无数据</p>'; return; }
+  let ymin=Math.min(0,...ys), ymax=Math.max(...ys);
+  if(ymin===ymax){ ymin-=1; ymax+=1; }
+  const padY=(ymax-ymin)*0.13; ymin-=padY; ymax+=padY;
+  const xlabels = opt.xlabels || [...new Set(series.flatMap(s=>s.data.map(p=>p.x)))];
+  const n=xlabels.length;
+  const X=i=> pad.l + (n<=1?iw/2: iw*i/(n-1));
+  const Y=v=> pad.t + ih*(1-(v-ymin)/(ymax-ymin));
+  let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">`;
+  const ticks=5;
+  for(let t=0;t<=ticks;t++){
+    const v=ymin+(ymax-ymin)*t/ticks, y=Y(v);
+    s+=`<line class="gridline" x1="${pad.l}" y1="${y}" x2="${W-pad.r}" y2="${y}"/>`;
+    s+=`<text class="tick" x="${pad.l-9}" y="${y+4}" text-anchor="end">${fmt(v,1)}</text>`;}
+  const step=Math.ceil(n/9);
+  xlabels.forEach((lb,i)=>{ if(i%step===0||i===n-1){
+    s+=`<text class="tick" x="${X(i)}" y="${H-pad.b+18}" text-anchor="middle">${lb}</text>`; }});
+  series.forEach((se,si)=>{
+    let d='', started=false, ptMap={}, area='';
+    se.data.forEach((p,idx)=>{
+      const i=xlabels.indexOf(p.x);
+      if(p.y===null||isNaN(p.y)){ started=false; return; }
+      const cx=X(i), cy=Y(p.y);
+      if(!started){ d+=`M${cx} ${cy}`; area=`M${cx} ${cy}`; started=true; }
+      else { d+=`L${cx} ${cy}`; area+=`L${cx} ${cy}`; }
+      ptMap[i]={x:cx,y:cy,v:p.y};
+    });
+    if(opt.area && started){
+      area+=`L${X(xlabels.length-1)} ${Y(ymin)} L${X(0)} ${Y(ymin)} Z`;
+      s+=`<defs><linearGradient id="ag${si}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="${se.color}" stop-opacity=".18"/>
+        <stop offset="100%" stop-color="${se.color}" stop-opacity="0"/></linearGradient></defs>`;
+      s+=`<path d="${area}" fill="url(#ag${si})" stroke="none"/>`;
+    }
+    s+=`<path d="${d}" fill="none" stroke="${se.color}" stroke-width="2.5" stroke-linejoin="round"/>`;
+    Object.keys(ptMap).forEach(i=>{ const pt=ptMap[i];
+      s+=`<circle cx="${pt.x}" cy="${pt.y}" r="4.5" fill="#fff" stroke="${se.color}" stroke-width="2.2"
+           data-tip="${se.name}: <b>${fmt(pt.v)}</b>" class="pt"/>`; });
+  });
+  s+=`</svg>`;
+  el.innerHTML=s;
+  el.querySelectorAll('.pt').forEach(c=>{ c.addEventListener('mousemove',e=>showTip(c.getAttribute('data-tip'),e));
+    c.addEventListener('mouseleave',hideTip); });
+}
+
+/* ---------- 横向条形图（城市对比） ---------- */
+function barH(el, items, opt){
+  opt=opt||{};
+  const rowH=30, padL=70, padR=80, top=6;
+  const W=Math.max(el.clientWidth||640,360);
+  const H=items.length*rowH+top+6;
+  const max=Math.max(...items.map(d=>Math.abs(d.value||0)),0.1);
+  let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">`;
+  items.forEach((d,i)=>{
+    const y=top+i*rowH, bw=Math.abs(d.value||0)/max*(W-padL-padR);
+    const col=d.color||BLUE;
+    s+=`<text x="${padL-8}" y="${y+rowH/2+4}" text-anchor="end" fill="#555" font-size="12">${d.label}</text>`;
+    s+=`<rect x="${padL}" y="${y+5}" width="${bw}" height="${rowH-12}" rx="5" fill="${col}" opacity=".88"
+         data-tip="${d.label}: <b>${fmt(d.value)}</b> 万㎡${d.sub?(' '+d.sub):''}"/>`;
+    s+=`<text x="${padL+bw+7}" y="${y+rowH/2+4}" fill="#333" font-size="12" font-weight="600">${fmt(d.value,1)}${d.sub?'  '+d.sub:''}</text>`;
+  });
+  s+=`</svg>`;
+  el.innerHTML=s;
+  el.querySelectorAll('rect').forEach(c=>{ c.addEventListener('mousemove',e=>showTip(c.getAttribute('data-tip'),e));
+    c.addEventListener('mouseleave',hideTip); });
+}
+
+/* ---------- 纵向条形图（法规地区分布） ---------- */
+function barV(el, items, opt){
+  opt=opt||{};
+  const W=Math.max(el.clientWidth||640,360), H=opt.height||320;
+  const pad={l:opt.padL||44, r:14, t:14, b:62};
+  const iw=W-pad.l-pad.r, ih=H-pad.t-pad.b;
+  let ys=items.map(d=>d.value).filter(v=>!isNaN(v));
+  if(!ys.length){ el.innerHTML='<p style="color:#94a3b8">暂无数据</p>'; return; }
+  const ymax=Math.max(...ys)*1.12||1;
+  const Y=v=> pad.t + ih*(1-v/ymax);
+  let s=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">`;
+  for(let t=0;t<=4;t++){ const v=ymax*t/4, y=Y(v);
+    s+=`<line class="gridline" x1="${pad.l}" y1="${y}" x2="${W-pad.r}" y2="${y}"/>`;
+    s+=`<text class="tick" x="${pad.l-8}" y="${y+4}" text-anchor="end">${fmt(v,0)}</text>`; }
+  const bw=iw/items.length*0.66, gap=iw/items.length;
+  items.forEach((d,i)=>{
+    const x=pad.l+gap*i+(gap-bw)/2, y=Y(d.value), h=pad.t+ih-y, col=d.color||VIOLET;
+    const lab=d.label.length>4?d.label.slice(0,4):d.label;
+    s+=`<rect x="${x}" y="${y}" width="${bw}" height="${Math.max(0,h)}" rx="4" fill="${col}" opacity=".88"
+         data-tip="${d.label}: <b>${d.value}</b> 条"/>`;
+    s+=`<text class="tick" x="${x+bw/2}" y="${y-6}" text-anchor="middle" fill="#333" font-size="11">${d.value}</text>`;
+    s+=`<text class="tick" x="${x+bw/2}" y="${H-pad.b+18}" text-anchor="middle" transform="rotate(28 ${x+bw/2} ${H-pad.b+18})">${lab}</text>`;
+  });
+  s+=`</svg>`;
+  el.innerHTML=s;
+  el.querySelectorAll('rect').forEach(c=>{ c.addEventListener('mousemove',e=>showTip(c.getAttribute('data-tip'),e));
+    c.addEventListener('mouseleave',hideTip); });
+}
+
+/* ================= 渲染 ================= */
+// 英雄区
+(function(){
+  document.getElementById('hero-kpi').innerHTML = DATA.keySignals.map(k=>{
+    const c=cls(k.value);
+    const core=CORE[k.indicator]?1:0;
+    const badge=core?'<div class="badge">★ 景气核心</div>':'';
+    const role=ROLE[k.indicator]?`<div class="role">${ROLE[k.indicator]}</div>`:'';
+    return `<div class="kpi ${c==='up'?'red':(c==='down'?'green':'violet')}${core?' core':''}" style="cursor:pointer" data-ind="${k.indicator}" onclick="jumpToMacro(this.dataset.ind)">
+      ${badge}
+      <div class="lab">${k.indicator}</div>
+      <div class="val ${c}">${k.value>=0?'+':''}${fmt(k.value,1)}%</div>
+      <div class="sub">最新 ${k.period}</div>${role}</div>`;
+  }).join('');
+})();
+
+// 点击 KPI 卡片 → 跳转到宏观图表
+function jumpToMacro(indName){
+  // 找到指标属于哪个 category
+  let targetCat=null, targetInd=null;
+  for (const cat of Object.keys(DATA.macro)){
+    if (DATA.macro[cat][indName]){ targetCat=cat; targetInd=indName; break; }
+  }
+  if (!targetCat){
+    // 模糊匹配（名称包含）
+    for (const cat of Object.keys(DATA.macro)){
+      for (const ind of Object.keys(DATA.macro[cat])){
+        if (indName.includes(ind) || ind.includes(indName)){ targetCat=cat; targetInd=ind; break; }
+      }
+      if (targetInd) break;
+    }
+  }
+  if (targetCat && targetInd){
+    curCat=targetCat; curInd=targetInd;
+    renderCatTabs(); renderIndTabs(); renderMacroLine();
+  }
+  // 滚动到宏观区
+  const el=document.getElementById('macro');
+  if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); }
+}
+
+// 核心信号走势图（六指标合并）
+(function(){
+  const coreNames = Object.keys(ROLE);
+  const colors = [AMBER, RED, BLUE, VIOLET, '#ec4899', '#0891b2'];
+  const series = coreNames.map((name, i) => {
+    let rec = null;
+    for (const cat of Object.keys(DATA.macro)) {
+      if (DATA.macro[cat][name]) { rec = DATA.macro[cat][name]; break; }
+    }
+    const data = DATA.periods.map(p => ({ x: p, y: rec && rec[p] !== undefined ? rec[p] : null }));
+    return { name: name, color: colors[i % colors.length], data: data };
+  });
+  // 图例
+  document.getElementById('hero-legend').innerHTML = series.map(s =>
+    `<span><i style="background:${s.color};width:14px;height:3px;border-radius:2px;display:inline-block;vertical-align:-1px;margin-right:4px"></i>${s.name}</span>`
+  ).join('');
+  lineChart(document.getElementById('hero-line'), series, {height:380, area:false, padL:56});
+})();
+
+// 周成交
+const wkCitySel=document.getElementById('wk-city');
+wkCitySel.innerHTML=DATA.cities.map(c=>`<option value="${c}">${c}</option>`).join('');
+document.getElementById('wk-lw').textContent=wkLabel(DATA.latestWeek);
+function renderWkLine(city){
+  const rec=DATA.byCity[city]; const weeks=DATA.weeks;
+  const deal=weeks.map(w=>({x:wkLabel(w), y:rec[w]?rec[w].deal_area:null}));
+  const sell=weeks.map(w=>({x:wkLabel(w), y:rec[w]?rec[w].sellable_area:null}));
+  lineChart(document.getElementById('wk-line'),[
+    {name:'成交面积(万㎡)', color:BLUE, data:deal, area:true},
+    {name:'可售面积(万㎡)', color:AMBER, data:sell},
+  ], {height:350});
+}
+function renderWkBar(){
+  const rows=DATA.latestRows.filter(r=>r.deal_area!==null).sort((a,b)=>b.deal_area-a.deal_area);
+  const items=rows.map(r=>({label:r.city, value:r.deal_area,
+    color: r.deal_mom!==null&&!isNaN(r.deal_mom)?(r.deal_mom>=0?RED:GREEN):GREY,
+    sub:`环比${r.deal_mom>=0?'+':''}${fmt(r.deal_mom,1)}%`}));
+  barH(document.getElementById('wk-bar'), items, {});
+}
+function renderWkTable(){
+  const rows=DATA.latestRows;
+  const head=['城市','成交面积(万㎡)','成交环比','成交同比','可售面积(万㎡)','可售环比'];
+  document.querySelector('#wk-table thead').innerHTML='<tr>'+head.map(h=>`<th>${h}</th>`).join('')+'</tr>';
+  document.querySelector('#wk-table tbody').innerHTML=rows.map(r=>{
+    const f=(v,d=1)=> v===null?'<span class="flat">-</span>':`<span class="${cls(v)}">${v>=0?'+':''}${fmt(v,d)}%</span>`;
+    const fa=v=> v===null?'<span class="flat">-</span>':fmt(v,2);
+    return `<tr><td>${r.city}</td><td>${fa(r.deal_area)}</td><td>${f(r.deal_mom)}</td><td>${f(r.deal_yoy)}</td>
+      <td>${fa(r.sellable_area)}</td><td>${f(r.sellable_mom)}</td></tr>`;
+  }).join('');
+}
+wkCitySel.addEventListener('change',e=>renderWkLine(e.target.value));
+renderWkLine(DATA.cities[0]); renderWkBar(); renderWkTable();
+
+// 宏观
+const catBox=document.getElementById('macro-cat'), indBox=document.getElementById('macro-ind');
+const cats=Object.keys(DATA.macro);
+let curCat=cats[0], curInd=Object.keys(DATA.macro[cats[0]])[0];
+function renderMacroKpi(){
+  document.getElementById('macro-kpi').innerHTML=DATA.keySignals.map(k=>{
+    const c=cls(k.value);
+    const core=CORE[k.indicator]?1:0;
+    const badge=core?'<div class="badge">★ 景气核心</div>':'';
+    const role=ROLE[k.indicator]?`<div class="role">${ROLE[k.indicator]}</div>`:'';
+    return `<div class="kpi ${c==='up'?'red':(c==='down'?'green':'violet')}${core?' core':''}">
+      ${badge}
+      <div class="lab">${k.indicator}</div>
+      <div class="val ${c}">${k.value>=0?'+':''}${fmt(k.value,1)}%</div>
+      <div class="sub">最新 ${k.period}</div>${role}</div>`;
+  }).join('');
+}
+function renderCatTabs(){
+  catBox.innerHTML=cats.map(c=>`<span class="tab ${c===curCat?'active':''}" data-c="${c}">${c}</span>`).join('');
+  catBox.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+    curCat=t.getAttribute('data-c'); curInd=Object.keys(DATA.macro[curCat])[0];
+    renderCatTabs(); renderIndTabs(); renderMacroLine();
+  }));
+}
+function renderIndTabs(){
+  const inds=Object.keys(DATA.macro[curCat]);
+  indBox.innerHTML=inds.map(i=>`<span class="tab ${i===curInd?'active':''}" data-i="${i}">${i}</span>`).join('');
+  indBox.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+    curInd=t.getAttribute('data-i'); renderIndTabs(); renderMacroLine();
+  }));
+}
+function renderMacroLine(){
+  const rec=DATA.macro[curCat][curInd];
+  const data=DATA.periods.map(p=>({x:p, y:rec[p]!==undefined?rec[p]:null}));
+  lineChart(document.getElementById('macro-line'),
+    [{name:curInd, color: curInd.indexOf('房地产')>=0?RED:BLUE, data:data, area:true}], {height:350});
+}
+renderMacroKpi(); renderCatTabs(); renderIndTabs(); renderMacroLine();
+
+// 首页快照
+(function(){
+  const box=document.getElementById('snap-box');
+  box.innerHTML=DATA.snapshots.map(s=>{
+    const hdr=s.header, rs=s.rows.slice(0,4);
+    const tbl=`<table style="font-size:11.5px"><thead><tr>${hdr.map(h=>`<th style="font-size:11px;color:#6b7280">${h}</th>`).join('')}</tr></thead>
+      <tbody>${rs.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+    return `<div class="snapbox"><h4>${s.tag}</h4>${tbl}</div>`;
+  }).join('');
+})();
+
+// 法规
+(function(){
+  const L=DATA.laws;
+  document.getElementById('law-kpi').innerHTML=[
+    {lab:'法规总数', val:String(L.total), sub:'最新收录', c:'violet'},
+    {lab:'覆盖地区', val:String(Object.keys(L.byRegion).length), sub:'省级/城市', c:'blue'},
+    {lab:'最新日期', val:L.recent.length?L.recent[0].date:'-', sub:'最近更新', c:'blue'},
+  ].map(k=>`<div class="kpi ${k.c}"><div class="lab">${k.lab}</div><div class="val">${k.val}</div><div class="sub">${k.sub}</div></div>`).join('');
+  const items=Object.entries(L.byRegion).map(([k,v])=>({label:k, value:v, color:VIOLET}));
+  barV(document.getElementById('law-bar'), items, {height:300});
+  document.querySelector('#law-table tbody').innerHTML=L.recent.map(r=>
+    `<tr><td>${r.date}</td><td>${r.region}</td><td style="text-align:left">${r.title}</td></tr>`).join('');
+})();
+
+// 指标字典
+(function(){
+  const tb=document.querySelector('#cat-table tbody');
+  const all=DATA.catalog;
+  function paint(q){
+    const f=all.filter(r=>(r.name+r.section).toLowerCase().includes(q.toLowerCase()));
+    tb.innerHTML=f.map(r=>`<tr><td>${r.section}</td><td>${r.no}</td><td style="text-align:left">${r.name}</td><td>${r.unit}</td></tr>`).join('');
+  }
+  document.getElementById('cat-search').addEventListener('input',e=>paint(e.target.value));
+  paint('');
+})();
+
+// 窗口缩放重绘
+let rzT; window.addEventListener('resize',()=>{ clearTimeout(rzT); rzT=setTimeout(()=>{
+  // 重绘核心信号走势图
+  (function(){
+    const coreNames = Object.keys(ROLE);
+    const colors = [AMBER, RED, BLUE, VIOLET, '#ec4899', '#0891b2'];
+    const series = coreNames.map((name, i) => {
+      let rec = null;
+      for (const cat of Object.keys(DATA.macro)) {
+        if (DATA.macro[cat][name]) { rec = DATA.macro[cat][name]; break; }
+      }
+      return { name: name, color: colors[i % colors.length], data: DATA.periods.map(p => ({ x: p, y: rec && rec[p] !== undefined ? rec[p] : null })) };
+    });
+    lineChart(document.getElementById('hero-line'), series, {height:380, area:false, padL:56});
+  })();
+  renderWkLine(wkCitySel.value); renderWkBar(); renderMacroLine();
+  const L=DATA.laws; barV(document.getElementById('law-bar'),
+    Object.entries(L.byRegion).map(([k,v])=>({label:k,value:v,color:VIOLET})), {height:300});
+},180); });
+</script>
+<div class="auto-stamp" style="text-align:center;font-size:11px;color:#9ca3af;padding:8px 0 12px;">📅 数据自动更新：每工作日 16:30（AutoJobsHub） ｜ 2026-10-15 17:02</div>
+</body>
+</html>
